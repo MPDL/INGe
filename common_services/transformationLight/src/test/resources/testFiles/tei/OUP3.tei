@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Annual assessment of the predation of Mnemiopsis leidyi
+                    in a new invaded environment, the Kiel Fjord (Western Baltic Sea): a matter of
+                    concern?</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr</roleName>
+                                <forename type="first">Jamileh</forename>
+                                <surname>Javidpour</surname>
+                                <roleName type="degree">PhD</roleName>
+                            </persName>
+                            <email>jjavid@ifm-geomar.de</email>
+                            <affiliation>
+                                <orgName type="institution">IfM-GEOMAR</orgName>
+                                <orgName type="department">experimental ecology</orgName>
+                                <note type="phone">+49431 6004408</note>
+                                <address><addrLine>Duesternbrooker weg 20</addrLine><settlement>Kiel</settlement><country key="DE">Germany</country><postCode>24105</postCode></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr</roleName>
+                                <forename type="first">Juan</forename>
+                                <forename type="middle">Carlos</forename>
+                                <surname>Molinero</surname>
+                                <roleName type="degree">PhD</roleName>
+                            </persName>
+                            <email>jmolinero@ifm-geomar.de</email>
+                            <affiliation>
+                                <orgName type="institution">Ifm-GEOMAR</orgName>
+                                <orgName type="department">-</orgName>
+                                <address><settlement>Kiel</settlement><country key="DE">Germany</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr</roleName>
+                                <forename type="first">Thomas</forename>
+                                <surname>Hansen</surname>
+                            </persName>
+                            <email>thansen@ifm-geomar.de</email>
+                            <affiliation>
+                                <orgName type="institution">Ifm-GEOMAR</orgName>
+                                <orgName type="department">-</orgName>
+                                <address><settlement>Kiel</settlement><country key="DE">Germany</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr</roleName>
+                                <forename type="first">Ulrich</forename>
+                                <surname>Sommer</surname>
+                            </persName>
+                            <email>usommer@ifm-geomar.de</email>
+                            <affiliation>
+                                <orgName type="institution">Ifm-GEOMAR</orgName>
+                                <orgName type="department">-</orgName>
+                                <address><settlement>Kiel</settlement><country key="DE">Germany</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr</roleName>
+                                <forename type="first">Andreas</forename>
+                                <surname>Lehmann</surname>
+                            </persName>
+                            <email>alehmann@ifm-geomar.de</email>
+                            <affiliation>
+                                <orgName type="institution">Ifm-GEOMAR</orgName>
+                                <orgName type="department">Ocean Circulation and Climate
+                                    Dynamics</orgName>
+                                <address><settlement>Kiel</settlement><country key="DE">Germany</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Annual assessment of the predation of
+                            Mnemiopsis leidyi in a new invaded environment, the Kiel Fjord (Western
+                            Baltic Sea): a matter of concern?</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Journal of Plankton Research</title>
+                        <idno type="pISSN">0142-7873</idno>
+                        <idno type="eISSN">1464-3774</idno>
+                        <imprint>
+                            <publisher>Journal of Plankton Research</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">JPR-2008-231</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>The sudden occurrence of the comb jelly Mnemiopsis leidyi has been reported
+                    recently from different sites over the Baltic Sea and it has been suggested that
+                    the species has invaded the whole basin. Here we provide the first set of
+                    quantitative data of seasonal diet composition and life history traits of M.
+                    leidyi and its predatory role in the pelagic ecosystem of the Western Baltic
+                    Sea. The size structure of the species appeared dominated by small size classes
+                    and only a few adults were as large as those reported in the native region of
+                    the species and in other invaded sites. We show that the species has a high
+                    preference for small sized and slow swimming prey, mainly during the low
+                    temperature period of winter. Barnacle nauplii appeared as the main source of
+                    carbon for the over-wintering population of M. leidyi. A preference for copepods
+                    was only found during August when these prey contributed up to 20% of the gut
+                    composition. In summer, planula larvae of the jellyfish Aurelia aurita, were the
+                    most abundant prey in the gut content (feeding rate of 621 ind.
+                    ctenophore-1day-1). We further found that at highest densities of the species,
+                    in summer, a significant predation on its larvae occurs, being this the major
+                    carbon source of adults. Overall these results are discussed in the context of
+                    trade-offs M. leidyi face in the new environment and adverse environmental
+                    conditions, which are likely forcing the species toward reduced sizes and likely
+                    reducing its potential predatory impact in the Baltic Sea. </p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

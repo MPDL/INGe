@@ -1,0 +1,232 @@
+
+TY  - JFULL
+ID  - 16
+T1  - Fast Excitation and Photon Emission of a Single-Atom-Cavity System
+A1  - Bochmann,Joerg
+A1  - Muecke,Martin
+A1  - Langfahl-Klabes,Gunnar
+A1  - Erbel,Christoph
+A1  - Weber,Bernhard
+A1  - Specht,Holger P.
+A1  - Moehring,David L.
+A1  - Rempe,Gerhard
+Y1  - 2008/11/28/
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1103/PhysRevLett.101.223601LOCALID: 3628Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 223601
+JF  - Physical Review Letters
+VL  - 101
+IS  - 22
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/396552;http://link.aps.org/doi/10.1103/PhysRevLett.101.223601
+ER  - 
+
+TY  - JFULL
+ID  - 17
+T1  - Simulating a quantum magnet with trapped ions
+A1  - Friedenauer,Axel
+A1  - Schmitz,Hector
+A1  - Gloeckert,Jan T.
+A1  - Porras,Diego
+A1  - Schuetz,Tobias
+Y1  - 2008/10//
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1038/nphys1032LOCALID: 3600Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 757
+EP  - 761
+JF  - Nature Physics
+VL  - 4
+IS  - 10
+AD  - MPI Quantenoptik, Quantum Dynamics, Quantum Simulation (Schuetz) MPI Quantenoptik, Theory
+UR  - http://edoc.mpg.de/380100;http://www.nature.com/nphys/journal/v4/n10/abs/nphys1032.html
+ER  - 
+
+TY  - JFULL
+ID  - 4
+T1  - Two-Photon Gateway in One-Atom Cavity Quantum Electrodynamics
+A1  - Kubanek,Alexander
+A1  - Ourjoumtsev,Alexei
+A1  - Schuster,Ingrid
+A1  - Koch,Markus
+A1  - Pinkse,Pepijn W.H.
+A1  - Murr,Karim
+A1  - Rempe,Gerhard
+Y1  - 2008/11/14/
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1103/PhysRevLett.101.203602LOCALID: 3630Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 203602
+JF  - Physical Review Letters
+VL  - 101
+IS  - 20
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/396648;http://link.aps.org/doi/10.1103/PhysRevLett.101.203602
+ER  - 
+
+TY  - JFULL
+ID  - 1
+T1  - Fast Excitation and Photon Emission of a Single-Atom-Cavity System
+A1  - Langfahl-Klabes,Gunnar
+A1  - Erbel,Christoph
+A1  - Weber,Bernhard
+A1  - Specht,Holger P.
+A1  - Moehring,David L.
+A1  - Rempe,Gerhard
+Y1  - 2008/11/28/
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1103/PhysRevLett.101.223601LOCALID: 3628Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 223601
+JF  - Physical Review Letters
+VL  - 101
+IS  - 22
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/396552;http://link.aps.org/doi/10.1103/PhysRevLett.101.223601
+ER  - 
+
+TY  - JFULL
+ID  - 5
+T1  - Spectroscopy of the transition of formaldehyde in the 30140-30790 cm range
+A1  - Motsch,Michael
+A1  - Schenk,Markus
+A1  - Zeppenfeld,Martin
+A1  - Schmitt,Michael
+A1  - Meerts,W.Leo
+A1  - Pinkse,Pepijn W.H.
+A1  - Rempe,Gerhard
+Y1  - 2008/11//
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1016/j.jms.2008.06.002LOCALID: 3608Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 25
+EP  - 30
+JF  - Journal of Molecular Spectroscopy
+VL  - 252
+IS  - 1
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/395827;http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6WK8-4SSG537-1&_user=1986402&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000004919&_version=1&_urlVersion=0&_userid=1986402&md5=f4cd3dc994cdeb661c8449d4135b0e1b
+ER  - 
+
+TY  - JFULL
+ID  - 6
+T1  - Don't look now
+A1  - Ourjoumtsev,Alexei
+Y1  - 2008/12/18/
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1038/456880aLOCALID: 3632Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 880
+EP  - 881
+JF  - Nature
+VL  - 456
+IS  - 7224
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/396247;http://www.nature.com/nature/journal/v456/n7224/pdf/456880a.pdf
+ER  - 
+
+TY  - JFULL
+ID  - 7
+T1  - Cavity QED with Single Atomic and Photonic Qubits
+A1  - Rempe,Gerhard
+Y1  - 2008///
+N1  - Date of Conference: 2008/05/04/ - 2008/05/09/Audience: Experts OnlyeDoc Document Type: Conference-PaperLOCALID: 3611Language: EnglishName of Conference: Conference on Lasers and Electro-Optics/Quantum Electronics and Laser Science ConferencePlace of Conference: San Jose, CAExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 3551
+EP  - 3551
+JF  - 2008 Conference on Lasers and Electro-Optics & Quantum Electronics and Laser Science Conference
+VL  - 1-9
+SN  - 1092-8081
+AD  - MPI f¸r Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/395809;ttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4572969&isnumber=4571172
+ER  - 
+
+TY  - GEN
+ID  - 9
+T1  - Nonlinear spectroscopy of a single-atom-cavity-system
+A1  - Schuster,Ingrid
+Y1  - 2008/10//
+N1  - Corporate Body: Max-Planck-Institut fÅr Quantenoptik, GarchingAudience: Experts OnlyeDoc Document Type: ReportReport Number: MPQ-323LOCALID: MPQ-323Language: English
+RP  - NOT IN FILE
+SP  - 115
+VL  - 323
+CY  - Garching
+PB  - Max-Planck-Institut fÅr Quantenoptik
+T3  - MPQ-Reports
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/390497
+ER  - 
+
+TY  - JFULL
+ID  - 11
+T1  - Nonlinear spectroscopy of photons bound to one atom
+A1  - Schuster,Ingrid
+A1  - Kubanek,Alexander
+A1  - Fuhrmanek,Andreas
+A1  - Puppe,Thomas
+A1  - Pinkse,Pepijn W.H.
+A1  - Murr,Karim
+A1  - Rempe,Gerhard
+Y1  - 2008/05//
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleDOI: 10.1038/nphys940LOCALID: 3539Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 382
+EP  - 385
+JF  - Nature Physics
+VL  - 4
+IS  - 5
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/360828;http://www.nature.com/nphys/journal/v4/n5/pdf/nphys940.pdf
+ER  - 
+
+TY  - GEN
+ID  - 12
+T1  - Interacting Feshbach Molecules
+A1  - Syassen,Niels
+Y1  - 2008/01//
+N1  - Audience: Experts OnlyeDoc Document Type: ReportReport Number: MPQ-319Language: English
+RP  - NOT IN FILE
+SP  - 100
+VL  - 319
+CY  - Garching
+PB  - Max-Planck-Institut f¸r Quantenoptik
+T3  - MPQ-Reports
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/357198
+ER  -  
+
+TY  - JFULL
+ID  - 14
+T1  - Strong Dissipation Inhibits Losses and Induces Correlations in Cold Molecular Gases
+A1  - Syassen,Nils
+A1  - Bauer,Dominik M.
+A1  - Lettner,Matthias
+A1  - Volz,Thomas
+A1  - Dietze,Daniel
+A1  - Garcia-Ripoll,Juan J.
+A1  - Cirac,J.Ignacio
+A1  - Rempe,Gerhard
+A1  - D¸rr,Stephan
+Y1  - 2008/06/06/
+N1  - Audience: Experts OnlyeDoc Document Type: ArticleLOCALID: 3545Language: EnglishExternal Publication Status: publishedReview Type: Peer-review
+RP  - NOT IN FILE
+SP  - 1329
+EP  - 1331
+JF  - Science
+VL  - 320
+IS  - 5881
+SN  - 10.1126/science.1155309
+AD  - MPI Quantenoptik, Quantum DynamicsMPI f¸r Quantenoptik, Theory
+UR  - http://edoc.mpg.de/362446;http://www.sciencemag.org/cgi/content/abstract/320/5881/1329
+ER  - 
+
+TY  - GEN
+ID  - 15
+T1  - Quantum Interface between an Atom and a Photon
+A1  - Wilk,Tatjana
+Y1  - 2008/02//
+N1  - Audience: Experts OnlyeDoc Document Type: ReportReport Number: 320Language: English
+RP  - NOT IN FILE
+SP  - 105
+VL  - 320
+CY  - Garching
+PB  - Max-Planck-Institut f¸r Quantenoptik
+T3  - MPQ-Reports
+AD  - MPI Quantenoptik, Quantum Dynamics
+UR  - http://edoc.mpg.de/359124
+ER  - 

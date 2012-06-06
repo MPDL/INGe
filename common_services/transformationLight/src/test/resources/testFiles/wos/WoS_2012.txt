@@ -1,0 +1,317 @@
+﻿FN Thomson Reuters Web of Knowledge
+VR 1.0
+PT J
+AU Kleindienst, T
+   Winnubst, J
+   Roth-Alpermann, C
+   Bonhoeffer, T
+   Lohmann, C
+AF Kleindienst, Thomas
+   Winnubst, Johan
+   Roth-Alpermann, Claudia
+   Bonhoeffer, Tobias
+   Lohmann, Christian
+TI Activity-Dependent Clustering of Functional Synaptic Inputs on
+   Developing Hippocampal Dendrites
+SO NEURON
+LA English
+DT Article
+ID NEONATAL-RAT HIPPOCAMPUS; CA1 PYRAMIDAL NEURONS; IN-VIVO; CALCIUM
+   TRANSIENTS; SYNAPSES; CELLS; MECHANISMS; PLASTICITY; DYNAMICS; SYSTEM
+AB During brain development, before sensory systems become functional,
+   neuronal networks spontaneously generate repetitive bursts of neuronal
+   activity, which are typically synchronized across many neurons. Such
+   activity patterns have been described on the level of networks and
+   cells, but the fine-structure of inputs received by an individual neuron
+   during spontaneous network activity has not been studied. Here, we used
+   calcium imaging to record activity at many synapses of hippocampal
+   pyramidal neurons simultaneously to establish the activity patterns in
+   the majority of synapses of an entire cell. Analysis of the
+   spatiotemporal patterns of synaptic activity revealed a fine-scale
+   connectivity rule: neighboring synapses (<16 mu m intersynapse distance)
+   are more likely to be coactive than synapses that are farther away from
+   each other. Blocking spiking activity or NMDA receptor activation
+   revealed that the clustering of synaptic inputs required neuronal
+   activity, demonstrating a role of developmentally expressed spontaneous
+   activity for connecting neurons with subcellular precision.
+C1 [Kleindienst, Thomas; Winnubst, Johan; Lohmann, Christian] Netherlands Inst Neurosci, NL-1105 BA Amsterdam, Netherlands.
+   [Kleindienst, Thomas; Roth-Alpermann, Claudia; Bonhoeffer, Tobias; Lohmann, Christian] Max Planck Inst Neurobiol, D-82152 Martinsried, Germany.
+RP Lohmann, C (reprint author), Netherlands Inst Neurosci, NL-1105 BA Amsterdam, Netherlands
+EM c.lohmann@nin.knaw.nl
+PU CELL PRESS
+PI CAMBRIDGE
+PA 600 TECHNOLOGY SQUARE, 5TH FLOOR, CAMBRIDGE, MA 02139 USA
+SN 0896-6273
+J9 NEURON
+JI Neuron
+PD DEC 22
+PY 2011
+VL 72
+IS 6
+BP 1012
+EP 1024
+DI 10.1016/j.neuron.2011.10.015
+PG 13
+GA 871XM
+UT WOS:000298771000015
+ER
+PT J
+AU Berer, K
+   Mues, M
+   Koutrolos, M
+   Al Rasbi, Z
+   Boziki, M
+   Johner, C
+   Wekerle, H
+   Krishnamoorthy, G
+AF Berer, Kerstin
+   Mues, Marsilius
+   Koutrolos, Michail
+   Al Rasbi, Zakeya
+   Boziki, Marina
+   Johner, Caroline
+   Wekerle, Hartmut
+   Krishnamoorthy, Gurumoorthy
+TI Commensal microbiota and myelin autoantigen cooperate to trigger
+   autoimmune demyelination
+SO NATURE
+LA English
+DT Article
+ID T-CELL RESPONSES; MULTIPLE-SCLEROSIS; B-CELLS; TRANSGENIC MICE;
+   AUTOANTIBODIES; INDUCTION; BACTERIA; DISEASE; MOG
+AB Active multiple sclerosis lesions show inflammatory changes suggestive
+   of a combined attack by autoreactive T and B lymphocytes against brain
+   white matter(1). These pathogenic immune cells derive from progenitors
+   that are normal, innocuous components of the healthy immune repertoire
+   but become autoaggressive upon pathological activation. The stimuli
+   triggering this autoimmune conversion have been commonly attributed to
+   environmental factors, in particular microbial infection(2). However,
+   using the relapsing-remitting mouse model of spontaneously developing
+   experimental autoimmune encephalomyelitis(3), here we show that the
+   commensal gut flora-in the absence of pathogenic agents-is essential in
+   triggering immune processes, leading to a relapsing-remitting autoimmune
+   disease driven by myelin-specific CD4(+) T cells. We show further that
+   recruitment and activation of autoantibody-producing B cells from the
+   endogenous immune repertoire depends on availability of the target
+   autoantigen, myelin oligodendrocyte glycoprotein (MOG), and commensal
+   microbiota. Our observations identify a sequence of events triggering
+   organ-specific autoimmune disease and these processes may offer novel
+   therapeutic targets.
+C1 [Berer, Kerstin; Mues, Marsilius; Koutrolos, Michail; Al Rasbi, Zakeya; Boziki, Marina; Wekerle, Hartmut; Krishnamoorthy, Gurumoorthy] Max Planck Inst Neurobiol, Dept Neuroimmunol, D-82152 Martinsried, Germany.
+   [Johner, Caroline] Max Planck Inst Immunobiol & Epigenet, D-79108 Freiburg, Germany.
+RP Wekerle, H (reprint author), Max Planck Inst Neurobiol, Dept Neuroimmunol, D-82152 Martinsried, Germany
+EM hwekerle@neuro.mpg.de
+   guru@neuro.mpg.de
+PU NATURE PUBLISHING GROUP
+PI LONDON
+PA MACMILLAN BUILDING, 4 CRINAN ST, LONDON N1 9XW, ENGLAND
+SN 0028-0836
+J9 NATURE
+JI Nature
+PD NOV 24
+PY 2011
+VL 479
+IS 7374
+BP 538
+EP U266
+DI 10.1038/nature10554
+PG 5
+GA 851QI
+UT WOS:000297285600053
+ER
+PT J
+AU Yamagishi, S
+   Hampel, F
+   Hata, K
+   del Toro, D
+   Schwark, M
+   Kvachnina, E
+   Bastmeyer, M
+   Yamashita, T
+   Tarabykin, V
+   Klein, R
+   Egea, J
+AF Yamagishi, Satoru
+   Hampel, Falko
+   Hata, Katsuhiko
+   del Toro, Daniel
+   Schwark, Manuela
+   Kvachnina, Elena
+   Bastmeyer, Martin
+   Yamashita, Toshihide
+   Tarabykin, Victor
+   Klein, Ruediger
+   Egea, Joaquim
+TI FLRT2 and FLRT3 act as repulsive guidance cues for Unc5-positive neurons
+RID C-6147-2008
+SO EMBO JOURNAL
+LA English
+DT Article
+DE cell migration; cortex development; FLRT; repulsive guidance; Unc5
+ID CELL-ADHESION; SUBVENTRICULAR ZONE; NEURITE OUTGROWTH; RECEPTOR GENE;
+   AXON GUIDANCE; MIGRATION; MOLECULE; PROTEIN; IDENTIFICATION;
+   SPECIFICATION
+AB Netrin-1 induces repulsive axon guidance by binding to the mammalian
+   Unc5 receptor family (Unc5A-Unc5D). Mouse genetic analysis of selected
+   members of the Unc5 family, however, revealed essential functions
+   independent of Netrin-1, suggesting the presence of other ligands. Unc5B
+   was recently shown to bind fibronectin and leucine-rich transmembrane
+   protein-3 (FLRT3), although the relevance of this interaction for
+   nervous system development remained unclear. Here, we show that the
+   related Unc5D receptor binds specifically to another FLRT protein,
+   FLRT2. During development, FLRT2/3 ectodomains (ECDs) are shed from
+   neurons and act as repulsive guidance molecules for axons and somata of
+   Unc5-positive neurons. In the developing mammalian neocortex, Unc5D is
+   expressed by neurons in the sub-ventricular zone (SVZ), which display
+   delayed migration to the FLRT2-expressing cortical plate (CP). Deletion
+   of either FLRT2 or Unc5D causes a subset of SVZ-derived neurons to
+   prematurely migrate towards the CP, whereas overexpression of Unc5D has
+   opposite effects. Hence, the shed FLRT2 and FLRT3 ECDs represent a novel
+   family of chemorepellents for Unc5-positive neurons and FLRT2/Unc5D
+   signalling modulates cortical neuron migration. The EMBO Journal ( 2011)
+   30, 2920-2933. doi:10.1038/emboj.2011.189; Published online 14 June 2011
+C1 [Yamagishi, Satoru; Hampel, Falko; del Toro, Daniel; Klein, Ruediger; Egea, Joaquim] Max Planck Inst Neurobiol, Dept Mol Neurobiol, D-82152 Martinsried, Germany.
+   [Hata, Katsuhiko; Yamashita, Toshihide] Osaka Univ, Grad Sch Med, Dept Mol Neurosci, Osaka, Japan.
+   [Schwark, Manuela; Kvachnina, Elena; Tarabykin, Victor] Max Planck Inst Expt Med, D-3400 Gottingen, Germany.
+   [Schwark, Manuela; Tarabykin, Victor] Charite, Inst Cell Biol & Neurobiol, D-13353 Berlin, Germany.
+   [Bastmeyer, Martin] KIT, Inst Zool, Abt Zell & Neurobiol, Karlsruhe, Germany.
+   [Egea, Joaquim] Univ Lleida, IRBLLEIDA, Fac Med, Dept Ciencies Med Basiques, Lleida 25198, Spain.
+RP Klein, R (reprint author), Max Planck Inst Neurobiol, Dept Mol Neurobiol, Klopferspitz 18, D-82152 Martinsried, Germany
+EM rklein@neuro.mpg.de
+   joaquim.egea@cmb.udl.es
+PU NATURE PUBLISHING GROUP
+PI NEW YORK
+PA 75 VARICK ST, 9TH FLR, NEW YORK, NY 10013-1917 USA
+SN 0261-4189
+J9 EMBO J
+JI Embo J.
+PD JUL 20
+PY 2011
+VL 30
+IS 14
+BP 2920
+EP 2933
+DI 10.1038/emboj.2011.189
+PG 14
+GA 808HZ
+UT WOS:000293970100017
+ER
+PT J
+AU Schuster, FR
+   Hubner, B
+   Fuhrer, M
+   Eckermann, O
+   Gombert, M
+   Dornmair, K
+   Binder, V
+   Reuther, S
+   Krell, P
+   Keller, T
+   Borkhardt, A
+AF Schuster, F. R.
+   Hubner, B.
+   Fuehrer, M.
+   Eckermann, O.
+   Gombert, M.
+   Dornmair, K.
+   Binder, V.
+   Reuther, S.
+   Krell, P.
+   Keller, T.
+   Borkhardt, A.
+TI Highly skewed T-cell receptor V-beta chain repertoire in the bone marrow
+   is associated with response to immunosuppressive drug therapy in
+   children with very severe aplastic anemia
+SO BLOOD CANCER JOURNAL
+LA English
+DT Article
+DE aplastic anemia; T-cell receptor V-beta chain repertoire; children
+ID IMMUNE-RESPONSES; PATHOPHYSIOLOGY; RECONSTITUTION; SURVIVAL; DISEASE
+AB One of the major obstacles of immunosuppressive therapy (IST) in
+   children with severe aplastic anemia (SAA) comes from the often
+   months-long unpredictability of bone-marrow (BM) recovery. In this
+   prospective study in children with newly diagnosed very severe AA (n =
+   10), who were enrolled in the therapy study SAA-BFM 94, we found a
+   dramatically reduced diversity of both CD4+ and CD8+ BM cells, as scored
+   by comprehensive V-beta chain T-cell receptor (TCR) analysis. Strongly
+   skewed TCR V-beta pattern was highly predictive for good or at least
+   partial treatment response (n = 6, CD8+ complexity scoring median 35.5,
+   range 24-73). In contrast, IST in patients with rather moderate
+   reduction of TCR V-beta diversity (n = 4, CD8+ complexity scoring median
+   109.5, range 82-124) always failed (P = 0.0095). If confirmed in a
+   larger series of patients, TCR V-beta repertoire in BM may help to
+   assign children with SAA up-front either to IST or to allogeneic
+   stem-cell transplantation. Blood Cancer Journal (2011) 1, e8;
+   doi:10.1038/bcj.2011.6; published online 4 March 2011
+C1 [Borkhardt, A.] Univ Dusseldorf, Dept Pediat Oncol Hematol & Clin Immunol, Ctr Child & Adolescent Hlth, Clin Pediat Oncol Hematol & Clin Immunol,Med Fac, D-40225 Dusseldorf, Germany.
+   [Fuehrer, M.] Univ Munich, Dept Pediat Oncol & Hematol, Dr von Haunersches Childrens Hosp, Munich, Germany.
+   [Dornmair, K.] Univ Munich, Dept Clin Neuroimmunol, Munich, Germany.
+   [Keller, T.] Stat Anal GmbH, Acomed, Leipzig, Germany.
+RP Borkhardt, A (reprint author), Univ Dusseldorf, Dept Pediat Oncol Hematol & Clin Immunol, Ctr Child & Adolescent Hlth, Clin Pediat Oncol Hematol & Clin Immunol,Med Fac, Moorenstr 5, D-40225 Dusseldorf, Germany
+EM arndt.borkhardt@med.uni-duesseldorf.de
+PU NATURE PUBLISHING GROUP
+PI LONDON
+PA MACMILLAN BUILDING, 4 CRINAN ST, LONDON N1 9XW, ENGLAND
+SN 2044-5385
+J9 BLOOD CANCER J
+JI Blood Cancer J.
+PD MAR
+PY 2011
+VL 1
+AR e8
+DI 10.1038/bcj.2011.6
+PG 4
+GA 872NC
+UT WOS:000298815400002
+ER
+PT J
+AU Junker, A
+   Hohlfeld, R
+   Meinl, E
+AF Junker, Andreas
+   Hohlfeld, Reinhard
+   Meinl, Edgar
+TI The emerging role of microRNAs in multiple sclerosis
+SO NATURE REVIEWS NEUROLOGY
+LA English
+DT Article
+ID OLIGODENDROCYTE DIFFERENTIATION; IN-VIVO; LESIONS; CELLS; SYSTEM; MIRNA;
+   IDENTIFICATION; MYELINATION; TARGETS; CD47
+AB Several hundred microRNAs (miRNAs) fine-tune the expression of
+   approximately half of all human genes. Recent studies have revealed that
+   miRNA profiles in blood cells become altered in multiple sclerosis (MS),
+   and that active and inactive MS lesions have distinct miRNA expression
+   patterns. The dysregulated miRNAs in MS lesions seem to be associated
+   with astrocytes and infiltrating immune cells, and might unleash local
+   macrophages through downregulation of the self-recognition signal CD47.
+   The expression of miRNA-326 in blood cells has been reported to increase
+   during relapses. This miRNA promotes T helper 17 cell differentiation
+   and is highly abundant in active MS lesions. miRNAs are needed for
+   maintenance of the myelin sheath, and the absence of such molecules
+   results in axonal damage in mice. miRNA-219 and other miRNAs promote
+   oligodendrocyte differentiation. Here, we discuss the possible
+   contribution of miRNAs to MS pathogenesis. An improved understanding of
+   this contribution should help to identify novel therapeutic targets and
+   biomarkers for this disease.
+C1 [Hohlfeld, Reinhard; Meinl, Edgar] Univ Munich, Inst Clin Neuroimmunol, D-81377 Munich, Germany.
+   [Junker, Andreas] Univ Gottingen, Dept Neuropathol, Univ Med Ctr, D-37075 Gottingen, Germany.
+RP Meinl, E (reprint author), Univ Munich, Inst Clin Neuroimmunol, Marchioninistr 15, D-81377 Munich, Germany
+EM meinl@neuro.mpg.de
+PU NATURE PUBLISHING GROUP
+PI NEW YORK
+PA 75 VARICK ST, 9TH FLR, NEW YORK, NY 10013-1917 USA
+SN 1759-4758
+J9 NAT REV NEUROL
+JI Nat. Rev. Neurol.
+PD JAN
+PY 2011
+VL 7
+IS 1
+BP 56
+EP 59
+DI 10.1038/nrneurol.2010.179
+PG 4
+GA 705AG
+UT WOS:000286099300012
+ER
+EF

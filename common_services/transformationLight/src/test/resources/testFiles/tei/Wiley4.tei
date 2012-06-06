@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Assimilation and Otherness: the Theological
+                    Significance of Négritude</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Anna</forename>
+                                <surname>Williams</surname>
+                            </persName>
+                            <email>anw25@cam.ac.uk</email>
+                            <affiliation>
+                                <orgName type="institution">University of Cambridge</orgName>
+                                <orgName type="department">Faculty of Divinity</orgName>
+                                <address><addrLine>Corpus Christi College</addrLine><settlement>Cambridge</settlement><country key="GB">United Kingdom</country><postCode>CB2 1RH</postCode></address>
+                            </affiliation>
+                            <affiliation>
+                                <orgName type="department"> </orgName>
+                                <address><addrLine>7 Greenside Close</addrLine><settlement>Swavesey</settlement><country key="GB">United Kingdom</country><postCode>CB4 5RF</postCode></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Assimilation and Otherness: the Theological
+                            Significance of Négritude</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">International Journal of Systematic
+                            Theology</title>
+                        <idno type="pISSN">1463-1652</idno>
+                        <idno type="eISSN">1468-2400</idno>
+                        <imprint>
+                            <publisher>International Journal of Systematic Theology</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">IJST-JA-Apr-2007</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p/>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

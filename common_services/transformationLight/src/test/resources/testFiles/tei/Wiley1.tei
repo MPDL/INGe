@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Rapid and label-free bacteria detection by surface
+                    plasmon resonance (SPR) biosensors</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Miss</roleName>
+                                <forename type="first">Fahriye</forename>
+                                <forename type="middle">C</forename>
+                                <surname>Dudak</surname>
+                            </persName>
+                            <email>ceyda@hacettepe.edu.tr</email>
+                            <affiliation>
+                                <address><settlement>Ankara</settlement><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Ismail</forename>
+                                <forename type="middle">Hakki</forename>
+                                <surname>Boyaci</surname>
+                            </persName>
+                            <email>ihb@hacettepe.edu.tr</email>
+                            <affiliation>
+                                <orgName type="institution">Hacettepe University</orgName>
+                                <orgName type="department">Department of Food Engineering</orgName>
+                                <address><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Rapid and label-free bacteria detection by
+                            surface plasmon resonance (SPR) biosensors</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Biotechnology Journal</title>
+                        <title level="j" type="issue">Biotech in Turkey</title>
+                        <idno type="pISSN">1860-6768</idno>
+                        <idno type="eISSN">1860-7314</idno>
+                        <imprint>
+                            <publisher>Biotechnology Journal</publisher>
+                            <biblScope type="vol">4</biblScope>
+                            <biblScope type="issue">5</biblScope>
+                        </imprint>
+                    </monogr>
+                    <idno type="doi">10.1002/biot.200800316</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Surface Plasmon Resonance (SPR) biosensor technology has been successfully used
+                    for the detection of various analytes such as proteins, drugs, DNA and
+                    microorganisms. SPR based immunosensors that coupled with specific
+                    antigen-antibody reaction, have become a promising tool for the quantification
+                    of bacteria as it offers sensitive, specific, rapid and label-free detection. In
+                    this paper, we review the important issues in the development of SPR-based
+                    immunoassays for bacteria detection, concentrating on instrumentation, surface
+                    functionalization, liquid hadling and surface regeneration. In addition, this
+                    review touches on the recent advances in SPR biosensing for sensitivity
+                    enhancement.</p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

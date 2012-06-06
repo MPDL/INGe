@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:ce="http://www.elsevier.com" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title level="a" type="main" xml:lang="en">Spring migration dynamics and sex-specific
+               patterns in stopover strategy in the Wood Sandpiper <hi rend="italic">Tringa
+                  glareola</hi>
+            </title>
+         </titleStmt>
+         <publicationStmt>
+            <authority>Dt. Ornithologen-Gesellschaft e.V.</authority>
+            <date>2008</date>
+         </publicationStmt>
+         <sourceDesc>
+            <biblStruct>
+               <analytic>
+                  <author>
+                     <persName>
+                        <forename type="first">Yoko</forename>
+                        <surname>Muraoka</surname>
+                     </persName>
+
+                     <email>yoko.muraoka@gmail.com</email>
+
+                     <affiliation>
+                        <orgName type="department">Department of Population Ecology, Faculty of Life
+                           Sciences</orgName>
+                        <orgName type="institution">University of Vienna</orgName>
+                        <address>
+                        <postCode>1090</postCode>
+                        <settlement>Vienna</settlement>
+                        <country>Austria</country>
+                     </address>
+                     </affiliation>
+                  </author>
+                  <author>
+                     <persName>
+                        <forename type="first">Christian</forename>
+                        <forename type="first">H.</forename>
+                        <surname>Schulze</surname>
+                     </persName>
+                     <affiliation>
+                        <orgName type="department">Department of Population Ecology, Faculty of Life
+                           Sciences</orgName>
+                        <orgName type="institution">University of Vienna</orgName>
+                        <address>
+                        <postCode>1090</postCode>
+                        <settlement>Vienna</settlement>
+                        <country>Austria</country>
+                     </address>
+                     </affiliation>
+                  </author>
+                  <author>
+                     <persName>
+                        <forename type="first">Mihaela</forename>
+                        <surname>Pavličev</surname>
+                     </persName>
+                     <affiliation>
+                        <orgName type="department">Department of Anatomy and Neurobiology</orgName>
+                        <orgName type="institution">Washington University</orgName>
+                        <address>
+                        <settlement>St Louis</settlement>
+                        <region>MO</region>
+                        <postCode>63108</postCode>
+                        <country>USA</country>
+                     </address>
+                     </affiliation>
+                  </author>
+                  <author>
+                     <persName>
+                        <forename type="first">Gábor</forename>
+                        <surname>Wichmann</surname>
+                     </persName>
+                     <affiliation>
+                        <orgName type="institution">Auring Society</orgName>
+                        <address>
+                        <postCode>2273</postCode>
+                        <settlement>Hohenau an der March</settlement>
+                        <country>Austria</country>
+                     </address>
+                     </affiliation>
+                  </author>
+                  <title level="a" type="main" xml:lang="en">Spring migration dynamics and
+                     sex-specific patterns in stopover strategy in the Wood Sandpiper <hi
+                        rend="italic">Tringa glareola</hi>
+                  </title>
+               </analytic>
+               <monogr>
+                  <title level="j" type="main">Journal of Ornithology</title>
+                  <idno type="JournalID">10336</idno>
+                  <idno type="pISSN">0021-8375</idno>
+                  <idno type="eISSN">1439-0361</idno>
+                  <imprint>
+                     <publisher>Springer-Verlag</publisher>
+                     <pubPlace>Berlin/Heidelberg</pubPlace>
+                     <date when="2008-11-08">Online</date>
+                     <biblScope type="fpage">1</biblScope>
+                     <biblScope type="lpage">7</biblScope>
+                  </imprint>
+               </monogr>
+               <idno type="DOI">10.1007/s10336-008-0351-5</idno>
+               <idno type="ArticleID">351</idno>
+            </biblStruct>
+         </sourceDesc>
+      </fileDesc>
+      <profileDesc>
+         <textClass>
+            <keywords>
+               <list>
+                  <head>Keywords</head>
+                  <item>
+                     <term>Sex differences</term>
+                  </item>
+                  <item>
+                     <term>Spring migration strategy</term>
+                  </item>
+                  <item>
+                     <term>Stopover ecology</term>
+                  </item>
+                  <item>
+                     <term>
+                        <hi rend="italic">Tringa glareola</hi>
+                     </term>
+                  </item>
+                  <item>
+                     <term>Wood Sandpiper</term>
+                  </item>
+               </list>
+            </keywords>
+         </textClass>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2008-10-16">Registration</change>
+         <change when="2007-04-01">Received</change>
+         <change when="2008-10-16">Accepted</change>
+         <change when="2008-11-08">Online</change>
+      </revisionDesc>
+   </teiHeader>
+   <text>
+      <front/>
+   </text>
+</TEI>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+	<responseDate>2009-05-26T10:04:52Z</responseDate>
+	<request identifier="oai:biomedcentral.com:1471-2121-2-1" metadataPrefix="pubmed" verb="GetRecord">http://www.biomedcentral.com/oai/2.0/</request>
+	<GetRecord>
+		<record>
+			<header>
+				<identifier>oai:biomedcentral.com:1471-2121-2-1</identifier>
+				<datestamp>2001-01-29</datestamp>
+				<setSpec>all</setSpec>
+				<setSpec>articletype:research</setSpec>
+				<setSpec>journalgroup:bmc</setSpec>
+				<setSpec>journalgroup:bmcbiology</setSpec>
+				<setSpec>journal:1004</setSpec>
+			</header>
+			<metadata>
+				<ArticleSet xmlns="http://www.biomedcentral.com/xml/schemas/oai/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.biomedcentral.com/xml/schemas/oai/2.0/ http://www.biomedcentral.com/xml/schemas/oai/2.0/pubmedschema.xsd">
+					<Article>
+						<Journal>
+							<PublisherName>BioMed Central Ltd.</PublisherName>
+							<JournalTitle>BMC Cell Biology</JournalTitle>
+							<Issn>1471-2121</Issn>
+							<Volume>2</Volume>
+							<Issue>1</Issue>
+							<PubDate PubStatus="epublish">
+								<Year>2001</Year>
+								<Month>Jan</Month>
+								<Day>29</Day>
+							</PubDate>
+						</Journal>
+						<Replaces>11178103</Replaces>
+						<ArticleTitle>Induced cytoskeletal changes in bovine pulmonary artery endothelial cells by resveratrol and the accompanying modified responses to arterial shear stress</ArticleTitle>
+						<FirstPage>1</FirstPage>
+						<LastPage>1</LastPage>
+						<Language>EN</Language>
+						<AuthorList>
+							<Author>
+								<FirstName>Jed</FirstName>
+								<MiddleName>L</MiddleName>
+								<LastName>Bruder</LastName>
+							</Author>
+							<Author>
+								<FirstName>Tze-chen</FirstName>
+								<LastName>Hsieh</LastName>
+							</Author>
+							<Author>
+								<FirstName>Kenneth</FirstName>
+								<MiddleName>M</MiddleName>
+								<LastName>Lerea</LastName>
+							</Author>
+							<Author>
+								<FirstName>Susan</FirstName>
+								<MiddleName>C</MiddleName>
+								<LastName>Olson</LastName>
+							</Author>
+							<Author>
+								<FirstName>Joseph</FirstName>
+								<MiddleName>M</MiddleName>
+								<LastName>Wu</LastName>
+								<Affiliation>Departments of Biochemistry and Molecular Biology. Joseph_Wu@nymc.edu</Affiliation>
+							</Author>
+						</AuthorList>
+						<PublicationType/>
+						<ArticleIdList>
+							<ArticleId IdType="pii">1471-2121-2-1</ArticleId>
+							<ArticleId IdType="doi">10.1186/1471-2121-2-1</ArticleId>
+						</ArticleIdList>
+						<History>
+							<PubDate PubStatus="received">
+								<Year>2000</Year>
+								<Month>Nov</Month>
+								<Day>22</Day>
+							</PubDate>
+							<PubDate PubStatus="accepted">
+								<Year>2001</Year>
+								<Month>Jan</Month>
+								<Day>29</Day>
+							</PubDate>
+							<PubDate PubStatus="aheadofprint">
+								<Year>2001</Year>
+								<Month>Jan</Month>
+								<Day>29</Day>
+							</PubDate>
+						</History>
+						<Abstract>ABSTRACT: BACKGROUND: Atherosclerosis and coronary heart disease (CHD) are significant contributors to morbidity and mortality in developed countries. A noted exception is the low mortality of CHD in France, particularly the southwest region. This phenomenon, commonly referred to as the French paradox, may be associated with high consumption of red wine. We investigate whether the cardioprotective activity of red wine may involve the grape skin-derived polyphenol, resveratrol. We further test the possibility that resveratrol acts by modulating structural and functional changes in endothelial cells lining the blood vessel wall. RESULTS: Bovine pulmonary artery endothelial cells (BPAEC) were incubated with resveratrol, with and without concurrent exposure to simulated arterial shear stress. Resveratrol significantly affected proliferation and shape of BPAEC; growth was suppressed and cells became elongated, based on morphologic analysis of rhodamine-conjugated phalloidin stained F-actin by confocal microscopy. Using selective signaling inhibitors, we showed that the resveratrol-induced cellular phenotype was dependent on intracellular calcium and tyrosine kinase activities, and assembly of actin microfilaments and microtubules, but was unrelated to PKC activity. Exposure to simulated arterial flow revealed that, whereas controls cells easily detached from the culture support in a time-dependent manner, resulting in total cell loss after a 5 min challenge with simulated arterial flow conditions, a significant percentage of the treated cells remained attached to the cultured plastic coverslips under identical experimental conditions, suggesting that they adhered more strongly to the surface. Western blot analysis shows that whereas cells treated with 25 &#956;M and 100 &#956;M resveratrol had no change in total ERK1/2, treatment did result in an increase in phosphorylated ERK1/2, which probably involved stabilization of the active enzyme. An increase in nitric oxide synthase expression was detected as early as 6 h and persisted for up to 4 days of treatment. CONCLUSIONS: Results of our studies show that resveratrol interacts with endothelial cells in vitro to elicit morphological and structural changes; the observed changes support the interpretation that resveratrol acts as a cardioprotective agent.</Abstract>
+						<CopyrightInformation>
+							This is a test copyright entry
+						</CopyrightInformation>
+					</Article>
+				</ArticleSet>
+			</metadata>
+			<about>
+				<rights xmlns="http://www.biomedcentral.com/xml/schemas/oai/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.biomedcentral.com/xml/schemas/oai/2.0/ http://www.biomedcentral.com/xml/schemas/oai/2.0/pubmedschema.xsd">The metadata made available via this interface is made freely available for commercial or non-commercial use. For details of distribution rights of the articles themselves, see: http://www.biomedcentral.com/info/about/copyright</rights>
+			</about>
+		</record>
+	</GetRecord>
+</OAI-PMH>

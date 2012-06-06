@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:ce="http://www.elsevier.com" xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">An efficient sliding window strategy for accurate
+                    location of eukaryotic protein coding regions</title>
+            </titleStmt>
+            <publicationStmt>
+                <availability status="unknown">
+                    <p>
+                        <date>2009</date>
+                    </p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <forename type="first">Nini</forename>
+                                <surname>Rao</surname>
+                            </persName>
+                            <email>Raonn@126.com</email>
+                            <email>Raonn@uestc.edu.cn</email>
+                            <note type="correspondance">
+
+                                <p>Corresponding author. Tel.: +8602883206489.</p>
+                            </note>
+                        </author>
+                        <author>
+                            <persName>
+                                <forename type="first">Xu</forename>
+                                <surname>Lei</surname>
+                            </persName>
+                        </author>
+                        <author>
+                            <persName>
+                                <forename type="first">Jianxiu</forename>
+                                <surname>Guo</surname>
+                            </persName>
+                        </author>
+                        <author>
+                            <persName>
+                                <forename type="first">Hao</forename>
+                                <surname>Huang</surname>
+                            </persName>
+                        </author>
+                        <author>
+                            <persName>
+                                <forename type="first">Zhenglong</forename>
+                                <surname>Ren</surname>
+                            </persName>
+                        </author>
+                        <title level="a" type="main">An efficient sliding window strategy for
+                            accurate location of eukaryotic protein coding regions</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="abbrev">CBM</title>
+                        <imprint>
+                            <date type="Accepted" when="2009-01-28"/>
+                        </imprint>
+                    </monogr>
+                    <idno type="DOI">10.1016/j.compbiomed.2009.01.010</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <textClass>
+                <keywords>
+                    <list>
+                        <head>Keywords</head>
+                        <item>
+                            <term> Protein coding region </term>
+                        </item>
+                        <item>
+                            <term> Power spectrum analysis </term>
+                        </item>
+                        <item>
+                            <term> Sliding window </term>
+                        </item>
+                        <item>
+                            <term> Location </term>
+                        </item>
+                    </list>
+                </keywords>
+            </textClass>
+        </profileDesc>
+        <revisionDesc>
+            <change when="2007-11-07">Received</change>
+            <change when="2009-01-16">Revised</change>
+            <change when="2009-01-28">Accepted</change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+
+                <p>The sliding window is one of important factors that seriously affect the accuracy
+                    of coding region prediction and location for the methods based on power spectrum
+                    technique. It is very difficult to select the appropriate sliding step and the
+                    window length for different organisms. In this study, a novel sliding window
+                    strategy is proposed on the basis of power spectrum analysis for the accurate
+                    location of eukaryotic protein coding regions. The proposed sliding window
+                    strategy is very simple and the sliding step of window is changeable. Our tests
+                    show that the average location error for the novel method is 12 bases. Compared
+                    with the previous location error of 54 bases using the fixed sliding step, the
+                    novel sliding window strategy increased the location accuracy greatly. Further,
+                    the consumed CPU time to run the novel strategy is much shorter than the
+                    strategy of the fixed length sliding step. So, the computational complexity for
+                    the novel method is decreased greatly</p>
+
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

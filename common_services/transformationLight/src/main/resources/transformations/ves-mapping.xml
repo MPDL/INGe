@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<!-- 
+	Mapping from the eSciDoc EnumTypes v1 to v2
+	http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Encoding_Schemes
+	$Author: mfranke $ (last changed)
+	$Revision: 4063 $ 
+	$LastChangedDate: 2011-07-18 17:38:55 +0200 (Mo, 18 Jul 2011) $	
+ -->
+<mappings>
+
+	<publication-type>
+		<v1-to-v2>
+			<map v1="article">http://purl.org/escidoc/metadata/ves/publication-types/article</map>
+			<map v1="book">http://purl.org/eprint/type/Book</map>
+			<map v1="book-item">http://purl.org/eprint/type/BookItem</map>
+			<map v1="proceedings">http://purl.org/escidoc/metadata/ves/publication-types/proceedings</map>
+			<map v1="conference-paper">http://purl.org/eprint/type/ConferencePaper</map>
+			<map v1="meeting-abstract">http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</map>
+			<map v1="talk-at-event">http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</map>
+			<map v1="conference-report">http://purl.org/escidoc/metadata/ves/publication-types/conference-report</map>
+			<map v1="poster">http://purl.org/eprint/type/ConferencePoster</map>
+			<map v1="courseware-lecture">http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</map>
+			<map v1="thesis">http://purl.org/eprint/type/Thesis</map>
+			<map v1="paper">http://purl.org/escidoc/metadata/ves/publication-types/paper</map>
+			<map v1="report">http://purl.org/eprint/type/Report</map>
+			<map v1="journal">http://purl.org/escidoc/metadata/ves/publication-types/journal</map>
+			<map v1="issue">http://purl.org/escidoc/metadata/ves/publication-types/issue</map>
+			<map v1="series">http://purl.org/escidoc/metadata/ves/publication-types/series</map>
+			<map v1="manuscript">http://purl.org/escidoc/metadata/ves/publication-types/manuscript</map>
+			<map v1="other">http://purl.org/escidoc/metadata/ves/publication-types/other</map>
+		</v1-to-v2>
+		<v2-to-v1>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/journal">journal</map>
+			
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/article">article</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">article</map>
+			
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/issue">issue</map>
+			<map v2="http://purl.org/eprint/type/Book">book</map>
+			<map v2="http://purl.org/eprint/type/BookItem">book-item</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">proceedings</map>
+			<map v2="http://purl.org/eprint/type/ConferencePaper">conference-paper</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract">meeting-abstract</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/conference-report">conference-report</map>
+			<map v2="http://purl.org/eprint/type/ConferencePoster">poster</map>
+			<map v2="http://purl.org/eprint/type/Report">report</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper">paper</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">talk-at-event</map>
+			<!-- TODO: check the mapping -->
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture">courseware-lecture</map>
+			<map v2="http://purl.org/eprint/type/Thesis">thesis</map>			
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series">series</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manuscript">manuscript</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/other">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manual">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/webpage">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/editorial">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/book-review">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/opinion">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/case-study">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/case-note">other</map>				
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph">other</map>	
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/multi-volume">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/commentary">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/handbook">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>
+			
+			<map v2="http://purl.org/eprint/type/Patent">other</map>	
+		</v2-to-v1>
+				
+		<v2-to-edoc>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/journal" edoc="Journal">29</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/article" edoc="Article">3</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article" edoc="Article">3</map>
+			<map v2="http://purl.org/eprint/type/Book" edoc="Book">1</map>
+			<map v2="http://purl.org/eprint/type/BookItem" edoc="In Book">2</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/proceedings" edoc="Proceedings">28</map>
+			<map v2="http://purl.org/eprint/type/ConferencePaper" edoc="Conference Paper">7</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract" edoc="Conference Paper">7</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event" edoc="Talk-at-Event">9</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/conference-report"  edoc="Conference Report">10</map>
+			<map v2="http://purl.org/eprint/type/ConferencePoster" edoc="Poster">9</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture" edoc="Lecture/Courseware">13</map>
+			<map v2="http://purl.org/eprint/type/Thesis" edoc="Thesis">15</map>			
+			<map v2="http://purl.org/eprint/type/Report" edoc="Report">46</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/issue" edoc="Issue">42</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series" edoc="Series">30</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/other" edoc="Other">41</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper" edoc="Paper">44</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/webpage" ed="Interactive Resource">19</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manuscript" edoc="Other">41</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph" edoc="Book">1</map>
+			
+			<map v2="http://purl.org/eprint/type/Patent" edoc="Other">41</map>	
+		</v2-to-edoc>		
+	</publication-type>
+	
+	<creator-role>
+		<v1-to-v2>
+			<map v1="author">http://www.loc.gov/loc.terms/relators/AUT</map>
+			<map v1="artist">http://www.loc.gov/loc.terms/relators/ART</map>
+			<map v1="editor">http://www.loc.gov/loc.terms/relators/EDT</map>
+			<map v1="painter">http://purl.org/escidoc/metadata/ves/creator-roles/painter</map>
+			<map v1="photographer">http://www.loc.gov/loc.terms/relators/PHT</map>
+			<map v1="illustrator">http://www.loc.gov/loc.terms/relators/ILL</map>
+			<map v1="commentator">http://www.loc.gov/loc.terms/relators/CMM</map>
+			<map v1="transcriber">http://www.loc.gov/loc.terms/relators/TRC</map>
+			<map v1="translator">http://www.loc.gov/loc.terms/relators/TRL</map>
+			<map v1="advisor">http://www.loc.gov/loc.terms/relators/SAD</map>
+			<map v1="contributor">http://www.loc.gov/loc.terms/relators/CTB</map>
+			<map v1="publisher">http://purl.org/escidoc/metadata/ves/creator-roles/publisher</map>
+			<map v1="honoree">http://www.loc.gov/loc.terms/relators/HNR</map>
+		</v1-to-v2>
+		<v2-to-v1>
+			<map v2="http://www.loc.gov/loc.terms/relators/AUT">author</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ART">artist</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/EDT">editor</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/painter">painter</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/PHT">photographer</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ILL">illustrator</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/CMM">commentator</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/TRC">transcriber</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/TRL">translator</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/SAD">advisor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/THS">advisor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/CTB">contributor</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/publisher">publisher</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/HNR">honoree</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">contributor</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">contributor</map>
+			
+			<map v2="http://www.loc.gov/loc.terms/relators/INV">author</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/APP">contributor</map>
+		</v2-to-v1>
+		<v2-to-edoc>
+			<map v2="http://www.loc.gov/loc.terms/relators/AUT">author</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/EDT">editor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ART">artist</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/CMM">contributor</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/HNR">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/CTB">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ILL">artist</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/painter">artist</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/PHT">artist</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">referee</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/SAD">advisor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/THS">advisor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/TRC">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/TRL">translator</map>
+			
+			<map v2="http://www.loc.gov/loc.terms/relators/INV">author</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/APP">contributor</map>
+		</v2-to-edoc>
+	</creator-role>
+	
+	<review-method>
+		<v1-to-v2>
+			<map v1="internal">http://purl.org/escidoc/metadata/ves/review-methods/internal</map>
+			<map v1="peer">http://purl.org/eprint/status/PeerReviewed</map>
+			<map v1="no-review">http://purl.org/escidoc/metadata/ves/review-methods/no-review</map>
+		</v1-to-v2>
+		<v2-to-v1>
+			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/internal">internal</map>
+			<map v2="http://purl.org/eprint/status/PeerReviewed">peer</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/no-review">no-review</map>
+		</v2-to-v1>
+		<v2-to-edoc>
+			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/internal">intrev</map>
+			<map v2="http://purl.org/eprint/status/PeerReviewed">joureview</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/no-review">notrev</map>
+		</v2-to-edoc>
+	</review-method>
+	
+	<academic-degree>
+		<v1-to-v2>
+			<map v1="master">http://purl.org/escidoc/metadata/ves/academic-degrees/master</map>
+			<map v1="diploma">http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</map>
+			<map v1="magister">http://purl.org/escidoc/metadata/ves/academic-degrees/magister</map>
+			<map v1="staatsexamen">http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen</map>
+			<map v1="phd">http://purl.org/escidoc/metadata/ves/academic-degrees/phd</map>
+			<map v1="habilitation">http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation</map>
+			<map v1="bachelor">http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor</map>		
+		</v1-to-v2>
+		<v2-to-v1>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/master">master</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/diploma">diploma</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/magister">magister</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen">staatsexamen</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/phd">phd</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation">habilitation</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor">bachelor</map>		
+		</v2-to-v1>
+		<v2-to-edoc>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/master">master</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/diploma">diplom</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/magister">magister</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen">staatsexamen</map>
+			<!-- map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/phd">phd</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation">habilitation</map-->
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor">bachelor</map>
+		</v2-to-edoc>
+	</academic-degree>
+	
+	<fulltext-visibility>
+		<v2-to-edoc default="USER">
+			<map v2="public">PUBLIC</map>
+			<map v2="private">USER</map>
+			<map v2="audience">USER</map>
+		</v2-to-edoc>
+	</fulltext-visibility>
+	
+	<language v1="dcterms:RFC3066" v2="dcterms:ISO639-3">
+		<v1-to-v2 default="eng">
+		   <map v1="da">dan</map>
+		   <map v1="de">deu</map>
+		   <map v1="el">ell</map>
+		   <map v1="en">eng</map>
+		   <map v1="es">spa</map>
+		   <map v1="fi">fin</map>
+		   <map v1="fr">fra</map>
+		   <map v1="it">ita</map>
+		   <map v1="ja">jpn</map>
+		   <map v1="ko">kor</map>
+		   <map v1="ne">nep</map>
+		   <map v1="nl">nld</map>
+		   <map v1="pl">pol</map>
+		   <map v1="pt">por</map>
+		   <map v1="zh">zho</map>
+		</v1-to-v2>
+		<v2-to-v1 default="en">
+		   <map v2="dan">da</map>
+		   <map v2="deu">de</map>
+		   <map v2="ell">el</map>
+		   <map v2="eng">en</map>
+		   <map v2="spa">es</map>
+		   <map v2="fin">fi</map>
+		   <map v2="fra">fr</map>
+		   <map v2="ita">it</map>
+		   <map v2="jpn">ja</map>
+		   <map v2="kor">ko</map>
+		   <map v2="nep">ne</map>
+		   <map v2="nld">nl</map>
+		   <map v2="pol">pl</map>
+		   <map v2="por">pt</map>
+		   <map v2="zho">zh</map>
+		</v2-to-v1>
+		
+		<!-- http://www.sil.org/iso639-3/iso-639-3_Name_Index_20100119.tab -->
+		<v2-to-edoc default="English">
+	      <map v2="deu">German</map>
+	      <map v2="eng">English</map>
+	      <map v2="fra">French</map>
+	      <map v2="spa">Spanish</map>
+	      <map v2="rus">Russian</map>
+	      <map v2="abk">Abkhazian</map>
+	      <!--map v2="">Afan</map--> 
+	      <map v2="afr">Afrikaans</map>
+	      <map v2="sqi">Albanian</map>
+	      <!-- map v2="ase">American</map--> 
+	      <map v2="amh">Amharic</map>
+	      <map v2="ara">Arabic</map>
+	      <map v2="hye">Armenian</map>
+	      <map v2="asm">Assamese</map>
+	      <map v2="aym">Aymara</map>
+	      <map v2="aze">Azerbaijani</map>
+	      <!-- map v2="">Bangla</map-->
+	      <map v2="bak">Bashkir</map>
+	      <map v2="eus">Basque</map>
+	      <map v2="ben">Bengali</map>
+	      <!-- map v2="">Bhutani</map--> 
+	      <!-- map v2="">Bihari</map-->
+	      <map v2="bis">Bislama</map>
+	      <map v2="bos">Bosnian</map>
+	      <map v2="bre">Breton</map>
+	      <map v2="bul">Bulgarian</map>
+	      <map v2="mya">Burmese</map>
+	      <!-- map v2="">Byelorussian</map>
+	      <map v2="">Cambodian</map--> 
+	      <map v2="cat">Catalan</map>
+	      <map v2="zho">Chinese</map>
+	      <map v2="cos">Corsican</map>
+	      <map v2="hrv">Croatian</map>
+	      <map v2="ces">Czech</map>
+	      <map v2="dan">Danish</map>
+	      <map v2="nld">Dutch</map>
+	      <map v2="est">Estonian</map>
+	      <!-- map v2="">Faeroese</map--> 
+	      <map v2="fij">Fiji</map>
+	      <map v2="fin">Finnish</map>
+	      <map v2="frs">Frisian</map>
+	      <map v2="frr">Frisian</map>
+	      <map v2="fry">Frisian</map>
+	      <map v2="ofs">Frisian</map>
+	      <map v2="gla">Gaelic</map>
+	      <map v2="glg">Galician</map>
+	      <map v2="kat">Georgian</map>
+	      <map v2="ell">Greek</map>
+	      <map v2="kal">Greenlandic</map>
+	      <map v2="grn">Guarani</map>
+	      <!-- TODO: -->
+	      <!-- map v2="">Gujarati</map>
+	      <map v2="">Hausa</map>
+	      <map v2="">Hebrew</map>
+	      <map v2="">Hindi</map>
+	      <map v2="">Hungarian</map>
+	      <map v2="">Icelandic</map>
+	      <map v2="">Indonesian</map>
+	      <map v2="">Interlingua</map>
+	      <map v2="">Interlingue</map>
+	      <map v2="">Inupiak</map>
+	      <map v2="">Irish</map>
+	      <map v2="">Italian</map>
+	      <map v2="">Japanese</map>
+	      <map v2="">Javanese</map>
+	      <map v2="">Kannada</map>
+	      <map v2="">Kashmiri</map>
+	      <map v2="">Kazakh</map>
+	      <map v2="">Kinyarwanda</map>
+	      <map v2="">Kirghiz</map>
+	      <map v2="">Kirundi</map>
+	      <map v2="">Korean</map>
+	      <map v2="">Kurdish</map>
+	      <map v2="">Laothian</map>
+	      <map v2="">Latin</map>
+	      <map v2="">Latvian</map>
+	      <map v2="">Lettish</map>
+	      <map v2="">Lingala</map>
+	      <map v2="">Lithuanian</map>
+	      <map v2="">Macedonian</map>
+	      <map v2="">Malagasy</map>
+	      <map v2="">Malay</map>
+	      <map v2="">Malayalam</map>
+	      <map v2="">Maltese</map>
+	      <map v2="">Maori</map>
+	      <map v2="">Marathi</map>
+	      <map v2="">Moldavian</map>
+	      <map v2="">Mongolian</map>
+	      <map v2="">Nauru</map>
+	      <map v2="">Nepali</map>
+	      <map v2="">Norwegian</map>
+	      <map v2="">Occitan</map>
+	      <map v2="">Oriya</map>
+	      <map v2="">Oromo</map>
+	      <map v2="">Pashto</map>
+	      <map v2="">Persian</map>
+	      <map v2="">Polish</map>
+	      <map v2="">Portuguese</map>
+	      <map v2="">Punjabi</map>
+	      <map v2="">Pushto</map>
+	      <map v2="">Quechua</map>
+	      <map v2="">Rhaeto-Romance</map>
+	      <map v2="">Romanian</map>
+	      <map v2="">Samoan</map>
+	      <map v2="">Sangro</map>
+	      <map v2="">Sanskrit</map>
+	      <map v2="">Scots Gaelic</map>
+	      <map v2="">Serbian</map>
+	      <map v2="">Serbo-Croatian</map>
+	      <map v2="">Sesotho</map>
+	      <map v2="">Setswana</map>
+	      <map v2="">Shona</map>
+	      <map v2="">Sindhi</map>
+	      <map v2="">Singhalese</map>
+	      <map v2="">Siswati</map>
+	      <map v2="">Slovak</map>
+	      <map v2="">Slovenian</map>
+	      <map v2="">Somali</map>
+	      <map v2="">Sudanese</map>
+	      <map v2="">Swahili</map>
+	      <map v2="">Swedish</map>
+	      <map v2="">Tagalog</map>
+	      <map v2="">Tajik</map>
+	      <map v2="">Tamil</map>
+	      <map v2="">Tatar</map>
+	      <map v2="">Tegulu</map>
+	      <map v2="">Thai</map>
+	      <map v2="">Tibetan</map>
+	      <map v2="">Tigrinya</map>
+	      <map v2="">Tonga</map>
+	      <map v2="">Tsonga</map>
+	      <map v2="">Turkish</map>
+	      <map v2="">Turkmen</map>
+	      <map v2="">Twi</map>
+	      <map v2="">Ukrainian</map>
+	      <map v2="">Urdu</map>
+	      <map v2="">Uzbek</map>
+	      <map v2="">Vietnamese</map>
+	      <map v2="">Volapuk</map>
+	      <map v2="">Welsh</map>
+	      <map v2="">Wolof</map>
+	      <map v2="">Xhosa</map>
+	      <map v2="">Yiddish</map>
+	      <map v2="">Yoruba</map>
+	      <map v2="">Zulu</map-->
+		</v2-to-edoc>	
+		
+		
+	</language>
+	
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_eSciDoc_To_eDoc_Mapping#Mapping_of_Identifier_Types -->
+	<identifier-type>
+		<v2-to-edoc>
+<!--			<map v2="eterms:ESCIDOC"></map>-->
+			<map v2="eterms:EDOC">edocid</map> 
+			<map v2="eterms:ISSN">issn</map>
+			<map v2="eterms:ISBN">isbn</map>
+<!--			<map v2="eterms:CONE"></map>-->
+			<map v2="eterms:DOI">doi</map>
+			<map v2="eterms:ISI">isi</map>
+<!--			<map v2="eterms:PND"></map>-->
+			<map v2="eterms:URN">url</map>
+			<map v2="eterms:URI">uri</map>
+			<map v2="eterms:PII">pii</map> <!-- !!!! in zim_transfer.xsd  --> 
+<!--			<map v2="eterms:PMID"></map>-->
+<!--			<map v2="eterms:ARXIV"></map>-->
+<!--			<map v2="eterms:PMC"></map>-->
+<!--			<map v2="eterms:BMC"></map>-->
+<!--			<map v2="eterms:ZDB"></map>-->
+<!--			<map v2="eterms:OTHER"></map>-->
+		</v2-to-edoc>
+	</identifier-type>
+	
+	<content-category>
+		<v1-to-v2>
+			<map v1="any-fulltext">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</map>
+			<map v1="pre-print">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</map>
+			<map v1="post-print">http://purl.org/escidoc/metadata/ves/content-categories/post-print</map>
+			<map v1="publisher-version">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</map>
+			<map v1="abstract">http://purl.org/escidoc/metadata/ves/content-categories/abstract</map>
+			<map v1="table-of-contents">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
+			<map v1="table-of-content">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
+			<map v1="supplementary-material">http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</map>
+			<map v1="additional-material">http://purl.org/escidoc/metadata/ves/content-categories/additional-material</map>
+			<map v1="administrative-files">http://purl.org/escidoc/metadata/ves/content-categories/administrative-files</map>
+			<map v1="copyright-transfer-agreement">http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement</map>
+			<map v1="correspondence">http://purl.org/escidoc/metadata/ves/content-categories/correspondence</map>
+			<map v1="jpeg-max">http://purl.org/escidoc/metadata/ves/content-categories/original-resolution</map>
+			<map v1="jpeg-default">http://purl.org/escidoc/metadata/ves/content-categories/web-resolution</map>
+			<map v1="jpeg-min">http://purl.org/escidoc/metadata/ves/content-categories/thumbnail</map>
+			<map v1="original-data">http://purl.org/escidoc/metadata/ves/content-categories/original-data</map>
+			<map v1="high resolution">http://purl.org/escidoc/metadata/ves/content-categories/original-resolution</map>
+			<map v1="web resolution">http://purl.org/escidoc/metadata/ves/content-categories/web-resolution</map>
+			<map v1="thumbnail">http://purl.org/escidoc/metadata/ves/content-categories/thumbnail</map>
+		</v1-to-v2>
+		
+		<v2-to-v1>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext">any-fulltext</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/pre-print">pre-print</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/post-print">post-print</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/publisher-version">publisher-version</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/abstract">abstract</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents">table-of-contents</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material">supplementary-material</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/additional-material">additional-material</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/administrative-files">administrative-files</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement">copyright-transfer-agreement</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/correspondence">correspondence</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/original-resolution">jpeg-max</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/web-resolution">jpeg-default</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/thumbnail">jpeg-min</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/original-data">original-data</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/original-resolution">high resolution</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/web-resolution">web resolution</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/thumbnail">thumbnail</map>
+		</v2-to-v1>		
+	</content-category>
+	
+	
+	
+	
+	
+</mappings>

@@ -1,0 +1,342 @@
+%0 Journal Article
+%A Zhou, F.
+%A Badillo-Corona, J. A.
+%A Karcher, D.
+%A Gonzalez-Rabade, N.
+%A Piepenburg, K.
+%A Borchers, A. M. I.
+%A Maloney, A. P.
+%A Kavanagh, T. A.
+%A Gray, J. C.
+%A Bock, R.
+%D 2008
+%T High-level expression of human immunodeficiency virus antigens from the tobacco and tomato plastid genomes
+%J Plant Biotechnology Journal
+%V 6
+%N 9
+%P 897-913
+%8 Dec
+%! High-level expression of human immunodeficiency virus antigens from the tobacco and tomato plastid genomes
+%@ 1467-7644
+%1 Bock~Organelle Biology, Biotechnology and Molecular Ecophysiology~
+%3 1
+%M ISI:000261079600004
+%K antigen
+hiv
+molecular farming
+nef
+nicotiana tabacum
+plastid transformation
+p24
+solanum lycopersicum
+green fluorescent protein
+transgenic tobacco
+genetic-transformation
+protective antigen
+chloroplasts leads
+messenger-rnas
+higher-plants
+bacterial
+vaccine
+mice
+%X Transgene expression from the plant's plastid genome represents a promising strategy in molecular farming because of the plastid's potential to accumulate foreign proteins to high levels and the increased biosafety provided by the maternal mode of organelle inheritance. In this article, we explore the potential of transplastomic plants to produce human immunodeficiency virus (HIV) antigens as potential components of an acquired immunodeficiency syndrome (AIDS) vaccine. It is shown that the HIV antigens p24 (the major target of T-cell-mediated immune responses in HIV-positive individuals) and Nef can be expressed to high levels in plastids of tobacco, a non-food crop, and tomato, a food crop with an edible fruit. Optimized p24-Nef fusion gene cassettes trigger antigen protein accumulation to up to approximately 40% of the plant's total protein, demonstrating the great potential of transgenic plastids to produce AIDS vaccine components at low cost and high yield.
+%Z 374YM
+Times Cited:1
+Cited References Count:44
+%U <Go to ISI>://000261079600004
+%+ Bock, R
+Max Planck Inst Mol Pflanzenphysiol, Muhlenberg 1, D-14476 Potsdam, Germany
+Max Planck Inst Mol Pflanzenphysiol, D-14476 Potsdam, Germany
+Univ Cambridge, Dept Plant Sci, Cambridge CB2 3EA, England
+Trinity Coll Dublin, Smurfit Inst Genet, Dublin 2, Ireland
+%G English
+
+%0 Journal Article
+%A Willmund, F.
+%A Dorn, K. V.
+%A Schulz-Raffelt, M.
+%A Schroda, M.
+%D 2008
+%T The Chloroplast DnaJ Homolog CDJ1 of Chlamydomonas reinhardtii Is Part of a Multichaperone Complex Containing HSP70B, CGE1, and HSP90C
+%J Plant Physiology
+%V 148
+%N 4
+%P 2070-2082
+%8 Dec
+%! The Chloroplast DnaJ Homolog CDJ1 of Chlamydomonas reinhardtii Is Part of a Multichaperone Complex Containing HSP70B, CGE1, and HSP90C
+%@ 0032-0889
+%1 Schroda~GoFORSYS III - Schroda~
+%3 1
+%M ISI:000261501500026
+%K escherichia-coli dnaj
+blue native electrophoresis
+membrane-protein complexes
+heat-shock proteins
+molecular chaperones
+chlorate-resistant
+crystal-structure
+j-domain
+in-vivo
+plastidic hsp70b
+%X We report on the molecular and biochemical characterization of CDJ1, one of three zinc-finger-containing J-domain proteins encoded by the Chlamydomonas reinhardtii genome. Fractionation experiments indicate that CDJ1 is a plastidic protein. In the chloroplast, CDJ1 was localized to the soluble stroma fraction, but also to thylakoids and to low density membranes. Although the CDJ1 gene was strongly heat shock inducible, CDJ1 protein levels increased only slightly during heat shock. Cellular CDJ1 concentrations were close to those of heat shock protein 70B (HSP70B), the major HSP70 in the Chlamydomonas chloroplast. CDJ1 complemented the temperature-sensitive phenotype of an Escherichia coli mutant lacking its dnaJ gene and interacted with E. coli DnaK, hence classifying it as a bona fide DnaJ protein. In soluble cell extracts, CDJ1 was found to organize into stable dimers and into complexes of high molecular mass. Immunoprecipitation experiments revealed that CDJ1 forms common complexes with plastidic HSP90C, HSP70B, and CGE1. In blue native-polyacrylamide gel electrophoresis, all four (co) chaperones migrated at 40% to 90% higher apparent than calculated molecular masses, indicating that greatest care must be taken when molecular masses of protein complexes are estimated from their migration relative to standard native marker proteins. Immunoprecipitation experiments fromsize-fractioned soluble cell extracts suggested that HSP90C and HSP70B exist as preformed complex that is joined by CDJ1. In summary, CDJ1 and CGE1 are novel cohort proteins of the chloroplast HSP90-HSP70 multichaperone complex. As HSP70B, CDJ1, and CGE1 are derived from the endosymbiont, whereas HSP90C is of eukaryotic origin, we observe in the chloroplast the interaction of two chaperone systems of distinct evolutionary origin.
+%Z 380YH
+Times Cited:0
+Cited References Count:70
+%U <Go to ISI>://000261501500026
+%+ Schroda, M
+Univ Freiburg, Inst Biol 2, D-79104 Freiburg, Germany
+Univ Freiburg, Inst Biol 2, D-79104 Freiburg, Germany
+Max Planck Inst Mol Plant Physiol, D-14476 Potsdam, Germany
+%G English
+
+%0 Journal Article
+%A Wienkoop, S.
+%A Morgenthal, K.
+%A Wolschin, F.
+%A Scholz, M.
+%A Selbig, J.
+%A Weckwerth, W.
+%D 2008
+%T Integration of metabolomic and proteomic phenotypes
+%J Molecular & Cellular Proteomics
+%V 7
+%N 9
+%P 1725-1736
+%8 Sep
+%! Integration of metabolomic and proteomic phenotypes
+%@ 1535-9476
+%1 Selbig~Bioinformatics crg~Weckwerth~Integrative Proteomics and Metabolomics~
+%3 1
+%M ISI:000259154800010
+%K rna-binding protein
+independent component analysis
+quantitative shotgun proteomics
+cold response pathway
+pre-messenger-rna
+arabidopsis-thaliana
+low-temperature
+freezing tolerance
+pattern-recognition
+escherichia-coli
+%X Statistical mining and integration of complex molecular data including metabolites, proteins, and transcripts is one of the critical goals of systems biology (Ideker, T., Galitski, T., and Hood, L. (2001) A new approach to decoding life: systems biology. Annu. Rev. Genomics Hum. Genet. 2, 343-372). A number of studies have demonstrated the parallel analysis of metabolites and large scale transcript expression. Protein analysis has been ignored in these studies, although a clear correlation between transcript and protein levels is shown only in rare cases, necessitating that actual protein levels have to be determined for protein function analysis. Here, we present an approach to investigate the combined covariance structure of metabolite and protein dynamics in a systemic response to abiotic temperature stress in Arabidopsis thaliana wild-type and a corresponding starch-deficient mutant (phosphoglucomutase-deficient). Independent component analysis revealed phenotype classification resolving genotype-dependent response effects to temperature treatment and genotype-independent general temperature compensation mechanisms. An observation is the stress-induced increase of raffinose-family-oligosaccharide levels in the absence of transitory starch storage/mobilization in temperature-treated phosphoglucomutase plants indicating that sucrose synthesis and storage in these mutant plants is sufficient to bypass the typical starch storage/mobilization pathways under abiotic stress. Eventually, sample pattern recognition and correlation network topology analysis allowed for the detection of specific metabolite-protein co- regulation and assignment of a circadian output regulated RNA-binding protein to these processes. The whole concept of high-dimensional profiling data integration from many replicates, subsequent multivariate statistics for dimensionality reduction, and covariance structure analysis is proposed to be a major strategy for revealing central responses of the biological system under study.
+%Z 347PZ
+Times Cited:0
+Cited References Count:85
+%U <Go to ISI>://000259154800010
+%+ Weckwerth, W
+Max Planck Inst Mol Plant Physiol, D-14424 Potsdam, Germany
+Max Planck Inst Mol Plant Physiol, D-14424 Potsdam, Germany
+Univ Potsdam, GoFORSYS, Inst Biochem & Biol, D-14424 Potsdam, Germany
+Arizona State Univ, Sch Life Sci, Tempe, AZ 85287 USA
+Ernst Moritz Arndt Univ Greifswald, CC FG, D-17487 Greifswald, Germany
+Univ Potsdam, Inst Biochem & Biol, Potsdam, Germany
+Univ Vienna, Dept Mol Plant Physiol & Syst Biol, A-1010 Vienna, Austria
+%G English
+
+%0 Journal Article
+%A Wen, F. S.
+%A Celoy, R. M.
+%A Nguyen, T.
+%A Zeng, W. Q.
+%A Keegstra, K.
+%A Immerzeel, P.
+%A Pauly, M.
+%A Hawes, M. C.
+%D 2008
+%T Inducible expression of Pisum sativum xyloglucan fucosyltransferase in the pea root cap meristem, and effects of antisense mRNA expression on root cap cell wall structural integrity
+%J Plant Cell Reports
+%V 27
+%N 7
+%P 1125-1135
+%8 Jul
+%! Inducible expression of Pisum sativum xyloglucan fucosyltransferase in the pea root cap meristem, and effects of antisense mRNA expression on root cap cell wall structural integrity
+%@ 0721-7714
+%1 Plant Cell Walls~
+%3 1
+%M ISI:000256477200001
+%K fucose
+cell walls
+hairy roots
+root cap meristem
+arabidopsis-thaliana
+hairy root
+proteins
+polysaccharides
+plants
+genes
+elongation
+oligosaccharides
+growth
+endotransglucosylase/hydrolase
+%X Mitosis and cell wall synthesis in the legume root cap meristem can be induced and synchronized by the nondestructive removal of border cells from the cap periphery. Newly synthesized cells can be examined microscopically as they differentiate progressively during cap development, and ultimately detach as a new population of border cells. This system was used to demonstrate that Pisum sativum L. fucosyl transferase (PsFut1) mRNA expression is strongly expressed in root meristematic tissues, and is induced > 2-fold during a 5-h period when mitosis in the root cap meristem is increased. Expression of PsFut1 antisense mRNA in pea hairy roots under the control of the CaMV35S promoter, which exhibits meristem localized expression in pea root caps, resulted in a 50-60% reduction in meristem localized endogenous PsFut1 mRNA expression measured using whole mount in situ hybridization. Changes in gross levels of cell wall fucosylated xyloglucan were not detected, but altered surface localization patterns were detected using whole mount immunolocalization with CCRC-M1, an antibody that recognizes fucosylated xyloglucan. Emerging hairy roots expressing antisense PsFut1 mRNA appeared normal macroscopically but scanning electron microscopy of tissues with altered CCRC-M1 localization patterns revealed wrinkled, collapsed cell surfaces. As individual border cells separated from the cap periphery, cell death occurred in correlation with extrusion of cellular contents through breaks in the wall.
+%Z 309RF
+Times Cited:0
+Cited References Count:76
+%U <Go to ISI>://000256477200001
+%+ Hawes, MC
+Univ Arizona, Dept Plant Sci, Div Plant Pathol & Microbiol, Forbes Hall, Tucson, AZ 85721 USA
+Univ Arizona, Dept Plant Sci, Div Plant Pathol & Microbiol, Tucson, AZ 85721 USA
+Michigan State Univ, Dept Plant Biol, E Lansing, MI 48824 USA
+Michigan State Univ, Dept Energy, Plant Res Lab, E Lansing, MI 48824 USA
+Max Planck Inst Mol Plant Physiol, Plant Cell Wall Grp, D-14476 Golm, Germany
+%G English
+
+%0 Journal Article
+%A Weigelt, K.
+%A Kuster, H.
+%A Radchuk, R.
+%A Muller, M.
+%A Weichert, H.
+%A Fait, A.
+%A Fernie, A. R.
+%A Saalbach, I.
+%A Weber, H.
+%D 2008
+%T Increasing amino acid supply in pea embryos reveals specific interactions of N and C metabolism, and highlights the importance of mitochondrial metabolism
+%J Plant Journal
+%V 55
+%N 6
+%P 909-926
+%8 Sep
+%! Increasing amino acid supply in pea embryos reveals specific interactions of N and C metabolism, and highlights the importance of mitochondrial metabolism
+%@ 0960-7412
+%1 Fernie~Central Metabolism~
+%3 1
+%M ISI:000259221900002
+%K legume seed maturation
+amino acid metabolism
+c/n interaction
+nitrogen
+metabolic regulation
+mitochondria
+vicia-faba l
+seed-specific expression
+abscisic-acid
+medicago-truncatula
+ectopic expression
+mass-spectrometry
+sugar-starvation
+sucrose-synthase
+gene-expression
+phosphoenolpyruvate carboxylase
+%X The application of nitrogen to legumes regulates seed metabolism and composition. We recently showed that the seed-specific overexpression of amino acid permease VfAAP1 increases amino acid supply, and the levels of N and protein in the seeds. Two consecutive field trials using Pisum sativum AAP1 lines confirmed increases in the levels of N and globulin in seed; however, compensatory changes of sucrose/starch and individual seed weight were also observed. We present a comprehensive analysis of AAP1 seeds using combinatorial transcript and metabolite profiling to monitor the effects of nitrogen supply on seed metabolism. AAP1 seeds have increased amino acids and stimulated gene expression associated with storage protein synthesis, maturation, deposition and vesicle trafficking. Transcript/metabolite changes reveal the channelling of surplus N into the transient storage pools asparagine and arginine, indicating that asparagine synthase is transcriptionally activated by high N levels and/or C limitation. Increased C-acceptor demand for amino acid synthesis, resulting from elevated levels of N in seeds, initiates sucrose mobilization and sucrose-dependent pathways via sucrose synthase, glycolysis and the TCA cycle. The AAP1 seeds display a limitation in C, which leads to the catabolism of arginine, glutamic acid and methionine to putrescine, beta-alanine and succinate. Mitochondria are involved in the coordination of C/N metabolism, with branched-chain amino acid catabolism and a gamma-amino-butyric acid shunt. AAP1 seeds contain higher levels of ABA, which is possibly involved in storage-associated gene expression and the N-dependent stimulation of sucrose mobilization, indicating that a signalling network of C, N and ABA is operating during seed maturation. These results demonstrate that legume seeds have a high capacity to regulate N:C ratios, and highlight the importance of mitochondria in the control of N-C balance and amino acid homeostasis.
+%Z 348PH
+Times Cited:0
+Cited References Count:80
+%U <Go to ISI>://000259221900002
+%+ Weber, H
+Leibniz Inst Pflanzengenet & Kulturpflanzenfors, D-06466 Gatersleben, Germany
+Leibniz Inst Pflanzengenet & Kulturpflanzenfors, D-06466 Gatersleben, Germany
+Univ Bielefeld, Ctr Biotechnol, Inst Genome Res & Syst Biol, D-33615 Bielefeld, Germany
+Max Planck Inst Mol Pflanzenphysiol, D-14476 Potsdam, Germany
+%G English
+
+%0 Journal Article
+%A Weckwerth, W.
+%D 2008
+%T Integration of metabolomics and proteomics in molecular plant physiology - coping with the complexity by data-dimensionality reduction
+%J Physiologia Plantarum
+%V 132
+%N 2
+%P 176-189
+%8 Feb
+%! Integration of metabolomics and proteomics in molecular plant physiology - coping with the complexity by data-dimensionality reduction
+%@ 0031-9317
+%1 Weckwerth~Integrative Proteomics and Metabolomics~
+%3 1
+%M ISI:000252261900006
+%K flight mass-spectrometry
+hydrophilic interaction chromatography
+protein identification technology
+2-dimensional gas-chromatography
+quantitative shotgun proteomics
+liquid-chromatography
+pattern-recognition
+systems biology
+arabidopsis-thaliana
+capillary columns
+%X In recent years, genomics has been extended to functional genomics. Toward the characterization of organisms or species on the genome level, changes on the metabolite and protein level have been shown to be essential to assign functions to genes and to describe the dynamic molecular phenotype. Gas chromatography (GC) and liquid chromatography coupled to mass spectrometry (GC- and LC-MS) are well suited for the fast and comprehensive analysis of ultracomplex metabolite samples. For the integration of metabolite profiles with quantitative protein profiles, a high throughput (HTP) shotgun proteomics approach using LC-MS and label-free quantification of unique proteins in a complex protein digest is described. Multivariate statistics are applied to examine sample pattern recognition based on data-dimensionality reduction and biomarker identification in plant systems biology. The integration of the data reveal multiple correlative biomarkers providing evidence for an increase of information in such holistic approaches. With computational simulation of metabolic networks and experimental measurements, it can be shown that biochemical regulation is reflected by metabolite network dynamics measured in a metabolomics approach. Examples in molecular plant physiology are presented to substantiate the integrative approach.
+%Z 249WV
+Times Cited:0
+Cited References Count:79
+%U <Go to ISI>://000252261900006
+%+ Weckwerth, W
+Max Planck Inst Mol Planzenphysiol, Dept Metab Network, Am Muhlenberg 1, D-14476 Potsdam, Germany
+Max Planck Inst Mol Planzenphysiol, Dept Metab Network, D-14476 Potsdam, Germany
+Univ Potsdam, Dept Biochem & Biol, GoFORSYS, D-14469 Potsdam, Germany
+%G English
+
+%0 Journal Article
+%A Waadt, R.
+%A Schmidt, L. K.
+%A Lohse, M.
+%A Hashimoto, K.
+%A Bock, R.
+%A Kudla, J.
+%D 2008
+%T Multicolor bimolecular fluorescence complementation reveals simultaneous formation of alternative CBL/CIPK complexes in planta
+%J Plant Journal
+%V 56
+%N 3
+%P 505-516
+%8 Nov
+%! Multicolor bimolecular fluorescence complementation reveals simultaneous formation of alternative CBL/CIPK complexes in planta
+%@ 0960-7412
+%1 Bock~Organelle Biology, Biotechnology and Molecular Ecophysiology~Integrative Carbon Biology~
+%3 1
+%M ISI:000260308800014
+%K protein-protein interaction
+bimolecular fluorescence complementation
+multicolor bimolecular fluorescence complementation
+calcium signaling
+cbl
+cipk
+protein-protein interactions
+living cells
+fragment complementation
+visualization
+arabidopsis
+system
+family
+identification
+localization
+ubiquitin
+%X The specificity of intracellular signaling and developmental patterning in biological systems relies on selective interactions between different proteins in specific cellular compartments. The identification of such protein-protein interactions is essential for unraveling complex signaling and regulatory networks. Recently, bimolecular fluorescence complementation (BiFC) has emerged as a powerful technique for the efficient detection of protein interactions in their native subcellular localization. Here we report significant technical advances in the methodology of plant BiFC. We describe a series of versatile BiFC vector sets that are fully compatible with previously generated vectors. The new vectors enable the generation of both C-terminal and N-terminal fusion proteins and carry optimized fluorescent protein genes that considerably improve the sensitivity of BiFC. Using these vectors, we describe a multicolor BiFC (mcBiFC) approach for the simultaneous visualization of multiple protein interactions in the same cell. Application to a protein interaction network acting in calcium-mediated signal transduction revealed the concurrent interaction of the protein kinase CIPK24 with the calcium sensors CBL1 and CBL10 at the plasma membrane and tonoplast, respectively. We have also visualized by mcBiFC the simultaneous formation of CBL1/CIPK1 and CBL9/CIPK1 protein complexes at the plasma membrane. Thus, mcBiFC provides a useful new tool for exploring complex regulatory networks in plants.
+%Z 364AO
+Times Cited:0
+Cited References Count:40
+%U <Go to ISI>://000260308800014
+%+ Kudla, J
+Univ Munster, Inst Bot & Bot Garten, Schlosspl 4, D-48149 Munster, Germany
+Univ Munster, Inst Bot & Bot Garten, D-48149 Munster, Germany
+Max Planck Inst Mol Pflanzenphysiol, D-14476 Potsdam, Germany
+%G English
+
+%0 Journal Article
+%A Vigeolas, H.
+%A Chinoy, C.
+%A Zuther, E.
+%A Blessington, B.
+%A Geigenberger, P.
+%A Domoney, C.
+%D 2008
+%T Combined metabolomic and genetic approaches reveal a link between the polyamine pathway and albumin 2 in developing pea seeds
+%J Plant Physiol
+%V 146
+%N 1
+%P 74-82
+%8 Jan
+%! Combined metabolomic and genetic approaches reveal a link between the polyamine pathway and albumin 2 in developing pea seeds
+%O Plant physiology
+%@ 0032-0889 (Print)
+%1 Geigenberger~Storage Carbohydrate Metabolism~
+%3 1
+%M 18024559
+%X Several legume seed proteins that are potentially allergenic, poorly digested by farm animals, and/or have undesirable functional properties, have been described. One of these is the albumin protein in pea (Pisum sativum) called PA2. A naturally occurring mutant line that lacks PA2 has been exploited in studies to determine the biological function of this nonstorage protein in seed development. The mutant, which has a small seed, a tall plant phenotype, and lacks most of the PA2-encoding genes, has been crossed with a standard cultivar, 'Birte,' which contains PA2 to give rise to a recombinant inbred (RI) population. An F(3) line carrying the mutation and having a short plant phenotype has been used to generate backcross (BC) lines with 'Birte.' Despite having a lower albumin content, seeds from the mutant parent and RI lines lacking PA2 have an equivalent or higher seed nitrogen content. Metabolite profiling of seeds revealed major differences in amino acid composition and polyamine content in the two parent lines. This was investigated further in BC lines, where the effects of differences in seed size and plant height between the two parents were eliminated. Here, differences in polyamine synthesis were maintained as was a difference in total seed protein between the BC line lacking PA2 and 'Birte.' Analysis of enzyme activities in the pathways of polyamine synthesis revealed that the differences in spermidine content were attributable to changes in the overall activities of spermidine synthase and arginine decarboxylase. Although the genes encoding spermidine synthase and PA2 both localized to the pea linkage group I, the two loci were shown not to be closely linked and to have recombined in the BC lines. A distinct locus on linkage group III contains a gene that is related to PA2 but expressed predominantly in flowers. The results provide evidence for a role of PA2 in regulating polyamine metabolism, which has important functions in development, metabolism, and stress responses in plants.
+%Z Journal Article
+Research Support, Non-U.S. Gov't
+United States
+%U http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&dopt=Citation&list_uids=18024559 
+%+ Max-Planck Institute of Molecular Plant Physiology, 14476, Golm, Germany.
+%G eng
+

@@ -1,0 +1,828 @@
+%0 Book
+%A Billoski, T.V.
+%A Casasanto, Daniel
+%A Thiry, M.
+%A Parker, Betty J.
+%D 1992
+%T Introduction to Paleontology 2
+%C New York
+%I Institutional Press
+%P 212
+%7 6th
+%! Intro Paleontology 2
+%@ 0999527849
+%K Excavation
+Extinction
+%X Introductory text book for college-level students exploring the latest scientific discoveries, disputed theories of dinosaur extinction, and newest excavation, dating, and DNA restructuring techniques.
+%Z has good color photos
+%U www.test.de
+%> internal-pdf://1002.1097-2999397633/1002.1097.pdf
+%+ Max Planck Society
+University of Munich
+University of Helsinki
+%\ 1993-09
+%= 1999-12
+%G English
+
+
+%0 Book
+%A Cioffarelli, Ada
+%A Natale, Maria Teresa
+%A Narasimhan, Bhuvana
+%A Tacitus, Cornelius
+%D 2000
+%T Guide to the catacombs of Rome and its surroundings
+%E Kan, Cornelis C.
+%E Tacitus, Cornelius
+%B Percorsi archeologici
+%C Rome
+%I Bonsignori
+%V 6
+%6 19
+%N 3
+%P 135
+%7 English
+%? Edwards, Lucy E.
+%! Rome
+%O cat. Rome
+%@ 8875973237
+%L LC: DG807.4; Dewey: 937
+%K Catacombs -- Italy -- Rome -- Guidebooks. 
+Cemeteries -- Italy -- Rome -- Guidebooks.
+Rome (Italy) -- Description and travel.
+%X In diesem Buch gehts um Rom.
+%Z Rom ist eine schöne Stadt.
+%< In Rom gibt es viel zu sehen ... auch für Wissenschaftler.
+%+ University Vienna
+University Rome
+Max Planck Society
+%\ 2000-07-01
+%= 12.9.2008
+%Q Rom
+%G Englisch
+Deutsch
+
+
+%0 Book Section
+%A Basso, Ellen B.
+%A Senft, Gunter
+%D 2009
+%T Introduction
+%B Ritual communication
+%C Munich
+%P 1-19
+%& 5
+%? Haines, Tim
+%E Zwitserlood, Pienie
+%! Rituals
+%@ 187909-23234-4545-655
+%K Rituale
+Kommunikation
+Andere Welten
+%X In diesem Buchkapitel gehts um rituelle Kommunikation ... was das wohl ist?
+%Z Spannend.
+%U www.test.de
+%> internal-pdf://Reinisch_Early_Use_QJEP_2010-4191082241/Reinisch_Early_Use_QJEP_2010.pdf
+%+ University of Arizona (emerita)
+Language and Cognition Group, MPI for Psycholinguistics, Max Planck Society
+Categories across Language and Cognition, MPI for Psycholinguistics, Max Planck Society
+%= Jan 2010
+%Q Rituelle Kommunikation
+%G Language: eng
+
+
+%0 Book Section
+%A Enfield, N. J.
+%D 2009
+%T Everyday ritual in the residential world
+%B Ritual communication
+%C Kapstadt
+%I Springer
+%V 2
+%6 5
+%P 51-80
+%& 3
+%7 4th
+%! Rituals
+%O Rits
+%@ 76893-580-344-4
+%K Rituale
+Kommunikation
+residential world
+%X Schon wieder gehts um rituelle Kommunikation ... na sowa. Am besten packen wir noch ein paar Umlaute hinein ... äää üüü ööö ... mal schauen was daraus wird.
+%Z auch sehr spannend
+%< Enthält Forschungsdaten.
+%+ Language and Cognition Group, MPI for Psycholinguistics, Max Planck Society
+Language documentation and data mining
+Multimodal Interaction, MPI for Psycholinguistics, Max Planck Society
+%\ 2010-01
+%Q Rituelle Kommunikation
+%G Language: eng
+
+
+%0 Conference Paper
+%A Cutler, Anne
+%A El Aissati, A.
+%A Hanulikova, Adriana
+%A McQueen, James M.
+%D 2010
+%T Effects on speech parsing of vowelless words in the phonology
+%B Abstracts in Laboratory Phonology 12
+%C University of New Mexico in Albuquerque, NM
+%I University of New Mexico
+%8 2010-08
+%R 8920729300000
+%K speech
+words
+phonology
+%X Topic: Effects on speech parsing of vowelless words in the phonology
+%Z interesting event
+%< contains research data
+%U www.test.de
+%> internal-pdf://AMLAP09-0550430977/AMLAP09.pdf
+%+ Language Comprehension Group, MPI for Psycholinguistics, Max Planck Society
+Adaptive Listening, MPI for Psycholinguistics, Max Planck Society
+Language Comprehension Group, MPI for Psycholinguistics, Max Planck Society
+%\ 2010-03-12
+%= dec 2009
+%G eng
+
+
+%0 Conference Paper
+%A Harbusch, Karin
+%A Kempen, Gerard
+%D 2009-08-12
+%T Clausal coordinate ellipsis and its varieties in spoken German: A study with the Treebank of the VERBMOBIL corpus
+%B Proceedings of the The Eighth International Workshop on Treebanks and Linguistic Theories
+%C Milan
+%I MPS
+%8 13.08.2009
+%K language
+german
+%X topic: Clausal coordinate ellipsis and its varieties in spoken German: A study with the Treebank of the VERBMOBIL corpus
+%Z date of event: 2009-12-04 - 2009-12-05
+83-94
+%< contains research data
+%U www.mpi.nl
+%+ Department of Computer Science, University of Koblenz-Landau
+Other Research, MPI for Psycholinguistics, Max Planck Society
+%\ nov 2009
+%= jan 2010
+%Q Hier steht der übersetzte Titel
+%G Language: eng
+
+
+%0 Conference Proceedings
+%A Bensalah, M.
+%A Benest, M.
+%A Truc, G.
+%D 1998
+%T Relation between emersion phase and compressive Lutetian tectonics in the southern Tellian basin (Algeria)
+%B Comptes rendus des séances de l'Academie des sciences. Série II, Mécanique, physique, chimie, sciences de l'univers, sciences de la terre
+%C Paris
+%I University of Paris
+%V 89
+%6 102
+%P 124-140
+%7 1st
+%8 January 13
+%! Hier steht der Kurztitel
+%@ 1892038629989-79
+%K Archaeology
+Educational Finance
+Triceratops
+%X Topic: Relation between emersion phase and compressive Lutetian tectonics in the southern Tellian basin (Algeria)
+%Z intersting proceeding
+%< contains supplementary material
+%U www.test.de
+%> internal-pdf://Enfield_2007_Tolerable%2520Friends-1171191041/Enfield_2007_Tolerable%2520Friends.pdf
+%\ 2010-01
+%= nov 2007
+%Q Hier steht der übersetzte Titel
+%G French; Summaries in English.
+
+
+%0 Conference Proceedings
+%A Lutz, Timothy M.
+%A Orfanidou, Eleni
+%A Parker, Franklin
+%A Zwitserlood, Pienie
+%A Ganushchak, Lesya
+%A Jesse, Alexandra
+%A Jesse, Alexandra
+%A Thiry, M.
+%A Lieven, Elena
+%A Lindsay, S J
+%A Maris, Eric
+%A Ekman, Paul
+%A Zhemchuzhnikov, V.G.
+%D 1986
+%T Evaluating periodic, episodic and Poisson models: Reversals and meteorite impacts
+%E Taluv, M.
+%E Carson, J.
+%B Geological Society of America 99th Annual Meeting Abstracts with Program
+%C Bozeman, Mont.
+%I Geological Society of America
+%V 1
+%P 677
+%7 1st
+%8 July 28
+%! Kurztitel
+%@ 7896-5647-908
+%K Online Search Tool
+Paleontology
+Lesson planning
+Educational Finance
+
+%X topic: Evaluating periodic, episodic and Poisson models: Reversals and meteorite impacts
+%Z interesting event
+%< with supplementary material
+%U www.test.de
+%+ University of Vienna
+University of Hamburg
+%= aug 2009
+%Q übersetzter titel
+%G eng
+
+
+%0 Edited Book
+%A Zwitserlood, Pienie
+%A Olde Rikkert, Marcel G. M.
+%A Warner, Natasha
+%A Gabe, Manfred
+%D 2009
+%T Ritual communication
+%E Senft, Gunter
+%E Basso, Ellen B.
+%B Wenner-Gren International Symposium Series
+%C Oxford
+%I Berg
+%V 2
+%6 4
+%7 3rd
+%! rit com
+%O rituelle kommunikation
+%@ 9781847882950
+%K Rituale
+Kommunikation
+language
+residential world
+Triceratops
+%X Topic: Ritual communication
+%Z nice illustration
+%< contains suppl mat
+%U www.test.de
+%> internal-pdf://Enfield_2010_Oratie-2060386561/Enfield_2010_Oratie.pdf
+%+ Language documentation and data mining, PI for Psycholinguistics, Max Planck Society
+Language and Cognition Group, MPI for Psycholinguistics, Max Planck Society
+Categories across Language and Cognition, MPI for Psycholinguistics, Max Planck Society
+University of Arizona (emerita)
+%= aug 2009
+%Q übersetzter titel
+%G Language: eng
+
+
+%0 Electronic Article
+%A Polly, P. David
+%A Palencia, E.S.
+%A Edwards, Lucy E.
+%A Rapold, Christian J.
+%D 2004
+%T On the Simulation of the Evolution of Morphological Shape:  Multivariate Shape Under Selection and Drift
+%B Palaeontologia Electronica
+%V 7
+%N 2
+%8 April 19, 2005
+%O alternativer titel
+%@ 1094-8074
+%R 7.2.7A
+%K evolutionary rates; genetic drift; molar teeth; morphological evolution; phenotypic covariances; selection; Sorex (Soricidae, Lipotyphla, Mammalia); stasis; shrew
+%X Stochastic computer simulation is an important method for comparing the evolutionary patterns and processes associated with radically different intervals of time. This paper demonstrates how to simulate the evolution of complex morphologies over geological timescales of millions of generations. The simulations are used to test how various assumptions about microevolutionary parameters and processes manifest themselves on macroevolutionary timescales. Complex morphology is modelled using geometric representations of shape (e.g., landmarks or outlines), and so the procedure described here is limited to single rigid structures. The procedure is based on empirically measured phenotypic correlations, which constrain the evolutionary outcomes in biologically realistic ways. Different microevolutionary assumptions about covariances, population size, and evolutionary mode can be tested by incorporating them into the simulation parameters. 
+The evolution of molar tooth morphology in shrews is simulated under four different evolutionary modes: (1) randomly fluctuating selection; (2) directional selection; (3) stabilizing selection; and (4) genetic drift. Each of these modes leaves a distinctive imprint on the distribution of morphological distances, a feature that can be used to reconstruct the mode from real comparative data. A comparison of the results with real data on shrew molar diversity suggests that teeth have evolved predominantly by randomly fluctuating selection. The rate of divergence in shrew molars is greater than expected under drift, but it is neither linear nor static as expected with directional or stabilizing selection. 
+The evolution of morphology with randomly fluctuating selection is also simulated on a phylogenetic tree. Daughter species share derived morphologies and positions within the principal components spaces in which the simulation is run. This result suggests that phylogeny can be successfully reconstructed from multivariate morphometric data when organisms have evolved under any mode except strong stabilizing selection.
+%< contains sup. mat.
+%U http://palaeo-electronica.org/2004_2/evo/issue2_04.htm
+%> internal-pdf://Stivers_Mobilizing_Respon-2412827905/Stivers_Mobilizing_Response_Res_Lang_Soc_Interact_2010.pdf
+%= jan 2010
+%Q übersetzter titel
+%G English
+
+
+%0 Electronic Book
+%A Ludvigsen, Rolf
+%A Chatterton, Brian
+%D 2004
+%T Past lives:  Chronicles of Canadian Paleontology
+%I Natural Resources Canada, Earth Sciences Sector, Geological Survey of Canada 
+%B a fairy tale
+%8 April 22, 2004
+%EE MPS
+%9 ebook
+%@ 192703-9803-45
+%K Canada; fossil; paleontology
+%X Stories, accounts, and anecdotes from or about the people who discovered, collected, or studied Canadian fossils.  This information is the shortened form of a book manuscript that will soon be submitted to be published using the title "Past lives: Chronicles of Canadian paleontology."
+%Z great illustrations
+%U http://gsc.nrcan.gc.ca/paleochron/index_e.php
+%> internal-pdf://Weber_JASA_2009-4207872769/Weber_JASA_2009.pdf
+%= November 8, 2004
+%Q übersetzter titel
+%G English
+
+
+%0 Generic
+%A Adam, Robert
+%A de Rover, Mischa
+%A de Boer, Miriam
+%A Barth, Andre C. R.
+%D 1990
+%T New Mexico Geological Society publications collection, 1950-1990
+%E Gabe, Manfred
+%E Habets, Boukje
+%B new mexico
+%C Santa Fe, N.M.
+%I New Mexico Geological Society
+%V 2
+%6 5
+%N 1
+%P 2 linear feet
+%& nature
+%Y Hagadorn, Whitey
+%E Kan, Cornelis C.
+%S mexico geo
+%7 1st
+%8 2007-08-12
+%9 archival material
+%? Habets, Boukje
+%! kurztitel
+%Z geo
+%@ 6798-6897-475-234
+%* revied item
+%M 37896374
+%K Geology -- New Mexico -- Guidebooks
+Geology -- Colorado -- Guidebooks
+Geology -- Arizona -- Guidebooks
+Mining districts -- New Mexico
+Geology -- New Mexico -- Maps
+New Mexico -- Description and travel
+%X Collection consists of guidebooks for New Mexico and Arizona...
+%Z interesting
+%< contains research data
+%U www.test.de
+%+ max planck society
+university of london
+%= nov 2008
+%H Taluv, M.
+%E Gabe, Manfred
+%Q übersetzter tital
+%G eng
+
+
+%0 Generic
+%A Matic, Dejan
+%D 2007
+%T Review of "A Historical Dictionary of Kolyma Yukaghir" by Irina Nikolaeva (Berlin: Mouton de Gruyter, 2006)
+%E Zhemchuzhnikov, V.G.
+%B a review
+%C berlin
+%I springer
+%V 1
+%6 1
+%P 234
+%& history
+%Y Raup, D. M.
+%S Historical Dictionary
+%7 1st
+%8 2009-08-12
+%9 review
+%? Hagoort, Peter
+%! kurztitel
+%Z alternativer tital
+%@ 7892-9809-323
+%* reviewed item
+%K Handle (82)
+Kommunikation
+Donors
+Bibliography Maker
+Magnets
+%X topic: Review of "A Historical Dictionary of Kolyma Yukaghir" by Irina Nikolaeva (Berlin: Mouton de Gruyter, 2006)
+
+%Z interesting
+%< contains supl. mat.
+%U www.test.de
+%> internal-pdf://Pyykkonen_Three_year_olds_Lang_Cog_Proc_2010-0634328833/Pyykkonen_Three_year_olds_Lang_Cog_Proc_2010.pdf
+%+ Syntax, Typology, and Information Structure, MPI for Psycholinguistics, Max Planck Society
+%\ 2009
+%= nov 2009
+%H Bartschwinkler, S.
+%Q übersetzter titel
+%G Language: eng
+
+
+%0 Generic
+%A Raup, D. M.
+%A Ramirez-Rozzi, Fernando
+%A Reinisch, Eva
+%A Warner, Natasha
+%A Hagadorn, Whitey
+%D 1974
+%T Geophysical Research Letters
+%E Orfanidou, Eleni
+%E Rekkab, D.
+%B Sedimentary Geology
+%C Washington, D.C.
+%I American Geophysical Union
+%V Vol. 1 (May 1974)-
+%6 4
+%P 23
+%& nature
+%Y Kelly, Spencer D.
+%E Olde Rikkert, Marcel G. M.
+%S anderer titel
+%7 2nd
+%8 2007-09-12
+%9 serial
+%? Fawcett, Christine
+%E Sauter, Disa
+%! kurztitel
+%Z geo
+%@ 0094-8276
+%L QE500 .G37
+%K Geophysics Periodicals
+Planets Periodicals
+Lunar geology Periodicals
+%X topic: Geophysical Research Letters
+%Z Description based on: vol. 13, no. 4, Apr. 1986.
+Semimonthly, 1992-
+Monthly, -1991
+%< contains sup. mat.
+%U www.test.de
+%> internal-pdf://Enfield_2007_Tolerable%2520Friends-1305541121/Enfield_2007_Tolerable%2520Friends.pdf
+%+ American Geophysical Union, 1909 K St. N.W., Washington, DC 20006
+%= nov 2009
+%Q übersetzter tital
+%G eng
+de
+
+
+%0 Journal Article
+%A Allen, J.R.L.
+%A Edwards, Lucy E.
+%A Gabe, Manfred
+%A Kan, Cornelis C.
+%D 1988
+%T Modern-period muddy sediments in the severn estuary (Southwestern UK) - A pollutant-based model for dating and correlation
+%J Sedimentary Geology
+%V 58
+%N 1
+%P 13
+%& 10
+%8 23
+%9 scientific article
+%! kurztitel
+%O Sedimentary Geology
+
+%@ 839902088498
+%* reviewed item
+%K Higher Education
+Science Activities
+Educational Finance
+Astronomy
+%X hier sollte der abstract stehen
+%Z interesting journal article
+%< with suppl. mat.
+%U www.test.de
+%> internal-pdf://NS2010_abstract_Tuinman-3184473857/NS2010_abstract_Tuinman.pdf
+%+ max planck society
+
+%= nov 2009
+%Q übersetzter titel
+%G eng
+
+
+%0 Journal Article
+%A Andics, Attila
+%A McQueen, James M.
+%A Petersson, Karl Magnus
+%A GÃ¡l, Viktor
+%A Rudas, GÃ¡bor
+%A VidnyÃ¡nszky, ZoltÃ¡n
+%D 2010
+%T Neural mechanisms for voice recognition
+%J psycholinguistic journal
+%V 23
+%N 2
+%P 8
+%& 12
+%8 2010
+%9 scientific article
+%! kurztitel
+%O Psychological Science
+%@ 3679124020876
+%K Higher Education
+Lesson planning
+Dinosaurs
+Terrace Mountain West Quadrangle (Utah).
+%X space for an abstract
+%Z interesting paper
+%< contains research data
+%U www.test.de
+%+ Language Comprehension Group, MPI for Psycholinguistics, Max Planck Society
+MR Research Center, SzentÃ¡gothai JÃ¡nos Knowledge Center, Semmelweis University, Budapest, Hungary
+Donders Institute for Brain, Cognition and Behaviour, External Organizations
+Language Comprehension Group, MPI for Psycholinguistics, Max Planck Society
+Donders Institute for Brain, Cognition and Behaviour, External Organizations
+Neurobiology of Language Group, MPI for Psycholinguistics, Max Planck Society
+MR Research Center, SzentÃ¡gothai JÃ¡nos Knowledge Center, Semmelweis University, Budapest, Hungary
+Neurobionics Research Group, Hungarian Academy of Sciences â€“ PÃ©ter PÃ¡zmÃ¡ny Catholic University Semmelweis University, Budapest, Hungary
+MR Research Center, SzentÃ¡gothai JÃ¡nos Knowledge Center, Semmelweis University, Budapest, Hungary
+MR Research Center, SzentÃ¡gothai JÃ¡nos Knowledge Center, Semmelweis University, Budapest, Hungary
+Neurobionics Research Group, Hungarian Academy of Sciences â€“ PÃ©ter PÃ¡zmÃ¡ny Catholic University Semmelweis University, Budapest, Hungary
+%\ jan 2010
+%= nov 2009
+%Q übersetzter titel
+%G de
+eng
+
+
+%0 Journal Article
+%A Apollonov, M.K.
+%A Chugaeva, M.N.
+%A Dubinina, S.V.
+%A Zhemchuzhnikov, V.G.
+%D 1988
+%T Batyrbay section, South Kazakhstan, USSR - Potential stratotype for the Cambrian-Ordovician boundary
+%J Geological Magazine
+%V 125
+%N 4
+%P 445
+%& 1
+%8 2009-12-23
+%9 scientific article
+%! kurztitel
+%O geological Magazine II
+%@ 372040924369
+%* reviewed item
+%K Catacombs -- Italy -- Rome -- Guidebooks.
+Caves -- New Mexico
+Bibliography Maker
+Natural history museums -- Exhibitions
+%X space vor an abstract
+%Z time for notes
+%< for all scienticts of the world
+%U www.test.de
+%> internal-pdf://Casasanto_Motor_Action_Cognition_final_2010_-3251599873/Casasanto_Motor_Action_Cognition_final_2010_.pdf
+%+ university of glasgow
+university of verona
+%\ march 2010
+%= 2009-07
+%Q übersetzter titel
+%G english
+
+
+%0 Magazine Article
+%A Bethune, Brian
+%D 2001
+%T Weird world: Australian mammalogist T. F. Flannery marvels at the strange prehistory of North America
+%B Maclean's
+%V 114
+%6 monthly
+%N 28
+%P 49
+%7 1st
+%8 July 9
+%9 geographic article
+%! kurztitel
+%O other magazine
+%@ 2340346899
+%K Paleontology -- North America
+Flannery, Tim F. (Tim Fridjof), 1956-
+%X The writer discusses renowned Australian ecologist Tim Flannery's book...
+%Z time for notes
+%< scientific topic
+%U www.test.de
+%+ university of monaco
+university of tunis
+%\ jan 2010
+%Q übersetzter titel
+%G eng
+
+
+%0 Magazine Article
+%A Trivette, Don
+%A Taluv, M.
+%A Van Berkum, Jos J. A.
+%A Natale, Maria Teresa
+%D 1994
+%T 3-D Dinosaur Adventure brings Jurassic age to life
+%B PC Magazine
+%V 13
+%6 every two weeks
+%N 5
+%P 452
+%7 1st
+%8 March 15
+%9 software review
+%! kurtztitel
+%O pc magazine II
+%@ 732904203297
+%* reviewd item
+%K Reference; Software Review; CD-ROM; Animals
+%X space for an abstract
+%Z time for notes
+%< also interesting for researchers
+%U www.test.de
+%> internal-pdf://Burki_Is_There_only_Jou_Mem-0332375041/Burki_Is_There_only_Jou_Memo_Lang_2010_advance_online.pdf
+%+ max planck digital library
+%\ march 2010
+%= feb 2010
+%Q übersetzter titel
+%G eng
+de
+fra
+
+
+%0 Manuscript
+%A Thiry, M.
+%A Ayrault, M.B.
+%A Grisoni, J.C.
+%D 2002
+%T Ground-water silicification and leaching in sands - Example of the Fontainebleau sand (Oligocene) in the Paris basin
+%B manuscript collection
+%C munich
+%I mpdl
+%V 3
+%6 23
+%N 2
+%P 12
+%8 2009-08-12
+%9 scientific manuscript
+%! kurztitel
+%K geology
+language
+Caves -- New Mexico
+Natural history museums -- Exhibitions
+%X space for an abstract
+%Z time for notes
+%< scientific interesting
+%U www.test.de
+%> internal-pdf://Levelt_Kunnen_lezen_1997-0332422401/Levelt_Kunnen_lezen_1997.pdf
+%+ university of munich
+%\ nov 2009
+%= feb 2010
+%Q übersetzter titel
+%G eng
+de
+
+
+%0 Newspaper Article
+%A Chang, Kenneth
+%A Kan, Cornelis C.
+%A Lebedev, Sergei Aleksandrovich
+%D 2002
+%T Oldest Bacteria Fossils? Or Are They Merely Tiny Rock Flaws?
+%B New York Times
+%C new york
+%V 1
+%6 daily
+%N 2
+%P 4
+%& biology
+%7 4th
+%8 Mar 12
+%9 newspaper article
+%! kurztitel
+%@ 232043927908
+%* reviewed item
+%K Fossils
+Bacteria
+Biology
+Paleontology
+Stone
+%X In the same issue, scientists led by Dr. J. William Schopf, a professor of paleobiology at the University of California at Los Angeles who first described the features as fossils in 1993, counter with another paper, arguing that they now have even better evidence that the features are indeed fossils...
+%Z time for notes
+%< scientific notes
+%U www.test.de
+%> internal-pdf://Levelt_Kunnen_lezen_1997-0214940161/Levelt_Kunnen_lezen_1997.pdf
+%\ feb 2010
+%= march 2010
+%Q übersetzter titel
+%G eng
+
+
+%0 Report
+%A Trift, M.
+%A Degraciansky, P.C.
+%D 1998
+%T Aspects of the tethyan rifting - small scale grabens and mega-breccias of late liassic age on top of the Emparis plateau (Isere and Hautes-Alpes, France)
+%EE mps
+%B geographic things
+%C Austin, Tex.
+%I Institute for Tethyan Rifting
+%N 2
+%P 23
+%8 January 6
+%9 internal report
+%! kurztitel
+%O anderer titel
+%@ 88-101
+%/ 1 abstract
+2 introduction
+3 main part
+4 conclusion
+%K fossil
+High Schools
+Manuscript Manager
+Lesson planning
+%X space for an abstract
+%Z time for notes
+%< scientific notes
+%U www.test.de
+%\ apr 2010
+%= feb 2010
+%Q übersetzter titel
+%G eng
+
+
+%0 Report
+%A Van Valin Jr, Robert D.
+%D 2009
+%T Information structure in Bana, Wari and Kariti: An overview [Report to US National Science Foundation]
+%C nijmegen
+%I mpi pl
+%N 3
+%P 12
+%8 2009-11-23
+%9 report
+%! kurztitel
+%O anderer titel
+%@ 3
+%/ 1 introduction
+2 main part
+3 the end
+%L 01286-9306298
+%K Handle (82)
+natural History
+%X Report to US National Science Foundation regarding project â€˜Information structure and syntax in selected Amazonian languagesâ€™. Award number 0344361
+%Z eterms:URI : http://wings.buffalo.edu/linguistics/people/faculty/vanvalin/infostructure/Site/Intro.html
+%< scientific notes
+%U www.test.de
+%> internal-pdf://Xian_Topographica-1255136257/Xian_Topographical_Functional_Connectivity_Cereb_Cort_2010.pdf
+%+ Syntax, Typology, and Information Structure, MPI for Psycholinguistics, Max Planck Society
+%\ nov 2009
+%Q übersetzter titel
+%G Language: eng
+
+
+%0 Thesis
+%A De Ruiter, Laura E.
+%D 2010
+%T Studies on intonation and information structure in child and adult German
+%B MPI Series in Psycholinguistics vol. 54
+%C nijmegen
+%I Radboud University Nijmegen
+%V phd
+%P 200
+%Y pl, mpi
+%8 2010-01-01
+%9 http://purl.org/escidoc/metadata/ves/academic-degrees/phd
+%! kurztitel
+%K Teeth, Fossil -- Omo River Valley (Ethiopia and Kenya)
+CD-ROM
+%X space vor an abstract
+%Z time for notes
+%< scientific notes
+%U www.test.de
+%+ Language Acquisition Group, MPI for Psycholinguistics, Max Planck Society
+Information Structure in Language Acquisition, MPI for Psycholinguistics, Max Planck Society
+%Q übersetzter titel
+%G eng
+de
+
+
+%0 Thesis
+%A Pollard, D.D.
+%A Aydin, A.
+%D 1998
+%T Progress in understanding jointing over the past century
+%B Dept. of Geology
+%C nijmegen
+%I Univ. of Texas at Austin
+%V Ph. D.
+%P 104
+%Y pl, mpi
+%8 1998-12-23
+%9 dissertation
+%! kurztitel
+%K Handhold pneumatic impact handpiece (50)
+Dental anthropology -- Omo River Valley (Ethiopia and Kenya)
+Natural History
+%X space for an abstract
+%Z time for notes
+%< scientific notes
+%U www.test.de
+%> internal-pdf://Stivers_Mobilizing_Respon-0735049217/Stivers_Mobilizing_Response_Res_Lang_Soc_Interact_2010.pdf
+%= feb 2010
+%Q übersetzter titel
+%G de
+fra
+english

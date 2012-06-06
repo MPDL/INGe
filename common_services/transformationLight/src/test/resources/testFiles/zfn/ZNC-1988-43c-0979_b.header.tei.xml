@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" 
+ xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Do Monoclonal Antibodies Recognize Linear Sequential Determinants?</title>
+			</titleStmt>
+			<publicationStmt>
+				<date type="published" when="1988" />
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">Matilde</forename>
+								<surname>Camera</surname>
+							</persName>
+							<affiliation>
+								<orgName type="institution">Regina Elena Institute for Cancer Research</orgName>
+								<address>
+									<addrLine>Viale Regina Elena 291</addrLine>
+									<postCode>1-00161</postCode>
+									<settlement>Rome</settlement>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Eleonora</forename>
+								<surname>Muratti</surname>
+							</persName>
+							<affiliation>
+								<orgName type="institution">Regina Elena Institute for Cancer Research</orgName>
+								<address>
+									<addrLine>Viale Regina Elena 291</addrLine>
+									<postCode>1-00161</postCode>
+									<settlement>Rome</settlement>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Maria</forename>
+								<forename type="middle">Luisa</forename>
+								<surname>Trinca</surname>
+							</persName>
+							<affiliation>
+								<orgName type="institution">Regina Elena Institute for Cancer Research</orgName>
+								<address>
+									<addrLine>Viale Regina Elena 291</addrLine>
+									<postCode>1-00161</postCode>
+									<settlement>Rome</settlement>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Alberto</forename>
+								<surname>Chersi</surname>
+							</persName>
+							<affiliation>
+								<orgName type="institution">Regina Elena Institute for Cancer Research</orgName>
+								<address>
+									<addrLine>Viale Regina Elena 291</addrLine>
+									<postCode>1-00161</postCode>
+									<settlement>Rome</settlement>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Do Monoclonal Antibodies Recognize Linear Sequential Determinants?</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Z. Naturforsch</title>
+						<imprint>
+							<biblScope type="vol">43</biblScope>
+							<biblScope type="fpage">967</biblScope>
+							<biblScope type="lpage">970</biblScope>
+							<date type="published" when="1988" />
+						</imprint>
+					</monogr>
+					<note type="submission">received March 28/September 9, 1988</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<list>
+						<item>
+							<term>Monoclonal Antibodies</term>
+						</item>
+						<item>
+							<term>Linear Sequential Determinants</term>
+						</item>
+					</list>
+				</keywords>
+			</textClass>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+<p>A group of 19 anti-class II monoclonal antibodies produced in different laboratories were tested in ELISA for their ability to bind to a panel of synthetic peptides selected from HLA-DQ alpha and beta chains. No one of the anti-bodies tested was found to react with the synthetic fragments, thus confirming the common finding that MoAbs generally fail to recognize fragments of the native antigen. The possibility that this result might be partly due to the procedure used for screening hybridoma supernatants is discussed. The antigenic sites of proteins are architecturally of two types: they may comprise residues that are on a continuous segment of the protein chain [1], or are distant in sequence but, due to the folding of the polypeptide chain, come into close spatial proximity (discontinuous sites) [2], Immune serum antibodies to an intact protein may be directed against both alternative site architectures, and their relative pro-portions may vary considerably from protein to protein [3, 4]; monoclonal antibodies (MoAbs), on the contrary, appear to react preferentially with native conformations or discontinuous determinants [5]. Since antibodies that bind to a peptide do exist in conventional antisera raised against a protein or a cell [3, 6, 7], some of the MoAbs prepared by the hybridoma technique might occasionally recognize a linear amino acid stretch of the immunogen. Hence, by testing the ability of several MoAbs to bind to synthetic peptides selected from the amino acid sequence of the immunogen, it might be possible to select these that bind to a known epitope of the protein. Such MoAbs would be of considerable help in Abbreviations: MoAb, monoclonal antibody; PBS, phos-phate-buffered saline; RIA, radioimmunoassay; CLL, chronic lymphocytic leukemia; GP, glycoproteins; MBS, m-maleimidobenzoyl-N-hydroxysuccinimide ester.</p>
+			</div>
+		</front>
+	</text>
+</TEI>
+
