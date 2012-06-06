@@ -98,7 +98,7 @@
 					<span class="xTiny_area0">&nbsp;</span>
 				</h:panelGroup>
 				 --%>
-				<h:panelGroup layout="block" styleClass="clear free_area0 endline"
+				<h:panelGroup layout="block" styleClass="clear free_area0 endline personArea"
 					rendered="#{creator.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 					<span class="large_area0 xSmall_marginRExcl">&nbsp;</span>
 					<span class="xTiny_area0">&nbsp;</span>
@@ -140,7 +140,7 @@
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}"/>
 					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 closeIcon removeAutoSuggestPerson" style="display:none;"
-						onclick="return removeAuthorAutoSuggest($(this))" reRender="iterCreatorOrganisationAuthors"/>
+						onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}"/>
 					<a4j:commandButton reRender="editPerson" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"

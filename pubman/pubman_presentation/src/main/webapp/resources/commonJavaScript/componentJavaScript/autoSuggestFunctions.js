@@ -218,8 +218,6 @@
 
 		fillField('familyName', familyName, parent, true);
 		fillField('givenName', givenName, parent, true);
-//		fillField('orgName', orgName, parent);
-//		fillField('orgIdentifier', orgId, parent, true);
 		$input.blur();
 		$input.focus();
 		fillField('personIdentifier', personId, parent, true);
@@ -236,7 +234,7 @@
 		$pb.each($pb(parent).find('.disableAfter'),
 				function ()
 				{
-					$pb(this).attr('readonly', true);
+					$pb(this).attr('readonly', 'readonly');
 				}
 		);
 		
@@ -311,26 +309,28 @@
 	{
 		var $input = $pb(element);
 		var parent = $input.parent();
+		var field = null;
 		if ($pb(parent).find('.personIdentifier').val() != '')
 		{
-			var field = $pb(parent).find('.personIdentifier');
-			$pb(field).attr('readonly', false);
+			field = $pb(parent).find('.personIdentifier');
+			field.removeAttr('readonly');
 			fillField('personIdentifier', '', parent);
 		}
 		if ($pb(parent).find('.familyName').val() != '')
-		{
-			var field = $pb(parent).find('.familyName');
-			$pb(field).attr('readonly', false);
+		{	
+			field = $pb(parent).find('.familyName');
+			field.removeAttr('readonly');
 			fillField('familyName', '', parent);
 		}
 		if ($pb(parent).find('.givenName').val() != '')
 		{
-			var field = $pb(parent).find('.givenName');
-			$pb(field).attr('readonly', false);
+			field = $pb(parent).find('.givenName');
+			field.removeAttr('readonly');
 			fillField('givenName', '', parent);
 		}
 		$input.css('display', 'none');
 		$input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
+		bindSuggests();
 		return;
 	}
 	
@@ -341,8 +341,8 @@
 		{
 			$pb('.personIdentifier').each(function(ind){
 				if (this.value) {
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.familyName').attr('readonly', true);
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('readonly', true);
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.familyName').attr('readonly', 'readonly');
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('readonly', 'readonly');
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
 				}
@@ -353,12 +353,14 @@
 	
 	function fillField(name, value, commonParent, readonly)
 	{
-		var field = $pb(commonParent).find('.' + name)
+		var field = $pb(commonParent).find('.' + name);
 		field.val(value);
 		field.attr('title', value);
 		if (typeof readonly != 'undefined')
 		{
-			$pb(field).attr('readonly', true);
+			field.unbind('keydown');
+			field.unbind('keypress');
+			field.attr('readonly', 'readonly');
 		}
 	}
 	
@@ -383,6 +385,8 @@
 		{
 			$pb.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
 		}
+		$input.unbind('keydown');
+		$input.unbind('keypress');
 	}
 	
 	function fillOrganizationFields()
@@ -403,7 +407,7 @@
 		$pb.each($pb(parent).find('.disableAfter'),
 				function ()
 				{
-					$pb(this).attr('readonly', true);
+					$pb(this).attr('readonly', 'readonly');
 				}
 		);
 		
@@ -462,7 +466,15 @@
 			});
 		if(typeof personSuggestURL != 'undefined')
 		{
-			$pb('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
+			$pb('.personSuggest').each (
+				function(i,ele){
+					if($pb(ele).parent().find('.personIdentifier').val() == null || $pb(ele).parent().find('.personIdentifier').val() == '')
+					{
+						$pb(ele).suggest(personSuggestURL, { onSelect: fillPersonFields });
+					}
+				}
+			);
+			
 		}
 		if(typeof organizationSuggestURL != 'undefined')
 		{

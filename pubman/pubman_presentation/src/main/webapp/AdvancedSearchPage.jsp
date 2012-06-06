@@ -52,7 +52,7 @@
 
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<h:form >
-			<a4j:status id="a4jstatus" onstop="afterAjaxRequest();" />
+			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -121,6 +121,12 @@
 			</h:form>
 			<script type="text/javascript">
 				
+				function checkUpdatePersonFunction() {
+					
+					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
+					
+				}
+			
 				$pb(document).ready(function () {
 					/*
 					$pb("input[id$='offset']").submit(function() {
@@ -130,6 +136,7 @@
 					$pb(window).scrollTop($pb("input[id$='offset']").val());
 					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 					// maintain attributes for autosuggest filled persons
+					checkUpdatePersonFunction();
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
 				personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';

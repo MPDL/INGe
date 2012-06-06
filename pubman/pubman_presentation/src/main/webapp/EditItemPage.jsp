@@ -241,16 +241,16 @@
 				</h:form>
 				
 				<script type="text/javascript">
+					function checkUpdatePersonFunction() {
+						(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
+					}
 					$pb("input[id$='offset']").submit(function() {
 						$pb(this).val($pb(window).scrollTop());
 					});
 					$pb(document).ready(function () {
 						$pb(window).scrollTop($pb("input[id$='offset']").val());
 						$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
-						if(typeof window.updatePersonUi == 'function')
-						{ 
-							updatePersonUi();
-						}
+						checkUpdatePersonFunction();
 					});
 				
 					languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-3/query';

@@ -36,9 +36,9 @@ All rights reserved. Use is subject to license terms.
 		<h:outputText value="#{lbl.adv_search_lbHeaderPerson}" />
 	</h3>
 	<span class="seperator"></span>
-	<div class="free_area0 itemBlockContent endline">
+	<h:panelGroup layout="block" id="personCriterions" styleClass="free_area0 itemBlockContent endline">
 
-		<a4j:repeat id="personCriterion" rows="0" var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" rowKeyVar="index">
+		<a4j:repeat rows="0" var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.personCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -46,11 +46,10 @@ All rights reserved. Use is subject to license terms.
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
-					<h:inputText id="personSearchStringFilled" styleClass="third_txtInput" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" readonly="true" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
+					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggestFirst" styleClass="free_area0 min_imgBtn groupTool add removeAutoSuggestPerson" style="display:none;"
-						onclick="return removeAuthorAutoSuggest($(this))" reRender="personCriterion"/>
+					<a4j:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($pb(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}" reRender="personCriterions"/>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
 							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
@@ -68,11 +67,10 @@ All rights reserved. Use is subject to license terms.
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
 					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
-					<h:inputText id="personSearchStringMultipleFilled" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
+					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" styleClass="free_area0 min_imgBtn groupTool add removeAutoSuggestPerson" style="display:none;"
-						onclick="return removeAuthorAutoSuggest($(this))" reRender="personCriterion"/>
+					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($pb(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}" reRender="personCriterions"/>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
 							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
@@ -177,5 +175,5 @@ All rights reserved. Use is subject to license terms.
 
 		</a4j:repeat>
 		
-	</div>
+	</h:panelGroup>
 </div>

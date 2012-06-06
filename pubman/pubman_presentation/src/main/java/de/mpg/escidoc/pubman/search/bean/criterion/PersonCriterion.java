@@ -73,6 +73,7 @@ public class PersonCriterion extends Criterion
     
     public String getIdentifier()
     {
+        System.out.println(identifier);
         return identifier;
     }
 

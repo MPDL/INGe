@@ -240,12 +240,10 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     public String getPreviousItemName() {
         if (breadcrumbs.size() > 1)
         {
-            System.out.println(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue());
             return breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue();
         }
         else
         {
-            System.out.println(new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue());
             return new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue();
         }
     }

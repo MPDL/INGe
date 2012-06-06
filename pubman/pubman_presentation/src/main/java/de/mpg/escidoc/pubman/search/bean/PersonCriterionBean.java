@@ -2,6 +2,8 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
 
+import javax.faces.event.ActionEvent;
+
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.PersonCriterion;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -453,6 +455,12 @@ public class PersonCriterionBean extends CriterionBean
 
     public boolean isSearchApplicant() {
         return searchApplicant;
+    }
+    
+    public void removeAutoSuggestValues (ActionEvent e)
+    {
+        personCriterionVO.setIdentifier(null);
+        personCriterionVO.setSearchString(null);
     }
 
 }

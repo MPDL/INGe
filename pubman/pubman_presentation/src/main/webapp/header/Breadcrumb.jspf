@@ -36,7 +36,7 @@
 <div class="clear breadcrumb">
 	<!-- Breadcrumb starts here -->
 	<ol>
-		<a4j:repeat id="BreadcrumbNavigation" var="item" value="#{BreadcrumbItemHistorySessionBean.breadcrumbs}">
+		<a4j:repeat id="BreadcrumbNavigation" var="item" value="#{BreadcrumbItemHistorySessionBean.breadcrumbItemHistory}">
 			<li>
 <%-- start has to be reworked anyway --%>
 				<h:outputLink id="lnkDestination" value="#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
