@@ -151,6 +151,7 @@ public class EasySubmissionSessionBean extends EditItemBean
         this.setGenreBundle("Genre_ARTICLE");
         this.setSelectedDate("");
         this.initAuthorCopyPasteCreatorBean();
+        this.setImportMethod(IMPORT_METHOD_EXTERNAL);
         this.setCurrentSubmissionStep(ES_STEP3);
         this.uploadedBibtexFile=null;
     }

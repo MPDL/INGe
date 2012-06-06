@@ -162,40 +162,50 @@
 				</h:panelGroup>
 	
 			<!-- Import from bibtex file -->
-				<h:panelGroup layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableExternalFields}">
-					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine">		
-						<b class="free_area0 endline labelLine" style="float:right;">
-							<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
-						</b>
-						<br class="clear" style="line-height:2.54em;" />
-						<b class="free_area0 endline labelLine" style="float:right;">
-							<h:outputText value="#{lbl.easy_submission_lblReference}" /><span class="noDisplay">: </span>
-						</b>
+				<h:panelGroup id="uploadBibtexFile" layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableExternalFields}">
+					<h:panelGroup layout="block" styleClass="large_area0_p4 endline firstLine">		
+						&#160;
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
 						<span class="free_area0 xTiny_marginLExcl endline fileSection">
 							<h:panelGroup style="line-height:2.5454em;">
-								<rich:fileUpload  addControlLabel="#{lbl.EditItem_btAddFile}" id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
-									immediateUpload="true" maxFilesQuantity="1"/>
-								
+								<rich:fileUpload listHeight="60px" addControlLabel="#{lbl.easy_submission_lblUploadBibtex}" id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
+									immediateUpload="true" maxFilesQuantity="1">
+									<a4j:support event="onclear" reRender="uploadBibtexFile,buttons" actionListener="#{EasySubmission.clearBibtexFile}"/>
+									<a4j:support event="onfileuploadcomplete" reRender="buttons"/>
+									</rich:fileUpload>
 							</h:panelGroup>
-							<br class="clear" style="line-height:0.6363em;" />
-							<h:selectOneRadio styleClass="clear import" value="#{EasySubmissionSessionBean.radioSelectReferenceValue}" >
-								<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
-							</h:selectOneRadio>
 						</span>
+					</h:panelGroup>
+						
+					<h:panelGroup layout="block" styleClass="clear large_area0_p4 endline">		
+						<b class="free_area0 endline labelLine" style="float:right;">
+							<h:outputText value="#{lbl.easy_submission_lblReference}" /><span class="noDisplay">: </span>
+						</b>
+					</h:panelGroup>
+					<style type="text/css">
+						.line180 .clear.import td label {
+							margin-right:2em;
+						}
+					</style>
+					<h:panelGroup layout="block" styleClass="free_area0 endline xTiny_marginLExcl line180" >
+						<h:selectOneRadio styleClass="clear import" value="#{EasySubmissionSessionBean.radioSelectReferenceValue}" >
+							<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
+						</h:selectOneRadio>
 					</h:panelGroup>
 				</h:panelGroup>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="full_area0 formButtonArea">		
+<h:panelGroup layout="block" id="buttons" styleClass="full_area0 formButtonArea">		
 	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-	<h:commandLink id="lnkImport" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}">
-		<h:outputText value="#{lbl.easy_submission_btnUpload}" rendered="#{EasySubmission.disableExternalFields}"/>
-		<h:outputText value="#{lbl.easy_submission_btnFetch}" rendered="#{EasySubmission.disableBibtexFields}"/>
+	<h:commandLink id="lnkImportBibtex" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton #{empty EasySubmissionSessionBean.uploadedBibtexFile ? 'disabled' : ''}" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableExternalFields}" disabled="#{empty EasySubmissionSessionBean.uploadedBibtexFile}">
+		<h:outputText value="#{lbl.easy_submission_btnNext}" />
 	</h:commandLink>
-</div>
+	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}">
+		<h:outputText value="#{lbl.easy_submission_btnFetch}"/>
+	</h:commandLink>
+</h:panelGroup>
 
 </f:subview>

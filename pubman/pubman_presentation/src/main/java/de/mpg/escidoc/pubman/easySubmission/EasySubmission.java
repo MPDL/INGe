@@ -48,6 +48,7 @@ import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -2798,5 +2799,11 @@ public class EasySubmission extends FacesBean
     {
         this.alternativeLanguageName = alternativeLanguageName;
     }
+    
+    public void clearBibtexFile(ActionEvent evt)
+    {
+    	  getEasySubmissionSessionBean().setUploadedBibtexFile(null);
+    }
+  
     
 }

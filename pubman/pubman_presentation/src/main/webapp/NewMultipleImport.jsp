@@ -150,22 +150,25 @@
 														</h:selectOneMenu>	*/ %> -->
 													</span>
 												</h:panelGroup>	
-												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+												<h:panelGroup id="uploadFile" layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 													<b class="xLarge_area0 endline labelLine">
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<rich:fileUpload id="inpMultipleImportUploadedImportFile"  addControlLabel="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
-															immediateUpload="true" maxFilesQuantity="1"/>
+														<rich:fileUpload id="inpMultipleImportUploadedImportFile" listHeight="60px" addControlLabel="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
+															immediateUpload="true" maxFilesQuantity="1">
+															<a4j:support event="onclear" reRender="uploadFile,buttons" actionListener="#{MultipleImport.clearImportFile}"/>
+															<a4j:support event="onfileuploadcomplete" reRender="buttons"/>
+														</rich:fileUpload>
 													</span>
 												</h:panelGroup>
 											</div>
 										</div>
 									</div>
-									<div class="full_area0 formButtonArea">
+									<h:panelGroup id="buttons" layout="block" styleClass="full_area0 formButtonArea">
 										<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-										<h:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton" title="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></h:commandLink>
-									</div>
+										<h:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton #{empty MultipleImport.uploadedImportFile ? 'disabled' : ''}" title="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}" disabled="#{empty MultipleImport.uploadedImportFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></h:commandLink>
+									</h:panelGroup>
 								</div>
 							<!-- <% /* end: content section */ %> -->
 							</div>			

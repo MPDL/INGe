@@ -41,6 +41,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -246,6 +247,10 @@ public class MultipleImport extends FacesBean
      */
     public String newImport()
     {
+    
+    	//clear the file
+    	this.uploadedImportFile = null;
+    	
      // deselect the selected context
         ContextListSessionBean contextListSessionBean
             = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
@@ -461,6 +466,11 @@ public class MultipleImport extends FacesBean
     public void fileUploaded(UploadEvent evt)
     {
     	this.uploadedImportFile = evt.getUploadItem();
+    }
+    
+    public void clearImportFile(ActionEvent evt)
+    {
+    	this.uploadedImportFile = null;
     }
 
 }
