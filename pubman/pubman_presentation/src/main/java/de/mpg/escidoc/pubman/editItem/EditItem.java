@@ -1219,6 +1219,7 @@ public class EditItem extends FacesBean
                 EditItemPage editItemPage = (EditItemPage)getRequestBean(EditItemPage.class);
                 FacesContext fc = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
+                System.out.println("Previous Page: " + editItemPage.getPreviousPageName());
                 if ("ViewLocalTagsPage.jsp".equals(editItemPage.getPreviousPageURI()))
                 {
                     String viewItemPage = PropertyReader.getProperty("escidoc.pubman.instance.url")
@@ -1227,15 +1228,19 @@ public class EditItem extends FacesBean
                             this.getPubItem().getVersion().getObjectId());
                     FacesContext.getCurrentInstance().getExternalContext().redirect(viewItemPage);
                 }
-                else
+                else if (editItemPage.getPreviousPageURI().contains("viewItemFullPage.jsp"))
                 {
                     fc.getExternalContext().redirect(
                             request.getContextPath() + "/faces/" + editItemPage.getPreviousPageURI());
                 }
+                else
+                {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+                }
             }
             catch (Exception e)
             {
-                logger.error("Could not redirect to View Item Page", e);
+                logger.error("Could not redirect to the previous page", e);
             }
         }
         else
