@@ -2027,7 +2027,7 @@ public class ViewItemFull extends FacesBean
         boolean hasNotEmptySubjects = false;
         for (TextVO subject:this.pubItem.getMetadata().getSubjects())
         {
-            if (subject.getValue().length()>0)
+            if (subject.getValue()!= null && subject.getValue().length()>0)
             {
                 hasNotEmptySubjects=true;
                 return hasNotEmptySubjects;
