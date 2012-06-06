@@ -194,7 +194,7 @@
 															<a4j:repeat var="parameter" value="#{MultipleImport.configParameters}">
 																<h:outputLabel styleClass="xLarge_label" value="#{parameter.label} "/>
 																<h:inputText id="inpImportParamStandard" styleClass="xLarge_txtInput" value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] == null and parameter.label != 'OrganizationalUnit' or LoginHelper.accountUsersAffiliations[0] == null}"/>
-																<h:inputText id="inpImportParamOrgUnit" styleClass="xLarge_txtInput" value="#{LoginHelper.accountUsersAffiliations[0].name }" rendered="#{parameter.label == 'OrganizationalUnit' and LoginHelper.accountUsersAffiliations[0] != null}"/>
+																<h:inputText id="inpImportParamOrgUnit" styleClass="xLarge_txtInput" value="#{LoginHelper.accountUsersAffiliations[0].namePath }" rendered="#{parameter.label == 'OrganizationalUnit' and LoginHelper.accountUsersAffiliations[0] != null}"/>
 																
 																<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{MultipleImport.parametersValues[parameter.label] != null}">
 																	<h:panelGroup layout="block" styleClass="xLarge_area0">
