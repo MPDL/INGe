@@ -653,6 +653,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #382926 !important;
     border-color: #382926;
 }
+.activeButton.disabled {
+	background-color:#827775 !important;
+	cursor:auto; 
+}
+.activeButton.disabled:hover {
+	text-decoration:none;
+}
 
 /*AUTOSUGGEST*/
 .ac_results {

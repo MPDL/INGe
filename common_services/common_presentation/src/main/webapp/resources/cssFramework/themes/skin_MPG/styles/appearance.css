@@ -979,8 +979,13 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 /*	color: #FFFFFF;
 	background-color: #004465;*/
 }
-
-
+.activeButton.disabled {
+	background-color:#888B8B !important;
+	cursor:auto; 
+}
+.activeButton.disabled:hover {
+	text-decoration:none;
+}
 
 
 /***** MESSAGE AREA *****/
