@@ -68,9 +68,9 @@ import org.w3c.dom.Node;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.transformationLight.Transformation;
+import de.mpg.escidoc.services.transformationLight.TransformationBean;
+import de.mpg.escidoc.services.transformationLight.valueObjects.Format;
 
 /**
  * Helper methods for the transformation service.

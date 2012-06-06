@@ -5,8 +5,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.transformationLight.TransformationBean;
+import de.mpg.escidoc.services.transformationLight.valueObjects.Format;
 
 /**
  * This test class tests all transformations from non escidoc repositories.

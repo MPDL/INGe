@@ -14,9 +14,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.transformationLight.TransformationBean;
+import de.mpg.escidoc.services.transformationLight.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformationLight.valueObjects.Format;
 
 public class OtherFormatsTest {
 

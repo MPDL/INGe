@@ -3,7 +3,7 @@ package test;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 
-import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformationLight.TransformationBean;
 
 public class CommonPublicationsFormatsTest {
 
