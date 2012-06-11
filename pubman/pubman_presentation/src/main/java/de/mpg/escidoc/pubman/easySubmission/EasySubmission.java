@@ -1748,7 +1748,7 @@ public class EasySubmission extends FacesBean
     public String selectImportBibtex()
     {
         this.setBibTexInfo();
-        this.getEasySubmissionSessionBean().setFulltext(false);
+        //this.getEasySubmissionSessionBean().setFulltext(false);
         this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
         return "loadNewEasySubmission";
     }
