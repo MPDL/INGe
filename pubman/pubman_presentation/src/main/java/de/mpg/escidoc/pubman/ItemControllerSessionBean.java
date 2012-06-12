@@ -87,6 +87,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -1596,8 +1597,6 @@ public class ItemControllerSessionBean extends FacesBean
 		// define the filter criteria
 		FilterTaskParamVO filter = new FilterTaskParamVO();
 
-
-
 		Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
 		filter.getFilterList().add(f1);
 
@@ -1631,16 +1630,6 @@ public class ItemControllerSessionBean extends FacesBean
 		Filter f8 = filter.new LimitFilter("0");
 		filter.getFilterList().add(f8);
 
-
-
-
-		// transform the filter criteria
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("Transforming filters...");
-		}
-		String xmlparam = this.xmlTransforming.transformToFilterTaskParam(filter);
-
 		// retrieve the items applying the filter criteria
 		if (logger.isDebugEnabled())
 		{
@@ -1664,7 +1653,7 @@ public class ItemControllerSessionBean extends FacesBean
 		{
 			logger.debug("Transforming items...");
 		}
-		ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformToPubItemList(xmlItemList);
+		ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList).getItemVOList();
 
 		return itemList;
 	}
@@ -1679,41 +1668,23 @@ public class ItemControllerSessionBean extends FacesBean
 	{
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("Retrieving Item list: ");
+			logger.debug("Retrieving Item list for: " + (itemRefs != null ? itemRefs : "empty List"));
 		}
 
 		if (itemRefs == null || itemRefs.isEmpty())
 		{
 			return new ArrayList<PubItemVO>();
 		}
-
-
-
-		//workarround due to filter bug - create filters manually without whitespaces
-		/*String filter = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\">";
-		for(ItemRO itemRO : itemRefs)
-		{
-			filter+="<id>"+itemRO.getObjectId()+"</id>";
-		}
-		filter+="</filter></param>";
-		logger.debug("Filter: \n" + filter);*/
-
+		
         // define the filter criteria
         FilterTaskParamVO filter = new FilterTaskParamVO();
         FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);
         filter.getFilterList().add(f1);
 
-        // transform the filter criteria
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Transforming filters...");
-        }
-        String xmlparam = this.xmlTransforming.transformToFilterTaskParam(filter);
-
 		// retrieve the items applying the filter criteria
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("Retrieving items...");
+			logger.debug("Retrieving items..." );
 		}
 		String xmlItemList = "";
 		try
@@ -1740,7 +1711,7 @@ public class ItemControllerSessionBean extends FacesBean
 		{
 			logger.debug("Transforming items...");
 		}
-		ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformToPubItemList(xmlItemList);
+		ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList).getItemVOList();
 
 		return itemList;
 	}
@@ -1897,13 +1868,6 @@ public class ItemControllerSessionBean extends FacesBean
 		FilterTaskParamVO filter = new FilterTaskParamVO();
 		Filter f1 = filter.new TopLevelAffiliationFilter();
 		filter.getFilterList().add(f1);
-
-		// transform the filter criteria
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("Transforming filters...");
-		}
-		String xmlparam = this.xmlTransforming.transformToFilterTaskParam(filter);
 
 		// retrieve the affiliations applying the filter criteria
 		if (logger.isDebugEnabled())
