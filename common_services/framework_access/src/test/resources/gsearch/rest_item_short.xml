@@ -67,7 +67,7 @@
 			xlink:href="/ir/item/escidoc:4004/md-records/md-record/escidoc">
 			<publication:publication
 				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-				type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+				type="http://purl.org/eprint/type/Thesis">
 				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
 					role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person
@@ -88,6 +88,7 @@
 						
 					</person:person>
 				</eterms:creator>
+				<eterms:degree xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/academic-degrees/master</eterms:degree>
 			</publication:publication>
 		</escidocMetadataRecords:md-record>
 
