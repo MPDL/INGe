@@ -892,6 +892,8 @@
                                         <!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
                                         <!-- copy over the aa configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${project.build.directory}/jboss/server/conf/cone.properties" />
+                                        <!-- copy over the aa configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
