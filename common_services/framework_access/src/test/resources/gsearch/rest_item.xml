@@ -160,7 +160,7 @@
 					function by 10% at 1 kHz and about 100% at 2.5 kHz.
 				</dcterms:abstract>
 				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
-				<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+				<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">This is the subject</dc:subject>
 
 				<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
 			</publication:publication>
