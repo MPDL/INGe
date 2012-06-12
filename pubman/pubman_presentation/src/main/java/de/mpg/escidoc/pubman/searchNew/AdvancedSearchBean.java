@@ -122,6 +122,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		this.componentContentCategory = new ComponentContentCategory();
 		this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
 		this.genreListSearchCriterion = new GenreListSearchCriterion();
+		
+		initCriterionListWithEmptyValues();
+		
+	}
+	
+	private void initCriterionListWithEmptyValues()
+	{
 		criterionList = new ArrayList<SearchCriterionBase>();
 		criterionList.add(new AnyFieldSearchCriterion());
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
@@ -129,6 +136,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		criterionList.add(new DateSearchCriterion(SearchCriterion.ANYDATE));
 	}
+	
+	
+	
 	
 	public void initWithQueryParam(String queryParam)
 	{
@@ -177,6 +187,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		}
 		
 		this.criterionList = scList;
+		
+		if(criterionList.isEmpty())
+		{
+			initCriterionListWithEmptyValues();	
+		}
 	}
 	
 	
@@ -200,13 +215,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 			}
 			else
 			{
-				logger.info("No query found, initialize empty");
+				logger.info("No internal query found, initialize empty");
 				clearAndInit();
 			}
 		}
 		else
 		{
-			logger.info("Postback, do nothing");
+			//logger.info("Postback, do nothing");
 			
 		}
 		return "";
