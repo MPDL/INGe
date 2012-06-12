@@ -2175,10 +2175,10 @@ public class XmlTransformingBean implements XmlTransforming
     }
     
     
-    public SearchRetrieveResponseVO transformToSearchRetrieveResponse(String searcRetrieveResponseXml) throws TechnicalException
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponse(String searchRetrieveResponseXml) throws TechnicalException
     {
-    	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);
-    	if (searcRetrieveResponseXml == null)
+    	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
+    	if (searchRetrieveResponseXml == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
         }
@@ -2189,7 +2189,7 @@ public class XmlTransformingBean implements XmlTransforming
              // unmarshal pidServiceResponse from String
              IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", SearchRetrieveResponseVO.class);
              IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-             StringReader sr = new StringReader(searcRetrieveResponseXml);
+             StringReader sr = new StringReader(searchRetrieveResponseXml);
              Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
              searchRetrieveResponseVO = (SearchRetrieveResponseVO)unmarshalledObject;
          }
@@ -2197,7 +2197,7 @@ public class XmlTransformingBean implements XmlTransforming
          {
              // throw a new UnmarshallingException, log the root cause of the JiBXException first
              logger.error(e.getRootCause());
-             throw new UnmarshallingException(searcRetrieveResponseXml, e);
+             throw new UnmarshallingException(searchRetrieveResponseXml, e);
          }
          catch (ClassCastException e)
          {
