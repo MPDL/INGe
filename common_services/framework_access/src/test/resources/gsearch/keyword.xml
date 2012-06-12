@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://dev-pubman.mpdl.mpg.de/xsl/Resource2Html.xsl"?>
+<escidocItem:item xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="http://dev-pubman.mpdl.mpg.de" xlink:type="simple" xlink:title="Book 1449" xlink:href="/ir/item/escidoc:66091:8" last-modification-date="2012-02-13T08:24:56.104Z">
+	<escidocItem:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:66091/properties">
+		<prop:creation-date>2012-01-31T13:29:13.482Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="Scientist User for Tests" xlink:href="/aa/user-account/escidoc:41002" />
+		<prop:public-status>released</prop:public-status>
+		<prop:public-status-comment>Keyword simplified</prop:public-status-comment>
+		<srel:context xlink:type="simple" xlink:title="PubMan Default Context" xlink:href="/ir/context/escidoc:1002" />
+		<srel:content-model xlink:type="simple" xlink:title="Content Model Publication" xlink:href="/cmm/content-model/escidoc:2001" />
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:pid>hdl:someHandle/test/escidoc:66091</prop:pid>
+		<prop:version xlink:type="simple" xlink:title="This Version" xlink:href="/ir/item/escidoc:66091">
+			<version:number>7</version:number>
+			<version:date>2012-02-13T08:24:56.104Z</version:date>
+			<version:status>released</version:status>
+			<srel:modified-by xlink:type="simple" xlink:title="Scientist User for Tests" xlink:href="/aa/user-account/escidoc:41002" />
+			<version:comment>Keyword simplified</version:comment>
+			<version:pid>hdl:someHandle/test/escidoc:66091</version:pid>
+		</prop:version>
+
+		<prop:latest-version xlink:type="simple" xlink:title="Latest Version" xlink:href="/ir/item/escidoc:66091">
+			<version:number>7</version:number>
+			<version:date>2012-02-13T08:24:56.104Z</version:date>
+		</prop:latest-version>
+		<prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/escidoc:66091">
+			<release:number>7</release:number>
+			<release:date>2012-02-13T08:24:56.104Z</release:date>
+			<release:pid>hdl:someHandle/test/escidoc:66091</release:pid>
+		</prop:latest-release>
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+			<local-tags>
+				<local-tag>hier steht der tag</local-tag>
+			</local-tags>
+
+		</prop:content-model-specific>
+	</escidocItem:properties>
+	  
+	<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Item escidoc:66091" xlink:href="/ir/item/escidoc:66091/md-records">
+		<escidocMetadataRecords:md-record name="escidoc" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:66091/md-records/md-record/escidoc">
+			<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/Book">
+				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+					<person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+						<eterms:family-name>Ahmadi</eterms:family-name>
+						<eterms:given-name>Seifollah</eterms:given-name>
+						<organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+
+							<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+							<eterms:address></eterms:address>
+							<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:1</dc:identifier>
+						</organization:organization>
+						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://localhost:8080/cone/persons/resource/persons28159</dc:identifier>
+					</person:person>
+				</eterms:creator>
+
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Book 1449</dc:title>
+				<eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+					<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Eigenverlag </dc:publisher>
+					<eterms:place>Tuntenhausen</eterms:place>
+					<eterms:edition></eterms:edition>
+				</eterms:publishing-info>
+				<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2012</dcterms:issued>
+				<eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">1234</eterms:total-number-of-pages>
+				<eterms:degree xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/academic-degrees/master</eterms:degree>		
+				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">Keyword to find</dcterms:subject>
+				<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+				<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+			</publication:publication>
+		</escidocMetadataRecords:md-record>
+
+	</escidocMetadataRecords:md-records>
+	
+ 	
+ 	
+	<escidocComponents:components xlink:type="simple" xlink:title="Components of Item escidoc:66091" xlink:href="/ir/item/escidoc:66091/components">
+
+	</escidocComponents:components>
+ 	 	
+	<relations:relations xlink:type="simple" xlink:title="Relations of Item" xlink:href="/ir/item/escidoc:66091/relations"></relations:relations>
+	<escidocItem:resources xlink:type="simple" xlink:title="Resources" xlink:href="/ir/item/escidoc:66091/resources" />
+</escidocItem:item>
+
+
