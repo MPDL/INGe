@@ -31,13 +31,19 @@
 package de.mpg.escidoc.services.transformation.transformations;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.GetMethod;
+
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 /**
  * This class handle URIs in XSLT stylesheets such as xsl:import.
@@ -93,6 +99,13 @@ public class LocalUriResolver implements URIResolver
 			{
             	path = TRANS_PATH + href;
 			}
+            else if (href != null && href.matches("^https?://.*"))
+            {
+                HttpClient client = new HttpClient();
+                GetMethod getMethod = new GetMethod(href);
+                ProxyHelper.executeMethod(client, getMethod);
+                return new StreamSource(getMethod.getResponseBodyAsStream());
+            }
             else 
             {
             	path = this.base + altBase + "/" + href;
@@ -105,6 +118,14 @@ public class LocalUriResolver implements URIResolver
         {
             //throw new TransformerException("Cannot resolve URI: " + href);
             throw new TransformerException("Cannot resolve URI: " + path, e);
+        }
+        catch (HttpException e)
+        {
+            throw new TransformerException("Cannot connect to URI: " + path, e);
+        }
+        catch (IOException e)
+        {
+            throw new TransformerException("Cannot get content from URI: " + path, e);
         }
     }
 }

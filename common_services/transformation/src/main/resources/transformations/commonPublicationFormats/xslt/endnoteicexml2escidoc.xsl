@@ -27,7 +27,7 @@
 	$Revision$ 
 	$LastChangedDate$
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:ei="${xsd.soap.item.item}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.core.properties}" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:ec="${xsd.soap.item.components}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:eterms="${xsd.metadata.terms}" xmlns:escidoc="urn:escidoc:functions" xmlns:escidocTerms="${xsd.metadata.terms}" xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:esc="http://escidoc.mpg.de/" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:ei="${xsd.soap.item.item}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.core.properties}" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:ec="${xsd.soap.item.components}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:eterms="${xsd.metadata.terms}" xmlns:escidoc="urn:escidoc:functions" xmlns:escidocTerms="${xsd.metadata.terms}" xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:esc="http://escidoc.mpg.de/" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:srw="${xsd.soap.searchRetrieveResponse}" xmlns:search-result="${xsd.soap.searchresult.searchresult}" xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:mdou="${xsd.metadata.organizationalunit}">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="user" select="'dummy:user'"/>
@@ -40,6 +40,11 @@
 	<xsl:param name="Flavor" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'false'"/>
 	<xsl:param name="refType" />
+	
+	<!-- frameworkUrl can be adjusted individually -->
+	<xsl:variable name="frameworkUrl" select="'${escidoc.framework_access.framework.url}'"/>
+	
+	
 	<xsl:variable name="fulltext-location">
 		<xsl:if test="$Flavor = 'ICE'">
 			<xsl:value-of select="'http://www.clib-jena.mpg.de/theses/ice/'"/>
@@ -191,7 +196,15 @@
 			<xsl:element name="ei:properties">
 				<srel:context objid="{$context}" />
 				<srel:content-model objid="{$content-model}" />
-				<xsl:element name="prop:content-model-specific"/>
+				<prop:content-model-specific>
+					<xsl:if test="NUM_9 and $Flavor = 'BGC'">
+						<local-tags>
+							<local-tag>
+								<xsl:value-of select="NUM_9"/>
+							</local-tag>
+						</local-tags>
+					</xsl:if>
+				</prop:content-model-specific>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
@@ -340,7 +353,7 @@
 				<xsl:when test="$Flavor = 'BGC'">
 					<xsl:for-each select="U">
 						<dc:identifier>
-							<xsl:attribute name="xsi:type">eterms:ISI</xsl:attribute>
+							<xsl:attribute name="xsi:type"><xsl:value-of select="if (starts-with(lower-case(.), 'http://' )) then 'eterms:URI' else 'eterms:ISI'"/></xsl:attribute>
 							<xsl:value-of select="."/>
 						</dc:identifier>
 					</xsl:for-each>
@@ -369,6 +382,41 @@
 				</xsl:for-each>
 			</xsl:if>
 			<!-- END OF IDENTIFIERS -->
+			<!-- PUBLISHING INFO -->
+			<xsl:variable name="publisher" select="
+				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
+				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Generic' )) then I
+				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
+				else ''
+			"/>
+			 
+			<xsl:if test="$publisher!=''">
+				<eterms:publishing-info>
+					<dc:publisher>
+						<xsl:value-of select="$publisher"/>
+					</dc:publisher>
+					<xsl:variable name="place" select="
+						if (C and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Generic')) then C
+						else ''
+					"/>
+					<xsl:if test="$place!=''">
+						<eterms:place>
+							<xsl:value-of select="$place"/>
+						</eterms:place>
+					</xsl:if>
+					<xsl:variable name="edition" select="
+						if (NUM_7 and $sourceGenre='' and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
+						else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
+						else ''
+					"/>
+					<xsl:if test="$edition!=''">
+						<eterms:edition>
+							<xsl:value-of select="$edition"/>
+						</eterms:edition>
+					</xsl:if>
+				</eterms:publishing-info>
+			</xsl:if>			
+			<!-- END OF PUBLISHING INFO -->
 			<!-- DATES -->
 			<xsl:variable name="year">
 				<xsl:if test="D and ( $refType = ( 'Generic' , 'Book' , 'Book Section' , 'Conference Paper' , 'Conference Proceedings' , 'Edited Book' , 'Electronic Article' , 'Electronic Book' , 'Journal Article' , 'Magazine Article' , 'Manuscript' , 'Newspaper Article' , 'Report' , 'Thesis' ) )">
@@ -415,7 +463,7 @@
 				</xsl:call-template>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="P and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Thesis', 'Generic', 'Conference Proceeding', 'Manuscript', 'Report')">
+			<xsl:if test="P and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Thesis', 'Generic', 'Conference Proceedings', 'Manuscript', 'Report')">
 				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="P"/>
 				</xsl:element>
@@ -449,7 +497,7 @@
 					<xsl:value-of select="$degree-ves/enum[.=V]/@uri"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="NUM_9 and $refType = 'Thesis'">
+			<xsl:if test="NUM_9 and $refType = 'Thesis' and $Flavor != 'BGC'">
 				<xsl:element name="eterms:degree">
 					<xsl:value-of select="$degree-ves/enum[.='diploma']/@uri"/>
 				</xsl:element>
@@ -546,8 +594,13 @@
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE PAGES -->
+			<xsl:comment>REFTYPE = <xsl:value-of select="$refType"/></xsl:comment>
 			<xsl:if test="P and $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Book Section', 'Conference Paper' )">
+				<xsl:comment>IN SOURCE PAGES</xsl:comment>
 				<xsl:variable name="pages" select="tokenize(normalize-space(P), '[-–]+')"/>
+				<xsl:comment>Pages = <xsl:value-of select="$pages" />
+				Number of Pages: <xsl:value-of select="count($pages)"/>
+				pages[1] = <xsl:value-of select="$pages[1]" /></xsl:comment>
 				<xsl:if test="count($pages)>=1 and $pages[1]!=''">
 					<xsl:element name="eterms:start-page">
 						<xsl:value-of select="$pages[1]"/>
@@ -600,7 +653,7 @@
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="place">
-				<xsl:if test="C and $refType = ('Book', 'Book Section', 'Edited Book', 'Electronic Article', 'Electronic Book', 'Manuscript', 'Newspaper Article', 'Report', 'Thesis', 'Magazine Article')">
+				<xsl:if test="C and $refType = ('Book Section', 'Electronic Article', 'Newspaper Article', 'Magazine Article')">
 					<xsl:value-of select="C" />
 				</xsl:if>
 			</xsl:variable>
@@ -610,23 +663,23 @@
 				</xsl:if>
 			</xsl:variable>
 			<xsl:if test="concat($publisher, $place, $edition)!=''">
-				<xsl:element name="eterms:publishing-info">
+				<eterms:publishing-info>
 					<xsl:if test="$publisher!=''">
-						<xsl:element name="dc:publisher">
+						<dc:publisher>
 							<xsl:value-of select="$publisher"/>
-						</xsl:element>
+						</dc:publisher>
 					</xsl:if>
 					<xsl:if test="$place!=''">
-						<xsl:element name="eterms:place">
+						<eterms:place>
 							<xsl:value-of select="$place"/>
-						</xsl:element>
+						</eterms:place>
 					</xsl:if>
 					<xsl:if test="$edition!=''">
-						<xsl:element name="eterms:edition">
+						<eterms:edition>
 							<xsl:value-of select="$edition"/>
-						</xsl:element>
+						</eterms:edition>
 					</xsl:if>
-				</xsl:element>
+				</eterms:publishing-info>
 			</xsl:if>			
 			<!--  SOURCE IDENTIFIER -->
 			<xsl:if test="$identifier and $refType = ('Book Section') and $sgen = $genre-ves/enum[.='book']/@uri">
@@ -660,7 +713,7 @@
 						<xsl:value-of select="S"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSeriesTitle' ), concat('There is more than one CoNE entry matching -', $ssgen))"/>
+						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSeriesTitle' ), concat('There is no Title for SecondSource (%S) -', S))"/>
 						</xsl:otherwise>
 				</xsl:choose>
 			</dc:title>
@@ -795,7 +848,7 @@
 						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
 						</xsl:if>
-						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´</xsl:comment>
+						<xsl:comment>Querying CoNE for <xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´</xsl:comment>
 						<xsl:copy-of select="Util:queryCone('persons', concat('Chemical Ecology ', $iris-id))"/>
 					</xsl:if>
 				</xsl:variable>
@@ -854,24 +907,35 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$Flavor = 'BGC'">
+				<xsl:comment>URL: <xsl:value-of select="concat($frameworkUrl, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000')"/></xsl:comment>
+				<xsl:variable name="ou-list" select="document(concat($frameworkUrl, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 				<xsl:variable name="additionalAuthorInformation" select="tokenize(../NUM_1, '\n')"/>
-					
 				<xsl:variable name="institute-authors-positions">
 					<xsl:choose>
 						<xsl:when test="matches(../NUM_1, '\n')">
 							<xsl:for-each select="$additionalAuthorInformation">
 								<xsl:variable name="author-pos" select="substring-before(., '-')"/>
 								<xsl:variable name="ou-id" select="substring-after(., '-')"/>
-								<pos>
-									<xsl:value-of select="$author-pos"/>
-								</pos>
+								<entry>
+									<pos>
+										<xsl:value-of select="$author-pos"/>
+									</pos>
+									<id>
+										<xsl:value-of select="$ou-id"/>
+									</id>
+								</entry>
 							</xsl:for-each>
 						</xsl:when>
 						<xsl:when test="../NUM_1 != ''">
 							<xsl:for-each select="../NUM_1">
-								<pos>
-									<xsl:value-of select="substring-before(., '-')"/>
-								</pos>
+								<entry>
+									<pos>
+										<xsl:value-of select="substring-before(., '-')"/>
+									</pos>
+									<id>
+										<xsl:value-of select="substring-after(., '-')"/>
+									</id>
+								</entry>
 							</xsl:for-each>
 						</xsl:when>
 						<xsl:otherwise>
@@ -880,12 +944,21 @@
 					</xsl:choose>
 				</xsl:variable>
 				
-				<xsl:comment><xsl:value-of select="$pos"/> = <xsl:value-of select="$institute-authors-positions"/></xsl:comment>
+				<xsl:comment><xsl:value-of select="$pos"/> = <xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/pos"/></xsl:comment>
 				
 				<xsl:choose>
-					<xsl:when test="exists($institute-authors-positions/pos) and $institute-authors-positions/pos != '' and $institute-authors-positions[pos = $pos]">
+					<xsl:when test="exists($institute-authors-positions/entry/pos) and $institute-authors-positions/entry/pos != '' and $institute-authors-positions/entry[pos = $pos]">
+						<xsl:variable name="ouExactName"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/></xsl:variable>
+						<xsl:variable name="ouId"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/></xsl:variable>
 						<xsl:variable name="cone-creator">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'Max Planck Institute for Biogeochemistry')"/>
+							<xsl:choose>
+								<xsl:when test="exists($ouExactName) and $ouExactName != ''">
+									<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), $ouExactName)"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'Max Planck Institute for Biogeochemistry')"/>
+								</xsl:otherwise>
+							</xsl:choose>
 						</xsl:variable>
 						<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 						<xsl:if test="$multiplePersonsFound">
@@ -907,7 +980,7 @@
 									</eterms:given-name>
 									<xsl:choose>
 										<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position)">
-											<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position">
+											<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position[rdf:Description/dc:identifier = $ouId]">
 												<organization:organization>
 													<dc:title>
 														<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>

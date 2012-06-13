@@ -2150,7 +2150,16 @@
 	
 	<xsl:template name="createPublishinginfo">
 		<xsl:param name="genre"/>
-		<xsl:apply-templates select="publisher"/>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIMF' and not(exists(publisher)) and exists(publisheradd)">
+				<dc:publisher>
+					<xsl:value-of select="'Any Publisher'"/>
+				</dc:publisher>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="publisher"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="publisheradd"/>
 		<xsl:choose>
 			<xsl:when test="$import-name = 'MPIGF' and exists(authorcomment)">
@@ -3494,9 +3503,16 @@
 		</xsl:if>
 		<!-- case ACCEPTED in 'authorcomment' -->
 		<xsl:if test="(not (exists(dateaccepted) and dateaccepted != '')) and exists(authorcomment) and fn:contains(authorcomment, 'ACCEPTED:')">
-			<xsl:element name="dcterms:dateAccepted">
-				<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'ACCEPTED:'), '&#xA;')"/>
-			</xsl:element>
+			<dcterms:dateAccepted>
+				<xsl:choose>
+					<xsl:when test="fn:contains(fn:substring-after(authorcomment, 'ACCEPTED:'), '&#xA;')">
+						<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'ACCEPTED:'), '&#xA;')"/>
+					</xsl:when>
+					<xsl:otherwise>
+					<xsl:value-of select="fn:substring-after(authorcomment, 'ACCEPTED:')"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</dcterms:dateAccepted>
 		</xsl:if>
 		<xsl:if test="exists(datecreated) and datecreated != ''">
 			<xsl:element name="dcterms:created">
@@ -3510,9 +3526,16 @@
 		</xsl:if>
 		<!-- case SUBMITTED in 'authorcomment' -->
 		<xsl:if test="(not (exists(datesubmitted) and datesubmitted != '')) and exists(authorcomment) and fn:contains(authorcomment, 'SUBMITTED:')">
-			<xsl:element name="dcterms:dateSubmitted">
-				<xsl:value-of select="fn:substring-after(authorcomment, 'SUBMITTED:')"/>
-			</xsl:element>
+			<dcterms:dateSubmitted>
+				<xsl:choose>
+					<xsl:when test="fn:contains(fn:substring-after(authorcomment, 'SUBMITTED:'), '&#xA;')">
+						<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'SUBMITTED:'), '&#xA;')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="fn:substring-after(authorcomment, 'SUBMITTED:')"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</dcterms:dateSubmitted>
 		</xsl:if>
 		<xsl:if test="exists(datemodified) and datemodified != ''">
 			<xsl:element name="dcterms:modified">
@@ -3556,7 +3579,14 @@
 		<!-- case PUBLISHED in 'authorcomment' -->
 		<xsl:if test="(not (exists(datepublished) and datepublished != '')) and exists(authorcomment) and fn:contains(authorcomment, 'PUBLISHED:')">
 			<xsl:element name="dcterms:issued">
-				<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'PUBLISHED:'), '&#xA;')"/>
+				<xsl:choose>
+					<xsl:when test="fn:contains(fn:substring-after(authorcomment, 'PUBLISHED:'), '&#xA;')">
+						<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'PUBLISHED:'), '&#xA;')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="fn:substring-after(authorcomment, 'PUBLISHED:')"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:element>
 		</xsl:if>
 	</xsl:template>
