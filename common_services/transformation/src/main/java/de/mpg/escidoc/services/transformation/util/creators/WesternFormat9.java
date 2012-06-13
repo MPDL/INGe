@@ -27,52 +27,46 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-/**
- * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
- *
- * @author Markus Haarlaender (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 3442 $ $LastChangedDate: 2010-08-03 09:44:01 +0200 (Di, 03 Aug 2010) $
- *
- */
-public class EndnoteFormat extends AuthorFormat {
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat9 extends AuthorFormat {
     
     @Override
     public String getPattern() {
-        return "^\\s*" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + "( *\\n *" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
+        return "^\\s*" + NAME + ", ?" + INITIALS + "( *(;| and | AND | und | et |\\n) *" + NAME + ", ?" + INITIALS + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) {
 
-        if (!authorsString.contains("\n"))
+        if ((!authorsString.contains(",")) || contains(authorsString, "0123456789") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(";") < authorsString.indexOf(",")))
         {
             return null;
         }
         
-        String[] authors = authorsString.split(" *\\n *");
+        String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
         return getAuthorListLeadingSurname(authors, ",");
     }
 
-
     @Override
     public int getSignificance() {
-        return 5;
+        return 11;
     }
 
     @Override
     public String getDescription() {
-        return "Nachname, Vorname(n) I.[\n Nach-name, I. Vor-Name\n Nachname, I.\n Nachname, Vorname(n)]";
+        return "Lastname, I.-N.[; Last-Name, I. N.]";
     }
 
     @Override
     public String getName() {
-        return "Endnote-Format, Nachname voran, Initialen und komplette Vornamen gemischt, zeilenumbruch-getrennt";
+        return "Western Format, Lastname first, Initials, semicolon-separated";
     }
 
     @Override
@@ -80,10 +74,4 @@ public class EndnoteFormat extends AuthorFormat {
         return null;
     }
 
-    @Override
-    protected String normalize(String authors)
-    {
-        return authors.trim();
-    }
-    
 }

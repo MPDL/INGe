@@ -27,7 +27,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +40,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormatList;
 
 /**
  * Main class for author string decoding.

@@ -59,8 +59,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.util.creators.Author;
-import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
@@ -68,6 +66,8 @@ import de.mpg.escidoc.services.transformation.Transformation.TransformationModul
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**

@@ -25,12 +25,15 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
 
 /**
  * Very specialized parser to parse author strings like <code>Nachname Vorname{CoNE-Identifier}

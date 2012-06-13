@@ -27,69 +27,52 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-public class WesternFormat2 extends AuthorFormat
-{
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
 
+public class WesternFormat5 extends AuthorFormat {
+    
     @Override
-    public String getPattern()
-    {
-        return "^(" + INITIALS + "[ -]*)+ ?" + NAME + "( *(,| and | AND | und | et |\\n ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
+    public String getPattern() {
+        return "^\\s*" + NAME + "; ?" + GIVEN_NAME_FORMAT + "( *(,| and | AND | und | et |\\n) *" + NAME + "; ?" + GIVEN_NAME_FORMAT + ")*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString)
-    {
+    public List<Author> getAuthors(String authorsString) {
 
-        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
+        if (!authorsString.contains(";") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(",") < authorsString.indexOf(";")))
         {
             return null;
         }
-        else
-        {
-            String[] potentialAuthors = split(authorsString, ',');
-            for (String potentialAuthor : potentialAuthors)
-            {
-                if (!contains(potentialAuthor, " "))
-                {
-                    return null;
-                }
-            }
-        }
         
-        String[] authors = authorsString.split(" *(,| and | AND | und | et | \\n) *");
+        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
 
-        return getAuthorListWithInitials(authors);
+        return getAuthorListLeadingSurname(authors, ";");
+    }
+
+
+    @Override
+    public int getSignificance() {
+        return 11;
     }
 
     @Override
-    public int getSignificance()
-    {
-        return 10;
+    public String getDescription() {
+        return "Nachname; Vorname[, Nach-Name; Vor-Name]";
     }
 
     @Override
-    public String getDescription()
-    {
-        return "I. Nachname[, I. I. Nachname]";
+    public String getName() {
+        return "Westliches Format, Nachname voran, komma-getrennt";
     }
 
     @Override
-    public String getName()
-    {
-        return "Westliches Normalformat mit Initialen, komma-getrennt";
-    }
-
-    @Override
-    public String getWarning()
-    {
-        // TODO Auto-generated method stub
+    public String getWarning() {
         return null;
     }
 
-    
-    
 }

@@ -27,54 +27,54 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-public class WesternFormat7 extends AuthorFormat {
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat6 extends AuthorFormat {
     
     @Override
     public String getPattern() {
-        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
+        return "^\\s*" + NAME + ", *" + GIVEN_NAME_FORMAT + "( *(;| and | AND | und | et |\\n) *" + NAME + ", *" + GIVEN_NAME_FORMAT + ")*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString) throws Exception
-    {
-        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
+    public List<Author> getAuthors(String authorsString) {
+
+        if ((!authorsString.contains(",")) || contains(authorsString, "0123456789") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(";") < authorsString.indexOf(",")))
         {
             return null;
         }
-        else
+        
+        String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
+
+        for (String author : authors)
         {
-            String[] potentialAuthors = split(authorsString, ',');
-            for (String potentialAuthor : potentialAuthors)
+            if (author.split("\\s")[0].contains(".") )
             {
-                if (!contains(potentialAuthor, " "))
-                {
-                    return null;
-                }
+                return null;
             }
         }
         
-        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
-        
-        return getAuthorListCheckingGivenNames(authors);
+        return getAuthorListLeadingSurname(authors, ",");
     }
 
     @Override
     public int getSignificance() {
-        return 5;
+        return 11;
     }
 
     @Override
     public String getDescription() {
-        return "Vorname Nachname[, Vor-Name Nach-Name]";
+        return "Nachname, Vorname[; Nach-Name, Vor-Name]";
     }
 
     @Override
     public String getName() {
-        return "Westliches Normalformat, komma-getrennt, mit Namensprüfung";
+        return "Westliches Format, Nachname voran, semikolon-getrennt";
     }
 
     @Override

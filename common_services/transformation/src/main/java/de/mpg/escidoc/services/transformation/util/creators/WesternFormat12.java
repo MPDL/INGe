@@ -27,68 +27,59 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
 /**
- * Special parser to parse author strings like
- * <code>Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1</code>.
- * 
- * @author franke (initial creation)
+ * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
+ *
+ * @author Markus Haarlaender (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
+ *
  */
-public class OxfordJournalFormat extends AuthorFormat
-{
-
+public class WesternFormat12 extends AuthorFormat {
+    
     @Override
-    public String getPattern()
-    {
-        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *"
-                + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?)*\\s*$";
+    public String getPattern() {
+        return "^\\s*" + NAME + " ?" + INITIALS + "( *(;| and | AND | und | et |\\n) *" + NAME + " ?" + INITIALS + ")*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString) throws Exception
-    {
+    public List<Author> getAuthors(String authorsString) {
 
-        if (authorsString.contains(";") || !authorsString.matches("\\d"))
+        if (authorsString.contains(",") || contains(authorsString, "0123456789"))
         {
             return null;
         }
         
-        String[] authors = authorsString.split(" *, (and)? *");
+        String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
-        for (int i = 0; i < authors.length; i++)
-        {
-            authors[i] = authors[i].replaceAll(" [0-9]( \\*)?$", "");
-        }
-        List<Author> result = getAuthorListNormalFormat(authors);
-        return result;
+        return getAuthorListLeadingSurname(authors, " ");
+    }
+
+
+    @Override
+    public int getSignificance() {
+        return 12;
     }
 
     @Override
-    public int getSignificance()
-    {
-        return 1;
+    public String getDescription() {
+        return "Nachname I.[; Nach-name I. A.; Nachname I.; Nachname I]";
     }
 
     @Override
-    public String getDescription()
-    {
-        return "Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1";
+    public String getName() {
+        return "Westliches Format, Nachname voran, blank, Initialen, semikolon-getrennt";
     }
 
     @Override
-    public String getName()
-    {
-        return "OxfordJournalFormat";
-    }
-
-    @Override
-    public String getWarning()
-    {
+    public String getWarning() {
         return null;
     }
 

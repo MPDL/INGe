@@ -27,67 +27,57 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-/**
- * Parser for comma or semicolon separated author strings that accepts mixed initials and full given names.
- *
- * @author Markus Haarlaender (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 3422 $ $LastChangedDate: 2010-07-26 11:07:04 +0200 (Mo, 26 Jul 2010) $
- *
- */
-public class WesternFormat10 extends AuthorFormat {
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat7 extends AuthorFormat {
     
     @Override
     public String getPattern() {
-        return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + " " + NAME + "( *(,|;| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT_MIXED + " " + NAME + ")*\\s*$";
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
-
-        if (contains(authorsString, "0123456789") || (authorsString.contains(",") && authorsString.contains(";")))
+        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
         {
             return null;
         }
         else
         {
-            String[] potentialAuthorGroups = split(authorsString, ',');
-            for (String potentialAuthorGroup : potentialAuthorGroups)
+            String[] potentialAuthors = split(authorsString, ',');
+            for (String potentialAuthor : potentialAuthors)
             {
-                String[] potentialAuthors = split(potentialAuthorGroup, ';');
-                for (String potentialAuthor : potentialAuthors)
+                if (!contains(potentialAuthor, " "))
                 {
-                    if (!contains(potentialAuthor, " "))
-                    {
-                        return null;
-                    }
+                    return null;
                 }
             }
         }
         
-        String[] authors = authorsString.split(" *(,|;| and | AND | und | et |\\n) *");
+        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
         
-        return getAuthorListNormalFormat(authors);
+        return getAuthorListCheckingGivenNames(authors);
     }
 
     @Override
     public int getSignificance() {
-        return 9;
+        return 5;
     }
 
     @Override
     public String getDescription() {
-        return "Vorname Nachname[, Vor-Name Nach-Name, Vorname I. Nachname, I. Vorname Nachname]";
+        return "Vorname Nachname[, Vor-Name Nach-Name]";
     }
 
     @Override
     public String getName() {
-        return "Westliches Normalformat Initialen und komplette Vornamen gemischt, komma oder semikolon-getrennt";
+        return "Westliches Normalformat, komma-getrennt, mit Namensprüfung";
     }
 
     @Override

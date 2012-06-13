@@ -379,6 +379,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             if (prefixPosition == -1)
             {
                 int lastSpace = authorString.lastIndexOf(" ");
+                if (lastSpace == -1)
+                {
+                    return null;
+                }
                 givenName = authorString.substring(0, lastSpace);
                 surname = authorString.substring(lastSpace + 1);
             }

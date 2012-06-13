@@ -27,48 +27,68 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-public class WesternFormat5 extends AuthorFormat {
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat1 extends AuthorFormat
+{
     
     @Override
-    public String getPattern() {
-        return "^\\s*" + NAME + "; ?" + GIVEN_NAME_FORMAT + "( *(,| and | AND | und | et |\\n) *" + NAME + "; ?" + GIVEN_NAME_FORMAT + ")*\\s*$";
+    public String getPattern()
+    {
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString) {
+    public List<Author> getAuthors(String authorsString)
+    {
 
-        if (!authorsString.contains(";") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(",") < authorsString.indexOf(";")))
+        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
         {
             return null;
         }
+        else
+        {
+            String[] potentialAuthors = split(authorsString, ',');
+            for (String potentialAuthor : potentialAuthors)
+            {
+                if (!contains(potentialAuthor, " "))
+                {
+                    return null;
+                }
+            }
+        }
         
         String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
-
-        return getAuthorListLeadingSurname(authors, ";");
+        
+        return getAuthorListNormalFormat(authors);
     }
 
-
     @Override
-    public int getSignificance() {
+    public int getSignificance()
+    {
         return 11;
     }
 
     @Override
-    public String getDescription() {
-        return "Nachname; Vorname[, Nach-Name; Vor-Name]";
+    public String getDescription()
+    {
+        return "Vorname Nachname[, Vor-Name Nach-Name]";
     }
 
     @Override
-    public String getName() {
-        return "Westliches Format, Nachname voran, komma-getrennt";
+    public String getName()
+    {
+        return "Westliches Normalformat, komma-getrennt";
     }
 
     @Override
-    public String getWarning() {
+    public String getWarning()
+    {
         return null;
     }
 

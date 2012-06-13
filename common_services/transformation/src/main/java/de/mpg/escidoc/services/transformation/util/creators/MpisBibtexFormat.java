@@ -27,63 +27,52 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-/**
- * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
- *
- * @author Markus Haarlaender (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
- *
- */
-public class WesternFormat13 extends AuthorFormat {
-    
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class MpisBibtexFormat extends AuthorFormat {
+
     @Override
     public String getPattern() {
-        return "^\\s*" + NAME + " ?" + INITIALS + "( *(,| and | AND | und | et |\\n) *" + NAME + " ?" + INITIALS + ")*\\s*$";
+        return "^\\s*" + NAME + "(\\{\\})?" + ", +" + INITIALS + "( +and +" + NAME + "(\\{\\})?" + ", +" + INITIALS + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) {
-
-        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
-        {
+        System.out.println(getPattern());
+        if (authorsString == null || !authorsString.contains("{}") || !authorsString.matches(getPattern())) {
             return null;
         }
-        else
+        String[] authors = authorsString.split(" +and +");
+        List<Author> result = getAuthorListLeadingSurname(authors, ",");
+        for (Author author : result)
         {
-            String[] potentialAuthors = split(authorsString, ',');
-            for (String potentialAuthor : potentialAuthors)
+            if (author.getSurname().endsWith("{}"))
             {
-                if (!contains(potentialAuthor, " "))
-                {
-                    return null;
-                }
+                author.setSurname(author.getSurname().replace("{}", ""));
+                author.getTags().put("brackets", "true");
             }
         }
-        
-        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
-
-        return getAuthorListLeadingSurname(authors, " ");
+        return result;
     }
-
 
     @Override
     public int getSignificance() {
-        return 12;
+        return 1;
     }
 
     @Override
     public String getDescription() {
-        return "Nachname I.[, Nach-name I. A., Nachname I., Nachname I]";
+        return "V. Nachname[; V.-N. Nach-Name]";
     }
 
     @Override
     public String getName() {
-        return "Westliches Format, Nachname voran, blank, Initialen, komma-getrennt";
+        return "BibTeX-Format mit geschweiften Klammern als CoNE-Indikator";
     }
 
     @Override

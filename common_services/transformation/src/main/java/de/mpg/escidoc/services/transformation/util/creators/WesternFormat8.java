@@ -27,65 +27,51 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-public class WesternFormat1 extends AuthorFormat
-{
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat8 extends AuthorFormat {
     
     @Override
-    public String getPattern()
-    {
+    public String getPattern() {
         return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString)
+    public List<Author> getAuthors(String authorsString) throws Exception
     {
 
         if (authorsString.contains(";") || contains(authorsString, "0123456789"))
         {
             return null;
         }
-        else
-        {
-            String[] potentialAuthors = split(authorsString, ',');
-            for (String potentialAuthor : potentialAuthors)
-            {
-                if (!contains(potentialAuthor, " "))
-                {
-                    return null;
-                }
-            }
-        }
         
         String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
         
-        return getAuthorListNormalFormat(authors);
+        return getAuthorListCheckingNames(authorsString, authors);
     }
 
     @Override
-    public int getSignificance()
-    {
-        return 11;
+    public int getSignificance() {
+        return 3;
     }
 
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         return "Vorname Nachname[, Vor-Name Nach-Name]";
     }
 
     @Override
-    public String getName()
-    {
-        return "Westliches Normalformat, komma-getrennt";
+    public String getName() {
+        return "Westliches Normalformat, komma-getrennt, mit Vor- und Nachnamensprüfung";
     }
 
     @Override
-    public String getWarning()
-    {
+    public String getWarning() {
         return null;
     }
 

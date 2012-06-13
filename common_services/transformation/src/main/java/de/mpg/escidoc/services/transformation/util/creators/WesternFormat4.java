@@ -27,44 +27,45 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-public class WesternFormat8 extends AuthorFormat {
-    
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat4 extends AuthorFormat {
+
     @Override
     public String getPattern() {
-        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
+        return "^(" + INITIALS + "[ -]?)+ ?" + NAME + "( *(;| and | AND | und | et |\\n) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString) throws Exception
-    {
+    public List<Author> getAuthors(String authorsString) {
 
-        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
+        if (authorsString.contains(","))
         {
             return null;
         }
-        
-        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
-        
-        return getAuthorListCheckingNames(authorsString, authors);
+        String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
+
+        return getAuthorListWithInitials(authors);
     }
 
     @Override
     public int getSignificance() {
-        return 3;
+        return 11;
     }
 
     @Override
     public String getDescription() {
-        return "Vorname Nachname[, Vor-Name Nach-Name]";
+        return "V. Nachname[; V.-N. Nach-Name]";
     }
 
     @Override
     public String getName() {
-        return "Westliches Normalformat, komma-getrennt, mit Vor- und Nachnamensprüfung";
+        return "Westliches Normalformat mit Initialen, semikolon-getrennt";
     }
 
     @Override

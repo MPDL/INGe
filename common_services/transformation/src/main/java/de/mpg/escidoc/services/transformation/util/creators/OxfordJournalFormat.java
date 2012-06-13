@@ -27,62 +27,72 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
 /**
- * Special parser to write the input string into the surname
- * of a single author if no other parser matched the input.
- *
+ * Special parser to parse author strings like
+ * <code>Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1</code>.
+ * 
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
  */
-public class ResidualFormat extends AuthorFormat
+public class OxfordJournalFormat extends AuthorFormat
 {
 
     @Override
     public String getPattern()
     {
-        return ".";
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *"
+                + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?)*\\s*$";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString)
+    public List<Author> getAuthors(String authorsString) throws Exception
     {
 
-        List<Author> result = new ArrayList<Author>();
-        Author author = new Author();
-        author.setSurname(authorsString);
-        author.setFormat(this);
-        result.add(author);
+        if (authorsString.contains(";") || !authorsString.matches("\\d"))
+        {
+            return null;
+        }
+        
+        String[] authors = authorsString.split(" *, (and)? *");
+
+        for (int i = 0; i < authors.length; i++)
+        {
+            authors[i] = authors[i].replaceAll(" [0-9]( \\*)?$", "");
+        }
+        List<Author> result = getAuthorListNormalFormat(authors);
         return result;
     }
 
     @Override
     public int getSignificance()
     {
-        return Integer.MAX_VALUE;
+        return 1;
     }
 
     @Override
     public String getDescription()
     {
-        return "Everything is written into the surname of a single author";
+        return "Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1";
     }
 
     @Override
     public String getName()
     {
-        return "Residual format, taken if no other format matched";
+        return "OxfordJournalFormat";
     }
 
     @Override
     public String getWarning()
     {
-        return "The system was not able to identify the authors' names.";
+        return null;
     }
 
 }

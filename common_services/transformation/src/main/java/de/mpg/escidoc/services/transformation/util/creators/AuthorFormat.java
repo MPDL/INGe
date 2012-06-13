@@ -27,7 +27,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -40,6 +40,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
 
 /**
  * Abstract superclass for author string decoding formats. Provides basic functionality.
@@ -379,6 +381,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             if (prefixPosition == -1)
             {
                 int lastSpace = authorString.lastIndexOf(" ");
+                if (lastSpace == -1)
+                {
+                    return null;
+                }
                 givenName = authorString.substring(0, lastSpace);
                 surname = authorString.substring(lastSpace + 1);
             }

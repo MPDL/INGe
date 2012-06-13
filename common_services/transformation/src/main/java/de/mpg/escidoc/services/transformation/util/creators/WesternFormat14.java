@@ -27,64 +27,54 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
 /**
- * Special parser to parse author strings like <code>Peter~Richards</code>.
+ * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
  *
- * @author franke (initial creation)
+ * @author Markus Haarlaender (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
+ *
  */
-public class BibTeXSpecialFormat1 extends AuthorFormat
-{
-
+public class WesternFormat14 extends AuthorFormat {
+    
     @Override
-    public String getPattern()
-    {
-        return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | AND | und | et ) *"
-                + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public List<Author> getAuthors(String authorsString)
-    {
-
-        if (!authorsString.contains("~"))
-        {
-            return null;
-        }
-        
-        String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
-
-        return getAuthorListNormalFormat(authors, "~");
+    public String getPattern() {
+        return "^\\s*" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + "( *(;| and | AND | und | et |\\n) *" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
     }
 
     @Override
-    public int getSignificance()
-    {
-        return 11;
+    public List<Author> getAuthors(String authorsString) {
+
+        String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
+
+        return getAuthorListLeadingSurname(authors, ",");
+    }
+
+
+    @Override
+    public int getSignificance() {
+        return 12;
     }
 
     @Override
-    public String getDescription()
-    {
-        return "Firstname~Lastname[, Firstname~Lastname]";
+    public String getDescription() {
+        return "Nachname, Vorname(n) I.[; Nach-name, I. Vor-Name; Nachname, I.; Nachname, Vorname(n)]";
     }
 
     @Override
-    public String getName()
-    {
-        return "Bibtex Special format with tilde, comma-separated";
+    public String getName() {
+        return "Westliches Format, Nachname voran, Initialen und komplette Vornamen gemischt, semikolon-getrennt";
     }
 
     @Override
-    public String getWarning()
-    {
+    public String getWarning() {
         return null;
     }
 

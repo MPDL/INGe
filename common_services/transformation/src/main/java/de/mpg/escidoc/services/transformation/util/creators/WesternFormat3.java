@@ -27,51 +27,47 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-public class WesternFormat6 extends AuthorFormat {
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
+public class WesternFormat3 extends AuthorFormat {
+
+    public static final String GIVEN_NAME_FORMAT = NAME + "( " + NAME + ")*";
     
     @Override
     public String getPattern() {
-        return "^\\s*" + NAME + ", *" + GIVEN_NAME_FORMAT + "( *(;| and | AND | und | et |\\n) *" + NAME + ", *" + GIVEN_NAME_FORMAT + ")*\\s*$";
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(;| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) {
 
-        if ((!authorsString.contains(",")) || contains(authorsString, "0123456789") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(";") < authorsString.indexOf(",")))
+        if (authorsString.contains(","))
         {
             return null;
         }
-        
         String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
-        for (String author : authors)
-        {
-            if (author.split("\\s")[0].contains(".") )
-            {
-                return null;
-            }
-        }
-        
-        return getAuthorListLeadingSurname(authors, ",");
+        return getAuthorListNormalFormat(authors);
     }
 
     @Override
     public int getSignificance() {
-        return 11;
+        return 10;
     }
 
     @Override
     public String getDescription() {
-        return "Nachname, Vorname[; Nach-Name, Vor-Name]";
+        return "Vorname Nachname[; Vor-Name Nach-Name]";
     }
 
     @Override
     public String getName() {
-        return "Westliches Format, Nachname voran, semikolon-getrennt";
+        return "Westliches Normalformat, semikolon-getrennt";
     }
 
     @Override

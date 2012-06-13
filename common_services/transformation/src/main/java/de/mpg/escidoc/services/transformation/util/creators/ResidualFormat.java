@@ -27,57 +27,65 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
+
 /**
- * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
+ * Special parser to write the input string into the surname
+ * of a single author if no other parser matched the input.
  *
- * @author Markus Haarlaender (initial creation)
+ * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
- *
  */
-public class WesternFormat11 extends AuthorFormat {
-    
+public class ResidualFormat extends AuthorFormat
+{
+
     @Override
-    public String getPattern() {
-        return "^\\s*" + NAME + "; ?" + GIVEN_NAME_FORMAT_MIXED + "( *(,| and | AND | und | et |\\n) *" + NAME + "; ?" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
+    public String getPattern()
+    {
+        return ".";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString) {
+    public List<Author> getAuthors(String authorsString)
+    {
 
-        if (!authorsString.contains(";") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(",") < authorsString.indexOf(";")))
-        {
-            return null;
-        }
-        
-        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
-
-        return getAuthorListLeadingSurname(authors, ";");
-    }
-
-
-    @Override
-    public int getSignificance() {
-        return 12;
+        List<Author> result = new ArrayList<Author>();
+        Author author = new Author();
+        author.setSurname(authorsString);
+        author.setFormat(this);
+        result.add(author);
+        return result;
     }
 
     @Override
-    public String getDescription() {
-        return "Nachname; Vorname(n) I.[, Nach-name; I. Vor-Name, Nachname; I., Nachname; Vorname(n)]";
+    public int getSignificance()
+    {
+        return Integer.MAX_VALUE;
     }
 
     @Override
-    public String getName() {
-        return "Westliches Format, Nachname voran, Initialen und komplette Vornamen gemischt, komma-getrennt";
+    public String getDescription()
+    {
+        return "Everything is written into the surname of a single author";
     }
 
     @Override
-    public String getWarning() {
-        return null;
+    public String getName()
+    {
+        return "Residual format, taken if no other format matched";
+    }
+
+    @Override
+    public String getWarning()
+    {
+        return "The system was not able to identify the authors' names.";
     }
 
 }

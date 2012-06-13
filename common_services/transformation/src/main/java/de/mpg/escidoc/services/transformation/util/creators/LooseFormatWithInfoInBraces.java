@@ -27,10 +27,13 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
 
 /**
  * Loose parser that accepts many citation errors for comma or semicolon seperated authors
