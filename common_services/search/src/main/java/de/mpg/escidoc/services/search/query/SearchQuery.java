@@ -5,6 +5,7 @@ package de.mpg.escidoc.services.search.query;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.StringTokenizer;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
@@ -129,9 +130,19 @@ public abstract class SearchQuery implements Serializable
             }
             else
             {
+                // if several sorting keys are given, append the sort order to each one
                 if(this.sortKeys != null) 
                 {
-                    return this.sortKeys + CQL_DESCENDING_DEFINITION;
+                    StringTokenizer t = new StringTokenizer(this.sortKeys);
+                    StringBuffer sortResult = new StringBuffer();
+                    while (t.hasMoreTokens())
+                    {
+                        String singleSortKey = t.nextToken();
+                        sortResult.append(singleSortKey);
+                        sortResult.append(CQL_DESCENDING_DEFINITION);
+                        sortResult.append(" ");
+                    }
+                    return sortResult.toString();
                 }
                 else return null;
             }
