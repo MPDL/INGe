@@ -334,7 +334,7 @@
 							<h:selectOneMenu id="selLocatorAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.locatorAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
 								<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}"/>
 								<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}"/>
-								<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NOR}"/>
+								<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NO}"/>
 							</h:selectOneMenu>
 						</h:panelGroup>       
                     </span>
