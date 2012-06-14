@@ -244,7 +244,7 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						
-						
+						-->
 						<jarModule>
 							<groupId>org.richfaces.ui</groupId>
 							<artifactId>richfaces-ui</artifactId>
@@ -255,12 +255,6 @@
 							<artifactId>richfaces-impl</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-						<jarModule>
-							<groupId>org.apache.tika</groupId>
-							<artifactId>tika-core</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						-->
 						
 						<jarModule>
 							<groupId>commons-beanutils</groupId>
@@ -649,7 +643,7 @@
 			<version>1.2.6</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		-->
 		
 		<dependency>
 			<groupId>org.richfaces.ui</groupId>
@@ -661,12 +655,6 @@
 			<artifactId>richfaces-impl</artifactId>
 			<version>3.3.3.Final</version>
 		</dependency>
-		<dependency>
-		  <groupId>org.apache.tika</groupId>
-		  <artifactId>tika-core</artifactId>
-		  <version>1.1</version>
-		</dependency>
-		-->
 		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
