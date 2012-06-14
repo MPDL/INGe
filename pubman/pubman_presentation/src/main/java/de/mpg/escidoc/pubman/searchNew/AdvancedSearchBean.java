@@ -24,6 +24,7 @@ import javax.faces.render.ResponseStateManager;
 import javax.naming.InitialContext;
 
 import org.ajax4jsf.config.FacesConfig;
+import org.apache.axis.utils.URLHashSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -42,6 +43,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriteri
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -181,6 +183,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String query = fc.getExternalContext().getRequestParameterMap().get("q");
+		query = CommonUtils.fixURLEncoding(query);
 		boolean isPostback = fc.getRenderKit().getResponseStateManager().isPostback(fc);
 		
 		if(!isPostback)
