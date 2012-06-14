@@ -33,6 +33,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.EventTitleSearchCrite
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.GenreSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.IdentifierSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.JournalSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.KeywordSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LanguageSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LocalTagSearchCriterion;
@@ -82,7 +83,7 @@ public abstract class SearchCriterionBase {
 		EVENT_ENDDATE(DateSearchCriterion.class, DisplayType.DATE),
 		EVENT_INVITATION(EventInvitationSearchCriterion.class, null),
 		SOURCE (SourceSearchCriterion.class, DisplayType.STANDARD), 
-		JOURNAL (SourceSearchCriterion.class, null), //!!!
+		JOURNAL (JournalSearchCriterion.class, null),
 		LOCAL (LocalTagSearchCriterion.class, DisplayType.STANDARD), 
 		IDENTIFIER (IdentifierSearchCriterion.class, DisplayType.STANDARD), 
 		COLLECTION (CollectionSearchCriterion.class, null),
@@ -214,8 +215,6 @@ public abstract class SearchCriterionBase {
 	
 	public static SearchCriterionBase initSearchCriterion(SearchCriterion sc)
 	{
-			
-		
 			try {
 			    Constructor ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
 			    ctor.setAccessible(true);
@@ -237,11 +236,6 @@ public abstract class SearchCriterionBase {
 			} 
 			
 			return null;
-		
-		    
-		
-			
-		
 	}
 	
 	protected static String escapeForCql(String escapeMe) {
