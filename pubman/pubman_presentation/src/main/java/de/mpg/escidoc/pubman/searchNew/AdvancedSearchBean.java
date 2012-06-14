@@ -53,7 +53,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private List<SearchCriterionBase> criterionList;
 	
-	
 	private List<SelectItem> criterionTypeListMenu = initCriterionTypeListMenu();
 	
 	private List<SelectItem> operatorTypeListMenu = initOperatorListMenu();
@@ -67,9 +66,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	private List<SelectItem> componentVisibilityListMenu = initComponentVisibilityListMenu();
 	
 	private List<SelectItem> subjectTypesListMenu = initSubjectTypesListMenu();
-	
 
-	
 	private SearchCriterionBase fileAvailableSearchCriterion;
 	
 	private SearchCriterionBase locatorAvailableSearchCriterion;
@@ -81,10 +78,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	private SearchCriterionBase componentVisibilitySearchCriterion;
 	
 	private SearchCriterionBase genreListSearchCriterion;
-	
-	
 
-	
 	private Parenthesis currentlyOpenedParenthesis;
 	private Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap = new HashMap<SearchCriterionBase, Boolean>();
 	
@@ -94,27 +88,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	public AdvancedSearchBean()
 	{
-		/*
-		this.fileAvailableSearchCriterion = initSearchCriterion(SearchCriterion.FILE_AVAILABLE);
-		this.locatorAvailableSearchCriterion = initSearchCriterion(SearchCriterion.LOCATOR_AVAILABLE);
-		this.embargoDateAvailableSearchCriterion = initSearchCriterion(SearchCriterion.EMBARGO_DATE_AVAILABLE);
-		this.componentContentCategory = initSearchCriterion(SearchCriterion.COMPONENT_CONTENT_CATEGORY);
-		this.componentVisibilitySearchCriterion = initSearchCriterion(SearchCriterion.COMPONENT_VISIBILITY);
-		criterionList = new ArrayList<SearchCriterionBase>();
-		criterionList.add(initSearchCriterion(SearchCriterion.ANY));
-		criterionList.add(initSearchCriterion(SearchCriterion.AND_OPERATOR));
-		criterionList.add(initSearchCriterion(SearchCriterion.ANYPERSON));
-		criterionList.add(initSearchCriterion(SearchCriterion.AND_OPERATOR));
-		criterionList.add(initSearchCriterion(SearchCriterion.ANYDATE));
-		
-		*/
-		
-		
 		
 	}
 	
 	
-	public void clearAndInit()
+	private void clearAndInit()
 	{
 		this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
 		this.locatorAvailableSearchCriterion = new LocatorAvailableSearchCriterion();
@@ -140,7 +118,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	
 	
-	public void initWithQueryParam(String queryParam)
+	private void initWithQueryParam(String queryParam)
 	{
 		List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(queryParam);
 
@@ -243,7 +221,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		return Arrays.asList(this.i18nHelper.getSelectItemsGenre());
 	}
 	
-	public List<SelectItem> initSubjectTypesListMenu()
+	private List<SelectItem> initSubjectTypesListMenu()
     {
         List <SelectItem> vocabs = new ArrayList<SelectItem>();
         try
@@ -269,7 +247,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 
 
-	public List<SelectItem> initCriterionTypeListMenu()
+	private List<SelectItem> initCriterionTypeListMenu()
 	{
 		List<SelectItem> criterionTypeList = new ArrayList<SelectItem>();
 		
@@ -359,7 +337,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		
 	}
 	
-	public List<SelectItem> initOperatorListMenu()
+	private List<SelectItem> initOperatorListMenu()
 	{
 		List<SelectItem> operatorTypeList = new ArrayList<SelectItem>();
 		
@@ -582,7 +560,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		
 		
 		 try {
-			getExternalContext().redirect("SearchResultListPage.jsp?q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
+			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
