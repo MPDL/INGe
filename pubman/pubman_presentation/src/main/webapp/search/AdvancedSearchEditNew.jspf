@@ -123,7 +123,7 @@
 					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
 					<h:inputText id="personSearchStringFilled" styleClass="third_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{criterion.hiddenId}"/>
-					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
+					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}"
 							rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
 						styleClass="xSmall_area0 authorLink">&nbsp;
