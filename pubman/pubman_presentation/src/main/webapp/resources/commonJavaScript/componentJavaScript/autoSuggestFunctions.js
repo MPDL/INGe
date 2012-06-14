@@ -354,14 +354,21 @@
 	function fillField(name, value, commonParent, readonly)
 	{
 		var field = $pb(commonParent).find('.' + name);
-		field.val(value);
-		field.attr('title', value);
-		if (typeof readonly != 'undefined')
+		
+		if(field.length)
 		{
-			field.unbind('keydown');
-			field.unbind('keypress');
-			field.attr('readonly', 'readonly');
+			field.val(value);
+			field.attr('title', value);
+			
+			
+			if (typeof readonly != 'undefined')
+			{
+				field.unbind('keydown');
+				field.unbind('keypress');
+				field.attr('readonly', 'readonly');
+			}
 		}
+		
 	}
 	
 	function fillFields()
