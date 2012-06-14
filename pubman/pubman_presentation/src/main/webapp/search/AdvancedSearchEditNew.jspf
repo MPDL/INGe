@@ -227,6 +227,13 @@
 				</span>
 				</h:panelGroup>
 				
+				
+				
+				<!-- input for journal searches-->
+				<h:panelGroup styleClass="sourceArea" rendered="#{criterion.searchCriterion == 'JOURNAL'}">
+					<h:outputLabel id="lblJournal" styleClass="double_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText id="journalSearchTerm" styleClass="double_txtInput sourceTitle journalSuggest" value="#{criterion.searchString}" />
+				</h:panelGroup>
 
 				</span>
 				
