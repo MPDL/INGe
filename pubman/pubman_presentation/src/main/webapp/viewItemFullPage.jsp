@@ -282,10 +282,10 @@
 							</span>
 						</div>
 						<h:panelGroup styleClass="full_area0 pageBrowser">
-							<h:commandLink  id="btList_lkPreviousBottom" styleClass="backward" action="#{PubItemListSessionBean.previousItem}" rendered="#{BreadcrumbItemHistorySessionBean.previousItemName == 'SearchResultListPage'}"  >
+							<h:commandLink  id="btList_lkPreviousBottom" styleClass="backward" action="#{PubItemListSessionBean.previousItem}">
 								<h:outputText value="#{lbl.List_lkPrevious}"/>
 					 		</h:commandLink>
-							<h:commandLink  id="btList_lkNextBottom" styleClass="forward" style="float:right;" action="#{PubItemListSessionBean.nextItem}" rendered="#{BreadcrumbItemHistorySessionBean.previousItemName == 'SearchResultListPage'}" >
+							<h:commandLink  id="btList_lkNextBottom" styleClass="forward" style="float:right;" action="#{PubItemListSessionBean.nextItem}">
 								<h:outputText value="#{tip.List_lkNext}"/>
 							</h:commandLink>
 						</h:panelGroup>
