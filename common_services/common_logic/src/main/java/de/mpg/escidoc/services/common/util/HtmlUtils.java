@@ -87,7 +87,13 @@ public class HtmlUtils
 		return s.empty();
 	} 
 	
-	
+	/**
+	 * Shortens a string to the given length and makes sure that the given html tags are still balanced in the resulting string, if they were balanced in the full string.
+	 * @param snippet
+	 * @param length
+	 * @param tagsNotToBeEscaped
+	 * @return
+	 */
 	public static String getShortenedHtmlSnippetWithBalancedTagsAndEscaping(String snippet, int length, List<String> tagsNotToBeEscaped)
 	{
 		boolean balanced = true;
