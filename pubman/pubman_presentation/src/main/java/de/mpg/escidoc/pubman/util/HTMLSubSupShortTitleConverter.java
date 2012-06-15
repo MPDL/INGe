@@ -9,10 +9,16 @@ import javax.faces.convert.Converter;
 
 import de.mpg.escidoc.services.common.util.HtmlUtils;
 
-public class HTMLSubSupConverter implements Converter{
-    public static final String CONVERTER_ID = "HTMLSubSupConverter";
+/**
+ * This converter shortens a string, escapes all html tags except sup/sub and balances the shortened string
+ * @author haarlae1
+ *
+ */
+public class HTMLSubSupShortTitleConverter implements Converter{
     
-	public HTMLSubSupConverter()
+    private static int LENGTH = 80;
+    
+	public HTMLSubSupShortTitleConverter()
 	{
 		
 	}
@@ -28,7 +34,17 @@ public class HTMLSubSupConverter implements Converter{
         List<String> tags = new ArrayList<String>();
         tags.add("sup");
         tags.add("sub");
-		return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
+        
+        if(snippet.length()>LENGTH)
+        {
+        	return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, LENGTH, tags) + "...";
+        }
+        else
+        {
+        	return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
+        }
+        
+		
 	}
 	
 	
