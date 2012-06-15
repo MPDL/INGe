@@ -869,8 +869,6 @@
 										</copy>
                                         <!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
-                                        <!-- copy over the jboss service descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
                                         <!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
                                         <!-- copy over the aa configuration file -->
