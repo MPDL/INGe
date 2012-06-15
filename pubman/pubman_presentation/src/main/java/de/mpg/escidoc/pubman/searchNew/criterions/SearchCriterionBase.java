@@ -55,6 +55,8 @@ public abstract class SearchCriterionBase {
 		ANY (AnyFieldSearchCriterion.class, DisplayType.STANDARD), 
 		ANYFULLTEXT (AnyFieldAndFulltextSearchCriterion.class, DisplayType.STANDARD),  
 		ANYPERSON (PersonSearchCriterion.class, DisplayType.PERSON),  
+		
+		//Person enum names should be the sam as role names in CreatorVO.CreatorRole
 		AUTHOR (PersonSearchCriterion.class, DisplayType.PERSON),  
 		EDITOR (PersonSearchCriterion.class, DisplayType.PERSON),  
 		ADVISOR (PersonSearchCriterion.class, DisplayType.PERSON),  

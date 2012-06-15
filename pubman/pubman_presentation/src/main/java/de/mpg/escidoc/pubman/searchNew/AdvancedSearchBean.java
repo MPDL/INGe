@@ -103,6 +103,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
 		this.genreListSearchCriterion = new GenreListSearchCriterion();
 		
+		currentlyOpenedParenthesis = null;
+		possibleCriterionsForClosingParenthesisMap.clear();
+		balanceMap.clear();
+		
 		initCriterionListWithEmptyValues();
 		
 	}
