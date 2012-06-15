@@ -122,7 +122,7 @@ public class Aa
         }
         while (!TanStore.storeTan(tan));
         
-        String from = request.getRequestURL().toString();
+        String from = request.getRequestURI().toString();
         
         String page = Config.getProperty("escidoc.aa.instance.url");
         
