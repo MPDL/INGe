@@ -23,7 +23,7 @@
 			%>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-				<meta http-equiv="refresh" content="0; login?from=<%= from %>&tan=<%= tan %>&target=<%= URLEncoder.encode(configuration.getMap().values().iterator().next()) %>clientLogin">
+				<meta http-equiv="refresh" content="0; URL=login?from=<%= from %>&tan=<%= tan %>&target=<%= URLEncoder.encode(configuration.getMap().values().iterator().next()) %>clientLogin">
 				<!-- <title>Insert title here</title> -->
 			</head>
 		<% } else { %>

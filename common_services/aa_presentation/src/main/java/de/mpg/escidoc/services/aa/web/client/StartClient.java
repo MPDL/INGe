@@ -30,13 +30,9 @@
 
 package de.mpg.escidoc.services.aa.web.client;
 
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import de.mpg.escidoc.services.aa.Config;
 
 /**
  * TODO Description
