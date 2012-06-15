@@ -243,7 +243,6 @@
 							<artifactId>trinidad-impl</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-						
 						-->
 						<jarModule>
 							<groupId>org.richfaces.ui</groupId>
@@ -255,7 +254,6 @@
 							<artifactId>richfaces-impl</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-						
 						<jarModule>
 							<groupId>commons-beanutils</groupId>
 							<artifactId>commons-beanutils</artifactId>
@@ -644,7 +642,6 @@
 			<scope>provided</scope>
 		</dependency>
 		-->
-		
 		<dependency>
 			<groupId>org.richfaces.ui</groupId>
 			<artifactId>richfaces-ui</artifactId>
@@ -655,7 +652,6 @@
 			<artifactId>richfaces-impl</artifactId>
 			<version>3.3.3.Final</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -875,6 +871,8 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${project.build.directory}/jboss/server/conf/cone.properties" />
                                         <!-- copy over the aa configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${project.build.directory}/jboss/server/conf" />
+                                        <!-- copy over the aa configuration xml -->
+										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
                                         <!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
 									</tasks>
@@ -897,6 +895,8 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/server/${jboss.install.node}/conf/cone.properties" />
                                         <!-- copy over the aa configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+                                        <!-- copy over the aa configuration xml -->
+										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
                                         <!-- configuration for the runtime server jboss server -->
