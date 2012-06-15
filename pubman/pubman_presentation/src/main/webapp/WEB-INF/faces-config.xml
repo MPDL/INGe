@@ -88,6 +88,11 @@
 	</converter>
 	
 	<converter>
+		<converter-id>HTMLSubSupShortTitleConverter</converter-id>
+		<converter-class>de.mpg.escidoc.pubman.util.HTMLSubSupShortTitleConverter</converter-class>
+	</converter>
+	
+	<converter>
 		<converter-id>HTMLTitleSubSupConverter</converter-id>
 		<converter-class>de.mpg.escidoc.pubman.util.HTMLTitleSubSupConverter</converter-class>
 	</converter>

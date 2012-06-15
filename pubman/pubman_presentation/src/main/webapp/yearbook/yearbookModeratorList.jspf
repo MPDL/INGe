@@ -181,7 +181,7 @@
  				<span class="seperator status"></span>
  				<span class="free_area0_p6 endline itemHeadline">
  					
- 						<b><h:outputText value="#{item.shortTitle}" converter="HTMLSubSupConverter" escape="false"/></b>
+ 						<b><h:outputText value="#{item.fullTitle}" converter="HTMLSubSupShortTitleConverter" escape="false"/></b>
 
 					
  				</span>

@@ -37,7 +37,7 @@ All rights reserved. Use is subject to license terms.
 			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="#{lbl.List_lblRevision}"/><br class="noDisplay" /></b>
 			<span class="free_area0_p6 medium_marginLIncl endline itemHeadline">
 				<h:outputLink title="#{tip.list_shortTitle}" value="#{item.link}">
-					<b><h:outputText value="#{item.shortTitle}" converter="HTMLSubSupConverter" escape="false"/></b>
+					<b><h:outputText value="#{item.fullTitle}" converter="HTMLSubSupShortTitleConverter" escape="false"/></b>
 				</h:outputLink>
 			</span>
 		</div>
