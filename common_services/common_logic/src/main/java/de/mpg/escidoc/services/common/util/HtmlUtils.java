@@ -179,8 +179,6 @@ public class HtmlUtils
 		
 	} 
 	
-	
-	
 	 public static String escapeHtmlExcept(String snippet, List<String> tagNameExceptions)
 	 {
 
