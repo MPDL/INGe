@@ -469,15 +469,18 @@ public abstract class SearchCriterionBase {
 		{
 			
 			SearchCriterionBase criterion = removedList.get(i);
-			
-			
+		
 			String query = criterion.toQueryString();
 			if(query!=null)
 			{
 
 				sb.append(query);
+				
 				sb.append(" ");
 			}
+		
+			
+			
 			
 		}
 

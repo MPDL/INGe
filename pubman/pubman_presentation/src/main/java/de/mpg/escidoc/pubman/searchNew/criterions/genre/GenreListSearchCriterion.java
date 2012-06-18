@@ -55,7 +55,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		genreMap = new LinkedHashMap<Genre, Boolean>();
 		for(Entry<Genre, String>  entry : sortedGenreList)
 		{
-			genreMap.put(entry.getKey(), true);
+			genreMap.put(entry.getKey(), false);
 		}
 		return genreMap;
 	}
@@ -65,7 +65,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		degreeMap = new LinkedHashMap<DegreeType, Boolean>();
 		for(DegreeType dt : DegreeType.values())
 		{
-			degreeMap.put(dt, true);
+			degreeMap.put(dt, false);
 		}
 		return degreeMap;
 	}
@@ -118,10 +118,11 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		}
 		
 		
-		sb.append("||");
+		
 		
 		if(genreMap.get(Genre.THESIS))
 		{
+			sb.append("||");
 			int j = 0;
 			for(Entry<DegreeType, Boolean> entry : degreeMap.entrySet())
 			{
@@ -207,10 +208,43 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 
 	}
 
+	/**
+	 * List is empty if either all genres or degrees are selected or all are deselected
+	 */
 	@Override
 	public boolean isEmpty() {
 		
-		return getGenreSearchCriterions()==null;
+		boolean genreOrDegreeSelected = false;
+		boolean genreOrDegreeDeselected = false;
+		for(Entry<Genre, Boolean> entry : genreMap.entrySet())
+		{
+			if(entry.getValue())
+			{
+				genreOrDegreeSelected = true;
+			}
+			else
+			{
+				genreOrDegreeDeselected = true;
+			}
+		}
+		
+		if(genreMap.get(Genre.THESIS))
+		{
+			for(Entry<DegreeType, Boolean> entry : degreeMap.entrySet())
+			{
+				if(entry.getValue())
+				{
+					genreOrDegreeSelected = true;
+				}
+				else
+				{
+					genreOrDegreeDeselected = true;
+				}
+			}
+		}
+		
+		
+		return !(genreOrDegreeSelected && genreOrDegreeDeselected);
 	}
 	
 	
