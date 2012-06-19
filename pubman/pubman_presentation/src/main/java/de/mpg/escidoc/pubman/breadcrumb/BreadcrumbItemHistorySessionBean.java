@@ -44,8 +44,17 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 public class BreadcrumbItemHistorySessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "BreadcrumbItemHistorySessionBean";
+    
+    // a List of all pages with item-lists
+    private final String[] itemListPages = {
+            "SearchResultListPage",
+            "DepositorWSPage",
+            "QAWSPage",
+            "CartItemsPage"};
+        
     // the List of BreadCrumbs representing JSP's that have been viewed
     private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
+    
 
     private static Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
 
@@ -82,7 +91,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             int position = 0;
             for (int i = 0; i < breadcrumbs.size(); i++)
             {
-               lastItem = (BreadcrumbItem) breadcrumbs.get(i);
+                lastItem = (BreadcrumbItem) breadcrumbs.get(i);
                 
                 lastItem.setIsLast(false);
                 
@@ -92,18 +101,37 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
                     remove = true;
                     position = i;
                     
+//                    breadcrumbs.remove(lastItem);
+                    
                     //in particular for ViewItemFullPage, when an ID is added to the URL
                     keepold = lastItem.getPage().startsWith(newItem.getPage()) && !newItem.getPage().contains("itemId=");
-                    
-                    break;
                 }
             }
             
             if (remove)
             {
-                for (int i = breadcrumbs.size() - 1; i >= position; i--)
+                boolean specialListTreatment = false;
+                for (int k = 0; k < itemListPages.length; k++)
                 {
-                    breadcrumbs.remove(i);
+                    if (breadcrumbs.get(breadcrumbs.size()-1).getDisplayValue().equals(itemListPages[k])
+                            && breadcrumbs.get(breadcrumbs.size()-2).getPage().contains("itemId=")
+                            && newItem.getPage().contains("itemId="))
+                    {
+                        specialListTreatment = true;
+                    }
+                }
+                    
+                if ( !specialListTreatment )
+                {
+                    for (int i = breadcrumbs.size() - 1; i >= position; i--)
+                    {
+                        breadcrumbs.remove(i);
+                    }
+                }
+                else 
+                {
+                    breadcrumbs.remove(breadcrumbs.size()-2);
+                    keepold = false;
                 }
                
             }
@@ -231,4 +259,28 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             return new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue();
         }
     }
+    
+    /**
+     * Returns the display value of the last breadcrumb entry. If the breadcrumbs are
+     * empty, the 'Homepage' value is returned.
+     * @return display value of the last breadcrumb entry
+     */
+    public boolean getPreviousPageIsListPage() {
+        if (breadcrumbs.size() > 1)
+        {
+            for (int i = 0; i < this.itemListPages.length ; i++)
+            {
+                if (this.itemListPages[i].equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

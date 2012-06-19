@@ -282,12 +282,25 @@
 							</span>
 						</div>
 						<h:panelGroup styleClass="full_area0 pageBrowser">
-							<h:commandLink  id="btList_lkPreviousBottom" styleClass="backward" action="#{PubItemListSessionBean.previousItem}">
+							<h:commandLink  id="btList_lkFirstListItem" styleClass="min_imgBtn skipToFirst" action="#{PubItemListSessionBean.firstListItem}" rendered="#{PubItemListSessionBean.hasPreviousListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
+					 		</h:commandLink>
+							<h:commandLink  id="btList_lkPreviousListItem" styleClass="backward" style="align:center" action="#{PubItemListSessionBean.previousListItem}" rendered="#{PubItemListSessionBean.hasPreviousListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
 								<h:outputText value="#{lbl.List_lkPrevious}"/>
 					 		</h:commandLink>
-							<h:commandLink  id="btList_lkNextBottom" styleClass="forward" style="float:right;" action="#{PubItemListSessionBean.nextItem}">
+					 		
+					 		<h:panelGroup styleClass="gotoBox" rendered="#{(PubItemListSessionBean.hasNextListItem or PubItemListSessionBean.hasPreviousListItem) and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
+						 		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.listItemPosition}" />
+						 		<h:outputLabel id="lblItemList_ofBottom" styleClass="free_label" value="#{lbl.ItemList_of} " />
+						 		 <h:outputLabel id="lblChangeItemListPosition" styleClass="free_label" value="#{PubItemListSessionBean.totalNumberOfElements}" /> -->
+						 		<h:commandButton id="btnGoToPageBottom" styleClass="xTiny_txtBtn pageChangeHiddenBtn" value="#{lbl.List_btGo}" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.listItemPosition}"/>
+						 	</h:panelGroup>
+					 		
+					 		<h:commandLink  id="btList_lkLastListItem" styleClass="min_imgBtn skipToLast" style="float:right;" action="#{PubItemListSessionBean.lastListItem}" rendered="#{PubItemListSessionBean.hasNextListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
+							</h:commandLink>
+							<h:commandLink  id="btList_lkNextListItem" styleClass="forward" style="float:right;" action="#{PubItemListSessionBean.nextListItem}" rendered="#{PubItemListSessionBean.hasNextListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
 								<h:outputText value="#{tip.List_lkNext}"/>
 							</h:commandLink>
+							
 						</h:panelGroup>
 						<div class="full_area0 itemHeader">
 							
