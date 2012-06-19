@@ -56,6 +56,7 @@ import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -77,6 +78,7 @@ public class OutputTransformation
     // Output Formats enum
     public static enum OutFormats { rtf, pdf, html, odt, snippet, txt }; 
     
+    private Logger logger = Logger.getLogger(OutputTransformation.class);
     
     /**
      * Public constructor.
@@ -114,8 +116,8 @@ public class OutputTransformation
        
         String path = OutputUtil.getPathToCitationStyles() + "/jasper" + "/citation-style.jasper";
 
-        System.out.println("PATH: " + path);
-        InputStream csj =  ResourceUtil.getResourceAsStream(path);       
+        logger.info("Jasper path: " + path);
+        InputStream csj =  ResourceUtil.getResourceAsStream(path);   
         JasperReport jr = (JasperReport)JRLoader.loadObject(csj); 
 
         params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
