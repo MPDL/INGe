@@ -126,6 +126,16 @@ public class Aa
         
         String page = Config.getProperty("escidoc.aa.instance.url");
         
-        return page + "login.jsp?from=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
+        String query = request.getQueryString();
+        if (query != null && !"".equals(query))
+        {
+        	query = "&" + query;
+        }
+        else
+        {
+        	query = "";
+        }
+        
+        return page + "login.jsp?from=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1") + query;
     }
 }

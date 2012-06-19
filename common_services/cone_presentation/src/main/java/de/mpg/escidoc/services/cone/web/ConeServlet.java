@@ -76,6 +76,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.aa.Aa;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
@@ -164,7 +165,8 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                response.sendRedirect(PropertyReader.getProperty("escidoc.aa.instance.url") + "login?" + request.getQueryString() + "&from=" + request.getRequestURL());
+            	
+                response.sendRedirect(Aa.getLoginLink(request));
             }
             catch (Exception e)
             {
