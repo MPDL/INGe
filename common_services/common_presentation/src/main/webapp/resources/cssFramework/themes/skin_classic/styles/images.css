@@ -250,6 +250,71 @@ body .wrapper {
     padding-left: 0px;
 }
 
+.fullItem .pageBrowserItem .skipToFirst {
+	padding-left:1.3636em;
+	margin-right:0.45em;
+	background-image: url("../images/All_Paginator_ArrowFirst_15_Active.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .skipToFirst:hover {
+	padding-left:1.3636em;
+	margin-right:0.45em;
+	background-image: url("../images/All_Paginator_ArrowFirst_15_Hover.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .backward {
+	padding-left: 20px;
+	padding-right: 0;
+	margin-right:0.64em;
+	text-align:center;
+	background-image: url("../images/All_Paginator_ArrowPrevious_15_Active.png");
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .backward:hover {
+	padding-left: 20px;
+	padding-right: 0;
+	margin-right:0.64em;
+	text-align:center;
+	background-image: url("../images/All_Paginator_ArrowPrevious_15_Hover.png");
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .forward {
+	padding-left: 0;
+	padding-right: 20px;
+	margin-left:0.64em;
+	text-align:left;
+	background-image: url("../images/All_Paginator_ArrowNext_15_Active.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .forward:hover {
+	padding-left: 0;
+	padding-right: 20px;
+	margin-left:0.64em;
+	text-align:left;
+	background-image: url("../images/All_Paginator_ArrowNext_15_Hover.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .skipToLast {
+	padding-right:1.3636em;
+	margin-left:0.45em;
+	background-image: url("../images/All_Paginator_ArrowLast_15_Active.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .skipToLast:hover {
+	padding-right:1.3636em;
+	margin-left:0.45em;
+	background-image: url("../images/All_Paginator_ArrowLast_15_Hover.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
 /*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .forward {
     /*		padding-right: 2px;
      */

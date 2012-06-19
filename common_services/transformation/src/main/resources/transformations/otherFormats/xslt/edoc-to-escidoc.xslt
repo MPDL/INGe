@@ -1622,7 +1622,10 @@
 		<xsl:choose>
 			<xsl:when test="genre='Article'">
 				<xsl:choose>
-					<xsl:when test="$import-name = 'MPIEVA' and contains(lower-case(title), '[abstract]')">
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'meeting-abstract'"/>
 						</xsl:call-template>
@@ -2964,7 +2967,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Informatics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMF'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Medical Research')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Medical Research')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMMG'">

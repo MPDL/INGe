@@ -42,6 +42,7 @@
 	border-top-style: solid;
 	border-bottom-width: 0.09em !important;
 	border-bottom-style: solid;
+	margin-top:0.5454em;
 }
 
 .fullItem table, .fullItem td, .fullItem tr, .fullItem th {
@@ -385,6 +386,43 @@
 	line-height: 1.6em;
 	cursor: pointer;
 }
+
+
+
+
+.fullItem .pageBrowserItem {
+	text-align:center;
+	padding-bottom:0.2727em;
+}
+.fullItem .pageBrowserItem .paginatorPanel {
+	line-height:3em;
+}
+*:first-child+html .fullItem .pageBrowserItem .paginatorPanel {
+	line-height:normal;
+} 
+.fullItem .pageBrowserItem a {
+	border:none;
+	text-decoration:none;
+}
+
+.fullItem .pageBrowserItem span.gotoBox {
+	margin-right:0.2727em;
+}
+*:first-child+html .fullItem .pageBrowserItem span.gotoBox {
+	margin-top:-1.8181em;
+}
+.fullItem .pageBrowserItem .gotoBox input[type="text"] {
+	margin-top:0.545454em;
+}
+.fullItem .pageBrowserItem .gotoBox input[type="submit"] {
+	display:none;
+}
+
+
+
+
+
+
 
 /*VALIDATION (Cone)*/
 
