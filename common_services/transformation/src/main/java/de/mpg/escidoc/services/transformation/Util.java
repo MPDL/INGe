@@ -365,7 +365,7 @@ public class Util
                     if (!"".equals(result.trim()))
                     {
                         String id = result.split("\\|")[1];
-                        GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle=" + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                        GetMethod detailMethod = new GetMethod(id + "?format=rdf&redirect=true&eSciDocUserHandle=" + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                         logger.info(detailMethod.getPath());
                         logger.info(detailMethod.getQueryString());
                         
@@ -568,11 +568,11 @@ public class Util
                             String id = result.split("\\|")[1];
                             if (!oldIds.contains(id))
                             {
-                                GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                                GetMethod detailMethod = new GetMethod(id + "?format=rdf&redirect=true&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
     
                                 ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                                 client.executeMethod(detailMethod);
-                                logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                                logger.info("CoNE query: " + id + "?format=rdf&redirect=true&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
                                 if (detailMethod.getStatusCode() == 200)
                                 {
                                     Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -664,11 +664,11 @@ public class Util
                         String id = result.split("\\|")[1];
                         if (!oldIds.contains(id))
                         {
-                            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                            GetMethod detailMethod = new GetMethod(id + "?format=rdf&redirect=true&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                             
                             ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                             client.executeMethod(detailMethod);
-                            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                            logger.info("CoNE query: " + id + "?format=rdf&redirect=true&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
                             if (detailMethod.getStatusCode() == 200)
                             {
                                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
