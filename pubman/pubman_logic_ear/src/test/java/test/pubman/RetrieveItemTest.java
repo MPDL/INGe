@@ -16,10 +16,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -48,26 +50,6 @@ public class RetrieveItemTest
     protected static final String VERSION = "version";
     protected static final String OPERATION = "operation";
     
-    
-    
-    
-    @Test
-    @Ignore
-    public void retrieveItemById() throws Exception
-    {
-        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
-        filterMap.put(VERSION, new String[]{"1.1"});
-        filterMap.put(QUERY, new String[]{"\"/id\"=escidoc:2006"});
-        
-        logger.debug("Filter=" + filterMap.entrySet().toString());
-        long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler().retrieveItems(filterMap);
-        zeit += System.currentTimeMillis();
-        logger.info("retrieveItemById(" + filterMap + ")->" + zeit + "ms");
-        logger.debug("ContentItems =" + items);
-        assertNotNull(items);
-    }
-
 
     /**
      * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
@@ -75,9 +57,6 @@ public class RetrieveItemTest
     @Test
     public void retrievePendingContentItems() throws Exception
     {
-        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
-        filterMap.put(VERSION, new String[]{"1.1"});
-
         String q1 = "\"/properties/public-status\"=pending";
         filterMap.put(QUERY, new String[]{q1});
         
@@ -105,7 +84,10 @@ public class RetrieveItemTest
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);        
         logger.info("ContentItems =" + items);
         SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(items);
-        assertNotNull(items);
+        assertNotNull(response);
+        List<SearchRetrieveRecordVO> results = response.getRecords();
+        
+        assertTrue(isDescending(results));
     }
     
     /**
@@ -114,9 +96,6 @@ public class RetrieveItemTest
     @Test
     public void retrievePendingContentItemsSortByAscending() throws Exception
     {
-        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
-        filterMap.put(VERSION, new String[]{"1.1"});
-
         String q1 = "\"/properties/public-status\"=pending";
         String q2 = "sortBy " + "\"/id\"/sort.ascending";
         filterMap.put(QUERY, new String[]{q1 + " " + q2});
@@ -126,17 +105,42 @@ public class RetrieveItemTest
         assertNotNull(items);
         
         SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(items);
+        assertNotNull(response);
         List<SearchRetrieveRecordVO> results = response.getRecords();
-        ItemVO last = null;
-        for(SearchRetrieveRecordVO rec : results)
-        { 
-            ItemVO item = (ItemVO)rec.getData();
-            if (last != null && item != null)
-                assertTrue(last.getPid().compareTo(item.getPid()) > 0);
-            last = item;
-        }
+        
+        assertTrue(isAscending(results));
+    }
 
-        assertTrue(true);
+    private boolean isAscending(List<SearchRetrieveRecordVO> results)
+    {
+        return doCompare(results, new Character('>'));
+    }
+    
+    private boolean isDescending(List<SearchRetrieveRecordVO> results)
+    {
+        return doCompare(results, new Character('<'));
+    }
+
+    private boolean doCompare(List<SearchRetrieveRecordVO> results, Character c)
+    {
+        ItemRO lastRO = null;
+        LexComparator l = new LexComparator();
+        
+        for (SearchRetrieveRecordVO rec : results)
+        {           
+            ItemRO itemRO = ((ItemVO)rec.getData()).getLatestVersion();
+            logger.info(itemRO.getObjectId());
+
+            if (lastRO != null && itemRO != null)
+            {
+                if (!l.doCompare(lastRO.getObjectId(), itemRO.getObjectId(), c))
+                {
+                    return false;
+                }
+            }
+            lastRO = itemRO;
+        }
+        return true;
     }
     
     /**
@@ -148,6 +152,9 @@ public class RetrieveItemTest
     public void setUp() throws Exception
     {
         filterMap.clear();
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        
         userHandle = AdminHelper.loginUser(PropertyReader.getProperty("framework.scientist.username"), PropertyReader.getProperty("framework.scientist.password"));
         
         xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
@@ -178,6 +185,23 @@ public class RetrieveItemTest
         Object serviceInstance = context.lookup(serviceName);
         assertNotNull(serviceInstance);
         return serviceInstance;
+    }
+    
+    class LexComparator
+    {
+        public boolean doCompare(String s1, String s2, Character c)
+        {
+            if (c.equals('<'))
+            {
+                return (s1.compareTo(s2) > 0);
+            }
+            else if (c.equals('>'))
+            {
+                return (s1.compareTo(s2) < 0);
+            }
+            return false;
+        }
+        
     }
 
 }
