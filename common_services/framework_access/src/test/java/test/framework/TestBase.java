@@ -172,6 +172,11 @@ public class TestBase
     public static final String PUBITEM_TYPE_ID = "escidoc.framework_access.content-model.id.publication";
     
     /**
+     * The id of the test context.
+     */
+    public static final String PROPERTY_TEST_CONTEXT_ID = "escidoc.framework_access.context.id.test";
+    
+    /**
      * A line for separating output.
      */
     protected static final String LINE = "--------------------";
