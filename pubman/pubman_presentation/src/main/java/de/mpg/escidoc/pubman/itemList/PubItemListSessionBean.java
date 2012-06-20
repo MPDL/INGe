@@ -232,6 +232,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     private int itemPosition = 0;
     
+    /**
+     * A boolean telling if the items position was set manually
+     */
+    boolean itemPositionSetNew = false;
+    
     private final LoginHelper loginHelper;
 
     public PubItemListSessionBean()
@@ -1166,6 +1171,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     }
     
+    /**
+     * redirects to the next list item and updates the currentPartList if needed
+     */
     public void nextListItem ()
     {
         PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
@@ -1220,6 +1228,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
     }
     
+    /**
+     * redirects to the previous list item and updates the currentPartList if needed
+     */
     public void previousListItem() 
     {
         PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
@@ -1274,6 +1285,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
     }
     
+    /**
+     * checks if an item is the last item of the whole list
+     * @return
+     */
     public boolean getHasNextListItem()
     {
         PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
@@ -1293,6 +1308,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return true;
     }
     
+    /**
+     * checks if an item is the last item of the whole list
+     * @return
+     */
     public boolean getHasPreviousListItem()
     {
         PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
@@ -1312,6 +1331,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return true;
     }
     
+    /**
+     * redirects to the first item of the whole list and updates the currentPartList if needed
+     */
     public void firstListItem()
     {
         try
@@ -1332,6 +1354,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
     }
     
+    /**
+     * redirects to the last item of the whole list and updates the currentPartList if needed
+     */
     public void lastListItem()
     {
         try
@@ -1354,26 +1379,22 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     
     public int getListItemPosition()
     {
-        if (itemPosition != 0) {
-            return itemPosition;
-        }
-        else 
+        PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+        int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
+        for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
         {
-            PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
-            int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-            for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
+            if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
             {
-                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
-                {
-                   itemPosition = positionFirstPartListItem + i;
-                }
+               itemPosition = positionFirstPartListItem + i;
             }
-            return itemPosition;
         }
+        itemPositionSetNew = false;
+        return itemPosition;
     }
     
     public void setListItemPosition(int newItemPosition)
     {
+        itemPositionSetNew = true;
         itemPosition = newItemPosition;
     }
     

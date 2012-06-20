@@ -50,7 +50,8 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             "SearchResultListPage",
             "DepositorWSPage",
             "QAWSPage",
-            "CartItemsPage"};
+            "CartItemsPage",
+            "YearbookPage"};
         
     // the List of BreadCrumbs representing JSP's that have been viewed
     private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
@@ -103,21 +104,31 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
                     
 //                    breadcrumbs.remove(lastItem);
                     
-                    //in particular for ViewItemFullPage, when an ID is added to the URL
+                    // in particular for ViewItemFullPage, when an ID is added to the URL
                     keepold = lastItem.getPage().startsWith(newItem.getPage()) && !newItem.getPage().contains("itemId=");
                 }
             }
             
             if (remove)
             {
+                lastItem = breadcrumbs.get(position);
                 boolean specialListTreatment = false;
-                for (int k = 0; k < itemListPages.length; k++)
+                // special case for list after watching an item
+                if (position < breadcrumbs.size()-1)
                 {
-                    if (breadcrumbs.get(breadcrumbs.size()-1).getDisplayValue().equals(itemListPages[k])
-                            && breadcrumbs.get(breadcrumbs.size()-2).getPage().contains("itemId=")
-                            && newItem.getPage().contains("itemId="))
+                    for (int m = position+1; m < breadcrumbs.size(); m++)
                     {
-                        specialListTreatment = true;
+                        for (int k = 0; k < itemListPages.length; k++)
+                        {
+                        
+                            if (breadcrumbs.get(m).getDisplayValue().equals(itemListPages[k])
+                                    && breadcrumbs.get(position).getPage().contains("itemId=")
+                                    && newItem.getPage().contains("itemId="))
+                            {
+                                specialListTreatment = true;
+                            }
+                        }
+                        
                     }
                 }
                     
@@ -130,7 +141,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
                 }
                 else 
                 {
-                    breadcrumbs.remove(breadcrumbs.size()-2);
+                    breadcrumbs.remove(position);
                     keepold = false;
                 }
                
