@@ -180,18 +180,17 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         {
             this.getLocalTags().add("");
         }
-        else
+        
+        wrappedLocalTags= new ArrayList<WrappedLocalTag>();
+        for (int i = 0; i < this.getLocalTags().size(); i++)
         {
-            wrappedLocalTags= new ArrayList<WrappedLocalTag>();
-            for (int i = 0; i < this.getLocalTags().size(); i++)
-            {
-                WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
-                wrappedLocalTag.setParent(this);
-                wrappedLocalTag.setValue(this.getLocalTags().get(i));
-                if(wrappedLocalTag.getValue().length()>0 || wrappedLocalTags.size()==0)
-                    wrappedLocalTags.add(wrappedLocalTag);
-            }
+            WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
+            wrappedLocalTag.setParent(this);
+            wrappedLocalTag.setValue(this.getLocalTags().get(i));
+            if(wrappedLocalTag.getValue().length()>0 || wrappedLocalTags.size()==0)
+                wrappedLocalTags.add(wrappedLocalTag);
         }
+        
 
     }
 
