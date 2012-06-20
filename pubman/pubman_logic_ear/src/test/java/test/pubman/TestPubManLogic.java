@@ -53,6 +53,7 @@ import test.pubman.publishing.PubItemPublishingTest;
                     ,ApplicationLogTest.class
                     //Exporting
                     ,ItemExportingTest.class
+                    ,RetrieveItemTest.class
                      })
 public class TestPubManLogic
 {
