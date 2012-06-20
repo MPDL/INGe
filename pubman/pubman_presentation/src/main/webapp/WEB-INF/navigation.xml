@@ -215,27 +215,9 @@
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
-			<from-outcome>loadCreateRevision</from-outcome>
-			<to-view-id>
-			/CreateRevisionPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
 			<from-outcome>loadReleaseHistory</from-outcome>
 			<to-view-id>
 			/ViewItemReleaseHistoryPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>loadChooseCollection</from-outcome>
-			<to-view-id>
-			/CreateRevisionChooseCollectionPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
