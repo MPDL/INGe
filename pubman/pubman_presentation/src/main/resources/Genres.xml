@@ -309,7 +309,7 @@
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 			</group>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
@@ -371,6 +371,7 @@
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events" class-attribute="metadata.event">
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 			</group>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
@@ -402,9 +403,7 @@
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events" class-attribute="metadata.event">
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
-			</group>
-			<group id="events" repeatable="false" display="true" optional="true" form-id="easy-submission" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 			</group>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources" class-attribute="metadata.sources">
@@ -429,7 +428,7 @@
 				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_item_toc"/>
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="easy-submission" label="g_events">
@@ -475,8 +474,8 @@
 				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
 				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all" label="g_item_toc"/>
 			</group>
-			<group id="events" repeatable="false" display="true" optional="true" form-id="easy-submission" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
@@ -507,7 +506,7 @@
 				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_item_toc"/>
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
 			</group>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
@@ -601,9 +600,8 @@
 				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
 				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_item_toc"/>
 			</group>
-			<group id="events" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_events"/>
-			<group id="events" repeatable="false" display="true" optional="true" form-id="full-submission" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
 			</group>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
@@ -721,9 +719,8 @@
 				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
 				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_item_toc"/>
 			</group>
-			<group id="events" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_events"/>
-			<group id="events" repeatable="false" display="true" optional="true" form-id="full-submission" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
 			</group>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
@@ -756,7 +753,7 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_events"/>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
 			</group>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="false" optional="false" label="g_source_basic" form-id="easy-submission"/>
