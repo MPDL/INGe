@@ -483,8 +483,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		criterionList.remove(parenthesis);
 		criterionList.remove(partnerParenthesis);
 		
-		this.currentlyOpenedParenthesis = null;
-		possibleCriterionsForClosingParenthesisMap.clear();
+		//this.currentlyOpenedParenthesis = null;
+		if(currentlyOpenedParenthesis != null)
+		{
+			updateListForClosingParenthesis(currentlyOpenedParenthesis);
+		}
+		
 	}
 	
 	
@@ -815,15 +819,5 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	public void setGenreListMenu(List<SelectItem> genreListMenu) {
 		this.genreListMenu = genreListMenu;
 	}
-
-
-
-
-
-
-
-
-
-
 
 }
