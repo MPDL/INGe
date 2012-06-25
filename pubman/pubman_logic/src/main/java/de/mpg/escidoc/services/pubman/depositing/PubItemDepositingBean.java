@@ -35,6 +35,7 @@ import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_CRE
 import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,8 +71,10 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -257,27 +260,52 @@ public class PubItemDepositingBean implements PubItemDepositing
 
         try
         {
-            // Create filter todo
-            FilterTaskParamVO filterParam = new FilterTaskParamVO();
+            List<ContextVO> contextList = new ArrayList<ContextVO>();
+            String xmlGrants = ServiceLocator.getUserAccountHandler(user.getHandle()).retrieveCurrentGrants(user.getReference().getObjectId());
+            
+            List<GrantVO> grants = xmlTransforming.transformToGrantVOList(xmlGrants);
+            
+            if (grants.size() == 0)
+            {
+                return contextList;
+            }
 
-            RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
-            filterParam.getFilterList().add(roleFilter);
-            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
+            // Create filter
+            FilterTaskParamVO filterParam = new FilterTaskParamVO();
+            
+            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("Pubman");
             filterParam.getFilterList().add(typeFilter);
-            // Peter Broszeit: PubCollectionStatusFilter added.
+            
+            ItemRefFilter itmRefFilter = filterParam.new ItemRefFilter();
+            filterParam.getFilterList().add(itmRefFilter);
+            
+            boolean hasGrants = false;
+            
+            for (GrantVO grant : grants)
+            {
+                if (PredefinedRoles.DEPOSITOR.frameworkValue().equals(grant.getRole()))
+                {
+                    if (grant.getObjectRef() != null)
+                    {
+                        itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
+                        hasGrants = true;
+                    }
+                }     
+            }
+            
+            if (!hasGrants)
+            {
+                return contextList;
+            }
+
             PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
             filterParam.getFilterList().add(statusFilter);
 
             HashMap<String, String[]> filterMap = filterParam.toMap();
-            if (logger.isDebugEnabled())
-            {
-                String query[] = filterMap.get("query");
-                logger.debug("PubItemDepositingBean.getPubCollectionListForDepositing(" + user.getUserid() + ") query in map: " + query[0]);
-            }
-
+           
             // Get context list
             String xmlContextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-            List<ContextVO> contextList = (List<ContextVO>) xmlTransforming.transformSearchRetrieveResponseToContextList(xmlContextList);
+            contextList = (List<ContextVO>) xmlTransforming.transformSearchRetrieveResponseToContextList(xmlContextList);
             
             return contextList;
 
@@ -285,7 +313,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         catch (Exception e)
         {
             // No business exceptions expected.
-            ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing(" + user.getUserid() + ")");
+            ExceptionHandler.handleException(e, "getPubCollectionListForDepositing for user <" + user.getUserid() + ">");
             throw new TechnicalException(e);
         }
     }
@@ -294,11 +322,12 @@ public class PubItemDepositingBean implements PubItemDepositing
     {
         try
         {
-            // Create filter   todo
+            // Create filter
             FilterTaskParamVO filterParam = new FilterTaskParamVO();
-            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
+            
+            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("Pubman");
             filterParam.getFilterList().add(typeFilter);
-            // Peter Broszeit: PubCollectionStatusFilter added.
+            
             PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
             filterParam.getFilterList().add(statusFilter);
             
@@ -307,13 +336,12 @@ public class PubItemDepositingBean implements PubItemDepositing
             if (logger.isDebugEnabled())
             {
                 String query[] = filterMap.get("query");
-                logger.debug("PubItemDepositingBean.getPubCollectionListForDepositing(): query in map" + query[0]);
+                logger.debug("getPubCollectionListForDepositing "  + query[0]);
             }
 
             // Get context list
             String xmlContextList = ServiceLocator.getContextHandler().retrieveContexts(filterMap);
-            // ... and transform to PubCollections.
-           
+            // ... and transform to PubCollections.          
             List<ContextVO> contextList = (List<ContextVO>) xmlTransforming.transformSearchRetrieveResponseToContextList(xmlContextList);
             
             return contextList;
