@@ -34,21 +34,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
 import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.exceptions.ExceptionHandler;
 
 /**
  * Test for retrieving PubCollection in different ways.
@@ -60,16 +67,12 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class RetrievePubCollectionTest extends TestBase
 {
-    /**
-     * Logger for this class.
-     */
-    private static final Logger logger = Logger.getLogger(RetrievePubCollectionTest.class);
+    
     private static XmlTransforming xmlTransforming;
     private AccountUserVO user;
     private HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
     
     private static final String SEARCH_RETRIEVE = "searchRetrieve";
-    private static final String QUERY = "query";
     private static final String VERSION = "version";
     private static final String OPERATION = "operation";
 
@@ -92,42 +95,37 @@ public class RetrievePubCollectionTest extends TestBase
     }
 
     /**
-     * Tests retrieving collections by user role. 
+     * Tests retrieving collections by user depositor role. 
      * 
      * @throws Exception
-     * TODO tendres: test has to be rewritten, the collections returned is not correct
      */
     @Test
     public void getPubCollectionByDepositor() throws Exception
     {
 
-        // Create filter
-        FilterTaskParamVO filterParam = new FilterTaskParamVO();
-        RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
-        filterParam.getFilterList().add(roleFilter);
-
-        // ... and transform filter to xml
-        /*String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
-        <filter name="role">escidoc:role-depositor</filter>
-        <filter name="user">escidoc:3013</filter>*/
+        List<ContextVO> pubCollectionList = this.getPubCollectionListForRole(user, PredefinedRoles.DEPOSITOR.frameworkValue(), "PubMan");
         
-        String q1 = "\"/role\"=escidoc:role-depositor";
-        String q2 = "\"/user\"=" + user.getReference().getObjectId();
-        filterMap.put(QUERY, new String[]{q1 + " and " + q2});
-        
-        // Get context list
-        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap); 
-        // ... and transform to PubCollections.
-        List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
-
-        assertNotNull(pubCollectionList);
         assertEquals(2, pubCollectionList.size());
         ContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
-        //assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
-        //assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
     }
+    
+    /**
+     * Tests retrieving collections by user moderator role. 
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void getPubCollectionByModerator() throws Exception
+    {
 
+        List<ContextVO> pubCollectionList = this.getPubCollectionListForRole(user, PredefinedRoles.MODERATOR.frameworkValue(), "PubMan");
+        
+        assertEquals(2, pubCollectionList.size());
+        ContextVO pubCollection = pubCollectionList.get(0);
+        assertNotNull(pubCollection.getReference());
+    }
+    
     /**
      * Tests retrieving collections by collection type. 
      * 
@@ -137,82 +135,13 @@ public class RetrievePubCollectionTest extends TestBase
      */
     @Test
     public void getPubCollectionByType() throws Exception
-    {
-        // Create filter
-        FilterTaskParamVO filterParam = new FilterTaskParamVO();
-        FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
-        filterParam.getFilterList().add(typeFilter);
-
-        // ... and transform filter to xml
-        /*String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
-        <filter name="http://escidoc.de/core/01/properties/type">PubMan</filter>
-        logger.debug("getPubCollectionByType() - String filterString=" + filterString);*/
-        
-        String q = "\"/properties/type\"=PubMan";
-        filterMap.put(QUERY, new String[]{q});
-
-        // Get context list
-        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap); 
-        //logger.debug("getPubCollectionByType() - retrieved collection XML=" + toString(getDocument(contextList, false), false));
-        // ... and transform to PubCollections.
-        List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
+    {        
+        List<ContextVO> pubCollectionList = this.getPubCollectionListForRole(user, null, "PubMan");
 
         assertNotNull(pubCollectionList);
         assertTrue("At least one (sample) PubMan collection has to exist in the framework!", pubCollectionList.size() >= 1);
-
-        for (ContextVO pubCollection : pubCollectionList)
-        {
-            assertNotNull(pubCollection.getReference());
-            if (pubCollection.getReference().getObjectId() == PUBMAN_TEST_COLLECTION_ID)
-            {
-                // assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
-                // assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
-            }
-        }
     }
-
-    /**
-     * Tests retrieving collections by user role and collection type. 
-     * 
-     * @throws Exception
-     * TODO tendres: test has to be rewritten, the collections returned is not correct
-     */
-    @Test
-    public void getPubCollectionByRoleAndType() throws Exception
-    {
-
-        // Create filter
-        FilterTaskParamVO filterParam = new FilterTaskParamVO();
-        RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
-        filterParam.getFilterList().add(roleFilter);
-        FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
-        filterParam.getFilterList().add(typeFilter);
-
-        // ... and transform filter to xml
-        String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("getPubCollectionByRoleAndType() - String filterString=" + filterString);
-        }
-        
-        String q1 = "\"/role\"=escidoc:role-depositor";
-        String q2 = "\"/user\"=" + user.getReference().getObjectId();
-        String q3 = "\"/properties/type\"=PubMan";
-        filterMap.put(QUERY, new String[]{q1 + " and " + q2 + " and " + q3});
-
-        // Get context list
-        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-        // ... and transform to PubCollections.
-        List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
-
-        assertNotNull(pubCollectionList);
-        assertEquals(2, pubCollectionList.size());
-        ContextVO pubCollection = pubCollectionList.get(0);
-        assertNotNull(pubCollection.getReference());
-        // assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
-        // assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
-    }
-
+    
     /**
      * Tests retrieving one collection by collection id. 
      * 
@@ -229,7 +158,78 @@ public class RetrievePubCollectionTest extends TestBase
 
         assertNotNull(pubCollection);
         assertNotNull(pubCollection.getReference());
-        assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
-        assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
+        assertTrue(pubCollection.getReference().getObjectId().equals(PUBMAN_TEST_COLLECTION_ID));
     }
+      
+    private List<ContextVO> getPubCollectionListForRole(AccountUserVO user, String role, String type) throws TechnicalException
+    {
+        if (user == null)
+        {
+            throw new IllegalArgumentException(getClass() + ".getPubCollectionListForDepositing: user is null.");
+        }
+        if (user.getReference() == null || user.getReference().getObjectId() == null)
+        {
+            throw new IllegalArgumentException(getClass() + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
+        }
+
+        try
+        {
+            List<ContextVO> contextList = new ArrayList<ContextVO>();
+            String xmlGrants = ServiceLocator.getUserAccountHandler(user.getHandle()).retrieveCurrentGrants(user.getReference().getObjectId());
+            
+            List<GrantVO> grants = xmlTransforming.transformToGrantVOList(xmlGrants);
+            
+            if (grants.size() == 0)
+            {
+                return contextList;
+            }
+
+            // Create filter
+            FilterTaskParamVO filterParam = new FilterTaskParamVO();
+            
+            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter(type);
+            filterParam.getFilterList().add(typeFilter);
+            
+            if (role != null)
+            {
+                ItemRefFilter itmRefFilter = filterParam.new ItemRefFilter();
+                filterParam.getFilterList().add(itmRefFilter);
+                boolean hasGrants = false;
+                for (GrantVO grant : grants)
+                {
+                    if (role.equals(grant.getRole()))
+                    {
+                        if (grant.getObjectRef() != null)
+                        {
+                            itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
+                            hasGrants = true;
+                        }
+                    }
+                }
+                if (!hasGrants)
+                {
+                    return contextList;
+                }
+            }
+
+            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
+            filterParam.getFilterList().add(statusFilter);
+
+            HashMap<String, String[]> filterMap = filterParam.toMap();
+           
+            // Get context list
+            String xmlContextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
+            contextList = (List<ContextVO>) xmlTransforming.transformSearchRetrieveResponseToContextList(xmlContextList);
+            
+            return contextList;
+
+        }
+        catch (Exception e)
+        {
+            // No business exceptions expected.
+            ExceptionHandler.handleException(e, "getPubCollectionListForDepositing for user <" + user.getUserid() + ">");
+            throw new TechnicalException(e);
+        }
+    }
+
 }

@@ -109,8 +109,8 @@ public class TestBase
     protected String userhandle = null;
     
     protected static String PUBMAN_TEST_COLLECTION_ID = null;
+    protected static  String PUBMAN_TEST_COLLECTION_NAME = null;
     
-    protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
             + "collection. Any content can be stored in this collection, which is of relevance\n" + "for the users of the system. You can submit " + "relev" + "ant bibliographic information\n"
             + "for your publication (metadata) and all relevant files. The MPS is the\n" + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
@@ -131,6 +131,7 @@ public class TestBase
     public static void init() throws Exception
     {
         PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty("escidoc.framework_access.context.id.test");
+        PUBMAN_TEST_COLLECTION_NAME = PropertyReader.getProperty("escidoc.framework_access.context.name.test");
     }
 
 

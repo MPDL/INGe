@@ -697,7 +697,32 @@ public class PubItemDepositingTest extends TestBase
         assertNotNull(pubItem);
         assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
     }
-
+    
+    /**
+     * Test for creating PubItem without publisher and with publishing place (Ticket 2269)
+     * 
+     * @author Peter Broszeit
+     * @throws Exception
+     */
+    @Test
+    public void testCreatePubItemWithPublisherPlace() throws Exception
+    {
+        assertTrue(user.isDepositor());
+        // First create a new PubItem
+        PubItemVO pubItem = getComplexPubItemWithoutFiles();
+        getMdsPublication();
+        pubItem.getMetadata().getPublishingInfo().setPublisher("");
+        pubItem.getMetadata().getPublishingInfo().setPlace("Berlin");
+        pubItem = savePubItem(pubItem, user);
+        assertNotNull(pubItem);
+        // and submit (release) it
+        pubItem = pmDepositing.submitPubItem(pubItem, "Test Create Revision", user);
+        assertNotNull(pubItem);
+        assertNotNull(pubItem.getVersion());
+       
+        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getVersion().getState());
+    }
+    
     /**
      * Test for {@link PubItemDepositing#getPubCollectionListForDepositing(AccountUserVO)}
      * 
@@ -706,12 +731,24 @@ public class PubItemDepositingTest extends TestBase
     @Test
     public void testGetPubCollectionListForDepositing() throws Exception
     {
+        List<ContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
+        assertNotNull(pubCollectionList);
+        assertEquals(2, pubCollectionList.size());
+        ContextVO pubCollection = pubCollectionList.get(0);
+        assertNotNull(pubCollection.getReference());
+    }
+    
+    /**
+     * Test for {@link PubItemDepositing#getPubCollectionListForDepositing(AccountUserVO)}
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testGetPubCollectionListForDepositingForAdmin() throws Exception
+    {
         List<ContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(adminUser);
         assertNotNull(pubCollectionList);
-// TODO        assertEquals(2, pubCollectionList.size());
-     // TODO        ContextVO pubCollection = pubCollectionList.get(0);
-     // TODO       assertNotNull(pubCollection.getReference());
-     // TODO       assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
-//TODO        assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
+        assertEquals(0, pubCollectionList.size());
     }
+   
 }
