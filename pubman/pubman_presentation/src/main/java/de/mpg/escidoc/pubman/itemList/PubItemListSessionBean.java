@@ -1241,7 +1241,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
                     if( (i - 1) >= 0 )
                     {
                         positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
-                        this.setListItemPosition( positionFirstPartListItem + i + 1 );
+                        this.setListItemPosition( positionFirstPartListItem + i - 1);
                         fc.getExternalContext().redirect(this.getCurrentPartList().get(i - 1).getLink());
                         return;
                     }
