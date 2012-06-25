@@ -30,7 +30,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     
     public RevisionsRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), true);
+        super((RevisionItemListSessionBean)getSessionBean(RevisionItemListSessionBean.class), true);
     }
     
     @Override

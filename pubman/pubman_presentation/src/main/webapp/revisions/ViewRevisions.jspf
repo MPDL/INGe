@@ -34,11 +34,11 @@
 
 <%--<h:outputText value="#{RevisionList.dummy}"/>--%>
 
-<h:panelGroup rendered="#{PubItemListSessionBean.totalNumberOfElements>0}">
+<h:panelGroup rendered="#{RevisionItemListSessionBean.totalNumberOfElements>0}">
 	<ol>
 		<jsp:directive.include file="../list/itemRevisionsList.jspf"/>
 	</ol>
 </h:panelGroup>
-<h:panelGroup styleClass="free_area0_p8 xLarge_marginLIncl" rendered="#{PubItemListSessionBean.totalNumberOfElements==0}">
+<h:panelGroup styleClass="free_area0_p8 xLarge_marginLIncl" rendered="#{RevisionItemListSessionBean.totalNumberOfElements==0}">
 	<h:outputText value="#{lbl.ViewItemReleaseHistory_lblNoRevision}"/>
 </h:panelGroup>

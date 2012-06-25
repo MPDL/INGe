@@ -232,11 +232,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     private int itemPosition = 0;
     
-    /**
-     * A boolean telling if the items position was set manually
-     */
-    boolean itemPositionSetNew = false;
-    
     private final LoginHelper loginHelper;
 
     public PubItemListSessionBean()
@@ -1183,34 +1178,34 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
             {
-                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals( currentItem.getVersion().getObjectId() ) )
                 {
                     // Case: not the last item of a part-list --> get next Item without any pagechange
                     if( (i + 1) < this.getCurrentPartList().size()  )
                     {
-                        positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-                        this.setListItemPosition(positionFirstPartListItem + i + 1);
-                        fc.getExternalContext().redirect(this.getCurrentPartList().get(i+1).getLink());
+                        positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
+                        this.setListItemPosition( positionFirstPartListItem + i + 1 );
+                        fc.getExternalContext().redirect( this.getCurrentPartList().get(i+1).getLink() );
                         return;
                     }
                     // Case: last item of a part-list, but not the last of the whole list --> Get first item of next page
                     else if ( (i + 1) >= this.getCurrentPartList().size() && this.getCurrentPageNumber() < this.getPaginatorPageSize() )
                     {
-                        this.setCurrentPageNumber(this.getCurrentPageNumber() + 1);
-                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-                        positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-                        this.setListItemPosition(positionFirstPartListItem);
-                        fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+                        this.setCurrentPageNumber( this.getCurrentPageNumber() + 1 );
+                        this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+                        positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
+                        this.setListItemPosition( positionFirstPartListItem );
+                        fc.getExternalContext().redirect( this.getCurrentPartList().get(0).getLink() );
                         return;
                     }
                     // Case: last item of the whole list (also of the part-list) --> get first item of the first page
                     else
                     {
-                        this.setCurrentPageNumber(1); 
-                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-                        positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-                        this.setListItemPosition(positionFirstPartListItem);
-                        fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+                        this.setCurrentPageNumber( 1 ); 
+                        this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+                        positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
+                        this.setListItemPosition( positionFirstPartListItem );
+                        fc.getExternalContext().redirect( this.getCurrentPartList().get(0).getLink() );
                         return;
                     }
                 }
@@ -1240,34 +1235,34 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
             {
-                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals( currentItem.getVersion().getObjectId() ) )
                 {
                     // Case: not the first item of a part-list --> Go one item back without pagechange
                     if( (i - 1) >= 0 )
                     {
-                        positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-                        this.setListItemPosition(positionFirstPartListItem + i +1);
+                        positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
+                        this.setListItemPosition( positionFirstPartListItem + i + 1 );
                         fc.getExternalContext().redirect(this.getCurrentPartList().get(i - 1).getLink());
                         return;
                     }
                     // Case: first item of a part-list, but not the first of the whole list --> Get last item of previous page
                     else if ( (i - 1) < 0 && this.getCurrentPageNumber() > 1)
                     {
-                        this.setCurrentPageNumber(this.getCurrentPageNumber() - 1);
-                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-                        positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-                        this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()-1);
-                        fc.getExternalContext().redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
+                        this.setCurrentPageNumber( this.getCurrentPageNumber() - 1 );
+                        this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+                        positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
+                        this.setListItemPosition( positionFirstPartListItem + this.getCurrentPartList().size() - 1 );
+                        fc.getExternalContext().redirect( this.getCurrentPartList().get( this.getCurrentPartList().size() - 1 ).getLink() );
                         return;
                     }
                     // Case: first item of the whole list (also of the part-list) --> Get last item of last page
                     else
                     {
-                        this.setCurrentPageNumber(this.getPaginatorPageSize()); 
-                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-                        positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-                        this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()-1);
-                        fc.getExternalContext().redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
+                        this.setCurrentPageNumber( this.getPaginatorPageSize() ); 
+                        this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+                        positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1;
+                        this.setListItemPosition( positionFirstPartListItem + this.getCurrentPartList().size() - 1 );
+                        fc.getExternalContext().redirect( this.getCurrentPartList().get( this.getCurrentPartList().size() - 1 ).getLink() );
                         return;
                     }
                 }
@@ -1294,9 +1289,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
         if (this.getCurrentPartList() != null)
         {
-            for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
+            for ( int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
             {
-                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+                if ( this.getCurrentPartList().get(i).getVersion().getObjectId().equals( currentItem.getVersion().getObjectId() ) )
                 {
                     if( (i + 1) >= this.getCurrentPartList().size() && this.getCurrentPageNumber() >= this.getPaginatorPageSize() )
                     {
@@ -1319,9 +1314,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
             {
-                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals( currentItem.getVersion().getObjectId() ) )
                 {
-                    if( (i - 1) < 0 && this.getCurrentPageNumber() <= 1)
+                    if( (i - 1) < 0 && this.getCurrentPageNumber() <= 1 )
                     {
                         return false;
                     }
@@ -1339,12 +1334,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             FacesContext fc = FacesContext.getCurrentInstance();
-            this.setCurrentPageNumber(this.getFirstPaginatorPageNumber());
-            this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-            int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-            this.setListItemPosition(positionFirstPartListItem);
+            this.setCurrentPageNumber( 1 );
+            this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+            int positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1 ;
+            this.setListItemPosition( positionFirstPartListItem );
             fc.getExternalContext().redirect(
-                    this.getCurrentPartList().get(0).getLink());
+                    this.getCurrentPartList().get(0).getLink() );
             return;
         }
         catch (Exception e)
@@ -1362,12 +1357,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             FacesContext fc = FacesContext.getCurrentInstance();
-            this.setCurrentPageNumber(this.getPaginatorPageSize()); 
-            this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-            int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
-            this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()-1);
+            this.setCurrentPageNumber( this.getPaginatorPageSize() ); 
+            this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+            int positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1 ;
+            this.setListItemPosition( positionFirstPartListItem + this.getCurrentPartList().size() - 1 );
             fc.getExternalContext().redirect(
-                    this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
+                    this.getCurrentPartList().get( this.getCurrentPartList().size() - 1 ).getLink());
             return;
         }
         catch (Exception e)
@@ -1380,22 +1375,26 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     public int getListItemPosition()
     {
         PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
-        int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1)  * this.getElementsPerPage()) +1 ;
+        int positionFirstPartListItem = ( ( this.getCurrentPageNumber() - 1 )  * this.getElementsPerPage() ) + 1 ;
         for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
         {
-            if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+            if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals( currentItem.getVersion().getObjectId() ) )
             {
                itemPosition = positionFirstPartListItem + i;
             }
         }
-        itemPositionSetNew = false;
         return itemPosition;
     }
     
     public void setListItemPosition(int newItemPosition)
     {
-        itemPositionSetNew = true;
-        itemPosition = newItemPosition;
+        if ( newItemPosition > 0 && newItemPosition <= this.getTotalNumberOfElements() )
+        {
+            itemPosition = newItemPosition;
+        }
+        else {
+            this.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
+        }
     }
     
     public void listItemPosition()
@@ -1403,12 +1402,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         FacesContext fc = FacesContext.getCurrentInstance();
         try
         {
-            this.setCurrentPageNumber((int) Math.ceil((double) itemPosition / (double) this.getElementsPerPage()));
-            this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-            int positionInPartList = (itemPosition - 1) % this.getElementsPerPage();
-            String newCheckString =  this.getCurrentPartList().get(positionInPartList).getLink();
+            this.setCurrentPageNumber( ( int ) Math.ceil( ( double ) itemPosition / ( double ) this.getElementsPerPage() ) );
+            this.update( this.getCurrentPageNumber(), this.getElementsPerPage() );
+            int positionInPartList = ( itemPosition - 1 ) % this.getElementsPerPage();
+            String newCheckString =  this.getCurrentPartList().get( positionInPartList ).getLink();
             fc.getExternalContext().redirect(
-                    this.getCurrentPartList().get(positionInPartList).getLink());
+                    this.getCurrentPartList().get( positionInPartList ).getLink());
         }
         catch (IOException e)
         {

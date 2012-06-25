@@ -489,6 +489,11 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>RevisionItemListSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RevisionItemListSessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>MyItemsRetrieverRequestBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>

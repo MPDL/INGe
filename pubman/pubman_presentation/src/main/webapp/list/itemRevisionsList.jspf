@@ -31,7 +31,7 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<a4j:repeat var="item" value="#{PubItemListSessionBean.currentPartList}">
+<a4j:repeat var="item" value="#{RevisionItemListSessionBean.currentPartList}">
 	<li class="full_area0 listItem">
 		<div class="free_area0 itemHeader">
 			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="#{lbl.List_lblRevision}"/><br class="noDisplay" /></b>
