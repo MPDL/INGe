@@ -33,8 +33,6 @@ package de.mpg.escidoc.pubman.contextList;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -43,9 +41,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO.State;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
@@ -53,7 +49,6 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.QualityAssurance;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -70,7 +65,6 @@ public class ContextListSessionBean extends FacesBean
     private List<PubContextVOPresentation> yearbookContextList= new ArrayList<PubContextVOPresentation>();
     private List<PubContextVOPresentation> yearbookModeratorContextList= new ArrayList<PubContextVOPresentation>();
     private List<PubContextVOPresentation> allPrivilegedContextList= new ArrayList<PubContextVOPresentation>();
-    private QualityAssurance qualityAssurance;
     private LoginHelper loginHelper;
 
    // private UIXIterator contextIterator = new UIXIterator();
@@ -80,7 +74,6 @@ public class ContextListSessionBean extends FacesBean
      */
     public ContextListSessionBean()
     {
-        //init();
     }
 
     @Override
@@ -94,139 +87,6 @@ public class ContextListSessionBean extends FacesBean
         {
             logger.error("Could not create context list.", e);
         }
-    }
-
-
-
-    private List<PubContextVOPresentation> retrieveModeratorContexts()
-    {
-        List<PubContextVOPresentation> moderatorContexts = new ArrayList<PubContextVOPresentation>();
-        try
-        {
-
-            InitialContext initialContext = new InitialContext();
-            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            if(loginHelper.getAccountUser() != null
-                    && loginHelper.getAccountUser().getReference() != null
-                    && loginHelper.getAccountUser().getReference().getObjectId()!= null
-                    && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
-            {
-                moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
-            }
-            else
-            {
-                //moderatorContexts.addAll(this.getDummyCollections(3));
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create context list.", e);
-            moderatorContexts.addAll(this.getDummyCollections(3));
-            logger.warn("Continuing with Dummy-Collections.");
-        }
-        return moderatorContexts;
-    }
-
-    private List<PubContextVOPresentation> retrieveYearbookContexts()
-    {
-        List<PubContextVOPresentation> yearbookContexts = new ArrayList<PubContextVOPresentation>();
-        try
-        {
-
-            InitialContext initialContext = new InitialContext();
-            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            if(loginHelper.getAccountUser() != null
-                    && loginHelper.getAccountUser().getReference() != null
-                    && loginHelper.getAccountUser().getReference().getObjectId()!= null
-                    && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
-            {
-                yearbookContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrieveYearbookContexts(loginHelper.getAccountUser()));
-            }
-            else
-            {
-                //moderatorContexts.addAll(this.getDummyCollections(3));
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create context list.", e);
-        }
-        return yearbookContexts;
-    }
-
-    private List<PubContextVOPresentation> retrieveYearbookModeratorContexts()
-    {
-        List<PubContextVOPresentation> yearbookContexts = new ArrayList<PubContextVOPresentation>();
-        try
-        {
-
-            InitialContext initialContext = new InitialContext();
-            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            if(loginHelper.getAccountUser() != null
-                    && loginHelper.getAccountUser().getReference() != null
-                    && loginHelper.getAccountUser().getReference().getObjectId()!= null
-                    && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
-            {
-                yearbookContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrieveYearbookContextForModerator(loginHelper.getAccountUser()));
-            }
-            else
-            {
-                //moderatorContexts.addAll(this.getDummyCollections(3));
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create context list.", e);
-        }
-        return yearbookContexts;
-    }
-
-    /**
-     * Retrieves all contexts for the current user.
-     * @return the list of ContextVOs
-     */
-    private List<PubContextVOPresentation> retrieveDepositorContexts()
-    {
-        List<PubContextVOPresentation> allCollections = new ArrayList<PubContextVOPresentation>();
-
-        try
-        {
-            allCollections = CommonUtils.convertToPubCollectionVOPresentationList(this.getItemControllerSessionBean().retrieveCollections());
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create context list.", e);
-
-            allCollections.addAll(this.getDummyCollections(3));
-
-            logger.warn("Continuing with Dummy-Collections.");
-        }
-
-        return allCollections;
-    }
-
-    private List<PubContextVOPresentation> getDummyCollections(int numberofDummies)
-    {
-        List<PubContextVOPresentation> dummyCollections = new ArrayList<PubContextVOPresentation>();
-
-        for (int i = 0; i < numberofDummies; i++)
-        {
-            dummyCollections.add(this.createDummyContext(i + 1));
-        }
-
-        return dummyCollections;
-    }
-
-    private PubContextVOPresentation createDummyContext(int number)
-    {
-        PubContextVOPresentation vo = new PubContextVOPresentation(new ContextVO());
-        vo.setName("TestCollection " + number + ". DO NOT TRY TO CREATE ITEMS WITH THIS!");
-        vo.setDescription("This is the description of the context No. " + number + ".");
-        ContextRO ro = new ContextRO();
-        ro.setObjectId("escidoc:dummyCollection" + number);
-        vo.setReference(ro);
-
-        return vo;
     }
 
     /**
@@ -392,7 +252,7 @@ public class ContextListSessionBean extends FacesBean
      * @throws SecurityException
      * @throws TechnicalException
      */
-    private  void retrieveAllContextsForUser() throws SecurityException, TechnicalException
+    private void retrieveAllContextsForUser() throws SecurityException, TechnicalException
     {
         if (this.loginHelper.isLoggedIn() && this.loginHelper.getUserGrants() != null){
             try
@@ -409,22 +269,17 @@ public class ContextListSessionBean extends FacesBean
                     if ( grant.getObjectRef() != null)
                     {
                         itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
-//                        filterString=filterString.concat("<filter name=\"/id\">"+grant.getObjectRef()+"</filter>" );
                         hasGrants=true;
                     }
-
                 }
+                
                 // ... and transform filter to xml
-
-
                 if (hasGrants){
                     XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-                    //				String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
 
                     // Get context list
                     String contextList = ServiceLocator.getContextHandler(this.loginHelper.getAccountUser().getHandle()).retrieveContexts(filter.toMap());
                     // ... and transform to PubCollections.
-
                     this.allPrivilegedContextList= CommonUtils.convertToPubCollectionVOPresentationList(xmlTransforming.transformToContextList(contextList));
                 }
 
