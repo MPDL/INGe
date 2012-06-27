@@ -189,7 +189,7 @@
  				<span class="free_area0 status statusArea">
  					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon withdrawnItem" rendered="#{item.isStateWithdrawn}" />
  					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon pendingItem" rendered="#{item.isStatePending}" />
- 					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon submittedItem" rendered="#{item.isStateSubmitted}" />
+ 					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon submittedItem" rendered="#{item.isStateSubmitted and !item.isStateWithdrawn}" />
  					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon releasedItem" rendered="#{item.isStateReleased and !item.isStateWithdrawn}" />
  					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{item.isStateInRevision}" />
 					<span class="noDisplay">(</span>
