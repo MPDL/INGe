@@ -439,8 +439,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	public void addSearchCriterion(ActionEvent ae)
 	{
 		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
-		SearchCriterion scType = criterionList.get(position).getSearchCriterion();
-		criterionList.add(position.intValue() + 1, SearchCriterionBase.initSearchCriterion(scType));
+		SearchCriterionBase oldSearchCriterion =  criterionList.get(position); 
+		SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(oldSearchCriterion.getSearchCriterion());
+		newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
+		criterionList.add(position.intValue() + 1, newSearchCriterion);
 		criterionList.add(position.intValue() + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
@@ -458,9 +460,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	{
 		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		this.currentlyOpenedParenthesis = new Parenthesis(SearchCriterion.OPENING_PARENTHESIS);
+		this.currentlyOpenedParenthesis.setLevel(criterionList.get(position).getLevel());
 		//add before criterion
 		criterionList.add(position.intValue(), currentlyOpenedParenthesis);
-		updateListForClosingParenthesis(currentlyOpenedParenthesis);
+		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
 	
 	public void addClosingParenthesis(ActionEvent ae)
@@ -471,7 +474,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		closingParenthesis.setPartnerParenthesis(this.currentlyOpenedParenthesis);
 		this.currentlyOpenedParenthesis = null;
 		criterionList.add(position.intValue() + 1, closingParenthesis);
-		updateListForClosingParenthesis(closingParenthesis);
+		updateListForClosingParenthesis(null);
 	}
 	
 	public void removeParenthesis(ActionEvent ae)
@@ -483,17 +486,63 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		criterionList.remove(parenthesis);
 		criterionList.remove(partnerParenthesis);
 		
-		//this.currentlyOpenedParenthesis = null;
-		if(currentlyOpenedParenthesis != null)
+		
+		if(parenthesis.equals(currentlyOpenedParenthesis))
 		{
-			updateListForClosingParenthesis(currentlyOpenedParenthesis);
+			this.currentlyOpenedParenthesis = null;
 		}
+				
+			//this.currentlyOpenedParenthesis = null;
+		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 		
 	}
 	
 	
 	private void updateListForClosingParenthesis(SearchCriterionBase startParenthesis)
 	{
+		possibleCriterionsForClosingParenthesisMap.clear();
+		int balanceCounter = 0;
+		boolean lookForClosingParenthesis = false;
+		int startParenthesisBalance = 0;
+		int pos = 0;
+		for(SearchCriterionBase sc : criterionList)
+		{
+
+			if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion()))
+			{
+				balanceCounter--;
+				if(lookForClosingParenthesis && balanceCounter <= startParenthesisBalance)
+				{
+					lookForClosingParenthesis = false;
+				}
+			}
+			
+			sc.setLevel(balanceCounter);
+			
+			if(SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion()))
+			{
+				balanceCounter++;
+			}
+			
+			
+
+			if(sc.equals(startParenthesis))
+			{
+				lookForClosingParenthesis = true;
+				startParenthesisBalance = sc.getLevel();
+			}
+			
+			if(lookForClosingParenthesis && !DisplayType.OPERATOR.equals(sc.getSearchCriterion().getDisplayType()) && balanceCounter == startParenthesisBalance + 1)
+			{
+				possibleCriterionsForClosingParenthesisMap.put(sc, true);
+			}
+			pos++;
+		}
+		
+		
+		
+		
+		/*
 		this.possibleCriterionsForClosingParenthesisMap.clear();
 		if(startParenthesis != null)
 		{
@@ -526,6 +575,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 			}
 			
 		}
+		*/
 	}
 	
 	
