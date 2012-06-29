@@ -30,27 +30,42 @@
 
 function addFullItemFunctions() {
 	$pb('.itemBlock').each( function(i,ele){
-		$pb(ele).find('.collapse').each(function(j,elem){
-			$pb(elem).show();
-		});
-		$pb(ele).find('.expand').each(function(j,elem){
-			$pb(elem).hide();
-		});  
+		if ($pb(this).find('.itemBlockContent:visible').length > 0) {
+			$pb(this).find('.collapse').each(function(j,elem){
+				$pb(elem).show();
+			});
+			$pb(this).find('.expand').each(function(j,elem){
+				$pb(elem).hide();
+			});
+		} else {
+			$pb(this).find('.collapse').each(function(j,elem){
+				$pb(elem).hide();
+			});
+			$pb(this).find('.expand').each(function(j,elem){
+				$pb(elem).show();
+			});
+		}
 		$pb(ele).not('.visibility').find('.blockHeader').each(function(j,elem){
 			if($pb(elem).siblings('.itemBlockContent').length==0)$pb(elem).addClass('voidBlock');
 		});
+		
 	});
+	
+	$pb('.fullItem').find('.visibility').find('.collapse').unbind("click");
 	$pb('.fullItem').find('.visibility').find('.collapse').click(function(){
 		$pb(this).hide(); 
 		$pb(this).parents('.itemBlock').find('.expand').show(); 
 		$pb(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.collapse:visible').trigger('click');
 	});
+	
+	$pb('.fullItem').find('.visibility').find('.expand').unbind("click");
 	$pb('.fullItem').find('.visibility').find('.expand').click(function(){
 		$pb(this).hide(); 
 		$pb(this).parents('.itemBlock').find('.collapse').show(); 
 		$pb(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.expand:visible').trigger('click');
 	}); 
 	$pb('.itemBlock:not(.visibility)').find('.expand').each(function(i,ele){
+		$pb(ele).unbind("click");
 		$pb(ele).click(function(){
 			$pb(this).hide(); 
 			$pb(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide(); 
@@ -65,6 +80,7 @@ function addFullItemFunctions() {
 		})
 	});
 	$pb('.itemBlock:not(.visibility)').find('.collapse').each(function(i,ele){
+		$pb(ele).unbind("click");
 		$pb(ele).click(function(){
 			$pb(this).hide(); 
 			$pb(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide(); 
@@ -143,16 +159,17 @@ function addFullItemFunctions() {
 	} )});
 	
 	$pb('.fullItem').find('.shortView').each(function(i,ele){$pb(ele).hide();});
-	$pb('.fullItem').find('.itemInfoSwitch').each(function(i,ele){$pb(ele).click(function(){$pb(this).parents('.listItem').find('.shortView').slideToggle('normal'); });});
+	$pb('.fullItem').find('.itemInfoSwitch').each(function(i,ele){$pb(ele).unbind("click"); $pb(ele).click(function(){$pb(this).parents('.listItem').find('.shortView').slideToggle('normal'); });});
 
 //	$pb('.fileUploadBtn').each(function(i, elem){ if($pb(elem).parents('.fileSection').find('.fileInput').val() == ''){ $pb(elem).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');}; });
-
+	$pb('.showMultipleAuthors').unbind("click");
 	$pb('.showMultipleAuthors').click(function(){
 		$pb(this).parents('.itemBlock').find('.multipleAuthors').slideDown('normal');
 		$pb(this).parents('.itemBlock').find('.firstCreator').removeClass('noTopBorder');
 		$pb(this).parents('.itemBlock').find('.multipleAuthors').find(':hidden').val('showPermanent');
 		$pb(this).hide();
 	});
+	
 	$pb('.multipleAuthors').hide();
 	$pb('.showMultipleAuthors').each(function(i,elem){ 
 		if($pb(elem).parents('.itemBlock').find("input[type='hidden'][value='showPermanent']").length > 0) {
@@ -161,11 +178,14 @@ function addFullItemFunctions() {
 		}; 
 	});
 	
+	$pb('.checkAll').unbind("click");
 	$pb('.checkAll').click(function() { // function is used in logged out status for advanced search
 		$pb(this).parents('.itemLine').find('.checkboxDoubleGroup').find(':checkbox').attr('checked','true'); 
 		$pb(this).parents('.itemLine').find('.checkboxDoubleGroup').find('span:hidden').show(); 
 		$pb(this).parents('.itemLine').find('.checkboxDoubleGroup').find('.showMoreCheckboxes').hide(); 
 	});
+	
+	$pb('.showMoreCheckboxes').unbind("click");
 	$pb('.showMoreCheckboxes').click(function() { 
 		$pb(this).hide();
 		var cont = $pb(this).parent().find('.checkboxDoubleContainer');
@@ -177,6 +197,7 @@ function addFullItemFunctions() {
 			$pb(this).siblings().show();
 		} 
 	});
+	
 	$pb('.checkboxDoubleGroup').each(function(i,elem){
 		if($pb(elem).find('.large_checkbox:gt(0)').find(':checked').length == 0) {
 			$pb(elem).find('.large_checkbox:gt(0)').hide();
@@ -185,11 +206,13 @@ function addFullItemFunctions() {
 		};
 	});
 	
+	$pb('.showMoreDates').unbind("click");
 	$pb('.showMoreDates').click(function(){ $pb(this).hide(); $pb(this).siblings().show(); });
 	/* not sure if large_area0 is needed anymore - should be deprecated with xLarge_area0*/
 	$pb('.datesGroup').each(function(i,elem){if($pb(elem).find('span.large_area0:gt(0)').find(":text[value!='']").length == 0) {$pb(elem).find('span.large_area0:gt(0)').hide();} else {$pb(elem).find('.showMoreDates').hide();};});
 	$pb('.datesGroup').each(function(i,elem){if($pb(elem).find('span.xLarge_area0:gt(0)').find(":text[value!='']").length == 0) {$pb(elem).find('span.xLarge_area0:gt(0)').hide();} else {$pb(elem).find('.showMoreDates').hide();};});
 	
+	$pb('.showMoreAuthors').unbind("click");
 	$pb('.showMoreAuthors').click(function(){ $pb(this).hide(); $pb(this).siblings().show(); });
 	$pb('.authorsGroup').each(function(i,elem){if($pb(elem).find('span.creatorHidden').find(":text[value!='']").length == 0) {$pb(elem).find('span.creatorHidden').hide();} else {$pb(elem).find('.showMoreAuthors').hide();};});
 
