@@ -61,7 +61,7 @@ All rights reserved. Use is subject to license terms.
 				<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 			</h:panelGroup>
-			<h:selectOneMenu id="extSelectTop" value="#{PubItemListSessionBean.elementsPerPageTop}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+			<h:selectOneMenu id="extSelectTop" value="#{PubItemListSessionBean.elementsPerPageTop}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButtonTop').click();">
 				<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 				<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
 				<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -77,7 +77,7 @@ All rights reserved. Use is subject to license terms.
  			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
  		</h:selectOneMenu>	--%>
 		
-		<h:commandButton id="btChangeElementsPerPageTop" styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"  value="go"  action="#{PubItemListSessionBean.changeElementsPerPageTop}"/>
+		<h:commandButton id="btChangeElementsPerPageTop" styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButtonTop"  value="go"  action="#{PubItemListSessionBean.changeElementsPerPageTop}"/>
  		<h:outputLabel id="lblItemList_ObjectsPerPage" for="extSelectTop" styleClass="free_label hitsLabel" value=" #{lbl.ItemList_ObjectsPerPage}" />
  	</div>
 
@@ -372,7 +372,7 @@ All rights reserved. Use is subject to license terms.
 				<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 			</h:panelGroup>
-			<h:selectOneMenu id="extSelectBottom" value="#{PubItemListSessionBean.elementsPerPageBottom}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+			<h:selectOneMenu id="extSelectBottom" value="#{PubItemListSessionBean.elementsPerPageBottom}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButtonBottom').click();">
 				<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 				<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
 				<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -388,7 +388,7 @@ All rights reserved. Use is subject to license terms.
  			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
  		</h:selectOneMenu>	--%>
 		
-		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"  value="go"  action="#{PubItemListSessionBean.changeElementsPerPageBottom}"/>
+		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButtonBottom"  value="go"  action="#{PubItemListSessionBean.changeElementsPerPageBottom}"/>
  		<h:outputLabel for="extSelectTop" styleClass="free_label hitsLabel" value=" #{lbl.ItemList_ObjectsPerPage}" />
  	</div>
 
