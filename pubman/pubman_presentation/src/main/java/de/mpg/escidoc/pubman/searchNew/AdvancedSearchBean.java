@@ -200,6 +200,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		}
 		
 		this.criterionList = scList;
+		updateListForClosingParenthesis(null);
 		
 		if(criterionList.isEmpty())
 		{
