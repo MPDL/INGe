@@ -29,6 +29,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.StandardFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -112,6 +113,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
+            Filter latestVersionFilter = filter.new StandardFilter("/isLatestVersion", "true");
+            filter.getFilterList().add(latestVersionFilter);
 
             if (getSelectedItemState().toLowerCase().equals("withdrawn"))
             {

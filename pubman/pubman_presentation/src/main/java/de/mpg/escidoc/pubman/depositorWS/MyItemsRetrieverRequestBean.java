@@ -170,6 +170,8 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             filter.getFilterList().add(f1);
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
+            Filter latestVersionFilter = filter.new StandardFilter("/isLatestVersion", "true");
+            filter.getFilterList().add(latestVersionFilter);
 
             if (selectedItemState.toLowerCase().equals("withdrawn"))
             {
