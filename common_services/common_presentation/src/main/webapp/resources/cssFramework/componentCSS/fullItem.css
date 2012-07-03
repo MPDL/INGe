@@ -49,6 +49,24 @@
 	margin: 0px;
 	padding: 0px;
 }
+.fullItem .itemHeadline table td {
+	float:left;
+}
+.fullItem .itemHeadline table td + td {
+	margin-left:2em;
+}
+.fullItem .itemHeader .itemHeadline table td label {
+	width:auto !important;
+}
+/* hacks for IE7 to show the headline in one line */
+*:first-child+html .fullItem .itemHeadline table td + td {
+	padding-left:1em;
+	padding-right:1em;
+}
+*:first-child+html .fullItem .itemHeader .itemHeadline table td label {
+	display:inline;
+	width:90% !important;
+}
 
 .fullItem .radioButtonTable td {
 	display: block !important;
@@ -226,6 +244,19 @@
 	border-top-width: 0.00em !important;
 	padding-top: 0.74em;
 	padding-bottom: 0.74em;
+}
+
+.itemBlock .openingParenthesis {
+	font-size:145%;
+}
+.itemBlock .deleteOpenParenthesis {
+	font-size:70%;
+}
+.itemBlock .closingParenthesis {
+	font-size:145%;
+}
+.itemBlock .deleteCloseParenthesis {
+	font-size:70%;
 }
 
 .itemLine sup {
