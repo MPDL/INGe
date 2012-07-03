@@ -34,6 +34,7 @@
 	<xsl:param name="context" select="'dummy:context'"/>
 	<xsl:param name="content-model" select="'dummy:content-model'"/>
 	<xsl:param name="root-ou"/>
+	<xsl:param name="external-ou"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
 	<!-- Configuration parameters -->
@@ -322,32 +323,6 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:for-each select="AT[ $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book') ]">
-				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
-					<xsl:value-of select="."/>
-				</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="AT[
-					$refType = ('Book Section') and $sourceGenre != $genre-ves/enum[.='book']/@uri	
-				]">
-				<dc:identifier>
-					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
-					<xsl:value-of select="."/>
-				</dc:identifier>
-			</xsl:for-each>
-			<xsl:for-each select="AT[ $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article') ]">
-				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
-					<xsl:value-of select="."/>
-				</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="AT[ $refType = 'Report' ]">
-				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
-					<xsl:value-of select="."/>
-				</xsl:element>
-			</xsl:for-each>
 			
 			<xsl:choose>
 				<xsl:when test="$Flavor = 'BGC'">
@@ -363,6 +338,16 @@
 							<xsl:value-of select="."/>
 						</dc:identifier>
 					</xsl:for-each>
+					
+					<xsl:if test="not(fn:matches(AT, '\d{4}-\d{4}'))">
+						<xsl:comment>Creating new ISBN</xsl:comment>
+						<xsl:for-each select="AT[ $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Thesis') ]">
+							<xsl:element name="dc:identifier">
+								<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+								<xsl:value-of select="."/>
+							</xsl:element>
+						</xsl:for-each>
+					</xsl:if>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:for-each select="U">
@@ -370,6 +355,32 @@
 							<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 							<xsl:value-of select="."/>
 						</dc:identifier>
+					</xsl:for-each>
+					<xsl:for-each select="AT[ $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book') ]">
+						<xsl:element name="dc:identifier">
+							<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+							<xsl:value-of select="."/>
+						</xsl:element>
+					</xsl:for-each>
+					<xsl:for-each select="AT[
+							$refType = ('Book Section') and $sourceGenre != $genre-ves/enum[.='book']/@uri	
+						]">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+							<xsl:value-of select="."/>
+						</dc:identifier>
+					</xsl:for-each>
+					<xsl:for-each select="AT[ $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article') ]">
+						<xsl:element name="dc:identifier">
+							<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
+							<xsl:value-of select="."/>
+						</xsl:element>
+					</xsl:for-each>
+					<xsl:for-each select="AT[ $refType = 'Report' ]">
+						<xsl:element name="dc:identifier">
+							<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
+							<xsl:value-of select="."/>
+						</xsl:element>
 					</xsl:for-each>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -682,12 +693,38 @@
 				</eterms:publishing-info>
 			</xsl:if>			
 			<!--  SOURCE IDENTIFIER -->
-			<xsl:if test="$identifier and $refType = ('Book Section') and $sgen = $genre-ves/enum[.='book']/@uri">
-				<dc:identifier>
-					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
-					<xsl:value-of select="$identifier"/>
-				</dc:identifier>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="$Flavor = 'BGC'">
+					<xsl:choose>
+						<xsl:when test="$identifier and fn:matches($identifier, '\d{4}-\d{4}')">
+							<xsl:comment>Creating new ISSN in first source</xsl:comment>
+							<xsl:for-each select="$identifier[ $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Thesis', 'Journal Article', 'Electronic Article', 'Magazine Article') ]">
+								<dc:identifier>
+									<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
+									<xsl:value-of select="."/>
+								</dc:identifier>
+							</xsl:for-each>
+						</xsl:when>
+						<xsl:when test="$identifier and not(fn:matches($identifier, '\d{4}-\d{4}'))">
+							<xsl:comment>Creating new ISBN in first source</xsl:comment>
+							<xsl:for-each select="$identifier[ $refType = ('Book Section', 'Conference Paper', 'Edited Book', 'Electronic Book') ]">
+								<dc:identifier>
+									<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+									<xsl:value-of select="."/>
+								</dc:identifier>
+							</xsl:for-each>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:if test="$identifier and $refType = ('Book Section') and $sgen = $genre-ves/enum[.='book']/@uri">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+							<xsl:value-of select="$identifier"/>
+						</dc:identifier>
+					</xsl:if>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:element>
 	</xsl:template>
 	<!-- END OF SOURCE -->
@@ -695,6 +732,7 @@
 	<!-- SECOND SOURCE -->
 	<xsl:template name="createSecondSource">
 		<xsl:param name="ssgen"/>
+		<xsl:param name="identifier"/>
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<source:source>
@@ -727,6 +765,18 @@
 					<xsl:with-param name="isSource" select="true()"/>
 				</xsl:call-template>
 			</xsl:for-each>
+			<!--  SOURCE IDENTIFIER -->
+			<xsl:if test="$Flavor = 'BGC'">
+					<xsl:if test="$identifier and fn:matches($identifier, '\d{4}-\d{4}')">
+						<xsl:comment>Creating new ISSN in second source</xsl:comment>
+						<xsl:for-each select="$identifier[ $refType = ('Book Section', 'Conference Paper') ]">
+							<dc:identifier>
+								<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
+								<xsl:value-of select="."/>
+							</dc:identifier>
+						</xsl:for-each>
+					</xsl:if>
+			</xsl:if>
 		</source:source>
 	</xsl:template>
 	<!-- END OF SECOND SOURCE -->
@@ -944,6 +994,8 @@
 					</xsl:choose>
 				</xsl:variable>
 				
+				<xsl:comment>SEARCHING FOR OU-ID'<xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/id"/>'</xsl:comment>
+                <xsl:comment>GOT OU WITH TITLE: '<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/>'</xsl:comment>
 				<xsl:comment><xsl:value-of select="$pos"/> = <xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/pos"/></xsl:comment>
 				
 				<xsl:choose>
@@ -980,16 +1032,30 @@
 									</eterms:given-name>
 									<xsl:choose>
 										<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position)">
-											<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position[rdf:Description/dc:identifier = $ouId]">
-												<organization:organization>
-													<dc:title>
-														<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
-													</dc:title>
-													<dc:identifier>
-														<xsl:value-of select="rdf:Description/dc:identifier"/>
-													</dc:identifier>
-												</organization:organization>
-											</xsl:for-each>
+											<xsl:choose>
+												<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position[rdf:Description/dc:identifier = $ouId])">
+													<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position[rdf:Description/dc:identifier = $ouId]">
+														<organization:organization>
+															<dc:title>
+																<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+															</dc:title>
+															<dc:identifier>
+																<xsl:value-of select="rdf:Description/dc:identifier"/>
+															</dc:identifier>
+														</organization:organization>
+													</xsl:for-each>
+												</xsl:when>
+												<xsl:otherwise>
+													<organization:organization>
+												<dc:title>External Organizations</dc:title>
+												<dc:identifier>
+													<xsl:value-of select="$external-ou"/>
+												</dc:identifier>
+											</organization:organization>
+												</xsl:otherwise>
+											</xsl:choose>
+											
+											
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:comment>Warning: No position found in CoNE!</xsl:comment>

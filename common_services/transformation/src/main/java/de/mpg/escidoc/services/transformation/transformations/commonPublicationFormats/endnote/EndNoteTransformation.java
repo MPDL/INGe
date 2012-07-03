@@ -155,6 +155,7 @@ public class EndNoteTransformation implements Transformation, Configurable
             	transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             	transformer.setParameter("source-name", srcFormat.getName().toLowerCase());
             	transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
+            	transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             	
             	transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             	transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));

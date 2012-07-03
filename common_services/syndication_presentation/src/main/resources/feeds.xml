@@ -116,7 +116,7 @@ There are following limitations for the feeds:
 				TODO: escidoc.context.objid&lt;&gt;escidoc:persistent3 
 				should be removed after fixing of the transformation problem with some testing items 
 			-->
-			<query>escidoc.content-model.objid=${esicdoc.syndication.feeds.content.model} and escidoc.property.public-status=released</query>
+			<query>escidoc.content-model.objid=${content_model} and escidoc.property.public-status=released</query>
 			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
 			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
 		</entries>
@@ -153,7 +153,7 @@ There are following limitations for the feeds:
 		<language>en-US</language>
 		
 		<entries context="cql">
-			<query>(escidoc.content-model.objid=${esicdoc.syndication.feeds.content.model} and escidoc.any-organization-pids=${organizationId} and escidoc.property.public-status=released)</query>
+			<query>(escidoc.content-model.objid=${content_model} and escidoc.any-organization-pids=${organizationId} and escidoc.property.public-status=released)</query>
 			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
 			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
 		</entries>
@@ -189,7 +189,7 @@ There are following limitations for the feeds:
 		<language>en-US</language>
 		
 		<entries context="cql">
-			<query>(${searchQuery}) and escidoc.content-model.objid=${esicdoc.syndication.feeds.content.model}</query>
+			<query>(${searchQuery}) and escidoc.content-model.objid=${content_model}</query>
 			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
 			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
 		</entries>
@@ -335,7 +335,7 @@ There are following limitations for the feeds:
 				TODO: escidoc.context.objid&lt;&gt;escidoc:persistent3 
 				should be removed after fixing of the transformation problem with some testing items 
 			-->
-			<query>escidoc.component.visibility="public" and escidoc.component.content.storage="internal-managed" and escidoc.content-model.objid=${esicdoc.syndication.feeds.content.model}</query>
+			<query>escidoc.component.visibility="public" and escidoc.component.content.storage="internal-managed" and escidoc.content-model.objid=${content_model}</query>
 			<sortKeys>escidoc.most-recent-date,,0</sortKeys>
 			<maximumRecords>10</maximumRecords>
 		</entries>

@@ -71,6 +71,7 @@
 	<xsl:param name="context" select="'escidoc:420911'"/>
 	<xsl:param name="content-model" select="'dummy:content-model'"/>
 	<xsl:param name="root-ou"/>
+	<xsl:param name="external-ou"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>

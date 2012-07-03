@@ -38,9 +38,11 @@
 
 package de.mpg.escidoc.services.syndication.feed;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -84,6 +86,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
@@ -93,6 +96,7 @@ public class Feed extends SyndFeedImpl
 { 
 
 	private static final long serialVersionUID = 1L;
+	private static final String FEEDS_CONTENT_MODEL = "esicdoc.syndication.feeds.content.model";
 
 	private static final Logger logger = Logger.getLogger(Feed.class);
 
@@ -153,6 +157,23 @@ public class Feed extends SyndFeedImpl
 	 */
 	public void setQuery(String query) 
 	{
+	    try
+        {
+            if(query != null && query.contains("${content_model}"))
+            {
+                query = query.replaceAll("\\$\\{content_model\\}", PropertyReader.getProperty(FEEDS_CONTENT_MODEL));
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("Problem reading property(" + FEEDS_CONTENT_MODEL + ")");
+            e.printStackTrace();
+        }
+        catch (URISyntaxException e)
+        {
+            System.out.println("Problem replacing ${content_model} with specific content-model in setQuery");
+            e.printStackTrace();
+        }
 		this.query = query;
 	}
 
