@@ -211,6 +211,13 @@ public class FilterTaskParamVO extends ValueObject
                             + ((PersonsOrganizationsFilter)filter).getOrgUnitId(),
                             previousFilter, filter);
                 }
+                else if (filter instanceof StandardFilter)
+                {
+                	StandardFilter standardFilter = (StandardFilter) filter;
+                    enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"="
+                            + standardFilter.getValue(),
+                            previousFilter, filter);
+                }
                 previousFilter = filter;
             }
         }
@@ -969,6 +976,39 @@ public class FilterTaskParamVO extends ValueObject
         {
             this.orgUnitId = contextId;
         }
+
+    }    
+    
+    public class StandardFilter extends AbstractFilter implements Filter
+    {
+        
+        private String filterName;
+        private String value;
+
+        public StandardFilter(String filterName, String value)
+        {
+            super();
+            this.filterName = filterName;
+            this.value = value;
+        }
+
+		public String getFilterName() {
+			return filterName;
+		}
+
+		public void setFilterName(String filterName) {
+			this.filterName = filterName;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
+
+       
 
     }    
     
