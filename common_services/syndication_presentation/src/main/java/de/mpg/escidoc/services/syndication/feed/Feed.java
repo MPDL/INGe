@@ -161,7 +161,11 @@ public class Feed extends SyndFeedImpl
         {
             if(query != null && query.contains("${content_model}"))
             {
-                query = query.replaceAll("\\$\\{content_model\\}", PropertyReader.getProperty(FEEDS_CONTENT_MODEL));
+                String contentModel = PropertyReader.getProperty(FEEDS_CONTENT_MODEL);
+                if (contentModel != null)
+                {
+                    query = query.replaceAll("\\$\\{content_model\\}", contentModel);
+                }
             }
         }
         catch (IOException e)
