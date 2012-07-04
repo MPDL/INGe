@@ -191,7 +191,7 @@ public class FilterTaskParamVO extends ValueObject
                 else if (filter instanceof LocalTagFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/properties/content-model-specific/local-tags/local-tag\"="
-                            + ((LocalTagFilter)filter).getLocalTagId(),
+                            + "\"" + ((LocalTagFilter)filter).getLocalTagId() + "\"",
                             previousFilter, filter);
                 }
                 else if (filter instanceof ItemPublicStatusFilter)
@@ -233,6 +233,7 @@ public class FilterTaskParamVO extends ValueObject
 
     private void enhanceQuery(StringBuffer b, String querySnippet, Filter previousFilter, Filter filter)
     {   
+        logger.debug("snippet " + querySnippet);
         if (querySnippet == null)
             return;
         
