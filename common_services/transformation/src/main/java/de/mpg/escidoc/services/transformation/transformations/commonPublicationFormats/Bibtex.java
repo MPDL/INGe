@@ -462,7 +462,7 @@ public class Bibtex
                                      * with CoNE identifier in brackets
                                      * and affiliations to adopt from CoNE for each author (also in brackets)
                                      */
-                                    if (configuration != null && "true".equals(configuration.get("CoNE")) && ("identifier and affiliation in brackets".equals(configuration.get("use-brackets-as-cone-indicator"))) && (author.getTags().get("identifier") != null))
+                                    if (configuration != null && "true".equals(configuration.get("CoNE")) && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors"))) && (author.getTags().get("identifier") != null))
                                     {
                                         String query = author.getTags().get("identifier");
                                         int affiliationsCount = Integer.parseInt(author.getTags().get("affiliationsCount"));
@@ -558,7 +558,7 @@ public class Bibtex
                                             }
                                         }
                                     }
-                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("empty brackets".equals(configuration.get("use-brackets-as-cone-indicator")) && (author.getTags().get("brackets") != null)))
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("empty brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")) && (author.getTags().get("brackets") != null)))
                                     {
                                         String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                                         Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
@@ -634,7 +634,7 @@ public class Bibtex
                                         }
                                     }
                                     
-                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("use-brackets-as-cone-indicator"))))
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("CurlyBracketsForCoNEAuthors"))))
                                     {
                                         String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                                         Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
