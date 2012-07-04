@@ -280,8 +280,17 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 	
 	public List<SearchCriterionBase> getGenreSearchCriterions()
 	{
-		boolean allGenres = true;
-		boolean allDegrees = true;
+		
+		boolean genreSelected = false;
+		boolean genreDeselected = false;
+		
+		boolean degreeSelected = false;
+		boolean degreeDeselected = false;
+		
+//		boolean allGenres = true;
+		
+		
+		//boolean allDegrees = true;
 	
 		List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
 		List<SearchCriterionBase> degreeCriterionsList = new ArrayList<SearchCriterionBase>();
@@ -315,6 +324,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 						
 						if(degreeEntry.getValue())
 						{
+							degreeSelected = true;
 							DegreeSearchCriterion dsc = new DegreeSearchCriterion();
 							dsc.setSearchString(degreeEntry.getKey().getUri());
 							degreeCriterionsList.add(dsc);
@@ -322,7 +332,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 						}
 						else
 						{
-							allDegrees = false;
+							degreeDeselected = true;
 						}
 					}
 					degreeCriterionsList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
@@ -334,21 +344,21 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 				
 				
 				
-				if(Genre.THESIS.equals(entry.getKey()) && !allDegrees)
+				if(Genre.THESIS.equals(entry.getKey()) && (degreeSelected && degreeDeselected))
 				{
 					returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
 					
 					
 				}
 				
-				
+				genreSelected = true;
 				GenreSearchCriterion gc = new GenreSearchCriterion();
 				gc.setSearchString(entry.getKey().getUri());
 				returnList.add(gc);
 				i++;
 				
 				
-				if(Genre.THESIS.equals(entry.getKey()) && !allDegrees)
+				if(Genre.THESIS.equals(entry.getKey()) && (degreeSelected && degreeDeselected))
 				{
 					returnList.addAll(degreeCriterionsList);
 					returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
@@ -359,7 +369,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 			}
 			else
 			{
-				allGenres = false;
+				genreDeselected = true;
+				//allGenres = false;
 			}
 			
 		}
@@ -367,7 +378,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 		
 		
-		if(!allGenres || !allDegrees)
+		if((genreSelected && genreDeselected) || (degreeSelected && degreeDeselected))
 		{
 			return returnList;
 		}
