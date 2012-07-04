@@ -81,6 +81,7 @@ public class AaStart extends HttpServlet
 
         String from = request.getParameter("from");
         String tan = request.getParameter("tan");
+        String handle = request.getParameter("eSciDocUserHandle");
         
         Matcher matcher = authPattern.matcher(from);
         from = matcher.replaceAll("");
@@ -98,6 +99,11 @@ public class AaStart extends HttpServlet
             separator = "&";
         }
         target += separator + "target=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
+        
+        if (handle != null)
+        {
+        	target += "&eSciDocUserHandle=" + URLEncoder.encode(handle, "ISO-8859-1");
+        }
         
         response.sendRedirect(target);
  

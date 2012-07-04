@@ -161,12 +161,11 @@ public class ConeServlet extends HttpServlet
             loggedIn = getLoggedIn(request);
         }
         
-        if (!loggedIn && "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))
+        if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null) || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r")))))
         {
             try
             {
-            	
-                response.sendRedirect(Aa.getLoginLink(request));
+                response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
             }
             catch (Exception e)
             {

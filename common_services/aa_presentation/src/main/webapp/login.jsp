@@ -7,23 +7,12 @@
 	<%
 		AaServerConfiguration configuration = new AaServerConfiguration();
 	
-		String from = request.getParameter("from");
-		if (from == null)
-		{
-		    from = "";
-		}
-		String tan = request.getParameter("tan");
-		if (tan == null)
-		{
-		    tan = "";
-		}
-	
 		if (configuration.getMap().size() == 1)
 		{
 			%>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-				<meta http-equiv="refresh" content="0; URL=login?from=<%= from %>&tan=<%= tan %>&target=<%= URLEncoder.encode(configuration.getMap().values().iterator().next()) %>clientLogin">
+				<meta http-equiv="refresh" content="0; URL=login?<%= request.getQueryString() %>&target=<%= URLEncoder.encode(configuration.getMap().values().iterator().next()) %>clientLogin">
 				<!-- <title>Insert title here</title> -->
 			</head>
 		<% } else { %>
@@ -33,7 +22,7 @@
 			<body style="text-align: center;">
 				<h1>Select Login Mechanism</h1>
 				<% for (String key : configuration.getMap().keySet()) { %>
-					<div><a href="login?from=<%= URLEncoder.encode(from) %>&target=<%= URLEncoder.encode(configuration.getMap().get(key)) %>clientLogin"><%= key %></a></div>
+					<div><a href="login?<%= request.getQueryString() %>&target=<%= URLEncoder.encode(configuration.getMap().get(key)) %>clientLogin"><%= key %></a></div>
 				<% } %>
 			</body>
 	<% } %>

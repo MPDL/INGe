@@ -57,7 +57,6 @@ public class Aa
     
     public Aa(HttpServletRequest request) throws Exception
     {
-        initConfig(request);
         
         String[] encodedXml = request.getParameterValues("auth");
         if (encodedXml != null)
@@ -83,7 +82,7 @@ public class Aa
         return authenticationVO;
     }
     
-    public void initConfig(HttpServletRequest request) throws ServletException
+    public static void initConfig(HttpServletRequest request) throws ServletException
     {
         if (Config.getProperties().isEmpty())
         {
@@ -96,6 +95,7 @@ public class Aa
                 {
                     InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename);
                     Config.getProperties().load(propertyStream);
+                    Config.setLoaded(true);
                     //propertyStream.close();
                 }
                 catch (Exception e)
@@ -115,6 +115,11 @@ public class Aa
      */
     public static String getLoginLink(HttpServletRequest request) throws Exception
     {
+    	if (!Config.isLoaded())
+    	{
+    		initConfig(request);
+    	}
+    	
         String tan;
         do
         {

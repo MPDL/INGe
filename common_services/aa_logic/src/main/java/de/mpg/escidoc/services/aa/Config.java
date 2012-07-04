@@ -48,6 +48,8 @@ public class Config
     
     private static Properties properties = new Properties();
     
+    private static boolean loaded = false;
+    
     private Config()
     {}
     
@@ -73,5 +75,13 @@ public class Config
     {
         Config.properties = properties;
     }
+
+	public static boolean isLoaded() {
+		return loaded;
+	}
+
+	public static void setLoaded(boolean loaded) {
+		Config.loaded = loaded;
+	}
     
 }
