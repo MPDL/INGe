@@ -52,7 +52,7 @@
 						<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
 					</b>
 					<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu simple="true" id="selUserGroups" styleClass="quad_select" value="#{grantForAllFiles.grant.grantedTo}">
+						<h:selectOneMenu id="selUserGroups" styleClass="quad_select" value="#{grantForAllFiles.grant.grantedTo}">
 							<f:selectItems value="#{AudienceBean.userGroups}" />
 						</h:selectOneMenu>
 					</h:panelGroup>
