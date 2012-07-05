@@ -35,12 +35,12 @@
 	<!-- RichFaces 3.3.x escapes UTF-8 more than once. Should be deleted after 
 		including a newer RichFaces version is included and https://issues.jboss.org/browse/RF-8615 
 		is resolved 
-		
+		-->
 	<context-param>
 		<param-name>com.sun.faces.disableUnicodeEscaping</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	-->
+	
 
 	<!-- Maximum memory per request (in bytes) -->
 	<!-- Use 500K <context-param> <param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY</param-name> 
