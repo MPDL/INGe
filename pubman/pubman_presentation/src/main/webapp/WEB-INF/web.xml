@@ -38,7 +38,7 @@
 		-->
 	<context-param>
 		<param-name>com.sun.faces.disableUnicodeEscaping</param-name>
-		<param-value>true</param-value>
+		<param-value>auto</param-value>
 	</context-param>
 	
 
