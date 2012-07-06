@@ -82,9 +82,23 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		
 	    //now fill the genre map with the ordered genres    
 		genreMap = new LinkedHashMap<Genre, Boolean>();
+		Entry<Genre, String> thesisEntry = null;
 		for(Entry<Genre, String>  entry : sortedGenreList)
 		{
-			genreMap.put(entry.getKey(), false);
+			if(!entry.getKey().equals(Genre.THESIS))
+			{
+				genreMap.put(entry.getKey(), false);
+			}
+			else
+			{
+				thesisEntry = entry;
+			}
+			
+		}
+		//add thesis at end of list
+		if (thesisEntry!=null)
+		{
+			genreMap.put(thesisEntry.getKey(), false);
 		}
 		return genreMap;
 	}

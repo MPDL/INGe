@@ -40,22 +40,98 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderWoP}" />
 	</h3>
 	<span class="seperator"></span>
-	<h:panelGroup id="editSearch" layout="block" styleClass="free_area0 itemBlockContent endline">
+	<style type="text/css">
+		.fullItem .itemBlock .itemBlockContent div.itemLine {
+			border-top:none !important;
+		}
+		.addOpenParanthesis {
+			float:left;
+			color:#AAAAAA;
+			border:none;
+		}
+		.addOpenParanthesis:hover {
+			color:#000000;
+		}
+		.addCloseParanthesis {
+			background-color:#990033 !important;
+			color:#FFFFFF;
+			border:none;
+			padding:0.10em;
+			font-size:135% !important;
+		}
+		.openParanthesis {
+			width:2em;
+			font-size:135%;
+			text-align:right;
+			display:inline;
+		}
+		.removeParanthesis {
+			height:2.2em;
+			padding:0;
+			border:none;
+			font-size:90%;
+			color:#AAAAAA;
+		}
+		.removeParanthesis:hover {
+			color:#990033;
+		}
+		.fullItem span.lineToolSection {
+			margin-top:0;
+		}
+		.tooltip { position:absolute; display:none; padding:0.45em; background-color:#ffffff; margin-top:1.4545em; text-align:center;}
+		
+		.selectContainer:hover .tooltip { display:block; }
+		.selectContainer:hover .tooltip:hover { display:none; }
+		
+		.label_keyword { text-align:right; margin-right:0.2727em; }
+		
+		.paranthesis_level_0 { margin-left:0; }
+		.paranthesis_level_1 { margin-left:1.5em; }
+		.paranthesis_level_2 { margin-left:3em; }
+		.paranthesis_level_3 { margin-left:4.5em; }
+		.paranthesis_level_4 { margin-left:6em; }
+		.paranthesis_level_5 { margin-left:7.5em; }
+		.paranthesis_level_6 { margin-left:9em; }
+		.paranthesis_level_7 { margin-left:10.5em; }
+		.paranthesis_level_8 { margin-left:12em; }
+		.paranthesis_level_9 { margin-left:13.5em; }
+		.paranthesis_level_10 { margin-left:15em; }
+		.paranthesis_level_11 { margin-left:16.5em; }
+		.paranthesis_level_12 { margin-left:18em; }
+		.paranthesis_level_13 { margin-left:19.5em; }
+		.paranthesis_level_14 { margin-left:21em; }
+		.paranthesis_level_15 { margin-left:22.5em; }
+		
+		.paranthesis_level_0 .lineToolSection { margin-right:0; }
+		.paranthesis_level_1 .lineToolSection { margin-right:1.5em; }
+		.paranthesis_level_2 .lineToolSection { margin-right:3em; }
+		.paranthesis_level_3 .lineToolSection { margin-right:4.5em; }
+		.paranthesis_level_4 .lineToolSection { margin-right:6em; }
+		.paranthesis_level_5 .lineToolSection { margin-right:7.5em; }
+		.paranthesis_level_6 .lineToolSection { margin-right:9em; }
+		.paranthesis_level_7 .lineToolSection { margin-right:10.5em; }
+		.paranthesis_level_8 .lineToolSection { margin-right:12em; }
+		.paranthesis_level_9 .lineToolSection { margin-right:13.5em; }
+		.paranthesis_level_10 .lineToolSection { margin-right:15em; }
+		.paranthesis_level_11 .lineToolSection { margin-right:16.5em; }
+		.paranthesis_level_12 .lineToolSection { margin-right:18em; }
+		.paranthesis_level_13 .lineToolSection { margin-right:19.5em; }
+		.paranthesis_level_14 .lineToolSection { margin-right:21em; }
+		.paranthesis_level_15 .lineToolSection { margin-right:22.5em; }
+	</style>
+	<h:panelGroup id="editSearch" layout="block" styleClass="free_area0 itemBlockContent endline" style="padding-top:1em;">
 
 		<h:outputText value="#{AdvancedSearchBean.readOutParams}"/>
 		
 		<a4j:repeat id="criterions" rows="0" var="criterion" value="#{AdvancedSearchBean.criterionList}" rowKeyVar="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine #{index == 0 ? 'noTopBorder' : ''}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine #{index == 0 ? 'noTopBorder' : ''} paranthesis_level_#{criterion.level}">
 
-				<h:panelGroup styleClass="xLarge_area0_p8 endline labelLine clear" >
-					&#160;<span class="noDisplay"> </span>
-				</h:panelGroup>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
 				
-				<!-- select menu for boolean operator -->
-				<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{criterion.searchCriterion.displayType == 'OPERATOR'}">
-						<h:outputLabel id="lblSelectOperator" styleClass="large_label" value=" "/>
+				<h:panelGroup styleClass="free_area0 endline" style="width:100%;">
+					<!-- select menu for boolean operator -->
+					<h:panelGroup styleClass="free_area0" rendered="#{criterion.searchCriterion.displayType == 'OPERATOR'}">
+						<h:outputLabel id="lblSelectOperator" styleClass="tiny_label" value=" "/>
 						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
 							<h:panelGroup layout="block" styleClass="large_area0">
 								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
@@ -65,193 +141,205 @@
 								<f:selectItems value="#{AdvancedSearchBean.operatorTypeListMenu}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-				</h:panelGroup>
-				
-				
-				
-				
-				<!-- output for parenthesis -->
-				<h:panelGroup styleClass="large_area0" rendered="#{criterion.searchCriterion.displayType == 'PARENTHESIS'}">
-					<h2><h:outputText value="(" rendered="#{criterion.searchCriterion == 'OPENING_PARENTHESIS'}" /></h2>
-					<h2><h:outputText value=")" rendered="#{criterion.searchCriterion == 'CLOSING_PARENTHESIS'}" /></h2>
-					<a4j:commandButton value="X" reRender="editSearch" actionListener="#{AdvancedSearchBean.removeParenthesis}">
-						<f:attribute name="indexOfCriterion" value="#{index}"/>
-					</a4j:commandButton>
-				</h:panelGroup>
-				
-				
-				<!-- select menu for search criterion -->
-				<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion.displayType != 'PARENTHESIS'}">
-						
-						
-						<a4j:commandButton value="(" reRender="editSearch" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{AdvancedSearchBean.currentlyOpenedParenthesis == null}">
-								<f:attribute name="indexOfCriterion" value="#{index}"/>
+					</h:panelGroup>
+					
+					
+					
+					
+					<!-- output for parenthesis -->
+					<h:panelGroup layout="block" styleClass="openParanthesis xTiny_marginLExcl" rendered="#{criterion.searchCriterion.displayType == 'PARENTHESIS'}">
+						<h:panelGroup rendered="#{criterion.searchCriterion == 'OPENING_PARENTHESIS'}">
+							<h:outputText value="(" />
+						</h:panelGroup>
+						<h:panelGroup rendered="#{criterion.searchCriterion == 'CLOSING_PARENTHESIS'}">
+							<h:outputText value=")" />
+						</h:panelGroup>
+						<a4j:commandButton value="x" styleClass="removeParanthesis" reRender="editSearch" actionListener="#{AdvancedSearchBean.removeParenthesis}">
+							<f:attribute name="indexOfCriterion" value="#{index}"/>
 						</a4j:commandButton>
 						
-						<h:outputLabel id="lblSelectIdentifierType" styleClass="large_label" value=""/>
-						
-						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-							<h:panelGroup layout="block" styleClass="large_area0">
-								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-							</h:panelGroup>
-							<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterion}" >
-								<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenu}" />
+					</h:panelGroup>
+					
+					
+					
+					<!-- select menu for search criterion -->
+					<h:panelGroup styleClass="free_area0 xTiny_marginRExcl" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion.displayType != 'PARENTHESIS'}">
+							
+							<a4j:commandButton value="(" reRender="editSearch" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{AdvancedSearchBean.currentlyOpenedParenthesis == null}" styleClass="addOpenParanthesis">
 								<f:attribute name="indexOfCriterion" value="#{index}"/>
-								<a4j:support event="onchange" reRender="editSearch" >
-									
-								</a4j:support>
-							</h:selectOneMenu>
-						</h:panelGroup>
-				</h:panelGroup>
-				
-				
-				
-				
-				
-				<!-- input for standard criterions -->
-				<h:panelGroup rendered="#{criterion.searchCriterion.displayType == 'STANDARD'}">
-					<h:outputLabel id="lblSearchTermFirst" styleClass="double_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText id="anyFieldSearchStringFirst" styleClass="double_txtInput" value="#{criterion.searchString}" />
-				</h:panelGroup>
-				
-				
-				
-				<!-- input for person searches-->
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline personArea" rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
-					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
-					<h:inputText id="personSearchStringFilled" styleClass="third_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
-					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{criterion.hiddenId}"/>
-					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}"
-							rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&nbsp;</h:outputLink>
-					<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
-						styleClass="xSmall_area0 authorLink">&nbsp;
+							</a4j:commandButton>
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<span class="tooltip">&#160;</span>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterion}" >
+									<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenu}" />
+									<f:attribute name="indexOfCriterion" value="#{index}"/>
+									<a4j:support event="onchange" reRender="editSearch" >
+										
+									</a4j:support>
+								</h:selectOneMenu>
+							</h:panelGroup>
 					</h:panelGroup>
-				</h:panelGroup>
-				
-				<!-- input for date searches-->
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{criterion.searchCriterion.displayType == 'DATE'}">
-					<span class="double_area0 xTiny_marginRIncl">
-						<h:outputLabel id="lblStartDateFirst" styleClass="double_label" for="startDateFirst" value="#{lbl.adv_search_lblFrom}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" />
-					</span>
-					<span class="double_area0 xTiny_marginRIncl">
-						<h:outputLabel id="lblEndDateFirst" styleClass="double_label" for="endDateFirst" value="#{lbl.adv_search_lblTo}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" />
-					</span>
-				</h:panelGroup>
-				
-				<!-- input for organization searches-->
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline suggestAnchor" rendered="#{criterion.searchCriterion == 'ORGUNIT'}">
-                    <h:outputLabel id="lblOrganizationSearchTermEmptyFirst" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="third_txtInput organizationSuggest organizationName disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
-                    <h:inputText id="organizationSearchTermEmptyFirstFilled" styleClass="third_txtInput" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
-					<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
-						value="#{criterion.hiddenId}" />
-					<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" value="#"
-						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
-					<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
-						styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
-                </h:panelGroup>
-                
-                
-                <!-- input for classifications -->
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline subjectArea" rendered="#{criterion.searchCriterion == 'CLASSIFICATION'}">
-					<h:panelGroup styleClass="large_area0 largeFormPush">
-						<h:outputLabel id="lblClassifiacationIdentifierType" styleClass="large_label" value="#{lbl.adv_search_lblRgbTopic}"/>
+					
+					
+					
+					<!-- input for standard criterions -->
+					<h:panelGroup rendered="#{criterion.searchCriterion.displayType == 'STANDARD'}">
+						<h:outputLabel id="lblSearchTermFirst" styleClass="small_label label_keyword" value=" "/>
+						<h:inputText id="anyFieldSearchStringFirst" styleClass="double_txtInput" value="#{criterion.searchString}" />
+					</h:panelGroup>
+					
+					
+					
+					<!-- input for person searches-->
+					<h:panelGroup styleClass="free_area0 endline personArea" rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
+						<h:outputLabel styleClass="small_label" value=" " />
+						<h:inputText id="personSearchString" styleClass="double_txtInput personSuggest disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
+						<h:inputText id="personSearchStringFilled" styleClass="double_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
+						<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{criterion.hiddenId}"/>
+						<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&nbsp;</h:outputLink>
+						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" styleClass="xSmall_area0 authorLink">&nbsp;</h:panelGroup>
+						<span class="tooltip">&#160;</span>
+					</h:panelGroup>
+					
+					
+					<!-- input for date searches-->
+					<h:panelGroup styleClass="free_area0 endline" rendered="#{criterion.searchCriterion.displayType == 'DATE'}">
+						<h:panelGroup styleClass="free_area0">
+							<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst" value="#{lbl.adv_search_lblFrom}: "/>
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" style="width:7.7272em;" />
+						</h:panelGroup>
+						<span class="free_area0 clear">
+							<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst" value="#{lbl.adv_search_lblTo}: "/>
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" style="width:7.7272em;" />
+						</span>
+						<script type="text/javascript">
+							$pb('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
+						</script>
+					</h:panelGroup>
+					
+					
+					<!-- input for organization searches-->
+					<h:panelGroup styleClass="free_area0 endline suggestAnchor" rendered="#{criterion.searchCriterion == 'ORGUNIT'}">
+	                    <h:outputLabel id="lblOrganizationSearchTermEmptyFirst" styleClass="small_label label_keyword" value=" " />
+	                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="double_txtInput organizationSuggest organizationName disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" style="margin-right:0.2727em;"/>
+	                    <h:inputText id="organizationSearchTermEmptyFirstFilled" styleClass="double_txtInput" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
+						<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
+							value="#{criterion.hiddenId}" />
+						<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" value="#"
+							onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
+							styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
+	                </h:panelGroup>
+	                
+	                
+	                <!-- input for classifications -->
+					<h:panelGroup styleClass="free_area0 endline subjectArea" rendered="#{criterion.searchCriterion == 'CLASSIFICATION'}">
+						<h:panelGroup styleClass="free_area0 largeFormPush">
+							<h:outputLabel id="lblClassifiacationIdentifierType" styleClass="small_label label_keyword" value=" "/>
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<div class="large_area0">
+									<span class="large_area0 selectionBox">&#160;</span>
+									<span class="tooltip">&#160;</span>
+									<div class="min_imgArea selectboxIcon">&#160;</div>
+								</div>
+								<h:selectOneMenu id="selSelectClassificationType" onfocus="updateSelectionBox(this);" value="" styleClass="endline vocabulary" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{AdvancedSearchBean.subjectTypesListMenu}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
 						
-						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-							<div class="large_area0">
-								<span class="large_area0 selectionBox">&#160;</span>
-								<div class="min_imgArea selectboxIcon">&#160;</div>
-							</div>
-							<h:selectOneMenu id="selSelectClassificationType" onfocus="updateSelectionBox(this);" value="" styleClass="endline vocabulary" onchange="updateSelectionBox(this);">
-								<f:selectItems value="#{AdvancedSearchBean.subjectTypesListMenu}" />
-							</h:selectOneMenu>
+							<h:inputText id="inpClassificationValue" styleClass="large_txtInput subjectSuggest" value="#{criterion.searchString}" />
 						</h:panelGroup>
 					</h:panelGroup>
-					<h:panelGroup>
-						<h:outputLabel id="lblClassificationValue" styleClass="xDouble_label" value="#{lbl.adv_search_lblRgbTopic}"/>
-						<h:inputText id="inpClassificationValue" styleClass="xDouble_txtInput subjectSuggest" value="#{criterion.searchString}" />
-					</h:panelGroup>
-				</h:panelGroup>
-				
-				
-				 <!-- input for genre-->
-                <h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer marginTExcl6p" rendered="#{criterion.searchCriterion == 'GENRE'}">
-					<h:panelGroup layout="block" styleClass="quad_area0">
+					
+					
+					 <!-- input for genre-->
+					<h:outputLabel id="lblGenreSearchTerm" styleClass="small_label label_keyword" value=" "  rendered="#{criterion.searchCriterion == 'GENRE'}"/>
+	                <h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer" rendered="#{criterion.searchCriterion == 'GENRE'}">
+						
+						<h:panelGroup layout="block" styleClass="quad_area0">
 							<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
+							<span class="tooltip">&#160;</span>
 							<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 						</h:panelGroup>
 						<h:selectOneMenu id="selectGenre" onchange="updateSelectionBox(this);" value="#{criterion.searchString}">
 							<f:selectItems value="#{AdvancedSearchBean.genreListMenu}" />
 						</h:selectOneMenu>
-				</h:panelGroup>
-                
-                <!-- input for language-->
-                <h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline languageArea" rendered="#{criterion.searchCriterion == 'LANG'}">
-					<h:outputLabel id="lblLanguageTermMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					
-					<h:inputText id="languageSuggestMultiple" styleClass="large_txtInput tiny_marginRIncl languageSuggest" value="#{criterion.searchString}"/>
-					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageText readonlyInput" value="#{criterion.alternativeValue}" readonly="true"/>
-					
-					<%--<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
-						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
-					</h:selectOneMenu>--%>
-				</h:panelGroup>
-				
-				<!-- input for collection -->
-				<h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer marginTExcl6p" rendered="#{criterion.searchCriterion == 'COLLECTION'}">
-						<h:panelGroup layout="block" styleClass="quad_area0">
-							<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-						</h:panelGroup>
-						<h:selectOneMenu id="selectContext" onchange="updateSelectionBox(this);" value="#{criterion.searchString}">
-							<f:selectItems value="#{AdvancedSearchBean.contextListMenu}" />
-						</h:selectOneMenu>
-				</h:panelGroup>
-				
-				<!-- input for event invitation -->
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{criterion.searchCriterion == 'EVENT_INVITATION'}">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<span class="noDisplay"> </span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<span class="free_area0 checkboxDoubleGroup">
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="EventCritertionBean_invitationStatus" value="#{criterion.invited}" />
-							<h:outputLabel id="lblEventCriterionBean_invitationStatus" value="#{lbl.ENUM_INVITATIONSTATUS_INVITED}" />
-						</span>
-					</span>
-				</span>
-				</h:panelGroup>
-				
-				
-				
-				<!-- input for journal searches-->
-				<h:panelGroup styleClass="sourceArea" rendered="#{criterion.searchCriterion == 'JOURNAL'}">
-					<h:outputLabel id="lblJournal" styleClass="double_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText id="journalSearchTerm" styleClass="double_txtInput sourceTitle journalSuggest" value="#{criterion.searchString}" />
-				</h:panelGroup>
-
-				</span>
-				
-				
+					</h:panelGroup>
+	                
+	                
+	                <!-- input for language-->
+	                <h:panelGroup styleClass="free_area1 endline languageArea" rendered="#{criterion.searchCriterion == 'LANG'}">
+						<h:outputLabel id="lblLanguageSuggestMultiple" styleClass="small_label" value=" "/>
+						<h:inputText id="languageSuggestMultiple" styleClass="small_txtInput languageSuggest" value="#{criterion.searchString}"/>
+						<h:inputText styleClass="double_txtInput languageText readonlyInput" value="#{criterion.alternativeValue}" readonly="true"/>
 						
-				<a4j:commandButton value=")" reRender="editSearch" style="background-color:red;" actionListener="#{AdvancedSearchBean.addClosingParenthesis}" rendered="#{criterion.searchCriterion != 'OPENING_PARENTHESIS' and AdvancedSearchBean.currentlyOpenedParenthesis != null and AdvancedSearchBean.possibleCriterionsForClosingParenthesisMap[criterion]!=null}">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-					</a4j:commandButton>
-				<!-- +/- buttons -->
-				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion.displayType != 'PARENTHESIS'}">
+						<%--<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+							<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
+						</h:selectOneMenu>--%>
+					</h:panelGroup>
 					
-					<a4j:commandButton id="btnAddFirst" reRender="editSearch" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" actionListener="#{AdvancedSearchBean.addSearchCriterion}" >
-						<f:attribute name="indexOfCriterion" value="#{index}"/>
-					</a4j:commandButton>
-					<a4j:commandButton id="btnRemoveFirst" reRender="editSearch" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{fn:length(AdvancedSearchBean.criterionList) == 1}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}">
-						<f:attribute name="indexOfCriterion" value="#{index}"/>
-					</a4j:commandButton>
+					
+					<!-- input for collection -->
+					<h:outputLabel id="lblLanguageSearchTerm" styleClass="small_label label_keyword" value=" "  rendered=" "/>
+					<h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer" rendered="#{criterion.searchCriterion == 'COLLECTION'}">
+							<h:panelGroup layout="block" styleClass="quad_area0">
+								<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
+								<span class="tooltip">&#160;</span>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selectContext" onchange="updateSelectionBox(this);" value="#{criterion.searchString}">
+								<f:selectItems value="#{AdvancedSearchBean.contextListMenu}" />
+							</h:selectOneMenu>
+					</h:panelGroup>
+					
+					
+					<!-- input for event invitation -->
+					<h:panelGroup styleClass="free_area0 endline" rendered="#{criterion.searchCriterion == 'EVENT_INVITATION'}">
+						<h:outputLabel id="lblEventCriterionBean_invitationStatus" value="#{lbl.ENUM_INVITATIONSTATUS_INVITED}" styleClass="small_label label_keyword" />
+						<h:selectBooleanCheckbox id="EventCritertionBean_invitationStatus" value="#{criterion.invited}" />
+					</h:panelGroup>
+					
+					
+					
+					<!-- input for journal searches-->
+					<h:panelGroup styleClass="sourceArea" rendered="#{criterion.searchCriterion == 'JOURNAL'}">
+						<h:outputLabel id="lblJournal" styleClass="small_label label_keyword" value=" " />
+						<h:inputText id="journalSearchTerm" styleClass="double_txtInput sourceTitle journalSuggest" value="#{criterion.searchString}" />
+					</h:panelGroup>
+					
+					
+					
+					<!-- +/- buttons -->
+					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR'}">
+						
+						<a4j:commandButton id="btnAddFirst" reRender="editSearch" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" actionListener="#{AdvancedSearchBean.addSearchCriterion}" >
+							<f:attribute name="indexOfCriterion" value="#{index}"/>
+						</a4j:commandButton>
+						<a4j:commandButton id="btnRemoveFirst" reRender="editSearch" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}" disabled="#{fn:length(AdvancedSearchBean.criterionList) == 1 or criterion.searchCriterion.displayType == 'PARENTHESIS'}">
+							<f:attribute name="indexOfCriterion" value="#{index}"/>
+						</a4j:commandButton>
+					</h:panelGroup>
+					
+					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion == 'CLOSING_PARENTHESIS'}">
+						<!-- here could be the content for the left add remove buttons -->
+					</h:panelGroup>
+					
+					
 				</h:panelGroup>
+				
+				
+				<!-- add close paranthesis -->
+				<a4j:commandButton value=")" reRender="editSearch" styleClass="addCloseParanthesis" actionListener="#{AdvancedSearchBean.addClosingParenthesis}" rendered="#{criterion.searchCriterion != 'OPENING_PARENTHESIS' and AdvancedSearchBean.currentlyOpenedParenthesis != null and AdvancedSearchBean.possibleCriterionsForClosingParenthesisMap[criterion]!=null}">
+					<f:attribute name="indexOfCriterion" value="#{index}"/>
+				</a4j:commandButton>
+				
+				
 			</h:panelGroup>
 			
 
@@ -263,6 +351,30 @@
 		</h:panelGroup>
 		
 		
+		<style type="text/css">
+			.genreContainer, .genreContent, .subGenre, .degrees {
+				width: 98%;
+			}
+			.genreContent {
+				margin-top:1em;
+			}
+			.subGenre {
+				margin-top:1em;
+			}
+			
+			.fullItem .subGenre.disabled {
+				color:#888B8B;
+				text-decoration:none !important;
+			}
+			.fullItem .subGenre .disabled {
+				color:#888B8B;
+				text-decoration:none !important;
+			}
+			.degrees input:disabled+label {
+				color:#888B8B;
+			}
+			
+		</style>
 		
 		<!-- genre criterions -->
 		<div class="full_area0 itemBlock">
@@ -272,37 +384,74 @@
 			<span class="seperator"></span>
 			<h:panelGroup id="editGenre" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 			
-			
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
-						<span class="free_area0 checkboxDoubleGroup">
+				<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+					<span class="double_checkbox">
+						<input type="checkbox" class="checkAll" id="checkAllGenre"/>
+						<label for="checkAllGenre"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
+					</span>
+					<span class="free_area0 genreContent clear">
 						
-							<a4j:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.genreList}" var="genre" rows="0">
-								<span class="large_checkbox tiny_marginRIncl">
-									<c:set var="genreLabel" value="ENUM_GENRE_#{genre}"/>
-									<h:selectBooleanCheckbox id="genreCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
-										<a4j:support event="onchange" reRender="editGenre" rendered="#{genre=='THESIS'}"/>
-									</h:selectBooleanCheckbox>
-									<h:outputLabel title="#{lbl[genreLabel]}" value="#{lbl[genreLabel]}" for="genreCriterion" />
-								</span>
+						<a4j:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.genreList}" var="genre" rows="0">
+							<h:panelGroup styleClass="#{genre == 'THESIS' ? 'free_checkbox subGenre clear' : 'double_checkbox xTiny_marginRIncl'}">
+								<c:set var="genreLabel" value="ENUM_GENRE_#{genre}"/>
+								<h:selectBooleanCheckbox id="genreCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
+									<a4j:support event="onchange" reRender="degrees" rendered="#{genre=='THESIS'}"/>
+								</h:selectBooleanCheckbox>
+								<h:outputLabel title="#{lbl[genreLabel]}" value="#{lbl[genreLabel]}" for="genreCriterion" />
 								
-								<h:panelGroup id="degrees" rendered="#{genre=='THESIS' && AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
+								<h:panelGroup id="degrees" styleClass="clear degrees free_checkbox" rendered="#{genre=='THESIS'}">
 									<a4j:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.degreeList}" var="degree" rows="0">
-										<span styleClass="large_checkbox tiny_marginRIncl" >
+										<h:panelGroup styleClass="free_area0 xTiny_marginRExcl">
 											<c:set var="degreeLabel" value="ENUM_DEGREETYPE_#{degree}"/>
-											<h:selectBooleanCheckbox id="thesisCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.degreeMap[degree]}" />
+											<h:selectBooleanCheckbox id="thesisCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.degreeMap[degree]}" disabled="#{not AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}"/>
 											<h:outputLabel title="#{lbl[degreeLabel]}" value="#{lbl[degreeLabel]}" for="thesisCriterion" />
-										</span>
+										</h:panelGroup>
 									</a4j:repeat>
 								</h:panelGroup>
-									
-							</a4j:repeat>
-							<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
-							</span>
-						</span>
+							</h:panelGroup>
+						</a4j:repeat>
 					</span>
+				</span>
+				<script type="text/javascript">
+					$pb('.genreContainer input.checkAll').change(function(evt){
+						var stat = ''+this.checked;
+						var subG = $pb('.genreContent .subGenre input[type=checkbox]:first-child');
+						
+						switch (stat) {
+							case 'false':
+								$pb('.genreContent .double_checkbox input[type=checkbox]').removeAttr("checked");
+								if (subG.attr("checked")) {
+									subG.click();
+								}
+								$pb('.itemBlock [checkAll]').removeAttr("checkAll");
+								break;
+							default:
+								$pb('.double_checkbox input[type=checkbox]').attr("checked", "checked");
+								$pb(this).parents('.itemBlock').attr("checkAll", "checked");
+								if (!subG.attr("checked") || subG.attr("checked") == 'undefined') {
+									subG.click();
+								}
+								break;
+						}
+						
+					});
+				</script>
 			</h:panelGroup>
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		<!-- file criterions -->
 		<div class="full_area0 itemBlock">
@@ -310,87 +459,127 @@
 				<h:outputText value="#{lbl.adv_search_lbHeaderFiles}" />
 			</h3>
 			<span class="seperator"></span>
+			
 			<h:panelGroup id="editFiles" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 			
-			
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<span class="free_area0">  
-				    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_lblFileAvailable}"/>
-                        
-                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-							<h:panelGroup layout="block" styleClass="large_area0">
-								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+				<span class="free_area0 xTiny_marginLExcl endline">
+					<span class="free_area0">  
+						<span class="double_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="double_label" value="#{lbl.adv_search_lblFileAvailable}"/>
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<span class="tooltip">&#160;</span>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.fileAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}"/>
+									<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}"/>
+									<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NO}"/>
+								</h:selectOneMenu>
 							</h:panelGroup>
-							<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.fileAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
-								<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}"/>
-								<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}"/>
-								<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NO}"/>
-							</h:selectOneMenu>
-						</h:panelGroup>       
-                    </span>
-                    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_lblLocatorAvailable}"/>
-                        
-                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-							<h:panelGroup layout="block" styleClass="large_area0">
-								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-							</h:panelGroup>
-							<h:selectOneMenu id="selLocatorAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.locatorAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
-								<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}"/>
-								<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}"/>
-								<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NO}"/>
-							</h:selectOneMenu>
-						</h:panelGroup>       
-                    </span>
-                    
-                    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel id="lblComponentVisibilityOptions" styleClass="large_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
-                        
-                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-							<h:panelGroup layout="block" styleClass="large_area0">
-								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-							</h:panelGroup>
-							<h:selectOneMenu id="selComponentVisibilityOptions" styleClass="replace" value="#{AdvancedSearchBean.componentVisibilitySearchCriterion.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
-								<f:selectItem itemValue="#{null}" itemLabel="-"/>
-								<f:selectItem itemValue="private" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_PRIVATE}"/>
-								<f:selectItem itemValue="public" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_PUBLIC}"/>
-								<f:selectItem itemValue="audience" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_RESTRICTED}"/>
-							</h:selectOneMenu>
-						</h:panelGroup>
-			
-                            
-                    </span>
-                    
-                    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="&nbsp;" escape="false"/>
-                        
-                        <span class="large_checkbox">
-							<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate" value="#{AdvancedSearchBean.embargoDateAvailableSearchCriterion.withEmbargoDate}" />
-							<h:outputLabel for="fileCriterion_hasEmbargoDate" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
-						</span>	
-                            
-                    </span>
-                    
-                    <span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel id="lblContentCategories" styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
+							
+							
+							
+							<style type="text/css">
+								.xLarge_radioBtn input+label {
+									white-space:nowrap;
+								}
+							</style>
+							<script type="text/javascript">
+								function enableEmbargo(obj) {
+									obj.removeClass("disabled");
+									obj.find("input[type=checkbox]").removeAttr("disabled");
+								}
+								function disableEmbargo(obj) {
+									if (!obj.hasClass("disabled")) {
+										obj.addClass("disabled");
+										obj.find("input[type=checkbox]").attr("disabled", "disabled");
+										obj.find("input[type=checkbox]").removeAttr("checked");
+									}
+								}
+								function toggleEmbargo(obj) {
+									switch (obj.selectedIndex) {
+										case 1:
+											enableEmbargo($pb(obj).parent().next());
+											break;
+										case 2:
+											disableEmbargo($pb(obj).parent().next());
+											break;
+										case 3:
+											enableEmbargo($pb(obj).parent().next());
+											break;
+										default:
+											disableEmbargo($pb(obj).parent().next());
+									}
+								}
+							</script>
+							<h:outputLabel id="lblComponentVisibilityOptions" styleClass="medium_label clear" value="#{lbl.adv_search_fileComponentVisibility}" style="margin-top:0.7272em;"/>
+							<span class="large_area0 tiny_marginRIncl">
+								<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+									<h:panelGroup layout="block" styleClass="large_area0">
+										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+										<span class="tooltip">&#160;</span>
+										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+									</h:panelGroup>
+									<h:selectOneMenu id="selComponentVisibilityOptions" styleClass="replace" value="#{AdvancedSearchBean.componentVisibilitySearchCriterion.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this); toggleEmbargo(this);">
+										<f:selectItem itemValue="#{null}" itemLabel="-"/>
+										<f:selectItem itemValue="private" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_PRIVATE}"/>
+										<f:selectItem itemValue="public" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_PUBLIC}"/>
+										<f:selectItem itemValue="audience" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_RESTRICTED}"/>
+									</h:selectOneMenu>
+								</h:panelGroup>
+								
+								<span class="double_checkbox disabled" style="margin-top:0.4545em;">
+									<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate" value="#{AdvancedSearchBean.embargoDateAvailableSearchCriterion.withEmbargoDate}" disabled="true"/>
+									<h:outputLabel for="fileCriterion_hasEmbargoDate" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
+								</span>
+							</span>
+						</span>
 						
-						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-							<h:panelGroup layout="block" styleClass="large_area0">
-								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+						
+						
+						
+	                    <span class="double_area0 tiny_marginRIncl">
+	                        <h:outputLabel styleClass="double_label" value="#{lbl.adv_search_lblLocatorAvailable}"/>
+	                        
+	                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<span class="tooltip">&#160;</span>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selLocatorAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.locatorAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}"/>
+									<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}"/>
+									<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NO}"/>
+								</h:selectOneMenu>
+							</h:panelGroup>       
+	                    </span>
+	                    
+	                   
+	                    
+	                    <span class="double_area0 tiny_marginRIncl">
+							<h:outputLabel id="lblContentCategories" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}"/>
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<span class="tooltip">&#160;</span>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selContentCategories" styleClass="replace" value="#{AdvancedSearchBean.componentContentCategory.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{AdvancedSearchBean.contentCategoryListMenu}" />
+								</h:selectOneMenu>
 							</h:panelGroup>
-							<h:selectOneMenu id="selContentCategories" styleClass="replace" value="#{AdvancedSearchBean.componentContentCategory.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
-								<f:selectItems value="#{AdvancedSearchBean.contentCategoryListMenu}" />
-							</h:selectOneMenu>
-						</h:panelGroup>
-			
+							
+							 <span class="double_checkbox" style="margin-top:0.4545em;">
+								<input type="checkbox" id="fileCriterion_excludeCategory"/>
+								<h:outputLabel id="lblFileCriterion_excludeCategory" value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
+							</span>	
+						</span>
 					</span>
-                    
-                   
 				</span>
 			</h:panelGroup>
 		</div>
