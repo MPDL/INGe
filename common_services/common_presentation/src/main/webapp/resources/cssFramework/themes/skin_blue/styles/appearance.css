@@ -589,7 +589,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .add:disabled, .remove:disabled {
-    cursor: default;
+    cursor: default !important;
     background-color: transparent !important;
 }
 

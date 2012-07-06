@@ -1179,7 +1179,7 @@ option {	/* fix for FF2 and floating contents */
 }
 
 /*CHECKBOXES WITH LABEL (base size (-21 for label))*/
-.xTiny_checkbox, .tiny_checkbox, .xSmall_checkbox, .small_checkbox, .medium_checkbox, .large_checkbox, .xLarge_checkbox, .double_checkbox, .xDouble_checkbox, .quad_checkbox, .huge_checkbox, .xHuge_checkbox, .half_checkbox, .full_checkbox {
+.free_checkbox, .xTiny_checkbox, .tiny_checkbox, .xSmall_checkbox, .small_checkbox, .medium_checkbox, .large_checkbox, .xLarge_checkbox, .double_checkbox, .xDouble_checkbox, .quad_checkbox, .huge_checkbox, .xHuge_checkbox, .half_checkbox, .full_checkbox {
     overflow: hidden;
     margin:0;
     display: inline;
@@ -1187,6 +1187,18 @@ option {	/* fix for FF2 and floating contents */
     float: left;
 }
 
+.free_checkbox input, .free_checkbox label {
+	float:left;
+	border:0;
+	margin-left:0;
+}
+.free_checkbox label {
+	float:left;
+	border:0;
+}
+.free_checkbox input+label {
+	white-space:nowrap;
+}
 .xTiny_checkbox {
     width: 1.3636em;
     /*too small to be displayed*/

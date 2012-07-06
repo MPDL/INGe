@@ -1066,13 +1066,13 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 	cursor: pointer;
 }
 .add:disabled {
-    cursor: default;
+    cursor: default !important;
 }
 .remove {
 	cursor: pointer;
 }
 .remove:disabled {
-    cursor: default;
+    cursor: default !important;
 }
 .dateJSLabel {
 	background-color: #006D70;
