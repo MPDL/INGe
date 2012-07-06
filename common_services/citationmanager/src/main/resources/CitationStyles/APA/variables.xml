@@ -126,7 +126,7 @@
 		</variable>
 		
 		<variable name="published-online-and-external-locator">
-			if ( ($genre=$l_article) or (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online) ) 
+			if ( not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online ) 
 			then $doi-or-uri
 			else ''	
 		</variable>	

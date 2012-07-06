@@ -225,7 +225,7 @@
 						<starts-with value="published-online:" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="$doi">
+				<layout-element ref="$source-doi">
 					<parameters>
 						<starts-with value="doi:" />
 					</parameters>
@@ -319,7 +319,7 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="$doi" />
+			<layout-element ref="$source-doi" />
 
 			<layout-element ref="$published-online-and-external-locator" />
 
@@ -431,6 +431,8 @@
 				</elements>
 			</layout-element>
 
+			<layout-element ref="$published-online-and-external-locator" />
+
 		</elements>
 	</cs-layout-definition>
 
@@ -476,6 +478,8 @@
 					<starts-with value=" Retrieved from " />
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 	</cs-layout-definition>
@@ -574,6 +578,8 @@
 					<layout-element ref="$volume-issue" />
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -599,6 +605,8 @@
 					<ends-with value="."/>
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -640,6 +648,8 @@
 					<ends-with value="."/>
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -684,6 +694,8 @@
 					</layout-element>
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 			
 		</elements>
 
@@ -731,7 +743,9 @@
 						</elements>
 					</layout-element>
 				</elements>
-			</layout-element>	
+			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />	
 			
 		</elements>
 
@@ -764,6 +778,8 @@
 					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -807,6 +823,8 @@
 					<ends-with value="." />
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
