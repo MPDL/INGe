@@ -51,11 +51,21 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 public class GenreListSearchCriterion extends SearchCriterionBase{
 
 	
-	private Map<Genre, Boolean> genreMap = initGenreMap();
+	private Map<Genre, Boolean> genreMap = new LinkedHashMap<Genre, Boolean>();
 	
-	private Map<DegreeType, Boolean> degreeMap = initDegreeMap();
+	private Map<DegreeType, Boolean> degreeMap = new LinkedHashMap<DegreeType, Boolean>();
 	
 	
+	public GenreListSearchCriterion()
+	{
+		initGenreMap();
+		initDegreeMap();
+	}
+	
+	/**
+	 * Initializes a sorted map containing all Genres as key and their selection state as value. The map is sorted by the label of the genre in the given language
+	 * @return
+	 */
 	public Map<Genre, Boolean> initGenreMap()
 	{
 		
@@ -81,31 +91,48 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 
 		
 	    //now fill the genre map with the ordered genres    
-		genreMap = new LinkedHashMap<Genre, Boolean>();
-		Entry<Genre, String> thesisEntry = null;
-		for(Entry<Genre, String>  entry : sortedGenreList)
+		//genreMap = new LinkedHashMap<Genre, Boolean>();
+		
+	    Map<Genre, Boolean> oldValMap = new LinkedHashMap<Genre, Boolean>(genreMap);
+	    genreMap.clear(); 
+	    Entry<Genre, String> thesisEntry = null;
+	    for(Entry<Genre, String>  entry : sortedGenreList)
 		{
-			if(!entry.getKey().equals(Genre.THESIS))
+	    	if(!entry.getKey().equals(Genre.THESIS))
 			{
-				genreMap.put(entry.getKey(), false);
-			}
-			else
-			{
-				thesisEntry = entry;
-			}
+		    	if(oldValMap.get(entry.getKey()) == null)
+		    	{
+		    		genreMap.put(entry.getKey(), false);
+		    	}
+		    	else
+		    	{
+		    		genreMap.put(entry.getKey(), oldValMap.get(entry.getKey()));
+		    	}
+	    	}
+	    	else
+	    	{
+	    		thesisEntry = entry;
+	    	}
 			
 		}
-		//add thesis at end of list
 		if (thesisEntry!=null)
 		{
-			genreMap.put(thesisEntry.getKey(), false);
+			if(oldValMap.get(thesisEntry.getKey()) == null)
+	    	{
+	    		genreMap.put(thesisEntry.getKey(), false);
+	    	}
+	    	else
+	    	{
+	    		genreMap.put(thesisEntry.getKey(), oldValMap.get(thesisEntry.getKey()));
+	    	}
 		}
+		
 		return genreMap;
 	}
 	
 	private Map<DegreeType, Boolean> initDegreeMap() {
 		
-		degreeMap = new LinkedHashMap<DegreeType, Boolean>();
+		//degreeMap = new LinkedHashMap<DegreeType, Boolean>();
 		for(DegreeType dt : DegreeType.values())
 		{
 			degreeMap.put(dt, false);
@@ -403,6 +430,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 	}
 	
 	public Map<Genre, Boolean> getGenreMap() {
+		initGenreMap();
 		return genreMap;
 	}
 

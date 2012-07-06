@@ -441,10 +441,29 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	{
 		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		SearchCriterionBase oldSearchCriterion =  criterionList.get(position); 
-		SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(oldSearchCriterion.getSearchCriterion());
+		
+		SearchCriterionBase newSearchCriterion = null;
+		if(DisplayType.PARENTHESIS.equals(oldSearchCriterion.getSearchCriterion().getDisplayType()))
+		{
+			newSearchCriterion = SearchCriterionBase.initSearchCriterion(SearchCriterion.ANY);
+		}
+		else
+		{
+			newSearchCriterion = SearchCriterionBase.initSearchCriterion(oldSearchCriterion.getSearchCriterion());
+		}
+		
 		newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
 		criterionList.add(position.intValue() + 1, newSearchCriterion);
-		criterionList.add(position.intValue() + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		
+		if(SearchCriterion.OPENING_PARENTHESIS.equals(oldSearchCriterion.getSearchCriterion()))
+		{
+			criterionList.add(position.intValue() + 2, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		}
+		else
+		{
+			criterionList.add(position.intValue() + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		}
+		
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
 	
