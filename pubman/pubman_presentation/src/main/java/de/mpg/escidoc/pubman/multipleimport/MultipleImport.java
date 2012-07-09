@@ -379,6 +379,10 @@ public class MultipleImport extends FacesBean
      */
     public void setFormat(Format format)
     {
+        if (!format.equals(this.format))
+        {
+            setName("");
+        }
         this.format = format;
     }
 
