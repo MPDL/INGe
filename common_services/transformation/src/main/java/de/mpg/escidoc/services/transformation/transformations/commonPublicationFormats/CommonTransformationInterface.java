@@ -70,8 +70,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     
     private final String EXPLAIN_FILE_PATH ="transformations/commonPublicationFormats/";
     private final String EXPLAIN_FILE_NAME="explain-transformations.xml";
-    
-    private Util util;
+
     private CommonTransformation commonTrans;
     
     private Map<String, List<String>> properties = null;
@@ -110,14 +109,14 @@ public class CommonTransformationInterface implements Transformation, Configurab
         for (int i = 0; i < transformations.length; i++)
         {
             TransformationType transformation = transformations [i];
-            String name = this.util.simpleLiteralTostring(transformation.getSource().getName());
-            String type = this.util.simpleLiteralTostring(transformation.getSource().getType());
-            String encoding = this.util.simpleLiteralTostring(transformation.getSource().getEncoding());
+            String name = Util.simpleLiteralTostring(transformation.getSource().getName());
+            String type = Util.simpleLiteralTostring(transformation.getSource().getType());
+            String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
             Format sourceFormat = new Format(name, type, encoding);
               
             sourceFormats.add(sourceFormat);       
         }       
-        sourceFormats = this.util.getRidOfDuplicatesInVector(sourceFormats);
+        sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
         Format[] dummy = new Format[sourceFormats.size()];
         return sourceFormats.toArray(dummy);
     }
@@ -128,7 +127,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     public String getSourceFormatsAsXml() throws RuntimeException
     {
         Format[] formats = this.getSourceFormats();
-        return this.util.createFormatsXml(formats);
+        return Util.createFormatsXml(formats);
     }
 
     /**
@@ -138,7 +137,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
         throws RuntimeException
     {
         Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-        return this.util.createFormatsXml(formats);
+        return Util.createFormatsXml(formats);
     }
 
     /**
@@ -166,21 +165,21 @@ public class CommonTransformationInterface implements Transformation, Configurab
         TransformationType[] transformations = transType.getTransformationArray();
         for (TransformationType transformation : transformations)
         {
-            Format source = new Format(this.util.simpleLiteralTostring(transformation.getSource().getName()),
-                  this.util.simpleLiteralTostring(transformation.getSource().getType()),
-                  this.util.simpleLiteralTostring(transformation.getSource().getEncoding()));
+            Format source = new Format(Util.simpleLiteralTostring(transformation.getSource().getName()),
+                  Util.simpleLiteralTostring(transformation.getSource().getType()),
+                  Util.simpleLiteralTostring(transformation.getSource().getEncoding()));
             //Only get Target if source is given source
-            if (this.util.isFormatEqual(source, src))
+            if (Util.isFormatEqual(source, src))
             {
-                String name = this.util.simpleLiteralTostring(transformation.getTarget().getName());
-                String type = this.util.simpleLiteralTostring(transformation.getTarget().getType());
-                String encoding = this.util.simpleLiteralTostring(transformation.getTarget().getEncoding());
+                String name = Util.simpleLiteralTostring(transformation.getTarget().getName());
+                String type = Util.simpleLiteralTostring(transformation.getTarget().getType());
+                String encoding = Util.simpleLiteralTostring(transformation.getTarget().getEncoding());
                 Format sourceFormat = new Format(name, type, encoding);
               
                 targetFormats.add(sourceFormat);   
             }
         }    
-        targetFormats = this.util.getRidOfDuplicatesInVector(targetFormats);
+        targetFormats = Util.getRidOfDuplicatesInVector(targetFormats);
         Format[] dummy = new Format[targetFormats.size()];
         return targetFormats.toArray(dummy);
     }
@@ -317,21 +316,21 @@ public class CommonTransformationInterface implements Transformation, Configurab
         TransformationType[] transformations = transType.getTransformationArray();
         for (TransformationType transformation : transformations)
         {
-            Format target = new Format(this.util.simpleLiteralTostring(transformation.getTarget().getName()),
-                  this.util.simpleLiteralTostring(transformation.getTarget().getType()),
-                  this.util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
+            Format target = new Format(Util.simpleLiteralTostring(transformation.getTarget().getName()),
+                  Util.simpleLiteralTostring(transformation.getTarget().getType()),
+                  Util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
             //Only get Target if source is given source
-            if (this.util.isFormatEqual(target, trg))
+            if (Util.isFormatEqual(target, trg))
             {
-                String name = this.util.simpleLiteralTostring(transformation.getSource().getName());
-                String type = this.util.simpleLiteralTostring(transformation.getSource().getType());
-                String encoding = this.util.simpleLiteralTostring(transformation.getSource().getEncoding());
+                String name = Util.simpleLiteralTostring(transformation.getSource().getName());
+                String type = Util.simpleLiteralTostring(transformation.getSource().getType());
+                String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
                 Format format = new Format(name, type, encoding);
               
                 sourceFormats.add(format);   
             }
         }    
-        sourceFormats = this.util.getRidOfDuplicatesInVector(sourceFormats);
+        sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
         Format[] dummy = new Format[sourceFormats.size()];
         return sourceFormats.toArray(dummy);
     }
