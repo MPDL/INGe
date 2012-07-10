@@ -148,10 +148,10 @@
 					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" title="#{creator.ouNumbers}" />
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" title="#{creator.person.identifier.id}" 
 						value="#{creator.person.identifier.id}" />
-					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}"
+					<h:outputLink styleClass="small_area0 authorCard authorLink xTiny_marginRExcl" value="#{creator.person.identifier.id}"
 							rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;</h:outputLink>
 						<h:panelGroup rendered="#{creator.person.identifier.id == null || creator.person.identifier.id == ''}"
-							styleClass="xSmall_area0 authorLink">&nbsp;
+							styleClass="xSmall_area0 authorLink xTiny_marginRExcl">&nbsp;
 						</h:panelGroup>
 						<h:panelGroup styleClass="large_area0">
 							<a4j:commandButton reRender="editPerson" id="btnAddCreator" title="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add"
@@ -208,7 +208,7 @@
 						rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#"
 						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{creator.organization.identifier == null || creator.organization.identifier == ''}"
-						styleClass="xSmall_area0 min_imgBtn ouLink">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:panelGroup>
+						styleClass="min_imgBtn ouLink">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:panelGroup>
 					<h:panelGroup layout="block">
 						<a4j:commandButton reRender="editPerson" id="btnAddCreatorOrg" title="#{tip.EditItem_addCreator}"
 							styleClass="min_imgBtn groupTool add" action="#{creator.add}"
@@ -244,11 +244,11 @@
 					value="#{organization.identifier}" />
 				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" title="#{organization.address}" 
 					value="#{organization.address}" />
-				<h:outputLink styleClass="small_area0 ouCard ouLink"
+				<h:outputLink styleClass="small_area0 ouCard ouLink xTiny_marginRExcl"
 					rendered="#{organization.identifier != null and organization.identifier != ''}" value="#"
 					onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 				<h:panelGroup rendered="#{organization.identifier == null || organization.identifier == ''}"
-					styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
+					styleClass="xSmall_area0 ouLink xTiny_marginRExcl">&nbsp;</h:panelGroup>
 				<h:panelGroup styleClass="small_area0">
 					<a4j:commandButton reRender="editPerson" id="btnAddCreatorPersonAffiliation" styleClass="min_imgBtn groupTool add" value=" "
 						title="#{tip.EditItem_addOrga}" action="#{organization.add}"
