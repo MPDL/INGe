@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -28,24 +29,27 @@ public class RetrieveItemTest
     private Logger logger = Logger.getLogger(getClass());
     
     /**
-     * Map of key - value pairs containing the filter definition
-     */    
-    private static final HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
-    
-    /**
      * The handle of the logged in user or null if not logged in.
      */
     private String userHandle;
     
-    private XmlTransforming xmlTransforming;
+    private static XmlTransforming xmlTransforming;
+    
+    private static String contentModelId = null;
+    
+    /**
+     * Map of key - value pairs containing the filter definition
+     */    
+    private static final HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+    
     
     /**
      * Constants for queries.
      */
-    protected static final String SEARCH_RETRIEVE = "searchRetrieve";
-    protected static final String QUERY = "query";
-    protected static final String VERSION = "version";
-    protected static final String OPERATION = "operation";
+    private static final String SEARCH_RETRIEVE = "searchRetrieve";
+    private static final String QUERY = "query";
+    private static final String VERSION = "version";
+    private static final String OPERATION = "operation";
     
 
     /**
@@ -54,15 +58,17 @@ public class RetrieveItemTest
     @Test
     public void retrievePendingContentItems() throws Exception
     {
-        String q1 = "\"/properties/public-status\"=pending";
+        String q1 = "\"/properties/public-status\"=pending and \"/properties/content-model/id\"=" + contentModelId;
         filterMap.put(QUERY, new String[]{q1});
         
         logger.debug("Filter=" + filterMap.entrySet().toString());
 
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
-
-        logger.debug("ContentItems =" + items);
         assertNotNull(items);
+        logger.debug("ContentItems =" + items);
+        
+        SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(items);
+        assertNotNull(response);      
     }
     
     /**
@@ -74,16 +80,17 @@ public class RetrieveItemTest
         filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
         filterMap.put(VERSION, new String[]{"1.1"});
 
-        String q1 = "\"/properties/public-status\"=pending";
+        String q1 = "\"/properties/public-status\"=pending and \"/properties/content-model/id\"=" + contentModelId;
         String q2 = "sortBy " + "\"/id\"/sort.descending";
         filterMap.put(QUERY, new String[]{q1 + " " + q2});
         
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);        
-        logger.info("ContentItems =" + items);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);   
+        logger.debug("ContentItems =" + items);
         SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(items);
         assertNotNull(response);
-        List<SearchRetrieveRecordVO> results = response.getRecords();
         
+        List<SearchRetrieveRecordVO> results = response.getRecords();
+        logger.info("result size: " + results.size());
         assertTrue(isDescending(results));
     }
     
@@ -93,17 +100,19 @@ public class RetrieveItemTest
     @Test
     public void retrievePendingContentItemsSortByAscending() throws Exception
     {
-        String q1 = "\"/properties/public-status\"=pending";
+        String q1 = "\"/properties/public-status\"=pending and \"/properties/content-model/id\"=" + contentModelId;
         String q2 = "sortBy " + "\"/id\"/sort.ascending";
         filterMap.put(QUERY, new String[]{q1 + " " + q2});
                 
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
-        logger.info("ContentItems =" + items);
+        logger.debug("ContentItems =" + items);
         assertNotNull(items);
         
         SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(items);
         assertNotNull(response);
         List<SearchRetrieveRecordVO> results = response.getRecords();
+        
+        logger.info("result size: " + results.size());
         
         assertTrue(isAscending(results));
     }
@@ -149,12 +158,8 @@ public class RetrieveItemTest
     public void setUp() throws Exception
     {
         filterMap.clear();
-        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
-        filterMap.put(VERSION, new String[]{"1.1"});
         
         userHandle = AdminHelper.loginUser(PropertyReader.getProperty("framework.scientist.username"), PropertyReader.getProperty("framework.scientist.password"));
-        
-        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
     }
 
     /**
@@ -167,6 +172,18 @@ public class RetrieveItemTest
     {
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
         userHandle = null;
+    }
+    
+    @BeforeClass
+    public static void setupBeforeClasss() throws Exception
+    {
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});  
+
+        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);       
+        contentModelId = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");       
+        
+        assertTrue(contentModelId != null);
     }
     
     /**
