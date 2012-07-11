@@ -27,7 +27,7 @@
 	$Revision$ 
 	$LastChangedDate$
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:ei="${xsd.soap.item.item}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.core.properties}" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:ec="${xsd.soap.item.components}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:eterms="${xsd.metadata.terms}" xmlns:escidoc="urn:escidoc:functions" xmlns:escidocTerms="${xsd.metadata.terms}" xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:esc="http://escidoc.mpg.de/" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:srw="${xsd.soap.searchRetrieveResponse}" xmlns:search-result="${xsd.soap.searchresult.searchresult}" xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:mdou="${xsd.metadata.organizationalunit}">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:ei="${xsd.soap.item.item}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.core.properties}" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:ec="${xsd.soap.item.components}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:eterms="${xsd.metadata.terms}" xmlns:escidoc="urn:escidoc:functions" xmlns:escidocTerms="${xsd.metadata.terms}" xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:esc="http://escidoc.mpg.de/" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:srw="${xsd.soap.searchRetrieveResponse}" xmlns:search-result="${xsd.soap.searchresult.searchresult}" xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:mdou="${xsd.metadata.organizationalunit}">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="user" select="'dummy:user'"/>
@@ -37,14 +37,16 @@
 	<xsl:param name="external-ou"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
+	<xsl:param name="frameworkUrl" select="'http://coreservice.mpdl.mpg.de/'"/>
 	<!-- Configuration parameters -->
 	<xsl:param name="Flavor" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'false'"/>
 	<xsl:param name="refType" />
 	
-	<!-- frameworkUrl can be adjusted individually -->
-	<xsl:variable name="frameworkUrl" select="'${escidoc.framework_access.framework.url}'"/>
 	
+	<xsl:variable name="issnPurl">
+		<xsl:value-of select="'http://purl.org/escidoc/metadata/terms/0.1/ISSN'" />
+	</xsl:variable>
 	
 	<xsl:variable name="fulltext-location">
 		<xsl:if test="$Flavor = 'ICE'">
@@ -394,27 +396,29 @@
 			</xsl:if>
 			<!-- END OF IDENTIFIERS -->
 			<!-- PUBLISHING INFO -->
+			<xsl:variable name="place" select="
+				if (C and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Generic')) then C
+				else ''
+			"/>
+			
 			<xsl:variable name="publisher" select="
 				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
 				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Generic' )) then I
 				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
+				else if ($place!='') then 'Any Publisher'
 				else ''
 			"/>
-			 
 			<xsl:if test="$publisher!=''">
 				<eterms:publishing-info>
 					<dc:publisher>
 						<xsl:value-of select="$publisher"/>
 					</dc:publisher>
-					<xsl:variable name="place" select="
-						if (C and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Generic')) then C
-						else ''
-					"/>
-					<xsl:if test="$place!=''">
+					<xsl:if test="$place !=''">
 						<eterms:place>
 							<xsl:value-of select="$place"/>
 						</eterms:place>
 					</xsl:if>
+					
 					<xsl:variable name="edition" select="
 						if (NUM_7 and $sourceGenre='' and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
 						else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
@@ -426,7 +430,7 @@
 						</eterms:edition>
 					</xsl:if>
 				</eterms:publishing-info>
-			</xsl:if>			
+			</xsl:if>
 			<!-- END OF PUBLISHING INFO -->
 			<!-- DATES -->
 			<xsl:variable name="year">
@@ -540,25 +544,42 @@
 		
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
+		<xsl:variable name="cone-journal">
+			<xsl:copy-of select="Util:queryCone('journals', J)"/>
+		</xsl:variable>
+		
+		<xsl:variable name="J" select="J"/>
+		
 		<xsl:element name="source:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:value-of select="$sgen"/>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
-			<xsl:element name="dc:title">
+			<dc:title>
 				<xsl:choose>
 					<xsl:when test="B">
 						<xsl:value-of select="B"/>
 					</xsl:when>
 					<xsl:when test="J[ $refType = ('Journal Article', 'Magazine Article') ]">
-						<xsl:value-of select="J"/>
+						<xsl:choose>
+							<xsl:when test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J])">
+								<xsl:value-of select="$cone-journal/cone/rdf:RDF/rdf:Description/dc:title[.=$J]"/>
+							</xsl:when>
+							<xsl:when test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dcterms:alternative=$J])">
+								<xsl:value-of select="$cone-journal/cone/rdf:RDF/rdf:Description/dcterms:alternative[.=$J]"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="J"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
+					
 					<xsl:when test="S and $refType = ('Conference Proceedings')">
 						<xsl:value-of select="S"/>
 					</xsl:when>
 				</xsl:choose>
-			</xsl:element>
+			</dc:title>
 			<!-- SOURCE ALTTITLE -->
 			<xsl:for-each select="J[ exists(B) and $refType = ('Journal Article', 'Magazine Article') ]">
 				<xsl:element name="dcterms:alternative">
@@ -658,15 +679,30 @@
 					<xsl:when test="(I or Y or QUESTION) and $refType = 'Report'">
 						<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
 					</xsl:when>
+					<xsl:when test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dc:publisher)">
+						<xsl:value-of select="$cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dc:publisher" />
+					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="I" />
+						<xsl:choose>
+							<xsl:when test="I">
+								<xsl:value-of select="I" />
+							</xsl:when>
+							<xsl:when test="not(I) and (C or exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dcterms:publisher))">
+								<xsl:value-of select="'Any Publisher'" />
+							</xsl:when>
+						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="place">
-				<xsl:if test="C and $refType = ('Book Section', 'Electronic Article', 'Newspaper Article', 'Magazine Article')">
-					<xsl:value-of select="C" />
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="C and $refType = ('Book Section', 'Electronic Article', 'Newspaper Article', 'Magazine Article')">
+						<xsl:value-of select="C" />
+					</xsl:when>
+					<xsl:when test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dcterms:publisher)">
+						<xsl:value-of select="$cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dcterms:publisher" />
+					</xsl:when>
+				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="edition">
 				<xsl:if test="NUM_7 and $Flavor != 'BGC' and $Flavor != 'ICE'">
@@ -695,6 +731,12 @@
 			<!--  SOURCE IDENTIFIER -->
 			<xsl:choose>
 				<xsl:when test="$Flavor = 'BGC'">
+					<xsl:if test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/@rdf:about)">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:CONE</xsl:attribute>
+							<xsl:value-of select="$cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/@rdf:about" />
+						</dc:identifier>
+					</xsl:if>
 					<xsl:choose>
 						<xsl:when test="$identifier and fn:matches($identifier, '\d{4}-\d{4}')">
 							<xsl:comment>Creating new ISSN in first source</xsl:comment>
@@ -713,6 +755,12 @@
 									<xsl:value-of select="."/>
 								</dc:identifier>
 							</xsl:for-each>
+						</xsl:when>
+						<xsl:when test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dc:identifier) and $cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dc:identifier/rdf:Description/xsi:type=$issnPurl">
+							<dc:identifier>
+								<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
+								<xsl:value-of select="$cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/dc:identifier[rdf:Description/xsi:type=$issnPurl]/rdf:Description/rdf:value" />
+							</dc:identifier>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:when>
@@ -1047,15 +1095,13 @@
 												</xsl:when>
 												<xsl:otherwise>
 													<organization:organization>
-												<dc:title>External Organizations</dc:title>
-												<dc:identifier>
-													<xsl:value-of select="$external-ou"/>
-												</dc:identifier>
-											</organization:organization>
+														<dc:title>External Organizations</dc:title>
+														<dc:identifier>
+															<xsl:value-of select="$external-ou"/>
+														</dc:identifier>
+													</organization:organization>
 												</xsl:otherwise>
 											</xsl:choose>
-											
-											
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:comment>Warning: No position found in CoNE!</xsl:comment>

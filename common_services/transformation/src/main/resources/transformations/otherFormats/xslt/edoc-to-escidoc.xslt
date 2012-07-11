@@ -2454,13 +2454,33 @@
 			</xsl:element>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type = 'issuecontributorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:variable name="issueCreators"></xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(issuecontributorfn) and fn:normalize-space(issuecontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./issuecontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces issuecontributorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type = 'issuecontributorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="issuecorporatebody"/>
 		
 		<!-- START_PAGE -->
@@ -2499,13 +2519,42 @@
 			</xsl:element>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(bookcontributorfn) and fn:normalize-space(bookcontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+					<xsl:when test="exists(bookcreatorfn) and fn:normalize-space(bookcreatorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcreatorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces bookcontributorfn and bookcreatorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="bookcorporatebody"/>
 		<!-- VOLUME -->
 		<xsl:if test="not(exists(titleofseries))">
@@ -2555,13 +2604,42 @@
 			</xsl:element>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(bookcontributorfn) and fn:normalize-space(bookcontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+					<xsl:when test="exists(bookcreatorfn) and fn:normalize-space(bookcreatorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcreatorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces bookcontributorfn and bookcreatorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="bookcorporatebody"/>
 		<!-- VOLUME -->
 		<xsl:if test="not(exists(titleofseries))">
@@ -2610,13 +2688,42 @@
 			</xsl:element>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(bookcontributorfn) and fn:normalize-space(bookcontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+					<xsl:when test="exists(bookcreatorfn) and fn:normalize-space(bookcreatorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcreatorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces bookcontributorfn and bookcreatorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="bookcorporatebody"/>
 		<!-- VOLUME -->
 		<xsl:if test="not(exists(titleofseries))">
@@ -2666,13 +2773,42 @@
 			</xsl:element>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(bookcontributorfn) and fn:normalize-space(bookcontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+					<xsl:when test="exists(bookcreatorfn) and fn:normalize-space(bookcreatorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./bookcreatorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces bookcontributorfn and bookcreatorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="bookcorporatebody"/>
 		<!-- VOLUME -->
 		<xsl:if test="not(exists(titleofseries))">
@@ -2752,13 +2888,32 @@
 			</xsl:element>
 		</xsl:if>		
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type = 'seriescontributorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(seriescontributorfn) and fn:normalize-space(seriescontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./seriescontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces seriescontributorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type = 'seriescontributorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="seriescorporatebody"/>		
 		
 		<!-- VOLUME -->
@@ -2817,13 +2972,32 @@
 		
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator[@type = 'proceedingscontributorfn']">
-			<xsl:element name="eterms:creator">
-				<xsl:call-template name="createCreator">
-					<xsl:with-param name="source" select="true()"/>
-				</xsl:call-template>
-			</xsl:element>
-		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIEVA'">
+				<xsl:choose>
+					<xsl:when test="exists(proceedingscontributorfn) and fn:normalize-space(proceedingscontributorfn)!=''">
+						<eterms:creator>
+							<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+							<person:person>
+								<eterms:family-name>
+									<xsl:value-of select="./proceedingscontributorfn/text()"/>
+								</eterms:family-name>
+							</person:person>
+						</eterms:creator>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- creators/creator(...) replaces proceedingscontributorfn in the original eDoc-XML. See EDocImport.java -->
+				<xsl:for-each select="creators/creator[@type = 'proceedingscontributorfn']">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="source" select="true()"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		<!-- START_PAGE -->
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
@@ -2989,7 +3163,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Kunsthistorisches Institut in Florenz, MPI')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPQ'"> 
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI of Quantum Optics')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Quantum Optics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIIS'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Intelligent Systems (formerly MPI for Metals Research)')"/>

@@ -278,6 +278,9 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         {
             try
             {
+                //Added, so the original XML-Elements still exist after conversion
+                newXml.append("<" + name + ">\n" + creatorString.toString() + "\n</" + name + ">\n");
+                
                 AuthorDecoder authorDecoder = new AuthorDecoder(creatorString.toString());
                 List<Author> authors = authorDecoder.getBestAuthorList();
                 if (authors.size() > 0)

@@ -173,7 +173,6 @@ public class RISTransformation implements Transformation, Configurable {
         return properties.get(key);
     }
 
-    @Override
     public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
             Map<String, String> configuration) throws TransformationNotSupportedException, RuntimeException
     {
