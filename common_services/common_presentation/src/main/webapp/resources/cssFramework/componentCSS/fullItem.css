@@ -52,6 +52,10 @@
 .fullItem .itemHeadline table td {
 	float:left;
 }
+.fullItem .itemHeadline .noFloat table td {
+	float:none;
+}
+
 .fullItem .itemHeadline table td + td {
 	margin-left:2em;
 }
