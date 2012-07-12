@@ -44,7 +44,7 @@
 				display:none;
 			}
 		</style>
-		<rich:tree id="treeAffiliation" var="node" switchType="ajax">
+		<rich:tree id="treeAffiliation" var="node" switchType="ajax" styleClass="noFloat">
 			<f:facet name="icon">
 				<!-- no image for expanded -->
 				<rich:spacer width="0"  height="0" style="border: none;"/>
