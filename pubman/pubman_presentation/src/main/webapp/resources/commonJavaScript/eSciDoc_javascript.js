@@ -296,19 +296,23 @@ document.onkeypress = stopRKey;
 //Appends the creative commons license chooser to the given div
 function appendLicenseBox(divToAppend, currentLicenseUrl)
 {
-
 	 //empty each ccContent
 	 $pb.each($pb('.ccContent'), function(index, value) {$pb(this).empty();});
 	 $pb(divToAppend).addClass('big_imgArea smallThrobber');
 	 
-
 	 var hiddenInput = document.createElement( 'input' );
 	 hiddenInput.type = 'hidden';
 	 hiddenInput.id = 'cc_js_seed_uri';
 	 hiddenInput.value = currentLicenseUrl;
 	 $pb(divToAppend)[0].appendChild(hiddenInput);
 	 
-	 var locale= "<h:outputText value='#{PubManSessionBean.locale}'/>"
+	 var locale = $pb('.header .metaMenu .selectionBox').text();
+	 if (locale.match(/deu/gi)) {
+		 locale = 'de_DE';
+	 } else {
+		 locale = 'en_US';
+	 }
+	 
 	 var url= "http://api.creativecommons.org/jswidget/tags/0.96/complete.js?want_a_license=definitely&locale=" + locale;
 	 var id = $(divToAppend).attr('id');			     
 	 
@@ -316,22 +320,25 @@ function appendLicenseBox(divToAppend, currentLicenseUrl)
 	 ccScript.type = 'text/javascript';
 	 ccScript.src = url;
 	 $pb(divToAppend)[0].appendChild(ccScript);
-
+	 
 	 //IE
-	 ccScript.onreadystatechange = function () {
-	        if (ccScript.readyState == 'loaded') {
-	        	//init does not work in IE....
-	        	//cc_js_pageInit();
-	        	$pb(divToAppend).removeClass('big_imgArea smallThrobber');
-	        }
-	    }
-	//FF
-	ccScript.onload = function () {
-	        	cc_js_pageInit();
-	        	$pb(divToAppend).removeClass('big_imgArea smallThrobber');
-	        	
-	}
-	ccScript.onerror = function () {
-    	//fullItemReloadStop();
-	}
+	 if ($pb.browser.msie) {
+		 ccScript.onreadystatechange = function () {
+			 if (ccScript.readyState == 'loaded') {
+				 //init does not work in IE...
+				 //cc_js_pageInit();
+				 $pb(divToAppend).removeClass('big_imgArea smallThrobber');
+				 cc_js_pageInit();
+			 }
+		 }
+	 } else { //FF & Co.
+		 ccScript.onload = function () {
+			 cc_js_pageInit();
+			 $pb(divToAppend).removeClass('big_imgArea smallThrobber');
+		 }
+	 }
+	 
+	 ccScript.onerror = function () {
+		 //fullItemReloadStop();
+	 }
 }
