@@ -813,7 +813,7 @@
 					<xsl:with-param name="isSource" select="true()"/>
 				</xsl:call-template>
 			</xsl:for-each>
-			<!--  SOURCE IDENTIFIER -->
+			<!-- SECOND SOURCE IDENTIFIER -->
 			<xsl:if test="$Flavor = 'BGC'">
 					<xsl:if test="$identifier and fn:matches($identifier, '\d{4}-\d{4}')">
 						<xsl:comment>Creating new ISSN in second source</xsl:comment>
@@ -825,6 +825,13 @@
 						</xsl:for-each>
 					</xsl:if>
 			</xsl:if>
+			<!-- SECOND SOURCE VOLUME -->
+			<xsl:if test="N">
+				<eterms:volume>
+					<xsl:value-of select="N"/>
+				</eterms:volume>
+			</xsl:if>
+			
 		</source:source>
 	</xsl:template>
 	<!-- END OF SECOND SOURCE -->
