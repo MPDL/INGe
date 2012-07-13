@@ -442,6 +442,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		SearchCriterionBase oldSearchCriterion =  criterionList.get(position); 
 		
+		//If the add button of a Parenthesis is used, add an ANYFIELD Criterion, else add the same criterion as in the line of the add button.
 		SearchCriterionBase newSearchCriterion = null;
 		if(DisplayType.PARENTHESIS.equals(oldSearchCriterion.getSearchCriterion().getDisplayType()))
 		{
@@ -455,6 +456,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
 		criterionList.add(position.intValue() + 1, newSearchCriterion);
 		
+		//If the add button of an opening parenthesis is used, the logical operator has to be added after the new criterion
 		if(SearchCriterion.OPENING_PARENTHESIS.equals(oldSearchCriterion.getSearchCriterion()))
 		{
 			criterionList.add(position.intValue() + 2, new LogicalOperator(SearchCriterion.AND_OPERATOR));
