@@ -75,7 +75,7 @@
 	    {
 	        out.append("\n<span class=\"free_area0 endline itemLine noTopBorder\">");
 	        
-				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
+				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear xxx\">");
 	        		if (predicate.isMandatory())
 	        		{
 	        	    	out.append("\n<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
@@ -251,7 +251,7 @@
 			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 			                {
 	        		            out.append("<br/>");
-	    		                out.append("\n<span class=\"free_area0 large_negMarginLExcl\">");
+	    		                out.append("\n<span class=\"free_area0 clear\">");
 	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + "_" + counter + "_", path + predicate.getId() + "/", Login.getLoggedIn(request)));
 	        		            out.append("</span>");
 	            	    	}
@@ -293,7 +293,7 @@
 
 					            if (predicate.isLocalized())
 					            {
-	    				            out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
+	    				            out.append("<input type=\"text\" title=\"Language\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
 									out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
 									out.append("/>");
 									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'iso639-1', true)</script>");
