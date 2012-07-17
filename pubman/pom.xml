@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>7.1.0-SNAPSHOT</version>
+	<version>7.1.0</version>
 	<name>pubman</name>
 	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
@@ -224,9 +224,9 @@
 		<module>pubman_installer</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.1.0</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.1.0</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.1.0</url>
 	</scm>
 	<distributionManagement>
 		<repository>
@@ -329,7 +329,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -348,7 +348,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -367,7 +367,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -388,7 +388,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -407,7 +407,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -426,7 +426,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -439,7 +439,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
