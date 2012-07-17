@@ -7,6 +7,9 @@
 	<xsl:param name="check-existence" select="false()"/>
 	<xsl:param name="check-compare" select="'false'"/>
 	
+	<xsl:param name="import-name"/>
+	<xsl:param name="external-ou-id" select="'persistent:22'"/>
+	
 	<xsl:param name="compare-query" select="'%22*MPI%20for%20Psycholinguistics*%22'"/>
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
@@ -248,11 +251,18 @@
 					<xsl:value-of select="$ou-path"/>
 				</eprint:affiliatedInstitution>
 				
-				<xsl:if test="$escidoc-ou != ''">
-					<dc:identifier>
-						<xsl:value-of select="$escidoc-ou"/>
-					</dc:identifier>
-				</xsl:if>
+				<xsl:choose>
+				    <xsl:when test="$escidoc-ou != ''" >
+				        <dc:identifier>
+                            <xsl:value-of select="$escidoc-ou"/>
+                        </dc:identifier>
+				    </xsl:when>
+				    <xsl:when test="$escidoc-ou = '' and $import-name = 'MPIDynamics'" >
+				        <dc:identifier>
+                            <xsl:value-of select="$external-ou-id"/>
+                        </dc:identifier>
+				    </xsl:when>
+				</xsl:choose>
 			</rdf:Description>
 		</escidoc:position>
 	</xsl:template>
@@ -275,7 +285,7 @@
 		</xsl:choose>
 		
 		
-		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = ''">
+		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = '' and not($import-name = 'MPIDynamics')">
 			<xsl:message>ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/></xsl:message>
 			ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/>
 		</xsl:if>
