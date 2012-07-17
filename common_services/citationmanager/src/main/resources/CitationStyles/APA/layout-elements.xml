@@ -234,7 +234,7 @@
 		
 		<layout-element name="source-doi">
 			<parameters>
-				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI" and ( $published-online-and-external-locator='' )]]></valid-if>
+				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI" and  $published-online-and-external-locator='' ]]></valid-if>
 				<starts-with value="doi:"/>
 			</parameters>
 			<elements>
@@ -324,23 +324,37 @@
 			</elements>
 		</layout-element>
 
-		<layout-element name="source-title" ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())">
+		<layout-element name="source-title">
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:volume!=null or pub:publication/source:source[1]/eterms:issue!=null or pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:start-page!=null)]]></valid-if>
+						<valid-if><![CDATA[((pub:publication/source:source[1]/eterms:volume!=null and pub:publication/source:source[1]/eterms:volume!='')
+						 or (pub:publication/source:source[1]/eterms:issue!=null and pub:publication/source:source[1]/eterms:issue!='')
+						 or (pub:publication/source:source[1]/eterms:sequence-number!=null and pub:publication/source:source[1]/eterms:sequence-number!='')
+						 or (pub:publication/source:source[1]/eterms:start-page!=null and pub:publication/source:source[1]/eterms:start-page!=''))]]>
+						 </valid-if>
 						<font-style ref="ITALIC" />
 						<starts-with value=" " />
 						<ends-with value=","/>
 					</parameters>
+					<elements>
+						<layout-element  ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
+					</elements>
 				</layout-element>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:volume=null and pub:publication/source:source[1]/eterms:issue=null and pub:publication/source:source[1]/eterms:sequence-number=null and pub:publication/source:source[1]/eterms:start-page=null)]]></valid-if>
+						<valid-if><![CDATA[((pub:publication/source:source[1]/eterms:volume=null or pub:publication/source:source[1]/eterms:volume='')
+						 and (pub:publication/source:source[1]/eterms:issue=null or pub:publication/source:source[1]/eterms:issue='')
+						 and (pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='')
+						 and (pub:publication/source:source[1]/eterms:start-page=null or pub:publication/source:source[1]/eterms:start-page=''))]]>
+						 </valid-if>
 						<font-style ref="ITALIC" />
 						<starts-with value=" " />
 						<ends-with value=""/>
 					</parameters>
+					<elements>
+						<layout-element  ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
+					</elements>
 				</layout-element>
 			</elements>
 		</layout-element>
