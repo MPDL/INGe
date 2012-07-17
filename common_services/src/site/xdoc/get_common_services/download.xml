@@ -14,13 +14,13 @@
 				<a href="../license.html">Common Development And Distribution License (CDDL)</a>.
 			</p>
 			<p>The Common Services are organised in several modules which implements services needed by the solutions like PubMan.</p>
-			<p>The artifacts (binaries, sources and javadoc) for each service can be downloaded from an Archiva server.</p>
+			<p>The artifacts (binaries, sources and javadoc) for each service can be downloaded from Nexus server.</p>
 			<table border="1">
 				<thead>
 					<tr>
 						<th>Module</th>
 						<th>Description</th>
-						<th>Archiva</th>
+						<th>Nexus</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,90 +28,90 @@
 						<td>citationmanager</td>
 						<td>Citationmanager</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/citationmanager">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/citationmanager">archiva dir</a>
 						</td>
 						
 					</tr>
 						<td>citationmanager_ear</td>
 						<td>Citationmanager integration tests</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/citationmanager_ear">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/citationmanager_ear">archiva dir</a>
 						</td>
 					<tr>
 						<td>common_logic</td>
 						<td>Common Logic</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/common_logic">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/common_logic">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>common_logic_ear</td>
 						<td>Common Logic integration tests</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/common_logic_ear">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/common_logic_ear">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>endnotemanager</td>
 						<td>Endnotemanager</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/endnotemanager">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/endnotemanager">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>endnotemanager_ear</td>
 						<td>Endnotemanager integration tests</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/endnotemanager_ear">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/endnotemanager_ear">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>framework_access</td>
 						<td>Provides access to the framework</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/framework_access">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/framework_access">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>structuredexportmanager</td>
 						<td>Structured exportmanager</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/structuredexportmanager">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/structuredexportmanager">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>structuredexportmanager_ear</td>
 						<td>Integration tests of structured exportmanager</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/structuredexportmanager_ear">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/structuredexportmanager_ear">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>validation</td>
 						<td>Provides validation of items</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/validation">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>validation</td>
 						<td>Provides validation of items</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/validation">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>validation_presentation</td>
 						<td>Webmodule of validation</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation_presentation">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/validation_presentation">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>validation_ear</td>
 						<td>Validation integration tests</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation_ear">archiva dir</a>
+							<a href="http://pubman.mpdl.mpg.de/software/get_common_services/validation_ear">archiva dir</a>
 						</td>
 					</tr>
 				</tbody>
