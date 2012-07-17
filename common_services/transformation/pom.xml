@@ -32,18 +32,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.61</version>
+		<version>1.0.62-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>transformation</artifactId>
 	<name>transformation</name>
-	<version>1.0.49</version>
+	<version>1.0.50-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.61/transformation</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.61/transformation</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/transformation/tags/common_services-1.0.61/transformation</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformation</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformation</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/transformation</url>
   </scm>
 	<build>
 		<plugins>
@@ -115,14 +115,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.61</version>
+			<version>1.0.62-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.64</version>
+			<version>1.0.65-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
       	<dependency>
