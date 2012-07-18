@@ -463,83 +463,83 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.6</version>
+			<version>1.3.7-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.61</version>
+			<version>1.1.62-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.66</version>
+			<version>1.0.67-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.57</version>
+			<version>1.0.58-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.64</version>
+			<version>1.0.65-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.68</version>
+			<version>1.0.69-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.68</version>
+			<version>1.0.69-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.2.20</version>
+			<version>1.2.21-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-			<version>1.0.57</version>
+			<version>1.0.58-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.49</version>
+			<version>1.0.50-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>aa_presentation</artifactId>
-			<version>0.1.5</version>
+			<version>0.1.6-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>aa_logic</artifactId>
-			<version>0.1.5</version>
+			<version>0.1.6-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -551,21 +551,21 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.61</version>
+			<version>1.0.62-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search_presentation</artifactId>
-			<version>1.0.61</version>
+			<version>1.0.62-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>syndication_presentation</artifactId>
-			<version>1.0.45</version>
+			<version>1.0.46-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -593,16 +593,23 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.20</version>
+			<version>1.2.21-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
-			<version>0.1.23</version>
+			<version>0.1.24-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>common_presentation</artifactId>
+			<version>1.0.50-SNAPSHOT</version>
+			<type>war</type>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
@@ -821,13 +828,6 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>common_presentation</artifactId>
-			<version>1.0.49</version>
-			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
