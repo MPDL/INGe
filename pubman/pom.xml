@@ -228,6 +228,19 @@
 		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
 	</scm>
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<url>http://rd.mpdl.mpg.de/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
