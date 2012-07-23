@@ -231,18 +231,19 @@ window.onunload=function(e){setStyleCookie();};
 
 function fullItemReloadAjax()
 {
-	
-		var fi = $pb('#fullItem');
-		var fil = $pb('#ImgFullItemLoad');
-		if ((fi && fi.length > 0) && (fil && fil.length > 0))
-		{
+	var fi = $pb('#fullItem');
+	var fil = $pb('#ImgFullItemLoad');
+	if ((fi && fi.length > 0) && (fil && fil.length > 0))
+	{
+		if (!$pb.browser.msie) {
 			fi.css('opacity','0.4');
-			fil.attr('class','big_imgArea half_marginLIncl smallThrobber');
-			fi.find("input[type='text'], textarea").attr("readonly", "true");
 		}
-	
-	
-	
+		fil.attr('class','big_imgArea half_marginLIncl smallThrobber');
+		if ($pb.browser.msie && $pb.browser.version == 7) {
+			fil.css("left", "25%");
+		}
+		fi.find("input[type='text'], textarea").attr("readonly", "true");
+	}
 }
 function fullItemReloadStop()
 {
@@ -250,11 +251,12 @@ function fullItemReloadStop()
 	var fil = $pb('#ImgFullItemLoad');
 	if ((fi && fi.length > 0) && (fil && fil.length > 0))
 	{
-		fi.css('opacity','1.0');
+		if (!$pb.browser.msie) {
+			fi.css('opacity','1.0');
+		}
 		fil.attr('class','noDisplay');
 		fi.find("input[type='text'], textarea").removeAttr("readonly");
 	}
-	
 }
 
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
@@ -264,7 +266,6 @@ function beforeAjaxRequest()
 	{ 
 		fullItemReloadAjax();
 	}
-	
 }
 
 /*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
@@ -275,8 +276,10 @@ function afterAjaxRequest()
 		fullItemReloadStop();
 	}
 	install_javascripts();
-	resizeSelectbox(431);
+	
 	updateSelectionBox(null, true);
+	resizeSelectbox(431);
+	
 	if(typeof window.updatePersonUi == 'function')
 	{ 
 		updatePersonUi();
@@ -285,10 +288,10 @@ function afterAjaxRequest()
 
 /*Stops the enter key, otherwise everytime the enter key is pressed in an textfield, the quicksearchbutton is activated  */
 function stopRKey(evt) {
-	  var evt = (evt) ? evt : ((event) ? event : null);
-	  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-	  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
-	}
+	var evt = (evt) ? evt : ((event) ? event : null);
+	var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+	if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+}
 
 document.onkeypress = stopRKey;
 

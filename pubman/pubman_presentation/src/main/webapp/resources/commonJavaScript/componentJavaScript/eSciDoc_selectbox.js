@@ -41,12 +41,12 @@
  * @notice if the content is greater than the maximum width it would be cutted
  */
 function resizeSelectbox(maxWidth) {
-	$pb('.selectContainer').each(function() {
+	$pb('.selectContainer').each(function(i, box) {
 		//check if the selectbox is on metaMenu
-		if ($pb(this).parent().hasClass("metaMenu")) {
-//			console.log('Parent: ' + $pb(this).parent().attr('class'))
+		if ($pb(box).parent().hasClass("metaMenu")) {
+//			console.log('Parent: ' + $pb(box).parent().attr('class'))
 		} else {
-			var element = $pb(this);
+			var element = $pb(box);
 			//Define the current width of customized selectBox
 			var curSelectWidth = element.find('select').width();
 			
@@ -63,16 +63,6 @@ function resizeSelectbox(maxWidth) {
 	});
 }
 
-/* this function search for the parent node */
-function searchParentTag(source_obj, searchTagString) {
-	for (var i=0; i < $pb(source_obj).parents().length; i++) {
-		if ($pb($pb(source_obj).parents()[i]).hasClass(searchTagString)) {
-			return $pb($pb(source_obj).parents()[i]);
-			break;
-		}
-	}
-	return false;
-}
 
 /*
  * the function update the text into selectionBox for viewing the selected option in selectbox
@@ -80,35 +70,60 @@ function searchParentTag(source_obj, searchTagString) {
  * --- only for testing at the moment, maybe it would be neccessary in detail submission
  */
 function updateSelectionBox(box, isStart) {
-	if (isStart) {	//if start every selectbox will be focused to update the selectionBox
-		/*
-		$pb('.selectContainer').each(function() {
-			//check if the selectbox is on metaMenu
-			if ($pb(this).parent().hasClass("metaMenu")) {
-//				console.log('Parent: ' + $pb(this).parent().attr('class'))
-			} else {
-				$pb(this).find('select').focus();
-			}
-		});
-		
-	*/
-		$pb("select").each(function(i){
-			var parent = null;
-			if (parent = searchParentTag(this, "selectContainer")) {
-				var val = $pb(this).val();
-				$pb(this).find("option").each(function(i){
-					if ($pb(this).val() == val) {
-						val = $pb(this).text();
+	/* the start param is different in workflow for selectionBox values 
+	 * if it's true: all selectboxes will be read and update their selectionBox
+	 * if it's false: only the current selectbox will be read and update their selectionBox
+	 */
+	var tooltip = null;
+	var selText = null;
+	var selCont = null;
+	var selVal = null;
+	
+	if (isStart) 
+	{	//if start or ajax request every selectbox will be focused to update the selectionBox
+		var sb = $pb('select');
+		sb.each(function(i, box)
+		{
+			selCont = null;
+			selText = null;
+			tooltip = null;
+			selVal = null;
+			
+			selCont = $pb(box).parents(".selectContainer");
+			if (selCont && selCont.length > 0) {
+				selVal = box.options[box.selectedIndex].text;
+				$pb(box).find("option").each(function(i)
+				{
+					if ($pb(box).val() == selVal) 
+					{
+						selVal = $pb(box).text();
 					}
 				});
-				$pb(parent).find(".selectionBox").html(val);
+				
+				selText = selCont.find(".selectionBox");
+				if (selText && selText.length > 0)
+				{
+					selText.html(selVal);
+				}
+				
+				tooltip = selCont.find(".tooltip");
+				if (tooltip && tooltip.length > 0)
+				{
+					tooltip.html(selVal);
+					tooltip.css("min-width", selText.width()-10);
+				}
 			}
 		});
 	} else {
 		var contentText = box.options[box.selectedIndex].text;
-		
-		$pb(box).parent().find('.selectionBox').text(contentText);
-		
+		selCont = $pb(box).parent();
+		selCont.find('.selectionBox').text(contentText);
+		tooltip = selCont.find(".tooltip");
+		if (tooltip && tooltip.length > 0){
+			tooltip.text(contentText);
+			tooltip.css("min-width", selCont.find(".selectionBox").width()-10);
+		}
+		tooltip = null;
 		
 		/* at first: exclude all logical operation selectboxes */
 		if ($pb.trim(contentText) != 'AND' && $pb.trim(contentText) != 'OR' && $pb.trim(contentText) != 'NOT') {
@@ -120,7 +135,7 @@ function updateSelectionBox(box, isStart) {
 					break;
 				}
 			}
-		
+			
 			//compare the contentText and decide for remove hidden class
 			if (parent) {
 				if ($pb.trim(contentText) != '-' && $pb.trim(contentText) != '--' && $pb.trim(contentText) != '') {
@@ -129,15 +144,13 @@ function updateSelectionBox(box, isStart) {
 					/* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/
 				} 
 			}
-			
 		}
 	}
-	
 }
 
 
 $pb(document).ready(function(e){
 	resizeSelectbox(431);
-	updateSelectionBox(null, true)
+	updateSelectionBox(null, true);
 });
 
