@@ -91,7 +91,8 @@ public class StructuredExport implements StructuredExportHandler {
 	    		put( "XML", 		"escidoc-publication-v2_2_escidoc-publication-v1.xsl"				);  
 	    		put( "EDOC_EXPORT", "escidoc2edoc_export.xsl" );  
 	    		put( "EDOC_IMPORT", "escidoc2edoc_import.xsl" );  
-	    		put( "ESCIDOC_XML", null);  
+	    		put( "ESCIDOC_XML", "escidoc-xml-v13-to-v12.xsl");
+	    		put( "ESCIDOC_XML_V13", null);
 	    	}  
     	};	
 	public StructuredExport()
@@ -141,7 +142,7 @@ public class StructuredExport implements StructuredExportHandler {
 		    	 } 				
 				return v1;
 			}
-			else */if ( "ESCIDOC_XML".equalsIgnoreCase(exportFormat) )
+			else */if ( "ESCIDOC_XML_V13".equalsIgnoreCase(exportFormat) )
 			{
 				return itemList.getBytes();
 			}/*

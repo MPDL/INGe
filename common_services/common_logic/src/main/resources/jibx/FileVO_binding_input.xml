@@ -37,6 +37,7 @@
 		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.FileRO"
 			usage="optional">
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 		</structure>
 
 		<!-- Node: component.@last-modification-date -->

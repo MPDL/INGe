@@ -363,6 +363,7 @@
 												<option value="BIBTEX">BibTeX</option>
 												<option value="XML">eSciDoc XML v5.x</option>
 												<option value="ESCIDOC_XML">eSciDoc XML v6.x</option>
+												<option value="ESCIDOC_XML_V13">eSciDoc XML v7.x</option>
 							                    <option value="APA">APA</option>
 							                    <option value="APA(CJK)">APA(CJK)</option>
 												<option value="AJP">AJP</option>
@@ -425,7 +426,7 @@
 										RSS Feeds<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_0.9" class="xHuge_area0">RSS version 0.9</a>
+										<a id="rss_0.9" class="free_area0">RSS version 0.9</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -433,7 +434,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_0.91N" class="xHuge_area0">RSS version 0.91N</a>
+										<a id="rss_0.91N" class="free_area0">RSS version 0.91N</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -441,7 +442,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_0.92" class="xHuge_area0">RSS version 0.92</a>
+										<a id="rss_0.92" class="free_area0">RSS version 0.92</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -449,7 +450,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_0.93" class="xHuge_area0">RSS version 0.93</a>
+										<a id="rss_0.93" class="free_area0">RSS version 0.93</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -457,7 +458,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_0.94" class="xHuge_area0">RSS version 0.94</a>
+										<a id="rss_0.94" class="free_area0">RSS version 0.94</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -465,7 +466,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_1.0" class="xHuge_area0">RSS version 1.0</a>
+										<a id="rss_1.0" class="free_area0">RSS version 1.0</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -473,7 +474,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="rss_2.0" class="xHuge_area0">RSS version 2.0</a>
+										<a id="rss_2.0" class="free_area0">RSS version 2.0</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -481,7 +482,7 @@
 										ATOM Feeds<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="atom_0.3" class="xHuge_area0">Atom, version 0.3</a>
+										<a id="atom_0.3" class="free_area0">Atom, version 0.3</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -489,7 +490,7 @@
 										&#160;<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<a id="atom_1.0" class="xHuge_area0">Atom, version 1.0</a>
+										<a id="atom_1.0" class="free_area0">Atom, version 1.0</a>
 									</span>
 								</div>
 								<a class="free_area0 collapse">hide</a>

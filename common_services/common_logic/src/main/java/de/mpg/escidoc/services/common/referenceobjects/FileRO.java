@@ -65,4 +65,23 @@ public class FileRO extends ReferenceObject
     {
         super(objectId);
     }
+    
+    /**
+     * overrides the current objectId with the one from href, if href is not null
+     */
+    private void setHref(String href)
+    {
+        if (this.getObjectId() == null)
+        {
+            if (href == null)
+            {
+                return;
+            }
+            if (href.contains("/"))
+            {
+                href = href.substring(href.lastIndexOf("/") + 1);
+            }
+            super.setObjectId(href);
+        }
+    }
 }
