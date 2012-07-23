@@ -251,6 +251,15 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
+    public List<String> getAllIds(String modelName, int hits) throws Exception
+    {
+     // TODO MF: Implement
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public void release() throws Exception
     {
         // TODO MF: Implement

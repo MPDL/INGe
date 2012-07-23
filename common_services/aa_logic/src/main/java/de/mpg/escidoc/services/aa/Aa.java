@@ -134,13 +134,13 @@ public class Aa
         String query = request.getQueryString();
         if (query != null && !"".equals(query))
         {
-        	query = "&" + query;
+        	query = "?" + query;
         }
         else
         {
         	query = "";
         }
         
-        return page + "login.jsp?from=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1") + query;
+        return page + "login.jsp?from=" + URLEncoder.encode(from + query, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
     }
 }

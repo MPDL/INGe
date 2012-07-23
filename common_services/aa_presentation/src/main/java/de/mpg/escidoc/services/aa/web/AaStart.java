@@ -81,6 +81,8 @@ public class AaStart extends HttpServlet
 
         String from = request.getParameter("from");
         String tan = request.getParameter("tan");
+        
+        // TODO: Make this generic
         String handle = request.getParameter("eSciDocUserHandle");
         
         Matcher matcher = authPattern.matcher(from);

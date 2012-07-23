@@ -155,7 +155,7 @@ public class ConeServlet extends HttpServlet
         String format = DEFAULT_FORMAT;
         String lang = (request.getParameter("lang") != null ? request.getParameter("lang") : request.getParameter("l"));
         boolean loggedIn = false;
-        if (request.getSession().getAttribute("logged_in") != null)
+        if (request.getSession().getAttribute("logged_in") == null)
         {
             Login.checkLogin(request, false);
             loggedIn = getLoggedIn(request);

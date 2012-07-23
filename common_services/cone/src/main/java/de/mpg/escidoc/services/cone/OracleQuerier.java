@@ -897,14 +897,27 @@ public class OracleQuerier implements Querier
 
     public List<String> getAllIds(String modelName) throws Exception
     {
+        return getAllIds(modelName, 0);
+    }
+
+    public List<String> getAllIds(String modelName, int hits) throws Exception
+    {
         if (connection.isClosed())
         {
             throw new RuntimeException("Connection was already closed.");
         }
 
         String query = "select distinct subject from triples where model = ?";
+        if (hits > 0)
+        {
+        	query += " and rownum <= ?";
+        }
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, modelName);
+        if (hits > 0)
+        {
+        	statement.setInt(2, hits);
+        }
         ResultSet result = statement.executeQuery();
         List<String> results = new ArrayList<String>();
         while (result.next())

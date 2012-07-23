@@ -79,7 +79,7 @@
 						</div>
 					</div>
 					<% for (Model model : modelList) {
-							List<String> ids = querier.getAllIds(model.getName());
+							List<String> ids = querier.getAllIds(model.getName(), 1);
 							%>
 						<div class="full_area0 itemBlock">
 							<h3 class="xLarge_area0_p8 endline blockHeader">

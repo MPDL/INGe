@@ -366,6 +366,33 @@ public class MockQuerier implements Querier
     /**
      * Empty implementation.
      */
+    public List<String> getAllIds(String modelName, int hits) throws Exception
+    {
+        List<String> result = new ArrayList<String>();
+        if (hits == 0)
+        {
+        	result.addAll(data.keySet());
+        }
+        else
+        {
+        	int counter = 0;
+        	for (String key : data.keySet()) {
+				result.add(key);
+				counter++;
+				if (counter == hits)
+				{
+					break;
+				}
+			}
+        }
+        return result;
+    }
+
+    
+    
+    /**
+     * Empty implementation.
+     */
     public void release() throws Exception
     {
         // Do nothing here

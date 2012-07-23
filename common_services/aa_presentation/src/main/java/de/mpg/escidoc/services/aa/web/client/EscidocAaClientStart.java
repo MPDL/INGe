@@ -60,7 +60,7 @@ public class EscidocAaClientStart extends StartClient
             return aaInstanceUrl + "clientReturn?target="
                     + from
                     + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1")
-                    + "eSciDocUserHandle=" + URLEncoder.encode(request.getParameter("eSciDocUserHandle"), "ISO-8859-1");
+                    + "&eSciDocUserHandle=" + URLEncoder.encode(request.getParameter("eSciDocUserHandle"), "ISO-8859-1");
         }
         else
         {

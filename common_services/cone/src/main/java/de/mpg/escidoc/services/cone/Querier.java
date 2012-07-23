@@ -147,6 +147,8 @@ public interface Querier
     public String createUniqueIdentifier(String model) throws Exception;
 
     public List<String> getAllIds(String model) throws Exception;
+
+    public List<String> getAllIds(String model, int hits) throws Exception;
     
     public void release() throws Exception;
     
