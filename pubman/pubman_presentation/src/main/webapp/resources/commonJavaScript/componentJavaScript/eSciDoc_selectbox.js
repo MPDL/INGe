@@ -82,21 +82,21 @@ function updateSelectionBox(box, isStart) {
 	if (isStart) 
 	{	//if start or ajax request every selectbox will be focused to update the selectionBox
 		var sb = $pb('select');
-		sb.each(function(i, box)
+		sb.each(function(i, slb)
 		{
 			selCont = null;
 			selText = null;
 			tooltip = null;
 			selVal = null;
 			
-			selCont = $pb(box).parents(".selectContainer");
+			selCont = $pb(slb).parents(".selectContainer");
 			if (selCont && selCont.length > 0) {
-				selVal = box.options[box.selectedIndex].text;
-				$pb(box).find("option").each(function(i)
+				selVal = slb.options[slb.selectedIndex].text;
+				$pb(slb).find("option").each(function(i, opt)
 				{
-					if ($pb(box).val() == selVal) 
+					if ($pb(opt).val() == selVal) 
 					{
-						selVal = $pb(box).text();
+						selVal = $pb(opt).text();
 					}
 				});
 				
@@ -119,26 +119,31 @@ function updateSelectionBox(box, isStart) {
 		selCont = $pb(box).parent();
 		selCont.find('.selectionBox').text(contentText);
 		tooltip = selCont.find(".tooltip");
-		if (tooltip && tooltip.length > 0){
+		if (tooltip && tooltip.length > 0)
+		{
 			tooltip.text(contentText);
 			tooltip.css("min-width", selCont.find(".selectionBox").width()-10);
 		}
 		tooltip = null;
 		
 		/* at first: exclude all logical operation selectboxes */
-		if ($pb.trim(contentText) != 'AND' && $pb.trim(contentText) != 'OR' && $pb.trim(contentText) != 'NOT') {
-			
+		if ($pb.trim(contentText) != 'AND' && $pb.trim(contentText) != 'OR' && $pb.trim(contentText) != 'NOT') 
+		{
 			var parent = null; //define the parent object
-			for (var ij = 0; ij < $pb(box).parents().length; ij++) {
-				if ($pb($pb(box).parents().get(ij)).hasClass('.itemBlock')) {
+			for (var ij = 0; ij < $pb(box).parents().length; ij++) 
+			{
+				if ($pb($pb(box).parents().get(ij)).hasClass('.itemBlock')) 
+				{
 					parent = $pb($pb(box).parents().get(ij));
 					break;
 				}
 			}
 			
 			//compare the contentText and decide for remove hidden class
-			if (parent) {
-				if ($pb.trim(contentText) != '-' && $pb.trim(contentText) != '--' && $pb.trim(contentText) != '') {
+			if (parent) 
+			{
+				if ($pb.trim(contentText) != '-' && $pb.trim(contentText) != '--' && $pb.trim(contentText) != '') 
+				{
 					parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
 					parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
 					/* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/
