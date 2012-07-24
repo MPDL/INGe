@@ -65,6 +65,7 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
@@ -367,9 +368,9 @@ public class Util
                         String id = result.split("\\|")[1];
                         // TODO "&redirect=true" must be reinserted again
                         GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle=" + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-                        logger.info(detailMethod.getPath());
-                        logger.info(detailMethod.getQueryString());
+                        detailMethod.setFollowRedirects(true);
                         
+                        logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
                         if (coneSession != null)
                         {
                             detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
@@ -533,6 +534,7 @@ public class Util
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
+            client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
             GetMethod method = new GetMethod(queryUrl);
             
             String coneSession = getConeSession();
@@ -571,10 +573,12 @@ public class Util
                             {
                                 // TODO "&redirect=true" must be reinserted again
                                 GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-    
+                                detailMethod.setFollowRedirects(true);
+                                
                                 ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                                 client.executeMethod(detailMethod);
-                                logger.info("CoNE query: " + id + "?format=rdf&redirect=true&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                                // TODO "&redirect=true" must be reinserted again
+                                logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
                                 if (detailMethod.getStatusCode() == 200)
                                 {
                                     Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -644,6 +648,7 @@ public class Util
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                     + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
+            client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
             GetMethod method = new GetMethod(queryUrl);
             
             String coneSession = getConeSession();
@@ -668,10 +673,12 @@ public class Util
                         {
                             // TODO "&redirect=true" must be reinserted again
                             GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                            detailMethod.setFollowRedirects(true);
                             
                             ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                             client.executeMethod(detailMethod);
-                            logger.info("CoNE query: " + id + "?format=rdf&redirect=true&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                            // TODO "&redirect=true" must be reinserted again
+                            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
                             if (detailMethod.getStatusCode() == 200)
                             {
                                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());

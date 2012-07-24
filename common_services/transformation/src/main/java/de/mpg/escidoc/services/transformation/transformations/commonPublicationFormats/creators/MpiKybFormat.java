@@ -122,7 +122,13 @@ public class MpiKybFormat extends AuthorFormat
                 surname = parts[i] + " " + surname;
             }
             Author author = new Author();
-            author.setInitial(initials.trim());
+            if (surname != null && !(surname.equalsIgnoreCase("")))
+            {
+                author.setInitial(initials.trim());
+            }
+            else {
+                surname = initials;
+            }
             author.setSurname(surname.trim());
             if (identifier != null)
             {

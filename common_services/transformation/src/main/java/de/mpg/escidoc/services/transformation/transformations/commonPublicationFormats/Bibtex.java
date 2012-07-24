@@ -74,7 +74,6 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.Author;
 import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder;
-import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.MpiKybFormat;
 
 /**
  * Implementation of BibTex transformation.
@@ -167,14 +166,7 @@ public class Bibtex
 
                 // Mapping of BibTeX Standard Entries
 
-                // Publishing info
-                PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
-                mds.setPublishingInfo(publishingInfoVO);
-                // address
-                if (fields.get("address") != null)
-                {
-                    publishingInfoVO.setPlace(BibTexUtil.bibtexDecode(fields.get("address").toString()));
-                }
+                
 
                 // title
                 if (fields.get("title") != null)
@@ -214,12 +206,7 @@ public class Bibtex
                     }
                 }
 
-                // edition
-                if (fields.get("edition") != null)
-                {
-                    publishingInfoVO.setEdition(BibTexUtil.bibtexDecode(fields.get("edition").toString()));
-                }
-
+                
                 // fjournal, journal
                 if (fields.get("fjournal") != null)
                 {
@@ -269,20 +256,98 @@ public class Bibtex
                     }
                 }
 
-                // publisher
-                if (fields.get("publisher") != null)
+             // Publishing info
+                PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
+                mds.setPublishingInfo(publishingInfoVO);
+                
+                // address
+                if (fields.get("address") != null)
                 {
-                    publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("publisher").toString()));
+                    if (!(bibGenre == BibTexUtil.Genre.article
+                            || bibGenre == BibTexUtil.Genre.inbook
+                            || bibGenre == BibTexUtil.Genre.inproceedings
+                            || bibGenre == BibTexUtil.Genre.conference
+                            || bibGenre == BibTexUtil.Genre.incollection)
+                            && (sourceVO.getTitle() == null))
+                    {
+                        publishingInfoVO.setPlace(BibTexUtil.bibtexDecode(fields.get("address").toString()));
+                    }
+                    else
+                    {
+                        if (sourceVO.getPublishingInfo() == null) 
+                        {
+                            PublishingInfoVO sourcePublishingInfoVO = new PublishingInfoVO();
+                            sourceVO.setPublishingInfo(sourcePublishingInfoVO);
+                        }
+                        
+                        sourceVO.getPublishingInfo().setPlace(BibTexUtil.bibtexDecode(fields.get("address").toString()));
+                    }
                 }
-                else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis || bibGenre == BibTexUtil.Genre.techreport))
+                
+                // edition
+                if (fields.get("edition") != null)
                 {
-                    publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("school").toString()));
-                }
-                else if (fields.get("institution") != null)
-                {
-                    publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("institution").toString()));
+                    publishingInfoVO.setEdition(BibTexUtil.bibtexDecode(fields.get("edition").toString()));
                 }
 
+                // publisher
+                if (!(bibGenre == BibTexUtil.Genre.article
+                        || bibGenre == BibTexUtil.Genre.inbook
+                        || bibGenre == BibTexUtil.Genre.inproceedings
+                        || bibGenre == BibTexUtil.Genre.conference
+                        || bibGenre == BibTexUtil.Genre.incollection)
+                        && (sourceVO.getTitle() == null))
+                {
+                    if (fields.get("publisher") != null)
+                    {
+                        publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("publisher").toString()));
+                        
+                    }
+                    else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis || bibGenre == BibTexUtil.Genre.techreport))
+                    {
+                        publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("school").toString()));
+                    }
+                    else if (fields.get("institution") != null)
+                    {
+                        publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("institution").toString()));
+                    }
+                    else if (fields.get("publisher") == null 
+                            && fields.get("school") == null 
+                            && fields.get("institution") == null
+                            && fields.get("address") != null)
+                    {
+                        publishingInfoVO.setPublisher("ANY PUBLISHER");
+                    }
+                }
+                else
+                {
+                    if (sourceVO.getPublishingInfo() == null) 
+                    {
+                        PublishingInfoVO sourcePublishingInfoVO = new PublishingInfoVO();
+                        sourceVO.setPublishingInfo(sourcePublishingInfoVO);
+                    }
+                    
+                    if (fields.get("publisher") != null)
+                    {
+                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.bibtexDecode(fields.get("publisher").toString()));
+                        
+                    }
+                    else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis || bibGenre == BibTexUtil.Genre.techreport))
+                    {
+                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.bibtexDecode(fields.get("school").toString()));
+                    }
+                    else if (fields.get("institution") != null)
+                    {
+                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.bibtexDecode(fields.get("institution").toString()));
+                    }
+                    else if (fields.get("publisher") == null 
+                            && fields.get("school") == null 
+                            && fields.get("institution") == null
+                            && fields.get("address") != null)
+                    {
+                        sourceVO.getPublishingInfo().setPublisher("ANY PUBLISHER");
+                    }
+                }
                 // series
                 if (fields.get("series") != null)
                 {
@@ -301,7 +366,6 @@ public class Bibtex
                         sourceVO.getSources().add(sourceOfSource);
                     }
                 }
-                
 
                 // type --> degree
                 if (fields.get("type") != null && bibGenre == BibTexUtil.Genre.mastersthesis)
