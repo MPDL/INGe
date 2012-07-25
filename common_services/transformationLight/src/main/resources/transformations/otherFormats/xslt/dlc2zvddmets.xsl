@@ -74,7 +74,7 @@
 	<xsl:template name="amdsec">
 		<xsl:element name="mets:amdSec">
 			<xsl:attribute name="ID"><xsl:value-of select="'amd0'"/></xsl:attribute>
-			<!--<xsl:element name="mets:rightsMD">
+			<xsl:element name="mets:rightsMD">
 				<xsl:element name="mets:mdWrap">
 					<xsl:attribute name="MDTYPE">OTHER</xsl:attribute>
 					<xsl:attribute name="OTHERMDTYPE">DVRIGHTS</xsl:attribute>
@@ -87,8 +87,7 @@
 							<xsl:element name="dv:ownerSiteURL"></xsl:element>	
 						</xsl:element>	
 					</xsl:element>
-				</xsl:element>	
-				  -->			
+				</xsl:element>					
 			</xsl:element>
 			<xsl:element name="mets:digiprovMD">
 				<xsl:element name="mets:mdWrap">
