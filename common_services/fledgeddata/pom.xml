@@ -32,9 +32,9 @@
 	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/fledgeddata</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/fledgeddata</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata</url>
 	</scm>
 
 	<build>

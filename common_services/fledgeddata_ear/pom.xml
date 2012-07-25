@@ -40,9 +40,9 @@
 	<name>fledgeddata_ear</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<scm>
-	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/fledgeddata_ear</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/fledgeddata_ear</developerConnection>
-    <url>https://zim02.gwdg.de/repos/common/fledgeddata_ear</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_ear</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_ear</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_ear</url>
   </scm>
 	<build>
 		<plugins>
