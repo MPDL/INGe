@@ -59,14 +59,14 @@
 				<configuration>
 					<includes>
 						<!-- <include>**/CommonPublicationsFormatsTest.java</include> Currently empty -->
-						<include>**/CommonTest.java</include>
+						<!-- <include>**/CommonTest.java</include> -->
 						<!-- <include>**/FeedsTest.java</include> Currently empty -->
 						<!-- <include>**/MicroFormatsTest.java</include> Currently empty -->
 						<!-- <include>**/OaiTest.java</include> Currently empty -->
-						<include>**/OtherFormatsTest.java</include>
+						<!-- <include>**/OtherFormatsTest.java</include> -->
 						<!-- <include>**/ReportsTest.java</include> Currently empty -->
-						<include>**/StandardTest.java</include>
-						<include>**/ThirdPartyTest.java</include>
+						<!-- <include>**/StandardTest.java</include> -->
+						<!-- <include>**/ThirdPartyTest.java</include> -->
 					</includes>
 				</configuration>
 			</plugin>
