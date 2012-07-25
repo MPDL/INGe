@@ -155,7 +155,7 @@ public class ExportItems extends FacesBean
         // constants for comboBoxes and HtmlSelectOneRadios
         SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
         SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
-        SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", getLabel("Export_ExportFormat_ESCIDOC_XML"));
+        SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML_V13", getLabel("Export_ExportFormat_ESCIDOC_XML"));
         SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
         SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
         // JUS
