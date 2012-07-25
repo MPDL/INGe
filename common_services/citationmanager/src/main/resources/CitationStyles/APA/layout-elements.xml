@@ -328,10 +328,10 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[((pub:publication/source:source[1]/eterms:volume!=null and pub:publication/source:source[1]/eterms:volume!='')
-						 or (pub:publication/source:source[1]/eterms:issue!=null and pub:publication/source:source[1]/eterms:issue!='')
-						 or (pub:publication/source:source[1]/eterms:sequence-number!=null and pub:publication/source:source[1]/eterms:sequence-number!='')
-						 or (pub:publication/source:source[1]/eterms:start-page!=null and pub:publication/source:source[1]/eterms:start-page!=''))]]>
+						<valid-if><![CDATA[((pub:publication/source:source[1]/eterms:volume!=null or pub:publication/source:source[1]/eterms:volume!='')
+						 or (pub:publication/source:source[1]/eterms:issue!=null or pub:publication/source:source[1]/eterms:issue!='')
+						 or (pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='')
+						 or (pub:publication/source:source[1]/eterms:start-page!=null or pub:publication/source:source[1]/eterms:start-page!=''))]]>
 						 </valid-if>
 						<font-style ref="ITALIC" />
 						<starts-with value=" " />
