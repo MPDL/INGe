@@ -35,7 +35,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:mods="http://www.loc.gov/mods/v3" 
-	xmlns:mets="http://www.loc.gov/METS" 
+	xmlns:mets="http://www.loc.gov/METS/" 
 	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
 	xmlns:tei="http://www.tei-c.org/ns/1.0" 
 	xmlns:dv="http://dfg-viewer.de/"
@@ -43,8 +43,8 @@
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:variable name="teiUrl" select="escidocMetadataRecords:md-record/mods:mods/relatedItem"/>
-	<xsl:variable name="teiXml" select="document('../../otherFormats/conf/tei.xml')"/>
+	<xsl:variable name="teiUrl" select="escidocMetadataRecords:md-record/mods:mods/mods:relatedItem"/>
+	<xsl:variable name="teiXml" select="teiUrl"/>
 	
 	<xsl:template match="/">
 		<xsl:element name="mets:mets">
@@ -64,7 +64,7 @@
 			<xsl:element name="mets:mdWrap">
 				<xsl:attribute name="MDTYPE">MODS</xsl:attribute>
 				<xsl:element name="mets:xmlData">					
-					<xsl:copy-of select="escidocMetadataRecords:md-record/mods:mods"/>
+					<xsl:copy-of select="escidocMetadataRecords:md-record[@name='escidoc']/mods:mods"/>
 				</xsl:element>
 			</xsl:element>
 		</xsl:element>					
@@ -74,21 +74,21 @@
 	<xsl:template name="amdsec">
 		<xsl:element name="mets:amdSec">
 			<xsl:attribute name="ID"><xsl:value-of select="'amd0'"/></xsl:attribute>
-			<xsl:element name="mets:rightsMD">
+			<!--<xsl:element name="mets:rightsMD">
 				<xsl:element name="mets:mdWrap">
 					<xsl:attribute name="MDTYPE">OTHER</xsl:attribute>
 					<xsl:attribute name="OTHERMDTYPE">DVRIGHTS</xsl:attribute>
 					<xsl:attribute name="MIMETYPE">text/xml</xsl:attribute>
 					<xsl:element name="mets:xmlData">
-						<!-- TODO -->
 						<xsl:element name="dv:rights">
-							<xsl:element name="dv:owner">TEST</xsl:element>	
-							<xsl:element name="dv:ownerContact">...</xsl:element>	
-							<xsl:element name="dv:ownerLogo">...</xsl:element>	
-							<xsl:element name="dv:ownerSiteURL">...</xsl:element>	
+							<xsl:element name="dv:owner"></xsl:element>	
+							<xsl:element name="dv:ownerContact"></xsl:element>	
+							<xsl:element name="dv:ownerLogo"></xsl:element>	
+							<xsl:element name="dv:ownerSiteURL"></xsl:element>	
 						</xsl:element>	
 					</xsl:element>
-				</xsl:element>				
+				</xsl:element>	
+				  -->			
 			</xsl:element>
 			<xsl:element name="mets:digiprovMD">
 				<xsl:element name="mets:mdWrap">
@@ -132,7 +132,7 @@
 						<xsl:attribute name="MIMETYPE"><xsl:value-of select="'image/jpeg'"/></xsl:attribute>
 						<xsl:element name="mets:FLocat">
 							<xsl:attribute name="LOCTYPE">URL</xsl:attribute>
-							<xsl:attribute name="xlink:href">http://dlc.mpdl.mpg.de/image-upload/thumbnail/<xsl:value-of select="@facs"/>.jpg.jpg</xsl:attribute>
+							<xsl:attribute name="xlink:href">http://dlc.mpdl.mpg.de/image-upload/thumbnails/<xsl:value-of select="@facs"/>.jpg.jpg</xsl:attribute>
 						</xsl:element>
 					</xsl:element>
 				</xsl:for-each>

@@ -33,7 +33,18 @@ public class OtherFormatsTest {
     }
 	
     @Test
+    public void TargetTest() throws Exception
+    {
+    	Format[] formats = this.trans.getSourceFormats();
+    	this.logger.info("ALL TARGET FORMATS FOR dlc:");
+        formats = this.trans.getTargetFormats(new Format("dlc", "application/xml", "UTF-8"));
+        for (int i = 0; i< formats.length; i++)
+        {
+            this.logger.info(formats[i].getName() + " (" + formats[i].getType() + ")");
+        }
+    }
     
+    @Test   
     public void dlc2zvddmets() throws Exception
     {
         this.logger.info("Transform dlc volume to zvdd conform mets format");
