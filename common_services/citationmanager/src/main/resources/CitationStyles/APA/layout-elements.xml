@@ -206,7 +206,7 @@
 
 		<layout-element name="start-page-end-page">
 			<elements>
-				<layout-element name="start-page-end-page-without-pp">
+				<layout-element>
 					<parameters>
 						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='']]></valid-if>
 						<delimiter value="-" />
@@ -217,7 +217,7 @@
 						<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
 					</elements>
 				</layout-element>
-				<layout-element name="start-page-end-page-with-pp">
+				<layout-element>
 					<parameters>
 						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
 						<starts-with value="pp. "></starts-with>
@@ -234,7 +234,7 @@
 		
 		<layout-element name="source-doi">
 			<parameters>
-				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI" and  $published-online-and-external-locator='' ]]></valid-if>
+				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI" and  $published-online-and-external-locator='' and ( not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online )]]></valid-if>
 				<starts-with value="doi:"/>
 			</parameters>
 			<elements>
@@ -263,41 +263,53 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
+						<valid-if><![CDATA[(not (pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number=''))]]></valid-if>
 						<ends-with value=": "/>
 						<delimiter value="" />
 					</parameters>
 					<elements>
-						<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+						<layout-element>
 							<parameters>
 								<font-style ref="ITALIC" />
 							</parameters>
+							<elements>
+								<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()"/>
+							</elements>
 						</layout-element>
-						<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+						<layout-element>
 							<parameters>
 								<starts-with value="(" />
 								<ends-with value=")" />
 							</parameters>
+							<elements>
+								<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()"/>
+							</elements>
 						</layout-element>
 					</elements>
 				</layout-element>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='') and (pub:publication/source:source[1]/eterms:start-page!=null or pub:publication/source:source[1]/eterms:start-page!='') ]]></valid-if>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='') and not (pub:publication/source:source[1]/eterms:start-page=null or pub:publication/source:source[1]/eterms:start-page='') ]]></valid-if>
 						<ends-with value=", "/>
 						<delimiter value="" />
 					</parameters>
 					<elements>
-						<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+						<layout-element>
 							<parameters>
 								<font-style ref="ITALIC" />
 							</parameters>
+							<elements>
+								<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()"/>
+							</elements>
 						</layout-element>
-						<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+						<layout-element>
 							<parameters>
 								<starts-with value="(" />
 								<ends-with value=")" />
 							</parameters>
+							<elements>
+								<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()"/>
+							</elements>
 						</layout-element>
 					</elements>
 				</layout-element>
@@ -308,16 +320,22 @@
 						<delimiter value="" />
 					</parameters>
 					<elements>
-						<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+						<layout-element>
 							<parameters>
 								<font-style ref="ITALIC" />
 							</parameters>
+							<elements>
+								<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()"/>
+							</elements>
 						</layout-element>
-						<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+						<layout-element>
 							<parameters>
 								<starts-with value="(" />
 								<ends-with value=")" />
 							</parameters>
+							<elements>
+								<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()"/>
+							</elements>
 						</layout-element>
 					</elements>
 				</layout-element>
@@ -328,10 +346,10 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[((pub:publication/source:source[1]/eterms:volume!=null or pub:publication/source:source[1]/eterms:volume!='')
-						 or (pub:publication/source:source[1]/eterms:issue!=null or pub:publication/source:source[1]/eterms:issue!='')
-						 or (pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='')
-						 or (pub:publication/source:source[1]/eterms:start-page!=null or pub:publication/source:source[1]/eterms:start-page!=''))]]>
+						<valid-if><![CDATA[(not(pub:publication/source:source[1]/eterms:volume=null or pub:publication/source:source[1]/eterms:volume='')
+						 or not (pub:publication/source:source[1]/eterms:issue=null or pub:publication/source:source[1]/eterms:issue='')
+						 or not (pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='')
+						 or not (pub:publication/source:source[1]/eterms:start-page=null or pub:publication/source:source[1]/eterms:start-page=''))]]>
 						 </valid-if>
 						<font-style ref="ITALIC" />
 						<starts-with value=" " />
