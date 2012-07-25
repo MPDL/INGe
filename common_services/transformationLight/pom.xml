@@ -54,6 +54,7 @@
 					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -68,8 +69,13 @@
 						<!-- <include>**/StandardTest.java</include> -->
 						<!-- <include>**/ThirdPartyTest.java</include> -->
 					</includes>
+					<excludes>
+						<exclude>**/*</exclude>
+					
+					</excludes>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 	<dependencies>
