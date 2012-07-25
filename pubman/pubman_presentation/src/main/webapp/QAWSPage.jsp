@@ -244,7 +244,7 @@
 								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
-							<div class="subHeader" style="max-height:1.6363em;">
+							<div class="subHeader" style="float:none;">
 								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
 								<h:outputText value=" ("/>
 								<h:outputText value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyTasksRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyTasksRetrieverRequestBean.selectedItemState != null and MyTasksRetrieverRequestBean.selectedItemState != 'all'}"/>
