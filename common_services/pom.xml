@@ -238,6 +238,7 @@
 		<module>aa_logic</module>
 		<module>aa_presentation</module>
 		<module>fledgeddata</module>
+		<module>transformationLight</module>
 	</modules>
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
