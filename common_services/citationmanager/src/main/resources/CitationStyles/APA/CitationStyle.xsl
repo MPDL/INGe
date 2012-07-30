@@ -608,7 +608,7 @@
                                             <xsl:variable name="e-number-only"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="(not(pub:publication/source:source[1]/eterms:start-page) or pub:publication/source:source[1]/eterms:start-page='') and (pub:publication/source:source[1]/eterms:sequence-number or pub:publication/source:source[1]/eterms:sequence-number!='')">
+                                                    <xsl:if test="(not(pub:publication/source:source[1]/eterms:start-page) or pub:publication/source:source[1]/eterms:start-page='') and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -643,7 +643,7 @@
                                             <xsl:variable name="e-number-and-pages"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="(pub:publication/source:source[1]/eterms:start-page or pub:publication/source:source[1]/eterms:start-page!='') and (pub:publication/source:source[1]/eterms:sequence-number or pub:publication/source:source[1]/eterms:sequence-number!='')">
+                                                    <xsl:if test="(pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!='') and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -730,7 +730,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="pub:publication/source:source[1]/eterms:sequence-number or pub:publication/source:source[1]/eterms:sequence-number!=''">
+                                                    <xsl:if test="pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!=''">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -862,7 +862,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="(not (not(pub:publication/source:source[1]/eterms:sequence-number) or pub:publication/source:source[1]/eterms:sequence-number=''))">
+                                                    <xsl:if test="(pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -1122,7 +1122,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="(not(not(pub:publication/source:source[1]/eterms:volume) or pub:publication/source:source[1]/eterms:volume='')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; or not (not(pub:publication/source:source[1]/eterms:issue) or pub:publication/source:source[1]/eterms:issue='')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; or not (not(pub:publication/source:source[1]/eterms:sequence-number) or pub:publication/source:source[1]/eterms:sequence-number='')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; or not (not(pub:publication/source:source[1]/eterms:start-page) or pub:publication/source:source[1]/eterms:start-page=''))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; ">
+                                                    <xsl:if test="((pub:publication/source:source[1]/eterms:volume and pub:publication/source:source[1]/eterms:volume!='')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; or (pub:publication/source:source[1]/eterms:issue and pub:publication/source:source[1]/eterms:issue!='')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; or (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; or (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!=''))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; ">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">

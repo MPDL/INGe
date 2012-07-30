@@ -185,7 +185,7 @@
 			<elements>
 				<layout-element name="e-number-only">
 					<parameters>
-						<valid-if><![CDATA[(not(pub:publication/source:source[1]/eterms:start-page) or pub:publication/source:source[1]/eterms:start-page='') and (pub:publication/source:source[1]/eterms:sequence-number or pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
+						<valid-if><![CDATA[(not(pub:publication/source:source[1]/eterms:start-page) or pub:publication/source:source[1]/eterms:start-page='') and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
 						<ends-with value=". " />
 					</parameters>
 					<elements>
@@ -194,7 +194,7 @@
 				</layout-element>
 				<layout-element name="e-number-and-pages">
 					<parameters>
-						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:start-page or pub:publication/source:source[1]/eterms:start-page!='') and (pub:publication/source:source[1]/eterms:sequence-number or pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!='') and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
 						<ends-with value=", " />
 					</parameters>
 					<elements>
@@ -219,7 +219,7 @@
 				</layout-element>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number or pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
+						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
 						<starts-with value="pp. "></starts-with>
 						<delimiter value="-" />
 						<ends-with value=". "/>
@@ -263,7 +263,7 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[(not (not(pub:publication/source:source[1]/eterms:sequence-number) or pub:publication/source:source[1]/eterms:sequence-number=''))]]></valid-if>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
 						<ends-with value=": "/>
 						<delimiter value="" />
 					</parameters>
@@ -346,10 +346,10 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[(not(not(pub:publication/source:source[1]/eterms:volume) or pub:publication/source:source[1]/eterms:volume='')
-						 or not (not(pub:publication/source:source[1]/eterms:issue) or pub:publication/source:source[1]/eterms:issue='')
-						 or not (not(pub:publication/source:source[1]/eterms:sequence-number) or pub:publication/source:source[1]/eterms:sequence-number='')
-						 or not (not(pub:publication/source:source[1]/eterms:start-page) or pub:publication/source:source[1]/eterms:start-page=''))]]>
+						<valid-if><![CDATA[((pub:publication/source:source[1]/eterms:volume and pub:publication/source:source[1]/eterms:volume!='')
+						 or (pub:publication/source:source[1]/eterms:issue and pub:publication/source:source[1]/eterms:issue!='')
+						 or (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='')
+						 or (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!=''))]]>
 						 </valid-if>
 						<font-style ref="ITALIC" />
 						<starts-with value=" " />

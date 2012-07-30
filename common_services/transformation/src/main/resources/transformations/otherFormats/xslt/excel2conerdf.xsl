@@ -9,6 +9,8 @@
 	
 	<xsl:param name="import-name"/>
 	<xsl:param name="external-ou-id" select="'persistent:22'"/>
+
+	<xsl:param name="user" select="'administrator'"/>
 	
 	<xsl:param name="compare-query" select="'%22*MPI%20for%20Psycholinguistics*%22'"/>
 	
@@ -83,6 +85,9 @@
 								<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
 							</xsl:if>
 						</escidoc:degree>
+						
+						<dcterms:created><xsl:value-of select="current-dateTime()"/></dcterms:created>
+						<dcterms:contributor><xsl:value-of select="$user"/></dcterms:contributor>
 						
 						<!-- <dc:identifier>
 							<rdf:Description>

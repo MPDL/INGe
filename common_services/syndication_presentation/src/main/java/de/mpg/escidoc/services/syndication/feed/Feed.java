@@ -607,7 +607,7 @@ public class Feed extends SyndFeedImpl
 					"cqlQuery=" + URLEncoder.encode(query, "UTF-8") + 
 					"&maximumRecords=" + URLEncoder.encode(maximumRecords, "UTF-8") + 
 					"&sortKeys=" + URLEncoder.encode(sortKeys, "UTF-8") + 
-					"&exportFormat=ESCIDOC_XML" +  
+					"&exportFormat=ESCIDOC_XML_V13" +  
 					"&sortOrder=descending" + 
 					"&language=all"
 			);
