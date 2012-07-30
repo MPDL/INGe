@@ -75,14 +75,18 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
+				function checkUpdatePersonFunction() {
+					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
+				}
 				$pb("input[id$='offset']").submit(function() {
 					$pb(this).val($pb(window).scrollTop());
 				});
 				$pb(document).ready(function () {
 					$pb(window).scrollTop($pb("input[id$='offset']").val());
 					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+					checkUpdatePersonFunction();
 				});
-				languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />iso639-3/query?format=json';
+
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />journals/query?format=json';
 				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>$1/query?lang=en';
 				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>persons/query?format=json';
