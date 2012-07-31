@@ -230,7 +230,8 @@ public class Bibtex
                 {
                     if (bibGenre == BibTexUtil.Genre.article
                             || bibGenre == BibTexUtil.Genre.misc
-                            || bibGenre == BibTexUtil.Genre.unpublished)
+                            || bibGenre == BibTexUtil.Genre.unpublished
+                            || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
                         sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("journal").toString())));
                         sourceVO.setGenre(SourceVO.Genre.JOURNAL);

@@ -606,12 +606,6 @@
 			<xsl:with-param name="tag">Z</xsl:with-param>
 			<xsl:with-param name="value" select="concat('date od event: ',$event-date)"/>
 		</xsl:call-template>
-		<xsl:if test="$genre='proceedings'">
-			<xsl:call-template name="print-line">
-				<xsl:with-param name="tag">D</xsl:with-param>
-				<xsl:with-param name="value" select="substring-before(eterms:start-date,'-')"/>
-			</xsl:call-template>
-		</xsl:if>
 		<!-- PLACE -->
 		<xsl:choose>
 			<xsl:when test="$genre='proceedings' or $genre='proceedings-paper' or $genre='conference-paper'">
