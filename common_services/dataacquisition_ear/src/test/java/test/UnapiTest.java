@@ -88,6 +88,7 @@ public class UnapiTest
     }
     
     @Test
+    @Ignore
     //On BioMed Central example   
     public void unapiTestOneSourceFull() throws Exception
     {
