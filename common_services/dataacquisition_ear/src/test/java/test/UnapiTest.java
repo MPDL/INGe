@@ -73,11 +73,11 @@ public class UnapiTest
         Assert.assertEquals(200, code);
         
         //bmc
-        url = location + "?id=" + this.bmcId + "&format=bmc";
+        /*url = location + "?id=" + this.bmcId + "&format=bmc";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
-        Assert.assertEquals(200, code);
+        Assert.assertEquals(200, code);*/
         
         //spires
         url = location + "?id=" + this.spiresId + "&format=spires";
