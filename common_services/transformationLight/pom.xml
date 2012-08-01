@@ -32,18 +32,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.63-SNAPSHOT</version>
+		<version>1.0.63</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>transformationLight</artifactId>
 	<name>transformation service light</name>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/transformationLight</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.63/transformationLight</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.63/transformationLight</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/transformationLight/tags/common_services-1.0.63/transformationLight</url>
   </scm>
 	<build>
 		<plugins>
