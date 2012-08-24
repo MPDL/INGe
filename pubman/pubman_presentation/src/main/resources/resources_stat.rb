@@ -103,10 +103,11 @@ def parse_resource_file( filename )
             if resource[ $1 ]
                puts "#{filename}:#{$.}: Warining: duplicate resource: #{ key }"
             end
+            val.gsub!( /[\[\(](new|neu)[\]\)]/io, "" )
 	    val.strip!
 	    if val.empty? or val == "\\"
 	       puts "#{filename}:#{$.}: Warning: empty value: #{ key }"
-	    else 
+	    else
                resource[ key ] = val
 	    end
          else
