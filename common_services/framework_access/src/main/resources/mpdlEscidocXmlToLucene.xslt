@@ -912,7 +912,7 @@ Notes:
 			</xsl:for-each>
 		</userdefined-index>
 
-        <!-- USER DEFINED INDEX: publication.creator.any.organization-path-identifiers -->
+        <!-- USER DEFINED INDEX: publication.creator.any.organization-path-ident ifiers -->
 		<userdefined-index name="publication.creator.any.organization-path-identifiers">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1517,7 +1517,29 @@ Notes:
 				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
 			</element>
 		</userdefined-index>
+		<userdefined-index name="property.context.objid">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
+			</element>
+		</userdefined-index>
 		<userdefined-index name="content-model.objid">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
+			</element>
+		</userdefined-index>
+		<userdefined-index name="property.content-model.objid">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
