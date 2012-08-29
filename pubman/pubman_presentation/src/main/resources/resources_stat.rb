@@ -104,7 +104,7 @@ def parse_resource_file( filename )
             if resource[ $1 ]
                puts "#{filename}:#{$.}: Warining: duplicate resource: #{ key }"
             end
-            val.gsub!( /[\[\(](new|neu)[\]\)]/io, "" )
+            # val.gsub!( /[\[\(](new|neu)[\]\)]/io, "" )
 	    val.strip!
 	    if val.empty? or val == "\\"
 	       puts "#{filename}:#{$.}: Warning: empty value: #{ key }"
@@ -153,6 +153,8 @@ if $0 == __FILE__
                      count[ "untranslated" ] << k
                   end
                elsif k == new[ k ]
+               	  count[ "untranslated" ] << k
+               elsif new[ k ] =~ /[\[\(](new|neu)[\]\)]/io
                	  count[ "untranslated" ] << k
                else
                   count[ "translated" ] += 1
