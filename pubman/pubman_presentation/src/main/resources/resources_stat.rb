@@ -91,6 +91,11 @@ IGNORE_UNTRANSLATED = {
    "EditItem_lblURL" => "URL",
    "ViewItem_lblRelation1" => "Relation:",
    "ViewItemFull_lblDDCSubject" => "DDC",
+   "Tools_lblCoNE" => "CoNE",
+   "Tools_lblColab" => "http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces",
+   "Tools_lblREST" => "REST",
+   "Tools_lblSWORD" => "SWORD",
+   "Tools_lblUnAPI" => "unAPI",
 }
 
 def parse_resource_file( filename )
