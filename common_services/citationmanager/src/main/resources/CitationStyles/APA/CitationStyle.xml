@@ -318,8 +318,6 @@
 					<layout-element ref="$start-page-end-page" />
 				</elements>
 			</layout-element>
-			
-			<layout-element ref="$source-doi" />
 
 			<layout-element ref="$published-online-and-external-locator" />
 

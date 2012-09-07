@@ -208,9 +208,9 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[not(pub:publication/source:source[1]/eterms:sequence-number) or pub:publication/source:source[1]/eterms:sequence-number='']]></valid-if>
+						<valid-if><![CDATA[$genre = $l_article and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='') and (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!='')]]></valid-if>
 						<delimiter value="-" />
-						<ends-with value=". "/>
+						<starts-with value="pp. "/>
 					</parameters>
 					<elements>
 						<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
@@ -219,22 +219,21 @@
 				</layout-element>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
-						<starts-with value="pp. "></starts-with>
+						<valid-if><![CDATA[not($genre = $l_article and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='') and (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!=''))]]></valid-if>
 						<delimiter value="-" />
-						<ends-with value=". "/>
 					</parameters>
 					<elements>
 						<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
 						<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
 					</elements>
 				</layout-element>
+				
 			</elements>
 		</layout-element>
 		
 		<layout-element name="source-doi">
 			<parameters>
-				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI" and  $published-online-and-external-locator='' and ( not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online )]]></valid-if>
+				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI" and  $published-online-and-external-locator='' and ( pub:publication/eterms:published-online )]]></valid-if>
 				<starts-with value="doi:"/>
 			</parameters>
 			<elements>
