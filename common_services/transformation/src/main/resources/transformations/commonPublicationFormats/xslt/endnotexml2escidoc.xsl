@@ -60,8 +60,9 @@
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:esc="http://escidoc.mpg.de/"
-   xmlns:itemlist="${xsd.soap.item.itemlist}">
+   xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
+   xmlns:itemlist="${xsd.soap.item.itemlist}"
+   xmlns:eprints="http://purl.org/eprint/terms/">
    
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
@@ -83,6 +84,8 @@
 	<xsl:param name="source-name" select="''"/>
 	
 	<xsl:param name="refType" />
+	
+	<xsl:param name="Organisation" select="''"/>
 
 	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
 
@@ -875,13 +878,12 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
-				
+
 				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 			
 				<xsl:if test="$multiplePersonsFound">
 					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
 				</xsl:if>
-				
 				<xsl:element name="person:person">
 					<xsl:element name="eterms:family-name">
 						<xsl:value-of select="$person/familyname"/>
@@ -894,7 +896,7 @@
 							<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">
 								<organization:organization>
 									<dc:title>
-										<xsl:value-of select="rdf:Description/esc:organization"/>
+										<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
 									</dc:title>
 									<dc:identifier>
 										<xsl:value-of select="rdf:Description/dc:identifier"/>

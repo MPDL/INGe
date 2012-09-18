@@ -240,7 +240,7 @@
 		<escidoc:position>
 			<rdf:Description>
 				<xsl:variable name="escidoc-ou">
-					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 				</xsl:variable>
 			
 				<xsl:variable name="ou-path">
@@ -278,7 +278,7 @@
 		<xsl:param name="givenname"/>
 		<xsl:param name="ouname"/>
 		
-		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[@objid = $id]"/>
+		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = $id]"/>
 	
 		<xsl:choose>
 			<xsl:when test="$ouname != ''">
@@ -289,7 +289,6 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		
-		
 		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = '' and not($import-name = 'MPIDynamics')">
 			<xsl:message>ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/></xsl:message>
 			ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/>
@@ -299,7 +298,7 @@
 			<xsl:when test="exists($ou/organizational-unit:parents/srel:parent)">
 				<xsl:text>, </xsl:text>
 				<xsl:call-template name="get-ou-path">
-					<xsl:with-param name="id" select="$ou/organizational-unit:parents/srel:parent[1]/@objid"/>
+					<xsl:with-param name="id" select="$ou/organizational-unit:parents/srel:parent[1]/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>

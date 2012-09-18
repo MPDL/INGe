@@ -57,7 +57,7 @@
 	<xsl:template name="get-ou-path">
 		<xsl:param name="id"/>
 		
-		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[@objid = $id]"/>
+		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = $id]"/>
 	
 		<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
 		
@@ -69,7 +69,7 @@
 			<xsl:when test="exists($ou/organizational-unit:parents/srel:parent)">
 				<xsl:text>, </xsl:text>
 				<xsl:call-template name="get-ou-path">
-					<xsl:with-param name="id" select="$ou/organizational-unit:parents/srel:parent[1]/@objid"/>
+					<xsl:with-param name="id" select="$ou/organizational-unit:parents/srel:parent[1]/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
