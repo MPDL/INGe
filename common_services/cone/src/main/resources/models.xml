@@ -166,11 +166,11 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 				<predicate name="Position Appellation" value="http://purl.org/escidoc/metadata/terms/0.1/position-name" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
 				<predicate name="From" value="http://purl.org/escidoc/metadata/terms/0.1/start-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
 				<predicate name="Until" value="http://purl.org/escidoc/metadata/terms/0.1/end-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
-				<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false" shouldBeUnique="true"/>
+				<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true" shouldBeUnique="true"/>
 			</predicate>
 			<!-- <predicate name="Other affiliations" value="urn:cone:other-ou" multiple="false" mandatory="false" localized="true"/> -->
-			<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false" shouldBeUnique="true"/>
-			<predicate name="Telephone" value="http://xmlns.com/foaf/0.1/tel" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false" shouldBeUnique="true"/>
+			<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true" shouldBeUnique="true"/>
+			<predicate name="Telephone" value="http://xmlns.com/foaf/0.1/tel" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true" shouldBeUnique="true"/>
 			<!-- no data in cone-->
 			<predicate name="Actual Status" value="http://purl.org/escidoc/metadata/terms/0.1/person-activity-status" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
 			<predicate name="Last Modification Date"
