@@ -383,7 +383,9 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		line-height: normal;
 		font-weight: normal;
 	}
-	
+	.loggedIn.collectionList .listItem .itemHeader {
+		margin-bottom:0;
+	}
 	.headLine h1 {
 		color:#f0f0f0;
 	}
