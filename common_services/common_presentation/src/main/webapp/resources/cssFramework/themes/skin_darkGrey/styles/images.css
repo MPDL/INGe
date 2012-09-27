@@ -346,30 +346,35 @@
 			background-image: url('../images/All_Status_ItemSubmitted_31_Static.gif');
 			background-repeat: no-repeat;
 			background-position: left;
+			display:inline-block;
 		}
 	
 		.pendingItem {
 			background-image: url('../images/All_Status_ItemPending_31_Static.gif');
 			background-repeat: no-repeat;
 			background-position: left;
+			display:inline-block;
 		}
 	
 		.releasedItem {
 			background-image: url('../images/All_Status_ItemReleased_31_Static.gif');
 			background-repeat: no-repeat;
 			background-position: left;
+			display:inline-block;
 		}
 	
 		.inRevisionItem {
 			background-image: url('../images/All_Status_ItemRework_31_Static.gif');
 			background-repeat: no-repeat;
 			background-position: left;
+			display:inline-block;
 		}
 
 		.withdrawnItem {
 			background-image: url('../images/All_Status_ItemWithdrawn_31_Static.gif');
 			background-repeat: no-repeat;
 			background-position: left;
+			display:inline-block;
 		}
 		
 		.virrMediaTypeV {
