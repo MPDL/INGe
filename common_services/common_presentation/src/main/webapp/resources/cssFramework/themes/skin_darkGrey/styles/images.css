@@ -222,7 +222,15 @@
 			background-repeat: no-repeat;
 			background-position: center center;
 		}	
-
+		.pageBrowser .skipToFirst.deactivated {
+			background-image: url('../images/All_Paginator_ArrowFirst_15_Deactivated.gif');
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+		.pageBrowser .skipToFirst.deactivated:hover, .pageBrowser .skipToFirst.deactivated:focus {
+			background-image: url('../images/All_Paginator_ArrowFirst_15_Deactivated.gif');
+		}
+		
 		.pageBrowser .backward {
 			background-image: url('../images/All_Paginator_ArrowPrevious_15_Active.gif');
 			background-repeat: no-repeat;
@@ -230,7 +238,17 @@
 			padding-right: 0px;
 			padding-left: 20px;
 		}
-	
+		.pageBrowser .backward.deactivated {
+			background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.gif');
+			background-repeat: no-repeat;
+			background-position: left;
+			padding-right: 0px;
+			padding-left: 20px;
+		}
+		.pageBrowser .backward.deactivated:hover, .pageBrowser .backward.deactivated:focus {
+			background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.gif');
+		}
+		
 		/*REPLACEMENT HACK FOR IE LESS THAN 6*/
 			* html .pageBrowser .backward {
 				padding-left: 0px;
@@ -280,6 +298,14 @@
 			background-repeat: no-repeat;
 			background-position: right;
 		}
+		.pageBrowser .forward.deactivated {
+			background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.gif');
+			background-repeat: no-repeat;
+			background-position: right;
+		}
+		.pageBrowser .forward.deactivated:hover, .pageBrowser .forward.deactivated:focus {
+			background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.gif');
+		}
 	
 		.pageBrowser .skipToLast {
 			background-image: url('../images/All_Paginator_ArrowLast_15_Active.gif');
@@ -297,6 +323,14 @@
 			background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.gif');
 			background-repeat: no-repeat;
 			background-position: center center;
+		}
+		.pageBrowser .skipToLast.deactivated {
+			background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.gif');
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+		.pageBrowser .skipToLast.deactivated:hover, .pageBrowser .skipToLast.deactivated:focus {
+			background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.gif');
 		}
 	
 	/*LIST COMPONENT*/

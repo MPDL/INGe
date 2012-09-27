@@ -350,8 +350,13 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		}
 	}
 	
-	.pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
+	.pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
 		color: #486131;
+		cursor:default;
+	}
+	.pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus {
+		color: #486131;
+		cursor:default;
 	}
 	
 /* INFO PAGE*/
@@ -725,7 +730,11 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 }
 
 .full_area0 .noTopBorder { background-color:#313131; } /* erweitert 2011-03-30 */
-.pageBrowser { background-color:#292929; } /* erweitert 2011-03-30 */
+.pageBrowser { /* erweitert 2011-03-30 */
+	background-color:#292929;
+	min-width:49%; /* bugfix for chrome 22, without min-width - linebreak before skipToLast */
+	text-align:center;
+}
 .tileIconAreaSelected a img { border-color:#33698F; } /* erweitert 2011-04-06 */
 
 /*Richfaces Overwrite*/
