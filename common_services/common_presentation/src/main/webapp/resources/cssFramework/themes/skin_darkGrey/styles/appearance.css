@@ -739,8 +739,13 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 
 /*Richfaces Overwrite*/
 .rich-tool-tip {
-        background-color: #3C3C3C;
+	background-color: #3C3C3C;
 }
+
+.rich-inplace-field {
+	color:#292929 !important;
+}
+
 
 .contentHeader {
 	border-top-style:solid;
