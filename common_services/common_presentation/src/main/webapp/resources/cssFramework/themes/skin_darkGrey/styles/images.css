@@ -118,6 +118,18 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+	.quickSearchIconSmall {
+		background-image: url('../images/All_Search_LensStart_15_Static.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+		width:1.4545em;
+		height:1.4545em;
+		display:inline-block;
+	}
+	.quickSearchIconSmall:hover, .quickSearchIconSmall:focus {
+		background-image: url('../images/All_Search_LensStart_15_Hover.gif');
+	}
 /*	
 	.quickSearchIcon:hover, .quickSearchIcon:focus {
 		background-image: url('../images/All_Search_LensStart_15_Hover.gif');
