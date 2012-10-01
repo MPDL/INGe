@@ -625,7 +625,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		border-color: #f0f0f0;
 	}
 	
-	.cancelButton, .activeButton {
+	.cancelButton, .activeButton, .dialogActiveButton {
 		border-style: solid;
 		padding-top: 0.10em;
 		padding-bottom: 0.10em;
@@ -647,14 +647,14 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		border-color: #f0f0f0;
 	}
 	
-	.activeButton {
+	.activeButton, .dialogActiveButton {
 		float: right;
 		color: #f0f0f0 !important;
 		background-color: #6CAD2F !important;
 		border-color: #6CAD2F;
 	}
 	
-	.activeButton:hover {
+	.activeButton:hover, .dialogActiveButton:hover {
 		color: #f0f0f0 !important;
 		background-color: #393939 !important;
 		border-color: #f0f0f0;
