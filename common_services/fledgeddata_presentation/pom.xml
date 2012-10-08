@@ -36,12 +36,12 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>fledgeddata_presentation</artifactId>
 	<name>fledgeddata_presentation</name>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/fledgeddata_presentation-1.0.0</connection>
-	  <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/fledgeddata_presentation-1.0.0</developerConnection>
-	  <url>https://subversion.mpdl.mpg.de/repos/common/tags/fledgeddata_presentation-1.0.0</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_presentation</connection>
+	  <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_presentation</developerConnection>
+	  <url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_presentation</url>
 	</scm>
 
 
