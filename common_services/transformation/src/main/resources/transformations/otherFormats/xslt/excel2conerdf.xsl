@@ -259,13 +259,13 @@
 				<xsl:choose>
 				    <xsl:when test="$escidoc-ou != ''" >
 				        <dc:identifier>
-                            <xsl:value-of select="$escidoc-ou"/>
-                        </dc:identifier>
+					    <xsl:value-of select="$escidoc-ou"/>
+					</dc:identifier>
 				    </xsl:when>
 				    <xsl:when test="$escidoc-ou = '' and $import-name = 'MPIDynamics'" >
 				        <dc:identifier>
-                            <xsl:value-of select="$external-ou-id"/>
-                        </dc:identifier>
+					    <xsl:value-of select="$external-ou-id"/>
+					</dc:identifier>
 				    </xsl:when>
 				</xsl:choose>
 			</rdf:Description>
