@@ -38,12 +38,12 @@
 	<artifactId>common_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>common_presentation</name>
-	<version>1.0.52</version>
+	<version>1.0.53-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_presentation-1.0.52</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_presentation-1.0.52</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_presentation-1.0.52</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 
 	<build>
