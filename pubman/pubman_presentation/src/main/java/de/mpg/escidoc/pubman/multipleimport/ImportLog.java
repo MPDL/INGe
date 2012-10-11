@@ -1100,7 +1100,7 @@ public class ImportLog
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String query = "select id from escidoc_import_log where action = ? and userid = ? "
-                + "order by lower(" + sortBy + ") " + dir.toSQL();
+                + "order by " + sortBy.toSQL() + " " + dir.toSQL();
         try
         {
             statement = connection.prepareStatement(query);
