@@ -156,7 +156,7 @@ public class StatisticChartServlet extends HttpServlet
         }
         catch (Exception e)
         {
-            
+            e.printStackTrace();
         }
         
   
@@ -235,7 +235,7 @@ public class StatisticChartServlet extends HttpServlet
         
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -(numberOfMonths-1));
-
+        
         Iterator<StatisticReportRecordVOPresentation> iter = sortingListAllUsers.iterator();
         StatisticReportRecordVOPresentation currentAllUsersRecord = null;
         if (iter.hasNext()) currentAllUsersRecord = iter.next();
@@ -243,9 +243,13 @@ public class StatisticChartServlet extends HttpServlet
         Iterator<StatisticReportRecordVOPresentation> iterAnonymous = sortingListAnonymousUsers.iterator();
         StatisticReportRecordVOPresentation currentAnonymousUsersRecord = null;
         if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
-        
-        
-        
+
+        // start ticks with the smallest date
+        int differenceInMonths = findStartDifferenceInMonths(cal, currentAllUsersRecord, currentAnonymousUsersRecord);
+        cal.add(Calendar.MONTH, -differenceInMonths - 1);
+        // increase number of ticks 
+        numberOfMonths+= differenceInMonths + 1;
+
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i=0; i<numberOfMonths ; i++)
         {
@@ -256,6 +260,7 @@ public class StatisticChartServlet extends HttpServlet
             if (currentAllUsersRecord!=null && currentAllUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAllUsersRecord.getYear()==cal.get(Calendar.YEAR))
             {
                 allUserRequests = currentAllUsersRecord.getRequests();
+                logger.info("allUserRequests " + allUserRequests);
                 if (iter.hasNext()) currentAllUsersRecord = iter.next();
             }
             else
@@ -266,6 +271,7 @@ public class StatisticChartServlet extends HttpServlet
             if (currentAnonymousUsersRecord!=null && currentAnonymousUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAnonymousUsersRecord.getYear()==cal.get(Calendar.YEAR))
             {
                 anonymousUserrequests = currentAnonymousUsersRecord.getRequests();
+                logger.info("anonymousUserrequests " + anonymousUserrequests);
                 if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
             }
             else
@@ -275,7 +281,9 @@ public class StatisticChartServlet extends HttpServlet
            
            
            dataset.addValue(allUserRequests-anonymousUserrequests, loggedInUsersSeries, xLabel );
+           logger.info("added value " + (allUserRequests-anonymousUserrequests) + " for "  + loggedInUsersSeries);
            dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
+           logger.info("added value " + (anonymousUserrequests) + " for "  + anonymousUsersSeries);
            
            cal.add(Calendar.MONTH, +1);   
         }
@@ -294,6 +302,44 @@ public class StatisticChartServlet extends HttpServlet
         */
         return dataset;
 
+    }
+
+    /**
+     * Find the difference in month from the given calendar to start from
+     * @param cal
+     * @param currentAllUsersRecord
+     * @param currentAnonymousUsersRecord
+     * @return
+     */
+    private int findStartDifferenceInMonths(Calendar cal, StatisticReportRecordVOPresentation currentAllUsersRecord,
+            StatisticReportRecordVOPresentation currentAnonymousUsersRecord)
+    {
+        Calendar userCal = Calendar.getInstance();
+        userCal.set(Calendar.MONTH, (currentAllUsersRecord != null ? currentAllUsersRecord.getMonth() : cal.get(Calendar.MONTH)));
+        userCal.set(Calendar.YEAR, (currentAllUsersRecord != null ? currentAllUsersRecord.getYear() : cal.get(Calendar.YEAR)));
+        logger.trace("userCal starts with: " + userCal.get(Calendar.MONTH) + "/" + userCal.get(Calendar.YEAR));
+        
+        Calendar anonymousUserCal = Calendar.getInstance();
+        anonymousUserCal.set(Calendar.MONTH, (currentAnonymousUsersRecord != null ? currentAnonymousUsersRecord.getMonth() : cal.get(Calendar.MONTH)));
+        anonymousUserCal.set(Calendar.YEAR, (currentAnonymousUsersRecord != null ? currentAnonymousUsersRecord.getYear() : cal.get(Calendar.YEAR)));
+        
+        logger.trace("anonymousUserCal starts with: " + anonymousUserCal.get(Calendar.MONTH) + "/" + anonymousUserCal.get(Calendar.YEAR));
+        
+        List<Long> startTimeInMillis = new ArrayList<Long>();
+        
+        // find the minimum - this is the first label of the x-axis
+        startTimeInMillis.add(cal.getTimeInMillis());
+        startTimeInMillis.add(userCal.getTimeInMillis());
+        startTimeInMillis.add(anonymousUserCal.getTimeInMillis());
+        long minTimeInMillis = Collections.min(startTimeInMillis);
+        
+        Calendar minCal = Calendar.getInstance();
+        minCal.setTimeInMillis(minTimeInMillis);
+        logger.trace("minCal: " + minCal.get(Calendar.MONTH) + "/" + minCal.get(Calendar.YEAR));
+        
+        int differenceInMonths = cal.get(Calendar.MONTH) - minCal.get(Calendar.MONTH);
+        logger.trace("diffMonth " + differenceInMonths);
+        return differenceInMonths;
     }
 
     /**
