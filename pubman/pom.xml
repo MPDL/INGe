@@ -612,7 +612,7 @@
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
 		<!-- Properties for PubMan standard theme-->
 		<escidoc.pubman.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
-		<escidoc.pubman.stylesheet.standard.type>stylesheet</escidoc.pubman.stylesheet.standard.type>
+		<escidoc.pubman.stylesheet.standard.type>alternate stylesheet</escidoc.pubman.stylesheet.standard.type>
 		<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
 		<!-- Properties for PubMan contrast theme-->
 		<escidoc.pubman.stylesheet.contrast.url>/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
@@ -624,7 +624,7 @@
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
 		<!-- Properties for PubMan special theme-->
 		<escidoc.pubman.stylesheet.special.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.special.url>
-		<escidoc.pubman.stylesheet.special.type>alternate stylesheet</escidoc.pubman.stylesheet.special.type>
+		<escidoc.pubman.stylesheet.special.type>stylesheet</escidoc.pubman.stylesheet.special.type>
 		<escidoc.pubman.stylesheet.special.apply>true</escidoc.pubman.stylesheet.special.apply>
 		<!--Common presentation -->
 		<!-- Properties for common standard theme-->
