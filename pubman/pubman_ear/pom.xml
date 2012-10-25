@@ -569,7 +569,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_presentation</artifactId>
-			<version>1.0.51</version>
+			<version>1.0.53-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
