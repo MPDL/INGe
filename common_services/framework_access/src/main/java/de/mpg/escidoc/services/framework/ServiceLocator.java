@@ -44,6 +44,8 @@ import org.apache.axis.configuration.FileProvider;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.handler.WSHandlerConstants;
 
+import de.escidoc.www.services.aa.RoleHandler;
+import de.escidoc.www.services.aa.RoleHandlerServiceLocator;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.aa.UserAccountHandlerServiceLocator;
 import de.escidoc.www.services.aa.UserGroupHandler;
@@ -126,6 +128,8 @@ public class ServiceLocator
                                                 = IngestHandlerServiceLocatorHolder.serviceLocator;
     private static final AdminHandlerServiceLocator authorizedAdminHandlerServiceLocator
                                                 = AdminHandlerServiceLocatorHolder.serviceLocator;
+    private static final RoleHandlerServiceLocator authorizedRoleHandlerServiceLocator
+                                                = RoleHandlerServiceLocatorHolder.serviceLocator;
     
     // ServiceLocator objects connected to possibly changing or external frameworks
     private static volatile UserAccountHandlerServiceLocator extAuthorizedUserAccountHandlerServiceLocator 
@@ -664,6 +668,25 @@ public class ServiceLocator
         AdminHandler handler = authorizedAdminHandlerServiceLocator.getAdminHandlerService();
         Logger.getLogger(ServiceLocator.class).debug(
                 "authorizedAdminHandlerServiceLocator = " + authorizedAdminHandlerServiceLocator);
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
+     * Gets the RoleHandler service for an authenticated user.
+     *
+     * @param userHandle The handle of the logged in user.
+     * @return An RoleHandler.
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static RoleHandler getRoleHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        RoleHandler handler = authorizedRoleHandlerServiceLocator.getRoleHandlerService();
+        Logger.getLogger(ServiceLocator.class).debug(
+                "authorizedRoleHandlerServiceLocator = " + authorizedRoleHandlerServiceLocator);
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -1280,6 +1303,38 @@ public class ServiceLocator
             Logger.getLogger(ServiceLocator.class).info("AdminHandlerServiceLocator URL=" + url);
             serviceLocator.setAdminHandlerServiceEndpointAddress(url);
             Logger.getLogger(ServiceLocator.class).info("Initializing AdminHandlerServiceLocator finished.");
+            
+            return serviceLocator;
+        }
+    }
+    
+    /**
+     * Helper class for creating a Singelton of a AdminHandlerServiceLocator object
+     *
+     */
+    private static class RoleHandlerServiceLocatorHolder
+    {        
+        
+        public static RoleHandlerServiceLocator serviceLocator = getServiceLocator();
+        
+        synchronized private static RoleHandlerServiceLocator getServiceLocator()
+        {
+            RoleHandlerServiceLocator serviceLocator = new RoleHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            Logger.getLogger(ServiceLocator.class).info("Initialization of RoleHandlerServiceLocator started: " + serviceLocator);
+            String url = null;
+            
+            try
+            {
+                url = ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getRoleHandlerServiceWSDDServiceName();
+            }
+            catch (Exception e)
+            {
+                Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
+            }
+            
+            Logger.getLogger(ServiceLocator.class).info("RoleHandlerServiceLocator URL=" + url);
+            serviceLocator.setRoleHandlerServiceEndpointAddress(url);
+            Logger.getLogger(ServiceLocator.class).info("Initializing RoleHandlerServiceLocator finished.");
             
             return serviceLocator;
         }
