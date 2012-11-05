@@ -54,7 +54,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.commons.httpclient.HttpException;
 import org.apache.log4j.Logger;
 
 import com.izforge.izpack.Pack;
@@ -76,13 +75,25 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class ConfigurationCreatorPanel extends ConfigurationPanel
 {
-    private static final String ESCIDOC_ROLE_MODERATOR = "escidoc:role-moderator";
-    private static final String ESCIDOC_ROLE_DEPOSITOR = "escidoc:role-depositor";
-    private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR = "escidoc:role-cone-open-vocabulary-editor";
-    private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR = "escidoc:role-cone-closed-vocabulary-editor";
     
     private static final long serialVersionUID = 3257848774955905587L;
     private static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
+    
+    private static final String ESCIDOC_ROLE_MODERATOR = "escidoc:role-moderator";
+    private static final String ESCIDOC_ROLE_DEPOSITOR = "escidoc:role-depositor";
+    
+    private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME = "CoNE-Open-Vocabulary-Editor";
+    private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME = "CoNE-Closed-Vocabulary-Editor";
+    
+    /**
+     * Constants for queries.
+     */
+    protected static final String SEARCH_RETRIEVE = "searchRetrieve";
+    protected static final String QUERY = "query";
+    protected static final String VERSION = "version";
+    protected static final String OPERATION = "operation";
+    
+    private static RoleHandler roleHandler = null;
     
     private Configuration configPubman = null;
     private Configuration configAuth = null;
@@ -98,7 +109,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
      * @param idata The installation data.
      * @throws IOException
      */
-    public ConfigurationCreatorPanel(InstallerFrame parent, InstallData idata) throws IOException
+    public ConfigurationCreatorPanel(InstallerFrame parent, InstallData idata) throws IOException, Exception
     {
         this(parent, idata, new IzPanelLayout());
     }
@@ -111,10 +122,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
      * @param parent The parent IzPack installer frame.
      * @param idata The installer internal data.
      * @param layout layout manager to be used with this IzPanel
-     * @throws IOException
+     * @throws Exception 
      */
     public ConfigurationCreatorPanel(InstallerFrame parent, InstallData idata, LayoutManager2 layout)
-            throws IOException
+            throws ServiceException, URISyntaxException, Exception
     {
         super(parent, idata, layout);
         // We create and put the labels
@@ -124,10 +135,12 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         getLayoutHelper().completeLayout();
         configPubman = new Configuration("pubman.properties");
         configAuth = new Configuration("auth.properties");
+        
+        roleHandler = ServiceLocator.getRoleHandler(loginSystemAdministrator());
     }
     
     /**
-     * Indicates wether the panel has been validated or not.
+     * Indicates whether the panel has been validated or not.
      * 
      * @return Always true.
      */
@@ -286,49 +299,101 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         }
     }
     
-    private void updatePolicies() throws Exception
+    public void updatePolicies()
     {
-        String out = doUpdate(ESCIDOC_ROLE_MODERATOR, "datasetObjects/role-moderator.xml");        
-        String newDate = Utils.getValueFromXml("last-modification-date=\"", out);
-        logger.info(newDate);
-        
-        out = doUpdate(ESCIDOC_ROLE_DEPOSITOR, "datasetObjects/role-depositor.xml");
-        newDate = Utils.getValueFromXml("last-modification-date=\"", out);
-        logger.info(newDate);
-        
-        // cone policies...           
-        out = doUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR, "datasetObjects/role-cone-open-vocabulary-editor.xml");
-        newDate = Utils.getValueFromXml("last-modification-date=\"", out);
-        logger.info(newDate);
-        
-        out = doUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR, "datasetObjects/role-cone-closed-vocabulary-editor.xml");
-        newDate = Utils.getValueFromXml("last-modification-date=\"", out);
-        logger.info(newDate);
-        
-    }
+        logger.info("******************************************* Starting update");
+        try
+        {
+            // update role-moderator, role-depositor and role-privileged-viewer according to PubMan requests
+            String out = doUpdate(ESCIDOC_ROLE_MODERATOR, "datasetObjects/role_moderator.xml");  
+                        
+            out = doUpdate(ESCIDOC_ROLE_DEPOSITOR, "datasetObjects/role_depositor.xml");
+ 
+            // cone roles, policies...  check first if they already exists         
+            out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_open_vocabulary_editor.xml");           
+            out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_closed_vocabulary_editor.xml");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
 
-    private String doUpdate(String ruleId, String templateFileName ) throws Exception
-    {
-        RoleHandler roleHandler = ServiceLocator.getRoleHandler(loginSystemAdministrator());
+        }
+    }
+    
+    private String doUpdate(String ruleId, String templateFileName) throws Exception
+    {    
+        logger.info("******************************************* Starting doUpdate for " + ruleId);
+        String lastModDate = "";
+        String out = null;
         
-        String oldPolicy = roleHandler.retrieve(ruleId);       
-        String lastModDate = Utils.getValueFromXml("last-modification-date=\"", oldPolicy);
-        logger.info(lastModDate);
+        String oldPolicy = roleHandler.retrieve(ruleId);
+        lastModDate = Utils.getValueFromXml("last-modification-date=\"", oldPolicy);
+        logger.info("policy <" + ruleId + "> has to be updated");
+        logger.info("oldDate: " + lastModDate);
         
         String newPolicy = Utils.getResourceAsXml(templateFileName);
         newPolicy = newPolicy.replaceAll("template_last_modification_date", lastModDate);
         
-        logger.info(newPolicy);
+        out = roleHandler.update(ruleId, newPolicy);
         
-        String out = roleHandler.update(ruleId, newPolicy);
+        String newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        logger.info("newDate: " + newDate);
+        logger.info("******************************************* Ended doUpdate for " + ruleId);
+        return out;
+    }
+    
+    private String doCreateOrUpdate(String roleName, String templateFileName) throws Exception
+    {    
+        logger.info("******************************************* Starting doCreateOrUpdate for " + roleName);
+        
+        boolean update = false;
+        String out = null;
+        HashMap<java.lang.String, String[]> map = new HashMap<java.lang.String, String[]>();
+        
+        // filter for "properties/name"=roleName
+        map.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        map.put(VERSION, new String[]{"1.1"});
+        map.put(QUERY, new String[]{"\"/properties/name\"=" + roleName});
+        
+        
+        String policies = roleHandler.retrieveRoles(map);
+        // roleName occurs as value of a <prop:name> element in SearchRequestResponse -> already exists
+        if ((Utils.getValueFromXml("<prop:name>", '<', policies)).equalsIgnoreCase(roleName))
+        {
+            update = true; 
+        }
+        
+        if (update)
+        {
+            logger.info("policy <" + roleName + "> has to be updated");
+            String roleId = Utils.getValueFromXml("objid=\"", policies);
+            return doUpdate(roleId, templateFileName);
+        }
+        else
+        {
+            logger.info("policy <" + roleName + "> has to be created");
+            String newPolicy = Utils.getResourceAsXml(templateFileName);
+            newPolicy = newPolicy.replaceAll("template_last_modification_date", "");
+            newPolicy = newPolicy.replaceAll("last-modification-date=\"\"", "");
+            out = roleHandler.create(newPolicy);    
+        }
+        
+        String newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        logger.info("newDate: " + newDate);  
+        logger.info("******************************************* Ended doCreateOrUpdate for " + roleName);
         return out;
     }
 
-    private String loginSystemAdministrator() throws HttpException, IOException, ServiceException, URISyntaxException
+    /**
+     * Logs in the user roland who is a system administrator and returns the corresponding user handle.
+     * 
+     * @return A handle for the logged in user.
+     * @throws Exception
+     */
+    private static String loginSystemAdministrator() throws Exception
     {
-        return AdminHelper.loginUser(configPubman.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME), configPubman.getProperty(Configuration.KEY_CORESERVICE_ADMINPW));
+        return AdminHelper.loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }
-
     private void createDataset() throws Exception
     {
         String ouExternalObjectId = null;
