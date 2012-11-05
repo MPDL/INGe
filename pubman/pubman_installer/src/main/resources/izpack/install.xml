@@ -110,10 +110,11 @@
 			<file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			<file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			<file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+			<file src="jboss/ips.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/conf"/>
 		</pack>
 		<pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
-			<description>JBoss Application Server 4.2.2 GA</description>
-			<file src="jboss/jboss-4.2.2.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
+			<description>JBoss Application Server 4.2.3 GA</description>
+			<file src="jboss/jboss-4.2.3.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
 			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss/"/>
 		</pack>
 		<pack name="Initial Dataset" required="no" id="pack_dataset">
@@ -162,10 +163,10 @@
 		<variable name="ConeDatabase" value="cone"/>
 		<variable name="ConePort" value="5432"/>
 		<variable name="ConeUser" value="postgres"/>
-		<variable name="ConePassword" value=""/>
-		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_standard/styles/theme.css"/>
+		<variable name="ConePassword" value=""/>		
 		<variable name="PubManLogoURL" value="./resources/images/pubman_logo.png"/>
 		<variable name="PubManLogoApply" value="true"/>
+		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_standard/styles/theme.css"/>
 		<variable name="StyleSheetStandardType" value="stylesheet"/>
 		<variable name="StyleSheetStandardApply" value="true"/>
 		<variable name="StyleSheetContrastURL" value="/common/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>
@@ -182,6 +183,14 @@
 		<variable name="ConeCreateMimetypes" value="true"/>
 		<variable name="ConeCreateEscidocMimeTypes" value="true"/>
 		<variable name="ConeCreateCcLicenses" value="true"/>
+		<variable name="AAInstanceUrl" value=""/>
+		<variable name="AADefaultTarget" value=""/>
+		<variable name="AAPrivateKeyFile" value="private.key"/>
+		<variable name="AAPublicKeyFile" value="public.key"/>
+		<variable name="AAConfigFile" value="conf.xml"/>
+		<variable name="AAIPTable" value="ips.xml"/>
+		<variable name="AAClientStartClass" value="de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart"/>
+		<variable name="AAClientFinishClass" value="de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish"/>
 	</variables>
 	
 	<listeners>
