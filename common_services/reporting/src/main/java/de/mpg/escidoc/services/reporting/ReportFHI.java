@@ -183,7 +183,7 @@ public class ReportFHI {
     	return 	"(\"/properties/creation-date\">=\"" + dd[0] 
     	        + "\"" +
     	        "%20and%20\"/properties/creation-date\"<=\"" + dd[1] 
-    	        + "\")";
+    	        + "U\")";
     }
     
     public static String getItemListFromFramework()
