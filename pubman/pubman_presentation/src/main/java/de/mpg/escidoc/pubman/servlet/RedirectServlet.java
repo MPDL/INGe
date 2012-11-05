@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,6 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -63,6 +65,8 @@ import de.mpg.escidoc.services.framework.ProxyHelper;
  */
 public class RedirectServlet extends HttpServlet
 {
+	private static final Logger logger = Logger.getLogger(RedirectServlet.class);
+	
     /**
      * {@inheritDoc}
      */
@@ -88,6 +92,7 @@ public class RedirectServlet extends HttpServlet
                     {
                         url = frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
                                 + "/content";
+                        logger.debug("Calling " + url);
                     }
                     catch (Exception e)
                     {
@@ -107,7 +112,8 @@ public class RedirectServlet extends HttpServlet
                     // Execute the method with HttpClient.
                     HttpClient client = new HttpClient();
                     ProxyHelper.setProxy(client, frameworkUrl);
-                    client.executeMethod(method);
+                    ProxyHelper.executeMethod(client, method);
+                    logger.debug("...executed");
                     InputStream input;
                     OutputStream out = resp.getOutputStream(); 
                     if (method.getStatusCode() == 302)
@@ -128,9 +134,18 @@ public class RedirectServlet extends HttpServlet
                     }
                     else
                     {
+                    	Random random = new Random(System.currentTimeMillis());
                         for (Header header : method.getResponseHeaders())
                         {
-                            resp.setHeader(header.getName(), header.getValue());
+                        	if (!"Transfer-Encoding".equals(header.getName()))
+                        	{
+	                        	logger.debug("Setting header: " + header.getName() + ": " + header.getValue());
+	                            resp.setHeader(header.getName(), header.getValue());
+                        	}
+                        	else
+                        	{
+                        		logger.info("Ignoring " + header.getName() + ": " + header.getValue());
+                        	}
                         }
                         if (download)
                         {
@@ -143,6 +158,7 @@ public class RedirectServlet extends HttpServlet
                     long numWritten = 0;
                     while ((numRead = input.read(buffer)) != -1)
                     {
+                    	logger.debug(numRead + " bytes read.");
                         out.write(buffer, 0, numRead);
                         resp.flushBuffer();
                         numWritten += numRead;
@@ -150,6 +166,7 @@ public class RedirectServlet extends HttpServlet
                     }
                     
                     input.close();
+                    out.close();
                 }
                 catch (URISyntaxException e)
                 {
