@@ -28,17 +28,25 @@
 */
 package de.mpg.escidoc.pubman.installer;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
 
 /**
  * @author endres
@@ -110,6 +118,15 @@ public class Configuration
     // Others
     public static final String KEY_CONE_SERVICE_URL = "escidoc.cone.service.url";
     public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";
+    // Authentication
+    public static final String KEY_AUTH_COMPONENT_URL = "escidoc.aa.instance.url";
+    public static final String KEY_AUTH_DEFAULT_TARGET = "escidoc.aa.default.target";
+    public static final String KEY_AUTH_PRIVATE_KEY_FILE = "escidoc.aa.private.key.file";
+    public static final String KEY_AUTH_PUBLIC_KEY_FILE = "escidoc.aa.public.key.file";
+    public static final String KEY_AUTH_CONFIG_FILE = "escidoc.aa.config.file";
+    public static final String KEY_AUTH_IP_TABLE = "escidoc.aa.ip.table";
+    public static final String KEY_AUTH_CLIENT_START_CLASS = "escidoc.aa.client.start.class";
+    public static final String KEY_AUTH_CLIENT_FINISH_CLASS = "escidoc.aa.client.finish.class";
    
     public Configuration(String fileName) throws IOException
     {
@@ -123,14 +140,16 @@ public class Configuration
     
     public void store(String fileName) throws IOException
     {
+        logger.info("Start configuration store: " + fileName);
         File dir = new File(fileName).getParentFile();
         if ((dir == null || !dir.exists()) && fileName.contains("/"))
         {
             createDir(fileName.substring(0, fileName.lastIndexOf("/")));
         }
         FileOutputStream outStream = new FileOutputStream(fileName);
-        this.properties.store(outStream, "PubMan configuration file");
+        this.properties.store(outStream, fileName.startsWith("pubman") ? "PubMan configuration file" : "Authentication configuration file");
         outStream.close();
+        logger.info("Configuration store finished: " + fileName);
         //
         /*
         FileOutputStream outStream2 = new FileOutputStream("pubman.properties");
@@ -140,6 +159,57 @@ public class Configuration
         //Reload property reader
     }
     
+    public void storeXml(String inFileName, String outFileName) throws IOException
+    {
+        logger.info("Start configuration storeXml: " + inFileName + " -> " + outFileName);
+        File dir = new File(outFileName).getParentFile();
+        if ((dir == null || !dir.exists()) && outFileName.contains("/"))
+        {
+            createDir(outFileName.substring(0, outFileName.lastIndexOf("/")));
+        }
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(inFileName)));
+        PrintWriter pw = new PrintWriter(outFileName);
+        
+        String line = null;
+        
+        while((line = br.readLine()) != null)
+        {
+            logger.info("storeXml read: " + line);
+            line = checkForReplace(line);
+            pw.println(line);
+        }
+        
+        br.close();
+        pw.close();
+        
+        logger.info("Configuration storeXml finished: " + outFileName);
+        
+    }
+    
+    private String checkForReplace(String line)
+    {
+        Enumeration<String> propertyNames = (Enumeration<String>)properties.propertyNames();
+        
+        while (propertyNames.hasMoreElements())
+        {
+            String key = (String)propertyNames.nextElement();
+        
+            if(line.contains(key))
+            {
+                logger.info("checkForReplace before replace: " + line);
+                line = line.replaceAll(key, this.getProperty(key));
+                line = line.replaceAll("\\{", "");
+                line = line.replaceAll("\\}", "");
+                line = line.replaceAll("\\$", "");
+                
+                logger.info("checkForReplace after replace: " + line);
+            }
+        }
+            
+        return line;
+    }
+
     public static void createDir(String path)
     {
         File dir = new File(path);
@@ -181,4 +251,6 @@ public class Configuration
             }
         }
     }
+
+    
 }

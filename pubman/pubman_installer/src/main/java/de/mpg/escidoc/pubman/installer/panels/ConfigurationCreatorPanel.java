@@ -32,15 +32,29 @@ package de.mpg.escidoc.pubman.installer.panels;
 
 import java.awt.Dimension;
 import java.awt.LayoutManager2;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.RSAPrivateKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.xml.rpc.ServiceException;
 
+import org.apache.commons.httpclient.HttpException;
 import org.apache.log4j.Logger;
 
 import com.izforge.izpack.Pack;
@@ -49,17 +63,29 @@ import com.izforge.izpack.gui.LabelFactory;
 import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerFrame;
 
+import de.escidoc.www.services.aa.RoleHandler;
 import de.mpg.escidoc.pubman.installer.ConeDataset;
 import de.mpg.escidoc.pubman.installer.ConeInsertProcess;
 import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
 import de.mpg.escidoc.pubman.installer.util.LabelPanel;
+import de.mpg.escidoc.pubman.installer.util.Utils;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class ConfigurationCreatorPanel extends ConfigurationPanel
 {
+    private static final String ESCIDOC_ROLE_MODERATOR = "escidoc:role-moderator";
+    private static final String ESCIDOC_ROLE_DEPOSITOR = "escidoc:role-depositor";
+    private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR = "escidoc:role-cone-open-vocabulary-editor";
+    private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR = "escidoc:role-cone-closed-vocabulary-editor";
+    
     private static final long serialVersionUID = 3257848774955905587L;
-    private Configuration configuration = null;
+    private static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
+    
+    private Configuration configPubman = null;
+    private Configuration configAuth = null;
     ConeInsertProcess coneInsertProcess;
     private LabelPanel conePanel;
     private boolean success;
@@ -96,9 +122,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 LEADING);
         add(welcomeLabel, NEXT_LINE);
         getLayoutHelper().completeLayout();
-        configuration = new Configuration("pubman.properties");
+        configPubman = new Configuration("pubman.properties");
+        configAuth = new Configuration("auth.properties");
     }
-
+    
     /**
      * Indicates wether the panel has been validated or not.
      * 
@@ -109,9 +136,11 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         return isPanelValid;
     }
 
-    private void storeConfiguration() throws IOException, URISyntaxException
+    private void storeConfiguration() throws IOException, URISyntaxException, NoSuchAlgorithmException, GeneralSecurityException, Exception
     {
         Map<String, String> userConfigValues = new HashMap<String, String>();
+        Map<String, String> authConfigValues = new HashMap<String, String>();
+        
         userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
@@ -192,12 +221,112 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_CONE_SERVICE_URL, idata.getVariable("InstanceUrl") + "/cone/");
         userConfigValues.put(Configuration.KEY_SYNDICATION_SERVICE_URL, idata.getVariable("InstanceUrl") + "/syndication/");
         
-        configuration.setProperties(userConfigValues);
-        configuration.store(idata.getInstallPath() + "/jboss/server/default/conf/pubman.properties");
+        //Authentication
+        authConfigValues.put(Configuration.KEY_AUTH_COMPONENT_URL, idata.getVariable("InstanceUrl") + "/auth/");
+        authConfigValues.put(Configuration.KEY_AUTH_DEFAULT_TARGET, idata.getVariable("InstanceUrl") + "/auth/clientLogin");
+        authConfigValues.put(Configuration.KEY_AUTH_PRIVATE_KEY_FILE, idata.getVariable("AAPrivateKeyFile"));
+        authConfigValues.put(Configuration.KEY_AUTH_PUBLIC_KEY_FILE, idata.getVariable("AAPublicKeyFile"));
+        authConfigValues.put(Configuration.KEY_AUTH_CONFIG_FILE, idata.getVariable("AAConfigFile"));
+        authConfigValues.put(Configuration.KEY_AUTH_IP_TABLE, idata.getVariable("AAIPTable"));
+        authConfigValues.put(Configuration.KEY_AUTH_CLIENT_START_CLASS, idata.getVariable("AAClientStartClass"));
+        authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));        
+        
+        configPubman.setProperties(userConfigValues);
+        configPubman.store(idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
         // also store in local pubman properties
-        configuration.store("pubman.properties");
+        configPubman.store("pubman.properties");
+        
+        configAuth.setProperties(authConfigValues);
+        configAuth.store(idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
+        configAuth.store(idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
+        // also store in local auth properties, cone properties
+        configAuth.store("auth.properties");
+        
+        configAuth.storeXml("conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
+        
+        // create a private - public key pair
+        this.createKeys();
+        
+        // update framework policies
+        this.updatePolicies();
+        
         // ... and update PropertyReader
         PropertyReader.loadProperties();
+    }
+    
+    private void createKeys() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException
+    {
+        logger.info("Creating keys..");
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+        kpg.initialize(2048);
+        KeyPair kp = kpg.genKeyPair();
+        KeyFactory fact = KeyFactory.getInstance("RSA");
+        RSAPublicKeySpec pub = fact.getKeySpec(kp.getPublic(), RSAPublicKeySpec.class);
+        RSAPrivateKeySpec priv = fact.getKeySpec(kp.getPrivate(), RSAPrivateKeySpec.class);
+        saveToFile(idata.getInstallPath() + JBOSS_CONF_PATH + "public.key", pub.getModulus(), pub.getPublicExponent());
+        saveToFile(idata.getInstallPath() + JBOSS_CONF_PATH + "private.key", priv.getModulus(), priv.getPrivateExponent());
+    }
+
+    private static void saveToFile(String fileName, BigInteger mod, BigInteger exp) throws IOException
+    {
+        logger.info("SaveToFile " + fileName);
+        ObjectOutputStream oout = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
+        try
+        {
+            oout.writeObject(mod);
+            oout.writeObject(exp);
+        }
+        catch (Exception e)
+        {
+            throw new IOException("Unexpected error", e);
+        }
+        finally
+        {
+            oout.close();
+        }
+    }
+    
+    private void updatePolicies() throws Exception
+    {
+        String out = doUpdate(ESCIDOC_ROLE_MODERATOR, "datasetObjects/role-moderator.xml");        
+        String newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        logger.info(newDate);
+        
+        out = doUpdate(ESCIDOC_ROLE_DEPOSITOR, "datasetObjects/role-depositor.xml");
+        newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        logger.info(newDate);
+        
+        // cone policies...           
+        out = doUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR, "datasetObjects/role-cone-open-vocabulary-editor.xml");
+        newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        logger.info(newDate);
+        
+        out = doUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR, "datasetObjects/role-cone-closed-vocabulary-editor.xml");
+        newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        logger.info(newDate);
+        
+    }
+
+    private String doUpdate(String ruleId, String templateFileName ) throws Exception
+    {
+        RoleHandler roleHandler = ServiceLocator.getRoleHandler(loginSystemAdministrator());
+        
+        String oldPolicy = roleHandler.retrieve(ruleId);       
+        String lastModDate = Utils.getValueFromXml("last-modification-date=\"", oldPolicy);
+        logger.info(lastModDate);
+        
+        String newPolicy = Utils.getResourceAsXml(templateFileName);
+        newPolicy = newPolicy.replaceAll("template_last_modification_date", lastModDate);
+        
+        logger.info(newPolicy);
+        
+        String out = roleHandler.update(ruleId, newPolicy);
+        return out;
+    }
+
+    private String loginSystemAdministrator() throws HttpException, IOException, ServiceException, URISyntaxException
+    {
+        return AdminHelper.loginUser(configPubman.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME), configPubman.getProperty(Configuration.KEY_CORESERVICE_ADMINPW));
     }
 
     private void createDataset() throws Exception
@@ -207,11 +336,11 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 idata.getVariable("CoreserviceAdminUser"), idata.getVariable("CoreserviceAdminPassword"));
         ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
         String publicationContentModelId = dataset.createContentModel("datasetObjects/cm_publication.xml");
-        configuration.setProperty(Configuration.KEY_PUBLICATION_CM, publicationContentModelId);
+        configPubman.setProperty(Configuration.KEY_PUBLICATION_CM, publicationContentModelId);
         String importTaskContentModelId = dataset.createContentModel("datasetObjects/cm_import_task.xml");
-        configuration.setProperty(Configuration.KEY_IMPORT_TASK_CM, importTaskContentModelId);
+        configPubman.setProperty(Configuration.KEY_IMPORT_TASK_CM, importTaskContentModelId);
         String ouDefaultObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_default.xml");
-        configuration.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
+        configPubman.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
         idata.setVariable("ExternalOrganisationID", ouExternalObjectId);
         String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
         String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml",
@@ -289,6 +418,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             try
             {
                 storeConfiguration();
+                createKeys();
                 createDataset();
                 datasetPanel.setEndLabel("Initial dataset created successfully!", LabelPanel.ICON_SUCCESS);
             }
