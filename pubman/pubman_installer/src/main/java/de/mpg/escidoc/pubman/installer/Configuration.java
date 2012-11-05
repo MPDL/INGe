@@ -187,6 +187,35 @@ public class Configuration
         
     }
     
+    public void storeProperties(String inFileName, String outFileName) throws IOException
+    {
+        logger.info("Start configuration storeProperties: " + inFileName + " -> " + outFileName);
+        File dir = new File(outFileName).getParentFile();
+        if ((dir == null || !dir.exists()) && outFileName.contains("/"))
+        {
+            createDir(outFileName.substring(0, outFileName.lastIndexOf("/")));
+        }
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(inFileName)));
+        PrintWriter pw = new PrintWriter(outFileName);
+        
+        String line = null;
+        
+        while((line = br.readLine()) != null)
+        {
+            logger.info("storeProperties read: " + line);
+        
+            line = checkForReplace(line);
+            pw.println(line);
+        }
+        
+        br.close();
+        pw.close();
+        
+        logger.info("Configuration storeProperties finished: " + outFileName);
+        
+    }
+    
     private String checkForReplace(String line)
     {
         Enumeration<String> propertyNames = (Enumeration<String>)properties.propertyNames();
@@ -195,19 +224,29 @@ public class Configuration
         {
             String key = (String)propertyNames.nextElement();
         
-            if(line.contains(key))
+            if (line.contains(key) && getProperty(key) != null)
             {
                 logger.info("checkForReplace before replace: " + line);
-                line = line.replaceAll(key, this.getProperty(key));
-                line = line.replaceAll("\\{", "");
-                line = line.replaceAll("\\}", "");
-                line = line.replaceAll("\\$", "");
-                
+                String variableToReplace = getVariableToReplace(key);
+                logger.info("variableToReplace: " + variableToReplace + " for key: " + key + " and getProperty(key):  " + getProperty(key));
+                line = line.replace(variableToReplace, this.getProperty(key));
                 logger.info("checkForReplace after replace: " + line);
             }
         }
             
         return line;
+    }
+
+    private String getVariableToReplace(String key)
+    {
+        StringBuffer b = new StringBuffer(512);
+        
+        b.append("\\$");
+        b.append("\\{");
+        b.append(key);
+        b.append("\\}");
+        
+        return b.toString(); 
     }
 
     public static void createDir(String path)
