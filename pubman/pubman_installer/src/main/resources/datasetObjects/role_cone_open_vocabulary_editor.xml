@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<role:role xmlns:role="http://www.escidoc.de/schemas/role/0.5"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"  xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy" last-modification-date="template_last_modification_date" >
+<role:properties>
+<prop:creation-date>2012-07-09T06:24:00.000Z</prop:creation-date><prop:name>CoNE-Open-Vocabulary-Editor</prop:name>
+</role:properties>
+<role:scope unlimited="true" />
+<xacml-policy:Policy PolicyId="Cone-User-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+    <xacml-policy:Target>
+        <xacml-policy:Subjects>
+            <xacml-policy:AnySubject/>
+        </xacml-policy:Subjects>
+        <xacml-policy:Resources>
+            <xacml-policy:AnyResource/>
+        </xacml-policy:Resources>
+        <xacml-policy:Actions>
+            <xacml-policy:Action>
+                <xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+                    <xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account </xacml-policy:AttributeValue>
+                    <xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+                </xacml-policy:ActionMatch>
+            </xacml-policy:Action>
+        </xacml-policy:Actions>
+    </xacml-policy:Target>
+    <xacml-policy:Rule RuleId="Default-User-policy-rule-0" Effect="Permit">
+        <xacml-policy:Target>
+            <xacml-policy:Subjects>
+                <xacml-policy:AnySubject/>
+            </xacml-policy:Subjects>
+            <xacml-policy:Resources>
+                <xacml-policy:AnyResource/>
+            </xacml-policy:Resources>
+            <xacml-policy:Actions>
+                <xacml-policy:Action>
+                    <xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+                        <xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </xacml-policy:AttributeValue>
+                        <xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+                    </xacml-policy:ActionMatch>
+                </xacml-policy:Action>
+            </xacml-policy:Actions>
+        </xacml-policy:Target>
+    </xacml-policy:Rule>
+</xacml-policy:Policy>
+</role:role>
+
+
