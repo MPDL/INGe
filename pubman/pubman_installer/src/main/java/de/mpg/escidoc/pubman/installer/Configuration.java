@@ -119,7 +119,7 @@ public class Configuration
     public static final String KEY_CONE_SERVICE_URL = "escidoc.cone.service.url";
     public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";
     // Authentication
-    public static final String KEY_AUTH_COMPONENT_URL = "escidoc.aa.instance.url";
+    public static final String KEY_AUTH_INSTANCE_URL = "escidoc.aa.instance.url";
     public static final String KEY_AUTH_DEFAULT_TARGET = "escidoc.aa.default.target";
     public static final String KEY_AUTH_PRIVATE_KEY_FILE = "escidoc.aa.private.key.file";
     public static final String KEY_AUTH_PUBLIC_KEY_FILE = "escidoc.aa.public.key.file";
@@ -127,6 +127,11 @@ public class Configuration
     public static final String KEY_AUTH_IP_TABLE = "escidoc.aa.ip.table";
     public static final String KEY_AUTH_CLIENT_START_CLASS = "escidoc.aa.client.start.class";
     public static final String KEY_AUTH_CLIENT_FINISH_CLASS = "escidoc.aa.client.finish.class";
+    
+    private enum ReplaceType
+    {
+        TYPE_XML, TYPE_PROP
+    }
    
     public Configuration(String fileName) throws IOException
     {
@@ -135,12 +140,12 @@ public class Configuration
         properties = new Properties();
         properties.load(inStream);
         System.getProperties().putAll(properties);
-        logger.info("Created Configuration instance with following attributes: " + properties.toString());
+        logger.info("Created Configuration instance for <"  + fileName + "> with following attributes: " + properties.toString());
     }
     
     public void store(String fileName) throws IOException
     {
-        logger.info("Start configuration store: " + fileName);
+        logger.info("****************************** Start configuration store: " + fileName);
         File dir = new File(fileName).getParentFile();
         if ((dir == null || !dir.exists()) && fileName.contains("/"))
         {
@@ -149,47 +154,22 @@ public class Configuration
         FileOutputStream outStream = new FileOutputStream(fileName);
         this.properties.store(outStream, fileName.startsWith("pubman") ? "PubMan configuration file" : "Authentication configuration file");
         outStream.close();
-        logger.info("Configuration store finished: " + fileName);
-        //
-        /*
-        FileOutputStream outStream2 = new FileOutputStream("pubman.properties");
-        this.properties.store(outStream2, "Automatic created configuration file");
-        outStream2.close();
-        */
-        //Reload property reader
+        logger.info("******************************* Configuration store finished: " + fileName);
     }
     
     public void storeXml(String inFileName, String outFileName) throws IOException
     {
-        logger.info("Start configuration storeXml: " + inFileName + " -> " + outFileName);
-        File dir = new File(outFileName).getParentFile();
-        if ((dir == null || !dir.exists()) && outFileName.contains("/"))
-        {
-            createDir(outFileName.substring(0, outFileName.lastIndexOf("/")));
-        }
-        
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(inFileName)));
-        PrintWriter pw = new PrintWriter(outFileName);
-        
-        String line = null;
-        
-        while((line = br.readLine()) != null)
-        {
-            logger.info("storeXml read: " + line);
-            line = checkForReplace(line);
-            pw.println(line);
-        }
-        
-        br.close();
-        pw.close();
-        
-        logger.info("Configuration storeXml finished: " + outFileName);
-        
+        this.store(inFileName, outFileName, ReplaceType.TYPE_XML);        
     }
     
     public void storeProperties(String inFileName, String outFileName) throws IOException
     {
-        logger.info("Start configuration storeProperties: " + inFileName + " -> " + outFileName);
+        this.store(inFileName, outFileName, ReplaceType.TYPE_PROP);
+    }
+    
+    private void store(String inFileName, String outFileName, ReplaceType typeXml) throws IOException
+    {
+        logger.info("Start configuration store: " + inFileName + " -> " + outFileName + " type = " + typeXml);
         File dir = new File(outFileName).getParentFile();
         if ((dir == null || !dir.exists()) && outFileName.contains("/"))
         {
@@ -203,20 +183,32 @@ public class Configuration
         
         while((line = br.readLine()) != null)
         {
-            logger.info("storeProperties read: " + line);
-        
-            line = checkForReplace(line);
+            logger.info("store read: " + line);
+            
+            if (typeXml == ReplaceType.TYPE_XML)
+                line = checkForReplaceXml(line);
+            else
+                line = checkForReplaceProp(line);
+            
+            
+            logger.info("store  out: " + line);
             pw.println(line);
         }
         
         br.close();
         pw.close();
         
-        logger.info("Configuration storeProperties finished: " + outFileName);
+        logger.info("Configuration store finished: " + outFileName);
         
     }
     
-    private String checkForReplace(String line)
+    /**
+     * Check if a property key occurs somewhere in the line, an replace the corresponding variable by the property value.
+     * 
+     * @param line
+     * @return modified line
+     */
+    private String checkForReplaceXml(String line)
     {
         Enumeration<String> propertyNames = (Enumeration<String>)properties.propertyNames();
         
@@ -226,16 +218,54 @@ public class Configuration
         
             if (line.contains(key) && getProperty(key) != null)
             {
-                logger.info("checkForReplace before replace: " + line);
+                logger.info("checkForReplaceXml before replace: " + line);
+                
                 String variableToReplace = getVariableToReplace(key);
-                logger.info("variableToReplace: " + variableToReplace + " for key: " + key + " and getProperty(key):  " + getProperty(key));
-                line = line.replace(variableToReplace, this.getProperty(key));
-                logger.info("checkForReplace after replace: " + line);
+                String value = getProperty(key);
+                logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <" + value + ">");
+                if(value.matches(variableToReplace))
+                {
+                    value = "";
+                }
+                line = line.replaceAll(variableToReplace, value);
+                logger.info("checkForReplaceXml after replace: " + line);
             }
         }
             
         return line;
     }
+    
+    /**
+     * Firsts checks whether its a comment or a real property of the form key = value. In this case replaces the variable by the property value.
+     * 
+     * @param line
+     * @return modified line
+     */
+    private String checkForReplaceProp(String line)
+    {
+        String oldLine = new String(line);
+        
+        int idx = oldLine.indexOf("=");
+        if (idx == -1)
+        {
+            return line;
+        }
+        
+        String startLine = oldLine.substring(0, idx + 1);
+        String key = oldLine.substring(0, idx);
+        String variableToReplace = oldLine.substring(idx + 1).trim();
+        String value = getProperty(key);
+        
+        logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
+                + value + ">");
+        if (value == null || value.equals(variableToReplace))
+        {
+            value = "";
+        }
+        line = startLine + value;
+        return line;
+    }
+
 
     private String getVariableToReplace(String key)
     {
@@ -245,7 +275,7 @@ public class Configuration
         b.append("\\{");
         b.append(key);
         b.append("\\}");
-        
+       
         return b.toString(); 
     }
 

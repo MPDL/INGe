@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.escidoc.www.services.aa.RoleHandler;

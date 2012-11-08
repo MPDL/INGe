@@ -53,8 +53,26 @@
 				<directory>src/main/resources</directory>
 				<excludes>
 					<exclude>**/userInputSpec.xml*</exclude>
+					<exclude>**/*.properties</exclude>
+					<exclude>**/conf.xml</exclude>
 				</excludes>
 				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/conf.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/conf.xml</include>
+				</includes>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 		<plugins>
@@ -273,6 +291,34 @@
 		<izpack-standalone.version>4.3.0</izpack-standalone.version>
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
 	</properties>
+	
+	<profiles>
+		<profile>
+			<id>env-production-opensource</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.build.outputDirectory}/pubman.properties"/>
+										<copy file="${project.build.outputDirectory}/pubman.opensource.properties" tofile="${project.build.outputDirectory}/pubman.properties"/>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		
+		</profile>
+	</profiles>
 	
 	<dependencies>
 		<dependency>

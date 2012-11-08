@@ -135,8 +135,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         getLayoutHelper().completeLayout();
         configPubman = new Configuration("pubman.properties");
         configAuth = new Configuration("auth.properties");
-        
-        roleHandler = ServiceLocator.getRoleHandler(loginSystemAdministrator());
     }
     
     /**
@@ -235,7 +233,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_SYNDICATION_SERVICE_URL, idata.getVariable("InstanceUrl") + "/syndication/");
         
         //Authentication
-        authConfigValues.put(Configuration.KEY_AUTH_COMPONENT_URL, idata.getVariable("InstanceUrl") + "/auth/");
+        authConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
+        authConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
+        authConfigValues.put(Configuration.KEY_AUTH_INSTANCE_URL, idata.getVariable("InstanceUrl") + "/auth/");
         authConfigValues.put(Configuration.KEY_AUTH_DEFAULT_TARGET, idata.getVariable("InstanceUrl") + "/auth/clientLogin");
         authConfigValues.put(Configuration.KEY_AUTH_PRIVATE_KEY_FILE, idata.getVariable("AAPrivateKeyFile"));
         authConfigValues.put(Configuration.KEY_AUTH_PUBLIC_KEY_FILE, idata.getVariable("AAPublicKeyFile"));
@@ -245,13 +245,13 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));        
         
         configPubman.setProperties(userConfigValues);
-        configPubman.store(idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
+        configPubman.storeProperties("pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
         // also store in local pubman properties
         configPubman.store("pubman.properties");
         
         configAuth.setProperties(authConfigValues);
-        configAuth.store(idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
-        configAuth.store(idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
+        configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
+        configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
         // also store in local auth properties, cone properties
         configAuth.store("auth.properties");
         
@@ -299,14 +299,18 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         }
     }
     
-    public void updatePolicies()
+    public void updatePolicies() throws Exception
     {
-        logger.info("******************************************* Starting update");
+        logger.info("******************************************* Starting updatePolicies");
+        
+        roleHandler = ServiceLocator.getRoleHandler(loginSystemAdministrator());
+        
         try
         {
+            String out = null;
+            
             // update role-moderator, role-depositor and role-privileged-viewer according to PubMan requests
-            String out = doUpdate(ESCIDOC_ROLE_MODERATOR, "datasetObjects/role_moderator.xml");  
-                        
+            out = doUpdate(ESCIDOC_ROLE_MODERATOR, "datasetObjects/role_moderator.xml");                          
             out = doUpdate(ESCIDOC_ROLE_DEPOSITOR, "datasetObjects/role_depositor.xml");
  
             // cone roles, policies...  check first if they already exists         
@@ -316,7 +320,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         catch (Exception e)
         {
             e.printStackTrace();
-
+            throw new IOException("Error in updatePolicies ", e);
         }
     }
     
@@ -392,6 +396,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
      */
     private static String loginSystemAdministrator() throws Exception
     {
+        String userName = PropertyReader.getProperty("framework.admin.username");
+        String password = PropertyReader.getProperty("framework.admin.password");
+        
+        logger.info("username <" + userName + "> password <" + password + ">");
         return AdminHelper.loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }
     private void createDataset() throws Exception
