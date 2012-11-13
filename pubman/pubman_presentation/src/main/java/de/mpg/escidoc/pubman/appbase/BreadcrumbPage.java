@@ -95,7 +95,7 @@ public abstract class BreadcrumbPage extends FacesBean
         }
         else
         {
-            logger.warn("Breadcrumb navigation not found.");
+            logger.info("Breadcrumb navigation not found.");
         }
     }
 
