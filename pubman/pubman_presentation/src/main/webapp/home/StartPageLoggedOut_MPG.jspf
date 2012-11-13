@@ -36,7 +36,7 @@
 <!-- HOMEPAGE ENGLISH VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
-	MPG PuRe 
+	MPG.PuRe 
 	</h2>
 	<p>	This is the publication repository of the <a href="http://www.mpg.de/en" target="_blank">Max Planck Society</a>.  <br/>
 		It contains bibliographic data and numerous fulltexts of the publications of its researchers. <br/>
@@ -89,7 +89,7 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-		MPG PuRe 
+		MPG.PuRe 
 	</h2>
 	<p>	Dies ist das Publikationsrepositorium der  <a href="http://www.mpg.de/de" target="_blank">Max Planck Gesellschaft</a>.  <br/>
 		Es beinhaltet bibliografische Daten und zahlreiche Volltexte zu den Veröffentlichungen ihrer Wissenschaftler. <br/>
