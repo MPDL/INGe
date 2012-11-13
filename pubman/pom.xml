@@ -902,41 +902,7 @@
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
-				
-				<!-- Properties for PubMan standard theme-->
-		<escidoc.pubman.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
-		<escidoc.pubman.stylesheet.standard.type>alternate stylesheet</escidoc.pubman.stylesheet.standard.type>
-		<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
-		<!-- Properties for PubMan contrast theme-->
-		<escidoc.pubman.stylesheet.contrast.url>/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
-		<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
-		<escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
-		<!-- Properties for PubMan classic theme-->
-		<escidoc.pubman.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
-		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
-		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
-		<!-- Properties for PubMan special theme-->
-		<escidoc.pubman.stylesheet.special.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.special.url>
-		<escidoc.pubman.stylesheet.special.type>stylesheet</escidoc.pubman.stylesheet.special.type>
-		<escidoc.pubman.stylesheet.special.apply>true</escidoc.pubman.stylesheet.special.apply>
-		<!--Common presentation -->
-		<!-- Properties for common standard theme-->
-		<escidoc.common.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
-		<escidoc.common.stylesheet.standard.type>alternate stylesheet</escidoc.common.stylesheet.standard.type>
-		<escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
-		<!-- Properties for common contrast theme-->
-		<escidoc.common.stylesheet.contrast.url>/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.common.stylesheet.contrast.url>
-		<escidoc.common.stylesheet.contrast.type>alternate stylesheet</escidoc.common.stylesheet.contrast.type>
-		<escidoc.common.stylesheet.contrast.apply>true</escidoc.common.stylesheet.contrast.apply>
-		<!-- Properties for common classic theme-->
-		<escidoc.common.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.common.stylesheet.classic.url>
-		<escidoc.common.stylesheet.classic.type>alternate stylesheet</escidoc.common.stylesheet.classic.type>
-		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
-		<!-- Properties for common special theme-->
-		<escidoc.common.stylesheet.special.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.common.stylesheet.special.url>
-		<escidoc.common.stylesheet.special.type>stylesheet</escidoc.common.stylesheet.special.type>
-		<escidoc.common.stylesheet.special.apply>true</escidoc.common.stylesheet.special.apply>
-		
+
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 				<!-- URL of stylesheets in common-presentation -->
