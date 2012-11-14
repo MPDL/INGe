@@ -50,6 +50,7 @@ import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
 
@@ -236,6 +237,7 @@ public class ZfNProcessor extends FormatProcessor
         this.f.login(username, password);
         this.f.enterLocalActiveMode();
         this.f.changeWorkingDirectory(dir);
+        this.f.setFileType(FTP.BINARY_FILE_TYPE);
         this.logger.debug("Connection to ftp server established.");
         this.logger.debug("Mode: Active ftp");
         this.logger.debug("Dir: " + dir);
