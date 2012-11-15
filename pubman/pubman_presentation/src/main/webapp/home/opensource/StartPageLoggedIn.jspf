@@ -1,0 +1,232 @@
+
+<jsp:scriptlet>
+/* 
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms. */
+</jsp:scriptlet>
+
+<jsp:directive.page pageEncoding="UTF-8" />
+
+<!-- HOMEPAGE ENGLISH VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
+	<h2>WELCOME TO PUBMAN - <br />
+	WHAT DO YOU WANT TO WORK ON TODAY?</h2>
+	<br />
+	
+	<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
+		<h2>Submission</h2>
+		Enter a new Publication to PubMan?
+		<ul style="list-style-position: outside">
+			<li>... by using the <h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{EasySubmission.newEasySubmission}">
+								<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+							</h:commandLink> </li>
+			<li>... by <h:commandLink id="lnkImport_en" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+						<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					</h:commandLink> </li>
+			<li>... by using the <h:commandLink id="lnkNewSubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+								<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+							</h:commandLink> </li>
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon myItemsIcon">&#160;</span> </span>
+		<h2>My Items</h2>
+		<ul style="list-style-position: outside">
+			<li>...finish your data <h:outputLink id="lnkSubmissionsOrCheck" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+				<h:outputText value="submissions or check " />
+			</h:outputLink> if your items have been already released to the public.</li>
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon qaWSIcon">&#160;</span> </span>
+		<h2>QA Workspace</h2>
+		<ul style="list-style-position: outside">
+			<li>... 
+				<h:outputLink id="lnkModerateOrEdit" value="#{ApplicationBean.appContext}QAWSPage.jsp">
+					<h:outputText value="moderate or edit" />
+				</h:outputLink> items entered for your context. 
+			</li>
+		</ul>
+	</h:panelGroup>
+
+</h:panelGroup> 
+
+
+
+<!-- HOMEPAGE GERMAN VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
+	<h2>WILLKOMMEN BEI PUBMAN -<br />
+	WAS MÖCHTEN SIE HEUTE TUN?</h2>
+	<br />
+	
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
+		<h2>Dateneingabe</h2>
+		Wollen Sie eine neue Publikation erstellen? Folgende Möglichkeiten können Sie nutzen:
+		<ul style="list-style-position: outside">
+			<li>Die <h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+			</h:commandLink> benutzen Sie um mit wenig Zeitaufwand eine einzelne Publikation mit minimalen Anforderungen zu erstellen.</li>
+			<li>Der <h:commandLink id="lnkImport_de" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+				<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+			</h:commandLink> eignet sich für die Verarbeitung einer großen Anzahl von Publikationen. Der Import unterstützt 5 Dateiformate.</li>
+			<li>Die <h:commandLink id="lnkNewSubmission_de" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+			</h:commandLink> ermöglicht eine umfangreiche Dateneingabe.</li>
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon myItemsIcon">&#160;</span> </span>
+		<h2>Meine Datensätze</h2>
+		<ul style="list-style-position: outside">
+			<li>Wenn Sie Ihre Datensätze ergänzen, oder die Veröffentlichung überprüfen wollen, sollten Sie in die Rubrik <h:outputLink id="lnkDateneingabeOderPruefen" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+				<h:outputText value="Dateneingabe oder prüfen " />
+			</h:outputLink> einsteigen.</li>
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon qaWSIcon">&#160;</span> </span>
+		<h2>QA Bereich</h2>
+		<ul style="list-style-position: outside">
+			<li>Im Bereich Qualitätssicherung 
+				<h:outputLink id="lnkUeberpruefenOderEditieren" value="#{ApplicationBean.appContext}QAWSPage.jsp">
+					<h:outputText value="überprüfen oder editieren" />
+				</h:outputLink> Sie Items aus Ihrem Kontext.
+			</li>
+		</ul>
+	</h:panelGroup>
+	
+</h:panelGroup>
+
+
+<!-- HOMEPAGE JAPANESE VERSION -->
+
+<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
+	<h2>PubMan へようこそ <!-- -<br/>今日は何をしましょうか？ --></h2>
+	<br />
+	 
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
+		<h2>新規登録</h2>
+		文献資料をPubManへ登録する
+		<ul style="list-style-position: outside">
+			<li>... <h:commandLink id="lnkEasySubmission_jp" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>
+			</li> 
+			<li>... <h:commandLink id="lnkImport_jp" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+					<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink> 
+			</li>
+			<li>... <h:commandLink id="lnkNewSubmission_jp" title="#{lbl.Home_Link_FullSub}" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink> 
+			</li>
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon myItemsIcon">&#160;</span> </span>
+		<h2>登録資料一覧</h2>
+		<ul style="list-style-position: outside">
+			<li>...登録一覧から自身の登録分を 
+				<h:outputLink id="lnkJapan1" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+					<h:outputText value="確認もしくは登録完了する" />
+				</h:outputLink>。 登録済みで未公開状態の資料を公開する。
+			</li> 
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon qaWSIcon">&#160;</span> </span>
+		<h2>管理画面</h2>
+		<ul style="list-style-position: outside">
+			<li>... 登録資料の <h:outputLink id="lnkJapan2" value="#{ApplicationBean.appContext}QAWSPage.jsp">
+							<h:outputText value="内容確認もしくは修正" />
+						</h:outputLink> する。 </li>
+		</ul>
+	</h:panelGroup>
+	
+</h:panelGroup>
+
+
+
+<!-- HOMEPAGE SPANISH VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='es'}">
+	<h2>PubMan へようこそ <!-- -<br/>今日は何をしましょうか？ --></h2>
+	<br />
+	
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
+		<h2>新規登録</h2>
+		文献資料をPubManへ登録する
+		<ul style="list-style-position: outside">
+			<li>... <h:commandLink id="lnkEasySubmission_es" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink> </li>
+			<li>... <h:commandLink id="lnkImport_es" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+					<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink></li> 
+			<li>... <h:commandLink id="lnkNewSubmission_es" title="#{lbl.Home_Link_FullSub}" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink></li>
+		</ul>
+	</h:panelGroup> 
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon myItemsIcon">&#160;</span> </span>
+		<h2>登録資料一覧</h2>
+		<ul style="list-style-position: outside">
+			<li>...登録一覧から自身の登録分を <h:outputLink id="lnkSpanish1" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+									<h:outputText value="確認もしくは登録完了する" />
+								</h:outputLink>。 登録済みで未公開状態の資料を公開する。 </li>
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon qaWSIcon">&#160;</span> </span>
+		<h2>管理画面</h2>
+		<ul style="list-style-position: outside">
+			<li>... 登録資料の <h:outputLink id="lnkSpanish2" value="#{ApplicationBean.appContext}QAWSPage.jsp">
+							<h:outputText value="内容確認もしくは修正" />
+						</h:outputLink> する。</li> 
+		</ul>
+	</h:panelGroup>
+	
+	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='es'}">
+		<h2>ヘルプ、追加情報</h2>
+		紹介ビデオ
+		<ul style="list-style-position: outside; margin: 4px;">
+			<li><a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">データの登録方法</a></li>
+			<li><a href="http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-pubman-user-workspaces/" target="_blank">登録一覧・管理画面の使い方</a></li>
+		</ul>
+	</h:panelGroup>
+</h:panelGroup>
