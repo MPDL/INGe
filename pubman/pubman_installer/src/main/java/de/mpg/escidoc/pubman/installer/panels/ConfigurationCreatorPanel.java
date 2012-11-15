@@ -183,6 +183,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 .put(Configuration.KEY_PM_STYLESHEET_CLASSIC_APPLY, idata.getVariable("StyleSheetClassicApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_URL, idata.getVariable("StyleSheetClassicURL"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_TYPE, idata.getVariable("StyleSheetClassicType"));
+        userConfigValues
+            .put(Configuration.KEY_PM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
+        userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
+        userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
         // PumMan Logo URL
         userConfigValues.put(Configuration.KEY_PM_LOGO_URL, idata.getVariable("PubManLogoURL"));
         userConfigValues.put(Configuration.KEY_PM_LOGO_APPLY, idata.getVariable("PubManLogoApply"));
