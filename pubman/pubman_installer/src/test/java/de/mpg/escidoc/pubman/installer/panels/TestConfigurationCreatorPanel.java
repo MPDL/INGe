@@ -45,6 +45,7 @@ public class TestConfigurationCreatorPanel
     
     
     @Test
+    @Ignore
     public void storeXml()
     {
         
@@ -79,6 +80,7 @@ public class TestConfigurationCreatorPanel
     }
     
     @Test
+    @Ignore
     public void storePubmanProperties()
     {
         
