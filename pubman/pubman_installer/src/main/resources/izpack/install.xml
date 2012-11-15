@@ -169,12 +169,15 @@
 		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_standard/styles/theme.css"/>
 		<variable name="StyleSheetStandardType" value="stylesheet"/>
 		<variable name="StyleSheetStandardApply" value="true"/>
-		<variable name="StyleSheetContrastURL" value="/common/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>
+		<variable name="StyleSheetContrastURL" value="/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css"/>
 		<variable name="StyleSheetContrastType" value="alternate stylesheet"/>
 		<variable name="StyleSheetContrastApply" value="true"/>
-		<variable name="StyleSheetClassicURL" value="/common/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css"/>
+		<variable name="StyleSheetClassicURL" value="/common/resources/cssFramework/themes/skin_classic/styles/theme.css"/>
 		<variable name="StyleSheetClassicType" value="alternate stylesheet"/>
 		<variable name="StyleSheetClassicApply" value="true"/>
+		<variable name="StyleSheetSpecialURL" value="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css"/>
+		<variable name="StyleSheetSpecialType" value="alternate stylesheet"/>
+		<variable name="StyleSheetSpecialApply" value="true"/>
 		<variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
 		<variable name="FavIconApply" value="true"/>
 		<variable name="ConeCreateJournals" value="true"/>
