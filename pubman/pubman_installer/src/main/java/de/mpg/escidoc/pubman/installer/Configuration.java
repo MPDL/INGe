@@ -31,13 +31,10 @@ package de.mpg.escidoc.pubman.installer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Map;
@@ -45,8 +42,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-
-import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
 
 /**
  * @author endres
@@ -86,6 +81,9 @@ public class Configuration
     public static final String KEY_PM_STYLESHEET_CLASSIC_URL = "escidoc.pubman.stylesheet.classic.url";
     public static final String KEY_PM_STYLESHEET_CLASSIC_TYPE = "escidoc.pubman.stylesheet.classic.type";
     public static final String KEY_PM_STYLESHEET_CLASSIC_APPLY = "escidoc.pubman.stylesheet.classic.apply";
+    public static final String KEY_PM_STYLESHEET_SPECIAL_URL = "escidoc.pubman.stylesheet.special.url";
+    public static final String KEY_PM_STYLESHEET_SPECIAL_TYPE = "escidoc.pubman.stylesheet.special.type";
+    public static final String KEY_PM_STYLESHEET_SPECIAL_APPLY = "escidoc.pubman.stylesheet.special.apply";
     // PubMan Logo URL
     public static final String KEY_PM_LOGO_URL = "escidoc.pubman.logo.url";
     public static final String KEY_PM_LOGO_APPLY = "escidoc.pubman.logo.apply";
@@ -147,6 +145,8 @@ public class Configuration
     {
         logger.info("****************************** Start configuration store: " + fileName);
         File dir = new File(fileName).getParentFile();
+        if (dir != null)
+            logger.info("Dir <" + dir.getCanonicalPath()+ ">");
         if ((dir == null || !dir.exists()) && fileName.contains("/"))
         {
             createDir(fileName.substring(0, fileName.lastIndexOf("/")));
@@ -175,7 +175,7 @@ public class Configuration
         {
             createDir(outFileName.substring(0, outFileName.lastIndexOf("/")));
         }
-        
+        logger.info("Dir <" + dir.getCanonicalPath()+ ">");
         BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(inFileName)));
         PrintWriter pw = new PrintWriter(outFileName);
         
@@ -258,10 +258,10 @@ public class Configuration
         
         logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
                 + value + ">");
-        if (value == null || value.equals(variableToReplace))
+        /*if (value == null || value.equals(variableToReplace))
         {
             value = "";
-        }
+        }*/
         line = startLine + value;
         return line;
     }
