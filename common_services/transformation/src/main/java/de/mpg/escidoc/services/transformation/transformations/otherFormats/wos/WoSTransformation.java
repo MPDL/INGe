@@ -143,7 +143,7 @@ public class WoSTransformation implements Transformation, Configurable{
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.ris.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.wos.configuration.filename")));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))
