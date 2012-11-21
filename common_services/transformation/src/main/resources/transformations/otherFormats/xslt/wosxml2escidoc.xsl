@@ -504,6 +504,9 @@
 								<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
 							</xsl:otherwise>
 						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="SO and PT='J'">
+						<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
 					</xsl:when>					
 				</xsl:choose>
 			</xsl:attribute>
