@@ -41,103 +41,64 @@
 			<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
-
 				<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.96/complete.js?locale=#{PubManSessionBean.locale}&amp;want_a_license=definitely'>;</script>
 				<link rel="stylesheet" href="http://labs.creativecommons.org/demos/jswidget/tags/0.97/example_web_app/example-widget-style.css" />
-
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText value="#{YearbookItemCreateBean.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{YearbookItemEditBean.beanName}" styleClass="noDisplay" />
 			<h:form >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
-			
 				<jsp:directive.include file="header/Header.jspf" />
-
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
-							
 						<jsp:directive.include file="header/Breadcrumb.jspf" />
-				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.YearbookItemCreatePage}" /></h1>
+								<h1><h:outputText value="#{lbl.YearbookItemEditPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
-
 							<h:panelGroup layout="block" styleClass="contentMenu">
 							<!-- content menu starts here -->
-							
-
 							<!-- content menu ends here -->
 							</h:panelGroup>
-							
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookItemCreateBean.numberOfMessages == 1}"/>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{YearbookItemCreateBean.hasErrorMessages and YearbookItemCreateBean.numberOfMessages != 1}">
+								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookItemEditBean.numberOfMessages == 1}"/>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{YearbookItemEditBean.hasErrorMessages and YearbookItemEditBean.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookItemCreateBean.hasMessages}"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{YearbookItemCreateBean.hasMessages and !YearbookItemCreateBean.hasErrorMessages and YearbookItemCreateBean.numberOfMessages != 1}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{YearbookItemEditBean.hasMessages and !YearbookItemEditBean.hasErrorMessages and YearbookItemEditBean.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookItemCreateBean.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookItemEditBean.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
 					</div>
 					<div class="full_area0">
-						<div id="fullItem" class="full_area0 fullItem">	
-							<jsp:directive.include file="yearbook/CreateYearbookItem.jspf" />
+						<div id="editItem" class="full_area0 fullItem">	
+							<jsp:directive.include file="yearbook/EditYearbookItem.jspf" />
 						</div>
 							
 						<div class="full_area0 formButtonArea">
-								<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="Cancel" action="#{YearbookItemEditBean.cancel}"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemEditBean.save}"/>
 						</div>
-						
-						
 					</div>
 				<!-- end: content section -->
 				</div>
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</h:form>
-			<script type="text/javascript">
-			<![CDATA[	
-				$pb("input[id$='offset']").submit(function() {
-					$pb(this).val($pb(window).scrollTop());
-				});
-				$pb(document).ready(function () {
-					$pb(window).scrollTop($pb("input[id$='offset']").val());
-					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
-					var element = document.getElementById('selSelectedOrgUnit');
-					if (element.options !=null && element.options.length == 2)
-					{
-						throb();
-						$pb.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
-					}
-				});
-				]]>
-			</script>
-			<script type="text/javascript">
-				function fullItemReload()
-				{
-					document.getElementById('fullItem').style.opacity='0.4';
-					document.getElementById('fullItem').style.bg='FFF';
-					$pb('#fullItem :input :text').attr('readonly', true);
-				    $pb('#fullItem :textarea').attr('readonly', true);
-				}
-			</script>
 			</body>
 		</html>
 	</f:view>

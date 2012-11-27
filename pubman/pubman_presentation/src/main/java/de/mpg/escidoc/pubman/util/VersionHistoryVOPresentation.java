@@ -12,6 +12,7 @@ import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
@@ -87,7 +88,9 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         pubItemVOLatestVersion.getFiles().clear();
         for (FileVO fileVO : pubItemVOThisVersion.getFiles())
         {
-            pubItemVOLatestVersion.getFiles().add(fileVO);
+            FileVO clonedFile = new FileVO (fileVO);
+            clonedFile.setReference(new FileRO());
+            pubItemVOLatestVersion.getFiles().add(clonedFile);
         }
         
         // Then process it into the framework ...

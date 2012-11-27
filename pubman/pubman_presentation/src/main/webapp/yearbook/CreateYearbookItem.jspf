@@ -33,18 +33,18 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="Yearbook Information"/>
+		<h:outputText value="#{lbl.Yearbook_information}"/>
 	</h3>
 	<span class="seperator"></span>
 	<span class="free_area0 itemBlockContent endline">
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" id="titleGroup">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
 				<h:outputText value="#{lbl.Yearbook_title}"/>
 					<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{YearbookItemCreateBean.title}" cols="15" rows="3" ></h:inputTextarea>
+						<h:outputText styleClass="quad_txtArea inputTxtArea" value="#{YearbookItemCreateBean.title}" />
 					</span>
 
 				</h:panelGroup>
@@ -66,30 +66,29 @@
 						<h:outputText value="#{lbl.Yearbook_contextIds}"/>
 						<span class="noDisplay">: </span>
 					</b>
-									
-					<a4j:repeat var="context" value="#{YearbookItemCreateBean.contextIds}" rowKeyVar="index">				
-						<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-							<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{context.objectId}">
-								<f:selectItems value="#{YearbookItemCreateBean.contextSelectItems}"/>
-							</h:selectOneMenu>
-						</h:panelGroup>
-						<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-							<h:commandButton id="btnAddContext" styleClass="min_imgBtn groupTool add" value=" " action="#{YearbookItemCreateBean.addContext}" >
-								<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
-							</h:commandButton>
-							<h:commandButton id="btnRemoveContext" styleClass="min_imgBtn groupTool remove" value=" " action="#{YearbookItemCreateBean.removeContext}">
-								<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
-							</h:commandButton>
-						</h:panelGroup>
-					</a4j:repeat>
-									
-									
-									<%-- 
-									<span class="large_area0_p8 lineToolSection">
-										<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-										<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-									</span>
-									--%>
+					<span class="xHuge_area0 xTiny_marginLExcl endline" id="contextGroup">	
+						<a4j:repeat var="context" value="#{YearbookItemCreateBean.contextIds}" rowKeyVar="index">
+							<h:panelGroup styleClass="xHuge_area0 endline multipleAjax">
+								<div class="xHuge_area0 endline selectContainer">
+									<div class="xHuge_area0">
+										<span class="xHuge_area0 selectionBox">&nbsp;</span>
+										<div class="min_imgArea selectboxIcon">&nbsp;</div>
+									</div>
+									<h:selectOneMenu styleClass="xDouble_select" value="#{context.objectId}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+										<f:selectItems value="#{YearbookItemCreateBean.contextSelectItems}"/>
+									</h:selectOneMenu>
+								</div>
+							</h:panelGroup>
+							<h:panelGroup styleClass="large_area0_p8 lineToolSection">
+								<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{YearbookItemCreateBean.addContext}" >
+									<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+								</h:commandButton>
+								<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " action="#{YearbookItemCreateBean.removeContext}" rendered="#{YearbookItemCreateBean.contextIdsListSize>1}">
+									<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+								</h:commandButton>
+							</h:panelGroup>
+						</a4j:repeat>
+					</span>
 				</h:panelGroup>
 				
 								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
@@ -98,17 +97,30 @@
 										<h:outputText value="#{lbl.Yearbook_date}"/>
 										<span class="noDisplay">: </span>
 									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
 									
-									<h:panelGroup styleClass="large_area0 tiny_marginRIncl">
-										<h:outputLabel styleClass="large_label" for="txtDateFrom" value="from"/>
-										<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateFrom" value="#{YearbookItemCreateBean.dateFrom}" />
-									</h:panelGroup>
-									<h:panelGroup styleClass="large_area0 tiny_marginRIncl">
-										<h:outputLabel styleClass="large_label" for="txtDateTo" value="to"/>
-										<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateTo" value="#{YearbookItemCreateBean.dateTo}" />
-									</h:panelGroup>
-										
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<h:panelGroup styleClass="small_area0 tiny_marginRIncl">
+											<div class="small_area0 endline selectContainer">
+												<div class="small_area0">
+													<span class="small_area0 selectionBox">&nbsp;</span>
+													<div class="min_imgArea selectboxIcon">&nbsp;</div>
+												</div>
+												<h:selectOneMenu styleClass="small_select" id="selectYear" value="#{YearbookItemCreateBean.year}" onfocus="updateSelectionBox(this);">
+													<a4j:support event="onchange" reRender="titleGroup, dateGroup" oncomplete="updateSelectionBox(this);"/>
+													<f:selectItems value="#{YearbookItemCreateBean.selectYear }"/>
+												</h:selectOneMenu>
+											</div>
+										</h:panelGroup>
+										<h:panelGroup styleClass="double_area0" id="dateGroup">
+											<h:panelGroup styleClass="double_area0 tiny_marginRIncl">
+												<h:outputText styleClass="small_label"  value="from"/>
+												<h:outputText styleClass="medium_txtInput dateJSInput" id="txtDateFrom" value="#{YearbookItemCreateBean.startDate}" />
+											</h:panelGroup>
+											<h:panelGroup styleClass="double_area0 tiny_marginRIncl">
+												<h:outputText styleClass="small_label" value="to"/>
+												<h:outputText styleClass="medium_txtInput dateJSInput" id="txtDateTo" value="#{YearbookItemCreateBean.endDate}" />
+											</h:panelGroup>
+										</h:panelGroup>
 									</span>
 									<%-- 
 									<span class="large_area0_p8 lineToolSection">
@@ -123,6 +135,14 @@
 										<h:outputText value="#{lbl.Yearbook_collaboratorUserIds}"/>
 										<span class="noDisplay">: </span>
 									</b>
+									<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
+										<h:selectManyListbox styleClass="xDouble_select" id="selectCollaborators" value="#{YearbookItemCreateBean.collaboratorUserIds}" size="15">
+											<f:selectItems value="#{YearbookItemCreateBean.userAccountSelectItems}"/>
+										</h:selectManyListbox>
+									</h:panelGroup>
+									
+									
+									<%-- 
 									<a4j:repeat var="coll" value="#{YearbookItemCreateBean.collaboratorUserIds}" rowKeyVar="indexUser">				
 										<h:panelGroup>
 											<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
@@ -140,6 +160,7 @@
 											</h:panelGroup>
 										</h:panelGroup>
 									</a4j:repeat>
+									--%>
 
 								</h:panelGroup>
 							</span>

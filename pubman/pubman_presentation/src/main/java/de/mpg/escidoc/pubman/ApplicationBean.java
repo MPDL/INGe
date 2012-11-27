@@ -99,6 +99,7 @@ public class ApplicationBean extends FacesBean
     private Map<String, SelectItem[]> languageSelectItems;
     
     private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
+    private String instanceContextPath;
 
     /**
      * Public constructor.
@@ -431,7 +432,7 @@ public class ApplicationBean extends FacesBean
         }
         return appContext;
     }
-
+    
     /**
      * Sets the application context.
      *
@@ -440,6 +441,34 @@ public class ApplicationBean extends FacesBean
     public void setAppContext(String appContext)
     {
         this.appContext = appContext;
+    }
+
+    /**
+     * Returns the current instance context path.
+     *
+     * @return the instance context path
+     */
+    public String getInstanceContextPath()
+    {
+        try
+        {
+            this.instanceContextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Property escidoc.pubman.instance.context.path not found", e);
+        }
+        return instanceContextPath;
+    }
+
+    /**
+     * Sets the instance context path.
+     *
+     * @param newInstanceContextPath the new instance context path
+     */
+    public void setInstanceContextPath(String newInstanceContextPath)
+    {
+        this.instanceContextPath = newInstanceContextPath;
     }
     
     /**

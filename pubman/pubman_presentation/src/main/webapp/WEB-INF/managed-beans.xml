@@ -624,9 +624,34 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>YearbookItemEditBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookItemEditBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>YearbookArchiveBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookArchiveBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>YearbookArchiveRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookArchiveRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>YearbookCandidatesSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookCandidatesSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>YearbookPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.YearbookPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>YearbookArchivePage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.YearbookArchivePage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>WorkspacesPage</managed-bean-name>

@@ -78,15 +78,16 @@
 								<!-- content menu upper line starts here -->
 									<h:commandLink id="lnkChangeSubmenuToView" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
+									
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />
-									<!-- 
+									
 									<h:outputText styleClass="seperator void" />
-									<h:outputLink id="lnkChangeToCreateItem" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="YearbookItemCreatePage.jsp" >
-										<h:outputText value="#{lbl.Yearbook_createYearbook}"/>
-									</h:outputLink>
-									-->
+									<h:commandLink id="lnkSendBackForReworkYearbook" styleClass="free_area0" value="#{lbl.Yearbook_sendBackForReworkYearbook}" action="#{YearbookModeratorRetrieverRequestBean.sendBackForRework}" />
+									
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}" action="#{YearbookModeratorRetrieverRequestBean.releaseSelectedYearbooks}" />
 									
 									&#160;
 								<!-- content menu upper line ends here -->
@@ -116,11 +117,6 @@
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS_EXTENDED}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
-											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS_EXTENDED}"/>
-									</h:selectOneMenu>	*/ %> -->
-									
 									
 									<h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
 									
@@ -133,10 +129,7 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	*/ %> -->
+									
 									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{YearbookModeratorRetrieverRequestBean.exportSelectedDownload}" />
 								</h:panelGroup>
 								

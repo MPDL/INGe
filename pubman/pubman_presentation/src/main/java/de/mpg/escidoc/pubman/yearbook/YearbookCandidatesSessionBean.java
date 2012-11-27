@@ -11,15 +11,23 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 
 public class YearbookCandidatesSessionBean extends FacesBean
 {
-	public static String BEAN_NAME = "YearbookCandidatesSessionBean";
-	private static Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
+	public static final String BEAN_NAME = "YearbookCandidatesSessionBean";
+	private static final Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
 
 
 
@@ -41,6 +49,8 @@ public class YearbookCandidatesSessionBean extends FacesBean
 	{
 		yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
 		pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+		pilsb.setSelectedSortBy(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.name());
+        pilsb.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
 	}
 
 
@@ -64,7 +74,7 @@ public class YearbookCandidatesSessionBean extends FacesBean
 				InitialContext initialContext = new InitialContext();
 				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-				String topLevelOU = ouHandler.retrieve(yisb.getYearbookItem().getMetadata().getCreators().get(0).getOrganization().getIdentifier());
+				String topLevelOU = ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization().getIdentifier());
 				AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
 				List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 				affList.add(new AffiliationVOPresentation(affVO));
@@ -107,11 +117,4 @@ public class YearbookCandidatesSessionBean extends FacesBean
 			addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
 		}
 	}
-
-
-
-
-
-
-
 }

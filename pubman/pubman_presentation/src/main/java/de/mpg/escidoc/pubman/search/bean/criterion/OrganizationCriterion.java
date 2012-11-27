@@ -72,7 +72,7 @@ public class OrganizationCriterion extends Criterion
         if(getAffiliation() != null && getAffiliation().getReference().getObjectId() != null && !"".equals(getAffiliation().getReference().getObjectId()))
         {
             MetadataSearchCriterion criterion = 
-                new MetadataSearchCriterion( CriterionType.CREATOR_ORGANIZATION_IDS, getAffiliation().getReference().getObjectId());
+                new MetadataSearchCriterion( CriterionType.CREATOR_ORGANIZATION_IDS_WITH_PATH, getAffiliation().getReference().getObjectId());
             criterions.add( criterion );
         }
         else if(isSearchStringEmpty() != true)

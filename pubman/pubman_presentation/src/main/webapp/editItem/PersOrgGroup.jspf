@@ -140,7 +140,7 @@
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}"/>
 					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 closeIcon removeAutoSuggestPerson" style="display:none;"
-						onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors"/>
+						onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors" title="#{tip.EditItem_lblRemoveAutosuggestAuthor} }"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}"/>
 					<a4j:commandButton reRender="editPerson" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"

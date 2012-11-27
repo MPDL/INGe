@@ -50,6 +50,7 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
+import de.escidoc.www.services.aa.UserGroupHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
@@ -247,19 +248,35 @@ public class LoginHelper extends FacesBean
             this.setESciDocUserHandle(userHandle);
             this.setLoggedIn(true);
             this.setWasLoggedIn(true);
-            //Why is this needed in here?
-            //no setGrants in AccountUserVO
-            //no use of the userGrants further
-
+            
+            // get all user-grants
             String userGrantXML = uah.retrieveCurrentGrants(this.accountUser.getReference().getObjectId());
             this.userGrants = transforming.transformToGrantVOList(userGrantXML);
+            
+            // get all user-group-grants
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            List<GrantVO> allUserGroupGrants = new ArrayList<GrantVO> ();
+            List<UserGroup> userAccountUserGroups = this.getAccountUsersUserGroups();
+            for (UserGroup userGroup : userAccountUserGroups)
+            {
+                String userGroupGrants = ugh.retrieveCurrentGrants(userGroup.getObjid());
+                allUserGroupGrants.addAll(transforming.transformToGrantVOList(userGroupGrants));
+            }
+            
             //NOTE: The block below must not be removed, as it sets the this.accountUser grants
             List<GrantVO> setterGrants = this.accountUser.getGrants();
             if (this.userGrants!=null)
             {
-                for (GrantVO grant : this.userGrants)
+                for (GrantVO userGrant : this.userGrants)
                 {
-                    setterGrants.add(grant);
+                    setterGrants.add(userGrant);
+                }
+            }
+            if (allUserGroupGrants != null && !allUserGroupGrants.isEmpty())
+            {
+                for (GrantVO userGroupGrant : allUserGroupGrants)
+                {
+                    setterGrants.add(userGroupGrant);
                 }
             }
         }
@@ -437,6 +454,7 @@ public class LoginHelper extends FacesBean
 
     }
 
+    // only active UserGroups!
     public List<UserGroup> getAccountUsersUserGroups()
     {
         if(userAccountUserGroups == null && getAccountUser()!=null && getAccountUser().getReference()!=null)
@@ -445,7 +463,8 @@ public class LoginHelper extends FacesBean
             filterParams.put("operation", new String[] {"searchRetrieve"});
             filterParams.put("version", new String[] {"1.1"});
             //String orgId = "escidoc:persistent25";
-            filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" + getAccountUser().getReference().getObjectId()});
+            filterParams.put("query", new String[] {"\"/structural-relations/user/id\"=" + getAccountUser().getReference().getObjectId() + " and " + "\"/properties/active\"=\"true\""});
+//            filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" + getAccountUser().getReference().getObjectId() + " and " + "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
 
             UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
             userAccountUserGroups = ugl.getUserGroupLists();
@@ -467,7 +486,7 @@ public class LoginHelper extends FacesBean
         {
             for(UserGroup ug : getAccountUsersUserGroups())
             {
-                if(ug.getLabel().startsWith("yearbook"))
+                if(ug.getLabel().matches("\\d*? - Yearbook User Group for.*?"))
                 {
                     return true;
                 }
@@ -478,10 +497,10 @@ public class LoginHelper extends FacesBean
     }
 
     /**
-     * @return the userGrants
+     * @return the userGrants (with inherited grants)
      */
     public List<GrantVO> getUserGrants() {
-        return userGrants;
+        return this.getAccountUser().getGrants();
     }
 
 

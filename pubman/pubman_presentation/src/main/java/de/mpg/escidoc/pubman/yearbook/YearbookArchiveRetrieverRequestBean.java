@@ -1,19 +1,15 @@
 package de.mpg.escidoc.pubman.yearbook;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
-import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
@@ -21,19 +17,14 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.PubItemPublishing;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
@@ -48,47 +39,26 @@ import de.mpg.escidoc.services.search.query.PlainCqlQuery;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  *
  */
-public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
+public class YearbookArchiveRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
-    private static final Logger logger = Logger.getLogger(YearbookModeratorRetrieverRequestBean.class);
-    public static final String BEAN_NAME = "YearbookModeratorRetrieverRequestBean";
+    private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
+    public static final String BEAN_NAME = "YearbookArchiveRetrieverRequestBean";
     private String selectedSortOrder;
-    /**
-     * This workspace's user.
-     */
-    AccountUserVO userVO;
-
-    
-    /**org unit filter.
-     */
     private static String parameterSelectedOrgUnit = "orgUnit"; 
-    
- 
-    /**
-     * The total number of records
-     */
     private int numberOfRecords;
-    
-
     private Search searchService;
-    //private YearbookItemSessionBean yisb;
     private PubItemListSessionBean pilsb;
     
-    public YearbookModeratorRetrieverRequestBean()
+    public YearbookArchiveRetrieverRequestBean()
     {
         super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);   
-        //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
-        //logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
         
     }
 
     @Override
     public void init()
     {
-         pilsb = (PubItemListSessionBean)getBasePaginatorListSessionBean();
-//        HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
-//        
-//        yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        pilsb = (PubItemListSessionBean)getBasePaginatorListSessionBean();
         
         try
         {
@@ -139,7 +109,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
     @Override
     public String getListPageName()
     {
-        return "YearbookModeratorPage.jsp";
+        return "YearbookArchiveItemViewPage.jsp";
     }
     
     public List<SelectItem> getOrgUnitSelectItems()
@@ -202,7 +172,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
           try
           {
               LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); 
-              ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+              YearbookArchiveBean yearbookArchiveBean = (YearbookArchiveBean) getSessionBean(YearbookArchiveBean.class);
               InitialContext initialContext = new InitialContext();
               XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
         
@@ -210,23 +180,39 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
               FilterTaskParamVO filter = new FilterTaskParamVO();
               
               // add all contexts for which the user has moderator rights (except the "all" item of the menu)
-              for(ContextVO context : clsb.getYearbookModeratorContextList())
+              List<ItemRO> itemRelations = new ArrayList<ItemRO> ();
+              for(ItemRelationVO itemRelation : yearbookArchiveBean.getSelectedYearbook().getRelations())
               {
-                  filter.getFilterList().add(filter.new ContextFilter(context.getReference().getObjectId()));
+                 itemRelations.add(itemRelation.getTargetItemRef());
+              }
+              if (!itemRelations.isEmpty())
+              {
+                  filter.getFilterList().add(filter.new ItemRefFilter(itemRelations));
               }
               // add views per page limit
               Filter f8 = filter.new LimitFilter(String.valueOf(limit));
               filter.getFilterList().add(f8);
               Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
               filter.getFilterList().add(f9);
+              if(sc != null)
+              {
+                  Filter sortFilter = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+                  filter.getFilterList().add(sortFilter);
+              }
+              if (this.getSessionBean().getSelectedOrgUnit() != null)
+              {
+                  Filter organisationFilter = filter.new PersonsOrganizationsFilter(this.getSessionBean().getSelectedOrgUnit());
+                  filter.getFilterList().add(organisationFilter);
+              }
+              
               String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 
               SearchRetrieveResponseVO result = xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
 
               List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-              for(SearchRetrieveRecordVO yearbookRecord : result.getRecords())
+              for(SearchRetrieveRecordVO record : result.getRecords())
               {
-                  pubItemList.add((PubItemVO)yearbookRecord.getData());
+                  pubItemList.add((PubItemVO)record.getData());
               }
               
               numberOfRecords =result.getNumberOfRecords();
@@ -244,30 +230,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
     public String exportSelectedDownload()
     {
     	try {
-			List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();  
-			
-			String query = "";
-			for(PubItemVO item : pilsb.getSelectedItems())
-			{
-				if(item.getRelations()!=null && item.getRelations().size()>0)
-				{
-					MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery(item);
-					
-					if(!query.equals(""))
-					{
-						query += " OR ";
-					}
-					query += " ( " + mdQuery.getCqlQuery() + " ) ";
-				}
-				
-			}
-			
-			
-			
-			ItemContainerSearchResult result = this.searchService.searchForItemContainer(new PlainCqlQuery(query));
-			
-			pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
-			pilsb.downloadExportFile(pubItemList);
+			pilsb.downloadExportFile(pilsb.getSelectedItems());
 
 		} catch (Exception e) 
 		{
@@ -276,92 +239,5 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
 		}
         
     	return "";
-    	
-    }
-    
-    /**
-     * releases all selected yearbooks 
-     * 
-     * @return empty String to stay on the page
-     */
-    public String releaseSelectedYearbooks()
-    {
-        try
-        {
-            if (this.pilsb.getSelectedItems().size() > 0)
-            {
-                LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-                InitialContext initialContext = new InitialContext();
-                PubItemPublishing pubItemPublishing = (PubItemPublishing)initialContext
-                    .lookup(PubItemPublishing.SERVICE_NAME);
-                for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems())
-                {
-                    if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) 
-                    {
-                        pubItemPublishing.releasePubItem(yearbookItem.getVersion(), yearbookItem.getModificationDate(),
-                                "Releasing pubItem", loginHelper.getAccountUser());
-                    }
-                    else {
-                        warn("\"" + yearbookItem.getFullTitle() + "\"" + getMessage("Yearbook_itemNotReleasedWarning") );
-                    }
-                }
-                info(getMessage("Yearbook_ReleasedSuccessfully"));
-            }
-            else {
-                warn(getMessage("Yearbook_noItemsSelected"));
-            }
-        }
-        catch (Exception e)
-        {
-            error(getMessage("Yearbook_ReleaseError"));
-            logger.error("Could not release Yearbook Item", e);
-        }
-        pilsb.redirect();
-        return "";
-    }
-
-    /**
-     * sends all selected yearbooks back for rework
-     * 
-     * @return empty String to stay on the page
-     */
-    public String sendBackForRework()
-    {
-        try
-        {
-            if (this.pilsb.getSelectedItems().size() > 0)
-            {
-                LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-                ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                TaskParamVO param = null;
-                String paramXml = null;
-                for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems())
-                {
-                    if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) 
-                    {
-                        param = new TaskParamVO(yearbookItem.getModificationDate(), "Send yearbook back for rework");
-                        paramXml = xmlTransforming.transformToTaskParam(param);
-                        itemHandler.revise(yearbookItem.getVersion().getObjectId(), paramXml);
-                    }
-                    else {
-                        warn("\"" + yearbookItem.getFullTitle() + "\"" + getMessage("Yearbook_itemNotSentBackWarning") );
-                    }
-                }
-                info(getMessage("Yearbook_revisedSuccessfully"));
-            }
-            else {
-                warn(getMessage("Yearbook_noItemsSelected"));
-            }
-        }
-        catch (Exception e)
-        {
-            error(getMessage("Yearbook_sendBackForReworkError"));
-            logger.error("Could not send back Yearbook Item", e);
-        }
-        this.pilsb.update();
-        this.pilsb.redirect();
-        return "";
     }
 }

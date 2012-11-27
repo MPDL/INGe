@@ -51,7 +51,8 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             "DepositorWSPage",
             "QAWSPage",
             "CartItemsPage",
-            "YearbookPage"};
+            "YearbookPage",
+            "YearbookArchivePage"};
         
     // the List of BreadCrumbs representing JSP's that have been viewed
     private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();

@@ -166,7 +166,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
 
         // get the first source of the item (if available)
-        if (item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
+        if (item.getMetadata() != null && item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
         {
             this.firstSource = new SourceVO();
             this.firstSource = item.getMetadata().getSources().get(0);
@@ -316,9 +316,20 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getCreators()
     {
-        int creatorsNo = getMetadata().getCreators().size();
-        return getCreators(creatorsNo);
-
+        if (this.getMetadata() != null)
+        {
+            int creatorsNo = getMetadata().getCreators().size();
+            return getCreators(creatorsNo);
+        }
+        else if (this.getYearbookMetadata() != null)
+        {
+            int creatorsNo = this.getYearbookMetadata().getCreators().size();
+            return getCreators(creatorsNo);
+        }
+        else 
+        {
+            return "";
+        }
     }
 
     /**
@@ -331,27 +342,55 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         StringBuffer creators = new StringBuffer();
         for (int i = 0; i < creatorMaximum; i++)
         {
-            if (getMetadata().getCreators().get(i).getPerson() != null)
+            if (this.getMetadata() != null)
             {
-                if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
+                if (getMetadata().getCreators().get(i).getPerson() != null)
                 {
-                    creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
-                    if (getMetadata()
-                            .getCreators()
-                            .get(i)
-                            .getPerson()
-                            .getGivenName() != null)
+                    if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
                     {
-                        creators.append(", ");
-                        creators.append(getMetadata().getCreators().get(i).getPerson().getGivenName());
+                        creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
+                        if (getMetadata()
+                                .getCreators()
+                                .get(i)
+                                .getPerson()
+                                .getGivenName() != null)
+                        {
+                            creators.append(", ");
+                            creators.append(getMetadata().getCreators().get(i).getPerson().getGivenName());
+                        }
                     }
                 }
+                else if (getMetadata().getCreators().get(i).getOrganization() != null)
+                {
+                    creators.append(
+                            getMetadata().getCreators().get(i).getOrganization().getName().getValue());
+                }
             }
-            else if (getMetadata().getCreators().get(i).getOrganization() != null)
+            else if (this.getYearbookMetadata() != null)
             {
-                creators.append(
-                        getMetadata().getCreators().get(i).getOrganization().getName().getValue());
+                if (getYearbookMetadata().getCreators().get(i).getPerson() != null)
+                {
+                    if (getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
+                    {
+                        creators.append(getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName());
+                        if (getYearbookMetadata()
+                                .getCreators()
+                                .get(i)
+                                .getPerson()
+                                .getGivenName() != null)
+                        {
+                            creators.append(", ");
+                            creators.append(getYearbookMetadata().getCreators().get(i).getPerson().getGivenName());
+                        }
+                    }
+                }
+                else if (getYearbookMetadata().getCreators().get(i).getOrganization() != null)
+                {
+                    creators.append(
+                            getYearbookMetadata().getCreators().get(i).getOrganization().getName().getValue());
+                }
             }
+            
 
             if (i < creatorMaximum - 1)
             {
@@ -367,7 +406,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public String getCreatorsShort()
     {
         int creatorsMax = 4;
-        int creatorsNo = getMetadata().getCreators().size();
+        int creatorsNo = 0;
+        if (this.getMetadata() != null)
+        {
+            creatorsNo = getMetadata().getCreators().size();
+        }
+        else if (this.getYearbookMetadata() != null)
+        {
+            creatorsNo = getYearbookMetadata().getCreators().size();
+        }
         String creators;
 
         if (creatorsNo <= creatorsMax)
@@ -553,19 +600,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
         StringBuffer publishingInfo = new StringBuffer();
         publishingInfo.append("");
-
-        // Edition
-        if(getMetadata().getPublishingInfo().getEdition() != null)
-        {
-            publishingInfo.append(getMetadata().getPublishingInfo().getEdition());
-        }
-
-        // Comma
-        if((getMetadata().getPublishingInfo().getEdition() != null && !getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((getMetadata().getPublishingInfo().getPlace() != null && !getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (getMetadata().getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
-        {
-            publishingInfo.append(". ");
-        }
-
+        
         // Place
         if(getMetadata().getPublishingInfo().getPlace() != null)
         {
@@ -583,6 +618,19 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         {
             publishingInfo.append(getMetadata().getPublishingInfo().getPublisher().trim());
         }
+        
+        // Comma
+        if((getMetadata().getPublishingInfo().getEdition() != null && !getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((getMetadata().getPublishingInfo().getPlace() != null && !getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (getMetadata().getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
+        {
+            publishingInfo.append(", ");
+        }
+
+        // Edition
+        if(getMetadata().getPublishingInfo().getEdition() != null)
+        {
+            publishingInfo.append(getMetadata().getPublishingInfo().getEdition());
+        }
+        
         return publishingInfo.toString();
     }
 
@@ -602,18 +650,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         publishingInfoSource.append("");
         if(this.firstSource.getPublishingInfo() != null)
         {
-            // Edition
-            if(this.firstSource.getPublishingInfo().getEdition() != null)
-            {
-                publishingInfoSource.append(this.firstSource.getPublishingInfo().getEdition());
-            }
-
-            // Comma
-            if((this.firstSource.getPublishingInfo().getEdition() != null && !this.firstSource.getPublishingInfo().getEdition().trim().equals("")) && ((this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource.getPublishingInfo().getPlace().trim().equals("")) || (this.firstSource.getPublishingInfo().getPublisher() != null && !this.firstSource.getPublishingInfo().getPublisher().trim().equals(""))))
-            {
-                publishingInfoSource.append(". ");
-            }
-
             // Place
             if(this.firstSource.getPublishingInfo().getPlace() != null)
             {
@@ -630,6 +666,18 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             if(this.firstSource.getPublishingInfo().getPublisher() != null)
             {
                 publishingInfoSource.append(this.firstSource.getPublishingInfo().getPublisher().trim());
+            }
+            
+            // Comma
+            if((this.firstSource.getPublishingInfo().getEdition() != null && !this.firstSource.getPublishingInfo().getEdition().trim().equals("")) && ((this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource.getPublishingInfo().getPlace().trim().equals("")) || (this.firstSource.getPublishingInfo().getPublisher() != null && !this.firstSource.getPublishingInfo().getPublisher().trim().equals(""))))
+            {
+                publishingInfoSource.append(", ");
+            }
+            
+            // Edition
+            if(this.firstSource.getPublishingInfo().getEdition() != null)
+            {
+                publishingInfoSource.append(this.firstSource.getPublishingInfo().getEdition());
             }
         }
         return publishingInfoSource.toString();
@@ -714,8 +762,19 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getFullTitle()
     {
-        return getMetadata().getTitle().getValue();
+        if (this.getMetadata() != null)
+        {
+            return getMetadata().getTitle().getValue();
+        }
+        else if (this.getYearbookMetadata() != null)
+        {
+            return this.getYearbookMetadata().getTitle().getValue();
+        }
+        else {
+            return "";
+        }
     }
+    
 
     /**
      * Returns the source title (50 Chars) of the first source and crops the last characters

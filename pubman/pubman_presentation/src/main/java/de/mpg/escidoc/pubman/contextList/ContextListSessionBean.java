@@ -254,7 +254,7 @@ public class ContextListSessionBean extends FacesBean
      */
     private void retrieveAllContextsForUser() throws SecurityException, TechnicalException
     {
-        if (this.loginHelper.isLoggedIn() && this.loginHelper.getUserGrants() != null){
+        if (this.loginHelper.isLoggedIn() && this.loginHelper.getAccountUser().getGrants() != null){
             try
             {
                 // Create filter
@@ -264,7 +264,7 @@ public class ContextListSessionBean extends FacesBean
                 
                 boolean hasGrants = false;
 
-                for (GrantVO grant:this.loginHelper.getUserGrants())
+                for (GrantVO grant:this.loginHelper.getAccountUser().getGrants())
                 {
                     if ( grant.getObjectRef() != null)
                     {
@@ -293,7 +293,7 @@ public class ContextListSessionBean extends FacesBean
                     //TODO NBU: change this dummy looping once AccountUserVO provides method for isDepositor(ObjectRef)
                     //At present it only provides this function for Moderator and Privileged viewer
 
-                    for (GrantVO grant:this.loginHelper.getUserGrants())
+                    for (GrantVO grant:this.loginHelper.getAccountUser().getGrants())
                     {
                         if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals(""))
                         {

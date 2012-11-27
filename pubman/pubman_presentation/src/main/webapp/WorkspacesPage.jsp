@@ -93,8 +93,8 @@
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
 									</h:outputLink>
 									
-									<h:outputText styleClass="seperator void" rendered="#{(LoginHelper.isModerator || LoginHelper.isDepositor) and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-									<h:outputLink id="lnkSubmission_lnkImportWorkspaceMenu" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{(LoginHelper.isModerator || LoginHelper.isDepositor) and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+									<h:outputText styleClass="seperator void" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+									<h:outputLink id="lnkSubmission_lnkImportWorkspaceMenu" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}"/>
 									</h:outputLink>  
 									

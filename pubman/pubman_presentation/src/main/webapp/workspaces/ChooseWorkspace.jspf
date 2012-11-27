@@ -111,7 +111,7 @@
 		</div>
 	</div>
 </h:panelGroup>
-<h:panelGroup rendered="#{(LoginHelper.isDepositor) and ContextListSessionBean.yearbookModeratorContextListSize>0}">
+<h:panelGroup rendered="#{(LoginHelper.isModerator) and ContextListSessionBean.yearbookModeratorContextListSize>0}">
 	<div class="full_area0 itemHeader">
 		<span class="xLarge_area0 endline">
 			&#160;

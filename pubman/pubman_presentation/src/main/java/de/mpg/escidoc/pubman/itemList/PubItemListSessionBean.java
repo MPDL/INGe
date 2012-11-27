@@ -102,9 +102,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         SOURCE_CREATOR("", "/sort/md-records/md-record/publication/source/creator/person/family-name", OrderFilter.ORDER_ASCENDING),
         REVIEW_METHOD("", "/sort/md-records/md-record/publication/review-method", OrderFilter.ORDER_ASCENDING),
         FILE("","", OrderFilter.ORDER_ASCENDING),
+        CREATION_DATE("sort.escidoc.property.creation-date", "/sort/properties/creation-date", OrderFilter.ORDER_ASCENDING),
         STATE("sort.escidoc.property.version.status", "/sort/properties/version/status", OrderFilter.ORDER_ASCENDING),
         OWNER("sort.escidoc.property.created-by.name", "/sort/properties/created-by/title", OrderFilter.ORDER_ASCENDING),
         COLLECTION("sort.escidoc.context.name", "/sort/properties/context/title", OrderFilter.ORDER_ASCENDING);
+        
 
 
         /**
@@ -157,7 +159,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
 
         /**
-         * Sets the path to the xml tag by awhich the list should be sorted. Used in filter of ItemHandler
+         * Sets the path to the xml tag by which the list should be sorted. Used in filter of ItemHandler
          * @return
          */
         public String getSortPath()
@@ -373,7 +375,27 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     }
 
+    /**
+     * Called by JSF when the items should be sorted by their genre. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
+    public String changeToSortByCreationDate()
+    {
 
+        try
+        {
+            setSelectedSortBy("CREATION_DATE");
+            setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
+            redirect();
+        }
+        catch (Exception e)
+        {
+            error("Could not redirect");
+        }
+        return "";
+
+    }
 
     /**
      * Called by JSF when the sort order should be changed from "ascending" to "descending" or vice versa.
@@ -677,6 +699,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy(sortBy);
         }
+        else if (getSelectedSortBy() != null)
+        {
+            //do nothing
+        }
         else
         {
 
@@ -691,11 +717,15 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             //                }
 
         }
-
+        
         String sortOrder = getExternalContext().getRequestParameterMap().get(parameterSelectedSortOrder);
         if (sortOrder!=null)
         {
             setSelectedSortOrder(sortOrder);
+        }
+        else if (getSelectedSortOrder() != null)
+        {
+            //do nothing
         }
         else
         {
