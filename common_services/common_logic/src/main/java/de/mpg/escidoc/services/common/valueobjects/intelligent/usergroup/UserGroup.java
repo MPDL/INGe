@@ -710,7 +710,7 @@ public class UserGroup extends IntelligentVO
                 String param = "<param last-modification-date=\"" + JiBXHelper.serializeDate(userGroup.getLastModificationDate()) + "\">";
                 for (Selector selector : selectors.getSelectors())
                 {
-                    param += "<selector name=\"" + selector.getName() + "\" type=\"" + selector.getType()+"\" >" + selector.getString() + "</selector>";
+                    param += "<id>" + selector.getObjid() + "</id>";
                 }
                 param += "</param>";
                 

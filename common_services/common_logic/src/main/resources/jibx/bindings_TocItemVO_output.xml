@@ -64,6 +64,7 @@
 	<include path="TocItemVO_binding_output.xml" />
 	
 	<include path="publication/MdsPublicationVO_binding_output.xml" />
+	<include path="publication/MdsYearbookVO_binding_output.xml" />
 	<include path="face/MdsFaceVO_binding_output.xml" />
 	<include path="face/MdsFacesContainer_binding_output.xml" />
 	<!-- <include path="ContextVO_binding.xml" />-->

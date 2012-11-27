@@ -28,6 +28,7 @@
 		
 		<!-- NOT YET IMPLEMENTED -->
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">newspaper-article</enum>		
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/working-paper">working-paper</enum>		
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/manual">manual</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/webpage">webpage</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/editorial">editorial</enum>
@@ -47,7 +48,8 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/commentary">commentary</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/handbook">handbook</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">collected-edition</enum>
-		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>		
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/journal-article">journal-article</enum>
 		<enum uri="http://purl.org/eprint/type/Patent">patent</enum>
 	</xsl:variable>
 	
@@ -62,7 +64,8 @@
 		<enum uri="http://www.loc.gov/loc.terms/relators/TRC">transcriptor</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/TRL">translator</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SAD">advisor</enum>
-		<!-- <enum uri="http://www.loc.gov/loc.terms/relators/THS">thesis advisor</enum>-->
+		<enum uri="http://www.loc.gov/loc.terms/relators/SAD">scientific advisor</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/THS">thesis advisor</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/CTB">contributor</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/publisher">publisher</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/HNR">honoree</enum>

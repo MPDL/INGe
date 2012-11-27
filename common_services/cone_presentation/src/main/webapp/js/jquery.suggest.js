@@ -335,7 +335,7 @@
 						item[0] = item[0].replace(new RegExp('</span>','ig'),'');
 						item[0] = $.trim(item[0]);
 						//alert(item[0] + '==' + result + " : " + (item[0]==result));
-						if (item[0] == result) {
+						if (item[0] == $.trim(result)) {
 							obj =item[1];
 							break;
 						}

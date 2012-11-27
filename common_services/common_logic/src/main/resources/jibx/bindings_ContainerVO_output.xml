@@ -51,6 +51,7 @@
 	<namespace prefix="mods" uri="http://www.loc.gov/mods/v3" default="none" />
 	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
 	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
+	<namespace prefix="yearbook" uri="${xsd.metadata.yearbook}" default="none" />
 	<namespace prefix="face" uri="${xsd.metadata.face}" default="none" />
 	
 
@@ -62,6 +63,7 @@
 	<!-- The bindings -->
 	<!--  -->
 	<include path="publication/MdsPublicationVO_binding_output.xml" />
+	<include path="publication/MdsYearbookVO_binding_output.xml" />
 	<include path="ContextVO_binding.xml" />
 	<include path="AdminDescriptorVO_binding.xml" />
 	<include path="publication/PublicationAdminDescriptorVO_binding.xml" />

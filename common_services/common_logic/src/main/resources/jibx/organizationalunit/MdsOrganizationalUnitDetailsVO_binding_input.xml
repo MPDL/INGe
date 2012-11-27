@@ -35,6 +35,7 @@
 	<namespace prefix="dcterms" uri="${xsd.metadata.dcterms}" default="none" />
 	<namespace prefix="eterms" uri="${xsd.metadata.escidocprofile.types}" default="none" />
 	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
+	<namespace prefix="yearbook" uri="${xsd.metadata.yearbook}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />

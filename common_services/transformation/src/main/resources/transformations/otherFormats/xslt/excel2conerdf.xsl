@@ -4,7 +4,7 @@
 	
 	<xsl:param name="ou-url" select="'http://migration-coreservice.mpdl.mpg.de:8080'"/>
 	<xsl:param name="cone-url" select="'http://migration-pubman.mpdl.mpg.de:8080/cone'"/>
-	<xsl:param name="check-existence" select="false()"/>
+	<xsl:param name="check-existence" select="false"/>
 	<xsl:param name="check-compare" select="'false'"/>
 	
 	<xsl:param name="import-name"/>
@@ -242,7 +242,9 @@
 				<xsl:variable name="escidoc-ou">
 					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 				</xsl:variable>
-			
+				<xsl:text>&#xa;</xsl:text>
+				<xsl:comment>Found ID: "<xsl:value-of select="$escidoc-ou"/>" for Name: "<xsl:value-of select="$ouname"/>"</xsl:comment>
+				<xsl:text>&#xa;</xsl:text>
 				<xsl:variable name="ou-path">
 					<xsl:call-template name="get-ou-path">
 						<xsl:with-param name="id" select="$escidoc-ou"/>

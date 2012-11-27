@@ -107,6 +107,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -242,7 +243,7 @@ public class TestBase
     }
 
     /**
-     * Creates anpther well-defined PubItemVO.
+     * Creates another well-defined PubItemVO.
      * 
      * @return pubItem
      */
@@ -408,6 +409,25 @@ public class TestBase
         item.setContext(collectionRef);
 
         return item;
+    }
+    
+    /**
+     * @return the PubItemVO instance with MdsYearbookVO metadata
+     */
+    protected PubItemVO getYearbookPubItem()
+    {
+        PubItemVO yearbookPubItem = new PubItemVO();
+        
+        // Add Metadata
+        MdsYearbookVO metaDataYearbook = getYearbookMetaData();
+        yearbookPubItem.setYearbookMetadata(metaDataYearbook);
+        
+        // Add PubCollectionRef
+        ContextRO collectionRef = new ContextRO();
+        collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
+        yearbookPubItem.setContext(collectionRef);
+        
+        return yearbookPubItem;
     }
 
     /**
@@ -813,6 +833,40 @@ public class TestBase
         mds.setEvent(event);
 
         return mds;
+    }
+    
+    protected MdsYearbookVO getYearbookMetaData()
+    {
+        MdsYearbookVO metaDataYearBook = new MdsYearbookVO();
+        
+        // Add creator
+        CreatorVO creator = new CreatorVO();
+        creator.setRole(CreatorRole.AUTHOR);
+        PersonVO person = new PersonVO();
+        person.setGivenName("Matthias");
+        person.setFamilyName("Walter");
+        person.setCompleteName("Matthias Walter");
+        creator.setPerson(person);
+        metaDataYearBook.getCreators().add(creator);
+        
+        // Add Title
+        TextVO title = new TextVO();
+        title.setValue("YearbookAutomatedTestItem");
+        metaDataYearBook.setTitle(title);
+        
+        // Add Year
+        metaDataYearBook.setYear("2012");
+        
+        // Add StartDate
+        metaDataYearBook.setStartDate("2012-01-01");
+        
+        // Add EndDate
+        metaDataYearBook.setEndDate("2012-12-31");
+        
+        // Add IncludedContexts
+        metaDataYearBook.getIncludedContexts().add("escidoc:testContext1");
+        metaDataYearBook.getIncludedContexts().add("escidoc:testContext2");
+        return metaDataYearBook;
     }
 
     /**

@@ -337,7 +337,7 @@ Notes:
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$context"/>
 						<xsl:with-param name="fieldname" select="concat($path,'.',local-name())"/>
-						<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(., '/'))"/>
+						<xsl:with-param name="fieldvalue" select="."/>
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
@@ -345,7 +345,7 @@ Notes:
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$CONTEXTNAME"/>
 						<xsl:with-param name="fieldname">metadata</xsl:with-param>
-						<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(., '/'))"/>
+						<xsl:with-param name="fieldvalue" select="."/>
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
@@ -353,7 +353,7 @@ Notes:
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$context"/>
 						<xsl:with-param name="fieldname" select="concat($path,'.',local-name())"/>
-						<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(., '/'))"/>
+						<xsl:with-param name="fieldvalue" select="."/>
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
@@ -361,7 +361,7 @@ Notes:
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$CONTEXTNAME"/>
 						<xsl:with-param name="fieldname">metadata</xsl:with-param>
-						<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(., '/'))"/>
+						<xsl:with-param name="fieldvalue" select="."/>
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
@@ -1548,17 +1548,6 @@ Notes:
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
-			</element>
-		</userdefined-index>
-		<userdefined-index name="publication.type">
-			<xsl:attribute name="context">
-				<xsl:value-of select="$CONTEXTNAME"/>
-			</xsl:attribute>
-			<element index="TOKENIZED">
-				<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/@type"/>
-			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="$CONTAINER_METADATAPATH/*[local-name()='publication']/@type"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="most-recent-date">

@@ -153,6 +153,8 @@
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"  usage="optional" ordered="false" allow-repeats="true">
 				<structure name="publication" ns="${xsd.metadata.publication}"
 					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" ordered="false"/>
+				<structure name="yearbook" ns="${xsd.metadata.yearbook}"
+					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO" usage="optional" ordered="false"/>
 				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>
 				<structure name="mab-md" usage="optional" ordered="false" flexible="true"/>
 				 <!-- Faces -->

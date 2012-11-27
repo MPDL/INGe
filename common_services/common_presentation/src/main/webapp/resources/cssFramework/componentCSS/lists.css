@@ -546,6 +546,10 @@ th .selectMenu {
 	text-align:center;
 }
 
+.multipleAjax {
+	margin-bottom:0.363636em;
+}
+
 /*PRINT RELATED DEFINITIONS*/
 
 @media print {

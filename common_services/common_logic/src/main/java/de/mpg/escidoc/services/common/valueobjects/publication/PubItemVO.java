@@ -74,6 +74,27 @@ public class PubItemVO extends ItemVO
         }
     }
  
-    
+    public MdsYearbookVO getYearbookMetadata()
+    {
+        if (getMetadataSets() != null && getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsYearbookVO)
+        {
+            return (MdsYearbookVO) getMetadataSets().get(0);
+        }
+        else
+        {
+            return null;
+        }
+    }
 
+    public void setYearbookMetadata(MdsYearbookVO mdsYearbookVO)
+    {
+        if (getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsYearbookVO)
+        {
+            getMetadataSets().set(0, mdsYearbookVO);
+        }
+        else if (getMetadataSets() != null)
+        {
+            getMetadataSets().add(mdsYearbookVO);
+        }
+    }
 }

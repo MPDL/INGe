@@ -56,6 +56,7 @@
 	<namespace prefix="jhove" uri="http://hul.harvard.edu/ois/xml/ns/jhove" default="none" />
     <namespace prefix="ousuc" uri="http://www.escidoc.de/schemas/organizationalunitsuccessors/0.7" default="none" />
     <namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
+    <namespace prefix="yearbook" uri="${xsd.metadata.yearbook}" default="none" />
 
 	<format type="java.util.Date"
 		deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
@@ -69,6 +70,7 @@
 	
 	<!-- Add. for Item -->
 	<include path="publication/MdsPublicationVO_binding_input.xml" />
+	<include path="publication/MdsYearbookVO_binding_input.xml" />
 	<include path="face/MdsFaceVO_binding_input.xml" />
 	<include path="FileVO_binding_input.xml" />
 	<include path="file/MdsFileVO_binding_input.xml" />

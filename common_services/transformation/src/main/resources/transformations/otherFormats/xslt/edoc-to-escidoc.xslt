@@ -852,17 +852,6 @@
 		</organizational-units>
 	</xsl:variable>
 	
-	<xsl:variable name="mpiis-subjects">
-		<subject>ZWE EDV</subject>
-		<subject>Nanofluidics</subject>
-		<subject>Wetting and Capillarity</subject>
-		<subject>Entropic Forces</subject>
-		<subject>Critical Phenomena</subject>
-		<subject>Collective Dynamics</subject>
-		<subject>Soft Matter at Interfaces</subject>
-		<subject>Morphometry</subject>
-		<subject>Miscellaneous</subject>
-	</xsl:variable>
 	<xsl:function name="escidocFunctions:ou-name">
 		<xsl:param name="name"/>
 		
@@ -1166,9 +1155,6 @@
 							<prop:visibility>private</prop:visibility>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPQ'">
-							<prop:visibility>audience</prop:visibility>
-						</xsl:when>
-						<xsl:when test="$import-name = 'MPIDynamics'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIBioChem'">
@@ -1671,9 +1657,21 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Report'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'report'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'report'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Book'">
 				<xsl:choose>
@@ -1699,6 +1697,14 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'book'"/>
@@ -1708,6 +1714,14 @@
 			</xsl:when>
 			<xsl:when test="genre='booklet'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'other'"/>
@@ -1717,6 +1731,14 @@
 			</xsl:when>
 			<xsl:when test="genre='book-review'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'book-review'"/>
@@ -1726,6 +1748,14 @@
 			</xsl:when>
 			<xsl:when test="genre='catalogue-article'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'article'"/>
@@ -1735,6 +1765,14 @@
 			</xsl:when>
 			<xsl:when test="genre='catalogue-entry'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'other'"/>
@@ -1744,6 +1782,14 @@
 			</xsl:when>
 			<xsl:when test="genre='collection-article'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'contribution-to-collected-edition'"/>
@@ -1752,17 +1798,49 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Conference-Paper'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'conference-paper'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'conference-paper'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Conference-Report'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'conference-report'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'conference-report'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='contribution-to-encyclopedia'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'contribution-to-encyclopedia'"/>
@@ -1772,6 +1850,14 @@
 			</xsl:when>
 			<xsl:when test="genre='festschrift-article'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'contribution-to-festschrift'"/>
@@ -1780,12 +1866,32 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Habilitation'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'thesis'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'thesis'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='InBook'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'MPIGF'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'contribution-to-collected-edition'"/>
@@ -1799,27 +1905,83 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Issue'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'issue'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'issue'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Interactive Resource'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'other'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'other'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Journal'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'journal'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'journal'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Lecture / Courseware'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'courseware-lecture'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'courseware-lecture'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='newspaper-article'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'newspaper-article'"/>
@@ -1828,12 +1990,32 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Other'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'other'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'other'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='online-article'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'BiblHertz'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'article'"/>
@@ -1842,44 +2024,140 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Paper'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'paper'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'paper'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='PhD-Thesis'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'thesis'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'thesis'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Poster'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'poster'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'poster'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Proceedings'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'proceedings'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'proceedings'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Series'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'series'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'series'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Software'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'other'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'other'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Talk at Event'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'talk-at-event'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'talk-at-event'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Thesis' or genre='thesis'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'thesis'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (contains(lower-case(title), '[abstract]')
+																or contains(lower-case(title), '(abstract)')
+																or contains(lower-case(title), '[meeting abstract]')
+																or contains(lower-case(title), '(meeting abstract)'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'thesis'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownGenre' ), concat(genre, ' is not mapped to an eSciDoc publication genre'))"/>
@@ -1926,6 +2204,14 @@
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and (starts-with(lower-case(title), '[abstract]')
+																or starts-with(lower-case(title), '[meeting abstract]'))">
+						<xsl:value-of select="normalize-space(substring-after(title, ']' ))"/>											
+					</xsl:when>
+					<xsl:when test="$import-name = 'MPIEVA' and (starts-with(lower-case(title), '(abstract)')
+																or starts-with(lower-case(title), '(meeting abstract)'))">
+						<xsl:value-of select="normalize-space(substring-after(title, ')' ))"/>											
+					</xsl:when>
 					<xsl:when test="$import-name = 'MPIINF'">
 						<xsl:value-of select="replace(title, '\{|\}', '')"/>
 					</xsl:when>
@@ -1938,6 +2224,8 @@
 			<xsl:apply-templates select="language"/>
 			<!--ALTTITLE -->
 			<xsl:apply-templates select="titlealt"/>
+			<!-- TITLEABBREVIATION FOR JOURNALS-->
+			<xsl:apply-templates select="journalabbreviation"/>
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier">
 				<xsl:with-param name="gen" select="$gen"/>
@@ -2122,12 +2410,16 @@
 						<xsl:value-of select="authorcomment"/>
 					</xsl:element>
 				</xsl:when>
-				<xsl:when test="phydesc and ($gen = 'paper' or $gen = 'issue')">
-					<xsl:call-template name="phydescPubl"/>
-				</xsl:when>
-				<xsl:when test="phydesc and not($dependentGenre[type = $gen] and (exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
-					<xsl:call-template name="phydescPubl"/>
-				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="phydesc and ($gen = 'paper' or $gen = 'issue')">
+							<xsl:call-template name="phydescPubl"/>
+						</xsl:when>
+						<xsl:when test="phydesc and not($dependentGenre[type = $gen] and (exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
+							<xsl:call-template name="phydescPubl"/>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:otherwise>
 			</xsl:choose>
 			
 			<!-- DEGREE -->
@@ -2415,8 +2707,7 @@
 		
 		<!-- ISSUE -->
 		<xsl:apply-templates select="issuenr"/>
-		
-		<xsl:if test="not(exists(issuetitle))">
+		<xsl:if test="not(exists(issuetitle)) or $import-name = 'MPIDynamics'">
 			<!-- START_PAGE -->
 			<xsl:apply-templates select="spage"/>
 			<!-- END-PAGE -->
@@ -2429,7 +2720,9 @@
 		</xsl:if>
 		
 		<!-- Total number of pages -->
-		<xsl:call-template name="phydescPubl"/>
+		<xsl:if test="not($gen = 'issue')">
+			<xsl:call-template name="phydescPubl"/>
+		</xsl:if>
 
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
@@ -2965,6 +3258,9 @@
 			<!-- END-PAGE -->
 			<xsl:apply-templates select="epage"/>
 		</xsl:if>
+		
+		<!-- SEQUENCE_NR -->
+		<xsl:apply-templates select="artnum"/>
 
 		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
 		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
@@ -2997,7 +3293,10 @@
 			<xsl:if test="issuenr">
 				<xsl:apply-templates select="issuenr"/>
 			</xsl:if>
-		
+		</xsl:if>
+		<!-- VOLUME -->
+		<xsl:if test="$import-name = 'MPIDynamics'">
+			<xsl:apply-templates select="volume"/>
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:choose>
@@ -3030,6 +3329,8 @@
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
 		<xsl:apply-templates select="epage"/>
+		<!-- SEQUENCE_NR -->
+		<xsl:apply-templates select="artnum"/>
 				
 		<!-- Total number of pages -->
 		<xsl:if test="phydesc">
@@ -3448,7 +3749,28 @@
 								<xsl:value-of select="$creatorngivenNew"/>
 							</eterms:given-name>
 							<dc:identifier xsi:type="eterms:CONE">
-								<xsl:value-of select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
+								<xsl:choose>
+									<xsl:when test="exists($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/@rdf:about)">
+										<xsl:value-of select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:choose>
+											<xsl:when test="exists($coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/@rdf:about)">
+												<xsl:value-of select="$coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:choose>
+													<xsl:when test="exists($coneCreator/cone[3]/rdf:RDF[1]/rdf:Description/@rdf:about)">
+														<xsl:value-of select="$coneCreator/cone[3]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoConeIdentifierFound' ), concat('There is no CoNE-ID --', concat($creatornfamily, ', ', creatorngiven), '--'))"/>
+													</xsl:otherwise>
+												</xsl:choose>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:otherwise>
+								</xsl:choose>
 							</dc:identifier>
 							
 							<!-- CBS OU depend on date (affiliatedInstitution depend on publication-date) -->
@@ -3771,7 +4093,12 @@
 		</xsl:if>
 		<xsl:if test="exists(datepublished) and datepublished != ''">
 			<xsl:choose>
-				<xsl:when test="($import-name = 'MPINEURO' or $import-name = 'MPIBioChem') and exists(../identifiers/identifier[@comment != '' and @type = 'doi'])">
+				<xsl:when test="$import-name = 'MPINEURO' and exists(../identifiers/identifier[@comment != '' and @type = 'doi'])">
+					<xsl:element name="eterms:published-online">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="$import-name = 'MPIBioChem' and ((exists(../identifiers/identifier[@type = 'doi']) and exists(../identifiers/identifier[@comment != '' and (@type = 'doi' or @type = 'isbn')])) or (exists(artnum) and artnum != ''))">
 					<xsl:element name="eterms:published-online">
 						<xsl:value-of select="datepublished"/>
 					</xsl:element>
@@ -3933,14 +4260,7 @@
 	<!-- All fields mapped into FreeKeywords are here defined since Pubman mask allow only one dcterms:subject -->
 	<xsl:template name="dcTermsSubject">
 		<xsl:variable name="freekeywords">
-			<xsl:if test="exists(keywords)">
-				<xsl:value-of select="normalize-space(keywords)"/>
-				<xsl:text></xsl:text>
-			</xsl:if>
-			<xsl:if test="exists(discipline)">
-				<xsl:value-of select="normalize-space(discipline)"/>
-				<xsl:text></xsl:text>
-			</xsl:if>
+			
 			<xsl:choose>
 				<xsl:when test="$import-name = 'FHI' or $import-name = 'MPINEURO'">
 					<xsl:if test="exists(../../docaff/docaff_researchcontext)">
@@ -3948,13 +4268,40 @@
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="$import-name = 'MPIIS'">
-					<xsl:if test="exists(../../docaff/affiliation/mpgssunit[. = $mpiis-subjects/subject])">
-						<xsl:for-each select="../../docaff/affiliation/mpgssunit[. = $mpiis-subjects/subject]">
+					<xsl:comment>MPIIS CASE</xsl:comment>
+					<xsl:if test="exists(../../docaff/affiliation/mpgunit)">
+						<xsl:for-each select="../../docaff/affiliation/mpgunit">
 							<xsl:value-of select="normalize-space(.)"/>
-							<xsl:text> </xsl:text>
+							<xsl:text>; </xsl:text>
 						</xsl:for-each>
 					</xsl:if>
+					<xsl:if test="exists(../../docaff/affiliation/mpgsunit)">
+						<xsl:for-each select="../../docaff/affiliation/mpgsunit">
+							<xsl:value-of select="normalize-space(.)"/>
+							<xsl:text>; </xsl:text>
+						</xsl:for-each>
+					</xsl:if>
+					<xsl:if test="exists(../../docaff/affiliation/mpgssunit)">
+						<xsl:for-each select="../../docaff/affiliation/mpgssunit">
+							<xsl:value-of select="normalize-space(.)"/>
+							<xsl:text>; </xsl:text>
+						</xsl:for-each>
+					</xsl:if>
+					<xsl:if test="exists(keywords)">
+						<xsl:value-of select="normalize-space(keywords)"/>
+						<xsl:text></xsl:text>
+					</xsl:if>
 				</xsl:when>
+				<xsl:otherwise>
+					<xsl:if test="exists(keywords)">
+						<xsl:value-of select="normalize-space(keywords)"/>
+						<xsl:text></xsl:text>
+					</xsl:if>
+					<xsl:if test="exists(discipline)">
+						<xsl:value-of select="normalize-space(discipline)"/>
+						<xsl:text></xsl:text>
+					</xsl:if>
+				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:if test="exists($freekeywords) and normalize-space($freekeywords) != ''">

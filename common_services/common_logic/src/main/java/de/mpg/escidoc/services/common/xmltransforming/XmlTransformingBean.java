@@ -102,6 +102,7 @@ import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
@@ -1269,7 +1270,7 @@ public class XmlTransformingBean implements XmlTransforming
     public PubItemVO transformToPubItem(String itemXml) throws TechnicalException
     {
         ItemVO itemVO = transformToItem(itemXml);
-        if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO)
+        if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO || itemVO.getMetadataSets().get(0) instanceof MdsYearbookVO)
         {
             return new PubItemVO(itemVO);
         }

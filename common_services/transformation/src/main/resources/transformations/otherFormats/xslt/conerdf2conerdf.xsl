@@ -4,9 +4,14 @@
 	
 	<xsl:param name="ou-url" select="'http://coreservice.mpdl.mpg.de:8080'"/>
 	<xsl:param name="cone-url" select="'http://pubman.mpdl.mpg.de:8080/cone'"/>
+	<!-- URL of the server, where the RDF has been exported (needed, if commas are in the OU-Names) -->
+	<xsl:param name="old-ou-url" select="''"/> 
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/persons/all?format=rdf'))"/>
+	<!-- OU-List of the server, where the RDF has been exported (needed, if commas are in the OU-Names)-->
+	<xsl:variable name="old-ou-list" select="document(concat($old-ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
+	
 	
 	
 
@@ -34,8 +39,13 @@
 	
 	
 	<xsl:template match="escidoc:position/rdf:Description/dc:identifier">
+	    <xsl:variable name="idToCompare"><xsl:value-of select="."/></xsl:variable>
 		<xsl:variable name="ou">
 			<xsl:choose>
+			    <xsl:when test="$old-ou-url != '' and exists(normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title))">
+			        <!-- ADJUST, when Migration-Server is updated to 7.X -->
+			        <xsl:value-of select="normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
+			    </xsl:when>
 				<xsl:when test="contains(../eprints:affiliatedInstitution, ',')">
 					<xsl:value-of select="substring-before(../eprints:affiliatedInstitution, ',')"/>
 				</xsl:when>
@@ -44,14 +54,20 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:message><xsl:value-of select="$ou"/></xsl:message>
-		<xsl:message><xsl:value-of select="count($ou-list//mdou:organizational-unit[normalize-space(dc:title) = $ou])"/></xsl:message>
-		<xsl:if test="normalize-space($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid) = ''">
-			<xsl:message>ERROR with "<xsl:value-of select="$ou"/>"</xsl:message>
+		<xsl:if test="$old-ou-url != '' and exists(normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title))">
+		    <xsl:comment>Looking for OU: '<xsl:value-of select="$ou"/>' and found <xsl:value-of select="count($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou])"/> result</xsl:comment>
+		</xsl:if>
+		
+		<xsl:if test="count($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]) &gt; 1">
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"/>" (found more than one entry)</xsl:comment>
+		</xsl:if>
+		<xsl:if test="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = ''">
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"/>" (ID empty)</xsl:comment>
 		</xsl:if>
 		<xsl:element name="dc:identifier">
-			<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+			<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 		</xsl:element>
+		<xsl:comment>ID set for OU '<xsl:value-of select="$ou"/>'</xsl:comment>
 	</xsl:template>
 	
 	<xsl:template name="get-ou-path">

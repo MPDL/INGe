@@ -54,6 +54,11 @@ public class ItemRO extends ReferenceObject implements Cloneable
      * @author Johannes Mueller
      */
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * The xlink:href prefix for an ItemRO
+     */
+    private final String PATH_FOR_XLINK_HREF = "/ir/item/";
 
     /**
      * The version number of the referenced item. This attribute is optional.
@@ -333,7 +338,7 @@ public class ItemRO extends ReferenceObject implements Cloneable
         }
     }
     
-    private void setHref(String href)
+    public void setHref(String href)
     {
         if (href == null)
         {
@@ -344,6 +349,15 @@ public class ItemRO extends ReferenceObject implements Cloneable
             href = href.substring(href.lastIndexOf("/") + 1);
         }
         this.setObjectId(href);      
+    }
+    
+    public String getHref()
+    {
+        if (this.getObjectId() != null)
+        {
+            return this.PATH_FOR_XLINK_HREF + this.getObjectId();
+        }
+        return null;
     }
     
 }

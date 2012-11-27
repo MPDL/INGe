@@ -95,8 +95,8 @@ public class FilterTaskParamVOTest
         
         HashMap<String, String[]> map = filter.toMap();
         String[] q = map.get("query");
-        assertTrue(q[0].trim().length() == new String("{ \"/id\"=escidoc:item3 }").length());
-        assertTrue(q[0].trim().equals("( \"/id\"=escidoc:item3 )"));
+        assertTrue(q[0].trim().length() == new String("{ \"/id\" any escidoc:item3 }").length());
+        assertTrue(q[0].trim().equals("( \"/id\" any escidoc:item3 )"));
     }
     
     @Test
@@ -116,7 +116,7 @@ public class FilterTaskParamVOTest
         String[] q = map.get("query");
         String s = q[0].trim();
         System.out.println(s);
-        assertTrue(s.equals("( \"/role\"=Depositor and \"/user\"=objectId911 )  and  ( \"/id\"=escidoc:item3 or \"/id\"=escidoc:item4 )"));
+        assertTrue(s.equals("( \"/role\"=Depositor and \"/user\"=objectId911 )  and  ( \"/id\" any escidoc:item3 escidoc:item4 )"));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class FilterTaskParamVOTest
         
         String[] q1 = map.get("query");
         String s = q1[0].trim();
-        assertTrue(s.contains("\"/id\"=escidoc:item3"));
+        assertTrue(s.contains("\"/id\" any escidoc:item3"));
         
         String[] q2 = map.get("query");
         s = q2[0].trim();

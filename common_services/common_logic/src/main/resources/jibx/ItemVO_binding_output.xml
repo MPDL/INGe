@@ -36,7 +36,9 @@
 		<!-- Node: item.@objid -->
 		<!-- Field: PubItemVO.version [PubItemRO] -->
 		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+			<!-- testfiles for tests (testRountripTransformPubItem2 & testRountripTransformFacesItem) needs to be adjusted if href is inlcluded again (just add an href)  -->
+			<!-- <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getHref" usage="optional" />  -->
 		</structure>
 
 		<!-- Node: item.@last-modification-date -->

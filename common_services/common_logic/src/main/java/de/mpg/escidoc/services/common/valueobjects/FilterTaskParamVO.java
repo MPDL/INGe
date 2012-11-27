@@ -70,7 +70,7 @@ public class FilterTaskParamVO extends ValueObject
   
     private List<Filter> filterList = new ArrayList<Filter>();
     
-    private Logger logger = Logger.getLogger(getClass());
+    private Logger logger = Logger.getLogger(FilterTaskParamVO.class);
     
     /**
      * @return the filter
@@ -149,7 +149,7 @@ public class FilterTaskParamVO extends ValueObject
                 }
                 else if (filter instanceof ItemRefFilter)
                 {
-                    enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((ItemRefFilter)filter));
+                    enhanceQuery(queryBuffer, "\"/id\" any", previousFilter, ((ItemRefFilter)filter));
                 }
                 else if (filter instanceof AffiliationRefFilter)
                 {
@@ -298,15 +298,14 @@ public class FilterTaskParamVO extends ValueObject
         else if (filter instanceof ItemRefFilter)
         {
             ItemRefFilter itemRefFilter = (ItemRefFilter)filter;
-
+            b.append(queryPiece);
+            
             for (ItemRO itemRO : itemRefFilter.getIdList())
             {
-                b.append(queryPiece);
+                b.append(" ");
                 b.append(itemRO.getObjectId());
-                
                 if (++i == itemRefFilter.getIdList().size())
                     break;
-                b.append(OR);
             }
 
         }

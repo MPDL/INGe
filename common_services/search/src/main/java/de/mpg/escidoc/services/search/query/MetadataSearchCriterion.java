@@ -36,7 +36,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Criteria types for the search criterion. */
     public enum CriterionType
     {
-        TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, CREATOR_ORGANIZATION, ORGANIZATION_PIDS, CREATOR_ORGANIZATION_IDS, GENRE, DATE_ANY,
+        TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, CREATOR_ORGANIZATION, ORGANIZATION_PIDS, CREATOR_ORGANIZATION_IDS, CREATOR_ORGANIZATION_IDS_WITH_PATH, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, DATE_EVENT_START, DATE_EVENT_END, EVENT_INVITATION_STATUS, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
@@ -88,7 +88,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index field for persons. */
     private static final String INDEX_PERSON = "escidoc.publication.creator.person.compound.person-complete-name";
     /** Index field for creator roles. */
-    private static final String INDEX_PERSON_ROLE = "escidoc.publication.creator.role";
+    private static final String INDEX_PERSON_ROLE = "escidoc.creator.role";
     /** Index field for organizations. */
     private static final String INDEX_ORGANIZATION = "escidoc.any-organizations";
     /** Index field for creator_organizations. */
@@ -97,6 +97,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_ORGANIZATION_PIDS = "escidoc.any-organization-pids";
     /** Index field for creator organization ids. */
     private static final String INDEX_CREATOR_ORGANIZATION_IDS = "escidoc.publication.creator.person.organization.identifier";
+    /** Index field for creator organization ids with complete (tree-)path. */
+    private static final String INDEX_CREATOR_ORGANIZATION_IDS_WITH_PATH = "escidoc.publication.creator.compound.organization-path-identifiers";
     /** Index field for genre. */
     private static final String INDEX_GENRE = "escidoc.publication.type";
     /** Index field for dates. */
@@ -470,6 +472,9 @@ public class MetadataSearchCriterion implements Serializable
             case CREATOR_ORGANIZATION_IDS:
                 indexes.add(INDEX_CREATOR_ORGANIZATION_IDS);
                 break;
+            case CREATOR_ORGANIZATION_IDS_WITH_PATH:
+                indexes.add(INDEX_CREATOR_ORGANIZATION_IDS_WITH_PATH);
+                break;
             case DATE_ANY:
                 indexes.add(INDEX_DATE_ANY);
                 break;
@@ -751,9 +756,9 @@ public class MetadataSearchCriterion implements Serializable
         return INDEX_ORGANIZATION_PIDS;
     }
     
-    public static String getINDEX_CREATOR_ORGANIZATION_IDS()
+    public static String getINDEX_CREATOR_ORGANIZATION_IDS_WITH_PATH()
     {
-        return INDEX_CREATOR_ORGANIZATION_IDS;
+        return INDEX_CREATOR_ORGANIZATION_IDS_WITH_PATH;
     }
 
     public static String getINDEX_GENRE()

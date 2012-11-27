@@ -1056,7 +1056,8 @@
 				<xsl:choose>
 					<xsl:when test="exists($institute-authors-positions/entry/pos) and $institute-authors-positions/entry/pos != '' and $institute-authors-positions/entry[pos = $pos]">
 						<xsl:variable name="ouExactName"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/></xsl:variable>
-						<xsl:variable name="ouId"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/></xsl:variable>
+						<xsl:variable name="ouId"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/></xsl:variable>
+						<xsl:comment>OUID<xsl:value-of select="$ouId"/></xsl:comment>
 						<xsl:variable name="cone-creator">
 							<xsl:choose>
 								<xsl:when test="exists($ouExactName) and $ouExactName != ''">
