@@ -31,7 +31,7 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.63</version>
+		<version>1.0.64-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
@@ -39,22 +39,22 @@
 	<packaging>war</packaging>
 	<name>common_presentation</name>
 	<version>1.0.53-SNAPSHOT</version>
-
+	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</connection>
 		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
-
+	
 	<build>
 		<plugins>
-		 <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-ejb-plugin</artifactId>
-        <configuration>
-          <ejbVersion>3.0</ejbVersion>
-        </configuration>
-          </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -78,7 +78,22 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-	</dependencies>
+	<profiles>
+		<profile>
+			<id>env-production-opensource</id>
+			<properties></properties>
+			<build>
+				<plugins>					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+        					<warSourceExcludes>**/themes/skin_MP*/**,**/themes/skin_NIMS/**</warSourceExcludes>
+        				</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<dependencies></dependencies>
 </project>
