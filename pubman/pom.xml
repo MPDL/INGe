@@ -828,9 +828,28 @@
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 	</properties>
 	<profiles>
+		<!-- this profile gets activated for an opensource release production -->
+		<profile>			
+			<id>env-production-opensource</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
+				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
+				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
+				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
+				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
+			</properties>
+		</profile>
 		<!-- this profile is used by developers -->
 		<profile>
 			<id>env-development</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>

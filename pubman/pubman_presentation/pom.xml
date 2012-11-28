@@ -72,10 +72,37 @@
 				<version>2.1</version>
 			</plugin>
 			<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-war-plugin</artifactId>
+        		<configuration>
+        			<warSourceExcludes>**/opensource/**</warSourceExcludes>
+        		</configuration>
+      		</plugin>
+			<plugin>
 				<groupId>org.zeroturnaround</groupId>
 				<artifactId>javarebel-maven-plugin</artifactId>
 				<version>1.0.5</version>
-			</plugin>
+			</plugin>     		
+      		<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf"/>
+										<delete file="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf"/>
+										<copy file="${project.basedir}/src/main/webapp/home/opensource/StartPageLoggedIn.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf"/>
+										<copy file="${project.basedir}/src/main/webapp/home/opensource/StartPageLoggedOut.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf"/>
+										<!--  delete dir="${project.build.directory}/main/webapp/home/opensource"/-->
+									</tasks>										
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -112,8 +139,47 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		
 	</build>
-
+	
+	<profiles>
+		<profile>
+			<id>env-development</id>
+			<properties></properties>
+			<build>
+			<plugins>
+			<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-war-plugin</artifactId>
+        		<configuration>
+        			<warSourceExcludes>**/opensource/**</warSourceExcludes>
+        		</configuration>
+      		</plugin>      		
+      		<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf"/>
+										<delete file="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf"/>
+										<copy file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedIn.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf"/>
+										<copy file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedOut.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf"/>
+										<!--  delete dir="${project.build.directory}/main/webapp/home/mpg"/-->
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+			</plugins>	
+			</build>
+		</profile>
+	</profiles>
+	
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>

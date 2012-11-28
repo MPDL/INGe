@@ -495,7 +495,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             try
             {
                 storeConfiguration();
-                createKeys();
                 createDataset();
                 datasetPanel.setEndLabel("Initial dataset created successfully!", LabelPanel.ICON_SUCCESS);
             }
@@ -506,7 +505,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 datasetPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
                 datasetPanel.setMinimumSize(new Dimension(700, 100));
                 logger.error("Error while creating initial dataset!", e);
-                success = false;
             }
             revalidate();
         }
@@ -530,6 +528,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         {
             storeConfiguration();
             propertiesModelPanel.setEndLabel("Configuration written successfully!", LabelPanel.ICON_SUCCESS);
+            
+//            parent.unlockNextButton();          
         }
         catch (Exception e)
         {
@@ -537,6 +537,14 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             propertiesModelPanel.addToTextArea(e.toString() + ": " + e.getMessage());
             logger.error("Property file could not be written!", e);
             success = false;
+        }
+        if (success)
+        {
+            parent.unlockNextButton();
+        }
+        else
+        {
+            parent.unlockPrevButton();
         }
         revalidate();
         setPanelValid(success);

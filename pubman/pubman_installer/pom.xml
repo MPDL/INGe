@@ -53,7 +53,6 @@
 				<directory>src/main/resources</directory>
 				<excludes>
 					<exclude>**/userInputSpec.xml*</exclude>
-					<exclude>**/*.properties</exclude>
 					<exclude>**/conf.xml</exclude>
 				</excludes>
 				<filtering>true</filtering>
@@ -61,19 +60,17 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>**/*.properties</include>
 					<include>**/conf.xml</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
 			<resource>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.properties</include>
-					<include>**/conf.xml</include>
-				</includes>
-				<filtering>false</filtering>
-			</resource>
+						<directory>src/main/resources/mpg</directory>
+						<includes>
+							<include>**/*.properties</include>
+						</includes>
+						<filtering>true</filtering>
+					</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -291,7 +288,7 @@
 		<izpack-standalone.version>4.3.0</izpack-standalone.version>
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
 	</properties>
-	
+	<!--  
 	<profiles>
 		<profile>
 			<id>env-production-opensource</id>
@@ -301,7 +298,7 @@
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
-								<phase>package</phase>
+								<phase>compile</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
@@ -319,7 +316,31 @@
 		
 		</profile>
 	</profiles>
-	
+	-->
+	<profiles>
+		<profile>
+			<id>env-production-opensource</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/opensource</directory>
+						<includes>
+							<include>**/*.properties</include>
+						</includes>
+						<filtering>true</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources/mpg</directory>
+						<excludes>
+							<exclude>**/*.*</exclude>
+						</excludes>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
