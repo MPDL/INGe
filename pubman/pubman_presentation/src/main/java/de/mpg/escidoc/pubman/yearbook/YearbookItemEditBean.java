@@ -95,31 +95,48 @@ public class YearbookItemEditBean extends FacesBean
 
     public YearbookItemEditBean() throws Exception
     {
-        this.initContextMenu();
         this.yearbookItemSessionBean = (YearbookItemSessionBean)getSessionBean(YearbookItemSessionBean.class);
         this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         xmlTransforming = new XmlTransformingBean();
-        if (this.yearbookItemSessionBean != null)
+        initialize();
+    }
+    
+    public void initialize()
+    {
+        try
         {
-            this.yearbookMetadata = this.yearbookItemSessionBean.getYearbookItem().getYearbookMetadata();
-            if (this.yearbookMetadata != null)
+            this.initContextMenu();
+            if (this.yearbookItemSessionBean != null)
             {
-                this.title = this.yearbookMetadata.getTitle().getValue();
-                this.creators = this.yearbookMetadata.getCreators();
-                this.organization = this.creators.get(0).getOrganization();
-                this.year = this.yearbookMetadata.getYear();
-                this.startDate = this.yearbookMetadata.getStartDate();
-                this.endDate = this.yearbookMetadata.getEndDate();
-                this.contextIds = new ArrayList<ContextRO>();
-                for (String contextId : this.yearbookMetadata.getIncludedContexts())
-                {
-                    this.contextIds.add(new ContextRO(contextId));
-                }
+                this.initYearbookMetadata();
+                this.initUserGroups();
+                this.initCollaborators();
             }
-            this.initUserGroups();
-            this.initCollaborators();
+            initSelectableYears();
         }
-        initSelectableYears();
+        catch (Exception e)
+        {
+            logger.error("Problem reinitializing YearbookEditBean: \n", e);
+        }
+    }
+    
+    public void initYearbookMetadata()
+    {
+        this.yearbookMetadata = this.yearbookItemSessionBean.getYearbookItem().getYearbookMetadata();
+        if (this.yearbookMetadata != null)
+        {
+            this.title = this.yearbookMetadata.getTitle().getValue();
+            this.creators = this.yearbookMetadata.getCreators();
+            this.organization = this.creators.get(0).getOrganization();
+            this.year = this.yearbookMetadata.getYear();
+            this.startDate = this.yearbookMetadata.getStartDate();
+            this.endDate = this.yearbookMetadata.getEndDate();
+            this.contextIds = new ArrayList<ContextRO>();
+            for (String contextId : this.yearbookMetadata.getIncludedContexts())
+            {
+                this.contextIds.add(new ContextRO(contextId));
+            }
+        }
     }
     
     /**
@@ -559,6 +576,11 @@ public class YearbookItemEditBean extends FacesBean
             String updatedXml = itemHandler.update(pubItem.getVersion().getObjectId(), itemXml);
             if (this.getUserGroup() != null)
             {
+                this.getUserGroup().setName(this.getYear() +  " - Yearbook User Group for " + getOrganization().getName() + " ("
+                        + getOrganization().getIdentifier() + ")");
+                this.getUserGroup().setLabel(this.getYear() +  " - Yearbook User Group for " + getOrganization().getName() + " ("
+                        + getOrganization().getIdentifier() + ")");
+                this.getUserGroup().updateInCoreservice(loginHelper.getESciDocUserHandle());
                 if (this.getUserGroup().getSelectors() != null && !this.getUserGroup().getSelectors().getSelectors().isEmpty())
                 {
                     this.getUserGroup().removeSelectorsInCoreservice(this.getUserGroup().getSelectors(), loginHelper.getESciDocUserHandle());

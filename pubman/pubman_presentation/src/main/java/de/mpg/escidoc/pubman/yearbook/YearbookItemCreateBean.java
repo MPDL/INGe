@@ -361,6 +361,11 @@ public class YearbookItemCreateBean extends FacesBean
                 info(getMessage("Yearbook_grantsAdded"));
             }
             yisb.initYearbook();
+            YearbookItemEditBean yieb = (YearbookItemEditBean)getSessionBean(YearbookItemEditBean.class);
+            if (yieb != null)
+            {
+                yieb.initialize();
+            }
             return "loadYearbookPage";
         }
         catch (Exception e)
