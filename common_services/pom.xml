@@ -787,6 +787,9 @@
 		<!-- this profile is used by developers -->
 		<profile>
 			<id>env-development</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -816,6 +819,17 @@
 			</distributionManagement>
 		</profile>
 		<profile>
+			<!-- this profile gets activated for an opensource release production -->
+			<id>env-production-opensource</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
+			</properties>
+		</profile>
+		<profile>
 			<id>env-testing-continuum</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -830,15 +844,6 @@
 					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
-		</profile>
-		<profile>
-			<id>env-production-escidoc2</id>
-		</profile>
-		<profile>
-			<id>env-production-escidoc3</id>
-		</profile>
-		<profile>
-			<id>env-production-escidoc4</id>
 		</profile>
 		<profile>
 			<!-- this profile gets activated if os is windows -->
