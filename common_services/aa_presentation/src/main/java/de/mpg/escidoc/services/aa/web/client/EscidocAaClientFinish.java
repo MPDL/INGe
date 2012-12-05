@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 
+import de.escidoc.www.services.aa.RoleHandler;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.services.aa.AuthenticationVO;
 import de.mpg.escidoc.services.aa.AuthenticationVO.Grant;
@@ -44,6 +45,7 @@ import de.mpg.escidoc.services.aa.AuthenticationVO.Type;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -53,9 +55,13 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+
 public class EscidocAaClientFinish extends FinalClient
 {
 
+    private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME = "CoNE-Open-Vocabulary-Editor";
+    private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME = "CoNE-Closed-Vocabulary-Editor";
+    
     @Override
     protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
@@ -77,13 +83,19 @@ public class EscidocAaClientFinish extends FinalClient
                 authenticationVO.setUsername(accountUserVO.getUserid());
                 authenticationVO.setUserId(accountUserVO.getReference().getObjectId());
                 authenticationVO.setFullName(accountUserVO.getName());
+                
+                RoleHandler roleHandler = ServiceLocator.getRoleHandler(AdminHelper.getAdminUserHandle());
 
                 for (GrantVO grantVO : accountUserVO.getGrants())
                 {
                     if (grantVO.getObjectRef() == null)
                     {
                         Role role = authenticationVO.new Role();
-                        role.setKey(grantVO.getRole());
+                        
+                        String xmlRole = roleHandler.retrieve(grantVO.getRole());
+                        String type = getType(xmlRole);
+                        
+                        role.setKey(type);
                         authenticationVO.getRoles().add(role);
                     }
                     else
@@ -102,5 +114,22 @@ public class EscidocAaClientFinish extends FinalClient
             }
         }
         return null;
+    }
+
+    private String getType(String xmlRole)
+    {
+        if (xmlRole == null)
+        {
+            return "";
+        }
+        if (xmlRole.contains(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME))
+        {
+            return "escidoc:role-cone-closed-vocabulary-editor";
+        }
+        if (xmlRole.contains(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME))
+        {
+            return "escidoc:role-cone-open-vocabulary-editor";
+        }
+        return "";
     }
 }
