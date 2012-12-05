@@ -1089,7 +1089,7 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
-						<xsl:when test="$import-name = 'CBS' or $import-name = 'MPI MoleGen'">
+						<xsl:when test="$import-name = 'CBS' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'">
 							<xsl:choose>
 								<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='INTERNAL'">
 									<prop:visibility>audience</prop:visibility>
@@ -1259,7 +1259,7 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -3495,7 +3495,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Quantum Optics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIIS'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Intelligent Systems (formerly MPI for Metals Research)')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Intelligent Systems')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIEVA'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Evolutionary Anthropology')"/>
@@ -3573,7 +3573,23 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
-									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS' or $import-name = 'MPIKOFO' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
+									<xsl:when test="$import-name='MPIBioChem'">
+										<xsl:choose>
+											<xsl:when test="not(@internextern='mpg')">
+												<xsl:comment>CASE 1 MPIBioChem</xsl:comment>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:comment>CASE 2 MPIBioChem</xsl:comment>
+												<organization:organization>
+													<dc:title>External Organizations</dc:title>
+													<dc:identifier>
+														<xsl:value-of select="$external-ou"/>
+													</dc:identifier>
+												</organization:organization>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:when>
+									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS' or $import-name = 'MPIKOFO' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MPIIPP') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
 										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
@@ -3788,7 +3804,12 @@
 								</xsl:choose>
 							</xsl:variable>
 							<xsl:choose>
-								<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
+								<xsl:when test="($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] and not($import-name='MPIBioChem'))
+												or ($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] 
+													and $import-name='MPIBioChem'
+													and @internextern='mpg')">
 									<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
 										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/>
 										</xsl:comment>
@@ -4262,13 +4283,19 @@
 		<xsl:variable name="freekeywords">
 			
 			<xsl:choose>
+				<xsl:when test="$import-name = 'MPIIPP'">
+					<xsl:comment>CASE MPIIPP - Keywords</xsl:comment>
+					<xsl:if test="exists(../../docaff/docaff_researchcontext)">
+						<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
+					</xsl:if>
+				</xsl:when>
 				<xsl:when test="$import-name = 'FHI' or $import-name = 'MPINEURO'">
 					<xsl:if test="exists(../../docaff/docaff_researchcontext)">
 						<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="$import-name = 'MPIIS'">
-					<xsl:comment>MPIIS CASE</xsl:comment>
+					<xsl:comment>CASE MPIIS - Keywords</xsl:comment>
 					<xsl:if test="exists(../../docaff/affiliation/mpgunit)">
 						<xsl:for-each select="../../docaff/affiliation/mpgunit">
 							<xsl:value-of select="normalize-space(.)"/>
