@@ -94,6 +94,36 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>env-development</id>
+			<properties></properties>
+			<build>
+				<plugins>					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+        					<warSourceIncludes>**/themes/skin_MP*/**,**/themes/skin_NIMS/**</warSourceIncludes>
+        				</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>env-testing-continuum</id>
+			<properties></properties>
+			<build>
+				<plugins>					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+        					<warSourceIncludes>**/themes/skin_MP*/**,**/themes/skin_NIMS/**</warSourceIncludes>
+        				</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<dependencies></dependencies>
 </project>
