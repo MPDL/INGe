@@ -168,7 +168,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
         userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
         userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
-         
+        // stylesheets PubMan 
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_URL, idata.getVariable("StyleSheetStandardURL"));
@@ -187,6 +187,25 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             .put(Configuration.KEY_PM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
+        // stylesheets common
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_STANDARD_APPLY,
+                idata.getVariable("StyleSheetStandardApply"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_STANDARD_URL, idata.getVariable("StyleSheetStandardURL"));
+        userConfigValues
+                .put(Configuration.KEY_CM_STYLESHEET_STANDARD_TYPE, idata.getVariable("StyleSheetStandardType"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_CONTRAST_APPLY,
+                idata.getVariable("StyleSheetContrastApply"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_CONTRAST_URL, idata.getVariable("StyleSheetContrastURL"));
+        userConfigValues
+                .put(Configuration.KEY_CM_STYLESHEET_CONTRAST_TYPE, idata.getVariable("StyleSheetContrastType"));
+        userConfigValues
+                .put(Configuration.KEY_CM_STYLESHEET_CLASSIC_APPLY, idata.getVariable("StyleSheetClassicApply"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_CLASSIC_URL, idata.getVariable("StyleSheetClassicURL"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_CLASSIC_TYPE, idata.getVariable("StyleSheetClassicType"));
+        userConfigValues
+            .put(Configuration.KEY_CM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
+        userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
         // PumMan Logo URL
         userConfigValues.put(Configuration.KEY_PM_LOGO_URL, idata.getVariable("PubManLogoURL"));
         userConfigValues.put(Configuration.KEY_PM_LOGO_APPLY, idata.getVariable("PubManLogoApply"));
@@ -253,6 +272,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         // also store in local pubman properties
         configPubman.store("pubman.properties");
         
+        // update framework policies and set the role identifier properties for the two CoNE roles
+        this.updatePolicies(authConfigValues);
+        
         configAuth.setProperties(authConfigValues);
         configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
         configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
@@ -263,9 +285,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         
         // create a private - public key pair
         this.createKeys();
-        
-        // update framework policies
-        this.updatePolicies();
         
         // ... and update PropertyReader
         PropertyReader.loadProperties();
@@ -303,7 +322,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         }
     }
     
-    public void updatePolicies() throws Exception
+    public void updatePolicies(Map<String, String> config) throws Exception
     {
         logger.info("******************************************* Starting updatePolicies");
         
@@ -318,44 +337,51 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             out = doUpdate(ESCIDOC_ROLE_DEPOSITOR, "datasetObjects/role_depositor.xml");
  
             // cone roles, policies...  check first if they already exists         
-            out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_open_vocabulary_editor.xml");           
-            out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_closed_vocabulary_editor.xml");
+            out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_open_vocabulary_editor.xml", config);  
+            String roleOpenVocId = Utils.getValueFromXml("objid=\"", out);
+            config.put(Configuration.KEY_CONE_ROLE_OPEN_VOCABULARY_ID, roleOpenVocId);
+            
+            out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_closed_vocabulary_editor.xml", config);
+            String roleClosedVocId = Utils.getValueFromXml("objid=\"", out);
+            config.put(Configuration.KEY_CONE_ROLE_CLOSED_VOCABULARY_ID, roleClosedVocId);
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new IOException("Error in updatePolicies ", e);
+            throw new Exception("Error in updatePolicies ", e);
         }
     }
     
-    private String doUpdate(String ruleId, String templateFileName) throws Exception
+    private String doUpdate(String roleId, String templateFileName) throws Exception
     {    
-        logger.info("******************************************* Starting doUpdate for " + ruleId);
+        logger.info("******************************************* Starting doUpdate for " + roleId);
         String lastModDate = "";
         String out = null;
         
-        String oldPolicy = roleHandler.retrieve(ruleId);
+        String oldPolicy = roleHandler.retrieve(roleId);
         lastModDate = Utils.getValueFromXml("last-modification-date=\"", oldPolicy);
-        logger.info("policy <" + ruleId + "> has to be updated");
+        logger.info("policy <" + roleId + "> has to be updated");
         logger.info("oldDate: " + lastModDate);
         
         String newPolicy = Utils.getResourceAsXml(templateFileName);
         newPolicy = newPolicy.replaceAll("template_last_modification_date", lastModDate);
         
-        out = roleHandler.update(ruleId, newPolicy);
+        out = roleHandler.update(roleId, newPolicy);
         
         String newDate = Utils.getValueFromXml("last-modification-date=\"", out);
+        
         logger.info("newDate: " + newDate);
-        logger.info("******************************************* Ended doUpdate for " + ruleId);
+        logger.info("******************************************* Ended doUpdate for " + roleId);
         return out;
     }
     
-    private String doCreateOrUpdate(String roleName, String templateFileName) throws Exception
+    private String doCreateOrUpdate(String roleName, String templateFileName, Map<String, String> config) throws Exception
     {    
         logger.info("******************************************* Starting doCreateOrUpdate for " + roleName);
         
         boolean update = false;
         String out = null;
+        String roleId = null;
         HashMap<java.lang.String, String[]> map = new HashMap<java.lang.String, String[]>();
         
         // filter for "properties/name"=roleName
@@ -374,7 +400,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         if (update)
         {
             logger.info("policy <" + roleName + "> has to be updated");
-            String roleId = Utils.getValueFromXml("objid=\"", policies);
+            roleId = Utils.getValueFromXml("objid=\"", policies);
             return doUpdate(roleId, templateFileName);
         }
         else
@@ -383,7 +409,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             String newPolicy = Utils.getResourceAsXml(templateFileName);
             newPolicy = newPolicy.replaceAll("template_last_modification_date", "");
             newPolicy = newPolicy.replaceAll("last-modification-date=\"\"", "");
-            out = roleHandler.create(newPolicy);    
+            out = roleHandler.create(newPolicy);  
+            roleId = Utils.getValueFromXml("objid=\"", policies);
         }
         
         String newDate = Utils.getValueFromXml("last-modification-date=\"", out);
@@ -393,7 +420,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     }
 
     /**
-     * Logs in the user roland who is a system administrator and returns the corresponding user handle.
+     * Logs in the system administrator and returns the corresponding user handle.
      * 
      * @return A handle for the logged in user.
      * @throws Exception
@@ -406,6 +433,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         logger.info("username <" + userName + "> password <" + password + ">");
         return AdminHelper.loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }
+    
     private void createDataset() throws Exception
     {
         String ouExternalObjectId = null;

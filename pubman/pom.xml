@@ -659,6 +659,10 @@
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
+		<!-- Identifier of the two CoNE roles in the actual framework instance -->
+		<escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
+		<escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
+		
 		<!--  Due to a historical defect, QName was released with multiple 
 			serialVersionUID values even though its serialization was the
 			same.
@@ -826,6 +830,10 @@
 		<!-- Test properties -->
 		<escidoc.framework_access.context.id.test>escidoc:171002</escidoc.framework_access.context.id.test>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
+		<!-- URL of stylesheets in common-presentation -->
+		<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
+		<!-- URL of stylesheets in common-presentation -->
+		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
 	</properties>
 	<profiles>
 		<!-- this profile gets activated for an opensource release production -->
@@ -888,10 +896,6 @@
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 				<jboss.install.node>default</jboss.install.node>
-				<!-- URL of stylesheets in common-presentation -->
-				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
-				<!-- URL of stylesheets in common-presentation -->
-				<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
 			</properties>
 			<distributionManagement>
 				<site>

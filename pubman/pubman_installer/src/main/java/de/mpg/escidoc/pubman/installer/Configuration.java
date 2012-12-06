@@ -72,6 +72,9 @@ public class Configuration
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
     public static final String KEY_CONE_USER = "escidoc.cone.database.user.name";
     public static final String KEY_CONE_PW = "escidoc.cone.database.user.password";
+    public static final String KEY_CONE_ROLE_OPEN_VOCABULARY_ID = "escidoc.aa.role.open.vocabulary.id";
+    public static final String KEY_CONE_ROLE_CLOSED_VOCABULARY_ID = "escidoc.aa.role.closed.vocabulary.id";  
+    
     public static final String KEY_PM_STYLESHEET_STANDARD_URL = "escidoc.pubman.stylesheet.standard.url";
     public static final String KEY_PM_STYLESHEET_STANDARD_TYPE = "escidoc.pubman.stylesheet.standard.type";
     public static final String KEY_PM_STYLESHEET_STANDARD_APPLY = "escidoc.pubman.stylesheet.standard.apply";
@@ -84,6 +87,19 @@ public class Configuration
     public static final String KEY_PM_STYLESHEET_SPECIAL_URL = "escidoc.pubman.stylesheet.special.url";
     public static final String KEY_PM_STYLESHEET_SPECIAL_TYPE = "escidoc.pubman.stylesheet.special.type";
     public static final String KEY_PM_STYLESHEET_SPECIAL_APPLY = "escidoc.pubman.stylesheet.special.apply";
+    
+    public static final String KEY_CM_STYLESHEET_STANDARD_URL = "escidoc.common.stylesheet.standard.url";
+    public static final String KEY_CM_STYLESHEET_STANDARD_TYPE = "escidoc.common.stylesheet.standard.type";
+    public static final String KEY_CM_STYLESHEET_STANDARD_APPLY = "escidoc.common.stylesheet.standard.apply";
+    public static final String KEY_CM_STYLESHEET_CONTRAST_URL = "escidoc.common.stylesheet.contrast.url";
+    public static final String KEY_CM_STYLESHEET_CONTRAST_TYPE = "escidoc.common.stylesheet.contrast.type";
+    public static final String KEY_CM_STYLESHEET_CONTRAST_APPLY = "escidoc.common.stylesheet.contrast.apply";
+    public static final String KEY_CM_STYLESHEET_CLASSIC_URL = "escidoc.common.stylesheet.classic.url";
+    public static final String KEY_CM_STYLESHEET_CLASSIC_TYPE = "escidoc.common.stylesheet.classic.type";
+    public static final String KEY_CM_STYLESHEET_CLASSIC_APPLY = "escidoc.common.stylesheet.classic.apply";
+    public static final String KEY_CM_STYLESHEET_SPECIAL_URL = "escidoc.common.stylesheet.special.url";
+    public static final String KEY_CM_STYLESHEET_SPECIAL_TYPE = "escidoc.common.stylesheet.special.type";
+    public static final String KEY_CM_STYLESHEET_SPECIAL_APPLY = "escidoc.common.stylesheet.special.apply";
     // PubMan Logo URL
     public static final String KEY_PM_LOGO_URL = "escidoc.pubman.logo.url";
     public static final String KEY_PM_LOGO_APPLY = "escidoc.pubman.logo.apply";

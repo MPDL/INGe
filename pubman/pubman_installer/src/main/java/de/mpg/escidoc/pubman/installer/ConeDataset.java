@@ -141,7 +141,7 @@ public class ConeDataset
     
     public void runConeScript(String sqlScript) throws Exception
     {
-        
+     
         try
         {
             InputStream fileIn = ResourceUtil.getResourceAsStream(sqlScript);
