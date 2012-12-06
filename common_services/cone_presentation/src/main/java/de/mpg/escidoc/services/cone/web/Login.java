@@ -4,9 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import de.mpg.escidoc.services.aa.Aa;
 import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
+import de.mpg.escidoc.services.aa.Config;
 
 public class Login
 {
+
+    private static final String PROPERTY_ROLE_CONE_OPEN_VOCABULARY = "escidoc.aa.role.open.vocabulary.id";
+    private static final String PROPERTY_ROLE_CONE_CLOSED_VOCABULARY = "escidoc.aa.role.closed.vocabulary.id";
+   
     /**
      * Hide constructor of the static class.
      */
@@ -40,7 +45,9 @@ public class Login
 	    }
 	    
         boolean showWarning = true;
-        
+        String roleConeOpenVocabularyId = Config.getProperty(PROPERTY_ROLE_CONE_OPEN_VOCABULARY);
+        String roleConeClosedVocabularyId = Config.getProperty(PROPERTY_ROLE_CONE_CLOSED_VOCABULARY);
+                
 	    for (Role role : aa.getAuthenticationVO().getRoles())
 	    {
 	        if ("escidoc:role-system-administrator".equals(role.getKey()))
@@ -52,7 +59,7 @@ public class Login
 	    		showWarning = false;
 	    		break;
 	        }
-	        if ("escidoc:role-cone-open-vocabulary-editor".equals(role.getKey()))
+	        if (roleConeOpenVocabularyId != null && roleConeOpenVocabularyId.equals(role.getKey()))
 	        {
 	        	request.getSession().setAttribute("user", aa.getAuthenticationVO());
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
@@ -60,7 +67,7 @@ public class Login
 	        	showWarning = false;
 	        	continue;
 	        }
-	        if ("escidoc:role-cone-closed-vocabulary-editor".equals(role.getKey()))
+	        if (roleConeClosedVocabularyId != null && roleConeClosedVocabularyId.equals(role.getKey()))
 	        {
 	        	request.getSession().setAttribute("user", aa.getAuthenticationVO());
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);

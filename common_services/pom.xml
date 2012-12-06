@@ -617,6 +617,10 @@
 		<escidoc.framework_access.context.id.test>escidoc:171002</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
+		<!-- Identifier of the two CoNE roles in the actual framework instance -->
+		<escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
+		<escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
+
 		<!-- User data used in JUnit tests; these users are assumed to have the Depositor and the Moderator role for the defined contexts -->
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
@@ -789,7 +793,7 @@
 			<id>env-development</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
-			</activation>
+			</activation>			
 			<build>
 				<plugins>
 					<plugin>
