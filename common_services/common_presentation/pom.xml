@@ -81,6 +81,9 @@
 	<profiles>
 		<profile>
 			<id>env-production-opensource</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties></properties>
 			<build>
 				<plugins>					
