@@ -320,6 +320,18 @@
 	<profiles>
 		<profile>
 			<id>env-production-opensource</id>
+			<activation>
+			<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
+				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
+				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
+				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
+				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
+			</properties>
 			<build>
 				<resources>
 					<resource>
