@@ -132,11 +132,11 @@
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-war-plugin</artifactId>
         		<configuration>
-        			<warSourceExcludes>src/main/resources/opensource</warSourceExcludes>
+        			<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
         			<webResources>
             			<resource>
             				<targetPath>WEB-INF/classes</targetPath>
-              				<directory>src/main/resources/mpg</directory>             				
+              				<directory>${project.basedir}/src/main/resources/mpg</directory>             				
               				<includes>
                 				<include>**/*.properties</include>
               				</includes>
@@ -179,11 +179,11 @@
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-war-plugin</artifactId>
         		<configuration>
-        			<warSourceExcludes>src/main/resources/mpg</warSourceExcludes>
+        			<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
         			<webResources>
             			<resource>
             				<targetPath>WEB-INF/classes</targetPath>
-              				<directory>src/main/resources/opensource</directory>             				
+              				<directory>${project.basedir}/src/main/resources/opensource</directory>             				
               				<includes>
                 				<include>**/*.properties</include>
               				</includes>
