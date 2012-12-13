@@ -166,7 +166,7 @@
 		<variable name="ConePassword" value=""/>		
 		<variable name="PubManLogoURL" value="./resources/images/pubman_logo.png"/>
 		<variable name="PubManLogoApply" value="true"/>
-		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_standard/styles/theme.css"/>
+		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_blue/styles/theme.css"/>
 		<variable name="StyleSheetStandardType" value="stylesheet"/>
 		<variable name="StyleSheetStandardApply" value="true"/>
 		<variable name="StyleSheetContrastURL" value="/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css"/>
