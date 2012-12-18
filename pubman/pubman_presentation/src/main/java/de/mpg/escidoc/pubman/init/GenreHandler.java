@@ -2,6 +2,7 @@ package de.mpg.escidoc.pubman.init;
 
 import java.io.FileWriter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Stack;
 
 import org.xml.sax.Attributes;
@@ -16,6 +17,7 @@ public class GenreHandler extends ShortContentHandler
     private FileWriter fileWriter = null;
     private Stack<String> stack = new Stack<String>();
     private String dir = null;
+    private Map<String, String> contentCategories = new LinkedHashMap<String, String>();
     
     private LinkedHashMap<String, String> map = null;
     private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
@@ -65,6 +67,28 @@ public class GenreHandler extends ShortContentHandler
             {
                 stack.pop();
             }
+            else if ("content-categories".equals(name))
+            {
+                fileWriter = new FileWriter(dir + "/content_catogories.properties");
+                
+                for (String key : contentCategories.keySet())
+                {
+                    fileWriter.append(key.toLowerCase());
+                    fileWriter.append("=");
+                    fileWriter.append(contentCategories.get(key));
+                    fileWriter.append("\n");
+                }
+                
+                fileWriter.flush();
+                fileWriter.close();
+                fileWriter = null;
+                
+                contentCategories = null;
+            }
+            else if ("group".equals(name) || "field".equals(name))
+            {
+                stack.pop();
+            }
         }
         catch (Exception e) {
             throw new SAXException(e);
@@ -79,11 +103,11 @@ public class GenreHandler extends ShortContentHandler
         
         try
         {
-            if ("default-configuration".equals(name))
+            if ("genre-default".equals(name))
             {
                 map = defaultMap;
             }
-            if ("genre".equals(name))
+            else if ("genre".equals(name))
             {
                 genre = attributes.getValue("id");
                 if ("DEFAULT".equals(genre))
@@ -95,9 +119,7 @@ public class GenreHandler extends ShortContentHandler
                     map = (LinkedHashMap<String, String>) defaultMap.clone();
                 }
             }
-            
-            
-            if ("group".equals(name))
+            else if ("group".equals(name))
             {
                 stack.push(attributes.getValue("id"));
                 String currentStack = "";
@@ -136,6 +158,10 @@ public class GenreHandler extends ShortContentHandler
                     map.put(key, value);
                 }
                 map.put(currentStack + "form-id", this.formID);
+            }
+            else if ("content-category".equals(name))
+            {
+            	contentCategories.put(attributes.getValue("id"), attributes.getValue("url"));
             }
         }
         catch (Exception e) {

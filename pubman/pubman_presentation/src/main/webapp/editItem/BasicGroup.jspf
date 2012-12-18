@@ -97,10 +97,12 @@ All rights reserved. Use is subject to license terms.
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
-			<span class="large_area0_p8 lineToolSection">
-				<a4j:commandButton id="btnAddTitle" reRender="basic" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-				<a4j:commandButton id="btnRemoveTitle" reRender="basic" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-			</span>
+			<h:panelGroup rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
+				<span class="large_area0_p8 lineToolSection">
+					<a4j:commandButton id="btnAddTitle" reRender="basic" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+					<a4j:commandButton id="btnRemoveTitle" reRender="basic" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+				</span>
+			</h:panelGroup>
 		</h:panelGroup>
 
 <%-- Alternative title copy&paste --%>
