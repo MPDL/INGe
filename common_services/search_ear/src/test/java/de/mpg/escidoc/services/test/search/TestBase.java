@@ -104,12 +104,10 @@ public class TestBase
 {
     private static final Logger logger = Logger.getLogger(TestBase.class);
     
-    protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
             + "collection. Any content can be stored in this collection, which is of relevance\n" + "for the users of the system. You can submit " + "relev" + "ant bibliographic information\n"
             + "for your publication (metadata) and all relevant files. The MPS is the\n" + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
-    protected static final String MPG_TEST_AFFILIATION = "escidoc:persistent13";
 
     private static final int NUMBER_OF_URL_TOKENS = 2;
     protected static final String PUBMAN_CONTENT_TYPE_ID = "escidoc:persistent4";
@@ -266,7 +264,7 @@ public class TestBase
      * 
      * @return pub item 
      */
-    protected static PubItemVO getNewPubItemWithoutFiles()
+    protected static PubItemVO getNewPubItemWithoutFiles() throws Exception
     {
         PubItemVO item = new PubItemVO();
         
@@ -277,6 +275,7 @@ public class TestBase
         title.setValue("PubMan: The first of all.");
         mds.setTitle(title);
         mds.setGenre(Genre.BOOK);
+
         // Add a creator[person] that is affiliated to one organization
         CreatorVO creator = new CreatorVO();
         creator.setRole(CreatorRole.AUTHOR);
@@ -300,12 +299,14 @@ public class TestBase
         item.setMetadata(mds);
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();
-        collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
+        collectionRef.setObjectId(PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
         item.setContext(collectionRef);
+        item.setContentModel(PropertyReader.getProperty("escidoc.framework_access.content-model.id.test"));
+        
         return item;
     }
 
-    protected static PubItemVO getComplexPubItemWithoutFiles()
+    protected static PubItemVO getComplexPubItemWithoutFiles() throws Exception
     {
         PubItemVO item = new PubItemVO();
 
@@ -314,7 +315,7 @@ public class TestBase
         item.setMetadata(mds);
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();
-        collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
+        collectionRef.setObjectId(PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
         item.setContext(collectionRef);
         return item;
     }
