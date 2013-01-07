@@ -42,9 +42,9 @@
 	    <xsl:variable name="idToCompare"><xsl:value-of select="."/></xsl:variable>
 		<xsl:variable name="ou">
 			<xsl:choose>
-			    <xsl:when test="$old-ou-url != '' and exists(normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title))">
-			        <!-- ADJUST, when Migration-Server is updated to 7.X -->
-			        <xsl:value-of select="normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
+			    <xsl:when test="$old-ou-url != '' and exists(normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title))">
+			        <!-- ADJUST to @objid, when Pointing to CoreService < 1.3.X -->
+			        <xsl:value-of select="normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
 			    </xsl:when>
 				<xsl:when test="contains(../eprints:affiliatedInstitution, ',')">
 					<xsl:value-of select="substring-before(../eprints:affiliatedInstitution, ',')"/>
@@ -54,7 +54,8 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:if test="$old-ou-url != '' and exists(normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title))">
+		<xsl:if test="$old-ou-url != '' and exists(normalize-space($old-ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = $idToCompare]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title))">
+			<!-- ADJUST to @objid, when Pointing to CoreService < 1.3.X -->
 		    <xsl:comment>Looking for OU: '<xsl:value-of select="$ou"/>' and found <xsl:value-of select="count($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou])"/> result</xsl:comment>
 		</xsl:if>
 		

@@ -89,6 +89,7 @@ public class AccountUserVO extends ValueObject
      * Caution: This list is NOT filled automatically by JiBX or the AccountUserVO class itself when creating the VO.
      */
     private List<GrantVO> grants = new java.util.ArrayList<GrantVO>();
+    private List<GrantVO> grantsWithoutAudience = new ArrayList<GrantVO>();
 
     /**
      * Delivers the active flag of the user account. The active flag is true if the user account can be used, false
@@ -241,6 +242,13 @@ public class AccountUserVO extends ValueObject
     public List<GrantVO> getGrants()
     {
         return grants;
+    }
+    
+    /**
+     * @ return the userGrtants without grants of type audience
+     */
+    public List<GrantVO> getGrantsWithoutAudienceGrants() {
+        return this.grantsWithoutAudience;
     }
 
     /**

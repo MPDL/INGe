@@ -60,7 +60,7 @@
 	<xsl:param name="CoNE" select="'true'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
-
+	
 	<xsl:variable name="dependentGenre">
 		<type>article</type>
 		<type>conference-paper</type>
@@ -2195,11 +2195,104 @@
 		<xsl:element name="pub:publication">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = $gen]/@uri"/>
 			<!-- creator -->
-			<xsl:for-each select="../creators/creator">
-				<xsl:element name="eterms:creator">
-					<xsl:call-template name="createCreator"/>
-				</xsl:element>
-			</xsl:for-each>
+			<xsl:variable name="cone-authors">
+				<xsl:for-each select="../creators/creator">
+					<xsl:element name="eterms:creator">
+						<xsl:call-template name="createCreator"/>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="$import-name = 'MPIPsykl' and (not(exists($cone-authors/eterms:creator/organization:organization/dc:identifier)) or $cone-authors/eterms:creator/organization:organization/dc:identifier != '' ) ">
+					<xsl:for-each select="../creators/creator">
+						<eterms:creator>
+							<xsl:choose>
+								<xsl:when test="@role='advisor'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'scientific advisor']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='artist'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'artist']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='author'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='contributor'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'contributor']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='editor'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='painter'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'painter']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='referee'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'referee']/@uri"/>
+								</xsl:when>
+								<xsl:when test="@role='translator'">
+									<xsl:attribute name="role" select="$creator-ves/enum[. = 'translator']/@uri"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CreatorRoleNotMapped' ), concat(@role, ' is not mapped to an eSciDoc creator role'))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+							<person:person>
+								<xsl:variable name="creatornfamily" select="creatornfamily"/>
+								<xsl:variable name="creatorngiven" select="creatorngiven"/>
+								<xsl:variable name="creatorngivenNew">
+									<xsl:choose>
+										<xsl:when test="$removeSpacesInInitials">
+											<xsl:value-of select="replace(creatorngiven, '([A-Z][a-z]*\.) ([A-Z][a-z]*\.) ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)?', '$1$2$3$4$5$6$7$8')"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="creatorngiven"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>
+								<xsl:variable name="creatoriniNew">
+									<xsl:choose>
+										<xsl:when test="$removeSpacesInInitials">
+											<xsl:value-of select="replace(creatorini, '([A-Z][a-z]*\.) ([A-Z][a-z]*\.) ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)?', '$1$2$3$4$5$6$7$8')"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="creatorini"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>
+								<eterms:family-name>
+									<xsl:value-of select="creatornfamily"/>
+								</eterms:family-name>
+								<xsl:choose>
+									<xsl:when test="exists(creatorngiven) and not(creatorngiven='')">
+										<eterms:given-name>
+											<xsl:value-of select="$creatorngivenNew"/>
+										</eterms:given-name>
+									</xsl:when>
+									<xsl:otherwise>
+										<eterms:given-name>
+											<xsl:value-of select="$creatoriniNew"/>
+										</eterms:given-name>
+									</xsl:otherwise>
+								</xsl:choose>
+								<organization:organization>
+									<dc:title>
+										<xsl:value-of select="'Max Planck Institute of Psychiatry, Max Planck Society'"/>
+									</dc:title>
+									<dc:identifier>
+										<!-- Hardcoded due to high effort for just one Institute -->
+										<!-- MIGRATION -->
+										<xsl:value-of select="'escidoc:424085'"/>
+									</dc:identifier>
+								</organization:organization>
+							</person:person>
+						</eterms:creator>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:copy-of select="$cone-authors"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+			
 			<xsl:apply-templates select="corporatebody"/>
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
@@ -3607,7 +3700,7 @@
 										<xsl:comment> Case MPIPsykl </xsl:comment>
 										<organization:organization>
 											<dc:title>
-												<xsl:value-of select="'Max Planck Institute of Psychiatry'"/>
+												<xsl:value-of select="'Max Planck Institute of Psychiatry, Max Planck Society'"/>
 											</dc:title>
 											<dc:identifier>
 												<!-- Hardcoded due to high effort for just one Institute -->
