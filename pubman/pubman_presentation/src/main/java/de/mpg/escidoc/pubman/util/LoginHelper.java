@@ -92,6 +92,7 @@ public class LoginHelper extends FacesBean
 
     private List<UserGroup> userAccountUserGroups;
     private List<GrantVO>   userGrants;
+    private List<GrantVO> userGrantsWithoutAudience;
 
     /**
      * Public constructor.
@@ -257,6 +258,7 @@ public class LoginHelper extends FacesBean
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             List<GrantVO> allUserGroupGrants = new ArrayList<GrantVO> ();
             List<UserGroup> userAccountUserGroups = this.getAccountUsersUserGroups();
+            
             for (UserGroup userGroup : userAccountUserGroups)
             {
                 String userGroupGrants = ugh.retrieveCurrentGrants(userGroup.getObjid());
@@ -270,15 +272,21 @@ public class LoginHelper extends FacesBean
                 for (GrantVO userGrant : this.userGrants)
                 {
                     setterGrants.add(userGrant);
+                    this.accountUser.getGrantsWithoutAudienceGrants().add(userGrant);
                 }
             }
             if (allUserGroupGrants != null && !allUserGroupGrants.isEmpty())
             {
                 for (GrantVO userGroupGrant : allUserGroupGrants)
                 {
+                    if(!userGroupGrant.getRole().equals(GrantVO.PredefinedRoles.AUDIENCE.frameworkValue()))
+                    {
+                        this.accountUser.getGrantsWithoutAudienceGrants().add(userGroupGrant);
+                    }
                     setterGrants.add(userGroupGrant);
                 }
             }
+            throw new AuthenticationException();
         }
         catch (AuthenticationException e)
         {
@@ -502,6 +510,5 @@ public class LoginHelper extends FacesBean
     public List<GrantVO> getUserGrants() {
         return this.getAccountUser().getGrants();
     }
-
-
+    
 }
