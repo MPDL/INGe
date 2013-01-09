@@ -58,7 +58,7 @@
 		<result>From eSciDoc item list</result>
 	</xsl:template>
 
-	<xsl:template match="/*[$source-format = 'emarcxml']">
+	<xsl:template match="/*[$source-format = 'marcxml']">
 		<result>From MarcXML</result>
 	</xsl:template>
 
