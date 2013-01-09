@@ -52,6 +52,7 @@ public class TestRoleHandlerUpdate
     }
 
     @Test
+    @Ignore
     public void retrieve()
     {
         try
@@ -66,6 +67,7 @@ public class TestRoleHandlerUpdate
     }
     
     @Test
+    @Ignore
     public void update()
     {
         logger.info("******************************************* Starting update");
