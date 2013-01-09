@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.64-SNAPSHOT</version>
+		<version>1.0.64</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone</artifactId>
 	<name>cone</name>
 	<packaging>jar</packaging>
-	<version>1.2.23-SNAPSHOT</version>
+	<version>1.2.23</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/cone</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/cone</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.64/cone</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.64/cone</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.64/cone</url>
 	</scm>
 	
 	<build>
@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.64-SNAPSHOT</version>
+			<version>1.1.64</version>
 			<type>ejb</type>
 			<scope>provided</scope>
 		</dependency>
@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>aa_logic</artifactId>
-			<version>0.2.2-SNAPSHOT</version>
+			<version>0.2.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

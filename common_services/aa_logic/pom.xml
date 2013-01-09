@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.64-SNAPSHOT</version>
+		<version>1.0.64</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>aa_logic</artifactId>
 	<packaging>jar</packaging>
 	<name>aa_logic</name>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>0.2.2</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/aa_logic</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/aa_logic</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.64/aa_logic</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.64/aa_logic</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.64/aa_logic</url>
 	</scm>
 	
 	<build>
