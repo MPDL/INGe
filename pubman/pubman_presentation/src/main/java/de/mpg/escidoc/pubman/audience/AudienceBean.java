@@ -200,17 +200,25 @@ public class AudienceBean extends FacesBean
     public SelectItem[] getUserGroups()
     {
     	SelectItem[] selectItems = null;
+    	List<SelectItem> selectItemsList = new ArrayList<SelectItem> ();
     	
     	if (this.getUserGroupList() != null)
         {
-    		selectItems = new SelectItem[this.getUserGroupList().getUserGroupLists().size() +1];
             // the first and empty list entry
             SelectItem selectItem = new SelectItem("", "-");
-            selectItems[0] = selectItem;
+            selectItemsList.add(selectItem);
             for(int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++)
             {
-                selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getName());
-                selectItems[i+1] = selectItem;
+                if (this.getUserGroupList().getUserGroupLists().get(i) != null && this.getUserGroupList().getUserGroupLists().get(i).getName() != null && !this.getUserGroupList().getUserGroupLists().get(i).getName().contains(" - Yearbook User Group for"))
+                {
+                    selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getName());
+                    selectItemsList.add(selectItem);
+                }
+            }
+            selectItems = new SelectItem[selectItemsList.size()];
+            for (int k = 0; k < selectItemsList.size(); k++)
+            {
+                selectItems[k] = selectItemsList.get(k);
             }
         }
         else 
