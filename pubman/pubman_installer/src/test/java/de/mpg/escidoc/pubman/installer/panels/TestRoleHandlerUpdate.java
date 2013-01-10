@@ -38,6 +38,7 @@ public class TestRoleHandlerUpdate
     private Logger logger = Logger.getLogger(getClass());
     
     @BeforeClass
+    @Ignore
     public static void setUp() throws Exception
     {    
         Properties p = PropertyReader.getProperties();

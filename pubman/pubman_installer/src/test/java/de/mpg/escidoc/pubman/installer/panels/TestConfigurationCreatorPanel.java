@@ -28,6 +28,7 @@ public class TestConfigurationCreatorPanel
     private Logger logger = Logger.getLogger(TestConfigurationCreatorPanel.class);
     
     @BeforeClass
+    @Ignore
     public static void init() throws IOException
     {
         Map<String, String> properties = new HashMap<String, String>();
