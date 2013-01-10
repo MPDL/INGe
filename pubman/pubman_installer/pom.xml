@@ -30,19 +30,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>7.2.1</version>
+		<version>7.2.2-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_installer</artifactId>
 	<name>pubman_installer</name>
 	<packaging>jar</packaging>
-	<version>7.2.1</version>
+	<version>7.2.2-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.2.1/pubman_installer</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.2.1/pubman_installer</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.2.1/pubman</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
 	</scm>
 	
 	<build>
@@ -357,7 +357,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_ear</artifactId>
-			<version>7.2.1</version>
+			<version>7.2.2-SNAPSHOT</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
