@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>7.2.2</version>
+	<version>7.2.3-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
@@ -224,9 +224,9 @@
 		<module>pubman_installer</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.2.2</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.2.2</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.2.2</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
 	</scm>
 	<repositories>
 		<repository>
