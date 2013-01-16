@@ -286,7 +286,6 @@ public class LoginHelper extends FacesBean
 //                    setterGrants.add(userGroupGrant);
 //                }
 //            }
-            throw new AuthenticationException();
         }
         catch (AuthenticationException e)
         {
