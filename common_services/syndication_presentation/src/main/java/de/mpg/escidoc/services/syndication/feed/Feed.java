@@ -96,7 +96,7 @@ public class Feed extends SyndFeedImpl
 { 
 
 	private static final long serialVersionUID = 1L;
-	private static final String FEEDS_CONTENT_MODEL = "esicdoc.syndication.feeds.content.model";
+	private static final String FEEDS_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
 
 	private static final Logger logger = Logger.getLogger(Feed.class);
 
