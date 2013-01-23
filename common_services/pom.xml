@@ -732,7 +732,6 @@
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
-		<esicdoc.syndication.feeds.content.model>escidoc:2001</esicdoc.syndication.feeds.content.model>
 		<!-- searchAndExport service -->
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
