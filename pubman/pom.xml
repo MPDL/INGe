@@ -853,6 +853,7 @@
 				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
 				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
+				<escidoc.systemtype>workstation</escidoc.systemtype>
 			</properties>
 		</profile>
 		<!-- this profile is used by developers -->
