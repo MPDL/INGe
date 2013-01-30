@@ -828,6 +828,23 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.zeroturnaround</groupId>
+						<artifactId>jrebel-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-rebel-xml</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 			<properties>
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
