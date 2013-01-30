@@ -33,7 +33,6 @@ package de.mpg.escidoc.services.framework;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
@@ -92,7 +91,7 @@ public class AdminHelper
     public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
         String frameworkUrl = ServiceLocator.getLoginUrl();
-
+        
         int delim1 = frameworkUrl.indexOf("//");
         int delim2 = frameworkUrl.indexOf(":", delim1);
         
