@@ -85,7 +85,7 @@ public class PubItemDepositingTest extends TestBase
     private XmlTransforming xmlTransforming;
     private AccountUserVO user;
     private AccountUserVO adminUser;
-
+    
     @Before
     public void waitForValidationDatabase() throws Exception
     {
@@ -118,6 +118,8 @@ public class PubItemDepositingTest extends TestBase
 
         // retrieve item again
         PubItemVO retrievedPubItem = getPubItemFromFramework(savedItem.getVersion(), accountUser);
+        
+        addForDeletion(retrievedPubItem.getLatestVersion().getObjectId());
 
         // compare pubItem properties
         oc = new ObjectComparator(savedItem.getVersion(), retrievedPubItem.getVersion());
@@ -157,6 +159,7 @@ public class PubItemDepositingTest extends TestBase
         pmCollectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
         PubItemVO pubItem = pmDepositing.createPubItem(pmCollectionRef, user);
         assertNotNull(pubItem);
+        addForDeletion(pubItem.getLatestRelease().getObjectId());
         assertEquals(PUBMAN_TEST_COLLECTION_ID, pubItem.getContext().getObjectId());
 
         String context = ServiceLocator.getContextHandler(user.getHandle()).retrieve(pmCollectionRef.getObjectId());
@@ -178,7 +181,8 @@ public class PubItemDepositingTest extends TestBase
     @Test(expected = IllegalArgumentException.class)
     public void testCreatePubItemWithoutCollection() throws Exception
     {
-        pmDepositing.createPubItem(null, user);
+        PubItemVO pubItem = pmDepositing.createPubItem(null, user);
+        addForDeletion(pubItem.getLatestRelease().getObjectId());
     }
 
     /**

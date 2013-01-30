@@ -44,6 +44,7 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,9 +66,11 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.w3c.dom.Document;
 
+import de.escidoc.www.services.adm.AdminHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -89,6 +92,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -123,6 +127,8 @@ public class TestBase
         System.setProperty("com.sun.xml.namespace.QName.useCompatibleSerialVersionUID", "1.0");
     }
     
+    protected static List<String> objectsToDelete;
+    
     /**
      * 
      * @throws Exception
@@ -132,6 +138,45 @@ public class TestBase
     {
         PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty("escidoc.framework_access.context.id.test");
         PUBMAN_TEST_COLLECTION_NAME = PropertyReader.getProperty("escidoc.framework_access.context.name.test");
+        
+        objectsToDelete = new ArrayList<String>();
+    }
+    
+    /**
+     * 
+     * @throws Exception
+     */
+    @AfterClass
+    public static void tearDown() throws Exception
+    {        
+        AdminHandler adminHandler = ServiceLocator.getAdminHandler(loginSystemAdministrator());
+        
+        StringBuffer b = new StringBuffer();
+        b.append("<param>");
+        
+        for (String objId : objectsToDelete)
+        {
+            b.append("<id>");
+            b.append(objId);
+            b.append("</id>");
+        }
+
+        b.append("</param>");
+        
+        String params = b.toString();
+        
+        logger.info("starting to delete created objects: " + params);
+
+        String frameworkReturnXml = adminHandler.deleteObjects(params);
+        logger.info("Adminhandler.deleteObjects returned: " + frameworkReturnXml);
+    }
+    
+    
+    protected void addForDeletion(String objectId)
+    {
+        objectsToDelete.add(objectId);
+        
+        logger.info("Added for deletion: " + objectId);   
     }
 
 

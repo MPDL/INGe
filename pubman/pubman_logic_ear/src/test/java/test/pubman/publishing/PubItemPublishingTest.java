@@ -96,6 +96,8 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO savedItem = pmDepositing.savePubItem(item, user);
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
+        
+        addForDeletion(pubItemRef.getObjectId());
 
         Thread.sleep(3000);
 
@@ -106,6 +108,7 @@ public class PubItemPublishingTest extends TestBase
         // TODO FRM: uncomment after framework bugfix #188
         // assertNotNull("PID is null", releasedPubItem.getPid());
     }
+
 
     /**
      * Test of {@link PubItemPublishing#releasePubItem(ItemRO, java.util.Date, AccountUserVO)}
@@ -145,6 +148,8 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO savedItem = pmDepositing.savePubItem(item, user);
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
+        
+        addForDeletion(pubItemRef.getObjectId());
 
         Thread.sleep(3000);
 
@@ -171,6 +176,9 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO item = getNewPubItemWithoutFiles();
         PubItemVO pubItemSaved = pmDepositing.savePubItem(item, user);
         assertNotNull(pubItemSaved);
+        
+        addForDeletion(pubItemSaved.getLatestVersion().getObjectId());
+        
         try
         {
             pmPublishing.releasePubItem(pubItemSaved.getVersion(), pubItemSaved.getModificationDate(), "Test Release", user);
@@ -196,6 +204,8 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO item = getNewPubItemWithoutFiles();
         ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
+        
+        addForDeletion(pubItemRef.getObjectId());
 
         // retrieve item
         PubItemVO submittedPubItem = getPubItemFromFramework(pubItemRef, user);
@@ -238,6 +248,8 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO savedItem = pmDepositing.savePubItem(item, user);
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
+        
+        addForDeletion(pubItemRef.getObjectId());
 
         Thread.sleep(3000);
 
@@ -267,6 +279,8 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO savedItem = pmDepositing.savePubItem(item, user);
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
+        
+        addForDeletion(pubItemRef.getObjectId());
 
         Thread.sleep(3000);
 
@@ -298,6 +312,8 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO item = getNewPubItemWithoutFiles();
         ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
+        
+        addForDeletion(pubItemRef.getObjectId());
 
         Thread.sleep(3000);
 
@@ -325,6 +341,8 @@ public class PubItemPublishingTest extends TestBase
         item.setVersion(null);
         PubItemVO pubItemSaved = pmDepositing.savePubItem(item, user);
         assertNotNull(pubItemSaved);
+        
+        addForDeletion(pubItemSaved.getLatestVersion().getObjectId());
 
         pmPublishing.withdrawPubItem(pubItemSaved, pubItemSaved.getModificationDate(),
                 "That is why", user);
