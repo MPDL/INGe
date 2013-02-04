@@ -84,19 +84,19 @@
 							</h:panelGroup>
 						</h:panelGroup>
 						<!-- MessageArea ends here -->
-						<div class="full_area0">
-							<div class="full_area0 fullItem">
-								<div class="full_area0 small_marginLExcl">
-									<!-- Subheadline starts here -->
-									<h3>
-										<h:outputText value="#{msg.userAccountOptions_UserInformation}"/>
-									</h3>
-									<!-- Subheadline ends here -->
-								</div>
-								<jsp:directive.include file="userAccountOptions/Password.jspf"/>
-							</div>
-						</div>	
 					</div>
+					<div class="full_area0">
+						<div class="full_area0 fullItem">
+							<div class="full_area0 small_marginLExcl">
+								<!-- Subheadline starts here -->
+								<h3>
+									<h:outputText value="#{msg.userAccountOptions_UserInformation}"/>
+								</h3>
+								<!-- Subheadline ends here -->
+							</div>
+							<jsp:directive.include file="userAccountOptions/Password.jspf"/>
+						</div>
+					</div>	
 				</div>
 				<!-- end: content section -->
 			</div>

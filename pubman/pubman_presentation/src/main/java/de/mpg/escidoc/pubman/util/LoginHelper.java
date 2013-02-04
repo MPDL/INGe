@@ -510,4 +510,12 @@ public class LoginHelper extends FacesBean
         return this.getAccountUser().getGrants();
     }
     
+    /**
+     * @return the Link to the UserAccountOptions page
+     */
+    public String getUserAccountOptionsLink()
+    {
+        return "loadUserAccountOptionsPage";
+    }
+    
 }
