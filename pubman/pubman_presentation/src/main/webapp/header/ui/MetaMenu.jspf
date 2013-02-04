@@ -62,7 +62,7 @@
 	<h:commandLink id="lnkLoginLogout" styleClass="medium_area0_p8 endline" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
-	<h:outputLabel id="txtAccountUserName" styleClass="free_area0_p8 endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
+	<h:commandLink id="lnkAccountUserName" styleClass="free_area0_p8 endline" action="#{LoginHelper.getUserAccountOptionsLink}" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}" />
 
 	<!-- meta Menu ends here -->
 </span>

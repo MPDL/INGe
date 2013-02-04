@@ -391,4 +391,13 @@
 			/YearbookPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadUserAccountOptionsPage</from-outcome>
+			<to-view-id>
+			/UserAccountOptions.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
