@@ -252,7 +252,7 @@ public class Configuration
     }
     
     /**
-     * Firsts checks whether its a comment or a real property of the form key = value. In this case replaces the variable by the property value.
+     * Firsts checks whether it's a comment or a property of the form key = value. In the second case replaces the variable by the property value.
      * 
      * @param line
      * @return modified line
@@ -323,7 +323,30 @@ public class Configuration
     	properties.putAll(props);
     	System.getProperties().putAll(props);
     }
+    
+    /**
+     * Removes a subset from the properties object
+     * @param props
+     */
+    public void removeProperties(Map<String, String> props)
+    {
+        Set<String> keys = new HashSet<String>();
+        keys.addAll(props.keySet());
+        for (String key : keys)
+        {
+            properties.remove(key);
+            
+            if (System.getProperty(key) != null)
+            {
+                System.getProperties().remove(key);
+            }
+        }
+    }
 
+    /**
+     * Removes map entries with 'null' value
+     * @param props
+     */
     private void cleanup(Map<String, String> props)
     {
         Set<String> keys = new HashSet<String>();

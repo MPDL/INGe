@@ -85,14 +85,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME = "CoNE-Open-Vocabulary-Editor";
     private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME = "CoNE-Closed-Vocabulary-Editor";
     
-    /**
-     * Constants for queries.
-     */
-    protected static final String SEARCH_RETRIEVE = "searchRetrieve";
-    protected static final String QUERY = "query";
-    protected static final String VERSION = "version";
-    protected static final String OPERATION = "operation";
-    
     private static RoleHandler roleHandler = null;
     
     private Configuration configPubman = null;
@@ -332,17 +324,19 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         {
             String out = null;
             
-            // update role-moderator, role-depositor and role-privileged-viewer according to PubMan requests
+            // update role-moderator, role-depositor according to PubMan requests
             out = doUpdate(ESCIDOC_ROLE_MODERATOR, "datasetObjects/role_moderator.xml");                          
             out = doUpdate(ESCIDOC_ROLE_DEPOSITOR, "datasetObjects/role_depositor.xml");
  
             // cone roles, policies...  check first if they already exists         
             out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_open_vocabulary_editor.xml", config);  
             String roleOpenVocId = Utils.getValueFromXml("objid=\"", out);
+            logger.info("Setting " + Configuration.KEY_CONE_ROLE_OPEN_VOCABULARY_ID + "<" + roleOpenVocId + ">");
             config.put(Configuration.KEY_CONE_ROLE_OPEN_VOCABULARY_ID, roleOpenVocId);
             
             out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_closed_vocabulary_editor.xml", config);
             String roleClosedVocId = Utils.getValueFromXml("objid=\"", out);
+            logger.info("Setting " + Configuration.KEY_CONE_ROLE_CLOSED_VOCABULARY_ID + "<" + roleClosedVocId + ">");
             config.put(Configuration.KEY_CONE_ROLE_CLOSED_VOCABULARY_ID, roleClosedVocId);
         }
         catch (Exception e)
@@ -385,9 +379,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         HashMap<java.lang.String, String[]> map = new HashMap<java.lang.String, String[]>();
         
         // filter for "properties/name"=roleName
-        map.put(OPERATION, new String[]{SEARCH_RETRIEVE});
-        map.put(VERSION, new String[]{"1.1"});
-        map.put(QUERY, new String[]{"\"/properties/name\"=" + roleName});
+        map.put(Utils.OPERATION, new String[]{Utils.SEARCH_RETRIEVE});
+        map.put(Utils.VERSION, new String[]{"1.1"});
+        map.put(Utils.QUERY, new String[]{"\"/properties/name\"=" + roleName});
         
         
         String policies = roleHandler.retrieveRoles(map);

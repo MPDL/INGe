@@ -28,13 +28,10 @@
  */
 package de.mpg.escidoc.pubman.installer;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.xml.rpc.ServiceException;
 
@@ -42,6 +39,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
+import de.mpg.escidoc.pubman.installer.util.Utils;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -57,102 +55,134 @@ public class InitialDataset
     private URL frameworkUrl = null;
     /** user handle from framework */
     private String userHandle = null;
-    /** number of tokens needed by the login method */
-    private static final int NUMBER_OF_URL_TOKENS = 2;
+   /** Map of key - value pairs containing the filter definition */
+    private HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
     
     private static final String OBJECTID_SUBSTITUTE_IDENTIFIER = "template_objectid_substituted_by_installer";
     private static final String CONTEXTID_SUBSTITUTE_IDENTIFIER = "template_contextid_substituted_by_installer";
-        
-    public InitialDataset() {
-        
+    
+    public InitialDataset()
+    {       
     }
 
     public InitialDataset(URL frameworkUrl, String username, String password) throws ServiceException, IOException, URISyntaxException
     {
         logger = Logger.getLogger(Installer.class);
+        logger.info("FrameworkURL '" + frameworkUrl +"'");
+        logger.info("username '" + username +"'" + " password '" + password +"'");
+               
         this.frameworkUrl = frameworkUrl;
         this.userHandle = AdminHelper.loginUser(username, password);
-        logger.info("Connection to coreservice <" + frameworkUrl.toString() +"> established, using handle" +
-        		" <" + userHandle + ">.");
+        logger.info("Connection to coreservice '" + frameworkUrl.toString() +"' established, using handle" +
+        		" '" + userHandle + "'.");
     }
 
-    public String getResourceAsXml(final String fileName) throws FileNotFoundException, Exception
-    {
-        StringBuffer buffer = new StringBuffer();
-        InputStream is = null;
-        BufferedReader br = null;
-        String line;
-
-        try
-        {
-            is = getClass().getClassLoader().getResourceAsStream(fileName);
-            br = new BufferedReader(new InputStreamReader(is));
-            while (null != (line = br.readLine()))
-            {
-                buffer.append(line);
-                buffer.append("\n");
-            }
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        } finally
-        {
-            try
-            {
-                if (br != null)
-                    br.close();
-                if (is != null)
-                    is.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        return buffer.toString();
-    }
+   
+    
     public String createContentModel(String fileName) throws Exception
     {
-        String cmXml = getResourceAsXml(fileName);
+        String cmXml = Utils.getResourceAsXml(fileName);
+        
+        String cmTitle = Utils.getValueFromXml("<prop:name>", '<', cmXml);
+        String cmDescription = Utils.getValueFromXml("<prop:description>", '<', cmXml);
+        
+        // filter for content model's name and description 
+        filterMap.clear();
+        filterMap.put(Utils.OPERATION, new String[]{Utils.SEARCH_RETRIEVE});
+        filterMap.put(Utils.VERSION, new String[]{"1.1"});
+        filterMap.put(Utils.QUERY, new String[]{"\"/properties/name\"=" + cmTitle + " and " 
+                                + "\"/properties/description\"=" + "\"" + cmDescription + "\""});       
+
+        String cms = ServiceLocator.getContentModelHandler(userHandle, frameworkUrl).retrieveContentModels(filterMap);        
+        String numberOfCms = Utils.getValueFromXml("<sru-zr:numberOfRecords>", '<', cms);
+        
+        if (!numberOfCms.equals("0"))
+        {
+            String cmId = Utils.getValueFromXml("objid=\"", cms);
+            logger.info("Content Model with name '" + cmTitle + "' already exists. Returning objid = " + cmId);
+            return cmId;
+        }
+        
         String frameworkReturnXml =
             ServiceLocator.getContentModelHandler(userHandle, frameworkUrl).create(cmXml);
         if(frameworkReturnXml == null) {
             throw new Exception("content-model creation error");
         }
         logger.info("Creation data from framework: " + frameworkReturnXml);
-        String objectId = getValueFromXml("objid=\"", frameworkReturnXml);
-        String lastmodDate = "<param last-modification-date=\""+getValueFromXml("last-modification-date=\"", frameworkReturnXml)+"\"/>";
+        String objectId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
+        String lastmodDate = "<param last-modification-date=\""+ Utils.getValueFromXml("last-modification-date=\"", frameworkReturnXml)+"\"/>";
         logger.info("Created content-model with last modification-date: " + lastmodDate);     
         logger.info("Created content-model with objectid: " + objectId);
 
-        return objectId;
-        
+        return objectId;        
     }
     
+    /**
+     * If an organization with the same name and comment already exists, the id is returned, otherwise the ou is created and the id returned.
+     * @throws Exception
+     */
     public String createAndOpenOrganizationalUnit(String fileName) throws Exception
     {
-        String orgXml = getResourceAsXml(fileName);
+        String orgXml = Utils.getResourceAsXml(fileName);
+        
+        String ouTitle = Utils.getValueFromXml("<dc:title>", '<', orgXml);
+        String ouDescription = Utils.getValueFromXml("<dc:description>", '<', orgXml);
+        
+        // filter for ou's name and description
+        filterMap.clear();
+        filterMap.put(Utils.OPERATION, new String[]{Utils.SEARCH_RETRIEVE});
+        filterMap.put(Utils.VERSION, new String[]{"1.1"});
+        filterMap.put(Utils.QUERY, new String[]{"\"/properties/name\"=" + ouTitle + " and " 
+                                + "\"/properties/description\"=" + "\"" + ouDescription + "\""});       
+
+        String ous = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filterMap);        
+        String numberOfOus = Utils.getValueFromXml("<sru-zr:numberOfRecords>", '<', ous);
+        
+        if (!numberOfOus.equals("0"))
+        {
+            String ouId = Utils.getValueFromXml("objid=\"", ous);
+            logger.info("Organizational Unit with name '" + ouTitle + "' already exists. Returning objid = " + ouId);
+            return ouId;
+        }
+
         String frameworkReturnXml =
             ServiceLocator.getOrganizationalUnitHandler(userHandle, frameworkUrl).create(orgXml);
-        if(frameworkReturnXml == null) {
+        if(frameworkReturnXml == null) 
+        {
             throw new Exception("org-unit creation error");
         }
         logger.info("Creation data from framework: " + frameworkReturnXml);
-        String objectId = getValueFromXml("objid=\"", frameworkReturnXml);
-        String lastmodDate = "<param last-modification-date=\""+getValueFromXml("last-modification-date=\"", frameworkReturnXml)+"\"/>";
+        String objectId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
+        String lastmodDate = "<param last-modification-date=\"" + Utils.getValueFromXml("last-modification-date=\"", frameworkReturnXml) + "\"/>";
         logger.info("Created org-unit with last modification-date: " + lastmodDate);     
         logger.info("Created org-unit with objectid: " + objectId);
         
         String openxml = ServiceLocator.getOrganizationalUnitHandler(userHandle, frameworkUrl).open(objectId, lastmodDate);
         
         logger.info("Opened org-unit, returned xml: " + openxml);
-        return objectId;
-        
+        return objectId;      
     }
     
     public String createAndOpenContext(String fileName, String orgObjectId) throws Exception
     {
-        String contextXml = getResourceAsXml(fileName);
+        String contextXml = Utils.getResourceAsXml(fileName);
+        String contextTitle = Utils.getValueFromXml("<prop:name>", '<', contextXml);
+        
+        // filter for context's name 
+        filterMap.clear();
+        filterMap.put(Utils.OPERATION, new String[]{Utils.SEARCH_RETRIEVE});
+        filterMap.put(Utils.VERSION, new String[]{"1.1"});
+        filterMap.put(Utils.QUERY, new String[]{"\"/properties/name\"=\"" + contextTitle + "\""});       
+
+        String contexts = ServiceLocator.getContextHandler(userHandle, frameworkUrl).retrieveContexts(filterMap);        
+        String numberOfContexts = Utils.getValueFromXml("<sru-zr:numberOfRecords>", '<', contexts);
+        
+        if (numberOfContexts.equals("1"))
+        {
+            String contextId = Utils.getValueFromXml("objid=\"", contexts);
+            logger.info("Context with name '" + contextTitle + "' already exists. Returning objid = " + contextId);
+            return contextId;
+        }
         contextXml = contextXml.replaceAll(OBJECTID_SUBSTITUTE_IDENTIFIER, orgObjectId);
        
         String frameworkReturnXml =
@@ -161,8 +191,8 @@ public class InitialDataset
             throw new Exception("context creation error");
         }
         logger.info("Creation data from framework: " + frameworkReturnXml);
-        String objectId = getValueFromXml("objid=\"", frameworkReturnXml);
-        String lastmodDate = "<param last-modification-date=\""+getValueFromXml("last-modification-date=\"", frameworkReturnXml)+"\"/>";
+        String objectId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
+        String lastmodDate = "<param last-modification-date=\"" + Utils.getValueFromXml("last-modification-date=\"", frameworkReturnXml)+"\"/>";
         logger.info("Created context with last modification-date: " + lastmodDate);     
         logger.info("Created context with objectid: " + objectId);
         
@@ -172,32 +202,55 @@ public class InitialDataset
         return objectId;
     }
     
-    public String createUser( String fileName, String password, String orgObjectId) throws Exception
+    public String createUser(String fileName, String password, String orgObjectId) throws Exception
     {
-        String userXml = getResourceAsXml(fileName);
-        userXml = userXml.replaceAll(OBJECTID_SUBSTITUTE_IDENTIFIER, orgObjectId);
-       
-        String frameworkReturnXml =
-            ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).create(userXml);
-        if(frameworkReturnXml == null) {
-            throw new Exception("context creation error");
+        String frameworkReturnXml = null;
+        String userId = null;
+        
+        String userXml = Utils.getResourceAsXml(fileName);        
+        String loginName = Utils.getValueFromXml("<prop:login-name>", '<', userXml);
+        
+        // filter for users's login name 
+        filterMap.clear();
+        filterMap.put(Utils.OPERATION, new String[]{Utils.SEARCH_RETRIEVE});
+        filterMap.put(Utils.VERSION, new String[]{"1.1"});
+        filterMap.put(Utils.QUERY, new String[]{"\"/properties/login-name\"=\"" + loginName + "\""});       
+
+        String users = ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).retrieveUserAccounts(filterMap);        
+        String numberOfUsers = Utils.getValueFromXml("<zs:numberOfRecords>", '<', users);
+        
+        if (numberOfUsers.equals("1"))
+        {
+            userId = Utils.getValueFromXml("objid=\"", users);
+            logger.info("User with login-name '" + loginName + "' already exists: objid = " + userId);
+            
+            frameworkReturnXml =
+                    ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).retrieve(userId);
         }
-        String objectId = getValueFromXml("objid=\"", frameworkReturnXml);
+        else 
+        {
+            userXml = userXml.replaceAll(OBJECTID_SUBSTITUTE_IDENTIFIER, orgObjectId);
+            
+            frameworkReturnXml =
+                ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).create(userXml);
+            userId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
+            logger.info("User with login-name '" + loginName + "' created: objid = " + userId);
+        }
+        
         String lastmodDate = "<param last-modification-date=\""
-            +getValueFromXml("last-modification-date=\"", frameworkReturnXml)
-            +"\">"
-            +"\n<password>"+password+"</password>"
-            +"</param>";
+            + Utils.getValueFromXml("last-modification-date=\"", frameworkReturnXml)
+            + "\">"
+            + "\n<password>"+password+"</password>"
+            + "</param>";
         
-        ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).updatePassword(objectId, lastmodDate);
-        
-        logger.info("Creation data from framework: " + frameworkReturnXml);
-        return objectId;
+        ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).updatePassword(userId, lastmodDate);
+        logger.info("Passwort modified for user with login-name '" + loginName + "'");
+        return userId;
     }
     
     public String createGrantForUser( String fileName, String userObjectId, String contextId ) throws Exception
     {
-        String grantXml = getResourceAsXml(fileName);
+        String grantXml = Utils.getResourceAsXml(fileName);
         grantXml = grantXml.replaceAll(CONTEXTID_SUBSTITUTE_IDENTIFIER, contextId);
         
         String frameworkReturnXml =
@@ -205,7 +258,7 @@ public class InitialDataset
         if(frameworkReturnXml == null) {
             throw new Exception("context creation error");
         }
-        String objectId = getValueFromXml("objid=\"", frameworkReturnXml);
+        String objectId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
         return objectId;
     }
     
@@ -216,31 +269,6 @@ public class InitialDataset
         return frameworkReturnXml;
     }
     
-    
-    
-    /**
-     * Search the given String for the first occurence of "objid" and return its value.
-     * 
-     * @param item A (XML) String
-     * @return The objid value
-     */
-    private String getValueFromXml(String key, String item)
-    {
-        String result = "";
-        String searchString = key;
-        int index = item.indexOf(searchString);
-        if (index > 0)
-        {
-            item = item.substring(index + searchString.length());
-            index = item.indexOf('\"');
-            if (index > 0)
-            {
-                result = item.substring(0, index);
-            }
-        }
-        return result;
-    }  
-    
     public String getHandle()
     {
         return userHandle;
@@ -248,19 +276,19 @@ public class InitialDataset
     
     public String createAggregation(String fileName) throws Exception
     {
-        String aggregationXml = getResourceAsXml(fileName);
+        String aggregationXml = Utils.getResourceAsXml(fileName);
         AggregationDefinitionHandler aggrHandler = ServiceLocator.getAggregationDefinitionHandler();
         String createdAggr = aggrHandler.create(aggregationXml);
-        return getValueFromXml("objid", createdAggr);
+        return Utils.getValueFromXml("objid", createdAggr);
     }
     
     public String createReportDefinition(String fileName, String aggregationId) throws Exception
     {
-        String repDefXml = getResourceAsXml(fileName);
+        String repDefXml = Utils.getResourceAsXml(fileName);
         repDefXml = repDefXml.replace("###aggrId###", aggregationId);
         ReportDefinitionHandler repDefHandler = ServiceLocator.getReportDefinitionHandler(userHandle);
         String createdRepDef = repDefHandler.create(repDefXml);
-        return getValueFromXml("objid", createdRepDef);
+        return Utils.getValueFromXml("objid", createdRepDef);
         
         
     }

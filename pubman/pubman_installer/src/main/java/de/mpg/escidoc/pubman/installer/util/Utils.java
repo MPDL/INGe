@@ -6,8 +6,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+
+
 public class Utils
 {
+    /**
+     * Constants for queries.
+     */
+    public static final String SEARCH_RETRIEVE = "searchRetrieve";
+    public static final String QUERY = "query";
+    public static final String VERSION = "version";
+    public static final String OPERATION = "operation";
     
     /**
      * Search the given String for the first occurence of "key" and return its value.

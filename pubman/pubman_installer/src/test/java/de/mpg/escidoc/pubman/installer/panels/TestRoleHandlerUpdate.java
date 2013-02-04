@@ -25,13 +25,7 @@ public class TestRoleHandlerUpdate
     private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME = "CoNE-Open-Vocabulary-Editor";
     private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME = "CoNE-Closed-Vocabulary-Editor";
     
-    /**
-     * Constants for queries.
-     */
-    protected static final String SEARCH_RETRIEVE = "searchRetrieve";
-    protected static final String QUERY = "query";
-    protected static final String VERSION = "version";
-    protected static final String OPERATION = "operation";
+    
     
     
 }

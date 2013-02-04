@@ -1,6 +1,7 @@
 package de.mpg.escidoc.pubman.installer.panels;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,28 +11,29 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.pubman.installer.Configuration;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class TestConfigurationCreatorPanel
 {
     
     
     private static final String HTTP_N107_MPDL_MPG_DE = "http://10.20.2.75:8080";
-    static Configuration authConfig = null;
-    static Configuration pubmanConfig = null;
+    
+    private static Map<String, String> properties = new HashMap<String, String>();
+    private static Configuration authConfig = null;
+    private static Configuration pubmanConfig = null;
     
     private Logger logger = Logger.getLogger(TestConfigurationCreatorPanel.class);
     
     @BeforeClass
-    @Ignore
     public static void init() throws IOException
     {
-        Map<String, String> properties = new HashMap<String, String>();
+        
         properties.put(Configuration.KEY_CORESERVICE_URL, HTTP_N107_MPDL_MPG_DE);
         properties.put(Configuration.KEY_CORESERVICE_LOGIN_URL, HTTP_N107_MPDL_MPG_DE);
         properties.put(Configuration.KEY_AUTH_INSTANCE_URL, HTTP_N107_MPDL_MPG_DE);
@@ -41,6 +43,13 @@ public class TestConfigurationCreatorPanel
         
         pubmanConfig = new Configuration("pubman.properties");
         pubmanConfig.setProperties(properties);
+    }
+    
+    @AfterClass
+    public static void clean() throws IOException
+    {
+        authConfig.removeProperties(properties);
+        pubmanConfig.removeProperties(properties);
     }
     
     
