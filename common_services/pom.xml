@@ -849,6 +849,12 @@
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 			</properties>
+			<distributionManagement>
+				<site>
+					<id>website</id>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
+				</site>
+			</distributionManagement>
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
