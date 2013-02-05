@@ -443,11 +443,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         idata.setVariable("ExternalOrganisationID", ouExternalObjectId);
         String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
         String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml",
-                idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
+                idata.getVariable("InitialUserPassword"), ouDefaultObjectId, contextObjectId);
         String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml",
-                idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
-        dataset.createGrantForUser("datasetObjects/grant_moderator.xml", userModeratorId, contextObjectId);
-        dataset.createGrantForUser("datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
+                idata.getVariable("InitialUserPassword"), ouDefaultObjectId, contextObjectId);
     }
 
     /**

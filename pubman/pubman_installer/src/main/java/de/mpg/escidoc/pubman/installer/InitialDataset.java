@@ -58,6 +58,8 @@ public class InitialDataset
    /** Map of key - value pairs containing the filter definition */
     private HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
     
+    
+    
     private static final String OBJECTID_SUBSTITUTE_IDENTIFIER = "template_objectid_substituted_by_installer";
     private static final String CONTEXTID_SUBSTITUTE_IDENTIFIER = "template_contextid_substituted_by_installer";
     
@@ -202,10 +204,11 @@ public class InitialDataset
         return objectId;
     }
     
-    public String createUser(String fileName, String password, String orgObjectId) throws Exception
+    public String createUser(String fileName, String password, String orgObjectId, String contextObjectId) throws Exception
     {
         String frameworkReturnXml = null;
         String userId = null;
+        boolean created = false;
         
         String userXml = Utils.getResourceAsXml(fileName);        
         String loginName = Utils.getValueFromXml("<prop:login-name>", '<', userXml);
@@ -234,9 +237,11 @@ public class InitialDataset
             frameworkReturnXml =
                 ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).create(userXml);
             userId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
+            created = true;
             logger.info("User with login-name '" + loginName + "' created: objid = " + userId);
         }
         
+        // set or modify password
         String lastmodDate = "<param last-modification-date=\""
             + Utils.getValueFromXml("last-modification-date=\"", frameworkReturnXml)
             + "\">"
@@ -244,7 +249,21 @@ public class InitialDataset
             + "</param>";
         
         ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).updatePassword(userId, lastmodDate);
-        logger.info("Passwort modified for user with login-name '" + loginName + "'");
+        logger.info("Passwort set / modified for user with login-name '" + loginName + "'");
+        
+        //set grant if user has been created
+        if (!created)
+        {
+            return userId;
+        }
+        if (loginName.equals("pubman_moderator"))
+        {
+            this.createGrantForUser("datasetObjects/grant_moderator.xml", userId, contextObjectId);
+        }
+        if (loginName.equals("pubman_depositor"))
+        {
+            this.createGrantForUser("datasetObjects/grant_depositor.xml", userId, contextObjectId);
+        }
         return userId;
     }
     
@@ -255,9 +274,7 @@ public class InitialDataset
         
         String frameworkReturnXml =
             ServiceLocator.getUserAccountHandler(userHandle, frameworkUrl).createGrant(userObjectId, grantXml);
-        if(frameworkReturnXml == null) {
-            throw new Exception("context creation error");
-        }
+        
         String objectId = Utils.getValueFromXml("objid=\"", frameworkReturnXml);
         return objectId;
     }

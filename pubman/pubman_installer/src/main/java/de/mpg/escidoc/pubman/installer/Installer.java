@@ -224,11 +224,9 @@ public class Installer extends InstallerBase
         config.setProperty(Configuration.KEY_IMPORT_TASK_CM, importTaskContentModelId);
         String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
         String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml", defaultUserPassword,
-                ouDefaultObjectId);
+                ouDefaultObjectId, contextObjectId);
         String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml", defaultUserPassword,
-                ouDefaultObjectId);
-        dataset.createGrantForUser("datasetObjects/grant_moderator.xml", userModeratorId, contextObjectId);
-        dataset.createGrantForUser("datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
+                ouDefaultObjectId, contextObjectId);
         // createInitialStatisticData(dataset);
     }
 
