@@ -1,7 +1,7 @@
 <project>
 <version position="left"/>
     <poweredBy>
-        <logo name="JRebel" href="http://zeroturnaround.com/software/jrebel/" img="http://static.zeroturnaround.org/theme5/images/logos/logo-jrebel-dark-small.png" position="navigation-bottom" width="100px"/>
+        <logo name="JRebel" href="http://zeroturnaround.com/software/jrebel/" img="http://static.zeroturnaround.org/theme5/images/logos/logo-jrebel-dark-small.png" width="100px"/>
     </<poweredBy>
 	<body>
 		<menu name="Overview">
