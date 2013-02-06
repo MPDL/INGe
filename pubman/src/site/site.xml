@@ -1,5 +1,10 @@
 <project>
 <version position="left"/>
+    <bannerLeft>
+        <name>JRebel</name>
+        <src>http://static.zeroturnaround.org/theme5/images/logos/logo-jrebel-dark-small.png</src>
+        <href>http://zeroturnaround.com/software/jrebel/</href>
+    </bannerLeft>
 	<body>
 		<menu name="Overview">
 			<item name="Introduction" href="index.html"/>
