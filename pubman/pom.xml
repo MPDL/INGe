@@ -777,10 +777,11 @@
 		<escidoc.pubman.statistics.nims.link />
 		<escidoc.pubman.statistics.nims.context.ids />
 		<!-- Pid cache properties -->
-		<escidoc.pidcache.dummy.url>http://pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+		<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 		<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
 		<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
-		<escidoc.pidcache.refresh.interval />
+		<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
+		<escidoc.pidcache.refresh.interval>1</escidoc.pidcache.refresh.interval>
 		<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
 		<escidoc.pid.service.view.path>/read/view</escidoc.pid.service.view.path>
 		<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
@@ -868,8 +869,6 @@
 				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
-				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
-				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 			</properties>
@@ -912,8 +911,6 @@
 				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
-				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
-				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<jboss.deploy.port>8080</jboss.deploy.port>
@@ -941,8 +938,6 @@
 				<escidoc.import.database.name>/usr/share/jboss/server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>15</escidoc.import.surveyor.interval>
 				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
-				<escidoc.pidcache.cache.size.max>1000</escidoc.pidcache.cache.size.max>
-				<escidoc.pidcache.refresh.interval>120</escidoc.pidcache.refresh.interval>
 				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
 				<escidoc.systemtype>dev</escidoc.systemtype>
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
