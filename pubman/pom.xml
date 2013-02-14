@@ -676,7 +676,7 @@
 		<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 		<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 		<!-- Change transformation service properties as well when changing  'escidoc.pubman.external.organisation.id'-->
-		<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+		<escidoc.pubman.external.organisation.id>escidoc:9019</escidoc.pubman.external.organisation.id>
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 		<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
@@ -708,7 +708,7 @@
 		<escidoc.import.database.server.name />
 		<escidoc.import.database.server.port />
 		<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
-		<escidoc.import.task.content-model>escidoc:112070</escidoc.import.task.content-model>
+		<escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<!-- Blog integration -->
@@ -845,8 +845,25 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.zeroturnaround</groupId>
+						<artifactId>jrebel-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-rebel-xml</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 			<properties>
-			    <escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
+			    	<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
