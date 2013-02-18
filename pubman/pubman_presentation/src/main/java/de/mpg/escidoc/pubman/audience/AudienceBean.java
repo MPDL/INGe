@@ -209,7 +209,7 @@ public class AudienceBean extends FacesBean
             selectItemsList.add(selectItem);
             for(int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++)
             {
-                if (this.getUserGroupList().getUserGroupLists().get(i) != null && this.getUserGroupList().getUserGroupLists().get(i).getName() != null && !this.getUserGroupList().getUserGroupLists().get(i).getName().contains(" - Yearbook User Group for"))
+                if (this.getUserGroupList().getUserGroupLists().get(i) != null && this.getUserGroupList().getUserGroupLists().get(i).getName() != null && !this.getUserGroupList().getUserGroupLists().get(i).getName().contains("Yearbook User Group for"))
                 {
                     selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getName());
                     selectItemsList.add(selectItem);
