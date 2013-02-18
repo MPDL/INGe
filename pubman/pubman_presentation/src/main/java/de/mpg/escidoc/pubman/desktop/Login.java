@@ -37,14 +37,12 @@ import java.net.URLEncoder;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.aa.UserManagementWrapper;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -170,18 +168,7 @@ public class Login extends FacesBean
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         try
         {
-//            HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
-//            LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-//            if (loginHelper.isLoggedIn() == true && loginHelper.getESciDocUserHandle() != null)
-//            {
-//                UserManagementWrapper ummw = (UserManagementWrapper) ServiceLocator.getUserManagementWrapper(loginHelper.getESciDocUserHandle());
-//                ummw.logout();
-//                loginHelper.logout(loginHelper.getESciDocUserHandle());
-//                if (session != null)
-//                {
-//                    session.invalidate();
-//                }
-//            }
+
             fc.getExternalContext().redirect(
                     ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
 
