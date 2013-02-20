@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -44,15 +44,19 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				
+				<meta http-equiv="cache-control" content="no-cache" />
+				<meta http-equiv="Pragma" content="no-cache" />
+				<meta http-equiv="expires" content="0"/>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-				
+
 			</head>
+			<!-- Use onunload here in order to hinder browser to cache the page -->
 			<body lang="#{InternationalizationHelper.locale}">
 
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<h:form >
 			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -111,8 +115,8 @@
 						</div>
 					</div>
 					<div class="full_area0 formButtonArea">
-							<h:commandLink id="lnkAdvancedSearchClearAll" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}"/>
-							<h:commandLink id="lnkAdvancedSearchStartSearch" styleClass="free_area1_p8 activeButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}"/>
+							<h:commandLink id="lnkAdvancedSearchClearAll" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchBean.clearAndInit}" />
+							<h:commandLink id="lnkAdvancedSearchStartSearch" styleClass="free_area1_p8 activeButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchBean.startSearch}"/>
 						</div>
 				<!-- end: content section -->
 				</div>
@@ -121,12 +125,6 @@
 			</h:form>
 			<script type="text/javascript">
 				
-				function checkUpdatePersonFunction() {
-					
-					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
-					
-				}
-			
 				$pb(document).ready(function () {
 					/*
 					$pb("input[id$='offset']").submit(function() {
@@ -135,8 +133,10 @@
 					*/
 					$pb(window).scrollTop($pb("input[id$='offset']").val());
 					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
-					// maintain attributes for autosuggest filled persons
-					checkUpdatePersonFunction();
+
+
+					toggleEmbargo($pb('.selComponentVisibilityOptions')[0]);
+					
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
 				personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';
@@ -144,9 +144,13 @@
 				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
 				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+				subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
+				journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';
+				journalDetailsBaseURL = '$1?format=json';
+				journalSuggestCommonParentClass = 'sourceArea';
+				journalSuggestTrigger = 'JOURNAL';
 
-
-
+				
 			</script>
 			</body>
 		</html>

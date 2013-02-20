@@ -336,6 +336,7 @@ public abstract class SearchCriterionBase {
 
 			//split the search string into single words, except if they are in quotes
 			List<String> splittedSearchStrings = new ArrayList<String>();
+			List<String> splittedOperators = new ArrayList<String>();
 			
 			Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
 			Matcher m = pattern.matcher(searchString);
@@ -347,7 +348,7 @@ public abstract class SearchCriterionBase {
 				if(subSearchString!=null && !subSearchString.trim().isEmpty())
 				{
 					subSearchString = subSearchString.trim();
-					
+
 					//Remove quotes at beginning and end
 					if(subSearchString.startsWith("\""))
 					{
@@ -385,16 +386,25 @@ public abstract class SearchCriterionBase {
 					cqlStringBuilder.append("(");
 				}
 				
-				for(int i =0; i<splittedSearchStrings.size(); i++)
+				for(int i=0; i<splittedSearchStrings.size(); i++)
 				{
 					String subSearchString = splittedSearchStrings.get(i);
 					cqlStringBuilder.append("\"");
 					cqlStringBuilder.append(escapeForCql(subSearchString));
 					cqlStringBuilder.append("\"");
 					
-					if(splittedSearchStrings.size() > i+1)
+					if(splittedSearchStrings.size() > i+1 )
 					{
-						cqlStringBuilder.append(" and ");
+						if(splittedSearchStrings.get(i+1).matches("AND|OR|NOT"))
+						{
+							cqlStringBuilder.append(" " + splittedSearchStrings.get(i+1) +" ");
+							i++;
+						}
+						else
+						{
+							cqlStringBuilder.append(" AND ");
+						}
+						
 					}
 					
 				}
@@ -407,7 +417,7 @@ public abstract class SearchCriterionBase {
 				
 				if(cqlIndexes.length > j+1)
 				{
-					cqlStringBuilder.append(" or ");
+					cqlStringBuilder.append(" OR ");
 				}
 			}
 			
@@ -435,45 +445,66 @@ public abstract class SearchCriterionBase {
 		
 		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList);
 		
+		
+		String appendOperator = "AND";
+		
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i< removedList.size(); i++)
 		{
 			
 			SearchCriterionBase criterion = removedList.get(i);
 			
-			
-			String cql = criterion.toCqlString();
-			if(cql!=null)
+			//if first in list is an operator, use it as concatenator to append standard criteria below, else use default "AND"
+			if(i==0 &&  DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType()))
 			{
-				
-				
-				
-				if(!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType()) && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType()))
+				appendOperator = criterion.toCqlString();
+			}
+			else
+			{
+				String cql = criterion.toCqlString();
+				if(cql!=null && !cql.trim().isEmpty())
 				{
-					sb.append("(");
+					
+					
+					
+					if(!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType()) && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType()))
+					{
+						sb.append("(");
+					}
+					
+					sb.append(cql);
+					
+					if(!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType()) && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType()))
+					{
+						sb.append(")");
+					}
+					
+					sb.append(" ");
 				}
-				
-				sb.append(cql);
-				
-				if(!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType()) && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType()))
-				{
-					sb.append(")");
-				}
-				
-				sb.append(" ");
 			}
 			
+			
+			
 		}
+		
+		
 		
 		
 		if(appendStandardCriterions)
 		{
 			try {
+				
+				
+				
 				String contentModelId = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
 				String standardCriterions = INDEX_OBJECTTYPE + "=\"item\" and " + INDEX_CONTENT_MODEL + "=\"" + escapeForCql(contentModelId) + "\"";
+				
+				
+				
 				if(!sb.toString().isEmpty() )
 				{
-					standardCriterions = standardCriterions + " and " + sb.toString() + "";
+					
+					standardCriterions = standardCriterions + " " + appendOperator + " " + sb.toString() + "";
 				}
 				return standardCriterions;
 			} catch (Exception e) {
@@ -646,20 +677,36 @@ public abstract class SearchCriterionBase {
 
 	public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList)
 	{
-		List<SearchCriterionBase> copyForRemoval = new ArrayList<SearchCriterionBase>(criterionList);
-		List<SearchCriterionBase> copyForIteration = new ArrayList<SearchCriterionBase>(criterionList);
-		//Collections.copy(copy, criterionList);
-		
-		for(SearchCriterionBase sc : copyForIteration)
+		if(criterionList==null)
 		{
-			if(sc.isEmpty())
-			{
-				removeSearchCriterionWithOperator(copyForRemoval, sc);
-				logger.info("Remove " + sc);
-				
-			}
+			return new ArrayList<SearchCriterionBase>();
 		}
-		return copyForRemoval;
+		else
+		{
+			
+		
+			List<SearchCriterionBase> copyForRemoval = new ArrayList<SearchCriterionBase>(criterionList);
+			List<SearchCriterionBase> copyForIteration = new ArrayList<SearchCriterionBase>(criterionList);
+			//Collections.copy(copy, criterionList);
+			
+			for(SearchCriterionBase sc : copyForIteration)
+			{
+				if(sc.isEmpty())
+				{
+					removeSearchCriterionWithOperator(copyForRemoval, sc);
+					logger.info("Remove " + sc);
+					
+				}
+			}
+			
+			//if first in list is an operator except "NOT", remove it
+			if(copyForRemoval.size()>0 && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType()) && 
+					!SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion()))
+			{
+				copyForRemoval.remove(0);
+			}
+			return copyForRemoval;
+		}
 	}
 	
 	public static void removeSearchCriterionWithOperator(List<SearchCriterionBase> criterionList, SearchCriterionBase criterion)
@@ -667,17 +714,24 @@ public abstract class SearchCriterionBase {
 		
 		int position = criterionList.indexOf(criterion);
 		//try to delete
-		boolean deleteBefore = false;
-		if(position + 1 < criterionList.size())
+		boolean deleteBefore = true;
+		if(position == 0)
 		{
-			SearchCriterionBase sc = criterionList.get(position+1);
-			deleteBefore = sc.getSearchCriterion().equals(SearchCriterion.CLOSING_PARENTHESIS);
+			deleteBefore = false;
 		}
-		//last position
-		else if(position + 1 == criterionList.size())
+		else if(position - 1 >= 0)
 		{
-			deleteBefore = true;
+			SearchCriterionBase scBefore = criterionList.get(position-1);
+			
+			deleteBefore = !scBefore.getSearchCriterion().equals(SearchCriterion.OPENING_PARENTHESIS);
+			
+			if(!deleteBefore && position+1 < criterionList.size())
+			{ 	SearchCriterionBase scAfter = criterionList.get(position+1);
+				deleteBefore= scAfter.getSearchCriterion().equals(SearchCriterion.CLOSING_PARENTHESIS);
+			}
 		}
+		
+
 			
 		if(deleteBefore)
 		{

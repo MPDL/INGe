@@ -89,6 +89,9 @@ console.log('Set $pb to ' + $pb().jquery);
 var $pb, jQueryPb;
 $pb = jQuery;
 jQueryPb = jQuery;
+//Globally turn off caching of ajax requests. Bugfix for IE: IE caches ajax requests and therfore does not display the correct value
+//for newly entered or edited CONE entries when using autosuggest.
+$pb.ajaxSetup({ cache: false });
 </script>
 <%--
 <script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" />

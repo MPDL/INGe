@@ -48,9 +48,9 @@ public class LogicalOperator extends SearchCriterionBase {
 		
 		switch (sc)
 		{
-			case NOT_OPERATOR : return "not";
-			case AND_OPERATOR : return "and";
-			case OR_OPERATOR : return "or";
+			case NOT_OPERATOR : return "NOT";
+			case AND_OPERATOR : return "AND";
+			case OR_OPERATOR : return "OR";
 			
 			
 		}
@@ -62,9 +62,9 @@ public class LogicalOperator extends SearchCriterionBase {
 		SearchCriterion sc = getSearchCriterion();
 		switch (sc)
 		{
-			case NOT_OPERATOR : return "not";
-			case AND_OPERATOR : return "and";
-			case OR_OPERATOR : return "or";
+			case NOT_OPERATOR : return "NOT";
+			case AND_OPERATOR : return "AND";
+			case OR_OPERATOR : return "OR";
 			
 			
 		}

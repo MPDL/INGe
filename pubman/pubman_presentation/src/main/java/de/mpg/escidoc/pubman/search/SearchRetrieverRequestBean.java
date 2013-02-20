@@ -18,6 +18,7 @@ import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -50,6 +51,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      * The HTTP-GET parameter name for the cql query
      */
     public static String parameterCqlQuery = "cql";
+    
+    /**
+     * The HTTP-GET parameter name for the  query
+     */
+    public static String parameterQuery = "q";
 
     /**
      * The HTTP-GET parameter name for the search type (advanced, simple, ...)
@@ -60,6 +66,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      * The current cqlQuery
      */
     private String cqlQuery;
+    
+    /**
+     * The current internal pubman query;
+     */
+    private String queryString;
 
     /**
      * The total number of records from the search request
@@ -138,18 +149,29 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
         String cql = paramMap.get(parameterCqlQuery);
-
-
-        if (cql==null || cql.equals(""))
+        if(cql!=null && !cql.trim().equals(""))
         {
-            setCqlQuery("");
-            error("You have to call this page with a parameter \"cql\" and a cql query!");
+        	 setCqlQuery(cql);
+        }
+       
+        
+        
+        String query = paramMap.get(parameterQuery);
+        
+        if(query!=null)
+        {
+        	setQueryString(query);
+        }
+
+        if ((query==null || query.equals("")) && (cql==null || cql.equals("")))
+        {
+            error("You have to call this page with a parameter \"q\" and a internal query or \"cql\" and a cql query!");
 
         }
-        else
-        {
-            setCqlQuery(cql);
-        }
+       
+        
+        
+        
 
 
         String searchType = paramMap.get(parameterSearchType);
@@ -174,7 +196,19 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         //checkSortCriterias(sc);
         try
         {
-            PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
+        	String cql = "";
+        	
+        	if(queryString!=null && !queryString.trim().equals(""))
+        	{
+        		cql = SearchCriterionBase.queryStringToCqlString(queryString, true);
+        		
+        	}
+        	else
+        	{
+        		cql = getCqlQuery();
+        	}
+        	
+            PlainCqlQuery query = new PlainCqlQuery(cql);
             query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
             query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
 
@@ -330,5 +364,14 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
 
     }
+
+	public String getQueryString() {
+		return queryString;
+	}
+
+	public void setQueryString(String query) {
+		this.queryString = query;
+		getBasePaginatorListSessionBean().getParameterMap().put(parameterQuery, query);
+	}
 
 }

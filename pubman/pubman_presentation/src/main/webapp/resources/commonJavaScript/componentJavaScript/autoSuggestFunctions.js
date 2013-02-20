@@ -357,7 +357,18 @@
 		
 		if(field.length)
 		{
-			field.val(value);
+			
+			if(value!=null)
+			{
+				field.val(value);
+			}
+			else
+			{
+				field.val('');
+			}
+			
+			
+			
 			field.attr('title', value);
 			
 			

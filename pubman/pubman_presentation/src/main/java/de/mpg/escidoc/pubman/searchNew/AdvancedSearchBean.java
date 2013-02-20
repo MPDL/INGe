@@ -106,6 +106,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private SearchCriterionBase componentContentCategory;
 	
+	private boolean excludeComponentContentCategory;
+	
 	private SearchCriterionBase componentVisibilitySearchCriterion;
 	
 	private SearchCriterionBase genreListSearchCriterion;
@@ -114,6 +116,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	private Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap = new HashMap<SearchCriterionBase, Boolean>();
 	
 	private Map<SearchCriterionBase, Integer> balanceMap = new HashMap<SearchCriterionBase, Integer>();
+
+	private int numberOfSearchCriterions;
 	
 	
 	
@@ -123,12 +127,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	}
 	
 	
-	private void clearAndInit()
+	public void clearAndInit()
 	{
 		this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
 		this.locatorAvailableSearchCriterion = new LocatorAvailableSearchCriterion();
 		this.embargoDateAvailableSearchCriterion = new EmbargoDateAvailableSearchCriterion();
 		this.componentContentCategory = new ComponentContentCategory();
+		this.excludeComponentContentCategory = false;
 		this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
 		this.genreListSearchCriterion = new GenreListSearchCriterion();
 		
@@ -148,6 +153,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		criterionList.add(new PersonSearchCriterion(SearchCriterion.ANYPERSON));
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		criterionList.add(new DateSearchCriterion(SearchCriterion.ANYDATE));
+		
+		updateListForClosingParenthesis(null);
 	}
 	
 	
@@ -181,6 +188,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 			{
 				this.componentContentCategory = sc;
 				toBeRemovedList.add(sc);
+				if(i>0 && SearchCriterion.NOT_OPERATOR.equals(scList.get(i-1).getSearchCriterion()))
+				{
+					this.excludeComponentContentCategory = true;
+				}
+				
 			}
 			else if(SearchCriterion.COMPONENT_VISIBILITY.equals(sc.getSearchCriterion()))
 			{
@@ -200,12 +212,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		}
 		
 		this.criterionList = scList;
-		updateListForClosingParenthesis(null);
+		
 		
 		if(criterionList.isEmpty())
 		{
 			initCriterionListWithEmptyValues();	
 		}
+		
+		updateListForClosingParenthesis(null);
 	}
 	
 	
@@ -527,6 +541,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		boolean lookForClosingParenthesis = false;
 		int startParenthesisBalance = 0;
 		int pos = 0;
+		
+		this.numberOfSearchCriterions = 0;
+		
 		for(SearchCriterionBase sc : criterionList)
 		{
 
@@ -558,10 +575,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 			{
 				possibleCriterionsForClosingParenthesisMap.put(sc, true);
 			}
+			
+			
+			if(!DisplayType.OPERATOR.equals(sc.getSearchCriterion().getDisplayType()) && !DisplayType.PARENTHESIS.equals(sc.getSearchCriterion().getDisplayType()) )
+			{
+				this.numberOfSearchCriterions++;
+			}
 			pos++;
 		}
 		
-		
+		//logger.info("number of search criterions: " + numberOfSearchCriterions);
 		
 		
 		/*
@@ -694,8 +717,17 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		returnList.add(locatorAvailableSearchCriterion);
 		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		returnList.add(embargoDateAvailableSearchCriterion);
-		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		
+		if(excludeComponentContentCategory)
+		{
+			returnList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
+		}
+		else
+		{
+			returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		}
 		returnList.add(componentContentCategory);
+		
 		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		returnList.add(componentVisibilitySearchCriterion);
 		
@@ -890,6 +922,29 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 
 	public void setGenreListMenu(List<SelectItem> genreListMenu) {
 		this.genreListMenu = genreListMenu;
+	}
+
+
+	public boolean isExcludeComponentContentCategory() {
+		return excludeComponentContentCategory;
+	}
+
+
+	public void setExcludeComponentContentCategory(
+			boolean excludeComponentContentCategory) {
+		this.excludeComponentContentCategory = excludeComponentContentCategory;
+	}
+
+
+	
+
+	public int getNumberOfSearchCriterions() {
+		return numberOfSearchCriterions;
+	}
+
+
+	public void setNumberOfSearchCriterions(int numberOfSearchCriterions) {
+		this.numberOfSearchCriterions = numberOfSearchCriterions;
 	}
 
 }

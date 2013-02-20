@@ -80,7 +80,7 @@ public class MultipleImport extends FacesBean
     public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
     public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
     public static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "UTF-8");
-    public static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "UTF-8");
+    //public static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "UTF-8");
     public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
     public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
     public static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
@@ -161,7 +161,7 @@ public class MultipleImport extends FacesBean
         importFormats.add(new SelectItem(MARC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC")));
         
         //Specialized formats
-        importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));
+        //importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));
     }
         
     public String uploadFile()

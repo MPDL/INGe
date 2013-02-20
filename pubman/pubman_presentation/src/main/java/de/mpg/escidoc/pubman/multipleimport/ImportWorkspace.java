@@ -197,7 +197,7 @@ public class ImportWorkspace extends BreadcrumbPage
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ENDNOTE_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");}
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.BIBTEX_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_BIBTEX");}
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_EDOC");}
-            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT_AEI.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_EDOCAEI");}
+            //if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT_AEI.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_EDOCAEI");}
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.RIS_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_RIS");}
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.WOS_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_WOS");}
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MAB_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_MAB");}
