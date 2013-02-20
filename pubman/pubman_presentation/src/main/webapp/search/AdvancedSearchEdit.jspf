@@ -165,9 +165,14 @@
 					<!-- select menu for search criterion -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginRExcl" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion.displayType != 'PARENTHESIS'}">
 							
-							<a4j:commandButton value="(" reRender="editSearch" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{AdvancedSearchBean.currentlyOpenedParenthesis == null}" styleClass="addOpenParanthesis">
+							<a4j:commandButton value="(" reRender="editSearch" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{empty AdvancedSearchBean.currentlyOpenedParenthesis}" styleClass="addOpenParanthesis">
 								<f:attribute name="indexOfCriterion" value="#{index}"/>
 							</a4j:commandButton>
+							
+							<!-- Placeholder if button for opening parenthesis is not displayed -->
+							<h:panelGroup styleClass="tiny_area0" rendered="#{not empty AdvancedSearchBean.currentlyOpenedParenthesis}">
+								&#160;
+							</h:panelGroup>	
 							
 							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
 								<h:panelGroup layout="block" styleClass="large_area0">
@@ -175,21 +180,19 @@
 									<span class="tooltip">&#160;</span>
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
-								<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterion}" >
+								<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterion}">
 									<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenu}" />
 									<f:attribute name="indexOfCriterion" value="#{index}"/>
-									<a4j:support event="onchange" reRender="editSearch" >
-										
-									</a4j:support>
+									<a4j:support event="onchange" reRender="editSearch" />
 								</h:selectOneMenu>
 							</h:panelGroup>
 					</h:panelGroup>
 					
-					
+				
 					
 					<!-- input for standard criterions -->
 					<h:panelGroup rendered="#{criterion.searchCriterion.displayType == 'STANDARD'}">
-						<h:outputLabel id="lblSearchTermFirst" styleClass="small_label label_keyword" value=" "/>
+						<h:outputLabel id="lblSearchTermFirst" styleClass="small_label" value=" "/>
 						<h:inputText id="anyFieldSearchStringFirst" styleClass="double_txtInput" value="#{criterion.searchString}" />
 					</h:panelGroup>
 					
@@ -314,14 +317,13 @@
 					</h:panelGroup>
 					
 					
-					
 					<!-- +/- buttons -->
 					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and empty AdvancedSearchBean.currentlyOpenedParenthesis}">
 						
 						<a4j:commandButton id="btnAddFirst" reRender="editSearch" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" actionListener="#{AdvancedSearchBean.addSearchCriterion}" >
 							<f:attribute name="indexOfCriterion" value="#{index}"/>
 						</a4j:commandButton>
-						<a4j:commandButton id="btnRemoveFirst" reRender="editSearch" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}" disabled="#{fn:length(AdvancedSearchBean.criterionList) == 1 or criterion.searchCriterion.displayType == 'PARENTHESIS' || AdvancedSearchBean.numberOfSearchCriterions <= 1}">
+						<a4j:commandButton id="btnRemoveFirst" reRender="editSearch" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}" disabled="#{criterion.searchCriterion.displayType == 'PARENTHESIS' || AdvancedSearchBean.numberOfSearchCriterions <= 1}">
 							<f:attribute name="indexOfCriterion" value="#{index}"/>
 						</a4j:commandButton>
 					</h:panelGroup>
@@ -330,7 +332,7 @@
 						<!-- here could be the content for the left add remove buttons -->
 					</h:panelGroup>
 					
-					
+				
 				</h:panelGroup>
 				
 				

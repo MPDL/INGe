@@ -416,8 +416,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		{
 			logger.info("Changing sortCriteria at position " + position + " to " + newValue);
 			
-			criterionList.remove(position.intValue());
-			criterionList.add(position, SearchCriterionBase.initSearchCriterion(newValue));
+			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
+			SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
+			newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
+			if(possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion))
+			{
+				boolean oldValue = possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
+				possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
+				possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
+			}
+			criterionList.add(position, newSearchCriterion);
 		}
 		
 		
