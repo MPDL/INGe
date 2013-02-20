@@ -1213,7 +1213,7 @@
 					
 					<xsl:choose>
 						<!-- Customized - AEI: prop:content-category -->
-						<xsl:when test="$source-name = 'eDoc-AEI'">
+						<xsl:when test="$import-name = 'AEI'">
 							<xsl:variable name="content-category">
 								<xsl:choose>
 									<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
@@ -1376,7 +1376,7 @@
 							</xsl:element>
 							<xsl:choose>
 								<!-- Customized - AEI: prop:content-category -->
-								<xsl:when test="$source-name = 'eDoc-AEI'">
+								<xsl:when test="$import-name = 'AEI'">
 									<xsl:variable name="content-category">
 										<xsl:choose>
 											<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
@@ -3523,7 +3523,7 @@
 							<!-- No CoNE --></xsl:when>
 						<xsl:when test="$source and ($import-name = 'MPIE' or $import-name = 'MPIA')">
 							<!-- No CoNE --></xsl:when>
-						<xsl:when test="$source-name = 'eDoc-AEI'">
+						<xsl:when test="$import-name = 'AEI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Gravitational Physics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'FHI'">
@@ -3977,7 +3977,7 @@
 	<!-- REVIEW-METHOD TEMPLATE -->
 	<xsl:template match="refereed">
 		<xsl:choose>
-			<xsl:when test="../genre='Article' and exists(../journaltitle) and $source-name = 'eDoc-MPIPL'">
+			<xsl:when test="../genre='Article' and exists(../journaltitle) and $import-name = 'MPIPL'">
 				<xsl:element name="eterms:review-method">
 					<xsl:value-of select="$reviewMethod-ves/enum[. = 'peer-reviewed']/@uri"/>
 				</xsl:element>
