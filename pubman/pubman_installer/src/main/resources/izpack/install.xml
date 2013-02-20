@@ -6,7 +6,7 @@
         The meaning of the tags should be natural ...
     -->
 	<info>
-		<appname>eSciDoc PubMan</appname>
+		<appname>eSciDocPubMan</appname>
 		<appversion>@{project.version}</appversion>
 		<authors>
 			<author name="MPDL Development Team" email="pubman-support@gwdg.de"/>
