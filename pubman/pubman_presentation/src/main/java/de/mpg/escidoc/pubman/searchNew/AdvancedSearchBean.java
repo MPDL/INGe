@@ -697,10 +697,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		String query = SearchCriterionBase.scListToQueryString(allCriterions);
 		logger.info(query);
 		
-		
+		/*
 		List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
 		logger.info(scList);
+		*/
 		
+		 if( query==null || query.trim().isEmpty() ) {
+	            error(getMessage("search_NoCriteria"));
+	            return "";
+	      }
 		
 		 try {
 			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
