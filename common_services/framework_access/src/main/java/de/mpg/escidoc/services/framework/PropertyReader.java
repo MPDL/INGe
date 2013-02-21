@@ -217,7 +217,7 @@ public class PropertyReader
 	 *             If the file could not be found neither in the file system nor
 	 *             in the classpath.
 	 */
-	private static InputStream getInputStream(String filepath, Class callingClass) throws IOException
+	public static InputStream getInputStream(String filepath, Class callingClass) throws IOException
 	{
 		InputStream instream = null;
 		// First try to search in file system

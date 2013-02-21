@@ -32,8 +32,8 @@
      <structure name="role" ns="${xsd.soap.common.srel}">
       	<value style="attribute" name="objid" get-method="getRole" set-method="setRole"/>
       </structure>
-      <structure name="assigned-on" ns="${xsd.soap.common.srel}" >
-      	<value style="attribute" name="objid" get-method="getAssignedOn" set-method="setAssignedOn"/>
+      <structure name="assigned-on" ns="${xsd.soap.common.srel}" usage="optional">
+      	<value style="attribute" name="objid" get-method="getAssignedOn" set-method="setAssignedOn" usage="optional"/>
       </structure>
     </structure>
     <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>

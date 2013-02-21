@@ -37,7 +37,7 @@
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 		
-		<structure name="properties" ns="${xsd.soap.useraccount.grants}" ordered="false">
+		<structure name="properties" ns="${xsd.soap.useraccount.grants}" ordered="false" flexible="true">
 			<structure name="granted-to" ns="${xsd.soap.common.srel}" usage="optional">
 				<value style="attribute" name="resource" field="grantType" usage="optional" />
 				<value style="attribute" name="objid" field="grantedTo" usage="optional" />

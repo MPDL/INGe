@@ -33,7 +33,7 @@
 	$Revision: 747 $ 
 	$LastChangedDate: 2008-07-21 19:15:26 +0200 (Mo, 21 Jul 2008) $
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ei="${xsd.soap.item.item}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:mdp="${xsd.metadata.escidocprofile}" xmlns:ec="${xsd.soap.item.components}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:eterms="${xsd.metadata.terms}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:escidocFunctions="urn:escidoc:functions" xmlns:escidoc="${xsd.metadata.terms}" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ei="${xsd.soap.item.item}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:mdp="${xsd.metadata.escidocprofile}" xmlns:ec="${xsd.soap.item.components}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:eterms="${xsd.metadata.terms}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:escidocFunctions="urn:escidoc:functions" xmlns:escidoc="${xsd.metadata.terms}" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:search="http://www.loc.gov/zing/srw/" xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.8" xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" xmlns:eprints="http://purl.org/eprint/terms/">
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
@@ -54,6 +54,7 @@
 	<xsl:param name="external-ou"/>
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
+	<xsl:param name="framework-url" select="'http://migration-coreservice.mpdl.mpg.de'"/>
 	
 	<!-- Configuration parameters -->
 	<xsl:param name="import-name" select="'OTHER'"/>
@@ -1157,7 +1158,7 @@
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIBioChem'">
+						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys'">
 							<xsl:choose>
 								<xsl:when test="$access='USER' or $access='INTERNAL'">
 									<prop:visibility>private</prop:visibility>
@@ -1254,12 +1255,12 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'MPIPF'">
+						<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'MPIPF'  or $import-name = 'MPIIB'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1415,7 +1416,7 @@
 										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET'">
+								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'MPIIB'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 									</eterms:content-category>
@@ -1432,7 +1433,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1521,6 +1522,11 @@
 								</dcterms:extent>
 							</xsl:if>
 							<xsl:choose>
+								<xsl:when test="$import-name = 'MPIIB' and $access='PUBLIC'">
+									<dc:rights>
+										<xsl:value-of select="../../../rights/copyright"/>
+									</dc:rights>
+								</xsl:when>
 								<xsl:when test="$import-name = 'FHI'">
 									<!-- <xsl:call-template name="copyrightFHI"/>--></xsl:when>
 								<xsl:when test="$import-name = 'MPIMET'">
@@ -2203,7 +2209,8 @@
 				</xsl:for-each>
 			</xsl:variable>
 			<xsl:choose>
-				<xsl:when test="$import-name = 'MPIPsykl' and (not(exists($cone-authors/eterms:creator/organization:organization/dc:identifier)) or $cone-authors/eterms:creator/organization:organization/dc:identifier != '' ) ">
+				<xsl:when test="$import-name = 'MPIPsykl' and (not(exists($cone-authors/eterms:creator/person:person/organization:organization/dc:identifier)) or $cone-authors/eterms:creator/person:person/organization:organization/dc:identifier = '' ) ">
+					<xsl:comment> CASE MPIPsykl - no CoNE-Creator found </xsl:comment>
 					<xsl:for-each select="../creators/creator">
 						<eterms:creator>
 							<xsl:choose>
@@ -2279,8 +2286,8 @@
 									</dc:title>
 									<dc:identifier>
 										<!-- Hardcoded due to high effort for just one Institute -->
-										<!-- MIGRATION -->
-										<xsl:value-of select="'escidoc:424085'"/>
+										<!-- LIVE -->
+										<xsl:value-of select="'escidoc:1607137'"/>
 									</dc:identifier>
 								</organization:organization>
 							</person:person>
@@ -2652,6 +2659,11 @@
 				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
 		</xsl:if>
+		<xsl:if test="$import-name = 'MPIIPP'">
+			<xsl:for-each select="../relations/relation[@reltype='isreferencedby']">
+				<dc:identifier xsi:type="eterms:OTHER"><xsl:value-of select="identifier"/></dc:identifier>
+			</xsl:for-each>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- 
@@ -2818,13 +2830,22 @@
 		</xsl:if>
 
 		<!-- PUBLISHININFO -->
-		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
-			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
-				<xsl:element name="eterms:publishing-info">
-					<xsl:call-template name="createPublishinginfo"/>
-				</xsl:element>
-			</xsl:if>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIIPP' and exists(../../rights/copyright)">
+				<eterms:publishing-info>
+					<dc:publisher>
+						<xsl:value-of select="../../rights/copyright"/>
+					</dc:publisher>
+				</eterms:publishing-info>
+			</xsl:when>
+			<xsl:when test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
+				<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+					<xsl:element name="eterms:publishing-info">
+						<xsl:call-template name="createPublishinginfo"/>
+					</xsl:element>
+				</xsl:if>
+			</xsl:when>
+		</xsl:choose>
 		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
 			<xsl:call-template name="createIDs">
 				<xsl:with-param name="gen" select="$gen"/>
@@ -3617,6 +3638,15 @@
 						<xsl:when test="$import-name = 'MPIPsykl'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Psychiatry')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIIPP'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Plasma Physics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIIB'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Infection Biology')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MolePhys'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Molecular Physiology')"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
@@ -3698,16 +3728,43 @@
 									</xsl:when>
 									<xsl:when test="$import-name = 'MPIPsykl' and (@internextern='mpg')">
 										<xsl:comment> Case MPIPsykl </xsl:comment>
+										<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20of%20Psychiatry%22")' />
+								        <xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
 										<organization:organization>
 											<dc:title>
 												<xsl:value-of select="'Max Planck Institute of Psychiatry, Max Planck Society'"/>
 											</dc:title>
 											<dc:identifier>
-												<!-- Hardcoded due to high effort for just one Institute -->
-												<!-- MIGRATION -->
-												<xsl:value-of select="'escidoc:424085'"/>
-											</dc:identifier>
+								            	<xsl:choose>
+								                	<xsl:when test="$organizational-search/search:searchRetrieveResponse/search:numberOfRecords = 1 and $organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') != ''">
+								                    	<xsl:value-of select="$organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+								                    </xsl:when>
+								                    <xsl:otherwise>
+								                    	<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OrganizationalUnitNotFound' ), 'There is no or too many OU-ID(s) for -Max Planck Institute of Psychiatry-')"/>
+								                   	</xsl:otherwise>
+								                 </xsl:choose>
+								        	</dc:identifier>
 										</organization:organization>
+									</xsl:when>
+									<xsl:when test="$import-name = 'MolePhys' and (@internextern='mpg')">
+								        <xsl:comment> Case MolePhys </xsl:comment>
+								        <xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20of%20Molecular%20Physiology%22")' />
+								        <xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
+								        <organization:organization>
+								        	<dc:title>
+								        		<xsl:value-of select="'Max Planck Institute of Molecular Physiology, Max Planck Society'"/>
+								        	</dc:title>
+								        	<dc:identifier>
+								            	<xsl:choose>
+								                	<xsl:when test="$organizational-search/search:searchRetrieveResponse/search:numberOfRecords = 1 and $organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') != ''">
+								                    	<xsl:value-of select="$organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+								                    </xsl:when>
+								                    <xsl:otherwise>
+								                    	<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OrganizationalUnitNotFound' ), 'There is no or too many OU-ID(s) for -Max Planck Institute of Psychiatry-')"/>
+								                   	</xsl:otherwise>
+								                 </xsl:choose>
+								        	</dc:identifier>
+								        </organization:organization>
 									</xsl:when>
 									<xsl:when test="$import-name = 'AEI' and @internextern='mpg' and exists(../../../docaff/affiliation) and ($has-mpgsunit = true() or $has-mpgunit = true())">
 										<!-- Special Case for AEI -->

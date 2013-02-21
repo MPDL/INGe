@@ -2245,6 +2245,38 @@ public class XmlTransformingBean implements XmlTransforming
     	return searchRetrieveResponseVO;
     }
     
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseGrantVO(String searchRetrieveResponseXml) throws TechnicalException
+    {
+        logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
+        if (searchRetrieveResponseXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
+        }
+        SearchRetrieveResponseVO searchRetrieveResponseVO = null;
+        
+        try
+        {
+            // unmarshal pidServiceResponse from String
+            IBindingFactory bfact = BindingDirectory.getFactory("GrantVOListWrapper", SearchRetrieveResponseVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(searchRetrieveResponseXml);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            searchRetrieveResponseVO = (SearchRetrieveResponseVO)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(searchRetrieveResponseXml, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        
+        return searchRetrieveResponseVO;
+    }
+    
     public SearchRetrieveResponseVO transformToSearchRetrieveResponseAccountUser(String searcRetrieveResponseXml) throws TechnicalException
     {
     	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);

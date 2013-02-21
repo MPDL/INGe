@@ -232,6 +232,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
             transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
             transformer.setParameter("source-name", srcFormat.getName());
+            transformer.setParameter("framework-url", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));

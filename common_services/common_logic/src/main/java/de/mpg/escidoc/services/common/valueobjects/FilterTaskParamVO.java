@@ -214,9 +214,18 @@ public class FilterTaskParamVO extends ValueObject
                 else if (filter instanceof StandardFilter)
                 {
                 	StandardFilter standardFilter = (StandardFilter) filter;
-                    enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"="
-                            + standardFilter.getValue(),
-                            previousFilter, filter);
+                	if (standardFilter.getOperator() != null)
+                	{
+                	    enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"" 
+                	            + standardFilter.getOperator()
+                                + standardFilter.getValue(),
+                                previousFilter, filter);
+                	}
+                	else {
+                	    enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"="
+                                + standardFilter.getValue(),
+                                previousFilter, filter);
+                	}
                 }
                 previousFilter = filter;
             }
@@ -269,6 +278,10 @@ public class FilterTaskParamVO extends ValueObject
             // filter has not changed - connect snippets with OR without brackets (except for RoleFilters)
             if (filter instanceof RoleFilter)
                 b.append(AND);
+            else if (filter instanceof StandardFilter && ((StandardFilter)filter).getLogicalOperator() != null && "and".equals(((StandardFilter)filter).getLogicalOperator().toLowerCase()))
+            {
+                b.append(AND);
+            }
             else
                 b.append(OR);
             doAppend(b, querySnippet, filter);
@@ -984,12 +997,44 @@ public class FilterTaskParamVO extends ValueObject
         
         private String filterName;
         private String value;
+        private String operator;
+        private String logicalOperator;
 
         public StandardFilter(String filterName, String value)
         {
             super();
             this.filterName = filterName;
             this.value = value;
+        }
+        
+        /**
+         * 
+         * @param filterName (eg. "http://escidoc.de/core/01/properties/user")
+         * @param value (eg. "escidoc:12345")
+         * @param operator (eg. "=" or "<>")
+         */
+        public StandardFilter(String filterName, String value, String operator)
+        {
+            super();
+            this.filterName = filterName;
+            this.value = value;
+            this.operator = operator;
+        }
+        
+        /**
+         * 
+         * @param filterName (eg. "http://escidoc.de/core/01/properties/user")
+         * @param value (eg. "escidoc:12345")
+         * @param operator (eg. "=" or "<>")
+         * @param logicalOperator for possible link with the next StandardFilter (eg. "AND" or "OR")
+         */
+        public StandardFilter(String filterName, String value, String operator, String logicalOperator)
+        {
+            super();
+            this.filterName = filterName;
+            this.value = value;
+            this.operator = operator;
+            this.logicalOperator = logicalOperator;
         }
 
 		public String getFilterName() {
@@ -1007,9 +1052,23 @@ public class FilterTaskParamVO extends ValueObject
 		public void setValue(String value) {
 			this.value = value;
 		}
+		
+		public String getOperator() {
+		    return this.operator;
+		}
+		
+		public void setOperator(String operator) {
+		    this.operator = operator;
+		}
+		
+		public String getLogicalOperator() {
+		    return this.logicalOperator;
+		}
+		
+		public void setLogicalOperator(String logicalOperator) {
+		    this.logicalOperator = logicalOperator;
+		}
 
-       
-
-    }    
+    }  
     
 }

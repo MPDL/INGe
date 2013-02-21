@@ -120,6 +120,15 @@
 			<build>
 			</build>
 		</profile>
+		<profile>
+			<id>env-production-nims</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties />
+			<build>
+			</build>
+		</profile>
 	</profiles>
 	<dependencies>
 		<dependency>

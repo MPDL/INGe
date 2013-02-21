@@ -34,6 +34,8 @@
 	<namespace prefix="grants" uri="${xsd.soap.useraccount.grants}" default="none" />
 	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
 	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
+	<namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
+	<namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
 
 	<format type="java.util.Date"
 		deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
@@ -45,6 +47,7 @@
 	<!--  -->
 	<include path="GrantVO_binding.xml" />
 	<include path="GrantVOListWrapper_binding.xml" />
+	<include path="SearchRetrieveResponse_binding_input.xml" />
 
 </binding>
 
