@@ -680,6 +680,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 
 	public String startSearch()
 	{
+		
+		
+		if(currentlyOpenedParenthesis!=null)
+		{
+			error(getMessage("search_ParenthesisNotClosed"));
+            return "";
+		}
+		
 		List<SearchCriterionBase> allCriterions = new ArrayList<SearchCriterionBase>();
 		allCriterions.addAll(getCriterionList());
 	
