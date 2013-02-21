@@ -606,7 +606,9 @@
 		<!-- URL of this PubMan instance -->
 		<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
-		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>		
+		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
+		<!-- Seal-Number of this PubMan instance -->
+		<escidoc.pubman.instance.seal_number/>
 		<!-- Links from PubMan -->
 		<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
@@ -818,7 +820,6 @@
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
-		<esicdoc.syndication.feeds.content.model>escidoc:2001</esicdoc.syndication.feeds.content.model>
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<escidoc.pubman.yearbook.context.id>escidoc:287053</escidoc.pubman.yearbook.context.id>
@@ -916,6 +917,7 @@
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 				<jboss.install.node>default</jboss.install.node>
+				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
 			</properties>
 			<distributionManagement>
 				<site>
@@ -939,6 +941,7 @@
 				<escidoc.import.surveyor.interval>15</escidoc.import.surveyor.interval>
 				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
 				<escidoc.systemtype>dev</escidoc.systemtype>
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>

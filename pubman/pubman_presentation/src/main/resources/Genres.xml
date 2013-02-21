@@ -33,17 +33,30 @@
 									14. Added Genre Manuscript, same settings as for Genre "OTHER"
 								      -->
 	<configuration>
+		<!-- The listed content-categories will be available in PubMan -->
 		<content-categories>
 			<content-category id="ANY_FULLTEXT" url="http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"/>
 			<content-category id="PRE_PRINT" url="http://purl.org/escidoc/metadata/ves/content-categories/pre-print"/>
 			<content-category id="POST_PRINT" url="http://purl.org/escidoc/metadata/ves/content-categories/post-print"/>
 			<content-category id="PUBLISHER_VERSION" url="http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"/>
 			<content-category id="ABSTRACT" url="http://purl.org/escidoc/metadata/ves/content-categories/abstract"/>
-			<content-category id="TABLE_OF_CONTENTS" url="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents"/>
+			<content-category id="TABLE_OF_CONTENTS" url="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents"/>     
 			<content-category id="SUPPLEMENTARY_MATERIAL" url="http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material"/>
 			<content-category id="CORRESPONDENCE" url="http://purl.org/escidoc/metadata/ves/content-categories/correspondence"/>
 			<content-category id="COPYRIGHT_TRANSFER_AGREEMENT" url="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement"/>
 		</content-categories>
+		<!-- !NEGATIVE! List for author roles (the listed roles will NOT be shown in PubMan!) -->
+		<author-roles>
+			<!-- Example:
+			<role id="ARTIST" url="http://www.loc.gov/loc.terms/relators/ART"/>
+			-->
+		</author-roles>
+		<!-- !NEGATIVE! List for source genres (the listed source genres will NOT be shown in PubMan!) -->
+		<source-genres>
+			<!-- Example:
+			<source-genre id="ISSUE" url="http://purl.org/escidoc/metadata/ves/publication-types/issue"/>
+			-->
+		</source-genres>
 		<genre-default>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
 				<field id="item_genre" repeatable="false" display="true" optional="false" label="item_genre" class-attribute="metadata.genre"/>
@@ -84,11 +97,11 @@
 				<field id="component_description" repeatable="false" display="true" optional="true" label="locator_description" class-attribute="files.description"/>
 			</group>
 			<group id="content" repeatable="false" display="true" optional="true" label="g_content" form-id="all">
-				<group id="item_subject" repeatable="true" display="true" label="item_subject" optional="true" class-attribute="metadata.subjects">
+				<field id="item_abstract" repeatable="true" display="true" label="item_abstract" optional="true" class-attribute="metadata.abstracts"/>
+				<group id="item_subject" repeatable="true" display="true" label="item_subject" optional="true" class-attribute="metadata.subjects" form-id="full-submission">
 					<field id="item_subject_type" repeatable="false" display="true" optional="false" label="item_subject_type" class-attribute="metadata.subjects.type"/>
 					<field id="item_subject_value" repeatable="false" display="true" optional="false" label="item_subject_value" class-attribute="metadata.subjects.value"/>
 				</group>
-				<field id="item_abstract" repeatable="true" display="true" label="item_abstract" optional="true" class-attribute="metadata.abstracts"/>
 			</group>
 			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
 				<group id="item_details_dates" repeatable="false" display="true" optional="false" label="g_item_details_dates" form-id="all">

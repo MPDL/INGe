@@ -72,12 +72,12 @@
 						</div>
 						<!-- MessageArea starts here -->
 						<h:panelGroup id="messages" styleClass="subHeader">
-							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{UserAccountOptions.hasErrorMessages}">
+							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea small_marginLExcl" rendered="#{UserAccountOptions.hasErrorMessages}">
 								<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 								<h2><h:outputText value="#{lbl.warning_lblMessageHeader}" /></h2>
 								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{UserAccountOptions.hasMessages}"/>
 							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{UserAccountOptions.hasMessages and !UserAccountOptions.hasErrorMessages}">
+							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea small_marginLExcl" rendered="#{UserAccountOptions.hasMessages and !UserAccountOptions.hasErrorMessages}">
 								<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 								<h2><h:outputText value="#{lbl.info_lblMessageHeader}" /></h2>
 								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{UserAccountOptions.hasMessages}"/>
@@ -103,6 +103,19 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
+				var passArea = $pb('.passArea'); 
+				$pb(window).unbind("keyup");
+				$pb(document).unbind("keyup");
+				passArea.find("input[type=password]").keyup(function(keyEvent) {
+					var key = keyEvent.keyCode;
+					if(key == '13') {
+						keyEvent.preventDefault();
+						keyEvent.stopImmediatePropagation();
+						keyEvent.stopPropagation();
+						passArea.find('.activeButton').trigger("click");
+					};
+				});
+				
 				$pb("input[id$='offset']").submit(function() {
 					$pb(this).val($pb(window).scrollTop());
 				});

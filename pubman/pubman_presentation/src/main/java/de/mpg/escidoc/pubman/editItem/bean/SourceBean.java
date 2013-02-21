@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.editItem.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
@@ -44,6 +45,7 @@ import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManage
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.pubman.util.SourceVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -185,26 +187,34 @@ public class SourceBean extends EditItemBean
         InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
         .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
                 InternationalizationHelper.BEAN_NAME);
-
         ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-        SelectItem NO_ITEM_SET = new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
-        SelectItem GENRE_BOOK = new SelectItem(SourceVO.Genre.BOOK, bundleLabel.getString("ENUM_GENRE_BOOK"));
-        SelectItem GENRE_ISSUE = new SelectItem(SourceVO.Genre.ISSUE, bundleLabel.getString("ENUM_GENRE_ISSUE"));
-        SelectItem GENRE_JOURNAL = new SelectItem(SourceVO.Genre.JOURNAL, bundleLabel.getString("ENUM_GENRE_JOURNAL"));
-        SelectItem GENRE_PROCEEDINGS = new SelectItem(SourceVO.Genre.PROCEEDINGS, bundleLabel
-                .getString("ENUM_GENRE_PROCEEDINGS"));
-        SelectItem GENRE_SERIES = new SelectItem(SourceVO.Genre.SERIES, bundleLabel.getString("ENUM_GENRE_SERIES"));
-        // JUS BEGING
-        SelectItem GENRE_COLLECTED_EDITION = new SelectItem(SourceVO.Genre.COLLECTED_EDITION, bundleLabel.getString("ENUM_GENRE_COLLECTED_EDITION"));
-        SelectItem GENRE_HANDBOOK = new SelectItem(SourceVO.Genre.HANDBOOK, bundleLabel.getString("ENUM_GENRE_HANDBOOK"));
-        SelectItem GENRE_FESTSCHRIFT = new SelectItem(SourceVO.Genre.FESTSCHRIFT, bundleLabel.getString("ENUM_GENRE_FESTSCHRIFT"));
-        SelectItem GENRE_COMMENTARY = new SelectItem(SourceVO.Genre.COMMENTARY, bundleLabel.getString("ENUM_GENRE_COMMENTARY"));
-        SelectItem GENRE_NEWSPAPER = new SelectItem(SourceVO.Genre.NEWSPAPER, bundleLabel.getString("ENUM_GENRE_NEWSPAPER"));
-        SelectItem GENRE_ENCYCLOPEDIA = new SelectItem(SourceVO.Genre.ENCYCLOPEDIA, bundleLabel.getString("ENUM_GENRE_ENCYCLOPEDIA"));
-        SelectItem GENRE_MULTI_VOLUME = new SelectItem(SourceVO.Genre.MULTI_VOLUME, bundleLabel.getString("ENUM_GENRE_MULTI_VOLUME"));
-        // JUS END
-        return new SelectItem[]{ NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES,
-                GENRE_COLLECTED_EDITION,GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER, GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME};
+        
+        Map <String, String> excludedSourceGenres = SourceVOPresentation.getExcludedSourceGenreMap();
+        List <SelectItem> sourceGenres = new ArrayList <SelectItem>();
+        sourceGenres.add(new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET")));
+        for (SourceVO.Genre value : SourceVO.Genre.values())
+        {
+            sourceGenres.add(new SelectItem(value, bundleLabel.getString("ENUM_GENRE_" + value.name())));
+        }
+        
+        String uri = "";
+        int i = 0;
+        while  ( i < sourceGenres.size() )
+        {
+            if (sourceGenres.get(i).getValue() != null && !("").equals(sourceGenres.get(i).getValue())){
+                uri = ((SourceVO.Genre)sourceGenres.get(i).getValue()).getUri();
+            }
+            
+            if (excludedSourceGenres.containsValue(uri))
+            {
+                sourceGenres.remove(i);
+            }
+            else 
+            {
+                i++;
+            }
+        }
+        return sourceGenres.toArray(new SelectItem[sourceGenres.size()]);
     }
 
     public boolean getAutosuggestJournals()

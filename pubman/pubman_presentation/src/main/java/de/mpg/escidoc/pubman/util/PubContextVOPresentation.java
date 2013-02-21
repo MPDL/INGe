@@ -1,5 +1,8 @@
 package de.mpg.escidoc.pubman.util;
 
+import java.text.Collator;
+import java.util.Locale;
+
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -18,7 +21,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
-public class PubContextVOPresentation extends ContextVO
+public class PubContextVOPresentation extends ContextVO implements Comparable<PubContextVOPresentation>
 {
 
     private boolean selected = false;
@@ -171,5 +174,12 @@ public class PubContextVOPresentation extends ContextVO
         {
             return Boolean.FALSE;
         }
+    }
+    
+    public int compareTo (PubContextVOPresentation compareObject)
+    {
+        Collator collator = Collator.getInstance(Locale.getDefault()); 
+        collator.setStrength(Collator.SECONDARY); 
+        return collator.compare(this.getName(), compareObject.getName());
     }
 }

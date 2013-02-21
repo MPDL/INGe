@@ -82,7 +82,7 @@
 	</div>
 </div>
 <!-- Browse By Subject -->
-<div class="full_area0 itemHeader">
+<h:panelGroup styleClass="full_area0 itemHeader" rendered="#{not empty BrowseBySessionBean.controlledVocabs}">
 	<span class="xLarge_area0 endline">
 		&#160;
 	</span>
@@ -92,12 +92,12 @@
 			<h:outputText value="#{lbl.BrowseBySubject}"/>
 		</b>
 	</span>
-</div>
-<div class="full_area0 itemBlock noTopBorder">
+</h:panelGroup>
+<h:panelGroup styleClass="full_area0 itemBlock noTopBorder" rendered="#{not empty BrowseBySessionBean.controlledVocabs}">
 	<h3 class="xLarge_area0_p8 endline blockHeader"> &#160; </h3>
 	<div class="free_area0 itemBlockContent endline">
 		<p>
-			<a4j:repeat var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" rowKeyVar="index" rows="0">
+			<a4j:repeat var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" rowKeyVar="index" rows="0" >
 				<div class="quad_area0_p8 noPaddingTopBottom firstLine">
 					<b class="medium_area0 labelLine">
 						<h:commandButton id="lnkSubject" styleClass="free_area0 groupBtn" value="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
@@ -127,7 +127,7 @@
 		
 	</div>
 	<div style="line-height:2em;">&#160;</div>
-</div>
+</h:panelGroup>
 <!-- Browse By Year -->
 	
 <div class="full_area0 itemHeader">

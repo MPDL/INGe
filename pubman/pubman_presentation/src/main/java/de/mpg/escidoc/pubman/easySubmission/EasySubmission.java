@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -79,6 +80,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.util.SourceVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -234,13 +236,28 @@ public class EasySubmission extends FacesBean
             // );
             // bindFiles();
             
-        	if (essb.getLocators() == null)
+            if (essb.getLocators() == null)
             {
                 // add a locator
                 
-        		FileVO newLocator = new FileVO();
+                FileVO newLocator = new FileVO();
                 newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-                newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
+                String contentCategory = null;
+                if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null)
+                {
+                    contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+                }
+                else {
+                    Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                    if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                        contentCategory = contentCategoryMap.values().iterator().next();
+                    }
+                    else {
+                        error("There is no content category available.");
+                        Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                    }
+                }
+                newLocator.setContentCategory(contentCategory);
                 newLocator.setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.setDefaultMetadata(new MdsFileVO());
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
@@ -257,7 +274,7 @@ public class EasySubmission extends FacesBean
                 */
             }
             /*
-        	if (essb.getFiles().size() < 1)
+            if (essb.getFiles().size() < 1)
             {
                 // add a file
                 FileVO newFile = new FileVO();
@@ -273,7 +290,22 @@ public class EasySubmission extends FacesBean
                 // add a locator
                 FileVO newLocator = new FileVO();
                 newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-                newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
+                String contentCategory = null;
+                if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null)
+                {
+                    contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+                }
+                else {
+                    Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                    if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                        contentCategory = contentCategoryMap.values().iterator().next();
+                    }
+                    else {
+                        error("There is no content category available.");
+                        Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                    }
+                }
+                newLocator.setContentCategory(contentCategory);
                 newLocator.setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.setDefaultMetadata(new MdsFileVO());
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
@@ -515,9 +547,22 @@ public class EasySubmission extends FacesBean
         {
             PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean()
                     .getLocators().size(), true);
-            // set fixed content type
-            newLocator.getFile().setContentCategory(
-                    PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
+            String contentCategory = null;
+            if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null)
+            {
+                contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+            }
+            else {
+                Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                    contentCategory = contentCategoryMap.values().iterator().next();
+                }
+                else {
+                    error("There is no content category available.");
+                    Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                }
+            }
+            newLocator.getFile().setContentCategory(contentCategory);
             newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
             newLocator.getFile().setDefaultMetadata(new MdsFileVO());
             newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
@@ -767,100 +812,100 @@ public class EasySubmission extends FacesBean
      */
     public String upload(boolean needMessages)
     {
-    	if(uploadedFile!=null)
-    	{
-	    	for(UploadItem file : this.uploadedFile)
-	    	{
-		        StringBuffer errorMessage = new StringBuffer();
-		        int indexUpload = this.getFiles().size() - 1;
-		        //UploadItem file = this.uploadedFile;
-		        String contentURL;
-		        if (file != null)
-		        {
-		            // set the file name automatically if it is not filled by the user
-		            /*
-		             * if (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() == null ||
-		             * this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals(""))
-		             * { this.getFiles().get(indexUpload).getFile().getDefaultMetadata() .setTitle(new
-		             * TextVO(file.getFilename())); } if (this.getFiles().get(this.getFiles().size() - 1).getContentCategory()
-		             * != null && !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("") &&
-		             * !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-")) {
-		             */
-		            contentURL = uploadFile(file);
-		            if (contentURL != null && !contentURL.trim().equals(""))
-		            {
-		            	
-		            	FileVO newFile = new FileVO();
-		                newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-		                newFile.setVisibility(FileVO.Visibility.PUBLIC);
-		                newFile.setDefaultMetadata(new MdsFileVO());
-		                newFile.getDefaultMetadata().setTitle(new TextVO());
-		                this.getEasySubmissionSessionBean()
-		                        .getFiles()
-		                        .add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile,
-		                                false));
-		            	
-		                newFile.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
-		                newFile.setName(file.getFileName());
-		                newFile.getDefaultMetadata().setSize((int)file.getFileSize());
-		                // set the file name automatically if it is not filled by the user
-		                /*
-		                 * if(this.getFiles().get(indexUpload).getFile().getName() == null ||
-		                 * this.getFiles().get(indexUpload).getFile().getName().trim().equals("")) {
-		                 * this.getFiles().get(indexUpload).getFile().setName(file.getFilename()); }
-		                 */
-		                
-		                
-		                //newFile.setMimeType(file.getContentType());
-		                
-		                Tika tika = new Tika();
-	                	if(file.isTempFile())
-	                	{
-	                		try {
-	                			newFile.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
-							} catch (IOException e) {
-								logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
-							}
-	                	}
-	                	else
-	                	{
-	                		newFile.setMimeType(tika.detect(file.getFileName()));
-	                	}
-		                
-		                
-		                FormatVO formatVO = new FormatVO();
-		                formatVO.setType("dcterms:IMT");
-		                formatVO.setValue(newFile.getMimeType());
-		                // correct several PDF Mime type errors manually
-		                /*
-		                if (file.getFileName() != null
-		                        && (file.getFileName().endsWith(".pdf") || file.getFileName().endsWith(".PDF")))
-		                {
-		                	newFile.setMimeType("application/pdf");
-		                    formatVO.setValue("application/pdf");
-		                }
-		                */
-		                newFile.getDefaultMetadata().getFormats().add(formatVO);
-		                newFile.setContent(contentURL);
-		            }
-		            this.init();
-		        }
-		    	/*
-		          * else { errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } else { if
-		          * (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() != null &&
-		          * !this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals("")) {
-		          * errorMessage.append(getMessage("ComponentContentNotProvided")); if
-		          * (this.getFiles().get(indexUpload).getContentCategory() != null &&
-		          * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") &&
-		          * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-")) {
-		          * errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } }
-		          */
-		        if (errorMessage.length() > 0)
-		        {
-		            error(errorMessage.toString());
-		        }
-	    	}
-    	}
+        if(uploadedFile!=null)
+        {
+            for(UploadItem file : this.uploadedFile)
+            {
+                StringBuffer errorMessage = new StringBuffer();
+                int indexUpload = this.getFiles().size() - 1;
+                //UploadItem file = this.uploadedFile;
+                String contentURL;
+                if (file != null)
+                {
+                    // set the file name automatically if it is not filled by the user
+                    /*
+                     * if (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() == null ||
+                     * this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals(""))
+                     * { this.getFiles().get(indexUpload).getFile().getDefaultMetadata() .setTitle(new
+                     * TextVO(file.getFilename())); } if (this.getFiles().get(this.getFiles().size() - 1).getContentCategory()
+                     * != null && !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("") &&
+                     * !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-")) {
+                     */
+                    contentURL = uploadFile(file);
+                    if (contentURL != null && !contentURL.trim().equals(""))
+                    {
+                        
+                        FileVO newFile = new FileVO();
+                        newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+                        newFile.setVisibility(FileVO.Visibility.PUBLIC);
+                        newFile.setDefaultMetadata(new MdsFileVO());
+                        newFile.getDefaultMetadata().setTitle(new TextVO());
+                        this.getEasySubmissionSessionBean()
+                                .getFiles()
+                                .add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile,
+                                        false));
+                        
+                        newFile.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
+                        newFile.setName(file.getFileName());
+                        newFile.getDefaultMetadata().setSize((int)file.getFileSize());
+                        // set the file name automatically if it is not filled by the user
+                        /*
+                         * if(this.getFiles().get(indexUpload).getFile().getName() == null ||
+                         * this.getFiles().get(indexUpload).getFile().getName().trim().equals("")) {
+                         * this.getFiles().get(indexUpload).getFile().setName(file.getFilename()); }
+                         */
+                        
+                        
+                        //newFile.setMimeType(file.getContentType());
+                        
+                        Tika tika = new Tika();
+                        if(file.isTempFile())
+                        {
+                            try {
+                                newFile.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
+                            } catch (IOException e) {
+                                logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+                            }
+                        }
+                        else
+                        {
+                            newFile.setMimeType(tika.detect(file.getFileName()));
+                        }
+                        
+                        
+                        FormatVO formatVO = new FormatVO();
+                        formatVO.setType("dcterms:IMT");
+                        formatVO.setValue(newFile.getMimeType());
+                        // correct several PDF Mime type errors manually
+                        /*
+                        if (file.getFileName() != null
+                                && (file.getFileName().endsWith(".pdf") || file.getFileName().endsWith(".PDF")))
+                        {
+                            newFile.setMimeType("application/pdf");
+                            formatVO.setValue("application/pdf");
+                        }
+                        */
+                        newFile.getDefaultMetadata().getFormats().add(formatVO);
+                        newFile.setContent(contentURL);
+                    }
+                    this.init();
+                }
+                /*
+                  * else { errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } else { if
+                  * (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() != null &&
+                  * !this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals("")) {
+                  * errorMessage.append(getMessage("ComponentContentNotProvided")); if
+                  * (this.getFiles().get(indexUpload).getContentCategory() != null &&
+                  * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") &&
+                  * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-")) {
+                  * errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } }
+                  */
+                if (errorMessage.length() > 0)
+                {
+                    error(errorMessage.toString());
+                }
+            }
+        }
         return "loadNewEasySubmission";
     }
 
@@ -920,11 +965,11 @@ public class EasySubmission extends FacesBean
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
         if(uploadedFile.isTempFile())
         {
-        	method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(uploadedFile.getFile())));
+            method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(uploadedFile.getFile())));
         }
         else
         {
-        	method.setRequestEntity(new InputStreamRequestEntity(new ByteArrayInputStream(uploadedFile.getData())));
+            method.setRequestEntity(new InputStreamRequestEntity(new ByteArrayInputStream(uploadedFile.getData())));
         }
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -971,17 +1016,17 @@ public class EasySubmission extends FacesBean
             StringBuffer content = new StringBuffer();
             try
             {
-            	UploadItem uploadedBibTexFile = getEasySubmissionSessionBean().getUploadedBibtexFile();
-            	InputStream fileIs = null;
-            	if(uploadedBibTexFile.isTempFile())
-            	{
-            		fileIs = new FileInputStream(uploadedBibTexFile.getFile());
-            	}
-            	else
-            	{
-            		fileIs = new ByteArrayInputStream(uploadedBibTexFile.getData());
-            	}
-            	
+                UploadItem uploadedBibTexFile = getEasySubmissionSessionBean().getUploadedBibtexFile();
+                InputStream fileIs = null;
+                if(uploadedBibTexFile.isTempFile())
+                {
+                    fileIs = new FileInputStream(uploadedBibTexFile.getFile());
+                }
+                else
+                {
+                    fileIs = new ByteArrayInputStream(uploadedBibTexFile.getData());
+                }
+                
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fileIs));
                 String line;
                 while ((line = reader.readLine()) != null)
@@ -1416,9 +1461,22 @@ public class EasySubmission extends FacesBean
             {
                 PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean()
                         .getLocators().size(), true);
-                // set fixed content type
-                newLocator.getFile().setContentCategory(
-                        PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
+                String contentCategory = null;
+                if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null)
+                {
+                    contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+                }
+                else {
+                    Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                    if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                        contentCategory = contentCategoryMap.values().iterator().next();
+                    }
+                    else {
+                        error("There is no content category available.");
+                        Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                    }
+                }
+                newLocator.getFile().setContentCategory(contentCategory);
                 newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.getFile().setDefaultMetadata(new MdsFileVO());
                 newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
@@ -2366,32 +2424,33 @@ public class EasySubmission extends FacesBean
                 .getApplication().getVariableResolver()
                 .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
         ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-        SelectItem NO_ITEM_SET = new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
-        SelectItem GENRE_BOOK = new SelectItem(SourceVO.Genre.BOOK, bundleLabel.getString("ENUM_GENRE_BOOK"));
-        SelectItem GENRE_ISSUE = new SelectItem(SourceVO.Genre.ISSUE, bundleLabel.getString("ENUM_GENRE_ISSUE"));
-        SelectItem GENRE_JOURNAL = new SelectItem(SourceVO.Genre.JOURNAL, bundleLabel.getString("ENUM_GENRE_JOURNAL"));
-        SelectItem GENRE_PROCEEDINGS = new SelectItem(SourceVO.Genre.PROCEEDINGS,
-                bundleLabel.getString("ENUM_GENRE_PROCEEDINGS"));
-        SelectItem GENRE_SERIES = new SelectItem(SourceVO.Genre.SERIES, bundleLabel.getString("ENUM_GENRE_SERIES"));
-        // JUS BEGING
-        SelectItem GENRE_COLLECTED_EDITION = new SelectItem(SourceVO.Genre.COLLECTED_EDITION,
-                bundleLabel.getString("ENUM_GENRE_COLLECTED_EDITION"));
-        SelectItem GENRE_HANDBOOK = new SelectItem(SourceVO.Genre.HANDBOOK,
-                bundleLabel.getString("ENUM_GENRE_HANDBOOK"));
-        SelectItem GENRE_FESTSCHRIFT = new SelectItem(SourceVO.Genre.FESTSCHRIFT,
-                bundleLabel.getString("ENUM_GENRE_FESTSCHRIFT"));
-        SelectItem GENRE_COMMENTARY = new SelectItem(SourceVO.Genre.COMMENTARY,
-                bundleLabel.getString("ENUM_GENRE_COMMENTARY"));
-        SelectItem GENRE_NEWSPAPER = new SelectItem(SourceVO.Genre.NEWSPAPER,
-                bundleLabel.getString("ENUM_GENRE_NEWSPAPER"));
-        SelectItem GENRE_ENCYCLOPEDIA = new SelectItem(SourceVO.Genre.ENCYCLOPEDIA,
-                bundleLabel.getString("ENUM_GENRE_ENCYCLOPEDIA"));
-        SelectItem GENRE_MULTI_VOLUME = new SelectItem(SourceVO.Genre.MULTI_VOLUME,
-                bundleLabel.getString("ENUM_GENRE_MULTI_VOLUME"));
-        // JUS END
-        return new SelectItem[] { NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES,
-                GENRE_COLLECTED_EDITION, GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER,
-                GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME };
+        
+        Map <String, String> excludedSourceGenres = SourceVOPresentation.getExcludedSourceGenreMap();
+        List <SelectItem> sourceGenres = new ArrayList <SelectItem>();
+        sourceGenres.add(new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET")));
+        for (SourceVO.Genre value : SourceVO.Genre.values())
+        {
+            sourceGenres.add(new SelectItem(value, bundleLabel.getString("ENUM_GENRE_" + value.name())));
+        }
+        
+        String uri = "";
+        int i = 0;
+        while  ( i < sourceGenres.size() )
+        {
+            if (sourceGenres.get(i).getValue() != null && !("").equals(sourceGenres.get(i).getValue())){
+                uri = ((SourceVO.Genre)sourceGenres.get(i).getValue()).getUri();
+            }
+            
+            if (excludedSourceGenres.containsValue(uri))
+            {
+                sourceGenres.remove(i);
+            }
+            else 
+            {
+                i++;
+            }
+        }
+        return sourceGenres.toArray(new SelectItem[sourceGenres.size()]);
     }
 
     public SourceVO getSource()
@@ -2751,7 +2810,7 @@ public class EasySubmission extends FacesBean
         }
         else
         {
-        	setLocatorUpload("");
+            setLocatorUpload("");
         }
     }
 
@@ -2799,10 +2858,10 @@ public class EasySubmission extends FacesBean
     {
         this.alternativeLanguageName = alternativeLanguageName;
     }
-                                                                                                                      
+    
     public void clearBibtexFile(ActionEvent evt)
     {
-    	  getEasySubmissionSessionBean().setUploadedBibtexFile(null);
+          getEasySubmissionSessionBean().setUploadedBibtexFile(null);
     }
   
     

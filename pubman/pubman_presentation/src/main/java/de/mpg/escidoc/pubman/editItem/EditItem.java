@@ -2019,7 +2019,7 @@ public String logUploadComplete()
      * 
      * @return all options for content c ategories.
      */
-    public SelectItem[] getContentCategories()
+    public SelectItem[] getContentCategories() 
     {
         return this.i18nHelper.getSelectItemsContentCategory(true);
     }

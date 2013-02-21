@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.contextList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -110,6 +111,7 @@ public class ContextListSessionBean extends FacesBean
                     newDepositorContextList.add(context);
                 }
             }
+            Collections.sort(newDepositorContextList);
             setDepositorContextList(newDepositorContextList);
         }
         return this.depositorContextList;
@@ -254,7 +256,7 @@ public class ContextListSessionBean extends FacesBean
      */
     private void retrieveAllContextsForUser() throws SecurityException, TechnicalException
     {
-        if (this.loginHelper.isLoggedIn() && this.loginHelper.getAccountUser().getGrants() != null){
+        if (this.loginHelper.isLoggedIn() && this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants() != null){
             try
             {
                 // Create filter
@@ -264,7 +266,7 @@ public class ContextListSessionBean extends FacesBean
                 
                 boolean hasGrants = false;
 
-                for (GrantVO grant:this.loginHelper.getAccountUser().getGrants())
+                for (GrantVO grant:this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants())
                 {
                     if ( grant.getObjectRef() != null)
                     {
@@ -293,7 +295,7 @@ public class ContextListSessionBean extends FacesBean
                     //TODO NBU: change this dummy looping once AccountUserVO provides method for isDepositor(ObjectRef)
                     //At present it only provides this function for Moderator and Privileged viewer
 
-                    for (GrantVO grant:this.loginHelper.getAccountUser().getGrants())
+                    for (GrantVO grant:this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants())
                     {
                         if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals(""))
                         {

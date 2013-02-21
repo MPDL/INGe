@@ -437,7 +437,7 @@ public class ViewItemFull extends FacesBean
                 this.isOwner = (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper
                         .getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
 
-                if (this.loginHelper.getAccountUser().getReference() != null  && this.loginHelper.getAccountUser().getGrants()!=null)
+                if (this.loginHelper.getAccountUser().getReference() != null  && this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants() != null)
                 {
                     this.isModerator = false;
                     this.isPrivilegedViewer=false;
@@ -450,7 +450,7 @@ public class ViewItemFull extends FacesBean
 
                     if (!this.isOwner)
                     {
-                        for (GrantVO grant : this.loginHelper.getAccountUser().getGrants())
+                        for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants())
                         {
                             if (grant.getRole().equals("escidoc:role-system-administrator"))
                             {

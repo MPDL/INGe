@@ -56,6 +56,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
+import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
+
 /**
  * Class for Internationalization settings.
  *
@@ -376,9 +378,28 @@ public class InternationalizationHelper implements Serializable
      */
     public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry)
     {
-        CreatorVO.CreatorRole[] values = CreatorVO.CreatorRole.values();
+        Map <String, String> negativeRoles = CreatorVOPresentation.getCreatorRoleMap();
+        
+        List <CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
+        for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values())
+        {
+            values.add(role);
+        }
+        
+        int i = 0;
+        while  ( i < values.size() )
+        {
+            if (negativeRoles.containsValue(values.get(i).getUri()))
+            {
+                values.remove(i);
+            }
+            else 
+            {
+                i++;
+            }
+        }
 
-        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values.toArray());
     }
     /**
      * Returns an array of SelectItems for the enum genre.
@@ -475,20 +496,23 @@ public class InternationalizationHelper implements Serializable
 
 
     /**
-     * Returns an array of SelectItems for the enum ContentCategory.
+     * Returns an array of SelectItems for the content-categories.
      * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
      * @return array of SelectItems for ReviewMethod
      */
     public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry)
     {
-        PubFileVOPresentation.ContentCategory[] values = PubFileVOPresentation.ContentCategory.values();
+//        PubFileVOPresentation.ContentCategory[] values = PubFileVOPresentation.ContentCategory.values();
+        Map<String, String> values = PubFileVOPresentation.getContentCategoryMap();
 
-        SelectItem[] selectItems = new SelectItem[values.length];
-
-        for (int i = 0; i < values.length; i++)
+        SelectItem[] selectItems = new SelectItem[values.size()];
+        int i = 0;
+        for (Map.Entry<String, String> entry : values.entrySet())
         {
-            SelectItem selectItem = new SelectItem(values[i].getUri(), getLabel(convertEnumToString(values[i])));
+            // Prefix for the label is set to ENUM_CONTENTCATEGORY_
+            SelectItem selectItem = new SelectItem(entry.getValue(), getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-")));
             selectItems[i] = selectItem;
+            i ++;
         }
 
         if (includeNoItemSelectedEntry)

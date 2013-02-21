@@ -38,6 +38,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -55,7 +56,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
+import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -294,11 +296,11 @@ public class FileBean extends FacesBean
         if (this.file.getContentCategory() != null)
         {
             
-            for(ContentCategory contcat : ContentCategory.values())
+            for(Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap().entrySet())
             {
-                if(contcat.getUri().equals(this.file.getContentCategory()))
+                if(contcat.getValue().equals(this.file.getContentCategory()))
                 {
-                     contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
+                     contentCategory = internationalized.getLabel("ENUM_CONTENTCATEGORY_" + contcat.getKey().toUpperCase());
                      break;
                 }
             }

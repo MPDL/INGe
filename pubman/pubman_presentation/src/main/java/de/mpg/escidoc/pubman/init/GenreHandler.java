@@ -18,6 +18,8 @@ public class GenreHandler extends ShortContentHandler
     private Stack<String> stack = new Stack<String>();
     private String dir = null;
     private Map<String, String> contentCategories = new LinkedHashMap<String, String>();
+    private Map<String, String> authorRoles = new LinkedHashMap<String, String>();
+    private Map<String, String> sourceGenres = new LinkedHashMap<String, String>();
     
     private LinkedHashMap<String, String> map = null;
     private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
@@ -69,7 +71,7 @@ public class GenreHandler extends ShortContentHandler
             }
             else if ("content-categories".equals(name))
             {
-                fileWriter = new FileWriter(dir + "/content_catogories.properties");
+                fileWriter = new FileWriter(dir + "/content_categories.properties");
                 
                 for (String key : contentCategories.keySet())
                 {
@@ -84,6 +86,42 @@ public class GenreHandler extends ShortContentHandler
                 fileWriter = null;
                 
                 contentCategories = null;
+            }
+            else if ("author-roles".equals(name))
+            {
+                fileWriter = new FileWriter(dir + "/author_roles.properties");
+                
+                for (String key : authorRoles.keySet())
+                {
+                    fileWriter.append(key.toLowerCase());
+                    fileWriter.append("=");
+                    fileWriter.append(authorRoles.get(key));
+                    fileWriter.append("\n");
+                }
+                
+                fileWriter.flush();
+                fileWriter.close();
+                fileWriter = null;
+                
+                authorRoles = null;
+            }
+            else if ("source-genres".equals(name))
+            {
+                fileWriter = new FileWriter(dir + "/source_genres.properties");
+                
+                for (String key : sourceGenres.keySet())
+                {
+                    fileWriter.append(key.toLowerCase());
+                    fileWriter.append("=");
+                    fileWriter.append(sourceGenres.get(key));
+                    fileWriter.append("\n");
+                }
+                
+                fileWriter.flush();
+                fileWriter.close();
+                fileWriter = null;
+                
+                sourceGenres = null;
             }
             else if ("group".equals(name) || "field".equals(name))
             {
@@ -162,6 +200,14 @@ public class GenreHandler extends ShortContentHandler
             else if ("content-category".equals(name))
             {
             	contentCategories.put(attributes.getValue("id"), attributes.getValue("url"));
+            }
+            else if ("role".equals(name))
+            {
+                authorRoles.put(attributes.getValue("id"), attributes.getValue("url"));
+            }
+            else if ("source-genre".equals(name))
+            {
+                sourceGenres.put(attributes.getValue("id"), attributes.getValue("url"));
             }
         }
         catch (Exception e) {

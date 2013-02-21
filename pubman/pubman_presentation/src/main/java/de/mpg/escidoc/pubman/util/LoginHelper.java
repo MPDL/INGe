@@ -59,8 +59,14 @@ import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.qaws.QAWSSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -249,25 +255,32 @@ public class LoginHelper extends FacesBean
             this.setESciDocUserHandle(userHandle);
             this.setLoggedIn(true);
             this.setWasLoggedIn(true);
+            this.userGrants = new ArrayList<GrantVO>();
             
             // get all user-grants
-            String userGrantXML = uah.retrieveCurrentGrants(this.accountUser.getReference().getObjectId());
-            this.userGrants = transforming.transformToGrantVOList(userGrantXML);
+
+            FilterTaskParamVO filter = new FilterTaskParamVO();
+
+            Filter accountUserFilter = filter.new StandardFilter("http://escidoc.de/core/01/properties/user", this.accountUser.getReference().getObjectId(), "=", "AND");
+            filter.getFilterList().add(accountUserFilter);
             
-            // get all user-group-grants
-//            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-//            List<GrantVO> allUserGroupGrants = new ArrayList<GrantVO> ();
-//            List<UserGroup> userAccountUserGroups = this.getAccountUsersUserGroups();
-//            
-//            for (UserGroup userGroup : userAccountUserGroups)
-//            {
-//                String userGroupGrants = ugh.retrieveCurrentGrants(userGroup.getObjid());
-//                allUserGroupGrants.addAll(transforming.transformToGrantVOList(userGroupGrants));
-//            }
+            Filter notAudienceRoleFilter = filter.new StandardFilter("/properties/role/id", GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "<>", "AND");
+            filter.getFilterList().add(notAudienceRoleFilter);
+            
+            Filter notRevokedFilter = filter.new StandardFilter("/properties/revocation-date", "\"\"", "=", "AND");
+            filter.getFilterList().add(notRevokedFilter);
+            
+            String userGrantXML = uah.retrieveGrants(filter.toMap());
+            SearchRetrieveResponseVO searchResult = transforming.transformToSearchRetrieveResponseGrantVO(userGrantXML);
+            for (SearchRetrieveRecordVO searchRecord : searchResult.getRecords())
+            {
+                GrantVO grant = (GrantVO) searchRecord.getData();
+                this.userGrants.add(grant);
+            }
             
             //NOTE: The block below must not be removed, as it sets the this.accountUser grants
             List<GrantVO> setterGrants = this.accountUser.getGrants();
-            if (this.userGrants!=null)
+            if (this.userGrants!=null && !this.userGrants.isEmpty())
             {
                 for (GrantVO userGrant : this.userGrants)
                 {
@@ -275,17 +288,6 @@ public class LoginHelper extends FacesBean
                     this.accountUser.getGrantsWithoutAudienceGrants().add(userGrant);
                 }
             }
-//            if (allUserGroupGrants != null && !allUserGroupGrants.isEmpty())
-//            {
-//                for (GrantVO userGroupGrant : allUserGroupGrants)
-//                {
-//                    if(!userGroupGrant.getRole().equals(GrantVO.PredefinedRoles.AUDIENCE.frameworkValue()))
-//                    {
-//                        this.accountUser.getGrantsWithoutAudienceGrants().add(userGroupGrant);
-//                    }
-//                    setterGrants.add(userGroupGrant);
-//                }
-//            }
         }
         catch (AuthenticationException e)
         {

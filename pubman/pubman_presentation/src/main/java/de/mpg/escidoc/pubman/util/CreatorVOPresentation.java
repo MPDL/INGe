@@ -30,8 +30,13 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -44,6 +49,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Presentation wrapper for CreatorVO
@@ -57,6 +63,8 @@ public class CreatorVOPresentation extends CreatorVO
 {
     
     private static final Logger logger = Logger.getLogger(CreatorVOPresentation.class);
+    
+    private static Properties properties;
     
     private EditItemBean bean;
     private List<CreatorVOPresentation> list;
@@ -94,6 +102,55 @@ public class CreatorVOPresentation extends CreatorVO
                 this.getPerson().setIdentifier(new IdentifierVO());
             }
         }
+    }
+    
+    /**
+     * get the negative list of creator roles as Map for this (server-) instance, 
+     * depending on the author_roles.properties definitions
+     * @return Map filled with all creator roles, which will be excluded
+     */
+    public static Map<String, String> getCreatorRoleMap()
+    {
+        if (properties == null || properties.isEmpty())
+        {
+            properties = loadCreatorRoleProperties();
+        } 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
+        return propertiesMap;
+    }
+    
+    /**
+     * get the negative list of creator roles as properties for this (server-) instance, 
+     * depending on the author_roles.properties definitions
+     * @return Properties filled with all creator roles, which will be excluded
+     */
+    private static Properties loadCreatorRoleProperties()
+    {
+        properties = new Properties();
+        URL contentCategoryURI = null;
+        try
+        {
+            contentCategoryURI  = CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
+            if (contentCategoryURI != null)
+            {
+                Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI.toString());
+                InputStream in = PropertyReader.getInputStream(contentCategoryURI.getPath().toString(), CreatorVOPresentation.class);
+                properties.load(in);
+                properties.putAll(properties);
+                in.close();
+                Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI.toString());
+            }
+            else
+            {
+                Logger.getLogger(CreatorVOPresentation.class).debug("Author-Roles properties file not found.");
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.getLogger(CreatorVOPresentation.class).warn("WARNING: Author-Roles properties not found: " + e.getMessage());
+        }
+        return properties;
     }
     
     /**

@@ -188,7 +188,21 @@ public class ZfNProcessor extends FormatProcessor
             fileVO.setContent(fileURL.toString());
             System.out.println("SIZE:" + this.fileSize);
             fileVO.getDefaultMetadata().setSize(this.fileSize);
-            fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.getUri());
+            String contentCategory = null;
+            if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null)
+            {
+                contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
+            }
+            else {
+                Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                    contentCategory = contentCategoryMap.values().iterator().next();
+                }
+                else {
+                    Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                }
+            }
+            fileVO.setContentCategory(contentCategory);
             fileVO.getDefaultMetadata().setLicense(this.getConfig().get("License"));
 
             FormatVO formatVO = new FormatVO();

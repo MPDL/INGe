@@ -126,10 +126,13 @@ public class BrowseBySessionBean extends FacesBean
         try
         {
             String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
-            String [] vocabsArr = vocabsStr.split(";");
-            for (int i = 0; i< vocabsArr.length; i++)
+            if (vocabsStr != null && vocabsStr.trim().length() > 0)
             {
-                vocabs.add(vocabsArr[i].trim());
+                String [] vocabsArr = vocabsStr.split(";");
+                for (int i = 0; i< vocabsArr.length; i++)
+                {
+                    vocabs.add(vocabsArr[i].trim());
+                }
             }
         }
         catch(Exception e)

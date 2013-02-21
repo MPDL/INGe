@@ -47,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.Vector;
@@ -859,11 +860,41 @@ public class SwordUtil extends FacesBean
             //This is the provided metadata file which we store as a component
             if (!name.endsWith(".pdf"))
             {
-                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
+                String contentCategory = null;
+                if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null)
+                {
+                    contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+                }
+                else {
+                    Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                    if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                        contentCategory = contentCategoryMap.values().iterator().next();
+                    }
+                    else {
+                        error("There is no content category available.");
+                        Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                    }
+                }
+                fileVO.setContentCategory(contentCategory);
             }
             else
             {
-                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.getUri());
+                String contentCategory = null;
+                if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null)
+                {
+                    contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
+                }
+                else {
+                    Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+                    if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+                        contentCategory = contentCategoryMap.values().iterator().next();
+                    }
+                    else {
+                        error("There is no content category available.");
+                        Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+                    }
+                }
+                fileVO.setContentCategory(contentCategory);
             }
             
             

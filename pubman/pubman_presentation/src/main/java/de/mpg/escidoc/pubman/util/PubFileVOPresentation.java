@@ -30,8 +30,13 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.event.ValueChangeEvent;
@@ -40,6 +45,7 @@ import javax.naming.NamingException;
 
 import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
+import org.eclipse.jdt.core.dom.ThisExpression;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -53,6 +59,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 
 
@@ -69,6 +76,7 @@ public class PubFileVOPresentation extends FacesBean
 
     public static final String FILE_TYPE_FILE = "FILE";
     public static final String FILE_TYPE_LOCATOR = "LOCATOR";
+    private static Properties properties;
     private int index;
     private FileVO file;
     private HtmlCommandButton removeButton = new HtmlCommandButton();
@@ -80,44 +88,6 @@ public class PubFileVOPresentation extends FacesBean
     private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
 
 
-    /**
-     * The possible content types of a pubfile.
-     * @updated 21-Nov-2007 12:05:47
-     */
-    public enum ContentCategory
-    {
-        ANY_FULLTEXT("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"),
-        PRE_PRINT("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"),
-        POST_PRINT("http://purl.org/escidoc/metadata/ves/content-categories/post-print"),
-        PUBLISHER_VERSION("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"),
-        ABSTRACT("http://purl.org/escidoc/metadata/ves/content-categories/abstract"),
-        TABLE_OF_CONTENTS("http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents"),     
-        SUPPLEMENTARY_MATERIAL("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material"),
-        CORRESPONDENCE("http://purl.org/escidoc/metadata/ves/content-categories/correspondence"),
-        COPYRIGHT_TRANSFER_AGREEMENT("http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement");
-        
-        private String uri;
-        
-        private ContentCategory(String uri)
-        {
-            this.uri=uri;
-        }
-        
-        public String getUri()
-        {
-            return uri;
-        }
-        
-        /**
-         * Overrides default toString method to transform from upper to lowercase and to turn
-         * underscores into hyphens.
-         */
-        public String toString()
-        {
-            return super.toString().toLowerCase().replace("_", "-");
-        }
-
-    }
 
     /**
      * Default constructor.
@@ -188,6 +158,79 @@ public class PubFileVOPresentation extends FacesBean
         
     }
     
+    /**
+     * get all available content categories as Map for this (server-) instance, 
+     * depending on the content_categories.properties definitions
+     * @return Map filled with all content Categories
+     */
+    public static Map<String, String> getContentCategoryMap()
+    {
+        if (properties == null || properties.isEmpty())
+        {
+            properties = loadContentCategoryProperties();
+        }        
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
+        return propertiesMap;
+    }
+    
+    /**
+     * 
+     * @param key for which the content category URI will be returned
+     * @return URI depending on the key of the content category
+     */
+    public static String getContentCategoryUri (String key)
+    {
+        if (properties == null || properties.isEmpty())
+        {
+            properties = loadContentCategoryProperties();
+        }  
+        String value = properties.getProperty(key.toLowerCase());
+        if (value != null)
+        {
+            return value;
+        }
+        else {
+            error("There is no such content category defined (" + key + ")");
+            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
+            return null;
+        }
+    }
+    
+    /**
+     * get all available content categories as properties for this (server-) instance, 
+     * depending on the content_categories.properties definitions
+     * @return Properties filled with all content Categories
+     */
+    private static Properties loadContentCategoryProperties()
+    {
+        properties = new Properties();
+        URL contentCategoryURI = null;
+        try
+        {
+            contentCategoryURI  = PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
+            if (contentCategoryURI != null)
+            {
+                Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI.toString());
+                InputStream in = PropertyReader.getInputStream(contentCategoryURI.getPath().toString(), PubFileVOPresentation.class);
+                properties.load(in);
+                properties.putAll(properties);
+                in.close();
+
+                Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI.toString());
+            }
+            else
+            {
+                Logger.getLogger(PubFileVOPresentation.class).debug("Content-category properties file not found.");
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: content-category properties not found: " + e.getMessage());
+        }
+        return properties;
+    }
+    
     public int getIndex()
     {
         return index;
@@ -240,23 +283,20 @@ public class PubFileVOPresentation extends FacesBean
      */
     public String getContentCategory()
     {
-        String contentCategory = "";
         InternationalizedImpl internationalized = new InternationalizedImpl();
+        String contentCategory = null;
         if (this.file.getContentCategory() != null)
         {
-            
-            for(ContentCategory contcat : ContentCategory.values())
+            @SuppressWarnings({ "unchecked", "rawtypes" })
+            Map<String, String> propertiesMap = new HashMap<String, String>((Map) this.properties);
+            for(Map.Entry<String, String> entry : propertiesMap.entrySet())
             {
-                if(contcat.getUri().equals(this.file.getContentCategory()))
+                if(entry.getValue().equals(this.file.getContentCategory()))
                 {
-                     contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
+                     contentCategory = internationalized.getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey());
                      break;
                 }
             }
-            /*
-            contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(
-                    PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
-                    */
         }
         return contentCategory;
     }

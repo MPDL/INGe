@@ -70,6 +70,14 @@ function loadBlog(url)
 }
 
 /**
+ * this function is a helper funtion to stop the default event bubbeling
+ */
+function stopDefaultEvent(evt) {
+	evt.preventDefault();
+	evt.stopImmediatePropagation();
+}
+
+/**
  * these function is a help function to check strings for locations and return the right string
  * @param loc:String - location-string to check
  * @param format - which page is necessary
