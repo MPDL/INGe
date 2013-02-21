@@ -288,7 +288,7 @@
  		
  		</a4j:repeat>
  		<h:outputLink  id="btList_lkNextBottom" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
-			<h:outputText value="#{tip.List_lkNext}"/>
+			<h:outputText value="#{lbl.List_lkNext}"/>
  		</h:outputLink>
  		<h:outputLink  id="btLinkForLastPageBottom" styleClass="min_imgBtn skipToLast"   title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForLastPage}"  >
 			<h:outputText value=" "/>
