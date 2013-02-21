@@ -76,6 +76,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     private static Logger logger = Logger.getLogger(PubItemListSessionBean.class);
 
     public static String BEAN_NAME = "PubItemListSessionBean";
+    public static int MAXIMUM_CART_ITEMS = 3500;
 
 
     /**
@@ -842,14 +843,22 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         for(PubItemVOPresentation pubItem : selectedPubItems)
         {
 
-            if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion()))
+            if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_ITEMS)
             {
-                pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
-                added++;
+                if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion()))
+                {
+                    pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
+                    added++;
+                }
+                else
+                {
+                    existing++;
+                }
             }
             else
             {
-                existing++;
+                error(getMessage("basket_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_ITEMS + ")");
+                break;
             }
 
         }
