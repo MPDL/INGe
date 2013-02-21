@@ -71,7 +71,11 @@ public class CreatorVO extends ValueObject implements Cloneable
         HONOREE("http://www.loc.gov/loc.terms/relators/HNR"),
         REFEREE("http://purl.org/escidoc/metadata/ves/creator-roles/referee"),
         INVENTOR("http://www.loc.gov/loc.terms/relators/INV"),
-        APPLICANT("http://www.loc.gov/loc.terms/relators/APP");
+        APPLICANT("http://www.loc.gov/loc.terms/relators/APP"),
+        DIRECTOR("http://www.loc.gov/loc.terms/relators/DRT"),
+        ACTOR("http://www.loc.gov/loc.terms/relators/ACT"),
+        CINEMATOGRAPHER("http://www.loc.gov/loc.terms/relators/CNG");
+        
         
         private String uri;
         
