@@ -51,10 +51,33 @@
 				</h:outputLink>	
 			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
-			<h:panelGroup styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
 				
-				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer">
-					<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" url="http://www.citeulike.org/favicon.ico"  onclick="citeULikeLink();"/>
+				
+				<!-- Mendeley -->
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
+					<h:graphicImage id="imgSocialBookmarkingMendeley" title="#{lbl.ViewItemFull_lblSocialBookmarking_Mendeley}" url="http://www.mendeley.com/favicon.ico" width="16" onclick="mendeleyLink();" />
+				</h:panelGroup>
+				<script type="text/javascript">
+					function mendeleyLink() {
+						window.open('http://www.mendeley.com/import/?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=1024,height=755,scrollbars,resizable');
+					}
+				</script>
+				
+				
+				<!-- Bibsonomy -->
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
+					<h:graphicImage id="imgSocialBookmarkingBibsonomy" title="#{lbl.ViewItemFull_lblSocialBookmarking_Bibsonomy}" url="http://www.bibsonomy.org/favicon.ico" width="16" onclick="bibsonomyLink();" />
+				</h:panelGroup>
+				<script type="text/javascript">
+					function bibsonomyLink() {
+						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=1024,height=755,scrollbars,resizable');
+					}
+				</script>
+				
+				<!-- CiteULike -->
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
+					<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" url="http://www.citeulike.org/favicon.ico" height="16" width="16" onclick="citeULikeLink();"/>
 				</h:panelGroup>
 				<script type="text/javascript">
 					function citeULikeLink() {
@@ -62,9 +85,19 @@
 					}
 				</script>
 				
-				<!-- http://static.delicious.com/img/delicious.small.gif -->
-				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="overflow:hidden;">
-					<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" value="../resources/images/delicious_icon_16x16.png" height="84%" onclick="deliciousLink();"/>
+				<!-- Digg -->
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
+					<h:graphicImage id="imgSocialBookmarkingDigg" title="#{lbl.ViewItemFull_lblSocialBookmarking_Digg}" url="http://www.digg.com/favicon.ico" width="16" onclick="diggLink();" />
+				</h:panelGroup>
+				<script type="text/javascript">
+					function diggLink() {
+						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=1024,height=755,scrollbars,resizable');
+					}
+				</script>
+				
+				<!-- Delicious -->
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
+					<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" value="../resources/images/delicious_icon_16x16.png" onclick="deliciousLink();"/>
 				</h:panelGroup>
 				<script type="text/javascript">
 					function deliciousLink() {
