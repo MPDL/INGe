@@ -212,17 +212,23 @@ public class SiteMapTask extends Thread
             
             logger.info("Finished creating Sitemap.");
 
-            sleep(interval * 60 * 1000);
-            
-            if (!signal)
-            {
-                Thread nextThread = new SiteMapTask();
-                nextThread.start();
-            }
+           
         }
         catch (Exception e)
         {
             logger.error("Error creating Sitemap", e);
+        }
+        
+        try {
+			sleep(interval * 60 * 1000);
+		} catch (InterruptedException e) {
+			 logger.info("Sitemap task interrupted.");
+		}
+        
+        if (!signal)
+        {
+            Thread nextThread = new SiteMapTask();
+            nextThread.start();
         }
 
     }
@@ -281,25 +287,33 @@ public class SiteMapTask extends Thread
         do
         {
 
-            ItemContainerSearchResult itemSearchResult = getItems(firstRecord);
-            totalRecords = itemSearchResult.getTotalNumberOfResults().intValue();
-            addItemsToSitemap(itemSearchResult);
+            try {
+            	//logger.info("Trying to creatie sitemap part for items from offset " + firstRecord + " to " + (firstRecord+maxItemsPerRetrieve));
+				ItemContainerSearchResult itemSearchResult = getItems(firstRecord);
+				totalRecords = itemSearchResult.getTotalNumberOfResults().intValue();
+				addItemsToSitemap(itemSearchResult);
+           
 
-            firstRecord += maxItemsPerRetrieve;
-            
-            if (firstRecord <= totalRecords && firstRecord % maxItemsPerFile == 0)
-            {
-                changeFile();
-            }
-            
-            try
-            {
-                sleep(retrievalTimeout * 1000);
-            }
-            catch (InterruptedException e)
-            {
-                logger.info("Sitemap task interrupted.");
-            }
+				firstRecord += maxItemsPerRetrieve;
+				
+				if (firstRecord <= totalRecords && firstRecord % maxItemsPerFile == 0)
+				{
+				    changeFile();
+				}
+			
+            } catch (Exception e) {
+				logger.error("Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord+maxItemsPerRetrieve));
+			}
+			
+			try
+			{
+			    sleep(retrievalTimeout * 1000);
+			}
+			catch (InterruptedException e)
+			{
+			    logger.info("Sitemap task interrupted.");
+			}
+			
             
         }
         while (firstRecord <= totalRecords);
