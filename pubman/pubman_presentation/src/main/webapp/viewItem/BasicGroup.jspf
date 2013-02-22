@@ -67,7 +67,7 @@
 				
 				<!-- Bibsonomy -->
 				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
-					<h:graphicImage id="imgSocialBookmarkingBibsonomy" title="#{lbl.ViewItemFull_lblSocialBookmarking_Bibsonomy}" url="http://www.bibsonomy.org/favicon.ico" width="16" onclick="bibsonomyLink();" />
+					<h:graphicImage id="imgSocialBookmarkingBibsonomy" title="#{lbl.ViewItemFull_lblSocialBookmarking_BibSonomy}" url="http://www.bibsonomy.org/favicon.ico" width="16" onclick="bibsonomyLink();" />
 				</h:panelGroup>
 				<script type="text/javascript">
 					function bibsonomyLink() {
