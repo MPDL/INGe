@@ -238,13 +238,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		{
 			if(query!=null && !query.trim().isEmpty())
 			{
-				logger.info("Found query, initialize");
+				logger.debug("Found query, initialize: " + query);
 				clearAndInit();
 				initWithQueryParam(query);
 			}
 			else
 			{
-				logger.info("No internal query found, initialize empty");
+				logger.debug("No internal query found, initialize empty");
 				clearAndInit();
 			}
 		}
@@ -414,7 +414,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		SearchCriterion newValue = (SearchCriterion)evt.getNewValue();
 		if(newValue != null && position!=null)
 		{
-			logger.info("Changing sortCriteria at position " + position + " to " + newValue);
+			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
 			
 			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
 			SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
@@ -700,10 +700,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		
 		
 		String cql = SearchCriterionBase.scListToCql(allCriterions, true);
-		logger.info(cql);
+		logger.debug("CQL Query: " + cql);
 		
 		String query = SearchCriterionBase.scListToQueryString(allCriterions);
-		logger.info(query);
+		logger.debug("Internal Query: " + query);
 		
 		/*
 		List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
@@ -717,10 +717,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		
 		 try {
 			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Error while redirecting to search result page", e);
 		}
 		
