@@ -127,6 +127,9 @@ public class JiBXHelper
     private static final String problematicCharacters[] = { ">", "\"", "\'" };
     private static final String escapedCharacters[] = { "&gt;", "&quot;", "&apos;" };
     
+    /**
+     * UTF-8 control characters that are illegal for XML according to W3C
+     */
     private static final Pattern ILLEGAL_XML_CHARS = Pattern.compile("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\uD800\uDC00-\uDBFF\uDFFF]");
 
     /**
