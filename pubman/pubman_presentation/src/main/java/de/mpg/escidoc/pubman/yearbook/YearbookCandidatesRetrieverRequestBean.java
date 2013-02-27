@@ -290,12 +290,12 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
          dateTypeList.add(CriterionType.DATE_ACCEPTED);
          mdDate = new MetadataDateSearchCriterion(dateTypeList, yisb.getYearbookItem().getYearbookMetadata().getStartDate(), yisb.getYearbookItem().getYearbookMetadata().getEndDate());
          String datequery2 = "( " + mdDate.generateCqlQuery()
-                 + " ) AND escidoc.publication.type=\"http://purl.org/eprint/type/Thesis\"";
+                 + " ) AND " + MetadataSearchCriterion.getINDEX_GENRE() + "=\"http://purl.org/eprint/type/Thesis\"";
          String datequery = "(( " + datequery1 + ") OR (" + datequery2 + " ))";
          
          
          
-         String orgIndex = "escidoc.any-organization-pids=\"" + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization().getIdentifier() + "\"";
+         String orgIndex = MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization().getIdentifier() + "\"";
          String orgQuery = "( " + orgIndex + " )";
          // context query
          String contextQuery = "";
@@ -311,7 +311,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                      {
                          contextQuery += " OR";
                      }
-                     String context = " escidoc.context.objid=\"" + contextId.trim() + "\"";
+                     String context = " " + MetadataSearchCriterion.getINDEX_CONTEXT_OBJECTID() + "=\"" + contextId.trim() + "\"";
                      contextQuery += context;
                      k++;
                  }
@@ -389,11 +389,12 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         //Remove the members
         if(yisb.getNumberOfMembers()>0)
         {
-        	
+            query += " NOT (" + MetadataSearchCriterion.getINDEX_OBJID() + " any ";
             for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
             {
-            	query += " NOT " + MetadataSearchCriterion.getINDEX_OBJID() + "=\"" + rel.getTargetItemRef().getObjectId() + "\"";
+            	query += rel.getTargetItemRef().getObjectId() + " ";
             }
+            query += ")";
         }
     	
         
