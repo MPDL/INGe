@@ -56,7 +56,7 @@
 		<variable name="date"> 
 			if ($genre=$l_manuscript and pub:publication/dcterms:created) 
 			then func:get_year(pub:publication/dcterms:created)  
-			else if ($genre-exception and pub:publication/event:event/eterms:start-date)
+			else if ($genre-exception and pub:publication/event:event/eterms:start-date and pub:publication/event:event/eterms:start-date!='')
 			then func:get_year(pub:publication/event:event/eterms:start-date) 
 			else if (pub:publication/dcterms:issued)
 			then func:get_year(pub:publication/dcterms:issued) 
