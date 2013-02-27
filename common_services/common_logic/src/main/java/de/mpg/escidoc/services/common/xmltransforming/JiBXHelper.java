@@ -1888,7 +1888,6 @@ public class JiBXHelper
     /**
      * Removes characters from a string that are illegal according to W3C spec
      * http://www.w3.org/TR/xml/#charsets
-     * and replaces them with a blank
      * @param cdata
      * @return
      */
