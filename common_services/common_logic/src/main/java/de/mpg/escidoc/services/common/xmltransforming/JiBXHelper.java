@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -125,6 +126,8 @@ public class JiBXHelper
      */
     private static final String problematicCharacters[] = { ">", "\"", "\'" };
     private static final String escapedCharacters[] = { "&gt;", "&quot;", "&apos;" };
+    
+    private static final Pattern ILLEGAL_XML_CHARS = Pattern.compile("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\uD800\uDC00-\uDBFF\uDFFF]");
 
     /**
      * Factory method to create a <code>java.util.ArrayList&lt;AffiliationPathVO></code> as the implementation of a
@@ -1879,5 +1882,23 @@ public class JiBXHelper
             }
         }
         return state;
+    }
+    
+    
+    /**
+     * Removes characters from a string that are illegal according to W3C spec
+     * http://www.w3.org/TR/xml/#charsets
+     * and replaces them with a blank
+     * @param cdata
+     * @return
+     */
+    public static String removeIllegalXmlCharacters(String cdata)
+    {
+        if(cdata!=null)
+        {
+        	return ILLEGAL_XML_CHARS.matcher(cdata).replaceAll("");
+        }
+        
+        return cdata;
     }
 }

@@ -29,6 +29,7 @@
 
 <binding direction="input" name="PubItemVO_PubCollectionVO_input">
 
+
 	<namespace prefix="escidocContext" uri="${xsd.soap.context.context}" default="none" />
 	<namespace prefix="escidocContextList" uri="${xsd.soap.context.contextlist}" default="none" />
 	<namespace prefix="escidocComponents" uri="${xsd.soap.item.components}" default="none" />
@@ -63,6 +64,10 @@
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
 
+	<!-- Use custom string serializer which removes invalid control characters from strings -->
+	<format type="java.lang.String"
+  		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.removeIllegalXmlCharacters"/>
+  		
 	<!--  -->
 	<!-- The bindings -->
 	<!--  -->

@@ -59,6 +59,9 @@
 		deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
 
+	<!-- Use custom string serializer which removes invalid control characters from strings -->
+	<format type="java.lang.String"
+  		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.removeIllegalXmlCharacters"/>
 	<!--  -->
 	<!-- The bindings -->
 	<!--  -->
