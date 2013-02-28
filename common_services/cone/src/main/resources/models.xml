@@ -151,7 +151,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="true" searchable="true" restricted="false" shouldBeUnique="true"/>
 			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<!-- added underscore-->
-			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
+			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Photo-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false" shouldBeUnique="true"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
