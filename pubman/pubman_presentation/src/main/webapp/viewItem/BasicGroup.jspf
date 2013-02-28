@@ -138,11 +138,12 @@
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemFull_lblAlternativeTitle}" rendered="#{altTitle.type ==null}"/>
-					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_ABBREVIATION}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_abbreviation == altTitle.type}"/>
-					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_OTHER}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_other == altTitle.type}"/>
-					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_HTML}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_html == altTitle.type}"/>
-					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_MATHML}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_mathml == altTitle.type}"/>
-					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_LATEX}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_latex == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_ABBREVIATION}" rendered="#{altTitle.type!=null and 'ABBREVIATION' == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_OTHER}" rendered="#{altTitle.type!=null and 'OTHER' == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_HTML}" rendered="#{altTitle.type!=null and 'HTML' == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_MATHML}" rendered="#{altTitle.type!=null and 'MATHML' == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_LATEX}" rendered="#{altTitle.type!=null and 'LATEX' == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_SUBTITLE}" rendered="#{altTitle.type!=null and 'SUBTITLE' == altTitle.type}"/>
 					<span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">

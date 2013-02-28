@@ -3178,29 +3178,4 @@ public class ViewItemFull extends FacesBean
 	}
 }*/
 
-    public String getEnum_alternativetitletype_abbreviation()
-    {
-        return AlternativeTitleType.ABBREVIATION.toString();
-    }
-
-    public String getEnum_alternativetitletype_other()
-    {
-        return AlternativeTitleType.OTHER.toString();
-    }
-
-    public String getEnum_alternativetitletype_latex()
-    {
-        return AlternativeTitleType.LATEX.toString();
-    }
-
-    public String getEnum_alternativetitletype_mathml()
-    {
-        return AlternativeTitleType.MATHML.toString();
-    }
-
-    public String getEnum_alternativetitletype_html()
-    {
-        return AlternativeTitleType.HTML.toString();
-    }
-
 }
