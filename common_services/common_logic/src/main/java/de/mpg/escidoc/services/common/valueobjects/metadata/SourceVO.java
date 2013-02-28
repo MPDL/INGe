@@ -113,6 +113,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
         HTML("http://purl.org/escidoc/metadata/terms/0.1/HTML"),
         LATEX("http://purl.org/escidoc/metadata/terms/0.1/LATEX"),
         MATHML("http://purl.org/escidoc/metadata/terms/0.1/MATHML"),
+        SUBTITLE("http://purl.org/escidoc/metadata/terms/0.1/SUBTITLE"),
         OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
         
         private String uri;
