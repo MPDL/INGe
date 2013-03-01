@@ -710,7 +710,7 @@ public class Feed extends SyndFeedImpl
 			sc.setValue( 
 				Utils.checkList(abs) ? 
 					((TextVO)abs.get(0)).getValue() : 
-					md.getTitle().getValue()
+					null
 			);
 			se.setDescription(sc);
 
