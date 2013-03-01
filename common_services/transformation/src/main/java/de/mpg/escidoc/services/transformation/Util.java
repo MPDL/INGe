@@ -67,6 +67,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
@@ -612,7 +613,7 @@ public class Util
         catch (Exception e)
         {
             logger.error("Error querying CoNE service. This is normal during unit tests. " +
-                    "Otherwise it should be clarified if any measures have to be taken.");
+                    "Otherwise it should be clarified if any measures have to be taken.", e);
             return null;
             //throw new RuntimeException(e);
         }
@@ -911,8 +912,9 @@ public class Util
         }
     }
     
-    public static String getMimetype(String suffix)
+    public static String getMimetype(String filename)
     {
+    	/*
         try
         {
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
@@ -971,6 +973,17 @@ public class Util
         {
             logger.error("Error getting mimetype", e);
         }
+        */
+    	
+    	
+    	try {
+			Tika tika = new Tika();
+			String mimetype = tika.detect(filename);
+			return mimetype;
+		} catch (Exception e) {
+			logger.error("Error while detecting mimetype of filename: " + filename, e);
+		}
+    	
      // Error querying CoNE, return default mimetype
         return "application/octet-stream";
     } 

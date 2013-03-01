@@ -1216,7 +1216,7 @@
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:variable name="mimetype">
-			<xsl:value-of select="Util:getMimetype($suffix)"/>
+			<xsl:value-of select="Util:getMimetype($filename)"/>
 		</xsl:variable>
 		<ec:component>
 			<ec:properties xmlns:xlink="http://www.w3.org/1999/xlink">
