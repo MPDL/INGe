@@ -56,7 +56,9 @@
 		<variable name="date">
 			<![CDATA[
 			func:get_year(
-				if ( exists(pub:publication/dcterms:issued/text()) ) 
+				if ($genre=$l_thesis and exists(pub:publication/dcterms:dateAccepted/text()))
+				then pub:publication/dcterms:dateAccepted/text()
+				else if ( exists(pub:publication/dcterms:issued/text()) ) 
 				then pub:publication/dcterms:issued/text()  
 				else if ( exists(pub:publication/eterms:published-online/text()) )
 				then pub:publication/eterms:published-online/text()  
@@ -87,9 +89,21 @@
 				(
 					if ($v_degree=$l_phd)
 					then 'PhD Thesis'
-					else $l_degree
+					else if ($v_degree=$l_master)
+					then 'Master Thesis'
+					else if ($v_degree=$l_diploma)
+					then 'Diploma Thesis'
+					else if ($v_degree=$l_magister)
+					then 'Magister Thesis'
+					else if ($v_degree=$l_staatsexamen)
+					then 'Examination Thesis'
+					else if ($v_degree=$l_habilitation)
+					then 'Professional Dissertation'
+					else if ($v_degree=$l_bachelor)
+					then 'Bachelor Thesis'
+					else 'Thesis'
 				)
-				else $l_thesis
+				else 'Thesis'
 			]]>
 		</variable>
 		
@@ -330,8 +344,8 @@
 				<delimiter value=""/>
 			</parameters>
 			<elements>
-				<layout-element ref="$title" />
-				<layout-element ref="pub:publication/source:source[1]//eterms:volume/text()">
+				<layout-element ref="$stitle" />
+				<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
 					<parameters>
 						<font-style ref="BOLD" />
 						<starts-with value=" "/>
@@ -576,6 +590,12 @@
 				<parameters>
 					<starts-with value="&quot;" />
 					<ends-with value="&quot;" />
+				</parameters>
+			</layout-element>
+			
+			<layout-element ref="$publishingInfoAndDate" >
+				<parameters>
+					<valid-if><![CDATA[not(exists(pub:publication/source:source[1]))]]></valid-if>
 				</parameters>
 			</layout-element>
 			

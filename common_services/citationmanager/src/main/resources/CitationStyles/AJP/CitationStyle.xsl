@@ -247,10 +247,10 @@
                             <xsl:value-of select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                         </xsl:variable>
                         <xsl:variable name="date">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;func:get_year(&#xA;&#x9;&#x9;&#x9;&#x9;if ( exists(pub:publication/dcterms:issued/text()) ) &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dcterms:issued/text()  &#xA;&#x9;&#x9;&#x9;&#x9;else if ( exists(pub:publication/eterms:published-online/text()) )&#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/eterms:published-online/text()  &#xA;&#x9;&#x9;&#x9;&#x9;else (&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if ( $genre=$l_manuscript )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then (&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; if (exists(pub:publication/dcterms:dateAccepted/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:dateAccepted/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else if (exists(pub:publication/dcterms:dateSubmitted/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:dateSubmitted/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else if (exists(pub:publication/dcterms:modified/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:modified/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else if (exists(pub:publication/dcterms:created/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:created/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;)&#x9;&#xA;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;func:get_year(&#xA;&#x9;&#x9;&#x9;&#x9;if ($genre=$l_thesis and exists(pub:publication/dcterms:dateAccepted/text()))&#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dcterms:dateAccepted/text()&#xA;&#x9;&#x9;&#x9;&#x9;else if ( exists(pub:publication/dcterms:issued/text()) ) &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dcterms:issued/text()  &#xA;&#x9;&#x9;&#x9;&#x9;else if ( exists(pub:publication/eterms:published-online/text()) )&#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/eterms:published-online/text()  &#xA;&#x9;&#x9;&#x9;&#x9;else (&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if ( $genre=$l_manuscript )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then (&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; if (exists(pub:publication/dcterms:dateAccepted/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:dateAccepted/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else if (exists(pub:publication/dcterms:dateSubmitted/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:dateSubmitted/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else if (exists(pub:publication/dcterms:modified/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:modified/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else if (exists(pub:publication/dcterms:created/text()))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; then pub:publication/dcterms:created/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;)&#x9;&#xA;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <xsl:variable name="degree">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($v_degree!='')&#xA;&#x9;&#x9;&#x9;&#x9;then &#xA;&#x9;&#x9;&#x9;&#x9;(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if ($v_degree=$l_phd)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'PhD Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else $l_degree&#xA;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#x9;else $l_thesis&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($v_degree!='')&#xA;&#x9;&#x9;&#x9;&#x9;then &#xA;&#x9;&#x9;&#x9;&#x9;(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if ($v_degree=$l_phd)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'PhD Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_master)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'Master Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_diploma)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'Diploma Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_magister)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'Magister Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_staatsexamen)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'Examination Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_habilitation)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'Professional Dissertation'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_bachelor)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'Bachelor Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else 'Thesis'&#xA;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;&#x9;else 'Thesis'&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <!--### End of Variables ###-->
 	<!--### Predefined Layout Elements ###-->
@@ -1038,14 +1038,14 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$stitle"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]//eterms:volume/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:volume/text()"/>
                                                 <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
@@ -1628,6 +1628,18 @@
                                                             <xsl:copy-of select="$var"/>
                                                             <xsl:if test="exists($var) and $var!=''">
                                                                 <xsl:text>"</xsl:text>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$publishingInfoAndDate"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="not(exists(pub:publication/source:source[1]))">
+                                                                <xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
