@@ -66,8 +66,31 @@
 						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
+			</elements>
+		</layout-element>
 		
-				
+		
+		<layout-element name="editors-base-givenname-first">
+			<parameters>  
+				<delimiter value="" />
+			</parameters> 
+			<elements>
+				<layout-element name="editors-base-impl"
+					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+					<parameters position="last">
+						<delimiter value=", &amp;amp; " />
+						<internal-delimiter value=" " />
+					</parameters>
+					<parameters>
+						<delimiter value=", " />
+						<internal-delimiter value=" " />
+					</parameters>
+					<elements>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
+					</elements>
+				</layout-element>
 			</elements>
 		</layout-element>
 
@@ -96,7 +119,7 @@
 				<ends-with value=")"/>
 			</parameters>
 			<elements>
-				<layout-element ref="$editors-base" />
+				<layout-element ref="$editors-base-givenname-first" />
 				<layout-element ref="$ed-postfix-i18n" />
 			</elements>
 		</layout-element>
@@ -555,7 +578,11 @@
 
 			<layout-element ref="$editors" />
 
-			<layout-element ref="$year-editors-are-presented" />
+			<layout-element ref="$year-editors-are-presented" >
+				<parameters>
+					<starts-with value=" " />
+				</parameters>
+			</layout-element>
 
 			<layout-element ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
 				<parameters>

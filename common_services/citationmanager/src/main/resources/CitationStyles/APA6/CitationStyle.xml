@@ -689,7 +689,11 @@
 
 			<layout-element ref="$editors" />
 
-			<layout-element ref="$year-editors-are-presented" />
+			<layout-element ref="$year-editors-are-presented" >
+				<parameters>
+					<starts-with value=" " />
+				</parameters>
+			</layout-element>
 
 			<layout-element ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
 				<parameters>

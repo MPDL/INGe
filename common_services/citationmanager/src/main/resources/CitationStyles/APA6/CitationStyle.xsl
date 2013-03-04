@@ -3086,6 +3086,14 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$year-editors-are-presented"/>
+                                                        <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">
+                                                                <xsl:text> </xsl:text>
+                                                            </xsl:if>
+                                                            <xsl:copy-of select="$var"/>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
