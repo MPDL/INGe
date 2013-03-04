@@ -33,6 +33,7 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
+import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
@@ -66,13 +67,23 @@ public class AffiliationDetailPage extends FacesBean
         this.init();
         try
         {
+            String ouXml = null;
             InitialContext initialContext = new InitialContext();
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             
             String affiliationId = getFacesContext().getExternalContext().getRequestParameterMap().get("id");
 
             OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-            String ouXml = ouHandler.retrieve(affiliationId);
+            try
+            {
+                ouXml = ouHandler.retrieve(affiliationId);
+            }
+            catch (OrganizationalUnitNotFoundException onfe)
+            {
+                logger.info("Organizational unit not found: " + affiliationId);
+                error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
+                return;
+            }
             AffiliationVO affVO = this.xmlTransforming.transformToAffiliation(ouXml);
             this.affiliation = new AffiliationVOPresentation(affVO);
         }
@@ -81,6 +92,7 @@ public class AffiliationDetailPage extends FacesBean
             error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
             throw new RuntimeException("Error getting affiliation details", e);
         }
+        
     }
 
     
