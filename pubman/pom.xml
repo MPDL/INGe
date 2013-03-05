@@ -348,25 +348,6 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>
-											org.zeroturnaround
-										</groupId>
-										<artifactId>
-											javarebel-maven-plugin
-										</artifactId>
-										<versionRange>
-											[1.0.5,)
-										</versionRange>
-										<goals>
-											<goal>generate</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
 											org.apache.maven.plugins
 										</groupId>
 										<artifactId>
@@ -861,6 +842,9 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+								<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
