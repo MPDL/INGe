@@ -90,17 +90,12 @@
 		
 		<!-- detect entry type -->		
 		<xsl:choose>
-			<xsl:when test="$genre='article'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType">Journal Article</xsl:with-param>					
-				</xsl:call-template>				
-			</xsl:when>		
-			<xsl:when test="$genre='book'">				
+			<xsl:when test="$genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume'">				
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Book</xsl:with-param>					
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='book-item'">				
+			<xsl:when test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition'">				
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Book Section</xsl:with-param>					
 				</xsl:call-template>
@@ -110,26 +105,51 @@
 					<xsl:with-param name="entryType">Conference Proceedings</xsl:with-param>					
 				</xsl:call-template>				
 			</xsl:when>
-			<xsl:when test="$genre='conference-paper' or $genre='proceedings-paper'">
+			<xsl:when test="$genre='conference-paper' or $genre='conference-report'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Conference Paper</xsl:with-param>					
+				</xsl:call-template>				
+			</xsl:when>
+			<xsl:when test="$genre='encyclopedia'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Encyclopedia</xsl:with-param>					
+				</xsl:call-template>								
+			</xsl:when>
+			<xsl:when test="$genre='article' or $genre='editorial'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Journal Article</xsl:with-param>					
+				</xsl:call-template>				
+			</xsl:when>
+			<xsl:when test="$genre='manuscript'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Manuscript</xsl:with-param>					
+				</xsl:call-template>								
+			</xsl:when>
+			<xsl:when test="$genre='newspaper-article'">				
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Newspaper Article</xsl:with-param>					
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='patent'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Patent</xsl:with-param>					
+				</xsl:call-template>								
+			</xsl:when>	
+			<xsl:when test="$genre='report'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Report</xsl:with-param>					
+				</xsl:call-template>				
+			</xsl:when>
+			<xsl:when test="$genre='series' or $genre='journal'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Serial</xsl:with-param>					
 				</xsl:call-template>				
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Thesis</xsl:with-param>					
 				</xsl:call-template>								
-			</xsl:when>
-			<xsl:when test="$genre='report'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType">Report</xsl:with-param>					
-				</xsl:call-template>				
-			</xsl:when>			
-			<xsl:when test="$genre='manuscript'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType">Manuscript</xsl:with-param>					
-				</xsl:call-template>								
-			</xsl:when>
+			</xsl:when>	
 			<xsl:otherwise>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Generic</xsl:with-param>					
@@ -212,46 +232,107 @@
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">7</xsl:with-param>
 					<xsl:with-param name="value" select="eterms:published-online"/>
+					
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
 		<!-- DATE -->
 		<xsl:choose>
 			<xsl:when test="dcterms:issued">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">D</xsl:with-param>
-					<xsl:with-param name="value" select="dcterms:issued"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="fn:contains(dcterms:issued, '-')">
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="fn:substring-before(dcterms:issued, '-')"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="dcterms:issued"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="eterms:published-online">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">D</xsl:with-param>
-					<xsl:with-param name="value" select="eterms:published-online"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="fn:contains(eterms:published-online, '-')">
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="fn:substring-before(eterms:published-online, '-')"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="eterms:published-online"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="dcterms:dateAccepted">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">D</xsl:with-param>
-					<xsl:with-param name="value" select="dcterms:dateAccepted"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="fn:contains(dcterms:dateAccepted, '-')">
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="fn:substring-before(dcterms:dateAccepted, '-')"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="dcterms:dateAccepted"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="dcterms:dateSubmitted">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">D</xsl:with-param>
-					<xsl:with-param name="value" select="dcterms:dateSubmitted"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="fn:contains(dcterms:dateSubmitted, '-')">
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="fn:substring-before(dcterms:dateSubmitted, '-')"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="dcterms:dateSubmitted"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="dcterms:modified">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">D</xsl:with-param>
-					<xsl:with-param name="value" select="dcterms:modified"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="fn:contains(dcterms:modified, '-')">
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="fn:substring-before(dcterms:modified, '-')"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="dcterms:modified"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="dcterms:created">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">D</xsl:with-param>
-					<xsl:with-param name="value" select="dcterms:created"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="fn:contains(dcterms:created, '-')">
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="fn:substring-before(dcterms:created, '-')"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag">D</xsl:with-param>
+							<xsl:with-param name="value" select="dcterms:created"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>			
 		</xsl:choose>
 		
@@ -270,7 +351,7 @@
 			<xsl:with-param name="genre" select="$genre"/>
 		</xsl:apply-templates>
 		<!-- TOTAL NUMBER OF PAGES -->
-		<xsl:if test="$genre='book' or $genre='manuscript' or $genre='proceedings' or $genre='report' or $genre='thesis'">
+		<xsl:if test="$genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume' or $genre='manuscript' or $genre='proceedings' or $genre='report' or $genre='thesis'">
 			<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">P</xsl:with-param>
 					<xsl:with-param name="value" select="eterms:total-number-of-pages"/>
@@ -348,19 +429,18 @@
 		<xsl:variable name="name" select="concat(eterms:family-name, ', ',eterms:given-name)"/>
 		<xsl:choose>
 			<xsl:when test="$role='author'">
-				
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="$name"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$role='editor' and $genre='book'">
+			<xsl:when test="$role='editor' and ($genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="$name"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$role='editor' and not($genre='book')">
+			<xsl:when test="$role='editor' and not($genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'E'"/>
 					<xsl:with-param name="value" select="$name"/>
@@ -587,7 +667,7 @@
 		<xsl:param name="genre"/>
 		<!-- TITLE -->
 		<xsl:choose>
-			<xsl:when test="$genre='proceedings-paper' or $genre='conference-paper' or $genre='proceedings'">
+			<xsl:when test="$genre='proceedings-paper' or $genre='conference-paper' or $genre='conference-report' or $genre='proceedings'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">B</xsl:with-param>
 					<xsl:with-param name="value" select="dc:title"/>
@@ -604,11 +684,11 @@
 		<xsl:variable name="event-date" select="concat(eterms:start-date,' - ',eterms:end-date)"/>
 		<xsl:call-template name="print-line">
 			<xsl:with-param name="tag">Z</xsl:with-param>
-			<xsl:with-param name="value" select="concat('date od event: ',$event-date)"/>
+			<xsl:with-param name="value" select="concat('date of event: ',$event-date)"/>
 		</xsl:call-template>
 		<!-- PLACE -->
 		<xsl:choose>
-			<xsl:when test="$genre='proceedings' or $genre='proceedings-paper' or $genre='conference-paper'">
+			<xsl:when test="$genre='proceedings' or $genre='proceedings-paper' or $genre='conference-paper' or $genre='conference-report' ">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">C</xsl:with-param>
 					<xsl:with-param name="value" select="eterms:place"/>
@@ -637,7 +717,7 @@
 					<xsl:with-param name="value" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="($genre='proceedings' and $sgenre='series') or ($genre='book-item' and $sgenre='series')">
+			<xsl:when test="($genre='proceedings' and $sgenre='series') or (($genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition') and $sgenre='series')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">S</xsl:with-param>
 					<xsl:with-param name="value" select="dc:title"/>
@@ -725,7 +805,7 @@
 				<xsl:with-param name="value" select="eterms:start-page"/>
 			</xsl:call-template>
 		</xsl:if>
-		<xsl:if test="not($genre='book')">
+		<xsl:if test="not($genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume')">
 			<xsl:variable name="pages">
 				<xsl:value-of select="eterms:start-page"/>
 				<xsl:if test="eterms:end-page!=''">					
@@ -762,14 +842,14 @@
 			</xsl:choose>
 		</xsl:if>
 		<!-- PUBLISHER -->
-		<xsl:if test="$genre='book-item' or $genre='conference-paper' or $genre='proceedings-paper' or $genre='article'">
+		<xsl:if test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition' or $genre='conference-paper' or $genre='conference-report' or $genre='proceedings-paper' or $genre='article'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">I</xsl:with-param>
 				<xsl:with-param name="value" select="eterms:publishing-info/dc:publisher"/>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- PLACE -->
-		<xsl:if test="$genre='book-item' or $genre='article'">
+		<xsl:if test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition' or $genre='article'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">C</xsl:with-param>
 				<xsl:with-param name="value" select="eterms:publishing-info/eterms:place"/>
