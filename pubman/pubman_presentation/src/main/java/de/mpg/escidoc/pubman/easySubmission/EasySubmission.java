@@ -2425,7 +2425,8 @@ public class EasySubmission extends FacesBean
                 .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
         ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
-        Map <String, String> excludedSourceGenres = SourceVOPresentation.getExcludedSourceGenreMap();
+        ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
+        Map <String, String> excludedSourceGenres = appBean.getExcludedSourceGenreMap();
         List <SelectItem> sourceGenres = new ArrayList <SelectItem>();
         sourceGenres.add(new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET")));
         for (SourceVO.Genre value : SourceVO.Genre.values())

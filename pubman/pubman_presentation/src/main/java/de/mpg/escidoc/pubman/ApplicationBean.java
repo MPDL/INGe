@@ -46,7 +46,10 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
+import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.SourceVOPresentation;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -97,7 +100,10 @@ public class ApplicationBean extends FacesBean
     private Transformation transformationService;
     
     private Map<String, SelectItem[]> languageSelectItems;
-    
+    private Map<String, String> contentCategoryMap;
+    private Map<String, String> excludedSourceGenreMap;
+    private Map<String, String> creatorRoleMap;
+
     private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
     private String instanceContextPath;
 
@@ -117,6 +123,9 @@ public class ApplicationBean extends FacesBean
         }
         this.transformationService = new TransformationBean();
         this.languageSelectItems = new HashMap<String, SelectItem[]>();
+        this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+        this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
+        this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
         
         this.init();
     }
@@ -561,8 +570,6 @@ public class ApplicationBean extends FacesBean
         this.ouList = ouList;
     }
     
-   
-    
     public String getLogoUrl()
     {
     	try {
@@ -574,6 +581,39 @@ public class ApplicationBean extends FacesBean
     	return null;
     }
     
+    /**
+     * @return the application wide contentCategoryMap
+     */
+    public synchronized Map<String, String> getContentCategoryMap()
+    {
+        if (this.contentCategoryMap == null)
+        {
+            this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+        }
+        return this.contentCategoryMap;
+    }
     
+    /**
+     * @return the application wide excludedSourceGenreMap
+     */
+    public synchronized Map<String, String> getExcludedSourceGenreMap()
+    {
+        if (this.excludedSourceGenreMap == null)
+        {
+            this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
+        }
+        return this.excludedSourceGenreMap;
+    }
 
+    /**
+     * @return the creatorRoleMap
+     */
+    public synchronized Map<String, String> getCreatorRoleMap()
+    {
+        if (this.creatorRoleMap == null)
+        {
+            this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
+        }
+        return this.creatorRoleMap;
+    }
 }

@@ -56,6 +56,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 
 /**
@@ -378,7 +380,8 @@ public class InternationalizationHelper implements Serializable
      */
     public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry)
     {
-        Map <String, String> negativeRoles = CreatorVOPresentation.getCreatorRoleMap();
+        ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
+        Map <String, String> negativeRoles = appBean.getCreatorRoleMap();
         
         List <CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
         for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values())
@@ -503,7 +506,8 @@ public class InternationalizationHelper implements Serializable
     public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry)
     {
 //        PubFileVOPresentation.ContentCategory[] values = PubFileVOPresentation.ContentCategory.values();
-        Map<String, String> values = PubFileVOPresentation.getContentCategoryMap();
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+        Map<String, String> values = appBean.getContentCategoryMap();
 
         SelectItem[] selectItems = new SelectItem[values.size()];
         int i = 0;
@@ -685,6 +689,59 @@ public class InternationalizationHelper implements Serializable
     	}
     	
     	
+    }
+    
+    /**
+     * Return any bean stored in application scope under the specified name.
+     * @param cls The bean class.
+     * @return the actual or new bean instance
+     */
+    public static synchronized Object getApplicationBean(final Class<?> cls)
+    {
+        String name = null;
+
+        try
+        {
+            name = (String) cls.getField("BEAN_NAME").get(new String());
+            if (FacesBean.class.getName().equals(name))
+            {
+                logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Error getting bean name of " + cls, e);
+        }
+        Object result = FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getApplicationMap()
+                .get(name);
+        
+        logger.debug("Getting bean " + name + ": " + result);
+
+        if (result == null)
+        {
+            try
+            {
+                 logger.debug("Creating new application bean: " + name);
+                Object newBean = cls.newInstance();
+                FacesContext
+                        .getCurrentInstance()
+                        .getExternalContext()
+                        .getApplicationMap()
+                        .put(name, newBean);
+                return newBean;
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException("Error creating new bean of type " + cls, e);
+            }
+        }
+        else
+        {
+            return result;
+        }
     }
     
 }
