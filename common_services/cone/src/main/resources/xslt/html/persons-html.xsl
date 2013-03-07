@@ -70,6 +70,7 @@
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.standard.url" /></xsl:attribute>
 				</link>
 				
+				
 		<script language="JavaScript" type="text/javascript">
 		
 		  <xsl:text disable-output-escaping="yes"><![CDATA[
@@ -160,7 +161,9 @@
 						font-style:italic;
 					}
 				</style>
-				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.2.6.min.js">;</script>
+				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.8.3.min.js">;</script>
+				
+				<script type="text/javascript" language="JavaScript" src="/cone/js/smartpaginator/smartpaginator.js">;</script>
 				<script>
 				
 				/*START SOLUTION FOR getElementsByTagName FOR NS-XML*/
@@ -183,15 +186,25 @@
 					var ampEsc = '&amp;';
 					var amp = ampEsc.substring(0,1);
 				
-					$(document).ready(function() {
+				
+					var recordsPerPage = 25;
+					var totalNumberOfRecords = 0;
+				
+					function retrievePublications(offset, limit)
+					{
 						var requestString = '<xsl:value-of select="$citation-link"/>';
 						requestString = requestString.replace(/&amp;/g, amp);
 						
-						$('.publicationsArea').append('<div class="big_imgArea huge_marginLExcl smallThrobber"></div>');
+						requestString = requestString + amp + "startRecord=" + offset + amp + "maximumRecords=" + limit;
 						
-						$.get(requestString, function(itemList){
-							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList);
+						$('#publicationsArea').empty();
+						$('#publicationsArea').append('<div class="big_imgArea huge_marginLExcl smallThrobber"></div>');
+						
+						$.ajax({url: requestString, async:false, success: function(itemList, textStatus, jqXHR){
 							
+							
+							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList);
+							totalNumberOfRecords = jqXHR.getResponseHeader('x-total-number-of-results');
 							var element = '';
 							var itemURL = '';
 							var publicationTitle = '';
@@ -207,18 +220,49 @@
 
 									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
 									
-									if($('.publicationsArea').find('.smallThrobber').length != 0) {$('.publicationsArea').find('.smallThrobber').remove();}
+									if($('#publicationsArea').find('.smallThrobber').length != 0) {$('#publicationsArea').find('.smallThrobber').remove();}
 									
-									$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
-									$('.publicationsArea').append(element);
+									$('#publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
+									$('#publicationsArea').append(element);
 
-									$('.publicationsArea:last-child').find('span.Default').each(function(k, elem){
+									$('#publicationsArea:last-child').find('span.Default').each(function(k, elem){
 										$(elem).replaceWith($(elem).html());
 									});
 								}
 							}
-							$('.publicationsArea').find('.smallThrobber').remove();							
+							$('#publicationsArea').find('.smallThrobber').remove();							
+						}
 						});
+					}
+				
+				
+					
+					
+					function changePaginatorVal(pageNumber)
+					{
+						var offset = ((pageNumber - 1) * recordsPerPage) + 1;
+						var limit = recordsPerPage;
+						retrievePublications(offset, limit);
+					}
+					
+					$(document).ready(function() {
+						changePaginatorVal(1);
+						if(totalNumberOfRecords <xsl:text disable-output-escaping="yes">></xsl:text> recordsPerPage) {
+						
+							$("#paginator").smartpaginator({
+								totalrecords : totalNumberOfRecords,
+								recordsperpage : recordsPerPage,
+								initval : 1,
+								length : 7,
+								controlsalways : true,
+								onchange: changePaginatorVal,
+								theme: '',
+								paginatorInfo: 'paginatorInfo'
+									
+							
+							});
+						}
+						
 					});
 					
 					function changeLanguage(element)
@@ -523,9 +567,18 @@
 										<xsl:value-of select="escidoc:label('publications')"/>
 									</h3>
 									<span class="seperator">&#160;</span>
-									<div class="free_area0 itemBlockContent endline publicationsArea">		
-										&#160;
-									</div>
+
+										<div class="free_area0 itemBlockContent endline">
+											<b class="xLarge_area0 endline labelLine">&#160;
+												<span id="paginatorInfo"/>
+											</b>
+											<div class="xHuge_area0 xTiny_marginLExcl endline paginator" id="paginator"/>
+											
+											<div id="publicationsArea" class="publicationsArea"/>
+										</div>	
+										
+										
+									
 								</div>				
 								
 							</div>

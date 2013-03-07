@@ -459,7 +459,7 @@
 			document.getElementById('fullItem').style.opacity='0.4';
 			document.getElementById('fullItem').style.bg='FFF';
 			$('*').attr('readonly', true);
-		    $(':input : file').attr('disabled', true);
+		    $(':input :file').attr('disabled', true);
 		}
 
 		function closeDialog()
@@ -470,7 +470,7 @@
 			document.getElementById('fullItem').style.opacity='1';
 			document.getElementById('fullItem').style.bg='FFF';
 			$('*').attr('readonly', false);
-		    $(':input : file').attr('disabled', false);
+		    $(':input :file').attr('disabled', false);
 		}
 		
 	</script>
@@ -515,7 +515,7 @@ function getMouseXY(e) {
 
 //-->
 </script>
-	<script type="text/javascript" src="/cone/js/jquery-1.2.6.min.js">;</script>
+	<script type="text/javascript" src="/cone/js/jquery-1.8.3.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>

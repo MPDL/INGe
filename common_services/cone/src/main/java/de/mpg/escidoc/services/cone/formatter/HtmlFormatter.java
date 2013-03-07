@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -154,12 +155,12 @@ public class HtmlFormatter extends Formatter
             File xsltFile = null;
             try
             {
-                xsltFile = ResourceUtil.getResourceAsFile("WEB-INF/" + model.getName() + "-html.xsl");
+                xsltFile = ResourceUtil.getResourceAsFile("xslt/html/" + model.getName() + "-html.xsl");
             }
             catch (FileNotFoundException fnfe)
             {
                 logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
-                xsltFile = ResourceUtil.getResourceAsFile("WEB-INF/generic-html.xsl");
+                xsltFile = ResourceUtil.getResourceAsFile("xslt/html/generic-html.xsl");
             }
             
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();

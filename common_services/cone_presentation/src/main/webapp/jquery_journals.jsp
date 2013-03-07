@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<script src="./js/jquery-1.2.6.min.js" type="text/javascript"></script>
+		<script src="./js/jquery-1.8.3.min.js" type="text/javascript"></script>
 		<script src="./js/jquery.suggest.js" type="text/javascript"></script>
 		<script src="./js/jquery.dimensions.js" type="text/javascript"></script>
 		<link href="./js/jquery.suggest.css" rel="stylesheet" type="text/css" />

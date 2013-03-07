@@ -146,8 +146,12 @@
 						
 					} else {
 
-						var vocab = $(options.vocab).val().toLowerCase().replace('_', '-');
-						vocab = vocab.substring(vocab.lastIndexOf("/"));
+						var vocab = null;
+						if(options.vocab)
+						{
+							vocab = $(options.vocab).val().toLowerCase().replace('_', '-');
+							vocab = vocab.substring(vocab.lastIndexOf("/"));
+						}
 						
 						var source = options.source;
 						var data = '';
