@@ -531,6 +531,12 @@ body .wrapper {
 	margin-top:0.7272em;
 	background-color:#888B8B;
 }
+
+.pageBrowser a.actual,
+.pageBrowser span.actual {
+	color: #888B8B;
+}
+
 .pageBrowser :disabled {
     color: #888B8B;
 	cursor:default;
