@@ -56,29 +56,49 @@ public class PIDHandler extends IdentityHandler
     }
 
     @Override
-    public void content(String uri, String localName, String name, String content) throws SAXException, HttpException, IOException
+    public void content(String uri, String localName, String name, String content) throws SAXException
     {
         logger.debug("content      uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> content = <" + content + ">");
         
-        if (inObjectPid)
+        // fallback if pidcache isn't reachable
+        String oldContent = content;
+        
+        if (inObjectPid || inVersionPid || inReleasePid)
         {
-            content = pidMigrationManager.getPid();
+            try
+            {
+                content = pidMigrationManager.getPid();
+            }
+            catch (HttpException e)
+            {
+                logger.warn("Error getting PID", e);
+            }
+            catch (IOException e)
+            {
+                logger.warn("Error getting PID", e);
+            }
+            finally
+            {
+                content = oldContent;
+            }
+        }
+        
+        if (inObjectPid)
+        {       
             logger.debug("content setting PID " + content);
           
             inObjectPid = false;
         }
         else if (inVersionPid)
         {
-            content = pidMigrationManager.getPid();
-            logger.debug("content setting PID " + content);
+            logger.debug("content setting versionPID " + content);
           
             inVersionPid = false;
             
         }
         else if (inReleasePid)
         {
-            content = pidMigrationManager.getPid();
-            logger.debug("content setting PID " + content);
+            logger.debug("content setting releasePID " + content);
           
             inReleasePid = false;
             
