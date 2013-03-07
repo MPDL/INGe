@@ -76,6 +76,7 @@ public class IdentifierVO extends ValueObject implements Cloneable
         PMC ("http://purl.org/escidoc/metadata/terms/0.1/PMC"),
         BMC ("http://purl.org/escidoc/metadata/terms/0.1/BMC"),
         BIBTEX_CITEKEY ("http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"),
+        REPORT_NR ("http://purl.org/escidoc/metadata/terms/0.1/REPORT-NR"),
         SSRN ("http://purl.org/escidoc/metadata/terms/0.1/SSRN"),
         /*SFX should not be in here*/
         //SFX ("http://purl.org/escidoc/metadata/terms/0.1/SFX"),
@@ -83,6 +84,7 @@ public class IdentifierVO extends ValueObject implements Cloneable
         PATENT_APPLICATION_NR ("http://purl.org/escidoc/metadata/terms/0.1/PATENT-APPLICATION-NR"),
         PATENT_PUBLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"),
         OTHER ("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
+        
         
         private String uri;
         

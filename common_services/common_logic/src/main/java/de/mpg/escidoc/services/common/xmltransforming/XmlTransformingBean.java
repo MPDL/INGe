@@ -638,7 +638,7 @@ public class XmlTransformingBean implements XmlTransforming
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubCollectionList:contextList is null");
         }
 
-        logger.info("transformed contextList =" + contextList);
+        logger.debug("transformed contextList =" + contextList);
         
         SearchRetrieveResponseVO response = null;
         try
@@ -782,7 +782,7 @@ public class XmlTransformingBean implements XmlTransforming
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformSearchRetrieveResponseToContextList:contextList is null");
         }
    
-        logger.info("transformed contextList =" + contextListXml);
+        logger.debug("transformed contextList =" + contextListXml);
         
         SearchRetrieveResponseVO response = this.transformToSearchRetrieveResponse(contextListXml);
         List<SearchRetrieveRecordVO> records = response.getRecords();
