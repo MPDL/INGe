@@ -34,21 +34,31 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
+import de.escidoc.core.common.exceptions.application.invalid.InvalidSearchQueryException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
+import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
@@ -58,13 +68,20 @@ import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.StandardFilter;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -83,6 +100,8 @@ public class FileBean extends FacesBean
     private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
     private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
     private LoginHelper loginHelper;
+    // weather the user holds an audience Grant for the current file or not
+    private boolean fileAccessGranted = false;
     
     
 
@@ -97,6 +116,10 @@ public class FileBean extends FacesBean
         loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         this.file = file;
         this.itemState = itemState;
+        if (loginHelper.getLoggedIn() == true)
+        {
+            initializeFileAccessGranted();
+        }
     }
     
     /**
@@ -113,6 +136,11 @@ public class FileBean extends FacesBean
         this.itemState = itemState;
         this.searchHitList = searchHitList;
         initialize(file, itemState, searchHitList);
+        if (loginHelper.getLoggedIn() == true)
+        {
+            initializeFileAccessGranted();
+        }
+        
     }
 
     /**
@@ -160,9 +188,54 @@ public class FileBean extends FacesBean
             }
             
         }
+        
     }
     
-    
+    private void initializeFileAccessGranted ()
+    {
+      //examine weather the user holds an audience Grant for the current file or not
+        try
+        {
+            if (file.getVisibility().equals(FileVO.Visibility.AUDIENCE))
+            {
+                XmlTransformingBean transforming = new XmlTransformingBean();
+                UserAccountHandler uah = ServiceLocator.getUserAccountHandler(loginHelper.getAccountUser().getHandle());
+                
+                FilterTaskParamVO filter = new FilterTaskParamVO();
+
+                Filter accountUserFilter = filter.new StandardFilter("http://escidoc.de/core/01/properties/user", loginHelper.getAccountUser().getReference().getObjectId(), "=", "AND");
+                filter.getFilterList().add(accountUserFilter);
+                
+                Filter notAudienceRoleFilter = filter.new StandardFilter("/properties/role/id", GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "=", "AND");
+                filter.getFilterList().add(notAudienceRoleFilter);
+                
+                Filter assignedOnFilter = filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on", file.getReference().getObjectId(), "=", "AND");
+                filter.getFilterList().add(assignedOnFilter);
+                
+                Filter notRevokedFilter = filter.new StandardFilter("/properties/revocation-date", "\"\"", "=", "AND");
+                filter.getFilterList().add(notRevokedFilter);
+                
+                String userGrantXML = uah.retrieveGrants(filter.toMap());
+                SearchRetrieveResponseVO searchResult = transforming.transformToSearchRetrieveResponseGrantVO(userGrantXML);
+                if (searchResult.getNumberOfRecords() > 0)
+                {
+                    this.fileAccessGranted = true;
+                }
+                else 
+                {
+                    this.fileAccessGranted = false;
+                }
+            }
+            else 
+            {
+                this.fileAccessGranted = false;
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Problem getting audience-grants for file [" + file.getReference().getObjectId() + "]", e);
+        }
+    }
     
     
     /**
@@ -569,43 +642,7 @@ public class FileBean extends FacesBean
      */
     public boolean getIsAudience()
     {
-        return file.getVisibility().equals(FileVO.Visibility.AUDIENCE) && loginHelper.isLoggedIn();
-        
-        /*
-        boolean isAudience = false; 
-        try
-        {
-            if (loginHelper.getAccountUser()!=null && loginHelper.getAccountUser().getHandle()!=null && !loginHelper.getAccountUser().getHandle().equals(""))
-            {
-                GrantList gl = GrantList.Factory.retrieveGrantsForObject(AdminHelper.getAdminUserHandle(), file.getReference().getObjectId(), Grant.CoreserviceRole.AUDIENCE.getRoleId());
-                
-               
-                for(Grant g: gl.getGrants())
-                {
-                    logger.info("Grant for file: " + g.getAssignedOn() + " " + g.getGrantedTo() + " " + g.getGrantType() + " ");
-                    if (g.getGrantType().equals("user-group"))
-                    {
-                        UserGroup ug = new UserGroup(g.getGrantedTo(), AdminHelper.getAdminUserHandle());
-                        Selector sel = ug.getSelectors().getSelectors().get(0);
-                       
-                        for (AffiliationRO aff : loginHelper.getAccountUser().getAffiliations())
-                        {
-                            isAudience = isAudience || checkAffiliationId(aff, sel.getObjid());
-                        }
-                    }
-                }
-                
-               
-                
-            }
-        }
-        
-        catch (Exception e)
-        {
-            logger.error("Error while detecting audience grants of current user for file");
-        }
-        return isAudience;
-        */
+        return this.fileAccessGranted;
     }
 
     /**Helper method for checking audience rights
