@@ -36,33 +36,33 @@
 	$LastChangedDate: 2010-02-05 11:38:47 +0100 (Fri, 05 Feb 2010) $
 -->
 <xsl:stylesheet version="2.0"
-   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:fn="http://www.w3.org/2005/xpath-functions"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:dc="${xsd.metadata.dc}"
-   xmlns:dcterms="${xsd.metadata.dcterms}"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:srel="${xsd.soap.common.srel}"
-   xmlns:prop="${xsd.core.properties}"
-   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-   xmlns:ec="${xsd.soap.item.components}"
-   xmlns:file="${xsd.metadata.file}"
-   xmlns:pub="${xsd.metadata.publication}"
-   xmlns:person="${xsd.metadata.person}"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+	xmlns:ei="${xsd.soap.item.item}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:prop="${xsd.core.properties}"
+	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+	xmlns:ec="${xsd.soap.item.components}"
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:pub="${xsd.metadata.publication}"
+	xmlns:person="${xsd.metadata.person}"
 	xmlns:source="${xsd.metadata.source}"
 	xmlns:event="${xsd.metadata.event}"
 	xmlns:organization="${xsd.metadata.organization}"		
 	xmlns:eterms="${xsd.metadata.terms}"   
-   xmlns:escidoc="urn:escidoc:functions"
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
-   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
-   xmlns:itemlist="${xsd.soap.item.itemlist}"
-   xmlns:eprints="http://purl.org/eprint/terms/">
+	xmlns:escidoc="urn:escidoc:functions"
+	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
+	xmlns:itemlist="${xsd.soap.item.itemlist}"
+	xmlns:eprints="http://purl.org/eprint/terms/">
    
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
@@ -283,7 +283,6 @@
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type" select="
 						if (substring(., 1, 4) = 'ISI:') then 'eterms:ISI' 
-						else if (substring(., 1, 4) = 'WOS:') then 'eterms:WOS'
 						else  'eterms:OTHER'
 					"/>
 					<xsl:value-of select="."/>
