@@ -104,14 +104,9 @@
 			</h:form>
 			<script type="text/javascript">
 				var passArea = $pb('.passArea'); 
-				$pb(window).unbind("keyup");
-				$pb(document).unbind("keyup");
 				passArea.find("input[type=password]").keyup(function(keyEvent) {
 					var key = keyEvent.keyCode;
 					if(key == '13') {
-						keyEvent.preventDefault();
-						keyEvent.stopImmediatePropagation();
-						keyEvent.stopPropagation();
 						passArea.find('.activeButton').trigger("click");
 					};
 				});
