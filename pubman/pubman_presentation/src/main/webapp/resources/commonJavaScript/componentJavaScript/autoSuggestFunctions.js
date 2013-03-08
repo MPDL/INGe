@@ -503,43 +503,16 @@
 	function selectLanguage()
 	{
 		$input = $pb(this);
-		var lang = document.getElementsByTagName('body')[0].lang;
-		$pb.getJSON(languageDetailsBaseURL.replace('$1', this.resultID).replace('$2', lang), selectLanguageDetails);
-	}
-	
-	function selectLanguageDetails(details)
-	{
-		var identifier = details.http_purl_org_dc_elements_1_1_identifier;
-		var name = details.http_purl_org_dc_elements_1_1_title;
-		
-		
-		if (typeof name == 'undefined')
-		{
-			var url = details.id;
-			$pb.getJSON(languageDetailsBaseURL.replace('$1', url).replace('$2', 'en'), selectLanguageDetails);
-		}
-		else
-		{
-			var id3;
-			if (identifier != null && !(typeof identifier.splice === 'function') && identifier.length == 3)
-			{
-				id3 = identifier;
+		if (($pb.trim(this.resultValue)).indexOf(' ') !== -1){
+			var langShortHand = $pb.trim(($pb.trim(this.resultValue)).substr(0, ($pb.trim(this.resultValue)).indexOf(' ')));
+			if (langShortHand != ''){
+				$input.val(langShortHand); 
+				$input.attr('title', langShortHand);
 			}
-			else if (identifier != null)
-			{
-				for (var i=0; i < identifier.length; i++)
-				{
-					if (identifier[i].length == 3)
-					{
-						id3 = identifier[i];
-					}
-				}
+			var lang = $pb.trim(($pb.trim(this.resultValue)).substr(($pb.trim(this.resultValue)).lastIndexOf(' ') + 1));
+			if (lang != ''){
+				$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(lang);
+				$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').attr('title', lang);
 			}
-			
-			$input.val(id3);
-			$input.attr('title', id3);
-			$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(name);
-			$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').attr('title', name);
 		}
 	}
-	

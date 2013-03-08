@@ -311,6 +311,13 @@ public class CommonUtils extends InternationalizedImpl
                 locale = "en";
             }
             HttpClient client = new HttpClient();
+            
+            // check if there was a problem splitting the cone-autosuggest in javascript
+            if (code.contains(" "))
+            {
+                code = code.trim().split(" ")[0];
+            }
+            
             GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/" + code + "?format=json&lang=" + locale);
             client.executeMethod(getMethod);
             String response = getMethod.getResponseBodyAsString();
