@@ -151,6 +151,8 @@ public class ViewItemFull extends FacesBean
     public static final String BEAN_NAME = "ViewItemFull";
     public static final String PARAMETERNAME_ITEM_ID = "itemId";
     public static final String PARAMETERNAME_MENU_VIEW = "view";
+    // SSRN local Tag
+    private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
     public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
@@ -203,6 +205,10 @@ public class ViewItemFull extends FacesBean
     private ArrayList<ViewItemCreators> creators;
 
     private List<SourceBean> sourceList;
+    
+    /** Context list, where SSRN-Button will be available */
+    private List<String> ssrnContexts;
+    
     //= new ArrayList<SourceBean>();
     private LoginHelper loginHelper;
     /** The url used for the citation */
@@ -268,6 +274,7 @@ public class ViewItemFull extends FacesBean
     private boolean canShowReleaseHistory = false;
     private boolean canShowLastMessage = false;
     private boolean isStateWasReleased = false;
+    
 
 
     /**
@@ -641,11 +648,129 @@ public class ViewItemFull extends FacesBean
             }
 
         }
+        
+        //set SSRN contexts
+        try
+        {
+            String contexts = PropertyReader.getProperty("escidoc.pubman.instance.ssrn_contexts");
+            if (contexts != null && !"".equals(contexts))
+            {
+                this.ssrnContexts = new ArrayList<String> ();
+                while (contexts.contains(","))
+                {
+                    this.ssrnContexts.add(contexts.substring(0, contexts.indexOf(",")));
+                    contexts = contexts.substring(contexts.indexOf(",") + 1, contexts.length());
+                }
+                this.ssrnContexts.add(contexts);
+            }
+            
+        }
+        catch (Exception e)
+        {
+            logger.error("couldn't load ssrn context list", e);
+        }
+        
         setLinks();
 
     }
-
-
+    
+    public boolean isSsrnContext() 
+    {
+        if (this.ssrnContexts != null && this.ssrnContexts.contains(this.getPubItem().getContext().getObjectId())){
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    
+    public boolean isSsrnTagged()
+    {
+        if (this.getPubItem().getLocalTags().contains(ViewItemFull.SSRN_LOCAL_TAG)){
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    
+    public String addSsrnTag() 
+    {
+        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        String returnValue = "";
+        this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+        if ((ItemVO.State.PENDING).equals(this.getPubItem().getVersion().getState()) || (ItemVO.State.IN_REVISION).equals(this.getPubItem().getVersion().getState()))
+        {
+            returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_ssrnAddedSuccessfully"));
+            }
+        }
+        else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()) || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && !this.canRelease))
+        {
+            returnValue = icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
+            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_ssrnAddedSuccessfully"));
+            }
+        }
+        else if ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && this.canRelease)
+        {
+            returnValue = icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
+            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_ssrnAddedSuccessfully"));
+            }
+        }
+        else 
+        {
+            error(getMessage("ViewItem_ssrnAddingProblem"));
+        }
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
+        return returnValue;
+    }
+    
+    public String removeSsrnTag ()
+    {
+        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        String returnValue = "";
+        this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
+        if ((ItemVO.State.PENDING).equals(this.getPubItem().getVersion().getState()) || (ItemVO.State.IN_REVISION).equals(this.getPubItem().getVersion().getState()))
+        {
+            returnValue =  icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
+            }
+        }
+        else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()) || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && !this.canRelease))
+        {
+            returnValue =  icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
+            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
+            }
+        }
+        else if ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && this.canRelease)
+        {
+            returnValue =  icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
+            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
+            }
+        }
+        else {
+            error(getMessage("ViewItem_ssrnRemovingProblem"));
+        }
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
+        return returnValue;
+    }
+    
     public String addToYearbookMember()
     {
         List<ItemRO> selected = new ArrayList<ItemRO>();

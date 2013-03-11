@@ -81,6 +81,7 @@ import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManage
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -827,6 +828,8 @@ public class EditItem extends FacesBean
                     logger.error("Could not redirect to View Item Page", e);
                 }
             }
+            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pubItemListSessionBean.update();
             return retVal;
         }
         else if (report.isValid())
@@ -865,6 +868,8 @@ public class EditItem extends FacesBean
                     logger.error("Could not redirect to View Item Page", e);
                 }
             }
+            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pubItemListSessionBean.update();
             return retVal;
         }
         else
@@ -967,6 +972,8 @@ public class EditItem extends FacesBean
         {
             info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
         }
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
         return retVal;
     }
 
@@ -1038,6 +1045,8 @@ public class EditItem extends FacesBean
                 {
                     throw new RuntimeException("Error retrieving submitted item", e);
                 }
+                PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+                pubItemListSessionBean.update();
                 return SubmitItem.LOAD_SUBMITITEM;
             }
         }
@@ -1149,6 +1158,8 @@ public class EditItem extends FacesBean
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
+            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pubItemListSessionBean.update();
             return retVal;
         }
         else if (report.isValid())
@@ -1168,6 +1179,8 @@ public class EditItem extends FacesBean
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
+            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pubItemListSessionBean.update();
             return retVal;
         }
         else
@@ -1197,6 +1210,8 @@ public class EditItem extends FacesBean
         {
             info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
         }
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
         return retVal;
     }
 
@@ -1396,6 +1411,8 @@ public class EditItem extends FacesBean
                 info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
+            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pubItemListSessionBean.update();
             return retVal;
         }
         else if (report.isValid())
@@ -1415,6 +1432,8 @@ public class EditItem extends FacesBean
                 info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
+            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pubItemListSessionBean.update();
             return retVal;
         }
         else

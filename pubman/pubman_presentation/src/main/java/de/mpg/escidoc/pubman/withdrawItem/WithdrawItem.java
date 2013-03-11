@@ -42,6 +42,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -177,7 +178,8 @@ public class WithdrawItem extends FacesBean
         {
             info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
         }
-
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
         return retVal;
     }
 

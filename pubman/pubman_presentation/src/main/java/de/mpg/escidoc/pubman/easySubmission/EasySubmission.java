@@ -74,6 +74,7 @@ import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.GenreSpecificItemManager;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -686,6 +687,8 @@ public class EasySubmission extends FacesBean
         {
             getEasySubmissionSessionBean().cleanup();
         }
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
         return returnValue;
         
         // /*

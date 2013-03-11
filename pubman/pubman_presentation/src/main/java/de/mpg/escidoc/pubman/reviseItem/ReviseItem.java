@@ -41,6 +41,7 @@ import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -174,7 +175,8 @@ public class ReviseItem extends FacesBean
             }
         }
         
-      
+        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        pubItemListSessionBean.update();
 
         return retVal;
     }
