@@ -803,8 +803,11 @@
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Yearbook properties -->
 		<escidoc.pubman.yearbook.context.id>escidoc:287053</escidoc.pubman.yearbook.context.id>
 		<escidoc.pubman.yearbook.content-model.id>escidoc:119021</escidoc.pubman.yearbook.content-model.id>
+		<!-- JUS - SSRN contexts -->
+		<escidoc.pubman.instance.ssrn_contexts>escidoc:167026,escidoc:1002</escidoc.pubman.instance.ssrn_contexts>
 		<!-- Externalisation of home page content -->
 		<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo.png</escidoc.pubman.logo.url>
 		<escidoc.pubman.home.content.url />
