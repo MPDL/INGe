@@ -61,15 +61,6 @@
 				<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 			</h:commandLink>
 		</div>
-		<div class="free_area0 sub action">
-		<!-- content menu lower line starts here -->
-			<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblProvideID}" rendered="#{EasySubmission.disableBibtexFields}" />								
-			<h:commandLink title="#{tip.easy_submission_lblProvideID}" id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" rendered="#{EasySubmission.disableExternalFields}" ><h:outputText value="#{lbl.easy_submission_lblProvideID}" /></h:commandLink>
-			<h:panelGroup styleClass="seperator" />
-			<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblUploadBibtex}" rendered="#{EasySubmission.disableExternalFields}" />
-			<h:commandLink title="#{tip.easy_submission_lblUploadBibtex}" id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" rendered="#{EasySubmission.disableBibtexFields}" ><h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /></h:commandLink>
-		<!-- content menu lower line ends here -->
-		</div>
 	<!-- content menu ends here -->
 	</div>
 	<div class="subHeader">
