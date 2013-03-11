@@ -39,38 +39,53 @@
 	<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
 		<h2>Submission</h2>
-		Enter a new Publication to PubMan?
+		There are several ways to enter new publications into PubMan. You can
 		<ul style="list-style-position: outside">
-			<li>... by using the <h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{EasySubmission.newEasySubmission}">
-								<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-							</h:commandLink> </li>
-			<li>... by <h:commandLink id="lnkImport_en" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-						<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-					</h:commandLink> </li>
-			<li>... by using the <h:commandLink id="lnkNewSubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-								<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-							</h:commandLink> </li>
+			<li>use the 
+				<h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{EasySubmission.newEasySubmission}">
+					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>. Here you can enter basic metadata of a publication.
+			</li>
+			<li>use the 
+				<h:commandLink id="lnkNewSubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>. Here you can enter the complete metadata of a publication.
+			</li>
+			<li>use the 
+				<h:commandLink id="lnkImport_en" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+					<h:outputText value="Fetch" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>. Here you can fetch single items from external repositories like arXiv or BioMed Central.
+			</li>
+			<li>use the
+				<h:commandLink id="lnkMultipleImport_en" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
+					<h:outputText value="Multiple Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>. Here you can upload multiple items out of various formats.
+			</li>
 		</ul>
 	</h:panelGroup>
 	
 	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon myItemsIcon">&#160;</span> </span>
 		<h2>My Items</h2>
+		Do you want to manage your own items?
 		<ul style="list-style-position: outside">
-			<li>...finish your data <h:outputLink id="lnkSubmissionsOrCheck" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
-				<h:outputText value="submissions or check " />
-			</h:outputLink> if your items have been already released to the public.</li>
+			<li>Then you can use the section 
+				<h:outputLink id="lnkSubmissionsOrCheck" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+					<h:outputText value="My Items " />
+				</h:outputLink>. Here you will find all publications entered by yourself.
+			</li>
 		</ul>
 	</h:panelGroup>
 	
 	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon qaWSIcon">&#160;</span> </span>
 		<h2>QA Workspace</h2>
+		Do you want to manage items belonging to your context?
 		<ul style="list-style-position: outside">
-			<li>... 
+			<li>Then you can use the 
 				<h:outputLink id="lnkModerateOrEdit" value="#{ApplicationBean.appContext}QAWSPage.jsp">
-					<h:outputText value="moderate or edit" />
-				</h:outputLink> items entered for your context. 
+					<h:outputText value="QA Workspace" />
+				</h:outputLink>. In this area, moderators can view and work on all of their institute's publications.
 			</li>
 		</ul>
 	</h:panelGroup>
@@ -88,38 +103,53 @@
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
 		<h2>Dateneingabe</h2>
-		Wollen Sie eine neue Publikation erstellen? Folgende Möglichkeiten können Sie nutzen:
+		Sie haben verschiedene Möglichkeiten, neue Publikationen in PubMan anzulegen. Verwenden Sie
 		<ul style="list-style-position: outside">
-			<li>Die <h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-				<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-			</h:commandLink> benutzen Sie um mit wenig Zeitaufwand eine einzelne Publikation mit minimalen Anforderungen zu erstellen.</li>
-			<li>Der <h:commandLink id="lnkImport_de" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-				<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-			</h:commandLink> eignet sich für die Verarbeitung einer großen Anzahl von Publikationen. Der Import unterstützt 5 Dateiformate.</li>
-			<li>Die <h:commandLink id="lnkNewSubmission_de" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-				<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-			</h:commandLink> ermöglicht eine umfangreiche Dateneingabe.</li>
+			<li>die 
+				<h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>. Hier können Sie die grundlegenden Metadaten zu einer Publikation eintragen.
+			</li>
+			<li>die 
+				<h:commandLink id="lnkNewSubmission_de" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>. Hier können alle Metadaten vollständig erfasst werden.
+			</li>
+			<li>
+				<h:commandLink id="lnkImport_de" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+					<h:outputText value="Daten Abholen" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>. Hier können Sie einzelne Publikationen von externen Repositorien wie arXiv oder BioMed Central importieren.
+			</li>
+			<li>den 
+				<h:commandLink id="lnkMultipleImport_de" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
+					<h:outputText value="Massenimport" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>. Hier können Sie größere Mengen von Datensätzen aus verschiedenen Formaten hochladen.
+			</li>
 		</ul>
 	</h:panelGroup>
 	
 	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon myItemsIcon">&#160;</span> </span>
 		<h2>Meine Datensätze</h2>
+		Möchten Sie Ihre eigenen Datensätze verwalten?
 		<ul style="list-style-position: outside">
-			<li>Wenn Sie Ihre Datensätze ergänzen, oder die Veröffentlichung überprüfen wollen, sollten Sie in die Rubrik <h:outputLink id="lnkDateneingabeOderPruefen" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
-				<h:outputText value="Dateneingabe oder prüfen " />
-			</h:outputLink> einsteigen.</li>
+			<li>Dies können Sie im Bereich 
+				<h:outputLink id="lnkDateneingabeOderPruefen" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+					<h:outputText value="Meine Datensätze" />
+				</h:outputLink> tun. Hier finden Sie alle Publikationen, die Sie selbst angelegt haben.
+			</li>
 		</ul>
 	</h:panelGroup>
 	
 	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon qaWSIcon">&#160;</span> </span>
 		<h2>QA Bereich</h2>
+		Möchten Sie die Datensätze Ihres Kontextes verwalten?
 		<ul style="list-style-position: outside">
-			<li>Im Bereich Qualitätssicherung 
+			<li>Diese finden Sie im  
 				<h:outputLink id="lnkUeberpruefenOderEditieren" value="#{ApplicationBean.appContext}QAWSPage.jsp">
-					<h:outputText value="überprüfen oder editieren" />
-				</h:outputLink> Sie Items aus Ihrem Kontext.
+					<h:outputText value="QA-Bereich" />
+				</h:outputLink>. Als Moderator können Sie hier alle Publikationen ihres Institutes sichten und bearbeiten.
 			</li>
 		</ul>
 	</h:panelGroup>

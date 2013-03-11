@@ -53,7 +53,7 @@
 			</li>
 			<li>use the 
 				<h:commandLink id="lnkImport_en" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-					<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					<h:outputText value="Fetch" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Here you can fetch single items from external repositories like arXiv or BioMed Central.
 			</li>
 			<li>use the
@@ -115,9 +115,9 @@
 					<h:outputText value="#{lbl.Home_Link_FullSub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Hier können alle Metadaten vollständig erfasst werden.
 			</li>
-			<li>den 
+			<li>
 				<h:commandLink id="lnkImport_de" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-					<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					<h:outputText value="Daten Abholen" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Hier können Sie einzelne Publikationen von externen Repositorien wie arXiv oder BioMed Central importieren.
 			</li>
 			<li>den 
