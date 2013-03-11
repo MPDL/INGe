@@ -58,7 +58,7 @@
 			</li>
 			<li>use the
 				<h:commandLink id="lnkMultipleImport_en" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
-					<h:outputText value="Multiple Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					<h:outputText value="Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>. Here you can upload multiple items out of various formats.
 			</li>
 		</ul>
@@ -122,7 +122,7 @@
 			</li>
 			<li>den 
 				<h:commandLink id="lnkMultipleImport_de" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
-					<h:outputText value="Massenimport" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					<h:outputText value="Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>. Hier können Sie größere Mengen von Datensätzen aus verschiedenen Formaten hochladen.
 			</li>
 		</ul>
