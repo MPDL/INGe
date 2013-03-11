@@ -101,8 +101,7 @@
 	<div class="full_area0 fullItem">
 		<div class="full_area0 itemBlock noTopBorder">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{EasySubmission.disableBibtexFields}"/>
-				<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}" rendered="#{EasySubmission.disableExternalFields}"/>
+				<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}"/>
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
@@ -191,9 +190,11 @@
 </div>
 <h:panelGroup layout="block" id="buttons" styleClass="full_area0 formButtonArea">		
 	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
+	<!-- 
 	<h:commandLink id="lnkImportBibtex" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton #{empty EasySubmissionSessionBean.uploadedBibtexFile ? 'disabled' : ''}" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableExternalFields}" disabled="#{empty EasySubmissionSessionBean.uploadedBibtexFile}">
 		<h:outputText value="#{lbl.easy_submission_btnNext}" />
 	</h:commandLink>
+	-->
 	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}">
 		<h:outputText value="#{lbl.easy_submission_btnFetch}"/>
 	</h:commandLink>
