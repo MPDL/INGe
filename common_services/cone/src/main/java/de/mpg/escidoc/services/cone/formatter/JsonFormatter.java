@@ -55,6 +55,7 @@ import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.ResultEntry;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -177,6 +178,13 @@ public class JsonFormatter extends Formatter
                         result.append("\",\n");
                     }
                     
+                    if  (value instanceof ResultEntry && ((ResultEntry) value).getType() != null)
+                    {
+                        result.append("\t\t\"type\" : \"");
+                        result.append(((ResultEntry) value).getType().replace("\"", "\\\""));
+                        result.append("\",\n");
+                    }
+                    
                     result.append("\t\t\"value\" : \"");
                     result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n"));
                     result.append("\"\n");
@@ -188,6 +196,41 @@ public class JsonFormatter extends Formatter
                 {
                     result.append(((TreeFragment)pair).toJson());   
                 }
+                
+                if (pair instanceof ResultEntry)
+                {
+                    result.append("\t{\n");
+                    
+                    String key = ((Pair) pair).getKey();
+                    Object value = ((Pair) pair).getValue();
+                    
+                    result.append("\t\t\"id\" : \"");
+                    try
+                    {
+                        result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\""));
+                    }
+                    catch (Exception e)
+                    {
+                        throw new RuntimeException(e);
+                    }
+                    result.append("\",\n");
+                    
+                    if  (value instanceof LocalizedString && ((LocalizedString) value).getLanguage() != null)
+                    {
+                        result.append("\t\t\"language\" : \"");
+                        result.append(((LocalizedString) value).getLanguage().replace("\"", "\\\""));
+                        result.append("\",\n");
+                    }
+                    
+                    result.append("\t\t\"value\" : \"");
+                    result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n"));
+                    result.append("\"\n");
+                    
+                    result.append("\t}");
+
+                }
+                
+                
                 
                 if (!(pair == pairs.get(pairs.size() - 1)))
                 {

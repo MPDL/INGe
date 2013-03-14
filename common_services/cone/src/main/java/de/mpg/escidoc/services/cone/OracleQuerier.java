@@ -38,6 +38,7 @@ import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.ModelHelper;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.ResultEntry;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -725,9 +726,9 @@ public class OracleQuerier implements Querier
             
             statement.setString(1, id);
             
-            List<Pair<LocalizedString>> results = ModelHelper.buildObjectFromPattern(modelName, id, values, loggedIn);
+            List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
             
-            for (Pair<LocalizedString> pair : results)
+            for (Pair<ResultEntry> pair : results)
             {
                 if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {
@@ -751,9 +752,9 @@ public class OracleQuerier implements Querier
             statement.setString(1, id);
             statement.setString(4, modelName);
             
-            results = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
+            List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
             
-            for (Pair<LocalizedString> pair : results)
+            for (Pair<LocalizedString> pair : matchResults)
             {
                 if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {

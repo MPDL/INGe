@@ -124,7 +124,7 @@ public class HtmlFormatter extends Formatter
             Transformer transformer = TransformerFactory
                     .newInstance()
                     .newTransformer(
-                            new StreamSource(ResourceUtil.getResourceAsStream("WEB-INF/resultlist-html.xsl")));
+                            new StreamSource(ResourceUtil.getResourceAsStream("xslt/html/resultlist-html.xsl")));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }

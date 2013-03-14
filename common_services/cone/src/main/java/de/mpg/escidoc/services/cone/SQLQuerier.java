@@ -38,6 +38,7 @@ import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.ModelHelper;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.ResultEntry;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -158,7 +159,7 @@ public class SQLQuerier implements Querier
 
             }
         }
-        String query = "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id " +
+        String query = "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id " +
         		"where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and " + subQuery;
 
         if (!"*".equals(language))
@@ -166,7 +167,7 @@ public class SQLQuerier implements Querier
             query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by " + order1 + order2 + "r1.value, r1.id";
+        query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
         if (limit > 0)
         {
             query += " limit " + limit;
@@ -186,7 +187,9 @@ public class SQLQuerier implements Querier
             String id = result.getString("id");
             String value = result.getString("value");
             String lang = result.getString("lang");
-            Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new LocalizedString(value, lang));
+            String type = result.getString("type");
+            String sortKey = result.getString("sort");
+            Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
             resultSet.add(pair);
         }
         
@@ -313,7 +316,7 @@ public class SQLQuerier implements Querier
             query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by " + order1 + order2 + "r1.value, r1.id";
+        query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
         if (limit > 0)
         {
             query += " limit " + limit;
@@ -333,7 +336,9 @@ public class SQLQuerier implements Querier
             String id = result.getString("id");
             String value = result.getString("value");
             String lang = result.getString("lang");
-            Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new LocalizedString(value, lang));
+            String type = result.getString("type");
+            String sortKey = result.getString("sort");
+            Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
             resultSet.add(pair);
         }
         
@@ -821,27 +826,33 @@ public class SQLQuerier implements Querier
         
         if (modelName != null)
         {
-            query = "insert into results (id, value, lang) values (?, ?, ?)";
+            query = "insert into results (id, value, lang, type, sort) values (?, ?, ?, ?, ?)";
             statement.close();
             statement = connection.prepareStatement(query);
             
             statement.setString(1, id);
             
-            List<Pair<LocalizedString>> results = ModelHelper.buildObjectFromPattern(modelName, id, values, loggedIn);
+            List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
             
-            for (Pair<LocalizedString> pair : results)
+            for (Pair<ResultEntry> pair : results)
             {
                 if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {
                     statement.setString(2, pair.getValue().getValue());
-                    if (pair.getKey() != null && "".equals(pair.getKey()))
+                    
+                    
+                    if (pair.getValue().getLanguage() != null && "".equals(pair.getValue().getLanguage()))
                     {
                         statement.setString(3, null);
                     }
                     else
                     {
-                        statement.setString(3, pair.getKey());
+                        statement.setString(3, pair.getValue().getLanguage());
                     }
+                    
+                    statement.setString(4, pair.getValue().getType());
+                    statement.setString(5, pair.getValue().getSortResult());
+                    
                     statement.executeUpdate();
                 }
             }
@@ -853,9 +864,9 @@ public class SQLQuerier implements Querier
             statement.setString(1, id);
             statement.setString(4, modelName);
             
-            results = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
+            List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
             
-            for (Pair<LocalizedString> pair : results)
+            for (Pair<LocalizedString> pair : matchResults)
             {
                 if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {

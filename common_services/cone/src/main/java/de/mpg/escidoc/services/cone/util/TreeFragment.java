@@ -363,6 +363,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     @Override
     public String toString()
     {
+    	
         if (subject == null)
         {
             return null;
@@ -375,6 +376,12 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             throw new RuntimeException(e);
         }
+    }
+    
+    public String toString2()
+    {
+    	
+       return super.toString();
     }
 
     /**

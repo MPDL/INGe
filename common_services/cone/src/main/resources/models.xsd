@@ -37,10 +37,19 @@
     								</xs:sequence>
     							</xs:complexType>
     						</xs:element>
-    						<xs:element name="result" minOccurs="1" maxOccurs="1">
+    						<xs:element name="results" minOccurs="1" maxOccurs="1">
     							<xs:complexType>
     								<xs:sequence>
-    									<xs:element name="pattern" minOccurs="1" maxOccurs="unbounded" type="xs:string"/>
+    									<xs:element name="result" minOccurs="1" maxOccurs="unbounded" type="xs:string">
+    										<xs:complexType>
+			    								<xs:sequence>
+			    									<xs:element name="type" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			    									<xs:element name="result-pattern" minOccurs="1" maxOccurs="1" type="xs:string"/>
+			    									<xs:element name="sort-pattern" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			    								</xs:sequence>
+			    							</xs:complexType>
+    									
+    									</xs:element>
     								</xs:sequence>
     							</xs:complexType>
     						</xs:element>

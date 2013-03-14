@@ -237,8 +237,18 @@
 				}
 				
 				var html = '';
-				for (var i = 0; i < items.length; i++)
-					html += '<li>' + items[i][0] + '</li>';
+				for (var i = 0; i < items.length; i++) {
+					if(items[i][1].type && items[i][1].type == 'main') {
+						html += '<li style="background-color:#E0E0E0;"><span style="font-weight:bold">' + items[i][0] + '</span></li>';
+					}
+					else if(items[i][1].type && items[i][1].type == 'alt') {
+						html += '<li>&#160;&#160;&#160;&#160;&#160;' + items[i][0] + '</li>';
+					}
+					else {
+						html += '<li>' + items[i][0] + '</li>';
+					}
+				}
+				
 
 				resetPosition();
 				$results.html(html).show();

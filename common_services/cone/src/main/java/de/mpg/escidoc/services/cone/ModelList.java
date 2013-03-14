@@ -179,10 +179,22 @@ public class ModelList
             {
                 currentService.setIdentifier("".equals(content.trim()) ? null : content.trim());
             }
-            else if ("models/model/result/pattern".equals(stack.toString()))
+            else if ("models/model/results/result/result-pattern".equals(stack.toString()))
             {
-                currentService.getResultPattern().add(content.trim());
+            	int resultSize = currentService.getResults().size();
+                currentService.getResults().get(resultSize - 1).setResultPattern(content.trim());
             }
+            else if ("models/model/results/result/sort-pattern".equals(stack.toString()))
+            {
+            	int resultSize = currentService.getResults().size();
+                currentService.getResults().get(resultSize - 1).setSortPattern(content.trim());
+            }
+            else if ("models/model/results/result/type".equals(stack.toString()))
+            {
+            	int resultSize = currentService.getResults().size();
+                currentService.getResults().get(resultSize - 1).setType(content.trim());
+            }
+            
             
         }
 
@@ -197,6 +209,10 @@ public class ModelList
             else if ("models/model/predicates".equals(stack.toString()))
             {
                 this.predicateStack.push(currentService.getPredicates());
+            }
+            else if ("models/model/results/result".equals(stack.toString()))
+            {
+                currentService.getResults().add(new ModelResult());
             }
             else if ("predicate".equals(name))
             {
@@ -297,17 +313,17 @@ public class ModelList
         {
             for (Predicate predicate : predicates)
             {
-                for (String pattern : model.getResultPattern())
+                for (ModelResult result : model.getResults())
                 {
-                    if (predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                    if (predicate.isLocalized() && result.getResultPattern().contains("<" + predicate.getId() + ">"))
                     {
                         model.setLocalizedResultPattern(true);
                     }
-                    else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(), pattern, new Stack<String>()))
+                    else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(), result.getResultPattern(), new Stack<String>()))
                     {
                         model.setLocalizedResultPattern(true);
                     }
-                    else if (!predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                    else if (!predicate.isLocalized() && result.getResultPattern().contains("<" + predicate.getId() + ">"))
                     {
                         model.setGlobalResultPattern(true);
                     }
@@ -494,7 +510,7 @@ public class ModelList
         private String subjectPrefix;
         private boolean generateIdentifier;
         private boolean controlled;
-        private List<String> resultPattern = new ArrayList<String>();
+        private List<ModelResult> results = new ArrayList<ModelResult>();
         private boolean localizedResultPattern;
         private boolean globalResultPattern;
         private boolean localizedMatches;
@@ -633,16 +649,7 @@ public class ModelList
             this.identifierPrefix = identifierPrefix;
         }
 
-        public List<String> getResultPattern()
-        {
-            return resultPattern;
-        }
-
-        public void setResultPattern(List<String> resultPattern)
-        {
-            this.resultPattern = resultPattern;
-        }
-
+       
         public boolean isLocalizedResultPattern()
         {
             return localizedResultPattern;
@@ -774,6 +781,14 @@ public class ModelList
         {
             return (this.name == null ? 0 : this.name.hashCode());
         }
+
+		public List<ModelResult> getResults() {
+			return results;
+		}
+
+		public void setResults(List<ModelResult> results) {
+			this.results = results;
+		}
     }
     
     /**
@@ -1066,5 +1081,43 @@ public class ModelList
             return id;
         }
         
+
+    }
+    
+    
+    public class ModelResult
+    {
+    	
+    	private String resultPattern;
+    	
+    	private String sortPattern;
+    	
+    	private String type;
+
+		public String getResultPattern() {
+			return resultPattern;
+		}
+
+		public void setResultPattern(String resultPattern) {
+			this.resultPattern = resultPattern;
+		}
+
+		public String getSortPattern() {
+			return sortPattern;
+		}
+
+		public void setSortPattern(String sortPattern) {
+			this.sortPattern = sortPattern;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+    	
+    	
     }
 }
