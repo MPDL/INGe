@@ -28,7 +28,9 @@ CREATE TABLE properties (
 CREATE TABLE results (
     id character varying NOT NULL,
     value character varying NOT NULL,
-    lang character varying
+    lang character varying,
+    type character varying,
+    sort character varying
 );
 
 
