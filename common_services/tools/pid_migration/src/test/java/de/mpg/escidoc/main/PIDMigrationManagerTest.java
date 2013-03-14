@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -17,12 +18,15 @@ import org.junit.Test;
 
 public class PIDMigrationManagerTest
 {
+    private static Logger logger = Logger.getLogger(PIDMigrationManagerTest.class);   
+    
     private PIDMigrationManager mgr = new PIDMigrationManager();
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
-        FileUtils.copyFile(new File("src/test/resources/escidoc_1479027.sav"), new File("src/test/resources/escidoc_1479027"));
+        FileUtils.copyFile(new File("src/test/resources/item/escidoc_1479027.sav"), new File("src/test/resources/item/escidoc_1479027"));
+        FileUtils.copyFile(new File("src/test/resources/component/escidoc_418001.sav"), new File("src/test/resources/component/escidoc_418001"));
     }
     
     @Before
@@ -65,18 +69,22 @@ public class PIDMigrationManagerTest
     @Test
     public void transform() throws Exception
     {
-        mgr.transform(new File("src/test/resources/item/escidoc_1479027"));        
-        assertTrue(checkAfterMigration(new File("src/test/resources/item/escidoc_1479027")));
+        File f = new File("src/test/resources/item/escidoc_1479027");
+        mgr.transform(f);        
+        assertTrue(checkAfterMigration(f));
+        
+        /*mgr.transform(new File("src/test/resources/component/escidoc_418001"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));*/
     }
 
     private boolean checkAfterMigration(File file) throws IOException
     {
+        logger.debug("checkAfterMigration file " + file.getAbsolutePath());
         String fileAsString = FileUtils.readFileToString(file);
-        
+        logger.debug("string " + fileAsString);
         int idx = fileAsString.lastIndexOf("RELS-EXT");
-        fileAsString = fileAsString.substring(idx);
-        
-        assertTrue(!fileAsString.contains("hdl:someHandle/test"));
-        return false; 
+        String s = fileAsString.substring(idx);
+        logger.debug("string " + fileAsString);
+        return(!s.contains("hdl:someHandle/test"));
     }
 }

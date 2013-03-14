@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.main.PreHandler.Type;
+
 public class PIDHandler extends IdentityHandler
 {
     private static Logger logger = Logger.getLogger(PIDHandler.class);
@@ -16,8 +18,17 @@ public class PIDHandler extends IdentityHandler
     
     private boolean inLastRelsExt = false;
     private boolean inObjectPid = false;
-    private boolean inVersionPid = false;
-    private boolean inReleasePid = false;
+    private boolean inVersionPidOrReleasePid = false;
+    private boolean inVersionNumber = false;
+    private boolean inReleaseNumber = false;
+    private boolean inVersionHistory = false;
+    private boolean inVersionHistoryPid = false;
+    
+    private String versionAndReleasePid = "";
+    private String versionNumber = "";
+    private String releaseNumber = "";
+    
+    private static final String DUMMY_HANDLE = "someHandle";
     
     public PIDHandler(PreHandler preHandler)
     {
@@ -45,67 +56,110 @@ public class PIDHandler extends IdentityHandler
         {
             inObjectPid = true;
         }
-        else if (inLastRelsExt && "version:pid".equals(name))
+        else if (inLastRelsExt && ("version:pid".equals(name) || "release:pid".equals(name)))
         {
-            inVersionPid = true;
+            inVersionPidOrReleasePid = true;
         }
-        else if (inLastRelsExt && "release:pid".equals(name))
+        else if (inLastRelsExt && ("version:number".equals(name)))
         {
-            inReleasePid = true;
+            inVersionNumber = true;
+        }
+        else if (inLastRelsExt && ("version:number".equals(name)))
+        {
+            inReleaseNumber = true;
+        }
+        else if ("escidocVersions:version".equals(name) && attributes.getValue("objid").endsWith(":" + versionNumber))
+        { 
+            inVersionHistoryPid = true;
         }
     }
 
     @Override
     public void content(String uri, String localName, String name, String content) throws SAXException
     {
-        logger.debug("content      uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> content = <" + content + ">");
+        logger.debug("content      uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> content = <"
+                + content + ">");
         
-        // fallback if pidcache isn't reachable
+        // fallback if pidcache isn't reachable, if (objectType != ITEM or COMPONENT), if object already has a real PID
         String oldContent = content;
         
-        if (inObjectPid || inVersionPid || inReleasePid)
+        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT) || content.contains(DUMMY_HANDLE)))
         {
-            try
-            {
-                content = pidMigrationManager.getPid();
-            }
-            catch (HttpException e)
-            {
-                logger.warn("Error getting PID", e);
-            }
-            catch (IOException e)
-            {
-                logger.warn("Error getting PID", e);
-            }
-            finally
-            {
-                content = oldContent;
-            }
+            super.content(uri, localName, name, content);
+            return;
         }
         
-        if (inObjectPid)
-        {       
-            logger.debug("content setting PID " + content);
-          
+        if (inObjectPid )
+        {
+            content = getPid(content, oldContent);
             inObjectPid = false;
         }
-        else if (inVersionPid)
+        else if (inVersionPidOrReleasePid)
         {
-            logger.debug("content setting versionPID " + content);
-          
-            inVersionPid = false;
-            
-        }
-        else if (inReleasePid)
+            if ("".equals(versionAndReleasePid))
+            {
+                content = getPid(content, oldContent);
+                versionAndReleasePid = content;
+            }
+            else
+            {
+                content = versionAndReleasePid;
+            }
+            inVersionPidOrReleasePid = false;
+        } 
+        else if (inVersionNumber)
         {
-            logger.debug("content setting releasePID " + content);
-          
-            inReleasePid = false;
-            
+            versionNumber = content;
+            inVersionNumber = false;
         }
+        else if (inReleaseNumber)
+        {
+            releaseNumber = content;
+            inReleaseNumber = false;
+        }
+        else if (inVersionHistoryPid)
+        {
+            if ("escidocVersions:pid".equals(name))
+            {
+                 content = versionAndReleasePid;
+            }
+            inVersionHistoryPid = false;
+        }
+        
         super.content(uri, localName, name, content );
     }
+
+    private String getPid(String content, String oldContent)
+    {
+        try
+        {
+            content = pidMigrationManager.getPid();
+            content = doReplace(content);
+        }
+        catch (HttpException e)
+        {
+            logger.warn("Error getting PID for content <" + content + ">", e);
+            return oldContent;
+        }
+        catch (IOException e)
+        {
+            logger.warn("Error getting PID for content <" + content + ">", e);
+            return oldContent;
+        }
+        return content;
+    }
     
+    private String doReplace(String content)
+    {
+        if (content == null || "".equals(content))
+            return "";
+        
+        if (content.startsWith("hdl"))
+            return content;
+            
+        return "hdl:" + content;
+    }
+
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException
     {

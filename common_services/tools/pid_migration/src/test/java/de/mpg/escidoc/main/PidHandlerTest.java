@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class PidHandlerTest
+public class PIDHandlerTest
 {
     
     PIDHandler pidHandler = new PIDHandler(new PreHandler());

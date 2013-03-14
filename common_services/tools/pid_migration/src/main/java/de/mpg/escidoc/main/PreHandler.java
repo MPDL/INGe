@@ -47,10 +47,13 @@ public class PreHandler extends DefaultHandler
 {
     private static Logger logger = Logger.getLogger(PreHandler.class);
 
-    private String lastCreatedRelsExtTimeStamp = "1990-01-01T00:00:00.000Z";
+    private String lastCreatedRelsExtTimestamp = "1990-01-01T00:00:00.000Z";
     private String lastCreatedRelsExtId = null;
+    private Type objectType = null;
     
     private boolean inRelsExt = false;
+    
+    public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL }
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -65,12 +68,36 @@ public class PreHandler extends DefaultHandler
         else if ("foxml:datastreamVersion".equals(qName) && inRelsExt)
         {
             String createdString = attributes.getValue("CREATED");
-            if (createdString != null && createdString.compareTo(lastCreatedRelsExtTimeStamp) > 0)
+            if (createdString != null && createdString.compareTo(lastCreatedRelsExtTimestamp) > 0)
             {
-                lastCreatedRelsExtTimeStamp = createdString;
+                lastCreatedRelsExtTimestamp = createdString;
                 lastCreatedRelsExtId = attributes.getValue("ID");
                 
-                logger.info("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimeStamp);               
+                logger.info("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
+            }
+        }
+        else if ("foxml:property".equals(qName) && "info:fedora/fedora-system:def/model#label".equals(attributes.getValue("NAME")))
+        {
+            String type = attributes.getValue("VALUE");
+            
+            if (type != null )
+            {
+                if (type.startsWith("Component"))
+                {
+                    objectType = Type.COMPONENT;
+                } 
+                else if (type.startsWith("Item"))
+                {
+                    objectType = Type.ITEM;
+                }
+                else if (type.startsWith("Context"))
+                {
+                    objectType = Type.CONTEXT;
+                }
+                else if (type.contains("Content"))
+                {
+                    objectType = Type.CONTENTMODEL;
+                }
             }
         }
     }
@@ -88,8 +115,20 @@ public class PreHandler extends DefaultHandler
 
     public String getLastCreatedRelsExtId()
     {
-        logger.info("getLastCreatedRelsExtId returning = " + lastCreatedRelsExtTimeStamp);        
+        logger.info("getLastCreatedRelsExtId returning = " + lastCreatedRelsExtId);        
         return lastCreatedRelsExtId;
+    }
+    
+    public String getLastCreatedRelsExtTimestamp()
+    {
+        logger.info("getLastCreatedRelsExtTimestamp returning = " + lastCreatedRelsExtTimestamp);        
+        return lastCreatedRelsExtTimestamp;
+    }
+    
+    public Type getObjectType()
+    {
+        logger.info("getObjectType returning = " + objectType);        
+        return objectType;
     }
     
     

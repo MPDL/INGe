@@ -65,6 +65,7 @@ public class PIDMigrationManager
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         PreHandler preHandler = new PreHandler();
         PIDHandler handler = new PIDHandler(preHandler);
+        handler.setPIDMigrationManager(this);
         
         File tempFile = File.createTempFile("xxx", "yyy", file.getParentFile());
         
@@ -72,13 +73,14 @@ public class PIDMigrationManager
         parser.parse(file, handler);
         
         String result = handler.getResult();
-        FileUtils.writeStringToFile(tempFile, result);
+        FileUtils.writeStringToFile(tempFile, result, "UTF-8");
         
-        File oldFile = new File(file.getAbsolutePath());
         File bakFile = new File(file.getAbsolutePath() + ".bak");
-        file.renameTo(bakFile);
-        tempFile.renameTo(oldFile);
-        bakFile.delete();    
+        FileUtils.copyFile(file, bakFile, true);
+        
+        FileUtils.copyFile(tempFile, file);
+        boolean b = bakFile.delete();    
+        logger.debug("after delete bak file " + b);
     }
     
     public static void main(String[] args)
