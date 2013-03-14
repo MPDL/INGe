@@ -16,7 +16,7 @@ public class CommandHelper
         if (required)
         {
             throw new RuntimeException(
-                    "Error reading argument"
+                    "Error reading argument "
                             + argumentSymbole
                             + "\n Usage: BatchProcess -o [OperationClass] -e [ElementClass] -t [TransformationClass] -s [Status] -n [MaximumNumberOfElements]");
         }

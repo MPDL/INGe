@@ -59,8 +59,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class ElementsWithRestrictedFiles extends Elements<ItemVO>
 {
 
-    private static final String CONTEXT = "escidoc:37005";
-    private static final String SEARCH_QUERY = "escidoc.context.objid=" + CONTEXT + " and escidoc.component.visibility=audience and escidoc.content-model.objid=escidoc:persistent4";
+    private static String SEARCH_QUERY;
 
     public ElementsWithRestrictedFiles(String[] args)
     {
@@ -85,7 +84,17 @@ public class ElementsWithRestrictedFiles extends Elements<ItemVO>
     {
         try
         {
-
+        	try
+    	    {
+    	    	SEARCH_QUERY = "escidoc.component.visibility=audience and escidoc.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+    	    }
+    	    catch (Exception e)
+    	    {
+    	    	throw new RuntimeException("Property escidoc.framework_access.content-model.id.publication not found.");
+    	    }
+        	
+        	System.out.println("Query: " + SEARCH_QUERY);
+        	
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion("1.1");
             searchRetrieveRequest.setQuery(SEARCH_QUERY);
@@ -100,7 +109,7 @@ public class ElementsWithRestrictedFiles extends Elements<ItemVO>
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error initializing LingLitAllElements.java: ", e);
+            throw new RuntimeException("Error initializing ElementsWithRestrictedFiles.java: ", e);
         }
     }
 
