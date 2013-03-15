@@ -152,22 +152,23 @@ public class HtmlFormatter extends Formatter
         StringWriter writer = new StringWriter();
         try
         {
-            File xsltFile = null;
-            try
+            URL xsltFile = null;
+          
+            xsltFile = HtmlFormatter.class.getClassLoader().getResource("xslt/html/" + model.getName() + "-html.xsl");
+
+            if(xsltFile == null)
             {
-                xsltFile = ResourceUtil.getResourceAsFile("xslt/html/" + model.getName() + "-html.xsl");
+            	logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
+            	//xsltFile = ResourceUtil.getResourceAsStream("xslt/html/generic-html.xsl");
+            	xsltFile = HtmlFormatter.class.getClassLoader().getResource("xslt/html/generic-html.xsl");
             }
-            catch (FileNotFoundException fnfe)
-            {
-                logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
-                xsltFile = ResourceUtil.getResourceAsFile("xslt/html/generic-html.xsl");
-            }
+          
             
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             
             Transformer transformer = factory
                     .newTransformer(
-                            new StreamSource(xsltFile));
+                            new StreamSource(xsltFile.toExternalForm()));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
             String exportFormat="APA";
             if("ja".equals(lang))
