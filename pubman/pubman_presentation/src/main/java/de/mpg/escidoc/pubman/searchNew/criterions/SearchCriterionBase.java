@@ -30,6 +30,7 @@
 package de.mpg.escidoc.pubman.searchNew.criterions;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.OrganizationS
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
-public abstract class SearchCriterionBase {
+public abstract class SearchCriterionBase implements Serializable{
 
 	
 	

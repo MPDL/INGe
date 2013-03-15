@@ -30,6 +30,8 @@
 package de.mpg.escidoc.pubman.searchNew.criterions.standard;
 
 
+import java.io.Serializable;
+
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 
 public abstract class StandardSearchCriterion extends SearchCriterionBase{

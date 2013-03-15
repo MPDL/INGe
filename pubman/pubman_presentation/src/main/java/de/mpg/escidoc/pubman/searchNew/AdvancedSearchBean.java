@@ -53,6 +53,7 @@ import javax.faces.render.ResponseStateManager;
 import javax.naming.InitialContext;
 
 import org.ajax4jsf.config.FacesConfig;
+import org.ajax4jsf.model.KeepAlive;
 import org.apache.axis.utils.URLHashSet;
 import org.apache.log4j.Logger;
 
@@ -78,6 +79,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
+@KeepAlive
 public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private static Logger logger = Logger.getLogger(AdvancedSearchBean.class);

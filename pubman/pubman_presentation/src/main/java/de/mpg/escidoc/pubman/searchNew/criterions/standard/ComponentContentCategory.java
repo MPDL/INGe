@@ -29,6 +29,8 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew.criterions.standard;
 
+import java.io.Serializable;
+
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 
 public class ComponentContentCategory extends StandardSearchCriterion {

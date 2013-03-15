@@ -57,6 +57,10 @@
 			<h:form >
 			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
 			
+			
+			
+			
+						
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
