@@ -50,6 +50,7 @@
 		</predicates>
 		<results>
 			<result>
+				<type>main</type>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
@@ -57,8 +58,16 @@ OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/term
 AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
 &lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+				</sort-pattern>
 			</result>
 			<result>
+				<type>alt</type>
 				<result-pattern>
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
 AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
@@ -66,8 +75,17 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http:
 AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+ &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+ 				</sort-pattern>
 			</result>
 			<result>
+				<type>alt</type>
 				<result-pattern>
 &lt;http://purl.org/dc/terms/alternative&gt;
 AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
@@ -75,6 +93,14 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/eleme
 AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
 &lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+ &lt;http://purl.org/dc/terms/alternative&gt;
+ 				</sort-pattern>
 			</result>
 		</results>
 	</model>
