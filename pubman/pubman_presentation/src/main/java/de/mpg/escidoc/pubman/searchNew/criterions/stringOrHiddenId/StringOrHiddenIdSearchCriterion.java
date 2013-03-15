@@ -60,7 +60,8 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 	@Override
 	public boolean isEmpty()
 	{
-		return (searchString==null || searchString.trim().isEmpty()) && (hiddenId==null || hiddenId.trim().isEmpty());
+		//return (searchString==null || searchString.trim().isEmpty()) && (hiddenId==null || hiddenId.trim().isEmpty());
+		return (searchString==null || searchString.trim().isEmpty());
 	}
 	
 	@Override
