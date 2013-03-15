@@ -204,6 +204,11 @@
 						<h:inputText id="personSearchString" styleClass="double_txtInput personSuggest disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
 						<h:inputText id="personSearchStringFilled" styleClass="double_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 						<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{criterion.hiddenId}"/>
+						<a4j:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($pb(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" reRender="editSearch">
+							<f:attribute name="indexOfCriterion" value="#{index}"/>
+						</a4j:commandButton>
+						
 						<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&nbsp;</h:outputLink>
 						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" styleClass="xSmall_area0 authorLink">&nbsp;</h:panelGroup>
 						<span class="tooltip">&#160;</span>

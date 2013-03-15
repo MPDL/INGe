@@ -73,6 +73,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriteri
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -966,5 +967,19 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	public void setNumberOfSearchCriterions(int numberOfSearchCriterions) {
 		this.numberOfSearchCriterions = numberOfSearchCriterions;
 	}
+	
+	public void removeAutoSuggestValues (ActionEvent e)
+    {
+		Integer position = (Integer) e.getComponent().getAttributes().get("indexOfCriterion");
+		
+		SearchCriterionBase sc = criterionList.get(position);
+       if(sc instanceof StringOrHiddenIdSearchCriterion)
+       {
+    	   StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion)sc;
+    	   hiddenSc.setHiddenId(null);
+    	   hiddenSc.setSearchString(null);
+       }
+        
+    }
 
 }
