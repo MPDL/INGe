@@ -34,34 +34,34 @@
 	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
-   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:fn="http://www.w3.org/2005/xpath-functions"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:dc="${xsd.metadata.dc}"
-   xmlns:dcterms="${xsd.metadata.dcterms}"    
-   xmlns:srel="${xsd.soap.common.srel}"   
-   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
-   xmlns:file="${xsd.metadata.file}"
-   xmlns:pub="${xsd.metadata.publication}"
-   xmlns:person="${xsd.metadata.person}"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"    
+	xmlns:srel="${xsd.soap.common.srel}"   
+	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:pub="${xsd.metadata.publication}"
+	xmlns:person="${xsd.metadata.person}"
 	xmlns:source="${xsd.metadata.source}"
 	xmlns:event="${xsd.metadata.event}"
 	xmlns:organization="${xsd.metadata.organization}"		
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:eprints="http://purl.org/eprint/terms/"
 	xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"	
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}"
-   xmlns:itemlist="${xsd.soap.item.itemlist}"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:escidocFunction="urn:escidoc:functions"
-   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
-   >
+	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+	xmlns:ei="${xsd.soap.item.item}"
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+	xmlns:ec="${xsd.soap.item.components}"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:itemlist="${xsd.soap.item.itemlist}"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:escidocFunction="urn:escidoc:functions"
+	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+	>
    
  
  <xsl:import href="../../vocabulary-mappings.xsl"/>
@@ -476,6 +476,39 @@
 	</xsl:template>
 	<!-- LANGUAGE -->
 	<xsl:template match="LA">
+	<xsl:comment>LANGUAGE: <xsl:value-of select="."/></xsl:comment>
+		<xsl:choose>
+			<xsl:when test="fn:lower-case(fn:normalize-space(.)) = 'english' 
+								or fn:lower-case(fn:normalize-space(.)) = 'englisch'">
+				<dc:language>
+					<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+					<xsl:value-of>eng</xsl:value-of>
+				</dc:language>
+			</xsl:when>
+			<xsl:when test="fn:lower-case(fn:normalize-space(.)) = 'german' 
+								or fn:lower-case(fn:normalize-space(.)) = 'deutsch'">
+				<dc:language>
+					<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+					<xsl:value-of>deu</xsl:value-of>
+				</dc:language>
+			</xsl:when>
+			<xsl:when test="fn:lower-case(fn:normalize-space(.)) = 'french' 
+								or fn:lower-case(fn:normalize-space(.)) = 'französisch' 
+								or fn:lower-case(fn:normalize-space(.)) = 'français'">
+				<dc:language>
+					<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+					<xsl:value-of>fra</xsl:value-of>
+				</dc:language>
+			</xsl:when>
+			<xsl:when test="fn:lower-case(fn:normalize-space(.)) = 'spanish' 
+								or fn:lower-case(fn:normalize-space(.)) = 'spanish' 
+								or fn:lower-case(fn:normalize-space(.)) = 'español'">
+				<dc:language>
+					<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+					<xsl:value-of>spa</xsl:value-of>
+				</dc:language>
+			</xsl:when>
+		</xsl:choose>
 		<!-- <xsl:element name="dc:language">
 			<xsl:value-of select="."/>
 		</xsl:element>-->
@@ -484,36 +517,56 @@
 	<xsl:template name="createSource">
 		<xsl:param name="genre"/>
 				
-		<xsl:if test="SO">
+		<xsl:if test="SO or (SI and IS)">
 		<xsl:element name="source:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:choose>
-					<xsl:when test="SO and not(SN) and not(BN) and PT='C'">
-						<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
+					<!-- SPECIAL CASE ISSUE -->
+					<xsl:when test="SI and IS">
+						<xsl:value-of select="$genre-ves/enum[.='issue']/@uri"/>
 					</xsl:when>
-					<xsl:when test="BN">
-						<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
-					</xsl:when>
-					<xsl:when test="SN">
+					<!-- NORMAL CASES -->
+					<xsl:otherwise>
 						<xsl:choose>
+							<xsl:when test="SO and not(SN) and not(BN) and PT='C' and not(SI and IS)">
+								<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
+							</xsl:when>
 							<xsl:when test="BN">
 								<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
 							</xsl:when>
-							<xsl:otherwise>
+							<xsl:when test="SN">
+								<xsl:choose>
+									<xsl:when test="BN">
+										<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:when test="SO and PT='J'">
 								<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
-							</xsl:otherwise>
+							</xsl:when>					
 						</xsl:choose>
-					</xsl:when>
-					<xsl:when test="SO and PT='J'">
-						<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
-					</xsl:when>					
+					</xsl:otherwise>
 				</xsl:choose>
+				
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
-			<xsl:element name="dc:title">
-				<xsl:value-of select="SO"/>
-			</xsl:element>					
+			<dc:title>
+				<xsl:choose>
+					<!-- SPECIAL CASE ISSUE -->
+					<xsl:when test="SI and IS">
+						<xsl:value-of select="SI"/>
+					</xsl:when>
+					<!-- NORMAL CASES -->
+					<xsl:otherwise>
+						<xsl:value-of select="SO"/>
+					</xsl:otherwise>
+				</xsl:choose>
+				
+			</dc:title>					
 			
 			<!-- SOURCE ALTTITLE -->
 			<xsl:if test="JI and SE">
@@ -550,11 +603,20 @@
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE ISSUE -->
-			<xsl:if test="IS and not(SE)">
-				<xsl:element name="eterms:issue">
-					<xsl:value-of select="IS"/>
-				</xsl:element>				
-			</xsl:if>
+			<xsl:choose>
+				<!-- SPECIAL CASE ISSUE -->
+				<xsl:when test="SI and IS">
+					<eterms:issue>
+						<xsl:value-of select="IS"/>
+					</eterms:issue>
+				</xsl:when>
+				<!-- NORMAL CASES -->
+				<xsl:when test="IS and not(SE)">
+					<eterms:issue>
+						<xsl:value-of select="IS"/>
+					</eterms:issue>
+				</xsl:when>
+			</xsl:choose>
 			<!-- SOURCE PAGES -->
 			<xsl:if test="EP">
 				<xsl:element name="eterms:start-page">
@@ -563,6 +625,12 @@
 				<xsl:element name="eterms:end-page">
 					<xsl:value-of select="EP"/>
 				</xsl:element>
+			</xsl:if>
+			<!-- SEQUENCE NUMBER -->
+			<xsl:if test="AR">
+				<eterms:sequence-number>
+					<xsl:value-of select="AR"/>
+				</eterms:sequence-number>
 			</xsl:if>
 			<!-- SOURCE TOTAL NUMBER OF PAGES -->
 			<xsl:if test="not(EP) and SP">
@@ -597,12 +665,31 @@
 		</xsl:element>
 		</xsl:if>
 		<!-- SECOND SOURCE -->
-		<xsl:if test="SE">
+		<xsl:if test="SE or (SO and SI and IS)">
 			<xsl:element name="source:source">
-				<xsl:attribute name="type" select="$genre-ves/enum[.='series']/@uri"/>
-				<xsl:element name="dc:title">
-					<xsl:value-of select="SE"/>
-				</xsl:element>
+				<!-- GENRE SECOND SOURCE -->
+				<xsl:choose>
+					<!-- SPECIAL CASE ISSUE -->
+					<xsl:when test="SO and SI and IS">
+						<xsl:attribute name="type" select="$genre-ves/enum[.='journal']/@uri"/>
+					</xsl:when>
+					<!-- NORMAL CASES -->
+					<xsl:otherwise>
+						<xsl:attribute name="type" select="$genre-ves/enum[.='series']/@uri"/>
+					</xsl:otherwise>
+				</xsl:choose>
+				<dc:title>
+					<xsl:choose>
+						<!-- SPECIAL CASE ISSUE -->
+						<xsl:when test="SO and SI and IS">
+							<xsl:value-of select="SO"/>
+						</xsl:when>
+						<!-- NORMAL CASES -->
+						<xsl:otherwise>
+							<xsl:value-of select="SE"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</dc:title>
 				<xsl:apply-templates select="BS"/>
 				<xsl:apply-templates select="J9"/>
 				<xsl:apply-templates select="JI"/>
@@ -611,7 +698,7 @@
 						<xsl:value-of select="VL"/>
 					</xsl:element>
 				</xsl:if>
-				<xsl:if test="IS">
+				<xsl:if test="IS and not(SO and SI and IS)">
 					<xsl:element name="eterms:issue">
 						<xsl:value-of select="IS"/>
 					</xsl:element>
@@ -669,12 +756,25 @@
 				</xsl:choose>
 			</xsl:variable>
 			
-			<xsl:element name="dcterms:created">				
-				<xsl:value-of select="PY"/>
-				<xsl:if test="not($month='')">
-					<xsl:value-of select="concat('-',$month)"/>
-				</xsl:if>				
-			</xsl:element>
+			<xsl:choose>
+				<xsl:when test="AR and AR != ''">
+					<dcterms:published-online>				
+						<xsl:value-of select="PY"/>
+						<xsl:if test="not($month='')">
+							<xsl:value-of select="concat('-',$month)"/>
+						</xsl:if>				
+					</dcterms:published-online>
+				</xsl:when>
+				<xsl:otherwise>
+					<dcterms:issued>				
+						<xsl:value-of select="PY"/>
+						<xsl:if test="not($month='')">
+							<xsl:value-of select="concat('-',$month)"/>
+						</xsl:if>				
+					</dcterms:issued>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 		</xsl:if>
 	</xsl:template>
 	
