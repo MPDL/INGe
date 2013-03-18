@@ -179,7 +179,10 @@ public class WithdrawItem extends FacesBean
             info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
         }
         PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-        pubItemListSessionBean.update();
+        if (pubItemListSessionBean != null)
+        {
+            pubItemListSessionBean.update();
+        }
         return retVal;
     }
 

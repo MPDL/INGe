@@ -688,7 +688,10 @@ public class EasySubmission extends FacesBean
             getEasySubmissionSessionBean().cleanup();
         }
         PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-        pubItemListSessionBean.update();
+        if (pubItemListSessionBean != null)
+        {
+            pubItemListSessionBean.update();
+        }
         return returnValue;
         
         // /*

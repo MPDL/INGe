@@ -46,12 +46,12 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.citationURL}" rendered="#{!ViewItemFull.isStatePending}">
-					<h:outputText value="#{ViewItemFull.citationURL}"/>
+				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pid}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
+					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pid}"/>
 				</h:outputLink>	
-			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
+			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.isStateReleased or ViewItemFull.pubItem.version.pid == null}"/>
 			</span>
-			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{ViewItemFull.isStateReleased}">
 				
 				
 				<!-- Mendeley -->

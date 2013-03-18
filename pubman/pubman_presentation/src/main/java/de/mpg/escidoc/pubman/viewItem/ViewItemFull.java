@@ -153,6 +153,8 @@ public class ViewItemFull extends FacesBean
     public static final String PARAMETERNAME_MENU_VIEW = "view";
     // SSRN local Tag
     private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
+    //resolve Handle Service
+    private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
     public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
@@ -730,7 +732,10 @@ public class ViewItemFull extends FacesBean
             error(getMessage("ViewItem_ssrnAddingProblem"));
         }
         PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-        pubItemListSessionBean.update();
+        if (pubItemListSessionBean != null)
+        {
+            pubItemListSessionBean.update();
+        }
         return returnValue;
     }
     
@@ -767,7 +772,10 @@ public class ViewItemFull extends FacesBean
             error(getMessage("ViewItem_ssrnRemovingProblem"));
         }
         PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-        pubItemListSessionBean.update();
+        if (pubItemListSessionBean != null)
+        {
+            pubItemListSessionBean.update();
+        }
         return returnValue;
     }
     
@@ -3066,6 +3074,9 @@ public class ViewItemFull extends FacesBean
 
     }
 
+    public String getResolveHandleService() {
+        return RESOLVE_HANDLE_SERVICE;
+    }
 
     public boolean getIsMemberOfYearbook() {
         return this.isMemberOfYearbook;

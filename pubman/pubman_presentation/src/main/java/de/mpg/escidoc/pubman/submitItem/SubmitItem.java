@@ -194,7 +194,10 @@ public class SubmitItem extends FacesBean
         }
         
         PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-        pubItemListSessionBean.update();
+        if (pubItemListSessionBean != null)
+        {
+            pubItemListSessionBean.update();
+        }
         
         return retVal;
     }
