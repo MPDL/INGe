@@ -601,13 +601,6 @@ public class Util
                 logger.error("Error querying CoNE: Status "
                         + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
             }
-            javax.xml.transform.TransformerFactory tfactory = TransformerFactory.newInstance();
-            javax.xml.transform.Transformer xform = tfactory.newTransformer();
-            javax.xml.transform.Source src= new DOMSource(document);
-            java.io.StringWriter writer = new StringWriter();
-            javax.xml.transform.Result result = new javax.xml.transform.stream.StreamResult(writer);
-            xform.transform(src, result);
-            System.out.println(writer.toString());
             return document;
         }
         catch (Exception e)

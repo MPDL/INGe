@@ -53,6 +53,7 @@ import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 
 /**
@@ -92,9 +93,23 @@ public class ThirdPartyTransformation
         
         try
         {
-            ClassLoader cl = this.getClass().getClassLoader();
-            InputStream in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
-            Transformer transformer = factory.newTransformer(new StreamSource(in));
+            InputStream stylesheet;
+            // if the according property is set in pubman.properties the xsl will be loaded from the given path.
+            // If this is not the case the internal xsl will be used 
+            try 
+            {
+                String propertyKey = "escidoc.transformation." + (formatFrom.toLowerCase()).replace("-", "_") + "2" + (formatTo.toLowerCase()).replace("-", "_") + ".stylesheet.filename";
+                String fileName = PropertyReader.getProperty(propertyKey);
+                stylesheet = ResourceUtil.getResourceAsStream(fileName);
+            }
+            catch (Exception e)
+            {
+                this.logger.warn("Stylesheet could not be loaded like it is defined in the properties. The xsl from the jar is taken");
+                ClassLoader cl = this.getClass().getClassLoader();
+                stylesheet = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
+            }
+            
+            Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
 
               try
             {
