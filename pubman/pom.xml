@@ -888,6 +888,11 @@
 					<plugin>
 						<groupId>org.zeroturnaround</groupId>
 						<artifactId>jrebel-maven-plugin</artifactId>
+						<configuration>
+		      				<name>${project.artifactId}-development</name>
+		      				<version>${project.version}-${maven.build.timestamp}</version>
+		      				<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+	     				</configuration>
 						<executions>
 							<execution>
 								<id>generate-rebel-xml</id>
@@ -896,10 +901,14 @@
 									<goal>generate</goal>
 								</goals>
 							</execution>
+							<execution>
+			                    <id>generate-liverebel-xml</id>
+			                    <phase>process-resources</phase>
+			                    <goals>
+			                        <goal>generate-liverebel-xml</goal>
+			                    </goals>
+                			</execution>
 						</executions>
-						<configuration>
-								<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-						</configuration>
 					</plugin>
 				</plugins>
 			</build>
