@@ -130,11 +130,12 @@ public class ModelHelper
             }
         }
         
-        
+        /*
         for(Pair<ResultEntry> res : results)
         {
         	logger.info("Result: type=" + res.getValue().getType() + " || " + "result=" + res.getValue().getValue() + " || sortResult=" + res.getValue().getSortResult() + " || lang=" + res.getValue().getLanguage());
         }
+        */
         
         return results;
     }
@@ -301,18 +302,15 @@ public class ModelHelper
         	 List<ResultEntry> strings = new ArrayList<ResultEntry>();
              strings.add(new ResultEntry(line));
 
-             //then replace al,l others 
+            
              for (String predicateName : permutationMap.keySet())
              {
-            	 
             	//List<String> strings = new ArrayList<String>();
                  if (line.contains("<" + predicateName + ">"))
                  {
                      for (LocalizedTripleObject value : permutationMap.get(predicateName))
                      {
-
                            line = line.replace("<" + predicateName + ">", value.toString().replace(":", "&#x3A;").replace(",", "&#x2C;"));
-
                      }
                  }
 

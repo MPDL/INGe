@@ -174,6 +174,11 @@
 		{
 			if (typeof pageLoaded != 'undefined' && pageLoaded)
 			{
+				//console.log("Bind suggest: " + element);
+				//if(element = 'http://purl.org/eprint/terms/affiliatedInstitution')
+				
+				element = element.replace('|', '\\|');
+				
 				if (typeof cutId != 'undefined' && cutId)
 				{
 					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
@@ -188,6 +193,67 @@
 				setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', ' + (typeof cutId != 'undefined' && cutId) + ')', 100);
 			}
 		};
+
+
+		function bindExternalSuggest(element, url)
+		{
+			if (typeof pageLoaded != 'undefined' && pageLoaded)
+			{
+				//console.log("Bind external suggest: " + element + "url : " + url);
+				
+				//console.log("Element: " + $('input[name=element]').attr('class'));
+				//console.log("http___purl_org_escidoc_metadata_terms_0_1_position_0_http___purl_org_eprint_terms_affiliatedInstitution");
+				//if(element = 'http://purl.org/eprint/terms/affiliatedInstitution')
+				element = element.replace('|', '\\|');
+				$('input[name=' + element + ']').suggest(url, {onSelect: fillExternalValue});
+
+			}
+			else
+			{
+				setTimeout('bindExternalSuggest(\'' + element + '\', \'' + url + '\')', 100);
+			}
+		};
+
+		function fillExternalValue()
+		{
+			 
+			var $input = $(this);
+			$input.val(this.resultValue);
+
+
+			//try to fill identifier, if given
+			if(this.resultID)
+			{
+				var inputName = $input.attr('name');
+				var lastPos = inputName.lastIndexOf('|');
+				var prefix = '';
+				if(lastPos!=-1)
+				{
+					prefix = inputName.substring(0, lastPos) + "|";
+				}
+				
+				var identifierName = prefix + 'http___purl_org_dc_elements_1_1_identifier';
+				var $idInput = $('input[name=' + identifierName.replace('|', '\\|') + ']');
+				if($idInput.length)
+				{
+					$idInput.val(this.resultID);
+				}
+				
+				
+				
+				
+			}
+
+
+			
+			/*
+			if($input.attr('name').length && /http___purl_org_escidoc_metadata_terms_0_1_position_\d+_http___purl_org_eprint_terms_affiliatedInstitution/.test($input.attr('name')) ) {
+				var prefix = $input.attr('name').split('_http___purl_org_eprint_terms_affiliatedInstitution')[0];
+				var $idInput = $('input[name=' + prefix + '_http___purl_org_dc_elements_1_1_identifier]');
+				$idInput.val(this.resultID);
+			}
+			*/
+		}
 
 		function fillSmallId()
 		{
@@ -271,6 +337,7 @@
 		
 		function checkField(element, model, predicate, formField, counter, popup, shouldBeUnique)
 		{
+			
 			mx = tempX;
 			my = tempY;
 			
@@ -425,6 +492,7 @@
 			//	image.src = 'img/empty.png';
 			//	image.title = '';
 			}
+			
 		}
 
 		function removeParent(element)

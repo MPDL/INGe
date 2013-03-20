@@ -251,7 +251,8 @@ public class ModelList
                         (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
                         attributes.getValue("event"),
                         attributes.getValue("resourceModel"),
-                        attributes.getValue("default"));
+                        attributes.getValue("default"),
+                        attributes.getValue("suggest-url"));
                 this.predicateStack.peek().add(predicate);
                 this.predicateStack.push(predicate.getPredicates());
             }
@@ -818,6 +819,7 @@ public class ModelList
         private boolean modify;
         private Event event;
         private String defaultValue;
+        private String suggestUrl;
 
         /**
          * Constructor using all fields.
@@ -849,7 +851,8 @@ public class ModelList
                 boolean modify,
                 String eventString,
                 String resourceModel,
-                String defaultValue)
+                String defaultValue,
+                String suggestUrl)
         {
             this.id = id;
             
@@ -870,6 +873,7 @@ public class ModelList
             }
             this.resourceModel = resourceModel;
             this.defaultValue = defaultValue;
+            this.suggestUrl = suggestUrl;
         }
         
         public boolean isResource()
@@ -1080,6 +1084,14 @@ public class ModelList
         {
             return id;
         }
+
+		public String getSuggestUrl() {
+			return suggestUrl;
+		}
+
+		public void setSuggestUrl(String suggestUrl) {
+			this.suggestUrl = suggestUrl;
+		}
         
 
     }

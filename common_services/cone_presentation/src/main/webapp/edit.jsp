@@ -165,6 +165,10 @@
 									{
 										out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 									}
+									if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
+									{
+										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
+									}
 	
 				            	    if (predicate.isLocalized())
 					                {
@@ -173,6 +177,8 @@
 										out.append("/>");
 										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'iso639-1', true)</script>");
 		                			}
+				            	    
+				            	   
 			                
 				                	if (predicate.isMultiple())
 				    		        {
@@ -252,7 +258,7 @@
 			                {
 	        		            out.append("<br/>");
 	    		                out.append("\n<span class=\"free_area0 clear\">");
-	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + "_" + counter + "_", path + predicate.getId() + "/", Login.getLoggedIn(request)));
+	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + "_" + counter + "|", path + predicate.getId() + "/", Login.getLoggedIn(request)));
 	        		            out.append("</span>");
 	            	    	}
 			                
@@ -291,6 +297,11 @@
     	    	    	    		}
 			    	            }
 
+	            				if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
+								{
+									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
+								}
+	            				
 					            if (predicate.isLocalized())
 					            {
 	    				            out.append("<input type=\"text\" title=\"Language\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
@@ -449,7 +460,7 @@
 	            	    {
 	            	        TreeFragment fragment = new TreeFragment(paramValue, langValue);
 	            	        objects.add(fragment);
-	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + "_" + i + "_");
+	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + "_" + i + "|");
 	            	    }
 	            	    else if (predicate.isResource())
 	            	    {
@@ -470,7 +481,7 @@
     	            	    {
     	            	        TreeFragment fragment = new TreeFragment(generatedObject, langValue);
     	            	        objects.add(fragment);
-    	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + "_" + i + "_");
+    	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + "_" + i + "|");
     	            	    }
     	            	    else
     	            	    {
