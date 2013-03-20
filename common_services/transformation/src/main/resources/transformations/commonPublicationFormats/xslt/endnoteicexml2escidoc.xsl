@@ -403,7 +403,7 @@
 			
 			<xsl:variable name="publisher" select="
 				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
-				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Generic' )) then I
+				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Generic', 'Thesis' )) then I
 				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
 				else if ($place!='') then 'Any Publisher'
 				else ''
