@@ -201,7 +201,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         readOutParameters();
         
         //logger.info("No List update: "+noListUpdate);
-        if (!getNoListUpdate())
+        if (!getNoListUpdate() && getPaginatorListRetriever() != null)
         {
             currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
             totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
