@@ -215,7 +215,9 @@ public class PubItemPublishingBean implements PubItemPublishing
                     PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
                         + PropertyReader
                             .getProperty("escidoc.pubman.component.pattern")
-                            .replaceAll("\\$1", file.getReference().getObjectId());
+                            .replaceAll("\\$1", pubItemRef.getObjectId())
+                            .replaceAll("\\$2", file.getReference().getObjectId())
+                            .replaceAll("\\$3", file.getName());
 
                     LOGGER.debug("URL given to PID resolver: " + url);
                     //LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
