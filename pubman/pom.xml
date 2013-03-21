@@ -595,7 +595,7 @@
 		<!-- URL of this PubMan instance -->
 		<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
-		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
+		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
 		<!-- Seal-Number of this PubMan instance -->
 		<escidoc.pubman.instance.seal_number/>
 		<!-- Links from PubMan -->
