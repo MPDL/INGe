@@ -599,7 +599,7 @@
 		<!-- Seal-Number of this PubMan instance -->
 		<escidoc.pubman.instance.seal_number/>
 		<!-- Links from PubMan -->
-		<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
+		<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</escidoc.pubman.policy.url>
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
 		<!-- Properties for PubMan standard theme-->
 		<escidoc.pubman.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
