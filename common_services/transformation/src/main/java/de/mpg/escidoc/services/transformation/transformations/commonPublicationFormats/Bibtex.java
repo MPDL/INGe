@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -173,10 +174,10 @@ public class Bibtex
                 {
                     if (fields.get("chapter") != null)
                     {
-                        mds.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("chapter").toString()) + " - " + BibTexUtil.bibtexDecode(fields.get("title").toString())));
+                        mds.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("chapter").toString()), false) + " - " + BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("title").toString()), false)));
                     }
                     else {
-                        mds.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("title").toString())));
+                        mds.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("title").toString()), false)));
                     }
                 }
 
@@ -185,14 +186,14 @@ public class Bibtex
                 {
                     if (bibGenre == BibTexUtil.Genre.book)
                     {
-                        mds.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("booktitle").toString())));
+                        mds.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false)));
                     }
                     else if (bibGenre == BibTexUtil.Genre.conference
                             || bibGenre == BibTexUtil.Genre.inbook
                             || bibGenre == BibTexUtil.Genre.incollection
                             || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
-                        sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("booktitle").toString())));
+                        sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false)));
                         if (bibGenre == BibTexUtil.Genre.conference
                             || bibGenre == BibTexUtil.Genre.inproceedings)
                         {
@@ -214,14 +215,14 @@ public class Bibtex
                             || bibGenre == BibTexUtil.Genre.misc
                             || bibGenre == BibTexUtil.Genre.unpublished)
                     {
-                        sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("fjournal").toString())));
+                        sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("fjournal").toString()), false)));
                         sourceVO.setGenre(SourceVO.Genre.JOURNAL);
                         
                         if (fields.get("journal") != null)
                         {
                             sourceVO.getAlternativeTitles().add(
                                     new TextVO(
-                                            BibTexUtil.bibtexDecode(fields.get("journal").toString())));
+                                            BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("journal").toString()), false)));
                         }
 
                     }
@@ -233,7 +234,7 @@ public class Bibtex
                             || bibGenre == BibTexUtil.Genre.unpublished
                             || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
-                        sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("journal").toString())));
+                        sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("journal").toString()), false)));
                         sourceVO.setGenre(SourceVO.Genre.JOURNAL);
                     }
                 }
@@ -241,7 +242,7 @@ public class Bibtex
                 // number
                 if (fields.get("number") != null)
                 {
-                    sourceVO.setIssue(BibTexUtil.bibtexDecode(fields.get("number").toString()));
+                    sourceVO.setIssue(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("number").toString()), false));
                 }
 
                 // pages
@@ -249,11 +250,11 @@ public class Bibtex
                 {
                     if (bibGenre == BibTexUtil.Genre.book || bibGenre == BibTexUtil.Genre.proceedings)
                     {
-                        mds.setTotalNumberOfPages(BibTexUtil.bibtexDecode(fields.get("pages").toString()));
+                        mds.setTotalNumberOfPages(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("pages").toString()), false));
                     }
                     else
                     {
-                        BibTexUtil.fillSourcePages(BibTexUtil.bibtexDecode(fields.get("pages").toString()), sourceVO);
+                        BibTexUtil.fillSourcePages(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("pages").toString()), false), sourceVO);
                     }
                 }
 
@@ -271,7 +272,7 @@ public class Bibtex
                             || bibGenre == BibTexUtil.Genre.incollection)
                             && (sourceVO.getTitle() == null))
                     {
-                        publishingInfoVO.setPlace(BibTexUtil.bibtexDecode(fields.get("address").toString()));
+                        publishingInfoVO.setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("address").toString()), false));
                     }
                     else
                     {
@@ -281,14 +282,14 @@ public class Bibtex
                             sourceVO.setPublishingInfo(sourcePublishingInfoVO);
                         }
                         
-                        sourceVO.getPublishingInfo().setPlace(BibTexUtil.bibtexDecode(fields.get("address").toString()));
+                        sourceVO.getPublishingInfo().setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("address").toString()), false));
                     }
                 }
                 
                 // edition
                 if (fields.get("edition") != null)
                 {
-                    publishingInfoVO.setEdition(BibTexUtil.bibtexDecode(fields.get("edition").toString()));
+                    publishingInfoVO.setEdition(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("edition").toString()), false));
                 }
 
                 // publisher
@@ -301,16 +302,16 @@ public class Bibtex
                 {
                     if (fields.get("publisher") != null)
                     {
-                        publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("publisher").toString()));
+                        publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("publisher").toString()), false));
                         
                     }
                     else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis || bibGenre == BibTexUtil.Genre.techreport))
                     {
-                        publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("school").toString()));
+                        publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("school").toString()), false));
                     }
                     else if (fields.get("institution") != null)
                     {
-                        publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("institution").toString()));
+                        publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("institution").toString()), false));
                     }
                     else if (fields.get("publisher") == null 
                             && fields.get("school") == null 
@@ -330,16 +331,16 @@ public class Bibtex
                     
                     if (fields.get("publisher") != null)
                     {
-                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.bibtexDecode(fields.get("publisher").toString()));
+                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("publisher").toString()), false));
                         
                     }
                     else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis || bibGenre == BibTexUtil.Genre.techreport))
                     {
-                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.bibtexDecode(fields.get("school").toString()));
+                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("school").toString()), false));
                     }
                     else if (fields.get("institution") != null)
                     {
-                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.bibtexDecode(fields.get("institution").toString()));
+                        sourceVO.getPublishingInfo().setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("institution").toString()), false));
                     }
                     else if (fields.get("publisher") == null 
                             && fields.get("school") == null 
@@ -356,14 +357,14 @@ public class Bibtex
                             || bibGenre == BibTexUtil.Genre.misc
                             || bibGenre == BibTexUtil.Genre.techreport)
                     {
-                        sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("series").toString())));
+                        sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
                     }
                     else if (bibGenre == BibTexUtil.Genre.inbook
                             || bibGenre == BibTexUtil.Genre.incollection
                             || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
                         SourceVO sourceOfSource = new SourceVO(
-                                new TextVO(BibTexUtil.bibtexDecode(fields.get("series").toString())));
+                                new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
                         sourceVO.getSources().add(sourceOfSource);
                     }
                 }
@@ -411,26 +412,46 @@ public class Bibtex
                     if (bibGenre == BibTexUtil.Genre.article
                             || bibGenre == BibTexUtil.Genre.book)
                     {
-                        sourceVO.setVolume(BibTexUtil.bibtexDecode(fields.get("volume").toString()));
+                        sourceVO.setVolume(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("volume").toString()), false));
                     }
                     else if (bibGenre == BibTexUtil.Genre.inbook)
                     {
                         if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty()) 
                         {
-                            sourceVO.getSources().get(0).setVolume(BibTexUtil.bibtexDecode(fields.get("volume").toString()));
+                            sourceVO.getSources().get(0).setVolume(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("volume").toString()), false));
                         }
                         else
                         {
-                            sourceVO.setVolume(BibTexUtil.bibtexDecode(fields.get("volume").toString()));
+                            sourceVO.setVolume(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("volume").toString()), false));
                         }
                     }
+                }
+                
+                // event infos
+                if (bibGenre != null 
+                        && (bibGenre.equals(BibTexUtil.Genre.inproceedings)
+                                || bibGenre.equals(BibTexUtil.Genre.proceedings)
+                                || bibGenre.equals(BibTexUtil.Genre.conference)))
+                {
+                    EventVO event = new EventVO();
+                    // event location
+                    if (fields.get("location") != null)
+                    {
+                        event.setPlace(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("location").toString()), false)));
+                    }
+                    // event name/title
+                    if (fields.get("event_name") != null)
+                    {
+                        event.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("event_name").toString()), false)));
+                    }
+                    mds.setEvent(event);
                 }
 
                 // year, month
                 String dateString = null;
                 if (fields.get("year") != null)
                 {
-                    dateString = BibTexUtil.bibtexDecode(fields.get("year").toString());
+                    dateString = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("year").toString()), false);
                     if (fields.get("month") != null)
                     {
                         String month = BibTexUtil.parseMonth(fields.get("month").toString());
@@ -453,13 +474,13 @@ public class Bibtex
                 // affiliation
                 if (fields.get("affiliation") != null)
                 {
-                    affiliation = BibTexUtil.bibtexDecode(fields.get("affiliation").toString());
+                    affiliation = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("affiliation").toString()), false);
                 }
 
                 // affiliationaddress
                 if (fields.get("affiliationaddress") != null)
                 {
-                    affiliationAddress = BibTexUtil.bibtexDecode(fields.get("affiliationaddress").toString());
+                    affiliationAddress = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("affiliationaddress").toString()), false);
                 }
 
                 // author
@@ -838,7 +859,7 @@ public class Bibtex
                     else if (fields.get("editor") instanceof BibtexString)
                     {
 
-                        String editor = BibTexUtil.bibtexDecode(fields.get("editor").toString());
+                        String editor = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("editor").toString()), false);
                         
                         try
                         {
@@ -922,13 +943,13 @@ public class Bibtex
                 // abstract
                 if (fields.get("abstract") != null)
                 {
-                    mds.getAbstracts().add(new TextVO(BibTexUtil.bibtexDecode(fields.get("abstract").toString())));
+                    mds.getAbstracts().add(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("abstract").toString()), false)));
                 }
 
                 // contents
                 if (fields.get("contents") != null)
                 {
-                    mds.setTableOfContents(new TextVO(BibTexUtil.bibtexDecode(fields.get("contents").toString())));
+                    mds.setTableOfContents(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("contents").toString()), false)));
                 }
 
                 // isbn
@@ -937,7 +958,7 @@ public class Bibtex
                     mds.getIdentifiers().add(
                             new IdentifierVO(
                                     IdentifierVO.IdType.ISBN,
-                                    BibTexUtil.bibtexDecode(fields.get("isbn").toString())));
+                                    BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("isbn").toString()), false)));
                 }
 
                 // issn
@@ -946,26 +967,26 @@ public class Bibtex
                     mds.getIdentifiers().add(
                             new IdentifierVO(
                                     IdentifierVO.IdType.ISSN,
-                                    BibTexUtil.bibtexDecode(fields.get("issn").toString())));
+                                    BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
                 }
 
                 // keywords
                 if (fields.get("keywords") != null)
                 {
-                    mds.setFreeKeywords(new TextVO(BibTexUtil.bibtexDecode(fields.get("keywords").toString())));
+                    mds.setFreeKeywords(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("keywords").toString()), false)));
                 }
 
                 // language
                 if (fields.get("language") != null)
                 {
-                    mds.getLanguages().add(BibTexUtil.bibtexDecode(fields.get("language").toString()));
+                    mds.getLanguages().add(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("language").toString()), false));
                 }
 
                 // subtitle
                 if (fields.get("subtitle") != null)
                 {
                     mds.getAlternativeTitles().add(
-                            new TextVO(BibTexUtil.bibtexDecode(fields.get("subtitle").toString())));
+                            new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("subtitle").toString()), false)));
                 }
 
                 // url is now mapped to locator
@@ -974,10 +995,10 @@ public class Bibtex
 //                    mds.getIdentifiers().add(
 //                            new IdentifierVO(
 //                                    IdentifierVO.IdType.URI,
-//                                    BibTexUtil.bibtexDecode(fields.get("url").toString())));
+//                                    BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("url").toString()), false)));
                     
                     FileVO locator = new FileVO();
-                    locator.setContent(BibTexUtil.bibtexDecode(fields.get("url").toString()));
+                    locator.setContent(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("url").toString()), false));
                     locator.setName("Link");
                     locator.setStorage(FileVO.Storage.EXTERNAL_URL);
                     locator.setVisibility(FileVO.Visibility.PUBLIC);
@@ -1000,12 +1021,12 @@ public class Bibtex
                 
                 // New mapping for MPIS
                 // DOI
-                if (fields.get("DOI") != null)
+                if (fields.get("doi") != null)
                 {
                     mds.getIdentifiers().add(
                       new IdentifierVO(
                               IdentifierVO.IdType.DOI,
-                              BibTexUtil.bibtexDecode(fields.get("DOI").toString())));
+                              BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("doi").toString()), false)));
                 }
                 
                 // eid
@@ -1013,18 +1034,18 @@ public class Bibtex
                 {
                     if (mds.getSources().size() == 1)
                     {
-                        mds.getSources().get(0).setSequenceNumber(BibTexUtil.bibtexDecode(fields.get("eid").toString()));
+                        mds.getSources().get(0).setSequenceNumber(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("eid").toString()), false));
                     }
                 }
                 
                 // rev
                 if (fields.get("rev") != null)
                 {
-                    if ("Peer".equals(BibTexUtil.bibtexDecode(fields.get("rev").toString())))
+                    if ("Peer".equals(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("rev").toString()), false)))
                     {
                         mds.setReviewMethod(ReviewMethod.PEER);
                     }
-                    else if ("No review".equals(BibTexUtil.bibtexDecode(fields.get("rev").toString())))
+                    else if ("No review".equals(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("rev").toString()), false)))
                     {
                         mds.setReviewMethod(ReviewMethod.NO_REVIEW);
                     }
@@ -1033,7 +1054,7 @@ public class Bibtex
                 // MPG-Affil
                 if (fields.get("MPG-Affil") != null)
                 {
-                    if ("Peer".equals(BibTexUtil.bibtexDecode(fields.get("MPG-Affil").toString())))
+                    if ("Peer".equals(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("MPG-Affil").toString()), false)))
                     {
                         // TODO
                     }
@@ -1042,7 +1063,7 @@ public class Bibtex
                 // MPIS Groups
                 if (fields.get("group") != null)
                 {
-                    String[] groups = BibTexUtil.bibtexDecode(fields.get("group").toString()).split(",");
+                    String[] groups = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("group").toString()), false).split(",");
                     for (String group : groups)
                     {
                         group = group.trim();
@@ -1071,7 +1092,7 @@ public class Bibtex
                 // MPIS Projects
                 if (fields.get("project") != null)
                 {
-                    String[] projects = BibTexUtil.bibtexDecode(fields.get("project").toString()).split(",");
+                    String[] projects = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("project").toString()), false).split(",");
                     for (String project : projects)
                     {
                         project = project.trim();
