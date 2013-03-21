@@ -37,23 +37,24 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
 	xmlns:jfunc="java:de.mpg.escidoc.services.structuredexportmanager.functions.BibTex"
 	xmlns:func="urn:my-functions" 
 	xmlns:dc="${xsd.metadata.dc}"
-   xmlns:dcterms="${xsd.metadata.dcterms}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}"
-   xmlns:pub="${xsd.metadata.publication}"
-   xmlns:source="${xsd.metadata.source}"
-   xmlns:event="${xsd.metadata.event}"
-   xmlns:person="${xsd.metadata.person}"
-   xmlns:organization="${xsd.metadata.organization}"
-   xmlns:eterms="${xsd.metadata.terms}">
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:ei="${xsd.soap.item.item}"
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+	xmlns:mdp="${xsd.metadata.escidocprofile}"
+	xmlns:e="${xsd.metadata.escidocprofile.types}"
+	xmlns:ec="${xsd.soap.item.components}"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:pub="${xsd.metadata.publication}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:eterms="${xsd.metadata.terms}">
 	<!-- <xsl:import href="functions.xsl"/>-->
 	
 	<xsl:import href="vocabulary-mappings.xsl"/>
@@ -132,35 +133,41 @@
 	
 	<!-- create bibTeX entry -->
 	<xsl:template name="createEntry">
-		
 		<xsl:param name="entryType"/>
-		<xsl:variable name="escidocid" select="parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@objid"/>
+		<xsl:variable name="cite-key">
+		    <xsl:choose>
+		        <xsl:when test="fn:exists(.//dc:identifier[@xsi:type='eterms:BIBTEX_CITEKEY'])">
+		            <xsl:value-of select=".//dc:identifier[@xsi:type='eterms:BIBTEX_CITEKEY'][1]"/>
+		        </xsl:when>
+		        <xsl:otherwise>
+		            <xsl:value-of select="fn:substring-after(fn:substring-after(fn:substring-after(parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@xlink:href, '/'), '/'), '/')"/>
+		        </xsl:otherwise>
+		    </xsl:choose>
+		</xsl:variable>
 		<xsl:value-of select="concat('@', $entryType, '{')"/>
-		<xsl:value-of select="jfunc:texString($escidocid)"/>
+		<xsl:value-of select="jfunc:texString($cite-key)"/>
 		<xsl:value-of select="','"/>
 		
 		<xsl:text disable-output-escaping="yes">&#xD;&#xA;</xsl:text><!-- line break -->
 		<!-- TITLE -->
 		<xsl:apply-templates select="dc:title"/>		
-		<!-- CREATOR -->
+		<!-- CREATOR --> 
 		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='author']/@uri]"/>		
 		<!-- EDITOR -->
 		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='editor']/@uri]"/>		
 		<!-- LANGUAGE -->
 		<xsl:apply-templates select="dc:language"/>
-		<!-- URI, URN -->
-		<xsl:apply-templates select="dc:identifier[contains(@xsi:type, 'URN')]"/>		
-		<!-- ISSN -->
-		<xsl:choose>
-			<xsl:when test="source:source/dc:identifier[contains(@xsi:type, 'ISSN')]">
-				<xsl:apply-templates select="source:source/dc:identifier[contains(@xsi:type, 'ISSN')]"/>					
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates select="dc:identifier[contains(@xsi:type, 'ISSN')]"/>				
-			</xsl:otherwise>
-		</xsl:choose>			
-		<!-- ISBN -->
-		<xsl:apply-templates select="dc:identifier[contains(@xsi:type, 'ISBN')]"/>		
+		<!-- Identifiers -->
+		<xsl:if test="exists(.//dc:identifier)">
+		    <xsl:variable name="identifier-xml">
+		        <xsl:for-each select=".//dc:identifier">
+		            <xsl:copy-of select="."/>
+		        </xsl:for-each>
+		    </xsl:variable>
+		    <xsl:call-template name="identifiers">
+		        <xsl:with-param name="identifier-list" select="$identifier-xml" />
+		    </xsl:call-template>
+		</xsl:if>	
 		<!-- PUBLISHER, ADDRESS -->
 		<xsl:choose>
 			<xsl:when test="source:source/eterms:publishing-info/dc:publisher=''">
@@ -197,7 +204,19 @@
 		<!-- SUBJECT -->
 		<xsl:apply-templates select="dc:subject"/>		
 		<!-- TABLE OF CONTENTS -->
-		<xsl:apply-templates select="dcterms:tableOfContents"/>		
+		<xsl:apply-templates select="dcterms:tableOfContents"/>	
+		<!-- PAGES -->
+		<xsl:variable name="type-of-publication" select="./@type"/>
+		<xsl:if test="exists(eterms:total-number-of-pages)
+						and eterms:total-number-of-pages != ''
+						and ($genre-ves/enum[@uri=$type-of-publication] = 'book'
+						or $genre-ves/enum[@uri=$type-of-publication] = 'proceedings'
+						or $genre-ves/enum[@uri=$type-of-publication] = 'issue')">
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'pages'"/>
+				<xsl:with-param name="xpath" select="eterms:total-number-of-pages"/>
+			</xsl:call-template>
+		</xsl:if>
 		<!-- SOURCE -->
 		<xsl:apply-templates select="source:source"/>			
 		<!-- END OF ENTRY -->		
@@ -220,33 +239,6 @@
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'language'"/>
-			<xsl:with-param name="xpath" select="."/>
-		</xsl:call-template>
-		</xsl:if>
-	</xsl:template>
-	
-	<xsl:template match="dc:identifier[contains(@xsi:type, 'URN')]">
-		<xsl:if test=".!=''">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'howpublished'"/>
-			<xsl:with-param name="xpath" select="."/>
-		</xsl:call-template>
-		</xsl:if>
-	</xsl:template>
-	
-	<xsl:template match="dc:identifier[contains(@xsi:type, 'ISSN')]">
-		<xsl:if test=".!=''">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'issn'"/>
-			<xsl:with-param name="xpath" select="."/>
-		</xsl:call-template>
-		</xsl:if>
-	</xsl:template>
-	
-	<xsl:template match="dc:identifier[contains(@xsi:type, 'ISBN')]">
-		<xsl:if test=".!=''">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'isbn'"/>
 			<xsl:with-param name="xpath" select="."/>
 		</xsl:call-template>
 		</xsl:if>
@@ -301,10 +293,18 @@
 	<xsl:template name="createField">
 		<xsl:param name="name"/>
 		<xsl:param name="xpath"/>
+		
 		<xsl:value-of select="jfunc:texString($name)"/>
-		<xsl:text disable-output-escaping="yes"> = "</xsl:text>
-		<xsl:value-of select="jfunc:texString(normalize-space($xpath))"/>
-		<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
+		<xsl:text disable-output-escaping="yes"> = &#123;</xsl:text>
+		<xsl:choose>
+			<xsl:when test="$name = 'title' or $name = 'booktitle' or $name = 'series' or $name = 'booktitle' or $name = 'journal' or $name = 'abstract' or $name = 'keywords '">
+				<xsl:value-of select="concat('&#123;', jfunc:texString(normalize-space($xpath)), '&#125;')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="jfunc:texString(normalize-space($xpath))"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text disable-output-escaping="yes">&#125;,&#xD;&#xA;</xsl:text>
 	</xsl:template>
 	
 	<!-- SOURCE -->
@@ -312,6 +312,7 @@
 		<xsl:variable name="sourceType">
 			<xsl:value-of select="@type"/>
 		</xsl:variable>
+		<xsl:variable name="publication-type" select="parent::pub:publication/@type"/>
 		<!-- TITLE -->
 		<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=$sourceType]"/>
 		<xsl:choose>
@@ -371,14 +372,23 @@
 		</xsl:if>
 		
 		<!-- SOURCE PAGES -->
-		<xsl:if test="normalize-space(eterms:start-page)!=''">
-			<xsl:if test="eterms:sequence-number!=''">
-				<xsl:call-template name="createField">
-					<xsl:with-param name="name" select="'pages'"/>
-					<xsl:with-param name="xpath" select="concat(eterms:start-page, ' - ', eterms:end-page)"/>
-				</xsl:call-template>				
-			</xsl:if>
-		</xsl:if>		
+		<xsl:choose>
+			<xsl:when test="fn:exists(parent::pub:publication/eterms:total-number-of-pages) 
+								and ($genre-ves/enum[@uri=$publication-type] = 'book'
+								or $genre-ves/enum[@uri=$publication-type] = 'proceedings'
+								or $genre-ves/enum[@uri=$publication-type] = 'issue')" />
+			<xsl:otherwise>
+				<xsl:if test="normalize-space(eterms:start-page)!=''">
+					<xsl:if test="eterms:sequence-number!=''">
+						<xsl:call-template name="createField">
+							<xsl:with-param name="name" select="'pages'"/>
+							<xsl:with-param name="xpath" select="concat(eterms:start-page, ' - ', eterms:end-page)"/>
+						</xsl:call-template>				
+					</xsl:if>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>
+			
 		<!-- TODO SOURCE HOWPUBLISHED -->		
 	</xsl:template>
 	
@@ -472,12 +482,55 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	<!-- IDENTIFIER TEMPLATE -->
-	<!-- TODO id.type= uri -->
-	<xsl:template match="dc:identifier">
-		<xsl:if test=".!=''">
-		<xsl:value-of select="jfunc:texString(normalize-space(.))"/>
-		</xsl:if>
+	<xsl:template name="identifiers">
+	    <xsl:param name="identifier-list"/>
+	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:ISSN'])">
+	            <xsl:variable name="issn-concated">
+	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:ISSN']" separator="; " />
+	            </xsl:variable>
+	            <xsl:call-template name="createField">
+                    <xsl:with-param name="name" select="'issn'"/>
+                    <xsl:with-param name="xpath" select="jfunc:texString($issn-concated)"/>
+                </xsl:call-template>
+	        </xsl:if>
+	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:ISBN'])">
+	            <xsl:variable name="isbn-concated">
+	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:ISBN']" separator="; " />
+	            </xsl:variable>
+	            <xsl:call-template name="createField">
+                    <xsl:with-param name="name" select="'isbn'"/>
+                    <xsl:with-param name="xpath" select="jfunc:texString($isbn-concated)"/>
+                </xsl:call-template>
+	        </xsl:if>
+	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:URI' or @xsi:type='eterms:URN'])">
+	            <xsl:variable name="url-concated">
+	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:URI' or @xsi:type='eterms:URN']" separator="; " />
+	            </xsl:variable>
+	            <xsl:call-template name="createField">
+                    <xsl:with-param name="name" select="'url'"/>
+                    <xsl:with-param name="xpath" select="jfunc:texString($url-concated)"/>
+                </xsl:call-template>
+	        </xsl:if>
+	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:DOI'])">
+	            <xsl:variable name="doi-concated">
+	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:DOI']" separator="; " />
+	            </xsl:variable>
+	            <xsl:call-template name="createField">
+                    <xsl:with-param name="name" select="'doi'"/>
+                    <xsl:with-param name="xpath" select="jfunc:texString($doi-concated)"/>
+                </xsl:call-template>
+	        </xsl:if>
+	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:OTHER' and fn:starts-with(fn:lower-case(.), 'local-id:')]) ">
+	            <xsl:variable name="local-id-concated">
+	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:OTHER' and fn:starts-with(fn:lower-case(.), 'local-id:')]" separator="; " />
+	            </xsl:variable>
+	            <xsl:call-template name="createField">
+                    <xsl:with-param name="name" select="'localid'"/>
+                    <xsl:with-param name="xpath" select="jfunc:texString($local-id-concated)"/>
+                </xsl:call-template>
+	        </xsl:if>
 	</xsl:template>
 	
 </xsl:stylesheet>
