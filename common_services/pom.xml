@@ -591,8 +591,8 @@
 		<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 		<!-- URL of this PubMan instance -->
 		<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
-		<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
-		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
+		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
+		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
 		<!-- Seal-Number of this PubMan instance -->
 		<escidoc.pubman.instance.seal_number/>
 		<!-- URL of the FIZ framework instance -->
