@@ -39,7 +39,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 	public String toCqlString() {
 		if(isInvited())
 		{
-			return "escidoc.publication.event.invitation-status\"invited\"";
+			return "escidoc.publication.event.invitation-status=\"invited\"";
 		}
 		else
 		{
