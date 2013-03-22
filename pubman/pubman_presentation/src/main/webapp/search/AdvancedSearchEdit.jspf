@@ -176,8 +176,7 @@
 							
 							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
 								<h:panelGroup layout="block" styleClass="large_area0">
-									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-									<span class="tooltip">&#160;</span>
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>									
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterion}">
@@ -481,7 +480,6 @@
 							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
 								<h:panelGroup layout="block" styleClass="large_area0">
 									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-									<span class="tooltip">&#160;</span>
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.fileAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
@@ -530,8 +528,7 @@
 							<span class="large_area0 tiny_marginRIncl">
 								<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
 									<h:panelGroup layout="block" styleClass="large_area0">
-										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-										<span class="tooltip">&#160;</span>
+										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>					
 										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 									</h:panelGroup>
 									<h:selectOneMenu id="selComponentVisibilityOptions" styleClass="selComponentVisibilityOptions replace" value="#{AdvancedSearchBean.componentVisibilitySearchCriterion.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this); toggleEmbargo(this);">
@@ -557,8 +554,7 @@
 	                        
 	                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
 								<h:panelGroup layout="block" styleClass="large_area0">
-									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-									<span class="tooltip">&#160;</span>
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>						
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selLocatorAvailabilityOptions" styleClass="replace" value="#{AdvancedSearchBean.locatorAvailableSearchCriterion.selectedAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
@@ -576,8 +572,7 @@
 							
 							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
 								<h:panelGroup layout="block" styleClass="large_area0">
-									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-									<span class="tooltip">&#160;</span>
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>							
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selContentCategories" styleClass="replace" value="#{AdvancedSearchBean.componentContentCategory.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
