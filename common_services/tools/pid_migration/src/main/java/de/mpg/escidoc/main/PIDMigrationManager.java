@@ -1,67 +1,23 @@
 package de.mpg.escidoc.main;
 
 import java.io.File;
-import java.io.IOException;
 
-import javax.naming.NamingException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.util.Util;
+import de.mpg.escidoc.handler.PIDHandler;
+import de.mpg.escidoc.handler.PreHandler;
 
 
 public class PIDMigrationManager
 {
     private static Logger logger = Logger.getLogger(PIDMigrationManager.class);   
     
-    private static String location;
-    private static String user;
-    private static String password;
-    
-    private static HttpClient httpClient;
-    
-    void init() throws NamingException
-    {
-        logger.debug("init starting");
-        
-        location = Util.getProperty("escidoc.pid.pidcache.service.url");
-        user = Util.getProperty("escidoc.pidcache.user.name");
-        password = Util.getProperty("escidoc.pidcache.user.password");
-        httpClient = Util.getHttpClient();
-        
-        logger.debug("init finished");
-    }
-    
-    String getPid() throws HttpException, IOException
-    {
-        logger.debug("getPid starting");
-        
-        int code;
-        String url = location + "/write/create";
-        
-        PostMethod method = new PostMethod(url);
-        method.setParameter("url", url);
-        method.setDoAuthentication(true);
-        httpClient.getState().setCredentials(new AuthScope("localhost", 8080),
-                new UsernamePasswordCredentials(user, password));
-        code = httpClient.executeMethod(method);
-        
-        String pid = Util.getValueFromXml("<pid>", '<', method.getResponseBodyAsString());
-        
-        logger.debug("getPid finished returning " + pid);
-        return pid;
-    }
-    
     public void transform(File file) throws Exception
-    {
+    {        
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         PreHandler preHandler = new PreHandler();
         PIDHandler handler = new PIDHandler(preHandler);
@@ -83,19 +39,26 @@ public class PIDMigrationManager
         logger.debug("after delete bak file " + b);
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws Exception
+    {       
+        if (args[0] == null)
+            throw new Exception("Start file or directory missing");
+        File file = new File(args[0]);
+        if (!file.exists())
+            throw new Exception("file does not exists: " + file.getAbsolutePath());
+        
         PIDMigrationManager pidMigr = new PIDMigrationManager();
         
-        try
+        if (file.isDirectory())
         {
-            pidMigr.init();
+            for (File f : file.listFiles())
+            {
+                logger.info("****************** Starting migration of " + f.getCanonicalPath());
+                pidMigr.transform(f);
+                logger.info("****************** Ended    migration of " + f.getCanonicalPath());
+            }
         }
-        catch (NamingException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
     }
     
 }
