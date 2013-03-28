@@ -40,10 +40,10 @@ import java.util.Map.Entry;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
+import de.mpg.escidoc.pubman.searchNew.criterions.enums.GenreSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.DegreeSearchCriterion;
-import de.mpg.escidoc.pubman.searchNew.criterions.standard.GenreSearchCriterion;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
@@ -394,7 +394,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 				
 				genreSelected = true;
 				GenreSearchCriterion gc = new GenreSearchCriterion();
-				gc.setSearchString(entry.getKey().getUri());
+				gc.setSelectedEnum(entry.getKey());
 				returnList.add(gc);
 				i++;
 				

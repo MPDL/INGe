@@ -46,9 +46,13 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EventInvitationSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.FileAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.dates.DateSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.enums.GenreSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.enums.ReviewMethodSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.genre.GenreListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
@@ -61,7 +65,6 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySe
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.DegreeSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.EventTitleSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
-import de.mpg.escidoc.pubman.searchNew.criterions.standard.GenreSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.JournalSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.KeywordSearchCriterion;
@@ -122,12 +125,15 @@ public abstract class SearchCriterionBase implements Serializable{
 		
 		GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null),
 		GENRE(GenreSearchCriterion.class, null),
+		REVIEW_METHOD(ReviewMethodSearchCriterion.class, null),
 		DEGREE(DegreeSearchCriterion.class, null),
 		FILE_AVAILABLE(FileAvailableSearchCriterion.class, null),
 		LOCATOR_AVAILABLE(LocatorAvailableSearchCriterion.class, null),
 		EMBARGO_DATE_AVAILABLE(EmbargoDateAvailableSearchCriterion.class, null),
 		COMPONENT_CONTENT_CATEGORY(ComponentContentCategory.class, null),	
 		COMPONENT_VISIBILITY(ComponentVisibilitySearchCriterion.class, null),
+		COMPONENT_VISIBILITY_LIST(ComponentVisibilityListSearchCriterion.class, null),
+		COMPONENT_CONTENT_CATEGORY_LIST(ComponentContentCategoryListSearchCriterion.class, null),
 		
 		AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
 		OR_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),

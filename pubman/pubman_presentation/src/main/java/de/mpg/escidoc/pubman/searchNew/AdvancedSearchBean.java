@@ -63,6 +63,8 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.FileAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.dates.DateSearchCriterion;
@@ -95,6 +97,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private List<SelectItem> genreListMenu = initGenreListMenu();
 	
+	private List<SelectItem> reviewMethodListMenu = initReviewMethodListMenu();
+	
 	private List<SelectItem> contentCategoryListMenu = initContentCategoryListMenu();
 	
 	private List<SelectItem> componentVisibilityListMenu = initComponentVisibilityListMenu();
@@ -112,6 +116,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	private boolean excludeComponentContentCategory;
 	
 	private SearchCriterionBase componentVisibilitySearchCriterion;
+	
+	private SearchCriterionBase componentVisibilityListSearchCriterion;
+	
+	private SearchCriterionBase componentContentCategoryListSearchCriterion;
 	
 	private SearchCriterionBase genreListSearchCriterion;
 
@@ -138,6 +146,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		this.componentContentCategory = new ComponentContentCategory();
 		this.excludeComponentContentCategory = false;
 		this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
+		this.componentVisibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
+		this.componentContentCategoryListSearchCriterion = new ComponentContentCategoryListSearchCriterion();
 		this.genreListSearchCriterion = new GenreListSearchCriterion();
 		
 		currentlyOpenedParenthesis = null;
@@ -187,6 +197,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 				this.embargoDateAvailableSearchCriterion = sc;
 				toBeRemovedList.add(sc);
 			}
+			/*
 			else if(SearchCriterion.COMPONENT_CONTENT_CATEGORY.equals(sc.getSearchCriterion()))
 			{
 				this.componentContentCategory = sc;
@@ -197,9 +208,22 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 				}
 				
 			}
+			*/
+			else if(SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST.equals(sc.getSearchCriterion()))
+			{
+				this.componentContentCategoryListSearchCriterion = sc;
+				toBeRemovedList.add(sc);
+			}
+			/*
 			else if(SearchCriterion.COMPONENT_VISIBILITY.equals(sc.getSearchCriterion()))
 			{
 				this.componentVisibilitySearchCriterion = sc;
+				toBeRemovedList.add(sc);
+			}
+			*/
+			else if(SearchCriterion.COMPONENT_VISIBILITY_LIST.equals(sc.getSearchCriterion()))
+			{
+				this.componentVisibilityListSearchCriterion = sc;
 				toBeRemovedList.add(sc);
 			}
 			else if(SearchCriterion.GENRE_DEGREE_LIST.equals(sc.getSearchCriterion()))
@@ -273,6 +297,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private List<SelectItem> initGenreListMenu() {
 		return Arrays.asList(this.i18nHelper.getSelectItemsGenre());
+	}
+	
+	private List<SelectItem> initReviewMethodListMenu() {
+		return Arrays.asList(this.i18nHelper.getSelectItemsReviewMethod());
 	}
 	
 	private List<SelectItem> initSubjectTypesListMenu()
@@ -367,8 +395,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		
 		
 
-		//Language
+		//Genre
 		criterionTypeList.add(new SelectItem(SearchCriterion.GENRE,  getLabel("adv_search_lbHeaderGenre")));
+		
+		criterionTypeList.add(new SelectItem(SearchCriterion.REVIEW_METHOD,  getLabel("ViewItemFull_lblRevisionMethod")));
 		
 		//Language
 		criterionTypeList.add(new SelectItem(SearchCriterion.LANG,  getLabel("adv_search_lblLanguageTerm")));
@@ -747,10 +777,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		{
 			returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		}
-		returnList.add(componentContentCategory);
+		returnList.add(componentContentCategoryListSearchCriterion);
 		
 		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-		returnList.add(componentVisibilitySearchCriterion);
+		returnList.add(componentVisibilityListSearchCriterion);
 		
 		return returnList;
 
@@ -981,5 +1011,37 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
        }
         
     }
+
+
+	public SearchCriterionBase getComponentVisibilityListSearchCriterion() {
+		return componentVisibilityListSearchCriterion;
+	}
+
+
+	public void setComponentVisibilityListSearchCriterion(
+			SearchCriterionBase componentVisibilityListSearchCriterion) {
+		this.componentVisibilityListSearchCriterion = componentVisibilityListSearchCriterion;
+	}
+
+
+	public SearchCriterionBase getComponentContentCategoryListSearchCriterion() {
+		return componentContentCategoryListSearchCriterion;
+	}
+
+
+	public void setComponentContentCategoryListSearchCriterion(
+			SearchCriterionBase componentContentCategoryListSearchCriterion) {
+		this.componentContentCategoryListSearchCriterion = componentContentCategoryListSearchCriterion;
+	}
+
+
+	public List<SelectItem> getReviewMethodListMenu() {
+		return reviewMethodListMenu;
+	}
+
+
+	public void setReviewMethodListMenu(List<SelectItem> reviewMethodListMenu) {
+		this.reviewMethodListMenu = reviewMethodListMenu;
+	}
 
 }

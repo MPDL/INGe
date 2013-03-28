@@ -139,7 +139,8 @@
 					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 
 
-					toggleEmbargo($pb('.selComponentVisibilityOptions')[0]);
+					toggleEmbargoCheckbox();
+					
 					
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';

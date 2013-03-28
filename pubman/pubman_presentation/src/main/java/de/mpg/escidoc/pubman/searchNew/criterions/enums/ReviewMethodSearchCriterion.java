@@ -27,25 +27,37 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
-package de.mpg.escidoc.pubman.searchNew.criterions.standard;
+package de.mpg.escidoc.pubman.searchNew.criterions.enums;
 
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 
 
-public class GenreSearchCriterion extends StandardSearchCriterion {
+public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMethod> {
 
 	
+	public ReviewMethodSearchCriterion()
+	{
+		super(ReviewMethod.class);
+	}
 
 	@Override
 	public String[] getCqlIndexes() {
-		return new String[] {"escidoc.publication.type"};
+		return new String[] {"escidoc.publication.review-method"};
 	}
 
 	@Override
 	public SearchCriterion getSearchCriterion() {
-		return SearchCriterion.GENRE;
+		return SearchCriterion.REVIEW_METHOD;
 	}
 
+	@Override
+	public String getSearchString(ReviewMethod selectedEnum) {
+		return selectedEnum.getUri();
+	}
+
+	
 	
 
 }
