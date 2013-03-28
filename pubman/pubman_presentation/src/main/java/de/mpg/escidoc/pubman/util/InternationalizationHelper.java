@@ -440,7 +440,7 @@ public class InternationalizationHelper implements Serializable
      */
     public SelectItem[] getSelectItemsReviewMethod()
     {
-        return this.getSelectItemsGenre(false);
+        return this.getSelectItemsReviewMethod(false);
     }
 
     /**
