@@ -29,11 +29,30 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
+import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 
 
 public class OrganizationSearchCriterion extends
 		StringOrHiddenIdSearchCriterion {
+	
+	//private Logger logger = Logger.getLogger(OrganizationSearchCriterion.class);
+	
+	private boolean includePredecessorsAndSuccessors;
 
 	@Override
 	public String[] getCqlIndexForHiddenId() {
@@ -48,6 +67,130 @@ public class OrganizationSearchCriterion extends
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.ORGUNIT;
+	}
+
+	
+	
+	
+	
+	@Override
+	public String toCqlString() {
+		if(!includePredecessorsAndSuccessors)
+		{
+			return super.toCqlString();
+		}
+		else
+		{
+
+			try {
+				List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+				int i=0;
+				scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+				for(AffiliationVO aff : retrievePredecessorsAndSuccessors(getHiddenId()))
+				{
+					if(i>0)
+					{
+						scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+					}
+					
+					OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
+					ous.setSearchString(aff.getDefaultMetadata().getName());
+					ous.setHiddenId(aff.getReference().getObjectId());
+					scList.add(ous);
+					i++;
+				}
+				scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+
+				return scListToCql(scList, false);
+			} catch (Exception e) {
+				System.out.println("Error while retrieving affiliation from id" + e + ": " + e.getMessage());
+		        //logger.error("Error while retrieving affiliation from id", e);
+		        return super.toCqlString();
+			}
+		}
+	}
+	
+	
+
+	@Override
+	public String toQueryString() {
+		if(!includePredecessorsAndSuccessors)
+		{
+			 return super.toQueryString();
+		}
+		else
+		{
+			return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "|" + escapeForQueryString(getHiddenId()) + "|" + "includePresSuccs" + "\""; 
+		}
+		
+		
+	}
+
+	@Override
+	public void parseQueryStringContent(String content) {
+		//Split by '|', which have no backslash
+		String[] parts = content.split("(?<!\\\\)\\|");
+		
+		this.setSearchString(unescapeForQueryString(parts[0]));
+		if(parts.length>1)
+		{
+			this.setHiddenId(unescapeForQueryString(parts[1]));
+		}
+		
+		if(parts.length>2)
+		{
+			
+			if(parts[2].equals("includePresSuccs"))
+			{
+				includePredecessorsAndSuccessors = true;
+			}
+			
+		
+		}
+	}
+	
+	
+	
+	
+	
+	
+	public boolean isIncludePredecessorsAndSuccessors() {
+		return includePredecessorsAndSuccessors;
+	}
+
+	public void setIncludePredecessorsAndSuccessors(
+			boolean includePredecessorsAndSuccessors) {
+		this.includePredecessorsAndSuccessors = includePredecessorsAndSuccessors;
+	}
+	
+	
+	private List<AffiliationVO> retrievePredecessorsAndSuccessors(String id) throws Exception
+	{
+		
+		List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
+		
+		
+        AffiliationVO affiliation = ItemControllerSessionBean.retrieveAffiliation(getHiddenId());
+        allAffs.add(affiliation);
+
+        AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+
+        List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
+        
+        for (AffiliationVO affiliationVO : sucessorsVO)
+        {
+            allAffs.add(affiliationVO);
+        }
+        
+        List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
+        
+        for (AffiliationVO affiliationVO : predecessorsVO)
+        {
+            allAffs.add(affiliationVO);
+        }
+		return allAffs;
+		
+		
 	}
 	
 

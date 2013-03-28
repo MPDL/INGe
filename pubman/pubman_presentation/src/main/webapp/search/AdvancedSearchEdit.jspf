@@ -240,8 +240,17 @@
 						<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" value="#"
 							onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
-							styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
+							styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>	
+	                
+		                <h:panelGroup styleClass="free_area0 clear" >							
+									<h:outputLabel styleClass="small_label label_keyword" value=" " />
+									<h:selectBooleanCheckbox value="#{criterion.includePredecessorsAndSuccessors}" />
+									<h:outputLabel value="#{lbl.adv_search_lblInclHistory}" />						
+						</h:panelGroup>
+	                
 	                </h:panelGroup>
+	               
+	                
 	                
 	                
 	                <!-- input for classifications -->
