@@ -72,7 +72,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
 	@Override
 	public SearchCriterion getSearchCriterion() {
-		return searchCriterion.EVENT_INVITATION;
+		return SearchCriterion.EVENT_INVITATION;
 	}
 
 
