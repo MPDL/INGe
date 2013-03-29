@@ -96,6 +96,12 @@ IGNORE_UNTRANSLATED = {
    "Tools_lblREST" => "REST",
    "Tools_lblSWORD" => "SWORD",
    "Tools_lblUnAPI" => "unAPI",
+
+   # Imeji
+   "NOT" => "NOT",
+   "HomePage" => "imeji",
+   "email" => "Email",
+
 }
 
 def parse_resource_file( filename )
@@ -104,18 +110,17 @@ def parse_resource_file( filename )
       io.each do |line|
          next if line =~ /^\s*#/
          next if line =~ /^\s*$/
-         if line =~ /^\s*([\w\.\-]+)\s*=\s*(.+)$/
+         if line =~ /^\s*([\w\.\-\(\)]+)\s*=\s*(.+)$/
 	    key, val = $1, $2
             if resource[ $1 ]
-               puts "#{filename}:#{$.}: Warining: duplicate resource: #{ key }"
+               puts "#{filename}:#{$.}: Warning: duplicate resource: #{ key }"
             end
             # val.gsub!( /[\[\(](new|neu)[\]\)]/io, "" )
 	    val.strip!
 	    if val.empty? or val == "\\"
 	       puts "#{filename}:#{$.}: Warning: empty value: #{ key }"
-	    else
-               resource[ key ] = val
 	    end
+            resource[ key ] = val
          else
             puts "#{filename}:#{$.}: Warining: unknown line: #{line}"
          end
