@@ -37,7 +37,7 @@ public class AssertionHandlerTest
     @Test
     public void testFilesBeforeMigration() throws IOException
     {
-        File f = new File("src/test/resources/item/escidoc_1479027.sav");
+        File f = new File("src/test/resources/item_sav/escidoc_1479027");
         
         try
         {
@@ -49,7 +49,7 @@ public class AssertionHandlerTest
             assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID));
         }
         
-        f = new File("src/test/resources/component/escidoc_418001.sav");
+        f = new File("src/test/resources/component_sav/escidoc_418001");
         
         try
         {
@@ -61,7 +61,7 @@ public class AssertionHandlerTest
             assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID));
         }
         
-        f = new File("src/test/resources/item/itemReleasedOnce.sav");
+        f = new File("src/test/resources/item_sav/itemReleasedOnce");
         
         try
         {
@@ -77,7 +77,7 @@ public class AssertionHandlerTest
     @Test
     public void testFilesUncompleteMigration() throws IOException
     {
-        File f = new File("src/test/resources/item/itemReleasedOnceIncompleteMigration.sav");
+        File f = new File("src/test/resources/item_sav/itemReleasedOnceIncompleteMigration");
         
         try
         {
@@ -95,7 +95,7 @@ public class AssertionHandlerTest
     @Test
     public void testFilesFullMigration() throws IOException
     {
-        File f = new File("src/test/resources/item/itemReleasedOnceFullMigration.sav");
+        File f = new File("src/test/resources/item_sav/itemReleasedOnceFullMigration");
         
         try
         {
