@@ -31,7 +31,7 @@ public class PreHandlerTest
     {
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         
-        File file = new File("src/test/resources/item/escidoc_1479027.sav");
+        File file = new File("src/test/resources/item_sav/escidoc_1479027");
                
         parser.parse(file, preHandler);
         
@@ -40,7 +40,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-03-05T13:06:27.236Z"));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         
-        file = new File("src/test/resources/item/itemReleasedOnce.sav");
+        file = new File("src/test/resources/item_sav/itemReleasedOnce");
         
         parser.parse(file, preHandler);
         
@@ -55,7 +55,7 @@ public class PreHandlerTest
     {
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         
-        File file = new File("src/test/resources/component/escidoc_1494882.sav");
+        File file = new File("src/test/resources/component_sav/escidoc_1494882");
                
         parser.parse(file, preHandler);
         
@@ -63,7 +63,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2012-07-27T14:00:11.197Z"));
         assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
         
-        file = new File("src/test/resources/component/escidoc_418001.sav");
+        file = new File("src/test/resources/component_sav/escidoc_418001");
         
         parser.parse(file, preHandler);
         
