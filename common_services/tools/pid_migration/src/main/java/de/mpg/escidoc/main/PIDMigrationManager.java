@@ -42,7 +42,8 @@ public class PIDMigrationManager
     }
     
     public void transform(File file) throws Exception
-    {        
+    {   
+        logger.info("****************** Start transforming " + file.getName());
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         PreHandler preHandler = new PreHandler();
         PIDHandler handler = new PIDHandler(preHandler);
@@ -62,6 +63,8 @@ public class PIDMigrationManager
         FileUtils.copyFile(tempFile, file);
         boolean b = bakFile.delete();    
         logger.debug("after delete bak file " + b);
+        
+        logger.info("****************** End transforming " + file.getName());
     }
     
     public static void main(String[] args) throws Exception
