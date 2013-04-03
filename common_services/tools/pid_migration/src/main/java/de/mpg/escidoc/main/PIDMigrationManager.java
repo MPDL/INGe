@@ -16,6 +16,31 @@ public class PIDMigrationManager
 {
     private static Logger logger = Logger.getLogger(PIDMigrationManager.class);   
     
+    public PIDMigrationManager(File rootDir) throws Exception
+    {
+        if (rootDir != null && rootDir.isFile())
+        {
+            transform(rootDir);
+            return;
+        }
+        
+        File[] files = rootDir.listFiles();
+        
+        for (File file : files)
+        {
+            if (file.getName().endsWith(".svn"))
+                continue;
+            if (file.isDirectory() && !file.getName().startsWith(".svn"))
+            {
+                new PIDMigrationManager(file);
+            }
+            else
+            {
+                transform(file);
+            }
+        }
+    }
+    
     public void transform(File file) throws Exception
     {        
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
@@ -43,21 +68,11 @@ public class PIDMigrationManager
     {       
         if (args[0] == null)
             throw new Exception("Start file or directory missing");
-        File file = new File(args[0]);
-        if (!file.exists())
-            throw new Exception("file does not exists: " + file.getAbsolutePath());
+        File rootDir = new File(args[0]);
+        if (!rootDir.exists())
+            throw new Exception("file does not exists: " + rootDir.getAbsolutePath());
         
-        PIDMigrationManager pidMigr = new PIDMigrationManager();
-        
-        if (file.isDirectory())
-        {
-            for (File f : file.listFiles())
-            {
-                logger.info("****************** Starting migration of " + f.getCanonicalPath());
-                pidMigr.transform(f);
-                logger.info("****************** Ended    migration of " + f.getCanonicalPath());
-            }
-        }
+        PIDMigrationManager pidMigr = new PIDMigrationManager(rootDir);
         
     }
     

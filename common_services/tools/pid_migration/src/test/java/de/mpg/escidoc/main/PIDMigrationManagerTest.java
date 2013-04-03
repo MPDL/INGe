@@ -9,8 +9,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.handler.AssertionHandler;
@@ -20,27 +20,40 @@ public class PIDMigrationManagerTest
 {
     private static Logger logger = Logger.getLogger(PIDMigrationManagerTest.class);   
     
-    private PIDMigrationManager mgr = new PIDMigrationManager();
-    
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
         org.apache.log4j.BasicConfigurator.configure();
         
-        FileUtils.copyFile(new File("src/test/resources/item/escidoc_1479027.sav"), 
-                new File("src/test/resources/item/escidoc_1479027"));
-        FileUtils.copyFile(new File("src/test/resources/component/escidoc_418001.sav"), 
-                new File("src/test/resources/component/escidoc_418001"));
+        // remove test files from previous tests
+        FileUtils.deleteDirectory(
+                new File("src/test/resources/item"));
+        FileUtils.deleteDirectory(
+                new File("src/test/resources/component"));
+        FileUtils.deleteDirectory(
+                new File("src/test/resources/context"));
+        FileUtils.deleteDirectory(
+                new File("src/test/resources/content-model"));
+        
+        FileUtils.copyDirectory(new File("src/test/resources/item_sav"), 
+                new File("src/test/resources/item"));
+        FileUtils.copyDirectory(new File("src/test/resources/component_sav"), 
+                new File("src/test/resources/component"));
+        FileUtils.copyDirectory(new File("src/test/resources/context_sav"), 
+                new File("src/test/resources/context"));
+        FileUtils.copyDirectory(new File("src/test/resources/content-model_sav"), 
+                new File("src/test/resources/content-model"));
     }
     
     @Test
+    @Ignore
     public void transformFiles() throws Exception
     {
         File f = new File("src/test/resources/item/escidoc_1479027");
-        mgr.transform(f);        
+        new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
-        mgr.transform(new File("src/test/resources/component/escidoc_418001"));        
+        new PIDMigrationManager(new File("src/test/resources/component/escidoc_418001"));        
         assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));
     }
     
@@ -48,24 +61,52 @@ public class PIDMigrationManagerTest
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
-        mgr.transform(f);        
+        new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
-        mgr.transform(new File("src/test/resources/component/escidoc_418001"));        
-        assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));
+       /* new PIDMigrationManager(new File("src/test/resources/component"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/component")));*/
     }
 
     private boolean checkAfterMigration(File file) throws Exception
     {
         logger.debug("checkAfterMigration file " + file.getAbsolutePath());
         
-        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-        PreHandler preHandler = new PreHandler();
-        AssertionHandler assertionHandler = new AssertionHandler(preHandler);
+        if (file != null && file.isFile())
+        {
+            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            PreHandler preHandler = new PreHandler();
+            AssertionHandler assertionHandler = new AssertionHandler(preHandler);
+            
+            parser.parse(file, preHandler);
+            parser.parse(file, assertionHandler);
+            
+            return true;
+        }
         
-        parser.parse(file, preHandler);
-        parser.parse(file, assertionHandler);
+        File[] files = file.listFiles();
         
-        return true;
+        for (File f : files)
+        {
+            if (f.getName().endsWith(".svn"))
+                continue;
+            if (f.isDirectory())
+            {
+                checkAfterMigration(f);
+            }
+            else
+            {
+                SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+                PreHandler preHandler = new PreHandler();
+                AssertionHandler assertionHandler = new AssertionHandler(preHandler);
+                
+                parser.parse(f, preHandler);
+                parser.parse(f, assertionHandler);
+                
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
