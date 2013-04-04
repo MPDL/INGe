@@ -47,25 +47,30 @@ public class PreHandler extends DefaultHandler
 {
     private static Logger logger = Logger.getLogger(PreHandler.class);
 
-    private String lastCreatedRelsExtTimestamp = "1990-01-01T00:00:00.000Z";
+    private String lastCreatedRelsExtTimestamp = "";
     private String lastCreatedRelsExtId = null;
     private Type objectType = null;
+    private String publicStatus = "";
     
-    private String lastVersionHistoryTimeStamp = "1990-01-01T00:00:00.000Z";
+    private String lastVersionHistoryTimeStamp = "";
     
     private boolean inRelsExt = false;
+    private boolean inRelsExtAndPublicStatus = false;
     
+    private StringBuffer currentContent;
+        
     public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL }
+    public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN }
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
     {
-        logger.info("startElement uri=<" + uri + "> localName = <" + localName + "> qName = <" + qName + "> attributes = <" + attributes + ">");
+        logger.debug("startElement uri=<" + uri + "> localName = <" + localName + "> qName = <" + qName + "> attributes = <" + attributes + ">");
         
         if ("foxml:datastream".equals(qName) && "RELS-EXT".equals(attributes.getValue("ID")))
         { 
             inRelsExt = true;
-            logger.info(" startElement inRelsExt= " + inRelsExt);
+            logger.debug(" startElement inRelsExt= " + inRelsExt);
         }
         else if ("foxml:datastreamVersion".equals(qName) && inRelsExt)
         {
@@ -75,8 +80,12 @@ public class PreHandler extends DefaultHandler
                 lastCreatedRelsExtTimestamp = createdString;
                 lastCreatedRelsExtId = attributes.getValue("ID");
                 
-                logger.info("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
+                logger.debug("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
             }
+        }
+        else if ("prop:public-status".equals(qName) && inRelsExt)
+        {
+            inRelsExtAndPublicStatus = true;
         }
         else if ("escidocVersions:pid".equals(qName))
         {
@@ -85,7 +94,7 @@ public class PreHandler extends DefaultHandler
             {
                 lastVersionHistoryTimeStamp = timestamp;
                 
-                logger.info("startElement lastVersionHistoryTimeStamp = " + lastVersionHistoryTimeStamp);               
+                logger.debug("startElement lastVersionHistoryTimeStamp = " + lastVersionHistoryTimeStamp);               
             }
         }
         else if ("foxml:property".equals(qName) && "info:fedora/fedora-system:def/model#label".equals(attributes.getValue("NAME")))
@@ -112,17 +121,36 @@ public class PreHandler extends DefaultHandler
                 }
             }
         }
+        
+        currentContent = new StringBuffer();
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
-        logger.info("endElement   uri=<" + uri + "> localName = <" + localName + "> qName = <" + qName + ">");
-        if ("foxml:datastream".equals(localName))
+        logger.debug("endElement   uri=<" + uri + "> localName = <" + localName + "> qName = <" + qName + ">");
+        if ("foxml:datastream".equals(qName))
         {
             inRelsExt = false;
-            logger.info(" endElement inRelsExt= " + inRelsExt);
         }
+        if ("prop:public-status".equals(qName))
+        {
+            inRelsExtAndPublicStatus = false;
+        }
+        currentContent = null;
+    }
+    
+    @Override
+    public final void characters(char[] ch, int start, int length) throws SAXException
+    {
+        logger.debug("characters   start=<" + start + "> length = <" + length + ">");
+        
+        if (currentContent != null && inRelsExtAndPublicStatus)
+        {
+            currentContent.append(ch, start, length);
+            publicStatus = currentContent.toString();
+            logger.info("publicStatus =<" + publicStatus + ">");
+        }        
     }
 
     public String getLastCreatedRelsExtId()
@@ -147,6 +175,22 @@ public class PreHandler extends DefaultHandler
     {
         logger.info("getObjectType returning = " + objectType);        
         return objectType;
+    }
+    
+    public PublicStatus getPublicStatus()
+    {
+        logger.info("getPublicStatus returning = " + publicStatus);  
+        
+        if (publicStatus.equalsIgnoreCase("pending"))
+            return PublicStatus.PENDING;
+        else if (publicStatus.equalsIgnoreCase("submitted"))
+            return PublicStatus.SUBMITTED;
+        else if (publicStatus.equalsIgnoreCase("released"))
+            return PublicStatus.RELEASED;
+        else if (publicStatus.equalsIgnoreCase("withdrawn"))
+            return PublicStatus.WITHDRAWN;
+        
+        return PublicStatus.PENDING;
     }
     
     

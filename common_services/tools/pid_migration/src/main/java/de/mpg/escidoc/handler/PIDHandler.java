@@ -43,6 +43,12 @@ public class PIDHandler extends IdentityHandler
     {
         this.pidMigrationManager = mgr;
     }
+    
+    @Override
+    public void startDocument() throws SAXException
+    {
+        append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    }
 
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException

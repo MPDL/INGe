@@ -23,7 +23,7 @@ public class PIDMigrationManagerTest
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
-        org.apache.log4j.BasicConfigurator.configure();
+        //org.apache.log4j.BasicConfigurator.configure();
         
         // remove test files from previous tests
         FileUtils.deleteDirectory(
@@ -46,7 +46,6 @@ public class PIDMigrationManagerTest
     }
     
     @Test
-    @Ignore
     public void transformFiles() throws Exception
     {
         File f = new File("src/test/resources/item/escidoc_1479027");
@@ -58,14 +57,25 @@ public class PIDMigrationManagerTest
     }
     
     @Test
+    @Ignore
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
         new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
-       /* new PIDMigrationManager(new File("src/test/resources/component"));        
-        assertTrue(checkAfterMigration(new File("src/test/resources/component")));*/
+        new PIDMigrationManager(new File("src/test/resources/component"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/component")));
+    }
+    
+    @Test
+    @Ignore
+    public void transformQa() throws Exception
+    {
+        FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/2013_sav"), 
+                new File("C:/Test/qa-coreservice/2013"));
+        new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        
+        assertTrue(checkAfterMigration(new File("C:/Test/qa-coreservice/2013")));
     }
 
     private boolean checkAfterMigration(File file) throws Exception

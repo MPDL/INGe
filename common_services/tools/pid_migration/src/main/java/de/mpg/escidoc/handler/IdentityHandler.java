@@ -34,6 +34,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -53,6 +54,8 @@ public class IdentityHandler extends ShortContentHandler
     protected Map<String, String> nameSpaces = new HashMap<String, String>();
     protected String defaultNameSpace = null;
     protected int length = 0;
+    private boolean fromContent = false;
+    private boolean fromStartTag = false;
     
     public String getResult()
     {
@@ -79,13 +82,29 @@ public class IdentityHandler extends ShortContentHandler
     {
         super.endElement(uri, localName, name);
         
-        result.append("</");
-        this.length += 2;
-        result.append(name);
-        this.length += name.length();
-        result.append(">");
-        this.length += 1;
-
+        if (fromStartTag)
+        {
+            result.append("/>");
+            this.length += 2;
+        }
+        else
+        {
+            if (!fromContent)
+            {
+                result.append("\n");
+                result.append(StringUtils.repeat("\t", stack.size()));
+                this.length += 1 + stack.size();
+            }
+                       
+            result.append("</");
+            this.length += 2;
+            result.append(name);
+            this.length += name.length();
+            result.append(">");
+            this.length += 1;
+        }
+        fromContent = false;
+        fromStartTag = false;
     }
 
     /**
@@ -98,6 +117,17 @@ public class IdentityHandler extends ShortContentHandler
 
         super.startElement(uri, localName, name, attributes);
 
+        if (fromStartTag)
+        {
+            result.append(">");
+        }
+        if (!fromContent)
+        {
+            result.append("\n");
+            this.length += 1;
+        }
+        result.append(StringUtils.repeat("\t", stack.size() - 1));
+        this.length += stack.size() - 1;
         result.append("<");
         this.length += 1;
         result.append(name);
@@ -116,8 +146,9 @@ public class IdentityHandler extends ShortContentHandler
             result.append("\"");
             this.length += 1;
         }
-        result.append(">");
+        //result.append(">");
         this.length += 1;
+        fromStartTag = true;
     }
     
     /**
@@ -144,8 +175,18 @@ public class IdentityHandler extends ShortContentHandler
     public void content(String uri, String localName, String name, String content) throws SAXException
     {
         super.content(uri, localName, name, content);
+        int len = escape(content).length();
+        if (fromStartTag && len > 0)
+        {
+            result.append(">");
+        }
         result.append(escape(content));
-        this.length += escape(content).length();
+        this.length += len;
+        fromContent = true;
+        if (len > 0)
+        {
+            fromStartTag = false;
+        }
     }
 
     /** 

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.handler.PIDHandler;
 import de.mpg.escidoc.handler.PreHandler;
+import de.mpg.escidoc.handler.PreHandler.Type;
 
 
 public class PIDMigrationManager
@@ -52,6 +53,12 @@ public class PIDMigrationManager
         File tempFile = File.createTempFile("xxx", "yyy", file.getParentFile());
         
         parser.parse(file, preHandler);
+        
+        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
+        {
+            logger.info("Nothing to do for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
+            return;
+        }
         parser.parse(file, handler);
         
         String result = handler.getResult();
