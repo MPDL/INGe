@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.handler.PIDHandler;
 import de.mpg.escidoc.handler.PreHandler;
+import de.mpg.escidoc.handler.PreHandler.PublicStatus;
 import de.mpg.escidoc.handler.PreHandler.Type;
 
 
@@ -50,18 +51,25 @@ public class PIDMigrationManager
         PIDHandler handler = new PIDHandler(preHandler);
         handler.setPIDMigrationManager(this);
         
-        File tempFile = File.createTempFile("xxx", "yyy", file.getParentFile());
-        
         parser.parse(file, preHandler);
         
+        // only migrate items and components
         if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
         {
             logger.info("Nothing to do for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
             return;
         }
+        // do nothing for items in public-status != released
+        if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
+        {
+            logger.info("Nothing to do for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
+            return;
+        }
         parser.parse(file, handler);
         
         String result = handler.getResult();
+        
+        File tempFile = File.createTempFile("xxx", "yyy", file.getParentFile());
         FileUtils.writeStringToFile(tempFile, result, "UTF-8");
         
         File bakFile = new File(file.getAbsolutePath() + ".bak");

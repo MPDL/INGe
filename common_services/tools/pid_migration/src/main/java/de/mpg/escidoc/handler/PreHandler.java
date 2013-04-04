@@ -60,7 +60,7 @@ public class PreHandler extends DefaultHandler
     private StringBuffer currentContent;
         
     public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL }
-    public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN }
+    public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN, UNKNOWN }
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -190,7 +190,7 @@ public class PreHandler extends DefaultHandler
         else if (publicStatus.equalsIgnoreCase("withdrawn"))
             return PublicStatus.WITHDRAWN;
         
-        return PublicStatus.PENDING;
+        return PublicStatus.UNKNOWN;
     }
     
     

@@ -26,23 +26,31 @@ public class PIDMigrationManagerTest
         //org.apache.log4j.BasicConfigurator.configure();
         
         // remove test files from previous tests
-        FileUtils.deleteDirectory(
-                new File("src/test/resources/item"));
-        FileUtils.deleteDirectory(
-                new File("src/test/resources/component"));
-        FileUtils.deleteDirectory(
-                new File("src/test/resources/context"));
-        FileUtils.deleteDirectory(
-                new File("src/test/resources/content-model"));
-        
-        FileUtils.copyDirectory(new File("src/test/resources/item_sav"), 
-                new File("src/test/resources/item"));
-        FileUtils.copyDirectory(new File("src/test/resources/component_sav"), 
-                new File("src/test/resources/component"));
-        FileUtils.copyDirectory(new File("src/test/resources/context_sav"), 
-                new File("src/test/resources/context"));
-        FileUtils.copyDirectory(new File("src/test/resources/content-model_sav"), 
-                new File("src/test/resources/content-model"));
+        try
+        {
+            FileUtils.deleteDirectory(
+                    new File("src/test/resources/item"));
+            FileUtils.deleteDirectory(
+                    new File("src/test/resources/component"));
+            FileUtils.deleteDirectory(
+                    new File("src/test/resources/context"));
+            FileUtils.deleteDirectory(
+                    new File("src/test/resources/content-model"));
+            
+            FileUtils.copyDirectory(new File("src/test/resources/item_sav"), 
+                    new File("src/test/resources/item"));
+            FileUtils.copyDirectory(new File("src/test/resources/component_sav"), 
+                    new File("src/test/resources/component"));
+            FileUtils.copyDirectory(new File("src/test/resources/context_sav"), 
+                    new File("src/test/resources/context"));
+            FileUtils.copyDirectory(new File("src/test/resources/content-model_sav"), 
+                    new File("src/test/resources/content-model"));
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error when preparing test resources " + e);
+            e.printStackTrace();
+        }
     }
     
     @Test
@@ -52,12 +60,14 @@ public class PIDMigrationManagerTest
         new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
+        new PIDMigrationManager(new File("src/test/resources/item/itemPublicStatusPending"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/item/itemPublicStatusPending")));
+        
         new PIDMigrationManager(new File("src/test/resources/component/escidoc_418001"));        
         assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));
     }
     
     @Test
-    @Ignore
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
@@ -80,7 +90,7 @@ public class PIDMigrationManagerTest
 
     private boolean checkAfterMigration(File file) throws Exception
     {
-        logger.debug("checkAfterMigration file " + file.getAbsolutePath());
+        logger.info("checkAfterMigration file " + file.getAbsolutePath());
         
         if (file != null && file.isFile())
         {

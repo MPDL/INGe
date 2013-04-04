@@ -37,12 +37,6 @@ public class AssertionHandler extends PIDHandler
         logger.debug("content      uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> content = <"
                 + content + ">");
         
-        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT) || content.contains(DUMMY_HANDLE)))
-        {
-            super.content(uri, localName, name, content);
-            return;
-        }
-        
         if (inObjectPid )
         {
             if (content.contains(DUMMY_HANDLE)) 
