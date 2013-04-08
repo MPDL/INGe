@@ -155,9 +155,7 @@ public class PreHandler extends DefaultHandler
     
     @Override
     public final void characters(char[] ch, int start, int length) throws SAXException
-    {
-        logger.debug("characters   start=<" + start + "> length = <" + length + ">");
-        
+    {       
         if (currentContent != null && inRelsExtAndPublicStatus)
         {
             currentContent.append(ch, start, length);
