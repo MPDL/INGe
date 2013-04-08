@@ -234,11 +234,20 @@
 		</MD-fetch-settings>
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://www.pubmedcentral.nih.gov/picrender.fcgi?artid=GETID%26blobtype=pdf</dc:identifier>
+				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
 				<name>pdf</name>
-				<encoding>*</encoding>
+				<encoding>UTF-8</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>XML</label>
+				<name>xml</name>
+				<encoding>UTF-8</encoding>
 				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>

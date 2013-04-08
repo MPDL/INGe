@@ -641,9 +641,9 @@ public class Util
             String line = "";
             while ((line = bReader.readLine()) != null)
             {
-                if (line.contains("<suffix>"))
+                if (line.contains("<escidoc:suffix>"))
                 {
-                    suffix = line.substring(line.indexOf("<suffix>") + "<suffix>".length(), line.indexOf("</suffix>"));
+                    suffix = line.substring(line.indexOf("<escidoc:suffix>") + "<escidoc:suffix>".length(), line.indexOf("</escidoc:suffix>"));
                 }
             }
             httpConn.disconnect();

@@ -84,7 +84,7 @@ import de.mpg.escidoc.services.transformation.transformations.commonPublicationF
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class Bibtex
+public class Bibtex implements BibtexInterface
 {
     private final Logger logger = Logger.getLogger(Bibtex.class);
     
@@ -93,10 +93,12 @@ public class Bibtex
     private Set<String> groupSet = null;
     private Set<String> projectSet = null;
 
+    
     /**
-     * Public constructor.
+     * sets the configuration-settings
+     * @param configuration
      */
-    public Bibtex(Map<String, String> configuration)
+    public void setConfiguration (Map<String, String> configuration)
     {
         this.configuration = configuration;
     }
@@ -434,17 +436,28 @@ public class Bibtex
                                 || bibGenre.equals(BibTexUtil.Genre.conference)))
                 {
                     EventVO event = new EventVO();
+                    boolean eventNotEmpty = false;
                     // event location
                     if (fields.get("location") != null)
                     {
                         event.setPlace(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("location").toString()), false)));
+                        eventNotEmpty = true;
                     }
                     // event name/title
                     if (fields.get("event_name") != null)
                     {
                         event.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("event_name").toString()), false)));
+                        eventNotEmpty = true;
                     }
-                    mds.setEvent(event);
+                    // event will be set only it's not empty
+                    if (eventNotEmpty == true)
+                    {
+                        if (event.getTitle() == null)
+                        {
+                            event.setTitle(new TextVO());
+                        }
+                        mds.setEvent(event);
+                    }
                 }
 
                 // year, month
@@ -552,11 +565,11 @@ public class Bibtex
                                     {
                                         String query = author.getTags().get("identifier");
                                         int affiliationsCount = Integer.parseInt(author.getTags().get("affiliationsCount"));
-                                        if (affiliationsCount > 0 || configuration.get(affiliation) != null)
+                                        if (affiliationsCount > 0 || configuration.get("OrganizationalUnit") != null)
                                         {
-                                            for (int ouCount = 0; ouCount < (affiliationsCount > 0 ? affiliationsCount : 1 ); ouCount++) // 1 is for the case configuration.get(affiliation) != null
+                                            for (int ouCount = 0; ouCount < (affiliationsCount > 0 ? affiliationsCount : 1 ); ouCount++) // 1 is for the case configuration.get("OrganizationalUnit") != null
                                             {
-                                                String organizationalUnit = (author.getTags().get("affiliation" + new Integer(ouCount).toString()) != null ? author.getTags().get("affiliation" + new Integer(ouCount).toString()) : (configuration.get(affiliation) != null ? configuration.get(affiliation) : ""));
+                                                String organizationalUnit = (author.getTags().get("affiliation" + new Integer(ouCount).toString()) != null ? author.getTags().get("affiliation" + new Integer(ouCount).toString()) : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
                                                 Node coneEntries = null;
                                                 if (query.equals(author.getTags().get("identifier")))
                                                 {

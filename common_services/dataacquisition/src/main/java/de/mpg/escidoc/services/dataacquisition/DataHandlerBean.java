@@ -27,11 +27,15 @@
  */
 package de.mpg.escidoc.services.dataacquisition;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -51,11 +55,20 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.naming.InitialContext;
 import javax.xml.rpc.ServiceException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.MimeConstants;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -690,6 +703,67 @@ public class DataHandlerBean implements DataHandler
 			{
 				this.logger.error("Could not transform BMC fulltext", e);
 			}
+		}
+		else if (this.currentSource.getName().equalsIgnoreCase("PubMedCentral")
+		        && fulltext.getFtFormat().equalsIgnoreCase("application/pdf"))
+		{
+		    Format from = new Format("pmc_fulltext_xml", "application/xml", "*");
+		    Format to = new Format("pmc_fulltext_xslfo", "text/xsl", "*");
+		    TransformationBean transformer = new TransformationBean();
+		    byte[] xslFo = null;
+		    try
+		    {
+		        xslFo = transformer.transform(input, from, to, "escidoc");
+		        
+		    }
+		    catch (Exception e)
+		    {
+		        this.logger.error("Could not transform PMC fulltext", e);
+		    }
+    		 // Step 1: Construct a FopFactory
+    		 // (reuse if you plan to render multiple documents!)
+    		 FopFactory fopFactory = FopFactory.newInstance();
+    
+    		 // Step 2: Set up output stream.
+    		 // Note: Using BufferedOutputStream for performance reasons (helpful with FileOutputStreams).
+    		 ByteArrayOutputStream outputPdf = new ByteArrayOutputStream();
+    
+    		 try 
+    		 {
+    		     // Step 3: Construct fop with desired output format
+    		     Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outputPdf);
+    
+    		     // Step 4: Setup JAXP using identity transformer
+    		     TransformerFactory factory = TransformerFactory.newInstance();
+    		     Transformer xmlTransformer = factory.newTransformer(); // identity transformer
+    
+    		     // Step 5: Setup input and output for XSLT transformation
+    		     // Setup input stream
+    		     Source src = new StreamSource((InputStream) (new ByteArrayInputStream(xslFo)));
+    
+    		     // Resulting SAX events (the generated FO) must be piped through to FOP
+    		     Result res = new SAXResult(fop.getDefaultHandler());
+    
+    		     // Step 6: Start XSLT transformation and FOP processing
+    		     xmlTransformer.transform(src, res);
+    		     input = outputPdf.toByteArray();
+    		 } 
+    		 catch (Exception e)
+    		 {
+    		     
+    		 }
+    		 finally 
+    		 {
+                //Clean-up
+                try
+                {
+                     outputPdf.close();
+                }
+                catch (IOException e)
+                {
+                    logger.error("Couldn't close outputPdf-Stream", e);
+                }
+    		 }
 		}
 
 		return input;

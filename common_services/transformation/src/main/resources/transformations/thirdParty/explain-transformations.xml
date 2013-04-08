@@ -50,6 +50,18 @@
 	</Transformation>
 	<Transformation>
 		<Source>
+			<Name>pmc_fulltext_xml</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>pmc_fulltext_xslfo</Name>
+			<Type>text/xsl</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
 			<Name>bmc</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>

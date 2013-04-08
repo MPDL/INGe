@@ -149,7 +149,7 @@ public class CommonTransformation
     {
         byte[] escidoc = null;
        
-        Bibtex bibtexTrans = new Bibtex(configuration);
+        BibtexInterface bibtexTrans = BibtexFactory.getBibtexImplementation(configuration);
         try
         {
             escidoc = bibtexTrans.getBibtex(new String(src)).getBytes("UTF-8");
