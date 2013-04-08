@@ -1,12 +1,16 @@
 package de.mpg.escidoc.main;
 
 import java.io.File;
+import java.io.IOException;
 
+import javax.naming.NamingException;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.handler.PIDHandler;
 import de.mpg.escidoc.handler.PreHandler;
@@ -67,18 +71,31 @@ public class PIDMigrationManager
         }
         parser.parse(file, handler);
         
+        if (!handler.isUpdateDone())
+        {
+            logger.info("No update done for file <" + file.getName() + ">");
+            return;
+        }
+        
         String result = handler.getResult();
         
         File tempFile = File.createTempFile("xxx", "yyy", file.getParentFile());
+        
         FileUtils.writeStringToFile(tempFile, result, "UTF-8");
-        
         File bakFile = new File(file.getAbsolutePath() + ".bak");
-        FileUtils.copyFile(file, bakFile, true);
-        
+        FileUtils.copyFile(file, bakFile, true);        
         FileUtils.copyFile(tempFile, file);
-        boolean b = bakFile.delete();    
-        logger.debug("after delete bak file " + b);
         
+        boolean b = bakFile.delete();
+        if (!b)
+        {
+            logger.warn("****************** Error when deleting " + bakFile.getName());
+        }
+        b = tempFile.delete();
+        if (!b)
+        {
+            logger.warn("****************** Error when deleting " + tempFile.getName());
+        }
         logger.info("****************** End transforming " + file.getName());
     }
     
