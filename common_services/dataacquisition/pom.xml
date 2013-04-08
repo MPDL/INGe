@@ -231,8 +231,8 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>avalon-framework</groupId>
-			<artifactId>avalon-framework-impl</artifactId>
+			<groupId>org.apache.avalon</groupId>
+ 			<artifactId>avalon-framework</artifactId>
 			<version>4.2.0</version>
 			<type>jar</type>
 		</dependency>
