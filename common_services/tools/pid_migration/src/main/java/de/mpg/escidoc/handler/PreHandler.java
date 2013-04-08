@@ -56,10 +56,12 @@ public class PreHandler extends DefaultHandler
     
     private boolean inRelsExt = false;
     private boolean inRelsExtAndPublicStatus = false;
+    // to get the publicStatus in the last RELS-EXT
+    private boolean lastRelsExtModified = false; 
     
     private StringBuffer currentContent;
         
-    public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL }
+    public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL, UNKNOWN }
     public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN, UNKNOWN }
     
     @Override
@@ -79,11 +81,16 @@ public class PreHandler extends DefaultHandler
             {
                 lastCreatedRelsExtTimestamp = createdString;
                 lastCreatedRelsExtId = attributes.getValue("ID");
+                lastRelsExtModified = true;
                 
                 logger.debug("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
             }
+            else
+            {
+                lastRelsExtModified = false;
+            }
         }
-        else if ("prop:public-status".equals(qName) && inRelsExt)
+        else if ("prop:public-status".equals(qName) && lastRelsExtModified)
         {
             inRelsExtAndPublicStatus = true;
         }
@@ -103,26 +110,32 @@ public class PreHandler extends DefaultHandler
             
             if (type != null )
             {
-                if (type.startsWith("Component"))
-                {
-                    objectType = Type.COMPONENT;
-                } 
-                else if (type.startsWith("Item"))
-                {
-                    objectType = Type.ITEM;
-                }
-                else if (type.startsWith("Context"))
-                {
-                    objectType = Type.CONTEXT;
-                }
-                else if (type.contains("Content"))
-                {
-                    objectType = Type.CONTENTMODEL;
-                }
+                getObjectType(type);
             }
         }
         
         currentContent = new StringBuffer();
+    }
+
+    private Type getObjectType(String type)
+    {
+        if (type.startsWith("Component"))
+        {
+            return objectType = Type.COMPONENT;
+        } 
+        else if (type.startsWith("Item"))
+        {
+            return objectType = Type.ITEM;
+        }
+        else if (type.startsWith("Context"))
+        {
+            return objectType = Type.CONTEXT;
+        }
+        else if (type.contains("Content"))
+        {
+            return objectType = Type.CONTENTMODEL;
+        }
+        return Type.UNKNOWN;
     }
 
     @Override
