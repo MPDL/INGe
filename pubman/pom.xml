@@ -779,6 +779,8 @@
 		<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 		<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
+		<!-- Transformation implementing classes-->
+		<escidoc.transformation.bibtex.class>de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<!-- Transformation stylesheets -->
 		<escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
 		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
@@ -794,6 +796,14 @@
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		<escidoc.transformation.marc.stylesheet.filename>transformations/standardFormats/xslt/marc.xsl</escidoc.transformation.marc.stylesheet.filename>
 		<escidoc.transformation.marc.configuration.filename>transformations/standardFormats/conf/marc.properties</escidoc.transformation.marc.configuration.filename>
+		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename></escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename>
+		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename></escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename>
+		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename></escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
+		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename></escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename>
+		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename></escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename>
+		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename></escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
+		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename></escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
+		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename></escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
 		<!-- AA -->
