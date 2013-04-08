@@ -1,28 +1,31 @@
 package de.mpg.escidoc.handler;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-
-import de.mpg.escidoc.main.PIDMigrationManagerTest;
 
 public class AssertionHandlerTest
 {
     private static Logger logger = Logger.getLogger(AssertionHandlerTest.class); 
     
     private static SAXParser parser;
-    private static PreHandler preHandler;
-    private static AssertionHandler assertionHandler;
+    private PreHandler preHandler;
+    private AssertionHandler assertionHandler;
     
     @BeforeClass
     static public void setUpBeforeClass() throws Exception
@@ -30,6 +33,11 @@ public class AssertionHandlerTest
         org.apache.log4j.BasicConfigurator.configure();
         
         parser = SAXParserFactory.newInstance().newSAXParser();
+    }
+    
+    @Before
+    public void setup() throws Exception
+    {
         preHandler = new PreHandler();
         assertionHandler = new AssertionHandler(preHandler);
     }
@@ -73,7 +81,7 @@ public class AssertionHandlerTest
             assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID));
         }
     }
-    
+
     @Test
     public void testFilesUncompleteMigration() throws IOException
     {
@@ -87,10 +95,10 @@ public class AssertionHandlerTest
         catch (SAXException e)
         {
             assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_OBJECT_PID));
-        }
-        
+        }        
        
     }
+    
     
     @Test
     public void testFilesFullMigration() throws IOException
@@ -106,5 +114,28 @@ public class AssertionHandlerTest
         {
             fail(e.getMessage());
         }
+    }
+    
+    @Test
+    public void testPattern() throws IOException
+    {
+        String s = "hdl:11858/00-001Z-0000-000E-50F3-0";
+        Pattern handlePattern = 
+                Pattern.compile("hdl:[0-9]{5}/[0-9]{2}-[0-9A-Z]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9]{1}");
+        Matcher m = handlePattern.matcher(s);
+        assertTrue(m.matches());
+        
+        s = "hdl:11858/00-001Z-0000-000E-50F3-X";
+        m = handlePattern.matcher(s);
+        assertFalse(m.matches());
+        
+        s = "hdl:12345/00-001Z-0000-000E-1111-1";
+        m = handlePattern.matcher(s);
+        assertTrue(m.matches());
+        
+        s = "hdl:someHandle/test/escidoc:1479027";
+        m = handlePattern.matcher(s);
+        assertFalse(m.matches());
+  
     }
 }
