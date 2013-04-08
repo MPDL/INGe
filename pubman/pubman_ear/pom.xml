@@ -371,7 +371,7 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-							<groupId>avalon-framework</groupId>
+							<groupId>org.apache.avalon</groupId>
 							<artifactId>avalon-framework</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
