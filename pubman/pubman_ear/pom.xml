@@ -372,7 +372,7 @@
 						</jarModule>
 						<jarModule>
 							<groupId>avalon-framework</groupId>
-							<artifactId>avalon-framework-impl</artifactId>
+							<artifactId>avalon-framework</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 					</modules>
