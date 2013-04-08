@@ -1,6 +1,7 @@
 package de.mpg.escidoc.handler;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
 
 import javax.naming.NamingException;
 
@@ -25,6 +26,9 @@ public class PIDHandler extends IdentityHandler
     protected boolean inObjectPid = false;
     protected boolean inVersionPidOrReleasePid = false;
     protected boolean inVersionHistoryPid = false;
+    
+    // flag indicating if a modify has taken place.
+    protected boolean updateDone = false;
     
     protected String versionAndReleasePid = "";
     
@@ -82,17 +86,11 @@ public class PIDHandler extends IdentityHandler
         logger.debug("content      uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> content = <"
                 + content + ">");
         
-        // fallback if pidcache isn't reachable, if (objectType != ITEM or COMPONENT), if object already has a real PID
+        // fallback if pidcache isn't reachable
         String oldContent = content;
         
-        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT) || content.contains(DUMMY_HANDLE)))
-        {
-            super.content(uri, localName, name, content);
-            return;
-        }
-        
         if (inObjectPid )
-        {
+        {            
             content = getPid(content, oldContent);
             inObjectPid = false;
         }
@@ -115,11 +113,22 @@ public class PIDHandler extends IdentityHandler
             inVersionHistoryPid = false;
         }
         
+        if (!content.equals(oldContent))
+        {
+            updateDone = true;
+        }
+        
         super.content(uri, localName, name, content );
     }
 
     private String getPid(String content, String oldContent)
     {
+        Matcher m = AssertionHandler.handlePattern.matcher(content);
+        if (m.matches())
+        {
+            return doReplace(content);
+        }
+        
         try
         {
             content = pidProvider.getPid();
@@ -160,5 +169,9 @@ public class PIDHandler extends IdentityHandler
         
         super.endElement(uri, localName, name);
     }
-
+    
+    public boolean isUpdateDone()
+    {
+        return updateDone;
+    }
 }
