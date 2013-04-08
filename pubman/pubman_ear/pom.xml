@@ -370,6 +370,11 @@
 							<artifactId>batik</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>avalon-framework</groupId>
+							<artifactId>avalon-framework-impl</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
