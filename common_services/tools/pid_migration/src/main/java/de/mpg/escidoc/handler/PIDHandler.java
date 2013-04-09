@@ -1,6 +1,8 @@
 package de.mpg.escidoc.handler;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 
 import javax.naming.NamingException;
@@ -13,6 +15,7 @@ import org.xml.sax.SAXException;
 import de.mpg.escidoc.handler.PreHandler.Type;
 import de.mpg.escidoc.main.PIDMigrationManager;
 import de.mpg.escidoc.main.PIDProviderIf;
+import de.mpg.escidoc.util.Util;
 
 public class PIDHandler extends IdentityHandler
 {
@@ -22,7 +25,7 @@ public class PIDHandler extends IdentityHandler
     private PIDMigrationManager pidMigrationManager;
     private PIDProviderIf pidProvider;
     
-    protected boolean inLastRelsExt = false;
+    protected boolean inRelsExt = false;
     protected boolean inObjectPid = false;
     protected boolean inVersionPidOrReleasePid = false;
     protected boolean inVersionHistoryPid = false;
@@ -30,17 +33,27 @@ public class PIDHandler extends IdentityHandler
     // flag indicating if a modify has taken place.
     protected boolean updateDone = false;
     
-    protected String versionAndReleasePid = "";
-    
     protected static final String DUMMY_HANDLE = "someHandle";
     
-    public PIDHandler(PreHandler preHandler) throws NamingException
+    protected Map<String, String> replaceMap = new HashMap<String, String>();
+    
+    public PIDHandler(PreHandler preHandler) throws Exception 
     {
         this.preHandler = preHandler;
-        this.pidProvider = new PIDProviderMock();
-       
+        
+        preHandler.getVersionNumber();
+        preHandler.getReleaseNumber();
+        preHandler.getEscidocId();
+        
+        this.init();       
+    }
+    
+    private void init() throws Exception
+    {
+        Class<?> pidProviderClass = Class.forName(Util.getProperty("escidoc.pidprovider.class"));
+        
+        this.pidProvider = (PIDProviderIf)pidProviderClass.newInstance();                
         this.pidProvider.init();
-       
     }
     
     public void setPIDMigrationManager(PIDMigrationManager mgr)
@@ -61,16 +74,16 @@ public class PIDHandler extends IdentityHandler
         
         super.startElement(uri, localName, name, attributes);
         
-        if ("foxml:datastreamVersion".equals(name) && preHandler.getLastCreatedRelsExtId() != null 
-                && preHandler.getLastCreatedRelsExtId().equals(attributes.getValue("ID")))
-        {
-            inLastRelsExt = true;
+        if (("foxml:datastream".equals(name) && "RELS-EXT".equals(attributes.getValue("ID"))))
+        { 
+            inRelsExt = true;
+            logger.debug(" startElement inRelsExt= " + inRelsExt);
         }
-        else if (inLastRelsExt && "prop:pid".equals(name))
+        else if (inRelsExt && "prop:pid".equals(name))
         {
             inObjectPid = true;
         }
-        else if (inLastRelsExt && ("version:pid".equals(name) || "release:pid".equals(name)))
+        else if (inRelsExt && ("version:pid".equals(name) || "release:pid".equals(name)))
         {
             inVersionPidOrReleasePid = true;
         }
@@ -91,25 +104,38 @@ public class PIDHandler extends IdentityHandler
         
         if (inObjectPid )
         {            
-            content = getPid(content, oldContent);
+            try
+            {
+                content = getPid(content);
+            }
+            catch (PIDProviderException e)
+            {
+                pidMigrationManager.onError(e);
+            }
             inObjectPid = false;
         }
         else if (inVersionPidOrReleasePid)
         {
-            if ("".equals(versionAndReleasePid))
+            try
             {
-                content = getPid(content, oldContent);
-                versionAndReleasePid = content;
+                content = getPid(content);
             }
-            else
+            catch (PIDProviderException e)
             {
-                content = versionAndReleasePid;
+                pidMigrationManager.onError(e);
             }
             inVersionPidOrReleasePid = false;
-        } 
+        }
         else if (inVersionHistoryPid)
         {          
-            content = versionAndReleasePid;
+            try
+            {
+                content = getPid(content);
+            }
+            catch (PIDProviderException e)
+            {
+                pidMigrationManager.onError(e);
+            }
             inVersionHistoryPid = false;
         }
         
@@ -121,32 +147,46 @@ public class PIDHandler extends IdentityHandler
         super.content(uri, localName, name, content );
     }
 
-    private String getPid(String content, String oldContent)
+    private String getPid(String content) throws PIDProviderException
     {
         Matcher m = AssertionHandler.handlePattern.matcher(content);
+        // already a real pid
         if (m.matches())
         {
-            return doReplace(content);
+            return content;
         }
         
+        // pid attribute has already been requested
+        if (replaceMap.get(content) != null)
+        {
+            return replaceMap.get(content);
+        }
+        
+        // pid has to be requested
         try
         {
+            String oldContent = content;
+            
             content = pidProvider.getPid();
             content = doReplace(content);
+            replaceMap.put(oldContent, content);
         }
         catch (HttpException e)
         {
             logger.warn("Error getting PID for content <" + content + ">", e);
-            return oldContent;
+            throw new PIDProviderException(e);
         }
         catch (IOException e)
         {
             logger.warn("Error getting PID for content <" + content + ">", e);
-            return oldContent;
+            throw new PIDProviderException(e);
         }
         return content;
     }
-    
+
+    // helper method to treat the following cases:
+    // if a PID is fetched from PidCache Service, a plain PID without prefix hdl: is returned. If already a PID is available in the content parameter, 
+    // the content already starts with the prefix.
     private String doReplace(String content)
     {
         if (content == null || "".equals(content))
@@ -162,9 +202,9 @@ public class PIDHandler extends IdentityHandler
     public void endElement(String uri, String localName, String name) throws SAXException
     {
         logger.debug("endElement   uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> ");
-        if ("foxml:datastreamVersion".equals(name))
+        if ("foxml:datastream".equals(name))
         {
-            inLastRelsExt = false;
+            inRelsExt = false;
         } 
         
         super.endElement(uri, localName, name);

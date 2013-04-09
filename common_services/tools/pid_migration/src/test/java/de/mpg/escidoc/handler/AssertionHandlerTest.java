@@ -15,7 +15,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -30,7 +29,7 @@ public class AssertionHandlerTest
     @BeforeClass
     static public void setUpBeforeClass() throws Exception
     {
-        org.apache.log4j.BasicConfigurator.configure();
+        //org.apache.log4j.BasicConfigurator.configure();
         
         parser = SAXParserFactory.newInstance().newSAXParser();
     }
@@ -120,8 +119,8 @@ public class AssertionHandlerTest
     public void testPattern() throws IOException
     {
         String s = "hdl:11858/00-001Z-0000-000E-50F3-0";
-        Pattern handlePattern = 
-                Pattern.compile("hdl:[0-9]{5}/[0-9]{2}-[0-9A-Z]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9]{1}");
+        Pattern handlePattern = AssertionHandler.handlePattern;
+                
         Matcher m = handlePattern.matcher(s);
         assertTrue(m.matches());
         

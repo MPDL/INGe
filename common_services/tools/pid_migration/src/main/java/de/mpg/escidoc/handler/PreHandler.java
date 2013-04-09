@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.handler;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -56,10 +59,15 @@ public class PreHandler extends DefaultHandler
     
     private boolean inRelsExt = false;
     private boolean inRelsExtAndPublicStatus = false;
-    // to get the publicStatus in the last RELS-EXT
-    private boolean lastRelsExtModified = false; 
+    private boolean inRelsExtAndVersionStatus = false;
+    private boolean inRelsExtAndReleaseNumber = false;
+    private boolean inRelsExtAndVersionNumber = false;
     
+    private Map<String, String> attributeMap = new HashMap<String, String>();
+   
     private StringBuffer currentContent;
+
+    
         
     public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL, UNKNOWN }
     public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN, UNKNOWN }
@@ -77,22 +85,29 @@ public class PreHandler extends DefaultHandler
         else if ("foxml:datastreamVersion".equals(qName) && inRelsExt)
         {
             String createdString = attributes.getValue("CREATED");
-            if (createdString != null && createdString.compareTo(lastCreatedRelsExtTimestamp) > 0)
+            if (createdString != null && createdString.compareTo(lastCreatedRelsExtTimestamp) > 0 && !publicStatus.equals("released"))
             {
                 lastCreatedRelsExtTimestamp = createdString;
                 lastCreatedRelsExtId = attributes.getValue("ID");
-                lastRelsExtModified = true;
                 
                 logger.debug("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
             }
-            else
-            {
-                lastRelsExtModified = false;
-            }
         }
-        else if ("prop:public-status".equals(qName) && lastRelsExtModified)
+        else if ("prop:public-status".equals(qName) && inRelsExt)
         {
             inRelsExtAndPublicStatus = true;
+        }
+        else if ("version:status".equals(qName) && inRelsExt)
+        {
+            inRelsExtAndVersionStatus = true;
+        }
+        else if ("release:number".equals(qName) && inRelsExt)
+        {
+            inRelsExtAndReleaseNumber = true;
+        }
+        else if ("version:number".equals(qName) && inRelsExt)
+        {
+            inRelsExtAndVersionNumber = true;
         }
         else if ("escidocVersions:pid".equals(qName))
         {
@@ -112,6 +127,13 @@ public class PreHandler extends DefaultHandler
             {
                 getObjectType(type);
             }
+        }
+        // escidoc id
+        else if ("foxml:digitalObject".equals(qName))
+        {
+            String id = attributes.getValue("PID");
+            
+            attributeMap.put("id", id);
         }
         
         currentContent = new StringBuffer();
@@ -145,63 +167,118 @@ public class PreHandler extends DefaultHandler
         if ("foxml:datastream".equals(qName))
         {
             inRelsExt = false;
-        }
-        if ("prop:public-status".equals(qName))
+        } 
+        else if ("prop:public-status".equals(qName))
         {
             inRelsExtAndPublicStatus = false;
+        }
+        else if ("version:status".equals(qName))
+        {
+            inRelsExtAndVersionStatus = false;
+        }
+        else if ("release:number".equals(qName))
+        {
+            inRelsExtAndReleaseNumber = false;
+        }
+        else if ("version:number".equals(qName))
+        {
+            inRelsExtAndVersionNumber = false;
         }
         currentContent = null;
     }
     
     @Override
     public final void characters(char[] ch, int start, int length) throws SAXException
-    {       
-        if (currentContent != null && inRelsExtAndPublicStatus)
+    {   
+        if (currentContent == null)
+            return;
+        if (inRelsExtAndPublicStatus)
         {
             currentContent.append(ch, start, length);
-            publicStatus = currentContent.toString();
-            logger.info("publicStatus =<" + publicStatus + ">");
-        }        
+            attributeMap.put("prop:public-status", currentContent.toString());
+            logger.debug("publicStatus =<" + publicStatus + ">");
+        }  
+        else if (inRelsExtAndVersionStatus)
+        {
+            currentContent.append(ch, start, length);
+            attributeMap.put("version:status", currentContent.toString());
+            logger.debug("versionStatus =<" + currentContent.toString() + ">");
+        }    
+        else if (inRelsExtAndReleaseNumber)
+        {
+            currentContent.append(ch, start, length);
+            attributeMap.put("release:number", currentContent.toString());
+            logger.debug("releaseNumber =<" + currentContent.toString() + ">");
+        }  
+        else if (inRelsExtAndVersionNumber)
+        {
+            currentContent.append(ch, start, length);
+            attributeMap.put("version:number", currentContent.toString());
+            logger.debug("versionNumber =<" + currentContent.toString() + ">");
+        }    
     }
 
     public String getLastCreatedRelsExtId()
     {
-        logger.info("getLastCreatedRelsExtId returning = " + lastCreatedRelsExtId);        
+        logger.debug("getLastCreatedRelsExtId returning = " + lastCreatedRelsExtId);        
         return lastCreatedRelsExtId;
     }
     
     public String getLastCreatedRelsExtTimestamp()
     {
-        logger.info("getLastCreatedRelsExtTimestamp returning = " + lastCreatedRelsExtTimestamp);        
+        logger.debug("getLastCreatedRelsExtTimestamp returning = " + lastCreatedRelsExtTimestamp);        
         return lastCreatedRelsExtTimestamp;
     }
     
     public String getLastVersionHistoryTimestamp()
     {
-        logger.info("getLastVersionHistoryTimestamp returning = " + lastVersionHistoryTimeStamp);        
+        logger.debug("getLastVersionHistoryTimestamp returning = " + lastVersionHistoryTimeStamp);        
         return lastVersionHistoryTimeStamp;
     }
     
     public Type getObjectType()
     {
-        logger.info("getObjectType returning = " + objectType);        
+        logger.debug("getObjectType returning = " + objectType);        
         return objectType;
     }
     
     public PublicStatus getPublicStatus()
     {
-        logger.info("getPublicStatus returning = " + publicStatus);  
-        
-        if (publicStatus.equalsIgnoreCase("pending"))
-            return PublicStatus.PENDING;
-        else if (publicStatus.equalsIgnoreCase("submitted"))
-            return PublicStatus.SUBMITTED;
-        else if (publicStatus.equalsIgnoreCase("released"))
+        return getStatus("prop:public-status");
+    }
+    
+    public PublicStatus getVersionStatus()
+    {
+        return getStatus("version:status");
+    }
+
+    private PublicStatus getStatus(String key)
+    {
+        if (attributeMap.get(key).equals("released"))
             return PublicStatus.RELEASED;
-        else if (publicStatus.equalsIgnoreCase("withdrawn"))
+        else if (attributeMap.get(key).equals("pending"))
+            return PublicStatus.PENDING;
+        else if (attributeMap.get(key).equals("submitted"))
+            return PublicStatus.SUBMITTED;
+        else if (attributeMap.get(key).equals("withdrawn"))
             return PublicStatus.WITHDRAWN;
         
         return PublicStatus.UNKNOWN;
+    }
+    
+    public String getReleaseNumber()
+    {
+        return attributeMap.get("release:number") != null ? attributeMap.get("release:number") : "";
+    }
+    
+    public String getVersionNumber()
+    {
+        return attributeMap.get("version:number") != null ? attributeMap.get("version:number") : "";
+    }
+    
+    public String getEscidocId()
+    {
+        return attributeMap.get("id");
     }
     
     

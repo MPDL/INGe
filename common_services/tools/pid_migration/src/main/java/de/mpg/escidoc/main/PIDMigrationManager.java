@@ -9,6 +9,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.handler.PIDHandler;
+import de.mpg.escidoc.handler.PIDProviderException;
+import de.mpg.escidoc.handler.PIDProviderMock;
 import de.mpg.escidoc.handler.PreHandler;
 import de.mpg.escidoc.handler.PreHandler.PublicStatus;
 import de.mpg.escidoc.handler.PreHandler.Type;
@@ -57,12 +59,14 @@ public class PIDMigrationManager
         if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
         {
             logger.info("Nothing to do for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
+            logger.info("****************** End transforming " + file.getName());
             return;
         }
         // do nothing for items in public-status != released
         if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
         {
             logger.info("Nothing to do for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
+            logger.info("****************** End transforming " + file.getName());
             return;
         }
         parser.parse(file, handler);
@@ -70,6 +74,7 @@ public class PIDMigrationManager
         if (!handler.isUpdateDone())
         {
             logger.info("No update done for file <" + file.getName() + ">");
+            logger.info("****************** End transforming " + file.getName());
             return;
         }
         
@@ -85,14 +90,20 @@ public class PIDMigrationManager
         boolean b = bakFile.delete();
         if (!b)
         {
-            logger.warn("****************** Error when deleting " + bakFile.getName());
+            logger.warn("Error when deleting " + bakFile.getName());
         }
         b = tempFile.delete();
         if (!b)
         {
-            logger.warn("****************** Error when deleting " + tempFile.getName());
+            logger.warn("Error when deleting " + tempFile.getName());
         }
         logger.info("****************** End transforming " + file.getName());
+    }
+    
+    public void onError(PIDProviderException e)
+    {
+        logger.warn("Error getting PID ", e);
+        System.exit(1);
     }
     
     public static void main(String[] args) throws Exception
@@ -106,5 +117,7 @@ public class PIDMigrationManager
         PIDMigrationManager pidMigr = new PIDMigrationManager(rootDir);
         
     }
+
+    
     
 }

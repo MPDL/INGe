@@ -38,6 +38,10 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-03-05T13:06:27.236Z"));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(PublicStatus.RELEASED));
+        assertTrue(preHandler.getVersionStatus().equals(PublicStatus.RELEASED));
+        assertTrue(preHandler.getReleaseNumber().equals("5"));
+        assertTrue(preHandler.getVersionNumber().equals("5"));
+        assertTrue(preHandler.getEscidocId().equals("escidoc:1479027"));
         
         file = new File("src/test/resources/item_sav/itemReleasedOnce");
         
@@ -49,6 +53,10 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-03-13T09:39:43.050Z"));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(PublicStatus.RELEASED));
+        assertTrue(preHandler.getVersionStatus().equals(PublicStatus.RELEASED));
+        assertTrue(preHandler.getReleaseNumber().equals("1"));
+        assertTrue(preHandler.getVersionNumber().equals("1"));
+        assertTrue(preHandler.getEscidocId().equals("escidoc:1648303"));
         
         file = new File("src/test/resources/item_sav/itemPublicStatusPending");
         
@@ -60,6 +68,25 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastVersionHistoryTimestamp().equals(""));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(PublicStatus.PENDING));
+        assertTrue(preHandler.getVersionStatus().equals(PublicStatus.PENDING));
+        assertTrue(preHandler.getReleaseNumber().equals(""));
+        assertTrue(preHandler.getVersionNumber().equals("1"));       
+        assertTrue(preHandler.getEscidocId().equals("escidoc:1648168"));
+        
+        file = new File("src/test/resources/item_sav/itemReleasedTwiceNowSubmitted");
+        
+        preHandler = new PreHandler();
+        parser.parse(file, preHandler);
+        
+        assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.23"));
+        assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-04-08T11:39:23.429Z"));
+        assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-04-08T11:38:20.443Z"));
+        assertTrue(preHandler.getObjectType().equals(Type.ITEM));
+        assertTrue(preHandler.getPublicStatus().equals(PublicStatus.RELEASED));
+        assertTrue(preHandler.getVersionStatus().equals(PublicStatus.SUBMITTED));
+        assertTrue(preHandler.getReleaseNumber().equals("2"));
+        assertTrue(preHandler.getVersionNumber().equals("3"));
+        assertTrue(preHandler.getEscidocId().equals("escidoc:1647170"));
     }
     
     @Test

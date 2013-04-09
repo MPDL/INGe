@@ -17,7 +17,7 @@ public class PIDProviderTest
     @Test
     public void getPid()
     {
-        int i = 0;
+        int i = 1;
         String pid = null;
         
         do
@@ -37,10 +37,10 @@ public class PIDProviderTest
     
         assertTrue(pid != null && pid.startsWith("hdl:1234"));
         
-        if (i % 2 == 0)
-            assertTrue(pid.endsWith("2222-2"));
-        else
+        if (i % 10 == 1)
             assertTrue(pid.endsWith("1111-1"));
+        else if (i % 10 == 2)
+            assertTrue(pid.endsWith("2222-2"));
         } while (i++ < 20);
 
     }

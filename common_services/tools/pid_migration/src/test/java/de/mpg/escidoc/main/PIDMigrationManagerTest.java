@@ -67,7 +67,7 @@ public class PIDMigrationManagerTest
         assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));
     }
     
-    @Test
+    @Test 
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
@@ -82,6 +82,7 @@ public class PIDMigrationManagerTest
     @Ignore
     public void transformQa() throws Exception
     {
+        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
         FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/2013_sav"), 
                 new File("C:/Test/qa-coreservice/2013"));
         new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        
@@ -90,8 +91,7 @@ public class PIDMigrationManagerTest
 
     private boolean checkAfterMigration(File file) throws Exception
     {
-        logger.info("checkAfterMigration file " + file.getAbsolutePath());
-        
+        logger.info("checkAfterMigration file <" + file.getName() + ">");
         if (file != null && file.isFile())
         {
             SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
@@ -116,17 +116,16 @@ public class PIDMigrationManagerTest
             }
             else
             {
+                logger.info("checkAfterMigration file <" + f.getName() + ">");
                 SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
                 PreHandler preHandler = new PreHandler();
                 AssertionHandler assertionHandler = new AssertionHandler(preHandler);
                 
                 parser.parse(f, preHandler);
                 parser.parse(f, assertionHandler);
-                
-                return true;
             }
         }
         
-        return false;
+        return true;
     }
 }

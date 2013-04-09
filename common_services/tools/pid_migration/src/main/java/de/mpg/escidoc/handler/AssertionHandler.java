@@ -32,7 +32,7 @@ public class AssertionHandler extends PIDHandler
     private static Logger logger = Logger.getLogger(AssertionHandler.class);
     
     
-    public AssertionHandler(PreHandler preHandler) throws NamingException
+    public AssertionHandler(PreHandler preHandler) throws Exception
     {
         super(preHandler);
     }
@@ -56,24 +56,18 @@ public class AssertionHandler extends PIDHandler
         }
         else if (inVersionPidOrReleasePid)
         {
-            if ("".equals(versionAndReleasePid))
-            {
+            
                 if (content.contains(DUMMY_HANDLE) || !m.matches())
                 {
                     logger.warn("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID);
                     throw new SAXException("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID);
                 }                   
-                versionAndReleasePid = content;
-            }
-            else
-            {
-                content = versionAndReleasePid;
-            }
+                
             inVersionPidOrReleasePid = false;
         } 
         else if (inVersionHistoryPid)
         {          
-            if (content.contains(DUMMY_HANDLE) || !content.equals(versionAndReleasePid) || !m.matches())
+            if (content.contains(DUMMY_HANDLE) || !m.matches())
             {
                 logger.warn("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_HISTORY);
                 throw new SAXException("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_HISTORY);
