@@ -53,7 +53,8 @@ public class AssertionHandlerTest
         }
         catch (SAXException e)
         {
-            assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID));
+            assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID)
+                    || e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_OBJECT_PID));
         }
         
         f = new File("src/test/resources/component_sav/escidoc_418001");
@@ -65,7 +66,8 @@ public class AssertionHandlerTest
         }
         catch (SAXException e)
         {
-            assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID));
+            assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID)
+                    || e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_OBJECT_PID));
         }
         
         f = new File("src/test/resources/item_sav/itemReleasedOnce");
@@ -77,7 +79,8 @@ public class AssertionHandlerTest
         }
         catch (SAXException e)
         {
-            assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID));
+            assertTrue(e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID)
+                    || e.getMessage().contains(AssertionHandler.DUMMY_HANDLE_FOUND_FOR_OBJECT_PID));
         }
     }
 
