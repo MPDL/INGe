@@ -25,7 +25,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.66-SNAPSHOT</version>
+	<version>1.0.66</version>
 	<name>common_services</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
@@ -241,9 +241,9 @@
 		<module>transformationLight</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.66</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.66</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.66</url>
 	</scm>
 	<repositories>
 		<repository>
@@ -594,7 +594,7 @@
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
 		<!-- Seal-Number of this PubMan instance -->
-		<escidoc.pubman.instance.seal_number/>
+		<escidoc.pubman.instance.seal_number />
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
