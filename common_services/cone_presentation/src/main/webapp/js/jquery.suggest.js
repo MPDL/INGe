@@ -239,7 +239,7 @@
 				var html = '';
 				for (var i = 0; i < items.length; i++) {
 					if(items[i][1].type && items[i][1].type == 'main') {
-						html += '<li style="background-color:#E0E0E0;"><span style="font-weight:bold">' + items[i][0] + '</span></li>';
+						html += '<li style="background-color:#E0E0E0;"><span style="font-weight:bold;">' + items[i][0] + '</span></li>';
 					}
 					else if(items[i][1].type && items[i][1].type == 'alt') {
 						html += '<li><span style="padding-left:12px;">' + items[i][0] + '</span></li>';
