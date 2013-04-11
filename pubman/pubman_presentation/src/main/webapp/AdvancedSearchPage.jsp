@@ -42,7 +42,7 @@
 				
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-
+				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<meta http-equiv="cache-control" content="no-cache" />
 				<meta http-equiv="Pragma" content="no-cache" />
