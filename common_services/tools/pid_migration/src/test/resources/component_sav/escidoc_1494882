@@ -52,7 +52,7 @@
 			<foxml:xmlContent>
 				<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 					<rdf:Description rdf:about="info:fedora/escidoc:1494882">
-						<prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1494882</prop:pid>
+						<prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:12345/00-001Z-0000-000E-2222-2</prop:pid>
 						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
 						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
 						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1444597"/>

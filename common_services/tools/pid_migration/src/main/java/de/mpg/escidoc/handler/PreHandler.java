@@ -251,6 +251,11 @@ public class PreHandler extends DefaultHandler
     {
         return getStatus("version:status");
     }
+    
+    public String getTitle()
+    {
+        return null;
+    }
 
     private PublicStatus getStatus(String key)
     {

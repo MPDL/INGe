@@ -53,14 +53,19 @@ public class PIDProvider implements PIDProviderIf
         logger.debug("getPid starting");
         
         int code;
-        String url = location + "/write/create";
+        String registerUrl = "";
+        String pidCacheUrl = location + "/write/create";
         
-        PostMethod method = new PostMethod(url);
+        PostMethod method = new PostMethod(pidCacheUrl);
         
-        //String server = Util.getProperty("escidoc.pubman.instance.url");
-        String registerUrl =  Util.getProperty("escidoc.pubman.instance.url") +
-                Util.getProperty("escidoc.pubman.instance.context.path") +
-                Util.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", escidocId);
+        if (type.equals(Type.ITEM))
+        {
+            registerUrl = getRegisterUrlForItem(escidocId);
+        }
+        else if (type.equals(Type.COMPONENT))
+        {
+            registerUrl = getRegisterUrlForComponent(escidocId);
+        }
         
         method.setParameter("url", registerUrl);
         method.setDoAuthentication(true);
@@ -75,5 +80,20 @@ public class PIDProvider implements PIDProviderIf
         }
         logger.info("pid create returning " + method.getResponseBodyAsString());
         return pid;
+    }
+
+    private String getRegisterUrlForItem(String escidocId)
+    {
+        //String server = Util.getProperty("escidoc.pubman.instance.url");
+        String registerUrl =  Util.getProperty("escidoc.pubman.instance.url") +
+                Util.getProperty("escidoc.pubman.instance.context.path") +
+                Util.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", escidocId);
+        return registerUrl;
+    }
+    
+    private String getRegisterUrlForComponent(String escidocId)
+    {
+        String sqlQuery = "select s from t38 where o = '<info:fedora/escidoc:376288>'";
+        return null;
     }
 }
