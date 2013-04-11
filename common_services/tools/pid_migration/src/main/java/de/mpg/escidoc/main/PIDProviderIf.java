@@ -6,9 +6,11 @@ import javax.naming.NamingException;
 
 import org.apache.commons.httpclient.HttpException;
 
+import de.mpg.escidoc.handler.PreHandler.Type;
+
 public interface PIDProviderIf
 {
-    public String getPid() throws HttpException, IOException;
+    public String getPid(String escidocId, Type type) throws HttpException, IOException;
 
     public void init() throws NamingException;
 }

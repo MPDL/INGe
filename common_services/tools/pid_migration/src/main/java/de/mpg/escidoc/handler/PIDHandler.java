@@ -167,7 +167,7 @@ public class PIDHandler extends IdentityHandler
         {
             String oldContent = content;
             
-            content = pidProvider.getPid();
+            content = pidProvider.getPid(preHandler.getEscidocId(), preHandler.getObjectType());
             content = doReplace(content);
             replaceMap.put(oldContent, content);
         }

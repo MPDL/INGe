@@ -5,18 +5,20 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import javax.naming.NamingException;
+
 import org.apache.commons.httpclient.HttpException;
 import org.junit.Test;
 
+import de.mpg.escidoc.handler.PreHandler.Type;
 import de.mpg.escidoc.main.PIDProviderIf;
 
 public class PIDProviderTest
-{
-    PIDProviderIf pidProvider = new PIDProviderMock();
-    
+{    
     @Test
     public void getPid()
     {
+        PIDProviderIf pidProvider = new PIDProviderMock();
         int i = 1;
         String pid = null;
         
@@ -24,7 +26,7 @@ public class PIDProviderTest
         {
         try
         {
-            pid = pidProvider.getPid();
+            pid = pidProvider.getPid("xx", Type.UNKNOWN);
         }
         catch (HttpException e)
         {
@@ -43,5 +45,29 @@ public class PIDProviderTest
             assertTrue(pid.endsWith("2222-2"));
         } while (i++ < 20);
 
+    }
+    
+    @Test
+    public void getPidForItem() throws NamingException
+    {
+        PIDProviderIf pidProvider = new PIDProvider();
+        int i = 1;
+        String pid = null;
+        
+        try
+        {
+            pid = pidProvider.getPid("escidoc:206185", Type.ITEM);
+        }
+        catch (HttpException e)
+        {
+            fail(e.getMessage());
+        }
+        catch (IOException e)
+        {
+            fail(e.getMessage());
+        }
+    
+        assertTrue(pid != null);
+        
     }
 }

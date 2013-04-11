@@ -17,6 +17,7 @@ import de.mpg.escidoc.main.PIDMigrationManagerTest;
                     PreHandlerTest.class, 
                     AssertionHandlerTest.class,
                     PIDHandlerTest.class,
+                    PIDProviderTest.class,
                     PIDMigrationManagerTest.class                    
                     })
 public class AllTests
