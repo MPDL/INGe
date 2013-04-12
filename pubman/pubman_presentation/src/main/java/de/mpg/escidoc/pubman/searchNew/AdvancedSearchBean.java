@@ -497,7 +497,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		Integer position = Integer.parseInt(params.get("indexOfCriterion"));
 		//String sc = params.get("typeOfCriterion");
 		//logger.info("TypeOfCriterion:" + sc);
-		logger.info("Old criterion list:" + criterionList);
+		//logger.info("Old criterion list:" + criterionList);
 		
 		//Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
 		
@@ -517,7 +517,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 			}
 			copyValuesFromOldToNew(oldSearchCriterion, newSearchCriterion);
 			criterionList.add(position, newSearchCriterion);
-			logger.info("New criterion list:" + criterionList);
+			//logger.info("New criterion list:" + criterionList);
 		}
 		
 		
