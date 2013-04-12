@@ -39,10 +39,12 @@ public class TitleSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.publication.title"};
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.TITLE;
 	}
+	*/
 
 	
 

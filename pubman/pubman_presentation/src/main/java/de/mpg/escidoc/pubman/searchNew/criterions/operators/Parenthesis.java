@@ -82,10 +82,12 @@ public class Parenthesis extends SearchCriterionBase {
 		this.partnerParenthesis = partnerParenthesis;
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return searchCriterion;
 	}
+	*/
 	
 	
 

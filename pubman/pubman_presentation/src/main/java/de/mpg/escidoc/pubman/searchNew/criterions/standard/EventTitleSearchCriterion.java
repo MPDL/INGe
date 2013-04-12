@@ -38,9 +38,11 @@ public class EventTitleSearchCriterion extends StandardSearchCriterion {
 		return new String[]{"escidoc.any-event"};
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.EVENT;
 	}
+	*/
 
 }

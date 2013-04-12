@@ -41,10 +41,12 @@ public class DegreeSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.publication.degree"};
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.DEGREE;
 	}
+	*/
 
 
 	

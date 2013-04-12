@@ -71,10 +71,12 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 		this.withEmbargoDate = withEmbargoDate;
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.EMBARGO_DATE_AVAILABLE;
 	}
+	*/
 	
 	
 

@@ -79,11 +79,12 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
 	}
 	
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.COMPONENT_VISIBILITY_LIST;
 	}
-	
+	*/
 	@Override
 	public String[] getCqlIndexes() {
 		

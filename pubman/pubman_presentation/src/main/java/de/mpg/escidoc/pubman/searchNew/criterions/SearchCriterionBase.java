@@ -220,7 +220,15 @@ public abstract class SearchCriterionBase implements Serializable{
 
 	public SearchCriterionBase()
 	{
-		
+		//Find the Enum which belongs to this class
+		for(SearchCriterion sc : SearchCriterion.values())
+		{
+			if(sc.getRelatedClass() == this.getClass())
+			{
+				this.setSearchCriterion(sc);
+				break;
+			}
+		}
 	}
 	
 	public SearchCriterionBase(SearchCriterion type)
@@ -231,10 +239,14 @@ public abstract class SearchCriterionBase implements Serializable{
 	
 	public void setSearchCriterion(SearchCriterion sc)
 	{
+		logger.info("Set search criterion "+ this.hashCode() +" from " + this.searchCriterion + " to: " + sc);
 		this.searchCriterion = sc;
 	}
 	
-	public abstract SearchCriterion getSearchCriterion();
+	public SearchCriterion getSearchCriterion()
+	{
+		return this.searchCriterion;
+	}
 	
 
 	public String getQueryValue() {
@@ -256,7 +268,9 @@ public abstract class SearchCriterionBase implements Serializable{
 			try {
 			    Constructor ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
 			    ctor.setAccessible(true);
-				return (SearchCriterionBase)ctor.newInstance(sc);
+				SearchCriterionBase scb = (SearchCriterionBase)ctor.newInstance(sc);
+				scb.setSearchCriterion(sc);
+			    return scb;
 				
 			} catch (Exception e) 
 			{
@@ -842,6 +856,17 @@ public abstract class SearchCriterionBase implements Serializable{
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	
+	@Override
+	public String toString()
+	{
+		try {
+			return "(" + this.hashCode() + ") " + toQueryString();
+		} catch (Exception e) {
+			return "(" + this.hashCode() + ") " + getSearchCriterion().name();
+		}
 	}
 	
 	

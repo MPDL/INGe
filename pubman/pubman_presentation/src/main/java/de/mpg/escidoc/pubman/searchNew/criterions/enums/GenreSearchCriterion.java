@@ -48,10 +48,12 @@ public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {
 		return new String[] {"escidoc.publication.type"};
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.GENRE;
 	}
+	*/
 
 	@Override
 	public String getSearchString(Genre selectedEnum) {

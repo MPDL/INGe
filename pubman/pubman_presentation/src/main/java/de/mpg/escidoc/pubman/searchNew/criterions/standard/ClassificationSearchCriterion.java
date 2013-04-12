@@ -35,6 +35,9 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCrit
 
 public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
+	
+	private String classificationType;
+	
 	public ClassificationSearchCriterion() {
 		
 	}
@@ -43,11 +46,21 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 	public String[] getCqlIndexes() {
 		return new String[] {"escidoc.publication.subject"};
 	}
+
+	public String getClassificationType() {
+		return classificationType;
+	}
+
+	public void setClassificationType(String classificationType) {
+		this.classificationType = classificationType;
+	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.CLASSIFICATION;
 	}
+	*/
 
 
 	

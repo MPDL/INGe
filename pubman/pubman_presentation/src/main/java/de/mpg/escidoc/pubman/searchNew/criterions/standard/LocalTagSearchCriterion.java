@@ -42,10 +42,12 @@ public class LocalTagSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.property.content-model-specific.local-tags.local-tag"};
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.LOCAL;
 	}
+	*/
 
 	
 

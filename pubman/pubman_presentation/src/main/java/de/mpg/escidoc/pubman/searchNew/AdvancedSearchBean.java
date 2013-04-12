@@ -53,6 +53,7 @@ import javax.faces.render.ResponseStateManager;
 import javax.naming.InitialContext;
 
 import org.ajax4jsf.config.FacesConfig;
+import org.ajax4jsf.event.AjaxEvent;
 import org.ajax4jsf.model.KeepAlive;
 import org.apache.axis.utils.URLHashSet;
 import org.apache.log4j.Logger;
@@ -74,6 +75,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -82,7 +84,6 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
-@KeepAlive
 public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private static Logger logger = Logger.getLogger(AdvancedSearchBean.class);
@@ -439,7 +440,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	
 
-	
+	/*
 	public void changeCriterion(ValueChangeEvent evt)
 	{
 		
@@ -459,6 +460,64 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 				possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
 			}
 			criterionList.add(position, newSearchCriterion);
+			logger.info("New criterion list:" + criterionList);
+		}
+		
+		
+		
+	}
+	
+	*/
+	
+	
+	public void copyValuesFromOldToNew(SearchCriterionBase oldSc, SearchCriterionBase newSc)
+	{
+		if(oldSc instanceof PersonSearchCriterion && newSc instanceof PersonSearchCriterion)
+		{
+			((PersonSearchCriterion) newSc).setSearchString(((PersonSearchCriterion)oldSc).getSearchString());
+			((PersonSearchCriterion) newSc).setHiddenId(((PersonSearchCriterion)oldSc).getHiddenId());
+		}
+		
+		else if (oldSc instanceof DateSearchCriterion && newSc instanceof DateSearchCriterion)
+		{
+			((DateSearchCriterion) newSc).setFrom(((DateSearchCriterion)oldSc).getFrom());
+			((DateSearchCriterion) newSc).setTo(((DateSearchCriterion)oldSc).getTo());
+		}
+		
+		else if (oldSc instanceof StandardSearchCriterion && newSc instanceof StandardSearchCriterion)
+		{
+			((StandardSearchCriterion) newSc).setSearchString(((StandardSearchCriterion)oldSc).getSearchString());
+			
+		}
+	}
+	
+	public void changeCriterionAction()
+	{
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		Integer position = Integer.parseInt(params.get("indexOfCriterion"));
+		//String sc = params.get("typeOfCriterion");
+		//logger.info("TypeOfCriterion:" + sc);
+		logger.info("Old criterion list:" + criterionList);
+		
+		//Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
+		
+		SearchCriterion newValue = criterionList.get(position).getSearchCriterion();
+		if(newValue != null && position!=null)
+		{
+			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
+			
+			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
+			SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
+			newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
+			if(possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion))
+			{
+				boolean oldValue = possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
+				possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
+				possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
+			}
+			copyValuesFromOldToNew(oldSearchCriterion, newSearchCriterion);
+			criterionList.add(position, newSearchCriterion);
+			logger.info("New criterion list:" + criterionList);
 		}
 		
 		
@@ -468,6 +527,35 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		*/
 		
 	}
+	
+	/*
+	public void changeCriterion(AjaxEvent evt)
+	{
+		
+		Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
+		SearchCriterion newValue = (SearchCriterion)evt.getNewValue();
+		if(newValue != null && position!=null)
+		{
+			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
+			
+			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
+			SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
+			newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
+			if(possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion))
+			{
+				boolean oldValue = possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
+				possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
+				possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
+			}
+			criterionList.add(position, newSearchCriterion);
+			logger.info("New criterion list:" + criterionList);
+		}
+		
+		
+		
+		
+	}
+	*/
 	
 	
 	

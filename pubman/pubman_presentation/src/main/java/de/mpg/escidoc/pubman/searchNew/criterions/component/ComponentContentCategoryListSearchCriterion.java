@@ -85,10 +85,12 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
 
 	
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST;
 	}
+	*/
 
 	@Override
 	public String[] getCqlIndexes() {

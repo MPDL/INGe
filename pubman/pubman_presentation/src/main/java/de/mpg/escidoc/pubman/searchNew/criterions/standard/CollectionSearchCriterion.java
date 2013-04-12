@@ -53,10 +53,12 @@ public class CollectionSearchCriterion extends StandardSearchCriterion {
 	}
 	
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.COLLECTION;
 	}
+	*/
 
 	
 

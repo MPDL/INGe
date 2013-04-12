@@ -47,10 +47,12 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
 		return new String[] {"escidoc.publication.review-method"};
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.REVIEW_METHOD;
 	}
+	*/
 
 	@Override
 	public String getSearchString(ReviewMethod selectedEnum) {

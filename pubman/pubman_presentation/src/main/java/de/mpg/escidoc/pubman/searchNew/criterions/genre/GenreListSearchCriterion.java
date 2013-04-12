@@ -448,10 +448,12 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		this.degreeMap = degreeMap;
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.GENRE_DEGREE_LIST;
 	}
+	*/
 
 
 }

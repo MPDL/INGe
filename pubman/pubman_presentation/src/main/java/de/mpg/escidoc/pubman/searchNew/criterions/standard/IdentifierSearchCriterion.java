@@ -42,10 +42,12 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.any-identifier", "escidoc.property.latest-release.objid"};
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.IDENTIFIER;
 	}
+	*/
 
 	
 	

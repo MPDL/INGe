@@ -44,10 +44,12 @@ public class KeywordSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.publication.subject"};
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.KEYWORD;
 	}
+	*/
 
 
 	

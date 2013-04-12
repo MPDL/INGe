@@ -64,10 +64,12 @@ public class OrganizationSearchCriterion extends
 		return new String[] {"escidoc.any-organizations"};
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.ORGUNIT;
 	}
+	*/
 
 	
 	

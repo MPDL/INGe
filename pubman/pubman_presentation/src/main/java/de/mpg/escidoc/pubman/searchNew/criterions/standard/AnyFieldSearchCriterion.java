@@ -41,10 +41,12 @@ public class AnyFieldSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.metadata"};
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.ANY;
 	}
+	*/
 
 	
 }

@@ -39,10 +39,12 @@ public class ComponentVisibilitySearchCriterion extends StandardSearchCriterion 
 		return new String[]{"escidoc.component.visibility"};
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.COMPONENT_VISIBILITY;
 	}
+	*/
 
 
 }

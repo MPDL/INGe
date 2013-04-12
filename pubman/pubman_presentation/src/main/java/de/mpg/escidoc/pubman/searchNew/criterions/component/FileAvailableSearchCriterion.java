@@ -38,10 +38,12 @@ public class FileAvailableSearchCriterion extends
 		return "internal-managed";
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.FILE_AVAILABLE;
 	}
+	*/
 	
 	
 

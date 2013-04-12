@@ -36,9 +36,11 @@ public class LocatorAvailableSearchCriterion extends ComponentAvailableSearchCri
 		return "external-url";
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.LOCATOR_AVAILABLE;
 	}
+	*/
 
 }

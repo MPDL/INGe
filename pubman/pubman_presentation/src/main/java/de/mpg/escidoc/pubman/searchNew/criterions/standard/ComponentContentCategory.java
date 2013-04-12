@@ -40,10 +40,11 @@ public class ComponentContentCategory extends StandardSearchCriterion {
 		return new String[]{"escidoc.component.content-category"};
 	}
 
-	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.COMPONENT_CONTENT_CATEGORY;
 	}
+	*/
 
 }

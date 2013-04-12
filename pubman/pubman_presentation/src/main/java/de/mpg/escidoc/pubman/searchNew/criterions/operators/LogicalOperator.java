@@ -85,10 +85,12 @@ public class LogicalOperator extends SearchCriterionBase {
 	}
 
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return searchCriterion;
 	}
+	*/
 	
 	
 

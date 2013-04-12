@@ -48,10 +48,12 @@ public class LanguageSearchCriterion extends StandardSearchCriterion {
         return CommonUtils.getConeLanguageName(getSearchString(), locale);
     }
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.LANG;
 	}
+	*/
 
 
 }

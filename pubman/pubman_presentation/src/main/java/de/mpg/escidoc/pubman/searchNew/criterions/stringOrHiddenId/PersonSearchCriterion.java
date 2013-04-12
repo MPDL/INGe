@@ -86,11 +86,13 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 		
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return searchCriterion;
 		
 	}
+	*/
 
 
 

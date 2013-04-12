@@ -38,10 +38,12 @@ public class JournalSearchCriterion extends StandardSearchCriterion {
 		return new String[] {"escidoc.publication.source.any.title"};
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.JOURNAL;
 	}
+	*/
 
 
 }

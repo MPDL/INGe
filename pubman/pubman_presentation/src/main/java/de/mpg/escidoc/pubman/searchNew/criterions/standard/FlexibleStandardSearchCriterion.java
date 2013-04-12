@@ -47,10 +47,12 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 		return cqlIndexes;
 	}
 	
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion()
 	{
 		return SearchCriterion.FLEXIBLE;
 	}
+	*/
 
 }
