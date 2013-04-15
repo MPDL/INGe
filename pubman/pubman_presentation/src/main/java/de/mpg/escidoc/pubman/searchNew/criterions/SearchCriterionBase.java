@@ -351,10 +351,16 @@ public abstract class SearchCriterionBase implements Serializable{
 	 */
 	protected String baseCqlBuilder(String[] cqlIndexes, String searchString)
 	{
+		//Bugfix for PUBMAN-2221: Remove Questionmark at the end
+		if(searchString!=null && searchString.trim().endsWith("?"))
+		{
+			searchString = searchString.trim().substring(0, searchString.length()-1);
+		}
 
 		if(searchString!=null && !searchString.trim().isEmpty())
 		{
 
+			
 			//split the search string into single words, except if they are in quotes
 			List<String> splittedSearchStrings = new ArrayList<String>();
 			List<String> splittedOperators = new ArrayList<String>();
