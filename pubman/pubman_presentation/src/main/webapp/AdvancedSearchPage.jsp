@@ -54,7 +54,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			<h:form >
+			<h:form>
 			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
 			
 			
@@ -62,7 +62,7 @@
 			
 						
 			<div class="full wrapper">
-			<h:inputHidden id="offset"></h:inputHidden>
+			<h:inputHidden id="offset"/>
 			
 				<jsp:directive.include file="header/Header.jspf" />
 

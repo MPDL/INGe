@@ -39,7 +39,7 @@
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.adv_search_lbHeaderWoP}" />
 	</h3>
-	<span class="seperator"></span>
+	<span class="seperator">&#160;</span>
 	<style type="text/css">
 		.fullItem .itemBlock .itemBlockContent div.itemLine {
 			border-top:none !important;
@@ -377,9 +377,7 @@
 
 		</a4j:repeat>
 		
-		<a4j:outputPanel ajaxRendered="true" style="display: none">
-			<h:outputText value="xx" rendered="#{rich:clientId('')}"/>
-		</a4j:outputPanel>
+		
 		</h:panelGroup>
 		
 		
@@ -413,12 +411,12 @@
 			<h3 class="xLarge_area0_p8 endline blockHeader">
 				<h:outputText value="#{lbl.adv_search_lbHeaderGenre}" />
 			</h3>
-			<span class="seperator"></span>
+			<span class="seperator">&#160;</span>
 			<h:panelGroup id="editGenre" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 			
 				<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
 					<span class="double_checkbox">
-						<input type="checkbox" class="checkAll" id="checkAllGenre"/>
+						<input type="checkbox" class="checkAllGenre" id="checkAllGenre"/>
 						<label for="checkAllGenre"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
 					</span>
 					<span class="free_area0 genreContent clear">
@@ -426,8 +424,8 @@
 						<a4j:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.genreList}" var="genre" rows="0">
 							<h:panelGroup styleClass="#{genre == 'THESIS' ? 'free_checkbox subGenre clear' : 'double_checkbox xTiny_marginRIncl'}">
 								<c:set var="genreLabel" value="ENUM_GENRE_#{genre}"/>
-								<h:selectBooleanCheckbox styleClass=".genreCheckbox" id="genreCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
-									<a4j:support event="onchange" reRender="degrees" rendered="#{genre=='THESIS'}"/>
+								<h:selectBooleanCheckbox styleClass="genreCheckbox" id="genreCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
+									<a4j:support event="onclick" reRender="degrees" rendered="#{genre=='THESIS'}"/>
 								</h:selectBooleanCheckbox>
 								<h:outputLabel title="#{lbl[genreLabel]}" value="#{lbl[genreLabel]}" for="genreCriterion" />
 								
@@ -444,57 +442,40 @@
 						</a4j:repeat>
 					</span>
 				</span>
+				
 				<script type="text/javascript">
-					$pb('.genreContainer input.checkAll').change(function(evt){
-						var stat = ''+this.checked;
-						var subG = $pb('.genreContent .subGenre input[type=checkbox]:first-child');
-						
-						switch (stat) {
-							case 'false':
-								$pb('.genreContent .double_checkbox input[type=checkbox]').removeAttr("checked");
-								if (subG.attr("checked")) {
-									subG.click();
-								}
-								$pb('.genreContent .genreCheckbox').attr('checked', false);
-								//$pb('.itemBlock [checkAll]').removeAttr("checkAll");
-								
-								break;
-							default:
-								$pb('.genreContent .double_checkbox input[type=checkbox]').attr("checked", "checked");
-								$pb('.genreContent .genreCheckbox').attr('checked', true);
-
-								//$pb(this).parents('.itemBlock').attr("checkAll", "checked");
-								if (!subG.attr("checked") || subG.attr("checked") == 'undefined') {
-									subG.click();
-								}
-								break;
+				  $pb(document).ready(function () {
+					
+					var checkboxinput = $pb('.genreContainer input.checkAllGenre');
+					var genreArea = checkboxinput.parent().next();
+					var subgenre = genreArea.find(".subGenre input");
+					var genre = genreArea.find("input.genreCheckbox");
+					checkboxinput.click(function(evt) {
+						if (this.checked) {
+							if (!subgenre.is(":checked")) {
+								subgenre.trigger("click").attr("checked", "checked");
+							}
+							genre.attr("checked", "checked");
+							
+						} else {
+							if (subgenre.is(":checked")) {
+								subgenre.trigger("click").removeAttr("checked");
+							}
+							genre.removeAttr("checked");
 						}
-						
 					});
+				  });
+					
 				</script>
 			</h:panelGroup>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		<!-- file criterions -->
 		<div class="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
 				<h:outputText value="#{lbl.adv_search_lbHeaderFiles}" />
 			</h3>
-			<span class="seperator"></span>
+			<span class="seperator">&#160;</span>
 			
 			<h:panelGroup id="editFiles" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 			
@@ -555,10 +536,10 @@
 								function toggleEmbargoCheckbox() {
 
 
-									console.log($pb('input.visibilityCheckbox.PRIVATE').attr('checked'))
+									//console.log($pb('input.visibilityCheckbox.PRIVATE').attr('checked'))
 									if($pb('input.visibilityCheckbox.PRIVATE').attr('checked') || $pb('input.visibilityCheckbox.AUDIENCE').attr('checked'))
 									{
-										console.log('enable');
+										//console.log('enable');
 										enableEmbargo($pb('span.fileCriterionHasEmbargoDate'));
 									}
 									else
@@ -578,7 +559,7 @@
 								<a4j:repeat value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumList}" var="visibility" rows="0">
 									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
 										<c:set var="label" value="ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_#{visibility}"/>
-										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{visibility}" id="visibilityCriterion" value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumMap[visibility]}" onchange="toggleEmbargoCheckbox();">
+										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{visibility}" id="visibilityCriterion" value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumMap[visibility]}" onclick="toggleEmbargoCheckbox();">
 										</h:selectBooleanCheckbox>
 										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="visibilityCriterion" />
 									</h:panelGroup>
