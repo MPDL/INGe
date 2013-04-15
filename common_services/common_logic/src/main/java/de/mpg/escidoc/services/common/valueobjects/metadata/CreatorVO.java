@@ -73,6 +73,7 @@ public class CreatorVO extends ValueObject implements Cloneable
         INVENTOR("http://www.loc.gov/loc.terms/relators/INV"),
         APPLICANT("http://www.loc.gov/loc.terms/relators/APP"),
         DIRECTOR("http://www.loc.gov/loc.terms/relators/DRT"),
+        PRODUCER("http://www.loc.gov/loc.terms/relators/PRO"),
         ACTOR("http://www.loc.gov/loc.terms/relators/ACT"),
         CINEMATOGRAPHER("http://www.loc.gov/loc.terms/relators/CNG"),
         SOUND_DESIGNER("http://www.loc.gov/loc.terms/relators/SDS");
