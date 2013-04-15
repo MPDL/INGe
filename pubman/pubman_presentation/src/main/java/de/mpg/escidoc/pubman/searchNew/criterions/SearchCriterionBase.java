@@ -239,7 +239,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	
 	public void setSearchCriterion(SearchCriterion sc)
 	{
-		logger.info("Set search criterion "+ this.hashCode() +" from " + this.searchCriterion + " to: " + sc);
+		//logger.info("Set search criterion "+ this.hashCode() +" from " + this.searchCriterion + " to: " + sc);
 		this.searchCriterion = sc;
 	}
 	
