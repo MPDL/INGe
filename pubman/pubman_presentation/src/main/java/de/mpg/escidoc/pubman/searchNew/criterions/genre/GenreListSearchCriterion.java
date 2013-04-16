@@ -284,17 +284,19 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 	@Override
 	public boolean isEmpty() {
 		
-		boolean genreOrDegreeSelected = false;
-		boolean genreOrDegreeDeselected = false;
+		boolean genreSelected = false;
+		boolean genreDeselected = false;
+		boolean degreeSelected = false;
+		boolean degreeDeselected = false;
 		for(Entry<Genre, Boolean> entry : genreMap.entrySet())
 		{
 			if(entry.getValue())
 			{
-				genreOrDegreeSelected = true;
+				genreSelected = true;
 			}
 			else
 			{
-				genreOrDegreeDeselected = true;
+				genreDeselected = true;
 			}
 		}
 		
@@ -304,17 +306,30 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 			{
 				if(entry.getValue())
 				{
-					genreOrDegreeSelected = true;
+					degreeSelected = true;
 				}
 				else
 				{
-					genreOrDegreeDeselected = true;
+					degreeDeselected = true;
 				}
 			}
 		}
 		
+		boolean allGenreSelected = genreSelected && !genreDeselected;
+		boolean noGenreSelected = !genreSelected && genreDeselected;
+		boolean allDegreesSelected = degreeSelected && ! degreeDeselected;
+		boolean noDegreeSelected = !degreeSelected && degreeDeselected;
 		
-		return !(genreOrDegreeSelected && genreOrDegreeDeselected);
+		System.out.println("All Genres: " + allGenreSelected);
+		System.out.println("No Genres: " + noGenreSelected);
+		System.out.println("All Degrees: " + allDegreesSelected);
+		System.out.println("No Degrees: " + noDegreeSelected);
+		
+		
+		return (allGenreSelected && allDegreesSelected) || (allGenreSelected &&  noDegreeSelected) || (noGenreSelected);
+		//return (genreSelected && !genreDeselected && )
+		
+		//return !(genreOrDegreeSelected && genreOrDegreeDeselected);
 	}
 	
 	
