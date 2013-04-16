@@ -128,7 +128,9 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
-				
+				function checkUpdatePersonFunction() {
+					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
+				}
 				$pb(document).ready(function () {
 					/*
 					$pb("input[id$='offset']").submit(function() {
@@ -140,7 +142,7 @@
 
 
 					toggleEmbargoCheckbox();
-					
+					checkUpdatePersonFunction();
 					
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
