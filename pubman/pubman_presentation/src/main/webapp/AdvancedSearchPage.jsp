@@ -95,20 +95,20 @@
 									&#160;
 								<!-- Subheadline ends here -->
 							</h:panelGroup>
-							<div class="subHeader">
-                                <!-- Subheadline starts here -->
-                                <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.numberOfMessages == 1}"/>
-                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{AdvancedSearchPage.hasErrorMessages and AdvancedSearchPage.numberOfMessages != 1}">
-                                    <h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.hasMessages}"/>
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{AdvancedSearchPage.hasMessages and !AdvancedSearchPage.hasErrorMessages and AdvancedSearchPage.numberOfMessages != 1}">
-                                    <h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.hasMessages}"/>
-                                </h:panelGroup>
-                                <h:outputText value="&#160;" rendered="#{!AdvancedSearchPage.hasErrorMessages}" />
-                                <!-- Subheadline ends here -->
-                            </div>
+							<h:panelGroup id="messages" styleClass="subHeader">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{AdvancedSearchBean.hasErrorMessages}">
+									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}" /></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchBean.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{AdvancedSearchBean.hasMessages and !AdvancedSearchBean.hasErrorMessages}">
+									<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}" /></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchBean.hasMessages}"/>
+								</h:panelGroup>
+										
+							</h:panelGroup> 
+							<!-- Subheadline ends here -->
 						</h:panelGroup>
 					</div>			
 					<div class="full_area0">
