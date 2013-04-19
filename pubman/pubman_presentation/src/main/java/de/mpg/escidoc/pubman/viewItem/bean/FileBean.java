@@ -392,7 +392,7 @@ public class FileBean extends FacesBean
         InternationalizedImpl internationalized = new InternationalizedImpl();
         if(this.file.getVisibility() != null)
         {
-            visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
+            visibility = internationalized.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
         }
         return visibility;
     }

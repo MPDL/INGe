@@ -200,7 +200,7 @@
 					
 					
 					<!-- input for person searches-->
-					<h:panelGroup styleClass="free_area0 endline personArea" rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
+					<h:panelGroup styleClass="free_area0 endline personArea suggestAnchor" rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
 						<h:outputLabel styleClass="small_label" value=" " />
 						<h:inputText id="personSearchString" styleClass="double_txtInput personSuggest disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
 						<h:inputText id="personSearchStringFilled" styleClass="double_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>

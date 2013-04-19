@@ -375,12 +375,12 @@ public class PubFileVOPresentation extends FacesBean
         InternationalizedImpl internationalized = new InternationalizedImpl();
         if (this.file.getVisibility() != null)
         {
-            visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
+            visibility = internationalized.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
         }
         else
         {
             this.file.setVisibility(FileVO.Visibility.PUBLIC);
-            visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
+            visibility = internationalized.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
         }
         return visibility;
     }

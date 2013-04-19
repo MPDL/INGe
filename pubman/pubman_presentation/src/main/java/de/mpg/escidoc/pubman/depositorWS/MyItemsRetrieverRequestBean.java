@@ -272,11 +272,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     {
         itemStateSelectItems = new ArrayList<SelectItem>();
         itemStateSelectItems.add(new SelectItem("all", getLabel("ItemList_filterAllExceptWithdrawn")));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.PENDING))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.PENDING))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.SUBMITTED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.RELEASED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.WITHDRAWN))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.IN_REVISION))));
 
         return itemStateSelectItems;
     }
@@ -325,7 +325,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         String returnString = "";
         if (getSelectedItemState()!=null && !getSelectedItemState().equals("all"))
         {
-            returnString =  getLabel(i18nHelper.convertEnumToString(PubItemVO.State.valueOf(getSelectedItemState())));
+            returnString =  getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.valueOf(getSelectedItemState())));
         }
         return returnString;
 

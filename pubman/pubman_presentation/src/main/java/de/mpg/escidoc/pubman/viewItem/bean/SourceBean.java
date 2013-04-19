@@ -329,7 +329,7 @@ public class SourceBean extends FacesBean
     public String getGenre()
     {
         InternationalizedImpl internationalized = new InternationalizedImpl();
-        return internationalized.getLabel(this.i18nHelper.convertEnumToString(this.source.getGenre()));
+        return internationalized.getLabel(this.getI18nHelper().convertEnumToString(this.source.getGenre()));
     }
 
     public String getIdentifiers() {

@@ -268,11 +268,7 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistoryRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>InternationalizationHelper</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.util.InternationalizationHelper</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
+
 	<managed-bean>
 		<managed-bean-name>HelpPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.help.HelpPage</managed-bean-class>
@@ -682,5 +678,10 @@
 		<managed-bean-name>UserAccountOptionsPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.UserAccountOptionsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>InternationalizationHelper</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.util.InternationalizationHelper</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 </faces-config>

@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
@@ -78,6 +79,9 @@ public class InternationalizationHelper implements Serializable
     private String selectedHelpPage;
     private String locale = "en";
     private String homeContent = "n/a";
+    
+    
+    private List<LanguageChangeObserver> languageChangeObservers = new ArrayList<LanguageChangeObserver>();
     
     public String getContext() {
 		return context;
@@ -189,6 +193,8 @@ public class InternationalizationHelper implements Serializable
                 userLocale = locale;
                 homeContent="n/a";
                 
+                
+                notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
                 logger.debug("New locale: " + language + "_" + country + " : " + locale);
             }
             catch (Exception e)
@@ -206,7 +212,34 @@ public class InternationalizationHelper implements Serializable
         }
     }
 
-    public void toggleLocale(ActionEvent event)
+    public void notifyLanguageChanged(String oldLang, String newLang) {
+		for(LanguageChangeObserver obs : languageChangeObservers)
+		{
+			if(obs!=null)
+			{
+				obs.languageChanged(oldLang, newLang);
+			}
+			
+		}
+		
+	}
+    
+    public void addLanguageChangeObserver(LanguageChangeObserver obs)
+    {
+    	if(!languageChangeObservers.contains(obs))
+    	{
+    		languageChangeObservers.add(obs);
+    	}
+    }
+    
+    public void removeLanguageChangeObserver(LanguageChangeObserver obs)
+    {
+    	
+    	languageChangeObservers.remove(obs);
+    	
+    }
+
+	public void toggleLocale(ActionEvent event)
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         
@@ -743,5 +776,13 @@ public class InternationalizationHelper implements Serializable
             return result;
         }
     }
+
+	public List<LanguageChangeObserver> getLanguageChangeObservers() {
+		return languageChangeObservers;
+	}
+
+	public void setLanguageChangeObservers(List<LanguageChangeObserver> languageChangeObservers) {
+		this.languageChangeObservers = languageChangeObservers;
+	}
     
 }

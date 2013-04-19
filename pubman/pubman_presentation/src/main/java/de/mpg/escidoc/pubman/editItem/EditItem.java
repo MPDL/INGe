@@ -2035,7 +2035,7 @@ public String logUploadComplete()
         {
             allowedGenres= new ArrayList<MdsPublicationVO.Genre>();
         }
-        return this.i18nHelper.getSelectItemsForEnum(false,
+        return this.getI18nHelper().getSelectItemsForEnum(false,
                 allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
 
     }
@@ -2047,7 +2047,7 @@ public String logUploadComplete()
      */
     public SelectItem[] getDegreeTypes()
     {
-        return this.i18nHelper.getSelectItemsDegreeType(true);
+        return this.getI18nHelper().getSelectItemsDegreeType(true);
     }
 
     /**
@@ -2057,7 +2057,7 @@ public String logUploadComplete()
      */
     public SelectItem[] getReviewMethods()
     {
-        return this.i18nHelper.getSelectItemsReviewMethod(true);
+        return this.getI18nHelper().getSelectItemsReviewMethod(true);
     }
 
     /**
@@ -2067,7 +2067,7 @@ public String logUploadComplete()
      */
     public SelectItem[] getContentCategories() 
     {
-        return this.i18nHelper.getSelectItemsContentCategory(true);
+        return this.getI18nHelper().getSelectItemsContentCategory(true);
     }
 
     /**
@@ -2077,12 +2077,12 @@ public String logUploadComplete()
      */
     public SelectItem[] getVisibilities()
     {
-        return this.i18nHelper.getSelectItemsVisibility(false);
+        return this.getI18nHelper().getSelectItemsVisibility(false);
     }
 
     public SelectItem[] getInvitationStatuses()
     {
-        return this.i18nHelper.getSelectItemsInvitationStatus(true);
+        return this.getI18nHelper().getSelectItemsInvitationStatus(true);
     }
 
     public String loadAffiliationTree()

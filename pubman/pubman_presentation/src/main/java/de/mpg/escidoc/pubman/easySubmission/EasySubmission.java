@@ -227,7 +227,7 @@ public class EasySubmission extends FacesBean
         SUBMISSION_METHOD_OPTIONS = new SelectItem[] { this.SUBMISSION_METHOD_MANUAL,
                 this.SUBMISSION_METHOD_FETCH_IMPORT };
         EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
-        this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
+        this.locatorVisibilities = this.getI18nHelper().getSelectItemsVisibility(true);
         // if the user has reached Step 3, an item has already been created and must be set in the
         // EasySubmissionSessionBean for further manipulation
         if (essb.getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2)
@@ -1905,7 +1905,7 @@ public class EasySubmission extends FacesBean
             if (adminDescriptorVO instanceof PublicationAdminDescriptorVO)
             {
                 allowedGenres = ((PublicationAdminDescriptorVO)adminDescriptorVO).getAllowedGenres();
-                return this.i18nHelper.getSelectItemsForEnum(false,
+                return this.getI18nHelper().getSelectItemsForEnum(false,
                         allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
             }
         }
@@ -2072,7 +2072,7 @@ public class EasySubmission extends FacesBean
      */
     public SelectItem[] getVisibilities()
     {
-        return this.i18nHelper.getSelectItemsVisibility(false);
+        return this.getI18nHelper().getSelectItemsVisibility(false);
     }
 
     /**
@@ -2193,7 +2193,7 @@ public class EasySubmission extends FacesBean
      */
     public SelectItem[] getContentCategories()
     {
-        return this.i18nHelper.getSelectItemsContentCategory(true);
+        return this.getI18nHelper().getSelectItemsContentCategory(true);
     }
 
     /**
@@ -2616,7 +2616,7 @@ public class EasySubmission extends FacesBean
      */
     public SelectItem[] getDegreeTypes()
     {
-        return this.i18nHelper.getSelectItemsDegreeType(true);
+        return this.getI18nHelper().getSelectItemsDegreeType(true);
     }
 
     public HtmlAjaxRepeat getCreatorIterator()

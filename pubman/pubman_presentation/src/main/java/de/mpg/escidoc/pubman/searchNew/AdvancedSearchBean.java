@@ -41,7 +41,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -79,12 +83,14 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriteri
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.pubman.util.LanguageChangeObserver;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
-public class AdvancedSearchBean extends FacesBean implements Serializable{
+public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver{
 	
 	private static Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 	
@@ -130,12 +136,28 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	private Map<SearchCriterionBase, Integer> balanceMap = new HashMap<SearchCriterionBase, Integer>();
 
 	private int numberOfSearchCriterions;
+
+	private boolean languageChanged;
 	
 	
 	
 	public AdvancedSearchBean()
 	{
 		
+	}
+	
+	@PostConstruct
+	public void postConstruct()
+	{
+		logger.info("PostConstruct");
+		getI18nHelper().addLanguageChangeObserver(this);
+	}
+	
+	@PreDestroy
+	public void preDestroy()
+	{
+		logger.info("PreDestroy");
+		getI18nHelper().removeLanguageChangeObserver(this);
 	}
 	
 	
@@ -257,30 +279,34 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	 */
 	public String getReadOutParams()
 	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		String query = fc.getExternalContext().getRequestParameterMap().get("q");
-		query = CommonUtils.fixURLEncoding(query);
-		boolean isPostback = fc.getRenderKit().getResponseStateManager().isPostback(fc);
-		
-		if(!isPostback)
+		if(!languageChanged)
 		{
-			if(query!=null && !query.trim().isEmpty())
+			FacesContext fc = FacesContext.getCurrentInstance();
+			String query = fc.getExternalContext().getRequestParameterMap().get("q");
+			query = CommonUtils.fixURLEncoding(query);
+			boolean isPostback = fc.getRenderKit().getResponseStateManager().isPostback(fc);
+			
+			if(!isPostback)
 			{
-				logger.debug("Found query, initialize: " + query);
-				clearAndInit();
-				initWithQueryParam(query);
+				if(query!=null && !query.trim().isEmpty())
+				{
+					logger.debug("Found query, initialize: " + query);
+					clearAndInit();
+					initWithQueryParam(query);
+				}
+				else
+				{
+					logger.debug("No internal query found, initialize empty");
+					clearAndInit();
+				}
 			}
 			else
 			{
-				logger.debug("No internal query found, initialize empty");
-				clearAndInit();
+				//logger.info("Postback, do nothing");
+				
 			}
 		}
-		else
-		{
-			//logger.info("Postback, do nothing");
-			
-		}
+		languageChanged = false;
 		return "";
 		
 		
@@ -288,20 +314,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 
 
 	private List<SelectItem> initComponentVisibilityListMenu() {
-		return Arrays.asList(this.i18nHelper.getSelectedItemsComponentVisibility(true));
+		InternationalizationHelper i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
+		return Arrays.asList(i18nHelper.getSelectedItemsComponentVisibility(true));
 	}
 
 
 	private List<SelectItem> initContentCategoryListMenu() {
-		return Arrays.asList(this.i18nHelper.getSelectItemsContentCategory(true));
+		InternationalizationHelper i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
+		return Arrays.asList(i18nHelper.getSelectItemsContentCategory(true));
 	}
 	
 	private List<SelectItem> initGenreListMenu() {
-		return Arrays.asList(this.i18nHelper.getSelectItemsGenre());
+		InternationalizationHelper i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
+		return Arrays.asList(i18nHelper.getSelectItemsGenre());
 	}
 	
 	private List<SelectItem> initReviewMethodListMenu() {
-		return Arrays.asList(this.i18nHelper.getSelectItemsReviewMethod());
+		InternationalizationHelper i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
+		return Arrays.asList(i18nHelper.getSelectItemsReviewMethod());
 	}
 	
 	private List<SelectItem> initSubjectTypesListMenu()
@@ -1130,6 +1160,21 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 
 	public void setReviewMethodListMenu(List<SelectItem> reviewMethodListMenu) {
 		this.reviewMethodListMenu = reviewMethodListMenu;
+	}
+
+
+	@Override
+	public void languageChanged(String oldLang, String newLang) {
+		logger.info("AdvacncedSearchBean: Lang updated!!!!!");
+		criterionTypeListMenu = initCriterionTypeListMenu();
+		operatorTypeListMenu = initOperatorListMenu();
+		genreListMenu = initGenreListMenu();
+		reviewMethodListMenu = initReviewMethodListMenu();
+		contentCategoryListMenu = initContentCategoryListMenu();
+		componentVisibilityListMenu = initComponentVisibilityListMenu();
+		subjectTypesListMenu = initSubjectTypesListMenu();
+		
+		this.languageChanged = true;
 	}
 
 }

@@ -102,7 +102,7 @@ public static final String BEAN_NAME = "FileCriterionBean";
      */
     public SelectItem[] getContentCategories()
     {
-        return this.i18nHelper.getSelectItemsContentCategory(true);
+        return this.getI18nHelper().getSelectItemsContentCategory(true);
     }
     
     /**
@@ -112,7 +112,7 @@ public static final String BEAN_NAME = "FileCriterionBean";
      */
     public SelectItem[] getComponentVisibilityOptions()
     {
-        return this.i18nHelper.getSelectedItemsComponentVisibility(true);
+        return this.getI18nHelper().getSelectedItemsComponentVisibility(true);
     }
     
     /**
@@ -122,6 +122,6 @@ public static final String BEAN_NAME = "FileCriterionBean";
      */
     public SelectItem[] getComponentAvailabilityOptions()
     {
-        return this.i18nHelper.getSelectedItemsComponentAvailability(true);
+        return this.getI18nHelper().getSelectedItemsComponentAvailability(true);
     }
 }

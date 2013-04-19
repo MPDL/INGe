@@ -94,15 +94,7 @@ public class PubManSessionBean extends FacesBean
         return (LoginHelper) getSessionBean(LoginHelper.class);
     }
     
-    /**
-     * Returns the InternationalizationHelper.
-     *
-     * @return a reference to the scoped data bean (InternationalizationHelper)
-     */
-    protected InternationalizationHelper getI18nHelper()
-    {
-        return (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    }
+   
     
     public boolean isLoggedIn()
     {

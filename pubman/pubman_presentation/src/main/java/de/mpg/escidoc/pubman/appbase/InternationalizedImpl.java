@@ -28,7 +28,7 @@ public class InternationalizedImpl implements Internationalized
     //For handling the resource bundles (i18n)
     protected Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
-    protected InternationalizationHelper i18nHelper;
+    private InternationalizationHelper i18nHelper;
 
     public InternationalizedImpl()
     {
@@ -40,7 +40,8 @@ public class InternationalizedImpl implements Internationalized
      */
     public String getLabel(String placeholder)
     {
-        return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
+    	
+        return ResourceBundle.getBundle(getI18nHelper().getSelectedLabelBundle()).getString(placeholder);
     }
 
     /*
@@ -49,7 +50,8 @@ public class InternationalizedImpl implements Internationalized
      */
     public String getMessage(String placeholder)
     {
-        return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()).getString(placeholder);
+    	
+        return ResourceBundle.getBundle(getI18nHelper().getSelectedMessagesBundle()).getString(placeholder);
     }
 
     /*
@@ -88,6 +90,10 @@ public class InternationalizedImpl implements Internationalized
             throw new RuntimeException("Error getting bean name of " + cls, e);
         }
         
+        FacesContext context = FacesContext.getCurrentInstance();
+        return cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
+        
+        /*
         Object result = FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
@@ -118,6 +124,7 @@ public class InternationalizedImpl implements Internationalized
         {
             return result;
         }
+        */
     }
 
     /**
@@ -128,6 +135,7 @@ public class InternationalizedImpl implements Internationalized
     public static synchronized Object getSessionBean(final Class<?> cls)
     {
 
+    	
         String name = null;
 
         try
@@ -142,6 +150,19 @@ public class InternationalizedImpl implements Internationalized
         {
             throw new RuntimeException("Error getting bean name of " + cls, e);
         }
+        
+        //logger.info("Requesting session bean " + name);
+        //logger.info("In scope: " + FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name));
+        
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Object bean = cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
+        //Object bean = FacesContext.getCurrentInstance().getELContext().getELResolver().getValue(FacesContext.getCurrentInstance().getELContext(), null, name);  
+       
+        //logger.info("Returning " + bean);
+        return bean;
+        
+        /*
         Object result = FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
@@ -172,6 +193,7 @@ public class InternationalizedImpl implements Internationalized
         {
             return result;
         }
+        */
     }
 
     /**
@@ -195,6 +217,11 @@ public class InternationalizedImpl implements Internationalized
         {
             throw new RuntimeException("Error getting bean name of " + cls, e);
         }
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        return cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
+        
+        /*
         Object result = FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
@@ -225,6 +252,13 @@ public class InternationalizedImpl implements Internationalized
         {
             return result;
         }
+        */
     }
+	public InternationalizationHelper getI18nHelper() {
+		return i18nHelper;
+	}
+	public void setI18nHelper(InternationalizationHelper i18nHelper) {
+		this.i18nHelper = i18nHelper;
+	}
     
 }
