@@ -87,6 +87,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LanguageChangeObserver;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
@@ -375,6 +376,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		//Persons
 		List<SelectItem> personGroupList = new ArrayList<SelectItem>();
 		personGroupList.add(new SelectItem(SearchCriterion.ANYPERSON, getLabel("adv_search_lblSearchPerson")));
+		
+		for(CreatorRole role : CreatorRole.values())
+		{
+			personGroupList.add(new SelectItem(SearchCriterion.valueOf(role.name()), getLabel("ENUM_CREATORROLE_" + role.name())));
+		}
+		
+		/*
 		personGroupList.add(new SelectItem(SearchCriterion.AUTHOR, getLabel("ENUM_CREATORROLE_AUTHOR")));
 		personGroupList.add(new SelectItem(SearchCriterion.EDITOR,getLabel("ENUM_CREATORROLE_EDITOR")));
 		personGroupList.add(new SelectItem(SearchCriterion.ADVISOR,getLabel("ENUM_CREATORROLE_ADVISOR")));
@@ -389,7 +397,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		personGroupList.add(new SelectItem(SearchCriterion.HONOREE, getLabel("ENUM_CREATORROLE_HONOREE")));
 		personGroupList.add(new SelectItem(SearchCriterion.INVENTOR, getLabel("ENUM_CREATORROLE_INVENTOR")));
 		personGroupList.add(new SelectItem(SearchCriterion.APPLICANT, getLabel("ENUM_CREATORROLE_APPLICANT")));
-		
+		*/
 		SelectItemGroup personGroup = new SelectItemGroup(getLabel("adv_search_lblSearchPerson"));
 		personGroup.setSelectItems(personGroupList.toArray(new SelectItem[0]));
 		criterionTypeList.add(personGroup);
