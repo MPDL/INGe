@@ -158,10 +158,10 @@ Reason/Occasion                            (who) vx.x (yyyy-mm-dd)
 <xsl:variable name="mainindent" select="'5pc'"/>
 
 <!-- Font used for Section titles and the like. -->
-<xsl:variable name="titlefont">sans-serif</xsl:variable>
+<xsl:variable name="titlefont">DejaVu Sans</xsl:variable>
 
 <!-- Font used for normal paragraph text.  -->
-<xsl:variable name="textfont">serif</xsl:variable>
+<xsl:variable name="textfont">DejaVu Serif</xsl:variable>
 
 <!-- Font size for for normal paragraph text and the like. -->
 <xsl:variable name="textsize" select="'10pt'"/>
@@ -209,12 +209,12 @@ Reason/Occasion                            (who) vx.x (yyyy-mm-dd)
 </xsl:attribute-set>
 
 <xsl:attribute-set name="sans-serif">
-  <xsl:attribute name="font-family">sans-serif</xsl:attribute>
+  <xsl:attribute name="font-family">DejaVu Sans</xsl:attribute>
   <xsl:attribute name="font-size">85%</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="monospace">
-  <xsl:attribute name="font-family">monospace</xsl:attribute>
+  <xsl:attribute name="font-family">DejaVu Sans Mono</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="warning" use-attribute-sets="sans-serif">
@@ -378,6 +378,9 @@ Reason/Occasion                            (who) vx.x (yyyy-mm-dd)
 <xsl:attribute-set name="app" use-attribute-sets="section"/>
 
 <xsl:attribute-set name="paragraph">
+  <xsl:attribute name="font-family">
+    <xsl:value-of select="$textfont"/>
+  </xsl:attribute>
   <xsl:attribute name="space-before">4pt</xsl:attribute>
 </xsl:attribute-set>
 
@@ -506,7 +509,7 @@ Reason/Occasion                            (who) vx.x (yyyy-mm-dd)
   <xsl:attribute name="white-space-treatment">preserve</xsl:attribute>
   <xsl:attribute name="white-space-collapse">false</xsl:attribute>
   <xsl:attribute name="linefeed-treatment">preserve</xsl:attribute>
-  <xsl:attribute name="font-family">monospace</xsl:attribute>
+  <xsl:attribute name="font-family">DejaVu Serif</xsl:attribute>
   <xsl:attribute name="font-size">8pt</xsl:attribute>
 </xsl:attribute-set>
 

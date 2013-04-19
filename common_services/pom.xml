@@ -735,6 +735,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
+		<!-- Dataaquisition - Apache FOP configuration file -->
+		<escidoc.dataaquisition.resources.fop.configuration></escidoc.dataaquisition.resources.fop.configuration>
 		<!-- Transformation implementing classes-->
 		<escidoc.transformation.bibtex.class>de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<!-- Transformation stylesheets -->
@@ -751,6 +753,14 @@
 		<escidoc.transformation.marc.stylesheet.filename>transformations/standardFormats/xslt/marc.xsl</escidoc.transformation.marc.stylesheet.filename>
 		<escidoc.transformation.marc.configuration.filename>transformations/standardFormats/conf/marc.properties</escidoc.transformation.marc.configuration.filename>
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
+		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename></escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename>
+		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename></escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename>
+		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename></escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
+		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename></escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename>
+		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename></escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename>
+		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename></escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
+		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename></escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
+		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename></escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>

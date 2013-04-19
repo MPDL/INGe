@@ -88,7 +88,12 @@
 	<xsl:param name="Organisation" select="''"/>
 
 	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
-
+	
+	<xsl:variable name="fulltext-location">
+		<xsl:if test="$Flavor = 'MPIMP'">
+			<xsl:value-of select="'TODO'"/>
+		</xsl:if>
+	</xsl:variable>
 
 	<xsl:variable name="genreMap">
 			<m key="Book">book</m>
@@ -133,7 +138,34 @@
 			<xsl:element name="ei:properties">
 				<srel:context objid="{$context}" />
 				<srel:content-model objid="{$content-model}" />
-				<xsl:element name="prop:content-model-specific"/>
+				<prop:content-model-specific>
+					<local-tags>
+						<xsl:choose>
+							<xsl:when test="NUM_4 and $Flavor = 'MPIMP'"> 
+								<xsl:if test="NUM_4 = '0'">
+									<local-tag>
+										kooperative Publikationen
+									</local-tag>
+								</xsl:if>
+								<xsl:if test="NUM_4 = '1'"> 
+									<local-tag> 
+										MPIMP
+									</local-tag>
+								</xsl:if>
+								<xsl:if test="NUM_4 = '2'"> 
+									<local-tag> 
+										Problemfälle
+									</local-tag>
+								</xsl:if>
+								<xsl:if test="NUM_4 = '3'"> 
+									<local-tag> 
+										Externe Publikationen
+									</local-tag>
+								</xsl:if>
+							</xsl:when>
+						</xsl:choose>
+					</local-tags>
+				</prop:content-model-specific>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
@@ -474,7 +506,13 @@
 			<!-- ABSTRACT -->
 			<xsl:if test="X">
 				<xsl:element name="dcterms:abstract">
-					<xsl:value-of select="X"/>
+					<xsl:choose>
+						<xsl:when test="$Flavor = 'MPIMP' and EQUAL != '1'"/>
+						<xsl:otherwise>
+							<xsl:value-of select="X"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					
 				</xsl:element>
 			</xsl:if>
 			
@@ -876,7 +914,16 @@
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
+				<xsl:variable name="cone-creator">
+					<xsl:choose>
+						<xsl:when test="$Flavor = 'MPIMP'"> 
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'Max Planck Institute of Molecular Plant Physiology')"/>
+						</xsl:when>				
+						<xsl:otherwise>
+							<xsl:copy-of select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
 
 				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 			
@@ -903,12 +950,14 @@
 								</organization:organization>
 							</xsl:for-each>
 						</xsl:when>
+						<!-- 
 						<xsl:when test="not($isSource)">
 							<organization:organization>
 								<dc:title>Max Planck Society</dc:title>
 								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
 							</organization:organization>
 						</xsl:when>
+						 -->
 					</xsl:choose>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">

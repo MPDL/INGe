@@ -27,15 +27,14 @@
  */
 package de.mpg.escidoc.services.dataacquisition;
 
-import java.io.BufferedOutputStream;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -44,7 +43,7 @@ import java.net.URLConnection;
 import java.rmi.AccessException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
+import java.util.SortedMap;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -90,7 +89,6 @@ import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -707,6 +705,7 @@ public class DataHandlerBean implements DataHandler
 		else if (this.currentSource.getName().equalsIgnoreCase("PubMedCentral")
 		        && fulltext.getFtFormat().equalsIgnoreCase("application/pdf"))
 		{
+		    // pmc pdf is generated from oai-pmh-xml
 		    Format from = new Format("pmc_fulltext_xml", "application/xml", "*");
 		    Format to = new Format("pmc_fulltext_xslfo", "text/xsl", "*");
 		    TransformationBean transformer = new TransformationBean();
@@ -721,24 +720,45 @@ public class DataHandlerBean implements DataHandler
 		        this.logger.error("Could not transform PMC fulltext", e);
 		    }
     		 // Step 1: Construct a FopFactory
-    		 // (reuse if you plan to render multiple documents!)
     		 FopFactory fopFactory = FopFactory.newInstance();
     
     		 // Step 2: Set up output stream.
-    		 // Note: Using BufferedOutputStream for performance reasons (helpful with FileOutputStreams).
     		 ByteArrayOutputStream outputPdf = new ByteArrayOutputStream();
+    		 
+    		 try
+    		 {
+    		     fopFactory.setUserConfig(new File(PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration")));
+    		 }
+    		 catch (Exception e)
+    		 {
+    		     try
+                 {
+    		         logger.info("FopFactory configuration couldn't be loaded from " + PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration"));
+    		         if (logger.isDebugEnabled())
+    		         {
+    		             logger.debug(e);
+    		         }
+                     File config = new File(DataHandlerBean.class.getClassLoader().getResource("resources/apache-fop-config.xml").toURI());
+    		         fopFactory.setUserConfig(config);
+                 }
+                 catch (Exception exception)
+                 {
+                     logger.error("FopFactory configuration wasn't loaded correctly", exception);
+                 }
+    		 }
     
     		 try 
     		 {
     		     // Step 3: Construct fop with desired output format
     		     Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outputPdf);
+    		     
+    		     SortedMap map = (new org.apache.fop.tools.fontlist.FontListGenerator()).listFonts(fopFactory, MimeConstants.MIME_PDF, new org.apache.fop.fonts.FontEventAdapter(new org.apache.fop.events.DefaultEventBroadcaster()));
     
     		     // Step 4: Setup JAXP using identity transformer
     		     TransformerFactory factory = TransformerFactory.newInstance();
     		     Transformer xmlTransformer = factory.newTransformer(); // identity transformer
     
     		     // Step 5: Setup input and output for XSLT transformation
-    		     // Setup input stream
     		     Source src = new StreamSource((InputStream) (new ByteArrayInputStream(xslFo)));
     
     		     // Resulting SAX events (the generated FO) must be piped through to FOP
