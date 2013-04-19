@@ -853,6 +853,8 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
                                         <!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+                                        <!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/apache-fop-config.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -877,6 +879,8 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
+										<!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/apache-fop-config.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
                                         <!-- configuration for the runtime server jboss server -->
                                         <!--
                                             <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />

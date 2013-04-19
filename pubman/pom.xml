@@ -779,6 +779,8 @@
 		<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 		<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
+		<!-- Dataaquisition - Apache FOP configuration file -->
+		<escidoc.dataaquisition.resources.fop.configuration></escidoc.dataaquisition.resources.fop.configuration>
 		<!-- Transformation implementing classes-->
 		<escidoc.transformation.bibtex.class>de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<!-- Transformation stylesheets -->
@@ -879,7 +881,7 @@
 				</plugins>
 			</build>
 			<properties>
-			    	<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
+			    <escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
