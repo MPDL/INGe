@@ -71,6 +71,7 @@ import org.apache.fop.apps.MimeConstants;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -738,8 +739,8 @@ public class DataHandlerBean implements DataHandler
     		         {
     		             logger.debug(e);
     		         }
-                     File config = new File(DataHandlerBean.class.getClassLoader().getResource("resources/apache-fop-config.xml").toURI());
-    		         fopFactory.setUserConfig(config);
+    		         String url = DataHandlerBean.class.getClassLoader().getResource("dataaquisition/apache-fop-config.xml").toURI().toString();
+    		         fopFactory.setUserConfig(url);
                  }
                  catch (Exception exception)
                  {
