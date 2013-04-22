@@ -57,6 +57,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class AffiliationVOPresentation extends AffiliationVO implements Comparable<AffiliationVOPresentation>
 {
+    private static final int SHORTENED_NAME_STANDARD_LENGTH = 70;
+    private static final int SHORTENED_LEVEL_LENGTH = 5;
     private List<AffiliationVOPresentation> children = null;
     private AffiliationVOPresentation parent = null;
     private String namePath;
@@ -247,6 +249,32 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         if (getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
             return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public String getShortenedName()
+    {
+        AffiliationVOPresentation aff = this;
+        int level = 0;
+        while (!aff.getTopLevel())
+        {
+            aff = aff.getParent();
+            level ++;
+        }
+        if (getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            if (((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().length() > (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH)))
+            {
+                return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().substring(0, (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH))) + "...";
+            }
+            else 
+            {
+                return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
+            }
         }
         else
         {
