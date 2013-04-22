@@ -144,7 +144,7 @@
 				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
 				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
-
+				personSuggestCommonParentClass = 'suggestAnchor';
 
 
 			</script>

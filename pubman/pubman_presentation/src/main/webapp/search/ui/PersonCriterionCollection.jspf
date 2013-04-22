@@ -44,7 +44,7 @@ All rights reserved. Use is subject to license terms.
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
+				<span class="xHuge_area0 xTiny_marginLExcl endline personArea suggestAnchor">
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
@@ -65,7 +65,7 @@ All rights reserved. Use is subject to license terms.
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
+				<span class="xHuge_area0 xTiny_marginLExcl endline personArea suggestAnchor">
 					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
