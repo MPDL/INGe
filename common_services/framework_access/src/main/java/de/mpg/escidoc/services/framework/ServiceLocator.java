@@ -557,6 +557,22 @@ public class ServiceLocator
     }
     
     /**
+     * Gets the AggregationDefinitionHandler service for an authenticated user.
+     *
+     * @return A AggregationDefinitionHandler.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static AggregationDefinitionHandler getAggregationDefinitionHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        AggregationDefinitionHandler handler = publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
+        Logger.getLogger(ServiceLocator.class).debug(
+                "publicAggregationDefinitionHandlerServiceLocator = " + publicAggregationDefinitionHandlerServiceLocator);
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
      * Gets the StatisticDataHandler service for an anonymous user.
      *
      * @return A StatisticDataHandler.
