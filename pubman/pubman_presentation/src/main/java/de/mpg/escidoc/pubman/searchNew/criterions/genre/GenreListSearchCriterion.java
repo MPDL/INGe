@@ -320,11 +320,12 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 		boolean allDegreesSelected = degreeSelected && ! degreeDeselected;
 		boolean noDegreeSelected = !degreeSelected && degreeDeselected;
 		
+		/*
 		System.out.println("All Genres: " + allGenreSelected);
 		System.out.println("No Genres: " + noGenreSelected);
 		System.out.println("All Degrees: " + allDegreesSelected);
 		System.out.println("No Degrees: " + noDegreeSelected);
-		
+		*/
 		
 		return (allGenreSelected && allDegreesSelected) || (allGenreSelected &&  noDegreeSelected) || (noGenreSelected);
 		//return (genreSelected && !genreDeselected && )
