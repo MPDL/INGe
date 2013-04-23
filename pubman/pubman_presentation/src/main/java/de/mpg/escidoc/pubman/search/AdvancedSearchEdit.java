@@ -280,13 +280,12 @@ public class AdvancedSearchEdit extends FacesBean
                 }
                 
                 //log search for statistics
+                /*
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
-                
-                
                 InitialContext ic = new InitialContext();
                 StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
                 sl.logSearch(getSessionId(), getIP(), searchString, cql, loginHelper.getLoggedIn(), "pubman", AdminHelper.getAdminUserHandle());
-                
+                */
             }
            
             catch (Exception e)

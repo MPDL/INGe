@@ -274,6 +274,7 @@ public class AffiliationBean extends FacesBean
 
             String cql = query.getCqlQuery();
 
+            /*
             try
             {
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
@@ -286,7 +287,7 @@ public class AffiliationBean extends FacesBean
             {
                 logger.error("Could not log statistical data", e);
             }
-
+             */
 
             //redirect to SearchResultPage which processes the query
             getExternalContext().redirect("SearchResultListPage.jsp?"

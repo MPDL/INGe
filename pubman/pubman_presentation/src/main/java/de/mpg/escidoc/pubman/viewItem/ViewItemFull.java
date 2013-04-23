@@ -577,10 +577,12 @@ public class ViewItemFull extends FacesBean
         }
 
 
+        /*
         if (logViewAction)
         {
             logViewAction();
         }
+        */
 
 
         //TODO: remove into separate method, must this be in the initializer?
@@ -2878,6 +2880,7 @@ public class ViewItemFull extends FacesBean
         this.itemPattern = itemPattern;
     }
 
+    /*
     private void logViewAction()
     {
         final String ip = getIP();
@@ -2902,6 +2905,7 @@ public class ViewItemFull extends FacesBean
             }
         }.start();
     }
+    */
 
     public String getStatisticString()
     {

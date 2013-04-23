@@ -29,6 +29,8 @@
 */
 package de.mpg.escidoc.services.pubman.statistics;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
+import de.escidoc.www.services.sm.AggregationDefinitionHandler;
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
 import de.escidoc.www.services.sm.ReportHandler;
 import de.mpg.escidoc.services.common.StatisticLogger;
@@ -61,6 +64,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
@@ -68,6 +72,7 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRec
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 
@@ -97,6 +102,15 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     
     //private HashMap<String, String> reportDefinitionMap;
     
+    
+    public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = "select month, year, sum(requests) as itemRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by month, year;";
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = "select parent_object_id as itemId, sum(requests) as fileRequests from pubman_object_stats where (parent_object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' group by parent_object_id;";
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = "select month, year, sum(requests) as fileRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' group by month, year;";
+    public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = "select month, year, sum(requests) as itemRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='false' group by month, year;";
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = "select parent_object_id as itemId, sum(requests) as fileRequests from pubman_object_stats where (parent_object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' and user_id='false' group by parent_object_id;";
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = "select month, year, sum(requests) as fileRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' and user_id='false' group by month, year;";
+
+    
     /**
      * A XmlTransforming instance.
      */
@@ -104,9 +118,9 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     private XmlTransforming xmlTransforming;
     
    
-    public  List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception
+    public  List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionId, String objectId, AccountUserVO accountUser) throws Exception
     {
-        if (reportDefinitionType == null || objectId == null)
+        if (reportDefinitionId == null || objectId == null)
         {
             throw new IllegalArgumentException("Arguments are null!");
         }
@@ -125,12 +139,12 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
        
        // EntityManager em = emf.createEntityManager();
-        String repDefId = ReportDefinitionStorage.getInstance().getReportDefinitionMap().get(reportDefinitionType);
+        //String repDefId = ReportDefinitionStorage.getInstance().getReportDefinitionMap().get(reportDefinitionType);
         
-        if (repDefId==null) throw new Exception("Reportdefinition does not exist: "+objectId);
+        if (reportDefinitionId==null) throw new Exception("Reportdefinition does not exist: "+reportDefinitionId);
         
         StatisticReportParamsVO repParams = new StatisticReportParamsVO();
-        repParams.setReportDefinitionId(repDefId);
+        repParams.setReportDefinitionId(reportDefinitionId);
         
         StatisticReportRecordParamVO param = new StatisticReportRecordParamVO("object_id", new StatisticReportRecordStringParamValueVO(objectId));
         repParams.getParamList().add(param);
@@ -153,10 +167,10 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     /**
      * {@inheritDoc}
      */
-    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception{
+    public String getNumberOfItemOrFileRequests(String reportDefinitionId, String objectId, AccountUserVO accountUser) throws Exception{
         
 
-        List<StatisticReportRecordVO> reportRecordList = getStatisticReportRecord(reportDefinitionType, objectId, accountUser);
+        List<StatisticReportRecordVO> reportRecordList = getStatisticReportRecord(reportDefinitionId, objectId, accountUser);
         
 
        int requests = 0;
@@ -190,10 +204,56 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     public void initReportDefinitionsInFramework()
     {
        
-        logger.info("Initializing Report Definitions in framework database");
-        
-        try 
+    	try 
         {
+    	
+	    	logger.info("Initializing statistic aggregation definitions in framework database");
+	    	AggregationDefinitionHandler adh = ServiceLocator.getAggregationDefinitionHandler(AdminHelper.getAdminUserHandle());
+	    	String srwResponseXml = adh.retrieveAggregationDefinitions(new HashMap<String, String[]>());
+	    	List<AggregationDefinitionVO> aggList = xmlTransforming.transformToStatisticAggregationDefinitionList(srwResponseXml);
+	    	
+	    	String aggregationTableName = null;
+	    	
+	    	for(AggregationDefinitionVO aggDef : aggList)
+	    	{
+	    		if(aggDef.getName().equals("pubman item statistics without version"))
+	    		{
+	    			logger.info("Pubman statistic aggregation definition already exists with id " + aggDef.getObjectId());
+	    			
+	    			aggregationTableName = aggDef.getAggregationTables().get(0).getName();
+	    			logger.info("Pubman aggregated table name:" +  aggregationTableName);
+	    			break;
+	    		}
+	    		
+	    	}
+	    	
+	    	//No aggregation found, create one
+	    	if(aggregationTableName == null)
+	    	{
+	    		logger.info("No pubman aggregation definition found, creating one");
+	    		
+	    		String aggregationDefinitionXml = ResourceUtil.getResourceAsString("pubman_object_stats_aggregation.xml");
+	    		String createdAggDefXml = adh.create(aggregationDefinitionXml);
+	    		AggregationDefinitionVO aggCreated = xmlTransforming.transformToStatisticAggregationDefinition(createdAggDefXml);
+	    		logger.info("Pubman aggregation definition created with id " + aggCreated.getObjectId());
+	    		aggregationTableName = aggCreated.getAggregationTables().get(0).getName();
+	    		logger.info("Pubman aggregated table name:" +  aggregationTableName);
+	    	}
+    	
+    	
+	    	REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS.replaceAll("pubman_object_stats", aggregationTableName);
+	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS.replaceAll("pubman_object_stats", aggregationTableName);
+	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS.replaceAll("pubman_object_stats", aggregationTableName);
+	    	REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS.replaceAll("pubman_object_stats", aggregationTableName);
+	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS.replaceAll("pubman_object_stats", aggregationTableName);
+	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS.replaceAll("pubman_object_stats", aggregationTableName);
+	    	    
+	    	
+	    	
+    	
+	    	logger.info("Initializing statistical report definitions in framework database");
+        
+       
             
             ReportDefinitionHandler repDefHandler = ServiceLocator.getReportDefinitionHandler(AdminHelper.getAdminUserHandle());
             //EntityManager em = emf.createEntityManager();
@@ -214,33 +274,69 @@ public class SimpleStatistics implements PubItemSimpleStatistics
             
             for (StatisticReportDefinitionVO repDefFile : repDefFileList)
             {
-                StatisticReportDefinitionVO repDefFW = repDefFrameworkMap.get(repDefFile.getSql());
+            	String sql = repDefFile.getSql().replaceAll("pubman_object_stats", aggregationTableName);
+                StatisticReportDefinitionVO repDefFW = repDefFrameworkMap.get(sql);
+                String repDefObjectId;
                 
                 //Report Definition already existing
                 if(repDefFW != null) 
                 {
                     //set Property
-                    Map<String, String> reportDefMap =   ReportDefinitionStorage.getInstance().getReportDefinitionMap();
-                    reportDefMap.put(repDefFW.getSql(), repDefFW.getObjectId());
-                    logger.info("Added existing report definition to Map: " + repDefFW.getObjectId() + " --- " + repDefFW.getSql());
+                    //Map<String, String> reportDefMap =   ReportDefinitionStorage.getInstance().getReportDefinitionMap();
+                    //reportDefMap.put(repDefFW.getSql(), repDefFW.getObjectId());
+                	repDefObjectId = repDefFW.getObjectId();
+                	logger.info("Report Definition already  existing: " + repDefFW.getObjectId() + " --- " + repDefFW.getSql());
+                	
 
                 }
                 //Report Definition does not exist yet
                 else 
                 {
                   //create and set
-                    String repDefFileXML = xmlTransforming.transformToStatisticReportDefinition(repDefFile);
+                    String repDefFileXML = xmlTransforming.transformToStatisticReportDefinition(repDefFile).replaceAll("pubman_object_stats", aggregationTableName);;
                     String repDefFWXMLNew = repDefHandler.create(repDefFileXML);
                     StatisticReportDefinitionVO repDefFWNew = xmlTransforming.transformToStatisticReportDefinition(repDefFWXMLNew);
-                    ReportDefinitionStorage.getInstance().getReportDefinitionMap().put(repDefFWNew.getSql(), repDefFWNew.getObjectId());
+                    //ReportDefinitionStorage.getInstance().getReportDefinitionMap().put(repDefFWNew.getSql(), repDefFWNew.getObjectId());
+                    repDefObjectId = repDefFWNew.getObjectId();
                     logger.info("Created new report definition and added to Map: " + repDefFWNew.getObjectId() + " --- " + repDefFWNew.getSql());
                     
                 }
+                
+                if(repDefFile.getName().equals("Item retrievals, all users"))
+                {
+                	REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = repDefObjectId;
+                }
+                else if(repDefFile.getName().equals("File downloads per Item, all users"))
+                {
+                	REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = repDefObjectId;
+                }
+              
+                else if(repDefFile.getName().equals("File downloads, all users"))
+                {
+                	REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = repDefObjectId;
+                }
+                else if(repDefFile.getName().equals("Item retrievals, anonymous users"))
+                {
+                	REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = repDefObjectId;
+                }
+                else if(repDefFile.getName().equals("File downloads per Item, anonymous users"))
+                {
+                	REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = repDefObjectId;
+                }
+                else if(repDefFile.getName().equals("File downloads, anonymous users"))
+                {
+                	REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = repDefObjectId;
+                }
+                
+                
+                
+               
             }
             
+            /*
             logger.info( ReportDefinitionStorage.getInstance().getReportDefinitionMap().size()
             +" Statistic report definitions are initialized! ");
-           
+           */
             
            
         }

@@ -728,7 +728,7 @@ public abstract class SearchCriterionBase implements Serializable{
 				if(sc.isEmpty())
 				{
 					removeSearchCriterionWithOperator(copyForRemoval, sc);
-					logger.info("Remove " + sc);
+					//logger.info("Remove " + sc);
 					
 				}
 			}

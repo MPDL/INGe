@@ -73,6 +73,7 @@ public class Search extends FacesBean
         {
             String cql = generateCQLRequest(searchString, includeFiles);
             
+            /*
             try
             {
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
@@ -85,6 +86,7 @@ public class Search extends FacesBean
             {
                logger.error("Could not log statistical data", e);
             }
+            */
             
             getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8"));
         }

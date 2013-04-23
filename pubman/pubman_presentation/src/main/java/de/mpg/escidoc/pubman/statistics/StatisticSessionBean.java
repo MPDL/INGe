@@ -20,12 +20,13 @@ public class StatisticSessionBean extends FacesBean
     
     public StatisticSessionBean()
     {
-        logNewUser();
+        //logNewUser();
         
         
     }
 
 
+    /*
     private void logNewUser()
     {
         try
@@ -38,15 +39,9 @@ public class StatisticSessionBean extends FacesBean
         {
             logger.error("Could not log new user.", e);
         }
-        
-        
-        
-        
-        
-        
-        
-        
+             
     }
+    */
     
     
 }

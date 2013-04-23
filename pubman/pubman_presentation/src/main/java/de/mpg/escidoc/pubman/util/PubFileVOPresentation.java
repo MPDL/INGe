@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 
 
 /**
@@ -558,7 +559,7 @@ public class PubFileVOPresentation extends FacesBean
         String fileID = file.getReference().getObjectId();
         
         String result = pubItemStatistics.getNumberOfItemOrFileRequests(
-                PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS,
+                SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS,
                 fileID,
                 loginHelper.getAccountUser());
         return result;
@@ -569,7 +570,7 @@ public class PubFileVOPresentation extends FacesBean
         initStatisticService();
         String fileID = file.getReference().getObjectId();
         String result = pubItemStatistics.getNumberOfItemOrFileRequests(
-                PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, 
+                SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, 
                 fileID,
                 loginHelper.getAccountUser());
         return result;

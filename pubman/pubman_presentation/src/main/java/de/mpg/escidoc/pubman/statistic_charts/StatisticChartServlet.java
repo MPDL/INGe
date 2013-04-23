@@ -64,6 +64,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 
 /**
  * 
@@ -189,13 +190,13 @@ public class StatisticChartServlet extends HttpServlet
         
         if (type.equals("item"))
         {
-            reportListAllUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, id, null);
-            reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, id, null);
+            reportListAllUsers = pubItemStatistic.getStatisticReportRecord(SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, id, null);
+            reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, id, null);
         }
         else if (type.equals("file"))
         {
-            reportListAllUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, id, null);
-            reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, id, null);
+            reportListAllUsers = pubItemStatistic.getStatisticReportRecord(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, id, null);
+            reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, id, null);
         }
         
         
@@ -260,7 +261,7 @@ public class StatisticChartServlet extends HttpServlet
             if (currentAllUsersRecord!=null && currentAllUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAllUsersRecord.getYear()==cal.get(Calendar.YEAR))
             {
                 allUserRequests = currentAllUsersRecord.getRequests();
-                logger.info("allUserRequests " + allUserRequests);
+                //logger.info("allUserRequests " + allUserRequests);
                 if (iter.hasNext()) currentAllUsersRecord = iter.next();
             }
             else
@@ -271,7 +272,7 @@ public class StatisticChartServlet extends HttpServlet
             if (currentAnonymousUsersRecord!=null && currentAnonymousUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAnonymousUsersRecord.getYear()==cal.get(Calendar.YEAR))
             {
                 anonymousUserrequests = currentAnonymousUsersRecord.getRequests();
-                logger.info("anonymousUserrequests " + anonymousUserrequests);
+                //logger.info("anonymousUserrequests " + anonymousUserrequests);
                 if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
             }
             else
@@ -281,9 +282,9 @@ public class StatisticChartServlet extends HttpServlet
            
            
            dataset.addValue(allUserRequests-anonymousUserrequests, loggedInUsersSeries, xLabel );
-           logger.info("added value " + (allUserRequests-anonymousUserrequests) + " for "  + loggedInUsersSeries);
+           //logger.info("added value " + (allUserRequests-anonymousUserrequests) + " for "  + loggedInUsersSeries);
            dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
-           logger.info("added value " + (anonymousUserrequests) + " for "  + anonymousUsersSeries);
+           //logger.info("added value " + (anonymousUserrequests) + " for "  + anonymousUsersSeries);
            
            cal.add(Calendar.MONTH, +1);   
         }

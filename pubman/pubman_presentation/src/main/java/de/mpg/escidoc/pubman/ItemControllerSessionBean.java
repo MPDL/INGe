@@ -2049,6 +2049,7 @@ public class ItemControllerSessionBean extends FacesBean
 		}
 
 		//log the export for statistics
+		/*
 		final String ip = getIP();
 		final String sessId = getSessionId();
 		final String referer = getReferer();
@@ -2072,6 +2073,7 @@ public class ItemControllerSessionBean extends FacesBean
 			}
 		}.start();
 
+		 */
 
 		return res;
 	}

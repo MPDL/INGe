@@ -47,6 +47,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 
 /**
  * Backing Bean for viewItemStatistics.jspf
@@ -116,26 +117,25 @@ public class ViewItemStatistics extends FacesBean
     
     public String getNumberOfItemRetrievalsAllUsers() throws Exception
     {
-        
-        return getItemControllerSessionBean().getStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
+        return getItemControllerSessionBean().getStatisticValue(SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
         
     }
     
     public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception
     {
-        return getItemControllerSessionBean().getStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
+        return getItemControllerSessionBean().getStatisticValue(SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
         
     }
     
     public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception
     {
-        return getItemControllerSessionBean().getStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
+        return getItemControllerSessionBean().getStatisticValue(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
        
     }
     
     public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception
     {
-        return getItemControllerSessionBean().getStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
+        return getItemControllerSessionBean().getStatisticValue(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
         
     }
     
