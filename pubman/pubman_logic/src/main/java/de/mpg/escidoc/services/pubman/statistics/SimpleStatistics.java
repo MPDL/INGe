@@ -103,12 +103,12 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     //private HashMap<String, String> reportDefinitionMap;
     
     
-    public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = "select month, year, sum(requests) as itemRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by month, year;";
-    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = "select parent_object_id as itemId, sum(requests) as fileRequests from pubman_object_stats where (parent_object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' group by parent_object_id;";
-    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = "select month, year, sum(requests) as fileRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' group by month, year;";
-    public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = "select month, year, sum(requests) as itemRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='false' group by month, year;";
-    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = "select parent_object_id as itemId, sum(requests) as fileRequests from pubman_object_stats where (parent_object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' and user_id='false' group by parent_object_id;";
-    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = "select month, year, sum(requests) as fileRequests from pubman_object_stats where (object_id = {object_id}) and handler = 'de.escidoc.core.om.service.ItemHandler' and request ILIKE 'retrieveContent' and user_id='false' group by month, year;";
+    public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS;
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS;
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS;
+    public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS;
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS;
+    public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS;
 
     
     /**
@@ -240,16 +240,6 @@ public class SimpleStatistics implements PubItemSimpleStatistics
 	    		logger.info("Pubman aggregated table name:" +  aggregationTableName);
 	    	}
     	
-    	
-	    	REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS.replaceAll("pubman_object_stats", aggregationTableName);
-	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS.replaceAll("pubman_object_stats", aggregationTableName);
-	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS.replaceAll("pubman_object_stats", aggregationTableName);
-	    	REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS.replaceAll("pubman_object_stats", aggregationTableName);
-	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS.replaceAll("pubman_object_stats", aggregationTableName);
-	    	REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS.replaceAll("pubman_object_stats", aggregationTableName);
-	    	    
-	    	
-	    	
     	
 	    	logger.info("Initializing statistical report definitions in framework database");
         
