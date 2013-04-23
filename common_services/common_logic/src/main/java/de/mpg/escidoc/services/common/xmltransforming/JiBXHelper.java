@@ -88,6 +88,9 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationIndexVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTableVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
@@ -351,6 +354,21 @@ public class JiBXHelper
     public static List<AllowedRolesRO> allowedRolesListFactory()
     {
         return new ArrayList<AllowedRolesRO>();
+    }
+    
+    public static List<AggregationTableVO> aggregationTableListFactory()
+    {
+        return new ArrayList<AggregationTableVO>();
+    }
+    
+    public static List<AggregationIndexVO> aggregationIndexListFactory()
+    {
+        return new ArrayList<AggregationIndexVO>();
+    }
+    
+    public static List<AggregationFieldVO> aggregationFieldListFactory()
+    {
+        return new ArrayList<AggregationFieldVO>();
     }
 
     /**

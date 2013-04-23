@@ -104,6 +104,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
@@ -1836,6 +1837,123 @@ public class XmlTransformingBean implements XmlTransforming
 
         return statisticReportDefinitionVO;
     }
+    
+    
+    
+    public AggregationDefinitionVO transformToStatisticAggregationDefinition(String aggrDefXML)
+            throws TechnicalException
+    {
+        logger.debug("transformToStatisticAggregationDefinition(String) - String aggregationDefinition=\n" + aggrDefXML);
+        if (aggrDefXML == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticAggregationDefinition: aggregationDefXML is null");
+        }
+        AggregationDefinitionVO statisticAggrDefinitionVO = null;
+        try
+        {
+            // unmarshal StatisticReport from String
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticAggregation", AggregationDefinitionVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(aggrDefXML);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            statisticAggrDefinitionVO = (AggregationDefinitionVO)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(aggrDefXML, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+       
+
+        return statisticAggrDefinitionVO;
+    }
+    
+    
+    public String transformToStatisticAggregationDefinition(AggregationDefinitionVO aggrDef) throws TechnicalException
+    {
+        logger.debug("transformToStatisticAggregationDefinition()");
+        if (aggrDef == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticAggregationDefinition:aggrDef is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticAggregation", AggregationDefinitionVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(aggrDef, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(aggrDef.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToStatisticAggregationDefinition() - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
+    }
+    
+    
+    public List<AggregationDefinitionVO> transformToStatisticAggregationDefinitionList(String aggregationDefinitionList)
+            throws TechnicalException
+    {
+
+        logger.debug("transformToStatisticAggregationDefinitionList(String) - String aggregationDefinitionList=\n" + aggregationDefinitionList);
+        if (aggregationDefinitionList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticAggregationDefinitionList: aggregationDefinitionList is null");
+        }
+        SearchRetrieveResponseVO response = null;
+        
+        try
+        {
+            // unmarshal StatisticReport from String
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticAggregation", SearchRetrieveResponseVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(aggregationDefinitionList);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            response = (SearchRetrieveResponseVO)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(aggregationDefinitionList, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        List<AggregationDefinitionVO> repDefList = new ArrayList<AggregationDefinitionVO>();
+       
+        if (response.getRecords() != null)
+        {
+            for(SearchRetrieveRecordVO s : response.getRecords())
+            {
+            	repDefList.add((AggregationDefinitionVO) s.getData());
+            }
+        }
+        return repDefList;
+        
+    }
+    
     
     public TocItemVO transformToTocItemVO(String tocXML) throws TechnicalException
     {

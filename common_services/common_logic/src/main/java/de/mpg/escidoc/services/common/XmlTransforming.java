@@ -64,6 +64,7 @@ import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
@@ -440,6 +441,12 @@ public interface XmlTransforming
     public String transformToStatisticReportDefinition(StatisticReportDefinitionVO reportDef) throws TechnicalException;
     
     public StatisticReportDefinitionVO transformToStatisticReportDefinition(String reportDefXML) throws TechnicalException;
+    
+    public AggregationDefinitionVO transformToStatisticAggregationDefinition(String aggrDefXML) throws TechnicalException;
+    
+    public String transformToStatisticAggregationDefinition(AggregationDefinitionVO aggrDef) throws TechnicalException;
+    
+    public List<AggregationDefinitionVO> transformToStatisticAggregationDefinitionList(String aggregationDefinitionList) throws TechnicalException;
     
     public TocItemVO transformToTocItemVO(String tocXML) throws TechnicalException;
     

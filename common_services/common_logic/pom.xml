@@ -83,6 +83,7 @@
 										<include name="bindings_TocItemVO_input.xml" />
 										<include name="bindings_TocItemVO_output.xml" />
 										<include name="bindings_SearchResultVO_input.xml" />
+										<include name="bindings_StatisticAggregationVO.xml" />
 									</bindingfileset>
 									<bindingfileset dir="${project.build.outputDirectory}/jibx/jibx_generated">
 										<include name="binding.xml" />
