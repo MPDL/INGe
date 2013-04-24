@@ -52,6 +52,10 @@ public class PreHandler extends DefaultHandler
 
     private String lastCreatedRelsExtTimestamp = "";
     private String lastCreatedRelsExtId = null;
+    
+    private String lastCreatedDCTimestamp = "";
+    private String lastCreatedDCId = null;
+    
     private Type objectType = null;
     private String publicStatus = "";
     
@@ -62,6 +66,9 @@ public class PreHandler extends DefaultHandler
     private boolean inRelsExtAndVersionStatus = false;
     private boolean inRelsExtAndReleaseNumber = false;
     private boolean inRelsExtAndVersionNumber = false;
+    
+    private boolean inDC = false;
+    private boolean inDCAndTitle = false;
     
     private Map<String, String> attributeMap = new HashMap<String, String>();
    
@@ -93,6 +100,21 @@ public class PreHandler extends DefaultHandler
                 logger.debug("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
             }
         }
+        else if ("foxml:datastream".equals(qName) && "DC".equals(attributes.getValue("ID")))
+        {
+            inDC = true;
+        }
+        else if ("foxml:datastreamVersion".equals(qName) && inDC)
+        {
+            String createdString = attributes.getValue("CREATED");
+            if (createdString != null && createdString.compareTo(lastCreatedDCTimestamp) > 0)
+            {
+                lastCreatedDCTimestamp = createdString;
+                lastCreatedDCId = attributes.getValue("ID");
+                
+                logger.debug("startElement lastCreatedDCTimeStamp = " + lastCreatedDCTimestamp);               
+            }
+        }
         else if ("prop:public-status".equals(qName) && inRelsExt)
         {
             inRelsExtAndPublicStatus = true;
@@ -108,6 +130,10 @@ public class PreHandler extends DefaultHandler
         else if ("version:number".equals(qName) && inRelsExt)
         {
             inRelsExtAndVersionNumber = true;
+        }
+        else if ("dc:title".equals(qName) && inDC)
+        {
+            inDCAndTitle = true;
         }
         else if ("escidocVersions:pid".equals(qName))
         {
@@ -139,34 +165,16 @@ public class PreHandler extends DefaultHandler
         currentContent = new StringBuffer();
     }
 
-    private Type getObjectType(String type)
-    {
-        if (type.startsWith("Component"))
-        {
-            return objectType = Type.COMPONENT;
-        } 
-        else if (type.startsWith("Item"))
-        {
-            return objectType = Type.ITEM;
-        }
-        else if (type.startsWith("Context"))
-        {
-            return objectType = Type.CONTEXT;
-        }
-        else if (type.contains("Content"))
-        {
-            return objectType = Type.CONTENTMODEL;
-        }
-        return Type.UNKNOWN;
-    }
-
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
         logger.debug("endElement   uri=<" + uri + "> localName = <" + localName + "> qName = <" + qName + ">");
-        if ("foxml:datastream".equals(qName))
+        if ("foxml:datastream".equals(qName) && inRelsExt)
         {
             inRelsExt = false;
+        } else if ("foxml:datastream".equals(qName) && inDC)
+        {
+            inDC = false;
         } 
         else if ("prop:public-status".equals(qName))
         {
@@ -184,6 +192,10 @@ public class PreHandler extends DefaultHandler
         {
             inRelsExtAndVersionNumber = false;
         }
+        else if (inDC && "dc:title".equals(qName))
+        {
+            inDCAndTitle = false;
+        }
         currentContent = null;
     }
     
@@ -196,7 +208,7 @@ public class PreHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             attributeMap.put("prop:public-status", currentContent.toString());
-            logger.debug("publicStatus =<" + publicStatus + ">");
+            logger.debug("publicStatus =<" + currentContent.toString() + ">");
         }  
         else if (inRelsExtAndVersionStatus)
         {
@@ -215,7 +227,13 @@ public class PreHandler extends DefaultHandler
             currentContent.append(ch, start, length);
             attributeMap.put("version:number", currentContent.toString());
             logger.debug("versionNumber =<" + currentContent.toString() + ">");
-        }    
+        }   
+        else if (inDCAndTitle)
+        {
+            currentContent.append(ch, start, length);
+            attributeMap.put("dc:title", currentContent.toString());
+            logger.debug("title =<" + currentContent.toString() + ">");
+        }   
     }
 
     public String getLastCreatedRelsExtId()
@@ -254,21 +272,7 @@ public class PreHandler extends DefaultHandler
     
     public String getTitle()
     {
-        return null;
-    }
-
-    private PublicStatus getStatus(String key)
-    {
-        if (attributeMap.get(key).equals("released"))
-            return PublicStatus.RELEASED;
-        else if (attributeMap.get(key).equals("pending"))
-            return PublicStatus.PENDING;
-        else if (attributeMap.get(key).equals("submitted"))
-            return PublicStatus.SUBMITTED;
-        else if (attributeMap.get(key).equals("withdrawn"))
-            return PublicStatus.WITHDRAWN;
-        
-        return PublicStatus.UNKNOWN;
+        return attributeMap.get("dc:title") != null ? attributeMap.get("dc:title") : "";
     }
     
     public String getReleaseNumber()
@@ -286,5 +290,38 @@ public class PreHandler extends DefaultHandler
         return attributeMap.get("id");
     }
     
-    
+    private Type getObjectType(String type)
+    {
+        if (type.startsWith("Component"))
+        {
+            return objectType = Type.COMPONENT;
+        } 
+        else if (type.startsWith("Item"))
+        {
+            return objectType = Type.ITEM;
+        }
+        else if (type.startsWith("Context"))
+        {
+            return objectType = Type.CONTEXT;
+        }
+        else if (type.contains("Content"))
+        {
+            return objectType = Type.CONTENTMODEL;
+        }
+        return Type.UNKNOWN;
+    }
+
+    private PublicStatus getStatus(String key)
+    {
+        if (attributeMap.get(key).equals("released"))
+            return PublicStatus.RELEASED;
+        else if (attributeMap.get(key).equals("pending"))
+            return PublicStatus.PENDING;
+        else if (attributeMap.get(key).equals("submitted"))
+            return PublicStatus.SUBMITTED;
+        else if (attributeMap.get(key).equals("withdrawn"))
+            return PublicStatus.WITHDRAWN;
+        
+        return PublicStatus.UNKNOWN;
+    }
 }

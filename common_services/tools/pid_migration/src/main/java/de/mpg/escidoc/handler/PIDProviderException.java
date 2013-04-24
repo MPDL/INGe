@@ -11,4 +11,14 @@ public class PIDProviderException extends Exception
     {
         super(e);
     }
+    
+    public PIDProviderException(String message)
+    {
+        super(message);
+    }
+    
+    public PIDProviderException(String message, Exception e)
+    {
+        super(message, e);
+    }
 }

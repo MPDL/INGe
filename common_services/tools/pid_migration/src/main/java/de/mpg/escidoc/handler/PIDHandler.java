@@ -1,18 +1,13 @@
 package de.mpg.escidoc.handler;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 
-import javax.naming.NamingException;
-
-import org.apache.commons.httpclient.HttpException;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.handler.PreHandler.Type;
 import de.mpg.escidoc.main.PIDMigrationManager;
 import de.mpg.escidoc.main.PIDProviderIf;
 import de.mpg.escidoc.util.Util;
@@ -35,7 +30,7 @@ public class PIDHandler extends IdentityHandler
     
     protected static final String DUMMY_HANDLE = "someHandle";
     
-    protected Map<String, String> replaceMap = new HashMap<String, String>();
+    protected Map<String, String> replacedPids = new HashMap<String, String>();
     
     public PIDHandler(PreHandler preHandler) throws Exception 
     {
@@ -157,30 +152,19 @@ public class PIDHandler extends IdentityHandler
         }
         
         // pid attribute has already been requested
-        if (replaceMap.get(content) != null)
+        if (replacedPids.get(content) != null)
         {
-            return replaceMap.get(content);
+            return replacedPids.get(content);
         }
         
         // pid has to be requested
-        try
-        {
-            String oldContent = content;
-            
-            content = pidProvider.getPid(preHandler.getEscidocId(), preHandler.getObjectType());
-            content = doReplace(content);
-            replaceMap.put(oldContent, content);
-        }
-        catch (HttpException e)
-        {
-            logger.warn("Error getting PID for content <" + content + ">", e);
-            throw new PIDProviderException(e);
-        }
-        catch (IOException e)
-        {
-            logger.warn("Error getting PID for content <" + content + ">", e);
-            throw new PIDProviderException(e);
-        }
+        
+        String oldContent = content;
+        
+        content = pidProvider.getPid(preHandler.getEscidocId(), preHandler.getObjectType(), preHandler.getTitle());
+        content = doReplace(content);
+        replacedPids.put(oldContent, content);
+        
         return content;
     }
 

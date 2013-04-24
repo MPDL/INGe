@@ -15,6 +15,8 @@ import org.junit.Test;
 
 import de.mpg.escidoc.handler.AssertionHandler;
 import de.mpg.escidoc.handler.PreHandler;
+import de.mpg.escidoc.handler.PreHandler.PublicStatus;
+import de.mpg.escidoc.handler.PreHandler.Type;
 
 public class PIDMigrationManagerTest
 {
@@ -56,7 +58,7 @@ public class PIDMigrationManagerTest
     @Test
     public void transformFiles() throws Exception
     {
-        File f = new File("src/test/resources/item/escidoc_1479027");
+        /*File f = new File("src/test/resources/item/escidoc_1479027");
         new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
@@ -64,10 +66,14 @@ public class PIDMigrationManagerTest
         assertTrue(checkAfterMigration(new File("src/test/resources/item/itemPublicStatusPending")));
         
         new PIDMigrationManager(new File("src/test/resources/component/escidoc_418001"));        
-        assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));
+        assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));*/
+        
+        new PIDMigrationManager(new File("src/test/resources/item/itemWithdrawn"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/item/itemWithdrawn")));
     }
     
     @Test 
+    @Ignore
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
@@ -82,10 +88,10 @@ public class PIDMigrationManagerTest
     @Ignore
     public void transformQa() throws Exception
     {
-        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
+/*        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
         FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/2013_sav"), 
                 new File("C:/Test/qa-coreservice/2013"));
-        new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        
+        new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        */
         assertTrue(checkAfterMigration(new File("C:/Test/qa-coreservice/2013")));
     }
 
@@ -99,6 +105,19 @@ public class PIDMigrationManagerTest
             AssertionHandler assertionHandler = new AssertionHandler(preHandler);
             
             parser.parse(file, preHandler);
+            
+           // only migrate items and components
+            if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
+            {
+                logger.info("No validation for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
+                return true;
+            }
+            // do nothing for items in public-status != released
+            if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
+            {
+                logger.info("Nothing validation for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
+                return true;
+            }
             parser.parse(file, assertionHandler);
             
             return true;

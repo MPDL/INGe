@@ -1,6 +1,8 @@
 package de.mpg.escidoc.main;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -29,6 +31,8 @@ public class PIDMigrationManager
         }
         
         File[] files = rootDir.listFiles();
+        
+        Collections.sort(Arrays.asList(files));
         
         for (File file : files)
         {
@@ -74,7 +78,7 @@ public class PIDMigrationManager
         if (!handler.isUpdateDone())
         {
             logger.info("No update done for file <" + file.getName() + ">");
-            logger.info("****************** End transforming " + file.getName());
+            logger.info("****************** End   transforming " + file.getName());
             return;
         }
         

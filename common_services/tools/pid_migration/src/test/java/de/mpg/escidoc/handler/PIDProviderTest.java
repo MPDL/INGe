@@ -3,11 +3,8 @@ package de.mpg.escidoc.handler;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-
 import javax.naming.NamingException;
 
-import org.apache.commons.httpclient.HttpException;
 import org.junit.Test;
 
 import de.mpg.escidoc.handler.PreHandler.Type;
@@ -26,13 +23,9 @@ public class PIDProviderTest
         {
         try
         {
-            pid = pidProvider.getPid("xx", Type.UNKNOWN);
+            pid = pidProvider.getPid("xx", Type.UNKNOWN, null);
         }
-        catch (HttpException e)
-        {
-            fail(e.getMessage());
-        }
-        catch (IOException e)
+        catch (PIDProviderException e)
         {
             fail(e.getMessage());
         }
@@ -51,23 +44,37 @@ public class PIDProviderTest
     public void getPidForItem() throws NamingException
     {
         PIDProviderIf pidProvider = new PIDProvider();
-        int i = 1;
         String pid = null;
         
         try
         {
-            pid = pidProvider.getPid("escidoc:206185", Type.ITEM);
+            pid = pidProvider.getPid("escidoc:206185", Type.ITEM, null);
         }
-        catch (HttpException e)
+        catch (PIDProviderException e)
         {
             fail(e.getMessage());
         }
-        catch (IOException e)
-        {
-            fail(e.getMessage());
-        }
-    
-        assertTrue(pid != null);
-        
+
+        assertTrue(pid != null);       
     }
+    
+    @Test
+    public void getPidForComponent() throws NamingException
+    {
+        PIDProviderIf pidProvider = new PIDProvider();
+        String pid = null;
+        
+        try
+        {
+            pid = pidProvider.getPid("escidoc:1578036", Type.COMPONENT, "EXT097.pdf");
+        }
+        catch (PIDProviderException e)
+        {
+            fail(e.getMessage());
+        }
+
+        assertTrue(pid != null);       
+    }
+    
+    
 }

@@ -1,9 +1,5 @@
 package de.mpg.escidoc.handler;
 
-import java.io.IOException;
-
-import org.apache.commons.httpclient.HttpException;
-
 import de.mpg.escidoc.handler.PreHandler.Type;
 import de.mpg.escidoc.main.PIDProviderIf;
 
@@ -11,7 +7,7 @@ public class PIDProviderMock implements PIDProviderIf
 {
     static int count;
 
-    public String getPid(String id, Type type) throws HttpException, IOException
+    public String getPid(String id, Type type, String fileName) throws PIDProviderException
     {
         count++;
         if (count % 10 == 1)

@@ -42,6 +42,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getReleaseNumber().equals("5"));
         assertTrue(preHandler.getVersionNumber().equals("5"));
         assertTrue(preHandler.getEscidocId().equals("escidoc:1479027"));
+        assertTrue(preHandler.getTitle().startsWith("The immediate and chronic influence of spatio-temporal"));
         
         file = new File("src/test/resources/item_sav/itemReleasedOnce");
         
@@ -57,6 +58,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getReleaseNumber().equals("1"));
         assertTrue(preHandler.getVersionNumber().equals("1"));
         assertTrue(preHandler.getEscidocId().equals("escidoc:1648303"));
+        assertTrue(preHandler.getTitle().equals("Higher-Order Tensors in Diffusion MRI"));
         
         file = new File("src/test/resources/item_sav/itemPublicStatusPending");
         
@@ -72,6 +74,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getReleaseNumber().equals(""));
         assertTrue(preHandler.getVersionNumber().equals("1"));       
         assertTrue(preHandler.getEscidocId().equals("escidoc:1648168"));
+        assertTrue(preHandler.getTitle().equals("Rest Search Documentation"));
         
         file = new File("src/test/resources/item_sav/itemReleasedTwiceNowSubmitted");
         
@@ -87,6 +90,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getReleaseNumber().equals("2"));
         assertTrue(preHandler.getVersionNumber().equals("3"));
         assertTrue(preHandler.getEscidocId().equals("escidoc:1647170"));
+        assertTrue(preHandler.getTitle().equals("Understanding foxml II"));
     }
     
     @Test
@@ -102,6 +106,7 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.1"));
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2012-07-27T14:00:11.197Z"));
         assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
+        assertTrue(preHandler.getTitle().equals("2815.pdf"));
         
         file = new File("src/test/resources/component_sav/escidoc_418001");
         
@@ -111,5 +116,6 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.1"));
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-02-28T13:00:51.424Z"));
         assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
+        assertTrue(preHandler.getTitle().equals("server.log"));
     }
 }
