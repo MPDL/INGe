@@ -51,6 +51,7 @@ import de.mpg.escidoc.pubman.desktop.Navigation;
 public class EditItemPage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(EditItemPage.class);
+    public static final String BEAN_NAME = "EditItemPage";
 
     //The referring GUI Tool Page
     public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
