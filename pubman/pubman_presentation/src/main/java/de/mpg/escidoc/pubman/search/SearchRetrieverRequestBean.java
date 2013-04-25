@@ -148,12 +148,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
 
 
-        String cql = paramMap.get(parameterCqlQuery);
-        if(cql!=null && !cql.trim().equals(""))
-        {
-        	 setCqlQuery(cql);
-        }
-       
+        
+          
         
         
         String query = paramMap.get(parameterQuery);
@@ -163,12 +159,18 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         	setQueryString(query);
         }
 
-        if ((query==null || query.equals("")) && (cql==null || cql.equals("")))
+		String cql = paramMap.get(parameterCqlQuery);
+
+        if ((cql==null || cql.equals("")))
         {
-            error("You have to call this page with a parameter \"q\" and a internal query or \"cql\" and a cql query!");
+         	setCqlQuery("");
+            error("You have to call this page with a parameter \"cql\" and a cql query!");
 
         }
-       
+        else
+        {
+            setCqlQuery(cql);
+        }
         
         
         
@@ -196,8 +198,9 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         //checkSortCriterias(sc);
         try
         {
-        	String cql = "";
         	
+        	
+        	/*
         	if(queryString!=null && !queryString.trim().equals(""))
         	{
         		cql = SearchCriterionBase.queryStringToCqlString(queryString, true);
@@ -205,10 +208,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         	}
         	else
         	{
-        		cql = getCqlQuery();
+        		
         	}
-        	
-            PlainCqlQuery query = new PlainCqlQuery(cql);
+        	*/
+
+            PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
             query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
             query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
 
