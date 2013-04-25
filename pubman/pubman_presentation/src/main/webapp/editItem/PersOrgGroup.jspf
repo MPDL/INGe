@@ -139,7 +139,7 @@
 						rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}" />
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}"/>
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 closeIcon removeAutoSuggestPerson" style="display:none;"
+					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
 						onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors" title="#{tip.EditItem_lblRemoveAutosuggestAuthor} }"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}"/>
