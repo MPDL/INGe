@@ -29,6 +29,7 @@
 package de.mpg.escidoc.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -147,5 +148,27 @@ public class Util
         }
         return result;
     } 
+	
+	  /**
+	   * Count files in a directory (including files in all subdirectories)
+	   * @param directory the directory to start in
+	   * @return the total number of files
+	   */
+    public static int countFilesInDirectory(File directory)
+    {
+        int count = 0;
+        for (File file : directory.listFiles())
+        {
+            if (file.isFile())
+            {
+                count++;
+            }
+            if (file.isDirectory())
+            {
+                count += countFilesInDirectory(file);
+            }
+        }
+        return count;
+    }
 
 }
