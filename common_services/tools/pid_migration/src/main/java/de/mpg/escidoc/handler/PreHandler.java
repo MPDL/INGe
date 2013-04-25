@@ -77,7 +77,7 @@ public class PreHandler extends DefaultHandler
     
         
     public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL, UNKNOWN }
-    public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN, UNKNOWN }
+    public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN, INREVISION, UNKNOWN }
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -262,12 +262,12 @@ public class PreHandler extends DefaultHandler
     
     public PublicStatus getPublicStatus()
     {
-        return getStatus("prop:public-status");
+        return getPublicStatus("prop:public-status");
     }
     
     public PublicStatus getVersionStatus()
     {
-        return getStatus("version:status");
+        return getPublicStatus("version:status");
     }
     
     public String getTitle()
@@ -311,7 +311,7 @@ public class PreHandler extends DefaultHandler
         return Type.UNKNOWN;
     }
 
-    private PublicStatus getStatus(String key)
+    private PublicStatus getPublicStatus(String key)
     {
         if (attributeMap.get(key).equals("released"))
             return PublicStatus.RELEASED;
@@ -319,6 +319,8 @@ public class PreHandler extends DefaultHandler
             return PublicStatus.PENDING;
         else if (attributeMap.get(key).equals("submitted"))
             return PublicStatus.SUBMITTED;
+        else if (attributeMap.get(key).equals("in-revision"))
+            return PublicStatus.INREVISION;
         else if (attributeMap.get(key).equals("withdrawn"))
             return PublicStatus.WITHDRAWN;
         

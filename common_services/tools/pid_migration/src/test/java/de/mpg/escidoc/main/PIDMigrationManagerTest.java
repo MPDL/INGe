@@ -3,7 +3,11 @@ package de.mpg.escidoc.main;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -12,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.handler.AssertionHandler;
 import de.mpg.escidoc.handler.PreHandler;
@@ -56,6 +61,7 @@ public class PIDMigrationManagerTest
     }
     
     @Test
+    @Ignore
     public void transformFiles() throws Exception
     {
         File f = new File("src/test/resources/item/escidoc_1479027");
@@ -70,6 +76,9 @@ public class PIDMigrationManagerTest
         
         new PIDMigrationManager(new File("src/test/resources/item/itemWithdrawn"));        
         assertTrue(checkAfterMigration(new File("src/test/resources/item/itemWithdrawn")));
+        
+        new PIDMigrationManager(new File("src/test/resources/item/itemInrevision"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/item/itemInrevision")));
     }
     
     @Test 
@@ -85,7 +94,6 @@ public class PIDMigrationManagerTest
     }
     
     @Test
-    @Ignore
     public void transformQa() throws Exception
     {
         FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
@@ -100,30 +108,12 @@ public class PIDMigrationManagerTest
         logger.info("checkAfterMigration file <" + file.getName() + ">");
         if (file != null && file.isFile())
         {
-            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-            PreHandler preHandler = new PreHandler();
-            AssertionHandler assertionHandler = new AssertionHandler(preHandler);
-            
-            parser.parse(file, preHandler);
-            
-           // only migrate items and components
-            if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
-            {
-                logger.info("No validation for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
-                return true;
-            }
-            // do nothing for items in public-status != released
-            if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
-            {
-                logger.info("Nothing validation for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
-                return true;
-            }
-            parser.parse(file, assertionHandler);
-            
-            return true;
+            return validateFile(file);
         }
         
         File[] files = file.listFiles();
+        
+        Collections.sort(Arrays.asList(files));
         
         for (File f : files)
         {
@@ -136,14 +126,35 @@ public class PIDMigrationManagerTest
             else
             {
                 logger.info("checkAfterMigration file <" + f.getName() + ">");
-                SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-                PreHandler preHandler = new PreHandler();
-                AssertionHandler assertionHandler = new AssertionHandler(preHandler);
                 
-                parser.parse(f, preHandler);
-                parser.parse(f, assertionHandler);
+                return validateFile(f);
             }
         }
+        
+        return true;
+    }
+
+    private boolean validateFile(File file) throws ParserConfigurationException, SAXException, Exception, IOException
+    {
+        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+        PreHandler preHandler = new PreHandler();
+        AssertionHandler assertionHandler = new AssertionHandler(preHandler);
+        
+        parser.parse(file, preHandler);
+        
+         // only migrate items and components
+        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
+        {
+            logger.info("No validation for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
+            return true;
+        }
+        // do nothing for items in public-status != released
+        if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
+        {
+            logger.info("No validation for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
+            return true;
+        }
+        parser.parse(file, assertionHandler);
         
         return true;
     }
