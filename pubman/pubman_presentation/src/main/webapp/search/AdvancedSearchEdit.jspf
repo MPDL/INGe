@@ -569,37 +569,6 @@
 									<h:selectBooleanCheckbox id="fileCriterionHasEmbargoDate" value="#{AdvancedSearchBean.embargoDateAvailableSearchCriterion.withEmbargoDate}"/>
 									<h:outputLabel for="fileCriterionHasEmbargoDate" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
 							</span>
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							<!--  
-							
-							<span class="large_area0 tiny_marginRIncl">
-								<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-									<h:panelGroup layout="block" styleClass="large_area0">
-										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>					
-										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-									</h:panelGroup>
-									<h:selectOneMenu id="selComponentVisibilityOptions" styleClass="selComponentVisibilityOptions replace" value="#{AdvancedSearchBean.componentVisibilitySearchCriterion.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this); toggleEmbargo(this);">
-										<f:selectItem itemValue="#{null}" itemLabel="-"/>
-										<f:selectItem itemValue="private" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_PRIVATE}"/>
-										<f:selectItem itemValue="public" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_PUBLIC}"/>
-										<f:selectItem itemValue="audience" itemLabel="#{lbl.ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_RESTRICTED}"/>
-									</h:selectOneMenu>
-								</h:panelGroup>
-								
-								<span class="double_checkbox" style="margin-top:0.4545em;">
-									<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate1" value="#{AdvancedSearchBean.embargoDateAvailableSearchCriterion.withEmbargoDate}" />
-									<h:outputLabel for="fileCriterion_hasEmbargoDate1" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
-								</span>
-							</span>
-							-->
 						</span>
 						
 						
@@ -637,25 +606,6 @@
 									</h:panelGroup>
 								</a4j:repeat>
 							</span>
-							
-							
-							
-							<!-- 
-							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
-								<h:panelGroup layout="block" styleClass="large_area0">
-									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>							
-									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-								</h:panelGroup>
-								<h:selectOneMenu id="selContentCategories" styleClass="replace" value="#{AdvancedSearchBean.componentContentCategory.searchString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
-									<f:selectItems value="#{AdvancedSearchBean.contentCategoryListMenu}" />
-								</h:selectOneMenu>
-							</h:panelGroup>
-							
-							 <span class="double_checkbox" style="margin-top:0.4545em;">
-								<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="#{AdvancedSearchBean.excludeComponentContentCategory}"/>
-								<h:outputLabel id="lblFileCriterion_excludeCategory" value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
-							</span>	
-							-->
 						</span>
 					</span>
 				</span>
