@@ -150,14 +150,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	@PostConstruct
 	public void postConstruct()
 	{
-		logger.info("PostConstruct");
 		getI18nHelper().addLanguageChangeObserver(this);
 	}
 	
 	@PreDestroy
 	public void preDestroy()
 	{
-		logger.info("PreDestroy");
 		getI18nHelper().removeLanguageChangeObserver(this);
 	}
 	
