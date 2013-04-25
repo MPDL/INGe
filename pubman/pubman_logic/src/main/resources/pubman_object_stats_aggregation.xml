@@ -65,8 +65,6 @@
             <aggregation-definition:field>object_id</aggregation-definition:field>
             <aggregation-definition:field>parent_object_id</aggregation-definition:field>
              <aggregation-definition:field>user_id</aggregation-definition:field>
-            <aggregation-definition:field>month</aggregation-definition:field>
-            <aggregation-definition:field>year</aggregation-definition:field>
         </aggregation-definition:index>    
     </aggregation-definition:aggregation-table>
     <aggregation-definition:statistic-data>
