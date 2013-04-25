@@ -1,4 +1,4 @@
-package util;
+package de.mpg.escidoc.util;
 
 import static org.junit.Assert.*;
 
