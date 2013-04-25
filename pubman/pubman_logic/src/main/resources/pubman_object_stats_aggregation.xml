@@ -59,7 +59,12 @@
             </aggregation-definition:count-cumulation-field>
         </aggregation-definition:field>    
         <aggregation-definition:index>
-            <aggregation-definition:name>escidocaggdef1_time3_idx</aggregation-definition:name>
+            <aggregation-definition:name>pubman_object_stats_idx</aggregation-definition:name>
+            <aggregation-definition:field>handler</aggregation-definition:field>
+            <aggregation-definition:field>request</aggregation-definition:field>
+            <aggregation-definition:field>object_id</aggregation-definition:field>
+            <aggregation-definition:field>parent_object_id</aggregation-definition:field>
+             <aggregation-definition:field>user_id</aggregation-definition:field>
             <aggregation-definition:field>month</aggregation-definition:field>
             <aggregation-definition:field>year</aggregation-definition:field>
         </aggregation-definition:index>    
