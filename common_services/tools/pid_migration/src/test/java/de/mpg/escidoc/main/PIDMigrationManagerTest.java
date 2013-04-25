@@ -58,7 +58,7 @@ public class PIDMigrationManagerTest
     @Test
     public void transformFiles() throws Exception
     {
-        /*File f = new File("src/test/resources/item/escidoc_1479027");
+        File f = new File("src/test/resources/item/escidoc_1479027");
         new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
@@ -66,7 +66,7 @@ public class PIDMigrationManagerTest
         assertTrue(checkAfterMigration(new File("src/test/resources/item/itemPublicStatusPending")));
         
         new PIDMigrationManager(new File("src/test/resources/component/escidoc_418001"));        
-        assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));*/
+        assertTrue(checkAfterMigration(new File("src/test/resources/component/escidoc_418001")));
         
         new PIDMigrationManager(new File("src/test/resources/item/itemWithdrawn"));        
         assertTrue(checkAfterMigration(new File("src/test/resources/item/itemWithdrawn")));
@@ -88,10 +88,10 @@ public class PIDMigrationManagerTest
     @Ignore
     public void transformQa() throws Exception
     {
-/*        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
+        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
         FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/2013_sav"), 
                 new File("C:/Test/qa-coreservice/2013"));
-        new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        */
+        new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        
         assertTrue(checkAfterMigration(new File("C:/Test/qa-coreservice/2013")));
     }
 
