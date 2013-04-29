@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" PID="escidoc:importtask1" fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Import Task Content Model"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-16T12:39:01.109Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2009-08-14T07:45:08.435Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="RELS_EXT DATASTREAM" CREATED="2007-01-16T12:39:01.109Z" MIMETYPE="text/xml" SIZE="0">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/escidoc:importtask1">
+<system:build xmlns:system="http://escidoc.de/core/01/system/">1.2beta1</system:build>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/ContentModel"/>
+<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/fedora-system:ContentModel-3.0"/>
+<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:exuser:1"/>
+<prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">pending</prop:public-status>
+<prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Content Model created.</prop:public-status-comment>
+<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">System Administrator User</prop:created-by-title>
+<version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+<version:date xmlns:version="http://escidoc.de/core/01/properties/version/">---</version:date>
+<version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+<srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:exuser:1"/>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">System Administrator User</prop:modified-by-title>
+<version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Content Model created.</version:comment>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2009-08-14T07:45:08.435Z" MIMETYPE="text/xml" SIZE="0">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/escidoc:importtask1">
+<system:build xmlns:system="http://escidoc.de/core/01/system/">1.2beta1</system:build>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/ContentModel"/>
+<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/fedora-system:ContentModel-3.0"/>
+<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:exuser:1"/>
+<prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">pending</prop:public-status>
+<prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Content Model created.</prop:public-status-comment>
+<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">System Administrator User</prop:created-by-title>
+<version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+<version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2007-01-16T12:39:01.109Z</version:date>
+<version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+<srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:exuser:1"/>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">System Administrator User</prop:modified-by-title>
+<version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Content Model created.</version:comment>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Metadata" CREATED="2007-01-16T12:39:01.109Z" MIMETYPE="text/xml" SIZE="246">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>ct</dc:title>
+<dc:identifier>escidoc:importtask1</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DS-COMPOSITE-MODEL" CONTROL_GROUP="X" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2007-01-16T12:39:01.109Z" ID="DS-COMPOSITE-MODEL.0" LABEL="" MIMETYPE="text/xml" SIZE="0">
+<foxml:xmlContent>
+<dsCompositeModel xmlns="info:fedora/fedora-system:def/dsCompositeModel#" xmlns:schema="http://ecm.sourceforge.net/types/dscompositeschema/0/1/#"/>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" CONTROL_GROUP="X" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2009-08-14T07:45:08.435Z" ID="version-history.0" LABEL="" MIMETYPE="text/xml" SIZE="0">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:importtask1:1" timestamp="2007-01-16T12:39:01.109Z" xlink:href="/ir/content-model/escidoc:importtask1:1" xlink:title="Import Task Content Model" xlink:type="simple">
+<escidocVersions:version-number>1</escidocVersions:version-number>
+<escidocVersions:timestamp>2007-01-16T12:39:01.109Z</escidocVersions:timestamp>
+<escidocVersions:version-status>pending</escidocVersions:version-status>
+<escidocVersions:comment>Content Model created.</escidocVersions:comment>
+<escidocVersions:events>
+<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1">
+<premis:eventIdentifier>
+<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+<premis:eventIdentifierValue>/ir/item/escidoc:importtask1:1/version-history#v1e1</premis:eventIdentifierValue>
+</premis:eventIdentifier>
+<premis:eventType>create</premis:eventType>
+<premis:eventDateTime>2007-01-16T12:39:01.109Z</premis:eventDateTime>
+<premis:eventDetail>Content Model created.</premis:eventDetail>
+<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:exuser1" xlink:title="System Administrator User" xlink:type="simple">
+<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+<premis:linkingAgentIdentifierValue>escidoc:exuser1</premis:linkingAgentIdentifierValue>
+</premis:linkingAgentIdentifier>
+<premis:linkingObjectIdentifier>
+<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+<premis:linkingObjectIdentifierValue>escidoc:importtask1</premis:linkingObjectIdentifierValue>
+</premis:linkingObjectIdentifier>
+</premis:event>
+</escidocVersions:events>
+</escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
