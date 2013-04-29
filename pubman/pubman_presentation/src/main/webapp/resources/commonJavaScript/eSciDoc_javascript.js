@@ -262,8 +262,10 @@ function fullItemReloadStop()
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
 function beforeAjaxRequest()
 {
+	
 	if(typeof window.fullItemReloadAjax == 'function')
 	{ 
+		
 		fullItemReloadAjax();
 	}
 }
@@ -271,6 +273,7 @@ function beforeAjaxRequest()
 /*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
 function afterAjaxRequest()
 {
+	
 	if(typeof window.fullItemReloadStop == 'function')
 	{ 
 		fullItemReloadStop();
