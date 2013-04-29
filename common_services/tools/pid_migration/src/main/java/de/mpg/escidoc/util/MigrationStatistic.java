@@ -6,6 +6,7 @@ public class MigrationStatistic
     private int filesMigratedNotItemOrComponent = 0;
     private int filesMigratedNotReleased = 0;
     private int filesMigratedNotUpdated = 0;
+    private int filesErrorOccured = 0;
     
     public int getFilesMigratedTotal()
     {
@@ -38,5 +39,14 @@ public class MigrationStatistic
     public void incrementFilesMigratedNotUpdated()
     {
         this.filesMigratedNotUpdated++;
-    }    
+    } 
+    public int getFilesErrorOccured()
+    {
+        return this.filesErrorOccured;
+    }   
+    public void incrementFilesErrorOccured()
+    {
+        this.filesErrorOccured++;
+    }
+     
 }

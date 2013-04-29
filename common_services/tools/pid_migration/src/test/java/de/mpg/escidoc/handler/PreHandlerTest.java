@@ -118,4 +118,31 @@ public class PreHandlerTest
         assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
         assertTrue(preHandler.getTitle().equals("server.log"));
     }
+    
+    @Test
+    public void otherObjectTypes() throws Exception
+    {
+        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+        
+        File file = new File("src/test/resources/content-model_sav/escidoc_persistent4");
+        
+        preHandler = new PreHandler();
+        parser.parse(file, preHandler);
+        
+        assertTrue(preHandler.getObjectType().equals(Type.CONTENTMODEL));
+        
+        file = new File("src/test/resources/content-model_sav/escidoc_importtask1");
+        
+        preHandler = new PreHandler();
+        parser.parse(file, preHandler);
+        
+        assertTrue(preHandler.getObjectType().equals(Type.CONTENTMODEL));
+        
+        file = new File("src/test/resources/context_sav/escidoc_persistent3");
+        
+        preHandler = new PreHandler();
+        parser.parse(file, preHandler);
+        
+        assertTrue(preHandler.getObjectType().equals(Type.CONTEXT));
+    }
 }

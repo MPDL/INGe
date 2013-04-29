@@ -35,10 +35,10 @@ public class PIDHandler extends IdentityHandler
     public PIDHandler(PreHandler preHandler) throws Exception 
     {
         this.preHandler = preHandler;
-        
+/*        
         preHandler.getVersionNumber();
         preHandler.getReleaseNumber();
-        preHandler.getEscidocId();
+        preHandler.getEscidocId();*/
         
         this.init();       
     }
@@ -50,7 +50,7 @@ public class PIDHandler extends IdentityHandler
         this.pidProvider = (PIDProviderIf)pidProviderClass.newInstance();                
         this.pidProvider.init();
     }
-    
+
     public void setPIDMigrationManager(PIDMigrationManager mgr)
     {
         this.pidMigrationManager = mgr;

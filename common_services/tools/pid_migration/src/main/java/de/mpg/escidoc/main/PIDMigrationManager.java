@@ -122,6 +122,14 @@ public class PIDMigrationManager
     public void onError(PIDProviderException e)
     {
         logger.warn("Error getting PID ", e);
+        statistic.incrementFilesErrorOccured();
+        
+        System.out.println("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        System.out.println("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
+        System.out.println("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
+        System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+        System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        
         System.exit(1);
     }
     
@@ -144,7 +152,8 @@ public class PIDMigrationManager
         System.out.println("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         System.out.println("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+        System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
         
     }
-    
+
 }

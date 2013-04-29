@@ -61,10 +61,9 @@ public class PIDMigrationManagerTest
     }
     
     @Test
-    @Ignore
     public void transformFiles() throws Exception
     {
-        File f = new File("src/test/resources/item/escidoc_1479027");
+        /*File f = new File("src/test/resources/item/escidoc_1479027");
         new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
@@ -79,6 +78,12 @@ public class PIDMigrationManagerTest
         
         new PIDMigrationManager(new File("src/test/resources/item/itemInrevision"));        
         assertTrue(checkAfterMigration(new File("src/test/resources/item/itemInrevision")));
+        
+        new PIDMigrationManager(new File("src/test/resources/content-model/escidoc_persistent4"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/content-model/escidoc_persistent4")));*/
+        
+        new PIDMigrationManager(new File("src/test/resources/context/escidoc_persistent3"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/context/escidoc_persistent3")));
     }
     
     @Test 
@@ -93,7 +98,19 @@ public class PIDMigrationManagerTest
         assertTrue(checkAfterMigration(new File("src/test/resources/component")));
     }
     
+    @Test 
+    @Ignore("needs to set pidchache property to an invalid value")
+    public void testOnError() throws Exception
+    {
+        File f = new File("src/test/resources/item/escidoc_418001");
+        PIDMigrationManager mgr = new PIDMigrationManager(f);  
+     //   mgr.setPIDCacheUrl("http://dev-pubman.mpdl.mpg.de:8080/pidcache/handle");
+        assertTrue(checkAfterMigration(f));
+        
+    }
+    
     @Test
+    @Ignore
     public void transformQa() throws Exception
     {
         FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));

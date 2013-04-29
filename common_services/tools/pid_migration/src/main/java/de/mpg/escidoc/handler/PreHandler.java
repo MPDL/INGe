@@ -145,9 +145,9 @@ public class PreHandler extends DefaultHandler
                 logger.debug("startElement lastVersionHistoryTimeStamp = " + lastVersionHistoryTimeStamp);               
             }
         }
-        else if ("foxml:property".equals(qName) && "info:fedora/fedora-system:def/model#label".equals(attributes.getValue("NAME")))
+        else if ("rdf:type".equals(qName))
         {
-            String type = attributes.getValue("VALUE");
+            String type = attributes.getValue("rdf:resource");
             
             if (type != null )
             {
@@ -292,19 +292,19 @@ public class PreHandler extends DefaultHandler
     
     private Type getObjectType(String type)
     {
-        if (type.startsWith("Component"))
+        if (type.endsWith("Component"))
         {
             return objectType = Type.COMPONENT;
         } 
-        else if (type.startsWith("Item"))
+        else if (type.endsWith("Item"))
         {
             return objectType = Type.ITEM;
         }
-        else if (type.startsWith("Context"))
+        else if (type.endsWith("Context"))
         {
             return objectType = Type.CONTEXT;
         }
-        else if (type.contains("Content"))
+        else if (type.endsWith("ContentModel"))
         {
             return objectType = Type.CONTENTMODEL;
         }

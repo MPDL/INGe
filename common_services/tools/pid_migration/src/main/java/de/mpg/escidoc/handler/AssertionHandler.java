@@ -27,7 +27,7 @@ public class AssertionHandler extends PIDHandler
     static final String DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID = "dummy handle found for version or release PID";
     
     static final Pattern handlePattern = 
-            Pattern.compile("hdl:[0-9]{5}/[0-9]{2}-[0-9A-Z]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9]{1}");
+            Pattern.compile("hdl:[0-9]{5}/[0-9]{2}-[0-9A-Z]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{1}");
     
     private static Logger logger = Logger.getLogger(AssertionHandler.class);
     
