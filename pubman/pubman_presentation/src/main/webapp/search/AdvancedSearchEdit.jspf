@@ -313,7 +313,6 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer" rendered="#{criterion.searchCriterion == 'COLLECTION'}">
 							<h:panelGroup layout="block" styleClass="quad_area0">
 								<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
-								<span class="tooltip">&#160;</span>
 								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 							</h:panelGroup>
 							<h:selectOneMenu id="selectContext" onchange="updateSelectionBox(this);" value="#{criterion.searchString}">

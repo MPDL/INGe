@@ -46,6 +46,20 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 	public String[] getCqlIndexes() {
 		return new String[] {"escidoc.publication.subject"};
 	}
+	
+	
+	@Override
+	public String toQueryString() {
+		return getSearchCriterion().name() + "=\"" + escapeForQueryString(getClassificationType())  + "||" + escapeForQueryString(getSearchString()) + "\""; 
+	}
+
+	@Override
+	public void parseQueryStringContent(String content) {
+		
+		
+		setClassificationType(unescapeForQueryString(content.split("\\|\\|")[0]));
+		setSearchString(unescapeForQueryString(content.split("\\|\\|")[1]));
+	}
 
 	public String getClassificationType() {
 		return classificationType;

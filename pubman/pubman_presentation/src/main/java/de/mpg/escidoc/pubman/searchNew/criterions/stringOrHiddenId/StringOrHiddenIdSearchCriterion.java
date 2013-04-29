@@ -81,7 +81,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 	@Override
 	public String toQueryString() {
 		
-			return getSearchCriterion().name() + "=\"" + escapeForQueryString(searchString) + "|" + escapeForQueryString(hiddenId) + "\""; 
+			return getSearchCriterion().name() + "=\"" + escapeForQueryString(searchString) + "||" + escapeForQueryString(hiddenId) + "\""; 
 		
 		
 	}
@@ -89,7 +89,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 	@Override
 	public void parseQueryStringContent(String content) {
 		//Split by '|', which have no backslash
-		String[] parts = content.split("(?<!\\\\)\\|");
+		String[] parts = content.split("(?<!\\\\)\\|\\|");
 		
 		this.searchString=unescapeForQueryString(parts[0]);
 		if(parts.length>1)
