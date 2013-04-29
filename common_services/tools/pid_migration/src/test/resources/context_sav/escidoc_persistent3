@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:persistent3"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="PubMan Test Context"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-16T11:23:24.359Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-01-31T12:12:58.896Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2007-01-16T11:23:24.359Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2007-01-16T11:26:14.125Z</audit:date>
+<audit:justification>DatastreamsPane generated this logMessage.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-09-21T09:24:25.743Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-09-21T09:24:25.803Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-04-28T07:27:23.597Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-04-28T07:31:50.278Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-04-28T07:34:02.485Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-04-28T07:35:10.487Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-04-28T07:40:04.707Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-07-07T11:51:57.768Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-07-25T06:49:51.311Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-03-12T12:52:26.301Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-04-23T07:55:45.963Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-04-23T08:02:39.412Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-01-31T12:09:47.511Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-01-31T12:09:47.584Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>pubman</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-01-31T12:12:58.896Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="pubman" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="admin-descriptor.0" LABEL="admin-descriptor" CREATED="2007-01-16T13:11:47.125Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="1967">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+	              <allowed-genres>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+		                <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+		                <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+		                <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+		                <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+		                <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+		                <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+		                <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+	              </allowed-genres>
+	              <template-item>escidoc:123</template-item>
+	              <validation-schema>publication</validation-schema>
+	              <workflow>standard</workflow>
+            </pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.1" LABEL="admin-descriptor" CREATED="2010-09-21T09:24:25.743Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="1889">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.2" LABEL="admin-descriptor" CREATED="2011-04-28T07:27:23.597Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4648">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/PACS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/JUS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.3" LABEL="admin-descriptor" CREATED="2011-04-28T07:31:50.278Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4552">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/PACS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/JUS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.4" LABEL="admin-descriptor" CREATED="2011-04-28T07:34:02.485Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="3845">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/PACS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/JUS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.5" LABEL="admin-descriptor" CREATED="2011-04-28T07:35:10.487Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="3612">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.6" LABEL="admin-descriptor" CREATED="2011-04-28T07:40:04.707Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4415">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.7" LABEL="admin-descriptor" CREATED="2011-07-25T06:49:51.311Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4522">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>publication</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.8" LABEL="admin-descriptor" CREATED="2012-03-12T12:52:26.301Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4517">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>simple</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.9" LABEL="admin-descriptor" CREATED="2012-04-23T07:55:45.963Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4515">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>simple</validation-schema>
+  <workflow>simple</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.10" LABEL="admin-descriptor" CREATED="2012-04-23T08:02:39.412Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4517">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>simple</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.11" LABEL="admin-descriptor" CREATED="2013-01-31T12:09:47.511Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml" SIZE="4515">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>simple</validation-schema>
+  <workflow>simple</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email></contact-email>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="pubman.12" LABEL="admin-descriptor" CREATED="2013-01-31T12:12:58.896Z" ALT_IDS="admin-descriptor" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<pubman-admin-descriptor>
+  <allowed-genres>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift</allowed-genre>
+    <allowed-genre>http://purl.org/eprint/type/Patent</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume</allowed-genre>
+    <allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</allowed-genre>
+  </allowed-genres>
+  <template-item>escidoc:123</template-item>
+  <validation-schema>simple</validation-schema>
+  <workflow>standard</workflow>
+  <allowed-subject-classifications>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
+    <allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/ISO639-3</allowed-subject-classification>
+  </allowed-subject-classifications>
+  <contact-email/>
+</pubman-admin-descriptor>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="Enter a label here." CREATED="2007-01-16T11:26:14.125Z" MIMETYPE="text/xml" SIZE="1501">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+               <rdf:Description rdf:about="info:fedora/escidoc:persistent3">
+                  <system:build xmlns:system="http://escidoc.de/core/01/system/">304</system:build>
+                  <prop:creation-date xmlns:prop="http://escidoc.de/core/01/properties/">2006-02-16T12:20:46.275+01:00</prop:creation-date>
+                  <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+                  <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:created-by-title>
+                  <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+                  <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+                  <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">opened</prop:public-status>
+                  <prop:type xmlns:prop="http://escidoc.de/core/01/properties/">PubMan</prop:type>
+                  <srel:organizational-unit xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent13"></srel:organizational-unit>
+                  <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"></rdf:type>
+               </rdf:Description>
+            </rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="Enter a label here." CREATED="2010-09-21T09:24:25.803Z" MIMETYPE="text/xml" SIZE="1323">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent3">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:creation-date xmlns:prop="http://escidoc.de/core/01/properties/">2006-02-16T12:20:46.275+01:00</prop:creation-date>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:created-by-title>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">opened</prop:public-status>
+    <prop:type xmlns:prop="http://escidoc.de/core/01/properties/">PubMan</prop:type>
+    <srel:organizational-unit xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent13"></srel:organizational-unit>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="Enter a label here." CREATED="2013-01-31T12:09:47.584Z" MIMETYPE="text/xml" SIZE="1325">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent3">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:creation-date xmlns:prop="http://escidoc.de/core/01/properties/">2006-02-16T12:20:46.275+01:00</prop:creation-date>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:created-by-title>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">opened</prop:public-status>
+    <prop:type xmlns:prop="http://escidoc.de/core/01/properties/">PubMan</prop:type>
+    <srel:organizational-unit xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent13"></srel:organizational-unit>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Metadata" CREATED="2007-01-16T11:23:24.359Z" MIMETYPE="text/xml" SIZE="856">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>PubMan Test Collection</dc:title>
+<dc:description>This is the sample collection description of the PubMan Test
+collection. Any content can be stored in this collection, which is of relevance
+for the users of the system. You can submit relevant bibliographic information
+for your publication (metadata) and all relevant files. The MPS is the
+responsible affiliation for this collection. Please contact
+u.tschida@zim.mpg.de for any questions.</dc:description>
+<dc:identifier>escidoc:persistent3</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="Dublin Core Metadata" CREATED="2011-07-07T11:51:57.768Z" MIMETYPE="text/xml" SIZE="939">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">PubMan Test Collection</dc:title>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">This is the sample collection description of the PubMan Test
+collection. Any content can be stored in this collection, which is of relevance
+for the users of the system. You can submit relevant bibliographic information
+for your publication (metadata) and all relevant files. The MPS is the
+responsible affiliation for this collection.</dc:description>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent3</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
