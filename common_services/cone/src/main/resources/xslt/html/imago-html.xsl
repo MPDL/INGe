@@ -40,7 +40,7 @@
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.2.6.min.js">;</script>
 				<script type="text/javascript">
-					requestString = '../query?dc:relation="imago/resource/<xsl:value-of select="substring-after(@rdf:about, '/resource/')"/>"&f=json';
+					requestString = '../query?dc:relation="imago/resource/<xsl:value-of select="substring-after(@rdf:about, '/resource/')"/>"&amp;f=json';
 					<![CDATA[
 					$(document).ready(function() {
 
