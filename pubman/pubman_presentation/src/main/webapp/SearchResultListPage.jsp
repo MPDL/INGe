@@ -177,8 +177,7 @@
 								
 								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<!-- Subheadline starts here -->
-										<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp">
-											<f:param name="q" value="#{SearchRetrieverRequestBean.queryString}"/>
+										<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp?q=#{SearchRetrieverRequestBean.urlEncodedQueryString}">								
 											<h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/>
 										</h:outputLink>
 										<a class="free_area0 xTiny_marginRIncl" href="#" onclick="$pb(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $pb(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>

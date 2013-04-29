@@ -1,6 +1,7 @@
 package de.mpg.escidoc.pubman.search;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -371,6 +372,15 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 	public String getQueryString() {
 		return queryString;
+	}
+	
+	public String getUrlEncodedQueryString() {
+		try {
+			return URLEncoder.encode(queryString, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Could not encode query string", e);
+			return "";
+		}
 	}
 
 	public void setQueryString(String query) {
