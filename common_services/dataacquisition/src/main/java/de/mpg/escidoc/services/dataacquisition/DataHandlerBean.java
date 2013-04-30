@@ -728,19 +728,28 @@ public class DataHandlerBean implements DataHandler
     		 
     		 try
     		 {
+    		     // Trying to load FOP-Configuration from the pubman.properties
     		     fopFactory.setUserConfig(new File(PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration")));
     		 }
     		 catch (Exception e)
     		 {
     		     try
                  {
-    		         logger.info("FopFactory configuration couldn't be loaded from " + PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration"));
+    		         logger.info("FopFactory configuration couldn't be loaded from '" + PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration") + "'");
     		         if (logger.isDebugEnabled())
     		         {
     		             logger.debug(e);
     		         }
-    		         String url = DataHandlerBean.class.getClassLoader().getResource("dataaquisition/apache-fop-config.xml").toURI().toString();
-    		         fopFactory.setUserConfig(url);
+    		         // loading in-EAR configuration an fonts
+    		         String dataaquisitionUrl = DataHandlerBean.class.getClassLoader().getResource("dataaquisition/").toString();
+    		         fopFactory.setUserConfig(dataaquisitionUrl + "apache-fop-config.xml");
+    		         fopFactory.setBaseURL(dataaquisitionUrl);
+                     fopFactory.getFontManager().setFontBaseURL(dataaquisitionUrl + "fonts/");
+                     if (logger.isDebugEnabled())
+                     {
+                         logger.info(fopFactory.getBaseURL());
+                         logger.info(fopFactory.getFontManager().getFontBaseURL());
+                     }
                  }
                  catch (Exception exception)
                  {
@@ -767,11 +776,13 @@ public class DataHandlerBean implements DataHandler
     
     		     // Step 6: Start XSLT transformation and FOP processing
     		     xmlTransformer.transform(src, res);
+
+    		     // setting pdf as result
     		     input = outputPdf.toByteArray();
     		 } 
     		 catch (Exception e)
     		 {
-    		     
+    		     logger.error("Error when trying to transform xsl-FO to PDF (Apache-FOP): ", e);
     		 }
     		 finally 
     		 {
