@@ -411,6 +411,16 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+      			<artifactId>maven-resources-plugin</artifactId>
+      			<version>2.5</version>
+      			<configuration>
+	       			<encoding>UTF-8</encoding>
+	        		<nonFilteredFileExtensions>
+	          			<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+	        		</nonFilteredFileExtensions>
+				</configuration>
+    		</plugin>
 <!-- 			<plugin> -->
 <!-- 				<artifactId>maven-surefire-plugin</artifactId> -->
 <!-- 				<executions> -->
@@ -853,7 +863,7 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
                                         <!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
-                                        <!-- copy over the validation datasource descriptor -->
+                                        <!-- copy over the apache FOP configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 									</tasks>
 								</configuration>
@@ -879,7 +889,7 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
-										<!-- copy over the validation datasource descriptor -->
+										<!-- copy over the apache FOP configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
                                         <!-- configuration for the runtime server jboss server -->
                                         <!--

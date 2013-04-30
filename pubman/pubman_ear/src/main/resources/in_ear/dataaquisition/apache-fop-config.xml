@@ -8,10 +8,10 @@
     <strict-validation>true</strict-validation>
 
 <!-- Base URL for resolving relative URLs -->
-    <base>.</base>
+    <base>file:///${jboss.install.dir}/server/${jboss.install.node}/conf/</base>
 
 <!-- Font Base URL for resolving relative font URLs -->
-    <font-base>.</font-base>
+    <font-base>file:///${jboss.install.dir}/server/${jboss.install.node}/conf/fonts/</font-base>
 
 <!-- Source resolution in dpi (dots/pixels per inch) for determining the size of pixels in SVG and bitmap images, default: 72dpi -->
     <source-resolution>72</source-resolution>
@@ -24,6 +24,7 @@ value is specified as auto -->
 
     <renderers>
         <renderer mime="application/pdf">
+            <!-- Sample fonts (Open Source) can be found in the EAR-File (dataaquisition/fonts/) -->
             <fonts>
                 <font metrics-url="./DejaVuSans.xml" kerning="yes" embed-url="./DejaVuSans.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Sans" style="normal" weight="normal"/>
@@ -33,6 +34,9 @@ value is specified as auto -->
                 </font>
                 <font metrics-url="./DejaVuSerif.xml" kerning="yes" embed-url="./DejaVuSerif.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Serif" style="normal" weight="normal"/>
+                </font>
+                <font metrics-url="./DejaVuSerif-Italic.xml" kerning="yes" embed-url="./DejaVuSerif-Italic.ttf" embedding-mode="subset">
+                    <font-triplet name="DejaVu Serif" style="italic" weight="normal"/>
                 </font>
                 <font metrics-url="./DejaVuSerif-Bold.xml" kerning="yes" embed-url="./DejaVuSerif-Bold.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Serif" style="normal" weight="bold"/>
@@ -47,23 +51,27 @@ value is specified as auto -->
         </renderer>
 
         <renderer mime="application/postscript">
+            <!-- Sample fonts (Open Source) can be found in the EAR-File (dataaquisition/fonts/) -->
             <fonts>
-                <font metrics-url="./DejaVuSans.xml" kerning="yes" embed-url="./DejaVuSans.ttf" embedding-mode="subset">
+                <font metrics-url="DejaVuSans.xml" kerning="yes" embed-url="DejaVuSans.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Sans" style="normal" weight="normal"/>
                 </font>
-                <font metrics-url="./DejaVuSans-Bold.xml" kerning="yes" embed-url="./DejaVuSans-Bold.ttf" embedding-mode="subset">
+                <font metrics-url="DejaVuSans-Bold.xml" kerning="yes" embed-url="DejaVuSans-Bold.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Sans" style="normal" weight="bold"/>
                 </font>
-                <font metrics-url="./DejaVuSerif.xml" kerning="yes" embed-url="./DejaVuSerif.ttf" embedding-mode="subset">
+                <font metrics-url="DejaVuSerif.xml" kerning="yes" embed-url="DejaVuSerif.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Serif" style="normal" weight="normal"/>
                 </font>
-                <font metrics-url="./DejaVuSerif-Bold.xml" kerning="yes" embed-url="./DejaVuSerif-Bold.ttf" embedding-mode="subset">
+                <font metrics-url="./DejaVuSerif-Italic.xml" kerning="yes" embed-url="./DejaVuSerif-Italic.ttf" embedding-mode="subset">
+                    <font-triplet name="DejaVu Serif" style="italic" weight="normal"/>
+                </font>
+                <font metrics-url="DejaVuSerif-Bold.xml" kerning="yes" embed-url="DejaVuSerif-Bold.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Serif" style="normal" weight="bold"/>
                 </font>
-                <font metrics-url="./DejaVuSansMono.xml" kerning="yes" embed-url="./DejaVuSansMono.ttf" embedding-mode="subset">
+                <font metrics-url="DejaVuSansMono.xml" kerning="yes" embed-url="DejaVuSansMono.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Sans Mono" style="normal" weight="normal"/>
                 </font>
-                <font metrics-url="./DejaVuSansMono-Bold.xml" kerning="yes" embed-url="./DejaVuSansMono-Bold.ttf" embedding-mode="subset">
+                <font metrics-url="DejaVuSansMono-Bold.xml" kerning="yes" embed-url="DejaVuSansMono-Bold.ttf" embedding-mode="subset">
                     <font-triplet name="DejaVu Sans Mono" style="normal" weight="bold"/>
                 </font>
             </fonts>
