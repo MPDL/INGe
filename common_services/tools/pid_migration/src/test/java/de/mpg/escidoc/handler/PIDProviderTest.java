@@ -16,14 +16,13 @@ public class PIDProviderTest
     public void getPid()
     {
         PIDProviderIf pidProvider = new PIDProviderMock();
-        int i = 1;
+
         String pid = null;
         
-        do
-        {
+        
         try
         {
-            pid = pidProvider.getPid("xx", Type.UNKNOWN, null);
+            pid = pidProvider.getPid("escidoc:418001", Type.COMPONENT, "xx");
         }
         catch (PIDProviderException e)
         {
@@ -32,11 +31,25 @@ public class PIDProviderTest
     
         assertTrue(pid != null && pid.startsWith("hdl:1234"));
         
-        if (i % 10 == 1)
-            assertTrue(pid.endsWith("1111-1"));
-        else if (i % 10 == 2)
-            assertTrue(pid.endsWith("2222-2"));
-        } while (i++ < 20);
+        try
+        {
+            pid = pidProvider.getPid("escidoc:12345", Type.COMPONENT, "xx");
+        }
+        catch (PIDProviderException e)
+        {
+            assertTrue(e.getMessage().contains("No item was found"));
+        }
+        
+        
+        try
+        {
+            pid = pidProvider.getPid("escidoc:418001", Type.COMPONENT, null);
+        }
+        catch (PIDProviderException e)
+        {
+            assertTrue(true);
+        }
+       
 
     }
     

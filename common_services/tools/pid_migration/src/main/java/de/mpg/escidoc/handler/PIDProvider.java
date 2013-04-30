@@ -71,7 +71,7 @@ public class PIDProvider implements PIDProviderIf
         catch (Exception e)
         {
             logger.warn("Error occured when registering Url for <" + escidocId + ">" 
-                                    + "of type <" + type + ">"  + " fileName <" + fileName + ">" );
+                                    + " of type <" + type + ">"  + " and fileName <" + fileName + ">" );
             throw new PIDProviderException(e);
         }
         
@@ -112,6 +112,8 @@ public class PIDProvider implements PIDProviderIf
         SQLQuerier querier = new  SQLQuerier();
         String itemId = querier.getItemIdForComponent(componentId);
         
+     // todo if (itemId == null) ...
+                    
         String registerUrl =  Util.getProperty("escidoc.pubman.instance.url") +
                 Util.getProperty("escidoc.pubman.instance.context.path") +
                 Util.getProperty("escidoc.pubman.component.pattern")

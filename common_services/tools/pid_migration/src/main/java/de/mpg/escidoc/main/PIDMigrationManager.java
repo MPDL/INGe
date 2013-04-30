@@ -72,7 +72,7 @@ public class PIDMigrationManager
         parser.parse(file, preHandler);
         
         // only migrate items and components
-        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
+        if ((preHandler.getObjectType()== null) || !(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
         {
             logger.info("Nothing to do for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
             logger.info("****************** End   transforming " + file.getName());
@@ -121,8 +121,12 @@ public class PIDMigrationManager
     
     public void onError(PIDProviderException e)
     {
-        logger.warn("Error getting PID ", e);
+        logger.warn("Error getting PID " + e.getMessage(), e);
         statistic.incrementFilesErrorOccured();
+        
+        // continue processing for deprecated components - otherwise stop
+        if (e.getMessage().contains("No item was found"))
+            return;
         
         System.out.println("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
         System.out.println("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());

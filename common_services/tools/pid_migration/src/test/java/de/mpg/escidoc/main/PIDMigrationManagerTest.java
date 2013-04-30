@@ -63,7 +63,7 @@ public class PIDMigrationManagerTest
     @Test
     public void transformFiles() throws Exception
     {
-        /*File f = new File("src/test/resources/item/escidoc_1479027");
+        File f = new File("src/test/resources/item/escidoc_1479027");
         new PIDMigrationManager(f);        
         assertTrue(checkAfterMigration(f));
         
@@ -80,14 +80,13 @@ public class PIDMigrationManagerTest
         assertTrue(checkAfterMigration(new File("src/test/resources/item/itemInrevision")));
         
         new PIDMigrationManager(new File("src/test/resources/content-model/escidoc_persistent4"));        
-        assertTrue(checkAfterMigration(new File("src/test/resources/content-model/escidoc_persistent4")));*/
+        assertTrue(checkAfterMigration(new File("src/test/resources/content-model/escidoc_persistent4")));
         
         new PIDMigrationManager(new File("src/test/resources/context/escidoc_persistent3"));        
         assertTrue(checkAfterMigration(new File("src/test/resources/context/escidoc_persistent3")));
     }
     
     @Test 
-    @Ignore
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
@@ -111,13 +110,24 @@ public class PIDMigrationManagerTest
     
     @Test
     @Ignore
-    public void transformQa() throws Exception
+    public void transformQa2013() throws Exception
     {
         FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2013"));
         FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/2013_sav"), 
                 new File("C:/Test/qa-coreservice/2013"));
         new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013"));        
         assertTrue(checkAfterMigration(new File("C:/Test/qa-coreservice/2013")));
+    }
+    
+    @Test
+    @Ignore
+    public void transformQa2009() throws Exception
+    {
+        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2009"));
+        FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/2009_sav"), 
+                new File("C:/Test/qa-coreservice/2009"));
+        new PIDMigrationManager(new File("C:/Test/qa-coreservice/2009"));        
+        assertTrue(checkAfterMigration(new File("C:/Test/qa-coreservice/2009")));
     }
 
     private boolean checkAfterMigration(File file) throws Exception
@@ -160,7 +170,7 @@ public class PIDMigrationManagerTest
         parser.parse(file, preHandler);
         
          // only migrate items and components
-        if (!(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
+        if (preHandler.getObjectType() == null || !(preHandler.getObjectType().equals(Type.ITEM) || preHandler.getObjectType().equals(Type.COMPONENT)))
         {
             logger.info("No validation for file <" + file.getName() + "> because of type <" + preHandler.getObjectType() + ">");
             return true;
