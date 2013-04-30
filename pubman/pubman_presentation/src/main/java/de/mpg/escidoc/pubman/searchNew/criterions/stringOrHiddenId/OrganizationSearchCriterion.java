@@ -123,7 +123,7 @@ public class OrganizationSearchCriterion extends
 		}
 		else
 		{
-			return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "|" + escapeForQueryString(getHiddenId()) + "|" + "includePresSuccs" + "\""; 
+			return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "||" + escapeForQueryString(getHiddenId()) + "||" + "includePresSuccs" + "\""; 
 		}
 		
 		
@@ -132,7 +132,7 @@ public class OrganizationSearchCriterion extends
 	@Override
 	public void parseQueryStringContent(String content) {
 		//Split by '|', which have no backslash
-		String[] parts = content.split("(?<!\\\\)\\|");
+		String[] parts = content.split("(?<!\\\\)\\|\\|");
 		
 		this.setSearchString(unescapeForQueryString(parts[0]));
 		if(parts.length>1)
