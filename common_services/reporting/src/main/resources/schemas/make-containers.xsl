@@ -92,7 +92,9 @@
 	<xsl:template match="//publication:publication">
 		<!-- ONLY FHI SPECIFIC!!! -->
 	    <!-- hack: negation is not implement for REST interface -->
+		<!-- 
 		<xsl:if test="not(exists(dcterms:issued) or exists(eterms:published-online))">
+			-->
 			<publication:publication>
 				<xsl:copy-of select="@*" />
 					<eterms:authors>
@@ -115,7 +117,9 @@
 					</xsl:element>
 				<xsl:apply-templates/>
 			</publication:publication>
+		<!-- 	
 		</xsl:if>
+		-->
 	</xsl:template>
 	
 
