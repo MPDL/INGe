@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.searchNew.criterions.standard;
 
 import java.io.Serializable;
 
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 
 public abstract class StandardSearchCriterion extends SearchCriterionBase{
@@ -43,7 +44,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase{
 
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString()  throws SearchParseException {
 		return baseCqlBuilder(getCqlIndexes(), searchString);
 	}
 

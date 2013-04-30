@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
@@ -85,7 +86,7 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 	
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString()  throws SearchParseException{
 
 		//StringBuffer sb = new StringBuffer();
 		boolean enumSelected = false;

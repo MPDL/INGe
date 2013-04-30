@@ -69,6 +69,14 @@ public class Search extends FacesBean
             return "";
         }
         
+        //Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search 
+        if(searchString.trim().contains("%"))
+        {
+        	 error(getMessage("search_ParseError"));
+        	 return "";
+        }
+       
+        
         try
         {
             String cql = generateCQLRequest(searchString, includeFiles);

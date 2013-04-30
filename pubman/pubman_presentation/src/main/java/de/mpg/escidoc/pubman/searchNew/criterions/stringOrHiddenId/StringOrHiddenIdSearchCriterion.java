@@ -29,6 +29,7 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId;
 
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 
@@ -65,7 +66,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 	}
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString() throws SearchParseException {
 		if(hiddenId!=null && !hiddenId.trim().isEmpty())
 		{
 			return baseCqlBuilder(getCqlIndexForHiddenId(), hiddenId);

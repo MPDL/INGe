@@ -856,7 +856,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		
 		
 		
-		String cql = SearchCriterionBase.scListToCql(allCriterions, true);
+		String cql;
+		try {
+			cql = SearchCriterionBase.scListToCql(allCriterions, true);
+		} catch (SearchParseException e1) {
+			error(getMessage("search_ParseError"));
+			return "";
+		}
 		logger.debug("CQL Query: " + cql);
 		
 		String query = SearchCriterionBase.scListToQueryString(allCriterions);

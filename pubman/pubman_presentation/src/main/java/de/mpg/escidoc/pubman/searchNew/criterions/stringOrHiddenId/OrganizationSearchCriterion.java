@@ -37,6 +37,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
@@ -76,7 +77,7 @@ public class OrganizationSearchCriterion extends
 	
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString()  throws SearchParseException{
 		if(!includePredecessorsAndSuccessors)
 		{
 			return super.toCqlString();

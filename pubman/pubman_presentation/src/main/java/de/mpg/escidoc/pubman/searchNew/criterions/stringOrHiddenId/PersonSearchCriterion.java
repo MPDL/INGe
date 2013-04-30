@@ -29,6 +29,7 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId;
 
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 
@@ -61,7 +62,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString()  throws SearchParseException{
 		String superQuery = super.toCqlString();
 		
 		if(SearchCriterion.ANYPERSON.equals(getSearchCriterion()))

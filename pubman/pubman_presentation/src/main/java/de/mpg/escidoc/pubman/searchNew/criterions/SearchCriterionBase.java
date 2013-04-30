@@ -43,7 +43,9 @@ import java.util.regex.Pattern;
 import net.sf.jasperreports.charts.util.SvgChartRendererFactory;
 
 import org.apache.log4j.Logger;
+import org.z3950.zing.cql.CQLParseException;
 
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EventInvitationSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
@@ -210,11 +212,11 @@ public abstract class SearchCriterionBase implements Serializable{
 	protected SearchCriterion searchCriterion;
 	
 
-	public abstract String toCqlString();
+	public abstract String toCqlString() throws SearchParseException;
 	
 	public abstract String toQueryString();
 	
-	public abstract void parseQueryStringContent(String content);
+	public abstract void parseQueryStringContent(String content)  throws SearchParseException;
 	
 	public abstract boolean isEmpty();
 	
@@ -356,13 +358,31 @@ public abstract class SearchCriterionBase implements Serializable{
 	 * @param searchString
 	 * @return the cql string or null, if no search string or indexes are given
 	 */
-	protected String baseCqlBuilder(String[] cqlIndexes, String searchString)
+	protected String baseCqlBuilder(String[] cqlIndexes, String searchString) throws SearchParseException
 	{
-		//Bugfix for PUBMAN-2221: Remove Questionmark at the end
-		if(searchString!=null && searchString.trim().endsWith("?"))
+		
+		if(searchString!=null)
 		{
-			searchString = searchString.trim().substring(0, searchString.length()-1);
+			//Bugfix for PUBMAN-2221: Remove Questionmark at the end
+			if(searchString.trim().endsWith("?"))
+			{
+				searchString = searchString.trim().substring(0, searchString.length()-1);
+			
+			}
+			
+			 //Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search 
+			if(searchString.contains("%"))
+			{
+				throw new SearchParseException("search string contains %");
+			}
+			if(searchString.trim().startsWith("*"))
+			{
+				throw new SearchParseException("search string starts with *");
+			}
+			
 		}
+		
+	   
 
 		if(searchString!=null && !searchString.trim().isEmpty())
 		{
@@ -474,7 +494,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	 * @param criterionList
 	 * @return
 	 */
-	public static String scListToCql(List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)
+	public static String scListToCql(List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)  throws SearchParseException
 	{
 		
 		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList);
@@ -701,7 +721,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	}
 	
 	
-	public static String queryStringToCqlString(String query, boolean appendStandardCqlCriteria)
+	public static String queryStringToCqlString(String query, boolean appendStandardCqlCriteria)  throws SearchParseException
 	{
 		List<SearchCriterionBase> scList = queryStringToScList(query);
 		return scListToCql(scList, appendStandardCqlCriteria);

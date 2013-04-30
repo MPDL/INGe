@@ -29,6 +29,7 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew.criterions.enums;
 
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 
 public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCriterionBase{
@@ -44,7 +45,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 	}
 
 	@Override
-	public String toCqlString() {
+	public String toCqlString()  throws SearchParseException {
 		return baseCqlBuilder(getCqlIndexes(), getSearchString(getSelectedEnum()));
 	}
 

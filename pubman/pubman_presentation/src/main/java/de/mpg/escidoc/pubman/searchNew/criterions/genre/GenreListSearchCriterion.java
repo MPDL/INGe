@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.enums.GenreSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
@@ -156,7 +157,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 	
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString()  throws SearchParseException {
 		return scListToCql(getGenreSearchCriterions(), false);
 	}
 
