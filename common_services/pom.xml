@@ -25,7 +25,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.67-SNAPSHOT</version>
+	<version>1.0.67</version>
 	<name>common_services</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
@@ -241,9 +241,9 @@
 		<module>transformationLight</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.67</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.67</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.67</url>
 	</scm>
 	<repositories>
 		<repository>
@@ -737,7 +737,7 @@
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
 		<!-- Dataaquisition - Apache FOP configuration file -->
-		<escidoc.dataaquisition.resources.fop.configuration></escidoc.dataaquisition.resources.fop.configuration>
+		<escidoc.dataaquisition.resources.fop.configuration />
 		<!-- Transformation implementing classes-->
 		<escidoc.transformation.bibtex.class>de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<!-- Transformation stylesheets -->
@@ -754,14 +754,14 @@
 		<escidoc.transformation.marc.stylesheet.filename>transformations/standardFormats/xslt/marc.xsl</escidoc.transformation.marc.stylesheet.filename>
 		<escidoc.transformation.marc.configuration.filename>transformations/standardFormats/conf/marc.properties</escidoc.transformation.marc.configuration.filename>
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename></escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename>
-		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename></escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename>
-		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename></escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
-		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename></escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename>
-		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename></escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename>
-		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename></escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
-		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename></escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
-		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename></escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
+		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename />
+		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename />
+		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename />
+		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename />
+		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename />
+		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename />
+		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename />
+		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename />
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
