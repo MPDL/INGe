@@ -81,7 +81,7 @@ public class PIDProvider implements PIDProviderIf
         String pid;
         try
         {
-            httpClient.getState().setCredentials(new AuthScope("dev-pubman.mpdl.mpg.de", 8080),
+            httpClient.getState().setCredentials(new AuthScope(Util.getProperty("escidoc.pidcache.server"), 8080),
                     new UsernamePasswordCredentials(user, password));
             
             code = httpClient.executeMethod(method);

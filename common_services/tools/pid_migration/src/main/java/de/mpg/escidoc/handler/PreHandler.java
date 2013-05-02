@@ -51,10 +51,10 @@ public class PreHandler extends DefaultHandler
     private static Logger logger = Logger.getLogger(PreHandler.class);
 
     private String lastCreatedRelsExtTimestamp = "";
-    private String lastCreatedRelsExtId = null;
+    private String lastCreatedRelsExtId = "";
     
     private String lastCreatedDCTimestamp = "";
-    private String lastCreatedDCId = null;
+    private String lastCreatedDCId = "";
     
     private Type objectType = null;
     private String publicStatus = "";
@@ -70,14 +70,17 @@ public class PreHandler extends DefaultHandler
     private boolean inDC = false;
     private boolean inDCAndTitle = false;
     
-    private Map<String, String> attributeMap = new HashMap<String, String>();
-   
-    private StringBuffer currentContent;
-
+    // Map to hold the elements of a single RELS_EXT rdf:Description
+    private Map<String, String> tmpAttributeMap = new HashMap<String, String>();
     
+    // Map to hold the elements of a all RELS_EXT rdf:Descriptions
+    // key: RELS_EX_ID, value: the AttributeMap from above, these are the elements from this special RELS_EXT rdf:Description 
+    private Map<String, Map<String, String>> globalAttributeMap = new HashMap<String, Map<String, String>>();
+   
+    private StringBuffer currentContent;    
         
     public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL, UNKNOWN }
-    public enum PublicStatus { PENDING, SUBMITTED, RELEASED, WITHDRAWN, INREVISION, UNKNOWN }
+    public enum Status { PENDING, SUBMITTED, RELEASED, WITHDRAWN, INREVISION, UNKNOWN }
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -97,7 +100,12 @@ public class PreHandler extends DefaultHandler
                 lastCreatedRelsExtTimestamp = createdString;
                 lastCreatedRelsExtId = attributes.getValue("ID");
                 
-                logger.debug("startElement lastCreatedRelsExtTimeStamp = " + lastCreatedRelsExtTimestamp);               
+                // we keep the data of the previous RELS-EXT rdf:description and overwrite it with the actual one, 
+                // because not all elements occur in each rdf:description
+                Map<String, String> h = new HashMap<String, String>(tmpAttributeMap);
+                tmpAttributeMap = h;
+                
+                logger.debug("startElement actualRelsExtId = " + lastCreatedRelsExtId);               
             }
         }
         else if ("foxml:datastream".equals(qName) && "DC".equals(attributes.getValue("ID")))
@@ -159,7 +167,7 @@ public class PreHandler extends DefaultHandler
         {
             String id = attributes.getValue("PID");
             
-            attributeMap.put("id", id);
+            tmpAttributeMap.put("id", id);
         }
         
         currentContent = new StringBuffer();
@@ -169,10 +177,14 @@ public class PreHandler extends DefaultHandler
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
         logger.debug("endElement   uri=<" + uri + "> localName = <" + localName + "> qName = <" + qName + ">");
-        if ("foxml:datastream".equals(qName) && inRelsExt)
+        if ("foxml:datastreamVersion".equals(qName) && inRelsExt)
+        {
+            globalAttributeMap.put(lastCreatedRelsExtId, tmpAttributeMap);
+        } else if ("foxml:datastream".equals(qName) && inRelsExt)
         {
             inRelsExt = false;
-        } else if ("foxml:datastream".equals(qName) && inDC)
+        } 
+        else if ("foxml:datastream".equals(qName) && inDC)
         {
             inDC = false;
         } 
@@ -207,31 +219,31 @@ public class PreHandler extends DefaultHandler
         if (inRelsExtAndPublicStatus)
         {
             currentContent.append(ch, start, length);
-            attributeMap.put("prop:public-status", currentContent.toString());
+            tmpAttributeMap.put("prop:public-status", currentContent.toString());
             logger.debug("publicStatus =<" + currentContent.toString() + ">");
         }  
         else if (inRelsExtAndVersionStatus)
         {
             currentContent.append(ch, start, length);
-            attributeMap.put("version:status", currentContent.toString());
+            tmpAttributeMap.put("version:status", currentContent.toString());
             logger.debug("versionStatus =<" + currentContent.toString() + ">");
         }    
         else if (inRelsExtAndReleaseNumber)
         {
             currentContent.append(ch, start, length);
-            attributeMap.put("release:number", currentContent.toString());
+            tmpAttributeMap.put("release:number", currentContent.toString());
             logger.debug("releaseNumber =<" + currentContent.toString() + ">");
         }  
         else if (inRelsExtAndVersionNumber)
         {
             currentContent.append(ch, start, length);
-            attributeMap.put("version:number", currentContent.toString());
+            tmpAttributeMap.put("version:number", currentContent.toString());
             logger.debug("versionNumber =<" + currentContent.toString() + ">");
         }   
         else if (inDCAndTitle)
         {
             currentContent.append(ch, start, length);
-            attributeMap.put("dc:title", currentContent.toString());
+            tmpAttributeMap.put("dc:title", currentContent.toString());
             logger.debug("title =<" + currentContent.toString() + ">");
         }   
     }
@@ -260,34 +272,66 @@ public class PreHandler extends DefaultHandler
         return objectType;
     }
     
-    public PublicStatus getPublicStatus()
+    public Status getPublicStatus()
     {
-        return getPublicStatus("prop:public-status");
+        return getPublicStatus(lastCreatedRelsExtId);
     }
     
-    public PublicStatus getVersionStatus()
+    public Status getVersionStatus()
     {
-        return getPublicStatus("version:status");
+        return getVersionStatus(lastCreatedRelsExtId);
+    }
+    
+    public Status getPublicStatus(String relsExtId)
+    {
+        String status = globalAttributeMap.get(relsExtId).get("prop:public-status") != null ? globalAttributeMap
+                .get(relsExtId).get("prop:public-status") : "";
+        return getStatus(status);
+    }
+    
+    public Status getVersionStatus(String relsExtId)
+    {
+        String status = globalAttributeMap.get(relsExtId).get("version:status") != null ? globalAttributeMap
+                .get(relsExtId).get("version:status") : "";
+        return getStatus(status);
     }
     
     public String getTitle()
     {
-        return attributeMap.get("dc:title") != null ? attributeMap.get("dc:title") : "";
+        return globalAttributeMap.get(lastCreatedRelsExtId).get("dc:title") != null
+                ? globalAttributeMap.get(lastCreatedRelsExtId).get("dc:title") : "";
     }
     
     public String getReleaseNumber()
     {
-        return attributeMap.get("release:number") != null ? attributeMap.get("release:number") : "";
+        return getReleaseNumber(lastCreatedRelsExtId);
     }
     
     public String getVersionNumber()
     {
-        return attributeMap.get("version:number") != null ? attributeMap.get("version:number") : "";
+        return getVersionNumber(lastCreatedRelsExtId);
+    }
+    
+    public String getReleaseNumber(String relsExtId)
+    {
+        return globalAttributeMap.get(relsExtId).get("release:number") != null
+                ? globalAttributeMap.get(relsExtId).get("release:number") : "";
+    }
+    
+    public String getVersionNumber(String relsExtId)
+    {
+        return globalAttributeMap.get(relsExtId).get("version:number") != null
+                ? globalAttributeMap.get(relsExtId).get("version:number") : "";
     }
     
     public String getEscidocId()
     {
-        return attributeMap.get("id");
+        return globalAttributeMap.get(lastCreatedRelsExtId).get("id");
+    }
+    
+    public Map<String, String> getAttributeMapFor(String relsExtId)
+    {
+        return globalAttributeMap.get(relsExtId);
     }
     
     private Type getObjectType(String type)
@@ -311,19 +355,19 @@ public class PreHandler extends DefaultHandler
         return Type.UNKNOWN;
     }
 
-    private PublicStatus getPublicStatus(String key)
+    Status getStatus(String value)
     {
-        if (attributeMap.get(key).equals("released"))
-            return PublicStatus.RELEASED;
-        else if (attributeMap.get(key).equals("pending"))
-            return PublicStatus.PENDING;
-        else if (attributeMap.get(key).equals("submitted"))
-            return PublicStatus.SUBMITTED;
-        else if (attributeMap.get(key).equals("in-revision"))
-            return PublicStatus.INREVISION;
-        else if (attributeMap.get(key).equals("withdrawn"))
-            return PublicStatus.WITHDRAWN;
+        if (value.equals("released"))
+            return Status.RELEASED;
+        else if (value.equals("pending"))
+            return Status.PENDING;
+        else if (value.equals("submitted"))
+            return Status.SUBMITTED;
+        else if (value.equals("in-revision"))
+            return Status.INREVISION;
+        else if (value.equals("withdrawn"))
+            return Status.WITHDRAWN;
         
-        return PublicStatus.UNKNOWN;
+        return Status.UNKNOWN;
     }
 }

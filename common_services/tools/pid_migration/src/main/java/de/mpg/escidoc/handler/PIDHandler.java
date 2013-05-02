@@ -20,6 +20,8 @@ public class PIDHandler extends IdentityHandler
     private PIDMigrationManager pidMigrationManager;
     private PIDProviderIf pidProvider;
     
+    private String actualRelsExtId = "";
+    
     protected boolean inRelsExt = false;
     protected boolean inObjectPid = false;
     protected boolean inVersionPidOrReleasePid = false;
@@ -74,6 +76,11 @@ public class PIDHandler extends IdentityHandler
             inRelsExt = true;
             logger.debug(" startElement inRelsExt= " + inRelsExt);
         }
+        else if ("foxml:datastreamVersion".equals(name) && inRelsExt)
+        {
+            actualRelsExtId = attributes.getValue("ID");
+            logger.debug("startElement actualRelsExtId = " + actualRelsExtId);
+        }
         else if (inRelsExt && "prop:pid".equals(name))
         {
             inObjectPid = true;
@@ -101,7 +108,7 @@ public class PIDHandler extends IdentityHandler
         {            
             try
             {
-                content = getPid(content);
+                content = getPid(content, false);
             }
             catch (PIDProviderException e)
             {
@@ -113,7 +120,7 @@ public class PIDHandler extends IdentityHandler
         {
             try
             {
-                content = getPid(content);
+                content = getPid(content, true);
             }
             catch (PIDProviderException e)
             {
@@ -125,7 +132,7 @@ public class PIDHandler extends IdentityHandler
         {          
             try
             {
-                content = getPid(content);
+                content = getPid(content, true);
             }
             catch (PIDProviderException e)
             {
@@ -142,7 +149,7 @@ public class PIDHandler extends IdentityHandler
         super.content(uri, localName, name, content );
     }
 
-    private String getPid(String content) throws PIDProviderException
+    private String getPid(String content, boolean withVersion) throws PIDProviderException
     {
         Matcher m = AssertionHandler.handlePattern.matcher(content);
         // already a real pid
@@ -161,7 +168,23 @@ public class PIDHandler extends IdentityHandler
         
         String oldContent = content;
         
-        content = pidProvider.getPid(preHandler.getEscidocId(), preHandler.getObjectType(), preHandler.getTitle());
+        if (withVersion)
+        {
+            String versionInDummyHandle = content.substring(content.lastIndexOf(":") + 1);
+            String versionNumber = preHandler.getVersionNumber(actualRelsExtId);
+            
+            if (!versionInDummyHandle.equals(versionNumber))
+            {
+                logger.warn("inconsistent versions for <" + preHandler.getEscidocId() + "> versionInDummyHandle <" 
+                        + versionInDummyHandle + "> versionNumber <" + versionNumber + ">  in <" + actualRelsExtId + ">");
+            }
+            content = pidProvider.getPid(preHandler.getEscidocId() + ":" + versionNumber, preHandler.getObjectType(), preHandler.getTitle());
+        }
+        else
+        {
+            content = pidProvider.getPid(preHandler.getEscidocId(), preHandler.getObjectType(), preHandler.getTitle());
+        }
+            
         content = doReplace(content);
         replacedPids.put(oldContent, content);
         

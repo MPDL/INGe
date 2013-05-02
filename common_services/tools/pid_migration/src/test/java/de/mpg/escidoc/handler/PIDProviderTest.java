@@ -23,13 +23,12 @@ public class PIDProviderTest
         try
         {
             pid = pidProvider.getPid("escidoc:418001", Type.COMPONENT, "xx");
+            fail("PIDProviderException excpectd");
         }
         catch (PIDProviderException e)
         {
-            fail(e.getMessage());
+            assert(true);
         }
-    
-        assertTrue(pid != null && pid.startsWith("hdl:1234"));
         
         try
         {

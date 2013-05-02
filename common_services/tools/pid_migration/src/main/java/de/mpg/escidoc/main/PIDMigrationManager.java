@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.handler.PIDHandler;
 import de.mpg.escidoc.handler.PIDProviderException;
 import de.mpg.escidoc.handler.PreHandler;
-import de.mpg.escidoc.handler.PreHandler.PublicStatus;
+import de.mpg.escidoc.handler.PreHandler.Status;
 import de.mpg.escidoc.handler.PreHandler.Type;
 import de.mpg.escidoc.util.MigrationStatistic;
 import de.mpg.escidoc.util.Util;
@@ -80,7 +80,7 @@ public class PIDMigrationManager
             return;
         }
         // do nothing for items in public-status != released
-        if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
+        if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(Status.RELEASED)))
         {
             logger.info("Nothing to do for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
             logger.info("****************** End   transforming " + file.getName());

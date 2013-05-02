@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.handler.AssertionHandler;
 import de.mpg.escidoc.handler.PreHandler;
-import de.mpg.escidoc.handler.PreHandler.PublicStatus;
+import de.mpg.escidoc.handler.PreHandler.Status;
 import de.mpg.escidoc.handler.PreHandler.Type;
 
 public class PIDMigrationManagerTest
@@ -61,6 +61,7 @@ public class PIDMigrationManagerTest
     }
     
     @Test
+    @Ignore
     public void transformFiles() throws Exception
     {
         File f = new File("src/test/resources/item/escidoc_1479027");
@@ -86,7 +87,15 @@ public class PIDMigrationManagerTest
         assertTrue(checkAfterMigration(new File("src/test/resources/context/escidoc_persistent3")));
     }
     
+    @Test
+    public void transformLargeFile() throws Exception
+    {
+        new PIDMigrationManager(new File("src/test/resources/item/escidoc_61195"));        
+        assertTrue(checkAfterMigration(new File("src/test/resources/item/escidoc_61195")));
+    }
+    
     @Test 
+    @Ignore
     public void transformDirectory() throws Exception
     {
         File f = new File("src/test/resources/item");
@@ -176,7 +185,7 @@ public class PIDMigrationManagerTest
             return true;
         }
         // do nothing for items in public-status != released
-        if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(PublicStatus.RELEASED)))
+        if (preHandler.getObjectType().equals(Type.ITEM) && !(preHandler.getPublicStatus().equals(Status.RELEASED)))
         {
             logger.info("No validation for file <" + file.getName() + "> because of public-status <" + preHandler.getPublicStatus() + ">");
             return true;
