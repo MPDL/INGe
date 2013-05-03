@@ -349,24 +349,7 @@ Notes:
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
-					<!-- SAME FOR container -->
-					<xsl:call-template name="writeIndexField">
-						<xsl:with-param name="context" select="$context"/>
-						<xsl:with-param name="fieldname" select="concat($path,'.',local-name())"/>
-						<xsl:with-param name="fieldvalue" select="."/>
-						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-					</xsl:call-template>
-                    <!-- ADDITIONALLY WRITE VALUE IN metadata-index -->
-					<xsl:call-template name="writeIndexField">
-						<xsl:with-param name="context" select="$CONTEXTNAME"/>
-						<xsl:with-param name="fieldname">metadata</xsl:with-param>
-						<xsl:with-param name="fieldvalue" select="."/>
-						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-					</xsl:call-template>
 				</xsl:if>
-				
 			</xsl:for-each>
 		</xsl:if>
 		<xsl:for-each select="./*">
@@ -912,7 +895,7 @@ Notes:
 			</xsl:for-each>
 		</userdefined-index>
 
-        <!-- USER DEFINED INDEX: publication.creator.any.organization-path-ident ifiers -->
+        <!-- USER DEFINED INDEX: publication.creator.any.organization-path-identifiers -->
 		<userdefined-index name="publication.creator.any.organization-path-identifiers">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1517,17 +1500,6 @@ Notes:
 				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
 			</element>
 		</userdefined-index>
-		<userdefined-index name="property.context.objid">
-			<xsl:attribute name="context">
-				<xsl:value-of select="$CONTEXTNAME"/>
-			</xsl:attribute>
-			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
-			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
-			</element>
-		</userdefined-index>
 		<userdefined-index name="content-model.objid">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1539,15 +1511,15 @@ Notes:
 				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
 			</element>
 		</userdefined-index>
-		<userdefined-index name="property.content-model.objid">
+		<userdefined-index name="publication.type">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
+				<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/@type"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
+				<xsl:value-of select="$CONTAINER_METADATAPATH/*[local-name()='publication']/@type"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="most-recent-date">
@@ -1947,7 +1919,7 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:removeVersionIdentifier(substring-after(substring-after(substring-after(/*[local-name()='item']/@xlink:href, '/'), '/'), '/'))"/>
+				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>
