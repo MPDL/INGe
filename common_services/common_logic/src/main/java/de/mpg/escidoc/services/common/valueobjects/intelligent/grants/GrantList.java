@@ -140,7 +140,10 @@ public class GrantList  extends CurrentGrants
                   
                 filter.put("operation", new String[]{"searchRetrieve"});
                 filter.put("version", new String[]{"1.1"});
-                filter.put("query", new String[]{"\"/properties/assigned-on/id\"=" + objectId + " and " + "\"/properties/role/id\"=" + roleId});
+                
+                
+                filter.put("query", new String[]{"\"/properties/assigned-on/id\"=" + objectId + " and " + "\"/properties/role/id\"=" + roleId + " and " + "\"/properties/revocation-date\"=\"\""});
+                
                 
                 String grantListXml = uah.retrieveGrants(filter);
                 SearchRetrieveResponseVO res = new XmlTransformingBean().transformToSearchRetrieveResponseGrant(grantListXml);
