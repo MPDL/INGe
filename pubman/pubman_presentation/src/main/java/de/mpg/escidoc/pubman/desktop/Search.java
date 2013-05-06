@@ -75,6 +75,13 @@ public class Search extends FacesBean
         	 error(getMessage("search_ParseError"));
         	 return "";
         }
+        
+        //Bugfix for PUBMAN-2221: Remove Questionmark at the end
+        if(searchString.trim().endsWith("?"))
+		{
+			searchString = searchString.trim().substring(0, searchString.length()-1);
+		
+		}
        
         
         try
