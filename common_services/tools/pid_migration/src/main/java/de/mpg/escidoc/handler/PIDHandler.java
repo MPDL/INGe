@@ -89,7 +89,7 @@ public class PIDHandler extends IdentityHandler
         {
             inVersionPidOrReleasePid = true;
         }
-        else if ("escidocVersions:pid".equals(name) && attributes.getValue("timestamp").equals(preHandler.getLastVersionHistoryTimestamp()))
+        else if ("escidocVersions:pid".equals(name))
         { 
             inVersionHistoryPid = true;
         }
@@ -164,7 +164,7 @@ public class PIDHandler extends IdentityHandler
             return replacedPids.get(content);
         }
         
-        // pid has to be requested
+        // a new pid has to be requested
         
         String oldContent = content;
         
@@ -220,5 +220,10 @@ public class PIDHandler extends IdentityHandler
     public boolean isUpdateDone()
     {
         return updateDone;
+    }
+
+    public int getTotalNumberOfPidsRequested()
+    {
+        return this.pidProvider.getTotalNumberOfPidsRequested();
     }
 }

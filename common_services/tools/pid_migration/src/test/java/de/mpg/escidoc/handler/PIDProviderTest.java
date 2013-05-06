@@ -67,7 +67,8 @@ public class PIDProviderTest
             fail(e.getMessage());
         }
 
-        assertTrue(pid != null);       
+        assertTrue(pid != null && !"".equals(pid));    
+        assertTrue(pidProvider.getTotalNumberOfPidsRequested() > 0);
     }
     
     @Test
@@ -85,7 +86,8 @@ public class PIDProviderTest
             fail(e.getMessage());
         }
 
-        assertTrue(pid != null);       
+        assertTrue(pid != null && !"".equals(pid));
+        assertTrue(pidProvider.getTotalNumberOfPidsRequested() > 1);
     }
     
     

@@ -1,5 +1,8 @@
 package de.mpg.escidoc.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MigrationStatistic
 {
     private int filesMigratedTotal = 0;
@@ -7,6 +10,9 @@ public class MigrationStatistic
     private int filesMigratedNotReleased = 0;
     private int filesMigratedNotUpdated = 0;
     private int filesErrorOccured = 0;
+    private int filesMigrationDone = 0;
+    private int totalNumberOfPidsRequested = 0;
+    private List<String> errorList = new ArrayList<String>();
     
     public int getFilesMigratedTotal()
     {
@@ -47,6 +53,30 @@ public class MigrationStatistic
     public void incrementFilesErrorOccured()
     {
         this.filesErrorOccured++;
+    }
+    public int getFilesMigrationDone()
+    {
+        return this.filesMigrationDone;
+    }   
+    public void incrementFilesMigrationDone()
+    {
+        this.filesMigrationDone++;
+    }
+    public void setPidsRequested(int n)
+    {
+        this.totalNumberOfPidsRequested = n;        
+    }
+    public int  getTotalNumberOfPidsRequested()
+    {
+        return this.totalNumberOfPidsRequested;        
+    }
+    public void addToErrorList(String escidocId)
+    {
+        this.errorList.add(escidocId);        
+    }
+    public List<String> getErrorList()
+    {
+        return this.errorList;        
     }
      
 }

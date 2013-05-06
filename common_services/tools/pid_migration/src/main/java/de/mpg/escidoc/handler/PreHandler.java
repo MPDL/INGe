@@ -56,10 +56,8 @@ public class PreHandler extends DefaultHandler
     private String lastCreatedDCTimestamp = "";
     private String lastCreatedDCId = "";
     
-    private Type objectType = null;
+    private Type objectType = Type.UNKNOWN;
     private String publicStatus = "";
-    
-    private String lastVersionHistoryTimeStamp = "";
     
     private boolean inRelsExt = false;
     private boolean inRelsExtAndPublicStatus = false;
@@ -95,7 +93,7 @@ public class PreHandler extends DefaultHandler
         else if ("foxml:datastreamVersion".equals(qName) && inRelsExt)
         {
             String createdString = attributes.getValue("CREATED");
-            if (createdString != null && createdString.compareTo(lastCreatedRelsExtTimestamp) > 0 && !publicStatus.equals("released"))
+            if (createdString != null && createdString.compareTo(lastCreatedRelsExtTimestamp) > 0)
             {
                 lastCreatedRelsExtTimestamp = createdString;
                 lastCreatedRelsExtId = attributes.getValue("ID");
@@ -143,23 +141,13 @@ public class PreHandler extends DefaultHandler
         {
             inDCAndTitle = true;
         }
-        else if ("escidocVersions:pid".equals(qName))
-        {
-            String timestamp = attributes.getValue("timestamp");
-            if (timestamp != null && timestamp.compareTo(lastVersionHistoryTimeStamp) > 0)
-            {
-                lastVersionHistoryTimeStamp = timestamp;
-                
-                logger.debug("startElement lastVersionHistoryTimeStamp = " + lastVersionHistoryTimeStamp);               
-            }
-        }
         else if ("rdf:type".equals(qName))
         {
             String type = attributes.getValue("rdf:resource");
             
             if (type != null )
             {
-                getObjectType(type);
+                objectType = getObjectType(type);
             }
         }
         // escidoc id
@@ -259,13 +247,7 @@ public class PreHandler extends DefaultHandler
         logger.debug("getLastCreatedRelsExtTimestamp returning = " + lastCreatedRelsExtTimestamp);        
         return lastCreatedRelsExtTimestamp;
     }
-    
-    public String getLastVersionHistoryTimestamp()
-    {
-        logger.debug("getLastVersionHistoryTimestamp returning = " + lastVersionHistoryTimeStamp);        
-        return lastVersionHistoryTimeStamp;
-    }
-    
+
     public Type getObjectType()
     {
         logger.debug("getObjectType returning = " + objectType);        

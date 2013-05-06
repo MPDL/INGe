@@ -25,6 +25,8 @@ public class PIDProvider implements PIDProviderIf
     
     private static HttpClient httpClient;
     
+    private static int totalNumberofPidsRequested = 0;
+    
     public PIDProvider() throws NamingException
     {
         this.init();
@@ -72,7 +74,7 @@ public class PIDProvider implements PIDProviderIf
         {
             logger.warn("Error occured when registering Url for <" + escidocId + ">" 
                                     + " of type <" + type + ">"  + " and fileName <" + fileName + ">" );
-            throw new PIDProviderException(e);
+            throw new PIDProviderException(e.getMessage(), escidocId);
         }
         
         method.setParameter("url", registerUrl);
@@ -88,15 +90,23 @@ public class PIDProvider implements PIDProviderIf
             
             pid = Util.getValueFromXml("<pid>", '<', method.getResponseBodyAsString());
             if (code != HttpStatus.SC_CREATED || "".equals(pid))
-      
+            {
+                throw new PIDProviderException("Problem getting a PID for <" + escidocId + ">", escidocId);
+            }
+            totalNumberofPidsRequested++;
             logger.info("pid create returning " + method.getResponseBodyAsString());
         }
         catch (Exception e)
         {
-            throw new PIDProviderException(e.getMessage(), e);
+            throw new PIDProviderException(e.getMessage(), escidocId);
         }
        
         return pid;
+    }
+    
+    public int getTotalNumberOfPidsRequested()
+    {
+        return this.totalNumberofPidsRequested;
     }
 
     private String getRegisterUrlForItem(String itemId)

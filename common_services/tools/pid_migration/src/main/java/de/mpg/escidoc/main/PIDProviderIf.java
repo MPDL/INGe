@@ -10,4 +10,6 @@ public interface PIDProviderIf
     public void init() throws NamingException;
 
     public String getPid(String escidocId, Type objectType, String title) throws PIDProviderException;
+    
+    public int getTotalNumberOfPidsRequested();
 }

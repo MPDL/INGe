@@ -10,6 +10,7 @@ import de.mpg.escidoc.util.Util;
 public class PIDProviderMock implements PIDProviderIf
 {
     private static Logger logger = Logger.getLogger(PIDProviderMock.class);  
+    private static int totalNumberofPidsRequested = 0;
     
     static int count;
 
@@ -40,6 +41,8 @@ public class PIDProviderMock implements PIDProviderIf
         }
         
         count++;
+        totalNumberofPidsRequested++;
+        
         if (count % 10 == 1)
             return "hdl:12345/00-001Z-0000-000E-1111-1";
         else if (count % 10 == 2)
@@ -92,7 +95,12 @@ public class PIDProviderMock implements PIDProviderIf
 
     @Override
     public void init()
+    {       
+    }
+
+    @Override
+    public int getTotalNumberOfPidsRequested()
     {
-        
+        return totalNumberofPidsRequested;
     }
 }

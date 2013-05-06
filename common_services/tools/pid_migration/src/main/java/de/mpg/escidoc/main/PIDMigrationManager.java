@@ -25,6 +25,8 @@ public class PIDMigrationManager
     
     private static MigrationStatistic statistic = new MigrationStatistic();
     
+    private String actualFileName = "";
+    
     
     public PIDMigrationManager(File rootDir) throws Exception
     {
@@ -64,6 +66,8 @@ public class PIDMigrationManager
         
         statistic.incrementFilesMigratedTotal();
         
+        actualFileName = file.getName();
+        
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         PreHandler preHandler = new PreHandler();
         PIDHandler handler = new PIDHandler(preHandler);
@@ -97,6 +101,9 @@ public class PIDMigrationManager
             return;
         }
         
+        statistic.incrementFilesMigrationDone();
+        statistic.setPidsRequested(handler.getTotalNumberOfPidsRequested());
+        
         String result = handler.getResult();
         
         File tempFile = File.createTempFile("xxx", "yyy", file.getParentFile());
@@ -123,6 +130,7 @@ public class PIDMigrationManager
     {
         logger.warn("Error getting PID " + e.getMessage(), e);
         statistic.incrementFilesErrorOccured();
+        statistic.addToErrorList(actualFileName);
         
         // continue processing for deprecated components - otherwise stop
         if (e.getMessage().contains("No item was found"))
@@ -133,6 +141,7 @@ public class PIDMigrationManager
         System.out.println("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
         System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        System.out.println("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
         
         System.exit(1);
     }
@@ -157,6 +166,8 @@ public class PIDMigrationManager
         System.out.println("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
         System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        System.out.println("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
+        
         
     }
 

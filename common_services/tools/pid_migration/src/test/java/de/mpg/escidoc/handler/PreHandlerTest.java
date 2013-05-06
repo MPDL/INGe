@@ -36,7 +36,6 @@ public class PreHandlerTest
         
         assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.25"));
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-03-05T13:10:44.422Z"));
-        assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-03-05T13:06:27.236Z"));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(Status.RELEASED));
         assertTrue(preHandler.getVersionStatus().equals(Status.RELEASED));
@@ -97,7 +96,6 @@ public class PreHandlerTest
         
         assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.9"));
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-03-13T09:39:45.022Z"));
-        assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-03-13T09:39:43.050Z"));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(Status.RELEASED));
         assertTrue(preHandler.getVersionStatus().equals(Status.RELEASED));
@@ -113,7 +111,6 @@ public class PreHandlerTest
         
         assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.1"));
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-02-28T15:51:02.693Z"));
-        assertTrue(preHandler.getLastVersionHistoryTimestamp().equals(""));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(Status.PENDING));
         assertTrue(preHandler.getVersionStatus().equals(Status.PENDING));
@@ -129,7 +126,6 @@ public class PreHandlerTest
         
         assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.23"));
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-04-08T11:39:23.429Z"));
-        assertTrue(preHandler.getLastVersionHistoryTimestamp().equals("2013-04-08T11:38:20.443Z"));
         assertTrue(preHandler.getObjectType().equals(Type.ITEM));
         assertTrue(preHandler.getPublicStatus().equals(Status.RELEASED));
         assertTrue(preHandler.getVersionStatus().equals(Status.SUBMITTED));
