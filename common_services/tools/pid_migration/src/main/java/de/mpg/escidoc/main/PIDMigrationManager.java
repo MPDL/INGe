@@ -167,6 +167,7 @@ public class PIDMigrationManager
         System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
         System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
         System.out.println("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
+        System.out.println("ErrorList                       " + statistic.getErrorList());
         
         
     }

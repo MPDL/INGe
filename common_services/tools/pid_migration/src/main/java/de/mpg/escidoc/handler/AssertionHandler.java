@@ -3,12 +3,8 @@ package de.mpg.escidoc.handler;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
-
-import de.mpg.escidoc.handler.PreHandler.Type;
 
 /**
  * 
@@ -47,7 +43,7 @@ public class AssertionHandler extends PIDHandler
         
         if (inObjectPid )
         {
-            if (content.contains(DUMMY_HANDLE) || !m.matches()) 
+            if (!"".equals(content) && (content.contains(DUMMY_HANDLE) || !m.matches())) 
             {
                 logger.warn("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_OBJECT_PID);
                 throw new SAXException("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_OBJECT_PID);
@@ -57,7 +53,7 @@ public class AssertionHandler extends PIDHandler
         else if (inVersionPidOrReleasePid)
         {
             
-                if (content.contains(DUMMY_HANDLE) || !m.matches())
+                if (!"".equals(content) && (content.contains(DUMMY_HANDLE) || !m.matches()))
                 {
                     logger.warn("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID);
                     throw new SAXException("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_OR_RELEASE_PID);
@@ -67,7 +63,7 @@ public class AssertionHandler extends PIDHandler
         } 
         else if (inVersionHistoryPid)
         {          
-            if (content.contains(DUMMY_HANDLE) || !m.matches())
+            if (!"".equals(content) && (content.contains(DUMMY_HANDLE) || !m.matches()))
             {
                 logger.warn("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_HISTORY);
                 throw new SAXException("<" + content + "> " + DUMMY_HANDLE_FOUND_FOR_VERSION_HISTORY);

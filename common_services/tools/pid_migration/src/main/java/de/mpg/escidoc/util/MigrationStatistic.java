@@ -46,6 +46,7 @@ public class MigrationStatistic
     {
         this.filesMigratedNotUpdated++;
     } 
+    
     public int getFilesErrorOccured()
     {
         return this.filesErrorOccured;
@@ -76,7 +77,18 @@ public class MigrationStatistic
     }
     public List<String> getErrorList()
     {
-        return this.errorList;        
+        return this.errorList;  
+    }
+    public void clear()
+    {
+        this.filesMigratedTotal = 0;
+        this.filesMigratedNotItemOrComponent = 0;
+        this.filesMigratedNotReleased = 0;
+        this.filesMigratedNotUpdated = 0;
+        this.filesErrorOccured = 0;
+        this.filesMigrationDone = 0;
+        this.totalNumberOfPidsRequested = 0;
+        this.errorList.clear();      
     }
      
 }

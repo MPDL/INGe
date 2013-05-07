@@ -77,7 +77,7 @@ public class PreHandler extends DefaultHandler
    
     private StringBuffer currentContent;    
         
-    public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL, UNKNOWN }
+    public enum Type { ITEM, COMPONENT, CONTEXT, CONTENTMODEL, ORGANIZATIONALUNIT, UNKNOWN }
     public enum Status { PENDING, SUBMITTED, RELEASED, WITHDRAWN, INREVISION, UNKNOWN }
     
     @Override
@@ -334,6 +334,11 @@ public class PreHandler extends DefaultHandler
         {
             return objectType = Type.CONTENTMODEL;
         }
+        else if (type.endsWith("OrganizationalUnit"))
+        {
+            return objectType = Type.ORGANIZATIONALUNIT;
+        }
+        
         return Type.UNKNOWN;
     }
 

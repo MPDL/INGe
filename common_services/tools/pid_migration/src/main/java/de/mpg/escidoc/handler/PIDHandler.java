@@ -168,6 +168,13 @@ public class PIDHandler extends IdentityHandler
         
         String oldContent = content;
         
+        
+        // older foxmls contain elements with an empty String value - in this case we don't do anything
+        if ("".equals(oldContent))
+        {
+            return oldContent;
+        }
+        
         if (withVersion)
         {
             String versionInDummyHandle = content.substring(content.lastIndexOf(":") + 1);

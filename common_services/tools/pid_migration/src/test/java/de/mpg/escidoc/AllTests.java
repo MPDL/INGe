@@ -8,6 +8,7 @@ import de.mpg.escidoc.handler.PIDHandlerTest;
 import de.mpg.escidoc.handler.PIDProviderTest;
 import de.mpg.escidoc.handler.PreHandlerTest;
 import de.mpg.escidoc.main.PIDMigrationManagerTest;
+import de.mpg.escidoc.util.SQLQuerierTest;
 
 
 
@@ -15,6 +16,7 @@ import de.mpg.escidoc.main.PIDMigrationManagerTest;
 @Suite.SuiteClasses({ 
                     PIDProviderTest.class,
                     PreHandlerTest.class, 
+                    SQLQuerierTest.class,
                     AssertionHandlerTest.class,
                     PIDHandlerTest.class,
                     PIDProviderTest.class,
