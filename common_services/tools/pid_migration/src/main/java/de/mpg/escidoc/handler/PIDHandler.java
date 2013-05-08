@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.handler.PreHandler.Type;
 import de.mpg.escidoc.main.PIDMigrationManager;
 import de.mpg.escidoc.main.PIDProviderIf;
 import de.mpg.escidoc.util.Util;
@@ -26,6 +27,8 @@ public class PIDHandler extends IdentityHandler
     protected boolean inObjectPid = false;
     protected boolean inVersionPidOrReleasePid = false;
     protected boolean inVersionHistoryPid = false;
+    protected boolean inSystemBuild = false;
+    protected boolean systemBuildClosed = false;
     
     // flag indicating if a modify has taken place.
     protected boolean updateDone = false;
@@ -69,6 +72,12 @@ public class PIDHandler extends IdentityHandler
     {
         logger.debug("startElement uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> attributes = <" + attributes + ">");
         
+        
+        if (systemBuildClosed)
+        {
+            insertPropPid(actualRelsExtId, name, attributes);
+        }
+        
         super.startElement(uri, localName, name, attributes);
         
         if (("foxml:datastream".equals(name) && "RELS-EXT".equals(attributes.getValue("ID"))))
@@ -92,6 +101,10 @@ public class PIDHandler extends IdentityHandler
         else if ("escidocVersions:pid".equals(name))
         { 
             inVersionHistoryPid = true;
+        }
+        else if (inRelsExt && "system:build".equals(name))
+        { 
+            inSystemBuild = true;
         }
     }
 
@@ -214,14 +227,34 @@ public class PIDHandler extends IdentityHandler
 
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException
-    {
+    {       
         logger.debug("endElement   uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> ");
         if ("foxml:datastream".equals(name))
         {
             inRelsExt = false;
         } 
+        else if (inRelsExt && "system:build".equals(name))
+        { 
+            inSystemBuild = false;
+            systemBuildClosed = true;
+        }
         
         super.endElement(uri, localName, name);
+    }
+    
+    private void insertPropPid(String actRelsExtId, String name, Attributes attributes) throws SAXException
+    {
+        if (!preHandler.getObjectType().equals(Type.COMPONENT))
+            return;
+        String dummyPid = preHandler.getObjectPid(actRelsExtId);
+        
+        if ("".equals(dummyPid) || dummyPid == null)
+        {
+            super.startElement("", "", "prop:pid", attributes);
+            super.content("", "", "prop:pid", "XXXXXXXXXXXXXXX");
+            super.endElement("", "", "prop:pid");
+        }
+        systemBuildClosed = false;
     }
     
     public boolean isUpdateDone()
