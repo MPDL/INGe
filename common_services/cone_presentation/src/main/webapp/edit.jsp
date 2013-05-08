@@ -218,8 +218,8 @@
 				    		        	}
 		    	        			}
 
-				                	System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
-				                	System.out.println(results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())));
+				                	//System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
+				                	//System.out.println(results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())));
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
 					            	    //System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
