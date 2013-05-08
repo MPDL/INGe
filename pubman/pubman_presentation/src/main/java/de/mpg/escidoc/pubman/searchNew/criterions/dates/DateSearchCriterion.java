@@ -101,8 +101,8 @@ public class DateSearchCriterion extends SearchCriterionBase {
 		{
 			case ANYDATE : return new String[] {"escidoc.publication.published-online", "escidoc.publication.issued", "escidoc.publication.dateAccepted", 
 								"escidoc.publication.dateSubmitted", "escidoc.publication.modified", "escidoc.publication.created"};
-			case PUBLISHEDPRINT : return new String[] {"escidoc.publication.published-online"};
-			case PUBLISHED : return new String[] {"escidoc.publication.issued"};
+			case PUBLISHED : return new String[] {"escidoc.publication.published-online"};
+			case PUBLISHEDPRINT : return new String[] {"escidoc.publication.issued"};
 			case ACCEPTED : return new String[] {"escidoc.publication.dateAccepted"};
 			case SUBMITTED : return new String[] {"escidoc.publication.dateSubmitted"};
 			case MODIFIED : return new String[] {"escidoc.publication.modified"};
