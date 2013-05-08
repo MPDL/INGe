@@ -311,6 +311,11 @@ public class PreHandler extends DefaultHandler
         return globalAttributeMap.get(lastCreatedRelsExtId).get("id");
     }
     
+    public String getObjectPid(String actRelsExtId)
+    {
+        return globalAttributeMap.get(actRelsExtId).get("prop:pid");
+    }
+    
     public Map<String, String> getAttributeMapFor(String relsExtId)
     {
         return globalAttributeMap.get(relsExtId);
