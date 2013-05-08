@@ -218,9 +218,12 @@
 				    		        	}
 		    	        			}
 
+				                	System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
+				                	System.out.println(results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())));
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
-					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this, " + (predicate.getPredicates() != null) + ")\"/>");
+					            	    //System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
+				        	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this, " + (predicate.getPredicates() != null) + ")\"/>");
 		        		        	}
 				        	        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
 				        	        {
@@ -741,7 +744,9 @@
 	}
 %>
 
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%><html>
+<%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 	<jsp:include page="header.jsp"/>
 	<body onload="self.pageLoaded = true;checkFields()">
 		<div class="full wrapper" id="fullItem">
