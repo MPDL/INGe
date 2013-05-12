@@ -9,6 +9,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.handler.PreHandler.Status;
@@ -139,9 +140,9 @@ public class PreHandlerTest
     public void component() throws Exception
     {
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-        
+      
         File file = new File("src/test/resources/component_sav/escidoc_1494882");
-        
+       /* 
         preHandler = new PreHandler();
         parser.parse(file, preHandler);
         
@@ -149,6 +150,8 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2012-07-27T14:00:11.197Z"));
         assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
         assertTrue(preHandler.getTitle().equals("2815.pdf"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.0"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.1"));
         
         file = new File("src/test/resources/component_sav/escidoc_418001");
         
@@ -159,6 +162,48 @@ public class PreHandlerTest
         assertTrue(preHandler.getLastCreatedRelsExtTimestamp().equals("2013-02-28T13:00:51.424Z"));
         assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
         assertTrue(preHandler.getTitle().equals("server.log"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.0"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.1"));*/
+        
+        file = new File("src/test/resources/component_sav/escidoc_52093");
+        
+        preHandler = new PreHandler();
+        parser.parse(file, preHandler);
+        
+        assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.8"));
+        assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
+        assertTrue(preHandler.getTitle().equals("372285.pdf"));
+        
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.0"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.1"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.2"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.3"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.4"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.5"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.6"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.7"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.8"));
+        
+        file = new File("src/test/resources/component_sav/escidoc_61196_old");
+        
+        preHandler = new PreHandler();
+        parser.parse(file, preHandler);
+        
+        assertTrue(preHandler.getLastCreatedRelsExtId().equals("RELS-EXT.10"));
+        assertTrue(preHandler.getObjectType().equals(Type.COMPONENT));
+        assertTrue(preHandler.getTitle().equals("http://dx.doi.org/10.1016/j.lingua.2007.10.026"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.0"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.1"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.2"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.3"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.4"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.5"));
+        assertTrue(!preHandler.isObjectPidToInsert("RELS-EXT.6"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.7"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.8"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.9"));
+        assertTrue(preHandler.isObjectPidToInsert("RELS-EXT.10"));
+        
     }
     
     @Test

@@ -65,15 +65,17 @@ public class PreHandler extends DefaultHandler
     private boolean inRelsExtAndReleaseNumber = false;
     private boolean inRelsExtAndVersionNumber = false;
     
+    protected boolean firstObjectPidFound = false;
+    
     private boolean inDC = false;
     private boolean inDCAndTitle = false;
     
     // Map to hold the elements of a single RELS_EXT rdf:Description
-    private Map<String, String> tmpAttributeMap = new HashMap<String, String>();
+    protected Map<String, String> tmpAttributeMap = new HashMap<String, String>();
     
     // Map to hold the elements of a all RELS_EXT rdf:Descriptions
     // key: RELS_EX_ID, value: the AttributeMap from above, these are the elements from this special RELS_EXT rdf:Description 
-    private Map<String, Map<String, String>> globalAttributeMap = new HashMap<String, Map<String, String>>();
+    protected Map<String, Map<String, String>> globalAttributeMap = new HashMap<String, Map<String, String>>();
    
     private StringBuffer currentContent;    
         
@@ -102,6 +104,14 @@ public class PreHandler extends DefaultHandler
                 // because not all elements occur in each rdf:description
                 Map<String, String> h = new HashMap<String, String>(tmpAttributeMap);
                 tmpAttributeMap = h;
+                // we handle the "propPidExists" key as follow (as exception to the above rule):
+                // If a prop:pid element never has occured in the actual and the previous RELS-EXT sections, we don't set this key.
+                // If a prop:pid element has occured in one of the previous RELS-EXT sections and does not occur in the actual RELS-EXT section, 
+                // we set this key to "false".
+                if (firstObjectPidFound)
+                    tmpAttributeMap.put("propPidExists", "false");
+                else
+                    tmpAttributeMap.remove("propPidExists");
                 
                 logger.debug("startElement actualRelsExtId = " + lastCreatedRelsExtId);               
             }
@@ -136,6 +146,11 @@ public class PreHandler extends DefaultHandler
         else if ("version:number".equals(qName) && inRelsExt)
         {
             inRelsExtAndVersionNumber = true;
+        }
+        else if ("prop:pid".equals(qName) && inRelsExt)
+        {
+            tmpAttributeMap.put("propPidExists", "true");
+            firstObjectPidFound = true;
         }
         else if ("dc:title".equals(qName) && inDC)
         {
@@ -311,9 +326,10 @@ public class PreHandler extends DefaultHandler
         return globalAttributeMap.get(lastCreatedRelsExtId).get("id");
     }
     
-    public String getObjectPid(String actRelsExtId)
+    public boolean isObjectPidToInsert(String actRelsExtId)
     {
-        return globalAttributeMap.get(actRelsExtId).get("prop:pid");
+        return (globalAttributeMap.get(actRelsExtId).get("propPidExists") != null 
+                && globalAttributeMap.get(actRelsExtId).get("propPidExists").equals("false")); 
     }
     
     public Map<String, String> getAttributeMapFor(String relsExtId)

@@ -242,18 +242,21 @@ public class PIDHandler extends IdentityHandler
         super.endElement(uri, localName, name);
     }
     
+    // helper method to repair missing prop:pid elements in foxmls for component type
     private void insertPropPid(String actRelsExtId, String name, Attributes attributes) throws SAXException
     {
-        if (!preHandler.getObjectType().equals(Type.COMPONENT))
+        if (!preHandler.getObjectType().equals(Type.COMPONENT) || !preHandler.isObjectPidToInsert(actRelsExtId))
             return;
-        String dummyPid = preHandler.getObjectPid(actRelsExtId);
         
-        if ("".equals(dummyPid) || dummyPid == null)
+        // components have no version pids, so the only one to occur is one single object pid
+        if (replacedPids.values().size() == 1)
         {
+            String replacedObjectPid = replacedPids.values().iterator().next();
             super.startElement("", "", "prop:pid", attributes);
-            super.content("", "", "prop:pid", "XXXXXXXXXXXXXXX");
+            super.content("", "", "prop:pid", replacedObjectPid);
             super.endElement("", "", "prop:pid");
         }
+        
         systemBuildClosed = false;
     }
     
