@@ -57,7 +57,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class AffiliationVOPresentation extends AffiliationVO implements Comparable<AffiliationVOPresentation>
 {
-    private static final int SHORTENED_NAME_STANDARD_LENGTH = 70;
+    private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
     private static final int SHORTENED_LEVEL_LENGTH = 5;
     private List<AffiliationVOPresentation> children = null;
     private AffiliationVOPresentation parent = null;
