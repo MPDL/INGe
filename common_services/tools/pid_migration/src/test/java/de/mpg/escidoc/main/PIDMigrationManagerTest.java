@@ -97,9 +97,9 @@ public class PIDMigrationManagerTest
     @Test 
     public void transformDirectory() throws Exception
     {
-       /* File f = new File("src/test/resources/item");
+        File f = new File("src/test/resources/item");
         new PIDMigrationManager(f);        
-        assertTrue(new Validator().checkAfterMigration(f));*/
+        assertTrue(new Validator().checkAfterMigration(f));
         
         new PIDMigrationManager(new File("src/test/resources/component"));        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component")));

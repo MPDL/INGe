@@ -27,7 +27,7 @@ public class PIDHandler extends IdentityHandler
     protected boolean inObjectPid = false;
     protected boolean inVersionPidOrReleasePid = false;
     protected boolean inVersionHistoryPid = false;
-    protected boolean inSystemBuild = false;
+    protected boolean inRdfDescription = false;
     protected boolean systemBuildClosed = false;
     
     // flag indicating if a modify has taken place.
@@ -73,7 +73,7 @@ public class PIDHandler extends IdentityHandler
         logger.debug("startElement uri=<" + uri + "> localName = <" + localName + "> name = <" + name + "> attributes = <" + attributes + ">");
         
         
-        if (systemBuildClosed)
+        if (preHandler.getObjectType().equals(Type.COMPONENT) && inRdfDescription && systemBuildClosed)
         {
             insertPropPid(actualRelsExtId, name, attributes);
         }
@@ -102,9 +102,10 @@ public class PIDHandler extends IdentityHandler
         { 
             inVersionHistoryPid = true;
         }
-        else if (inRelsExt && "system:build".equals(name))
+        else if (inRelsExt && "rdf:Description".equals(name))
         { 
-            inSystemBuild = true;
+            inRdfDescription = true;
+            systemBuildClosed = false;
         }
     }
 
@@ -233,10 +234,13 @@ public class PIDHandler extends IdentityHandler
         {
             inRelsExt = false;
         } 
-        else if (inRelsExt && "system:build".equals(name))
+        else if (inRelsExt && inRdfDescription && "system:build".equals(name))
         { 
-            inSystemBuild = false;
             systemBuildClosed = true;
+        }
+        else if (inRelsExt && "rdf:Description".equals(name))
+        { 
+            inRdfDescription = false;
         }
         
         super.endElement(uri, localName, name);
