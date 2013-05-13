@@ -186,7 +186,7 @@
 							
 							<h:inputText id="inpcreator_persons_person_family_name_optional" styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}" rendered="#{!(genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'all')}" />
 							<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" value="#{creator.person.givenName}" />
-							<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 closeIcon removeAutoSuggestPerson" style="display:none;"
+							<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
 								onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors"/>
 							<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creator.autoPasteValue}" />
 							<a4j:commandButton reRender="editSource" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations" action="#{creator.addOrganization}" />
