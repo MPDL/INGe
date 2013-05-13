@@ -263,7 +263,7 @@ All rights reserved. Use is subject to license terms.
 		      	<td class="free_area0 endline">
 		      		<span class="seperator"></span>
 		      		<span class="free_area0_p8 itemHeadline">
-						<h:outputLink title="#{tip.list_item}" value="#{item.link}">
+						<h:outputLink title="#{item.fullTitle}" value="#{item.link}">
  							<b><h:outputText value="#{item.fullTitle}" converter="HTMLSubSupShortTitleConverter" escape="false"/></b>
 	 					</h:outputLink>
 		      		</span>
