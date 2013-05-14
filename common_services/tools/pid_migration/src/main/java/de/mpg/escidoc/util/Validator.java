@@ -28,7 +28,7 @@ public class Validator
         return checkAfterMigration(file, new ArrayList<String>());
     }
 
-    public boolean checkAfterMigration(File file, List<String> ignoreList) throws Exception
+    public boolean checkAfterMigration(File file, List<String> ignoreList)
     {
         logger.info("checkAfterMigration file <" + file.getName() + ">");
         if (file != null && file.isFile())
@@ -38,7 +38,17 @@ public class Validator
                    return true;
             }
 
-            return validateFile(file);
+            try
+            {
+                return validateFile(file);
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                logger.warn("Problem occured in validate <" + file.getName() + ">");
+                return false;
+            }
         }
         
         File[] files = file.listFiles();
@@ -61,7 +71,16 @@ public class Validator
             {
                 logger.info("checkAfterMigration file <" + f.getName() + ">");
                 
-                return validateFile(f);
+                try
+                {
+                    return validateFile(f);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    logger.warn("Problem occured in validate <" + file.getName() + ">");
+                    continue;
+                }
             }
         }
         

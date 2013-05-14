@@ -42,7 +42,7 @@ public class AssertionHandlerTest
     }
     
     @Test
-    public void testFilesBeforeMigration() throws IOException
+    public void testFilesBeforeMigration() throws Exception
     {
         File f = new File("src/test/resources/item_sav/escidoc_1479027");
         
@@ -59,6 +59,9 @@ public class AssertionHandlerTest
         
         f = new File("src/test/resources/component_sav/escidoc_418001");
         
+        preHandler = new PreHandler();
+        assertionHandler = new AssertionHandler(preHandler);
+        
         try
         {
             parser.parse(f, preHandler);
@@ -71,6 +74,9 @@ public class AssertionHandlerTest
         }
         
         f = new File("src/test/resources/item_sav/itemReleasedOnce");
+        
+        preHandler = new PreHandler();
+        assertionHandler = new AssertionHandler(preHandler);
         
         try
         {

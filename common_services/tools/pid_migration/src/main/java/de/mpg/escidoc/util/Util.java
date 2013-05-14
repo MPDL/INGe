@@ -48,7 +48,7 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
  */
 public class Util
 {
-	private static final String PROPERTIES_FILE = "src/main/resources/PidMigration.properties";
+	private static final String PROPERTIES_FILE = "pidMigration.properties";
 
 	private static Properties properties = null;
 

@@ -12,6 +12,7 @@ public class MigrationStatistic
     private int filesErrorOccured = 0;
     private int filesMigrationDone = 0;
     private int totalNumberOfPidsRequested = 0;
+    private long start = System.currentTimeMillis();
     private List<String> errorList = new ArrayList<String>();
     
     public int getFilesMigratedTotal()
@@ -71,6 +72,10 @@ public class MigrationStatistic
     {
         return this.totalNumberOfPidsRequested;        
     }
+    public long getTimeUsed()
+    {
+        return (System.currentTimeMillis() - this.start)/1000;
+    }
     public void addToErrorList(String escidocId)
     {
         this.errorList.add(escidocId);        
@@ -88,6 +93,7 @@ public class MigrationStatistic
         this.filesErrorOccured = 0;
         this.filesMigrationDone = 0;
         this.totalNumberOfPidsRequested = 0;
+        this.start = System.currentTimeMillis();
         this.errorList.clear();      
     }
      

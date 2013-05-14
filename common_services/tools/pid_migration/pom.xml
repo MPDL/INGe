@@ -56,13 +56,11 @@
 		</notifiers>
 	</ciManagement>
 	
-	<!--
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/ugtool/</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/ugtool/</developerConnection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/pid_migration/</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/pid_migration/</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
-	-->
 	
 	<build>
    <!-- For annotations and other Java5 stuff -->
@@ -86,7 +84,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>de.mpg.escidoc.main.UgTool</mainClass>
+							<mainClass>de.mpg.escidoc.main.PIDMigrationManager</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -101,12 +99,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<targetPath>src/main/resources</targetPath>
-			</resource>
-		</resources>
 	</build>
 	
 	
@@ -141,7 +133,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
@@ -153,7 +145,7 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.0-801.jdbc4</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>
