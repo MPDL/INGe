@@ -51,6 +51,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
@@ -121,8 +122,10 @@ public class HtmlFormatter extends Formatter
         StringWriter writer = new StringWriter();
         try
         {
-            Transformer transformer = TransformerFactory
-                    .newInstance()
+        	
+        	TransformerFactory factory1 = new net.sf.saxon.TransformerFactoryImpl();
+        	      	
+            Transformer transformer = factory1
                     .newTransformer(
                             new StreamSource(ResourceUtil.getResourceAsStream("xslt/html/resultlist-html.xsl")));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
