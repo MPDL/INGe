@@ -1,6 +1,7 @@
 package de.mpg.escidoc.services.pidcache.tables;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -50,15 +51,16 @@ public class Queue
 	 * @param pid
 	 */
 	public void add(Pid pid) throws Exception
-	{
-		String sql = DatabaseHelper.ADD_QUEUE_ELEMENT_STATEMENT;
-    	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
-    	sql = sql.replace("XXX_URL_XXX", pid.getUrl());
-    	sql = sql.replace("XXX_TIMESTAMP_XXX", DatabaseHelper.getTimeStamp());
+	{	    
     	Connection connection  = DatabaseHelper.getConnection();
-		Statement statement = connection.createStatement();
-    	statement.executeUpdate(sql);
-    	statement.close();
+		
+		PreparedStatement stmt = connection.prepareStatement(DatabaseHelper.ADD_QUEUE_ELEMENT_STATEMENT);
+		stmt.setString(1, pid.getIdentifier());
+		stmt.setString(2, pid.getUrl());
+		stmt.setString(3, DatabaseHelper.getTimeStamp());
+		
+    	stmt.executeUpdate();
+    	stmt.close();
         connection.close();
 	}
 	
@@ -69,12 +71,13 @@ public class Queue
 	 */
 	public void remove(Pid pid) throws Exception
 	{
-		String sql = DatabaseHelper.REMOVE_QUEUE_ELEMENT_STATEMENT;
-    	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
     	Connection connection  = DatabaseHelper.getConnection();
-		Statement statement = connection.createStatement();
-    	statement.executeUpdate(sql);
-    	statement.close();
+    	
+    	PreparedStatement stmt = connection.prepareStatement(DatabaseHelper.REMOVE_QUEUE_ELEMENT_STATEMENT);
+        stmt.setString(1, pid.getIdentifier());
+        
+        stmt.executeUpdate();
+        stmt.close();
         connection.close();
 	}
 	
@@ -87,18 +90,19 @@ public class Queue
 	public Pid retrieve(String id) throws Exception
 	{
 		Pid pid = null;
-		String sql = DatabaseHelper.RETRIEVE_QUEUE_ELEMENT_STATEMENT;
-    	sql = sql.replace("XXX_IDENTIFIER_XXX", id);
+    	
     	Connection connection  = DatabaseHelper.getConnection();
-		Statement statement = connection.createStatement();
-    	ResultSet resultSet = statement.executeQuery(sql);
+    	PreparedStatement stmt = connection.prepareStatement(DatabaseHelper.RETRIEVE_QUEUE_ELEMENT_STATEMENT);
+        stmt.setString(1, id);
+        
+    	ResultSet resultSet = stmt.executeQuery();
     	if (resultSet.next()) 
     	{
     		pid = new Pid(resultSet.getString("identifier"), resultSet.getString("url"));
-    		statement.close();
+    		stmt.close();
             connection.close();
 		}
-    	statement.close();
+    	stmt.close();
         connection.close();
         return pid;
 	}
@@ -115,11 +119,13 @@ public class Queue
 	public Pid search(String url) throws Exception
 	{
 		Pid pid = null;
-		String sql = DatabaseHelper.GET_QUEUE_ELEMENT_URL_STATEMENT;
-    	sql = sql.replace("XXX_URL_XXX", url);
+
     	Connection connection  = DatabaseHelper.getConnection();
-		Statement statement = connection.createStatement();
-    	ResultSet resultSet = statement.executeQuery(sql);
+    	
+    	PreparedStatement stmt = connection.prepareStatement(DatabaseHelper.GET_QUEUE_ELEMENT_URL_STATEMENT);
+        stmt.setString(1, url);
+        
+    	ResultSet resultSet = stmt.executeQuery();
     	if (resultSet.getFetchSize() > 1) 
     	{
 			throw new RuntimeException("Duplicate detected for URI: " + url);
@@ -127,10 +133,10 @@ public class Queue
     	if (resultSet.next()) 
     	{
     		pid = new Pid(resultSet.getString("identifier"), resultSet.getString("url"));
-    		statement.close();
+    		stmt.close();
             connection.close();
 		}
-    	statement.close();
+    	stmt.close();
         connection.close();
         return pid;
 	}
