@@ -172,13 +172,18 @@
 					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 			</li> 
+			<li>... <h:commandLink id="lnkNewSubmission_jp" title="#{lbl.Home_Link_FullSub}" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink> 
+			</li>
 			<li>... <h:commandLink id="lnkImport_jp" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink> 
 			</li>
-			<li>... <h:commandLink id="lnkNewSubmission_jp" title="#{lbl.Home_Link_FullSub}" action="#{CreateItem.newSubmission}" immediate="true">
-					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-				</h:commandLink> 
+			<li>... 
+				<h:commandLink id="lnkMultipleImport_jp" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
+					<h:outputText value="Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>
 			</li>
 		</ul>
 	</h:panelGroup>
