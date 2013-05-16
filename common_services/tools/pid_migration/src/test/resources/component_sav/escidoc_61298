@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" PID="escidoc:61298" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="component escidoc:61298"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2009-04-06T08:27:05.738Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2011-10-05T07:48:34.488Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2009-04-06T08:27:05.738Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-06T08:27:05.738Z</audit:date>
+<audit:justification>test</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-06T08:29:38.257Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-06T08:29:38.379Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-07T15:04:11.861Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-07T15:04:11.995Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-07T21:48:02.347Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-07T21:48:02.502Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-07T21:48:15.943Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-07T21:48:16.060Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-23T12:40:58.396Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-23T12:40:58.546Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-05-19T12:43:17.177Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-05-19T12:43:17.324Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-05-19T13:17:04.594Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-05-19T13:17:04.737Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-05-20T09:56:53.003Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-05-20T09:56:53.148Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-10-08T18:39:30.011Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-10-08T18:39:30.120Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-10-08T18:39:30.228Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-10-08T18:39:30.296Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-11-13T08:43:39.838Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-11-13T08:43:39.956Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-11-13T08:43:40.014Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-10-05T07:48:34.085Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-10-05T07:48:34.488Z</audit:date>
+<audit:justification/>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2009-04-06T08:27:05.750Z" MIMETYPE="text/xml" SIZE="1122">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+					<rdf:Description rdf:about="info:fedora/escidoc:61298">
+						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+						<prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+						<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina </prop:created-by-title>
+												<prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+												
+												<prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+												<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+					</rdf:Description>
+				</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2009-04-06T08:29:38.257Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2009-04-06T08:29:38.379Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="" CREATED="2009-04-07T15:04:11.861Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="" CREATED="2009-04-07T15:04:11.995Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="" CREATED="2009-04-07T21:48:02.347Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="" CREATED="2009-04-07T21:48:02.502Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="" CREATED="2009-04-07T21:48:15.943Z" MIMETYPE="text/xml" SIZE="1174">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:61297</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="" CREATED="2009-04-07T21:48:16.060Z" MIMETYPE="text/xml" SIZE="1174">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:61297</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="" CREATED="2009-04-23T12:40:58.396Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="" CREATED="2009-04-23T12:40:58.546Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="" CREATED="2009-05-19T12:43:17.177Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="" CREATED="2009-05-19T12:43:17.324Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="" CREATED="2009-05-19T13:17:04.594Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.14" LABEL="" CREATED="2009-05-19T13:17:04.737Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.15" LABEL="" CREATED="2009-05-20T09:56:53.003Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.16" LABEL="" CREATED="2009-05-20T09:56:53.148Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.17" LABEL="" CREATED="2009-10-08T18:39:30.228Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.1</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.18" LABEL="" CREATED="2009-10-08T18:39:30.296Z" MIMETYPE="text/xml" SIZE="1064">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.1</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.19" LABEL="" CREATED="2009-11-13T08:43:39.956Z" MIMETYPE="text/xml" SIZE="1063">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.1</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.20" LABEL="" CREATED="2009-11-13T08:43:40.014Z" MIMETYPE="text/xml" SIZE="1063">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.1</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Grevel, Ina</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.21" LABEL="" CREATED="2011-10-05T07:48:34.085Z" MIMETYPE="text/xml" SIZE="1034">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build>1.2</system:build>
+    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility>public</prop:visibility>
+    <prop:created-by-title>Grevel, Ina</prop:created-by-title>
+    <prop:valid-status>valid</prop:valid-status>
+    <prop:mime-type>application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.22" LABEL="" CREATED="2011-10-05T07:48:34.488Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:61298">
+    <system:build>1.2</system:build>
+    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by rdf:resource="info:fedora/escidoc:53425"/>
+    <prop:visibility>public</prop:visibility>
+    <prop:created-by-title>Grevel, Ina</prop:created-by-title>
+    <prop:valid-status>valid</prop:valid-status>
+    <prop:mime-type>application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content.0" LABEL="" CREATED="2009-04-06T08:27:05.750Z" MIMETYPE="application/pdf">
+<foxml:contentLocation TYPE="INTERNAL_ID" REF="escidoc:61298+content+content.0"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2009-04-06T08:27:05.750Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="583">
+<foxml:xmlContent>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Willems_Broca's region_Trends in cognitive sciences_2009.pdf</dc:title>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+            <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:type="dcterms:IMT">application/pdf</dc:format>
+            <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">73185</dcterms:extent>
+          </file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2009-10-08T18:39:30.120Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="863">
+<foxml:xmlContent>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Willems_Broca's region_Trends in cognitive sciences_2009.pdf</dc:title>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:type="dcterms:IMT">application/pdf</dc:format>
+  <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">73185</dcterms:extent>
+  <dcterms:available xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"/>
+</file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="md-record" CREATED="2009-11-13T08:43:39.838Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="779">
+<foxml:xmlContent>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Willems_Broca's region_Trends in cognitive sciences_2009.pdf</dc:title>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:type="dcterms:IMT">application/pdf</dc:format>
+  <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">73185</dcterms:extent>
+  <dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"/>
+</file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2009-04-06T08:27:05.750Z" MIMETYPE="text/xml" SIZE="457">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>Willems_Broca's region_Trends in cognitive sciences_2009.pdf</dc:title>
+<dc:description/>
+<dc:identifier>escidoc:61298</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="" CREATED="2009-10-08T18:39:30.011Z" MIMETYPE="text/xml" SIZE="457">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>Willems_Broca's region_Trends in cognitive sciences_2009.pdf</dc:title>
+<dc:description/>
+<dc:identifier>escidoc:61298</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
