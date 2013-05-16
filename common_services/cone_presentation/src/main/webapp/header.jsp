@@ -174,7 +174,7 @@
 		{
 			if (typeof pageLoaded != 'undefined' && pageLoaded)
 			{
-				console.log("Bind suggest: " + element);
+				//console.log("Bind suggest: " + element);
 				//if(element = 'http://purl.org/eprint/terms/affiliatedInstitution')
 				
 				element = element.replace('|', '\\|');
