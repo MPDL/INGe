@@ -142,7 +142,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 <foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2009-03-26T17:52:17.007Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="855">
 <foxml:xmlContent>
 <file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
-                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Seuren_2006_McCawley&apos;s.pdf</dc:title>
+                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">バイオマスの利用技術の現状と今後の展開</dc:title>
                      <eterms:content-category xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
                      <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf</dc:format>
                      <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">100922</dcterms:extent>
@@ -153,7 +153,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 <foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2013-03-14T11:50:32.481Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="1001">
 <foxml:xmlContent>
 <file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file">
-  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Seuren_2006_McCawley&apos;s.pdf</dc:title>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">バイオマスの利用技術の現状と今後の展開</dc:title>
   <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
   <eterms:content-category xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
   <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf</dc:format>
@@ -169,7 +169,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 <foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2009-03-26T17:52:17.007Z" MIMETYPE="text/xml" SIZE="435">
 <foxml:xmlContent>
 <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-<dc:title>Seuren_2006_McCawley&apos;s.pdf</dc:title>
+<dc:title>バイオマスの利用技術の現状と今後の展開</dc:title>
 <dc:identifier>escidoc:59231</dc:identifier>
 </oai_dc:dc>
 </foxml:xmlContent>
@@ -177,7 +177,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 <foxml:datastreamVersion ID="DC.1" LABEL="" CREATED="2013-03-14T11:50:32.391Z" MIMETYPE="text/xml" SIZE="512">
 <foxml:xmlContent>
 <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-  <dc:title>Seuren_2006_McCawley&apos;s.pdf</dc:title>
+  <dc:title>バイオマスの利用技術の現状と今後の展開</dc:title>
   <dc:description></dc:description>
   <dc:format>application/pdf</dc:format>
   <dc:rights>eDoc_access: USER</dc:rights>
