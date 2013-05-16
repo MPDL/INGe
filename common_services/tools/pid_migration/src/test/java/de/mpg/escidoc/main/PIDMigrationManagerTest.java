@@ -112,7 +112,7 @@ public class PIDMigrationManagerTest
         PIDMigrationManager m = null;
         try
         {
-            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_52093"));
+            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_59231"));
         }
         catch (Exception e)
         {
@@ -123,7 +123,7 @@ public class PIDMigrationManagerTest
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
         assertTrue(statistic.getFilesErrorOccured() == 0);
        
-        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_52093")));
+        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_59231")));
         
         try
         {

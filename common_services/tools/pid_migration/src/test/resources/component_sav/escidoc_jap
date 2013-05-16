@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:59231"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="component escidoc:59231"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2009-03-26T17:52:16.993Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-03-14T11:53:04.605Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2009-03-26T17:52:16.993Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-03-26T17:52:16.993Z</audit:date>
+<audit:justification>test</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-14T11:50:32.391Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-14T11:50:32.481Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-14T11:50:32.557Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-14T11:50:32.615Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-14T11:53:04.605Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2009-03-26T17:52:17.007Z" MIMETYPE="text/xml" SIZE="1013">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+					<rdf:Description rdf:about="info:fedora/escidoc:59231">
+						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:56312"></srel:created-by>
+						<prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">private</prop:visibility>
+						<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">import user</prop:created-by-title>
+												
+												<prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+												<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"></rdf:type>
+					</rdf:Description>
+				</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2013-03-14T11:50:32.557Z" MIMETYPE="text/xml" SIZE="1036">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:59231">
+    <system:build>1.3.8</system:build>
+    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by rdf:resource="info:fedora/escidoc:56312"></srel:created-by>
+    <prop:visibility>public</prop:visibility>
+    <prop:created-by-title>import user</prop:created-by-title>
+    <prop:valid-status>valid</prop:valid-status>
+    <prop:mime-type>application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2013-03-14T11:50:32.615Z" MIMETYPE="text/xml" SIZE="1036">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:59231">
+    <system:build>1.3.8</system:build>
+    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by rdf:resource="info:fedora/escidoc:56312"></srel:created-by>
+    <prop:visibility>public</prop:visibility>
+    <prop:created-by-title>import user</prop:created-by-title>
+    <prop:valid-status>valid</prop:valid-status>
+    <prop:mime-type>application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="" CREATED="2013-03-14T11:53:04.605Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:59231">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:59231</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by rdf:resource="info:fedora/escidoc:56312" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">import user</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content.0" LABEL="" CREATED="2009-03-26T17:52:17.007Z" MIMETYPE="application/pdf" SIZE="-1">
+<foxml:contentLocation TYPE="INTERNAL_ID" REF="escidoc:59231+content+content.0"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2009-03-26T17:52:17.007Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="855">
+<foxml:xmlContent>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Seuren_2006_McCawley&apos;s.pdf</dc:title>
+                     <eterms:content-category xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf</dc:format>
+                     <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">100922</dcterms:extent>
+                     <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: USER</dc:rights>
+                  </file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2013-03-14T11:50:32.481Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="1001">
+<foxml:xmlContent>
+<file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Seuren_2006_McCawley&apos;s.pdf</dc:title>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
+  <eterms:content-category xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
+  <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf</dc:format>
+  <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">100922</dcterms:extent>
+  <dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:dateCopyrighted>
+  <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: USER</dc:rights>
+  <dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:license>
+</file:file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2009-03-26T17:52:17.007Z" MIMETYPE="text/xml" SIZE="435">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>Seuren_2006_McCawley&apos;s.pdf</dc:title>
+<dc:identifier>escidoc:59231</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="" CREATED="2013-03-14T11:50:32.391Z" MIMETYPE="text/xml" SIZE="512">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Seuren_2006_McCawley&apos;s.pdf</dc:title>
+  <dc:description></dc:description>
+  <dc:format>application/pdf</dc:format>
+  <dc:rights>eDoc_access: USER</dc:rights>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
