@@ -17,6 +17,7 @@ public class PIDMigrationQaTest
     private static Logger logger = Logger.getLogger(PIDMigrationQaTest.class);
     
     @Test
+    @Ignore
     public void transformQa2008() throws Exception
     {
         FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/2008"));

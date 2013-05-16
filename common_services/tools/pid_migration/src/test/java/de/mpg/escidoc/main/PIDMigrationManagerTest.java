@@ -1,5 +1,6 @@
 package de.mpg.escidoc.main;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -49,7 +50,7 @@ public class PIDMigrationManagerTest
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void transformFiles() throws Exception
     {
@@ -103,6 +104,48 @@ public class PIDMigrationManagerTest
         
         new PIDMigrationManager(new File("src/test/resources/component"));        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component")));
+    }
+    
+    @Test
+    public void componentWithApostrophTitle() throws Exception
+    {
+        PIDMigrationManager m = null;
+        try
+        {
+            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_52093"));
+        }
+        catch (Exception e)
+        {
+            fail(e.getMessage());
+        }   
+        MigrationStatistic statistic = m.getMigrationStatistic();
+        
+        assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
+        assertTrue(statistic.getFilesErrorOccured() == 0);
+       
+        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_52093")));
+        
+    }
+    
+    @Test
+    public void componentWithJapaneseTitle() throws Exception
+    {
+        PIDMigrationManager m = null;
+        try
+        {
+            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_japanese"));
+        }
+        catch (Exception e)
+        {
+            fail(e.getMessage());
+        }   
+        MigrationStatistic statistic = m.getMigrationStatistic();
+        
+        assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
+        assertTrue(statistic.getFilesErrorOccured() == 0);
+       
+        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_japanese")));
+        
     }
     
     @Test 

@@ -22,6 +22,7 @@ public class PIDProvider implements PIDProviderIf
     private static String location;
     private static String user;
     private static String password;
+    private static String server;
     
     private static HttpClient httpClient;
     
@@ -39,6 +40,8 @@ public class PIDProvider implements PIDProviderIf
         location = Util.getProperty("escidoc.pidcache.service.url");
         user = Util.getProperty("escidoc.pidcache.user.name");
         password = Util.getProperty("escidoc.pidcache.user.password");
+        
+        server = Util.getProperty("escidoc.pidcache.server");
         
         httpClient = Util.getHttpClient();
         
@@ -80,10 +83,10 @@ public class PIDProvider implements PIDProviderIf
         method.setParameter("url", registerUrl);
         method.setDoAuthentication(true);
         
-        String pid;
+        String pid = "";
         try
         {
-            httpClient.getState().setCredentials(new AuthScope(Util.getProperty("escidoc.pidcache.server"), 8080),
+            httpClient.getState().setCredentials(new AuthScope(server, 8080),
                     new UsernamePasswordCredentials(user, password));
             
             code = httpClient.executeMethod(method);
@@ -106,7 +109,7 @@ public class PIDProvider implements PIDProviderIf
     
     public int getTotalNumberOfPidsRequested()
     {
-        return this.totalNumberofPidsRequested;
+        return totalNumberofPidsRequested;
     }
 
     private String getRegisterUrlForItem(String itemId)

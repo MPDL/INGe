@@ -56,7 +56,7 @@ public class PIDMigrationManager
         }
     }
     
-    public static MigrationStatistic getMigrationStatistic()
+    public MigrationStatistic getMigrationStatistic()
     {
         return statistic;
     }
@@ -137,25 +137,26 @@ public class PIDMigrationManager
         if (e.getMessage().contains("No item was found"))
             return;
         
-        System.out.println("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
-        System.out.println("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
-        System.out.println("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
-        System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
-        System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
-        System.out.println("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
-        System.out.println("TimeUsed                        " + statistic.getTimeUsed());
-        System.out.println("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
+        logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
+        logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
+        logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+        logger.info("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
+        long s = statistic.getTimeUsed();
+        logger.info("TimeUsed                        " + String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)));
         
         System.exit(1);
     }
     
     static private void printUsage(String message)
     {
-        System.out.print(message);
+        System.out.print("***** " + message + " *****");
         System.out.print("Usage: ");
-        System.out.println("java "  + " [-transform|-validate] rootDir");
+        System.out.println("java "  + " [-transform|-validate|-transformvalidate] rootDir");
         System.out.println("  -transform\t\tTransform the foxmls");
         System.out.println("  -validate\t\tValidate the (transformed) foxmls");
+        System.out.println("  -transformvalidate\t\tTransform and validate the (transformed) foxmls in a single step.");
         System.out.println("  <rootDir>\tThe root directory to start pid migration from");
 
         System.exit(-1);
@@ -174,10 +175,10 @@ public class PIDMigrationManager
         
         File rootDir = new File(rootDirName);
         if (!rootDir.exists())
-            printUsage("Directory or file does not exists: " + rootDir.getAbsolutePath());
+            printUsage("Directory or file does not exists: " + rootDir.getAbsolutePath() + "\n");
         
         int totalNumberOfFiles = Util.countFilesInDirectory(rootDir);
-        System.out.println("Total number of files to migrate <" + totalNumberOfFiles + "> for directory <"  + rootDir.getName() + ">");
+        logger.info("Total number of files to migrate <" + totalNumberOfFiles + "> for directory <"  + rootDir.getName() + ">");
         
         MigrationStatistic statistic = new MigrationStatistic(); 
         
@@ -185,14 +186,15 @@ public class PIDMigrationManager
         {
             PIDMigrationManager pidMigr = new PIDMigrationManager(rootDir);
             statistic = pidMigr.getMigrationStatistic();
-            System.out.println("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
-            System.out.println("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
-            System.out.println("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
-            System.out.println("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
-            System.out.println("FilesErrorOccured               " + statistic.getFilesErrorOccured());
-            System.out.println("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
-            System.out.println("TimeUsed                        " + statistic.getTimeUsed());
-            System.out.println("ErrorList                       " + statistic.getErrorList());
+            logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+            logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
+            logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
+            logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+            logger.info("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+            logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());           
+            long s = statistic.getTimeUsed();
+            logger.info("TimeUsed                        " + String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)));
+            logger.info("ErrorList                       " + statistic.getErrorList());
         }
         if(mode.contains("validate"))
         {
