@@ -50,7 +50,7 @@ public class PIDMigrationManagerTest
             e.printStackTrace();
         }
     }
-
+/**
     @Test
     public void transformFiles() throws Exception
     {
@@ -105,7 +105,7 @@ public class PIDMigrationManagerTest
         new PIDMigrationManager(new File("src/test/resources/component"));        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component")));
     }
-    
+*/    
     @Test
     public void componentWithApostrophTitle() throws Exception
     {
@@ -124,6 +124,21 @@ public class PIDMigrationManagerTest
         assertTrue(statistic.getFilesErrorOccured() == 0);
        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_52093")));
+        
+        try
+        {
+            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_61298"));
+        }
+        catch (Exception e)
+        {
+            fail(e.getMessage());
+        }   
+        statistic = m.getMigrationStatistic();
+        
+        assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
+        assertTrue(statistic.getFilesErrorOccured() == 0);
+       
+        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_61298")));
         
     }
     
