@@ -90,6 +90,7 @@
 					{						
 						for (LocalizedTripleObject object : results.get(predicate.getId()))
 						{
+							//System.out.println("Add to session a: " + prefix + predicate.getId());
 							out.append(object.toString());
 							if (object instanceof TreeFragment)
 						    {
@@ -121,6 +122,9 @@
 			                out.append("\n<span class=\"xHuge_area0 endline inputField\" style=\"overflow: visible;\">");
 			                	if (predicate.isModify())
 			                	{
+			                		
+			                		//System.out.println(predicate.getId() + "--" +predicate.isResource());
+			                		
 				                	out.append("\n<input type=\"");
 					                if (predicate.isGenerateObject())
 				    	            {
@@ -227,12 +231,13 @@
 		        		        	}
 				        	        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
 				        	        {
-										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 				        	        }
 				        	      //  out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 			                	}
 			                	else
 			                	{
+			                		//System.out.println("Add to session b: " + prefix + predicate.getId());
 			                	    if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
 			                	        String defaultValue = predicate.getDefault(request);
@@ -358,7 +363,7 @@
 		        					}
 					        	}
 
-								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 							//	out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 				            out.append("</span>");
 	        			}
@@ -406,6 +411,7 @@
 					{
                	        String defaultValue = predicate.getDefault(request);
 					    out.append(predicate.getDefault(request));
+					    //System.out.println("Add to session c: " + prefix + predicate.getId());
 					    request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
 					}
 			        else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
