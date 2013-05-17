@@ -13,6 +13,8 @@
 	
 	(function($) {
 
+		var suggestXhr;
+		
 		$.suggest = function(input, options) {
 	
 			var $input = $(input).attr("autocomplete", "off");
@@ -173,7 +175,11 @@
 							source = source.substring(0, source.indexOf('?'));
 						}
 
-						$.ajax({
+						//Cancel old request
+						if(suggestXhr!=null){
+							suggestXhr.abort();
+						}
+						suggestXhr = $.ajax({
 							processData: false,
 							type: "GET",
 							dataType: "json",
