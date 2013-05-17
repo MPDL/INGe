@@ -606,7 +606,11 @@
 				</parameters>
 			</layout-element>
 			
-			<layout-element ref="$sourceEditorsAndPublishingInfoAndDate"/>
+			<layout-element ref="$sourceEditorsAndPublishingInfoAndDate">
+				<parameters>
+					<valid-if><![CDATA[exists(pub:publication/source:source[1])]]></valid-if>
+				</parameters>
+			</layout-element>
 			
 			<layout-element ref="$vol"/>
 			

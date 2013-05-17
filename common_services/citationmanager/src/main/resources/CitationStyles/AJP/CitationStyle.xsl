@@ -1667,6 +1667,11 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$sourceEditorsAndPublishingInfoAndDate"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="exists(pub:publication/source:source[1])">
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
