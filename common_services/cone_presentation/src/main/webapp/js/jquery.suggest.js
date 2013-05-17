@@ -176,7 +176,7 @@
 						}
 
 						//Cancel old request
-						if(suggestXhr!=null){
+						if(typeof suggestXhr !== 'undefined'){
 							suggestXhr.abort();
 						}
 						suggestXhr = $.ajax({
