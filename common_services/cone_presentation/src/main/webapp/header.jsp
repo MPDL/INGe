@@ -124,7 +124,8 @@
 
 		function remove(element, hasPredicates)
 		{
-			
+
+			var form = $(element.form);
 			var parent = $(element).parents(".inputField")[0];
 			var listSize = $(parent).parent().children(".inputField").length;
 			
@@ -149,6 +150,7 @@
 				$(parent).find("input[type='text']").each(function(){ $(this).val('');});
 				$(element).remove();
 			}
+			form.submit();
 		}
 
 		function add(element, predicate, hidden, lang)
