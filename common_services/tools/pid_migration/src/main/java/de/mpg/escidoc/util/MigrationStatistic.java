@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MigrationStatistic
 {
-    private int filesMigratedTotal = 0;
+    private int filesTotal = 0;
     private int filesMigratedNotItemOrComponent = 0;
     private int filesMigratedNotReleased = 0;
     private int filesMigratedNotUpdated = 0;
@@ -15,13 +15,13 @@ public class MigrationStatistic
     private long start = System.currentTimeMillis();
     private List<String> errorList = new ArrayList<String>();
     
-    public int getFilesMigratedTotal()
+    public int getFilesTotal()
     {
-        return filesMigratedTotal;
+        return filesTotal;
     }
-    public void incrementFilesMigratedTotal()
+    public void incrementFilesTotal()
     {
-        this.filesMigratedTotal++;
+        this.filesTotal++;
     }
     public int getFilesMigratedNotItemOrComponent()
     {
@@ -86,7 +86,7 @@ public class MigrationStatistic
     }
     public void clear()
     {
-        this.filesMigratedTotal = 0;
+        this.filesTotal = 0;
         this.filesMigratedNotItemOrComponent = 0;
         this.filesMigratedNotReleased = 0;
         this.filesMigratedNotUpdated = 0;

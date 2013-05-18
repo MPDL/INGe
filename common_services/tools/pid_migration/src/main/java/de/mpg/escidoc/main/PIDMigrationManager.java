@@ -65,7 +65,7 @@ public class PIDMigrationManager
     {   
         logger.info("****************** Start transforming " + file.getName());
         
-        statistic.incrementFilesMigratedTotal();
+        statistic.incrementFilesTotal();
         
         actualFileName = file.getName();
         
@@ -137,11 +137,12 @@ public class PIDMigrationManager
         if (e.getMessage().contains("No item was found"))
             return;
         
-        logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
         logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
         logger.info("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
         logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
         long s = statistic.getTimeUsed();
         logger.info("TimeUsed                        " + String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)));
@@ -186,11 +187,12 @@ public class PIDMigrationManager
         {
             PIDMigrationManager pidMigr = new PIDMigrationManager(rootDir);
             statistic = pidMigr.getMigrationStatistic();
-            logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+            logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
             logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
             logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
-            logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+            logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());            
             logger.info("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+            logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
             logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());           
             long s = statistic.getTimeUsed();
             logger.info("TimeUsed                        " + String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)));
