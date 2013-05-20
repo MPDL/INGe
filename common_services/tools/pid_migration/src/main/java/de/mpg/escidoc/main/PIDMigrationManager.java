@@ -67,6 +67,13 @@ public class PIDMigrationManager
         
         statistic.incrementFilesTotal();
         
+        if ((statistic.getFilesTotal() % 1000) == 0 )
+        {
+            logger.info("***********************************************************");
+            logger.info("****************** Number of files already done " + statistic.getFilesTotal());
+            logger.info("***********************************************************");
+        }
+        
         actualFileName = file.getName();
         
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
@@ -137,7 +144,7 @@ public class PIDMigrationManager
         if (e.getMessage().contains("No item was found"))
             return;
         
-        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
+        logger.info("FilesTotal                      " + statistic.getFilesTotal());
         logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
@@ -187,7 +194,7 @@ public class PIDMigrationManager
         {
             PIDMigrationManager pidMigr = new PIDMigrationManager(rootDir);
             statistic = pidMigr.getMigrationStatistic();
-            logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
+            logger.info("FilesTotal                      " + statistic.getFilesTotal());
             logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
             logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
             logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());            

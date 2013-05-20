@@ -19,12 +19,12 @@ public class PIDProvider implements PIDProviderIf
 {
     private static Logger logger = Logger.getLogger(PIDProvider.class);  
     
-    private static String location;
-    private static String user;
-    private static String password;
-    private static String server;
+    private String location;
+    private String user;
+    private String password;
+    private String server;
     
-    private static HttpClient httpClient;
+    private HttpClient httpClient;
     
     private static int totalNumberofPidsRequested = 0;
     
@@ -44,6 +44,7 @@ public class PIDProvider implements PIDProviderIf
         server = Util.getProperty("escidoc.pidcache.server");
         
         httpClient = Util.getHttpClient();
+        httpClient.getParams().setAuthenticationPreemptive(true);
         
         logger.debug("init finished");
     }
@@ -81,9 +82,9 @@ public class PIDProvider implements PIDProviderIf
         }
         
         method.setParameter("url", registerUrl);
-        method.setDoAuthentication(true);
         
         String pid = "";
+        long start = System.currentTimeMillis();
         try
         {
             httpClient.getState().setCredentials(new AuthScope(server, 8080),
@@ -103,6 +104,9 @@ public class PIDProvider implements PIDProviderIf
         {
             throw new PIDProviderException(e.getMessage(), escidocId);
         }
+        long end = System.currentTimeMillis();
+        
+        logger.info("Time used for getting pid <" + (end - start) + ">ms");
        
         return pid;
     }

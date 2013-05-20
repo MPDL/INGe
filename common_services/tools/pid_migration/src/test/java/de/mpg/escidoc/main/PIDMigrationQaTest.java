@@ -25,7 +25,7 @@ public class PIDMigrationQaTest
                 new File("C:/Test/qa-coreservice/2008"));
         PIDMigrationManager mgr = new PIDMigrationManager(new File("C:/Test/qa-coreservice/2008"));        
         MigrationStatistic statistic = mgr.getMigrationStatistic();
-        logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
         logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
@@ -35,7 +35,7 @@ public class PIDMigrationQaTest
         logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
         logger.info("***********************");
         System.out.println("ErrorList                " + statistic.getErrorList());
-        assertTrue(statistic.getFilesMigratedTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
+        assertTrue(statistic.getFilesTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
                                          + statistic.getFilesMigratedNotUpdated() + statistic.getFilesMigrationDone()));
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 5000);
         
@@ -51,7 +51,7 @@ public class PIDMigrationQaTest
                 new File("C:/Test/qa-coreservice/2009"));
         PIDMigrationManager mgr = new PIDMigrationManager(new File("C:/Test/qa-coreservice/2009"));        
         MigrationStatistic statistic = mgr.getMigrationStatistic();
-        logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
         logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
@@ -59,7 +59,7 @@ public class PIDMigrationQaTest
         logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
         logger.info("***********************");
         logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
-        assertTrue(statistic.getFilesMigratedTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
+        assertTrue(statistic.getFilesTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
                                          + statistic.getFilesMigratedNotUpdated() + statistic.getFilesMigrationDone()));
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 20000);
         
@@ -75,7 +75,7 @@ public class PIDMigrationQaTest
                 new File("C:/Test/qa-coreservice/2010"));
         PIDMigrationManager mgr = new PIDMigrationManager(new File("C:/Test/qa-coreservice/2010"));        
         MigrationStatistic statistic = mgr.getMigrationStatistic();
-        logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
         logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
@@ -83,7 +83,7 @@ public class PIDMigrationQaTest
         logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
         logger.info("***********************");
         logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
-        assertTrue(statistic.getFilesMigratedTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
+        assertTrue(statistic.getFilesTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
                                          + statistic.getFilesMigratedNotUpdated() + statistic.getFilesMigrationDone()));
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 20000);
         
@@ -100,7 +100,7 @@ public class PIDMigrationQaTest
         PIDMigrationManager mgr = new PIDMigrationManager(new File("C:/Test/qa-coreservice/2013")); 
         
         MigrationStatistic statistic = mgr.getMigrationStatistic();
-        logger.info("FilesMigratedTotal              " + statistic.getFilesMigratedTotal());
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
         logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
         logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
@@ -108,7 +108,7 @@ public class PIDMigrationQaTest
         logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
         logger.info("***********************");
         logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
-        assertTrue(statistic.getFilesMigratedTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
+        assertTrue(statistic.getFilesTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
                                          + statistic.getFilesMigratedNotUpdated() + statistic.getFilesMigrationDone()));
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 700);
         

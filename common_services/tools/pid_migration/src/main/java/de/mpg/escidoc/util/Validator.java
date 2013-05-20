@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Validator
         return checkAfterMigration(file, new ArrayList<String>());
     }
 
-    public boolean checkAfterMigration(File file, List<String> ignoreList)
+    public boolean checkAfterMigration(File file, Collection<String> ignoreList)
     {
         logger.info("checkAfterMigration file <" + file.getName() + ">");
         if (file != null && file.isFile())

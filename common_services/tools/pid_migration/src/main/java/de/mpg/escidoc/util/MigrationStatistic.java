@@ -1,6 +1,7 @@
 package de.mpg.escidoc.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MigrationStatistic
@@ -13,7 +14,7 @@ public class MigrationStatistic
     private int filesMigrationDone = 0;
     private int totalNumberOfPidsRequested = 0;
     private long start = System.currentTimeMillis();
-    private List<String> errorList = new ArrayList<String>();
+    private Collection<String> errorList = new  ArrayList<String>();
     
     public int getFilesTotal()
     {
@@ -80,7 +81,7 @@ public class MigrationStatistic
     {
         this.errorList.add(escidocId);        
     }
-    public List<String> getErrorList()
+    public Collection<String> getErrorList()
     {
         return this.errorList;  
     }

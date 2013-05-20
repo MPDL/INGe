@@ -50,7 +50,7 @@ public class PIDMigrationManagerTest
             e.printStackTrace();
         }
     }
-/**
+
     @Test
     public void transformFiles() throws Exception
     {
@@ -105,7 +105,7 @@ public class PIDMigrationManagerTest
         new PIDMigrationManager(new File("src/test/resources/component"));        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component")));
     }
-*/    
+    
     @Test
     public void componentWithApostrophTitle() throws Exception
     {
@@ -121,7 +121,7 @@ public class PIDMigrationManagerTest
         MigrationStatistic statistic = m.getMigrationStatistic();
         
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
-        assertTrue(statistic.getFilesErrorOccured() == 0);
+        assertTrue(statistic.getFilesMigrationDone() > 0);
        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_59231")));
         
@@ -136,7 +136,7 @@ public class PIDMigrationManagerTest
         statistic = m.getMigrationStatistic();
         
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
-        assertTrue(statistic.getFilesErrorOccured() == 0);
+        assertTrue(statistic.getFilesMigrationDone() > 0);
        
         assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_61298")));
         
@@ -148,7 +148,7 @@ public class PIDMigrationManagerTest
         PIDMigrationManager m = null;
         try
         {
-            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_japanese"));
+            m = new PIDMigrationManager(new File("src/test/resources/component/escidoc_jap"));
         }
         catch (Exception e)
         {
@@ -157,9 +157,9 @@ public class PIDMigrationManagerTest
         MigrationStatistic statistic = m.getMigrationStatistic();
         
         assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
-        assertTrue(statistic.getFilesErrorOccured() == 0);
+        assertTrue(statistic.getFilesMigrationDone() > 0);
        
-        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_japanese")));
+        assertTrue(new Validator().checkAfterMigration(new File("src/test/resources/component/escidoc_jap")));
         
     }
     
