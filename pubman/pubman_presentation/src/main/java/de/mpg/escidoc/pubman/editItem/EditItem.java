@@ -1077,6 +1077,7 @@ public class EditItem extends FacesBean
         {
             return "";
         }
+        
 
         // start: check if the item has been changed
         PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
