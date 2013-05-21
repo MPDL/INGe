@@ -90,7 +90,6 @@
 					{						
 						for (LocalizedTripleObject object : results.get(predicate.getId()))
 						{
-							//System.out.println("Add to session a: " + prefix + predicate.getId());
 							out.append(object.toString());
 							if (object instanceof TreeFragment)
 						    {
@@ -123,7 +122,6 @@
 			                	if (predicate.isModify())
 			                	{
 			                		
-			                		//System.out.println(predicate.getId() + "--" +predicate.isResource());
 			                		
 				                	out.append("\n<input type=\"");
 					                if (predicate.isGenerateObject())
@@ -222,11 +220,8 @@
 				    		        	}
 		    	        			}
 
-				                	//System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
-				                	//System.out.println(results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())));
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
-					            	    //System.out.println(predicate.getId() + " - Size: " + results.get(predicate.getId()).size() + " - Language: " + object.getLanguage() + " - Value: "  + object);
 				        	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this, " + (predicate.getPredicates() != null) + ")\"/>");
 		        		        	}
 				        	        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
@@ -237,7 +232,6 @@
 			                	}
 			                	else
 			                	{
-			                		//System.out.println("Add to session b: " + prefix + predicate.getId());
 			                	    if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
 			                	        String defaultValue = predicate.getDefault(request);
@@ -411,11 +405,15 @@
 					{
                	        String defaultValue = predicate.getDefault(request);
 					    out.append(predicate.getDefault(request));
-					    //System.out.println("Add to session c: " + prefix + predicate.getId());
 					    request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
 					}
 			        else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
 			        {
+			        	//remove old session attributes which are not modifiable
+			        	if(!predicate.isModify())
+			        	{
+			        		request.getSession().removeAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"));
+			        	}
 			            out.append("Will be generated");
 			        }
 			        else
