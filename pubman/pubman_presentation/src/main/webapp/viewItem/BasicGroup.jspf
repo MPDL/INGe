@@ -116,8 +116,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblLatestVersion}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink id="lnkLatestVersionURL" value="#{ViewItemFull.latestVersionURL}" >
-					<h:outputText value="#{ViewItemFull.latestVersionURL}"/>
+				<h:outputLink id="lnkLatestVersionURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.latestRelease.pid}" >
+					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.latestRelease.pid}"/>
 				</h:outputLink>	
 			</span>
 		</h:panelGroup>
