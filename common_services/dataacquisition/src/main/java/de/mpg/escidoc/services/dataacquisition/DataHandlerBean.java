@@ -742,13 +742,14 @@ public class DataHandlerBean implements DataHandler
     		         }
     		         // loading in-EAR configuration an fonts
     		         String dataaquisitionUrl = DataHandlerBean.class.getClassLoader().getResource("dataaquisition/").toString();
+    		         logger.info("Trying to load FopFactory from: '" + dataaquisitionUrl + "apache-fop-config.xml'");
     		         fopFactory.setUserConfig(dataaquisitionUrl + "apache-fop-config.xml");
     		         fopFactory.setBaseURL(dataaquisitionUrl);
                      fopFactory.getFontManager().setFontBaseURL(dataaquisitionUrl + "fonts/");
                      if (logger.isDebugEnabled())
                      {
-                         logger.info(fopFactory.getBaseURL());
-                         logger.info(fopFactory.getFontManager().getFontBaseURL());
+                         logger.debug(fopFactory.getBaseURL());
+                         logger.debug(fopFactory.getFontManager().getFontBaseURL());
                      }
                  }
                  catch (Exception exception)

@@ -231,7 +231,9 @@
 			
 			
 			<!-- CREATORS -->
-			<xsl:call-template name="createCreators"/>
+			<xsl:call-template name="createCreators">
+				<xsl:with-param name="gen" select="$gen"/>
+			</xsl:call-template>
 
 						
 			<!-- TITLE -->
@@ -273,12 +275,21 @@
  -->		
 			<xsl:if test="G">
 				<xsl:variable name="g" select="G"/>
-				<xsl:if test="$vm/language/v1-to-v2/map[$g=.]!=''">
-					<xsl:element name="dc:language">
-						<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-						<xsl:value-of select="G"/>
-					</xsl:element>
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="$vm/language/v1-to-v2/map[$g=.]!=''">
+						<dc:language>
+							<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
+							<xsl:value-of select="G"/>
+						</dc:language>
+					</xsl:when>
+					<xsl:when test="$vm/language/v2-to-edoc/map=$g and $vm/language/v2-to-edoc[map=$g]/map/@v2 != ''">
+						<dc:language>
+							<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
+							<xsl:value-of select="$vm/language/v2-to-edoc[map=$g]/map/@v2"/>
+						</dc:language>
+					</xsl:when>
+				</xsl:choose>				
+				
 			</xsl:if> 
 
 			
@@ -767,6 +778,19 @@
 						</xsl:otherwise>
 				</xsl:choose>
 			</dc:title>
+			
+			<xsl:if test="N and $refType = ('Book Section')">
+				<xsl:element name="eterms:volume">
+					<xsl:value-of select="N"/>
+				</xsl:element>
+			</xsl:if>	
+			<xsl:if test="V and not(N) and $refType = ('Book Section')">
+				<xsl:element name="eterms:volume">
+					<xsl:value-of select="V"/>
+				</xsl:element>
+			</xsl:if>
+			
+			
 			<xsl:for-each select="
 				Y[
 					$refType = ('Book Section')
@@ -784,6 +808,7 @@
 	
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">
+		<xsl:param name="gen"/>
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		<xsl:for-each select="A|E|Y|QUESTION">
 			<xsl:if test="name(.)='A'">
@@ -809,11 +834,13 @@
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 							<xsl:with-param name="pos" select="count(../A[position() &lt; $currentAuthorPosition]) + 1"/>
+							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:when test="$refType='Edited Book'">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
+							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>
 					</xsl:when>
 				</xsl:choose>
@@ -824,11 +851,13 @@
 					<xsl:when test="$refType='Generic'">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
+							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>					
 					</xsl:when>
 					<xsl:when test="$refType = ('Conference Proceedings', 'Conference Paper', 'Electronic Book')">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
+							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>					
 					</xsl:when>
 				</xsl:choose>
@@ -838,11 +867,13 @@
 					<xsl:when test="$refType='Generic' or ($refType='Conference Proceedings' and S)">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
+							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>					
 					</xsl:when>
 					<xsl:when test="$refType='Thesis'">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='advisor']/@uri"/>
+							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>
 					</xsl:when>
 				</xsl:choose>
@@ -852,12 +883,18 @@
 				<xsl:if test="$refType = ('Book', 'Book Section', 'Edited Book')">
 					<xsl:call-template name="createCreator">
 						<xsl:with-param name="role" select="$creator-ves/enum[.='translator']/@uri"/>
+						<xsl:with-param name="gen" select="$gen"/>
 					</xsl:call-template>					
 				</xsl:if>
 				<xsl:if test="$refType = ('Generic')">
 					<xsl:call-template name="createCreator">
 						<xsl:with-param name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
-					</xsl:call-template>					
+						<xsl:with-param name="gen" select="$gen"/>
+					<xsl:call-template name="createPerson">
+						<xsl:with-param name="isSource" select="$isSource" />
+						<xsl:with-param name="pos" select="$pos" />
+						<xsl:with-param name="gen" select="$gen" />
+					</xsl:call-template></xsl:call-template>					
 				</xsl:if>
 			</xsl:if>		
 		</xsl:for-each>
@@ -867,6 +904,7 @@
 		<xsl:param name="role"/>
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
+		<xsl:param name="gen"/>
 		
 		<xsl:choose>
 			<xsl:when test="$isSource">
@@ -874,16 +912,14 @@
 					<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
 					<xsl:call-template name="createPerson">
 						<xsl:with-param name="isSource" select="$isSource"/>
+						<xsl:with-param name="gen" select="$gen"/>
 					</xsl:call-template>				
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="eterms:creator">
 					<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
-					<xsl:call-template name="createPerson">
-						<xsl:with-param name="isSource" select="$isSource"/>
-						<xsl:with-param name="pos" select="$pos"/>
-					</xsl:call-template>				
+									
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -892,6 +928,7 @@
 	<xsl:template name="createPerson">
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
+		<xsl:param name="gen"/>
 		
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
 		<xsl:choose>
@@ -937,27 +974,64 @@
 					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
 					</xsl:element>
+					<!-- Affiliated Institution depends on publication-date) -->
+					<xsl:variable name="publication-date">
+						<xsl:choose>
+							<xsl:when test="exists(D) and D != ''">
+								<xsl:value-of select="D"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:choose>
+									<xsl:when test="gen = 'http://purl.org/escidoc/metadata/ves/publication-types/article' and exists(NUM_7) and NUM_7 != ''">
+										<xsl:value-of select="NUM_7"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:choose>
+											<xsl:when test="gen != 'http://purl.org/escidoc/metadata/ves/publication-types/article' and exists(NUM_8) and NUM_8 != ''">
+												<xsl:value-of select="NUM_8"/>
+											</xsl:when>
+										</xsl:choose>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:comment>Publication-Date: <xsl:value-of select="publication-date"/></xsl:comment>
 					<xsl:choose>
-						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">
-							<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">
-								<organization:organization>
-									<dc:title>
-										<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
-									</dc:title>
-									<dc:identifier>
-										<xsl:value-of select="rdf:Description/dc:identifier"/>
-									</dc:identifier>
-								</organization:organization>
+						<xsl:when test="($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+											and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)])">
+							<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
+								<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/>
+								</xsl:comment>
+								<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
+								</xsl:comment>
+								<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/>
+								</xsl:comment>
+								<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
+								</xsl:comment>
+								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
+								</xsl:comment>
+								<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
+									<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
+									<organization:organization>
+										<dc:title>
+											<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+										</dc:title>
+										<dc:identifier>
+											<xsl:value-of select="rdf:Description/dc:identifier"/>
+										</dc:identifier>
+									</organization:organization>
+								</xsl:if>
 							</xsl:for-each>
 						</xsl:when>
-						<!-- 
-						<xsl:when test="not($isSource)">
+						<xsl:otherwise>
 							<organization:organization>
-								<dc:title>Max Planck Society</dc:title>
-								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
+								<dc:title>External Organizations</dc:title>
+								<dc:identifier>
+									<xsl:value-of select="$external-ou"/>
+								</dc:identifier>
 							</organization:organization>
-						</xsl:when>
-						 -->
+						</xsl:otherwise>
 					</xsl:choose>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
@@ -1161,6 +1235,24 @@
 	<xsl:function name="escidoc:normalizeDegree">
 		<xsl:param name="d" />
 		<xsl:value-of select="lower-case(replace($d, '[.\s]+', ''))"/>
+	</xsl:function>
+	
+	<xsl:function name="escidocFunctions:smaller" as="xs:boolean">
+		<xsl:param name="value1"/>
+		<xsl:param name="value2"/>
+		<xsl:choose>
+			<xsl:when test="not(exists($value1)) or $value1 = ''">
+				<xsl:value-of select="true()"/>
+			</xsl:when>
+			<xsl:when test="not(exists($value2)) or $value2 = ''">
+				<xsl:value-of select="true()"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="date1" select="substring(concat($value1, '-01-01'), 1, 10)"/>
+				<xsl:variable name="date2" select="substring(concat($value2, '-ZZ-ZZ'), 1, 10)"/>
+				<xsl:value-of select="compare($date1, $date2) != 1"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:function>
 
 
