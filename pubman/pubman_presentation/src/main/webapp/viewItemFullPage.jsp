@@ -124,14 +124,14 @@
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
 									<h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbookViewItem}" action="#{ViewItemFull.removeMemberFromYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}" />
 									
-									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and ViewItemFull.canEdit}" />
-									<h:commandLink id="lnkAddSsrn" styleClass="free_area0" title="#{tip.ViewItemFull_lblAddSsrn }" action="#{ViewItemFull.addSsrnTag}" rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and ViewItemFull.canEdit}" >
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
+									<h:commandLink id="lnkAddSsrn" styleClass="free_area0" title="#{tip.ViewItemFull_lblAddSsrn }" action="#{ViewItemFull.addSsrnTag}" rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" >
 										<h:panelGroup styleClass="min_imgBtn add"/>
 										<h:outputText value="#{lbl.ViewItemFull_lblSSRN}"/>
 									</h:commandLink>
 									
-									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and ViewItemFull.canEdit}" />
-									<h:commandLink id="lnkRemoveSsrn" styleClass="free_area0" title="#{tip.ViewItemFull_lblRemoveSsrn }" action="#{ViewItemFull.removeSsrnTag}" rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and ViewItemFull.canEdit}">
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
+									<h:commandLink id="lnkRemoveSsrn" styleClass="free_area0" title="#{tip.ViewItemFull_lblRemoveSsrn }" action="#{ViewItemFull.removeSsrnTag}" rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}">
 										<h:panelGroup styleClass="min_imgBtn remove"/>
 										<h:outputText value="#{lbl.ViewItemFull_lblSSRN}"/>
 									</h:commandLink>
