@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.68-SNAPSHOT</version>
+		<version>1.0.68</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>citationmanager</artifactId>
 	<packaging>ejb</packaging>
 	<name>citationmanager</name>
-	<version>1.0.73-SNAPSHOT</version>
+	<version>1.0.73</version>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citationmanager</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citationmanager</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.68/citationmanager</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.68/citationmanager</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.68/citationmanager</url>
 	</scm>
 
 	<build>
@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.13-SNAPSHOT</version>
+			<version>1.3.13</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -271,7 +271,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.56-SNAPSHOT</version>
+			<version>1.0.56</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
