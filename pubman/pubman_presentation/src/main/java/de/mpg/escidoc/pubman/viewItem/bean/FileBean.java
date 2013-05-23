@@ -373,7 +373,7 @@ public class FileBean extends FacesBean
             {
                 if(contcat.getValue().equals(this.file.getContentCategory()))
                 {
-                     contentCategory = internationalized.getLabel("ENUM_CONTENTCATEGORY_" + contcat.getKey().toLowerCase());
+                     contentCategory = internationalized.getLabel("ENUM_CONTENTCATEGORY_" + contcat.getKey().toUpperCase());
                      break;
                 }
             }

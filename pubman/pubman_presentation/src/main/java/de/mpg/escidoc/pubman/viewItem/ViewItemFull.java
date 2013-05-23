@@ -713,17 +713,23 @@ public class ViewItemFull extends FacesBean
                 info(getMessage("ViewItem_ssrnAddedSuccessfully"));
             }
         }
-        else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()) || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && !this.canRelease))
+        else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()) || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState())))
         {
-            returnValue = icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
-            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            if (isModerator && (ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()))
             {
-                info(getMessage("ViewItem_ssrnAddedSuccessfully"));
+                returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
             }
-        }
-        else if ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && this.canRelease)
-        {
-            returnValue = icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
+            else if (isModerator && (ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()))
+            {
+                icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+                returnValue = icsb.saveAndSubmitCurrentPubItem(
+                        "Submission during adding SSRN-Tag.", AcceptItem.LOAD_ACCEPTITEM);
+            }
+            else 
+            {
+                returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
+//                returnValue = icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+            }
             if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
             {
                 info(getMessage("ViewItem_ssrnAddedSuccessfully"));
@@ -754,17 +760,23 @@ public class ViewItemFull extends FacesBean
                 info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
             }
         }
-        else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()) || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && !this.canRelease))
+        else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()) || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState())))
         {
-            returnValue =  icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
-            if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            if (isModerator && (ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState()))
             {
-                info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
+                returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
             }
-        }
-        else if ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()) && this.canRelease)
-        {
-            returnValue =  icsb.saveAndSubmitCurrentPubItem("Set SSRN-Tag", ViewItemFull.LOAD_VIEWITEM);
+            else if (isModerator && (ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()))
+            {
+                icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+                returnValue = icsb.saveAndSubmitCurrentPubItem(
+                        "Submission during removing SSRN-Tag.", AcceptItem.LOAD_ACCEPTITEM);
+            }
+            else
+            {
+                returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
+//                returnValue = icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+            }
             if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
             {
                 info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
