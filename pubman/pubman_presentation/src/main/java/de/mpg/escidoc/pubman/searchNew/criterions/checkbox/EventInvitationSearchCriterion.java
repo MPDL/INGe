@@ -70,10 +70,11 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 		this.invited = invited;
 	}
 
+	/*
 	@Override
 	public SearchCriterion getSearchCriterion() {
 		return SearchCriterion.EVENT_INVITATION;
 	}
-
+*/
 
 }
