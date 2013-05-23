@@ -82,9 +82,9 @@
 				
 				// handling up/down/escape requires results to be visible
 				// handling enter/tab requires that AND a result to be selected
-				if ((/27$|38$|40$|9$/.test(e.keyCode) && $results.is(':visible')) ||
+				if ((/^27$|^38$|^40$/.test(e.keyCode) && $results.is(':visible')) ||
 					(/^13$|^9$/.test(e.keyCode) && getCurrentResult())) {
-		            
+					
 		            if (e.preventDefault)
 		                e.preventDefault();
 					if (e.stopPropagation)
