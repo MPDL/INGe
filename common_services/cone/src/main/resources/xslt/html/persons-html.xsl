@@ -571,11 +571,10 @@
 
 										<div class="free_area0 itemBlockContent endline">
 											<b class="xLarge_area0 endline labelLine">&#160;
-												<span id="paginatorInfo"/>
+												<span id="paginatorInfo"><xsl:comment/></span>
 											</b>
-											<div class="xHuge_area0 xTiny_marginLExcl endline paginator" id="paginator"/>
-											
-											<div id="publicationsArea" class="publicationsArea"/>
+											<div class="xHuge_area0 xTiny_marginLExcl endline paginator" id="paginator"><xsl:comment/></div>
+											<div id="publicationsArea" class="publicationsArea"><xsl:comment/></div>
 										</div>	
 										
 										
