@@ -555,7 +555,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			}
 			copyValuesFromOldToNew(oldSearchCriterion, newSearchCriterion);
 			criterionList.add(position, newSearchCriterion);
-			logger.info("New criterion list:" + criterionList);
+			//logger.info("New criterion list:" + criterionList);
 		}
 		
 		
