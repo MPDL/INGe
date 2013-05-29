@@ -39,11 +39,14 @@
 	<field name="authors" class="java.lang.String">
 		<fieldDescription><![CDATA[authors]]></fieldDescription>
 	</field>
-	<field name="accepted" class="java.lang.String">
-		<fieldDescription><![CDATA[dateAccepted]]></fieldDescription>
+	<field name="published-online" class="java.lang.String">
+		<fieldDescription><![CDATA[published-online]]></fieldDescription>
 	</field>
-	<field name="submitted" class="java.lang.String">
-		<fieldDescription><![CDATA[dateSubmitted]]></fieldDescription>
+	<field name="published" class="java.lang.String">
+		<fieldDescription><![CDATA[issued]]></fieldDescription>
+	</field>
+	<field name="accepted" class="java.lang.String">
+		<fieldDescription><![CDATA[accepted]]></fieldDescription>
 	</field>
 	<field name="creator-id" class="java.lang.String">
 		<fieldDescription><![CDATA[../../../properties/created-by/@href]]></fieldDescription>
@@ -222,7 +225,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="styled">
 					<font fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{accepted} != null ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Date accepted: </style>" + $F{accepted} : null]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{published} != null ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Date published: </style>" + $F{published} : null]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement key="textField-12" positionType="Float" mode="Transparent" x="0" y="294" width="536" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -235,7 +238,20 @@
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="styled">
 					<font fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{submitted} != null ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Date submitted: </style>" + $F{submitted} : null]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{published-online} != null ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Date published online: </style>" + $F{published-online} : null]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-12" positionType="Float" mode="Transparent" x="0" y="294" width="536" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="styled">
+					<font fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{accepted} != null ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Date accepted: </style>" + $F{accepted} : null]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement key="textField-10" positionType="Float" mode="Transparent" x="2" y="154" width="96" height="14" forecolor="#000000" backcolor="#FFFFFF"/>

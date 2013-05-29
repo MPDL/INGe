@@ -215,7 +215,7 @@ public class ReportFHI {
 	    		
 	        	if (logger.isDebugEnabled())
 	        		writeToFile("target/search-res.xml", itemList.getBytes("UTF-8"));
-	        	logger.debug(itemList);
+	        	logger.info(itemList);
 	        	
 	        }
 		} catch (Exception e) 
