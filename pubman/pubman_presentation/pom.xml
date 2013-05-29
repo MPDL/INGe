@@ -145,7 +145,10 @@
             			</resource>
           			</webResources>
         		</configuration>
-      		</plugin>      		
+      		</plugin>
+      		
+      		
+      		      		
       		<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
@@ -176,24 +179,63 @@
 			</activation>
 			<properties />
 			<build>
-			<plugins>
-			<plugin>
-        		<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-war-plugin</artifactId>
-        		<configuration>
-        			<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
-        			<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
-        			<webResources>
-            			<resource>
-            				<targetPath>WEB-INF/classes</targetPath>
-              				<directory>${project.basedir}/src/main/resources/opensource</directory>             				
-              				<includes>
-                				<include>**/*.properties</include>
-              				</includes>
-            			</resource>
-          			</webResources>
-        		</configuration>
-      		</plugin>      		 		
+			<plugins>	
+	      		<plugin>
+			        <groupId>org.beardedgeeks</groupId>
+			        <artifactId>maven-merge-properties-plugin</artifactId>
+			        <version>0.1.1</version>
+			        <configuration>
+			          <merges>
+			            <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
+			              <propertiesFiles>
+			              	<propertiesFile>src/main/resources/opensource/Label_de.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			           <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
+			              <propertiesFiles>
+			                <propertiesFile>src/main/resources/opensource/Label_en.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			            <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_es.properties</targetFile>
+			              <propertiesFiles>
+			               <propertiesFile>src/main/resources/opensource/Label_es.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_es.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			            <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
+			              <propertiesFiles>
+			                <propertiesFile>src/main/resources/opensource/Label_ja.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			          </merges>
+			        </configuration>
+			        <executions>
+			          <execution>
+			            <phase>compile</phase>
+			            <goals>
+			              <goal>merge</goal>
+			            </goals>
+			          </execution>
+			        </executions>
+			      </plugin>
+      		
+				<plugin>
+	        		<groupId>org.apache.maven.plugins</groupId>
+	        		<artifactId>maven-war-plugin</artifactId>
+	        		<configuration>
+	        			<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
+	        			<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
+	        			<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
+	        		</configuration>
+      			</plugin>         		
+      		   		 		
       		<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
@@ -222,21 +264,59 @@
 			<properties />
 			<build>
 			<plugins>
+			
+			<plugin>
+			        <groupId>org.beardedgeeks</groupId>
+			        <artifactId>maven-merge-properties-plugin</artifactId>
+			        <version>0.1.1</version>
+			        <configuration>
+			          <merges>
+			            <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
+			              <propertiesFiles>
+			              	<propertiesFile>src/main/resources/nims/Label_de.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			           <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
+			              <propertiesFiles>
+			                <propertiesFile>src/main/resources/nims/Label_en.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			            <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_es.properties</targetFile>
+			              <propertiesFiles>
+			               <propertiesFile>src/main/resources/nims/Label_es.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_es.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			            <merge>
+			              <targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
+			              <propertiesFiles>
+			                <propertiesFile>src/main/resources/nims/Label_ja.properties</propertiesFile>
+			                <propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
+			              </propertiesFiles>
+			            </merge>
+			          </merges>
+			        </configuration>
+			        <executions>
+			          <execution>
+			            <phase>compile</phase>
+			            <goals>
+			              <goal>merge</goal>
+			            </goals>
+			          </execution>
+			        </executions>
+			      </plugin>
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-war-plugin</artifactId>
         		<configuration>
         			<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
         			<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
-        			<webResources>
-            			<resource>
-            				<targetPath>WEB-INF/classes</targetPath>
-              				<directory>${project.basedir}/src/main/resources/nims</directory>             				
-              				<includes>
-                				<include>**/*.properties</include>
-              				</includes>
-            			</resource>
-          			</webResources>
+        			<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
         		</configuration>
       		</plugin>      		 		
       		<plugin>
