@@ -165,7 +165,7 @@ All rights reserved. Use is subject to license terms.
 						</a4j:commandButton>
 						
 						<!-- Placeholder if button for opening parenthesis is not displayed -->
-						<h:panelGroup styleClass="tiny_area0" rendered="#{not empty AdvancedSearchBean.currentlyOpenedParenthesis}">
+						<h:panelGroup styleClass="tiny_area0" rendered="#{not empty AdvancedSearchBean.currentlyOpenedPa:qqqrenthesis}">
 							&#160;
 						</h:panelGroup>	
 						
@@ -183,7 +183,6 @@ All rights reserved. Use is subject to license terms.
 							</h:selectOneMenu>
 						</h:panelGroup>
 					</h:panelGroup>
-					<h:outputText value="#{criterion.searchCriterion.displayType}"/>
 					
 					<!-- input for standard criterions -->
 					<h:panelGroup rendered="#{criterion.searchCriterion.displayType == 'STANDARD'}">
