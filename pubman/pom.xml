@@ -241,6 +241,13 @@
 		</repository>
 	</repositories>
 	
+	<pluginRepositories>
+	    <pluginRepository>
+	      <id>beardedgeeks-releases</id>
+	      <url>http://beardedgeeks.googlecode.com/svn/repository/releases</url>
+	    </pluginRepository>
+ 	 </pluginRepositories>
+	
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
