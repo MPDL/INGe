@@ -527,7 +527,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		}
 	}
 	
-	public void changeCriterionAction()
+	public void changeCriterionAction(ValueChangeEvent evt)
 	{
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		Integer position = Integer.parseInt(params.get("indexOfCriterion"));
@@ -537,9 +537,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		
 		//Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
 		
-		SearchCriterion newValue = criterionList.get(position).getSearchCriterion();
-		if(newValue != null && position!=null)
+		
+		
+		if(evt.getNewValue() != null && position!=null)
 		{
+			SearchCriterion newValue = SearchCriterion.valueOf(evt.getNewValue().toString());
 			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
 			
 			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
@@ -553,7 +555,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			}
 			copyValuesFromOldToNew(oldSearchCriterion, newSearchCriterion);
 			criterionList.add(position, newSearchCriterion);
-			//logger.info("New criterion list:" + criterionList);
+			logger.info("New criterion list:" + criterionList);
 		}
 		
 		

@@ -174,16 +174,16 @@ All rights reserved. Use is subject to license terms.
 								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>									
 								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 							</h:panelGroup>
-							<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}">
+							<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterionAction}">
 								<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenu}" />
 								
-								<a4j:support event="onchange" reRender="editSearch" action="#{AdvancedSearchBean.changeCriterionAction}">
+								<a4j:support event="onchange" reRender="editSearch" >
 									<a4j:actionparam name="indexOfCriterion" value="#{index}"/>
 								</a4j:support>
 							</h:selectOneMenu>
 						</h:panelGroup>
 					</h:panelGroup>
-					
+					<h:outputText value="#{criterion.searchCriterion.displayType}"/>
 					
 					<!-- input for standard criterions -->
 					<h:panelGroup rendered="#{criterion.searchCriterion.displayType == 'STANDARD'}">
