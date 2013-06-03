@@ -153,7 +153,7 @@ public class GrantList  extends CurrentGrants
                 {
                 	grantArray.add((Grant) res.getRecords().get(index).getData());
                 }
-                System.out.println(grantArray);
+                //System.out.println(grantArray);
                 grantList.setGrants(grantArray);
                 
                 return grantList;
