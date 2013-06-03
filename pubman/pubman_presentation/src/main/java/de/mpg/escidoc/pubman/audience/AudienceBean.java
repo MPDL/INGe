@@ -341,7 +341,7 @@ public class AudienceBean extends FacesBean
                                 grantsToRevoke.remove(k);
                             }
                             //If user group has changed, revoke old grant and add new grant, except if no user group is selected for new grant
-                            else if(!this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo().equals(""))
+                            else if(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo()!=null && !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo().equals(""))
                             {
                                 //grantsToRevoke.remove(k);
                                 grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j));
@@ -356,7 +356,11 @@ public class AudienceBean extends FacesBean
                         grantsToRevoke.remove(j);
                     }*/
                     
-                    grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j));
+                	if(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo() != null && !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo().equals(""))
+                	{
+                		 grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j));
+                	}
+                   
                 }
             }
             
