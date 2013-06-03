@@ -318,7 +318,7 @@ public class CommonUtils extends InternationalizedImpl
                 code = code.trim().split(" ")[0];
             }
             
-            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/" + code + "?format=json&lang=" + locale);
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/" + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
             client.executeMethod(getMethod);
             String response = getMethod.getResponseBodyAsString();
             Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
