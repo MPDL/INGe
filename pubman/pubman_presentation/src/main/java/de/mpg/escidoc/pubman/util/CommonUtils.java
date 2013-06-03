@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -216,7 +217,7 @@ public class CommonUtils extends InternationalizedImpl
             if (getMethod.getStatusCode() == 200)
             {
                 String line;
-                BufferedReader reader = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), "UTF-8"));
                 while ((line = reader.readLine()) != null)
                 {
                     String[] pieces = line.split("\\|");
