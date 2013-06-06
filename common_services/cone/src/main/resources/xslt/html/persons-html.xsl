@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ddc="http://dewey.info/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ddc="http://dewey.info/" xmlns:util="java:de.mpg.escidoc.services.cone.util.XsltUtils">
 	
 	<!-- Use xml here, otherwise special invalid HTML characters (e.g. Unicode 152) can produce exceptions in transformation -->
 	<xsl:output method="xml" encoding="UTF-8" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" media-type="text/html"/>
@@ -675,38 +675,47 @@
 		<xsl:param name="last" as="xs:boolean"/>
 		
 		<xsl:choose>
-			<xsl:when test="string-length($text) = 4">
+			<xsl:when test="util:validateDate($text)">
+			
+			
 				<xsl:choose>
-					<xsl:when test="$last">
-						<xsl:value-of select="xs:date(concat($text, '-12-31'))"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="xs:date(concat($text, '-01-01'))"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="string-length($text) = 7">
-				<xsl:choose>
-					<xsl:when test="$last">
+					<xsl:when test="string-length($text) = 4">
 						<xsl:choose>
-							<xsl:when test="substring-after($text, '-') = '01'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '03'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '05'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '07'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '08'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '10'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '12'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
-							<xsl:when test="substring-after($text, '-') = '02'"><xsl:value-of select="xs:date(concat($text, '-28'))"/></xsl:when>
-							<xsl:otherwise><xsl:value-of select="xs:date(concat($text, '-30'))"/></xsl:otherwise>
+							<xsl:when test="$last">
+								<xsl:value-of select="xs:date(concat($text, '-12-31'))"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="xs:date(concat($text, '-01-01'))"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="string-length($text) = 7">
+						<xsl:choose>
+							<xsl:when test="$last">
+								<xsl:choose>
+									<xsl:when test="substring-after($text, '-') = '01'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '03'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '05'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '07'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '08'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '10'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '12'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+									<xsl:when test="substring-after($text, '-') = '02'"><xsl:value-of select="xs:date(concat($text, '-28'))"/></xsl:when>
+									<xsl:otherwise><xsl:value-of select="xs:date(concat($text, '-30'))"/></xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="xs:date(concat($text, '-01'))"/>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="xs:date(concat($text, '-01'))"/>
+						<xsl:value-of select="xs:date($text)"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="xs:date($text)"/>
+				<xsl:value-of select="current-date()"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
