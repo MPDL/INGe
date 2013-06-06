@@ -68,6 +68,10 @@
 	{
 		for (String nodeName : fragment.keySet())
 		{
+			if (model.getPredicate(nodeName)==null)
+			{
+				throw new RuntimeException("Predicate for node \"" + nodeName + "\" not found in model " + model.getName());
+			}
 			if (model.getPredicate(nodeName).isResource())
 			{
 				for (LocalizedTripleObject listItem : fragment.get(nodeName))
@@ -303,10 +307,19 @@
 													throw new RuntimeException("Identifier expected");
 												}
 												
-												removeIdentifierPrefixes((TreeFragment) result, model);
+												try
+												{
+													removeIdentifierPrefixes((TreeFragment) result, model);
+													querier.create(model.getName(), id, (TreeFragment) result);
+													out.println(" ...done!<br/>");
+												}
+												catch (Exception e)
+												{
+													out.println("<li class=\"messageError\"><b>Error: </b> "+e.getMessage() + "</li>");
+												}
 												
-												querier.create(model.getName(), id, (TreeFragment) result);
-												out.println(" ...done!<br/>");
+												
+												
 											}
 											else
 											{
