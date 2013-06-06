@@ -222,7 +222,7 @@
 
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
-				        	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this, " + (predicate.getPredicates() != null) + ")\"/>");
+				        	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 		        		        	}
 				        	        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
 				        	        {

@@ -129,7 +129,7 @@
 			var parent = $(element).parents(".inputField")[0];
 			var listSize = $(parent).parent().children(".inputField").length;
 			
-			if (listSize > 1 && hasPredicates)
+			if (listSize > 1 && !hasPredicates)
 			{
 				$(parent).remove();
 				
