@@ -274,6 +274,21 @@ public class FileVO extends ValueObject implements Cloneable
     {
         return pid;
     }
+    
+    /**
+     * remove "hdl:" if possible (needed for URLs including a handle-resolver)
+     */
+    public String getPidWithoutPrefix()
+    {
+        if (pid.startsWith("hdl:"))
+        {
+            return pid.substring(4);
+        }
+        else 
+        {
+            return pid;
+        }
+    }
 
     /**
      * Sets the persistent identifier of the file.
