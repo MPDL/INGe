@@ -49,43 +49,14 @@
 				<meta http-equiv="expires" content="0"/>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				
-				<style type="text/css">
-				#overlay {
-				    visibility: hidden;
-				    position: fixed;
-				    left: 0;
-				    top: 0;
-				    width: 100%;
-				    height: 100%;
-				    text-align:center;
-				    z-index: 200;
-				    background-color: black;
-				    opacity:0.4;
-				    filter: alpha(opacity=40);
-				    -khtml-opacity: 0.4;
-				    -moz-opacity: 0.4;
-				}
-				#overlay div
-				{
-					margin: 30em auto;
-					opacity:1.0;
-				}
-
 				
-				
-				</style>
-
 			</head>
 			<!-- Use onunload here in order to hinder browser to cache the page -->
 			<body lang="#{InternationalizationHelper.locale}">
 			
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			<div id="overlay" >
-				<div id="bigThrobber" class="overlayContent big_imgArea smallThrobber">&#160;</div>
-			</div>
-			
 			<h:form>
-			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();displayOverlay();" onstop="afterAjaxRequest();hideOverlay();" />			
+			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"/>
 			
@@ -180,15 +151,7 @@
 				journalSuggestCommonParentClass = 'sourceArea';
 				journalSuggestTrigger = 'JOURNAL';
 
-				function displayOverlay()
-				{
-					$pb('#overlay').css('visibility', 'visible');
-				}
-
-				function hideOverlay()
-				{
-					$pb('#overlay').css('visibility', 'hidden');
-				}
+				
 				
 			</script>
 			</body>
