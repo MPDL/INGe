@@ -90,10 +90,10 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLink id="lnkFileHandle" value="#{ViewItemFull.resolveHandleService}#{file.file.pid}" rendered="#{ViewItemFull.isStateReleased and file.file.pid != null}">
-						<h:outputText value="#{ViewItemFull.resolveHandleService}#{file.file.pid}"/>
+					<h:outputLink id="lnkFileHandle" value="#{ViewItemFull.resolveHandleService}#{file.file.pidWithoutPrefix}" rendered="#{ViewItemFull.isStateReleased and file.file.pid != null and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputText value="#{ViewItemFull.resolveHandleService}#{file.file.pidWithoutPrefix}"/>
 					</h:outputLink>
-					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.isStateReleased or file.file.pid == null}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.isStateReleased or file.file.pid == null or !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
 				</span>
 			</h:panelGroup>
 <%-- File description --%>

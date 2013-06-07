@@ -46,8 +46,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pid}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
-					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pid}"/>
+				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
+					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}"/>
 				</h:outputLink>	
 			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.isStateReleased or ViewItemFull.pubItem.version.pid == null}"/>
 			</span>
@@ -116,8 +116,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblLatestVersion}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink id="lnkLatestVersionURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.latestRelease.pid}" >
-					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.latestRelease.pid}"/>
+				<h:outputLink id="lnkLatestVersionURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.latestRelease.pidWithoutPrefix}" >
+					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.latestRelease.pidWithoutPrefix}"/>
 				</h:outputLink>	
 			</span>
 		</h:panelGroup>

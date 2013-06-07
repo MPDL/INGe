@@ -250,7 +250,7 @@ public class ExportItems extends FacesBean
         {
                 sb.setFileFormat(
                         "ESCIDOC_XML".equals(selExportFormat) ?
-                            FileFormatVO.ESCIDOC_XML_NAME : 
+                            FileFormatVO.ESCIDOC_XML_V13_NAME : 
                             //txt for all other
                             FileFormatVO.TEXT_NAME
                 );
