@@ -247,11 +247,17 @@ function fullItemReloadAjax()
 	}
 	*/
 	
-	var overlayDiv = $pb('<div id="overlayAjaxRequest"'
-			+ 'style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; text-align:center; z-index: 200; background-color: black; opacity:0.4; filter: alpha(opacity=40); -khtml-opacity: 0.4; -moz-opacity: 0.4;">'
-			+ '<div id="bigThrobber" class="big_imgArea smallThrobber" style="margin: 30em auto; opacity:1.0;">&#160;</div>'
-			+ '</div>"');
-	$pb('body').prepend(overlayDiv);
+	
+	var overlayDiv = $pb('#overlayAjaxRequest');
+	if(!overlayDiv || overlayDiv.length == 0)
+	{
+		overlayDiv = $pb('<div id="overlayAjaxRequest"'
+				+ 'style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; text-align:center; z-index: 200; background-color: black; opacity:0.4; filter: alpha(opacity=40); -khtml-opacity: 0.4; -moz-opacity: 0.4;">'
+				+ '<div id="bigThrobber" class="big_imgArea smallThrobber" style="z-index: 201; margin: 30em auto; opacity:1.0;">&#160;</div>'
+				+ '</div>"');
+		$pb('body').prepend(overlayDiv);
+	}
+	
 	
 	
 }
