@@ -203,14 +203,14 @@
 						</h:panelGroup>	
 						<div class="subHeader">
 							<!-- JSF messages -->
-							<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
+							<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
 							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
 								<h2><h:outputText  value="#{lbl.warning_lblMessageHeader}"/></h2>
-								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
+								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
 								<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
+								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 							</h:panelGroup>
 							<!-- Special validation messages for yearbook -->
 							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
@@ -308,10 +308,10 @@
 							</h:panelGroup>
 							
 							<h:panelGroup styleClass="gotoBox" rendered="#{(PubItemListSessionBean.hasNextListItem or PubItemListSessionBean.hasPreviousListItem) and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
-						 		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.listItemPosition}" />
-						 		<h:outputLabel id="lblItemList_ofBottom" styleClass="free_label" value="#{lbl.ItemList_of} " />
+						 		<h:inputText id="inputItemListPosition" styleClass="tiny_txtInput" value="#{PubItemListSessionBean.listItemPosition}" label="GoTo Box"/>
+						 		<h:outputLabel id="lblItemListPosition" styleClass="free_label" value="#{lbl.ItemList_of} " />
 						 		 <h:outputLabel id="lblChangeItemListPosition" styleClass="free_label" value="#{PubItemListSessionBean.totalNumberOfElements}" />
-						 		<h:commandButton id="btnGoToPageBottom" styleClass="xTiny_txtBtn pageChangeHiddenBtn" value="#{lbl.List_btGo}" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.listItemPosition}"/>
+						 		<h:commandButton id="btnGoToItemListPosition" styleClass="xTiny_txtBtn pageChangeHiddenBtn" value="#{lbl.List_btGo}" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.listItemPosition}"/>
 						 	</h:panelGroup>
 							
 						</h:panelGroup>
