@@ -37,11 +37,11 @@
 //	var subjectSuggestURL = '';
 //	var personSuggestURL = '';
 //	var organizationSuggestURL = '';
-	var journalDetailsBaseURL = '';
+	var journalDetailsBaseURL = '$1?format=json';
 	var languageDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
 	var autopasteInnerDelimiter = ' @@~~@@ ';
-	var journalSuggestCommonParentClass = 'sourceArea';
+	var journalSuggestCommonParentClass = 'itemBlock';
 	var journalSuggestTrigger = 'JOURNAL';
 	var subjectSuggestCommonParentClass = 'parentArea';
 	var languageSuggestCommonParentClass = 'languageArea';

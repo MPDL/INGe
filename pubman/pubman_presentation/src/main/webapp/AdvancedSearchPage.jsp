@@ -147,8 +147,6 @@
 				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
 				journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';
-				journalDetailsBaseURL = '$1?format=json';
-				journalSuggestCommonParentClass = 'sourceArea';
 				journalSuggestTrigger = 'JOURNAL';
 
 				
