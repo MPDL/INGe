@@ -378,14 +378,21 @@
 								or $genre-ves/enum[@uri=$publication-type] = 'proceedings'
 								or $genre-ves/enum[@uri=$publication-type] = 'issue')" />
 			<xsl:otherwise>
-				<xsl:if test="normalize-space(eterms:start-page)!=''">
-					<xsl:if test="eterms:sequence-number!=''">
+				<xsl:choose>
+					<xsl:when test="normalize-space(eterms:start-page)!='' and normalize-space(eterms:end-page) != ''">
 						<xsl:call-template name="createField">
 							<xsl:with-param name="name" select="'pages'"/>
 							<xsl:with-param name="xpath" select="concat(eterms:start-page, ' - ', eterms:end-page)"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:when test="normalize-space(eterms:start-page)!='' and (not(eterms:end-page) or normalize-space(eterms:end-page) = '') ">
+						<xsl:call-template name="createField">
+							<xsl:with-param name="name" select="'pages'"/>
+							<xsl:with-param name="xpath" select="eterms:start-page"/>
 						</xsl:call-template>				
-					</xsl:if>
-				</xsl:if>
+					</xsl:when>
+				</xsl:choose>
+				
 			</xsl:otherwise>
 		</xsl:choose>
 			
