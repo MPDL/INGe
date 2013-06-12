@@ -67,6 +67,14 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/publisher">publisher</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/HNR">honoree</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/founder">founder</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/referee">referee</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/INV">inventor</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/APP">applicant</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/DRT">director</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/PRO">producer</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/ACT">actor</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/CNG">cinematorgrapher</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/SDS">sound designer</enum>
 	</xsl:variable>
 	
 	<xsl:variable name="degree-ves">
