@@ -506,6 +506,60 @@
 					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
 				</xsl:call-template>
 			</xsl:when>			
+			<xsl:when test="$role='honoree'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='referee'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='inventor'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='applicant'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='director'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='producer'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='actor'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='cinematographer'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
+			<xsl:when test="$role='sound designer'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>			
 		</xsl:choose>		
 	</xsl:template>
 	<!-- ORGANIZATION -->
