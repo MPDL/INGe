@@ -63,6 +63,7 @@ import org.apache.axis.utils.URLHashSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
@@ -92,6 +93,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
 public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver{
+	public static final String BEAN_NAME = "AdvancedSearchBean";
 	
 	private static Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 	
@@ -139,6 +141,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	private int numberOfSearchCriterions;
 
 	private boolean languageChanged;
+
+	/**
+	 * Contains the last query
+	 */
+	private String query = "";
 	
 	
 	
@@ -867,7 +874,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		}
 		logger.debug("CQL Query: " + cql);
 		
-		String query = SearchCriterionBase.scListToQueryString(allCriterions);
+		query = SearchCriterionBase.scListToQueryString(allCriterions);
 		logger.debug("Internal Query: " + query);
 		
 		/*
@@ -880,6 +887,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	            return "";
 	      }
 		
+		 BreadcrumbItemHistorySessionBean bihsb = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+		 
+	 
+		 if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage"))
+		 {
+			 bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + query);
+		 }
+		 
+		 
+		 
 		 try {
 			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
 		} catch (Exception e) {
@@ -1189,6 +1206,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		subjectTypesListMenu = initSubjectTypesListMenu();
 		
 		this.languageChanged = true;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 }
