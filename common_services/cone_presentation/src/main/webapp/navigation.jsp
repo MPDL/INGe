@@ -79,12 +79,7 @@
 
 		<!-- meta Menu ends here -->
 	</span>
-	<% if (showWarning) { %>
-		<div>
-			No sufficient privileges!
-		</div>
-			
-	<% } %>
+	
 	
 	<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 		<a href="index.jsp" class="free_area0 xTiny_marginRIncl<% if ("/index.jsp".equals(request.getServletPath())) { %> active<% } %>">Home</a>
@@ -103,4 +98,12 @@
 		
 	</div>
 <!-- end: header section -->
+</div>
+
+<div class="small_marginLIncl subHeaderSection">
+	<div class="subHeader">
+	<% if (showWarning) { %>
+		<span class="messageWarn">No sufficient privileges!</span>
+	<% } %>
+	</div>
 </div>
