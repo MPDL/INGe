@@ -189,6 +189,7 @@ public class ExportItemsSessionBean extends FacesBean
                 ||     "JUS".equalsIgnoreCase(exportFormatName) 
                 ||     "DEFAULT".equalsIgnoreCase(exportFormatName) 
                 ||     "TEST".equalsIgnoreCase(exportFormatName) 
+                ||     "APA(CJK)".equalsIgnoreCase(exportFormatName) 
                 )
         {
             curExportFormatVO.setFormatType(FormatType.LAYOUT);

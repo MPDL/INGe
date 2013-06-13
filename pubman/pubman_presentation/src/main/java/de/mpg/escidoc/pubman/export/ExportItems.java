@@ -157,6 +157,7 @@ public class ExportItems extends FacesBean
         SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
         SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML_V13", getLabel("Export_ExportFormat_ESCIDOC_XML"));
         SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
+        SelectItem EXPORTFORMAT_APA_CJK = new SelectItem("APA(CJK)", getLabel("Export_ExportFormat_APA_CJK"));
         SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
         // JUS
         SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", getLabel("Export_ExportFormat_JUS"));
@@ -165,7 +166,7 @@ public class ExportItems extends FacesBean
 //        SelectItem EXPORTFORMAT_TEST = new SelectItem("Test", getLabel("Export_ExportFormat_TEST"));
         
 //        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
-        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
+        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
         return EXPORTFORMAT_OPTIONS;
     }
     
@@ -236,7 +237,8 @@ public class ExportItems extends FacesBean
                 ||    "AJP"        .equalsIgnoreCase(selExportFormat) 
                 ||    "JUS"        .equalsIgnoreCase(selExportFormat) 
                 ||    "DEFAULT"    .equalsIgnoreCase(selExportFormat) 
-                ||    "TEST"        .equalsIgnoreCase(selExportFormat) 
+                ||    "TEST"        .equalsIgnoreCase(selExportFormat)
+                ||    "APA(CJK)"        .equalsIgnoreCase(selExportFormat) 
         )
         {
             //set default fileFormat for APA or AJP to pdf 
