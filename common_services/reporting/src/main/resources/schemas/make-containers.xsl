@@ -113,7 +113,7 @@
 						</xsl:for-each>
 					</eterms:authors>
 					<xsl:element name="eterms:source-titles">
-						<xsl:value-of select="string-join((source:source/dc:title[.!='']), '; ')"/>
+						<xsl:value-of select="string-join((source:source/dc:title[.!='']/text()), '; ')"/>
 					</xsl:element>
 				<xsl:apply-templates/>
 			</publication:publication>

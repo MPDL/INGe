@@ -212,7 +212,7 @@ public class ReportFHI {
 	        	
 	        	//escape all alone &, otherwise filler throws an exception 
 	        	itemList = replaceAllTotal(itemList, AMPS_ALONE, "&amp;");
-	    		
+	       
 	        	if (logger.isDebugEnabled())
 	        		writeToFile("target/search-res.xml", itemList.getBytes("UTF-8"));
 	        	logger.info(itemList);
@@ -259,8 +259,9 @@ public class ReportFHI {
 		{
 			throw new RuntimeException("Cannot transform item-list XML containers:", e);
 		}
-		
-//		logger.debug(sw.toString());
+		logger.debug("*********************************************************************");
+		logger.debug(sw.toString());
+		logger.debug("*********************************************************************");
 		
 		
 		try 

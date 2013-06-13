@@ -173,7 +173,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" markup="styled">
 					<font fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{abstract} != null && ! "".equals($F{abstract}) ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Abstract: </style>" +  $F{abstract} : null]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{abstract} != null && ! "".equals($F{abstract}) ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Abstract: </style>" + $F{abstract}.replaceAll("&","&amp;").replaceAll("<su", "xxx").replaceAll("</su", "XXX").replaceAll("<", "&lt;").replaceAll("xxx","<su").replaceAll("XXX","</su") : null]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement key="textField-8" positionType="Float" mode="Transparent" x="2" y="168" width="534" height="22" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -199,7 +199,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="styled">
 					<font fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{source-titles} != null && ! "".equals($F{source-titles}) ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Source Title(s): </style>" +  $F{source-titles} : null]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{source-titles} != null && ! "".equals($F{source-titles}) ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Source Title(s): </style>" +  $F{source-titles}.replaceAll("&","&amp;").replaceAll("<su", "xxx").replaceAll("</su", "XXX").replaceAll("<", "&lt;").replaceAll("xxx","<su").replaceAll("XXX","</su") : null]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement key="textField-10" mode="Transparent" x="0" y="108" width="96" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
