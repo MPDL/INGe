@@ -887,17 +887,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	            return "";
 	      }
 		
-		 BreadcrumbItemHistorySessionBean bihsb = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-		 
-	 
-		 if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage"))
-		 {
-			 bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + query);
-		 }
-		 
-		 
+
 		 
 		 try {
+			 BreadcrumbItemHistorySessionBean bihsb = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+			 if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage"))
+			 {
+				 bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
+			 }
 			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
 		} catch (Exception e) {
 			logger.error("Error while redirecting to search result page", e);
