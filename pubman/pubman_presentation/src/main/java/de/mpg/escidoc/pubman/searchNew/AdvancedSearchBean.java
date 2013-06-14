@@ -1193,7 +1193,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 	@Override
 	public void languageChanged(String oldLang, String newLang) {
-		logger.info("AdvacncedSearchBean: Lang updated!!!!!");
 		criterionTypeListMenu = initCriterionTypeListMenu();
 		operatorTypeListMenu = initOperatorListMenu();
 		genreListMenu = initGenreListMenu();
