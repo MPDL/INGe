@@ -225,13 +225,23 @@ public interface XmlTransforming
 
     /**
      * Transforms a given <code>List&lt;ItemVO></code> to corresponding XML that is valid according to "http://www.
-     * escidoc.de/schemas/itemlist/0.2" (item-list.xsd).
+     * escidoc.de/schemas/itemlist/0.10" (item-list.xsd).
      * 
      * @param itemVOList A <code>List&lt;ItemVO></code>
-     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/itemlist/0.2" (item-list.xsd)
+     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/itemlist/0.10" (item-list.xsd)
      * @throws TechnicalException
      */
     public String transformToItemList(List<? extends ItemVO> itemVOList) throws TechnicalException;
+    
+    /**
+     * Transforms a given <code>ItemVOListWrapper</code> to corresponding XML that is valid according to "http://www.
+     * escidoc.de/schemas/itemlist/0.10" (item-list.xsd).
+     * 
+     * @param itemListWrapper A <code>ItemVOListWrapper</code>
+     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/itemlist/0.10" (item-list.xsd)
+     * @throws TechnicalException
+     */
+    public String transformToItemList(ItemVOListWrapper itemListWrapper) throws TechnicalException;
 
     /**
      * Not implemented yet.

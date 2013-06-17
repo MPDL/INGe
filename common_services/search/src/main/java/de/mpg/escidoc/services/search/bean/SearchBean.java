@@ -68,6 +68,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.parser.ParseException;
@@ -337,7 +338,7 @@ public class SearchBean implements Search
         List<SearchResultElement> searchElements = transformToSearchResultList(searchResult);
         ExportSearchResult exportedResult = new ExportSearchResult(searchElements, cqlQuery,
                 searchResult.getNumberOfRecords());
-        String itemListAsString = xmlTransforming.transformToItemList(exportedResult.extractItemsOfSearchResult());
+        String itemListAsString = xmlTransforming.transformToItemList(transformtToItemVOListWrapper(exportedResult));
 
         String outputFormat = query.getOutputFormat();
         String exportFormat = query.getExportFormat();
@@ -490,6 +491,23 @@ public class SearchBean implements Search
             }
         }
         return resultList;
+    }
+    
+    private ItemVOListWrapper transformtToItemVOListWrapper (ExportSearchResult exportSearchResult)
+    {
+        logger.debug("transformToItemList(List<ItemVO>)");
+        if (exportSearchResult == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformtToItemVOListWrapper is null");
+        }
+        // wrap the exportSearchResult list into the according wrapper class
+        ItemVOListWrapper listWrapper = new ItemVOListWrapper();
+        listWrapper.setItemVOList(exportSearchResult.extractItemsOfSearchResult());
+        if (exportSearchResult.getTotalNumberOfResults() != null)
+        {
+            listWrapper.setNumberOfRecords(exportSearchResult.getTotalNumberOfResults().toString());
+        }
+        return listWrapper;
     }
 
     private boolean checkValue(String str)

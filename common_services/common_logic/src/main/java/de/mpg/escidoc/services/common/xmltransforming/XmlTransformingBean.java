@@ -907,6 +907,12 @@ public class XmlTransformingBean implements XmlTransforming
         // wrap the item list into the according wrapper class
         ItemVOListWrapper listWrapper = new ItemVOListWrapper();
         listWrapper.setItemVOList(itemVOList);
+        
+        return transformToItemList(listWrapper);
+    }
+    
+    public String transformToItemList(ItemVOListWrapper itemListWrapper) throws TechnicalException
+    {
         // transform the wrapper class into XML
         String utf8itemList = null;
         try
@@ -917,12 +923,12 @@ public class XmlTransformingBean implements XmlTransforming
             mctx.setIndent(2);
             StringWriter sw = new StringWriter();
             mctx.setOutput(sw);
-            mctx.marshalDocument(listWrapper, "UTF-8", null, sw);
+            mctx.marshalDocument(itemListWrapper, "UTF-8", null, sw);
             utf8itemList = sw.toString().trim();
         }
         catch (JiBXException e)
         {
-            throw new MarshallingException(itemVOList.getClass().getSimpleName(), e);
+            throw new MarshallingException(itemListWrapper.getClass().getSimpleName(), e);
         }
         catch (ClassCastException e)
         {
