@@ -106,12 +106,12 @@
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
 				<xsl:choose>
-					<xsl:when test="eterms:degree='master'">
+					<xsl:when test="eterms:degree=$degree-ves/enum[.='master']/@uri">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="entryType" select="'masterthesis'"/>
 						</xsl:call-template>						
 					</xsl:when>
-					<xsl:when test="eterms:degree='phd'">
+					<xsl:when test="eterms:degree=$degree-ves/enum[.='phd']/@uri">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="entryType" select="'phdthesis'"/>
 						</xsl:call-template>						
@@ -205,6 +205,20 @@
 		<xsl:apply-templates select="dc:subject"/>		
 		<!-- TABLE OF CONTENTS -->
 		<xsl:apply-templates select="dcterms:tableOfContents"/>	
+		<!-- TYPE -->
+		<xsl:variable name="degree" select="eterms:degree"/>
+		<xsl:if test="$entryType='misc' 
+						and ($degree=$degree-ves/enum[.='diploma']/@uri 
+							or $degree=$degree-ves/enum[.='bachelor']/@uri
+							or $degree=$degree-ves/enum[.='magister']/@uri 
+							or $degree=$degree-ves/enum[.='habilitation']/@uri 
+							or $degree=$degree-ves/enum[.='staatsexamen']/@uri)">
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'type'"/>
+				<xsl:with-param name="xpath" select="concat($degree-ves/enum[@uri=$degree], ' (thesis)')"/>
+			</xsl:call-template>
+		</xsl:if>
+		
 		<!-- PAGES -->
 		<xsl:variable name="type-of-publication" select="./@type"/>
 		<xsl:if test="exists(eterms:total-number-of-pages)
