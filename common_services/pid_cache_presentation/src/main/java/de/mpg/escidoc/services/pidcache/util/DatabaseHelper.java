@@ -78,6 +78,8 @@ public class DatabaseHelper
     	"SELECT * FROM ESCIDOC_PID_QUEUE WHERE URL = ?";
     public static final String RETRIEVE_QUEUE_ELEMENT_STATEMENT = 
     	"SELECT * FROM ESCIDOC_PID_QUEUE WHERE IDENTIFIER = ?";
+    public static final String QUEUE_SIZE_STATEMENT = 
+            "SELECT COUNT(*) AS SIZE FROM ESCIDOC_PID_QUEUE";
     
     private static Logger logger = Logger.getLogger(DatabaseHelper.class);
     

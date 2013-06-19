@@ -48,6 +48,8 @@ public class RefreshTask extends Thread
     private static final Logger logger = Logger.getLogger(RefreshTask.class);
     private boolean signal = false;
     
+    private static int BLOCK_SIZE = 5;
+    
     /**
      * {@inheritDoc}
      */
@@ -57,29 +59,36 @@ public class RefreshTask extends Thread
         {
             int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.refresh.interval"));
             timeout = timeout * 1 * 1000;
-            CacheProcess cacheProcess = new CacheProcess();
+            
             QueueProcess queueProcess = new QueueProcess();
+            queueProcess.setBlockSize(BLOCK_SIZE);
+            CacheProcess cacheProcess = new CacheProcess();
+            
             while (!signal)
             {
-            	Thread.sleep(Long.parseLong(Integer.toString(timeout)));
-                logger.debug("Starting refresh of pid cache databases.");
-                try 
+                Thread.sleep(Long.parseLong(Integer.toString(timeout)));
+                logger.info("Starting refresh of pid cache databases.");
+                
+                while (!signal && (!queueProcess.isEmpty() || !cacheProcess.isFull()))
                 {
-                	 queueProcess.empty();
-                     cacheProcess.fill();
-				} 
-                catch (Exception e) 
-                {
-                	logger.error("Error during refresh task", e);
-				}
-                logger.debug("Finished refresh of pid cache databases.");
-            }        
+                    try
+                    {
+                        queueProcess.emptyBlock();
+                        cacheProcess.fill(BLOCK_SIZE);
+                    }
+                    catch (Exception e)
+                    {
+                        logger.error("Error during refresh task", e);
+                    }
+                    logger.info("Finished refresh of pid cache databases.");
+                }
+            }
         }
         catch (Exception e)
         {
             logger.error("Error initializing refresh task", e);
         }
-        logger.warn("Refresh task terminated.");
+        logger.info("Refresh task terminated.");
 
     }
     

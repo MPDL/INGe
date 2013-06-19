@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
@@ -16,6 +20,8 @@ import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
  */
 public class Queue 
 {	
+    private static final Logger logger = Logger.getLogger(Queue.class);
+    
 	/**
 	 * Default constructor
 	 */
@@ -44,6 +50,29 @@ public class Queue
     	statement.close();
 		return pid;
 	}
+	
+	public List<Pid> getFirstBlock(int size) throws Exception
+    {
+	    List<Pid> pids = new ArrayList<Pid>();
+	    
+        Connection connection  = DatabaseHelper.getConnection();
+        Statement statement = connection.createStatement();
+        statement.setMaxRows(size);
+        
+        ResultSet resultSet = statement.executeQuery(DatabaseHelper.GET_QUEUE_FIRST_ELEMENT_STATEMENT);
+        while (resultSet.next())
+        {
+            Pid pid = new Pid();
+            pid.setIdentifier(resultSet.getString("identifier"));
+            pid.setUrl( resultSet.getString("url"));
+            
+            pids.add(pid);           
+        }
+        statement.close();
+        connection.close();
+        logger.info("getFirstBlock of queue returning " + pids.size() + " pids");
+        return pids;
+    }
 	
 	/**
 	 * Add a PID to the queue
@@ -140,4 +169,29 @@ public class Queue
         connection.close();
         return pid;
 	}
+	
+	public boolean isEmpty() throws Exception
+	{
+	    return this.size() == 0;
+	}
+	
+	/**
+     * Current Size of the queue
+     * @return
+     * @throws Exception
+     */
+    public int size() throws Exception
+    {
+        Connection connection  = DatabaseHelper.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(DatabaseHelper.QUEUE_SIZE_STATEMENT);
+        int size = 0;
+        if (resultSet.next())
+        {   
+            size = resultSet.getInt("size");
+        }
+        connection.close();
+        statement.close();
+        return size;
+    }
 }

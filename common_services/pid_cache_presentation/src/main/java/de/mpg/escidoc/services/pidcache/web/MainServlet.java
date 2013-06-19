@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.httpclient.Header;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -72,7 +71,7 @@ public class MainServlet extends HttpServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
     	
-    	logger.info("PID cache GET request");
+     	logger.info("PID cache GET request");
     	
     	try 
     	{
@@ -107,6 +106,10 @@ public class MainServlet extends HttpServlet
         	{
         		resp.getWriter().append("There are " +  pidCacheService.getCacheSize() + " PID stored in cache");
         	}
+        	else if ("/queue/size".equals(req.getPathInfo()))
+            {
+                resp.getWriter().append("There are " +  pidCacheService.getQueueSize() + " PID actually in queue");
+            }
         	else 
         	{
         		resp.sendError(HttpServletResponse.SC_NOT_FOUND, req.getPathInfo());

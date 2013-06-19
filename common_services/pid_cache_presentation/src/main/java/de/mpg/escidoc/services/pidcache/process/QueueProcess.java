@@ -3,6 +3,8 @@
  */
 package de.mpg.escidoc.services.pidcache.process;
 
+import java.util.List;
+
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -24,9 +26,11 @@ import de.mpg.escidoc.services.pidcache.tables.Queue;
  *
  */
 public class QueueProcess 
-{    
+{      
 	private static final Logger logger = Logger.getLogger(QueueProcess.class);
 	private XmlTransforming xmlTransforming = null;
+	private int blockSize = 1;
+	
 	/**
      * Default constructor
      */
@@ -59,7 +63,7 @@ public class QueueProcess
 				} 
 				catch (Exception e) 
 				{
-					logger.debug("Error, PID can not be updated on GWDG service.");
+					logger.warn("Error, PID can not be updated on GWDG service.");
 				}
 				queue.remove(pid);
 				pid = queue.getFirst();
@@ -67,7 +71,51 @@ public class QueueProcess
 		}
 		else
 		{
-			logger.debug("PID manager at GWDG not available.");
+			logger.warn("PID manager at GWDG not available.");
 		}
 	}
+
+    public void emptyBlock() throws Exception
+    {
+        Queue queue = new Queue();
+        List<Pid> pids = queue.getFirstBlock(this.blockSize);
+        logger.debug("emptyBlock got " + this.blockSize + " pids");
+        if (pids.size() == 0)
+        {
+            return;
+        }
+        GwdgPidService gwdgPidService = new GwdgPidService();
+        if (gwdgPidService.available()) 
+        {
+            for (Pid pid : pids) 
+            {
+                try 
+                {
+                    String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
+                    logger.debug("emptyBlock updated " + pid.getUrl());
+                    xmlTransforming.transformToPidServiceResponse(pidXml);
+                } 
+                catch (Exception e) 
+                {
+                    logger.warn("Error, PID can not be updated on GWDG service.");
+                }
+                queue.remove(pid);
+            }
+        }
+        else
+        {
+            logger.warn("PID manager at GWDG not available.");
+        }
+        
+    }
+    
+    public boolean isEmpty() throws Exception
+    {
+        return (new Queue()).isEmpty();
+    }
+
+    public void setBlockSize(int size)
+    {
+        this.blockSize = size;        
+    }
 }

@@ -46,24 +46,39 @@ public class CacheProcess
 	 */
 	public void fill() throws Exception
 	{
-		Cache cache = new Cache();
-		GwdgPidService gwdgPidService = new GwdgPidService();
-		long current = 0;
-		if (gwdgPidService.available()) 
-		{
-			while(Cache.SIZE_MAX > cache.size() 
-					&& current != new Date().getTime())
-			{
-				current = new Date().getTime();
-				String pidXml = gwdgPidService.create(DUMMY_URL.concat(Long.toString(current)));
-				PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(pidXml);
-				Pid pid = new Pid(pidServiceResponseVO.getIdentifier(), pidServiceResponseVO.getUrl());
-				cache.add(pid);
-			}
-		}
-		else 
-		{
-			 logger.debug("PID manager at GWDG not available.");
-		}
+		this.fill(1);
 	}
+
+    public void fill(int number) throws Exception
+    {
+        Cache cache = new Cache();
+        GwdgPidService gwdgPidService = new GwdgPidService();
+        long current = 0;
+        if (gwdgPidService.available()) 
+        {
+            int i = 0;
+            while(Cache.SIZE_MAX > cache.size() 
+                    && current != new Date().getTime() 
+                    && i < number)
+            {
+                current = new Date().getTime();
+                String pidXml = gwdgPidService.create(DUMMY_URL.concat(Long.toString(current)));
+                PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(pidXml);
+                Pid pid = new Pid(pidServiceResponseVO.getIdentifier(), pidServiceResponseVO.getUrl());
+                cache.add(pid);
+                i++;
+            }
+        }
+        else 
+        {
+             logger.info("PID manager at GWDG not available.");
+        }
+        
+    }
+
+    public boolean isFull() throws Exception
+    {
+        Cache cache = new Cache();
+        return (Cache.SIZE_MAX == cache.size());
+    }
 }

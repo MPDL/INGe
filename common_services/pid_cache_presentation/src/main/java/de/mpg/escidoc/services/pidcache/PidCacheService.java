@@ -152,6 +152,11 @@ public class PidCacheService
 	{
 		return cache.size();
 	}
+	
+	public int getQueueSize() throws Exception
+    {
+        return queue.size();
+    }
 
 	public String getLocation() 
 	{
