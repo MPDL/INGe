@@ -2,7 +2,10 @@ package test.pidcache;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,10 +15,11 @@ import javax.naming.InitialContext;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -65,49 +69,32 @@ public class PidCacheServiceTest
     	PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
     	ITEM_TEST_URL = PropertyReader.getProperty("escidoc.pidcache.dummy.url");
    
-    	client = new HttpClient();  	
+    	client = new HttpClient();  
+    	client.getParams().setAuthenticationPreemptive(true);
+	}
+	
+	@Before
+	public void setup() throws Exception
+	{
+        // Wait until pid cache is surely filled
+        do
+        {
+            Thread.sleep(20000);
+        }
+        while (getCacheSize() < Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.cache.size.max")));
+        logger.info("Setup finished with cache size " + getCacheSize());
+        
+        testUrl = ITEM_TEST_URL.concat(Long.toString(new Date().getTime())).concat("/test");
 	}
 	
 	@Test
-	public void init() throws Exception
-	{	
-	    // Wait until pid cache is surely filled
-	    Thread.sleep(20000);
-		testUrl = ITEM_TEST_URL.concat(Long.toString(new Date().getTime())).concat("/test");
-		this.testAssignPid();
-		this.testUpdatePid();
-	}
-	
-	public void testAssignPid() throws Exception
+	public void testAssignAndUpdatePid() throws Exception
 	{
 		logger.info("TEST ASSIGN PID for url: " + testUrl);
 		PostMethod method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_CREATE));
 		method.setParameter("url", testUrl);
 		
-		// Basic authentication
-		int port = 80;
-		String domain;
-		Pattern pattern = Pattern.compile("[^:/]+:/*([^:/]+)(:(\\d+))?(/.*)?");
-		Matcher matcher = pattern.matcher(CACHE_PIDSERVICE);
-		if (matcher.find())
-		{
-			domain = matcher.group(1);
-			try
-			{
-				port = Integer.parseInt(matcher.group(3));
-			}
-			catch (NumberFormatException nfe)
-			{
-				port = 80;
-			}
-			logger.info("Pointing to '" + domain + "' at port " + port);
-		}
-		else
-		{
-			throw new RuntimeException("PID cache URL '" + CACHE_PIDSERVICE + "' not parsable.");
-		}
-
-		client.getState().setCredentials(new AuthScope(domain, port), new UsernamePasswordCredentials(PropertyReader.getProperty("escidoc.pidcache.user.name"), PropertyReader.getProperty("escidoc.pidcache.user.password")));
+		doAuthentication();
 		method.setDoAuthentication(true);
 		
     	ProxyHelper.executeMethod(client, method);
@@ -117,18 +104,15 @@ public class PidCacheServiceTest
 		testIdentifier = pidServiceResponseVO.getIdentifier();
 		assertNotNull(testIdentifier);
 		logger.info("PID"  + pidServiceResponseVO.getIdentifier() + " has been assigned.");
-		logger.info("done.");
-	}
 	
-	public void testUpdatePid() throws Exception
-	{
 		testUrl = testUrl.concat("/edition");
 		logger.info("TEST UPDATE PID " + testIdentifier + " with new URL: " + testUrl);
-		PostMethod method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_EDIT).concat("?pid=").concat(testIdentifier));
+		method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_EDIT).concat("?pid=").concat(testIdentifier));
 		method.setParameter("url", testUrl);
     	ProxyHelper.executeMethod(client, method);
-		PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
+		pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
 		assertNotNull(method.getResponseHeader("Location").getValue());
+		testIdentifier = pidServiceResponseVO.getIdentifier();
 		logger.info("Location: " +  method.getResponseHeader("Location").getValue());
 		assertEquals(testIdentifier, pidServiceResponseVO.getIdentifier());
 		assertEquals(testUrl, pidServiceResponseVO.getUrl());
@@ -136,14 +120,127 @@ public class PidCacheServiceTest
 		logger.info("done.");
 	}
 	
-	public void testAssignPidGwdgNonAvailable()
+	@Test
+    public void testEmptyQueueAndFillCache() throws Exception
+    {
+	    PostMethod method = null;
+	
+	    //fill queue 
+        for (int i = 1; i < 7; i++)
+        {
+            method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_CREATE));
+            method.setParameter("url", testUrl + i);
+            logger.info("TEST ASSIGN PID for url: " + testUrl + i);
+            if (i == 1)
+            {
+                doAuthentication();
+            }
+            method.setDoAuthentication(true);
+            
+            ProxyHelper.executeMethod(client, method);
+            PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
+            assertNotNull(method.getResponseHeader("Location").getValue());
+            logger.info("Location: " +  method.getResponseHeader("Location").getValue());
+            assertEquals(testUrl + i, pidServiceResponseVO.getUrl());
+            logger.info("PID"  + pidServiceResponseVO.getIdentifier() + " has been assigned.");
+        }
+        
+        // check if queue will get empty and cache will be refilled
+        int actCacheSize = 0;
+        int actQueueSize = 0;
+        
+        while (actCacheSize < Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.cache.size.max"))
+                || actQueueSize > 0)
+        {
+            int oldCacheSize = actCacheSize;
+            int oldQueueSize = actQueueSize;
+            
+            Thread.currentThread().sleep(6000);
+     
+            actCacheSize = getCacheSize();
+            assertTrue(oldCacheSize <= actCacheSize);
+            
+            actQueueSize = getQueueSize();
+            assertTrue(oldQueueSize >= actQueueSize || oldQueueSize == 0);
+        }
+    }
+	
+	private void doAuthentication() throws IOException, URISyntaxException
+    {
+        // Basic authentication
+        int port = 80;
+        String domain;
+        Pattern pattern = Pattern.compile("[^:/]+:/*([^:/]+)(:(\\d+))?(/.*)?");
+        Matcher matcher = pattern.matcher(CACHE_PIDSERVICE);
+        if (matcher.find())
+        {
+            domain = matcher.group(1);
+            try
+            {
+                port = Integer.parseInt(matcher.group(3));
+            }
+            catch (NumberFormatException nfe)
+            {
+                port = 80;
+            }
+            logger.info("Pointing to '" + domain + "' at port " + port);
+        }
+        else
+        {
+            throw new RuntimeException("PID cache URL '" + CACHE_PIDSERVICE + "' not parsable.");
+        }
+        
+        client.getState().setCredentials(new AuthScope(domain, port), new UsernamePasswordCredentials(PropertyReader.getProperty("escidoc.pidcache.user.name"), PropertyReader.getProperty("escidoc.pidcache.user.password")));
+    }
+	
+	private int getCacheSize() throws Exception
 	{
-		logger.info("GWDG not available: Test Create PID with url: " + testUrl + ".");
+	    int actCacheSize = 0;
+	    GetMethod getCacheSizeMethod = new GetMethod(CACHE_PIDSERVICE.concat("/cache/size"));
+	    
+        doAuthentication();
+        getCacheSizeMethod.setDoAuthentication(true);
+        ProxyHelper.executeMethod(client, getCacheSizeMethod);
+        String response = getCacheSizeMethod.getResponseBodyAsString();
+        Matcher matcher = Pattern.compile("[^0-9]+([0-9]+)[^0-9]+").matcher(response);
+        if (matcher.find())
+        {
+            String someNumberStr = matcher.group(1);
+            actCacheSize = Integer.parseInt(someNumberStr);
+        }
+        logger.info("Actual cache size: " + actCacheSize);
+        
+	    return actCacheSize;
 	}
 	
-	public void testUpdatePidGwdgNonAvailable() throws Exception
-	{
-		logger.info("GWDG not available: Test Update PID " + testIdentifier + " with url: " + testUrl + ".");
-	}
+	private int getQueueSize() throws Exception
+    {
+        int actQueueSize = 0;
+        GetMethod getQueueSizeMethod = new GetMethod(CACHE_PIDSERVICE.concat("/queue/size"));
+        
+        doAuthentication();
+        getQueueSizeMethod.setDoAuthentication(true);
+        ProxyHelper.executeMethod(client, getQueueSizeMethod);
+        String response = getQueueSizeMethod.getResponseBodyAsString();
+        Matcher matcher = Pattern.compile("[^0-9]+([0-9]+)[^0-9]+").matcher(response);
+        if (matcher.find())
+        {
+            String someNumberStr = matcher.group(1);
+            actQueueSize = Integer.parseInt(someNumberStr);
+        }
+        logger.info("Actual queue size: " + actQueueSize);
+        
+        return actQueueSize;
+    }
+		   
+    public void testAssignPidGwdgNonAvailable()
+    {
+        logger.info("GWDG not available: Test Create PID with url: " + testUrl + ".");
+    }
+    
+    public void testUpdatePidGwdgNonAvailable() throws Exception
+    {
+        logger.info("GWDG not available: Test Update PID " + testIdentifier + " with url: " + testUrl + ".");
+    }
 
 }
