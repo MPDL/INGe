@@ -281,14 +281,14 @@
 				<text><![CDATA[Internal PubMan Status:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="55" width="170" height="20"/>
+				<reportElement x="0" y="55" width="175" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="ARIALBD.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Date of Creation in PubMan: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="80" width="72" height="20"/>
+				<reportElement x="0" y="80" width="75" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="ARIALBD.TTF" isPdfEmbedded="true"/>
 				</textElement>
