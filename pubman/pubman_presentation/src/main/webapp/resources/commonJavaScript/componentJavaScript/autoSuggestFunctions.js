@@ -57,10 +57,10 @@
 		var title = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
 		var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?
 				(typeof details.http_purl_org_dc_terms_alternative == 'object' ?
-						details.http_purl_org_dc_terms_alternative[0] : details.http_purl_org_dc_terms_alternative) : null);
+						details.http_purl_org_dc_terms_alternative : details.http_purl_org_dc_terms_alternative) : null);
 		var abbrev = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation != 'undefined' ?
 				(typeof details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation == 'object' ?
-						details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation[0] : details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation) : null);
+						details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation : details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation) : null);
 		var publisher = (typeof details.http_purl_org_dc_elements_1_1_publisher != 'undefined' ? details.http_purl_org_dc_elements_1_1_publisher : null);
 		var place = (typeof details.http_purl_org_dc_terms_publisher != 'undefined' ? details.http_purl_org_dc_terms_publisher : null);
 		
@@ -81,6 +81,12 @@
 		{
 			allAltTitles = 'OTHER' + autopasteInnerDelimiter + altTitle;
 		}
+		
+		
+		if(altTitle != null && abbrev != null)
+		{
+			allAltTitles += autopasteDelimiter;
+		}	
 		
 		if(((abbrev != null) && typeof(abbrev) == 'object'))
 		{
