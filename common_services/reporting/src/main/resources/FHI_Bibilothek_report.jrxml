@@ -46,7 +46,7 @@
 		<fieldDescription><![CDATA[issued]]></fieldDescription>
 	</field>
 	<field name="accepted" class="java.lang.String">
-		<fieldDescription><![CDATA[accepted]]></fieldDescription>
+		<fieldDescription><![CDATA[dateAccepted]]></fieldDescription>
 	</field>
 	<field name="creator-id" class="java.lang.String">
 		<fieldDescription><![CDATA[../../../properties/created-by/@href]]></fieldDescription>
@@ -241,7 +241,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{published-online} != null ? "<style isBold=\"true\" isPdfEmbedded=\"true\" pdfFontName=\"ARIALBD.TTF\">Date published online: </style>" + $F{published-online} : null]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-12" positionType="Float" mode="Transparent" x="0" y="294" width="536" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-12" positionType="Float" mode="Transparent" x="0" y="324" width="536" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
