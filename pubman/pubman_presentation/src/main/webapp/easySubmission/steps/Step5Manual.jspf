@@ -446,7 +446,7 @@
 									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
-								<h:selectOneMenu id="selSourceGenre" styleClass="replace journalPulldown" onfocus="updateSelectionBox(this);" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}" onchange="updateSelectionBox(this);">
+								<h:selectOneMenu id="selSourceGenre" styleClass="replace journalPulldown" onfocus="updateSelectionBox(this);" value="#{EasySubmission.source.genre}" onchange="updateSelectionBox(this);">
 									<f:selectItems id="selSourceGenreOptions" value="#{EasySubmission.sourceGenreOptions}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
@@ -612,9 +612,6 @@
 												<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}" />
 											</h:selectOneMenu>
 										</h:panelGroup>
-								<%--	<h:selectOneMenu id="selTypeString" styleClass="large_select replace" value="#{EasySubmission.sourceIdentifierType}">
-											<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}"/>
-										</h:selectOneMenu>	--%>
 									</span>
 								</h:panelGroup>
 								<h:panelGroup rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'easy-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}">
