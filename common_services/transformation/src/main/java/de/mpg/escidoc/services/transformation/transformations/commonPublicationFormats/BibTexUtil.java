@@ -649,7 +649,7 @@ public class BibTexUtil
         
 //        text = text.substring(text.indexOf("{")+1, text.lastIndexOf("}")-1);
         
-        Pattern pattern = Pattern.compile("\\{(.*)\\}");
+        Pattern pattern = Pattern.compile("\\{(.*)\\}", Pattern.DOTALL);
 //        while (true)
 //        {
             Matcher matcher = pattern.matcher(text);

@@ -38,6 +38,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -242,9 +244,18 @@ public class Bibtex implements BibtexInterface
                 }
 
                 // number
-                if (fields.get("number") != null)
+                if (fields.get("number") != null && bibGenre != BibTexUtil.Genre.techreport)
                 {
                     sourceVO.setIssue(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("number").toString()), false));
+                }
+                else if (fields.get("number") != null && bibGenre == BibTexUtil.Genre.techreport)
+                {
+                    {
+                        mds.getIdentifiers().add(
+                                new IdentifierVO(
+                                        IdentifierVO.IdType.REPORT_NR,
+                                        BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("number").toString()), false)));
+                    }
                 }
 
                 // pages
@@ -360,14 +371,17 @@ public class Bibtex implements BibtexInterface
                             || bibGenre == BibTexUtil.Genre.techreport)
                     {
                         sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
+                        sourceVO.setGenre(SourceVO.Genre.SERIES);
                     }
                     else if (bibGenre == BibTexUtil.Genre.inbook
                             || bibGenre == BibTexUtil.Genre.incollection
                             || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
-                        SourceVO sourceOfSource = new SourceVO(
+                        SourceVO secondSource = new SourceVO(
                                 new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
-                        sourceVO.getSources().add(sourceOfSource);
+                        secondSource.setGenre(SourceVO.Genre.SERIES);
+                        sourceVO.getSources().add(secondSource);
+                        
                     }
                 }
 
@@ -433,7 +447,9 @@ public class Bibtex implements BibtexInterface
                 if (bibGenre != null 
                         && (bibGenre.equals(BibTexUtil.Genre.inproceedings)
                                 || bibGenre.equals(BibTexUtil.Genre.proceedings)
-                                || bibGenre.equals(BibTexUtil.Genre.conference)))
+                                || bibGenre.equals(BibTexUtil.Genre.conference)
+                                || bibGenre.equals(BibTexUtil.Genre.poster)
+                                || bibGenre.equals(BibTexUtil.Genre.talk)))
                 {
                     EventVO event = new EventVO();
                     boolean eventNotEmpty = false;
@@ -441,6 +457,12 @@ public class Bibtex implements BibtexInterface
                     if (fields.get("location") != null)
                     {
                         event.setPlace(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("location").toString()), false)));
+                        eventNotEmpty = true;
+                    }
+                    // event place
+                    else if (fields.get("event_place") != null)
+                    {
+                        event.setPlace(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("event_place").toString()), false)));
                         eventNotEmpty = true;
                     }
                     // event name/title
@@ -536,8 +558,35 @@ public class Bibtex implements BibtexInterface
                         AuthorDecoder decoder;
                         try
                         {
+                            String authorString = BibTexUtil.bibtexDecode(fields.get("author").toString(), false);
+                            if (authorString.contains("Team"))
+                            {
+                                // set pattern for finding Teams (leaded or followed by [and|,|;|{|}|^|$]) 
+                                Pattern pattern = Pattern.compile("(?<=(and|,|;|\\{|^))([\\w|\\s]*?Team[\\w|\\s]*?)(?=(and|,|;|\\}|$))", Pattern.DOTALL);
+                                Matcher matcher = pattern.matcher(authorString);
+                                String matchedGroup;
+                                while (matcher.find())
+                                {
+                                    matchedGroup = matcher.group();
+                                    
+                                 // remove matchedGroup (and prefix/suffix) from authorString
+                                    if (authorString.startsWith(matchedGroup))
+                                    {
+                                        authorString = authorString.replaceAll(matchedGroup + "(and|,|;|\\})", "");
+                                    }
+                                    else {
+                                        authorString = authorString.replaceAll("(and|,|;|\\{)" + matchedGroup, "");
+                                    }
+                                    
+                                    // set matchedGroup as Organisation Author
+                                    OrganizationVO team = new OrganizationVO();
+                                    team.setName(new TextVO(matchedGroup.trim()));
+                                    CreatorVO creatorVO = new CreatorVO(team, CreatorVO.CreatorRole.AUTHOR);
+                                    mds.getCreators().add(creatorVO);
+                                }
+                            }
                             decoder = new AuthorDecoder(
-                                    BibTexUtil.bibtexDecode(fields.get("author").toString(), false), false);
+                                    authorString, false);
 
                             if (decoder.getBestFormat() != null)
                             {
@@ -872,34 +921,317 @@ public class Bibtex implements BibtexInterface
                     else if (fields.get("editor") instanceof BibtexString)
                     {
 
-                        String editor = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("editor").toString()), false);
-                        
+                        AuthorDecoder decoder;
                         try
                         {
-                            AuthorDecoder decoder = new AuthorDecoder(editor);
+                            String editorString = BibTexUtil.bibtexDecode(fields.get("editor").toString(), false);
+                            if (editorString.contains("Team"))
+                            {
+                                // set pattern for finding Teams (leaded or followed by [and|,|;|{|}|^|$]) 
+                                Pattern pattern = Pattern.compile("(?<=(and|,|;|\\{|^))([\\w|\\s]*?Team[\\w|\\s]*?)(?=(and|,|;|\\}|$))", Pattern.DOTALL);
+                                Matcher matcher = pattern.matcher(editorString);
+                                String matchedGroup;
+                                while (matcher.find())
+                                {
+                                    matchedGroup = matcher.group();
+                                    
+                                    // remove matchedGroup (and prefix/suffix) from authorString
+                                    if (editorString.startsWith(matchedGroup))
+                                    {
+                                        editorString = editorString.replaceAll(matchedGroup + "(and|,|;|\\})", "");
+                                    }
+                                    else {
+                                        editorString = editorString.replaceAll("(and|,|;|\\{)" + matchedGroup, "");
+                                    }
+                                    
+                                    // set matchedGroup as Organisation Author
+                                    OrganizationVO team = new OrganizationVO();
+                                    team.setName(new TextVO(matchedGroup.trim()));
+                                    CreatorVO creatorVO = new CreatorVO(team, CreatorVO.CreatorRole.EDITOR);
+                                    mds.getCreators().add(creatorVO);
+                                }
+                            }
+                            decoder = new AuthorDecoder(
+                                    editorString, false);
+
                             if (decoder.getBestFormat() != null)
                             {
-                                List<Author> authors = decoder.getAuthorListList().get(0);
-                                for (Author author : authors)
+                                List<Author> editors = decoder.getAuthorListList().get(0);
+                                for (Author editor : editors)
                                 {
                                     PersonVO personVO = new PersonVO();
-                                    personVO.setFamilyName(author.getSurname());
-                                    if (author.getGivenName() != null)
+                                    personVO.setFamilyName(editor.getSurname());
+                                    
+                                    
+                                    if (editor.getGivenName() != null)
                                     {
-                                        personVO.setGivenName(author.getGivenName());
+                                        personVO.setGivenName(editor.getGivenName());
                                     }
                                     else
                                     {
-                                        personVO.setGivenName(author.getInitial());
+                                        personVO.setGivenName(editor.getInitial());
                                     }
+                                    
+                                    /* Case for MPI-KYB (Biological Cybernetics)
+                                     * with CoNE identifier in brackets
+                                     * and affiliations to adopt from CoNE for each author (also in brackets)
+                                     */
+                                    if (configuration != null && "true".equals(configuration.get("CoNE")) && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors"))) && (editor.getTags().get("identifier") != null))
+                                    {
+                                        String query = editor.getTags().get("identifier");
+                                        int affiliationsCount = Integer.parseInt(editor.getTags().get("affiliationsCount"));
+                                        if (affiliationsCount > 0 || configuration.get("OrganizationalUnit") != null)
+                                        {
+                                            for (int ouCount = 0; ouCount < (affiliationsCount > 0 ? affiliationsCount : 1 ); ouCount++) // 1 is for the case configuration.get("OrganizationalUnit") != null
+                                            {
+                                                String organizationalUnit = (editor.getTags().get("affiliation" + new Integer(ouCount).toString()) != null ? editor.getTags().get("affiliation" + new Integer(ouCount).toString()) : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                                                Node coneEntries = null;
+                                                if (query.equals(editor.getTags().get("identifier")))
+                                                {
+                                                    coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
+                                                    // for MPIKYB due to OUs which do not occur in CoNE
+                                                    if (coneEntries.getFirstChild().getFirstChild() == null)
+                                                    {
+                                                        logger.error("No Person with Identifier (" + editor.getTags().get("identifier") + ") and OU (" + organizationalUnit + ") found in CoNE for Publication \"" + fields.get("title") + "\"");
+                                                    }
+                                                }
+                                                else 
+                                                {
+                                                    coneEntries = Util.queryConeExact("persons", query, organizationalUnit);
+                                                }
+                                                Node coneNode = coneEntries.getFirstChild().getFirstChild();
+                                                if (coneNode != null)
+                                                {
+                                                    Node currentNode = coneNode.getFirstChild();
+                                                    boolean first = true;
+                                                    while (currentNode != null)
+                                                    {
+                                                        if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
+                                                        {
+                                                            first = false;
+                                                            Node coneEntry = currentNode;
+                                                            String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
+                                                            personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                                                            for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++)
+                                                            {
+                                                                Node posNode = coneEntry.getChildNodes().item(i);
+                                                                if ("escidoc:position".equals(posNode.getNodeName()))
+                                                                {
+                                                                    String from = null;
+                                                                    String until = null;
+                                                                    String name = null;
+                                                                    String id = null;
+                                                                    
+                                                                    Node node = posNode.getFirstChild().getFirstChild();
+                                                                    
+                                                                    while (node != null)
+                                                                    {
+                                                                        if ("eprints:affiliatedInstitution".equals(node.getNodeName()))
+                                                                        {
+                                                                            name = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        else if ("escidoc:start-date".equals(node.getNodeName()))
+                                                                        {
+                                                                            from = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        else if ("escidoc:end-date".equals(node.getNodeName()))
+                                                                        {
+                                                                            until = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        else if ("dc:identifier".equals(node.getNodeName()))
+                                                                        {
+                                                                            id = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        node = node.getNextSibling();
+                                                                    }
+                                                                    if (smaller(from, dateString) && smaller(dateString, until))
+                                                                    {
+                                                                        OrganizationVO org = new OrganizationVO();
+                                                                        org.setName(new TextVO(name));
+                                                                        org.setIdentifier(id);
+                                                                        personVO.getOrganizations().add(org);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
+                                                        {
+                                                            throw new RuntimeException("Ambigous CoNE entries for " + query);
+                                                        }
+                                                        currentNode = currentNode.getNextSibling();
+                                                    }
+                                                    if (first)
+                                                    {
+                                                        throw new RuntimeException("Missing CoNE entry for " + query);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    throw new RuntimeException("Missing CoNE entry for " + query);
+                                                } 
+                                            }
+                                        }
+                                    }
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("empty brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")) && (editor.getTags().get("brackets") != null)))
+                                    {
+                                        String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
+                                        Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                                        Node coneNode = coneEntries.getFirstChild().getFirstChild();
+                                        if (coneNode != null)
+                                        {
+                                            Node currentNode = coneNode.getFirstChild();
+                                            boolean first = true;
+                                            while (currentNode != null)
+                                            {
+                                                if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
+                                                {
+                                                    first = false;
+                                                    Node coneEntry = currentNode;
+                                                    String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
+                                                    personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                                                    for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++)
+                                                    {
+                                                        Node posNode = coneEntry.getChildNodes().item(i);
+                                                        if ("escidoc:position".equals(posNode.getNodeName()))
+                                                        {
+                                                            String from = null;
+                                                            String until = null;
+                                                            String name = null;
+                                                            String id = null;
+                                                            
+                                                            Node node = posNode.getFirstChild().getFirstChild();
+                                                            
+                                                            while (node != null)
+                                                            {
+                                                                if ("eprints:affiliatedInstitution".equals(node.getNodeName()))
+                                                                {
+                                                                    name = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:start-date".equals(node.getNodeName()))
+                                                                {
+                                                                    from = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:end-date".equals(node.getNodeName()))
+                                                                {
+                                                                    until = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("dc:identifier".equals(node.getNodeName()))
+                                                                {
+                                                                    id = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                node = node.getNextSibling();
+                                                            }
+                                                            if (smaller(from, dateString) && smaller(dateString, until))
+                                                            {
+                                                                OrganizationVO org = new OrganizationVO();
+                                                                org.setName(new TextVO(name));
+                                                                org.setIdentifier(id);
+                                                                personVO.getOrganizations().add(org);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
+                                                {
+                                                    throw new RuntimeException("Ambigous CoNE entries for " + query);
+                                                }
+                                                currentNode = currentNode.getNextSibling();
+                                            }
+                                            if (first)
+                                            {
+                                                throw new RuntimeException("Missing CoNE entry for " + query);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            throw new RuntimeException("Missing CoNE entry for " + query);
+                                        }
+                                    }
+                                    
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("CurlyBracketsForCoNEAuthors"))))
+                                    {
+                                        String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
+                                        Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                                        Node coneNode = coneEntries.getFirstChild().getFirstChild();
+                                        if (coneNode != null)
+                                        {
+                                            Node currentNode = coneNode.getFirstChild();
+                                            boolean first = true;
+                                            while (currentNode != null)
+                                            {
+                                                if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
+                                                {
+                                                    first = false;
+                                                    Node coneEntry = currentNode;
+                                                    String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
+                                                    personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                                                    for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++)
+                                                    {
+                                                        Node posNode = coneEntry.getChildNodes().item(i);
+                                                        if ("escidoc:position".equals(posNode.getNodeName()))
+                                                        {
+                                                            String from = null;
+                                                            String until = null;
+                                                            String name = null;
+                                                            String id = null;
+                                                            
+                                                            Node node = posNode.getFirstChild().getFirstChild();
+                                                            
+                                                            while (node != null)
+                                                            {
+                                                                if ("eprints:affiliatedInstitution".equals(node.getNodeName()))
+                                                                {
+                                                                    name = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:start-date".equals(node.getNodeName()))
+                                                                {
+                                                                    from = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:end-date".equals(node.getNodeName()))
+                                                                {
+                                                                    until = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("dc:identifier".equals(node.getNodeName()))
+                                                                {
+                                                                    id = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                node = node.getNextSibling();
+                                                            }
+                                                            if (smaller(from, dateString) && smaller(dateString, until))
+                                                            {
+                                                                OrganizationVO org = new OrganizationVO();
+                                                                org.setName(new TextVO(name));
+                                                                org.setIdentifier(id);
+                                                                personVO.getOrganizations().add(org);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
+                                                {
+                                                    throw new RuntimeException("Ambigous CoNE entries for " + query);
+                                                }
+                                                currentNode = currentNode.getNextSibling();
+                                            }
+                                            if (first)
+                                            {
+                                                throw new RuntimeException("Missing CoNE entry for " + query);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            throw new RuntimeException("Missing CoNE entry for " + query);
+                                        }
+                                    }
+                                    
                                     if (affiliation != null)
                                     {
                                         OrganizationVO organization = new OrganizationVO();
-                                        personVO.getOrganizations().add(organization);
-                                        organization.setName(new TextVO(affiliation));
-                                        organization.setAddress(affiliationAddress);
                                         organization.setIdentifier(
                                                 PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                                        organization.setName(new TextVO(affiliation));
+                                        organization.setAddress(affiliationAddress);
+                                        personVO.getOrganizations().add(organization);
                                     }
                                     CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.EDITOR);
                                     mds.getCreators().add(creatorVO);
@@ -908,9 +1240,10 @@ public class Bibtex implements BibtexInterface
                         }
                         catch (Exception e)
                         {
-                            this.logger.error("An error ocuured while getting field 'editor'.");
+                            this.logger.error("An error occured while getting field 'editor'.", e);
                             throw new RuntimeException(e);
                         }
+                        
                     }
                 }
 
@@ -1023,6 +1356,14 @@ public class Bibtex implements BibtexInterface
                     locator.getMetadataSets().add(metadata);
 
                     itemVO.getFiles().add(locator);
+                }
+                // web_url as URI-Identifier
+                else if (fields.get("web_url") != null)
+                {
+                    mds.getIdentifiers().add(
+                            new IdentifierVO(
+                                    IdentifierVO.IdType.URI,
+                                    BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("web_url").toString()), false)));
                 }
 
                 //Prevent the creation of an empty source
