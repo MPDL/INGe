@@ -1422,6 +1422,7 @@ public class EasySubmission extends FacesBean
         parseAndSetAlternativeSourceTitlesAndIds();
         // first try to upload the entered file
         //upload(false);
+        PubItemVO item =  this.getItemControllerSessionBean().getCurrentPubItem();
         
         // then try to save the locator
         saveLocator();
@@ -1508,6 +1509,7 @@ public class EasySubmission extends FacesBean
 
     public String loadStep5Manual()
     {
+    	 PubItemVO item =  this.getItemControllerSessionBean().getCurrentPubItem();
         // validate
         if (validate("easy_submission_step_4", "loadNewEasySubmission") == null)
         {
@@ -2401,8 +2403,12 @@ public class EasySubmission extends FacesBean
     public void setSourceIdentifierType(String typeString)
     {
         logger.debug("typeString " + typeString);
-        PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-        pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setTypeString(typeString);
+        if(typeString!=null)
+        {
+        	  PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+              pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setTypeString(typeString);
+        }
+      
     }
 
     public String getSourceIdentifierType()
@@ -2570,6 +2576,7 @@ public class EasySubmission extends FacesBean
      * //System.out.println(sourceGenre); if(sourceGenre.equals(SourceVO.Genre.JOURNAL.toString())) {
      * this.setAutosuggestJournals(true); } }
      */
+    /*
     public String chooseSourceGenre()
     {
         if (this.getSource().getGenre() != null && this.getSource().getGenre().equals(SourceVO.Genre.JOURNAL))
@@ -2582,6 +2589,7 @@ public class EasySubmission extends FacesBean
         }
         return "";
     }
+    */
 
     /**
      * This method returns the URL to the cone autosuggest service read from the properties
@@ -2598,6 +2606,8 @@ public class EasySubmission extends FacesBean
         }
         return suggestConeUrl;
     }
+    
+    /*
 
     public void setAutosuggestJournals(boolean autosuggestJournals)
     {
@@ -2608,6 +2618,7 @@ public class EasySubmission extends FacesBean
     {
         return autosuggestJournals;
     }
+	*/
 
     /**
      * Returns all options for degreeType.
