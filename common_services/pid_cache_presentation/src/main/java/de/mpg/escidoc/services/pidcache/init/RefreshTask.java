@@ -57,18 +57,20 @@ public class RefreshTask extends Thread
     {
         try
         {
+            this.setName("PidCache Refresh Task");
+            
             int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.refresh.interval"));
             timeout = timeout * 1 * 1000;
             
             QueueProcess queueProcess = new QueueProcess();
             queueProcess.setBlockSize(BLOCK_SIZE);
             CacheProcess cacheProcess = new CacheProcess();
+            logger.info("Starting refresh of pid cache databases.");
             
             while (!signal)
             {
                 Thread.sleep(Long.parseLong(Integer.toString(timeout)));
-                logger.info("Starting refresh of pid cache databases.");
-                
+                               
                 while (!signal && (!queueProcess.isEmpty() || !cacheProcess.isFull()))
                 {
                     try
@@ -79,8 +81,7 @@ public class RefreshTask extends Thread
                     catch (Exception e)
                     {
                         logger.error("Error during refresh task", e);
-                    }
-                    logger.info("Finished refresh of pid cache databases.");
+                    }                  
                 }
             }
         }
