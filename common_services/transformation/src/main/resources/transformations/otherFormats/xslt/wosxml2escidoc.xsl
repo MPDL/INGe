@@ -758,12 +758,12 @@
 			
 			<xsl:choose>
 				<xsl:when test="AR and AR != ''">
-					<dcterms:published-online>				
+					<eterms:published-online>				
 						<xsl:value-of select="PY"/>
 						<xsl:if test="not($month='')">
 							<xsl:value-of select="concat('-',$month)"/>
 						</xsl:if>				
-					</dcterms:published-online>
+					</eterms:published-online>
 				</xsl:when>
 				<xsl:otherwise>
 					<dcterms:issued>				
