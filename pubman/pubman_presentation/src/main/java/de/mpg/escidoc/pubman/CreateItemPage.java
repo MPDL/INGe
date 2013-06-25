@@ -31,7 +31,7 @@ package de.mpg.escidoc.pubman;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp
@@ -39,7 +39,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
-public class CreateItemPage extends BreadcrumbPage
+public class CreateItemPage extends FacesBean
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CreateItemPage.class);
@@ -63,16 +63,6 @@ public class CreateItemPage extends BreadcrumbPage
         super.init();
         checkForLogin();
 
-    }
-
-    /* (non-Javadoc)
-     * @see de.mpg.escidoc.pubman.appbase.BreadcrumbPage#isItemSpecific()
-     */
-    @Override
-    public boolean isItemSpecific()
-    {
-        // TODO Auto-generated method stub
-        return false;
     }
 
 }
