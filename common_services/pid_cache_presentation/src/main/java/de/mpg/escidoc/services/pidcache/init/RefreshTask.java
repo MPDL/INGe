@@ -67,21 +67,17 @@ public class RefreshTask extends Thread
             CacheProcess cacheProcess = new CacheProcess();
             logger.info("Starting refresh of pid cache databases.");
             
-            while (!signal)
+            while (!signal && (!queueProcess.isEmpty() || !cacheProcess.isFull()))
             {
                 Thread.sleep(Long.parseLong(Integer.toString(timeout)));
-                               
-                while (!signal && (!queueProcess.isEmpty() || !cacheProcess.isFull()))
+                try
                 {
-                    try
-                    {
-                        queueProcess.emptyBlock();
-                        cacheProcess.fill(BLOCK_SIZE);
-                    }
-                    catch (Exception e)
-                    {
-                        logger.error("Error during refresh task", e);
-                    }                  
+                    queueProcess.emptyBlock();
+                    cacheProcess.fill(BLOCK_SIZE);
+                }
+                catch (Exception e)
+                {
+                    logger.error("Error during refresh task", e);
                 }
             }
         }
