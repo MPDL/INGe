@@ -566,6 +566,10 @@
 			
 			<layout-element ref="$creators"/>
 			
+			
+			<layout-element ref="$title"/>
+			
+			
 			<layout-element ref="$degree"/>
 
 			<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
