@@ -33,14 +33,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -58,7 +56,6 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import org.apache.tika.detect.DefaultDetector;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -586,8 +583,8 @@ public class EditItem extends FacesBean
                     pubItem.getFiles().add(loc.getFile());
                     
                     logger.debug(loc.getFile().getName() + " | " + loc.getFile().getContent());
-                    
-                    loc.getFile().setName(loc.getFile().getContent());
+   
+                    loc.getFile().setName(title != null ? title.getValue() : loc.getFile().getContent());
                 }
             }
         }
