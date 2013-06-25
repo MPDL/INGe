@@ -330,7 +330,7 @@
 	<cs-layout-definition name="book-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( $l_book, $l_proceedings) 
+				$genre = ( $l_book, $l_proceedings, $l_monograph, $l_commentary, $l_collected-edition, $l_handbook, $l_festschrift ) 
 				or ( $genre = ( $l_conference-report, $l_conference-paper, $l_meeting-abstract, $l_other ) and 
 					not($source-type = ($l_journal, $l_proceedings, $l_book ))  
 				)  
@@ -356,7 +356,7 @@
 							<valid-if><![CDATA[$genre = $l_book]]></valid-if>
 						</parameters>
 						<elements>
-							<layout-element ref="pub:publication/dcterms:alternative[1]/text()">
+							<layout-element ref="func:escapeMarkupTags(pub:publication/dcterms:alternative[1]/text())">
 								<parameters>
 									<starts-with value=": "/>
 									<font-style ref="ITALIC" />
@@ -378,7 +378,15 @@
 							</layout-element>
 							
 						</elements>
+					</layout-element>	
+					<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/eterms:edition/text()">
+						<parameters>
+							<valid-if><![CDATA[$genre = ( $l_conference-report, $l_conference-paper, $l_meeting-abstract )]]></valid-if>
+							<starts-with value=" (" />
+							<ends-with value=")" />
+						</parameters>
 					</layout-element>
+
 				</elements>
 			</layout-element>
 
@@ -386,14 +394,29 @@
 
 			<layout-element ref="$place-publisher">
 				<parameters>
+					<valid-if><![CDATA[not ( $genre = ( $l_conference-report, $l_conference-paper, $l_meeting-abstract ) )]]></valid-if>
 					<ends-with value="."/>
 				</parameters>
+			</layout-element>
+			
+			<layout-element name="source-place-publisher">
+				<parameters>
+					<valid-if><![CDATA[$genre = ( $l_conference-report, $l_conference-paper, $l_meeting-abstract )]]></valid-if>
+					<starts-with value=" " />
+					<ends-with value="." />
+					<delimiter value=": " />
+				</parameters>
+				<elements>
+					<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/eterms:place/text()" />
+					<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/dc:publisher/text()" />
+				</elements>
 			</layout-element>
 			
 			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 	</cs-layout-definition>
+
 
 
 	<!-- THESIS, in print or accepted -->
