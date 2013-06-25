@@ -3186,16 +3186,43 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="(pub:publication/dc:identifier[@xsi:type='eterms:OTHER'])[1]/text()"/>
-                                                                            <!--
+                                                                                          select="(pub:publication/dc:identifier[@xsi:type='eterms:REPORT_NR'])[1]/text()"/>
+                                                                            <!--valid-if--><xsl:variable name="var">
+                                                                                <xsl:if test="pub:publication/dc:identifier[@xsi:type='eterms:REPORT_NR']"><!--
 				start-with/ends-with
 			--><xsl:variable name="var">
-                                                                                <xsl:if test="exists($var) and $var!=''">
-                                                                                    <xsl:text>(</xsl:text>
+                                                                                        <xsl:if test="exists($var) and $var!=''">
+                                                                                            <xsl:text>(</xsl:text>
+                                                                                        </xsl:if>
+                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <xsl:if test="exists($var) and $var!=''">
+                                                                                            <xsl:text>)</xsl:text>
+                                                                                        </xsl:if>
+                                                                                    </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
                                                                                 </xsl:if>
-                                                                                <xsl:copy-of select="$var"/>
-                                                                                <xsl:if test="exists($var) and $var!=''">
-                                                                                    <xsl:text>)</xsl:text>
+                                                                            </xsl:variable>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="(pub:publication/dc:identifier[@xsi:type='eterms:OTHER'])[1]/text()"/>
+                                                                            <!--valid-if--><xsl:variable name="var">
+                                                                                <xsl:if test="not (pub:publication/dc:identifier[@xsi:type='eterms:REPORT_NR'])"><!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                                                        <xsl:if test="exists($var) and $var!=''">
+                                                                                            <xsl:text>(</xsl:text>
+                                                                                        </xsl:if>
+                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <xsl:if test="exists($var) and $var!=''">
+                                                                                            <xsl:text>)</xsl:text>
+                                                                                        </xsl:if>
+                                                                                    </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
                                                                                 </xsl:if>
                                                                             </xsl:variable>
                                                                             <xsl:copy-of select="$var"/>
