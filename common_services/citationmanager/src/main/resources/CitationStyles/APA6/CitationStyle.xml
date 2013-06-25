@@ -931,8 +931,16 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
+					<layout-element ref="(pub:publication/dc:identifier[@xsi:type='eterms:REPORT_NR'])[1]/text()">
+						<parameters>
+							<valid-if><![CDATA[pub:publication/dc:identifier[@xsi:type='eterms:REPORT_NR']]]></valid-if>
+							<starts-with value="(" />
+							<ends-with value=")" />
+						</parameters>
+					</layout-element>
 					<layout-element ref="(pub:publication/dc:identifier[@xsi:type='eterms:OTHER'])[1]/text()">
 						<parameters>
+							<valid-if><![CDATA[not (pub:publication/dc:identifier[@xsi:type='eterms:REPORT_NR'])]]></valid-if>
 							<starts-with value="(" />
 							<ends-with value=")" />
 						</parameters>
