@@ -35,8 +35,6 @@ import javax.naming.NamingException;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
-import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
-import de.mpg.escidoc.services.pidcache.tables.Queue;
 
 /**
  * TODO Description

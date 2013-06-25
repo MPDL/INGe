@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
-import de.mpg.escidoc.services.pidcache.init.RefreshTask;
 import de.mpg.escidoc.services.pidcache.tables.Queue;
 
 /**
