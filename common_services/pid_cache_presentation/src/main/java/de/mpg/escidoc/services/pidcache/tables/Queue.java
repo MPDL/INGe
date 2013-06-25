@@ -70,7 +70,7 @@ public class Queue
         }
         statement.close();
         connection.close();
-        logger.info("getFirstBlock of queue returning " + pids.size() + " pids");
+        logger.debug("getFirstBlock of queue returning " + pids.size() + " pids");
         return pids;
     }
 	
