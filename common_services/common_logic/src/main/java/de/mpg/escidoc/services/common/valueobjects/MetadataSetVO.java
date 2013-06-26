@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
@@ -98,6 +99,28 @@ public class MetadataSetVO extends ValueObject
     @Override
     protected MetadataSetVO clone() {
         return new MetadataSetVO(this);
+    }
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        else if (!(obj instanceof MdsFileVO))
+        {
+            return false;
+        }
+        MetadataSetVO other = (MetadataSetVO) obj;
+        if (!(this.title == null && other.title == null) && (this.title == null || !this.title.equals(other.title)))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     

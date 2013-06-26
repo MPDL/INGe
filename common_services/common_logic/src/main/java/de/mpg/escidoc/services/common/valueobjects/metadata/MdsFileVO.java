@@ -163,6 +163,8 @@ public class MdsFileVO extends MetadataSetVO
         {
             return false;
         }
+        if (!super.equals(obj)) return false;
+        
         MdsFileVO other = (MdsFileVO) obj;
         if (!(this.contentCategory == null && other.contentCategory == null) && (this.contentCategory == null || !this.contentCategory.equals(other.contentCategory)))
         {
