@@ -583,8 +583,6 @@ public class EditItem extends FacesBean
                     pubItem.getFiles().add(loc.getFile());
                     
                     logger.debug(loc.getFile().getName() + " | " + loc.getFile().getContent());
-   
-                    loc.getFile().setName(title != null ? title.getValue() : loc.getFile().getContent());
                 }
             }
         }
