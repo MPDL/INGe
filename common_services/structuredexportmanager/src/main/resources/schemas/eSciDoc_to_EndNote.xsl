@@ -232,7 +232,6 @@
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">7</xsl:with-param>
 					<xsl:with-param name="value" select="eterms:published-online"/>
-					
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>

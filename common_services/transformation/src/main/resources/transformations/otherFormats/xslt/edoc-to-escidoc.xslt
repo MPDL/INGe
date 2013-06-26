@@ -1158,7 +1158,7 @@
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys'">
+						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL'">
 							<xsl:choose>
 								<xsl:when test="$access='USER' or $access='INTERNAL'">
 									<prop:visibility>private</prop:visibility>
@@ -1433,7 +1433,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1537,7 +1537,7 @@
 										<xsl:value-of select="../../../rights/copyright"/>
 									</xsl:element>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP'">
+								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL'">
 									<xsl:if test="exists(../../../rights/copyright)">
 										<xsl:element name="dc:rights">
 											<xsl:value-of select="../../../rights/copyright"/>
@@ -3646,6 +3646,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MolePhys'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Molecular Physiology')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPDL'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Digital Library')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
