@@ -344,7 +344,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Created am: " + new Date() + "; Time range: " + $P{TIME_RANGE}[0] + ".." + $P{TIME_RANGE}[1]]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["Created: " + new Date() + "; Time range: from " + $P{TIME_RANGE}[0] + " until " + $P{TIME_RANGE}[1]]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
