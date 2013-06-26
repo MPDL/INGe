@@ -59,6 +59,7 @@ public class RefreshTask extends Thread
     @Override
     public void run()
     {
+        this.setName("Validation Refresh Task");
         try
         {
             int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.validation.refresh.interval"));
