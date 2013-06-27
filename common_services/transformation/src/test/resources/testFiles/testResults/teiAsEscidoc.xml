@@ -24,7 +24,7 @@
                     xmlns:mml="http://www.w3.org/1998/Math/MathML"
                     xmlns:dc="http://purl.org/dc/elements/1.1/"
                     xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
                     xmlns:dcterms="http://purl.org/dc/terms/"
                     xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
                     objid="dummy:context"/>
@@ -51,7 +51,7 @@
                           xmlns:mml="http://www.w3.org/1998/Math/MathML"
                           xmlns:dc="http://purl.org/dc/elements/1.1/"
                           xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                          xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                          xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
                           xmlns:dcterms="http://purl.org/dc/terms/"
                           xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
                           objid="escidoc:persistent4"/>
@@ -80,7 +80,7 @@
                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
                      xmlns:dc="http://purl.org/dc/elements/1.1/"
                      xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                     xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                     xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
                      xmlns:dcterms="http://purl.org/dc/terms/"
                      xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
                      name="escidoc">

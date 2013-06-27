@@ -55,7 +55,7 @@
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"   
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:escidocFunction="urn:escidoc:functions"
    xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"

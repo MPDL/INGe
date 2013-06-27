@@ -52,7 +52,7 @@
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:eprints="http://purl.org/eprint/terms/"
 	xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"	
-	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
 	xmlns:ei="${xsd.soap.item.item}"
 	xmlns:mdr="${xsd.soap.common.mdrecords}"
 	xmlns:ec="${xsd.soap.item.components}"

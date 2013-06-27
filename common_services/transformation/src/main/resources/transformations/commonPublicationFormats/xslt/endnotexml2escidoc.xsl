@@ -57,7 +57,7 @@
 	xmlns:organization="${xsd.metadata.organization}"		
 	xmlns:eterms="${xsd.metadata.terms}"   
 	xmlns:escidoc="${xsd.metadata.terms}"
-	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
 	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"

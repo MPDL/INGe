@@ -44,7 +44,7 @@
 		xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
 		xmlns:srel="${xsd.soap.common.srel}"
 		xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"		
-		xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+		xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
 		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
 		xmlns:escidoc="urn:escidoc:functions"
 		xmlns:ei="http://www.escidoc.de/schemas/item/0.8"

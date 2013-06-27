@@ -34,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -268,6 +269,11 @@ public class Bibtex implements BibtexInterface
                     else
                     {
                         BibTexUtil.fillSourcePages(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("pages").toString()), false), sourceVO);
+                        if (bibGenre == BibTexUtil.Genre.inproceedings && (fields.get("booktitle") == null || fields.get("booktitle").toString() == "") && (fields.get("event_name") != null && fields.get("event_name").toString() != "") )
+                        {
+                            sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(fields.get("event_name").toString(), false)));
+                            sourceVO.setGenre(Genre.PROCEEDINGS);
+                        }
                     }
                 }
 
@@ -559,6 +565,7 @@ public class Bibtex implements BibtexInterface
                         try
                         {
                             String authorString = BibTexUtil.bibtexDecode(fields.get("author").toString(), false);
+                            List<CreatorVO> teams = new ArrayList<CreatorVO>();
                             if (authorString.contains("Team"))
                             {
                                 // set pattern for finding Teams (leaded or followed by [and|,|;|{|}|^|$]) 
@@ -582,7 +589,7 @@ public class Bibtex implements BibtexInterface
                                     OrganizationVO team = new OrganizationVO();
                                     team.setName(new TextVO(matchedGroup.trim()));
                                     CreatorVO creatorVO = new CreatorVO(team, CreatorVO.CreatorRole.AUTHOR);
-                                    mds.getCreators().add(creatorVO);
+                                    teams.add(creatorVO);
                                 }
                             }
                             decoder = new AuthorDecoder(
@@ -871,6 +878,10 @@ public class Bibtex implements BibtexInterface
                                     mds.getCreators().add(creatorVO);
                                 }
                             }
+                            if (!teams.isEmpty())
+                            {
+                                mds.getCreators().addAll(teams);
+                            }
                         }
                         catch (Exception e)
                         {
@@ -925,6 +936,7 @@ public class Bibtex implements BibtexInterface
                         try
                         {
                             String editorString = BibTexUtil.bibtexDecode(fields.get("editor").toString(), false);
+                            List<CreatorVO> teams = new ArrayList<CreatorVO>();
                             if (editorString.contains("Team"))
                             {
                                 // set pattern for finding Teams (leaded or followed by [and|,|;|{|}|^|$]) 
@@ -948,7 +960,7 @@ public class Bibtex implements BibtexInterface
                                     OrganizationVO team = new OrganizationVO();
                                     team.setName(new TextVO(matchedGroup.trim()));
                                     CreatorVO creatorVO = new CreatorVO(team, CreatorVO.CreatorRole.EDITOR);
-                                    mds.getCreators().add(creatorVO);
+                                    teams.add(creatorVO);
                                 }
                             }
                             decoder = new AuthorDecoder(
@@ -1236,6 +1248,10 @@ public class Bibtex implements BibtexInterface
                                     CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.EDITOR);
                                     mds.getCreators().add(creatorVO);
                                 }
+                            }
+                            if (!teams.isEmpty())
+                            {
+                                mds.getCreators().addAll(teams);
                             }
                         }
                         catch (Exception e)
