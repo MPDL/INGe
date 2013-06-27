@@ -20,8 +20,8 @@ import de.mpg.escidoc.services.pidcache.tables.Queue;
 public class PidCacheService 
 {
 	private Pid pid = null;
-	private Cache cache = null;
-	private Queue queue = null;
+	private static Cache cache = null;
+	private static Queue queue = null;
 	private GwdgPidService gwdgPidService = null;
 	private InitialContext context = null;
 	private XmlTransforming xmlTransforming = null;
@@ -33,13 +33,21 @@ public class PidCacheService
 	 * Default constructor
 	 * @throws Exception
 	 */
-	public PidCacheService() throws Exception
+	public PidCacheService()
 	{
-		cache = new Cache();
-		queue = new Queue();
-		gwdgPidService = new GwdgPidService();
-		context = new InitialContext();
-		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+		cache = Cache.getInstance();
+		queue = Queue.getInstance();
+		try
+        {
+            gwdgPidService = new GwdgPidService();
+            context = new InitialContext();
+            xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 	 /**

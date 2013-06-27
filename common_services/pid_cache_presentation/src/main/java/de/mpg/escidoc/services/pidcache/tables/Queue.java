@@ -21,11 +21,18 @@ import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 public class Queue 
 {	
     private static final Logger logger = Logger.getLogger(Queue.class);
+    private static Queue instance = null;
     
-	/**
-	 * Default constructor
-	 */
-	public Queue() throws Exception
+    public synchronized static Queue getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Queue();
+        }
+        return instance;
+    }
+	
+	private Queue()
 	{
 	}
 	

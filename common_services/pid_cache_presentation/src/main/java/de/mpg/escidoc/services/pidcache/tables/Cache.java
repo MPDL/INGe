@@ -35,6 +35,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
@@ -50,11 +52,31 @@ import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 public class Cache
 {    
 	public static int SIZE_MAX = 0;
+	private static Cache instance = null;
+	private static Logger logger = Logger.getLogger(Cache.class);;
 	
-    public Cache() throws Exception
-    {
-    	SIZE_MAX = Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.cache.size.max"));
+	public synchronized static Cache getInstance()
+	{
+	    if(instance == null) {
+	         instance = new Cache();
+	      }
+	      return instance;
 	}
+	
+    private Cache()
+    {
+    	try
+        {
+            SIZE_MAX = Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.cache.size.max"));
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error reading property escidoc.pidcache.cache.size.max");
+            SIZE_MAX = 10;
+        }
+	}
+    
+    
 
     /**
      * Return the first PID of the cache

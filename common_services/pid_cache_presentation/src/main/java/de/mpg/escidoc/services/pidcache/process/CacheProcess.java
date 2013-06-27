@@ -27,8 +27,10 @@ public class CacheProcess
 {
 	 private static String DUMMY_URL = null;
 	 private static final Logger logger = Logger.getLogger(CacheProcess.class);
+	 private static Cache cache = Cache.getInstance();
 	 private InitialContext context = null;
 	 private XmlTransforming xmlTransforming = null;
+	 private  GwdgPidService gwdgPidService = new GwdgPidService();
 	
 	/**
 	 * Manage the cache
@@ -51,8 +53,6 @@ public class CacheProcess
 
     public void fill(int number) throws Exception
     {
-        Cache cache = new Cache();
-        GwdgPidService gwdgPidService = new GwdgPidService();
         long current = 0;
         if (gwdgPidService.available()) 
         {
@@ -78,7 +78,6 @@ public class CacheProcess
 
     public boolean isFull() throws Exception
     {
-        Cache cache = new Cache();
         return (Cache.SIZE_MAX == cache.size());
     }
 }
