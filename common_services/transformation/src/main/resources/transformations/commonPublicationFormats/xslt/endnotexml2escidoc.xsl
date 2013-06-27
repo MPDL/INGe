@@ -961,15 +961,17 @@
 		<xsl:param name="pos" select="0"/>
 		<xsl:param name="gen"/>
 		
-		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
+		<xsl:variable name="familyname" select="fn:normalize-space(fn:substring-before(. , ','))"/>
+		<xsl:variable name="givenname" select="fn:normalize-space(fn:substring-after(. , ','))"/>
+		
 		<xsl:choose>
 			<xsl:when test="$CoNE = 'false'">
 				<xsl:element name="person:person">
 					<xsl:element name="eterms:family-name">
-						<xsl:value-of select="$person/familyname"/>
+						<xsl:value-of select="$familyname"/>
 					</xsl:element>
 					<xsl:element name="eterms:given-name">
-						<xsl:value-of select="$person/givenname"/>
+						<xsl:value-of select="$givenname"/>
 					</xsl:element>
 					<xsl:choose>
 						<xsl:when test="not($isSource)">
@@ -985,10 +987,10 @@
 				<xsl:variable name="cone-creator">
 					<xsl:choose>
 						<xsl:when test="($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt')"> 
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'Max Planck Institute of Molecular Plant Physiology')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute of Molecular Plant Physiology')"/>
 						</xsl:when>				
 						<xsl:otherwise>
-							<xsl:copy-of select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
+							<xsl:copy-of select="Util:queryCone('persons', concat($familyname, ', ', $givenname))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
@@ -996,14 +998,14 @@
 				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 			
 				<xsl:if test="$multiplePersonsFound">
-					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
+					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($familyname, ', ', $givenname), '-'))"/>
 				</xsl:if>
 				<xsl:element name="person:person">
 					<xsl:element name="eterms:family-name">
-						<xsl:value-of select="$person/familyname"/>
+						<xsl:value-of select="$familyname"/>
 					</xsl:element>
 					<xsl:element name="eterms:given-name">
-						<xsl:value-of select="$person/givenname"/>
+						<xsl:value-of select="$givenname"/>
 					</xsl:element>
 					<!-- Affiliated Institution depends on publication-date) -->
 					<xsl:variable name="publication-date">
