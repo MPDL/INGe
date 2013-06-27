@@ -1044,11 +1044,9 @@
 
 				<!-- Mime-type -->
 				<xsl:variable name="mime-type">
-					<xsl:if test="$CoNE = 'true'">
-						<xsl:comment>MiME-Type CoNE-Abgleich mit <xsl:value-of select="escidocFunctions:suffix($filename)"></xsl:value-of></xsl:comment>
-						<xsl:comment><xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/></xsl:comment>
-						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/>
-					</xsl:if>
+					<xsl:comment>MiME-Type CoNE-Abgleich mit <xsl:value-of select="escidocFunctions:suffix($filename)"></xsl:value-of></xsl:comment>
+					<xsl:comment><xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/></xsl:comment>
+					<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/>
 				</xsl:variable>
 
 				<ec:properties>
@@ -1158,7 +1156,7 @@
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL'">
+						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt'">
 							<xsl:choose>
 								<xsl:when test="$access='USER' or $access='INTERNAL'">
 									<prop:visibility>private</prop:visibility>
@@ -1327,9 +1325,6 @@
 								<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
 							</prop:mime-type>
 						</xsl:when>
-						<xsl:when test="$CoNE = 'false'">
-							<xsl:comment>CoNE disabled, therefore no mime type</xsl:comment>
-						</xsl:when>
 						<xsl:otherwise>
 							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
 							<!-- ERROR -->
@@ -1433,7 +1428,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1537,7 +1532,7 @@
 										<xsl:value-of select="../../../rights/copyright"/>
 									</xsl:element>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL'">
+								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL' or $import-name = 'MPDLExt'">
 									<xsl:if test="exists(../../../rights/copyright)">
 										<xsl:element name="dc:rights">
 											<xsl:value-of select="../../../rights/copyright"/>
@@ -3544,6 +3539,8 @@
 							<!-- No CoNE --></xsl:when>
 						<xsl:when test="$source and ($import-name = 'MPIE' or $import-name = 'MPIA')">
 							<!-- No CoNE --></xsl:when>
+						<xsl:when test="$import-name = 'MPDLExt'">
+							<!-- No CoNE --></xsl:when>
 						<xsl:when test="$import-name = 'AEI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Gravitational Physics')"/>
 						</xsl:when>
@@ -3699,6 +3696,30 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
+									<xsl:when test="$import-name = 'MPDLExt'">
+										<xsl:choose>
+											<xsl:when test="exists(../../../docaff/docaff_external)">
+												<xsl:comment> Case MPDL with given docaff_external</xsl:comment>
+												<organization:organization>
+													<dc:title>
+														<xsl:value-of select="./../../../docaff/docaff_external"/>
+													</dc:title>
+													<dc:identifier>
+														<xsl:value-of select="$external-ou"/>
+													</dc:identifier>
+												</organization:organization>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:comment> Case MPDL without given docaff_external</xsl:comment>
+												<organization:organization>
+													<dc:title>External Organizations</dc:title>
+													<dc:identifier>
+														<xsl:value-of select="$external-ou"/>
+													</dc:identifier>
+												</organization:organization>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:when>
 									<xsl:when test="$import-name='MPIBioChem'">
 										<xsl:choose>
 											<xsl:when test="not(@internextern='mpg')">
@@ -3904,6 +3925,7 @@
 											</dc:identifier>
 										</organization:organization>
 									</xsl:when>
+									
 								</xsl:choose>
 							</xsl:if>
 						</xsl:element>
