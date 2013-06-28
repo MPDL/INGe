@@ -273,25 +273,29 @@ public class LoginHelper extends FacesBean
             String userGrantXML = uah.retrieveGrants(filter.toMap());
             SearchRetrieveResponseVO searchResult = transforming.transformToSearchRetrieveResponseGrantVO(userGrantXML);
             boolean isAlreadyGranted;
-            for (SearchRetrieveRecordVO searchRecord : searchResult.getRecords())
-            {
-                isAlreadyGranted = false;
-                GrantVO grant = (GrantVO) searchRecord.getData();
-                for (GrantVO comparisonGrant : this.userGrants)
-                {
-                    if ((grant.getObjectRef() != null && comparisonGrant.getObjectRef() != null) 
-                            && (grant.getRole() != null && comparisonGrant.getRole() != null) 
-                            && (grant.getObjectRef()).equals(comparisonGrant.getObjectRef()) 
-                            && (grant.getRole()).equals(comparisonGrant.getRole()))
-                    {
-                        isAlreadyGranted = true;
-                    }
-                }
-                if (isAlreadyGranted == false)
-                {
-                    this.userGrants.add(grant);
-                }
-            }
+           if(searchResult.getRecords()!=null)
+           {
+        	   for (SearchRetrieveRecordVO searchRecord : searchResult.getRecords())
+               {
+                   isAlreadyGranted = false;
+                   GrantVO grant = (GrantVO) searchRecord.getData();
+                   for (GrantVO comparisonGrant : this.userGrants)
+                   {
+                       if ((grant.getObjectRef() != null && comparisonGrant.getObjectRef() != null) 
+                               && (grant.getRole() != null && comparisonGrant.getRole() != null) 
+                               && (grant.getObjectRef()).equals(comparisonGrant.getObjectRef()) 
+                               && (grant.getRole()).equals(comparisonGrant.getRole()))
+                       {
+                           isAlreadyGranted = true;
+                       }
+                   }
+                   if (isAlreadyGranted == false)
+                   {
+                       this.userGrants.add(grant);
+                   }
+               }
+           }
+            
             
             //NOTE: The block below must not be removed, as it sets the this.accountUser grants
             List<GrantVO> setterGrants = this.accountUser.getGrants();
