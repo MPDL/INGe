@@ -75,7 +75,11 @@ public class EscidocAaClientFinish extends FinalClient
                 AccountUserVO accountUserVO = new XmlTransformingBean().transformToAccountUser(accountData);
                 String grantData = userAccountHandler.retrieveCurrentGrants(accountUserVO.getReference().getObjectId());
                 List<GrantVO> grants = new XmlTransformingBean().transformToGrantVOList(grantData);
-                accountUserVO.getGrants().addAll(grants);
+                if(grants!=null)
+                {
+                	  accountUserVO.getGrants().addAll(grants);
+                }
+              
                 
                 AuthenticationVO authenticationVO = new AuthenticationVO();
                 authenticationVO.setType(Type.USER);
