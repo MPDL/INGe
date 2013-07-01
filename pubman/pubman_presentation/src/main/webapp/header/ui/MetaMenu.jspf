@@ -47,7 +47,7 @@
 	</div>
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 	<!-- Help -->
-	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Policy -->
