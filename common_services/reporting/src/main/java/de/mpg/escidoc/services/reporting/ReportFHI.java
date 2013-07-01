@@ -214,7 +214,7 @@ public class ReportFHI {
 	        	itemList = replaceAllTotal(itemList, AMPS_ALONE, "&amp;");
 	       
 	        	if (logger.isDebugEnabled())
-	        		writeToFile("target/search-res.xml", itemList.getBytes("UTF-8"));
+	        		writeToFile("./search-res.xml", itemList.getBytes("UTF-8"));
 	        	logger.info(itemList);
 	        	
 	        }
@@ -477,41 +477,12 @@ public class ReportFHI {
     }    
     
     
-/*	
-	public static void main(String args[]) throws JRException, IOException, URISyntaxException, ServiceException 
+
+	public static void main(String args[]) throws Exception
 	{
-	
-		ReportFHI rep = new ReportFHI();
-		String formats = null;
-		String emails = null;
-		
-
-        if(args.length == 0)
-        {
-            usage();
-            return;
-        }
-
-        int k = 0; 
-        while ( args.length > k )
-        {
-            if ( args[k].startsWith("-F") )
-                formats = args[k].substring(2);
-            if ( args[k].startsWith("-S") )
-                emails = args[k].substring(2);
-            k++;
-        }
-		
-        if ( formats == null || formats.length() == 0 || emails == null || emails.length() == 0)
-        {
-        	usage();
-        }
-        else
-        {
-        	generateReport();
-        }
+	    ReportFHI rep = new ReportFHI();
         
-		
+	    ReportFHI.generateAndSendReport(); 	
 	}
 	
     private static void usage()
@@ -520,6 +491,6 @@ public class ReportFHI {
         System.out.println( "\tjava ReportFHI" );
     }	
     
-*/
+
 
 }	
