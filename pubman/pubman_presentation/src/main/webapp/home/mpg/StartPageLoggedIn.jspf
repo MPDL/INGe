@@ -36,7 +36,7 @@
 	WHAT DO YOU WANT TO WORK ON TODAY?</h2>
 	<br />
 	
-	<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+	<h:panelGroup styleClass="free_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
 		<h2>Submission</h2>
 		There are several ways to enter new publications into PubMan. You can
