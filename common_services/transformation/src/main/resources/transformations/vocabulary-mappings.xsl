@@ -65,7 +65,6 @@
 		<enum uri="http://www.loc.gov/loc.terms/relators/TRL">translator</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SAD">advisor</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SAD">scientific advisor</enum>
-		<enum uri="http://www.loc.gov/loc.terms/relators/THS">thesis advisor</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/CTB">contributor</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/publisher">publisher</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/HNR">honoree</enum>
