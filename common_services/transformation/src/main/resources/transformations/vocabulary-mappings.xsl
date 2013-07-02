@@ -61,7 +61,7 @@
 		<enum uri="http://www.loc.gov/loc.terms/relators/PHT">photographer</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/ILL">illustrator</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/CMM">commentator</enum>
-		<enum uri="http://www.loc.gov/loc.terms/relators/TRC">transcriptor</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/TRC">transcriber</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/TRL">translator</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SAD">advisor</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SAD">scientific advisor</enum>
@@ -77,7 +77,7 @@
 		<enum uri="http://www.loc.gov/loc.terms/relators/DRT">director</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/PRO">producer</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/ACT">actor</enum>
-		<enum uri="http://www.loc.gov/loc.terms/relators/CNG">cinematorgrapher</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/CNG">cinematographer</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SDS">sound designer</enum>
 	</xsl:variable>
 	
