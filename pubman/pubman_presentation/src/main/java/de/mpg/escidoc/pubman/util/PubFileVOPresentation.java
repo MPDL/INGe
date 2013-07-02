@@ -294,7 +294,7 @@ public class PubFileVOPresentation extends FacesBean
             {
                 if(entry.getValue().equals(this.file.getContentCategory()))
                 {
-                     contentCategory = internationalized.getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey());
+                     contentCategory = internationalized.getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toUpperCase().replace("-", "_"));
                      break;
                 }
             }
