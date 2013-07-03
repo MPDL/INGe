@@ -1044,7 +1044,7 @@
 
 				<!-- Mime-type -->
 				<xsl:variable name="mime-type">
-					<xsl:comment>MiME-Type CoNE-Abgleich mit <xsl:value-of select="escidocFunctions:suffix($filename)"></xsl:value-of></xsl:comment>
+					<xsl:comment>+ CoNE-Abgleich mit <xsl:value-of select="escidocFunctions:suffix($filename)"></xsl:value-of></xsl:comment>
 					<xsl:comment><xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/></xsl:comment>
 					<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/>
 				</xsl:variable>
@@ -1156,7 +1156,7 @@
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt'">
+						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM'">
 							<xsl:choose>
 								<xsl:when test="$access='USER' or $access='INTERNAL'">
 									<prop:visibility>private</prop:visibility>
@@ -1258,7 +1258,7 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1289,9 +1289,6 @@
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
-						</xsl:when>
-						<xsl:when test="$import-name = 'MPIP'">
-							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></prop:content-category>
@@ -1328,7 +1325,7 @@
 						<xsl:otherwise>
 							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
 							<!-- ERROR -->
-							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, ' not found in CONE'))"/>
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, '\[',escidocFunctions:suffix($filename), '\] not found in CONE'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 					<!--  <xsl:choose>
@@ -1428,7 +1425,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1502,9 +1499,6 @@
 									<dc:format xsi:type="dcterms:IMT">
 										<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
 									</dc:format>
-								</xsl:when>
-								<xsl:when test="$CoNE = 'false'">
-									<xsl:comment>CoNE disabled, therefore no mime type</xsl:comment>
 								</xsl:when>
 								<xsl:otherwise>
 									<!-- ERROR -->
@@ -2654,6 +2648,11 @@
 				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
 		</xsl:if>
+		<xsl:if test="$import-name = 'MPIEM'">
+			<xsl:for-each select="../relations/relation[@type = 'doi' and @reltype='hasreferences']">
+				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
+			</xsl:for-each>
+		</xsl:if>
 		<xsl:if test="$import-name = 'MPIIPP'">
 			<xsl:for-each select="../relations/relation[@reltype='isreferencedby']">
 				<dc:identifier xsi:type="eterms:OTHER"><xsl:value-of select="identifier"/></dc:identifier>
@@ -3646,6 +3645,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPDL'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Digital Library')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIC'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Chemistry')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
