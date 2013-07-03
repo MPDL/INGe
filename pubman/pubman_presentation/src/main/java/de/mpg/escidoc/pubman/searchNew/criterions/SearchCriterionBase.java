@@ -379,6 +379,11 @@ public abstract class SearchCriterionBase implements Serializable{
 			{
 				throw new SearchParseException("search string starts with *");
 			}
+			if(searchString.trim().startsWith("?"))
+			{
+				throw new SearchParseException("search string starts with ?");
+			}
+			
 			
 		}
 		
