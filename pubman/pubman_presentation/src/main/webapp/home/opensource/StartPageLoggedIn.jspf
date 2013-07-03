@@ -56,11 +56,13 @@
 					<h:outputText value="Fetch" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Here you can fetch single items from external repositories like arXiv or BioMed Central.
 			</li>
+			<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 			<li>use the
 				<h:commandLink id="lnkMultipleImport_en" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
-					<h:outputText value="Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					<h:outputText value="Import"/>
 				</h:commandLink>. Here you can upload multiple items out of various formats.
-			</li>
+			</li>	
+			</h:panelGroup>
 		</ul>
 	</h:panelGroup>
 	
@@ -120,11 +122,13 @@
 					<h:outputText value="Daten Abholen" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Hier können Sie einzelne Publikationen von externen Repositorien wie arXiv oder BioMed Central importieren.
 			</li>
+			<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 			<li>den 
 				<h:commandLink id="lnkMultipleImport_de" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
-					<h:outputText value="Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					<h:outputText value="Import" />
 				</h:commandLink>. Hier können Sie größere Mengen von Datensätzen aus verschiedenen Formaten hochladen.
 			</li>
+			</h:panelGroup>
 		</ul>
 	</h:panelGroup>
 	
@@ -180,11 +184,13 @@
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink> 
 			</li>
-			<li>... 
+			<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+			<li>...
 				<h:commandLink id="lnkMultipleImport_jp" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
-					<h:outputText value="Import" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					<h:outputText value="Import"/>
 				</h:commandLink>
 			</li>
+			</h:panelGroup>
 		</ul>
 	</h:panelGroup>
 	
