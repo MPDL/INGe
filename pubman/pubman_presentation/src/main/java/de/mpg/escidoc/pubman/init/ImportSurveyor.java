@@ -58,6 +58,8 @@ public class ImportSurveyor extends Thread
     
     public ImportSurveyor()
     {
+        this.setName("ImportSurveyor");
+        
         try
         {
             interval = Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
