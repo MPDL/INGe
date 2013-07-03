@@ -78,6 +78,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.genre.GenreListSearchCriterion
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.CollectionSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
@@ -527,7 +528,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			((DateSearchCriterion) newSc).setTo(((DateSearchCriterion)oldSc).getTo());
 		}
 		
-		else if (oldSc instanceof StandardSearchCriterion && newSc instanceof StandardSearchCriterion)
+		else if (oldSc instanceof StandardSearchCriterion && newSc instanceof StandardSearchCriterion && ! (oldSc instanceof CollectionSearchCriterion) && ! (newSc instanceof CollectionSearchCriterion))
 		{
 			((StandardSearchCriterion) newSc).setSearchString(((StandardSearchCriterion)oldSc).getSearchString());
 			
