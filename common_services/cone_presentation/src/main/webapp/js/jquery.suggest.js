@@ -83,10 +83,10 @@
 				// handling up/down/escape requires results to be visible
 				// handling enter/tab requires that AND a result to be selected
 				if ((/^27$|^38$|^40$/.test(e.keyCode) && $results.is(':visible')) ||
-					(/^13$|^9$/.test(e.keyCode) && getCurrentResult())) {
+					(/^13$/.test(e.keyCode) && getCurrentResult()) ||
+					(/^9$/.test(e.keyCode))) {
 					
-		            if (e.preventDefault)
-		                e.preventDefault();
+		            
 					if (e.stopPropagation)
 		                e.stopPropagation();
 
@@ -97,29 +97,39 @@
 	
 						case 38: // up
 							prevResult();
+							if (e.preventDefault)
+				                e.preventDefault();
 							break;
 				
 						case 40: // down
 							nextResult();
+							if (e.preventDefault)
+				                e.preventDefault();
 							break;
 	
 						case 9:  // tab
 							mouseOverResults = false;
-							if (!getCurrentResult()){
+							if (!getCurrentResult() && $results.is(':visible')){
 								$results.hide();
 							}
-							else {
+							else if (getCurrentResult()) {
 								selectCurrentResult();
+								if (e.preventDefault)
+					                e.preventDefault();
 							}
 							break;
 							
 						case 13: // return
 							selectCurrentResult();
+							if (e.preventDefault)
+				                e.preventDefault();
 							break;
 							
 						case 27: //	escape
 							mouseOverResults = false;
 							$results.hide();
+							if (e.preventDefault)
+				                e.preventDefault();
 							break;
 	
 					}
