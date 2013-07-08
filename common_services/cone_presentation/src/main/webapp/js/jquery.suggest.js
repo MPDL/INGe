@@ -25,6 +25,7 @@
 			var cache = [];				// cache MRU list
 			var cacheSize = 0;			// size of cache in chars (bytes?)
 			
+			var displayResults = true;
 			$results.addClass(options.resultsClass).appendTo('body');
 				
 
@@ -64,6 +65,7 @@
 			});
 			$input.blur(function(){
 				if(!mouseOverResults) {
+					displayResults = false;
 					$results.hide();
 				}
 			});
@@ -109,7 +111,8 @@
 	
 						case 9:  // tab
 							mouseOverResults = false;
-							if (!getCurrentResult() && $results.is(':visible')){
+							if (!getCurrentResult()){
+								displayResults = false;
 								$results.hide();
 							}
 							else if (getCurrentResult()) {
@@ -149,6 +152,8 @@
 			
 			function suggest() {
 			
+				displayResults=true;
+				
 				var q = $.trim($input.val());
 				var lang = '';
 
@@ -273,7 +278,16 @@
 				
 
 				resetPosition();
-				$results.html(html).show();
+				$results.html(html);
+				if(displayResults)
+				{
+					$results.show();
+				}
+				else
+				{
+					$results.hide();
+				}
+				
 				
 				$results
 					.children('li')
