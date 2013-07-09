@@ -27,8 +27,6 @@ import de.mpg.escidoc.services.pidcache.tables.Queue;
 public class QueueProcess 
 {      
 	private static final Logger logger = Logger.getLogger(QueueProcess.class);
-	private static Queue queue = Queue.getInstance();
-	private GwdgPidService gwdgPidService = new GwdgPidService();
 	private XmlTransforming xmlTransforming = null;
 	private int blockSize = 1;
 	
@@ -50,8 +48,9 @@ public class QueueProcess
 	 */
 	public void empty() throws Exception
 	{
+		Queue queue = new Queue();
 		Pid pid = queue.getFirst();
-		
+		GwdgPidService gwdgPidService = new GwdgPidService();
 		if (gwdgPidService.available()) 
 		{
 			while (pid != null) 
@@ -77,13 +76,14 @@ public class QueueProcess
 
     public void emptyBlock() throws Exception
     {
+        Queue queue = new Queue();
         List<Pid> pids = queue.getFirstBlock(this.blockSize);
         logger.debug("emptyBlock got " + this.blockSize + " pids");
         if (pids.size() == 0)
         {
             return;
         }
-
+        GwdgPidService gwdgPidService = new GwdgPidService();
         if (gwdgPidService.available()) 
         {
             for (Pid pid : pids) 
@@ -91,7 +91,7 @@ public class QueueProcess
                 try 
                 {
                     String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
-                    logger.debug("emptyBlock updated " + pid.getUrl());
+                    logger.debug("emptyBlock updated pid <" + pid.getIdentifier() + "> url <" + pid.getUrl() + ">");
                     xmlTransforming.transformToPidServiceResponse(pidXml);
                 } 
                 catch (Exception e) 
@@ -110,7 +110,7 @@ public class QueueProcess
     
     public boolean isEmpty() throws Exception
     {
-        return (queue).isEmpty();
+        return (new Queue()).isEmpty();
     }
 
     public void setBlockSize(int size)

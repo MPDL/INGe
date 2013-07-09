@@ -22,8 +22,6 @@ public class GwdgPidService
 	public static String GWDG_PIDSERVICE_EDIT = null;
 	public static String GWDG_PIDSERVICE_DELETE = null;
 	
-	private GwdgClient client = null;
-	
 	/**
 	 * Default constructor
 	 * @throws Exception
@@ -36,8 +34,8 @@ public class GwdgPidService
     	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.service.search.path");
     	GWDG_PIDSERVICE_EDIT = PropertyReader.getProperty("escidoc.pid.service.update.path");
     	GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
-    	
-    	client = new GwdgClient();
+    	// Use to simulate non available gwdg
+    	//GWDG_PIDSERVICE = GWDG_PIDSERVICE.concat("/out");
 	}
 	
 	/**
@@ -65,6 +63,7 @@ public class GwdgPidService
 	{
 		PostMethod create = new PostMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_CREATE));
     	create.setParameter("url", url);
+    	GwdgClient client = new GwdgClient();
     	ProxyHelper.executeMethod(client, create);
     	System.out.println(create.getResponseBodyAsString());
     	return create.getResponseBodyAsString();
@@ -79,6 +78,7 @@ public class GwdgPidService
 	 */
 	public String retrieve(String id) throws Exception
 	{
+		GwdgClient client = new GwdgClient();
 		GetMethod retrieve = new GetMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_VIEW).concat("?pid=").concat(id));
     	ProxyHelper.executeMethod(client, retrieve);
     	return retrieve.getResponseBodyAsString();
@@ -94,6 +94,7 @@ public class GwdgPidService
 	 */
 	public String search(String url) throws Exception
 	{
+		GwdgClient client = new GwdgClient();
 		GetMethod search = new GetMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_FIND).concat("?url=").concat(url));
     	ProxyHelper.executeMethod(client, search);
     	return search.getResponseBodyAsString();
@@ -111,6 +112,7 @@ public class GwdgPidService
 	{
 		PostMethod update = new PostMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_EDIT).concat("?pid=").concat(id));
     	update.setParameter("url", url);
+    	GwdgClient client = new GwdgClient();
     	ProxyHelper.executeMethod(client, update);
     	return update.getResponseBodyAsString();
 	}
@@ -125,6 +127,7 @@ public class GwdgPidService
 	public String delete(String id) throws Exception
 	{
 		DeleteMethod delete = new DeleteMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_DELETE).concat("?pid=").concat(id));
+		GwdgClient client = new GwdgClient();
     	ProxyHelper.executeMethod(client, delete);
     	return delete.getResponseBodyAsString();
 	}
@@ -138,7 +141,7 @@ public class GwdgPidService
 	{
 		GetMethod method = new GetMethod(GWDG_PIDSERVICE);
 		try
-		{	
+		{	GwdgClient client = new GwdgClient();
 			client.getHttpConnectionManager().getParams().setConnectionTimeout(GwdgClient.GWDG_SERVICE_TIMEOUT);
 	    	ProxyHelper.executeMethod(client, method);
 		} 

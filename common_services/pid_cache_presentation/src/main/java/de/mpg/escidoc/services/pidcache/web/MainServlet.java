@@ -57,8 +57,6 @@ public class MainServlet extends HttpServlet
 
 	Logger logger = Logger.getLogger(MainServlet.class);
 	
-	PidCacheService pidCacheService = new PidCacheService();
-	
     /* (non-Javadoc)
      * @see javax.servlet.http.HttpServlet#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -83,6 +81,8 @@ public class MainServlet extends HttpServlet
         		logger.warn("Unauthorized request from " + req.getRemoteHost());
         		return;
         	}
+
+    		PidCacheService pidCacheService = new PidCacheService();
     		
     		if (GwdgPidService.GWDG_PIDSERVICE_VIEW.equals(req.getPathInfo())
     				|| GwdgPidService.GWDG_PIDSERVICE_VIEW.concat("/").equals(req.getPathInfo())) 
@@ -142,11 +142,12 @@ public class MainServlet extends HttpServlet
         		return;
         	}
         	
+        	PidCacheService cacheService = new PidCacheService();
         	String xmlOutput = null;
         	
         	if (GwdgPidService.GWDG_PIDSERVICE_CREATE.equals(req.getPathInfo())) 
             {
-        		xmlOutput = pidCacheService.create(req.getParameter("url"));
+        		xmlOutput = cacheService.create(req.getParameter("url"));
     		}
         	else if (GwdgPidService.GWDG_PIDSERVICE_EDIT.equals(req.getPathInfo())) 
         	{
@@ -154,16 +155,16 @@ public class MainServlet extends HttpServlet
         		{
         			resp.sendError(HttpServletResponse.SC_NO_CONTENT, "PID parameter failed.");
     			}
-        		xmlOutput = pidCacheService.update(req.getParameter("pid"), req.getParameter("url"));
+        		xmlOutput = cacheService.update(req.getParameter("pid"), req.getParameter("url"));
     		}
         	else 
         	{
         		resp.sendError(HttpServletResponse.SC_NOT_FOUND, req.getPathInfo());
 			}
         	
-        	resp.setStatus(pidCacheService.getStatus());
-            resp.encodeRedirectURL(pidCacheService.getLocation());
-            resp.addHeader("Location", pidCacheService.getLocation());
+        	resp.setStatus(cacheService.getStatus());
+            resp.encodeRedirectURL(cacheService.getLocation());
+            resp.addHeader("Location", cacheService.getLocation());
     		resp.getWriter().append(xmlOutput);
 		} 
         catch (Exception e) 
