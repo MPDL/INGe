@@ -237,8 +237,9 @@ public class TransformationTest
          result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, endnote, "escidoc");
          this.logger.debug(new String(result, "UTF-8"));  
      }
-     
+ 
      @Test
+     @Ignore
      public void edoc2escidoc() throws Exception
      {
          this.logger.info("---Transformation eDoc to eSciDoc format ---");
@@ -282,6 +283,7 @@ public class TransformationTest
      }
      
      @Test
+     @Ignore
      public void edoc2escidoc2() throws Exception
      {
          this.logger.info("---Transformation eDoc to eSciDoc format ---");
