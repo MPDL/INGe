@@ -537,6 +537,8 @@ public class ApplicationBean extends FacesBean
         ResourceBundle.clearCache();
         PropertyReader.loadProperties();
         languageSelectItems.clear();
+        ouList.clear();
+        
         returnVal = "... Resource bundles and properties reloaded, language selection menu reset.";
         return returnVal;
         
