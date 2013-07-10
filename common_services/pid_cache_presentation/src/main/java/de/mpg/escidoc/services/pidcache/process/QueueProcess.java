@@ -59,12 +59,13 @@ public class QueueProcess
 				{
 					String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
 					xmlTransforming.transformToPidServiceResponse(pidXml);
+					queue.remove(pid);
 				} 
 				catch (Exception e) 
 				{
 					logger.warn("Error, PID can not be updated on GWDG service.");
 				}
-				queue.remove(pid);
+				
 				pid = queue.getFirst();
 			}
 		}
@@ -93,12 +94,12 @@ public class QueueProcess
                     String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
                     logger.debug("emptyBlock updated pid <" + pid.getIdentifier() + "> url <" + pid.getUrl() + ">");
                     xmlTransforming.transformToPidServiceResponse(pidXml);
+                    queue.remove(pid);
                 } 
                 catch (Exception e) 
                 {
                     logger.warn("Error, PID can not be updated on GWDG service.");
-                }
-                queue.remove(pid);
+                }             
             }
         }
         else
