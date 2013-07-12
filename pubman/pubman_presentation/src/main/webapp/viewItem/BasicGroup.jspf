@@ -60,7 +60,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function mendeleyLink() {
-						window.open('http://www.mendeley.com/import/?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://www.mendeley.com/import/?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'mendeley','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				
@@ -71,7 +71,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function bibsonomyLink() {
-						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'bibsonomy','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				
@@ -81,7 +81,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function citeULikeLink() {
-						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=720,height=755,scrollbars,resizable');
+						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'citeulike','toolbar=no,width=720,height=755,scrollbars,resizable');
 					}
 				</script>
 				
@@ -91,7 +91,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function diggLink() {
-						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'digg','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				
