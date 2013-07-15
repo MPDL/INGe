@@ -762,6 +762,16 @@
 		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename />
 		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename />
 		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename />
+		
+		<!-- By Editura-->
+		<escidoc.transformation.bmc2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl</escidoc.transformation.bmc2escidoc.stylesheet.filename>
+		<escidoc.transformation.bmc2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/bmc2escidoc.properties</escidoc.transformation.bmc2escidoc.configuration.filename>
+		<escidoc.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</escidoc.transformation.marcxml2escidoc.stylesheet.filename>
+		<escidoc.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</escidoc.transformation.marcxml2escidoc.configuration.filename>
+		<escidoc.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</escidoc.transformation.escidoc2marcxml.stylesheet.filename>
+		<!-- End by Editura -->
+		
+		
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
