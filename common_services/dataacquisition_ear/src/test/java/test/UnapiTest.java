@@ -50,7 +50,6 @@ public class UnapiTest
     }
     
     @Test
-    @Ignore
     public void unapiTestAllSources() throws Exception
     {
         HttpClient client = new HttpClient();
