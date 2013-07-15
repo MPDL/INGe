@@ -64,6 +64,7 @@ public class StructuredExportTest
 	    	{  
 	    		String pref = "target/test-classes/";
 				{  
+		    put("MARCXML", pref + "publicationItems/metadataV2/item_book.xml");
                     put("BIBTEX", pref + "publicationItems/metadataV2/item_book.xml");
                     put("ENDNOTE", pref + "publicationItems/metadataV2/item_book.xml");
                     put("EDOC_EXPORT", pref + "publicationItems/metadataV2/full_item.xml");

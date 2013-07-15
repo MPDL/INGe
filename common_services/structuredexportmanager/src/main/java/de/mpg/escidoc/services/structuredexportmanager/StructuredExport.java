@@ -84,7 +84,8 @@ public class StructuredExport implements StructuredExportHandler {
     private static final Map<String, String> XSLT_FILE_LIST =   
     	new HashMap<String, String>()   
     	{  
-			{  
+			{
+			put( "MARCXML",		"pubman_to_marc.xsl"	);  	
 	    		put( "ENDNOTE",		"eSciDoc_to_EndNote.xsl"	);  
 	    		put( "BIBTEX", 		"eSciDoc_to_BibTeX.xsl"			);  
 	    		put( "CSV", 		"Faces_to_CSV.xsl"				);  
