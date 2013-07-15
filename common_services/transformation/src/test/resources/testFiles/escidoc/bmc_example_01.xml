@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                           xmlns:hidden="http://www.editura.de/ns/2012/misc-hide"
+                           xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                           xmlns:dc="http://purl.org/dc/elements/1.1/"
+                           xmlns:dcterms="http://purl.org/dc/terms/"
+                           xmlns:eprints="http://purl.org/eprint/terms/"
+                           xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+                           xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.9"
+                           xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.9"
+                           xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                           xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                           xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                           xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
+                           xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                           xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                           xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                           xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                           xmlns:prop="http://escidoc.de/core/01/properties/"
+                           xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                           xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                           xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                           xmlns:xlink="http://www.w3.org/1999/xlink">
+   <escidocItem:item>
+      <escidocItem:properties>
+         <srel:context xlink:href="InsertAProperURI"/>
+         <srel:content-model xlink:href="InsertAProperURI"/>
+         <srel:origin xlink:href="Pubman File-Import"/>
+         <prop:content-model-specific>
+            <local-tags>
+               <local-tag/>
+            </local-tags>
+         </prop:content-model-specific>
+      </escidocItem:properties>
+      <escidocMetadataRecords:md-records>
+         <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication type="http://purl.org/escidoc/metadata/ves/publication-types/other">
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name>Markus Haarländer</eterms:complete-name>
+                     <eterms:family-name>Haarländer</eterms:family-name>
+                     <eterms:given-name>Markus</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Organization I</dc:title>
+                     </organization:organization>
+                  </person:person>
+               </eterms:creator>
+               <dc:title>Publication Title</dc:title>
+               <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+               <dc:identifier xsi:type="eterms:BMC">1471-2105-12-S1-S29</dc:identifier>
+               <dc:identifier xsi:type="eterms:URI">http://www.biomedcentral.com/1471-2105/12/S1/S29</dc:identifier>
+               <dcterms:issued xsi:type="dcterms:W3CDTF">2011</dcterms:issued>
+               <source:source type="http://purl.org/eprint/type/Book">
+                  <dc:title>Journal Title</dc:title>
+                  <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                     <person:person>
+                        <eterms:complete-name>Vorname Nachname</eterms:complete-name>
+                        <eterms:family-name>Nachname</eterms:family-name>
+                        <eterms:given-name>Vorname</eterms:given-name>
+                        <organization:organization>
+                           <dc:title>generic organization name</dc:title>
+                        </organization:organization>
+                     </person:person>
+                  </eterms:creator>
+                  <eterms:volume>12</eterms:volume>
+                  <eterms:issue>1</eterms:issue>
+                  <eterms:sequence-number>12:29</eterms:sequence-number>
+               </source:source>
+               <dcterms:tableOfContents>
+</dcterms:tableOfContents>
+            </publication:publication>
+         </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+      <escidocComponents:components>
+         <escidocComponents:component>
+            <escidocComponents:properties>
+               <prop:visibility>public</prop:visibility>
+               <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+               <prop:mime-type>application/xml</prop:mime-type>
+            </escidocComponents:properties>
+            <escidocComponents:content xlink:type="simple"
+                                       xlink:title="1471-2105-12-S1-S29.xml"
+                                       xlink:href="http://www.biomedcentral.com/content/download/xml/1471-2105-12-S1-S29.xml"
+                                       storage="internal-managed"/>
+            <escidocMetadataRecords:md-records>
+               <escidocMetadataRecords:md-record name="escidoc">
+                  <file:file>
+                     <dc:title>1471-2105-12-S1-S29.xml</dc:title>
+                     <dc:description>File downloaded from BioMed Central at 2013-04-09 17:12</dc:description>
+                     <dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+                     <dcterms:dateCopyrighted>2011</dcterms:dateCopyrighted>
+                     <dc:rights>licensee BioMed Central Ltd.</dc:rights>
+                     <dcterms:license>This is an open access article.</dcterms:license>
+                  </file:file>
+               </escidocMetadataRecords:md-record>
+            </escidocMetadataRecords:md-records>
+         </escidocComponents:component>
+         <escidocComponents:component>
+            <escidocComponents:properties>
+               <prop:visibility>public</prop:visibility>
+               <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+               <prop:mime-type>application/pdf</prop:mime-type>
+            </escidocComponents:properties>
+            <escidocComponents:content xlink:type="simple"
+                                       xlink:title="1471-2105-12-S1-S29.pdf"
+                                       xlink:href="http://www.biomedcentral.com/content/pdf/1471-2105-12-S1-S29.pdf"
+                                       storage="internal-managed"/>
+            <escidocMetadataRecords:md-records>
+               <escidocMetadataRecords:md-record name="escidoc">
+                  <file:file>
+                     <dc:title>1471-2105-12-S1-S29.pdf</dc:title>
+                     <dc:description>File downloaded from BioMed Central at 2013-04-09 17:12</dc:description>
+                     <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                     <dcterms:dateCopyrighted>2011</dcterms:dateCopyrighted>
+                     <dc:rights>licensee BioMed Central Ltd.</dc:rights>
+                     <dcterms:license>This is an open access article.</dcterms:license>
+                  </file:file>
+               </escidocMetadataRecords:md-record>
+            </escidocMetadataRecords:md-records>
+         </escidocComponents:component>
+      </escidocComponents:components>
+   </escidocItem:item>
+</escidocItemList:item-list>

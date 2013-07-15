@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                           xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                           xmlns:dc="http://purl.org/dc/elements/1.1/"
+                           xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                           xmlns:dcterms="http://purl.org/dc/terms/"
+                           xmlns:prop="http://escidoc.de/core/01/properties/"
+                           xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+                           xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                           xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
+                           xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10"
+                           xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                           xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                           xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                           xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                           xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                           xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/">
+   <escidocItem:item>
+      <escidocItem:properties>
+         <srel:context xlink:href="InsertAProperURI"/>
+         <srel:content-model xlink:href="escidoc:2001"/>
+         <srel:origin xlink:href="Pubman File-Import"/>
+         <prop:content-model-specific>
+            <local-tags>
+               <local-tag/>
+            </local-tags>
+         </prop:content-model-specific>
+      </escidocItem:properties>
+      <escidocMetadataRecords:md-records>
+         <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication type="http://purl.org/escidoc/metadata/ves/publication-types/other">
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name>Niko Beerenwinkel</eterms:complete-name>
+                     <eterms:family-name>Beerenwinkel</eterms:family-name>
+                     <eterms:given-name>Niko</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Max Planck Society</dc:title>
+                     </organization:organization>
+                  </person:person>
+               </eterms:creator>
+               <dc:title>Computational Analysis of HIV Drug resistance Data</dc:title>
+               <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+               <dcterms:issued xsi:type="dcterms:W3CDTF">2004</dcterms:issued>
+            </publication:publication>
+         </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+      <escidocComponents:components/>
+   </escidocItem:item>
+</escidocItemList:item-list>

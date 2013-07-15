@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<!DOCTYPE art SYSTEM 'http://www.biomedcentral.com/xml/article.dtd'>
+<art>
+   <ui>1471-2105-12-S1-S29</ui>
+   <fm>
+      <dochead>Research</dochead>
+      <bibl>
+         <title>
+            <p>Publication Title</p>
+         </title>
+         <aug>
+            <au ca="yes" id="A1">
+               <snm>Haarländer</snm>
+               <fnm>Markus</fnm>
+               <insr iid="I1"/>
+               <email>igcf@cin.ufpe.br</email>
+            </au>
+
+         </aug>
+         <insg>
+            <ins id="I1">
+               <p>Organization I</p>
+            </ins>
+         </insg>
+         <source>Journal Title</source>
+         <editor>Nachname, Vorname</editor>
+         <pubdate>2011</pubdate>
+         <volume>12</volume>
+         <issue>1</issue>
+         <fpage>29</fpage>
+      </bibl>
+      <cpyrt>
+         <year>2011</year>
+         <collab>licensee BioMed Central Ltd.</collab>
+         <note>This is an open access article.</note>
+      </cpyrt>
+   </fm>
+   <bdy>
+      <sec>
+         <st>
+            <p/>
+         </st>
+      </sec>
+   </bdy>
+</art>

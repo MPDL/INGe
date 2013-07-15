@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                  xmlns:dc="http://purl.org/dc/elements/1.1/"
+                  xmlns:prop="http://escidoc.de/core/01/properties/"
+                  xmlns:dcterms="http://purl.org/dc/terms/"
+                  xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                  xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+                  xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                  xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                  xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                  xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                  xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                  xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                  xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
+                  xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+   <escidocItem:properties>
+      <srel:context xlink:href="InsertAProperURI"/>
+      <srel:content-model xlink:href="escidoc:2001"/>
+      <srel:origin xlink:href="Pubman File-Import"/>
+      <prop:content-model-specific>
+         <local-tags>
+            <local-tag/>
+         </local-tags>
+      </prop:content-model-specific>
+   </escidocItem:properties>
+   <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+         <publication:publication type="http://purl.org/eprint/type/Report">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:complete-name>Evangelos I Giotakis</eterms:complete-name>
+                  <eterms:family-name>Giotakis</eterms:family-name>
+                  <eterms:given-name>Evangelos I</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>ENT Department, Städtisches Klinikum Karlsruhe, Moltkestrasse 90, 76133, Karlsruhe, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:complete-name>Tanja Hildenbrand</eterms:complete-name>
+                  <eterms:family-name>Hildenbrand</eterms:family-name>
+                  <eterms:given-name>Tanja</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>ENT Department, Städtisches Klinikum Karlsruhe, Moltkestrasse 90, 76133, Karlsruhe, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:complete-name>Joachim Dodenhöft</eterms:complete-name>
+                  <eterms:family-name>Dodenhöft</eterms:family-name>
+                  <eterms:given-name>Joachim</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>ENT Department, Städtisches Klinikum Karlsruhe, Moltkestrasse 90, 76133, Karlsruhe, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Sudden massive neck swelling due to hemorrhage of a thyroid adenoma: a case report</dc:title>
+            <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+            <dc:identifier xsi:type="eterms:BMC">1752-1947-5-391</dc:identifier>
+            <dc:identifier xsi:type="eterms:URI">http://www.biomedcentral.com/1752-1947/5/391</dc:identifier>
+            <dc:identifier xsi:type="eterms:DOI">10.1186/1752-1947-5-391</dc:identifier>
+            <dc:identifier xsi:type="eterms:PMID">21851609</dc:identifier>
+            <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2011-04-04</dcterms:dateSubmitted>
+            <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2011-08-18</dcterms:dateAccepted>
+            <eterms:published-online xsi:type="dcterms:W3CDTF">2011-08-18</eterms:published-online>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>Journal of Medical Case Reports</dc:title>
+               <eterms:volume>5</eterms:volume>
+               <eterms:issue>1</eterms:issue>
+               <eterms:sequence-number>5:391</eterms:sequence-number>
+               <dc:identifier xsi:type="eterms:ISSN">1752-1947</dc:identifier>
+            </source:source>
+            <dcterms:abstract xml:lang="eng">IntroductionSudden swelling of the neck is an emergency situation that can be life-threatening for the patient. Therefore, an understanding of the possible underlying pathology is of great importance. Sudden massive swelling of the neck because of intralesional bleeding of a thyroid adenoma is seldom encountered but must be considered. Such massive swelling caused by spontaneous bleeding of a thyroid adenoma has not yet been described in the literature.Case presentationWe report the case of a 71-year-old Caucasian man with sudden massive neck swelling due to intralesional bleeding of a thyroid adenoma. We present his clinical history, physical examination results, computed tomography (CT) scans, and histological findings after surgery. He presented with sudden massive swelling of the left side of his neck after sneezing while working with his hands over his head. An ear, nose, and throat examination showed a painless swelling of the left side of his neck and a displacement of his larynx to the right. CT scans revealed a mass originating from the left lobe of his thyroid gland and the mass displaced his larynx and trachea. A surgical exploration showed a greatly enlarged left lobe of his thyroid gland. A histopathological examination showed a hemorrhagic infarction of a follicular thyroid adenoma.ConclusionsSudden intralesional bleeding of a thyroid adenoma is a rare condition but one that should be considered in cases of sudden and massive swelling of the neck.</dcterms:abstract>
+            <dcterms:tableOfContents>Introduction
+Case presentation
+Discussion
+Conclusions
+Abbreviations
+Consent
+Competing interests
+Authors' contributions
+</dcterms:tableOfContents>
+         </publication:publication>
+      </escidocMetadataRecords:md-record>
+   </escidocMetadataRecords:md-records>
+   <escidocComponents:components>
+      <escidocComponents:component>
+         <escidocComponents:properties>
+            <prop:visibility>public</prop:visibility>
+            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+            <prop:mime-type>application/xml</prop:mime-type>
+         </escidocComponents:properties>
+         <escidocComponents:content xlink:type="simple" xlink:title="1752-1947-5-391.xml"
+                                    xlink:href="http://www.biomedcentral.com/content/download/xml/1752-1947-5-391.xml"
+                                    storage="internal-managed"/>
+         <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+               <file:file>
+                  <dc:title>1752-1947-5-391.xml</dc:title>
+                  <dc:description>File downloaded from BioMed Central at 1900-01-01 00:00</dc:description>
+                  <dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+                  <dcterms:extent>0</dcterms:extent>
+                  <dcterms:dateCopyrighted>2011</dcterms:dateCopyrighted>
+                  <dc:rights>Giotakis et al; licensee BioMed Central Ltd.</dc:rights>
+                  <dcterms:license>This is an Open Access article distributed under the terms of the Creative Commons Attribution License (http://creativecommons.org/licenses/by/2.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</dcterms:license>
+               </file:file>
+            </escidocMetadataRecords:md-record>
+         </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+      <escidocComponents:component>
+         <escidocComponents:properties>
+            <prop:visibility>public</prop:visibility>
+            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+            <prop:mime-type>application/pdf</prop:mime-type>
+         </escidocComponents:properties>
+         <escidocComponents:content xlink:type="simple" xlink:title="1752-1947-5-391.pdf"
+                                    xlink:href="http://www.biomedcentral.com/content/pdf/1752-1947-5-391.pdf"
+                                    storage="internal-managed"/>
+         <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+               <file:file>
+                  <dc:title>1752-1947-5-391.pdf</dc:title>
+                  <dc:description>File downloaded from BioMed Central at 1900-01-01 00:00</dc:description>
+                  <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                  <dcterms:extent>583401</dcterms:extent>
+                  <dcterms:dateCopyrighted>2011</dcterms:dateCopyrighted>
+                  <dc:rights>Giotakis et al; licensee BioMed Central Ltd.</dc:rights>
+                  <dcterms:license>This is an Open Access article distributed under the terms of the Creative Commons Attribution License (http://creativecommons.org/licenses/by/2.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</dcterms:license>
+               </file:file>
+            </escidocMetadataRecords:md-record>
+         </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+   </escidocComponents:components>
+</escidocItem:item>
