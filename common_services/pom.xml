@@ -27,7 +27,7 @@
 	<packaging>pom</packaging>
 	<version>1.0.70-SNAPSHOT</version>
 	<name>common_services</name>
-	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
+	<url>http://pubman.mpdl.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
 	<licenses>
 		<license>
