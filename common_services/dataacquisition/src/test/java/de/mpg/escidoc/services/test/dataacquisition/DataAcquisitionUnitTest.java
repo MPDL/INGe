@@ -72,7 +72,6 @@ public class DataAcquisitionUnitTest
     }
     
     @Test
-    @Ignore
     public void fetchPmc() throws Exception
     {
         byte[] test = this.datahandler.doFetch("PubMedCentral", this.pmcId);
@@ -88,7 +87,6 @@ public class DataAcquisitionUnitTest
     }
     
     @Test
-    @Ignore
     public void fetchSpires() throws Exception
     {
         byte[] test = this.datahandler.doFetch("spires", this.spiresId);
