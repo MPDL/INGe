@@ -85,8 +85,11 @@ public class MultipleImport extends FacesBean
     public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
     public static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
     public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
-    public static final Format MARC_FORMAT = new Format("marcxml", "application/xml", "UTF-8");
+    public static final Format MARC21_FORMAT = new Format("marc21viaxml", "application/marc", "UTF-8");
+    public static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml", "UTF-8");
+    public static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
+    
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
     private UploadItem uploadedImportFile;
     
@@ -158,7 +161,9 @@ public class MultipleImport extends FacesBean
         importFormats.add(new SelectItem(EDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_EDOC")));
         importFormats.add(new SelectItem(ESCIDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
         importFormats.add(new SelectItem(ZFN_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ZFN")));
-        importFormats.add(new SelectItem(MARC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC")));
+        importFormats.add(new SelectItem(MARC21_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC21")));
+        importFormats.add(new SelectItem(MARCXML_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
+        importFormats.add(new SelectItem(BMC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BMC")));
         
         //Specialized formats
         //importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));

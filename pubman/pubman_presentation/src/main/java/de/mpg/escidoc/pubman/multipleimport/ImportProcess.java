@@ -45,11 +45,14 @@ import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.Status;
 import de.mpg.escidoc.pubman.multipleimport.processor.ArxivProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.BibtexProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.BmcProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EdocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EscidocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.MabProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.Marc21Processor;
+import de.mpg.escidoc.pubman.multipleimport.processor.MarcXmlProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.ZfNProcessor;
@@ -123,6 +126,12 @@ public class ImportProcess extends Thread
     private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
     private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
     public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
+    
+    private static final Format MARC21_FORMAT = new Format("marc21viaxml", "application/marc", "UTF-8");
+    private static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml", "UTF-8");
+    private static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
+
+    
     private String name;
     private long lastBeat = 0;
 
@@ -317,6 +326,18 @@ public class ImportProcess extends Thread
             else if (ZFN_FORMAT.matches(format))
             {
                 this.formatProcessor = new ZfNProcessor();
+            }
+            else if (BMC_FORMAT.matches(format))
+            {
+                this.formatProcessor = new BmcProcessor();
+            }
+            else if (MARCXML_FORMAT.matches(format))
+            {
+                this.formatProcessor = new MarcXmlProcessor();
+            }
+            else if (MARC21_FORMAT.matches(format))
+            {
+                this.formatProcessor = new Marc21Processor();
             }
             else
             {

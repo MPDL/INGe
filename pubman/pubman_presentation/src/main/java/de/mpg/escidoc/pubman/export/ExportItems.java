@@ -153,6 +153,7 @@ public class ExportItems extends FacesBean
     public SelectItem[] getEXPORTFORMAT_OPTIONS()
     {
         // constants for comboBoxes and HtmlSelectOneRadios
+        SelectItem EXPORTFORMAT_MARCXML = new SelectItem("MARCXML", getLabel("Export_ExportFormat_MARCXML"));
         SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
         SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
         SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML_V13", getLabel("Export_ExportFormat_ESCIDOC_XML"));
@@ -166,7 +167,7 @@ public class ExportItems extends FacesBean
 //        SelectItem EXPORTFORMAT_TEST = new SelectItem("Test", getLabel("Export_ExportFormat_TEST"));
         
 //        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
-        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
+        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
         return EXPORTFORMAT_OPTIONS;
     }
     
@@ -250,12 +251,18 @@ public class ExportItems extends FacesBean
         }
         else
         {
-                sb.setFileFormat(
-                        "ESCIDOC_XML".equals(selExportFormat) ?
-                            FileFormatVO.ESCIDOC_XML_V13_NAME : 
-                            //txt for all other
-                            FileFormatVO.TEXT_NAME
-                );
+        	String fileFormat=null;
+        	
+            if ("ESCIDOC_XML".equals(selExportFormat))
+				{fileFormat = FileFormatVO.ESCIDOC_XML_NAME;}
+    		else if ("MARCXML".equals(selExportFormat))
+				{fileFormat = FileFormatVO.ESCIDOC_XML_NAME;}
+    		else
+				{
+					//txt for all other
+	            	fileFormat = FileFormatVO.TEXT_NAME;
+	      		}
+    		sb.setFileFormat(fileFormat);
         }
         
     }
