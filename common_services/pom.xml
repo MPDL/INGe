@@ -892,6 +892,15 @@
 			</distributionManagement>
 		</profile>
 		<profile>
+			<id>env-release-build</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>				
+				<escidoc.common.release.build>true</escidoc.common.release.build>
+			</properties>
+		</profile>
+		<profile>
 			<!-- this profile gets activated if os is windows -->
 			<id>Windows</id>
 			<activation>

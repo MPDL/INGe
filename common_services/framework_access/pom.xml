@@ -198,11 +198,47 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>env-testing-continuum</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.3</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+                                        <!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" todir="${jboss.install.dir}/server/${jboss.install.node}/conf/search/config/index/item_container_admin" />
+                                        <!-- copy over the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt" todir="${jboss.install.dir}/server/${jboss.install.node}/conf/search/config/index/escidoc_all" />
+                                       
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.1</version>
+			<version>4.9</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

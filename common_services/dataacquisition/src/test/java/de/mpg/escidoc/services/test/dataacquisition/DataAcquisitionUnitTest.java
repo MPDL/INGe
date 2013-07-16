@@ -29,8 +29,11 @@
 */ 
 
 package de.mpg.escidoc.services.test.dataacquisition;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
@@ -38,6 +41,9 @@ import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.Util;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
+
+import org.junit.*;
 
 /**
  * Test suite for unit test of dataAcquisition service.
@@ -48,11 +54,18 @@ public class DataAcquisitionUnitTest
 {
     private DataHandlerBean datahandler = new DataHandlerBean();
     
-    private String arxivId = "arXiv:0904.3933";
-    private String pmcId = "PMC2043518";
-    private String bmcId = "1472-6890-9-1";
-    private String spiresId ="hep-ph/0001001 ";
-    private String escidocId = "TODO";
+    private final static String arxivId = "arXiv:0904.3933";
+    private final static String pmcId = "PMC2043518";
+    private final static String bmcId = "1472-6890-9-1";
+    private final static String spiresId ="hep-ph/0001001 ";
+    private final static String escidocId = "TODO";
+    
+    @Before
+    public void setup() throws Exception
+    {
+        // skip tests in case of a release build
+        Assume.assumeTrue(!PropertyReader.getProperty("escidoc.common.release.build").equals("true"));
+    }
 
     @Test
     @Ignore
@@ -64,32 +77,30 @@ public class DataAcquisitionUnitTest
     }
     
     @Test
-    @Ignore
     public void fetchArxiv() throws Exception
     {
-        byte[] test = this.datahandler.doFetch("arxiv", this.arxivId);
+        byte[] test = this.datahandler.doFetch("arxiv", arxivId);
         Assert.assertNotNull(test);
     }
     
     @Test
     public void fetchPmc() throws Exception
     {
-        byte[] test = this.datahandler.doFetch("PubMedCentral", this.pmcId);
+        byte[] test = this.datahandler.doFetch("PubMedCentral", pmcId);
         Assert.assertNotNull(test);
     }
     
     @Test
-    @Ignore
     public void fetchBmc() throws Exception
     {
-        byte[] test = this.datahandler.doFetch("BioMed Central", this.bmcId);
+        byte[] test = this.datahandler.doFetch("BioMed Central", bmcId);
         Assert.assertNotNull(test);
     }
     
     @Test
     public void fetchSpires() throws Exception
     {
-        byte[] test = this.datahandler.doFetch("spires", this.spiresId);
+        byte[] test = this.datahandler.doFetch("spires", spiresId);
         Assert.assertNotNull(test);
     }
     
@@ -98,7 +109,7 @@ public class DataAcquisitionUnitTest
     //TODO: test with item after update of metadata on live server
     public void fetcheSciDoc() throws Exception
     {
-        byte[] test = this.datahandler.doFetch("escidoc", this.escidocId);
+        byte[] test = this.datahandler.doFetch("escidoc", escidocId);
         Assert.assertNotNull(test);
     }
     
@@ -107,7 +118,6 @@ public class DataAcquisitionUnitTest
      * @throws Exception
      */
     @Test
-    @Ignore
     public void fetchItemInSpecificFormatTest() throws Exception
     {
         DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();        
@@ -119,7 +129,7 @@ public class DataAcquisitionUnitTest
         for (int i = 0; i < formats.size(); i++)
         {
             ret = null;
-            ret = this.datahandler.doFetch("arxiv", this.arxivId, formats.get(i).getName());
+            ret = this.datahandler.doFetch("arxiv", arxivId, formats.get(i).getName());
             Assert.assertNotNull(ret);
         }       
     }
