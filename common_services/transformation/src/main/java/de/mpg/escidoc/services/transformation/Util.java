@@ -402,7 +402,7 @@ public class Util
         catch (Exception e)
         {
             logger.error("Error querying CoNE service. This is normal during unit tests. (" + queryUrl +
-            		") .Otherwise it should be clarified if any measures have to be taken.");
+            		") .Otherwise it should be clarified if any measures have to be taken.", e);
             logger.debug("Stacktrace", e);
             return null;
             //throw new RuntimeException(e);
@@ -457,7 +457,7 @@ public class Util
         catch (Exception e)
         {
             logger.error("Error querying CoNE service. This is normal during unit tests. (" + queryUrl +
-                    ") .Otherwise it should be clarified if any measures have to be taken.");
+                    ") .Otherwise it should be clarified if any measures have to be taken.", e);
             logger.debug("Stacktrace", e);
             return null;
             //throw new RuntimeException(e);
