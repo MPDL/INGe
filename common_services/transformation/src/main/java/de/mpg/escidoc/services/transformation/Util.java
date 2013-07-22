@@ -371,12 +371,13 @@ public class Util
                         GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle=" + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                         detailMethod.setFollowRedirects(true);
                         
-                        logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                        
                         if (coneSession != null)
                         {
                             detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
                         }
                         ProxyHelper.executeMethod(client, detailMethod);
+                        logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
 
                         if (detailMethod.getStatusCode() == 200)
                         {
