@@ -641,7 +641,7 @@
 			<xsl:for-each select="
 				E[
 					$refType =   
-					('Book', 'Edited Book', 'Report', 'Conference Proceedings', 'Book Section')
+					('Book', 'Edited Book', 'Report', 'Conference Proceedings', 'Book Section', 'Conference Paper')
 				]
 				|
 				Y[
@@ -886,7 +886,7 @@
 							<xsl:with-param name="gen" select="$gen"/>
 						</xsl:call-template>					
 					</xsl:when>
-					<xsl:when test="$refType = ('Conference Proceedings', 'Conference Paper', 'Electronic Book')">
+					<xsl:when test="$refType = ('Conference Proceedings', 'Electronic Book')">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 							<xsl:with-param name="gen" select="$gen"/>

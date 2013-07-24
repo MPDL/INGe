@@ -2658,6 +2658,11 @@
 				<dc:identifier xsi:type="eterms:OTHER"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
 		</xsl:if>
+		<xsl:if test="$import-name = 'CPFS'">
+			<xsl:for-each select="../relations/relation[@type = 'isbn' and @reltype='hasreferences']">
+				<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="identifier"/></dc:identifier>
+			</xsl:for-each>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- 
@@ -3651,6 +3656,10 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIEM'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Experimental Medicine')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPISOC'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Social Law and Social Policy')"/>
+							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' escidoc:persistent22'))"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
