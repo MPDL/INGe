@@ -4,19 +4,19 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class TestInitialDataSet
 {    
-    private InitialDataset ds;
+    private static InitialDataset ds;
     private String ouDefId = null;
     private String ctxDefId = null;
     
-    @Before
-    public void setup() throws Exception
+    @BeforeClass
+    public static void setup() throws Exception
     {
         ds = new InitialDataset(new URL(PropertyReader.getProperty("escidoc.framework_access.framework.url")), 
                 PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));

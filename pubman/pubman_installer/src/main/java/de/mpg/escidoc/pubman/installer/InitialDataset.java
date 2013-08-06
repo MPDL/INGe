@@ -69,7 +69,7 @@ public class InitialDataset
 
     public InitialDataset(URL frameworkUrl, String username, String password) throws ServiceException, IOException, URISyntaxException
     {
-        logger = Logger.getLogger(Installer.class);
+        logger = Logger.getLogger(InitialDataset.class);
         logger.info("FrameworkURL '" + frameworkUrl +"'");
         logger.info("username '" + username +"'" + " password '" + password +"'");
                

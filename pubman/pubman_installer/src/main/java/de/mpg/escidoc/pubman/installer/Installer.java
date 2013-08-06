@@ -162,6 +162,9 @@ public class Installer extends InstallerBase
         copyFile(PID_CACHE_FILENAME, deployDir);
         Thread.sleep(1000);
         copyFile(PUBMAN_EAR_FILENAME, deployDir);
+        
+        File f = new File("pubman.properties");
+        f.delete();  
     }
 
     public void collectCoreserviceDataFromUser() throws IOException

@@ -262,7 +262,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         configPubman.setProperties(userConfigValues);
         configPubman.storeProperties("pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
         // also store in local pubman properties
-        configPubman.store("pubman.properties");
+//        configPubman.store("pubman.properties");
         
         // update framework policies and set the role identifier properties for the two CoNE roles
         this.updatePolicies(authConfigValues);
@@ -271,7 +271,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
         configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
         // also store in local auth properties, cone properties
-        configAuth.store("auth.properties");
+//        configAuth.store("auth.properties");
         
         configAuth.storeXml("conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
         
