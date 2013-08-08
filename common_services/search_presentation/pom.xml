@@ -65,4 +65,31 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	
+	<profiles>
+		<profile>
+			<id>env-development</id>
+			<properties />
+			<build>
+			<plugins>
+			<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-war-plugin</artifactId>
+        		<configuration>
+        			<warSourceExcludes>${project.basedir}/src/main/webapp/SearchAndExportRest_sample.jsp</warSourceExcludes>
+        			<webResources>
+            			<resource>
+            				<!-- targetPath>WEB-INF/classes</targetPath-->
+              				<directory>${project.basedir}/src/main/webapp/mpg</directory>             				
+              				<includes>
+                				<include>**/*.jsp</include>
+              				</includes>
+            			</resource>
+          			</webResources>
+        		</configuration>
+      		</plugin>
+			</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
