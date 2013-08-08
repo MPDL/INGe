@@ -130,7 +130,7 @@
 				window.onunload=function(e){setStyleCookie();};
 		</script>
 
-		<link rel="search" href="opensearch_apa_html_all.xml" type="application/opensearchdescription+xml" title="eSciDoc SearchAndExport APA" />
+		<link rel="search" href="opensearch_apa.xml" type="application/opensearchdescription+xml" title="eSciDoc SearchAndExport APA" />
 		<link rel="search" href="opensearch_endnote_all.xml" type="application/opensearchdescription+xml" title="eSciDoc SearchAndExport EndNote" />
 
 	</head>
