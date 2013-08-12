@@ -199,7 +199,7 @@ public class Configuration
         
         while((line = br.readLine()) != null)
         {
-            logger.info("store read: " + line);
+            logger.debug("store read: " + line);
             
             if (typeXml == ReplaceType.TYPE_XML)
                 line = checkForReplaceXml(line);
@@ -207,7 +207,7 @@ public class Configuration
                 line = checkForReplaceProp(line);
             
             
-            logger.info("store  out: " + line);
+            logger.debug("store  out: " + line);
             pw.println(line);
         }
         
@@ -234,17 +234,17 @@ public class Configuration
         
             if (line.contains(key) && getProperty(key) != null)
             {
-                logger.info("checkForReplaceXml before replace: " + line);
+                logger.debug("checkForReplaceXml before replace: " + line);
                 
                 String variableToReplace = getVariableToReplace(key);
                 String value = getProperty(key);
-                logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <" + value + ">");
+                logger.debug("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <" + value + ">");
                 if(value.matches(variableToReplace))
                 {
                     value = "";
                 }
                 line = line.replaceAll(variableToReplace, value);
-                logger.info("checkForReplaceXml after replace: " + line);
+                logger.debug("checkForReplaceXml after replace: " + line);
             }
         }
             
@@ -272,7 +272,7 @@ public class Configuration
         String variableToReplace = oldLine.substring(idx + 1).trim();
         String value = getProperty(key);
         
-        logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
+        logger.debug("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
                 + value + ">");
         /*if (value == null || value.equals(variableToReplace))
         {
