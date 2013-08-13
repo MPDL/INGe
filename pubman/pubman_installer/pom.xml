@@ -54,6 +54,7 @@
 				<excludes>
 					<exclude>**/userInputSpec.xml*</exclude>
 					<exclude>**/conf.xml</exclude>
+					<exclude>**/pubman.properties</exclude>
 				</excludes>
 				<filtering>true</filtering>
 			</resource>
@@ -64,13 +65,6 @@
 				</includes>
 				<filtering>false</filtering>
 			</resource>
-			<resource>
-						<directory>src/main/resources/mpg</directory>
-						<includes>
-							<include>**/*.properties</include>
-						</includes>
-						<filtering>true</filtering>
-					</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -288,35 +282,7 @@
 		<version.izpack-standalone>4.3.0</version.izpack-standalone>
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
 	</properties>
-	<!--  
-	<profiles>
-		<profile>
-			<id>env-production-opensource</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<delete file="${project.build.outputDirectory}/pubman.properties" />
-										<copy file="${project.build.outputDirectory}/pubman.opensource.properties" tofile="${project.build.outputDirectory}/pubman.properties" />
-									</tasks>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		
-		</profile>
-	</profiles>
-	-->
+	
 	<profiles>
 		<profile>
 			<id>env-production-opensource</id>
@@ -332,17 +298,18 @@
 				<resources>
 					<resource>
 						<directory>src/main/resources/opensource</directory>
-						<includes>
-							<include>**/*.properties</include>
-						</includes>
 						<filtering>true</filtering>
+						<includes>
+							<include>pubman.properties</include>
+						</includes>
+						
 					</resource>
 					<resource>
 						<directory>src/main/resources/mpg</directory>
+						<filtering>false</filtering>
 						<excludes>
-							<exclude>**/*.*</exclude>
+							<exclude>pubman.properties</exclude>
 						</excludes>
-						<filtering>true</filtering>
 					</resource>
 				</resources>
 			</build>
@@ -367,9 +334,9 @@
 					<resource>
 						<directory>src/main/resources/opensource</directory>
 						<excludes>
-							<exclude>**/*.*</exclude>
+							<exclude>**/*.properties</exclude>
 						</excludes>
-						<filtering>true</filtering>
+						<filtering>false</filtering>
 					</resource>
 				</resources>
 			</build>		
