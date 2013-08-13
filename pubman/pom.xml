@@ -587,25 +587,25 @@
 		<jboss.property.2>com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0</jboss.property.2>
 		
 		<!-- version of the common_services dependencies -->
-		<version.aa_logic>0.2.9</version.aa_logic>
-		<version.aa_presentation>0.2.9</version.aa_presentation>
-		<version.citationmanager>1.0.76</version.citationmanager>
-		<version.common_logic>1.1.71</version.common_logic>
-		<version.common_presentation>1.0.60</version.common_presentation>
-		<version.cone>1.2.31</version.cone>
-		<version.cone_presentation>1.2.31</version.cone_presentation>
-		<version.dataacquisition>1.0.67</version.dataacquisition>
-		<version.dataacquisition_presentation>1.0.67</version.dataacquisition_presentation>
-		<version.framework_access>1.3.16</version.framework_access>
-		<version.pid_cache_presentation>0.1.34</version.pid_cache_presentation>
-		<version.search>1.1.5</version.search>
-		<version.search_presentation>1.1.5</version.search_presentation>
-		<version.structuredexportmanager>1.0.74</version.structuredexportmanager>
-		<version.sword_presentation>1.0.49</version.sword_presentation>
-		<version.syndication_presentation>1.0.55</version.syndication_presentation>
-		<version.transformation>1.0.59</version.transformation>
-		<version.validation>1.0.78</version.validation>
-		<version.validation_presentation>1.0.78</version.validation_presentation>
+		<version.aa_logic>0.2.10-SNAPSHOT</version.aa_logic>
+		<version.aa_presentation>0.2.10-SNAPSHOT</version.aa_presentation>
+		<version.citationmanager>1.0.77-SNAPSHOT</version.citationmanager>
+		<version.common_logic>1.1.72-SNAPSHOT</version.common_logic>
+		<version.common_presentation>1.0.61-SNAPSHOT</version.common_presentation>
+		<version.cone>1.2.32-SNAPSHOT</version.cone>
+		<version.cone_presentation>1.2.32-SNAPSHOT</version.cone_presentation>
+		<version.dataacquisition>1.0.68-SNAPSHOT</version.dataacquisition>
+		<version.dataacquisition_presentation>1.0.68-SNAPSHOT</version.dataacquisition_presentation>
+		<version.framework_access>1.3.17-SNAPSHOT</version.framework_access>
+		<version.pid_cache_presentation>0.1.35-SNAPSHOT</version.pid_cache_presentation>
+		<version.search>1.1.6-SNAPSHOT</version.search>
+		<version.search_presentation>1.1.6-SNAPSHOT</version.search_presentation>
+		<version.structuredexportmanager>1.0.75-SNAPSHOT</version.structuredexportmanager>
+		<version.sword_presentation>1.0.50-SNAPSHOT</version.sword_presentation>
+		<version.syndication_presentation>1.0.56-SNAPSHOT</version.syndication_presentation>
+		<version.transformation>1.0.60-SNAPSHOT</version.transformation>
+		<version.validation>1.0.79-SNAPSHOT</version.validation>
+		<version.validation_presentation>1.0.79-SNAPSHOT</version.validation_presentation>
 		
 		<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 		<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
