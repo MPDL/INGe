@@ -8,6 +8,7 @@
 	<info>
 		<appname>eSciDoc.PubMan</appname>
 		<appversion>@{project.version}</appversion>
+		<appsubpath>pubman</appsubpath>
 		<authors>
 			<author name="MPDL Development Team" email="pubman-support@gwdg.de"/>
 		</authors>
@@ -50,6 +51,7 @@
 		<res id="userInputSpec.xml" src="res/userInputSpec.xml" />
 		<res id="userInputLang.xml_eng" src="res/userInputLang.xml_eng" />
 		<res id="Heading.image" src="img/escidoc-logo-small.jpg" />
+		<res id="TargetPanel.dir.windows" src="res/TargetDir.windows" />
 	</resources>
 
     <!-- 
