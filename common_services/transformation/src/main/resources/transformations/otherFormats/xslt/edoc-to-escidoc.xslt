@@ -3652,7 +3652,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Digital Library')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIC'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Chemistry')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), '&quot;*Max Planck Institute for Chemistry*&quot;')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIEM'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Experimental Medicine')"/>

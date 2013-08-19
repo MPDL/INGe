@@ -35,12 +35,14 @@ public class MpisBibtexFormat extends AuthorFormat {
 
     @Override
     public String getPattern() {
-        return "^\\s*" + NAME + "(\\{\\})?" + ", +" + INITIALS + "( +and +" + NAME + "(\\{\\})?" + ", +" + INITIALS + ")*\\s*$";
+        System.out.println("NAME: " + NAME);
+        System.out.println("INITIALS: " + INITIALS);
+        return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED + "( +and +" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) {
-        System.out.println(getPattern());
+        System.out.println("MpisBibtexFormat-Pattern: " + getPattern());
         if (authorsString == null || !authorsString.contains("{}") || !authorsString.matches(getPattern())) {
             return null;
         }
@@ -59,7 +61,7 @@ public class MpisBibtexFormat extends AuthorFormat {
 
     @Override
     public int getSignificance() {
-        return 1;
+        return 2;
     }
 
     @Override

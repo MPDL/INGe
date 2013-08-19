@@ -66,8 +66,9 @@ public final class AuthorFormatList
         new LooseFormatWithInfoInBraces(),
         new ResidualFormat(),
         new EndnoteFormat(),
+        new MpisBibtexFormat(),
         new MpiKybFormat()
-        //new MpisBibtexFormat()
+        
 
     };
 
