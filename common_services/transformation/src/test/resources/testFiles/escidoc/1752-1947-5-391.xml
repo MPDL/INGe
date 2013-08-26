@@ -37,7 +37,8 @@
                   <eterms:family-name>Giotakis</eterms:family-name>
                   <eterms:given-name>Evangelos I</eterms:given-name>
                   <organization:organization>
-                     <dc:title>ENT Department, Städtisches Klinikum Karlsruhe, Moltkestrasse 90, 76133, Karlsruhe, Germany</dc:title>
+                     <dc:title>External Affiliation</dc:title>
+                     <dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
                   </organization:organization>
                </person:person>
             </eterms:creator>
@@ -47,7 +48,8 @@
                   <eterms:family-name>Hildenbrand</eterms:family-name>
                   <eterms:given-name>Tanja</eterms:given-name>
                   <organization:organization>
-                     <dc:title>ENT Department, Städtisches Klinikum Karlsruhe, Moltkestrasse 90, 76133, Karlsruhe, Germany</dc:title>
+                     <dc:title>External Affiliation</dc:title>
+                     <dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
                   </organization:organization>
                </person:person>
             </eterms:creator>
@@ -57,7 +59,8 @@
                   <eterms:family-name>Dodenhöft</eterms:family-name>
                   <eterms:given-name>Joachim</eterms:given-name>
                   <organization:organization>
-                     <dc:title>ENT Department, Städtisches Klinikum Karlsruhe, Moltkestrasse 90, 76133, Karlsruhe, Germany</dc:title>
+                     <dc:title>External Affiliation</dc:title>
+                     <dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
                   </organization:organization>
                </person:person>
             </eterms:creator>
@@ -77,7 +80,12 @@
                <eterms:sequence-number>5:391</eterms:sequence-number>
                <dc:identifier xsi:type="eterms:ISSN">1752-1947</dc:identifier>
             </source:source>
-            <dcterms:abstract xml:lang="eng">IntroductionSudden swelling of the neck is an emergency situation that can be life-threatening for the patient. Therefore, an understanding of the possible underlying pathology is of great importance. Sudden massive swelling of the neck because of intralesional bleeding of a thyroid adenoma is seldom encountered but must be considered. Such massive swelling caused by spontaneous bleeding of a thyroid adenoma has not yet been described in the literature.Case presentationWe report the case of a 71-year-old Caucasian man with sudden massive neck swelling due to intralesional bleeding of a thyroid adenoma. We present his clinical history, physical examination results, computed tomography (CT) scans, and histological findings after surgery. He presented with sudden massive swelling of the left side of his neck after sneezing while working with his hands over his head. An ear, nose, and throat examination showed a painless swelling of the left side of his neck and a displacement of his larynx to the right. CT scans revealed a mass originating from the left lobe of his thyroid gland and the mass displaced his larynx and trachea. A surgical exploration showed a greatly enlarged left lobe of his thyroid gland. A histopathological examination showed a hemorrhagic infarction of a follicular thyroid adenoma.ConclusionsSudden intralesional bleeding of a thyroid adenoma is a rare condition but one that should be considered in cases of sudden and massive swelling of the neck.</dcterms:abstract>
+            <dcterms:abstract xml:lang="eng">Introduction
+Sudden swelling of the neck is an emergency situation that can be life-threatening for the patient. Therefore, an understanding of the possible underlying pathology is of great importance. Sudden massive swelling of the neck because of intralesional bleeding of a thyroid adenoma is seldom encountered but must be considered. Such massive swelling caused by spontaneous bleeding of a thyroid adenoma has not yet been described in the literature.
+Case presentation
+We report the case of a 71-year-old Caucasian man with sudden massive neck swelling due to intralesional bleeding of a thyroid adenoma. We present his clinical history, physical examination results, computed tomography (CT) scans, and histological findings after surgery. He presented with sudden massive swelling of the left side of his neck after sneezing while working with his hands over his head. An ear, nose, and throat examination showed a painless swelling of the left side of his neck and a displacement of his larynx to the right. CT scans revealed a mass originating from the left lobe of his thyroid gland and the mass displaced his larynx and trachea. A surgical exploration showed a greatly enlarged left lobe of his thyroid gland. A histopathological examination showed a hemorrhagic infarction of a follicular thyroid adenoma.
+Conclusions
+Sudden intralesional bleeding of a thyroid adenoma is a rare condition but one that should be considered in cases of sudden and massive swelling of the neck.</dcterms:abstract>
             <dcterms:tableOfContents>Introduction
 Case presentation
 Discussion

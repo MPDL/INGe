@@ -197,7 +197,7 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
 					                {
 					                    for (String key : configuration.keySet())
 					                    {
-					                        System.out.println("ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
+					                    	logger.debug("[MarcXMLToEscidocTransformation] ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
 					                        transformer.setParameter(key, configuration.get(key));
 					                    }
 					                }

@@ -133,7 +133,10 @@ public class BmcToEscidocTransformation implements Transformation, Configurable
 			throws TransformationNotSupportedException, RuntimeException
 			{
 		
-			System.out.println("[BmcToEscidocTransformation] CatalogManager uses following catalogs: " + CatalogManager.getStaticManager().getCatalogFiles());
+			if (runInTestmode)
+				{
+					logger.debug("[BmcToEscidocTransformation] CatalogManager uses following catalogs: " + CatalogManager.getStaticManager().getCatalogFiles());
+				}
 		
 			if(Util.isFormatEqual(srcFormat, BMC_FORMAT) && 
 				(Util.isFormatEqual(trgFormat, ESCIDOC_ITEM_FORMAT)) || Util.isFormatEqual(trgFormat, ESCIDOC_ITEM_LIST_FORMAT) )
@@ -240,6 +243,7 @@ public class BmcToEscidocTransformation implements Transformation, Configurable
 							if (runInTestmode) 
 								{
 									transformer.setParameter("{http://www.editura.de/ns/2012/misc}run-in-testmode", "true");
+									transformer.setParameter("{http://www.editura.de/ns/2012/misc}logging-level", "DEBUG");
 								}
 				
 							String ns_prefix_xsd_soap_common_srel;
@@ -256,7 +260,7 @@ public class BmcToEscidocTransformation implements Transformation, Configurable
 			                {
 			                    for (String key : configuration.keySet())
 			                    {
-			                        System.out.println("ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
+			                        logger.debug("[BmcToEscidocTransformation] ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
 			                        transformer.setParameter(key, configuration.get(key));
 			                    }
 			                }
