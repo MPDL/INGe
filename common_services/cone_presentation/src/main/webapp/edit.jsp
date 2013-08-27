@@ -55,6 +55,7 @@
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
+<%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
 
 <%!
 	List<String> errors;
@@ -142,21 +143,21 @@
 									out.append(" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"");
 									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
-									    out.append(predicate.getDefault(request));
+									    out.append(HtmlUtils.escapeHtml(predicate.getDefault(request)));
 									}
 									else
 									{
 									    if (object instanceof TreeFragment)
 									    {
-									        out.append(((TreeFragment) object).getSubject());
+									        out.append(HtmlUtils.escapeHtml(((TreeFragment) object).getSubject()));
 									    }
 									    else if (object instanceof LocalizedString)
 									    {
-									        out.append(((LocalizedString) object).getValue());
+									        out.append(HtmlUtils.escapeHtml(((LocalizedString) object).getValue()));
 									    }
 									    else
 									    {
-									        out.append(object.toString());
+									        out.append(HtmlUtils.escapeHtml(object.toString()));
 									    }
 									    
 									}
@@ -174,7 +175,7 @@
 	
 				            	    if (predicate.isLocalized())
 					                {
-					                    out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
+					                    out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? HtmlUtils.escapeHtml(object.getLanguage()) : "") + "\"");
 										out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
 										out.append("/>");
 										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'iso639-1', true)</script>");

@@ -41,6 +41,7 @@
 <%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
 <%@ page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject" %>
 <%@ page import="java.io.StringWriter" %>
+<%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
 
 <%!
 
@@ -87,7 +88,7 @@
    		    				{
    		    				 	writer.append("<span class=\"xDouble_area0 singleItem endline\">");
    		    	     				writer.append("<span class=\"xDouble_area0\">");
-   		    							writer.append(node.toString());
+   		    							writer.append(HtmlUtils.escapeHtml(node.toString()));
    		    	    				writer.append("</span>");
    		    	    			writer.append("</span>");
    		    				}

@@ -27,6 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@page import="de.mpg.escidoc.services.cone.util.UrlHelper"%>
 <%@page import="de.mpg.escidoc.services.cone.web.Login"%>
@@ -72,6 +73,7 @@
 	boolean loggedIn = Login.getLoggedIn(request);
 	
 	String searchterm = UrlHelper.fixURLEncoding(request.getParameter("searchterm"));
+	pageContext.setAttribute("searchterm", searchterm);
 	
 	if (searchterm != null && !"".equals(searchterm))
 	{
@@ -125,7 +127,7 @@
 											<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
 										<% } %>
 										</select>
-										<input type="text" class="half_txtInput" name="searchterm" value="<%= (searchterm != null ? searchterm : "") %>" />
+										<input type="text" class="half_txtInput" name="searchterm" value="${searchterm != null ? fn:escapeXml(searchterm) : ''}" />
 										<select class="small_select" size="1" name="lang">
 											<option value="">--</option>
 											<option value="de" <% if ("de".equals(request.getParameter("lang"))) { %>selected<% } %>>german</option>
