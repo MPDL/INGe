@@ -47,6 +47,7 @@
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
+<%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
 
 <%
 	
@@ -167,7 +168,7 @@
 													<div class="free_area0 endline itemLine">
 												<% }; i++; %>
 														<b class="xHuge_area0 large_marginLIncl endline clear">
-															<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue().toString() %></a>
+															<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= HtmlUtils.escapeHtml(pair.getValue().toString()) %></a>
 														</b>
 														
 													<%	for (ModelList.Model model : ModelList.getInstance().getList()) {
