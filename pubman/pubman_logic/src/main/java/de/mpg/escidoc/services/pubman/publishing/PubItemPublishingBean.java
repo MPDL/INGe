@@ -110,8 +110,8 @@ public class PubItemPublishingBean implements PubItemPublishing
             PubItemNotFoundException,
             PubItemLockedException,
             SecurityException
-    {
-
+    {       
+        long gstart = System.currentTimeMillis();
         if (pubItemRef == null)
         {
             throw new IllegalArgumentException(getClass() + ".releasePubItem: pubItem reference is null.");
@@ -121,6 +121,9 @@ public class PubItemPublishingBean implements PubItemPublishing
             throw new IllegalArgumentException(getClass() +
                     ".releasePubItem: pubItem reference does not contain an objectId.");
         }
+        
+        LOGGER.info("*** start release of <" + pubItemRef.getObjectId() + "> ");
+        
         if (user == null)
         {
             throw new IllegalArgumentException(getClass() + ".releasePubItem: user is null.");
@@ -143,6 +146,7 @@ public class PubItemPublishingBean implements PubItemPublishing
 
             if(actualItemVO.getPid()==null || actualItemVO.getPid().equals(""))
             {
+                long start = System.currentTimeMillis();
                 // Build PidParam
                 url = PropertyReader.getProperty("escidoc.pubman.instance.url") + 
                 PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
@@ -166,6 +170,8 @@ public class PubItemPublishingBean implements PubItemPublishing
                     LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
                     LOGGER.debug("Stacktrace:", e);
                 }
+                long end = System.currentTimeMillis();
+                LOGGER.info("assign object PID for <" + pubItemRef.getObjectId() + "> needed <" + (end - start)  + "> msec" );
                 // Retrieve the item to get last modification date
                 actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
     
@@ -175,6 +181,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             
             if(actualItemVO.getVersion().getPid()==null || actualItemVO.getVersion().getPid().equals(""))
             {
+                long start = System.currentTimeMillis();
                 // Build PidParam
                 url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
                     PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
@@ -202,12 +209,15 @@ public class PubItemPublishingBean implements PubItemPublishing
                 catch (Exception e) {
                     LOGGER.warn("Version PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
                 }
+                long end = System.currentTimeMillis();
+                LOGGER.info("assign version PID for <" + pubItemRef.getObjectId() + "> needed <" + (end - start)  + "> msec" );
             }
           
 
             // Loop over files
             for (FileVO file : actualItemVO.getFiles())
             {
+                long start = System.currentTimeMillis();
                 if(file.getPid()==null || file.getPid().equals(""))
                 {
                     // Build PidParam
@@ -237,12 +247,11 @@ public class PubItemPublishingBean implements PubItemPublishing
                     }
                     catch (Exception e) {
                         
-                        LOGGER.debug("Error: ", e);
-                        
-                        LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
+                        LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
                     }
                 }
-               
+                long end = System.currentTimeMillis();
+                LOGGER.info("assign content PID for " + pubItemRef.getObjectId() + "> needed <" + (end - start)  + "> msec" );
 
             }
 
@@ -253,7 +262,11 @@ public class PubItemPublishingBean implements PubItemPublishing
             // Release the item
             TaskParamVO param = new TaskParamVO(actualItemVO.getModificationDate(), releaseComment);
             paramXml = xmlTransforming.transformToTaskParam(param);
+            
+            long s = System.currentTimeMillis();
             itemHandler.release(pubItemRef.getObjectId(), paramXml);
+            long e = System.currentTimeMillis();
+            LOGGER.info("pure itemHandler.release item " + pubItemRef.getObjectId() + "> needed <" + (e - s)  + "> msec" );
 
             if (LOGGER.isDebugEnabled())
             {
@@ -280,6 +293,10 @@ public class PubItemPublishingBean implements PubItemPublishing
         {
             ExceptionHandler.handleException(e, getClass() + ".releasePubItem");
         }
+        
+        long gend = System.currentTimeMillis();
+        LOGGER.info("*** total release of <" + pubItemRef.getObjectId() + "> needed <" + (gend - gstart)  + "> msec" );
+        
 
     }
 
