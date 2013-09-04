@@ -58,7 +58,7 @@
 			</li>
 			<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 			<li>use the
-				<h:commandLink id="lnkMultipleImport_en" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport_en" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 					<h:outputText value="Import"/>
 				</h:commandLink>. Here you can upload multiple items out of various formats.
 			</li>	
@@ -108,7 +108,7 @@
 		Sie haben verschiedene Möglichkeiten, neue Publikationen in PubMan anzulegen. Verwenden Sie
 		<ul style="list-style-position: outside">
 			<li>die 
-				<h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:commandLink id="lnkEasySubmission_de" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Hier können Sie die grundlegenden Metadaten zu einer Publikation eintragen.
 			</li>
@@ -124,7 +124,7 @@
 			</li>
 			<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 			<li>den 
-				<h:commandLink id="lnkMultipleImport_de" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport_de" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 					<h:outputText value="Import" />
 				</h:commandLink>. Hier können Sie größere Mengen von Datensätzen aus verschiedenen Formaten hochladen.
 			</li>
@@ -172,7 +172,7 @@
 		<h2>新規登録</h2>
 		文献資料をPubManへ登録する
 		<ul style="list-style-position: outside">
-			<li>... <h:commandLink id="lnkEasySubmission_jp" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+			<li>... <h:commandLink id="lnkEasySubmission_jp" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 			</li> 
@@ -186,7 +186,7 @@
 			</li>
 			<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 			<li>...
-				<h:commandLink id="lnkMultipleImport_jp" title="tip.submission_lnkMultipleImport" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport_jp" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 					<h:outputText value="Import"/>
 				</h:commandLink>
 			</li>
@@ -230,7 +230,7 @@
 		<h2>新規登録</h2>
 		文献資料をPubManへ登録する
 		<ul style="list-style-position: outside">
-			<li>... <h:commandLink id="lnkEasySubmission_es" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+			<li>... <h:commandLink id="lnkEasySubmission_es" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink> </li>
 			<li>... <h:commandLink id="lnkImport_es" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
