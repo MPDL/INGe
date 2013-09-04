@@ -468,10 +468,15 @@ public class PubItemDepositingBean implements PubItemDepositing
      */
     public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException, PubManException, ItemInvalidException, URISyntaxException, AuthorizationException
     {
+        long gstart = System.currentTimeMillis();
+        
         if (pubItem == null)
         {
             throw new IllegalArgumentException(getClass() + ".submitPubItem: pubItem is null.");
         }
+        
+        logger.info("*** start submit of <" + pubItem.getLatestRelease().getObjectId() + ">");
+        
         if (user == null)
         {
             throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
@@ -488,7 +493,10 @@ public class PubItemDepositingBean implements PubItemDepositing
         // Validate the item
         try
         {
+            long start = System.currentTimeMillis();
             ValidationReportVO report = itemValidating.validateItemObject(pubItem, VALIDATION_POINT_SUBMIT);
+            long end = System.currentTimeMillis();
+            logger.info("validation of <" + pubItem.getLatestRelease().getObjectId() + "> needed <" + (end - start)  + "> msec" );
             if (!report.isValid())
             {
                 throw new ItemInvalidException(report);
@@ -506,8 +514,11 @@ public class PubItemDepositingBean implements PubItemDepositing
         try
         {
             TaskParamVO taskParam = new TaskParamVO(savedPubItem.getModificationDate(), submissionComment);
+            long s1 = System.currentTimeMillis();
             itemHandler.submit(savedPubItem.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
             ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { savedPubItem.getVersion().getObjectId(), user.getUserid() });
+            long e1 = System.currentTimeMillis();
+            logger.info("pure itemHandler.submit item " + pubItem.getLatestRelease().getObjectId() + "> needed <" + (e1 - s1)  + "> msec" );
 
             // Retrieve item once again.
             String item = itemHandler.retrieve(savedPubItem.getVersion().getObjectId());
@@ -525,6 +536,9 @@ public class PubItemDepositingBean implements PubItemDepositing
         {
             ExceptionHandler.handleException(e, "PubItemDepositing.submitPubItem");
         }
+        
+        long gend = System.currentTimeMillis();
+        logger.info("*** total submit of <" + pubItem.getLatestRelease().getObjectId() + "> needed <" + (gend - gstart)  + "> msec" );
         return pubItemActual;
     }
 
