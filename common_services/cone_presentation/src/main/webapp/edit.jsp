@@ -66,6 +66,8 @@
 	HttpServletRequest request = null;
 	Querier querier = null;
 	
+	String sessionAttributePrefix = "coneSubSession_";
+	
 
 	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn)
 	{
@@ -92,18 +94,20 @@
 						for (LocalizedTripleObject object : results.get(predicate.getId()))
 						{
 							out.append(object.toString());
+							
 							if (object instanceof TreeFragment)
 						    {
-						        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
+						        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
 						    }
 						    else if (object instanceof LocalizedString)
 						    {
-						        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
+						        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
 						    }
 						    else
 						    {
-						        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+						        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
 						    }
+							
 						}
 					}
 					else
@@ -237,22 +241,22 @@
 									{
 			                	        String defaultValue = predicate.getDefault(request);
 									    out.append(predicate.getDefault(request));
-									    request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
+									    request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
 									}
 									else
 									{
 									    out.append(object.toString());
 									    if (object instanceof TreeFragment)
 									    {
-									        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
+									        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
 									    }
 									    else if (object instanceof LocalizedString)
 									    {
-									        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
+									        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
 									    }
 									    else
 									    {
-									        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+									        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
 									    }
 									}
 			                	}
@@ -406,7 +410,7 @@
 					{
                	        String defaultValue = predicate.getDefault(request);
 					    out.append(predicate.getDefault(request));
-					    request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
+					    request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
 					}
 			        else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
 			        {
@@ -438,13 +442,14 @@
         {
             String paramName = prefix + predicate.getId().replaceAll("[/:.]", "_");
             String[] paramValues = request.getParameterValues(paramName);
-            if (!predicate.isModify() && predicate.getDefaultValue() != null && request.getSession().getAttribute(paramName) != null)
+            if (!predicate.isModify() && predicate.getDefaultValue() != null && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
             {
-                paramValues = new String[]{(String) request.getSession().getAttribute(paramName)};
+                paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
             }
-            else if (model.getIdentifier() != null && model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && request.getSession().getAttribute(paramName) != null)
+            
+            else if (model.getIdentifier() != null && model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
             {
-                paramValues = new String[]{(String) request.getSession().getAttribute(paramName)};
+                paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
             }
             String[] langValues = request.getParameterValues(paramName + "_lang");
             List<LocalizedTripleObject> objects = new ArrayList<LocalizedTripleObject>();
@@ -598,12 +603,26 @@
     
 	if ("true".equals(request.getParameter("form")))
 	{
-	    if (!model.isControlled() && !model.isGenerateIdentifier() && model.getIdentifier() == null && request.getParameter("cone_identifier") != null)
+	    if (!model.isGenerateIdentifier() && request.getParameter("cone_identifier") != null)
 	    {
 	        results.setSubject(request.getParameter("cone_identifier"));
 	    }
 
 		mapFormValues(model, model.getPredicates(), request, paramNames, results, "");
+	}
+	//First call edit.jsp (just GET request, no form submission)
+	else
+	{
+		//remove old session attributes
+		for(Enumeration e = request.getSession().getAttributeNames(); e.hasMoreElements(); )
+		{
+			String attrName = (String)e.nextElement();
+			if(attrName.startsWith(sessionAttributePrefix))
+			{
+				request.getSession().removeAttribute(attrName);
+			}
+		}
+			
 	}
 	
 	boolean form = ("true".equals(request.getParameter("form")));
@@ -738,8 +757,10 @@
 		    messages.add("Entry saved.");
         }
 	}
+	//Edit existing entity
 	else if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
+		//First call of edit existing entity (just GET request, no form submission)
 	    if (!form)
 	    {
 	    	results = querier.details(modelName, uri, "*");
@@ -747,6 +768,7 @@
 	    errors = new ArrayList<String>();
 		messages = new ArrayList<String>();
 	}
+	
 %>
 
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%>
