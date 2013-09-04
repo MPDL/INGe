@@ -646,7 +646,7 @@
 				</group>
 				<group id="total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_total_number_of_pages"/>
 				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
-				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all" label="g_review_method"/>
+				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all" label="g_review_method"/>
 				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all" label="g_item_degree"/>
 				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all" label="g_item_location"/>
 				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
@@ -666,7 +666,7 @@
 				</group>
 				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_total_number_of_pages"/>
 				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
-				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all" label="g_review_method"/>
+				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all" label="g_review_method"/>
 				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all" label="g_item_degree"/>
 				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all" label="g_item_location"/>
 				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
