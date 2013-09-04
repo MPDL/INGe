@@ -111,10 +111,10 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		</aliases>
 		<description>Languages</description>
 		<open>false</open>
-		<primary-identifier control="false" subject-prefix="iso639-1/resource/" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="true" subject-prefix="iso639-1/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
 			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3" shouldBeUnique="true"/>
-			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 		</predicates>
 		<results>
 			<result>
@@ -134,10 +134,10 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		</aliases>
 		<description>Languages</description>
 		<open>false</open>
-		<primary-identifier control="false" subject-prefix="iso639-2/resource/" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="true" subject-prefix="iso639-2/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
 			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="false" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3" shouldBeUnique="true"/>
-			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="false" localized="true" searchable="true" shouldBeUnique="true"/>
 		</predicates>
 		<results>
@@ -161,10 +161,10 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 		</aliases>
 		<description>Languages</description>
 		<open>false</open>
-		<primary-identifier control="true" subject-prefix="iso639-3/resource/" generate-cone-id="false"/>
+		<primary-identifier control="true" subject-prefix="iso639-3/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
-			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Geo location" value="http://earth.google.com/kml/2.1 coordinates" multiple="false" localized="false" searchable="true" mandatory="false"/>
 		</predicates>
 		<results>
@@ -282,7 +282,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 		</aliases>
 		<description>DDC Subjects</description>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false">http://dewey.info/class</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false" subject-prefix="ddc/resource/">http://dewey.info/class</primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
 			<predicate name="DDC Code" value="http://dewey.info/class" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
@@ -303,7 +303,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			<alias>mpipks</alias>
 		</aliases>
 		<description>MPI PKS Subject Classification</description>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="mpipks/resource/"></primary-identifier>
+		<primary-identifier control="false" generate-cone-id="true" subject-prefix="mpipks/resource/"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
 		</predicates>
@@ -416,7 +416,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}: &gt;
 		</aliases>
 		<description>Group classification for MPI for Solar System Research</description>
 		<open>true</open>
-		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="false" generate-cone-id="true"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="false" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" localized="false" mandatory="false" multiple="false" modify="true" resourceModel="mpis-groups" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
@@ -438,7 +438,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}::
 		</aliases>
 		<description>Project classification for MPI for Solar System Research</description>
 		<open>true</open>
-		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="false" generate-cone-id="true"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="false" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" localized="false" mandatory="false" multiple="false" modify="true" resourceModel="mpis-projects" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
@@ -460,7 +460,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}::
 		</aliases>
 		<description>Imago Thesaurus</description>
 		<open>true</open>
-		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="true" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" localized="true" mandatory="false" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
