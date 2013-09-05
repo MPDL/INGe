@@ -63,6 +63,8 @@
 	<variable name="l_festschrift"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/festschrift']]></variable>
 	<variable name="l_handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/handbook']]></variable>
 	<variable name="l_editorial"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/editorial']]></variable>
+	<variable name="l_multi-volume"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/multi-volume']]></variable>
+	
 	
 
 	<!-- creator labels -->

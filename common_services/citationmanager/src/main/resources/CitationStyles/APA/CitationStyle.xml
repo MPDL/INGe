@@ -666,7 +666,7 @@
 	-->
 	<cs-layout-definition name="manuscript">
 		<parameters>
-			<valid-if><![CDATA[$genre = ($l_manuscript, $l_opinion)]]></valid-if>
+			<valid-if><![CDATA[$genre = $l_manuscript]]></valid-if>
 			<ends-with value=" Unpublished Manuscript." />
 		</parameters>
 		<elements>
@@ -680,7 +680,7 @@
 	<!-- SERIES -->
 	<cs-layout-definition name="series">
 		<parameters>
-			<valid-if><![CDATA[$genre = $l_series]]></valid-if>
+			<valid-if><![CDATA[$genre = ($l_series, l_multi-volume)]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -885,6 +885,24 @@
 
 	</cs-layout-definition>
 
+
+	<!-- OPINION -->
+	<!--
+		Author, A. A., & Author, B. (Year of Publication). Title of
+		manuscript.
+	-->
+	<cs-layout-definition name="manuscript">
+		<parameters>
+			<valid-if><![CDATA[$genre = $l_opinion]]></valid-if>
+		</parameters>
+		<elements>
+
+			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot-italic" />
+
+		</elements>
+
+	</cs-layout-definition>
+	
 
 	<!--	Test CSLD: -->
 <!--		<cs-layout-definition name="notMatched">-->
