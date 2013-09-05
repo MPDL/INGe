@@ -103,7 +103,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 // define the filter criteria
                 FilterTaskParamVO filter = new FilterTaskParamVO();
                 
-                Filter f1 = filter.new ItemRefFilter(idList);
+                Filter f1 = filter.new ItemRefVersionFilter(idList);
                 filter.getFilterList().add(0, f1);
                 
                 Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
@@ -126,6 +126,8 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 {
                     xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
                 }
+                
+                System.out.println(filter.toMap());
         
                 ItemVOListWrapper pubItemList = xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
                 
@@ -140,6 +142,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
             pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - numberOfRecords);
             if (pssb.getDiffDisplayNumber() > 0)
             {
+            	
                 error(pssb.getDiffDisplayNumber() + " " + getMessage("basket_ItemsChanged"));
             }
             
