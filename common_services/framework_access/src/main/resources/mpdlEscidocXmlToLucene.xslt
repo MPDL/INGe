@@ -1988,6 +1988,49 @@ Notes:
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
+		
+		
+		<!-- USER DEFINED INDEX: for every creator, create an index with role in index name  and name as index value -->
+  		<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']">
+                <xsl:if test="./*[local-name()='person']">
+                <userdefined-index>
+                        <xsl:attribute name="name">
+                                <xsl:value-of select="concat('publication.creator.compound.role-person.', string-helper:getSubstringAfterLast(@role,'/'))"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="context">
+                                <xsl:value-of select="$CONTEXTNAME"/>
+                        </xsl:attribute>
+                        <element index="TOKENIZED">
+                                <xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='family-name'],' ', ./*[local-name()='person']/*[local-name()='given-name'])"/>
+                        </element>
+                        <element index="TOKENIZED">
+                                 <xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='given-name'],' ', ./*[local-name()='person']/*[local-name()='family-name'])"/>
+                        </element>
+                        <element index="UN_TOKENIZED">
+                                 <xsl:value-of select="./*[local-name()='person']/*[local-name()='identifier']"/>
+                        </element>
+                </userdefined-index>
+                </xsl:if>
+
+                <xsl:if test="./*[local-name()='organization']">
+                <userdefined-index>
+                        <xsl:attribute name="name">
+                                <xsl:value-of select="concat('publication.creator.compound.role-organization.', string-helper:getSubstringAfterLast(@role,'/'))"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="context">
+                                <xsl:value-of select="$CONTEXTNAME"/>
+                        </xsl:attribute>
+                        <element index="TOKENIZED">
+                                <xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
+                        </element>
+                        <element index="UN_TOKENIZED">
+                                 <xsl:value-of select="./*[local-name()='organization']/*[local-name()='identifier']"/>
+                        </element>
+                </userdefined-index>
+                </xsl:if>
+		</xsl:for-each>
+		
+		
 	</xsl:variable>
 
 </xsl:stylesheet>
