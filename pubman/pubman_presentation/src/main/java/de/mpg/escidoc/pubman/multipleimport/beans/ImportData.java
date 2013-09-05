@@ -85,7 +85,7 @@ public class ImportData extends FacesBean
     public ImportLog getImport()
     {
     	
-        if (this.log == null && this.importId != 0 && this.userid != null)
+        if (this.log == null && this.userid != null)
         {
         	Connection conn = ImportLog.getConnection();
             this.log = ImportLog.getImportLog(this.importId, false, false, conn);

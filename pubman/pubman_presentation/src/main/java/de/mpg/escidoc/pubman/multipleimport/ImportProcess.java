@@ -536,6 +536,7 @@ public class ImportProcess extends Thread
                 }
             }
         }
+        log.closeConnection();
     }
 
     /**

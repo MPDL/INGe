@@ -233,12 +233,12 @@ public class ImportLog
         {
             if (this.connection != null && !this.connection.isClosed())
             {
-                //this.connection.close();
+                this.connection.close();
             }
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error creating database connection", e);
+            throw new RuntimeException("Error closing database connection", e);
         }
     }
     
@@ -258,14 +258,15 @@ public class ImportLog
                 
                 updateLog();
                 
-                //this.connection.close();
                 
+                //this.connection.close();
             }
         }
         catch (Exception e)
         {
             throw new RuntimeException("Error closing connection", e);
         }
+        
     }
     
     /**
@@ -1606,14 +1607,7 @@ public class ImportLog
         {
             throw new RuntimeException(e);
         }
-        finally
-        {
-        	try {
-				connection.close();
-			} catch (SQLException e) {
-				logger.error("error while closing database connection", e);
-			}
-        }
+      
         
         return null;
     }
