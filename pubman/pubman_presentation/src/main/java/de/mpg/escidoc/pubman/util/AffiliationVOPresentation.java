@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -53,10 +55,13 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Affiliation
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class AffiliationVOPresentation extends AffiliationVO implements Comparable<AffiliationVOPresentation>
 {
+	private static final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
+	
     private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
     private static final int SHORTENED_LEVEL_LENGTH = 5;
     private List<AffiliationVOPresentation> children = null;
@@ -105,7 +110,14 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 
     public boolean getMps()
     {
-        return getDetails().getAlternativeNames().contains("MPS");
+    	try {
+			String rootAffiliationMPG = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
+			
+			return getReference().getObjectId().equals(rootAffiliationMPG);
+		} catch (Exception e) {
+			logger.error("Error reading Properties", e);
+			return false;
+		}
     }
 
     public boolean getTopLevel()
