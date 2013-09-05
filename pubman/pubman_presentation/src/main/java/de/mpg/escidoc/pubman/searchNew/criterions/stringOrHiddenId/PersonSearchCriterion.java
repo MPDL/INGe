@@ -38,7 +38,8 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 	
 	private static String PERSON_ROLE_INDEX = "escidoc.publication.creator.role";
 	
-	
+	private String[] cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
+	private String[] cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
 	
 	
 	
@@ -50,12 +51,12 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 	@Override
 	public String[] getCqlIndexForHiddenId() {
 		
-		return new String[] {"escidoc.publication.creator.person.identifier"};
+		return cqlIndexForHiddenId;
 	}
 
 	@Override
 	public String[] getCqlIndexForSearchString() {
-		return new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
+		return cqlIndexForSearchString;
 	}
 
 	
@@ -63,16 +64,23 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 	
 	@Override
 	public String toCqlString()  throws SearchParseException{
-		String superQuery = super.toCqlString();
 		
 		if(SearchCriterion.ANYPERSON.equals(getSearchCriterion()))
 		{
-			return superQuery;
-		}
-		else if(superQuery!=null)
-		{
+			cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
+			cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
 			
+			return super.toCqlString();
+		}
+		else
+		{
 			String roleUri = CreatorVO.CreatorRole.valueOf(getSearchCriterion().name()).getUri();
+			String roleAbbr = roleUri.substring(roleUri.lastIndexOf('/')+1, roleUri.length());
+			
+			cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+			cqlIndexForSearchString = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+			
+			/*
 			StringBuilder sb = new StringBuilder();
 			sb.append("(");
 			sb.append(superQuery);
@@ -80,9 +88,10 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 			sb.append(PERSON_ROLE_INDEX);
 			sb.append("=\"");
 			sb.append(escapeForCql(roleUri) + "\")");
-			return  sb.toString();
+			*/
+			return  super.toCqlString();
 		}
-		return null;
+		
 		
 		
 	}
