@@ -110,7 +110,7 @@ public class ImportSurveyor extends Thread
                 {
                     int id = resultSet.getInt("id");
                     logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
-                    ImportLog log = ImportLog.getImportLog(id, true, true);
+                    ImportLog log = ImportLog.getImportLog(id, true, true, connection);
                     log.setConnection(connection);
                     
                     for (ImportLogItem item : log.getItems())
@@ -140,9 +140,12 @@ public class ImportSurveyor extends Thread
                 {
                     resultSet.close();
                     statement.close();
+                    connection.close();
                 }
                 catch (Exception e2)
-                {}
+                {
+                	logger.error("error while closing database connection", e2);
+                }
             }
         }
         while (!signal);

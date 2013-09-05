@@ -30,9 +30,15 @@
 
 package de.mpg.escidoc.pubman.multipleimport.beans;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.init.ImportSurveyor;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 
@@ -51,7 +57,7 @@ public class ImportItems extends FacesBean
     private int itemsPerPage = 0;
     private String userid = null;
     private ImportLog log = null;
-    
+    private static final Logger logger = Logger.getLogger(ImportItems.class);
     /**
      * Constructor extracting the import's id and the pagination parameters from the URL and setting user settings.
      */
@@ -85,12 +91,18 @@ public class ImportItems extends FacesBean
     /**
      * @return The import including the details
      */
+    
     public ImportLog getImport()
     {
-        if (this.log == null && this.importId != 0 && this.userid != null)
+        if (this.log == null && this.userid != null)
         {
-            
-            this.log = ImportLog.getImportLog(this.importId, true, false);
+        	Connection conn = ImportLog.getConnection();
+            this.log = ImportLog.getImportLog(this.importId, true, false, conn);
+            try {
+				conn.close();
+			} catch (SQLException e) {
+				 logger.error("Error closing db connection", e);
+			}
         }
         return this.log;
     }

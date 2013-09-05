@@ -204,6 +204,7 @@ public class ImportLog
     {
         try
         {
+        	System.out.println("GET CONECCTION----------------");
             Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));
             String connectionUrl = PropertyReader.getProperty("escidoc.import.database.connection.url");
             return DriverManager.getConnection(connectionUrl
@@ -1112,34 +1113,29 @@ public class ImportLog
             while (resultSet.next())
             {
                 int id = resultSet.getInt("id");
-                ImportLog log = getImportLog(id, loadDetails);
+                ImportLog log = getImportLog(id, loadDetails, connection);
                 log.userHandle = user.getHandle();
                 result.add(log);
             }
         }
         catch (Exception e)
         {
-            try
-            {
-                //resultSet.close();
-                //statement.close();
-                //connection.close();
-            }
-            catch (Exception f)
-            {
-            }
+            
             throw new RuntimeException("Error getting log", e);
         }
-        try
+        finally
         {
-            //resultSet.close();
-            //statement.close();
-            //connection.close();
+        	 try
+             {
+                 
+                 connection.close();
+             }
+             catch (Exception f)
+             {
+                 logger.error("Error closing db connection", f);
+             }
         }
-        catch (Exception f)
-        {
-            throw new RuntimeException("Error closing connection", f);
-        }
+       
         
         return result;
     }
@@ -1155,10 +1151,12 @@ public class ImportLog
      * 
      * @return The import
      */
+    /*
     public static ImportLog getImportLog(int id)
     {
         return getImportLog(id, true);
     }
+    */
 
     /**
      * Get a single import by its stored id.
@@ -1171,9 +1169,9 @@ public class ImportLog
      * 
      * @return The import
      */
-    public static ImportLog getImportLog(int id, boolean loadDetails)
+    public static ImportLog getImportLog(int id, boolean loadDetails, Connection conn)
     {
-        return getImportLog(id, true, loadDetails);
+        return getImportLog(id, true, loadDetails, conn);
     }
     
     /**
@@ -1185,9 +1183,9 @@ public class ImportLog
      * 
      * @return The import
      */
-    public static ImportLog getImportLog(int id, boolean loadItems, boolean loadDetails)
+    public static ImportLog getImportLog(int id, boolean loadItems, boolean loadDetails, Connection connection)
     {
-        Connection connection = getConnection();
+        //Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String query = null;
@@ -1199,6 +1197,7 @@ public class ImportLog
             statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
+
             
             if (resultSet.next())
             {
@@ -1208,6 +1207,7 @@ public class ImportLog
             {
                 logger.warn("Import log query returned no result for id " + id);
             }
+            statement.close();
             
             query = "select * from escidoc_import_log_item where parent = ? order by id";
             statement = connection.prepareStatement(query);
@@ -1223,6 +1223,7 @@ public class ImportLog
             }
             
             result.setItems(items);
+            statement.close();
             
             if (loadDetails)
             {
@@ -1258,7 +1259,9 @@ public class ImportLog
                         details.add(detail);
                     }
                 }
+                statement.close();
             }
+            
         }
         catch (Exception e)
         {
@@ -1273,16 +1276,7 @@ public class ImportLog
             }
             throw new RuntimeException("Error getting detail", e);
         }
-        try
-        {
-            //resultSet.close();
-            //statement.close();
-            //connection.close();
-        }
-        catch (Exception f)
-        {
-            throw new RuntimeException("Error closing connection", f);
-        }
+       
         
         return result;
     }
@@ -1611,6 +1605,14 @@ public class ImportLog
         catch (Exception e)
         {
             throw new RuntimeException(e);
+        }
+        finally
+        {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				logger.error("error while closing database connection", e);
+			}
         }
         
         return null;
