@@ -151,6 +151,10 @@ public class FilterTaskParamVO extends ValueObject
                 {
                     enhanceQuery(queryBuffer, "\"/id\" any", previousFilter, ((ItemRefFilter)filter));
                 }
+                else if (filter instanceof ItemRefVersionFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/version/id\" any", previousFilter, ((ItemRefVersionFilter)filter));
+                }
                 else if (filter instanceof AffiliationRefFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((AffiliationRefFilter)filter));
@@ -322,6 +326,20 @@ public class FilterTaskParamVO extends ValueObject
             }
 
         }
+        else if (filter instanceof ItemRefVersionFilter)
+        {
+            ItemRefVersionFilter itemRefFilter = (ItemRefVersionFilter)filter;
+            b.append(queryPiece);
+            
+            for (ItemRO itemRO : itemRefFilter.getIdList())
+            {
+                b.append(" ");
+                b.append(itemRO.getObjectIdAndVersion());
+                if (++i == itemRefFilter.getIdList().size())
+                    break;
+            }
+
+        }
         else
         {
             b.append(queryPiece);
@@ -410,6 +428,40 @@ public class FilterTaskParamVO extends ValueObject
          * Creates a new instance with a given list.
          */
         public ItemRefFilter(List<ItemRO> list)
+        {
+            this.idList = list;
+        }
+
+        /**
+         * @return the idList
+         */
+        public List<ItemRO> getIdList()
+        {
+            return idList;
+        }
+    }
+    
+    /**
+     * Class to filter by item references with version. As long as no common content item refs are defined we use the ItemRO.
+     */
+    public class ItemRefVersionFilter extends AbstractFilter implements Filter
+    {
+        /**
+         * List of ids.
+         */
+        private List<ItemRO> idList = new ArrayList<ItemRO>();
+
+        /**
+         * Creates a new instance.
+         */
+        public ItemRefVersionFilter()
+        {
+        }
+
+        /**
+         * Creates a new instance with a given list.
+         */
+        public ItemRefVersionFilter(List<ItemRO> list)
         {
             this.idList = list;
         }
