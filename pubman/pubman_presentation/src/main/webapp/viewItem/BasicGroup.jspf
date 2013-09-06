@@ -46,10 +46,15 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
+				<h:outputLink id="lnkCitationURLPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
 					<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}"/>
 				</h:outputLink>	
-			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.isStateReleased or ViewItemFull.pubItem.version.pid == null}"/>
+				
+				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.citationURL}" rendered="#{!ApplicationBean.handlesActivated and ViewItemFull.isStateReleased}">
+					<h:outputText value="#{ViewItemFull.citationURL}"/>
+				</h:outputLink>	
+				
+			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.handlesActivated and ViewItemFull.pubItem.version.pid == null)}"/>
 			</span>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{ViewItemFull.isStateReleased}">
 				

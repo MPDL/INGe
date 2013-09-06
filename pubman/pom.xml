@@ -876,6 +876,7 @@
 		<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
 		<!-- URL of stylesheets in common-presentation -->
 		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
+		<escidoc.handles.activated>true</escidoc.handles.activated>
 	</properties>
 	<profiles>
 		<!-- activate this profile for an opensource release production -->
@@ -921,6 +922,7 @@
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
+				<escidoc.handles.activated>false</escidoc.handles.activated>
 			</properties>
 		</profile>
 		<!-- this profile is used by developers -->

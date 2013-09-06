@@ -106,6 +106,7 @@ public class ApplicationBean extends FacesBean
 
     private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
     private String instanceContextPath;
+    
 
     /**
      * Public constructor.
@@ -618,4 +619,15 @@ public class ApplicationBean extends FacesBean
         }
         return this.creatorRoleMap;
     }
+
+	public boolean isHandlesActivated() {
+		try {
+			return Boolean.parseBoolean(PropertyReader.getProperty("escidoc.handles.activated"));
+		} catch (Exception e) {
+			logger.error("Error reading property 'escidoc.handles.activated'", e);
+			return false;
+		} 
+	}
+
+	
 }
