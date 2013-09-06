@@ -178,14 +178,14 @@
 												</div>
 												</div>
 												
-										<div class="full_area0 itemBlock">
+										<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{not empty MultipleImport.configParameters}">
 											<h3 class="xLarge_area0_p8 endline blockHeader">
 												<h:outputText value="#{lbl.MultipleImport_configuration}"/>
 											</h3>
 											<h:panelGroup styleClass="seperator"></h:panelGroup>
 											<div class="free_area0 itemBlockContent endline">
 												
-												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{not empty MultipleImport.configParameters}">
+												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine">
 													<b class="xLarge_area0 endline labelLine">
 														&#160;<span class="noDisplay">: </span>
 													</b>
@@ -213,7 +213,7 @@
 													</span>
 												</h:panelGroup>
 											</div>
-										</div>
+										</h:panelGroup>
 									</div>
 									<div class="full_area0 formButtonArea">
 										<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
