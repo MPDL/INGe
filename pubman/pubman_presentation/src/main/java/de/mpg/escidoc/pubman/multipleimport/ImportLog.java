@@ -204,7 +204,6 @@ public class ImportLog
     {
         try
         {
-        	System.out.println("GET CONECCTION----------------");
             Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));
             String connectionUrl = PropertyReader.getProperty("escidoc.import.database.connection.url");
             return DriverManager.getConnection(connectionUrl
