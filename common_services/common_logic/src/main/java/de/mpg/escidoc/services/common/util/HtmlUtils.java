@@ -146,14 +146,14 @@ public class HtmlUtils
 					}
 					
 					//End tag ends after desired length, start tag ends before length => Tag is completely started, but not ended
-					if(m.end()>length && beginTag.getEndPosition()<length)
+					if(m.end()>=length && beginTag.getEndPosition()<length)
 					{
 						tagListToBeClosed.add(subSupTag);
 					}
 	
 				}
 				
-				if(m.start()<length && m.end()>length)
+				if(m.start()<length && m.end()>=length)
 				{
 					removeLastCharacters = length - m.start();
 				}
