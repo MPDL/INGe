@@ -67,7 +67,7 @@
                 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<jsp:directive.include file="./easySubmission/steps/Step3Import.jspf"/>
+					<jsp:directive.include file="./easySubmission/EasySubmission.jspf"/>
 				<!-- end: content section -->
 				</div>
 				
