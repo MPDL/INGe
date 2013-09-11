@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<processing>
+ 
+  <job name="Database Migration">
+    <os family="unix"/>
+    <executefile name="java">
+      <arg>-classpath</arg>
+      <arg>${INSTALL_PATH}/tools/migration/lib/*</arg>
+      <arg>org.apache.tools.ant.Main</arg>
+      <arg>-f</arg>
+      <arg>${INSTALL_PATH}/tools/migration/build.xml</arg>
+      <arg>db-migration</arg>
+    </executefile>
+  </job>
+ 
+  <job name="Database Migration">
+    <os family="mac"/>
+    <executefile name="java">
+      <arg>-classpath</arg>
+      <arg>${INSTALL_PATH}/tools/migration/lib/*</arg>
+      <arg>org.apache.tools.ant.Main</arg>
+      <arg>-f</arg>
+      <arg>${INSTALL_PATH}/tools/migration/build.xml</arg>
+      <arg>db-migration</arg>
+    </executefile>
+  </job>
+ 
+  <job name="Database Migration">
+    <os family="windows"/>
+    <executefile name="java">
+      <arg>-classpath</arg>
+      <arg>${INSTALL_PATH}/tools/migration/lib/*;</arg>
+      <arg>org.apache.tools.ant.Main</arg>
+      <arg>-f</arg>
+      <arg>${INSTALL_PATH}/tools/migration/build.xml</arg>
+      <arg>db-migration</arg>
+    </executefile>
+  </job>
+ 
+</processing>

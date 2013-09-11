@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Readme: Next Steps</title>
+    <style type="text/css">
+      h1, h2 { font-family: 'trebuchet ms', verdana, helvetica, sans-serif; }
+      p, li { font-size: 12pt; font-family: 'trebuchet ms', verdana, helvetica, sans-serif; }
+    </style>
+  </head>
+  
+  <body>
+  	<h1>Congratulations!</h1>
+  	<p>You have successfully installed the eSciDoc Infrastructure! This document describes recommended 
+  		next steps for exploring the software and its functionality. 
+  	</p>	
+    <h1>Next Steps</h1>
+    <h2>Starting the eSciDoc Infrastructure</h2>
+    <p>In order to start the eSciDoc Infrastructure, please execute the following steps:
+    </p>
+    <ol>
+      <li>Make sure the configured database management system is started and accepts connections</li>
+      <li>Open a command window/shell</li>
+      <li>Make sure the following environment variables are defined:
+      	<ul>
+      		<li><code>JAVA_HOME=${JDKPath}</code></li>
+      		<li><code>FEDORA_HOME=${INSTALL_PATH}${FILE_SEPARATOR}fedora</code></li>
+      	</ul>
+      </li>
+      <li>Go to ${INSTALL_PATH}${FILE_SEPARATOR}jboss${FILE_SEPARATOR}bin</li>
+      <li>Execute the <code>run.bat</code> (Windows)/<code>run.sh</code> (Unix-like systems). This will start the 
+      	JBoss Application Server. Depending on your computer, this may take several
+      	minutes. The first start of JBoss initializes the database, which further slows down the start-up. Following
+      	starts of JBoss will be slightly faster.<br />
+      </li>
+      <li>Wait until you see the line <code>12:32:17,360 INFO  [Server] JBoss (MX MicroKernel) [4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181417)] Started in 3m:20s:867ms</code> (log time and startup time will vary) in the command window/shell in which you started JBoss.</li>
+      <li>
+      	By default, the JBoss Application Server will only bind to the loopback interface (localhost), which means
+      	you will only be able to access the system from the same machine. If you want to allow remote connections,
+      	you have to invoke the JBoss startup script <code>run.bat</code> (Windows)/<code>run.sh</code> (Unix-like systems)
+      	with an additional command line parameter <code>-b 0.0.0.0</code>. Make sure that at least access to the
+      	administrative consoles of JBoss is restricted if you allow remote connections. These restriction are also 
+      	recommended if the service connects the loopback interface only.</li>
+      <li>Start your web browser and open <a href="http://${EscidocHost}:${EscidocPort}/">http://${EscidocHost}:${EscidocPort}/</a></li>
+      <li>You should now see the eSciDoc Infrastructure Landing Page.</li>
+      <li>Your instance of the eSciDoc Infrastructure is now up and running!</li>
+    </ol>
+    <p>You will find a more detailed description of this procedure in the <b>Installation Guide</b>. You can now 
+    	check your installation with two simple tests, which are described in the following sections.
+    </p>
+    <h2>Retrieve repository information</h2>
+    <p>You will find a link on the status page of the eSciDoc Infrastructure: "Admin Tool".</p>
+    <ul>
+    	<li>Follow the link "Admin Tool", which leads you to a login form.</li>
+    	<li>Enter the user credentials of the system administrator user that 
+    	  you have created during the install process and submit the form. The Admin Tool page appears. </li>
+    	<li>Press the "Repository Info" button and you will see a list of properties and 
+    		values similar to the following example: 
+    	<pre>
+      escidoc-core.earliest-date : 2008-07-02T05:09:43.796Z
+
+      container : http://www.escidoc.de/schemas/container/0.9
+
+      escidoc-core.baseurl : http://${EscidocHost}:${EscidocPort}
+
+      context : http://www.escidoc.de/schemas/context/0.7
+
+      escidoc-core.database.version : 1.3.0
+
+      organizational-unit : http://www.escidoc.de/schemas/organizationalunit/0.8
+
+      escidoc-core.admin-email : repository-administrator@localhost
+
+      escidoc-core.om.content.checksum-algorithm : MD5
+
+      escidoc-core.database.consistent : true
+
+      user-account : http://www.escidoc.de/schemas/useraccount/0.7
+
+      escidoc-core.build : 1.3
+
+      gsearch.url : http://localhost:${EscidocPort}/fedoragsearch/rest
+
+      escidoc-core.repository-name : Escidoc Institutional Repository
+
+      item : http://www.escidoc.de/schemas/item/0.10
+    	</pre>
+    	(Timestamp will vary, depending on your installation). If the list appears, your installation of the eSciDoc 
+    	Infrastructure seem to work correctly.</li>
+    </ul>  
+    <h2>Testing the eSciDoc Infrastructure</h2>
+    <p>We recommend to load the example set via Admin Tool.  
+  	</p>
+  	<ul>
+  		<li>From the status page of the eSciDoc Infrastructure, follow the link labelled "Admin Tool". If you are still logged into the Admin Tool, skip this and the following step.</li>
+    	<li>Enter the user credentials of the system administrator user that you have created during the install process and submit the form. The Admin Tool page appears. </li>
+  		<li>Press the button "Load Examples".</li>
+  	  <li>Loading the example objects will take some time. <em>Please be patient - don't press the button repeatedly, even if you don't get an immediate feedback of the system!</em></li>
+  		<li>As soon as the examples have been ingested, cached, and indexed, you should see some status information in a text box at the bottom of the page.</li>
+  		<li>The message <pre> ( result )
+
+      message : Loading common examples.
+
+      message : Item with objid escidoc:2005 loaded.
+
+      message : Context with objid escidoc:3004 loaded.
+
+      message : Organizational Unit with objid escidoc:1006 loaded.
+
+      message : Component with objid escidoc:5007 loaded.
+
+      message : Content Model with objid escidoc:2004 loaded.
+
+      message : Container with objid escidoc:4007 loaded.
+
+      </pre>
+      indicates that all examples have been successfully ingested. The objid (object ID) for each resource will differ in your 
+      installation from this example. It might be useful to note the object IDs down somewhere, so you can later on retrieve 
+      these resources more conveniently.</li>
+  		<li>You can now retrieve the example objects with the following URIs (please replace "&lt;id&gt;" with the object ID noted down in the previous step:
+  		  <table>
+  				<tr><td>Organizational Unit:</td><td><a href="http://${EscidocHost}:${EscidocPort}/oum/organizational-unit/&lt;id&gt;">http://${EscidocHost}:${EscidocPort}/oum/organizational-unit/&lt;id&gt;</a></td></tr>
+  				<tr><td>Context:</td><td><a href="http://${EscidocHost}:${EscidocPort}/ir/context/&lt;id&gt;">http://${EscidocHost}:${EscidocPort}/ir/context/&lt;id&gt;</a></td></tr>
+  				<tr><td>Content Model:</td><td><a href="http://${EscidocHost}:${EscidocPort}/cmm/content-model/&lt;id&gt;">http://${EscidocHost}:${EscidocPort}/cmm/content-model/&lt;id&gt;</a></td></tr>
+  				<tr><td>Container:</td><td><a href="http://${EscidocHost}:${EscidocPort}/ir/container/&lt;id&gt;">http://${EscidocHost}:${EscidocPort}/ir/container/&lt;id&gt;</a></td></tr>
+  				<tr><td>Item:</td><td><a href="http://${EscidocHost}:${EscidocPort}/ir/item/&lt;id&gt;">http://${EscidocHost}:${EscidocPort}/ir/item/&lt;id&gt;</a></td></tr>
+  				<tr><td>Creator:</td><td><a href="http://${EscidocHost}:${EscidocPort}/aa/user-account/&lt;id&gt;">http://${EscidocHost}:${EscidocPort}/aa/user-account/&lt;id&gt;</a></td></tr>
+  		 </table>
+  		 
+  		 Or you may search for the objects, using filters:
+  		  <table>
+  				<tr><td>Organizational Unit:</td><td><a href="http://${EscidocHost}:${EscidocPort}/oum/organizational-units">http://${EscidocHost}:${EscidocPort}/oum/organizational-units</a></td></tr>
+  				<tr><td>Context:</td><td><a href="http://${EscidocHost}:${EscidocPort}/ir/contexts>http://${EscidocHost}:${EscidocPort}/ir/contexts</a></td></tr>
+  				<tr><td>Content Model:</td><td><a href="http://${EscidocHost}:${EscidocPort}/cmm/content-models">http://${EscidocHost}:${EscidocPort}/cmm/content-models</a></td></tr>
+  				<tr><td>Container:</td><td><a href="http://${EscidocHost}:${EscidocPort}/ir/containers">http://${EscidocHost}:${EscidocPort}/ir/containers</a></td></tr>
+  				<tr><td>Item:</td><td><a href="http://${EscidocHost}:${EscidocPort}/ir/items">http://${EscidocHost}:${EscidocPort}/ir/items</a></td></tr>
+  				<tr><td>Creator:</td><td><a href="http://${EscidocHost}:${EscidocPort}/aa/user-accounts">http://${EscidocHost}:${EscidocPort}/aa/user-accounts</a></td></tr>
+  		 </table>
+  		 </li>
+    </ul>
+  	<p>Please refer to the <b>Installation Guide</b> for a more detailed description on how to ingest example 
+  		objects and on how to retrieve them after a successful ingest.
+  	</p>
+  </body>
+</html>

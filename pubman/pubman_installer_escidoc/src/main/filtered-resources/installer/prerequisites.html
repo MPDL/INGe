@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Installation Prerequisites</title>
+    <style type="text/css">
+      h1, h2, h3 { font-family: 'trebuchet ms', verdana, helvetica, sans-serif; }
+      p, li, td { font-size: 12pt; font-family: 'trebuchet ms', verdana, helvetica, sans-serif; }
+    </style>
+  </head>
+  
+  <body>
+    <h1>Installation Prerequisites</h1>
+    <h2>Introduction</h2>
+    <p>eSciDoc is a complex software stack, consisting of various software components. This installer will guide you
+      step by step through the installation process. However, it may be necessary to install and configure a runtime 
+      environment prior to running this installer. The runtime environment consists of two components:
+    </p>
+    <ul>
+      <li>Java SDK</li>
+      <li>Relational Database</li>
+    </ul>
+    <p>Please make sure both software components are properly installed onto the machine you will install the 
+      eSciDoc Infrastructure.
+    </p>
+    <h2>Java JDK</h2>
+    <p>Running the eSciDoc Infrastructure requires a Java Software Development Kit (JDK). A run-time environment (JRE)
+      is sufficient to run this installer, but starting the system after a successful installation will fail. Please make
+      sure that you have a JDK Version 1.6 or newer installed on your system.
+    </p>
+    <p>You can download the latest JDK software at no cost from 
+    <a href="http://java.sun.com/javase/downloads/">http://java.sun.com/javase/downloads/</a>.</p>
+    <h2>Relational Database Management System</h2>
+    <p>The eSciDoc Infrastructure currently supports only PostgreSQL as open source database management system.</p> 
+    <ul>
+      <li>PostgreSQL 8.4 or newer</li>
+      <!--li>MySQL 5.0 or newer</li-->
+    </ul>
+    <p>The database needs to be up and running during the installation process. You will need to provide credentials 
+      for a database user with sufficient privileges to create login roles and databases. This user will only be used
+      to create two login roles (typically "fedoraAdmin" and "escidoc") and three databases ("fedora3", "escidoc-core", 
+      "riTriples").  
+    </p>  
+    <p>
+      If you want to use an existing instance of PostgreSQL (which may reside on a remote server), 
+      please make sure that it meets the following requirements:
+    </p>
+    <h3>PostgreSQL</h3>
+    <table>
+      <tr><td>Software version:</td><td>&ge; 8.4</td></tr>
+      <tr><td>Database encoding:</td><td>UTF-8</td></tr>
+    </table>  
+    <!--h3>MySQL 5.0</h3>
+    <table>
+      <tr><td>Software version:</td><td>&gt; 8.3</td></tr>
+      <tr><td>XML support:</td><td><b>to be specified</b></td></tr>
+      <tr><td>Database encoding:</td><td>UTF-8</td></tr>
+      <tr><td>Storage engine:</td><td>InnoDB</td></tr>
+    </table--> 
+  </body>
+</html>

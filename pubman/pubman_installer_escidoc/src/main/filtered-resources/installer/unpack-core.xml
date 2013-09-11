@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="eSciDoc infrastructure - unpack core package" default="build">
+
+  <basename property="DatabaseDriverFile" file="${DatabaseDriver}" />
+
+  <condition property="upgradeEscidoc">
+    <istrue value="${UpgradeEscidoc}" />
+  </condition>
+
+  <condition property="databaseIsOracle">
+    <istrue value="${DatabaseIsOracle}" />
+  </condition>
+
+  <condition property="removeJmxConsole">
+    <istrue value="${RemoveJmxConsole}" />
+  </condition>
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+  <tstamp>
+    <format property="timestamp" pattern="yyyy-MM-dd_HH-mm-ss" />
+  </tstamp>
+
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" />
+
+  <target name="build" description="Installs JBoss with patches, Fedora, and escidoc-core">
+    <echo level="info">Unpack and install eSciDoc Infrastructure</echo>
+    <antcall target="jboss" />  	
+    <antcall target="jboss-patch" />
+    <antcall target="jboss-jmx-console" />
+    <antcall target="jboss-security" />
+    <antcall target="fedora" />
+    <antcall target="escidoc-core" />
+    <!-- antcall target="escidoc-examples" / -->
+    <!--antcall target="escidoc-admin" /-->
+    <!-- Following line is commented out because it will be invoked as separate Ant call -->
+    <!-- Initializing the database is an optional task, therefore it should not be part  -->
+    <!-- of the default build target. See EscidocAntAction.xml for further details       -->
+    <!--antcall target="db-create-scripts" /-->
+    <antcall target="fedoragsearch" />
+    <antcall target="srw" />
+    <antcall target="saxon" />
+  	<antcall target="pubman" />
+  </target>
+
+  <target name="init" description="Intialize runtime environment">
+    <property name="install.dir" location="${INSTALL_PATH}" />
+    <property name="jboss.zip" value="jboss-${jboss.version}.zip" />
+    <property name="jboss.patch.zip" value="escidoc-core-${EscidocVersion}-jboss-patch.zip" />
+    <property name="escidoc.core.zip" value="escidoc-bin-${EscidocVersion}-bin.zip" />
+    <property name="escidoc.examples.zip" value="escidoc-examples-${EscidocVersion}.zip" />
+    <property name="escidoc.sources.zip" value="escidoc-core-${EscidocVersion}-src.zip" />
+    <property name="digilib.server.war" value="DigilibServer.war" />
+    <property name="digilib.client.war" value="DigilibClient.war" />
+  	<property name="pubman_ear.ear" value="pubman_ear-7.4.3-SNAPSHOT.ear" />
+  </target>
+
+  <target name="copy-oracle-jdbc-jar" if="databaseIsOracle">
+    <copy file="${DatabaseDriver}" todir="${install.dir}/install.tmp/" />
+    <copy file="${DatabaseDriver}" todir="${install.dir}/install.tmp/WEB-INF/lib/" />
+  </target>
+
+  <target name="jboss" depends="init" description="Installs JBoss Application Server" unless="upgradeEscidoc">
+    <!-- unpack JBoss ZIP file -->
+    <echo level="info">Unpack JBoss</echo>
+    <antcall target="unpack">
+      <param name="zipfile" value="${install.dir}/install.tmp/${jboss.zip}" />
+      <param name="target.dir" value="${install.dir}" />
+    </antcall>
+  	<!--
+    <antcall target="rename">
+      <param name="source" value="${install.dir}/${jboss}" />
+      <param name="target" value="${install.dir}/jboss" />
+    </antcall>
+    -->
+  </target>
+
+  <target name="jboss-oracle" depends="copy-oracle-jdbc-jar" if="databaseIsOracle">
+    <copy file="${install.dir}/install.tmp/${DatabaseDriverFile}" todir="${install.dir}/jboss/server/default/lib/" />
+  </target>
+
+  <target name="jboss-patch" depends="init" description="Installs JBoss Patches">
+    <!-- unpack jboss-patch ZIP file -->
+    <echo level="info">Unpack JBoss Patches</echo>
+    <antcall target="unpack">
+      <param name="zipfile" value="${install.dir}/install.tmp/${jboss.patch.zip}" />
+      <param name="target.dir" value="${install.dir}/install.tmp" />
+    </antcall>
+    <antcall target="move-with-save">
+      <param name="sourceDir" value="${install.dir}/install.tmp/jboss-patch-${EscidocVersion}/server" />
+      <param name="targetDir" value="${install.dir}/jboss/server" />
+    </antcall>
+
+    <!-- change JBoss port numbers -->
+    <replace file="${install.dir}/jboss/server/default/deploy/jboss-web.deployer/server.xml" token="8080" value="${EscidocPort}" />
+    <!--    <math result="connectorPort" operand1="${EscidocPort}" operation="add" operand2="9" datatype="int"/>
+    <replace file="${install.dir}/jboss/server/default/deploy/jboss-web.deployer/server.xml" token="8009" value="${connectorPort}"/>
+-->
+
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/escidoc-core.custom.properties" />
+      <param name="target" value="${install.dir}/jboss/server/default/conf/escidoc-core.custom.properties" />
+    </antcall>
+    <antcall target="jboss-oracle" />
+    <antcall target="move-jboss-script">
+      <param name="source" value="${install.dir}/install.tmp/run.conf" />
+      <param name="target" value="${install.dir}/jboss/bin/run.conf" />
+    </antcall>
+    <antcall target="move-jboss-script">
+      <param name="source" value="${install.dir}/install.tmp/run.bat" />
+      <param name="target" value="${install.dir}/jboss/bin/run.bat" />
+    </antcall>
+    <antcall target="move-jboss-script">
+      <param name="source" value="${install.dir}/install.tmp/shutdown.bat" />
+      <param name="target" value="${install.dir}/jboss/bin/shutdown.bat" />
+    </antcall>
+    <antcall target="move-jboss-script">
+      <param name="source" value="${install.dir}/install.tmp/shutdown.sh" />
+      <param name="target" value="${install.dir}/jboss/bin/shutdown.sh" />
+    </antcall>
+    <delete file="${install.dir}/install.tmp/${jboss.patch.zip}" />
+    <delete dir="${install.dir}/install.tmp/jboss-patch-${EscidocVersion}" />
+    <chmod dir="${install.dir}/jboss/bin" perm="ugo+rx" includes="*.sh" />
+  </target>
+
+  <target name="jboss-jmx-console" depends="init" description="Removes JBoss JMX- and WEB-Console">
+    <echo level="info">Remove JBoss JMX- and WEB-Console</echo>
+    <if>
+      <equals arg1="${removeJmxConsole}" arg2="true" />
+      <then>
+        <antcall target="move-dir-without-save">
+          <param name="sourceDir" value="${install.dir}/jboss/server/default/deploy/jmx-console.war" />
+          <param name="targetDir" value="${install.dir}/jboss/server/default" />
+        </antcall>
+        <antcall target="move-dir-without-save">
+          <param name="sourceDir" value="${install.dir}/jboss/server/default/deploy/management" />
+          <param name="targetDir" value="${install.dir}/jboss/server/default" />
+        </antcall>
+      </then>
+    </if>
+
+    <if>
+      <and>
+        <equals arg1="${upgradeEscidoc}" arg2="true" />
+        <not>
+          <equals arg1="${removeJmxConsole}" arg2="true" />
+        </not>
+      </and>
+      <then>
+        <antcall target="move-dir-without-save">
+          <param name="sourceDir" value="${install.dir}/jboss/server/default/jmx-console.war" />
+          <param name="targetDir" value="${install.dir}/jboss/server/default/deploy" />
+        </antcall>
+        <antcall target="move-dir-without-save">
+          <param name="sourceDir" value="${install.dir}/jboss/server/default/management" />
+          <param name="targetDir" value="${install.dir}/jboss/server/default/deploy" />
+        </antcall>
+      </then>
+    </if>
+  </target>
+
+  <target name="move-jboss-script" description="moves some jboss scripts to the bin directory of jboss manipulating them by setting the JDK to use">
+    <antcall target="move-file-with-save">
+      <param name="source" value="${source}" />
+      <param name="target" value="${target}" />
+    </antcall>
+    <condition property="useJDK">
+      <and>
+        <isfalse value="${JdkUseJavaHome}" />
+        <available file="${JdkHome}" type="dir" />
+      </and>
+    </condition>
+    <antcall target="use-java-home">
+      <param name="target" value="${target}" />
+    </antcall>
+    <antcall target="use-user-jdk">
+      <param name="target" value="${target}" />
+    </antcall>
+  </target>
+
+  <target name="use-java-home" unless="useJDK" description="removes the setting of a JDK in the specified script">
+    <replace file="${target}" token="set JAVA_HOME={JDK_PATH}" value="" />
+    <replace file="${target}" token='set JAVA_HOME="{JDK_PATH}"' value="" />
+    <replace file="${target}" token="SET JAVA_HOME={JDK_PATH}" value="" />
+    <replace file="${target}" token='SET JAVA_HOME="{JDK_PATH}"' value="" />
+    <replace file="${target}" token='JAVA_HOME="{JDK_PATH}"' value="" />
+    <replace file="${target}" token="JAVA_HOME={JDK_PATH}" value="" />
+  </target>
+
+  <target name="use-user-jdk" if="useJDK" description="sets the specified JDK as the JAVA_HOME to use in the specified script">
+    <replace file="${target}" token="{JDK_PATH}" value="${JdkHome}" />
+  </target>
+
+  <!-- JBoss Security -->
+  <target name="jboss-security" depends="init" description="Enables the security constraints in JBoss for JMX and Web Console" unless="removeJmxConsole">
+    <echo level="info">Enabling Authentication for the JBoss JMX and Web Console</echo>
+    <!-- replace default setting-files from ./props to ./ (not sure why they are in the wrong directory or why they are 
+  	     not loaded from the props-directory) -->
+    <move file="${install.dir}/jboss/server/default/conf/props/defaultRoles.properties" toFile="${install.dir}/jboss/server/default/conf/props/defaultRoles.properties.bak" failonerror="false" />
+    <move file="${install.dir}/jboss/server/default/conf/props/defaultUsers.properties" toFile="${install.dir}/jboss/server/default/conf/props/defaultUsers.properties.bak" failonerror="false" />
+
+    <replace file="${install.dir}/install.tmp/jboss-security/roles.properties" token="{JBOSS_USERNAME}" value="${JBossUsername}" />
+    <replace file="${install.dir}/install.tmp/jboss-security/users.properties" token="{JBOSS_USERNAME}" value="${JBossUsername}" />
+    <replace file="${install.dir}/install.tmp/jboss-security/users.properties" token="{JBOSS_PASSWD}" value="${JBossPassword}" />
+
+    <copy file="${install.dir}/install.tmp/jboss-security/roles.properties" tofile="${install.dir}/jboss/server/default/conf/defaultRoles.properties" />
+    <copy file="${install.dir}/install.tmp/jboss-security/users.properties" tofile="${install.dir}/jboss/server/default/conf/defaultUsers.properties" />
+
+    <!-- replace username/passwd settings for jmx-console -->
+    <!-- backup old config files -->
+    <move file="${install.dir}/jboss/server/default/conf/props/jmx-console-roles.properties" tofile="${install.dir}/jboss/server/default/conf/props/jmx-console-roles.properties.bak" failonerror="false" />
+    <move file="${install.dir}/jboss/server/default/conf/props/jmx-console-users.properties" tofile="${install.dir}/jboss/server/default/conf/props/jmx-console-users.properties.bak" failonerror="false" />
+    <!-- install new -->
+    <copy file="${install.dir}/install.tmp/jboss-security/roles.properties" tofile="${install.dir}/jboss/server/default/conf/props/jmx-console-roles.properties" />
+    <copy file="${install.dir}/install.tmp/jboss-security/users.properties" tofile="${install.dir}/jboss/server/default/conf/props/jmx-console-users.properties" />
+
+    <!-- replace username/passwd settings for web-console -->
+    <!-- backup old config files -->
+    <move file="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/classes/web-console-roles.properties" tofile="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/classes/web-console-roles.properties.bak" failonerror="false" />
+    <move file="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/classes/web-console-users.properties" tofile="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/classes/web-console-users.properties.bak" failonerror="false" />
+    <!-- install new -->
+    <copy file="${install.dir}/install.tmp/jboss-security/roles.properties" tofile="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/classes/web-console-roles.properties" />
+    <copy file="${install.dir}/install.tmp/jboss-security/users.properties" tofile="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/classes/web-console-users.properties" />
+
+    <!-- activate the security-constraint for the jmx-console by replacing the web.xml and jboss-web.xml files -->
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/jboss-security/jmx-console-web.xml" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/jmx-console.war/WEB-INF/web.xml" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/jboss-security/jmx-console-jboss-web.xml" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/jmx-console.war/WEB-INF/jboss-web.xml" />
+    </antcall>
+
+    <!-- activate the security-constraint for the web-console by replacing the web.xml and jboss-web.xml files -->
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/jboss-security/web-console-web.xml" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/web.xml" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/jboss-security/web-console-jboss-web.xml" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/jboss-web.xml" />
+    </antcall>
+
+    <available property="enableJBossHTTPS" file="${JBossKeystore}" type="file" />
+    <antcall target="jboss-security-https" />
+
+    <!-- cleanup -->
+    <delete dir="${install.dir}/install.tmp/jboss-security" />
+  </target>
+
+  <target name="jboss-security-https" depends="init" if="enableJBossHTTPS" description="Enables HTTPs for the JBoss JMX and Web Console">
+    <echo level="info">Enabling HTTPs for the JBoss JMX and Web Console</echo>
+    <!-- Backup old keystore -->
+    <copy file="${install.dir}/jboss/server/default/conf/escidoc.keystore" tofile="${install.dir}/jboss/server/default/conf/escidoc.keystore.bak" failonerror="false" />
+    <copy file="${JBossKeystore}" tofile="${install.dir}/jboss/server/default/conf/escidoc.keystore" />
+
+    <!-- Backup server.xml -->
+    <copy file="${install.dir}/jboss/server/default/deploy/jboss-web.deployer/server.xml" tofile="${install.dir}/jboss/server/default/deploy/jboss-web.deployer/server.xml.bak" failonerror="false" />
+    <!-- alter server.xml -->
+    <xmltask source="${install.dir}/jboss/server/default/deploy/jboss-web.deployer/server.xml" dest="${install.dir}/jboss/server/default/deploy/jboss-web.deployer/server.xml">
+      <insert path="/Server/Service">
+        <!-- [name()='jboss.web'] -->
+        <![CDATA[ 
+      	<Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+          maxThreads="150" scheme="https" secure="true"
+          clientAuth="false" sslProtocol="TLS" 
+          keystoreFile="${jboss.server.home.dir}/conf/escidoc.keystore"
+          keystorePass="${JBossKeystorePassword}"/>
+        ]]> 
+      </insert>
+    </xmltask>
+
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/jboss-security/https/jmx-console-web.xml" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/jmx-console.war/WEB-INF/web.xml" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/jboss-security/https/web-console-web.xml" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/management/console-mgr.sar/web-console.war/WEB-INF/web.xml" />
+    </antcall>
+  </target>
+
+  <!-- Fedora -->
+  <target name="fedora" depends="init, copy-oracle-jdbc-jar" description="Installs Fedora Commons Repository">
+    <!-- unpack Fedora ZIP file -->
+    <echo level="info">Unpack Fedora</echo>
+    <move file="${install.dir}/fedora" tofile="${install.dir}/fedora-${timestamp}" failonerror="false" />
+    <antcall target="unpack">
+      <param name="zipfile" value="${install.dir}/install.tmp/fedora-fedora.zip" />
+      <param name="target.dir" value="${install.dir}/fedora" />
+    </antcall>
+    <move file="${install.dir}/fedora-${timestamp}/data/objects" tofile="${install.dir}/fedora/data/objects" failonerror="false" />
+    <move file="${install.dir}/fedora-${timestamp}/data/datastreams" tofile="${install.dir}/fedora/data/datastreams" failonerror="false" />
+    <!-- patch fedora.war by replacing web.xml with customized version -->
+    <jar basedir="${install.dir}/install.tmp" update="yes" destfile="${install.dir}/install.tmp/fedora.war" includes="WEB-INF/web.xml" />
+    <!-- patch fedora.war by adding the database driver -->
+    <jar basedir="${install.dir}/install.tmp" update="yes" destfile="${install.dir}/install.tmp/fedora.war" includes="WEB-INF/lib/${DatabaseDriverFile}" />
+    <jar basedir="${install.dir}/install.tmp" update="yes" destfile="${install.dir}/install.tmp/fedora.war" includes="WEB-INF/lib/${OracleDDLGenerator}" />
+    <!-- patch fedora.war by adding a jboss-web.xml -->
+    <jar basedir="${install.dir}/install.tmp" update="yes" destfile="${install.dir}/install.tmp/fedora.war" includes="WEB-INF/jboss-web.xml" />
+    <!-- deploy fedora.war in JBoss -->
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/fedora.war" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/fedora.war" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/fedora-users.xml" />
+      <param name="target" value="${install.dir}/fedora/server/config/fedora-users.xml" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/fedora.fcfg" />
+      <param name="target" value="${install.dir}/fedora/server/config/fedora.fcfg" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/log4j.properties" />
+      <param name="target" value="${install.dir}/fedora/server/config/log4j.properties" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/deny-everything-if-not-administrator.xml" />
+      <param name="target" value="${install.dir}/fedora/data/fedora-xacml-policies/repository-policies/deny-everything-if-not-administrator.xml" />
+    </antcall>
+    <delete file="${install.dir}/install.tmp/fedora-fedora.zip" />
+    <delete dir="${install.dir}/install.tmp/WEB-INF" />
+    <chmod dir="${install.dir}/fedora/client/bin" perm="ugo+rx" includes="*.sh" />
+    <chmod dir="${install.dir}/fedora/server/bin" perm="ugo+rx" includes="*.sh" />
+  </target>
+
+  <target name="admintool" depends="init" description="Installs Admin Tool">
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/tools/AdminTool-${admin-tool.version}.war" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/AdminTool.war" />
+    </antcall>
+  </target>
+
+  <target name="fedoragsearch" depends="init" description="Installs Fedora GSearch">
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/services/fedoragsearch-${escidoc.fedoragsearch.version}.war" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/fedoragsearch.war" />
+    </antcall>
+  </target>
+
+  <target name="srw" depends="init" description="Installs Search and Retrieval Webservice">
+    <!-- add isolation -->
+    <jar basedir="${install.dir}/install.tmp/srw" update="yes" destfile="${install.dir}/services/srw-${escidoc.srw.version}.war" includes="WEB-INF/jboss-web.xml" />
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/services/srw-${escidoc.srw.version}.war" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/srw.war" />
+    </antcall>
+  </target>
+
+  <target name="saxon" depends="init" description="Installs Saxon Webservice">
+    <!-- add isolation -->
+    <jar basedir="${install.dir}/install.tmp/saxon" update="yes" destfile="${install.dir}/services/saxon-${escidoc.saxon.version}.war" includes="WEB-INF/jboss-web.xml" />
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/services/saxon-${escidoc.saxon.version}.war" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/saxon.war" />
+    </antcall>
+  </target>
+
+  <target name="escidoc-core" depends="init" description="Installs eSciDoc Core Services">
+    <!-- unpack escidoc-core ZIP file -->
+    <echo level="info">Unpack eSciDoc Core Services</echo>
+    <antcall target="unpack">
+      <param name="zipfile" value="${install.dir}/install.tmp/${escidoc.core.zip}" />
+      <!-- uncomment if escidoc-core ZIP file contains a base directory -->
+      <param name="target.dir" value="${install.dir}" />
+      <!-- uncomment if escidoc-core ZIP file contains no base directory -->
+      <!--param name="target.dir" value="${install.dir}/escidoc-core-bin-${EscidocVersion}" /-->
+    </antcall>
+    <antcall target="rename">
+      <param name="source" value="${install.dir}/escidoc-core-${EscidocVersion}" />
+      <param name="target" value="${install.dir}/core" />
+    </antcall>
+    <delete file="${install.dir}/install.tmp/${escidoc.core.zip}" />
+    <!-- Delete old admin.jsp. -->
+    <delete dir="${install.dir}/jboss/server/default/work/jboss.web/localhost/_" />
+    <!-- move file="${install.dir}/jboss/server/default/deploy/escidoc-core.ear" tofile="${install.dir}/jboss/server/default/deploy/escidoc-core.ear-${timestamp}" /-->
+    <move tofile="${install.dir}/jboss/server/default/deploy/escidoc-core.ear">
+      <fileset dir="${install.dir}/core/ear">
+        <include name="escidoc-core*.ear" />
+      </fileset>
+    </move>
+    <move file="${install.dir}/core/license/ESCIDOC.LICENSE" todir="${install.dir}" />
+    <move file="${install.dir}/core/doc" tofile="${install.dir}/core/doc-${timestamp}" failonerror="false" />
+    <move todir="${install.dir}/core/doc">
+      <fileset dir="${install.dir}/core/ontologies" />
+    </move>
+    <move todir="${install.dir}/core/doc/xsd">
+      <fileset dir="${install.dir}/core/xsd" />
+    </move>
+    <delete dir="${install.dir}/core/ear" />
+    <delete dir="${install.dir}/core/xsd" />
+    <delete dir="${install.dir}/core/license" />
+  </target>
+
+  <target name="escidoc-examples" depends="init" description="Installs eSciDoc Examples">
+    <!-- unpack escidoc-examples ZIP file -->
+    <echo level="info">Unpack eSciDoc Examples</echo>
+    <antcall target="unpack">
+      <param name="zipfile" value="${install.dir}/install.tmp/${escidoc.examples.zip}" />
+      <!-- uncomment if escidoc-examples ZIP file contains a base directory -->
+      <param name="target.dir" value="${install.dir}/core" />
+      <!-- uncomment if escidoc-examples ZIP file contains no base directory -->
+      <!-- param name="target.dir" value="${install.dir}/core/escidoc-core-bin-${EscidocVersion}" /-->
+    </antcall>
+    <antcall target="rename">
+      <param name="source" value="${install.dir}/core/escidoc-examples-${EscidocVersion}" />
+      <param name="target" value="${install.dir}/core/examples" />
+    </antcall>
+    <move file="${install.dir}/install.tmp/readme.txt" todir="${install.dir}/core/examples" />
+    <delete file="${install.dir}/install.tmp/${escidoc.examples.zip}" />
+    <delete file="${install.dir}/core/examples/common/foxml1.1/readme.txt" />
+    <delete file="${install.dir}/core/examples/mpdl/readme.txt" />
+  </target>
+
+  <target name="db-create-scripts" depends="init, copy-oracle-jdbc-jar" description="Prepare for database creation" unless="upgradeEscidoc">
+    <!-- prepare for database creation -->
+    <echo level="info">Prepare for database creation</echo>
+    <move file="${install.dir}/install.tmp/database.properties" todir="${install.dir}/core/etc" />
+    <move file="${install.dir}/install.tmp/database-init.xml" todir="${install.dir}/core/bin" />
+    <move file="${install.dir}/install.tmp/aa.init.user-accounts.common.sql" todir="${install.dir}/core/sql" />
+    <move file="${install.dir}/install.tmp/aa.init.grants.common.sql" todir="${install.dir}/core/sql" />
+    <move file="${install.dir}/install.tmp/${DatabaseDriverFile}" todir="${install.dir}/core/lib" />
+    <delete dir="${install.dir}/install.tmp/staging" />
+    <delete dir="${install.dir}/install.tmp/WEB-INF" />
+    <!--delete dir="${install.dir}/install.tmp" /-->
+  </target>
+
+  <target name="create-db" description="create database escidoc-core" unless="upgradeEscidoc">
+    <ant antfile="${INSTALL_PATH}/core/bin/database-init.xml" target="create-db">
+      <property file="${INSTALL_PATH}/core/etc/database.properties" />
+    </ant>
+  </target>
+
+  <target name="create-tables" description="create all database tables" unless="upgradeEscidoc">
+    <ant antfile="${INSTALL_PATH}/core/bin/database-init.xml" target="create-tables">
+      <property file="${INSTALL_PATH}/core/etc/database.properties" />
+    </ant>
+  </target>
+
+  <target name="create-roles" description="create users and roles" unless="upgradeEscidoc">
+    <ant antfile="${INSTALL_PATH}/core/bin/database-init.xml" target="create-roles">
+      <property file="${INSTALL_PATH}/core/etc/database.properties" />
+    </ant>
+  </target>
+
+  <target name="escidoc-sources" depends="init" description="Installs eSciDoc Source Code">
+    <!-- unpack escidoc-sources ZIP file -->
+    <echo level="info">Unpack eSciDoc Examples</echo>
+    <antcall target="unpack">
+      <param name="zipfile" value="${install.dir}/install.tmp/${escidoc.sources.zip}" />
+      <!-- uncomment if escidoc-examples ZIP file contains a base directory -->
+      <param name="target.dir" value="${install.dir}/core/src" />
+      <!-- uncomment if escidoc-examples ZIP file contains no base directory -->
+      <!-- param name="target.dir" value="${install.dir}/infrastructure/escidoc-core-bin-${EscidocVersion}" /-->
+    </antcall>
+    <!--antcall target="rename">
+		  <param name="source" value="${install.dir}/infrastructure/escidoc-sources-${EscidocVersion}" />
+		  <param name="target" value="${install.dir}/infrastructure/src" />
+		</antcall-->
+    <delete file="${install.dir}/install.tmp/${escidoc.sources.zip}" />
+  </target>
+
+  <target name="digilib" depends="init" description="Installs Digilib Image Viewing and Manipulation Service">
+    <!-- deploy Digilib Web Archives in JBoss -->
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/${digilib.server.war}" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/${digilib.server.war}" />
+    </antcall>
+    <antcall target="move-file-with-save">
+      <param name="source" value="${install.dir}/install.tmp/${digilib.client.war}" />
+      <param name="target" value="${install.dir}/jboss/server/default/deploy/${digilib.client.war}" />
+    </antcall>
+  </target>
+	
+	  <target name="pubman" depends="init" description="Installs Pubman ">
+	    <!-- deploy PubMan Web Archives in JBoss -->
+	    <antcall target="move-file-with-save">
+	      <param name="source" value="${install.dir}/install.tmp/${pubman_ear.ear}" />
+	      <param name="target" value="${install.dir}/jboss/server/default/deploy/${pubman_ear.ear}" />
+	    </antcall>  
+	  	<antcall target="move-file-with-save">
+	  	  <param name="source" value="${install.dir}/install.tmp/validation-ds.xml" />
+	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/validation-ds.xml" />
+	  	</antcall> 
+	  	<antcall target="move-file-with-save">
+	  	  <param name="source" value="${install.dir}/install.tmp/pid-cache-ds.xml" />
+	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pid-cache-ds.xml" />
+	  	</antcall> 
+	  	<antcall target="move-file-with-save">
+	  	  <param name="source" value="${install.dir}/install.tmp/pubman.properties" />
+	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pubman.properties" />
+	    </antcall> 
+	  </target>
+
+  <!-- Following target is commented out for debugging purposes only.    -->
+  <!-- Remove comments before releasing the installer!                   -->
+  <target name="cleanup" depends="init" description="Cleans up after installation">
+    <!-- clean up after installation -->
+    <echo level="info">Clean up after installation</echo>
+    <!--fail message="for debug purposes - comment out this line in unpack-core.xml to get a successful build" /-->
+    <delete dir="${install.dir}/core/bin" />
+    <delete dir="${install.dir}/core/etc" />
+    <delete dir="${install.dir}/core/sql" />
+    <delete file="${install.dir}/install.tmp/${jboss}.zip" />
+    <!-- The database driver lib is still bound to the ant script and cannot be deleted -->
+    <!-- delete dir="${install.dir}/core/lib" / -->
+  </target>
+
+  <target name="unpack" description="Unpack a ZIP file">
+    <!-- unpack specified ZIP file -->
+    <unzip src="${zipfile}" dest="${target.dir}" />
+  </target>
+
+  <target name="move-dir-without-save" description="move a directory">
+    <if>
+      <and>
+        <available file="${sourceDir}" />
+        <available file="${targetDir}" />
+      </and>
+      <then>
+        <move file="${sourceDir}" todir="${targetDir}" />
+      </then>
+    </if>
+  </target>
+
+  <target name="move-with-save" description="move a set of files and create a backup of each file before overwriting">
+    <for param="sourceFile">
+      <path>
+        <fileset dir="${sourceDir}" />
+      </path>
+      <sequential>
+        <var name="relativePath" unset="true" />
+        <pathconvert property="relativePath">
+          <path location="@{sourceFile}" />
+          <map from="${sourceDir}" to="" />
+        </pathconvert>
+        <antcall target="move-file-with-save">
+          <param name="source" value="@{sourceFile}" />
+          <param name="target" value="${targetDir}/${relativePath}" />
+        </antcall>
+      </sequential>
+    </for>
+  </target>
+
+  <target name="move-file-with-save" description="move a single file and create a backup of the file before overwriting">
+    <if>
+      <and>
+        <not>
+          <filesmatch file1="${source}" file2="${target}" />
+        </not>
+        <available file="${target}" />
+      </and>
+      <then>
+        <move file="${target}" tofile="${target}.bak" force="true" />
+      </then>
+    </if>
+    <move file="${source}" tofile="${target}" />
+  </target>
+
+  <target name="rename" description="Renames a directory">
+    <available file="${target}" property="dir.already.present" />
+    <antcall target="rename-with-save">
+      <param name="source" value="${source}" />
+      <param name="target" value="${target}" />
+    </antcall>
+    <antcall target="rename-without-save">
+      <param name="source" value="${source}" />
+      <param name="target" value="${target}" />
+    </antcall>
+  </target>
+
+  <target name="rename-with-save" if="dir.already.present" description="Renames an existing directory and then renames a directory to the preexisting name">
+    <!-- rename a file or directory -->
+    <property name="new.name.for.old.target" value="${target}-${timestamp}" />
+    <move file="${target}" tofile="${new.name.for.old.target}" />
+    <move file="${source}" tofile="${target}" />
+  </target>
+
+  <target name="rename-without-save" unless="dir.already.present" description="Renames a directory">
+    <echo level="debug">move ${source} to ${target}</echo>
+    <move file="${source}" tofile="${target}" />
+  </target>
+
+</project>

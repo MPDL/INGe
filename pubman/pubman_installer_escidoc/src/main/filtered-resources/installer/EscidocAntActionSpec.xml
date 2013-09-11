@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<antactions>
+  <pack name="eSciDoc">
+    <antcall order="afterpacks" messageid="core.services" logfile="${INSTALL_PATH}/install.log/escidoc-core-services.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="build" />
+    </antcall>
+  </pack>
+
+  <pack name="Admin Tool">
+    <antcall order="afterpacks" messageid="admintool.service" logfile="${INSTALL_PATH}/install.log/escidoc-app-services.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="admintool" />
+    </antcall>
+  </pack>
+
+  <pack name="Digilib">
+    <antcall order="afterpacks" id="digilib.service" logfile="${INSTALL_PATH}/install.log/escidoc-app-services.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="digilib" />
+    </antcall>
+  </pack>
+
+  <!-- pack name="Sources">
+    <antcall order="afterpacks" id="source.code" logfile="${INSTALL_PATH}/install.log/escidoc-sources.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="escidoc-sources" />
+    </antcall>
+  </pack -->
+
+  <pack name="Database Creation">
+    <antcall order="afterpacks" id="database.scripts" logfile="${INSTALL_PATH}/install.log/db-scripts.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="db-create-scripts" />
+    </antcall>
+    <antcall order="afterpacks" id="database.creation" logfile="${INSTALL_PATH}/install.log/db-create.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="create-db" />
+    </antcall>
+  </pack>
+
+  <pack name="Database Initialization">
+    <antcall order="afterpacks" id="database.initialization" logfile="${INSTALL_PATH}/install.log/db-init.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="create-tables" />
+    </antcall>
+  </pack>
+
+  <pack name="Roles and Users Creation">
+    <antcall order="afterpacks" id="database.userroles" logfile="${INSTALL_PATH}/install.log/db-roles.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="create-roles" />
+    </antcall>
+    <antcall order="afterpacks" messageid="database.userroles" logfile="${INSTALL_PATH}/install.log/cleanup.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="cleanup" />
+    </antcall>
+  </pack>
+</antactions>

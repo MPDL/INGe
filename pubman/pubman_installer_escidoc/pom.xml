@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- CDDL HEADER START The contents 
+	of this file are subject to the terms of the Common Development and Distribution 
+	License, Version 1.0 only (the "License"). You may not use this file except 
+	in compliance with the License. You can obtain a copy of the license at license/ESCIDOC.LICENSE 
+	or http://www.escidoc.de/license. See the License for the specific language 
+	governing permissions and limitations under the License. When distributing 
+	Covered Code, include this CDDL HEADER in each file and include the License 
+	file at license/ESCIDOC.LICENSE. If applicable, add the following below this 
+	CDDL HEADER, with the fields enclosed by brackets "[]" replaced with your 
+	own identifying information: Portions Copyright [yyyy] [name of copyright 
+	owner] CDDL HEADER END Copyright 2006-2012 Fachinformationszentrum Karlsruhe 
+	Gesellschaft für wissenschaftlich-technische Information mbH and Max-Planck- 
+	Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use 
+	is subject to license terms. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>pubman</artifactId>
+		<groupId>de.mpg.escidoc.pubman</groupId>
+		<version>7.4.3-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.pubman</groupId>
+	<artifactId>pubman_installer_escidoc</artifactId>
+	<packaging>jar</packaging>
+	<name>pubman_installer_escidoc</name>
+	<description>Installer of a complete PubMan System including Postgres, Fedora and eSciDoc</description>
+
+	<scm>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_escidoc</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_escidoc</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
+	</scm>
+
+	<properties>
+		<staging.dir>${project.build.directory}/staging</staging.dir>
+		<izpack.standalone.compiler.version>4.3.5</izpack.standalone.compiler.version>
+		<ant.version>1.8.2</ant.version>
+		<ant-nodeps.version>1.8.1</ant-nodeps.version>
+		<ant-launcher.version>1.8.2</ant-launcher.version>
+		<ant-contrib.version>1.0b3</ant-contrib.version>
+		<ant-xmltask.version>1.14</ant-xmltask.version>
+		<jboss.version>4.2.3.GA</jboss.version>
+		<mptstore.version>0.9.4</mptstore.version>
+		<admin-tool.version>1.1.1</admin-tool.version>
+		<jdbc.postgresql.version>9.0-801.jdbc4</jdbc.postgresql.version>
+		<fcrepo.version>3.4.2</fcrepo.version>
+		<lucene.version>3.4.0</lucene.version>
+		<escidoc.fedoragsearch.version>1.3.43</escidoc.fedoragsearch.version>
+		<escidoc.srw.version>1.3.41</escidoc.srw.version>
+		<escidoc.saxon.version>1.0.7</escidoc.saxon.version>
+		<escidoc.core.version>1.3.9</escidoc.core.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.escidoc</groupId>
+			<artifactId>fcrepo-installer</artifactId>
+			<version>${fcrepo.version}.oracle</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>mptstore</groupId>
+			<artifactId>mptstore-oracle</artifactId>
+			<version>${mptstore.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.izpack</groupId>
+			<artifactId>izpack-standalone-compiler</artifactId>
+			<version>${izpack.standalone.compiler.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${jdbc.postgresql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>${ant.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant-nodeps</artifactId>
+			<version>${ant-nodeps.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant-launcher</artifactId>
+			<version>${ant-launcher.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ant-contrib</groupId>
+			<artifactId>ant-contrib</artifactId>
+			<version>${ant-contrib.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.escidoc.admintool</groupId>
+			<artifactId>AdminTool</artifactId>
+			<version>${admin-tool.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.escidoc.core</groupId>
+			<artifactId>escidoc-bin</artifactId>
+			<version>${escidoc.core.version}</version>
+			<classifier>bin</classifier>
+			<type>zip</type>
+		</dependency>
+
+		<!-- install fedoragsearch, srw & saxon WARs separately -->
+		<dependency>
+			<groupId>org.escidoc</groupId>
+			<artifactId>fedoragsearch</artifactId>
+			<version>${escidoc.fedoragsearch.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.escidoc</groupId>
+			<artifactId>srw</artifactId>
+			<version>${escidoc.srw.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>fedora.localservice</groupId>
+			<artifactId>saxon</artifactId>
+			<version>${escidoc.saxon.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman</groupId>
+			<artifactId>pubman_ear</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+			<type>ear</type>
+		</dependency>
+
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman</groupId>
+			<artifactId>pubman_installer_basic</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/fedora.xml</descriptor>
+					</descriptors>
+					<finalName>fedora</finalName>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<!-- <classifier>validators</classifier> -->
+							<includes>
+								<include>**/*Validator*</include>
+							</includes>
+							<finalName>escidoc-validators</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+
+					<execution>
+						<id>standard-installer</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<stripVersion>true</stripVersion>
+							<excludeGroupIds>org.codehaus.izpack</excludeGroupIds> <!-- dont want standalone compiler -->
+							<outputDirectory>${staging.dir}/dependency</outputDirectory>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>postgresql</groupId>
+									<artifactId>postgresql</artifactId>
+									<version>${jdbc.postgresql.version}</version>
+									<type>jar</type>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.apache.ant</groupId>
+									<artifactId>ant</artifactId>
+									<version>${ant.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.apache.ant</groupId>
+									<artifactId>ant-nodeps</artifactId>
+									<version>${ant-nodeps.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.apache.ant</groupId>
+									<artifactId>ant-launcher</artifactId>
+									<version>${ant-launcher.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>ant-contrib</groupId>
+									<artifactId>ant-contrib</artifactId>
+									<version>${ant-contrib.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.oopsconsultancy</groupId>
+									<artifactId>xmltask</artifactId>
+									<version>${ant-xmltask.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>de.escidoc.admintool</groupId>
+									<artifactId>AdminTool</artifactId>
+									<type>war</type>
+									<version>${admin-tool.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/packages/admin-tool</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.escidoc.core</groupId>
+									<artifactId>escidoc-bin</artifactId>
+									<type>zip</type>
+									<version>${escidoc.core.version}</version>
+									<classifier>bin</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${staging.dir}/packages/escidoc</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>mptstore</groupId>
+									<artifactId>mptstore-oracle</artifactId>
+									<type>jar</type>
+									<version>${mptstore.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/lib</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.escidoc</groupId>
+									<artifactId>fedoragsearch</artifactId>
+									<type>war</type>
+									<version>${escidoc.fedoragsearch.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/packages/fedoragsearch</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.escidoc</groupId>
+									<artifactId>srw</artifactId>
+									<type>war</type>
+									<version>${escidoc.srw.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/packages/srw</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>fedora.localservice</groupId>
+									<artifactId>saxon</artifactId>
+									<type>war</type>
+									<version>${escidoc.saxon.version}</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>${staging.dir}/packages/saxon</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>de.mpg.escidoc.pubman</groupId>
+									<artifactId>pubman_ear</artifactId>
+									<type>ear</type>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${staging.dir}/packages/pubman</outputDirectory>
+									<destFileName>pubman_ear-${project.version}.ear</destFileName>
+								</artifactItem>
+
+							</artifactItems>
+
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>unpack-jboss</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>pubman_installer_basic</includeArtifactIds>
+							<includes>**/jboss-${jboss.version}.zip</includes>
+							<excludes>**/*.class</excludes>
+							<outputDirectory>${staging.dir}/packages</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy-izpack-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>pubman_installer_basic</includeArtifactIds>
+							<outputDirectory>${staging.dir}/custom</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<excludeTransitive>false</excludeTransitive>
+							<stripVersion>true</stripVersion>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<!-- Used to configure IzPack installer -->
+			<plugin>
+				<groupId>org.codehaus.izpack</groupId>
+				<artifactId>izpack-maven-plugin</artifactId>
+				<version>1.0-alpha-5</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>izpack</goal>
+						</goals>
+						<configuration>
+							<izpackBasedir>${staging.dir}</izpackBasedir>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.izpack</groupId>
+						<artifactId>izpack-standalone-compiler</artifactId>
+						<version>${izpack.standalone.compiler.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>de.mpg.escidoc.pubman</groupId>
+						<!-- artifactId>pubman_installer_basic-jar-with-dependencies</artifactId-->
+						<artifactId>pubman_installer_basic</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+						<version>1.2.14</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
+
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>${staging.dir}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/filtered-resources</directory>
+									<filtering>true</filtering>
+								</resource>
+								<resource>
+									<directory>src/main/resources</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<directory>${project.build.directory}/</directory>
+									<includes>
+										<include>escidoc-validators.jar</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>install-fedora-postgres</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2</version>
+						<executions>
+							<execution>
+								<id>install-fedora</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>java</executable>
+									<arguments>
+										<argument>-jar</argument>
+										<argument>${settings.localRepository}/org/escidoc/fcrepo-installer/${fcrepo.version}.oracle/fcrepo-installer-${fcrepo.version}.oracle.jar</argument>
+										<argument>src/main/resources/fedora/install.properties</argument>
+									</arguments>
+									<outputFile>${project.build.directory}/fcrepo-install-error.log</outputFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<dependencies>
+							<dependency>
+								<groupId>com.oopsconsultancy</groupId>
+								<artifactId>xmltask</artifactId>
+								<version>1.14</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<id>prepare-fedora-configs</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo message="Preparing Fedora Configuration"/>
+										<taskdef name="xmltask"
+											classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+											classpathref="maven.plugin.classpath"/>
+
+										<!-- fedora.fcfg -->
+										<xmltask
+											source="${project.build.directory}/fedora/server/config/fedora.fcfg"
+											dest="${project.build.directory}/fedora.fcfg"
+											failWithoutMatch="true">
+											<!-- general settings -->
+											<attr path="//*[@name='adminEmailList']" attr="value"
+												value="${FedoraAdminMailAddress}"/>
+
+											<!-- database settings -->
+											<attr path="//*[@name='storagePool']" attr="value"
+												value="local${Database}Pool"/>
+											<attr path="//*[@name='connectionPool']" attr="value"
+												value="local${Database}Pool"/>
+											<attr path="//*[@name='defaultPoolName']" attr="value"
+												value="local${Database}Pool"/>
+											<attr path="//*[@name='poolNames']" attr="value"
+												value="local${Database}Pool"/>
+											<attr path="//*[@name='dbUsername']" attr="value"
+												value="${FedoraUsername}"/>
+											<attr path="//*[@name='dbPassword']" attr="value"
+												value="${FedoraPassword}"/>
+											<attr path="//*[@name='jdbcURL']" attr="value"
+												value="${DatabaseURL}${DatasourceFedora}"/>
+											<attr path="//*[@name='jdbcDriverClass']" attr="value"
+												value="${DatabaseDriverClass}"/>
+
+											<!-- triplestore settings -->
+											<attr
+												path="//*[local-name()='module'][@role='org.fcrepo.server.resourceIndex.ResourceIndex']/*[local-name()='param'][@name='datastore']"
+												attr="value" value="localPostgresMPTTriplestore"/>
+											<attr
+												path="//*[local-name()='datastore'][@id='localPostgresMPTTriplestore']/*[local-name()='param'][@name='ddlGenerator']"
+												attr="value" value="${DDLGeneratorClass}"/>
+											<attr
+												path="//*[local-name()='datastore'][@id='localPostgresMPTTriplestore']/*[local-name()='param'][@name='jdbcDriver']"
+												attr="value" value="${DatabaseDriverClass}"/>
+											<attr
+												path="//*[local-name()='datastore'][@id='localPostgresMPTTriplestore']/*[local-name()='param'][@name='jdbcURL']"
+												attr="value" value="${DatabaseURL}${DatasourceTriplestore}"/>
+											<attr
+												path="//*[local-name()='datastore'][@id='localPostgresMPTTriplestore']/*[local-name()='param'][@name='username']"
+												attr="value" value="${TriplestoreUsername}"/>
+											<attr
+												path="//*[local-name()='datastore'][@id='localPostgresMPTTriplestore']/*[local-name()='param'][@name='password']"
+												attr="value" value="${TriplestorePassword}"/>
+										</xmltask>
+
+										<!-- fedora-users.xml -->
+										<xmltask
+											source="${project.build.directory}/fedora/server/config/fedora-users.xml"
+											dest="${project.build.directory}/fedora-users.xml"
+											failWithoutMatch="true">
+											<attr path="/users/user[@name='fedoraAdmin']" attr="password"
+												value="${FedoraPassword}"/>
+											<attr path="/users/user[@name='fedoraAdmin']" attr="name"
+												value="${FedoraUsername}"/>
+										</xmltask>
+
+										<!-- web.xml -->
+										<xmltask
+											source="${project.build.directory}/fedora/install/fedorawar/WEB-INF/web.xml"
+											dest="${project.build.directory}/web.xml" failWithoutMatch="true">
+											<replace
+												path="//*[local-name()='param-name' and text()='fedora.home']/following-sibling::*[1]/text()"
+												withText="${INSTALL_PATH}${FILE_SEPARATOR}fedora"/>
+										</xmltask>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

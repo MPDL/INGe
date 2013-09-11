@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+  <loader-repository>
+    org.escidoc.srw:loader=srw.war
+  </loader-repository>
+</jboss-web>

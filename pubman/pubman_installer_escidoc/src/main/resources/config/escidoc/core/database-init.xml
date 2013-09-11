@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="eSciDoc Core - database initialization file" default="build">
+
+  <property name="install.dir" location="${INSTALL_PATH}" />
+	<property name="root.jdbc.url" value="${DatabaseURL}${root.database.name}" />
+	<property name="escidoc.jdbc.url" value="${DatabaseURL}${escidoc.database.name}" />
+	<property name="sql.dir" location="${install.dir}/core/sql" description="The directory holding the sql scripts" />
+
+        <basename property="DatabaseDriverFile" file="${DatabaseDriver}" />
+	<path id="database.classpath">
+		<pathelement location="${install.dir}/core/lib/${DatabaseDriverFile}" />
+	</path>
+
+	<target name="build" description="Creates databases escidoc-core, fedora32, and riTriples (target create_all). CAVEAT: if databases preexist, they will be dropped first. All data will be LOST!">
+		<!-- creates, initializes, and populates all schemas -->
+		<echo level="info">Creating databases and roles on ${escidoc.jdbc.url}, using (${root.database.user}/${root.database.password})</echo>
+		<antcall target="create-db" />
+		<echo level="info">Creating eSciDoc Core tables and AA roles on ${escidoc.jdbc.url}, using (${escidoc.database.user}/${escidoc.database.password})</echo>
+		<antcall target="create-tables" />
+		<antcall target="create-roles" />
+	</target>
+
+	<target name="create-db" description="Creates all necessary database and roles for eSciDoc">
+		<!-- creates all databases and schemas -->
+		<echo level="info">Creating databases, schemas, and roles</echo>
+		<echo level="info">Executing script ${sql.dir}/${script.prefix}/drop-db.sql</echo>
+		<antcall target="execute-special-sql">
+			<param name="script" value="${script.prefix}/drop-db.sql" />
+		</antcall>
+                <echo level="info">Executing script ${sql.dir}/${script.prefix}/drop-fedora-db.sql</echo>
+		<antcall target="execute-special-sql">
+			<param name="script" value="${script.prefix}/drop-fedora-db.sql" />
+		</antcall>
+		<echo level="info">Executing script ${sql.dir}/${script.prefix}/create-db.sql</echo>
+		<antcall target="execute-sql">
+			<param name="script" value="${script.prefix}/create-db.sql" />
+		</antcall>
+                <echo level="info">Executing script ${sql.dir}/${script.prefix}/create-fedora-db.sql</echo>
+		<antcall target="execute-sql">
+			<param name="script" value="${script.prefix}/create-fedora-db.sql" />
+		</antcall>
+	</target>
+
+	<target name="create-tables" description="Creates all necessary tables for eSciDoc">
+		<!-- creates all necessary tables -->
+		<echo level="info">Creating all necessary tables for eSciDoc</echo>
+		<!-- Create tables for AA and populate -->
+		<antcall target="execute-sqls">
+			<param name="script" value="${script.prefix}/*/*.create.sql" />
+		</antcall>
+        </target>
+
+	<target name="create-roles" description="Creates basic user accounts and necessary system roles">
+		<!-- creates four basic user accounts and all necessary roles -->
+		<echo level="info">Creating basic user accounts</echo>
+		<antcall target="execute-sqls">
+			<param name="script" value="aa.init.user-accounts.common.sql" />
+		</antcall>
+
+		<!-- creates necessary system roles -->
+		<echo level="info">Creating necessary system roles</echo>
+		<antcall target="execute-sqls">
+			<param name="script" value="${script.prefix}/aa/aa.init.roles.*.sql" />
+		</antcall>
+
+		<!-- creates necessary system policies -->
+		<echo level="info">Creating necessary system policies</echo>
+		<antcall target="execute-special-sqls">
+			<param name="script" value="${script.prefix}/aa/aa.init.policy.*.sql" />
+		</antcall>
+
+		<!-- granting newly created user accounts with necessary policies -->
+		<echo level="info">Granting newly created user accounts with necessary policies</echo>
+		<antcall target="execute-sqls">
+			<param name="script" value="aa.init.grants.common.sql" />
+		</antcall>
+
+                <!-- creates necessary actions -->
+                <echo level="info">Creating necessary actions</echo>
+                <antcall target="execute-sqls">
+                        <param name="script" value="${script.prefix}/aa/aa.init.actions.sql" />
+                </antcall>
+
+                <!-- creates necessary method mappings -->
+                <echo level="info">Creating necessary method mappings</echo>
+                <antcall target="execute-sqls">
+                        <param name="script" value="${script.prefix}/aa/aa.init.method-mappings.*.sql" />
+                </antcall>
+	</target>
+
+	<target name="execute-special-sql" description="Processes an SQL script with alternative command delimiter">
+		<echo level="info">Executing script ${sql.dir}/${script}</echo>
+		<sql classpathref="database.classpath" 
+		     driver="${jdbc.driver.class}" 
+		     url="${root.jdbc.url}" 
+		     userid="${root.database.user}" 
+		     password="${root.database.password}"
+                src="${sql.dir}/${script}"
+                delimiter="${SqlScriptDelimiter}"
+                delimitertype="${SqlScriptDelimiterType}"
+                keepformat="${SqlScriptKeepFormat}"
+		     ${DatabaseAutocommit} />
+	</target>
+
+	<target name="execute-sql" description="Processes an SQL script">
+		<echo level="info">Executing script ${sql.dir}/${script}</echo>
+		<sql classpathref="database.classpath" 
+		     driver="${jdbc.driver.class}" 
+		     url="${root.jdbc.url}" 
+		     userid="${root.database.user}" 
+		     password="${root.database.password}"
+                src="${sql.dir}/${script}"
+		     ${DatabaseAutocommit} />
+	</target>
+
+	<target name="execute-sqls" description="Processes SQL scripts">
+		<echo level="info">Executing script(s) ${sql.dir}/${script}</echo>
+		<sql classpathref="database.classpath" 
+		     driver="${jdbc.driver.class}" 
+		     url="${escidoc.jdbc.url}" 
+		     userid="${escidoc.database.user}" 
+		     password="${escidoc.database.password}" 
+		     ${DatabaseAutocommit}>
+                        <path>
+                                <fileset dir="${sql.dir}">
+                                        <include name="${script}"/>
+                                </fileset>
+                        </path>
+                </sql>
+	</target>
+
+	<target name="execute-special-sqls" description="Processes an SQL script with alternative command delimiter">
+		<echo level="info">Executing script(s) ${sql.dir}/${script}</echo>
+		<sql classpathref="database.classpath" 
+		     driver="${jdbc.driver.class}" 
+		     url="${escidoc.jdbc.url}" 
+		     userid="${escidoc.database.user}" 
+		     password="${escidoc.database.password}" 
+        	 delimiter="${SqlScriptDelimiter}"
+        	 delimitertype="${SqlScriptDelimiterType}"
+        	 keepformat="${SqlScriptKeepFormat}"
+		     ${DatabaseAutocommit}>
+                        <path>
+                                <fileset dir="${sql.dir}">
+                                        <include name="${script}"/>
+                                </fileset>
+                        </path>
+                </sql>
+	</target>
+</project>
