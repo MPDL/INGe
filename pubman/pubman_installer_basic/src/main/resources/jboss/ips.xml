@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>IP authorization</comment>
+	<entry key="127.0.0.1">escidoc:role-cone-closed-vocabulary-editor,escidoc:role-cone-open-vocabulary-editor</entry>
+</properties>
