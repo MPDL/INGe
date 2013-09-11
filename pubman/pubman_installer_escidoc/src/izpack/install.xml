@@ -172,8 +172,6 @@
       
       <!-- PubMan variables -->
 		<variable name="CoreserviceUrl" value="http://${EscidocHost}:${EscidocPort}"/>
-		<variable name="CoreserviceAdminUser" value="sysadmin"/>
-		<variable name="CoreserviceAdminPassword" value=""/>
 		<variable name="InitialUserPassword" value=""/>
 		<variable name="InstanceUrl" value=""/>
 		<variable name="MailHost" value=""/>
@@ -220,6 +218,9 @@
     </variables>
     
     <dynamicvariables>
+      <variable name="CoreserviceUrl" value="http://${EscidocHost}:${EscidocPort}"/>
+      <variable name="CoreserviceAdminUser" value="${AdminUsername}"/>
+	  <variable name="CoreserviceAdminPassword" value="${AdminPassword}"/>
       <!-- JBoss Configuration -->
       <variable name="java.io.tmpdir" value=" -Djava.io.tmpdir=/tmp" condition="izpack.macinstall" />
       <variable name="java.io.tmpdir" value="" condition="!izpack.macinstall" />
@@ -417,12 +418,16 @@
         <panel classname="UserInputPanel" id="UserInputPanel.14" condition="pubman_conf_selected"/>
         
 		<!-- CoNE Settings-->
+		
 		<panel classname="UserInputPanel" id="UserInputPanel.15"/>
+		<!--
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel" jar="custom/pubman_installer_basic.jar"/>
+		
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"/>
+		-->
         <panel classname="InstallPanel" id="EscidocInstall" />
-        <panel classname="UserInputPanel" id="UserInputPanel.21" condition="upgradeEscidoc" />
-        <panel classname="UserInputPanel" id="UserInputPanel.22" condition="upgradeEscidoc" />
+        <panel classname="UserInputPanel" id="UserInputPanel.16" condition="upgradeEscidoc" />
+        <panel classname="UserInputPanel" id="UserInputPanel.17" condition="upgradeEscidoc" />
         
         <panel classname="HTMLInfoPanel" id="installInfo" condition="installEscidoc" />
         <panel classname="HTMLInfoPanel" id="upgradeInfo" condition="upgradeEscidoc" />
