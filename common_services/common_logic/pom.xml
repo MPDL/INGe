@@ -46,9 +46,9 @@
 					<ejbVersion>3.0</ejbVersion>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
+			
+						 
+			
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
@@ -95,6 +95,48 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!--
+			
+			<plugin>
+			  <groupId>org.jibx</groupId>
+			  <artifactId>jibx-maven-plugin</artifactId>
+			  <version>1.2.5</version>
+			   <configuration>
+				    <schemaBindingDirectory>${project.build.outputDirectory}/jibx</schemaBindingDirectory>
+				    <includeSchemaBindings>
+				    	<includeSchemaBinding>bindings_AccountUserVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_AffiliationVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_AffiliationVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PubItemVO_PubCollectionVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PubItemVO_PubCollectionVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_ContainerVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_ContainerVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PidTaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_FilterTaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_FileURL.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_ExportFormat.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_Grant.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_StatisticReportVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_StatisticRecordVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TocItemVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TocItemVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_SearchResultVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_StatisticAggregationVO.xml</includeSchemaBinding>
+				      	<includeSchemaBinding>jibx_generated/binding.xml</includeSchemaBinding>
+				    </includeSchemaBindings>
+			  </configuration>
+				<executions>
+				    <execution>
+				    	<phase>process-classes</phase>
+						<goals>
+							<goal>bind</goal>
+						</goals>
+				    </execution>
+				  </executions>
+			</plugin>
+			-->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>
@@ -181,19 +223,19 @@
 		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-extras</artifactId>
-			<version>1.1.5</version>
+			<version>1.1.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-bind</artifactId>
-			<version>1.1.5</version>
+			<version>1.1.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-run</artifactId>
-			<version>1.1.5</version>
+			<version>1.1.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
