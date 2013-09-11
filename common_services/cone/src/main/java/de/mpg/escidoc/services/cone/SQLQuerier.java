@@ -175,7 +175,7 @@ public class SQLQuerier implements Querier
         
         query += ";";
         
-        logger.debug("query: " + query);
+        logger.info("query: " + query);
         
         Statement statement = connection.createStatement();
         long now = new Date().getTime();

@@ -316,6 +316,24 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 		</results>
 	</model>
 	<model>
+		<name>mpinp</name>
+		<aliases>
+			<alias>mpinp</alias>
+		</aliases>
+		<description>MPI for Nuclear Physics Subject Classification</description>
+		<primary-identifier control="false" generate-cone-id="true" subject-prefix="mpinp/resource/"></primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	<model>
 		<name>mimetypes</name>
 		<aliases>
 			<alias>mimetypes</alias>
