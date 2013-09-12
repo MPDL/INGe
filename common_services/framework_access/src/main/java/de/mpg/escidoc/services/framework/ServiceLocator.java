@@ -78,6 +78,8 @@ import de.escidoc.www.services.sm.ScopeHandler;
 import de.escidoc.www.services.sm.ScopeHandlerServiceLocator;
 import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
+import de.escidoc.www.services.tme.JhoveHandler;
+import de.escidoc.www.services.tme.JhoveHandlerServiceLocator;
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>
  * The URL of the framework can be configured using the system property "framework.url".
@@ -130,6 +132,8 @@ public class ServiceLocator
                                                 = AdminHandlerServiceLocatorHolder.serviceLocator;
     private static final RoleHandlerServiceLocator authorizedRoleHandlerServiceLocator
                                                 = RoleHandlerServiceLocatorHolder.serviceLocator;
+    private static final JhoveHandlerServiceLocator authorizedJhoveHandlerServiceLocator
+                                                = JhoveHandlerServiceLocatorHolder.serviceLocator;
     
     // ServiceLocator objects connected to possibly changing or external frameworks
     private static volatile UserAccountHandlerServiceLocator extAuthorizedUserAccountHandlerServiceLocator 
@@ -703,6 +707,25 @@ public class ServiceLocator
         RoleHandler handler = authorizedRoleHandlerServiceLocator.getRoleHandlerService();
         Logger.getLogger(ServiceLocator.class).debug(
                 "authorizedRoleHandlerServiceLocator = " + authorizedRoleHandlerServiceLocator);
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
+     * Gets the JhoveHandler service for an authenticated user.
+     *
+     * @param userHandle The handle of the logged in user.
+     * @return An JhoveHandler.
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static JhoveHandler getJhoveHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        JhoveHandler handler = authorizedJhoveHandlerServiceLocator.getJhoveHandlerService();
+        Logger.getLogger(ServiceLocator.class).debug(
+                "authorizedJhoveHandlerServiceLocator = " + authorizedJhoveHandlerServiceLocator);
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -1351,6 +1374,38 @@ public class ServiceLocator
             Logger.getLogger(ServiceLocator.class).info("RoleHandlerServiceLocator URL=" + url);
             serviceLocator.setRoleHandlerServiceEndpointAddress(url);
             Logger.getLogger(ServiceLocator.class).info("Initializing RoleHandlerServiceLocator finished.");
+            
+            return serviceLocator;
+        }
+    }
+    
+    /**
+     * Helper class for creating a Singelton of a AdminHandlerServiceLocator object
+     *
+     */
+    private static class JhoveHandlerServiceLocatorHolder
+    {        
+        
+        public static JhoveHandlerServiceLocator serviceLocator = getServiceLocator();
+        
+        synchronized private static JhoveHandlerServiceLocator getServiceLocator()
+        {
+            JhoveHandlerServiceLocator serviceLocator = new JhoveHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            Logger.getLogger(ServiceLocator.class).info("Initialization of JhoveHandlerServiceLocator started: " + serviceLocator);
+            String url = null;
+            
+            try
+            {
+                url = ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getJhoveHandlerServiceWSDDServiceName();
+            }
+            catch (Exception e)
+            {
+                Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
+            }
+            
+            Logger.getLogger(ServiceLocator.class).info("JhoveHandlerServiceLocator URL=" + url);
+            serviceLocator.setJhoveHandlerServiceEndpointAddress(url);
+            Logger.getLogger(ServiceLocator.class).info("Initializing JhoveHandlerServiceLocator finished.");
             
             return serviceLocator;
         }
