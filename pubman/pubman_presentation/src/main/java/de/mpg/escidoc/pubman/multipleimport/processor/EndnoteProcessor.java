@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,11 +108,13 @@ public class EndnoteProcessor extends FormatProcessor
         byte[] buffer = new byte[2048];
         try
         {
-            while ((read = getSource().read(buffer)) != -1)
+        	InputStream is = new FileInputStream(getSourceFile());
+            while ((read = is.read(buffer)) != -1)
             {
                 byteArrayOutputStream.write(buffer, 0, read);
             }
             
+            is.close();
             this.originalData = byteArrayOutputStream.toByteArray();
             
             String inputString = new String(this.originalData, this.encoding);

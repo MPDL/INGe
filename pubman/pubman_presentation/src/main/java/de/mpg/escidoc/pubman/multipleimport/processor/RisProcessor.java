@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -100,15 +101,15 @@ public class RisProcessor extends FormatProcessor
     private void initialize()
     {
         init = true;
-        
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getSource()));
-        String line = null;
-        String lastLine = null;
-        ArrayList<String> itemList = new ArrayList<String>();
-        StringWriter stringWriter = new StringWriter();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try
         {
+	        BufferedReader bufferedReader = new BufferedReader(new FileReader(getSourceFile()));
+	        String line = null;
+	        String lastLine = null;
+	        ArrayList<String> itemList = new ArrayList<String>();
+	        StringWriter stringWriter = new StringWriter();
+	        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        
             while ((line = bufferedReader.readLine()) != null)
             {
                 stringWriter.write(line);
@@ -128,6 +129,8 @@ public class RisProcessor extends FormatProcessor
                     lastLine = line;
                 }
             }
+            
+            bufferedReader.close();
             
             if (lastLine != null && lastLine.matches("ER\\s+-\\s*"))
             {

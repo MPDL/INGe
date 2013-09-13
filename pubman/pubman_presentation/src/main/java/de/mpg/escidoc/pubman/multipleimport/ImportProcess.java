@@ -28,7 +28,16 @@
  */
 package de.mpg.escidoc.pubman.multipleimport;
 
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -38,7 +47,11 @@ import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 
 import org.apache.axis.types.NonNegativeInteger;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.richfaces.model.UploadItem;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
@@ -65,6 +78,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.search.Search;
@@ -98,7 +112,7 @@ public class ImportProcess extends Thread
     }
 
     private ImportLog log;
-    private InputStream inputStream;
+    private File file;
     private Transformation transformation;
     private ItemValidating itemValidating;
     private XmlTransforming xmlTransforming;
@@ -135,7 +149,7 @@ public class ImportProcess extends Thread
     private String name;
     private long lastBeat = 0;
 
-    public ImportProcess(String name, String fileName, InputStream inputStream, Format format,
+    public ImportProcess(String name, String fileName, File file, Format format,
             ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration)
     {
         try
@@ -173,14 +187,14 @@ public class ImportProcess extends Thread
             throw new RuntimeException("Invalid value " + duplicateStrategy + " for DuplicateStrategy");
         }
         // Initialize
-        initialize(name, fileName, inputStream, format, escidocContext, user, rollback, strategy, configuration);
+        initialize(name, fileName, file, format, escidocContext, user, rollback, strategy, configuration);
         log.setPercentage(7);
         if (log.isDone())
         {
             return;
         }
         // Validate
-        if (!validate(inputStream, format))
+        if (!validate(file, format))
         {
             return;
         }
@@ -191,7 +205,7 @@ public class ImportProcess extends Thread
      * @param inputStream
      * @param format
      */
-    private void initialize(String name, String fileName, InputStream inputStream, Format format,
+    private void initialize(String name, String fileName, File file, Format format,
             ContextRO escidocContext, AccountUserVO user, boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration)
     {
         log.startItem("import_process_initialize");
@@ -206,7 +220,7 @@ public class ImportProcess extends Thread
             this.escidocContext = escidocContext;
             this.user = user;
             this.transformation = new TransformationBean();
-            this.inputStream = inputStream;
+            this.file = file;
             this.rollback = rollback;
             this.duplicateStrategy = duplicateStrategy;
             InitialContext context = new InitialContext();
@@ -230,10 +244,10 @@ public class ImportProcess extends Thread
      * @param inputStream
      * @param format
      */
-    private boolean validate(InputStream inputStream, Format format)
+    private boolean validate(File file, Format format)
     {
         log.startItem("import_process_validate");
-        if (inputStream == null)
+        if (file == null)
         {
             log.addDetail(ErrorLevel.FATAL, "import_process_inputstream_unavailable");
             fail();
@@ -389,7 +403,7 @@ public class ImportProcess extends Thread
             try
             {
                 log.startItem("import_process_start_import");
-                this.formatProcessor.setSource(inputStream);
+                this.formatProcessor.setSourceFile(file);
                 if (this.formatProcessor.hasNext())
                 {
                     itemCount = this.formatProcessor.getLength();
@@ -475,8 +489,12 @@ public class ImportProcess extends Thread
                         }
                                               
                         log.addDetail(ErrorLevel.FINE, "import_process_save_item");
-                        PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
-                        String objid = savedPubItem.getVersion().getObjectId();
+                        
+                        //TODO for test purposes
+                        //PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
+                        //String objid = savedPubItem.getVersion().getObjectId();
+                        String objid = "escidoc:test";
+                        //-------------------
                         log.setItemId(objid);
                         log.addDetail(ErrorLevel.FINE, "import_process_item_imported");
                         log.finishItem();
@@ -509,8 +527,11 @@ public class ImportProcess extends Thread
                     log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
                     // Store log in repository
                     String taskItemXml = createTaskItemXml();
+                   
+                    
                     ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
                     String savedTaskItemXml = itemHandler.create(taskItemXml);
+                    
                     // log.addDetail(ErrorLevel.FINE, "import_process_retrieve_log_id");
                     Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
                     Matcher matcher = pattern.matcher(savedTaskItemXml);
@@ -536,7 +557,14 @@ public class ImportProcess extends Thread
                 }
             }
         }
-        log.closeConnection();
+        
+        //Close connection if no rollback is done. Otherwise, Connextion is still required for delete process
+        if(!this.rollback)
+        {
+        	log.closeConnection();
+        }
+        
+        file.delete();
     }
 
     /**
@@ -563,6 +591,61 @@ public class ImportProcess extends Thread
     {
         try
         {
+            
+        	String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+            HttpClient client = new HttpClient();
+            ProxyHelper.setProxy(client, fwUrl);
+        
+        	StringBuilder sb = new StringBuilder(ResourceUtil.getResourceAsString("multipleImport/ImportTaskTemplate.xml"));
+        	replace("$01", escape(this.escidocContext.getObjectId()), sb);
+        	replace("$02", escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
+        	replace("$03", escape("Import Task Item for import " + name + " "), sb);
+
+        	//Upload original data
+            PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+            method.setRequestHeader("Content-Type", this.format.toString());
+            method.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
+            InputStream is = new FileInputStream(this.formatProcessor.getSourceFile());
+            method.setRequestEntity(new InputStreamRequestEntity(is));
+            client.executeMethod(method);
+            is.close();
+            String response = method.getResponseBodyAsString();
+            URL originalDataUrl =  xmlTransforming.transformUploadResponseToFileURL(response);
+            
+           	replace("$04", escape(this.name), sb);
+        	replace("$05", escape(this.fileName), sb);
+        	replace("$06", escape(originalDataUrl.toExternalForm()), sb);
+        	replace("$07", escape(log.getStoredId() + ""), sb);
+        	replace("$08", escape(this.format.toString()), sb);
+        	replace("$09", escape(String.valueOf(this.formatProcessor.getLength())), sb);
+        	
+        	//Upload and create task item xml
+        	File tempLogXml = File.createTempFile("multipleImportLogXml", "xml");
+        	Writer fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogXml), "UTF-8"));		
+        	log.toXML(fw);
+        	fw.flush();
+        	fw.close();
+        	
+            PutMethod method2 = new PutMethod(fwUrl + "/st/staging-file");
+            method2.setRequestHeader("Content-Type", "text/xml");
+            method2.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
+        	is = new FileInputStream(tempLogXml);
+            method2.setRequestEntity(new InputStreamRequestEntity(is));
+            client.executeMethod(method2);
+            is.close();
+           
+            response = method2.getResponseBodyAsString();
+            URL logXmlUrl =  xmlTransforming.transformUploadResponseToFileURL(response);
+        	
+            replace("$10", escape(this.name), sb);
+            replace("$11", "importlog.xml", sb);
+            replace("$12", escape(logXmlUrl.toExternalForm()), sb);
+            replace("$13", escape(log.getStoredId() + ""), sb);
+            replace("$14", escape(String.valueOf(tempLogXml.length())), sb);
+            
+            tempLogXml.delete();
+        	
+        	/*
             String taskItemXml = ResourceUtil.getResourceAsString("multipleImport/ImportTaskTemplate.xml");
             taskItemXml = taskItemXml.replace("$1", escape(this.escidocContext.getObjectId()));
             taskItemXml = taskItemXml.replace("$2",
@@ -573,16 +656,27 @@ public class ImportProcess extends Thread
             taskItemXml = taskItemXml.replace("$7", escape(log.getStoredId() + ""));
             taskItemXml = taskItemXml.replace("$8", escape(this.format.toString()));
             taskItemXml = taskItemXml.replace("$9", escape(this.formatProcessor.getLength() + ""));
+			*/
             log.finishItem();
+            
             log.close();
-            taskItemXml = taskItemXml.replace("$3", log.toXML());
-            return taskItemXml;
+            
+            return sb.toString();
         }
         catch (Exception e)
         {
             throw new RuntimeException(e);
         }
     }
+    
+    public static void replace( String target, String replacement, StringBuilder builder ) { 
+    	int indexOfTarget = -1;
+    	while( ( indexOfTarget = builder.indexOf( target ) ) >= 0 ) { 
+    		builder.replace( indexOfTarget, indexOfTarget + target.length() , replacement );
+    	}
+    }
+    
+
 
     private String escape(String string)
     {

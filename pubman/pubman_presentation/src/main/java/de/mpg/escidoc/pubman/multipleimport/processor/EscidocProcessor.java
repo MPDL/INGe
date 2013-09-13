@@ -31,9 +31,12 @@
 package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.stream.FileImageInputStream;
 import javax.naming.InitialContext;
 
 import org.apache.axis.encoding.Base64;
@@ -129,7 +132,7 @@ public class EscidocProcessor extends FormatProcessor
 
     private void initialize()
     {
-        if (getSource() == null)
+        if (getSourceFile() == null)
         {
             throw new RuntimeException("No input source");
         }
@@ -141,10 +144,12 @@ public class EscidocProcessor extends FormatProcessor
             byte[] buffer = new byte[2048];
             try
             {
-                while ((read = getSource().read(buffer)) != -1)
+            	InputStream is = new FileInputStream(getSourceFile());
+                while ((read = is.read(buffer)) != -1)
                 {
                     byteArrayOutputStream.write(buffer, 0, read);
                 }
+                is.close();
                 
                 this.originalData = byteArrayOutputStream.toByteArray();
                 

@@ -110,7 +110,7 @@ public class EdocProcessor extends FormatProcessor
 
             SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
             EdocHandler edocHandler = new EdocHandler();
-            parser.parse(getSource(), edocHandler);
+            parser.parse(getSourceFile(), edocHandler);
             
             this.originalData = edocHandler.getResult().getBytes(getEncoding());
             

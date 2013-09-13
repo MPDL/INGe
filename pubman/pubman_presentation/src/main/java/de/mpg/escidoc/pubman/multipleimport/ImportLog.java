@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,6 +50,8 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.log4j.Logger;
 
@@ -1446,54 +1449,101 @@ public class ImportLog
     }
     
     /**
+    * @return An XML representation of this import. Used to store it in the repository.
+    */
+   public void toXML(Writer writer) throws Exception
+   {
+       //StringWriter writer = new StringWriter();
+
+       writer.write("<import-task ");
+       writer.write("status=\"");
+       writer.write(this.status.toString());
+       writer.write("\" error-level=\"");
+       writer.write(this.errorLevel.toString());
+       writer.write("\" created-by=\"");
+       writer.write(this.user);
+       writer.write("\">\n");
+       
+       writer.write("\t<name>");
+       writer.write(escape(this.message));
+       writer.write("</name>\n");
+       
+       writer.write("\t<context>");
+       writer.write(this.context);
+       writer.write("</context>\n");
+       
+       writer.write("\t<start-date>");
+       writer.write(getStartDateFormatted());
+       writer.write("</start-date>\n");
+       
+       if (this.endDate != null)
+       {
+           writer.write("\t<end-date>");
+           writer.write(getEndDateFormatted());
+           writer.write("</end-date>\n");
+       }
+       
+       writer.write("\t<format>");
+       writer.write(this.format);
+       writer.write("</format>\n");
+       
+       writer.write("\t<items>\n");
+       for (ImportLogItem item : this.items)
+       {
+           item.toXML(writer);//.replaceAll("(.*\\n)", "\t\t$1"));
+       }
+       writer.write("\t</items>\n");
+       writer.write("</import-task>\n");
+
+   }
+    
+    
+    /**
      * @return An XML representation of this import. Used to store it in the repository.
      */
-    public String toXML()
+    /*
+    public void toXML(XMLStreamWriter writer) throws XMLStreamException
     {
-        StringWriter writer = new StringWriter();
-
-        writer.write("<import-task ");
-        writer.write("status=\"");
-        writer.write(this.status.toString());
-        writer.write("\" error-level=\"");
-        writer.write(this.errorLevel.toString());
-        writer.write("\" created-by=\"");
-        writer.write(this.user);
-        writer.write("\">\n");
+       
+        writer.writeStartElement("import-task");
+        writer.writeAttribute("status", this.status.toString());
+        writer.writeAttribute("error-level", this.errorLevel.toString());
+        writer.writeAttribute("created-by", this.user);
         
-        writer.write("\t<name>");
-        writer.write(escape(this.message));
-        writer.write("</name>\n");
+        writer.writeStartElement("name");
+        writer.writeCharacters(this.message);
+        writer.writeEndElement();
         
-        writer.write("\t<context>");
-        writer.write(this.context);
-        writer.write("</context>\n");
+        writer.writeStartElement("context");
+        writer.writeCharacters(this.context);
+        writer.writeEndElement();
         
-        writer.write("\t<start-date>");
-        writer.write(getStartDateFormatted());
-        writer.write("</start-date>\n");
+        writer.writeStartElement("start-date");
+        writer.writeCharacters(getStartDateFormatted());
+        writer.writeEndElement();;
         
-        if (this.endDate != null)
+        if (getEndDate() != null)
         {
-            writer.write("\t<end-date>");
-            writer.write(getEndDateFormatted());
-            writer.write("</end-date>\n");
+            writer.writeStartElement("end-date");
+            writer.writeCharacters(getEndDateFormatted());
+            writer.writeEndElement();
         }
         
-        writer.write("\t<format>");
-        writer.write(this.format);
-        writer.write("</format>\n");
+        writer.writeStartElement("format");
+        writer.writeCharacters(this.format);
+        writer.writeEndElement();
         
-        writer.write("\t<items>\n");
+        writer.writeStartElement("items");
         for (ImportLogItem item : this.items)
         {
-            writer.write(item.toXML().replaceAll("(.*\\n)", "\t\t$1"));
+            item.toXML(writer);
         }
-        writer.write("\t</items>\n");
-        writer.write("</import-task>\n");
+        writer.writeEndElement();
+        writer.writeEndElement();
         
-        return writer.toString();
+       
     }
+    */
 
     /**
      * An XML-safe representation of the given string.

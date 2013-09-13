@@ -136,6 +136,7 @@ public class DeleteProcess extends Thread
         log.startItem("import_process_delete_finished");
         log.finishItem();
         log.close();
+        log.closeConnection();
     }
     
 }

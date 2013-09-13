@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -101,14 +103,15 @@ public class MabProcessor extends FormatProcessor
     {
         init = true;
         
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getSource()));
-        String line = null;
-        ArrayList<String> itemList = new ArrayList<String>();
-        StringWriter stringWriter = new StringWriter();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int lineBreakCount = 0;
         try
         {
+	        BufferedReader bufferedReader = new BufferedReader(new FileReader(getSourceFile()));
+	        String line = null;
+	        ArrayList<String> itemList = new ArrayList<String>();
+	        StringWriter stringWriter = new StringWriter();
+	        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+	        int lineBreakCount = 0;
+        
             while ((line = bufferedReader.readLine()) != null)
             {
                 stringWriter.write(line);
@@ -132,6 +135,8 @@ public class MabProcessor extends FormatProcessor
                 }
             }
             
+            bufferedReader.close();
+            
             if (!"".equals(stringWriter.toString().trim()))
             {
                 itemList.add(stringWriter.toString().trim());
@@ -144,6 +149,8 @@ public class MabProcessor extends FormatProcessor
             this.length = this.items.length;
             
             counter = 0;
+            
+            
         }
         catch (Exception e)
         {

@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -89,18 +90,19 @@ public class ZfNProcessor extends FormatProcessor
     {
         this.init = true;
         
-        InputStream in = getSource();
-        ArrayList<String> itemList = new ArrayList<String>();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        
-        String item = null;
-        final int bufLength = 1024;
-        char[] buffer = new char[ bufLength ];
-        int readReturn;
-        int count = 0;
-        
         try
         {
+	        InputStream in = new FileInputStream(getSourceFile());
+	        ArrayList<String> itemList = new ArrayList<String>();
+	        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+	        
+	        String item = null;
+	        final int bufLength = 1024;
+	        char[] buffer = new char[ bufLength ];
+	        int readReturn;
+	        int count = 0;
+        
+       
             ZipEntry zipentry;
             ZipInputStream zipinputstream = new ZipInputStream(in);
             
@@ -119,8 +121,11 @@ public class ZfNProcessor extends FormatProcessor
                 itemList.add(item);
                 this.fileNames.add(zipentry.getName());
                 
+                reader.close();
                 zipinputstream.closeEntry();
+                
             }
+            
             this.logger.debug("Zip file contains " + count + "elements");
             zipinputstream.close();
             this.counter = 0;

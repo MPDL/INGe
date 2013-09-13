@@ -31,6 +31,13 @@
 package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.axis.encoding.Base64;
 import org.apache.tika.io.IOUtils;
 import org.marc4j.MarcStreamReader;
@@ -54,31 +61,42 @@ public class Marc21Processor extends FormatProcessor
 		private void initialize()
 			{
 				MarcStreamReader reader;
-			 	
-			 	if (this.encoding == null || this.encoding.trim().equals("") || this.encoding.trim().equals("*") )
-					reader = new MarcStreamReader(source);
-				 		
-				else
-			 		reader = new MarcStreamReader(source, encoding);
-			 	
-			 	ByteArrayOutputStream result = new ByteArrayOutputStream();
-				
-			 	MarcXmlWriter writer = new MarcXmlWriter(result, "UTF-8", true);
-			    
-			 	while (reader.hasNext())
-			    	{
-			        	Record record = reader.next();
-			        	writer.write(record);
-			    	}
-			    
-			 	writer.close();
+				ByteArrayOutputStream result;
+				MarcXmlWriter writer;
+				try {
+					InputStream is = new FileInputStream(getSourceFile());
+					if (this.encoding == null || this.encoding.trim().equals("") || this.encoding.trim().equals("*") )
+						reader = new MarcStreamReader(is);
+					 		
+					else
+						reader = new MarcStreamReader(is, encoding);
+					
+					result = new ByteArrayOutputStream();
+					
+					writer = new MarcXmlWriter(result, "UTF-8", true);
+					
+					while (reader.hasNext())
+						{
+					    	Record record = reader.next();
+					    	writer.write(record);
+						}
+					
+					is.close();
+					writer.close();
+				} catch (Exception e1) {
+						throw new RuntimeException("Error while reading marc21 file");
+				}
 				
            		try
            			{
            				//nasty workaround to get rid of the namespace issues, has to be fixed, Stf, 2013-03-22
            				String xml = new String(result.toString("UTF-8").replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "").replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\"") );
            				marcxmlprocessor = new MarcXmlProcessor();
-           				marcxmlprocessor.setSource(IOUtils.toInputStream(xml, "UTF-8"));
+           				
+           				File f = File.createTempFile("marcXml", "xml");
+           				FileOutputStream fos = new FileOutputStream(f);
+           				IOUtils.write(xml, fos, "UTF-8");
+           				marcxmlprocessor.setSourceFile(f);
            			}
 				catch (Exception e)
 					{
@@ -133,7 +151,7 @@ public class Marc21Processor extends FormatProcessor
 		@Override
 		public String getDataAsBase64()
 			{
-				if (this.getSource() == null)
+				if (this.getSourceFile() == null)
 			        {
 			            return null;
 			        }
@@ -141,7 +159,11 @@ public class Marc21Processor extends FormatProcessor
 		        {
 		            try
 			            {
-				            return Base64.encode(IOUtils.toByteArray(this.getSource()));
+		            		InputStream is = new FileInputStream(getSourceFile());
+		            		String base64 = Base64.encode(IOUtils.toByteArray(is));
+		            		is.close();
+		            		return base64;
+				            
 			            }
 		            catch (Exception e)
 		            	{

@@ -31,6 +31,8 @@
 package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.NoSuchElementException;
 
@@ -106,9 +108,11 @@ public class ArxivProcessor extends FormatProcessor
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int read;
         byte[] buffer = new byte[2048];
+       
         try
         {
-            while ((read = getSource().read(buffer)) != -1)
+        	InputStream is = new FileInputStream(getSourceFile());
+            while ((read = is.read(buffer)) != -1)
             {
                 byteArrayOutputStream.write(buffer, 0, read);
             }
@@ -118,6 +122,7 @@ public class ArxivProcessor extends FormatProcessor
             this.length = 1;
             
             counter = 0;
+            is.close();
             
         }
         catch (Exception e) {

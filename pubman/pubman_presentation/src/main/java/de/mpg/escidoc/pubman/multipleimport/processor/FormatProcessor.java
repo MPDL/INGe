@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.multipleimport.processor;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
 
@@ -44,23 +45,23 @@ import java.util.Iterator;
 public abstract class FormatProcessor implements Iterator<String>
 {
 
-    InputStream source;
+    File sourceFile;
     String encoding;
     
     /**
      * @return the source
      */
-    protected InputStream getSource()
+    public File getSourceFile()
     {
-        return source;
+        return sourceFile;
     }
 
     /**
      * @param source the source to set
      */
-    public void setSource(InputStream source)
+    public void setSourceFile(File source)
     {
-        this.source = source;
+        this.sourceFile = source;
     }
 
     /**

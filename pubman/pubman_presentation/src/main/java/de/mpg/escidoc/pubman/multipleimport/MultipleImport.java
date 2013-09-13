@@ -221,7 +221,7 @@ public class MultipleImport extends FacesBean
         
         for(SelectItem si : configParameters) configuration.put(si.getLabel(), si.getValue().toString());
         
-        
+        /*
         InputStream fileIs = null;
     	if(uploadedImportFile.isTempFile())
     	{
@@ -231,8 +231,9 @@ public class MultipleImport extends FacesBean
     	{
     		fileIs = new ByteArrayInputStream(uploadedImportFile.getData());
     	}
-    	
-        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), fileIs, format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
+    	*/
+        
+        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), uploadedImportFile.getFile(), format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
         importProcess.start();
         
         FacesContext fc = FacesContext.getCurrentInstance();

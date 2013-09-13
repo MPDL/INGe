@@ -31,7 +31,11 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Date;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -163,12 +167,14 @@ public class ImportLogItem extends ImportLog
         return "ImportItemDetails.jsp?id=" + getStoredId();
     }
     
+    
     /**
      * @return An XML representation of this item
      */
-    public String toXML()
+    
+    public void toXML(Writer writer) throws Exception
     {
-        StringWriter writer = new StringWriter();
+        //StringWriter writer = new StringWriter();
         
         writer.write("<import-item ");
         writer.write("status=\"");
@@ -181,9 +187,13 @@ public class ImportLogItem extends ImportLog
         writer.write(escape(getMessage()));
         writer.write("</message>\n");
 
-        writer.write("\t<escidoc-id>");
-        writer.write(getItemId());
-        writer.write("</escidoc-id>\n");
+        if(getItemId()!=null)
+        {
+            writer.write("\t<escidoc-id>");
+            writer.write(getItemId());
+            writer.write("</escidoc-id>\n");
+        }
+
 
         writer.write("\t<start-date>");
         writer.write(getStartDateFormatted());
@@ -199,12 +209,55 @@ public class ImportLogItem extends ImportLog
         writer.write("\t<items>\n");
         for (ImportLogItem item : getItems())
         {
-            writer.write(item.toXML().replaceAll("(.*\n)", "\t\t$1"));
+            item.toXML(writer);
         }
         writer.write("\t</items>\n");
         
         writer.write("</import-item>\n");
-        
-        return writer.toString();
+
     }
+    
+    
+    /**
+     * @return An XML representation of this item
+     */
+    /*
+    public void toXML(XMLStreamWriter writer) throws XMLStreamException
+    {
+    	
+    	
+        writer.writeStartElement("import-item ");
+        writer.writeAttribute("status", getStatus().toString());
+        writer.writeAttribute("error-level", getErrorLevel().toString());
+       
+        
+        writer.writeStartElement("message");
+        writer.writeCharacters(getMessage());
+        writer.writeEndElement();
+
+        writer.writeStartElement("escidoc-id");
+        writer.writeCharacters(getItemId());
+        writer.writeEndElement();;
+
+        writer.writeStartElement("start-date");
+        writer.writeCharacters(getStartDateFormatted());
+        writer.writeEndElement();;
+        
+        if (getEndDate() != null)
+        {
+            writer.writeStartElement("end-date");
+            writer.writeCharacters(getEndDateFormatted());
+            writer.writeEndElement();
+        }
+        
+        writer.writeStartElement("items");
+        for (ImportLogItem item : getItems())
+        {
+            item.toXML(writer);
+        }
+        writer.writeEndElement();
+        
+        writer.writeEndElement();
+    }
+    */
 }

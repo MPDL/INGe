@@ -31,7 +31,9 @@
 package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,10 @@ public abstract class GenericXmlProcessor extends FormatProcessor
     private void initialize()
 	    {
 	    	try {
-					this.originalData = IOUtils.toByteArray(this.getSource());
+	    			InputStream is = new FileInputStream(getSourceFile());
+					this.originalData = IOUtils.toByteArray(is);
+					is.close();
+					
 				}
 	    	catch (IOException e)
 	    		{
@@ -180,7 +185,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor
 	@Override
 	public String getDataAsBase64()
 		{
-			if (this.getSource() == null)
+			if (this.getSourceFile() == null)
 		        {
 		            return null;
 		        }
