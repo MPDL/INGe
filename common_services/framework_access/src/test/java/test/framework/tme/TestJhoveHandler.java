@@ -52,6 +52,7 @@ public class TestJhoveHandler extends TestBase
         {
             String xml = jhoveHandler.extract(req1);
             assertTrue(xml != null);
+            logger.info("*************************** xml ***********************************");
             logger.info(xml);
         }
         catch (Exception e)
@@ -68,6 +69,7 @@ public class TestJhoveHandler extends TestBase
         {
             String xml = jhoveHandler.extract(req2);
             assertTrue(xml != null);
+            logger.info("*************************** pdf ***********************************");
             logger.info(xml);
         }
         catch (Exception e)
@@ -84,9 +86,71 @@ public class TestJhoveHandler extends TestBase
         {
             String xml = jhoveHandler.extract(req3);
             assertTrue(xml != null);
+            logger.info("*************************** excel xlsx ***********************************");
             logger.info(xml);
         }
         catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        String req4 = "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"http://dev-pubman.mpdl.mpg.de/pubman/item/escidoc:530002:2/component/escidoc:530177/performanceWithTitle.xlsx\" />"
+                + "</request>";
+        try
+        {
+            String xml = jhoveHandler.extract(req4);
+            assertTrue(xml != null);
+            logger.info("*************************** excel xlsx with title ***********************************");
+            logger.info(xml);
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        String req5 = "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"http://dev-pubman.mpdl.mpg.de/pubman/item/escidoc:530180:1/component/escidoc:530178/Administrationshandbuch+Pubman.docx\" />"
+                + "</request>";
+        try
+        {
+            String xml = jhoveHandler.extract(req5);
+            assertTrue(xml != null);
+            logger.info("*************************** word docx ***********************************");
+            logger.info(xml);
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        String req6 = "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"http://dev-pubman.mpdl.mpg.de/pubman/item/escidoc:530180:1/component/escidoc:530179/model_01.mat\" />"
+                + "</request>";
+        try
+        {
+            String xml = jhoveHandler.extract(req6);
+            assertTrue(xml != null);
+            logger.info("*************************** matlab mat ***********************************");
+            logger.info(xml);
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        //
+        String req7 = "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"http://dev-pubman.mpdl.mpg.de/pubman/item/escidoc:530180:2/component/escidoc:530181/zischgeles.GPX\" />"
+                + "</request>";
+        try
+        {
+            String xml = jhoveHandler.extract(req7);
+            assertTrue(xml != null);
+            logger.info("*************************** geo gpx ***********************************");
+            logger.info(xml);
+        } 
+        catch (Exception e) 
         {
             e.printStackTrace();
         }
