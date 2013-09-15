@@ -139,7 +139,6 @@ public class TestJhoveHandler extends TestBase
             e.printStackTrace();
         }
         
-        //
         String req7 = "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
                 + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"http://dev-pubman.mpdl.mpg.de/pubman/item/escidoc:530180:2/component/escidoc:530181/zischgeles.GPX\" />"
                 + "</request>";
@@ -148,6 +147,21 @@ public class TestJhoveHandler extends TestBase
             String xml = jhoveHandler.extract(req7);
             assertTrue(xml != null);
             logger.info("*************************** geo gpx ***********************************");
+            logger.info(xml);
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        String req8 = "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"http://dev-pubman.mpdl.mpg.de/pubman/item/escidoc:530180:3/component/escidoc:530182/2013-03-21+15.09.59.jpg\" />"
+                + "</request>";
+        try
+        {
+            String xml = jhoveHandler.extract(req8);
+            assertTrue(xml != null);
+            logger.info("*************************** jpg ***********************************");
             logger.info(xml);
         } 
         catch (Exception e) 
