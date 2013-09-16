@@ -47,14 +47,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-				<wtpversion>1.5</wtpversion>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>${jdk.version}</source>
@@ -377,6 +369,19 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- JBOSS 4.2.3 is using this version of JSF. Just provided for for Eclipse here. -->
+		<dependency>
+		  <groupId>javax.faces</groupId>
+		  <artifactId>jsf-impl</artifactId>
+		  <version>1.2_09-BETA1</version>
+		  <scope>provided</scope>
 		</dependency>
 	 
 	</dependencies>
