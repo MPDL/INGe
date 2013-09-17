@@ -130,6 +130,24 @@
 				</span>
 			</h:panelGroup>
 
+<%-- File technical metadata --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">			
+				<b class="xLarge_area0_p8 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemFull_lblTechnicalMetadata}"/><span class="noDisplay">: <br /></span>
+				</b>
+					
+					<div class="xHuge_area0 xTiny_marginLExcl endline">
+						<div class="xHuge_area0 endline marginTExcl6p">						
+							<h:outputLink id="lnkCitationURLTme" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=tme" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="std_imgBtn viewFileIcon tiny_marginLExcl"></span>
+								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
+							</h:outputLink>
+						</div>
+					</div>
+
+		</h:panelGroup>
+			
+
 <%-- Copyright Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">

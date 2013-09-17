@@ -35,21 +35,24 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
+import de.escidoc.www.services.tme.JhoveHandler;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls.
@@ -75,14 +78,26 @@ public class RedirectServlet extends HttpServlet
     {
         String id = req.getPathInfo().substring(1);
         boolean download = ("download".equals(req.getParameter("mode")));
-        if (id != null && id.contains("/component/"))
+        boolean tme = ("tme".equals(req.getParameter("mode")));
+        
+        // no component -> viewItemFullPage
+        if (!id.contains("/component/"))
+        {
+            resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+            return;
+        }
+        
+        // is component
+        if (id.contains("/component/"))
         {
             String[] pieces = id.split("/");
             if (pieces.length != 4)
             {
                 resp.sendError(404, "File not found");
             }
-            else
+            
+            // open component or download it
+            if (req.getParameter("mode") == null || download)
             {
                 try
                 {
@@ -101,7 +116,7 @@ public class RedirectServlet extends HttpServlet
                     // test new method
                     // String contentType = mimeType; // For dialog, try
                     // resp.setContentType(contentType);
-                    byte[] buffer = null;
+                    
                     GetMethod method = new GetMethod(url);
                     method.setFollowRedirects(false);
                     LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
@@ -134,7 +149,6 @@ public class RedirectServlet extends HttpServlet
                     }
                     else
                     {
-                    	Random random = new Random(System.currentTimeMillis());
                         for (Header header : method.getResponseHeaders())
                         {
                         	if (!"Transfer-Encoding".equals(header.getName()))
@@ -153,7 +167,7 @@ public class RedirectServlet extends HttpServlet
                         }
                         input = method.getResponseBodyAsStream();
                     }
-                    buffer = new byte[2048];
+                    byte[] buffer = new byte[2048];
                     int numRead;
                     long numWritten = 0;
                     while ((numRead = input.read(buffer)) != -1)
@@ -173,10 +187,40 @@ public class RedirectServlet extends HttpServlet
                     throw new ServletException(e);
                 }
             }
-        }
-        else
-        {
-            resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+            // view technical metadata
+            if (tme)
+            {
+                try
+                {
+                    String componentPattern = PropertyReader.getProperty("escidoc.pubman.component.pattern");
+                    String componentUrl = componentPattern.replace("$1", pieces[0]).replace("$2", pieces[2]).replace("$3", pieces[3]);
+                            
+                    JhoveHandler jhoveHandler = ServiceLocator.getJhoveHandler(AdminHelper.getAdminUserHandle());
+                    
+                    StringBuffer b = new StringBuffer(2048);
+                    b.append(
+                            "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                                    + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"")
+                            .append(PropertyReader.getProperty("escidoc.pubman.instance.url"))
+                            .append(PropertyReader.getProperty("escidoc.pubman.instance.context.path"))
+                            .append(componentUrl);
+                    b.append("\"");
+                    b.append("/>");
+                    b.append("</request>");
+                    String technicalMetadata = jhoveHandler.extract(b.toString());
+                    resp.setHeader("Content-Type", "text/xml");
+                    OutputStream out = resp.getOutputStream();
+                    out.write(technicalMetadata.getBytes());
+                }
+                catch (ServiceException e)
+                {
+                    throw new ServletException(e);
+                }
+                catch (URISyntaxException e)
+                {
+                    throw new ServletException(e);
+                }
+            }
         }
     }
 
