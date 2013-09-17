@@ -312,6 +312,7 @@
 									document.getElementById('idInfo').style.visibility = 'visible';
 									document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
 									document.getElementById('cone_identifier').className = 'xLarge_txtInput infoMessageArea endline';
+									document.getElementById('idInfo').title = 'This content is unique';
 
 								}
 							}
