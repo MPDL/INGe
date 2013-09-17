@@ -102,12 +102,11 @@ public class ItemValidatingBean implements ItemValidating
             ValidationSchemaNotFoundException,
             TechnicalException
     {
-
         String context = findContext(itemXml);
         String contentModel = findContentModel(itemXml);
 
-        LOGGER.info("Context found: " + context);
-        LOGGER.info("ContentModel found: " + contentModel);
+        LOGGER.debug("Context found: " + context);
+        LOGGER.debug("ContentModel found: " + contentModel);
         
         return validateItemXml(itemXml, validationPoint, context, contentModel);
     }
