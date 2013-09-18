@@ -31,6 +31,7 @@
 package test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -116,8 +118,12 @@ public class BmcToEscidocTransformationTest extends XMLTestCase {
 	}
 
 	@Test
-	public void testTransformByteArrayFormatFormatString() throws TransformationNotSupportedException, RuntimeException, SAXException, IOException, ParserConfigurationException
+	public void testTransformByteArrayFormatFormatString() throws TransformationNotSupportedException, RuntimeException, SAXException, IOException, ParserConfigurationException, URISyntaxException
 		{
+	        // skip the test in case of release build
+	        if (PropertyReader.getProperty("escidoc.common.release.build").equals("true"))
+	            return;
+	    
 			assertXMLEqual(
 							expected,
 							new String(
@@ -130,8 +136,12 @@ public class BmcToEscidocTransformationTest extends XMLTestCase {
 		}
 
 	@Test
-	public void testTransformByteArrayFormatFormatStringStringMap() throws TransformationNotSupportedException, RuntimeException, SAXException, IOException, ParserConfigurationException
+	public void testTransformByteArrayFormatFormatStringStringMap() throws TransformationNotSupportedException, RuntimeException, SAXException, IOException, ParserConfigurationException, URISyntaxException
 		{
+	        // skip the test in case of release build
+	        if (PropertyReader.getProperty("escidoc.common.release.build").equals("true"))
+	            return;
+	    
 			Map <String,String> config = new HashMap<String, String>();
 			config.put("{http://escidoc.de/core/01/structural-relations/}origin", "Pubman File-Import");
 			
@@ -153,6 +163,10 @@ public class BmcToEscidocTransformationTest extends XMLTestCase {
 	@Test
 	public void testTransformByteArrayStringStringStringStringStringStringString() throws Exception
 		{
+	        // skip the test in case of release build
+	        if (PropertyReader.getProperty("escidoc.common.release.build").equals("true"))
+	            return;
+	        
 			assertXMLEqual(
 							expected,
 							new String(

@@ -69,6 +69,16 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>env-release-build</id>
+			<properties>				
+				<escidoc.common.release.build>true</escidoc.common.release.build>
+			</properties>
+			<build>
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>commons-logging</groupId>
