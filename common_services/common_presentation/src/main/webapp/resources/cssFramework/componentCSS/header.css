@@ -128,7 +128,9 @@
 }
 
 .headerLogo, .themePark {
-	height: 5em;
+	height: 96px;
+	position: absolute;
+	top: 0;
 }
 
 .LogoNSearch {
