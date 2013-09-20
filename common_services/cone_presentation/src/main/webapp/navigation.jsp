@@ -48,19 +48,14 @@
 	boolean showWarning = Login.checkLogin(request, true);
 	
 %>
+<style type="text/css">
+	.headerLogo {background-image: url("/cone/img/cone_logo_web.png") !important; background-repeat: norepeat; background-position: top left;}
+</style>
 
-
-<div class="full_area0 header alternateHeader clear">
+<div class="full_area0 header clear">
 <!-- start: header section -->
 	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
-		<!-- logo alternate area starts here -->
-		<div class="free_area0 small_marginLExcl logoAlternate">
-			<a href="">
-				<span>eSciDoc.</span>
-				<span>CoNE</span>
-			</a>
-		</div>
-		<!-- logo alternate area starts here -->
+	
 		<!-- meta Menu starts here -->
 			<!-- CoLab -->
 			<a class="medium_area0_p8 endline" href="http://colab.mpdl.mpg.de/mediawiki/Service_for_Control_of_Named_Entities">About</a>
@@ -80,6 +75,10 @@
 		<!-- meta Menu ends here -->
 	</span>
 	
+	<div class="full_area0 LogoNSearch">
+		<span class="tiny_marginLExcl quad_area0 headerLogo">
+		</span>
+	</div>
 	
 	<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 		<a href="index.jsp" class="free_area0 xTiny_marginRIncl<% if ("/index.jsp".equals(request.getServletPath())) { %> active<% } %>">Home</a>
