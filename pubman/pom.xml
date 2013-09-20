@@ -862,7 +862,7 @@
 		<!-- JUS - SSRN contexts -->
 		<escidoc.pubman.instance.ssrn_contexts>escidoc:167026,escidoc:1002</escidoc.pubman.instance.ssrn_contexts>
 		<!-- Externalisation of home page content -->
-		<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo.png</escidoc.pubman.logo.url>
+		<escidoc.pubman.logo.url>/pubman/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
 		<escidoc.pubman.home.content.url />
 		<!-- Additional link in meta menu -->
 		<escidoc.pubman.survey.url />
@@ -923,6 +923,7 @@
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
+				<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo_web.png</escidoc.pubman.logo.url>
 			</properties>
 		</profile>
 		<!-- this profile is used by developers -->
