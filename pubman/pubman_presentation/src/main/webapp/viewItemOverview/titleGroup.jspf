@@ -54,7 +54,7 @@
 				<img class="big_imgBtn statusIcon inRevisionItem" align="left"/>
 			</h:panelGroup>
 			
-			<img src="../resources/images/overviewPage/picture_nature_31.png" class="big_imgBtn" align="right"/>
+			<img src="../resources/images/overviewPage/picture_31.png" class="big_imgBtn" align="right"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/>
 		</h4>
 	</h:panelGroup>
