@@ -49,6 +49,8 @@ import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -428,6 +430,38 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
 
         return creators;
+    }
+    
+    
+    /**
+     * Delivers all creators, which are part of the MPG
+     */
+    public List<CreatorVO> getMpgAuthors()
+    {
+        List<CreatorVO> creators = this.getMetadata().getCreators();
+        List<CreatorVO> mpgCreators = new ArrayList<CreatorVO> ();
+        boolean isMpgCreator = false;
+        for (CreatorVO creator: creators)
+        {
+            if(creator.getType().equals(CreatorType.PERSON)
+                    && creator.getPerson().getOrganizations() != null )
+            {
+                for (OrganizationVO organization : creator.getPerson().getOrganizations())
+                {
+                    System.out.println("Organization: " + organization.getName());
+                    if (organization.getName().toString().contains("Max Planck Society"))
+                    {
+                        isMpgCreator = true;
+                    }
+                }
+                if (isMpgCreator)
+                {
+                    mpgCreators.add(creator);
+                    isMpgCreator = false;
+                }
+            }
+        }
+        return mpgCreators;
     }
 
     /**
@@ -1407,6 +1441,44 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public List<FileBean> getFileBeanList()
     {
         return fileBeanList;
+    }
+    
+    /**
+     * Delivers the FileBeans for all Files which have the content-category fulltext
+     * @return List<FileBeans> which have the content-category fulltext
+     */
+    public List<FileBean> getFulltextFileBeanList()
+    {
+        List<FileBean> fulltexts = new ArrayList<FileBean> ();
+        if (this.fileBeanList != null)
+        {
+            for (FileBean file : this.fileBeanList)
+            {
+                if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getFile().getContentCategory())){
+                    fulltexts.add(file);
+                }
+            }
+        }
+        return fulltexts;
+    }
+    
+    /**
+     * Delivers the FileBeans for all Files which have the content-category fulltext
+     * @return List<FileBeans> which have the content-category fulltext
+     */
+    public List<FileBean> getSupplementaryMaterialFileBeanList()
+    {
+        List<FileBean> supplementaryMaterial = new ArrayList<FileBean> ();
+        if (this.fileBeanList != null)
+        {
+            for (FileBean file : this.fileBeanList)
+            {
+                if ("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material".equals(file.getFile().getContentCategory())){
+                    supplementaryMaterial.add(file);
+                }
+            }
+        }
+        return supplementaryMaterial;
     }
 
     public void setLocatorBeanList(List<FileBean> locatorBeanList)

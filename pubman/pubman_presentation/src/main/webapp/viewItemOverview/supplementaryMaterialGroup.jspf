@@ -1,0 +1,73 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+
+<h:panelGroup layout="block" styleClass="huge_area0 tile_category borderYellow">
+	<!-- <div class="huge_area0">
+	images have to be in one line!
+		<img src="../images/header_left_corner_yellow.png" class="left"/><img src="../images/header_middle_yellow.png" class="center" /><img src="../images/header_right_corner_yellow.png" class="right"/>
+	</div> -->
+	<h:panelGroup layout="block" styleClass="huge_area0_p6">
+		<h5 class="tile_title">
+			<img src="../resources/images/overviewPage/supplementary_material_31.png" class="big_imgBtn" align="right"/>
+			<h:outputText value="#{lbl.ViewItemOverview_lblSupplementaryMaterialSection}" />
+		</h5>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="free_area0_p6" rendered ="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList == null or empty(ViewItemFull.pubItem.supplementaryMaterialFileBeanList)}">
+		<h:outputText value="#{msg.ViewItemOverview_noSupplementaryMaterialAvailable}" />
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="huge_area0_p0 nano" style="max-height:300px;">
+		<h:panelGroup layout="block" styleClass="free_area0_p6 content">
+			<a4j:repeat var="file" value="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList}" rendered ="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList != null and !empty(ViewItemFull.pubItem.supplementaryMaterialFileBeanList)}" rowKeyVar="index">
+				<div>
+					<img src="../resources/images/overviewPage/supplementary_material_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
+					<p class="double_area0">
+						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						</h:outputLink>
+						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						</h:outputLink>
+						<!-- Link for fulltext searchhits with open pdf params-->
+						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						</h:outputLink>
+						</br>
+						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
+						<h:outputText value=", #{file.fileSize}"/>
+					</p>
+				</div>
+			</a4j:repeat>
+		</h:panelGroup>
+	</h:panelGroup>
+</h:panelGroup>

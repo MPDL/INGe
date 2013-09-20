@@ -291,6 +291,10 @@
 									<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 								</h:outputLink>
 								<h:panelGroup styleClass="seperator" />
+								<h:outputLink id="lnkViewItemOverviewPage" styleClass="free_area0" value="#{ViewItemFull.citationURL}">
+									<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
+								</h:outputLink>
+								<h:panelGroup styleClass="seperator" />
 							</span>
 						</div>
 						

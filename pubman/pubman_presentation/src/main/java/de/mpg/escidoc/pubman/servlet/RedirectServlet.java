@@ -83,7 +83,7 @@ public class RedirectServlet extends HttpServlet
         // no component -> viewItemFullPage
         if (!id.contains("/component/"))
         {
-            resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+            resp.sendRedirect("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
             return;
         }
         

@@ -1,0 +1,52 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+
+<h:panelGroup layout="block" styleClass="third_area0 tile_category borderBrown" >
+	<!-- <div class="third_area0">
+		<img src="../images/header_left_corner_brown.png" class="left"/><img src="../images/header_middle_brown.png" class="center" /><img src="../images/header_right_corner_brown.png" class="right"/>
+	</div> -->
+	<h:panelGroup layout="block" styleClass="third_area0_p6">
+		<h5 class="tile_title">
+			<img src="../resources/images/overviewPage/abstract_31.png" class="big_imgBtn" align="right"/>
+			<h:outputText value="#{lbl.ViewItemOverview_lblAbstractSection}" />
+		</h5>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="huge_area0_p6" rendered="#{!ViewItemFull.hasAbstracts}">
+		<h:outputText value="#{msg.ViewItemOverview_noAbstractAvailable}" />
+	</h:panelGroup>
+	<a4j:repeat var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" rowKeyVar="index" rendered="#{ViewItemFull.hasAbstracts}">
+		<h:panelGroup layout="block" styleClass="third_area0_p6">
+			<h:outputText value="#{abstract.value}" converter="HTMLSubSupConverter" escape="false"/>
+		</h:panelGroup>
+	</a4j:repeat>
+</h:panelGroup>

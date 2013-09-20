@@ -35,6 +35,15 @@
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
+			<from-outcome>loadViewItemOverview</from-outcome>
+			<to-view-id>
+			/viewItemOverviewPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
 			<from-outcome>loadViewItem</from-outcome>
 			<to-view-id>
 			/viewItemFullPage.jsp</to-view-id>
