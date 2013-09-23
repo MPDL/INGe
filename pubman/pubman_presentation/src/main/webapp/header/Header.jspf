@@ -54,9 +54,10 @@
 	<jsp:directive.include file="ui/MetaMenu.jspf"/>
 	<div class="full_area0 LogoNSearch">
 		<h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
-			<span class="tiny_marginLExcl quad_area0 headerLogo">
-				<h:panelGroup styleClass="quad_area0 themePark #{Header.serverLogo}"></h:panelGroup>
-			</span>
+
+				<h:panelGroup styleClass="tiny_marginLExcl themePark #{Header.serverLogo}">
+					<h:graphicImage styleClass="headerLogo" url="#{ApplicationBean.logoUrl}"></h:graphicImage>
+				</h:panelGroup>
 		</h:outputLink>
 		<%-- import search here--%>
 		<jsp:directive.include file="ui/SearchMenu.jspf"/>

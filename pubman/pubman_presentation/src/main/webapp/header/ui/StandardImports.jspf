@@ -35,12 +35,13 @@
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
 <meta http-equiv="expires" content="0"/>
-<style type="text/css">
-	.headerLogo {background-image: url("<h:outputText value='#{ApplicationBean.logoUrl}'/>") !important; background-repeat: norepeat; background-position: top left;}
-</style>
+
 <link href="/common/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
 <h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
-
+<style type="text/css">
+	/*.headerLogo {background-image: url("<h:outputText value='#{ApplicationBean.logoUrl}'/>") !important; background-repeat: norepeat; background-position: top left;}*/
+	.headerLogo {<h:outputText value='#{ApplicationBean.additionalLogoCss}'/>}
+</style>
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 
 <link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />

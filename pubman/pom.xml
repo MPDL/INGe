@@ -862,7 +862,8 @@
 		<!-- JUS - SSRN contexts -->
 		<escidoc.pubman.instance.ssrn_contexts>escidoc:167026,escidoc:1002</escidoc.pubman.instance.ssrn_contexts>
 		<!-- Externalisation of home page content -->
-		<escidoc.pubman.logo.url>/pubman/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
+		<escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
+		<escidoc.pubman.logo.css></escidoc.pubman.logo.css>
 		<escidoc.pubman.home.content.url />
 		<!-- Additional link in meta menu -->
 		<escidoc.pubman.survey.url />

@@ -584,6 +584,17 @@ public class ApplicationBean extends FacesBean
     	return null;
     }
     
+    public String getAdditionalLogoCss()
+    {
+    	try {
+			return PropertyReader.getProperty("escidoc.pubman.logo.css");
+
+		} catch (Exception e) {
+			logger.error("Could not retrieve logo css", e);
+		}
+    	return "";
+    }
+    
     /**
      * @return the application wide contentCategoryMap
      */
