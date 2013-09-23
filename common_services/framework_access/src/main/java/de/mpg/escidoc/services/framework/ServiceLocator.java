@@ -712,6 +712,20 @@ public class ServiceLocator
     }
     
     /**
+     * Gets the JhoveHandler.
+     *
+     * @return An JhoveHandler.
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static JhoveHandler getJhoveHandler() throws ServiceException, URISyntaxException
+    {
+        return getJhoveHandler("");
+    }
+    
+    /**
      * Gets the JhoveHandler service for an authenticated user.
      *
      * @param userHandle The handle of the logged in user.
