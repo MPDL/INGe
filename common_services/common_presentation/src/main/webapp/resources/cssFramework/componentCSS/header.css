@@ -127,10 +127,16 @@
 	background-repeat:no-repeat;
 }
 
-.headerLogo, .themePark {
+.headerLogo {
 	border:none;
 	position: absolute;
 	top: 0;
+}
+
+.themePark {
+	position: absolute;
+	top: 0;
+	height: 5em;
 }
 
 .LogoNSearch {
