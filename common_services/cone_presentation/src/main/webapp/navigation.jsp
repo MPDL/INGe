@@ -49,7 +49,7 @@
 	
 %>
 <style type="text/css">
-	.headerLogo {background-image: url("/cone/img/cone_logo_web.png") !important; background-repeat: norepeat; background-position: top left;}
+	.headerLogo {top: 0.5em;}
 </style>
 
 <div class="full_area0 header clear">
@@ -76,7 +76,8 @@
 	</span>
 	
 	<div class="full_area0 LogoNSearch">
-		<span class="tiny_marginLExcl quad_area0 headerLogo">
+		<span class="tiny_marginLExcl headerLogo">
+			<img alt="CoNE" src="/cone/img/cone_logo_web.png">
 		</span>
 	</div>
 	
