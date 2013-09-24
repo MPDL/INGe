@@ -479,7 +479,7 @@
 	    <!-- deploy PubMan Web Archives in JBoss -->
 	    <antcall target="move-file-with-save">
 	      <param name="source" value="${install.dir}/install.tmp/${pubman_ear.ear}" />
-	      <param name="target" value="${install.dir}/jboss/server/default/deploy/${pubman_ear.ear}" />
+	      <param name="target" value="${install.dir}/jboss/server/default/${pubman_ear.ear}" />
 	    </antcall>  
 	  	<antcall target="move-file-with-save">
 	  	  <param name="source" value="${install.dir}/install.tmp/validation-ds.xml" />
@@ -489,10 +489,18 @@
 	  	  <param name="source" value="${install.dir}/install.tmp/pid-cache-ds.xml" />
 	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pid-cache-ds.xml" />
 	  	</antcall> 
+	  	<!--
 	  	<antcall target="move-file-with-save">
 	  	  <param name="source" value="${install.dir}/install.tmp/pubman.properties" />
 	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pubman.properties" />
-	    </antcall> 
+	    </antcall--> 
+	  </target>
+	
+	  <target name="start-escidoc" depends="init" description="Starts the eSciDoc Framework ">
+	  	<echo level="debug">Starting JBoss Server</echo>
+	  		<exec dir="${install.dir}/jboss/bin" executable="cmd">
+	  			<arg line="/c run.bat" />
+	  		</exec>
 	  </target>
 
   <!-- Following target is commented out for debugging purposes only.    -->
@@ -505,6 +513,7 @@
     <delete dir="${install.dir}/core/etc" />
     <delete dir="${install.dir}/core/sql" />
     <delete file="${install.dir}/install.tmp/${jboss}.zip" />
+  	<delete file="${install.dir}/install.tmp/${jboss.patch.zip}.zip" />
     <!-- The database driver lib is still bound to the ant script and cannot be deleted -->
     <!-- delete dir="${install.dir}/core/lib" / -->
   </target>
@@ -580,7 +589,6 @@
   </target>
 
   <target name="rename-without-save" unless="dir.already.present" description="Renames a directory">
-    <echo level="debug">move ${source} to ${target}</echo>
     <move file="${source}" tofile="${target}" />
   </target>
 

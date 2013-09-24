@@ -48,4 +48,10 @@
       <target name="cleanup" />
     </antcall>
   </pack>
+  
+  <pack name="Start eSciDoc Framework">
+    <antcall order="afterpacks" id="start.escidoc" logfile="${INSTALL_PATH}/install.log/start-escidoc.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+      <target name="start-escidoc" />
+    </antcall>
+  </pack>
 </antactions>

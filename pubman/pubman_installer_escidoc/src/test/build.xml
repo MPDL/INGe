@@ -1,0 +1,18 @@
+<project name="start">	
+	
+	<target name="init" description="Intialize runtime environment">
+	    <property name="install.dir" location="c:/tmp" />
+	  </target>
+	<target name="start-jboss" depends="init" description="Starts JBoss eSciDoc">
+		<echo level="debug">Starting JBoss Server</echo>
+
+			 		<exec dir="${install.dir}/jboss/bin" executable="cmd">
+			 			<!--
+			 			<arg value="/c"/>
+			 			<arg value="run.bat"/>
+			 			<arg value="-b 0.0.0.0"/>
+			 			-->
+			 			<arg line="/c run.bat" />
+			 		</exec>
+	</target>
+</project>

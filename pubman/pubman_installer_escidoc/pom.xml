@@ -71,6 +71,12 @@
 			<groupId>org.codehaus.izpack</groupId>
 			<artifactId>izpack-standalone-compiler</artifactId>
 			<version>${izpack.standalone.compiler.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.apache.ant</artifactId>
+					<groupId>ant</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -86,6 +92,12 @@
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant-nodeps</artifactId>
 			<version>${ant-nodeps.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>ant</artifactId>
+					<groupId>ant</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ant</groupId>
@@ -96,6 +108,12 @@
 			<groupId>ant-contrib</groupId>
 			<artifactId>ant-contrib</artifactId>
 			<version>${ant-contrib.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>ant</artifactId>
+					<groupId>ant</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>de.escidoc.admintool</groupId>
@@ -198,19 +216,6 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.2</version>
 				<executions>
-
-					<execution>
-						<id>standard-installer</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<stripVersion>true</stripVersion>
-							<excludeGroupIds>org.codehaus.izpack</excludeGroupIds> <!-- dont want standalone compiler -->
-							<outputDirectory>${staging.dir}/dependency</outputDirectory>
-						</configuration>
-					</execution>
 
 					<execution>
 						<id>copy</id>
@@ -402,12 +407,7 @@
 						<artifactId>pubman_installer_basic</artifactId>
 						<version>${project.version}</version>
 					</dependency>
-					<dependency>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId>
-						<version>1.2.14</version>
-						<scope>compile</scope>
-					</dependency>
+					
 				</dependencies>
 
 			</plugin>
