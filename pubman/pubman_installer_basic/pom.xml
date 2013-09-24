@@ -201,7 +201,7 @@
 
 	<properties>
 		<staging.dir>${project.build.directory}/staging</staging.dir>
-		<version.izpack-standalone>4.3.0</version.izpack-standalone>
+		<version.izpack-standalone>4.3.5</version.izpack-standalone>
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
 	</properties>
 
@@ -301,6 +301,12 @@
 			<artifactId>izpack-standalone-compiler</artifactId>
 			<version>${version.izpack-standalone}</version>
 			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.ant</groupId>
+					<artifactId>ant</artifactId>					
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
