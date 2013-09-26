@@ -13,18 +13,6 @@
     </antcall>
   </pack>
 
-  <pack name="Digilib">
-    <antcall order="afterpacks" id="digilib.service" logfile="${INSTALL_PATH}/install.log/escidoc-app-services.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
-      <target name="digilib" />
-    </antcall>
-  </pack>
-
-  <!-- pack name="Sources">
-    <antcall order="afterpacks" id="source.code" logfile="${INSTALL_PATH}/install.log/escidoc-sources.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
-      <target name="escidoc-sources" />
-    </antcall>
-  </pack -->
-
   <pack name="Database Creation">
     <antcall order="afterpacks" id="database.scripts" logfile="${INSTALL_PATH}/install.log/db-scripts.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
       <target name="db-create-scripts" />
@@ -50,7 +38,7 @@
   </pack>
   
   <pack name="Start eSciDoc Framework">
-    <antcall order="afterpacks" id="start.escidoc" logfile="${INSTALL_PATH}/install.log/start-escidoc.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
+    <antcall order="afterpacks" id="start.escidoc" verbose="yes" logfile="${INSTALL_PATH}/install.log/start-escidoc.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
       <target name="start-escidoc" />
     </antcall>
   </pack>

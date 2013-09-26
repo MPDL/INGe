@@ -73,7 +73,7 @@
 			<version>${izpack.standalone.compiler.version}</version>
 			<exclusions>
 				<exclusion>
-					<artifactId>org.apache.ant</artifactId>
+					<artifactId>ant</artifactId>
 					<groupId>ant</groupId>
 				</exclusion>
 			</exclusions>
@@ -114,6 +114,11 @@
 					<groupId>ant</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.oopsconsultancy</groupId>
+			<artifactId>xmltask</artifactId>
+			<version>${ant-xmltask.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>de.escidoc.admintool</groupId>
@@ -165,6 +170,12 @@
 			<version>${project.version}</version>
 			<scope>compile</scope>
 			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>ant</artifactId>
+					<groupId>ant</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
@@ -216,7 +227,20 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.2</version>
 				<executions>
-
+					<execution>
+						<id>standard-installer</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<stripVersion>true</stripVersion>
+							<excludeGroupIds>org.codehaus.izpack</excludeGroupIds> <!-- dont want standalone compiler -->
+							<excludeArtifactIds>AdminTool, escidoc-bin, fedoragsearch, srw, saxon, pubman_ear</excludeArtifactIds>
+							<outputDirectory>${staging.dir}/lib</outputDirectory>
+						</configuration>
+					</execution>
+   
 					<execution>
 						<id>copy</id>
 						<phase>prepare-package</phase>
@@ -225,55 +249,6 @@
 						</goals>
 						<configuration>
 							<artifactItems>
-								<artifactItem>
-									<groupId>postgresql</groupId>
-									<artifactId>postgresql</artifactId>
-									<version>${jdbc.postgresql.version}</version>
-									<type>jar</type>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>org.apache.ant</groupId>
-									<artifactId>ant</artifactId>
-									<version>${ant.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>org.apache.ant</groupId>
-									<artifactId>ant-nodeps</artifactId>
-									<version>${ant-nodeps.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>org.apache.ant</groupId>
-									<artifactId>ant-launcher</artifactId>
-									<version>${ant-launcher.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>ant-contrib</groupId>
-									<artifactId>ant-contrib</artifactId>
-									<version>${ant-contrib.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>com.oopsconsultancy</groupId>
-									<artifactId>xmltask</artifactId>
-									<version>${ant-xmltask.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
-								</artifactItem>
-
 								<artifactItem>
 									<groupId>de.escidoc.admintool</groupId>
 									<artifactId>AdminTool</artifactId>
@@ -291,15 +266,6 @@
 									<classifier>bin</classifier>
 									<overWrite>true</overWrite>
 									<outputDirectory>${staging.dir}/packages/escidoc</outputDirectory>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>mptstore</groupId>
-									<artifactId>mptstore-oracle</artifactId>
-									<type>jar</type>
-									<version>${mptstore.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${staging.dir}/lib</outputDirectory>
 								</artifactItem>
 
 								<artifactItem>

@@ -489,17 +489,17 @@
 	  	  <param name="source" value="${install.dir}/install.tmp/pid-cache-ds.xml" />
 	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pid-cache-ds.xml" />
 	  	</antcall> 
-	  	<!--
 	  	<antcall target="move-file-with-save">
 	  	  <param name="source" value="${install.dir}/install.tmp/pubman.properties" />
-	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pubman.properties" />
-	    </antcall--> 
+	  	  <param name="target" value="${install.dir}/jboss/server/default/conf/pubman.properties" />
+	    </antcall> 
 	  </target>
 	
 	  <target name="start-escidoc" depends="init" description="Starts the eSciDoc Framework ">
 	  	<echo level="debug">Starting JBoss Server</echo>
-	  		<exec dir="${install.dir}/jboss/bin" executable="cmd">
-	  			<arg line="/c run.bat" />
+	  		<exec dir="${install.dir}/jboss/bin" executable="cmd" spawn="true">
+	  			<arg value="/c"/>
+	  			<arg value="run.bat"/>
 	  		</exec>
 	  </target>
 

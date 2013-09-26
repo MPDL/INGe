@@ -122,7 +122,7 @@
 
       <!-- database connection -->
       <!-- Postgres -->
-      <variable name="jdbc.driver.postgres" value="lib/postgresql-${jdbc.postgresql.version}.jar" />
+      <variable name="jdbc.driver.postgres" value="lib/postgresql.jar" />
       <variable name="Database" value="PostgreSQL" />
       <variable name="DatabaseAdminUsernamePostgres" value="postgres" />
       <variable name="DatabaseDriverClassPostgres" value="org.postgresql.Driver" />
@@ -422,9 +422,9 @@
 		<panel classname="UserInputPanel" id="UserInputPanel.15"/>
 		<!--
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel" jar="custom/pubman_installer_basic.jar"/>
-		
-		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"/>
 		-->
+		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"/>
+		
         <panel classname="InstallPanel" id="EscidocInstall" />
         <panel classname="UserInputPanel" id="UserInputPanel.16" condition="upgradeEscidoc" />
         <panel classname="UserInputPanel" id="UserInputPanel.17" condition="upgradeEscidoc" />
@@ -501,32 +501,9 @@
             <file src="packages/escidoc/escidoc-bin-${escidoc.core.version}-bin.zip" targetdir="$INSTALL_PATH/install.tmp" />
         </pack>
         
-        <!-- pack name="Examples" parent="eSciDoc" required="yes">
-            <description>Example objects for the eSciDoc Core services</description>
-            <file src="packages/escidoc/core/escidoc-examples-${EscidocVersion}.zip" targetdir="$INSTALL_PATH/install.tmp" />
-            <file src="config/escidoc/core/readme.txt" targetdir="$INSTALL_PATH/install.tmp" />
-            <parsable targetfile="$INSTALL_PATH/install.tmp/readme.txt" />
-        </pack -->
-        
         <pack name="Additional Services and Tools" required="no">
             <description>Additional Services and Tools complementing the eSciDoc Infrastructure Core Services</description>
         </pack>
-        
-        <!--pack name="Digilib" parent="Additional Services and Tools" required="no">
-            <description>Digilib Image Manipulation and Display Service</description>
-            <file src="packages/escidoc/services/DigilibClient.war" targetdir="$INSTALL_PATH/install.tmp" />
-            <file src="packages/escidoc/services/DigilibServer.war" targetdir="$INSTALL_PATH/install.tmp" />
-        </pack -->
-        
-        <!--pack name="Duplication Check" parent="Additional Services and Tools" required="no">
-            <description>Service calculating the probability of a document to be a duplicate of one or more documents within the repository, based on the full-text and/or metadata.</description>
-            <file src="tools/docsim.zip" targetdir="$INSTALL_PATH/tools" />
-        </pack>
-        
-        <pack name="PID Manager" parent="Additional Services and Tools" required="no">
-            <description>Persistent Identifier Service, defaulting to use Handle(tm) System </description>
-            <file src="tools/escidoc-pid-manager-release.zip" targetdir="$INSTALL_PATH/tools" />
-        </pack-->
 
         <pack name="Admin Tool" parent="Additional Services and Tools" required="no">
             <description>Administration Client for the eSciDoc Infrastructure</description>
@@ -549,35 +526,6 @@
             <file src="../staging/saxon/jboss-web.xml" targetdir="$INSTALL_PATH/install.tmp/saxon/WEB-INF" />
             <file src="packages/saxon/saxon-${escidoc.saxon.version}.war" targetdir="$INSTALL_PATH/services" />
         </pack>
-
-        <!--pack name="Documentation" required="no">
-          <description>eSciDoc Infrastructure Docomentation</description>
-        </pack>
-        
-        <pack name="API Documentation" parent="Documentation" required="no">
-            <description>eSciDoc Infrastructure API Documentation</description>
-            <file src="doc/escidoc-core-doc-${EscidocVersion}.zip" targetdir="$INSTALL_PATH/doc/api" />
-        </pack>
-        
-        <pack name="License" parent="Documentation" required="no">
-            <description>Open Source License for eSciDoc Infrastructure</description>
-            <file src="doc/License.txt" targetdir="$INSTALL_PATH/doc/license" />
-        </pack>
-        
-        <pack name="Concepts" parent="Documentation" required="no">
-            <description>Conceptual Documentation for the eSciDoc Infrastructure</description>
-            <file src="doc/GuideToProgramming.pdf" targetdir="$INSTALL_PATH/doc/license" />
-        </pack>
-        
-        <pack name="Installation" parent="Documentation" required="no">
-            <description>eSciDoc Infrastructure Installation Guide</description>
-            <file src="doc/Installation.pdf" targetdir="$INSTALL_PATH/doc/license" />
-        </pack-->
-        
-        <!--pack name="Sources" required="no">
-            <description>Java source code for eSciDoc Infrastructure services</description>
-            <file src="packages/escidoc/core/escidoc-core-src-${EscidocVersion}.zip" targetdir="$INSTALL_PATH/install.tmp" />
-        </pack-->
         
         <pack name="Configuration and Initialization" required="yes" condition="installEscidoc">
             <description>Scripts and procedures to configure the system, initialize the database, and a first set of user accounts.</description>
@@ -604,24 +552,30 @@
             <depends packname="Database Creation" />
             <depends packname="Database Initialization" />
         </pack>
+        
+        <pack name="Start eSciDoc Framework" id="start.escidoc" parent="Configuration and Initialization" required="yes">
+            <description>Start the eSciDoc framework</description>
+        </pack>
                
         <pack name="PubMan" required="no" >
-			<description>PubMan binary and configuration</description>
+			<description>PubMan binary and configuration</description>			
+		</pack>
+		
+		<pack name="PubMan Binary" parent="PubMan" required="yes" >
+			<description>PubMan Binary </description>
 			<file src="pubman/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
 			<file src="pubman/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
 			<file src="packages/pubman/pubman_ear-${project.version}.ear" targetdir="$INSTALL_PATH/install.tmp"/>
 		</pack>
 		
-		<pack name="PubMan Binary" parent="PubMan" required="yes" >
-			<description>PubMan Binary </description>
-		</pack>
-		
 		<pack name="Initial Dataset" parent="PubMan" required="no" >
 			<description>Creates an Initial Dataset on the Core Service Instance</description>
+			<depends packname="Start eSciDoc Framework" />
 		</pack>
 		
 		<pack name="Advanced configuration" parent="PubMan" required="no" >
 			<description>Customize PubMan in Detail</description>
+			<depends packname="Start eSciDoc Framework" />
 		</pack>
     </packs>
     
@@ -630,14 +584,34 @@
         <listener installer="AntActionInstallerListener" />
     </listeners>
     
-    <jar src="lib/ant-${ant.version}.jar" stage="install" />
-    <jar src="lib/ant-nodeps-${ant-nodeps.version}.jar" stage="install" />
-    <jar src="lib/ant-launcher-${ant-launcher.version}.jar" stage="install" />
-    <jar src="lib/ant-contrib-${ant-contrib.version}.jar" stage="install" />
-    <jar src="lib/xmltask-${ant-xmltask.version}.jar" stage="install" />
-    <jar src="lib/postgresql-${jdbc.postgresql.version}.jar" stage="install" />
+    <jar src="lib/ant.jar" stage="install" />
+    <jar src="lib/ant-nodeps.jar" stage="install" />
+    <jar src="lib/ant-launcher.jar" stage="install" />
+    <jar src="lib/ant-contrib.jar" stage="install" />
+    <jar src="lib/xmltask.jar" stage="install" />
+    <jar src="lib/postgresql.jar" stage="install" />
+    <jar src="lib/log4j.jar" stage="install" />
     <jar src="escidoc-validators.jar" stage="install" />
     <jar src="custom/pubman_installer_basic.jar" stage="both" />
+      
+    <jar src="lib/plexus-utils.jar"/>
+	<jar src="lib/commons-httpclient.jar"/>
+	<jar src="lib/commons-codec.jar"/>
+	<jar src="lib/commons-discovery.jar"/>
+	<jar src="lib/commons-logging.jar"/>
+	<jar src="lib/javaee.jar"/>
+	<jar src="lib/wss4j.jar"/>
+	<jar src="lib/axis.jar"/>
+	<jar src="lib/axis-jaxrpc.jar"/>
+	<jar src="lib/axis-saaj.jar"/>
+	<jar src="lib/axis-wsdl4j.jar" stage="install" />
+
+	<jar src="lib/framework_access.jar"/>
+	<jar src="lib/xmlsec.jar"/>
+	<jar src="lib/postgresql.jar" stage="install" />
+	<jar src="lib/cone.jar"/>
+	<jar src="lib/common_logic.jar"/>
+    
 
     <native type="3rdparty" name="COIOSHelper.dll" stage="both">
         <os family="windows"/>
