@@ -59,23 +59,54 @@
         We indicate here which panels we want to use. The order will be respected.
     -->
 	<panels>
-		<!-- Information --><panel classname="HTMLInfoPanel"/>
-		<!-- Licensing Agreements--><panel classname="LicencePanel"/>
-		<!-- Select Installation Packages --><panel classname="PacksPanel"/>
-		<!-- Core Service Connectivity --><panel classname="UserInputPanel" id="UserInputPanel.0"/>
-		<!-- PubMan General Settings --><panel classname="UserInputPanel" id="UserInputPanel.1"/>
-		<!-- Mail Server Settings --><panel classname="UserInputPanel" id="UserInputPanel.2" condition="conf_selected"/>
-		<!-- CoNE Settings--><panel classname="UserInputPanel" id="UserInputPanel.3"/>
+		<!-- Information -->
+		<panel classname="HTMLInfoPanel"/>
+		
+		<!-- Licensing Agreements-->
+		<panel classname="LicencePanel"/>
+		
+		<!-- Select Installation Packages -->
+		<panel classname="PacksPanel"/>
+		
+		<!-- Core Service Connectivity -->
+		<panel classname="UserInputPanel" id="UserInputPanel.0"/>
+		
+		<!-- PubMan General Settings -->
+		<panel classname="UserInputPanel" id="UserInputPanel.1"/>
+		
+		<!-- Mail Server Settings -->
+		<panel classname="UserInputPanel" id="UserInputPanel.2" condition="conf_selected"/>
+		
+		<!-- CoNE Settings-->
+		<panel classname="UserInputPanel" id="UserInputPanel.3"/>
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
-		<!-- Initial DataSet --><panel classname="UserInputPanel" id="UserInputPanel.4"/>
-		<!-- ID of the External Organisation --><panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
-		<!-- Publication Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.6" condition="not_dataset_selected"/>
-		<!-- Import Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.7" condition="not_dataset_selected"/>
-		<!-- Pubman Style Information --><panel classname="UserInputPanel" id="UserInputPanel.8" condition="conf_selected"/>
-		<!-- PubMan Presentation --><panel classname="UserInputPanel" id="UserInputPanel.9" condition="conf_selected"/>
-		<!-- Search Engine SiteMap --><panel classname="UserInputPanel" id="UserInputPanel.10" condition="conf_selected"/>
-		<!-- Search&Export Service --><panel classname="UserInputPanel" id="UserInputPanel.11" condition="conf_selected"/>
-		<!-- Home Page Content and Survey Advertisements --><panel classname="UserInputPanel" id="UserInputPanel.12" condition="conf_selected"/>
+		
+		<!-- Initial DataSet -->
+		<panel classname="UserInputPanel" id="UserInputPanel.4"/>
+		
+		<!-- ID of the External Organisation -->
+		<panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
+		
+		<!-- Publication Content Model ID -->
+		<panel classname="UserInputPanel" id="UserInputPanel.6" condition="not_dataset_selected"/>
+		
+		<!-- Import Content Model ID -->
+		<panel classname="UserInputPanel" id="UserInputPanel.7" condition="not_dataset_selected"/>
+		
+		<!-- Pubman Style Information -->
+		<panel classname="UserInputPanel" id="UserInputPanel.8" condition="conf_selected"/>
+		
+		<!-- PubMan Presentation -->
+		<panel classname="UserInputPanel" id="UserInputPanel.9" condition="conf_selected"/>
+		
+		<!-- Search Engine SiteMap -->
+		<panel classname="UserInputPanel" id="UserInputPanel.10" condition="conf_selected"/>
+		
+		<!-- Search&Export Service -->
+		<panel classname="UserInputPanel" id="UserInputPanel.11" condition="conf_selected"/>
+		
+		<!-- Home Page Content and Survey Advertisements -->
+		<panel classname="UserInputPanel" id="UserInputPanel.12" condition="conf_selected"/>
 
 		<panel classname="TargetPanel"/>
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel"/>
