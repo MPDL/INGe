@@ -201,13 +201,13 @@
     <field type="staticText" align="left"
       txt="The System Administrator user has access to all resources in the eSciDoc Infrastructure. He can create other users and grant roles and privileges to them." />
     <field type="space" />
-    <field type="text" align="left" variable="AdminUsername">
+    <field type="text" align="left" variable="CoreserviceAdminUser">
       <spec txt="System Administrator Username:" size="25" set="" />
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="System administrator username must not be an empty string." />
     </field>
     <field type="space" />
     <!-- Password -->
-    <field type="password" align="left" variable="AdminPassword">
+    <field type="password" align="left" variable="CoreserviceAdminPassword">
       <spec>
         <pwd txt="System Administrator Password:" size="25" set="" />
         <pwd txt="Retype Password:" size="25" set="" />
@@ -372,8 +372,36 @@
         <field type="divider" align="bottom" />
     </panel>
     
-        <!-- ===========================   Panel 14: Mail Server Settings   =============================== -->
+    <!-- ===========================   Panel 14: PubMan Dataset Settings   =============================== -->
     <panel order="14">
+        <createForPack name="PubMan Initial Dataset" />
+         <field type="staticText" align="left"
+            txt="Here information for the initial dataset on coreservice is collected. E.g initial user passwords etc." />
+        <field type="title" txt="Dataset Settings" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="space" />
+        <!--   
+        <field type="password" align="left" variable="InitialUserPassword">
+            <spec>
+            	<pwd txt="Initial user passwords:" size="25" set="${InitialUserPassword}"/>
+            </spec>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Initial user password must not be empty." />
+        </field>
+        -->
+      <field type="password" align="left" variable="InitialUserPassword">
+            <spec>
+            	<pwd txt="Initial User Password:" size="25" set="${InitialUserPassword}"/>
+            	<pwd txt="Retype User  Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Initial user password must not be empty." />
+        </field> 
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
+    
+   <!-- ===========================   Panel 14: Mail Server Settings   =============================== -->
+    <panel order="15">
         <createForPack name="PubMan" />
         <field type="title" txt="Mail Server Settings" bold="true" size="1" />
          <field type="staticText" align="left"
@@ -411,7 +439,7 @@
     </panel>
     
     <!-- ===========================   Panel 15: CoNE Settings   =============================== -->
-    <panel order="15">
+    <panel order="16">
         <createForPack name="PubMan" />
         <field type="title" txt="CoNE Settings" bold="true" size="1" />
          <field type="staticText" align="left"
@@ -456,7 +484,7 @@
         <field type="divider" align="bottom" />
     </panel>
 
-  <panel order="16" id="Database backup">
+  <panel order="17" id="Database backup">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Backup" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -466,7 +494,7 @@
     <field type="divider" align="bottom" />
   </panel>
 
-  <panel order="17" id="Database migration">
+  <panel order="18" id="Database migration">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Migration" bold="true" size="1" />
     <field type="divider" align="top" />

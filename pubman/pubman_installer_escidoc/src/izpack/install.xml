@@ -158,8 +158,8 @@
       <!-- Identifier prefix -->
       <variable name="sid-prefix" value="escidoc" />
       <!-- Infrastructure administrator user -->
-      <variable name="AdminUsername" value="sysadmin" />
-      <variable name="AdminPassword" value="" />
+      <variable name="CoreserviceAdminUser" value="sysadmin" />
+      <variable name="CoreserviceAdminPassword" value="" />
       <!-- variable name="AdminEmail" value="" / -->
       <!-- Infrastructure inspector user -->
       <variable name="InspectorUsername" value="inspector" />
@@ -171,7 +171,6 @@
       <variable name="CreatorUserid" value="escidoc:exuser1" />
       
       <!-- PubMan variables -->
-		<variable name="CoreserviceUrl" value="http://${EscidocHost}:${EscidocPort}"/>
 		<variable name="InitialUserPassword" value=""/>
 		<variable name="InstanceUrl" value=""/>
 		<variable name="MailHost" value=""/>
@@ -219,8 +218,6 @@
     
     <dynamicvariables>
       <variable name="CoreserviceUrl" value="http://${EscidocHost}:${EscidocPort}"/>
-      <variable name="CoreserviceAdminUser" value="${AdminUsername}"/>
-	  <variable name="CoreserviceAdminPassword" value="${AdminPassword}"/>
       <!-- JBoss Configuration -->
       <variable name="java.io.tmpdir" value=" -Djava.io.tmpdir=/tmp" condition="izpack.macinstall" />
       <variable name="java.io.tmpdir" value="" condition="!izpack.macinstall" />
@@ -414,20 +411,23 @@
         <!-- PubMan General Settings -->
         <panel classname="UserInputPanel" id="UserInputPanel.13"/>
         
-        <!-- Mail Server Settings -->
-        <panel classname="UserInputPanel" id="UserInputPanel.14" condition="pubman_conf_selected"/>
+        <!-- PubMan Dataset Settings -->
+        <panel classname="UserInputPanel" id="UserInputPanel.14" />
         
-		<!-- CoNE Settings-->
+        <!-- Mail Server Settings -->
+        <panel classname="UserInputPanel" id="UserInputPanel.15" condition="pubman_conf_selected"/>
+        
+		<!-- CoNE Settings-->		
+		<panel classname="UserInputPanel" id="UserInputPanel.16"/>
 		
-		<panel classname="UserInputPanel" id="UserInputPanel.15"/>
+		<panel classname="InstallPanel" id="EscidocInstall" />
 		<!--
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel" jar="custom/pubman_installer_basic.jar"/>
 		-->
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"/>
 		
-        <panel classname="InstallPanel" id="EscidocInstall" />
-        <panel classname="UserInputPanel" id="UserInputPanel.16" condition="upgradeEscidoc" />
         <panel classname="UserInputPanel" id="UserInputPanel.17" condition="upgradeEscidoc" />
+        <panel classname="UserInputPanel" id="UserInputPanel.18" condition="upgradeEscidoc" />
         
         <panel classname="HTMLInfoPanel" id="installInfo" condition="installEscidoc" />
         <panel classname="HTMLInfoPanel" id="upgradeInfo" condition="upgradeEscidoc" />
@@ -568,12 +568,12 @@
 			<file src="packages/pubman/pubman_ear-${project.version}.ear" targetdir="$INSTALL_PATH/install.tmp"/>
 		</pack>
 		
-		<pack name="Initial Dataset" parent="PubMan" required="no" >
+		<pack name="PubMan Initial Dataset" parent="PubMan" required="no" >
 			<description>Creates an Initial Dataset on the Core Service Instance</description>
 			<depends packname="Start eSciDoc Framework" />
 		</pack>
 		
-		<pack name="Advanced configuration" parent="PubMan" required="no" >
+		<pack name="PubMan Advanced Configuration" parent="PubMan" required="no" >
 			<description>Customize PubMan in Detail</description>
 			<depends packname="Start eSciDoc Framework" />
 		</pack>
