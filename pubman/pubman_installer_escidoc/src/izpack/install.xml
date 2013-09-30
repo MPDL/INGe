@@ -573,7 +573,7 @@
 			<depends packname="Start eSciDoc Framework" />
 		</pack>
 		
-		<pack name="PubMan Advanced Configuration" parent="PubMan" required="no" >
+		<pack name="PubMan Advanced Configuration" parent="PubMan" required="no" condition="installEscidoc">
 			<description>Customize PubMan in Detail</description>
 			<depends packname="Start eSciDoc Framework" />
 		</pack>
