@@ -448,7 +448,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             {
                 for (OrganizationVO organization : creator.getPerson().getOrganizations())
                 {
-                    System.out.println("Organization: " + organization.getName());
                     if (organization.getName().toString().contains("Max Planck Society"))
                     {
                         isMpgCreator = true;
