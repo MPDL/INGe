@@ -408,26 +408,23 @@
         <!-- JBoss HTTPS -->
         <panel classname="UserInputPanel" id="UserInputPanel.12" condition="!removeJmxConsole" />
         
-        <!-- PubMan General Settings -->
-        <panel classname="UserInputPanel" id="UserInputPanel.13"/>
-        
         <!-- PubMan Dataset Settings -->
-        <panel classname="UserInputPanel" id="UserInputPanel.14" />
+        <panel classname="UserInputPanel" id="UserInputPanel.13" />
         
         <!-- Mail Server Settings -->
-        <panel classname="UserInputPanel" id="UserInputPanel.15" condition="pubman_conf_selected"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.14" condition="pubman_conf_selected"/>
         
 		<!-- CoNE Settings-->		
-		<panel classname="UserInputPanel" id="UserInputPanel.16"/>
+		<panel classname="UserInputPanel" id="UserInputPanel.15"/>
+		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel" jar="custom/pubman_installer_basic.jar"/>
 		
 		<panel classname="InstallPanel" id="EscidocInstall" />
-		<!--
-		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel" jar="custom/pubman_installer_basic.jar"/>
-		-->
-		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"/>
 		
+		<!-- Creating PubMan Configuration -->
+		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"  condition="installEscidoc"/>
+		
+        <panel classname="UserInputPanel" id="UserInputPanel.16" condition="upgradeEscidoc" />
         <panel classname="UserInputPanel" id="UserInputPanel.17" condition="upgradeEscidoc" />
-        <panel classname="UserInputPanel" id="UserInputPanel.18" condition="upgradeEscidoc" />
         
         <panel classname="HTMLInfoPanel" id="installInfo" condition="installEscidoc" />
         <panel classname="HTMLInfoPanel" id="upgradeInfo" condition="upgradeEscidoc" />
@@ -568,7 +565,7 @@
 			<file src="packages/pubman/pubman_ear-${project.version}.ear" targetdir="$INSTALL_PATH/install.tmp"/>
 		</pack>
 		
-		<pack name="PubMan Initial Dataset" parent="PubMan" required="no" >
+		<pack name="PubMan Initial Dataset" parent="PubMan" required="no" condition="installEscidoc">
 			<description>Creates an Initial Dataset on the Core Service Instance</description>
 			<depends packname="Start eSciDoc Framework" />
 		</pack>
