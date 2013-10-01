@@ -352,28 +352,9 @@
 <!--      </validator>-->
     </field>
   </panel>
-  
-  <!-- ===========================   Panel 13: PubMan General Settings   =============================== -->
-    <panel order="13">
-        <!-- General settings -->
-        <createForPack name="PubMan" />
-        <field type="title" txt="General Settings" bold="true" size="1" />
-         <field type="staticText" align="left"
-            txt="General settings for PubMan." />
-        <field type="divider" align="top" />
-        <field type="space" />
-        <field type="staticText" align="left"
-            txt="The URL of your PubMan Instance. This value can't be defined here. It is given by the JBoss Configuration. The initial value of JBoss Instance is 'http://localhost:8080'." />
-        <field type="text" align="left" variable="InstanceUrl">
-            <spec txt="URL of this JBoss Instance:" size="25" set="${InstanceUrl}" />
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="JBoss Instance URL must not be empty." />
-        </field>
-        <field type="space" />
-        <field type="divider" align="bottom" />
-    </panel>
     
     <!-- ===========================   Panel 14: PubMan Dataset Settings   =============================== -->
-    <panel order="14">
+    <panel order="13">
         <createForPack name="PubMan Initial Dataset" />
          <field type="staticText" align="left"
             txt="Here information for the initial dataset on coreservice is collected. E.g initial user passwords etc." />
@@ -401,7 +382,7 @@
     </panel>
     
    <!-- ===========================   Panel 14: Mail Server Settings   =============================== -->
-    <panel order="15">
+    <panel order="14">
         <createForPack name="PubMan" />
         <field type="title" txt="Mail Server Settings" bold="true" size="1" />
          <field type="staticText" align="left"
@@ -439,7 +420,7 @@
     </panel>
     
     <!-- ===========================   Panel 15: CoNE Settings   =============================== -->
-    <panel order="16">
+    <panel order="15">
         <createForPack name="PubMan" />
         <field type="title" txt="CoNE Settings" bold="true" size="1" />
          <field type="staticText" align="left"
@@ -484,7 +465,7 @@
         <field type="divider" align="bottom" />
     </panel>
 
-  <panel order="17" id="Database backup">
+  <panel order="16" id="Database backup">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Backup" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -494,7 +475,7 @@
     <field type="divider" align="bottom" />
   </panel>
 
-  <panel order="18" id="Database migration">
+  <panel order="17" id="Database migration">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Migration" bold="true" size="1" />
     <field type="divider" align="top" />
