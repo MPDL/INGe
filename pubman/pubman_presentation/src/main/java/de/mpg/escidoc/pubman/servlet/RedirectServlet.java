@@ -33,8 +33,10 @@ package de.mpg.escidoc.pubman.servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.rmi.RemoteException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,9 +46,22 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.sax.BodyContentHandler;
+import org.xml.sax.SAXException;
 
+import de.escidoc.core.common.exceptions.application.invalid.TmeException;
+import de.escidoc.core.common.exceptions.application.invalid.XmlCorruptedException;
+import de.escidoc.core.common.exceptions.application.invalid.XmlSchemaValidationException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.tme.JhoveHandler;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.AdminHelper;
@@ -80,7 +95,7 @@ public class RedirectServlet extends HttpServlet
         boolean download = ("download".equals(req.getParameter("mode")));
         boolean tme = ("tme".equals(req.getParameter("mode")));
         
-        // no component -> viewItemFullPage
+        // no component -> viewItemOverviewPage
         if (!id.contains("/component/"))
         {
             resp.sendRedirect("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
@@ -101,75 +116,17 @@ public class RedirectServlet extends HttpServlet
             {
                 try
                 {
-                    String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-                    String url = null;
-                    try
-                    {
-                        url = frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
-                                + "/content";
-                        logger.debug("Calling " + url);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new ServletException("Error getting framework url", e);
-                    }
-                    // test new method
-                    // String contentType = mimeType; // For dialog, try
-                    // resp.setContentType(contentType);
+                    InputStream input = getContentAsInputStream(req, resp, download, pieces);
                     
-                    GetMethod method = new GetMethod(url);
-                    method.setFollowRedirects(false);
-                    LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
-                    if (loginHelper != null && loginHelper.getESciDocUserHandle() != null)
+                    if(input == null)
                     {
-                        method.addRequestHeader("Cookie", "escidocCookie=" + loginHelper.getESciDocUserHandle());
-                    }
-                    // Execute the method with HttpClient.
-                    HttpClient client = new HttpClient();
-                    ProxyHelper.setProxy(client, frameworkUrl);
-                    ProxyHelper.executeMethod(client, method);
-                    logger.debug("...executed");
-                    InputStream input;
-                    OutputStream out = resp.getOutputStream(); 
-                    if (method.getStatusCode() == 302)
-                    {
-                        String servletUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
-                                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                                + PropertyReader.getProperty("escidoc.pubman.item.pattern");
-                        servletUrl = servletUrl.replace("$1", "");
-                        
-                        String loginUrl = frameworkUrl + "/aa/login?target="
-                                + URLEncoder.encode(url, "ASCII");
-                        resp.sendRedirect(loginUrl);
                         return;
                     }
-                    else if (method.getStatusCode() != 200)
-                    {
-                        throw new RuntimeException("error code " + method.getStatusCode());
-                    }
-                    else
-                    {
-                        for (Header header : method.getResponseHeaders())
-                        {
-                        	if (!"Transfer-Encoding".equals(header.getName()))
-                        	{
-	                        	logger.debug("Setting header: " + header.getName() + ": " + header.getValue());
-	                            resp.setHeader(header.getName(), header.getValue());
-                        	}
-                        	else
-                        	{
-                        		logger.info("Ignoring " + header.getName() + ": " + header.getValue());
-                        	}
-                        }
-                        if (download)
-                        {
-                            resp.setHeader("Content-Disposition", "attachment");
-                        }
-                        input = method.getResponseBodyAsStream();
-                    }
+                   
                     byte[] buffer = new byte[2048];
                     int numRead;
                     long numWritten = 0;
+                    OutputStream out = resp.getOutputStream();
                     while ((numRead = input.read(buffer)) != -1)
                     {
                     	logger.debug(numRead + " bytes read.");
@@ -192,36 +149,158 @@ public class RedirectServlet extends HttpServlet
             {
                 try
                 {
-                    String componentPattern = PropertyReader.getProperty("escidoc.pubman.component.pattern");
-                    String componentUrl = componentPattern.replace("$1", pieces[0]).replace("$2", pieces[2]).replace("$3", pieces[3]);
-                            
-                    JhoveHandler jhoveHandler = ServiceLocator.getJhoveHandler(AdminHelper.getAdminUserHandle());
-                    
-                    StringBuffer b = new StringBuffer(2048);
-                    b.append(
-                            "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
-                                    + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"")
-                            .append(PropertyReader.getProperty("escidoc.pubman.instance.url"))
-                            .append(PropertyReader.getProperty("escidoc.pubman.instance.context.path"))
-                            .append(componentUrl);
-                    b.append("\"");
-                    b.append("/>");
-                    b.append("</request>");
-                    String technicalMetadata = jhoveHandler.extract(b.toString());
-                    resp.setHeader("Content-Type", "text/xml");
-                    OutputStream out = resp.getOutputStream();
-                    out.write(technicalMetadata.getBytes());
+                    if ("jhove".equals(PropertyReader.getProperty("escidoc.pubman.tme.configuration")))
+                    {
+                        String technicalMetadata = getTechnicalMetadataByJhove(pieces);
+                        resp.setHeader("Content-Type", "text/xml");
+                        OutputStream out = resp.getOutputStream();
+                        out.write(technicalMetadata.getBytes());
+                    }
+                    else 
+                    {
+                        InputStream input = getContentAsInputStream(req, resp, false, pieces);
+                        if(input == null)
+                        {
+                            return;
+                        }
+                        String b = new String();
+                        
+                        try
+                        {
+                            b = getTechnicalMetadataByTika(input);
+                        }
+                        catch (TikaException e)
+                        {
+                            logger.warn("TikaException when parsing " + pieces[3], e);
+                        }
+                        catch (SAXException e)
+                        {
+                            logger.warn("SAXException when parsing " + pieces[3], e);
+                        }
+                        OutputStream out = resp.getOutputStream();
+                        resp.setHeader("Content-Type", "text/plain");
+                        out.write(b.toString().getBytes());
+                        return;
+                    }
                 }
-                catch (ServiceException e)
-                {
-                    throw new ServletException(e);
-                }
-                catch (URISyntaxException e)
+                catch (Exception e)
                 {
                     throw new ServletException(e);
                 }
             }
         }
+    }
+
+    private InputStream getContentAsInputStream(HttpServletRequest req, HttpServletResponse resp, boolean download,
+            String[] pieces) throws IOException, URISyntaxException, ServletException, HttpException,
+            UnsupportedEncodingException
+    {
+        String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+        String url = null;
+        try
+        {
+            url = frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
+                    + "/content";
+            logger.debug("Calling " + url);
+        }
+        catch (Exception e)
+        {
+            throw new ServletException("Error getting framework url", e);
+        }
+        
+        GetMethod method = new GetMethod(url);
+        method.setFollowRedirects(false);
+        LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
+        if (loginHelper != null && loginHelper.getESciDocUserHandle() != null)
+        {
+            method.addRequestHeader("Cookie", "escidocCookie=" + loginHelper.getESciDocUserHandle());
+        }
+        // Execute the method with HttpClient.
+        HttpClient client = new HttpClient();
+        ProxyHelper.setProxy(client, frameworkUrl);
+        ProxyHelper.executeMethod(client, method);
+        logger.debug("...executed");
+        InputStream input;
+        
+        if (method.getStatusCode() == 302)
+        {
+            String servletUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
+                    + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                    + PropertyReader.getProperty("escidoc.pubman.item.pattern");
+            servletUrl = servletUrl.replace("$1", "");
+            
+            String loginUrl = frameworkUrl + "/aa/login?target="
+                    + URLEncoder.encode(url, "ASCII");
+            resp.sendRedirect(loginUrl);
+            return null;
+        }
+        else if (method.getStatusCode() != 200)
+        {
+            throw new RuntimeException("error code " + method.getStatusCode());
+        }
+        else
+        {
+            for (Header header : method.getResponseHeaders())
+            {
+            	if (!"Transfer-Encoding".equals(header.getName()))
+            	{
+                	logger.debug("Setting header: " + header.getName() + ": " + header.getValue());
+                    resp.setHeader(header.getName(), header.getValue());
+            	}
+            	else
+            	{
+            		logger.info("Ignoring " + header.getName() + ": " + header.getValue());
+            	}
+            }
+            if (download)
+            {
+                resp.setHeader("Content-Disposition", "attachment");
+            }
+            input = method.getResponseBodyAsStream();
+        }
+        return input;
+    }
+
+
+    private String getTechnicalMetadataByTika(InputStream input) throws IOException, SAXException, TikaException
+    {
+        StringBuffer b = new StringBuffer(2048);
+        Metadata metadata = new Metadata();
+        AutoDetectParser parser = new AutoDetectParser();
+        BodyContentHandler handler = new BodyContentHandler();
+        
+        parser.parse(input, handler, metadata);
+        
+        for (String name : metadata.names())
+        {
+            b.append(name).append(": ").append(metadata.get(name))
+                    .append(System.getProperty("line.separator"));
+        }
+        return b.toString();
+    }
+
+    private String getTechnicalMetadataByJhove(String[] pieces) throws IOException, URISyntaxException,
+            ServiceException, RemoteException, XmlSchemaValidationException, SystemException, TmeException,
+            XmlCorruptedException, AuthorizationException, AuthenticationException, MissingMethodParameterException
+    {
+        String componentPattern = PropertyReader.getProperty("escidoc.pubman.component.pattern");
+        String componentUrl = componentPattern.replace("$1", pieces[0]).replace("$2", pieces[2]).replace("$3", pieces[3]);
+                
+        JhoveHandler jhoveHandler = ServiceLocator.getJhoveHandler(AdminHelper.getAdminUserHandle());
+        
+        StringBuffer b = new StringBuffer(2048);
+        b.append(
+                "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+                        + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"")
+                .append(PropertyReader.getProperty("escidoc.pubman.instance.url"))
+                .append(PropertyReader.getProperty("escidoc.pubman.instance.context.path"))
+                .append(componentUrl);
+        b.append("\"");
+        b.append("/>");
+        b.append("</request>");
+        
+        String technicalMetadata = jhoveHandler.extract(b.toString());
+        return technicalMetadata;
     }
 
     /**
