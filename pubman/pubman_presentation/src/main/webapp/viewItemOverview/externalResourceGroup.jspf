@@ -61,7 +61,7 @@
 						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
-						</br>
+						<br/>
 						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
 						<h:outputText value=", #{file.fileSize}"/>

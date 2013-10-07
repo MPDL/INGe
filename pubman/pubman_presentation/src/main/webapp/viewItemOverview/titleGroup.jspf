@@ -48,7 +48,7 @@
 				<img class="big_imgBtn statusIcon submittedItem" align="left"/>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{ViewItemFull.isStateReleased}" >
-				<img class="big_imgBtn statusIcon releasedItem" align="left"/>
+				<img src="../resources/images/overviewPage/released_31.png" class="big_imgBtn" align="left"/>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{ViewItemFull.isStateInRevision}" >
 				<img class="big_imgBtn statusIcon inRevisionItem" align="left"/>
