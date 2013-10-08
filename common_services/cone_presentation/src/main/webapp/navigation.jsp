@@ -49,7 +49,7 @@
 	
 %>
 <style type="text/css">
-	.headerLogo {top: 0.5em;}
+	.headerLogo {background-image: none; top: 0.5em;}
 </style>
 
 <div class="full_area0 header clear">
