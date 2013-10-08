@@ -817,17 +817,17 @@
 					var imgElement;
 					$pb('.mpgAuthorId').each(function (index) {
 						url = $pb(this).text();
-						jsonRequestUrl = url + '?format=json';
-						console.log(jsonRequestUrl);
-						imgElement = $pb(this).parent().children('img').get(0);
+						jsonRequestUrl = url+'?format=json';
+						imgElement = $pb(this).parent().find('img').get(0);
 					    updateImage(imgElement, jsonRequestUrl);
 						
 					});
 				}
 				
-				function updateImage(imgElement, jsonRequestUrl)
-				{
+				function updateImage(imgElement, jsonRequestUrl) {	
 					$pb.getJSON(jsonRequestUrl, function (result) {
+						console.log(result);
+						console.log("");
 						var pictureUrl =  result.http_xmlns_com_foaf_0_1_depiction;
 						if (pictureUrl != undefined &amp;&amp; $pb.trim().pictureUrl != '') {
 							$pb(imgElement).attr('src', pictureUrl);
