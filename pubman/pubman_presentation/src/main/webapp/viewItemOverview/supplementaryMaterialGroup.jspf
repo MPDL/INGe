@@ -47,19 +47,20 @@
 	</h:panelGroup>
 	<h:panelGroup layout="block" styleClass="huge_area0_p0 nano" style="max-height:300px;">
 		<h:panelGroup layout="block" styleClass="free_area0_p6 content">
-			<a4j:repeat var="file" value="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList}" rendered ="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList != null and !empty(ViewItemFull.pubItem.supplementaryMaterialFileBeanList)}" rowKeyVar="index">
+			<a4j:repeat var="file" value="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList}" rendered ="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList != null and !empty(ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList)}" rowKeyVar="index">
 				<div>
 					<img src="../resources/images/overviewPage/supplementary_material_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
 					<p class="double_area0">
 						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
 						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
+						<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!(file.showSearchHits) and !ViewItemFull.isStateWithdrawn and !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
 						<!-- Link for fulltext searchhits with open pdf params-->
 						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
 						<br/>
 						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>

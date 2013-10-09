@@ -30,6 +30,8 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
 <h:panelGroup layout="block" styleClass="filled_area0 tiny_marginRExcl small_marginLExcl tile_category borderDarkTurquoise" >
 	<!-- <div class="huge_area0">
@@ -37,24 +39,29 @@
 		<img src="../images/header_left_corner_blue.png" class="left"/><img src="../images/header_middle_blue.png" class="center" /><img src="../images/header_right_corner_blue.png" class="right"/>
 	</div> -->
 	<h:panelGroup layout="block" styleClass="filled_area0_p6">
+		<h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn}" >
+			<img class="big_imgBtn statusIcon withdrawnItem" align="left"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{ViewItemFull.isStatePending}" >
+			<img class="big_imgBtn statusIcon pendingItem" align="left"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{ViewItemFull.isStateSubmitted}" >
+			<img class="big_imgBtn statusIcon submittedItem" align="left"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{ViewItemFull.isStateReleased}" >
+			<img class="big_imgBtn statusIcon releasedItem" align="left"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{ViewItemFull.isStateInRevision}" >
+			<img class="big_imgBtn statusIcon inRevisionItem" align="left"/>
+		</h:panelGroup>
+		
+		<h:panelGroup styleClass="genre_group">
+			<h:graphicImage value="../resources/images/overviewPage/#{ViewItemFull.pubItem.genreGroup}_31.png" styleClass="big_imgBtn"/>
+			<br />
+			<c:set var="lblGenreGroup" value="ViewItemOverview_lblGenreGroup_#{ViewItemFull.pubItem.genreGroup}" />
+			<h:outputText value="#{lbl[lblGenreGroup]}"/>
+		</h:panelGroup>
 		<h4 class="tile_publication_title">
-			<h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn}" >
-				<img class="big_imgBtn statusIcon withdrawnItem" align="left"/>
-			</h:panelGroup>
-			<h:panelGroup rendered="#{ViewItemFull.isStatePending}" >
-				<img class="big_imgBtn statusIcon pendingItem" align="left"/>
-			</h:panelGroup>
-			<h:panelGroup rendered="#{ViewItemFull.isStateSubmitted}" >
-				<img class="big_imgBtn statusIcon submittedItem" align="left"/>
-			</h:panelGroup>
-			<h:panelGroup rendered="#{ViewItemFull.isStateReleased}" >
-				<img src="../resources/images/overviewPage/released_31.png" class="big_imgBtn" align="left"/>
-			</h:panelGroup>
-			<h:panelGroup rendered="#{ViewItemFull.isStateInRevision}" >
-				<img class="big_imgBtn statusIcon inRevisionItem" align="left"/>
-			</h:panelGroup>
-			
-			<img src="../resources/images/overviewPage/picture_31.png" class="big_imgBtn" align="right"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/>
 		</h4>
 	</h:panelGroup>

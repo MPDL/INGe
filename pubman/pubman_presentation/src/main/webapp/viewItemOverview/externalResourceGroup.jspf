@@ -51,20 +51,13 @@
 				<div>
 					<img src="../resources/images/overviewPage/external_Ressources_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
 					<p class="double_area0">
-						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						<h:outputLink id="lnkLocator" target="_blank" value="#{file.locator}">
+							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
-						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						</h:outputLink>
-						<!-- Link for fulltext searchhits with open pdf params-->
-						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						</h:outputLink>
+						<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
 						<br/>
 						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-						<h:outputText value=", #{file.fileSize}"/>
 					</p>
 				</div>
 			</a4j:repeat>

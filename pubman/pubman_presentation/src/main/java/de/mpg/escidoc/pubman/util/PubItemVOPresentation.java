@@ -578,6 +578,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
         return genre;
     }
+    
+    /**
+     * gets the genre group of the item
+     * @return String the genre group of the item
+     */
+    public String getGenreGroup()
+    {
+        return ResourceBundle.getBundle("Genre_" + this.getMetadata().getGenre()).getString("genre_group_value");
+    }
 
     /**
      * gets the genre of the first source of the item
@@ -1462,8 +1471,32 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     }
     
     /**
-     * Delivers the FileBeans for all Files which have the content-category fulltext
-     * @return List<FileBeans> which have the content-category fulltext
+     * Delivers the FileBeans for all files which are publicly accessible and
+     * have content category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
+     * @return List<FileBeans> which are public accessible and have content category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
+     */
+    public List<FileBean> getPubliclyAccessibleFulltextFileBeanList()
+    {
+        List<FileBean> fulltexts = new ArrayList<FileBean> ();
+        if (this.fileBeanList != null)
+        {
+            for (FileBean file : this.fileBeanList)
+            {
+                if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility()) &&
+                        PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getFile().getContentCategory()) ||
+                        PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getFile().getContentCategory()) ||
+                        PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getFile().getContentCategory()) ||
+                        PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getFile().getContentCategory())){
+                    fulltexts.add(file);
+                }
+            }
+        }
+        return fulltexts;
+    }
+    
+    /**
+     * Delivers the FileBeans for all Files which have the content-category supplementary material
+     * @return List<FileBeans> which have the content-category supplementary material
      */
     public List<FileBean> getSupplementaryMaterialFileBeanList()
     {
@@ -1472,12 +1505,33 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         {
             for (FileBean file : this.fileBeanList)
             {
-                if ("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material".equals(file.getFile().getContentCategory())){
+                if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getFile().getContentCategory())){
                     supplementaryMaterial.add(file);
                 }
             }
         }
         return supplementaryMaterial;
+    }
+    
+    /**
+     * Delivers the FileBeans for all files which are publicly accessible and
+     * have content category "supplementary-material"
+     * @return List<FileBeans> which are public accessible and have content category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
+     */
+    public List<FileBean> getPubliclyAccessibleSupplementaryMaterialFileBeanList()
+    {
+        List<FileBean> fulltexts = new ArrayList<FileBean> ();
+        if (this.fileBeanList != null)
+        {
+            for (FileBean file : this.fileBeanList)
+            {
+                if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility()) &&
+                        PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getFile().getContentCategory())){
+                    fulltexts.add(file);
+                }
+            }
+        }
+        return fulltexts;
     }
 
     public void setLocatorBeanList(List<FileBean> locatorBeanList)

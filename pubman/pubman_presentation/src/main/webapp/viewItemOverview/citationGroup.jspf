@@ -44,7 +44,10 @@
 	<h:panelGroup layout="block" styleClass="third_area0_p6">
 		<h:outputText value="#{ViewItemFull.citationHtml}" escape="false"/>
 		<br/>
-		<h:outputLink id="lnkCitationURLPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
+		<h:outputText id="txtCitationUrlPid" value="#{lbl.ViewItemOverview_lblCiteAs}: " rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
+		
+		</h:outputText>
+		<h:outputLink id="lnkCitationUrlPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
 			<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}"/>
 		</h:outputLink>	
 	</h:panelGroup>

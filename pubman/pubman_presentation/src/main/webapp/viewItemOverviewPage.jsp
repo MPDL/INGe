@@ -126,9 +126,6 @@
 						display: inline-block;
 					}
 					/* END NanoScroller */
-					.tile-category {
-						content:
-					}
 					.tile_category {
 						margin-top: 1.363636em;
 						border-top-color: #FFFFFF;
@@ -200,6 +197,10 @@
 					.tile_category .tile_publication_title img {
 						width: 1.476190476190476em;
 						height: 1.476190476190476em;
+					}
+					.tile_category .genre_group {
+						float: right;
+						text-align: center;
 					}
 					.tile_category h5.tile_citation_title {
 						font-size: 2.181818em;
@@ -810,7 +811,8 @@
 							break;
 					}
 				}
-				// replaces the standard image with the cone image
+				
+				// replaces the standard image with the cone image.
 				function replaceAuthorImage() {
 					var url;
 					var jsonRequestUrl;
@@ -824,6 +826,7 @@
 					});
 				}
 				
+				// Works only if CoNE is on the same server as PubMan
 				function updateImage(imgElement, jsonRequestUrl) {	
 					$pb.getJSON(jsonRequestUrl, function (result) {
 						console.log(result);

@@ -58,6 +58,18 @@
 			<source-genre id="ISSUE" url="http://purl.org/escidoc/metadata/ves/publication-types/issue"/>
 			-->
 		</source-genres>
+		<!-- genre groups for bundleing single genres -->
+		<genre-groups>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
+		</genre-groups>
+		
 		<genre-default>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
 				<field id="item_genre" repeatable="false" display="true" optional="false" label="item_genre" class-attribute="metadata.genre"/>
@@ -208,6 +220,7 @@
 			</group>
 		</genre-default>
 		<genre id="ARTICLE" label="ENUM_GENRE_ARTICLE">
+			<field id="genre_group" value="article"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -236,6 +249,7 @@
 			</group>
 		</genre>
 		<genre id="BOOK" label="ENUM_GENRE_BOOK">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -272,6 +286,7 @@
 			</group>
 		</genre>
 		<genre id="BOOK_ITEM" label="ENUM_GENRE_BOOK_ITEM">
+			<field id="genre_group" value="part_of_book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -303,6 +318,7 @@
 			</group>
 		</genre>
 		<genre id="PROCEEDINGS" label="ENUM_GENRE_PROCEEDINGS">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -334,6 +350,7 @@
 			</group>
 		</genre>
 		<genre id="MEETING_ABSTRACT" label="ENUM_GENRE_MEETING_ABSTRACT">
+			<field id="genre_group" value="paper"/>
 			<!-- this is new for CBS -->
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
@@ -366,6 +383,7 @@
 			</group>
 		</genre>
 		<genre id="CONFERENCE_PAPER" label="ENUM_GENRE_CONFERENCE_PAPER">
+			<field id="genre_group" value="paper"/>
 			<!-- this is in the excel sheet Proceedings paper -->
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
@@ -399,6 +417,7 @@
 			</group>
 		</genre>
 		<genre id="TALK_AT_EVENT" label="ENUM_GENRE_TALK_AT_EVENT">
+			<field id="genre_group" value="presentation_or_teaching"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -425,6 +444,7 @@
 			</group>
 		</genre>
 		<genre id="CONFERENCE_REPORT" label="ENUM_GENRE_CONFERENCE_REPORT">
+			<field id="genre_group" value="paper"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -464,6 +484,7 @@
 			</group>
 		</genre>
 		<genre id="POSTER" label="ENUM_GENRE_POSTER">
+			<field id="genre_group" value="presentation_or_teaching"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -503,6 +524,7 @@
 			</group>
 		</genre>
 		<genre id="COURSEWARE_LECTURE" label="ENUM_GENRE_ COURSEWARE_LECTURE">
+			<field id="genre_group" value="presentation_or_teaching"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -532,6 +554,7 @@
 			</group>
 		</genre>
 		<genre id="THESIS" label="ENUM_GENRE_THESIS">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -566,6 +589,7 @@
 			</group>
 		</genre>
 		<genre id="PAPER" label="ENUM_GENRE_PAPER">
+			<field id="genre_group" value="paper"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -595,6 +619,7 @@
 			</group>
 		</genre>
 		<genre id="REPORT" label="ENUM_GENRE_REPORT">
+			<field id="genre_group" value="paper"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -627,6 +652,7 @@
 			</group>
 		</genre>
 		<genre id="JOURNAL" label="ENUM_GENRE_JOURNAL">
+			<field id="genre_group" value="series_or_journal"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -656,6 +682,7 @@
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
 		</genre>
 		<genre id="ISSUE" label="ENUM_GENRE_ISSUE">
+			<field id="genre_group" value="series_or_journal"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="true" optional="true" label="item_title_alternative"/>
 			</group>
@@ -691,6 +718,7 @@
 			</group>
 		</genre>
 		<genre id="SERIES" label="ENUM_GENRE_SERIES">
+			<field id="genre_group" value="series_or_journal"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -716,6 +744,7 @@
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
 		</genre>
 		<genre id="OTHER" label="ENUM_GENRE_OTHER">
+			<field id="genre_group" value="other"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -747,6 +776,7 @@
 			</group>
 		</genre>
 		<genre id="MANUSCRIPT" label="ENUM_GENRE_MANUSCRIPT">
+			<field id="genre_group" value="other"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -776,6 +806,7 @@
 			</group>
 		</genre>
 		<genre id="FILM" label="ENUM_GENRE_FILM">
+			<field id="genre_group" value="other"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -812,6 +843,7 @@
 		</genre>
 		<!-- Jus-specific Publication types BEGIN -->
 		<genre id="CASE_NOTE" label="ENUM_GENRE_CASE_NOTE">
+			<field id="genre_group" value="legal_stuff"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -843,6 +875,7 @@
 			</group>
 		</genre>
 		<genre id="BOOK_REVIEW" label="ENUM_GENRE_BOOK_REVIEW">
+			<field id="genre_group" value="article"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -873,6 +906,7 @@
 			</group>
 		</genre>
 		<genre id="NEWSPAPER_ARTICLE" label="ENUM_GENRE_NEWSPAPER_ARTICLE">
+			<field id="genre_group" value="article"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -900,6 +934,7 @@
 			</group>
 		</genre>
 		<genre id="CASE_STUDY" label="ENUM_GENRE_CASE_STUDY">
+			<field id="genre_group" value="legal_stuff"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -930,6 +965,7 @@
 			</group>
 		</genre>
 		<genre id="OPINION" label="ENUM_GENRE_OPINION">
+			<field id="genre_group" value="legal_stuff"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -960,6 +996,7 @@
 			</group>
 		</genre>
 		<genre id="MONOGRAPH" label="ENUM_GENRE_MONOGRAPH">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -993,6 +1030,7 @@
 			</group>
 		</genre>
 		<genre id="COMMENTARY" label="ENUM_GENRE_COMMENTARY">
+			<field id="genre_group" value="legal_stuff"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1023,6 +1061,7 @@
 			</group>
 		</genre>
 		<genre id="COLLECTED_EDITION" label="ENUM_GENRE_COLLECTED_EDITION">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1053,6 +1092,7 @@
 			</group>
 		</genre>
 		<genre id="HANDBOOK" label="ENUM_GENRE_HANDBOOK">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1083,6 +1123,7 @@
 			</group>
 		</genre>
 		<genre id="FESTSCHRIFT" label="ENUM_GENRE_FESTSCHRIFT">
+			<field id="genre_group" value="book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1113,6 +1154,7 @@
 			</group>
 		</genre>
 		<genre id="CONTRIBUTION_TO_COLLECTED_EDITION" label="ENUM_GENRE_CONTRIBUTION_TO_COLLECTED_EDITION">
+			<field id="genre_group" value="part_of_book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1145,6 +1187,7 @@
 			</group>
 		</genre>
 		<genre id="CONTRIBUTION_TO_HANDBOOK" label="ENUM_GENRE_CONTRIBUTION_TO_HANDBOOK">
+			<field id="genre_group" value="part_of_book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1177,6 +1220,7 @@
 			</group>
 		</genre>
 		<genre id="CONTRIBUTION_TO_COMMENTARY" label="ENUM_GENRE_CONTRIBUTION_TO_COMMENTARY">
+			<field id="genre_group" value="legal_stuff"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1209,6 +1253,7 @@
 			</group>
 		</genre>
 		<genre id="CONTRIBUTION_TO_FESTSCHRIFT" label="ENUM_GENRE_CONTRIBUTION_TO_FESTSCHRIFT">
+			<field id="genre_group" value="part_of_book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1241,6 +1286,7 @@
 			</group>
 		</genre>
 		<genre id="CONTRIBUTION_TO_ENCYCLOPEDIA" label="ENUM_GENRE_CONTRIBUTION_TO_ENCYCLOPEDIA">
+			<field id="genre_group" value="part_of_book"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1273,6 +1319,7 @@
 			</group>
 		</genre>
 		<genre id="EDITORIAL" label="ENUM_GENRE_EDITORIAL">
+			<field id="genre_group" value="article"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
@@ -1303,13 +1350,24 @@
 			</group>
 		</genre>
 		<!-- Jus-specific Publication types END-->
-		<genre id="ENCYCLOPEDIA" label="ENUM_GENRE_ENCYCLOPEDIA"/>
-		<genre id="NEWSPAPER" label="ENUM_GENRE_NEWSPAPER"/>
-		<genre id="MANUAL" label="ENUM_GENRE_MANUAL"/>
-		<genre id="WEB_PAGE" label="ENUM_GENRE_WEB_PAGE"/>
-		<genre id="MULTI_VOLUME" label="ENUM_GENRE_MULTI_VOLUME"/>
+		<genre id="ENCYCLOPEDIA" label="ENUM_GENRE_ENCYCLOPEDIA">
+			<field id="genre_group" value="book"/>
+		</genre>
+		<genre id="NEWSPAPER" label="ENUM_GENRE_NEWSPAPER">
+			<field id="genre_group" value="series_or_journal"/>
+		</genre>
+		<genre id="MANUAL" label="ENUM_GENRE_MANUAL">
+			<field id="genre_group" value="other"/>
+		</genre>
+		<genre id="WEB_PAGE" label="ENUM_GENRE_WEB_PAGE">
+			<field id="genre_group" value="other"/>
+		</genre>
+		<genre id="MULTI_VOLUME" label="ENUM_GENRE_MULTI_VOLUME">
+			<field id="genre_group" value="series_or_journal"/>
+		</genre>
 		<!-- NIMS-specific publication types -->
 		<genre id="PATENT" label="ENUM_GENRE_PATENT">
+			<<field id="genre_group" value="other"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
 				<field id="item_title_alternative" repeatable="false" display="true" optional="true" label="item_title_alternative"/>
 			</group>
