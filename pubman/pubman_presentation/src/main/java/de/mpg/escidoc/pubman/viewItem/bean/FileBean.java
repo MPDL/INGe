@@ -34,6 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -425,6 +426,8 @@ public class FileBean extends FacesBean
         return file;
     }
     
+    
+    
     public String getFileName() {
         String fileName = "";
         if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
@@ -442,6 +445,17 @@ public class FileBean extends FacesBean
             fileDescription = file.getDefaultMetadata().getDescription();
         }
         return fileDescription;
+    }
+    
+    
+    public String getUrlEncodedFileName()
+    {
+    	try {
+			return URLEncoder.encode(file.getName(), "UTF-8");
+		} catch (Exception e) {
+			logger.error("could not Urlencode file name", e);
+			return "";
+		}
     }
     
     public String getFileLink() {
