@@ -53,7 +53,7 @@
 				<strong>cqlQuery</strong> defines CQL search request (required).  
 			</li>
 			<li>
-				<strong>exportFormat</strong> can be <i>APA</i>, <i>APA(CJK)</i>, <i>AJP</i>, <i>JUS</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default: <i>ENDNOTE</i>)  
+				<strong>exportFormat</strong> can be <i>APA</i>, <i>APA(CJK)</i>, <i>AJP</i>, <i>JUS</i>, <i>BIBTEX</i>, <i>ENDNOTE</i>, <i>MARCXML</i> or <i>eSciDoc XML</i>. (Default: <i>ENDNOTE</i>)  
 			</li>
 
 			<li>

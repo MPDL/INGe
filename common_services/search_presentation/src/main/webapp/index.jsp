@@ -245,7 +245,7 @@
 										exportFormat<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										can be <i>APA</i>, <i>APA(CJK)</i>, <i>AJP</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default:&#160;<i>ENDNOTE</i>)
+										can be <i>APA</i>, <i>APA(CJK)</i>, <i>AJP</i>, <i>BIBTEX</i>, <i>ENDNOTE</i>, <i>MarcXML</i> or <i>eSciDoc XML</i>. (Default:&#160;<i>ENDNOTE</i>)
 									</span>
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										outputFormat<span class="noDisplay">: </span>

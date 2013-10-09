@@ -361,6 +361,7 @@
 											<select class="double_select" name="exportFormat" onchange="checkOutputFormat()">
 												<option value="ENDNOTE">EndNote</option>
 												<option value="BIBTEX">BibTeX</option>
+												<option value="MARCXML">MarcXML</option>
 												<option value="XML">eSciDoc XML v5.x</option>
 												<option value="ESCIDOC_XML">eSciDoc XML v6.x</option>
 												<option value="ESCIDOC_XML_V13">eSciDoc XML v7.x</option>
