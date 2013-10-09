@@ -142,8 +142,12 @@
 			allIDs += 'http://purl.org/escidoc/metadata/terms/0.1/CONE|' + globalId;
 		}
 		
-		
+	
 		fillField('journalSuggest', title, parent);
+		
+		//Used for search
+		fillField('journalSuggestQuotes', '"' + title + '"', parent);
+		
 		fillField('sourceAltTitlePasteField', allAltTitles, parent);
 		fillField('publisher', publisher, parent);
 		fillField('place', place, parent);
@@ -441,7 +445,8 @@
 	{
 		if(typeof journalSuggestURL != 'undefined')
 		{
-			$pb('.journalSuggest').suggest(journalSuggestURL, { onSelect: fillFields});
+			//journalsuggestQuotes is used for advanced search, adds quotes around title
+			$pb('.journalSuggest, .journalSuggestQuotes').suggest(journalSuggestURL, { onSelect: fillFields});
 		}
 	}
 	

@@ -148,7 +148,6 @@
 				subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
 				journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';
 				journalSuggestTrigger = 'JOURNAL';
-
 				
 				
 			</script>
