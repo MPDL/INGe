@@ -150,8 +150,7 @@
 						<!-- logo alternate area starts here || Please use this area only in short headers without logo -->
 						<div class="free_area0 small_marginLExcl logoAlternate">
 							<a href="index.jsp" title="Go to the start page.">
-								<span>eSciDoc</span>
-								<span>SearchAndExport Service</span>
+								<span>eSciDoc SearchAndExport Service</span>
 							</a>
 						</div>
 						<!-- logo alternate area ends here -->
