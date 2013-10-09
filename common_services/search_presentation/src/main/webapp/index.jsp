@@ -258,6 +258,27 @@
 							</div>
 							<a class="free_area0 expand">show</a>								
 						</div>
+						<!-- 
+						<div class="full_area0 itemBlock">
+							<h3 class="xLarge_area0_p8 endline blockHeader">
+								OpenSearch index examples
+							</h3>
+							<span class="seperator"></span>
+							<div class="free_area0 itemBlockContent endline">
+								<div class="free_area0 endline itemLine noTopBorder">
+						
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<p>exportFormat = APA, outputFormat = html_linked, language = all. <a href="#" onclick="javascript:window.external.AddSearchProvider( location.protocol + '//' + location.host  + '/search/opensearch_apa.xml');">Add</a></p>
+										<p>exportFormat = EndNote, language = all. <a href="#" onclick="javascript:window.external.AddSearchProvider(location.protocol + '//' + location.host  + '/search/opensearch_endnote_all.xml');">Add</a></p>
+									</span>
+								</div>
+							</div>
+						</div>
+						 -->
+						
+						
+						
+						
 					</div>
 				
 				<!-- end: content section -->
