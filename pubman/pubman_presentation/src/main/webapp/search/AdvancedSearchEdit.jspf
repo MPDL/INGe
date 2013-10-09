@@ -330,7 +330,7 @@ All rights reserved. Use is subject to license terms.
 					<!-- input for journal searches-->
 					<h:panelGroup styleClass="itemBlock" rendered="#{criterion.searchCriterion == 'JOURNAL'}">
 						<h:outputLabel id="lblJournal" styleClass="small_label label_keyword" value=" " />
-						<h:inputText id="journalSearchTerm" styleClass="double_txtInput sourceTitle journalSuggest" value="#{criterion.searchString}" />
+						<h:inputText id="journalSearchTerm" styleClass="double_txtInput sourceTitle journalSuggestQuotes" value="#{criterion.searchString}" />
 					</h:panelGroup>
 					
 					
