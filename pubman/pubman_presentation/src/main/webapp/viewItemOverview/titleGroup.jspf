@@ -39,27 +39,33 @@
 		<img src="../images/header_left_corner_blue.png" class="left"/><img src="../images/header_middle_blue.png" class="center" /><img src="../images/header_right_corner_blue.png" class="right"/>
 	</div> -->
 	<h:panelGroup layout="block" styleClass="filled_area0_p6">
-		<h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn}" >
-			<img class="big_imgBtn statusIcon withdrawnItem" align="left"/>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateWithdrawn}" >
+			<img class="big_imgBtn statusIcon withdrawnItem"/>
 		</h:panelGroup>
-		<h:panelGroup rendered="#{ViewItemFull.isStatePending}" >
-			<img class="big_imgBtn statusIcon pendingItem" align="left"/>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStatePending}" >
+			<img class="big_imgBtn statusIcon pendingItem"/>
 		</h:panelGroup>
-		<h:panelGroup rendered="#{ViewItemFull.isStateSubmitted}" >
-			<img class="big_imgBtn statusIcon submittedItem" align="left"/>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateSubmitted}" >
+			<img class="big_imgBtn statusIcon submittedItem"/>
 		</h:panelGroup>
-		<h:panelGroup rendered="#{ViewItemFull.isStateReleased}" >
-			<img class="big_imgBtn statusIcon releasedItem" align="left"/>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateReleased}" >
+		
+			<img class="big_imgBtn statusIcon releasedItem"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
+			<h:outputText value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 		</h:panelGroup>
-		<h:panelGroup rendered="#{ViewItemFull.isStateInRevision}" >
-			<img class="big_imgBtn statusIcon inRevisionItem" align="left"/>
+		<h:panelGroup styleClass="status_group" rendered="#{ViewItemFull.isStateInRevision}" >
+			<img class="big_imgBtn statusIcon inRevisionItem"/>
 		</h:panelGroup>
 		
-		<h:panelGroup styleClass="genre_group">
+		<h:panelGroup styleClass="genre_group tiny_marginLExcl">
 			<h:graphicImage value="../resources/images/overviewPage/#{ViewItemFull.pubItem.genreGroup}_31.png" styleClass="big_imgBtn"/>
 			<br />
-			<c:set var="lblGenreGroup" value="ViewItemOverview_lblGenreGroup_#{ViewItemFull.pubItem.genreGroup}" />
-			<h:outputText value="#{lbl[lblGenreGroup]}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.genre}"/>
+			<!-- Load label for genre group dynamically -->
+			<!-- <c:set var="lblGenreGroup" value="ViewItemOverview_lblGenreGroup_#{ViewItemFull.pubItem.genreGroup}" />
+			<h:outputText value="#{lbl[lblGenreGroup]}"/> -->
 		</h:panelGroup>
 		<h4 class="tile_publication_title">
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/>

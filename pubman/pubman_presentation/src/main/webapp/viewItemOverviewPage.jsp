@@ -198,7 +198,16 @@
 						width: 1.476190476190476em;
 						height: 1.476190476190476em;
 					}
+					.tile_category .status_group {
+						margin-top: 1em;
+						float: left;
+						text-align: center;
+					}
+					.tile_category .status_group img{
+						display: inline-block;
+					}
 					.tile_category .genre_group {
+						margin-top: 1em;
 						float: right;
 						text-align: center;
 					}
