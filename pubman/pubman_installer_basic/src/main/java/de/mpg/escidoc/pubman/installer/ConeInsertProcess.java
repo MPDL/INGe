@@ -10,7 +10,7 @@ import de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel;
 
 public class ConeInsertProcess extends Thread 
 {
-
+    
 	private ConeDataset coneDataset;
 	private InstallData idata;
 	private ConfigurationCreatorPanel panel;
@@ -29,6 +29,7 @@ public class ConeInsertProcess extends Thread
 		this.coneDataset = coneDataset;
 		this.idata = idata;
 		this.panel = panel;
+		this.setName("ConeInsertProcess");
 	}
 	
 	public void insertConeData() throws Exception
@@ -116,17 +117,16 @@ public class ConeInsertProcess extends Thread
 	}
 	
 	public void run()
-	{
-		
+	{		
 		try
 		{
 			insertConeData();
-			panel.coneDataInsertedSuccessfully();
+			panel.processFinishedSuccessfully("CoNE data written and processed!", this.getName());
 		}
 			
 		catch(Exception e)
 		{
-			panel.coneInsertionError(e);
+			panel.processFinishedWithError("Error. CoNE data could not be inserted.", e, this.getName());
 			logger.error("Error during CoNe initialization", e);
 		}
 	}
