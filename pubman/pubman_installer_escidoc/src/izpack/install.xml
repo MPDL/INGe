@@ -134,7 +134,7 @@
       <variable name="DatabaseMaxStatementsPostgres" value="15000" />
       <variable name="DatabaseMaxStatementsPerConnectionPostgres" value="1000" />
 
-      <variable name="DatabaseAdminPassword" value="" />
+<!-- TODO -->      <variable name="DatabaseAdminPassword" value="postgres" />
       <variable name="DatabaseUsername" value="escidoc" />
       <variable name="DatabasePassword" value="escidoc" />
       <variable name="DatabaseDefaultTablespace" value="escidoc" />
@@ -147,7 +147,7 @@
       <!-- Fedora admin user -->
       <variable name="FedoraUsername" value="fedoraAdmin" />
       <variable name="FedoraPassword" value="fedoraAdmin" />
-      <variable name="FedoraAdminMailAddress" value="" />
+<!-- TODO -->      <variable name="FedoraAdminMailAddress" value="xx" />
       <variable name="FedoraDefaultTablespace" value="fedora" />
       <variable name="FedoraTempTablespace" value="TEMP" />
       <!-- triplestore database user -->
@@ -159,19 +159,19 @@
       <variable name="sid-prefix" value="escidoc" />
       <!-- Infrastructure administrator user -->
       <variable name="CoreserviceAdminUser" value="sysadmin" />
-      <variable name="CoreserviceAdminPassword" value="" />
+<!-- TODO -->      <variable name="CoreserviceAdminPassword" value="xx" />
       <!-- variable name="AdminEmail" value="" / -->
       <!-- Infrastructure inspector user -->
       <variable name="InspectorUsername" value="inspector" />
-      <variable name="InspectorPassword" value="" />
+<!-- TODO -->      <variable name="InspectorPassword" value="xx" />
       <!-- Infrastructure depositor user -->
       <variable name="DepositorUsername" value="depositor" />
-      <variable name="DepositorPassword" value="" />
+<!-- TODO -->      <variable name="DepositorPassword" value="xx" />
       <!-- Creator Id used in migration SQL scripts -->
       <variable name="CreatorUserid" value="escidoc:exuser1" />
       
       <!-- PubMan variables -->
-		<variable name="InitialUserPassword" value=""/>
+<!-- TODO -->		<variable name="InitialUserPassword" value="xx"/>
 		<variable name="InstanceUrl" value=""/>
 		<variable name="MailHost" value=""/>
 		<variable name="MailSenderAdress" value=""/>
@@ -183,7 +183,7 @@
 		<variable name="ConeDatabase" value="cone"/>
 		<variable name="ConePort" value="5432"/>
 		<variable name="ConeUser" value="postgres"/>
-		<variable name="ConePassword" value=""/>		
+<!-- TODO -->		<variable name="ConePassword" value="postgres"/>		
 		<variable name="PubManLogoURL" value="./resources/images/pubman_logo.png"/>
 		<variable name="PubManLogoApply" value="true"/>
 		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_blue/styles/theme.css"/>
@@ -420,8 +420,12 @@
 		
 		<panel classname="InstallPanel" id="EscidocInstall" />
 		
+		<!-- Start eSciDoc framework -->
+		<!-- panel classname="de.mpg.escidoc.pubman.installer.panels.StartEscidocPanel" condition="installEscidoc"/-->
+		
 		<!-- Creating PubMan Configuration -->
-		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"  condition="installEscidoc"/>
+<!-- TODO -->		<!-- panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"  condition="installEscidoc"/-->
+		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar" />
 		
         <panel classname="UserInputPanel" id="UserInputPanel.16" condition="upgradeEscidoc" />
         <panel classname="UserInputPanel" id="UserInputPanel.17" condition="upgradeEscidoc" />

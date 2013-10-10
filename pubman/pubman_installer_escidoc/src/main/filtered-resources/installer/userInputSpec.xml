@@ -157,8 +157,8 @@
     <!-- Password -->
     <field type="password" align="left" variable="FedoraPassword">
       <spec>
-        <pwd txt="Fedora Password:" size="25" set="" />
-        <pwd txt="Retype Password:" size="25" set="" />
+        <pwd txt="Fedora Password:" size="25" set="xx" />
+        <pwd txt="Retype Password:" size="25" set="xx" />
       </spec>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Fedora admin password must not be an empty string." />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both Fedora passwords must match." />
@@ -353,7 +353,7 @@
     </field>
   </panel>
     
-    <!-- ===========================   Panel 14: PubMan Dataset Settings   =============================== -->
+    <!-- ===========================   Panel 13: PubMan Dataset Settings   =============================== -->
     <panel order="13">
         <createForPack name="PubMan Initial Dataset" />
          <field type="staticText" align="left"
@@ -381,7 +381,7 @@
         <field type="divider" align="bottom" />
     </panel>
     
-   <!-- ===========================   Panel 14: Mail Server Settings   =============================== -->
+   <!-- ===========================   Panel 14: PubMan Mail Server Settings   =============================== -->
     <panel order="14">
         <createForPack name="PubMan" />
         <field type="title" txt="Mail Server Settings" bold="true" size="1" />
