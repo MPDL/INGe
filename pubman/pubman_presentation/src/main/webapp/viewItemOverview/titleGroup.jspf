@@ -33,61 +33,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
+<!-- Title tile -->
 <h:panelGroup layout="block" styleClass="filled_area0 tiny_marginRExcl small_marginLExcl tile_category borderDarkTurquoise" >
-	<!-- <div class="huge_area0">
-	images have to be in one line!
-		<img src="../images/header_left_corner_blue.png" class="left"/><img src="../images/header_middle_blue.png" class="center" /><img src="../images/header_right_corner_blue.png" class="right"/>
-	</div> -->
 	<h:panelGroup layout="block" styleClass="filled_area0_p6">
+		<!-- Status icon and label -->
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateWithdrawn}" >
 			<img class="big_imgBtn statusIcon withdrawnItem"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemPublicState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStatePending}" >
 			<img class="big_imgBtn statusIcon pendingItem"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateSubmitted}" >
 			<img class="big_imgBtn statusIcon submittedItem"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateReleased}" >
-		
 			<img class="big_imgBtn statusIcon releasedItem"/>
 			<br />
-			<h:outputText value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-			<h:outputText value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group" rendered="#{ViewItemFull.isStateInRevision}" >
 			<img class="big_imgBtn statusIcon inRevisionItem"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
-		
+		<!-- Genre(-group) icon and label -->
 		<h:panelGroup styleClass="genre_group tiny_marginLExcl">
 			<h:graphicImage value="../resources/images/overviewPage/#{ViewItemFull.pubItem.genreGroup}_31.png" styleClass="big_imgBtn"/>
 			<br />
 			<h:outputText value="#{ViewItemFull.pubItem.genre}"/>
-			<!-- Load label for genre group dynamically -->
-			<!-- <c:set var="lblGenreGroup" value="ViewItemOverview_lblGenreGroup_#{ViewItemFull.pubItem.genreGroup}" />
-			<h:outputText value="#{lbl[lblGenreGroup]}"/> -->
 		</h:panelGroup>
+		<!-- Publication title -->
 		<h4 class="tile_publication_title">
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/>
 		</h4>
 	</h:panelGroup>
 </h:panelGroup>
-	
-<%-- <h:panelGroup layout="block" styleClass="huge_area0 xTiny_marginRExcl tile_category borderDarkGreen">
-	<h:panelGroup layout="block" styleClass="huge_area0_p6">
-		<p class="tile_title">
-			<img src="http://smileys.smilchat.net/smiley/humor/clown/jokk.gif" class="big_imgBtn" align="right"/>
-			Kategoriename
-		</p>
-	</h:panelGroup>
-	<h:panelGroup layout="block" styleClass="huge_area0_p6">
-		<p>
-			<img src="http://www.edqna.com/Action/User_Images/Short/shrey_13033_einstein-thumb.jpg" class="large_imgBtn xTiny_marginRExcl" align="left"/>
-			"Zwei Dinge sind unendlich: Das Universum und die Dummheit der Menschen. Aber beim Universum bin ich mir noch nicht so sicher." - Albert Einstein
-		</p>
-		<img src="http://www.edqna.com/Action/User_Images/Short/shrey_13033_einstein-thumb.jpg" class="free_area0 large_imgBtn" align="left"/>
-		<p class="xLarge_area0 xTiny_marginLExcl">
-			"Zwei Dinge sind unendlich: Das Universum und die Dummheit der Menschen. Aber beim Universum bin ich mir noch nicht so sicher." - Albert Einstein
-		</p>
-	</h:panelGroup>
-</h:panelGroup> --%>

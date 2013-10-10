@@ -31,41 +31,44 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
+<!-- Supplementary Material tile -->
 <h:panelGroup layout="block" styleClass="huge_area0 tile_category borderYellow">
-	<!-- <div class="huge_area0">
-	images have to be in one line!
-		<img src="../images/header_left_corner_yellow.png" class="left"/><img src="../images/header_middle_yellow.png" class="center" /><img src="../images/header_right_corner_yellow.png" class="right"/>
-	</div> -->
+	<!-- Supplementary Material title and icon -->
 	<h:panelGroup layout="block" styleClass="huge_area0_p6">
 		<h5 class="tile_title">
 			<img src="../resources/images/overviewPage/supplementary_material_31.png" class="big_imgBtn" align="right"/>
 			<h:outputText value="#{lbl.ViewItemOverview_lblSupplementaryMaterialSection}" />
 		</h5>
 	</h:panelGroup>
+	<!-- If no supplementary material is available show message -->
 	<h:panelGroup layout="block" styleClass="free_area0_p6" rendered ="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList == null or empty(ViewItemFull.pubItem.supplementaryMaterialFileBeanList)}">
 		<h:outputText value="#{msg.ViewItemOverview_noSupplementaryMaterialAvailable}" />
 	</h:panelGroup>
+	<!-- Iterator for publicly accessible supplementary material -->
 	<h:panelGroup layout="block" styleClass="huge_area0_p0 nano" style="max-height:300px;">
 		<h:panelGroup layout="block" styleClass="free_area0_p6 content">
 			<a4j:repeat var="file" value="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList}" rendered ="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList != null and !empty(ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList)}" rowKeyVar="index">
 				<div>
+					<!-- Standard icon for supplementary material files -->
 					<img src="../resources/images/overviewPage/supplementary_material_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
+					<!-- Textual description of the supplementary material -->
 					<p class="double_area0">
+						<!-- Link (show or download) to the file -->
 						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
 						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
-						<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!(file.showSearchHits) and !ViewItemFull.isStateWithdrawn and !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
-						<!-- Link for fulltext searchhits with open pdf params-->
+						<!-- Link for supplementary material searchhits with open pdf params-->
 						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
+						<!-- Text if publication is withdrawn -->
+						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
 						<br/>
 						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-						<h:outputText value=", #{file.fileSize}"/>
+						<h:outputText value=", #{file.fileSize}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 					</p>
 				</div>
 			</a4j:repeat>

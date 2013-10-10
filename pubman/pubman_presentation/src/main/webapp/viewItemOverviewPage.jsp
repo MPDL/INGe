@@ -786,6 +786,7 @@
 			<script language="javascript" type="text/javascript">
 				$pb(document).ready(function () {
 					startNanoScrollerWhenLoaded();
+					// enable overflow of links on mouseover
 					$pb('.tile_category a').mouseenter(function (evt) {
 					    $pb(this).parent().css({"overflow": "visible"})
 					});
@@ -793,6 +794,7 @@
 					$pb('.tile_category a').mouseleave(function (evt) {
 					    $pb(this).parent().css({"overflow": "hidden"})
 					});
+					// Try to replace standard author images with CoNE-images
 					replaceAuthorImage();
 				});
 				// NanoScroller
@@ -821,7 +823,7 @@
 					}
 				}
 				
-				// replaces the standard image with the cone image.
+				// tries to replace the standard author image with the cone image.
 				function replaceAuthorImage() {
 					var url;
 					var jsonRequestUrl;
@@ -835,7 +837,8 @@
 					});
 				}
 				
-				// Works only if CoNE is on the same server as PubMan
+				// JSon request to CoNE (works only if CoNE is on the same server as PubMan [Cross-site-scripting])
+				// !DOES NOT WORK LOCALLY! (Cross-site-scripting)
 				function updateImage(imgElement, jsonRequestUrl) {	
 					$pb.getJSON(jsonRequestUrl, function (result) {
 						console.log(result);

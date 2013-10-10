@@ -31,19 +31,20 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
+<!-- Abstract Tile -->
 <h:panelGroup layout="block" styleClass="third_area0 tile_category borderBrown" >
-	<!-- <div class="third_area0">
-		<img src="../images/header_left_corner_brown.png" class="left"/><img src="../images/header_middle_brown.png" class="center" /><img src="../images/header_right_corner_brown.png" class="right"/>
-	</div> -->
+	<!-- Abstract title and image -->
 	<h:panelGroup layout="block" styleClass="third_area0_p6">
 		<h5 class="tile_title">
 			<img src="../resources/images/overviewPage/abstract_31.png" class="big_imgBtn" align="right"/>
 			<h:outputText value="#{lbl.ViewItemOverview_lblAbstractSection}" />
 		</h5>
 	</h:panelGroup>
+	<!-- If no abstracts are available show message-->
 	<h:panelGroup layout="block" styleClass="huge_area0_p6" rendered="#{!ViewItemFull.hasAbstracts}">
 		<h:outputText value="#{msg.ViewItemOverview_noAbstractAvailable}" />
 	</h:panelGroup>
+	<!-- Iterator for abstracts -->
 	<a4j:repeat var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" rowKeyVar="index" rendered="#{ViewItemFull.hasAbstracts}">
 		<h:panelGroup layout="block" styleClass="third_area0_p6">
 			<h:outputText value="#{abstract.value}" converter="HTMLSubSupConverter" escape="false"/>

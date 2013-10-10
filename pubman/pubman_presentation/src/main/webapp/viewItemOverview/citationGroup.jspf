@@ -31,22 +31,22 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
+<!-- Citation tile -->
 <h:panelGroup layout="block" styleClass="third_area0 tile_category borderOrange" >
-	<!-- <div class="third_area0">
-		<img src="../images/header_left_corner_orange.png" class="left"/><img src="../images/header_middle_orange.png" class="center" /><img src="../images/header_right_corner_orange.png" class="right"/>
-	</div> -->
+	<!-- Citation title and icon -->
 	<h:panelGroup layout="block" styleClass="third_area0_p6">
 		<h5 class="tile_citation_title">
 			<img src="../resources/images/overviewPage/citation_31.png" class="big_imgBtn" align="right"/>
 			<h:outputText value="#{lbl.ViewItemOverview_lblCitationSection}" />
 		</h5>
 	</h:panelGroup>
+	<!-- Citation text and PID -->
 	<h:panelGroup layout="block" styleClass="third_area0_p6">
+		<!-- Citation -->
 		<h:outputText value="#{ViewItemFull.citationHtml}" escape="false"/>
 		<br/>
-		<h:outputText id="txtCitationUrlPid" value="#{lbl.ViewItemOverview_lblCiteAs}: " rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
-		
-		</h:outputText>
+		<!-- PID -->
+		<h:outputText id="txtCitationUrlPid" value="#{lbl.ViewItemOverview_lblCiteAs}: " rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}" />
 		<h:outputLink id="lnkCitationUrlPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
 			<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}"/>
 		</h:outputLink>	
