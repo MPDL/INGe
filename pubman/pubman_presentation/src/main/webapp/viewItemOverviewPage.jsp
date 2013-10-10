@@ -703,11 +703,16 @@
 												<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}" />
 											</h:commandLink>
 											<h:panelGroup styleClass="seperator" />
-											<h:outputLink
+											<!-- <h:outputLink
 												id="lnkViewItemPage" styleClass="free_area0"
 												value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}viewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
 												<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
-											</h:outputLink>
+											</h:outputLink> -->
+											<h:commandLink 
+												id="lnkViewItemPage" styleClass="free_area0"
+												action="#{ViewItemFull.showDetailedItemView }">
+												<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
+											</h:commandLink>
 											<h:panelGroup styleClass="seperator" />
 											<h:outputLink id="lnkViewItemOverviewPage" 
 												styleClass="free_area0 actual" 

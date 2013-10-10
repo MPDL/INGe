@@ -82,6 +82,8 @@ public class ViewItemSessionBean extends FacesBean
     
     private String subMenu;
     
+    private boolean detailedMode = false;
+    
    
     
     /**
@@ -348,6 +350,14 @@ public class ViewItemSessionBean extends FacesBean
         subMenu="ACTIONS";
         
     }
-
     
+    public void setDetailedMode (boolean detailedMode)
+    {
+        this.detailedMode = detailedMode;
+    }
+
+    public boolean isDetailedMode ()
+    {
+        return this.detailedMode;
+    }
 }

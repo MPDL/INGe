@@ -58,17 +58,6 @@
 			<source-genre id="ISSUE" url="http://purl.org/escidoc/metadata/ves/publication-types/issue"/>
 			-->
 		</source-genres>
-		<!-- genre groups for bundleing single genres -->
-		<genre-groups>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-			<genre-group id="BOOKS" img="../resources/images/overviewPage/book_31.png"/>
-		</genre-groups>
 		
 		<genre-default>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
@@ -1367,7 +1356,7 @@
 		</genre>
 		<!-- NIMS-specific publication types -->
 		<genre id="PATENT" label="ENUM_GENRE_PATENT">
-			<<field id="genre_group" value="other"/>
+			<field id="genre_group" value="other"/>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
 				<field id="item_title_alternative" repeatable="false" display="true" optional="true" label="item_title_alternative"/>
 			</group>

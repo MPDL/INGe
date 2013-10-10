@@ -64,6 +64,7 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.tme.JhoveHandler;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -98,7 +99,24 @@ public class RedirectServlet extends HttpServlet
         // no component -> viewItemOverviewPage
         if (!id.contains("/component/"))
         {
-            resp.sendRedirect("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
+            LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
+            ViewItemSessionBean visb = (ViewItemSessionBean) req.getSession().getAttribute("ViewItemSessionBean");
+            if ("detail".equals(req.getParameter("mode")) || 
+                    (!("overview".equals(req.getParameter("mode"))) &&
+                            ((loginHelper != null && loginHelper.isLoggedIn()) || 
+                                    (visb != null && visb.isDetailedMode()))))
+            {
+                visb.setDetailedMode(true);
+                resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+            }
+            else 
+            {
+                if(visb != null) 
+                {
+                    visb.setDetailedMode(false);
+                }
+                resp.sendRedirect("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
+            }
             return;
         }
         

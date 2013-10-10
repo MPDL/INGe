@@ -68,6 +68,7 @@ import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
@@ -157,6 +158,7 @@ public class ViewItemFull extends FacesBean
     private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
+    public final static String LOAD_VIEWITEM_OVERVIEW = "loadViewItemOverview";
     public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
     public final static String ISI_KNOWLEDGE_BASE_LINK = "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
     public final static String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
@@ -676,6 +678,26 @@ public class ViewItemFull extends FacesBean
         
         setLinks();
 
+    }
+    
+    public String showDetailedItemView()
+    {
+        ViewItemSessionBean visb = (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+        if (visb != null) 
+        {
+            visb.setDetailedMode(true);
+        }
+        return ViewItemFull.LOAD_VIEWITEM;
+    }
+    
+    public String showOverviewItemView()
+    {
+        ViewItemSessionBean visb = (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+        if (visb != null)
+        {
+            visb.setDetailedMode(false);
+        }
+        return ViewItemFull.LOAD_VIEWITEM_OVERVIEW;
     }
     
     public boolean isSsrnContext() 
