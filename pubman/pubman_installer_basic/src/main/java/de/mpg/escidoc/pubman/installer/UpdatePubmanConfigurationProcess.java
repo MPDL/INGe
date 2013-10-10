@@ -71,16 +71,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
 
     public void updatePubmanConfiguration() throws Exception
     {
-        try
-        {
-            startEscidocThread.wait();
-        }
-        catch (Exception e1)
-        {
-            logger.info("Updating PubMan continuing....");
-        }
         this.panel.getTextArea().append("Starting update...\n");
-        logger.info("Updating PubMan configuration");
+        logger.info("Updating PubMan configuration continuing..");
         try
         {
             storeConfiguration();
@@ -98,6 +90,14 @@ public class UpdatePubmanConfigurationProcess extends Thread
        
     public void run()
     {
+        try
+        {
+            startEscidocThread.join();
+        }
+        catch (InterruptedException  e1)
+        {
+            logger.info("Got awakened....");
+        }
         
         try
         {

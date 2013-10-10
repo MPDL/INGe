@@ -58,8 +58,10 @@ public class StartEscidocProcess extends Thread
     
     public void run()
     {
+        /**
         synchronized (this)
         {
+  
             try
             {
                 startEscidoc();
@@ -73,6 +75,19 @@ public class StartEscidocProcess extends Thread
                 logger.error("Error during starting eSciDoc Framework", e);
             }
             notify();
+        }
+              */
+        try
+        {
+            startEscidoc();
+            panel.processFinishedSuccessfully("eSciDoc Framework started successfully!", this.getName());
+            logger.info("eSciDoc Framework started successfully!");
+        }
+        catch (Exception e)
+        {
+            panel.processFinishedWithError("Error or timeout when starting the eSciDoc Framework!", e,
+                    this.getName());
+            logger.error("Error during starting eSciDoc Framework", e);
         }
     }
 }

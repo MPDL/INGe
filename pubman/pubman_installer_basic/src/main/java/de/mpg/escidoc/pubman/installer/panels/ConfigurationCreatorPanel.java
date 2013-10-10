@@ -172,6 +172,15 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             logger.error("Error while updating PubMan configuration!", e);
         }
         revalidate();
+    }
+
+    public void processFinishedSuccessfully(String text, String threadName)
+    {
+        logger.info("Process ended successfully: " + threadName);
+        
+        LabelPanel panel = getLabelPanel(threadName);
+        panel.showProgressBar(false);
+        panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);
         
         if (success)
         {
@@ -184,19 +193,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         revalidate();
         setPanelValid(success);
     }
-
-    public void processFinishedSuccessfully(String text, String threadName)
-    {
-        logger.info("Process ended successfully: " + threadName);
-        
-        LabelPanel panel = getLabelPanel(threadName);
-        panel.showProgressBar(false);
-        panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);
-        
-        setPanelValid(success);
-        
-        revalidate();
-    }
     
     public void processFinishedWithError(String text, Exception e, String threadName)
     {
@@ -207,9 +203,16 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         panel.setEndLabel(text, LabelPanel.ICON_ERROR);
         panel.addToTextArea(e.toString() + ": " + e.getMessage());
         
-        setPanelValid(success);
-        
+        if (success)
+        {
+            parent.unlockNextButton();
+        }
+        else
+        {
+            parent.unlockPrevButton();
+        }
         revalidate();
+        setPanelValid(success);
     }
     
 /*
