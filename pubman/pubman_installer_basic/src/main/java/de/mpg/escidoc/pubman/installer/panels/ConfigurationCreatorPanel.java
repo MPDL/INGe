@@ -63,9 +63,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     private StartEscidocProcess startEscidocProcess;
     private ConeInsertProcess coneInsertProcess;
     private UpdatePubmanConfigurationProcess updatePubmanConfigurationProcess;
-    private LabelPanel startEscidocPanel, conePanel, datasetPanel, configurationPanel;
+    private LabelPanel startEscidocPanel, conePanel, configurationPanel;
     private boolean success = true;
-    private boolean escidocStarted = false, coneInserted;
+    //private boolean escidocStarted = false, coneInserted = false, configurationUpdated = false;
     private static Logger logger = Logger.getLogger(ConfigurationCreatorPanel.class);
 
     /**
@@ -120,7 +120,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     {
         parent.lockPrevButton();
         parent.lockNextButton();
-        success = escidocStarted & coneInserted;
         this.textArea = new JTextArea();
         
         startEscidocPanel = new LabelPanel("Starting the eSciDoc Framework. This process may take several minutes.", true);
@@ -130,7 +129,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         try
         {
             startEscidoc();
-            escidocStarted = true;
         }
         catch (Exception e)
         {
@@ -148,7 +146,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             try
             {
                 insertConeData();
-                coneInserted = true;
             }
             catch (Exception e)
             {
@@ -156,10 +153,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             }
             revalidate();
         }
-       else
-       {
-           coneInserted = true;
-       }
        
         configurationPanel = new LabelPanel("Writing configuration (pubman.properties)", true);
         add(configurationPanel, NEXT_LINE);
@@ -179,6 +172,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         logger.info("Process ended successfully: " + threadName);
         
         LabelPanel panel = getLabelPanel(threadName);
+        updateSuccess(true);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);
         
@@ -193,12 +187,13 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         revalidate();
         setPanelValid(success);
     }
-    
+
     public void processFinishedWithError(String text, Exception e, String threadName)
     {
         logger.info("Process ended with error: " + threadName);
         
         LabelPanel panel = getLabelPanel(threadName);
+        updateSuccess(false);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_ERROR);
         panel.addToTextArea(e.toString() + ": " + e.getMessage());
@@ -353,7 +348,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     }
     
     /**
-     * Start new Thread for updating PubMan configuration.
+     * Start a new Thread for updating PubMan configuration and creating an initial dataset for PubMan. 
+     * This Thread waits until eSciDoc Framework has started.
      * @throws Exception
      */
     private void updatePubmanConfiguration() throws Exception
@@ -380,9 +376,15 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         {
             return configurationPanel;
         }
-        
- 
+       
         return null;
     }
-
+    
+    private void updateSuccess(boolean b)
+    {
+        if (success)
+        {
+            success = success & b;
+        }
+    }
 }
