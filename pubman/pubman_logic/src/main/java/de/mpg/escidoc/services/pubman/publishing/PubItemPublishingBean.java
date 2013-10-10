@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.publishing;
 
+import java.net.URLEncoder;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -227,7 +228,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                             .getProperty("escidoc.pubman.component.pattern")
                             .replaceAll("\\$1", pubItemRef.getObjectId())
                             .replaceAll("\\$2", file.getReference().getObjectId())
-                            .replaceAll("\\$3", file.getName());
+                            .replaceAll("\\$3", URLEncoder.encode(file.getName(), "UTF-8"));
 
                     LOGGER.debug("URL given to PID resolver: " + url);
                     //LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
