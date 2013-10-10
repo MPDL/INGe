@@ -54,6 +54,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
@@ -228,7 +229,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                             .getProperty("escidoc.pubman.component.pattern")
                             .replaceAll("\\$1", pubItemRef.getObjectId())
                             .replaceAll("\\$2", file.getReference().getObjectId())
-                            .replaceAll("\\$3", URLEncoder.encode(file.getName(), "UTF-8"));
+                            .replaceAll("\\$3", CommonUtils.urlEncode(file.getName()));
 
                     LOGGER.debug("URL given to PID resolver: " + url);
                     //LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
