@@ -83,7 +83,7 @@ public class CommonUtils
      * @param urlPart
      * @return
      */
-    public static String encodeUrl(String urlPart)
+    public static String urlEncode(String urlPart)
     {
     	try {
 			return URLEncoder.encode(urlPart, "UTF-8").replace("+", "%20");
