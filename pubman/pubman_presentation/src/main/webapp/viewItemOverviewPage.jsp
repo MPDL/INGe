@@ -199,7 +199,7 @@
 						height: 1.476190476190476em;
 					}
 					.tile_category .status_group {
-						margin-top: 1em;
+						margin-top: 0.4545454545455em;
 						float: left;
 						text-align: center;
 					}
@@ -207,7 +207,7 @@
 						display: inline-block;
 					}
 					.tile_category .genre_group {
-						margin-top: 1em;
+						margin-top: 0.4545454545455em;
 						float: right;
 						text-align: center;
 					}
