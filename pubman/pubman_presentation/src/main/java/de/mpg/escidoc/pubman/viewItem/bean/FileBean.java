@@ -71,6 +71,7 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -450,12 +451,9 @@ public class FileBean extends FacesBean
     
     public String getUrlEncodedFileName()
     {
-    	try {
-			return URLEncoder.encode(file.getName(), "UTF-8");
-		} catch (Exception e) {
-			logger.error("could not Urlencode file name", e);
-			return "";
-		}
+    	
+		return CommonUtils.urlEncode(file.getName());
+		
     }
     
     public String getFileLink() {
