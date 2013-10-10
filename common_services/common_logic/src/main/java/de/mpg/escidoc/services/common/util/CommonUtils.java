@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.common.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 /**
@@ -74,5 +75,20 @@ public class CommonUtils
         Properties properties= new Properties();
         properties.load(url.openStream());
         return properties;
+    }
+    
+    /**
+     * Encodes a String according to RFC3986.
+     * Difference to URIEncoder is that a blank is not replaced by a plus (+), but by %20
+     * @param urlPart
+     * @return
+     */
+    public static String encodeUrl(String urlPart)
+    {
+    	try {
+			return URLEncoder.encode(urlPart, "UTF-8").replace("+", "%20");
+		} catch (Exception e) {
+			return urlPart;
+		}
     }
 }
