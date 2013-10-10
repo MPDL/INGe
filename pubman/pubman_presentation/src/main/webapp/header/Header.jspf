@@ -57,7 +57,7 @@
 		<h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
 			<h:graphicImage styleClass="tiny_marginLExcl headerLogo" style="border:none;" url="#{ApplicationBean.logoUrl}"></h:graphicImage>
 		</h:outputLink>
-		<h:panelGroup styleClass="tiny_marginLExcl quad_area0 themePark #{Header.serverLogo}">
+		<h:panelGroup styleClass="tiny_marginLExcl xDouble_area0 themePark #{Header.serverLogo}">
 		</h:panelGroup>
 
 		<%-- import search here--%>
