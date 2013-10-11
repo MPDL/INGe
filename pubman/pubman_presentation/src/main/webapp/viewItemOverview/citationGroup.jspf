@@ -49,6 +49,10 @@
 		<h:outputText id="txtCitationUrlPid" value="#{lbl.ViewItemOverview_lblCiteAs}: " rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}" />
 		<h:outputLink id="lnkCitationUrlPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
 			<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}"/>
+		</h:outputLink>
+		<!-- URL if PID is deactivated -->
+		<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.citationURL}" rendered="#{!ApplicationBean.handlesActivated and ViewItemFull.isStateReleased}">
+			<h:outputText value="#{ViewItemFull.citationURL}"/>
 		</h:outputLink>	
 	</h:panelGroup>
 </h:panelGroup>

@@ -628,6 +628,23 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         //		}
         return startEndPage.toString();
     }
+    
+    /**
+     * Returns the formatted object PID for presentation (without leading "hdl:")
+     * @return pid (String) the object PID without leading "hdl:"
+     */
+    public String getObjectPidWithoutPrefix()
+    {
+        String pid = this.getPid();
+        if (pid.startsWith("hdl:"))
+        {
+            return pid.substring(4);
+        }
+        else 
+        {
+            return pid;
+        }
+    }
 
     /**
      * Returns the formatted Publishing Info according to filled elements
