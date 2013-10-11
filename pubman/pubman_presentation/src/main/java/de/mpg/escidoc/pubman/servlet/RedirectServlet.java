@@ -101,10 +101,11 @@ public class RedirectServlet extends HttpServlet
         {
             LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
             ViewItemSessionBean visb = (ViewItemSessionBean) req.getSession().getAttribute("ViewItemSessionBean");
-            if ("detail".equals(req.getParameter("mode")) || 
-                    (!("overview".equals(req.getParameter("mode"))) &&
-                            ((loginHelper != null && loginHelper.isLoggedIn()) || 
-                                    (visb != null && visb.isDetailedMode()))))
+            if (visb == null && loginHelper != null && loginHelper.isLoggedIn())
+            {
+                resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+            }
+            else if (visb != null && visb.isDetailedMode())
             {
                 visb.setDetailedMode(true);
                 resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
