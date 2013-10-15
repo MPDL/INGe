@@ -74,13 +74,13 @@ public class UpdatePubmanConfigurationProcess extends Thread
         this.panel.getTextArea().append("Starting update...\n");
         logger.info("Updating PubMan configuration continuing..");
         try
-        {
-            storeConfiguration();
-            
+        {            
             if (this.createDataset)
-            {                
-                createDataset();
-            }
+            {     
+                storeConfiguration();
+                createDataset();                
+            }  
+            storeConfiguration();
         }
         catch (Exception e)
         {
@@ -387,19 +387,22 @@ public class UpdatePubmanConfigurationProcess extends Thread
     
     private void createDataset() throws Exception
     {
-        String ouExternalObjectId = null;
-        
         InitialDataset dataset = new InitialDataset(new URL(idata.getVariable("CoreserviceUrl")),
                 idata.getVariable("CoreserviceAdminUser"), idata.getVariable("CoreserviceAdminPassword"));
-        ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
+               
         String publicationContentModelId = dataset.createContentModel("datasetObjects/cm_publication.xml");
         configPubman.setProperty(Configuration.KEY_PUBLICATION_CM, publicationContentModelId);
         String importTaskContentModelId = dataset.createContentModel("datasetObjects/cm_import_task.xml");
         configPubman.setProperty(Configuration.KEY_IMPORT_TASK_CM, importTaskContentModelId);
+        
+        String ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
         String ouDefaultObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_default.xml");
         configPubman.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
         idata.setVariable("ExternalOrganisationID", ouExternalObjectId);
+        configPubman.setProperty(Configuration.KEY_DEFAULT_OU, ouDefaultObjectId);
+        
         String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
+        
         String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml",
                 idata.getVariable("InitialUserPassword"), ouDefaultObjectId, contextObjectId);
         String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml",

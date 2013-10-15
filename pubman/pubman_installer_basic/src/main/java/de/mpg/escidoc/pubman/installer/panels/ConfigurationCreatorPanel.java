@@ -30,15 +30,21 @@
 
 package de.mpg.escidoc.pubman.installer.panels;
 
+import static org.junit.Assert.fail;
+
 import java.awt.LayoutManager2;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.NoSuchElementException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.apache.commons.io.FileExistsException;
+import org.apache.commons.io.FileUtils;
 
 import com.izforge.izpack.Pack;
 import com.izforge.izpack.gui.IzPanelLayout;
@@ -65,7 +71,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     private UpdatePubmanConfigurationProcess updatePubmanConfigurationProcess;
     private LabelPanel startEscidocPanel, conePanel, configurationPanel;
     private boolean success = true;
-    //private boolean escidocStarted = false, coneInserted = false, configurationUpdated = false;
+
+    private static final String JBOSS_DEF_PATH = "/jboss/server/default/";
+    
     private static Logger logger = Logger.getLogger(ConfigurationCreatorPanel.class);
 
     /**
@@ -172,6 +180,46 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         logger.info("Process ended successfully: " + threadName);
         
         LabelPanel panel = getLabelPanel(threadName);
+        
+        // deploy pubman_ear.ear, UpdateConfigurationProcess has ended successfully
+        if (threadName.equals("UpdatePubmanConfigurationProcess"))
+        {
+            File srcDir, targetDir = null,  pubmanEar = null;
+            
+            try
+            {
+                 srcDir = new File(idata.getInstallPath() + JBOSS_DEF_PATH);
+                 targetDir = new File(idata.getInstallPath() + JBOSS_DEF_PATH + "deploy");
+                
+                 pubmanEar = FileUtils.listFiles(srcDir, new String[] {"ear"}, false)
+                        .iterator().next();            
+                FileUtils.moveFileToDirectory(pubmanEar, targetDir, false);
+            }        
+            catch(FileExistsException e)
+            {
+                try
+                {
+                    FileUtils.forceDelete(new File(targetDir.getAbsolutePath() + File.separator + pubmanEar.getName()));
+                    FileUtils.moveFileToDirectory(pubmanEar, targetDir, false);
+                }
+                catch (IOException e1)
+                {
+                    logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy after delete", e1);
+                }
+                updateSuccess(false);
+                
+            }        
+            catch (IOException e)
+            {
+                logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e);
+                updateSuccess(false);
+            }
+            catch (NoSuchElementException e)
+            {
+                logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e);
+                updateSuccess(false);
+            }
+        }
         updateSuccess(true);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);
@@ -382,6 +430,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     
     private void updateSuccess(boolean b)
     {
+        // if already false, remain false
         if (success)
         {
             success = success & b;

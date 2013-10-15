@@ -65,6 +65,7 @@ public class Configuration
     public static final String KEY_CORESERVICE_ADMINUSERNAME = "framework.admin.username";
     public static final String KEY_CORESERVICE_ADMINPW = "framework.admin.password";
     public static final String KEY_EXTERNAL_OU = "escidoc.pubman.external.organisation.id";
+    public static final String KEY_DEFAULT_OU = "escidoc.pubman.root.organisation.id";
     public static final String KEY_PUBLICATION_CM = "escidoc.framework_access.content-model.id.publication";
     public static final String KEY_IMPORT_TASK_CM = "escidoc.import.task.content-model";
     public static final String KEY_CONE_SERVER = "escidoc.cone.database.server.name";
