@@ -599,6 +599,7 @@
 	<jar src="lib/commons-httpclient.jar"/>
 	<jar src="lib/commons-codec.jar"/>
 	<jar src="lib/commons-discovery.jar"/>
+	<jar src="lib/commons-io.jar"/>
 	<jar src="lib/commons-logging.jar"/>
 	<jar src="lib/javaee.jar"/>
 	<jar src="lib/wss4j.jar"/>

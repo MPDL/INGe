@@ -155,7 +155,13 @@
 			<version>${escidoc.saxon.version}</version>
 			<type>war</type>
 		</dependency>
-
+<!--		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
+		</dependency>
+  
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_ear</artifactId>
@@ -163,7 +169,7 @@
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
-
+-->
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_installer_basic</artifactId>
