@@ -891,7 +891,7 @@
 		Author, A. A., & Author, B. (Year of Publication). Title of
 		manuscript.
 	-->
-	<cs-layout-definition name="manuscript">
+	<cs-layout-definition name="opinion">
 		<parameters>
 			<valid-if><![CDATA[$genre = $l_opinion]]></valid-if>
 		</parameters>

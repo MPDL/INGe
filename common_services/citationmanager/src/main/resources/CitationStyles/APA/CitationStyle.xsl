@@ -140,6 +140,9 @@
                         <xsl:variable name="l_editorial">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"/>
                         </xsl:variable>
+                        <xsl:variable name="l_multi-volume">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/multi-volume'"/>
+                        </xsl:variable>
                         <xsl:variable name="l_author">
                             <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/AUT'"/>
                         </xsl:variable>
@@ -2860,7 +2863,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$journal"/>
                             </xsl:when>
-                            <xsl:when test="$genre = ($l_manuscript, $l_opinion)">
+                            <xsl:when test="$genre = $l_manuscript">
                                 <xsl:variable name="manuscript"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
@@ -2889,7 +2892,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$manuscript"/>
                             </xsl:when>
-                            <xsl:when test="$genre = $l_series">
+                            <xsl:when test="$genre = ($l_series, l_multi-volume)">
                                 <xsl:variable name="series"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
@@ -3357,6 +3360,27 @@
                                     <xsl:copy-of select="$var"/>
                                 </xsl:variable>
                                 <xsl:copy-of select="$report"/>
+                            </xsl:when>
+                            <xsl:when test="$genre = $l_opinion">
+                                <xsl:variable name="opinion"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                    <xsl:variable name="var">
+                                        <xsl:call-template name="applyDelimiter">
+                                            <xsl:with-param name="les">
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$authors-or-editors-and-year-and-title-with-dot-italic"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                            </xsl:with-param>
+                                            <xsl:with-param name="delimiter" select="' '"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:variable>
+                                <xsl:copy-of select="$opinion"/>
                             </xsl:when>
                         </xsl:choose>
                         <!--### End of Citation Style Layout Definitions ###-->

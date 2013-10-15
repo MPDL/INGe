@@ -140,6 +140,9 @@
                         <xsl:variable name="l_editorial">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"/>
                         </xsl:variable>
+                        <xsl:variable name="l_multi-volume">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/multi-volume'"/>
+                        </xsl:variable>
                         <xsl:variable name="l_author">
                             <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/AUT'"/>
                         </xsl:variable>
