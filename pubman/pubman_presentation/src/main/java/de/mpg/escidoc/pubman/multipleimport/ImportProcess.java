@@ -490,11 +490,9 @@ public class ImportProcess extends Thread
                                               
                         log.addDetail(ErrorLevel.FINE, "import_process_save_item");
                         
-                        //TODO for test purposes
-                        //PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
-                        //String objid = savedPubItem.getVersion().getObjectId();
-                        String objid = "escidoc:test";
-                        //-------------------
+
+                        PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
+                        String objid = savedPubItem.getVersion().getObjectId();
                         log.setItemId(objid);
                         log.addDetail(ErrorLevel.FINE, "import_process_item_imported");
                         log.finishItem();
