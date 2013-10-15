@@ -122,9 +122,9 @@
 
 		var instanceUrl = '<%= PropertyReader.getProperty("escidoc.cone.service.url") %>';
 
-		function remove(element, hasPredicates)
+		function removeLine(element, hasPredicates)
 		{
-
+			
 			var form = $(element.form);
 			var parent = $(element).parents(".inputField")[0];
 			var listSize = $(parent).parent().children(".inputField").length;
