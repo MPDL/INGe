@@ -1,13 +1,13 @@
 package de.mpg.escidoc.pubman.installer;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -18,6 +18,8 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 
 import com.izforge.izpack.installer.InstallData;
@@ -47,13 +49,14 @@ public class UpdatePubmanConfigurationProcess extends Thread
     private static final String ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME = "CoNE-Open-Vocabulary-Editor";
     private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME = "CoNE-Closed-Vocabulary-Editor";
     
+    private static final String INDEX_PROPERTIES = "index.properties";
+    
     private static RoleHandler roleHandler = null;
     
     private static Logger logger = Logger.getLogger(UpdatePubmanConfigurationProcess.class);
     
     public UpdatePubmanConfigurationProcess()
-    {
-        
+    {      
     }
     
     public UpdatePubmanConfigurationProcess(ConfigurationCreatorPanel panel, Thread startEscidocThread, boolean b) throws IOException
@@ -73,30 +76,26 @@ public class UpdatePubmanConfigurationProcess extends Thread
     {
         this.panel.getTextArea().append("Starting update...\n");
         logger.info("Updating PubMan configuration continuing..");
-        try
-        {            
-            if (this.createDataset)
-            {     
-                storeConfiguration();
-                createDataset();                
-            }  
+                 
+        if (this.createDataset)
+        {     
             storeConfiguration();
-        }
-        catch (Exception e)
-        {
-            logger.warn("Error when updating PubMan configuration", e);
-        }
+            createDataset();                
+        }  
+        storeConfiguration();      
     }
        
     public void run()
     {
         try
         {
-            startEscidocThread.join();
+            startEscidocThread.join(3*60*1000);
         }
         catch (InterruptedException  e1)
         {
-            logger.info("Got awakened....");
+            logger.error("Timeout when waiting for eSciDoc Framework start....");
+            panel.processFinishedWithError("Timeout when waiting for eSciDoc Framework start", e1, this.getName());
+            return;
         }
         
         try
@@ -104,8 +103,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
             updatePubmanConfiguration();
             String message = (createDataset ? "PubMan configuration updated successfully and initial dataset created! " : "PubMan configuration updated successfully!");
             panel.processFinishedSuccessfully(message, this.getName());
-        }
-            
+        }            
         catch(Exception e)
         {
             panel.processFinishedWithError("Error or timeout when updateing PubMan configuration!", e, this.getName());
@@ -113,7 +111,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         }
     }
     
-    private void storeConfiguration() throws IOException, URISyntaxException, NoSuchAlgorithmException, GeneralSecurityException, Exception
+    private void storeConfiguration() throws Exception
     {
         Map<String, String> userConfigValues = new HashMap<String, String>();
         Map<String, String> authConfigValues = new HashMap<String, String>();
@@ -248,10 +246,13 @@ public class UpdatePubmanConfigurationProcess extends Thread
         // create a private - public key pair
         this.createKeys();
         
+        // copy stylesheets for indexing to jboss index configuration
+        this.updateIndexConfiguration();
+        
         // ... and update PropertyReader
         PropertyReader.loadProperties();
     }
-    
+
     private void createKeys() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException
     {
         logger.info("Creating keys..");
@@ -383,6 +384,28 @@ public class UpdatePubmanConfigurationProcess extends Thread
         logger.info("newDate: " + newDate);  
         logger.info("******************************************* Ended doCreateOrUpdate for " + roleName);
         return out;
+    }
+    
+    private void updateIndexConfiguration() throws Exception
+    {
+        StringBuffer out = new StringBuffer(4096);
+        File indexProperties = new File(new StringBuffer(2048).append(JBOSS_CONF_PATH).append("search/config/index/escidoc_all").toString(), 
+                                                        INDEX_PROPERTIES);
+        
+        LineIterator lit = new LineIterator(new FileReader(indexProperties));
+        
+        while(lit.hasNext())
+        {
+            String line = lit.nextLine();
+            
+            if (line.endsWith("escidocXmlToLucene"))
+            {
+                line = line.replaceAll("escidocXmlToLucene", "mpdlEscidocXmlToLucene");
+            }
+            out.append(line);
+        }
+        
+        FileUtils.writeStringToFile(indexProperties, out.toString());       
     }
     
     private void createDataset() throws Exception

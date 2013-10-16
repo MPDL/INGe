@@ -181,7 +181,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         
         LabelPanel panel = getLabelPanel(threadName);
         
-        // deploy pubman_ear.ear, UpdateConfigurationProcess has ended successfully
+        // deploy pubman_ear.ear, if UpdateConfigurationProcess has ended successfully
         if (threadName.equals("UpdatePubmanConfigurationProcess"))
         {
             File srcDir, targetDir = null,  pubmanEar = null;

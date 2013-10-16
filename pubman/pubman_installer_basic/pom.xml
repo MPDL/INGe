@@ -64,29 +64,7 @@
 					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
-<!--  
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.2</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<finalName>${project.build.finalName}-${project.version}</finalName>
-  					<appendAssemblyId>false</appendAssemblyId>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> 
-						<phase>package</phase> 
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			-->
+
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
@@ -108,37 +86,8 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<!-- <plugin> <artifactId>maven-antrun-plugin</artifactId> <version>1.1</version> 
-				<executions> <execution> <id>create-staging-area</id> <phase>process-resources</phase> 
-				<goals> <goal>run</goal> </goals> <configuration> <tasks> <copy todir="${staging.dir}"> 
-				<fileset dir="${basedir}/src/izpack" /> </copy> </tasks> </configuration> 
-				</execution> </executions> </plugin> -->
-			<!-- prepare dependencies so that izpack jar tag to pickup at compile 
-				time -->
-
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
-				<version>2.0</version> <executions> <execution> <id>standard-installer</id> 
-				<phase>process-resources</phase> <goals> <goal>copy-dependencies</goal> </goals> 
-				<configuration> <stripVersion>true</stripVersion> <excludeGroupIds>org.codehaus.izpack</excludeGroupIds> --><!-- dont want standalone compiler -->
-			<!-- <outputDirectory>${staging.dir}/dependency</outputDirectory> </configuration> 
-				</execution> <execution> <id>pubman_ear-installer</id> <phase>process-resources</phase> 
-				<goals> <goal>copy-dependencies</goal> </goals> <configuration> <stripVersion>true</stripVersion> 
-				<includeArtifactIds>pubman_ear</includeArtifactIds> <outputDirectory>${staging.dir}</outputDirectory> 
-				</configuration> </execution> <execution> <id>unpack-validation</id> <phase>process-resources</phase> 
-				<goals> <goal>unpack-dependencies</goal> </goals> <configuration> <includeArtifactIds>validation_presentation</includeArtifactIds> 
-				<includes>**/*.xml</includes> <excludes>**/*.class</excludes> <outputDirectory>${project.build.directory}/classes/validation_presentation</outputDirectory> 
-				<overWriteReleases>false</overWriteReleases> <overWriteSnapshots>true</overWriteSnapshots> 
-				</configuration> </execution> </executions> </plugin> -->
-
-			<!-- see install.xml to see how MyHelloPanel is used -->
-			<!-- <plugin> <groupId>org.codehaus.izpack</groupId> <artifactId>izpack-maven-plugin</artifactId> 
-				<version>1.0-alpha-4</version> <dependencies> <dependency> <groupId>org.codehaus.izpack</groupId> 
-				<artifactId>izpack-standalone-compiler</artifactId> <version>${version.izpack-standalone}</version> 
-				</dependency> </dependencies> <configuration> <izpackBasedir>${staging.dir}</izpackBasedir> 
-				<customPanelDirectory>${staging.dir}</customPanelDirectory> <descriptorEncoding>UTF-8</descriptorEncoding> 
-				</configuration> <executions> <execution> <id>standard-installer</id> <phase>package</phase> 
-				<goals> <goal>izpack</goal> </goals> </execution> </executions> </plugin> -->
+			</plugin>		
+			
 		</plugins>
 
 		<pluginManagement>
