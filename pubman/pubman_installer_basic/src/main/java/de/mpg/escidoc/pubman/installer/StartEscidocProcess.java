@@ -1,6 +1,10 @@
 package de.mpg.escidoc.pubman.installer;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
@@ -23,65 +27,41 @@ public class StartEscidocProcess extends Thread
         this.setName("StartEscidocProcess");
     }
     
-    public void startEscidoc() throws Exception
+    public int startEscidoc() throws Exception
     {
         this.panel.getTextArea().append("Starting eSciDoc Framework...\n");
         logger.info("Starting eSciDoc Framework");
-        try
-        {
-            waitForFrameworkStarted();
-        }
-        catch (Exception e)
-        {
-            logger.error("Error while starting the eSciDoc Framework!", e);
-        }
+        
+        return waitForFrameworkStarted();      
     }
     
-    private void waitForFrameworkStarted() throws Exception
+    private int waitForFrameworkStarted() throws HttpException, IOException, URISyntaxException
     {
-        GetMethod method = new GetMethod(PropertyReader.getProperty(Configuration.KEY_INSTANCEURL));
+        GetMethod method = new GetMethod(PropertyReader.getProperty(Configuration.KEY_INSTANCEURL));        
         HttpClient client = new HttpClient();
         
-        do
-        {
-//            client.getHttpConnectionManager().getParams().setConnectionTimeout(20);
-            ProxyHelper.executeMethod(client, method);
-            Thread.currentThread().sleep(5000);
-        }
-        while (method.getStatusCode() != 200);
-        if (method.getStatusCode() == 200)
-        {
-            return;
-        }
-        return;
+        client.getHttpConnectionManager().getParams().setConnectionTimeout(3*60*1000);
+        ProxyHelper.executeMethod(client, method);
+        
+        return method.getStatusCode();
     }
     
     public void run()
     {
-        /**
-        synchronized (this)
+        try
         {
-  
-            try
+            int code = startEscidoc();
+            if (code == 200)
             {
-                startEscidoc();
                 panel.processFinishedSuccessfully("eSciDoc Framework started successfully!", this.getName());
                 logger.info("eSciDoc Framework started successfully!");
             }
-            catch (Exception e)
+            else 
             {
-                panel.processFinishedWithError("Error or timeout when starting the eSciDoc Framework!", e,
+                panel.processFinishedWithError("eSciDoc Framework returned with code <" + code + ">", new Exception(),
                         this.getName());
-                logger.error("Error during starting eSciDoc Framework", e);
+                logger.error("eSciDoc Framework returned with code <" + code + ">");
             }
-            notify();
-        }
-              */
-        try
-        {
-            startEscidoc();
-            panel.processFinishedSuccessfully("eSciDoc Framework started successfully!", this.getName());
-            logger.info("eSciDoc Framework started successfully!");
         }
         catch (Exception e)
         {
