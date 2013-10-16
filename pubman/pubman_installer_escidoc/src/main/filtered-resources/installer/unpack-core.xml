@@ -489,6 +489,14 @@
 	  	  <param name="source" value="${install.dir}/install.tmp/pid-cache-ds.xml" />
 	  	  <param name="target" value="${install.dir}/jboss/server/default/deploy/pid-cache-ds.xml" />
 	  	</antcall> 
+	  	<antcall target="move-file-with-save">
+	  		<param name="source" value="${install.dir}/install.tmp/mpdlEscidocXmlToLucene.xslt" />
+	  		<param name="target" value="${install.dir}/jboss/server/default/conf/search/config/index/escidoc_all/mpdlEscidocXmlToLucene.xslt" />
+	  	</antcall> 
+	  	<antcall target="move-file-with-save">
+	  		<param name="source" value="${install.dir}/install.tmp/itemContainerAdminXmlToLucene.xslt" />
+	  		<param name="target" value="${install.dir}/jboss/server/default/conf/search/config/index/item_container_admin/itemContainerAdminXmlToLucene.xslt" />
+	  	</antcall> 
 	  </target>
 	
 	  <target name="start-escidoc" depends="init" description="Starts the eSciDoc Framework ">

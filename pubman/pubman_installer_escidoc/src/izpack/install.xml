@@ -564,8 +564,10 @@
 		
 		<pack name="PubMan Binary" parent="PubMan" required="yes" >
 			<description>PubMan Binary </description>
-			<file src="pubman/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
-			<file src="pubman/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
+			<file src="pubman/jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
+			<file src="pubman/jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>			
+			<file src="pubman/mpdlEscidocXmlToLucene.xslt" targetdir="$INSTALL_PATH/install.tmp"/>
+			<file src="pubman/itemContainerAdminXmlToLucene.xslt" targetdir="$INSTALL_PATH/install.tmp"/>
 			<file src="packages/pubman/pubman_ear-${project.version}.ear" targetdir="$INSTALL_PATH/install.tmp"/>
 		</pack>
 		

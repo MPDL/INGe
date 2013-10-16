@@ -155,21 +155,7 @@
 			<version>${escidoc.saxon.version}</version>
 			<type>war</type>
 		</dependency>
-<!--		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.2</version>
-		</dependency>
-  
-		<dependency>
-			<groupId>de.mpg.escidoc.pubman</groupId>
-			<artifactId>pubman_ear</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-			<type>ear</type>
-		</dependency>
--->
+
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_installer_basic</artifactId>
@@ -331,6 +317,22 @@
 							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
 					</execution>
+					
+					<execution>
+						<id>unpack-config</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>pubman_installer_basic</includeArtifactIds>
+							<includes>**/pid-cache-ds.xml, **/validation-ds.xml</includes>
+							<excludes>**/*.class</excludes>
+							<outputDirectory>${staging.dir}/pubman</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
 
 					<execution>
 						<id>copy-izpack-dependencies</id>
@@ -345,6 +347,38 @@
 							<overWriteSnapshots>true</overWriteSnapshots>
 							<excludeTransitive>false</excludeTransitive>
 							<stripVersion>true</stripVersion>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>unpack-validation</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>validation_presentation</includeArtifactIds>
+							<includes>**/*.xml</includes>
+							<excludes>**/*.class</excludes>
+							<outputDirectory>${project.build.directory}/classes/validation_presentation</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>unpack-framework_access</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>framework_access</includeArtifactIds>
+							<includes>**/*.xslt</includes>
+							<excludes>**/*.class</excludes>
+							<outputDirectory>${staging.dir}/pubman</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
 					</execution>
 
