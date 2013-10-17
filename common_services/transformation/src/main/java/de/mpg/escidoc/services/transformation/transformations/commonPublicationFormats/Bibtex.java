@@ -1244,7 +1244,19 @@ public class Bibtex implements BibtexInterface
                                         personVO.getOrganizations().add(organization);
                                     }
                                     CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.EDITOR);
-                                    mds.getCreators().add(creatorVO);
+                                    if ((bibGenre == BibTexUtil.Genre.article
+                                            || bibGenre == BibTexUtil.Genre.inbook
+                                            || bibGenre == BibTexUtil.Genre.inproceedings
+                                            || bibGenre == BibTexUtil.Genre.conference
+                                            || bibGenre == BibTexUtil.Genre.incollection)
+                                            && (sourceVO.getTitle() != null))
+                                    {
+                                        sourceVO.getCreators().add(creatorVO);
+                                    }
+                                    else 
+                                    {
+                                        mds.getCreators().add(creatorVO);
+                                    }
                                 }
                             }
                             if (!teams.isEmpty())

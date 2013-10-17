@@ -52,11 +52,11 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 {
     private static Logger logger = Logger.getLogger(AuthorFormat.class);
 
-    protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìôçø]+)";
+    protected static final String SYLLABLE = "([A-ZÄÖÜÁÂÀÅÆÇÉÊÈËÍÎÌÏÐÑÓÔÒÕØÚÛÙÝ][a-zäöüßáâàãåæéêèëíîìïñóôòõúûùýÿçøð]+)";
     //protected static final String LOOSE_SYLLABLE = "([\\w\\.'-]+)";
     protected static final String LOOSE_SYLLABLE = "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
     protected static final String WORD = "((O'|D')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
-    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
+    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|da|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
     protected static final String NAME = "(" + PREFIX + "? *" + WORD + "( *- *" + WORD + ")*)";
     protected static final String INITIAL = "(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
     protected static final String INITIALS = "(" + INITIAL + "( *-? *" + INITIAL + ")*)";
@@ -64,7 +64,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
     protected static final String SUFFIX = "(,*)? (sen.?|Sen.?|jr.?|Jr.?)";
     protected static final String MIDDLEFIX = "(y|dela|de la)";
     protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
-    protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIALS + ")( *(" + NAME + "|" + INITIALS + "))*)";
+    protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIAL + ")( *( *" + NAME + "|" + INITIAL + "|(sen\\.?|Sen\\.?|jr\\.?|Jr\\.?)" + "))*)";
     
     protected static final String FORBIDDEN_CHARACTERS = "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|†|‡||email|written|et al)";
     protected static final String IGNORE_CHARACTERS = ".*(@).*";

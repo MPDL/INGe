@@ -3661,6 +3661,9 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Social Law and Social Policy')"/>
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' escidoc:persistent22'))"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'CPFS'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Chemical Physics of Solids')"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
