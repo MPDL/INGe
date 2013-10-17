@@ -30,28 +30,21 @@
 
 package de.mpg.escidoc.pubman.installer.panels;
 
-import static org.junit.Assert.fail;
-
 import java.awt.LayoutManager2;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.NoSuchElementException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
-import org.apache.commons.io.FileExistsException;
-import org.apache.commons.io.FileUtils;
 
 import com.izforge.izpack.Pack;
 import com.izforge.izpack.gui.IzPanelLayout;
 import com.izforge.izpack.gui.LabelFactory;
 import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerFrame;
-
 
 import de.mpg.escidoc.pubman.installer.ConeDataset;
 import de.mpg.escidoc.pubman.installer.ConeInsertProcess;
@@ -71,8 +64,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     private UpdatePubmanConfigurationProcess updatePubmanConfigurationProcess;
     private LabelPanel startEscidocPanel, conePanel, configurationPanel;
     private boolean success = true;
-
-    private static final String JBOSS_DEF_PATH = "/jboss/server/default/";
     
     private static Logger logger = Logger.getLogger(ConfigurationCreatorPanel.class);
 
@@ -181,7 +172,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         
         LabelPanel panel = getLabelPanel(threadName);
         
-        // deploy pubman_ear.ear, if UpdateConfigurationProcess has ended successfully
+        /*// deploy pubman_ear.ear, if UpdateConfigurationProcess has ended successfully
         if (threadName.equals("UpdatePubmanConfigurationProcess"))
         {
             File srcDir, targetDir = null,  pubmanEar = null;
@@ -219,7 +210,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e);
                 updateSuccess(false);
             }
-        }
+        }*/
         updateSuccess(true);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);

@@ -17,7 +17,9 @@ import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
+import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
@@ -40,6 +42,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
     private InstallData idata;
     private boolean createDataset;
     private Thread startEscidocThread;
+    private String installPath;
     
     private static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
     
@@ -50,6 +53,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
     private static final String ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME = "CoNE-Closed-Vocabulary-Editor";
     
     private static final String INDEX_PROPERTIES = "index.properties";
+
+    private static final String JBOSS_DEF_PATH = "/jboss/server/default/";
     
     private static RoleHandler roleHandler = null;
     
@@ -59,15 +64,17 @@ public class UpdatePubmanConfigurationProcess extends Thread
     {      
     }
     
-    public UpdatePubmanConfigurationProcess(ConfigurationCreatorPanel panel, Thread startEscidocThread, boolean b) throws IOException
+    public UpdatePubmanConfigurationProcess(ConfigurationCreatorPanel panel, Thread startEscidocThread, boolean createDataset) throws IOException
     {      
         this.panel = panel;
         this.configPubman = new Configuration("pubman.properties");
         this.configAuth = new Configuration("auth.properties");
-        this.createDataset = b;
+        this.createDataset = createDataset;
         this.idata = panel.getInstallData();
-        
+               
         this.startEscidocThread = startEscidocThread;
+        
+        setInstallPath(this.idata.getInstallPath());
         
         this.setName("UpdatePubmanConfigurationProcess");
     }
@@ -82,7 +89,18 @@ public class UpdatePubmanConfigurationProcess extends Thread
             storeConfiguration();
             createDataset();                
         }  
-        storeConfiguration();      
+        storeConfiguration();   
+        
+        deployPubmanEar();
+    }
+
+    // only for junit testing
+    void setInstallPath(String path)
+    {
+        if (this.idata == null)
+            this.installPath = path;
+        else 
+            this.installPath = this.idata.getInstallPath();
     }
        
     public void run()
@@ -386,26 +404,29 @@ public class UpdatePubmanConfigurationProcess extends Thread
         return out;
     }
     
-    private void updateIndexConfiguration() throws Exception
+    void updateIndexConfiguration() throws Exception
     {
         StringBuffer out = new StringBuffer(4096);
-        File indexProperties = new File(new StringBuffer(2048).append(JBOSS_CONF_PATH).append("search/config/index/escidoc_all").toString(), 
-                                                        INDEX_PROPERTIES);
-        
+        File indexProperties = new File(new StringBuffer(2048).append(installPath).append(JBOSS_CONF_PATH).append("search/config/index/escidoc_all").toString(), 
+                                               INDEX_PROPERTIES);
+        File indexPropertiesBak = new File(indexProperties.getAbsolutePath() + ".bak");
+        FileUtils.copyFile(indexProperties, indexPropertiesBak);
         LineIterator lit = new LineIterator(new FileReader(indexProperties));
         
         while(lit.hasNext())
         {
             String line = lit.nextLine();
-            
+
             if (line.endsWith("escidocXmlToLucene"))
             {
                 line = line.replaceAll("escidocXmlToLucene", "mpdlEscidocXmlToLucene");
             }
             out.append(line);
+            out.append("\n");
         }
         
         FileUtils.writeStringToFile(indexProperties, out.toString());       
+        FileUtils.forceDelete(indexPropertiesBak);
     }
     
     private void createDataset() throws Exception
@@ -432,6 +453,44 @@ public class UpdatePubmanConfigurationProcess extends Thread
                 idata.getVariable("InitialUserPassword"), ouDefaultObjectId, contextObjectId);
     }
     
+    /*
+     * Last step of PubMan configuration: moving the pubman_ear.ear file from jboss/server/default into the deploy directory to get PubMan started.
+     * 
+     */
+    void deployPubmanEar() throws Exception
+    {
+        File srcDir, targetDir = null, pubmanEar = null;
+        
+        try
+        {
+            srcDir = new File(installPath + JBOSS_DEF_PATH);
+            targetDir = new File(installPath + JBOSS_DEF_PATH + "deploy");
+            pubmanEar = FileUtils.listFiles(srcDir, new String[] { "ear" }, false).iterator().next();
+            FileUtils.moveFileToDirectory(pubmanEar, targetDir, false);
+        }
+        catch (FileExistsException e)
+        {
+            try
+            {
+                FileUtils.forceDelete(new File(targetDir.getAbsolutePath() + File.separator + pubmanEar.getName()));
+                FileUtils.moveFileToDirectory(pubmanEar, targetDir, false);
+            }
+            catch (IOException e1)
+            {
+                logger.warn("Error after delete when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e1);
+            }
+        }
+        catch (IOException e)
+        {
+            logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e);
+            throw e;
+        }
+        catch (NoSuchElementException e)
+        {
+            logger.warn("No pubman_ear.ear file found in  " + JBOSS_DEF_PATH + "deploy", e);
+            throw e;
+        }
+    }
 
     /**
      * Utility method. Logs in the system administrator and returns the corresponding user handle.
