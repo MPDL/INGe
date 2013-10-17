@@ -1202,7 +1202,19 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		componentVisibilityListMenu = initComponentVisibilityListMenu();
 		subjectTypesListMenu = initSubjectTypesListMenu();
 		
-		this.languageChanged = true;
+		
+		//if langugage is changed on AdvancedSearchPage, set flag
+		try {
+			String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+			if("/AdvancedSearchPage.jsp".equals(viewId))
+			{
+				this.languageChanged = true;
+			}
+		} catch (Exception e) {
+			logger.warn("Problem reading view id", e);
+		}
+		
+		
 	}
 
 	public String getQuery() {
