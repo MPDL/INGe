@@ -1,35 +1,36 @@
 package de.mpg.escidoc.pubman.installer;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.NoSuchElementException;
 
-import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 public class TestUpdatePubmanConfigurationProcess
 {
     private static final String JBOSS_DEF_PATH = "/jboss/server/default/";
-    private static Logger logger = Logger.getLogger(TestUpdatePubmanConfigurationProcess.class);
     private static String installPath = "c:/tmp1";
     
-    private UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess();
+    private static UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess();
+    
+    @BeforeClass
+    public static void setUp() throws Exception
+    {
+        updateProcess.setInstallPath(installPath);
+        
+        // create dummy pubman_ear
+        FileUtils.writeStringToFile(new File(installPath + JBOSS_DEF_PATH + "pubman_ear.ear"), "xxxxx");
+    }
 
     @Test
     public void testDeployPubmanEar() throws Exception
     {
-        updateProcess.setInstallPath(installPath);
-        
         updateProcess.deployPubmanEar();
         
-        File srcDir = new File(installPath + JBOSS_DEF_PATH + "deploy");
-        File pubmanEar = FileUtils.listFiles(srcDir, new String[] {"ear"}, false)
+        File deployDir = new File(installPath + JBOSS_DEF_PATH + "deploy");
+        File pubmanEar = FileUtils.listFiles(deployDir, new String[] {"ear"}, false)
                 .iterator().next(); 
 
         assertTrue(pubmanEar.exists());
@@ -38,7 +39,6 @@ public class TestUpdatePubmanConfigurationProcess
     @Test
     public void testUpdateIndexConfiguration() throws Exception
     {       
-        updateProcess.setInstallPath(installPath);
         updateProcess.updateIndexConfiguration();
         
         assertTrue((new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties").exists()));

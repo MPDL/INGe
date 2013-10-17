@@ -171,46 +171,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         logger.info("Process ended successfully: " + threadName);
         
         LabelPanel panel = getLabelPanel(threadName);
-        
-        /*// deploy pubman_ear.ear, if UpdateConfigurationProcess has ended successfully
-        if (threadName.equals("UpdatePubmanConfigurationProcess"))
-        {
-            File srcDir, targetDir = null,  pubmanEar = null;
-            
-            try
-            {
-                 srcDir = new File(idata.getInstallPath() + JBOSS_DEF_PATH);
-                 targetDir = new File(idata.getInstallPath() + JBOSS_DEF_PATH + "deploy");
-                
-                 pubmanEar = FileUtils.listFiles(srcDir, new String[] {"ear"}, false)
-                        .iterator().next();            
-                FileUtils.moveFileToDirectory(pubmanEar, targetDir, false);
-            }        
-            catch(FileExistsException e)
-            {
-                try
-                {
-                    FileUtils.forceDelete(new File(targetDir.getAbsolutePath() + File.separator + pubmanEar.getName()));
-                    FileUtils.moveFileToDirectory(pubmanEar, targetDir, false);
-                }
-                catch (IOException e1)
-                {
-                    logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy after delete", e1);
-                }
-                updateSuccess(false);
-                
-            }        
-            catch (IOException e)
-            {
-                logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e);
-                updateSuccess(false);
-            }
-            catch (NoSuchElementException e)
-            {
-                logger.warn("Error when deploying pubman_ear binary to " + JBOSS_DEF_PATH + "deploy", e);
-                updateSuccess(false);
-            }
-        }*/
+
         updateSuccess(true);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);

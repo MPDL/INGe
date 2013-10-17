@@ -122,6 +122,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       checkBoxCCLicenses.setSelected(true);
 	       add(checkBoxCCLicenses, NEXT_LINE);
 	       getLayoutHelper().completeLayout();
+	       repaint();
 	   }
 	   
 	   public void actionPerformed(ActionEvent e)
