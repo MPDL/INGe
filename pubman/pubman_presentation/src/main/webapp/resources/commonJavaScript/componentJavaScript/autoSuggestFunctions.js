@@ -490,7 +490,22 @@
 			function(i,ele){
 				if(typeof subjectSuggestURL != 'undefined')
 				{
-					$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$pb(this).val(this.currentResult)}});
+					$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {
+						$pb(this).val(this.resultValue);
+						}
+					});
+				}
+			});
+		
+		//for search, adds result in quotes
+		$pb('.subjectSuggestQuotes').each(
+			function(i,ele){
+				if(typeof subjectSuggestURL != 'undefined')
+				{
+					$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {
+						$pb(this).val('"' + this.resultValue + '"');
+						}
+					});
 				}
 			});
 		if(typeof personSuggestURL != 'undefined')

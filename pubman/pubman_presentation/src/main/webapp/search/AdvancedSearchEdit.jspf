@@ -260,7 +260,7 @@ All rights reserved. Use is subject to license terms.
 								</h:selectOneMenu>
 							</h:panelGroup>
 						
-							<h:inputText id="inpClassificationValue" styleClass="large_txtInput subjectSuggest" value="#{criterion.searchString}" />
+							<h:inputText id="inpClassificationValue" styleClass="large_txtInput subjectSuggestQuotes" value="#{criterion.searchString}" />
 						</h:panelGroup>
 					</h:panelGroup>
 					
