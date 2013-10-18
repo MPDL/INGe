@@ -1184,6 +1184,20 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIEIS'">
+							<xsl:choose>
+								<xsl:when test="$access='INSTITUT' or $access='INSTITUT'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:choose>
 								<xsl:when test="$access='USER'">
@@ -1258,7 +1272,7 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1425,7 +1439,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1526,7 +1540,7 @@
 										<xsl:value-of select="../../../rights/copyright"/>
 									</xsl:element>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL' or $import-name = 'MPDLExt'">
+								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEIS'">
 									<xsl:if test="exists(../../../rights/copyright)">
 										<xsl:element name="dc:rights">
 											<xsl:value-of select="../../../rights/copyright"/>
@@ -2648,7 +2662,7 @@
 				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
 		</xsl:if>
-		<xsl:if test="$import-name = 'MPIEM'">
+		<xsl:if test="$import-name = 'MPIEM' or $import-name = 'MPIEIS'">
 			<xsl:for-each select="../relations/relation[@type = 'doi' and @reltype='hasreferences']">
 				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
@@ -2658,7 +2672,7 @@
 				<dc:identifier xsi:type="eterms:OTHER"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
 		</xsl:if>
-		<xsl:if test="$import-name = 'CPFS'">
+		<xsl:if test="$import-name = 'CPFS' or $import-name = 'MPIEIS'">
 			<xsl:for-each select="../relations/relation[@type = 'isbn' and @reltype='hasreferences']">
 				<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
@@ -3663,6 +3677,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'CPFS'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Chemical Physics of Solids')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIEIS'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institut für Eisenforschung GmbH')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
