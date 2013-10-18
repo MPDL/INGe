@@ -157,7 +157,7 @@
 		<!-- CREATOR --> 
 		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='author']/@uri]"/>		
 		<!-- EDITOR -->
-		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='editor']/@uri]"/>		
+		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='editor']/@uri]"/>
 		<!-- LANGUAGE -->
 		<xsl:apply-templates select="dc:language"/>
 		<!-- Identifiers -->
@@ -520,14 +520,7 @@
 				<xsl:value-of select="' and '"/>
 			</xsl:when>
 			<xsl:otherwise>		
-				<xsl:choose>
-					<xsl:when test="count(../parent::source:source)=0">
-						<xsl:text disable-output-escaping="yes">&#125;,&#xD;&#xA;</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text disable-output-escaping="yes">  </xsl:text>
-					</xsl:otherwise>	
-				</xsl:choose>				
+				<xsl:text disable-output-escaping="yes">&#125;,&#xD;&#xA;</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
