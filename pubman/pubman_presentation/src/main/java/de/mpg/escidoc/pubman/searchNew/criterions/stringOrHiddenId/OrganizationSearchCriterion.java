@@ -57,12 +57,12 @@ public class OrganizationSearchCriterion extends
 
 	@Override
 	public String[] getCqlIndexForHiddenId() {
-		return new String[] {"escidoc.any-organization-pids"};
+		return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
 	}
 
 	@Override
 	public String[] getCqlIndexForSearchString() {
-		return new String[] {"escidoc.any-organizations"};
+		return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
 	}
 
 	/*
