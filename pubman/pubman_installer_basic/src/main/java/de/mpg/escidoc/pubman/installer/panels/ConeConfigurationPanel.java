@@ -14,7 +14,6 @@ import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerFrame;
 import com.izforge.izpack.installer.IzPanel;
 
-import de.mpg.escidoc.pubman.installer.Configuration;
 
 public class ConeConfigurationPanel extends IzPanel implements ActionListener
 {
@@ -23,9 +22,6 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	 */
 	private static final long serialVersionUID = -4676947351443726470L;
 
-	
-   private Configuration configuration = null;
-   private String ouExternalObjectId = null;
    boolean isValid = true;
    private JLabel emptyLabel = LabelFactory.create(" ", LEADING);
    private JCheckBox checkBoxJournals;
@@ -75,10 +71,44 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       add(welcomeLabel, NEXT_LINE);
 	       add(emptyLabel, NEXT_LINE);
 	       add(emptyLabel, NEXT_LINE);
+	       
+	       
+	       JLabel label = LabelFactory.create("Please select the Data Types you want to have installed into CoNE.", parent.icons.getImageIcon("host"), LEADING);
+           add(label, NEXT_LINE);
+           add(emptyLabel, NEXT_LINE);
+           
+           checkBoxJournals = new JCheckBox("Journals");
+           checkBoxJournals.addActionListener(this);
+           checkBoxJournals.setSelected(true);
+           
+           add(checkBoxJournals, NEXT_LINE);
+           checkBoxLanguages = new JCheckBox("Languages");
+           checkBoxLanguages.addActionListener(this);
+           checkBoxLanguages.setSelected(true);
+           
+           add(checkBoxLanguages, NEXT_LINE);
+           checkBoxDDC = new JCheckBox("DDC");
+           checkBoxDDC.addActionListener(this);
+           checkBoxDDC.setSelected(true);
+           
+           add(checkBoxDDC, NEXT_LINE);
+           checkBoxMimeTypes = new JCheckBox("Mimetypes");
+           checkBoxMimeTypes.addActionListener(this);
+           checkBoxMimeTypes.setSelected(true);
+           
+           add(checkBoxMimeTypes, NEXT_LINE);
+           checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
+           checkBoxEscidocMimeTypes.addActionListener(this);
+           checkBoxEscidocMimeTypes.setSelected(true);
+           
+           add(checkBoxEscidocMimeTypes, NEXT_LINE);
+           checkBoxCCLicenses = new JCheckBox("CC Licenses");
+           checkBoxCCLicenses.addActionListener(this);
+           checkBoxCCLicenses.setSelected(true);
+           
+           add(checkBoxCCLicenses, NEXT_LINE);
 	      
 	       getLayoutHelper().completeLayout();
-	       
-	       configuration = new Configuration("pubman.properties");
 	       
 	   }
 
@@ -92,37 +122,10 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       return isValid;
 	   }
 	   
-	   public void panelActivate() {
-	       
-	       JLabel label = LabelFactory.create("Please select the Data Types you want to have installed into CoNE.", parent.icons.getImageIcon("host"), LEADING);
-	       add(label, NEXT_LINE);
-	       add(emptyLabel, NEXT_LINE);
-	       checkBoxJournals = new JCheckBox("Journals");
-	       checkBoxJournals.addActionListener(this);
-	       checkBoxJournals.setSelected(true);
-	       add(checkBoxJournals, NEXT_LINE);
-	       checkBoxLanguages = new JCheckBox("Languages");
-	       checkBoxLanguages.addActionListener(this);
-	       checkBoxLanguages.setSelected(true);
-	       add(checkBoxLanguages, NEXT_LINE);
-	       checkBoxDDC = new JCheckBox("DDC");
-	       checkBoxDDC.addActionListener(this);
-	       checkBoxDDC.setSelected(true);
-	       add(checkBoxDDC, NEXT_LINE);
-	       checkBoxMimeTypes = new JCheckBox("Mimetypes");
-	       checkBoxMimeTypes.addActionListener(this);
-	       checkBoxMimeTypes.setSelected(true);
-	       add(checkBoxMimeTypes, NEXT_LINE);
-	       checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
-	       checkBoxEscidocMimeTypes.addActionListener(this);
-	       checkBoxEscidocMimeTypes.setSelected(true);
-	       add(checkBoxEscidocMimeTypes, NEXT_LINE);
-	       checkBoxCCLicenses = new JCheckBox("CC Licenses");
-	       checkBoxCCLicenses.addActionListener(this);
-	       checkBoxCCLicenses.setSelected(true);
-	       add(checkBoxCCLicenses, NEXT_LINE);
-	       getLayoutHelper().completeLayout();
-	       repaint();
+	   public void panelActivate()
+	   {
+	       // create the complete layout in the constructor!
+           revalidate();
 	   }
 	   
 	   public void actionPerformed(ActionEvent e)
