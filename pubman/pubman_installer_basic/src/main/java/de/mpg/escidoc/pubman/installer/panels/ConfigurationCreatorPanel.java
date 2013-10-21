@@ -56,15 +56,15 @@ import de.mpg.escidoc.pubman.installer.util.LabelPanel;
 
 
 public class ConfigurationCreatorPanel extends ConfigurationPanel
-{
-    
+{   
     private static final long serialVersionUID = 3257848774955905587L;
-    private Configuration configuration = null;
+    
     private StartEscidocProcess startEscidocProcess;
     private ConeInsertProcess coneInsertProcess;
     private UpdatePubmanConfigurationProcess updatePubmanConfigurationProcess;
     private LabelPanel startEscidocPanel, conePanel, configurationPanel;
     private boolean success = true;
+    private int numOfThreadsFinished = 0;
     
     private static Logger logger = Logger.getLogger(ConfigurationCreatorPanel.class);
 
@@ -100,7 +100,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         add(welcomeLabel, NEXT_LINE);
         getLayoutHelper().completeLayout();
         
-        configuration = new Configuration("pubman.properties");
+        new Configuration("pubman.properties");
     }
     
     /**
@@ -171,19 +171,20 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
 
     public void processFinishedSuccessfully(String text, String threadName)
     {
-        logger.info("Process ended successfully: " + threadName);
+        logger.info("Process ended successfully: " + threadName);       
+        
+        numOfThreadsFinished++;
+        updateSuccess(true);
         
         LabelPanel panel = getLabelPanel(threadName);
-
-        updateSuccess(true);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);
         
-        if (success)
+        if (success && (numOfThreadsFinished == 2))
         {
             parent.unlockNextButton();
         }
-        else
+        if (!success && (numOfThreadsFinished == 2))
         {
             parent.unlockPrevButton();
         }
@@ -195,17 +196,19 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     {
         logger.info("Process ended with error: " + threadName);
         
-        LabelPanel panel = getLabelPanel(threadName);
+        numOfThreadsFinished++;
         updateSuccess(false);
+        
+        LabelPanel panel = getLabelPanel(threadName);
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_ERROR);
         panel.addToTextArea(e.toString() + ": " + e.getMessage());
         
-        if (success)
+        if (success && (numOfThreadsFinished == 2))
         {
             parent.unlockNextButton();
         }
-        else
+        if (!success && (numOfThreadsFinished == 2))
         {
             parent.unlockPrevButton();
         }
@@ -351,7 +354,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     }
     
     /**
-     * Start a new Thread for updating PubMan configuration and creating an initial dataset for PubMan. 
+     * Start a new Thread for updating PubMan configuration and creating an initial data set for PubMan. 
      * This Thread waits until eSciDoc Framework has started.
      * @throws Exception
      */
