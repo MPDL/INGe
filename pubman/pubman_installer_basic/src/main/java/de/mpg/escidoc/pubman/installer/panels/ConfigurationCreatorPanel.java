@@ -48,6 +48,7 @@ import com.izforge.izpack.installer.InstallerFrame;
 
 import de.mpg.escidoc.pubman.installer.ConeDataset;
 import de.mpg.escidoc.pubman.installer.ConeInsertProcess;
+import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.StartEscidocProcess;
 import de.mpg.escidoc.pubman.installer.UpdatePubmanConfigurationProcess;
 import de.mpg.escidoc.pubman.installer.util.LabelPanel;
@@ -58,7 +59,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
 {
     
     private static final long serialVersionUID = 3257848774955905587L;
-   
+    private Configuration configuration = null;
     private StartEscidocProcess startEscidocProcess;
     private ConeInsertProcess coneInsertProcess;
     private UpdatePubmanConfigurationProcess updatePubmanConfigurationProcess;
@@ -98,6 +99,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 LEADING);
         add(welcomeLabel, NEXT_LINE);
         getLayoutHelper().completeLayout();
+        
+        configuration = new Configuration("pubman.properties");
     }
     
     /**
