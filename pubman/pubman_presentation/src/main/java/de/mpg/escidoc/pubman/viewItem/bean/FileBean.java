@@ -198,7 +198,7 @@ public class FileBean extends FacesBean
       //examine weather the user holds an audience Grant for the current file or not
         try
         {
-            if (file.getVisibility().equals(FileVO.Visibility.AUDIENCE))
+            if (file.getReference()!=null && file.getVisibility().equals(FileVO.Visibility.AUDIENCE))
             {
                 XmlTransformingBean transforming = new XmlTransformingBean();
                 UserAccountHandler uah = ServiceLocator.getUserAccountHandler(loginHelper.getAccountUser().getHandle());
