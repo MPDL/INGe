@@ -36,13 +36,13 @@
       <target name="cleanup" />
     </antcall>
   </pack>
-  
+  <!-- 
   <pack name="Start eSciDoc Framework">
     <antcall order="afterpacks" id="start.escidoc" verbose="yes" logfile="${INSTALL_PATH}/install.log/start-escidoc.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
       <target name="start-escidoc" />
     </antcall>
   </pack>
-  <!--  
+   
   <pack name="PubMan Initial Dataset">
     <antcall order="afterpacks" id="deploy.pubman" verbose="yes" logfile="${INSTALL_PATH}/install.log/deploy-pubman.log" buildfile="${INSTALL_PATH}/install.tmp/unpack-core.xml">
       <target name="deploy-pubman" />
