@@ -36,7 +36,5 @@ public class ConfigurationPanel extends IzPanel
 	public void setPanelValid(boolean isPanelValid) {
 		this.isPanelValid = isPanelValid;
 	}
-
-	
 	
 }

@@ -11,7 +11,7 @@ import org.junit.Test;
 public class TestUpdatePubmanConfigurationProcess
 {
     private static final String JBOSS_DEF_PATH = "/jboss/server/default/";
-    private static String installPath = "c:/tmp1";
+    private static String installPath = "c:/escidoc.pubman";
     
     private static UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess();
     
@@ -34,26 +34,5 @@ public class TestUpdatePubmanConfigurationProcess
                 .iterator().next(); 
 
         assertTrue(pubmanEar.exists());
-    }
-    
-    @Test
-    public void testUpdateIndexConfiguration() throws Exception
-    {       
-        updateProcess.updateIndexConfiguration();
-        
-        assertTrue((new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties").exists()));
-        assertTrue(!(new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties.bak").exists()));
-        
-        String fileContent = FileUtils.readFileToString((new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties")));
-        assertTrue(fileContent.contains("mpdlEscidocXmlToLucene"));    
-        
-        // do it twice
-        updateProcess.updateIndexConfiguration();
-        
-        assertTrue((new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties").exists()));
-        assertTrue(!(new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties.bak").exists()));
-        
-        fileContent = FileUtils.readFileToString((new File(installPath + JBOSS_DEF_PATH + "conf/search/config/index/escidoc_all/index.properties")));
-        assertTrue(fileContent.contains("mpdlEscidocXmlToLucene"));        
     }
 }

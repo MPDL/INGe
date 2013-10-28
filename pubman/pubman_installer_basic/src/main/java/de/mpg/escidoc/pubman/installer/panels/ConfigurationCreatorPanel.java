@@ -55,7 +55,7 @@ import de.mpg.escidoc.pubman.installer.util.LabelPanel;
 
 
 
-public class ConfigurationCreatorPanel extends ConfigurationPanel
+public class ConfigurationCreatorPanel extends ConfigurationPanel implements IConfigurationCreatorPanel
 {   
     private static final long serialVersionUID = 3257848774955905587L;
     
@@ -103,6 +103,24 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         new Configuration("pubman.properties");
     }
     
+    @Override
+    public String getInstallPath()
+    {
+        return this.idata.getInstallPath();
+    }
+    
+    @Override
+    public String getInstanceUrl()
+    {
+        return this.idata.getVariable("CoreserviceUrl");
+    }
+    
+    @Override
+    public InstallData getInstallData()
+    {
+        return this.idata;
+    }
+
     /**
      * Indicates whether the panel has been validated or not.
      * 
@@ -111,11 +129,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     public boolean isValidated()
     {
         return isPanelValid;
-    }
-    
-    public InstallData getInstallData()
-    {
-        return this.idata;
     }
     
     public void panelActivate()
@@ -169,6 +182,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         revalidate();
     }
 
+    /* (non-Javadoc)
+     * @see de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel#processFinishedSuccessfully(java.lang.String, java.lang.String)
+     */
+    @Override
     public void processFinishedSuccessfully(String text, String threadName)
     {
         logger.info("Process ended successfully: " + threadName);       
@@ -192,6 +209,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         setPanelValid(success);
     }
 
+    /* (non-Javadoc)
+     * @see de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel#processFinishedWithError(java.lang.String, java.lang.Exception, java.lang.String)
+     */
+    @Override
     public void processFinishedWithError(String text, Exception e, String threadName)
     {
         logger.info("Process ended with error: " + threadName);
@@ -204,11 +225,11 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         panel.setEndLabel(text, LabelPanel.ICON_ERROR);
         panel.addToTextArea(e.toString() + ": " + e.getMessage());
         
-        if (success && (numOfThreadsFinished == 2))
+        if (success && (numOfThreadsFinished == 3))
         {
             parent.unlockNextButton();
         }
-        if (!success && (numOfThreadsFinished == 2))
+        if (!success && (numOfThreadsFinished == 3))
         {
             parent.unlockPrevButton();
         }
@@ -394,4 +415,5 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             success = success & b;
         }
     }
+
 }

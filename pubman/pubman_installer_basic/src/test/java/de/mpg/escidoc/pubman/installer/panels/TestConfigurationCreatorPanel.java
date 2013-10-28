@@ -15,6 +15,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.izforge.izpack.installer.InstallData;
+
 import de.mpg.escidoc.pubman.installer.Configuration;
 
 
@@ -23,6 +26,7 @@ public class TestConfigurationCreatorPanel
     
     
     private static final String HTTP_N107_MPDL_MPG_DE = "http://10.20.2.75:8080";
+    private static final String HTTP_LOCALHOST = "http://localhost:8080";
     
     private static Map<String, String> properties = new HashMap<String, String>();
     private static Configuration authConfig = null;
@@ -34,9 +38,9 @@ public class TestConfigurationCreatorPanel
     public static void init() throws IOException
     {
         
-        properties.put(Configuration.KEY_CORESERVICE_URL, HTTP_N107_MPDL_MPG_DE);
-        properties.put(Configuration.KEY_CORESERVICE_LOGIN_URL, HTTP_N107_MPDL_MPG_DE);
-        properties.put(Configuration.KEY_AUTH_INSTANCE_URL, HTTP_N107_MPDL_MPG_DE);
+        properties.put(Configuration.KEY_CORESERVICE_URL, HTTP_LOCALHOST);
+        properties.put(Configuration.KEY_CORESERVICE_LOGIN_URL, HTTP_LOCALHOST);
+        properties.put(Configuration.KEY_AUTH_INSTANCE_URL, HTTP_LOCALHOST);
         
         authConfig = new Configuration("auth.properties");
         authConfig.setProperties(properties);

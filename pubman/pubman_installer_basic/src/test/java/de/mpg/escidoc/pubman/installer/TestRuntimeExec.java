@@ -1,22 +1,45 @@
 package de.mpg.escidoc.pubman.installer;
 
+import static org.junit.Assert.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.junit.Before;
 import org.junit.Test;
+
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 public class TestRuntimeExec
 {
-    @Test
-    public void test()
+    @Before
+    public void setUp() throws Exception
     {
-        try
-        {            
+        PropertyReader.setProperty(Configuration.KEY_INSTANCEURL, "http://localhost:8080");
+    }
+    
+    @Test
+    public void test() throws Exception
+    {
+        this.startEscidoc();
+        int code = waitForFrameworkStarted();
+        
+        assertTrue(code == 200);
+    }
+
+    private void startEscidoc() throws Exception
+    {
+       
             String osName = System.getProperty("os.name" );
             String[] cmd = new String[3];
             if( osName.equals( "Windows 7" ) )
@@ -27,7 +50,7 @@ public class TestRuntimeExec
             }
             else if( osName.equals( "Linux" ) )
             {
-                cmd[0] = "command.com" ;
+                cmd[0] = "bash.sh" ;
                 cmd[1] = "/C" ;
                 cmd[2] = "run.sh";
             }
@@ -42,14 +65,18 @@ public class TestRuntimeExec
             Process process = pb.start();
             
             StreamGobbler g = new StreamGobbler(process.getInputStream());
-            g.start();
-            
-            Thread.currentThread().sleep(10000);
-             
-        } catch (Throwable t)
-          {
-            t.printStackTrace();
-          }
+            g.start();            
+    }
+    
+    private int waitForFrameworkStarted() throws HttpException, IOException, URISyntaxException
+    {
+        GetMethod method = new GetMethod(PropertyReader.getProperty(Configuration.KEY_INSTANCEURL));        
+        HttpClient client = new HttpClient();
+        
+        client.getHttpConnectionManager().getParams().setConnectionTimeout(3*60*1000);
+        ProxyHelper.executeMethod(client, method);
+        
+        return method.getStatusCode();
     }
     
     private void copy(InputStream in, OutputStream out) throws IOException {

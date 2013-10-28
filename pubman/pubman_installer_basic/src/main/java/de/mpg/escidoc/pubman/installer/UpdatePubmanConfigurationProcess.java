@@ -28,6 +28,7 @@ import com.izforge.izpack.installer.InstallData;
 
 import de.escidoc.www.services.aa.RoleHandler;
 import de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel;
+import de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel;
 import de.mpg.escidoc.pubman.installer.util.Utils;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -35,7 +36,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class UpdatePubmanConfigurationProcess extends Thread
 {
-    private ConfigurationCreatorPanel panel;
+    private IConfigurationCreatorPanel panel;
 
     private Configuration configPubman = null;
     private Configuration configAuth = null;
@@ -64,9 +65,9 @@ public class UpdatePubmanConfigurationProcess extends Thread
     {      
     }
     
-    public UpdatePubmanConfigurationProcess(ConfigurationCreatorPanel panel, Thread startEscidocThread, boolean createDataset) throws IOException
+    public UpdatePubmanConfigurationProcess(IConfigurationCreatorPanel panel, Thread startEscidocThread, boolean createDataset) throws IOException
     {      
-        this.panel = panel;
+        this.panel = (ConfigurationCreatorPanel)panel;
         this.configPubman = new Configuration("pubman.properties");
         this.configAuth = new Configuration("auth.properties");
         this.createDataset = createDataset;
