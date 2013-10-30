@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.72-SNAPSHOT</version>
+		<version>1.0.72</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>reporting</artifactId>
 	<name>reporting</name>
 	<packaging>jar</packaging>
-	<version>0.16-SNAPSHOT</version>
+	<version>0.16</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/reporting</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/reporting</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.72/reporting</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.72/reporting</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.72/reporting</url>
 	</scm>
 	
 	<build>
@@ -143,7 +143,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.17-SNAPSHOT</version>
+			<version>1.3.17</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -185,7 +185,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.72-SNAPSHOT</version>
+			<version>1.1.72</version>
 			<type>ejb</type>
 		</dependency>
 	</dependencies>
