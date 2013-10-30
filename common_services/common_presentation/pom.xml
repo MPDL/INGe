@@ -31,14 +31,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.73-SNAPSHOT</version>
+		<version>1.0.72-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>common_presentation</name>
-	<version>1.0.62-SNAPSHOT</version>
+	<version>1.0.61-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</connection>
