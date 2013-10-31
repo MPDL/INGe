@@ -22,7 +22,8 @@ public class StartEscidocProcess extends Thread
 {
     private IConfigurationCreatorPanel panel;
     private String installPath;
-    
+    private boolean startFinished = false;
+
     private static Logger logger = Logger.getLogger(StartEscidocProcess.class);
     
     private static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
@@ -41,15 +42,39 @@ public class StartEscidocProcess extends Thread
     
     public int startEscidocAndWaitTillFinished() throws Exception
     {
+        int code = 0;
+        
         this.panel.getTextArea().append("Starting eSciDoc Framework...\n");
         logger.info("Starting eSciDoc Framework");
         
         // copy stylesheets for indexing to jboss index configuration
-        this.updateIndexConfiguration();
+        updateIndexConfiguration();
               
-        this.startEscidoc();
+        startEscidoc();
+        
+        // give the StartEscidocProcess thread some time to start eSciDoc
+        int count = 0;
+        do
+        {
+            Thread.currentThread().sleep(5000);
+            try
+            {
+                code = waitForFrameworkStarted();
+            }
+            catch (IOException e)
+            {
+                logger.info("IOException caught when waiting for eSciDoc start", e);
+            }
+            count++;
+        } while( code != 200 && count < 5);
+        
         
         return waitForFrameworkStarted();      
+    }
+    
+    public boolean isStartFinished()
+    {
+        return startFinished;
     }
     
     private void startEscidoc() throws Exception
@@ -126,6 +151,7 @@ public class StartEscidocProcess extends Thread
             int code = startEscidocAndWaitTillFinished();
             if (code == 200)
             {
+                startFinished = true;
                 panel.processFinishedSuccessfully("eSciDoc Framework started successfully!", this.getName());
                 logger.info("eSciDoc Framework started successfully!");
             }
@@ -144,7 +170,7 @@ public class StartEscidocProcess extends Thread
         }
     }
     
-    // helper class to redirect output frpm ProcessBuilder
+    // helper class to redirect output from ProcessBuilder
     class StreamGobbler extends Thread
     {
         InputStream is;
