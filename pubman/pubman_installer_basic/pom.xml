@@ -17,14 +17,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>7.4.3-SNAPSHOT</version>
+		<version>7.5.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_installer_basic</artifactId>
 	<name>pubman_installer_basic</name>
 	<packaging>jar</packaging>
-	<version>7.4.3-SNAPSHOT</version>
+	<version>7.5.1-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_basic</connection>

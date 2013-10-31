@@ -18,14 +18,15 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>7.4.3-SNAPSHOT</version>
+		<version>7.5.1-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_installer_escidoc</artifactId>
-	<packaging>jar</packaging>
 	<name>pubman_installer_escidoc</name>
+	<packaging>jar</packaging>
+	<version>7.5.1-SNAPSHOT</version>
 	<description>Installer of a complete PubMan System including Postgres, Fedora and eSciDoc</description>
 
 	<scm>
