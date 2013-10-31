@@ -81,21 +81,21 @@ public class StartEscidocProcess extends Thread
     {        
             String osName = System.getProperty("os.name" );
             String[] cmd = new String[3];
-            if( osName.equals( "Windows 7" ) )
+            if( osName.startsWith("Windows" ) )
             {
                 cmd[0] = "cmd" ;
                 cmd[1] = "/C" ;
                 cmd[2] = "run.bat";
             }
-            else if( osName.equals( "Linux" ) )
+            else if( osName.startsWith( "Linux" ) )
             {
-                cmd[0] = "bash.sh" ;
+                cmd[0] = "/bin/sh" ;
                 cmd[1] = "/C" ;
                 cmd[2] = "run.sh";
             }
             
             ProcessBuilder pb =
-                  new ProcessBuilder("cmd", "/c", "run.bat");
+                  new ProcessBuilder(cmd);
                   
                   pb.directory(new File("c:/escidoc.pubman/jboss/bin"));
                   File log = new File("c:/escidoc.pubman/jboss/server/default/log/server.log");
