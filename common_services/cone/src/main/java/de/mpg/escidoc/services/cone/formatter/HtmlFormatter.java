@@ -184,7 +184,7 @@ public class HtmlFormatter extends Formatter
             	transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
             }
             
-            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.any-identifier=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + id + "\"&exportFormat=" + exportFormat + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + id + "\"&exportFormat=" + exportFormat + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
             transformer.setParameter("lang", lang);
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
