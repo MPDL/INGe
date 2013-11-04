@@ -41,19 +41,3 @@ INSERT INTO aa.user_login_data
     '${InspectorPassword}', 
     1999999999999);
 
-    
-    /**
-     * Depositor user.
-     */
-INSERT INTO aa.user_account
-    (id, active, name, loginName, password, creator_id, creation_date, modified_by_id, last_modification_date)
-    VALUES
-    ('escidoc:exuser4',
-    ${SqlTrue},
-    'Depositor User',
-    '${DepositorUsername}',
-    '${DepositorPassword}',
-    'escidoc:exuser1',
-    CURRENT_TIMESTAMP,
-    'escidoc:exuser1',
-    CURRENT_TIMESTAMP);

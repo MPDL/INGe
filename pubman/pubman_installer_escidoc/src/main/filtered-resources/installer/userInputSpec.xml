@@ -258,33 +258,7 @@
     <field type="divider" align="bottom" />
   </panel>
 
-  <panel order="9" id="Depositor user">
-    <createForPack name="Roles and Users Creation" />
-    <field type="title" txt="User Credentials for Depositor User" bold="true" size="1" />
-    <field type="divider" align="top" />
-    <!-- Username -->
-    <field type="staticText" align="left"
-      txt="The Depositor user is entitles to create new resources within the eSciDoc Infrastructure. This is the user for most of the day-to-day work." />
-    <field type="space" />
-    <field type="text" align="left" variable="DepositorUsername">
-      <spec txt="Depositor Username:" size="25" set="" />
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Depositor username must not be an empty string." />
-    </field>
-    <field type="space" />
-    <!-- Password -->
-    <field type="password" align="left" variable="DepositorPassword">
-      <spec>
-        <pwd txt="Depositor Password:" size="25" set="" />
-        <pwd txt="Retype Password:" size="25" set="" />
-      </spec>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Depositor password must not be an empty string." />
-      <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both Depositor passwords must match." />
-    </field>
-    <field type="space" />
-    <field type="divider" align="bottom" />
-  </panel>
-
-  <panel order="10" id="Remove JMX- + Management Console">
+  <panel order="9" id="Remove JMX- + Management Console">
     <createForPack name="eSciDoc" />
     <field type="title" txt="JBoss JXM-Console" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -301,7 +275,7 @@
     <field type="divider" align="bottom" />
   </panel>
   
-  <panel order="11" id="JBoss Security">
+  <panel order="10" id="JBoss Security">
     <createForPack name="eSciDoc" />
     <field type="title" txt="JBoss Security" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -327,7 +301,7 @@
     <field type="divider" align="bottom" />
   </panel>
   
-  <panel order="12" id="JBoss HTTPS">
+  <panel order="11" id="JBoss HTTPS">
     <createForPack name="eSciDoc" />
     <field type="title" txt="JBoss Security - HTTPS (optional)" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -354,7 +328,7 @@
   </panel>
     
     <!-- ===========================   Panel 13: PubMan Dataset Settings   =============================== -->
-    <panel order="13">
+    <panel order="12">
         <createForPack name="PubMan Initial Dataset" />
          <field type="staticText" align="left"
             txt="Here information for the initial dataset on coreservice is collected. E.g initial user passwords etc." />
@@ -382,7 +356,7 @@
     </panel>
     
    <!-- ===========================   Panel 14: PubMan Mail Server Settings   =============================== -->
-    <panel order="14">
+    <panel order="13">
         <createForPack name="PubMan" />
         <field type="title" txt="Mail Server Settings" bold="true" size="1" />
          <field type="staticText" align="left"
@@ -420,7 +394,7 @@
     </panel>
     
     <!-- ===========================   Panel 15: CoNE Settings   =============================== -->
-    <panel order="15">
+    <panel order="14">
         <createForPack name="PubMan" />
         <field type="title" txt="CoNE Settings" bold="true" size="1" />
          <field type="staticText" align="left"
@@ -465,7 +439,7 @@
         <field type="divider" align="bottom" />
     </panel>
 
-  <panel order="16" id="Database backup">
+  <panel order="15" id="Database backup">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Backup" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -475,7 +449,7 @@
     <field type="divider" align="bottom" />
   </panel>
 
-  <panel order="17" id="Database migration">
+  <panel order="16" id="Database migration">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Migration" bold="true" size="1" />
     <field type="divider" align="top" />
