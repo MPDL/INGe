@@ -212,11 +212,11 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup styleClass="free_area0 endline" rendered="#{criterion.searchCriterion.displayType == 'DATE'}">
 						<h:panelGroup styleClass="free_area0">
 							<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst" value="#{lbl.adv_search_lblFrom}: "/>
-							<h:inputText styleClass="medium_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" style="width:7.7272em;" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" />
 						</h:panelGroup>
 						<span class="free_area0 clear">
 							<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst" value="#{lbl.adv_search_lblTo}: "/>
-							<h:inputText styleClass="medium_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" style="width:7.7272em;" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" />
 						</span>
 						<script type="text/javascript">
 							$pb('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
