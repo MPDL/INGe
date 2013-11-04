@@ -147,7 +147,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
         }
         catch (Exception e)
         {
-            logger.error("Error while writing CoNE data to database!", e);
+            logger.error("Error while starting eSciDoc Framework!", e);
         }
   
         revalidate();
@@ -197,14 +197,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
         panel.showProgressBar(false);
         panel.setEndLabel(text, LabelPanel.ICON_SUCCESS);
         
-        if (success && (numOfThreadsFinished == 2))
-        {
-            parent.unlockNextButton();
-        }
-        if (!success && (numOfThreadsFinished == 2))
-        {
-            parent.unlockPrevButton();
-        }
+        checkButtonLocking();
         revalidate();
         setPanelValid(success);
     }
@@ -225,14 +218,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
         panel.setEndLabel(text, LabelPanel.ICON_ERROR);
         panel.addToTextArea(e.toString() + ": " + e.getMessage());
         
-        if (success && (numOfThreadsFinished == 3))
-        {
-            parent.unlockNextButton();
-        }
-        if (!success && (numOfThreadsFinished == 3))
-        {
-            parent.unlockPrevButton();
-        }
+        checkButtonLocking();
         revalidate();
         setPanelValid(success);
     }
@@ -413,6 +399,18 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
         if (success)
         {
             success = success & b;
+        }
+    }
+    
+    private void checkButtonLocking()
+    {
+        if (success && (numOfThreadsFinished == 3 && haveToInsertConeData() || numOfThreadsFinished == 2 && !haveToInsertConeData()))
+        {
+            parent.unlockNextButton();
+        }
+        if (!success || (numOfThreadsFinished == 3 && haveToInsertConeData() || numOfThreadsFinished == 2 && !haveToInsertConeData()))
+        {
+            parent.unlockPrevButton();
         }
     }
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel;
@@ -18,22 +19,19 @@ public class TestUpdatePubmanConfigurationProcess
     
     private UpdatePubmanConfigurationProcess updateProcess;
     
-    private IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
     
-    /*@BeforeClass
+    @BeforeClass
     public static void setUp() throws Exception
-    {
-        updateProcess = new UpdatePubmanConfigurationProcess();
-        updateProcess.setInstallPath(installPath);
-        
+    {       
         // create dummy pubman_ear
         FileUtils.writeStringToFile(new File(installPath + JBOSS_DEF_PATH + "pubman_ear.ear"), "xxxxx");
-    }*/
+    }
 
     @Test
     public void testDeployPubmanEar() throws Exception
     {
         UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess();
+        updateProcess.setInstallPath(installPath);
         updateProcess.deployPubmanEar();
         
         File deployDir = new File(installPath + JBOSS_DEF_PATH + "deploy");
@@ -44,9 +42,15 @@ public class TestUpdatePubmanConfigurationProcess
     }
     
     @Test
-    public void testUpdatePubmanConfigurationIfStartEscidocHasFailed() throws Exception
+    public void testUpdatePubmanConfiguration() throws Exception
     {
         IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
-        UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess(panel, new StartEscidocProcess(panel), false);
+        StartEscidocProcess startProcess = new StartEscidocProcess(panel);
+        startProcess.run();
+        
+        UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess(
+                                                panel, new StartEscidocProcess(panel), false);
+        updateProcess.start();
+        Thread.currentThread().sleep(4*60*1000);
     }
 }

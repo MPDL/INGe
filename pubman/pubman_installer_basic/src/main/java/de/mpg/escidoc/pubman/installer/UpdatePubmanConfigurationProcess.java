@@ -67,7 +67,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
     
     public UpdatePubmanConfigurationProcess(IConfigurationCreatorPanel panel, Thread startEscidocThread, boolean createDataset) throws IOException
     {      
-        this.panel = (ConfigurationCreatorPanel)panel;
+        this.panel = panel;
         this.configPubman = new Configuration("pubman.properties");
         this.configAuth = new Configuration("auth.properties");
         this.createDataset = createDataset;
@@ -75,7 +75,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
                
         this.startEscidocThread = startEscidocThread;
         
-        setInstallPath(this.idata.getInstallPath());
+        setInstallPath(panel.getInstallPath());
         
         this.setName("UpdatePubmanConfigurationProcess");
     }
