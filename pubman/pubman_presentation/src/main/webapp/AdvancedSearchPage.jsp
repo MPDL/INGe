@@ -125,6 +125,9 @@
 				function checkUpdatePersonFunction() {
 					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
 				}
+				function checkUpdateOrganizationFunction() {
+					(typeof updateOrganizationUi == 'function') ?	updateOrganizationUi() :	setTimeout("checkUpdateOrganizationFunction()", 30);
+				}
 				$pb(document).ready(function () {
 					/*
 					$pb("input[id$='offset']").submit(function() {
@@ -137,6 +140,7 @@
 
 					toggleEmbargoCheckbox();
 					checkUpdatePersonFunction();
+					checkUpdateOrganizationFunction();
 					
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';

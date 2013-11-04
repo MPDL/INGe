@@ -361,6 +361,23 @@
 		
 	}
 	
+
+	function updateOrganizationUi()
+	{
+		// maintain attributes for autosuggest filled persons
+		if($pb('.organizationIdentifier' != null))
+		{
+			$pb('.organizationIdentifier').each(function(ind){
+				if (this.value) {
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationName').attr('readonly', 'readonly');
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
+					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
+				}
+			})
+		}
+		
+	}
+	
 	function fillField(name, value, commonParent, readonly)
 	{
 		var field = $pb(commonParent).find('.' + name);
@@ -438,6 +455,8 @@
 					$pb(this).attr('readonly', 'readonly');
 				}
 		);
+		
+		updateOrganizationUi();
 		
 	}
 	

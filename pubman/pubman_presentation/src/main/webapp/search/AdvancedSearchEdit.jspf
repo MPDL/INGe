@@ -228,9 +228,13 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup styleClass="free_area0 endline suggestAnchor" rendered="#{criterion.searchCriterion == 'ORGUNIT'}">
 	                    <h:outputLabel id="lblOrganizationSearchTermEmptyFirst" styleClass="small_label label_keyword" value=" " />
 	                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="double_txtInput organizationSuggest organizationName disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" style="margin-right:0.2727em;"/>
-	                    <h:inputText id="organizationSearchTermEmptyFirstFilled" styleClass="double_txtInput" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
+	                    <h:inputText id="organizationSearchTermEmptyFirstFilled" styleClass="double_txtInput" readonly="true" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 						<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
 							value="#{criterion.hiddenId}" />
+						<a4j:commandButton id="btnRemoveOrganizationAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
+						oncomplete="return removeOrganizationAutoSuggest($pb(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" reRender="editSearch">
+							<f:attribute name="indexOfCriterion" value="#{index}"/>
+						</a4j:commandButton>
 						<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" value="#"
 							onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
