@@ -556,14 +556,14 @@ public abstract class SearchCriterionBase implements Serializable{
 				
 				
 				String contentModelId = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
-				String standardCriterions = INDEX_OBJECTTYPE + "=\"item\" and " + INDEX_CONTENT_MODEL + "=\"" + escapeForCql(contentModelId) + "\"";
+				String standardCriterions = INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\"" + escapeForCql(contentModelId) + "\"";
 				
 				
 				
 				if(!sb.toString().isEmpty() )
 				{
 					
-					standardCriterions = standardCriterions + " " + appendOperator + " " + sb.toString() + "";
+					standardCriterions = standardCriterions + " " + appendOperator + " (" + sb.toString() + ")";
 				}
 				return standardCriterions;
 			} catch (Exception e) {
