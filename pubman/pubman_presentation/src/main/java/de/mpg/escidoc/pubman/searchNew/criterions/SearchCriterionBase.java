@@ -848,6 +848,12 @@ public abstract class SearchCriterionBase implements Serializable{
 		
 		criterionList.removeAll(parenthesisToRemove);
 		
+		//if first criterion is an operand, remove it
+		if(DisplayType.OPERATOR.equals(criterionList.get(0).getSearchCriterion().getDisplayType()))
+		{
+			criterionList.remove(0);
+		}
+		
 	}
 	
 	
