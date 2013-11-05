@@ -96,9 +96,9 @@
 						</div>
 						<div class="full_area0 formButtonArea">
 
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" />
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" />
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}" onclick="fullItemReloadAjax();"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" onclick="fullItemReloadAjax();" />
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" onclick="fullItemReloadAjax();" />
 				
 						</div>
 					</div>
