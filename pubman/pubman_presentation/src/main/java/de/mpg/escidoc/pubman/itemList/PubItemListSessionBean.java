@@ -76,7 +76,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     private static Logger logger = Logger.getLogger(PubItemListSessionBean.class);
 
     public static String BEAN_NAME = "PubItemListSessionBean";
-    public static int MAXIMUM_CART_ITEMS = 3500;
+    public static int MAXIMUM_CART_ITEMS = 2800;
 
 
     /**
