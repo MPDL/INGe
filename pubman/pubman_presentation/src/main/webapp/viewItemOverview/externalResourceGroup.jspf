@@ -47,21 +47,21 @@
 	<!-- Iterator for external resources -->
 	<h:panelGroup layout="block" styleClass="huge_area0_p0 nano" style="max-height:300px;">
 		<h:panelGroup layout="block" styleClass="free_area0_p6 content">
-			<a4j:repeat var="file" value="#{ViewItemFull.pubItem.locatorBeanList}" rendered ="#{ViewItemFull.pubItem.locatorBeanList != null and !empty(ViewItemFull.pubItem.locatorBeanList)}" rowKeyVar="index">
+			<a4j:repeat var="locator" value="#{ViewItemFull.pubItem.locatorBeanList}" rendered ="#{ViewItemFull.pubItem.locatorBeanList != null and !empty(ViewItemFull.pubItem.locatorBeanList)}" rowKeyVar="index">
 				<div>
 					<!-- External resource icon -->
 					<img src="../resources/images/overviewPage/external_Ressources_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
 					<!-- Textual description and link to external resource -->
 					<p class="double_area0">
 						<!-- Link to the external resource -->
-						<h:outputLink id="lnkLocator" target="_blank" value="#{file.locator}">
-							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						<h:outputLink id="lnkLocator" target="_blank" value="#{locator.locatorLink}">
+							<h:outputText value="#{locator.fileName}" title="#{locator.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
 						<!-- Text if publication is withdrawn -->
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
 						<br/>
 						<!-- Content category -->
-						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+						<h:outputText value=" (#{locator.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 					</p>
 				</div>
 			</a4j:repeat>

@@ -400,7 +400,13 @@ public class ViewItemFull extends FacesBean
         }
         else
         {
-            this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+            // Cleanup needed if an edit site was loaded inbetween 
+            // (e.g. local tags --> source without editors --> editors are created in the SourceBean an not removed)
+            ItemControllerSessionBean icsb= this.getItemControllerSessionBean();
+            long before = System.currentTimeMillis();
+            icsb.cleanUpItem(icsb.getCurrentPubItem());
+            System.out.println(System.currentTimeMillis() - before);
+            this.pubItem = icsb.getCurrentPubItem();
         }
 
 
@@ -687,6 +693,7 @@ public class ViewItemFull extends FacesBean
         {
             visb.setDetailedMode(true);
         }
+        
         return ViewItemFull.LOAD_VIEWITEM;
     }
     
