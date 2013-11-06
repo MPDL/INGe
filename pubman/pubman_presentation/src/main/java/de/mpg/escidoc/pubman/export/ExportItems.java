@@ -253,7 +253,7 @@ public class ExportItems extends FacesBean
         {
         	String fileFormat=null;
         	
-            if ("ESCIDOC_XML".equals(selExportFormat))
+            if ("ESCIDOC_XML".equals(selExportFormat) || "ESCIDOC_XML_V13".equals(selExportFormat))
 				{fileFormat = FileFormatVO.ESCIDOC_XML_NAME;}
     		else if ("MARCXML".equals(selExportFormat))
 				{fileFormat = FileFormatVO.ESCIDOC_XML_NAME;}
