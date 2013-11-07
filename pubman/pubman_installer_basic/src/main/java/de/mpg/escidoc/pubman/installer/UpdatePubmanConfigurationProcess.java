@@ -45,7 +45,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
     private Thread startEscidocThread;
     private String installPath;
     
-    private static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
+    public static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
+    public static final String INSTALL_TMP_PATH = "/install.tmp/";
     
     private static final String ESCIDOC_ROLE_MODERATOR = "escidoc:role-moderator";
     private static final String ESCIDOC_ROLE_DEPOSITOR = "escidoc:role-depositor";
@@ -68,8 +69,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
     public UpdatePubmanConfigurationProcess(IConfigurationCreatorPanel panel, Thread startEscidocThread, boolean createDataset) throws IOException
     {      
         this.panel = panel;
-        this.configPubman = new Configuration("pubman.properties");
-        this.configAuth = new Configuration("auth.properties");
+        this.configPubman = new Configuration();
+        this.configAuth = new Configuration();
         this.createDataset = createDataset;
         this.idata = panel.getInstallData();
                
@@ -134,24 +135,25 @@ public class UpdatePubmanConfigurationProcess extends Thread
     {
         Map<String, String> userConfigValues = new HashMap<String, String>();
         Map<String, String> authConfigValues = new HashMap<String, String>();
-        
+    
         userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));
         userConfigValues.put(Configuration.KEY_INSTANCEURL, idata.getVariable("InstanceUrl"));
-        userConfigValues.put(Configuration.KEY_MAILSERVER, idata.getVariable("MailHost"));
-        userConfigValues.put(Configuration.KEY_MAIL_SENDER, idata.getVariable("MailSenderAdress"));
-        userConfigValues.put(Configuration.KEY_MAIL_USE_AUTHENTICATION, idata.getVariable("MailUseAuthentication"));
-        userConfigValues.put(Configuration.KEY_MAILUSER, idata.getVariable("MailUsername"));
-        userConfigValues.put(Configuration.KEY_MAILUSERPW, idata.getVariable("MailPassword"));
+          
+        //CoNE
         userConfigValues.put(Configuration.KEY_CONE_SERVER, idata.getVariable("ConeHost"));
         userConfigValues.put(Configuration.KEY_CONE_PORT, idata.getVariable("ConePort"));
         userConfigValues.put(Configuration.KEY_CONE_DATABASE, idata.getVariable("ConeDatabase"));
         userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
         userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
+        userConfigValues.put(Configuration.KEY_CONE_DB_DRIVER_CLASS, idata.getVariable("DatabaseDriverClassPostgres"));
+        userConfigValues.put(Configuration.KEY_CONE_MODELSXML_PATH, "models.xml");
+        
         userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
-        // stylesheets PubMan 
+        
+        // style sheets PubMan
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_URL, idata.getVariable("StyleSheetStandardURL"));
@@ -170,7 +172,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
             .put(Configuration.KEY_PM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
-        // stylesheets common
+        
+        // styles sheets common
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_STANDARD_URL, idata.getVariable("StyleSheetStandardURL"));
@@ -189,6 +192,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
             .put(Configuration.KEY_CM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
+        
         // PumMan Logo URL
         userConfigValues.put(Configuration.KEY_PM_LOGO_URL, idata.getVariable("PubManLogoURL"));
         userConfigValues.put(Configuration.KEY_PM_LOGO_APPLY, idata.getVariable("PubManLogoApply"));
@@ -203,22 +207,29 @@ public class UpdatePubmanConfigurationProcess extends Thread
         // Panel 11
         userConfigValues.put(Configuration.KEY_IMPORT_TASK_CM, idata.getVariable("escidoc.import.task.content-model"));
         // Panel 8
-        userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
+        //userConfigValues.put(Configuration.KEY_VIEWFULLITEM_DEFAULT_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
         userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
         userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
         
         // Login URL
-        if (idata.getVariable("escidoc.framework_access.login.url") == null || "".equals(idata.getVariable("escidoc.framework_access.login.url")))
+        /*if (idata.getVariable("escidoc.framework_access.login.url") == null || "".equals(idata.getVariable("escidoc.framework_access.login.url")))
         {
             userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("CoreserviceUrl"));
         }
         else
         {
             userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("escidoc.framework_access.login.url"));
-        }
+        }*/
         userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
         userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
         userConfigValues.put(Configuration.KEY_ACCESS_CONF_GENRES_LINK, idata.getVariable("escidoc.pubman.genres.configuration"));
+        
+        // Panel advanced
+        userConfigValues.put(Configuration.KEY_MAILSERVER, idata.getVariable("MailHost"));
+        userConfigValues.put(Configuration.KEY_MAIL_SENDER, idata.getVariable("MailSenderAdress"));
+        userConfigValues.put(Configuration.KEY_MAIL_USE_AUTHENTICATION, idata.getVariable("MailUseAuthentication"));
+        userConfigValues.put(Configuration.KEY_MAILUSER, idata.getVariable("MailUsername"));
+        userConfigValues.put(Configuration.KEY_MAILUSERPW, idata.getVariable("MailPassword"));
         // Panel 9
         userConfigValues.put(Configuration.KEY_TASK_INT_LINK, idata.getVariable("escidoc.pubman.sitemap.task.interval"));
         userConfigValues.put(Configuration.KEY_MAX_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.max.items"));
@@ -235,8 +246,40 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_PB_SURVEY_TEXT, idata.getVariable("escidoc.pubman.survey.text"));
        
         // Others
+        userConfigValues.put(Configuration.KEY_PUBMAN_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
+        userConfigValues.put(Configuration.KEY_COMMON_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
         userConfigValues.put(Configuration.KEY_CONE_SERVICE_URL, idata.getVariable("InstanceUrl") + "/cone/");
+        userConfigValues.put(Configuration.KEY_CONE_QUERIER_CLASS, "de.mpg.escidoc.services.cone.SQLQuerier");
+        userConfigValues.put(Configuration.KEY_CONE_MULGARA_SERVER_NAME, "");
+        userConfigValues.put(Configuration.KEY_CONE_LANGUAGE_DEFAULT, "en");
         userConfigValues.put(Configuration.KEY_SYNDICATION_SERVICE_URL, idata.getVariable("InstanceUrl") + "/syndication/");
+        userConfigValues.put(Configuration.KEY_INSTANCE_PATH, "/pubman");
+        userConfigValues.put(Configuration.KEY_ITEM_PATTERN, "/item/$1");
+        userConfigValues.put(Configuration.KEY_COMPONENT_PATTERN, "/item/$1/component/$2/$3");
+        userConfigValues.put(Configuration.KEY_PM_COOKIE_VERSION, "1.0");
+        userConfigValues.put(Configuration.KEY_SUN_QNAME_VERSION, "1.0");
+        userConfigValues.put(Configuration.KEY_CONTENTMODEL_PATTERN, ":content-model +(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"");
+        userConfigValues.put(Configuration.KEY_CONTEXT_PATTERN, ":context +(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"");
+        userConfigValues.put(Configuration.KEY_VALIDATION_SOURCE_CLASSNAME, "de.mpg.escidoc.services.validation.VoidValidationSchemaSource");
+        userConfigValues.put(Configuration.KEY_VALIDATION_REFRESH_INTERVAL, "180");
+        
+        // Search and Export
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_QUERY, "escidoc.metadata=test and escidoc.content-model.objid=escidoc:2001");
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_INDEX_EXPLAIN_QUERY, "/srw/search/escidoc_all?operation=explain");
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_SORT_KEYS, "_relevance_");
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_SORT_ORDER, "descending");
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_START_ORDER, "1");
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_MAX_RECORDS, "50");
+        
+        
+        // Import
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_DRIVER_CLASS, idata.getVariable("DatabaseDriverClassHypersonic"));
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_SERVER_NAME, "");
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_SERVER_PORT, "");
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_NAME, idata.getVariable("DatabaseNameHypersonic"));
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_USER_NAME, idata.getVariable("DatabaseAdminUsernameHypersonic"));
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_USER_PASSWORD, idata.getVariable("DatabaseAdminPasswordHypersonic"));
+        userConfigValues.put(Configuration.KEY_IMPORT_DB_CONNECTION_URL, idata.getVariable("DatabaseConnectionUrlHypersonic"));
         
         //Authentication
         authConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
@@ -251,16 +294,16 @@ public class UpdatePubmanConfigurationProcess extends Thread
         authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));        
         
         configPubman.setProperties(userConfigValues);
-        configPubman.storeProperties("pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
+        configPubman.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
 
         // update framework policies and set the role identifier properties for the two CoNE roles
         this.updatePolicies(authConfigValues);
         
         configAuth.setProperties(authConfigValues);
-        configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
-        configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
+        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
+        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
         
-        configAuth.storeXml("conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
+        configAuth.storeXml(idata.getInstallPath() + INSTALL_TMP_PATH + "conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
         
         // create a private - public key pair
         this.createKeys();

@@ -30,9 +30,9 @@ package de.mpg.escidoc.pubman.installer;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -54,12 +54,28 @@ public class Configuration
     /** logging instance */
     private Logger logger = null;
     
+    // Email configuration for SMTP server
     public static final String KEY_MAILSERVER = "escidoc.pubman_presentation.email.mailservername";
     public static final String KEY_MAIL_SENDER = "escidoc.pubman_presentation.email.sender";
     public static final String KEY_MAIL_USE_AUTHENTICATION = "escidoc.pubman_presentation.email.withauthentication";
     public static final String KEY_MAILUSER = "escidoc.pubman_presentation.email.authenticationuser";
     public static final String KEY_MAILUSERPW = "escidoc.pubman_presentation.email.authenticationpwd";
+    
+    // In the view item page the list of creators is hidden after this number of entries
+    public static final String KEY_VIEWFULLITEM_DEFAULT_SIZE = "escidoc.pubman_presentation.viewFullItem.defaultSize";
+       
+    // URL of this PubMan instance.
     public static final String KEY_INSTANCEURL = "escidoc.pubman.instance.url";
+    
+    // The context path
+    public static final String KEY_INSTANCE_PATH = "escidoc.pubman.instance.context.path";
+    public static final String KEY_ITEM_PATTERN = "escidoc.pubman.item.pattern";
+    public static final String KEY_COMPONENT_PATTERN = "escidoc.pubman.component.pattern";
+    
+    // URL for stylesheets in common-presentation
+    public static final String KEY_PUBMAN_PRESENTATION_URL = "escidoc.pubman.common.presentation.url";
+    public static final String KEY_COMMON_PRESENTATION_URL = "escidoc.common.presentation.url";
+    
     public static final String KEY_CORESERVICE_URL = "escidoc.framework_access.framework.url";
     public static final String KEY_CORESERVICE_LOGIN_URL = "escidoc.framework_access.login.url";
     public static final String KEY_CORESERVICE_ADMINUSERNAME = "framework.admin.username";
@@ -73,8 +89,10 @@ public class Configuration
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
     public static final String KEY_CONE_USER = "escidoc.cone.database.user.name";
     public static final String KEY_CONE_PW = "escidoc.cone.database.user.password";
+    public static final String KEY_CONE_DB_DRIVER_CLASS = "escidoc.cone.database.driver.class";
+    public static final String KEY_CONE_MODELSXML_PATH = "escidoc.cone.modelsxml.path";
     public static final String KEY_CONE_ROLE_OPEN_VOCABULARY_ID = "escidoc.aa.role.open.vocabulary.id";
-    public static final String KEY_CONE_ROLE_CLOSED_VOCABULARY_ID = "escidoc.aa.role.closed.vocabulary.id";  
+    public static final String KEY_CONE_ROLE_CLOSED_VOCABULARY_ID = "escidoc.aa.role.closed.vocabulary.id";    
     
     public static final String KEY_PM_STYLESHEET_STANDARD_URL = "escidoc.pubman.stylesheet.standard.url";
     public static final String KEY_PM_STYLESHEET_STANDARD_TYPE = "escidoc.pubman.stylesheet.standard.type";
@@ -106,13 +124,10 @@ public class Configuration
     public static final String KEY_PM_LOGO_APPLY = "escidoc.pubman.logo.apply";
     public static final String KEY_PM_FAVICON_URL = "escidoc.pubman.favicon.url";
     public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
-    public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
-    public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";
+    
     // Panel 8
-    public static final String KEY_VIEW_ITEM_SIZE = "escidoc.pubman_presentation.viewFullItem.defaultSize";
     public static final String KEY_POLICY_LINK = "escidoc.pubman.policy.url";
     public static final String KEY_CONTACT_LINK = "escidoc.pubman.contact.url";
-    public static final String KEY_ACCESS_LOGIN_LINK = "escidoc.framework_access.login.url";
     public static final String KEY_BLOG_NEWS_LINK = "escidoc.pubman.blog.news";
     public static final String KEY_VOCAB_LINK = "escidoc.cone.subjectVocab";
     public static final String KEY_ACCESS_CONF_GENRES_LINK = "escidoc.pubman.genres.configuration";
@@ -132,7 +147,40 @@ public class Configuration
     public static final String KEY_PB_SURVEY_TEXT = "escidoc.pubman.survey.text";
     // Others
     public static final String KEY_CONE_SERVICE_URL = "escidoc.cone.service.url";
-    public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";
+    public static final String KEY_CONE_QUERIER_CLASS = "escidoc.cone.querier.class";
+    public static final String KEY_CONE_MULGARA_SERVER_NAME = "escidoc.cone.mulgara.server.name";
+    public static final String KEY_CONE_LANGUAGE_DEFAULT = "escidoc.cone.language.default";
+    public static final String KEY_CONE_MIMETYPE_PATTERN = "escidoc.cone.mimetype.pattern";
+    public static final String KEY_CONE_RDFS_TEMPLATE = "escidoc.cone.rdfs.template";
+    
+    public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";    
+    public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
+    public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";    
+    public static final String KEY_PM_COOKIE_VERSION = "escidoc.pubman.cookie.version";
+    public static final String KEY_SUN_QNAME_VERSION = "com.sun.xml.namespace.QName.useCompatibleSerialVersionUID";
+    public static final String KEY_CONTENTMODEL_PATTERN = "escidoc.content.model.pattern";
+    public static final String KEY_CONTEXT_PATTERN = "escidoc.context.pattern";
+    public static final String KEY_VALIDATION_SOURCE_CLASSNAME = "escidoc.validation.source.classname";
+    public static final String KEY_VALIDATION_REFRESH_INTERVAL = "escidoc.validation.refresh.interval";
+    
+    // Search and Export
+    public static final String KEY_SEARCH_AND_EXPORT_DEF_QUERY = "escidoc.search.and.export.default.sql.query";
+    public static final String KEY_SEARCH_AND_EXPORT_INDEX_EXPLAIN_QUERY = "escidoc.search.and.export.indexes.explain.query";
+    public static final String KEY_SEARCH_AND_EXPORT_DEF_SORT_KEYS = "escidoc.search.and.export.default.sort.keys";
+    public static final String KEY_SEARCH_AND_EXPORT_DEF_SORT_ORDER = "escidoc.search.and.export.default.sort.order";
+    public static final String KEY_SEARCH_AND_EXPORT_DEF_START_ORDER = "escidoc.search.and.export.start.record";
+    public static final String KEY_SEARCH_AND_EXPORT_MAX_RECORDS = "escidoc.search.and.export.maximum.records";
+    
+    // Import
+    public static final String KEY_IMPORT_DB_DRIVER_CLASS = "escidoc.import.database.driver.class";
+    public static final String KEY_IMPORT_DB_SERVER_NAME = "escidoc.import.database.server.name";
+    public static final String KEY_IMPORT_DB_SERVER_PORT = "escidoc.import.database.server.port";
+    public static final String KEY_IMPORT_DB_NAME = "escidoc.import.database.name";
+    public static final String KEY_IMPORT_DB_USER_NAME = "escidoc.import.database.user.name";
+    public static final String KEY_IMPORT_DB_USER_PASSWORD = "escidoc.import.database.user.password";
+    public static final String KEY_IMPORT_DB_CONNECTION_URL = "escidoc.import.database.connection.url";
+    
+    
     // Authentication
     public static final String KEY_AUTH_INSTANCE_URL = "escidoc.aa.instance.url";
     public static final String KEY_AUTH_DEFAULT_TARGET = "escidoc.aa.default.target";
@@ -148,14 +196,12 @@ public class Configuration
         TYPE_XML, TYPE_PROP
     }
    
-    public Configuration(String fileName) throws IOException
+    public Configuration() throws IOException
     {
         logger = Logger.getLogger(Configuration.class);
-        InputStream inStream = getClass().getClassLoader().getResourceAsStream(fileName);
         properties = new Properties();
-        properties.load(inStream);
         System.getProperties().putAll(properties);
-        logger.info("Created Configuration instance for <"  + fileName + "> with following attributes: " + properties.toString());
+        logger.info("Created Configuration instance with following attributes: " + properties.toString());
     }
     
     public void store(String fileName) throws IOException
@@ -179,21 +225,21 @@ public class Configuration
         this.store(inFileName, outFileName, ReplaceType.TYPE_XML);        
     }
     
-    public void storeProperties(String inFileName, String outFileName) throws IOException
+    public void storeProperties(String templateFile, String outFileName) throws IOException
     {
-        this.store(inFileName, outFileName, ReplaceType.TYPE_PROP);
+        this.store(templateFile, outFileName, ReplaceType.TYPE_PROP);
     }
     
-    private void store(String inFileName, String outFileName, ReplaceType typeXml) throws IOException
+    private void store(String templateFile, String outFileName, ReplaceType typeXml) throws IOException
     {
-        logger.info("Start configuration store: " + inFileName + " -> " + outFileName + " type = " + typeXml);
+        logger.info("Start configuration store:  " + outFileName + " with template " + templateFile + " type = " + typeXml);
         File dir = new File(outFileName).getParentFile();
         if ((dir == null || !dir.exists()) && outFileName.contains("/"))
         {
             createDir(outFileName.substring(0, outFileName.lastIndexOf("/")));
         }
-        logger.info("Dir <" + dir.getCanonicalPath()+ ">");
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(inFileName)));
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(templateFile)));
         PrintWriter pw = new PrintWriter(outFileName);
         
         String line = null;

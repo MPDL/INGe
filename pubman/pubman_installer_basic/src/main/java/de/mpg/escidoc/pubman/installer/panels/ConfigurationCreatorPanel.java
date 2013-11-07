@@ -99,8 +99,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
                 LEADING);
         add(welcomeLabel, NEXT_LINE);
         getLayoutHelper().completeLayout();
-        
-        new Configuration("pubman.properties");
     }
     
     @Override

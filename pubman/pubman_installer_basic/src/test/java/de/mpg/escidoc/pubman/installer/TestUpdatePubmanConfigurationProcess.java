@@ -5,6 +5,7 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel;
@@ -28,6 +29,7 @@ public class TestUpdatePubmanConfigurationProcess
     }
 
     @Test
+    @Ignore
     public void testDeployPubmanEar() throws Exception
     {
         UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess();
@@ -46,10 +48,10 @@ public class TestUpdatePubmanConfigurationProcess
     {
         IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
         StartEscidocProcess startProcess = new StartEscidocProcess(panel);
-        startProcess.run();
+        startProcess.start();
         
         UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess(
-                                                panel, new StartEscidocProcess(panel), false);
+                                                panel, startProcess, false);
         updateProcess.start();
         Thread.currentThread().sleep(4*60*1000);
     }

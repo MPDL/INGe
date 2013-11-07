@@ -19,6 +19,7 @@ import org.junit.Test;
 import com.izforge.izpack.installer.InstallData;
 
 import de.mpg.escidoc.pubman.installer.Configuration;
+import de.mpg.escidoc.pubman.installer.UpdatePubmanConfigurationProcess;
 
 
 public class TestConfigurationCreatorPanel
@@ -34,6 +35,8 @@ public class TestConfigurationCreatorPanel
     
     private Logger logger = Logger.getLogger(TestConfigurationCreatorPanel.class);
     
+    private static IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
+    
     @BeforeClass
     public static void init() throws IOException
     {
@@ -42,10 +45,10 @@ public class TestConfigurationCreatorPanel
         properties.put(Configuration.KEY_CORESERVICE_LOGIN_URL, HTTP_LOCALHOST);
         properties.put(Configuration.KEY_AUTH_INSTANCE_URL, HTTP_LOCALHOST);
         
-        authConfig = new Configuration("auth.properties");
+        authConfig = new Configuration();
         authConfig.setProperties(properties);
         
-        pubmanConfig = new Configuration("pubman.properties");
+        pubmanConfig = new Configuration();
         pubmanConfig.setProperties(properties);
     }
     
@@ -94,13 +97,13 @@ public class TestConfigurationCreatorPanel
     }
     
     @Test
-    @Ignore
     public void storePubmanProperties()
     {
         
         try
         {
-            pubmanConfig.storeProperties("pubman.properties", "c://tmp//jboss//server//default//conf//pubman.properties");
+            pubmanConfig.storeProperties(panel.getInstallPath() + UpdatePubmanConfigurationProcess.INSTALL_TMP_PATH + "pubman.properties", 
+                                        panel.getInstallPath() + UpdatePubmanConfigurationProcess.JBOSS_CONF_PATH + "pubman.properties");
         }
         catch (IOException e)
         {            
@@ -112,11 +115,11 @@ public class TestConfigurationCreatorPanel
         Properties inProps = new Properties();
         try
         {
-            inStream = new FileInputStream("c://tmp//jboss//server//default//conf//pubman.properties");
+            inStream = new FileInputStream(panel.getInstallPath() + UpdatePubmanConfigurationProcess.JBOSS_CONF_PATH + "pubman.properties");
             inProps.load(inStream);
             
-            assertTrue(inProps.get(Configuration.KEY_CORESERVICE_URL).equals(HTTP_N107_MPDL_MPG_DE));
-            assertTrue(inProps.get(Configuration.KEY_CORESERVICE_LOGIN_URL).equals(HTTP_N107_MPDL_MPG_DE));
+            assertTrue(inProps.get(Configuration.KEY_CORESERVICE_URL).equals(HTTP_LOCALHOST));
+            assertTrue(inProps.get(Configuration.KEY_CORESERVICE_LOGIN_URL).equals(HTTP_LOCALHOST));
         }
         catch (IOException e)
         {
