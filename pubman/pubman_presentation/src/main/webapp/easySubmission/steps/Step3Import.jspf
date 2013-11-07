@@ -195,7 +195,7 @@
 		<h:outputText value="#{lbl.easy_submission_btnNext}" />
 	</h:commandLink>
 	-->
-	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}">
+	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}" onclick="fullItemReloadAjax();">
 		<h:outputText value="#{lbl.easy_submission_btnFetch}"/>
 	</h:commandLink>
 </h:panelGroup>

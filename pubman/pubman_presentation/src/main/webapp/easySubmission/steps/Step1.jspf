@@ -64,13 +64,13 @@
 		<div>
 			
 			<div class="easySubmissionsBackSection deactivatedControl">
-			<h:commandLink id="lnkBack" title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancelEasySubmission}">
+			<h:commandLink id="lnkBack" title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancelEasySubmission}" onclick="fullItemReloadAjax();">
 				<h:panelGroup styleClass="easySubmissionBackButton"/>
 				<h:outputLabel id="lblBack" value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-			<h:commandLink id="lnkNext" title="#{tip.easy_submission_btnNext}" action="#{EasySubmission.selectSubmissionMethod}">
+			<h:commandLink id="lnkNext" title="#{tip.easy_submission_btnNext}" action="#{EasySubmission.selectSubmissionMethod}" onclick="fullItemReloadAjax();">
 				<h:outputLabel id="lblNext" value="#{lbl.easy_submission_btnNext}" />
 				<h:panelGroup styleClass="easySubmissionNextButton"/>
 			</h:commandLink>
