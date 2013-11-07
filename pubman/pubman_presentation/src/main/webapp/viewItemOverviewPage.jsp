@@ -140,6 +140,7 @@
 					}
 					.tile_category img[align="left"] {
 						clear:left;
+						border:none;
 					} 
 					.tile_category div {
 						line-height: 150%;
@@ -157,6 +158,7 @@
 					.tile_category div .big_imgBtn[align="right"] {
 						margin-left: 0.545454em;
 						display: block;
+						border:none;
 					}
 					.tile_category.borderDarkTurquoise {
 						border-top-color: #006f7b;

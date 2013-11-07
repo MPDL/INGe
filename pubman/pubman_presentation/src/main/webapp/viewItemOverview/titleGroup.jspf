@@ -38,27 +38,32 @@
 	<h:panelGroup layout="block" styleClass="filled_area0_p6">
 		<!-- Status icon and label -->
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateWithdrawn}" >
-			<img class="big_imgBtn statusIcon withdrawnItem"/>
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon withdrawnItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
 			<br />
 			<h:outputText value="#{ViewItemFull.itemPublicState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStatePending}" >
-			<img class="big_imgBtn statusIcon pendingItem"/>
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon pendingItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
 			<br />
 			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateSubmitted}" >
-			<img class="big_imgBtn statusIcon submittedItem"/>
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon submittedItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
 			<br />
 			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateReleased}" >
-			<img class="big_imgBtn statusIcon releasedItem"/>
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon releasedItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
 			<br />
 			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
 		<h:panelGroup styleClass="status_group" rendered="#{ViewItemFull.isStateInRevision}" >
-			<img class="big_imgBtn statusIcon inRevisionItem"/>
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon inRevisionItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
 			<br />
 			<h:outputText value="#{ViewItemFull.itemState}"/>
 		</h:panelGroup>
