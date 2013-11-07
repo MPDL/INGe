@@ -382,6 +382,26 @@
 							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
 					</execution>
+					
+					<execution>
+						<id>unpack-pubman_ear</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<groupId>de.mpg.escidoc.pubman</groupId>
+							<includeArtifactIds>pubman_ear</includeArtifactIds>
+							<version>7.5.0</version>
+							<type>jar</type>
+							<classifier>sources</classifier>
+							<includes>**/*.properties, **/conf.xml</includes>
+							<excludes>**/*.class, **/solution.properties</excludes>
+							<outputDirectory>${staging.dir}/pubman</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
 
 				</executions>
 			</plugin>

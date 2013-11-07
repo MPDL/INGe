@@ -127,6 +127,14 @@
       <variable name="DatabaseAdminUsernamePostgres" value="postgres" />
       <variable name="DatabaseDriverClassPostgres" value="org.postgresql.Driver" />
       <variable name="DatabasePortPostgres" value="5432" />
+      <!-- Hypersonic -->
+      <variable name="DatabaseAdminUsernameHypersonic" value="sa" />
+      <variable name="DatabaseDriverClassHypersonic" value="org.hsqldb.jdbcDriver" />
+      <variable name="DatabaseAdminPasswordHypersonic" value="" />
+      <variable name="DatabaseNameHypersonic" value="../server/default/data/hypersonic/localDB" />
+      <variable name="DatabaseConnectionUrlHypersonic" value="jdbc:hsqldb:$3" />
+      
+      
       <variable name="SqlScriptDelimiterPostgres" value=";" />
       <variable name="SqlScriptDelimiterTypePostgres" value="normal" />
       <variable name="SqlScriptKeepFormatPostgres" value="false" />
@@ -420,9 +428,6 @@
 		
 		<panel classname="InstallPanel" id="EscidocInstall" />
 		
-		<!-- Start eSciDoc framework -->
-		<!-- panel classname="de.mpg.escidoc.pubman.installer.panels.StartEscidocPanel" condition="installEscidoc"/-->
-		
 		<!-- Creating PubMan Configuration -->
 <!-- TODO -->		<!-- panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"  condition="installEscidoc"/-->
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar" />
@@ -564,6 +569,9 @@
 		
 		<pack name="PubMan Binary" parent="PubMan" required="yes" >
 			<description>PubMan Binary </description>
+			<file src="pubman/pubman.properties" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
+			<file src="pubman/auth.properties" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
+			<file src="pubman/conf.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
 			<file src="pubman/jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>
 			<file src="pubman/jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/install.tmp"/>			
 			<file src="pubman/mpdlEscidocXmlToLucene.xslt" targetdir="$INSTALL_PATH/install.tmp"/>
