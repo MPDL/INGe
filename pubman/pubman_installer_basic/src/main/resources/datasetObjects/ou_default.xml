@@ -16,7 +16,7 @@
                 <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">4711</dc:identifier>
                 <dc:description>This is the Default PubMan organisation.</dc:description>
                 <eterms:country>NO</eterms:country>
-                <eterms:city>München</eterms:city>
+                <eterms:city>Munich</eterms:city>
             </ou:organizational-unit>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
