@@ -69,7 +69,7 @@
 								<span class="std_imgBtn viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</h:outputLink>
-						
+							&nbsp;
 							<h:outputLink id="lnkCitationURLDownload" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
