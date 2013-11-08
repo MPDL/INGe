@@ -419,7 +419,7 @@
 			        	{
 			        		request.getSession().removeAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"));
 			        	}
-			            out.append("Will be generated");
+			            out.append("Will be generated automatically");
 			        }
 			        else
 					{
@@ -878,7 +878,7 @@
 									            {
 									                if (model.isGenerateIdentifier())
 									                {
-									                    out.append("<label class=\"quad_label\">Will be generated</label>");
+									                    out.append("<label class=\"quad_label\">Will be generated automatically</label>");
 									            	}
 									                else
 									                {
