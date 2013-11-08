@@ -104,7 +104,7 @@
 										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience}"/>
-									<h:commandLink id="lnkViewItemReleaseHistoryAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience}">
+									<h:commandLink id="lnkViewItemReleaseHistoryAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.canManageAudience}">
 										<h:outputText value="#{lbl.AudiencePage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="false"/>
