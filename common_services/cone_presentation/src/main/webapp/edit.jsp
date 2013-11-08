@@ -78,7 +78,7 @@
 	    {
 	        out.append("\n<span class=\"free_area0 endline itemLine noTopBorder\">");
 	        
-				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear xxx\">");
+				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
 	        		if (predicate.isMandatory())
 	        		{
 	        	    	out.append("\n<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
@@ -112,7 +112,7 @@
 					}
 					else
 					{
-						out.append("---");
+						out.append("Will be the same value as Cone-ID");
 					}
 	        	}
 	        	else
@@ -870,7 +870,7 @@
 									<div class="free_area0 itemBlockContent endline">
 										<span class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0_p8 endline labelLine clear">
-												Cone-ID<span class="noDisplay">: </span>
+												*Cone-ID<span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
 												<%
