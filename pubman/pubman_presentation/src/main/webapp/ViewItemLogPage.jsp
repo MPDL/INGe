@@ -128,15 +128,11 @@
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:commandLink 
-										id="lnkViewItemPage" styleClass="free_area0"
-										action="#{ViewItemFull.showDetailedItemView }">
+									<h:commandLink id="lnkViewItemPage" styleClass="free_area0" action="#{ViewItemFull.showDetailedItemView }">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:commandLink 
-										id="lnkViewItemOverviewPage" styleClass="free_area0"
-										action="#{ViewItemFull.showOverviewItemView }">
+									<h:commandLink id="lnkViewItemOverviewPage" styleClass="free_area0" action="#{ViewItemFull.showOverviewItemView }">
 										<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />

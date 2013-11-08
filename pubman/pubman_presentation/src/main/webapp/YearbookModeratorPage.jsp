@@ -76,18 +76,18 @@
 
 								<div class="free_area0 sub action">
 								<!-- content menu upper line starts here -->
-									<h:commandLink id="lnkChangeSubmenuToView" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
+									<h:commandLink id="lnkChangeSubmenuToView" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" onclick="fullItemReloadAjax();"/>
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
 									
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
+									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}" onclick="fullItemReloadAjax();"/>	
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />
 									
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkSendBackForReworkYearbook" styleClass="free_area0" value="#{lbl.Yearbook_sendBackForReworkYearbook}" action="#{YearbookModeratorRetrieverRequestBean.sendBackForRework}" />
+									<h:commandLink id="lnkSendBackForReworkYearbook" styleClass="free_area0" value="#{lbl.Yearbook_sendBackForReworkYearbook}" action="#{YearbookModeratorRetrieverRequestBean.sendBackForRework}" onclick="fullItemReloadAjax();"/>
 									
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}" action="#{YearbookModeratorRetrieverRequestBean.releaseSelectedYearbooks}" />
+									<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}" action="#{YearbookModeratorRetrieverRequestBean.releaseSelectedYearbooks}" onclick="fullItemReloadAjax();"/>
 									
 									&#160;
 								<!-- content menu upper line ends here -->
@@ -95,12 +95,12 @@
 								
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
-									<h:commandLink id="lnkChangeListTypeToBib" title="#{tip.List_lblBibList}" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
+									<h:commandLink id="lnkChangeListTypeToBib" title="#{tip.List_lblBibList}" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}" onclick="fullItemReloadAjax();">
 										<h:outputText value="#{lbl.List_lblBibList}" />
 									</h:commandLink>
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblBibList}" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink id="lnkChangeListTypeToGrid" title="#{tip.List_lblGridList}" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
+									<h:commandLink id="lnkChangeListTypeToGrid" title="#{tip.List_lblGridList}" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}" onclick="fullItemReloadAjax();">
 										<h:outputText value="#{lbl.List_lblGridList}" />
 									</h:commandLink>
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
@@ -130,7 +130,7 @@
 										</h:selectOneMenu>
 									</h:panelGroup>
 									
-									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{YearbookModeratorRetrieverRequestBean.exportSelectedDownload}" />
+									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{YearbookModeratorRetrieverRequestBean.exportSelectedDownload}"/>
 								</h:panelGroup>
 								
 							<!-- content menu ends here -->

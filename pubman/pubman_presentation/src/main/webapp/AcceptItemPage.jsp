@@ -95,8 +95,8 @@
 						</div>
 						<div class="full_area0 formButtonArea">
 
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.AcceptItem_lnkCancel}" action="#{AcceptItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.AcceptItem_lnkAccept}" action="#{AcceptItem.accept}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.AcceptItem_lnkCancel}" action="#{AcceptItem.cancel}" onclick="fullItemReloadAjax();"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.AcceptItem_lnkAccept}" action="#{AcceptItem.accept}" onclick="fullItemReloadAjax();"/>
 				
 						</div>
 					</div>

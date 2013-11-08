@@ -78,22 +78,22 @@
 								<div class="small_marginLIncl subHeaderSection">
 									<div class="contentMenu"> <!-- content menu starts here -->
 										<div class="free_area0 sub"> <!-- content menu lower line starts here -->
-											<h:commandLink id="lnkNewEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+											<h:commandLink id="lnkNewEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</h:commandLink>
 											<h:outputText styleClass="seperator void" />
-											<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" rendered="#{CreateItem.multiple}" action="#{CreateItem.newSubmission}" immediate="true">
+											<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" rendered="#{CreateItem.multiple}" action="#{CreateItem.newSubmission}" immediate="true" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</h:commandLink>
 											<span>
 												<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{!CreateItem.multiple and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</span>
 											<h:outputText styleClass="seperator void" />
-											<h:commandLink id="lnkNewImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+											<h:commandLink id="lnkNewImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</h:commandLink>
 											<h:outputText styleClass="seperator void" />
-											<h:commandLink id="lnkNewMultipleImport" title="#{tip.submission_lnkMultipleImport}" rendered="#{!CreateItem.multiple}" action="#{MultipleImport.newImport}">
+											<h:commandLink id="lnkNewMultipleImport" title="#{tip.submission_lnkMultipleImport}" rendered="#{!CreateItem.multiple}" action="#{MultipleImport.newImport}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</h:commandLink>
 											<span>

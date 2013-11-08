@@ -79,28 +79,28 @@
 										</h:panelGroup>
 										
 										<h:panelGroup layout="block" styleClass="free_area0 sub" rendered="#{( (EditItemSessionBean.currentSubmission  == 'EASY_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'FULL_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'IMPORT') )}" >
-											<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EditItemSessionBean.currentSubmission  != 'EASY_SUBMISSION'}">
+											<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EditItemSessionBean.currentSubmission  != 'EASY_SUBMISSION'}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 											</h:commandLink>
 											<h:panelGroup styleClass=" " rendered="#{EditItemSessionBean.currentSubmission  == 'EASY_SUBMISSION'}">
 												<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 											</h:panelGroup>
 											<h:outputText styleClass="seperator void" />
-											<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" rendered="#{EditItemSessionBean.currentSubmission  != 'FULL_SUBMISSION'}">
+											<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" rendered="#{EditItemSessionBean.currentSubmission  != 'FULL_SUBMISSION'}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</h:commandLink>
 												<h:panelGroup styleClass=" " rendered="#{EditItemSessionBean.currentSubmission  == 'FULL_SUBMISSION'}">
 												<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 											</h:panelGroup>
 											<h:outputText styleClass="seperator void" />
-											<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EditItemSessionBean.currentSubmission  != 'IMPORT'}">
+											<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EditItemSessionBean.currentSubmission  != 'IMPORT'}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 											</h:commandLink>
 											<h:panelGroup styleClass=" " rendered="#{EditItemSessionBean.currentSubmission  == 'IMPORT'}">
 												<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 											</h:panelGroup>
 											<h:outputText styleClass="seperator void"  rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-											<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+											<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" onclick="fullItemReloadAjax();">
 												<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 											</h:commandLink>
 										</h:panelGroup>
@@ -212,7 +212,7 @@
 									<p>&#160;</p>
 									<div class="free_area0 xTiny_marginLIncl">
 										<h:outputText value="* " />
-										<h:commandLink id="lnkValidate2"  value="#{msg.mandatoryFieldFS1}" action="#{EditItem.validate}"/>
+										<h:commandLink id="lnkValidate2"  value="#{msg.mandatoryFieldFS1}" action="#{EditItem.validate}" onclick="fullItemReloadAjax();"/>
 										<h:outputText value="#{msg.mandatoryFieldFS2}" />
 									</div>			 
 								</div>
@@ -222,7 +222,7 @@
 								</div>
 								
 								<div class="full_area0 formButtonArea">
-									<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
+									<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();"/>
 									<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" binding ="#{EditItem.lnkDelete}" onclick="if(!confirm('#{msg.deleteMessage}'))return false;" value="#{lbl.EditItem_lnkDelete}" onmousedown="if(!confirmDelete('form1:EditItem'))return false;" action="#{EditItem.delete}"/>
 									<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" binding ="#{EditItem.lnkRelease}"  value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndSubmit}" onclick="fullItemReloadAjax();" />
 									<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkReleaseReleasedItem" binding ="#{EditItem.lnkReleaseReleasedItem}"  value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndRelease}" onclick="fullItemReloadAjax();"/>

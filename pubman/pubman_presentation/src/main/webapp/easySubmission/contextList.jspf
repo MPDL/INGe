@@ -44,7 +44,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSelectForEasySubmissionFirst" title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
+				<h:commandLink id="lnkSelectForEasySubmissionFirst" title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 			</b>
@@ -57,7 +57,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSelectForEasySubmissionFollowing" title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
+				<h:commandLink id="lnkSelectForEasySubmissionFollowing" title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 			</b>

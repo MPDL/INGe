@@ -103,11 +103,11 @@
 										<h:outputText value="#{lbl.CollaboratorPage}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
-									<h:commandLink id="lnkShowItemLog" styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
+									<h:commandLink id="lnkShowItemLog" styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" >
 										<h:outputText value="#{lbl.ViewItemLogPage}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									<h:commandLink id="lnkShowStatistics" styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
+									<h:commandLink id="lnkShowStatistics" styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" >
 										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
@@ -115,19 +115,15 @@
 										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" />
-									<h:commandLink id="lnkShowReleaseHistory" styleClass="free_area0" action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
+									<h:commandLink id="lnkShowReleaseHistory" styleClass="free_area0" action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" >
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:commandLink 
-										id="lnkViewItemPage" styleClass="free_area0"
-										action="#{ViewItemFull.showDetailedItemView }">
+									<h:commandLink id="lnkViewItemPage" styleClass="free_area0" action="#{ViewItemFull.showDetailedItemView }" >
 										<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:commandLink 
-										id="lnkViewItemOverviewPage" styleClass="free_area0"
-										action="#{ViewItemFull.showOverviewItemView }">
+									<h:commandLink id="lnkViewItemOverviewPage" styleClass="free_area0" action="#{ViewItemFull.showOverviewItemView }" >
 										<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
@@ -162,8 +158,8 @@
 						</div>
 						<div class="full_area0 formButtonArea">
 
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel"  value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept"  value="#{lbl.EditItem_lnkSave}" action="#{EditItem.acceptLocalTags}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel"  value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept"  value="#{lbl.EditItem_lnkSave}" action="#{EditItem.acceptLocalTags}" onclick="fullItemReloadAjax();"/>
 				
 						</div>
 					</div>

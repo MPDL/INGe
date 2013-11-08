@@ -136,13 +136,13 @@
  		</span>
  		<span class="seperator"></span>
  		<span class="free_area0 endline status statusArea">
- 			<h:commandLink id="lnkSelectedSortByState" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
+ 			<h:commandLink id="lnkSelectedSortByState" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}" onclick="fullItemReloadAjax();">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink id="lnkAscSort" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink id="lnkAscSort" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink id="lnkDescSort" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink id="lnkDescSort" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>	
  		</span>

@@ -104,7 +104,7 @@
 					<div class="full_area0 formButtonArea">
 
 						<h:outputLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel"  value="#{ApplicationBean.appContext}#{ExportEmailPage.previousPageURI}"><h:outputText value="#{lbl.ExportEmail_lblBack}"/></h:outputLink>
-						<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.ExportEmail_lblSend}" action="#{ExportItems.sendEMail}"/>
+						<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.ExportEmail_lblSend}" action="#{ExportItems.sendEMail}" onclick="fullItemReloadAjax();"/>
 			
 					</div>
 				<!-- end: content section -->

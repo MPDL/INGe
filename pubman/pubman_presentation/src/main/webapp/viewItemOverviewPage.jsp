@@ -353,91 +353,92 @@
 											rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}">
 											<h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}"
 												value="#{lbl.actionMenu_lnkEdit}"
-												rendered="#{ViewItemFull.canEdit}" />
+												rendered="#{ViewItemFull.canEdit}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canEdit}" />
 											<h:commandLink id="lnkSubmit"
 												action="#{ViewItemFull.submitItem}"
 												value="#{lbl.actionMenu_lnkSubmit}"
-												rendered="#{ViewItemFull.canSubmit}" />
+												rendered="#{ViewItemFull.canSubmit}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canSubmit}" />
 											<h:commandLink id="lnkRelease"
 												action="#{ViewItemFull.submitItem}"
 												value="#{lbl.actionMenu_lnkRelease}"
-												rendered="#{ViewItemFull.canRelease}" />
+												rendered="#{ViewItemFull.canRelease}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canRelease}" />
 											<h:commandLink id="lnkAccept"
 												action="#{ViewItemFull.acceptItem}"
 												value="#{lbl.actionMenu_lnkAccept}"
-												rendered="#{ViewItemFull.canAccept}" />
+												rendered="#{ViewItemFull.canAccept}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canAccept}" />
 											<h:commandLink id="lnkRevise"
 												action="#{ViewItemFull.reviseItem}"
 												value="#{lbl.actionMenu_lnkRevise}"
-												rendered="#{ViewItemFull.canRevise}" />
+												rendered="#{ViewItemFull.canRevise}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canRevise}" />
 											<h:commandLink id="lnkDelete"
 												onclick="if(!confirm('#{msg.deleteMessage}'))return false;"
 												value="#{lbl.actionMenu_lnkDelete}"
 												action="#{ViewItemFull.deleteItem}"
-												rendered="#{ViewItemFull.canDelete}" />
+												rendered="#{ViewItemFull.canDelete}"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canDelete}" />
 											<h:commandLink id="lnkWithdraw"
 												action="#{ViewItemFull.withdrawItem}"
 												value="#{lbl.actionMenu_lnkWithdraw}"
-												rendered="#{ViewItemFull.canWithdraw}" />
+												rendered="#{ViewItemFull.canWithdraw}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
-												rendered="#{ViewItemFull.canWithdraw}" />
+												rendered="#{ViewItemFull.canWithdraw}"/>
 											<h:commandLink id="lnkModify"
 												action="#{ViewItemFull.modifyItem}"
 												value="#{lbl.actionMenu_lnkModify}"
-												rendered="#{ViewItemFull.canModify}" />
+												rendered="#{ViewItemFull.canModify}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canModify}" />
 											<h:commandLink id="lnkCreateNewRevision"
 												action="#{ViewItemFull.createNewRevision}"
 												value="#{lbl.actionMenu_lnkCreateNewRevision}"
-												rendered="#{ViewItemFull.canCreateNewRevision}" />
+												rendered="#{ViewItemFull.canCreateNewRevision}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canCreateNewRevision}" />
 											<h:commandLink id="lnkCreateItemFromTemplate"
 												action="#{ItemControllerSessionBean.createItemFromTemplate}"
 												value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}"
-												rendered="#{ViewItemFull.canCreateFromTemplate}" />
+												rendered="#{ViewItemFull.canCreateFromTemplate}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.canCreateFromTemplate}" />
 											<h:commandLink id="lnkAddToBasket"
 												action="#{ViewItemFull.addToBasket}"
 												value="#{lbl.ViewItemFull_lblAddToBasket}"
-												rendered="#{ViewItemFull.canAddToBasket}" />
+												rendered="#{ViewItemFull.canAddToBasket}" onclick="fullItemReloadAjax();"/>
 											<h:commandLink id="lnkDeleteFromBasket"
 												action="#{ViewItemFull.removeFromBasket}"
 												value="#{lbl.ViewItemFull_lblRemoveFromBasket}"
-												rendered="#{ViewItemFull.canDeleteFromBasket}" />
+												rendered="#{ViewItemFull.canDeleteFromBasket}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.isCandidateOfYearbook}" />
 											<h:commandLink id="lnkAddToYearbook" styleClass="free_area0"
 												value="#{lbl.Yearbook_addToYearbookViewItem}" type="reset"
 												action="#{ViewItemFull.addToYearbookMember}" immediate="true"
-												rendered="#{ViewItemFull.isCandidateOfYearbook}" />
+												rendered="#{ViewItemFull.isCandidateOfYearbook}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.isMemberOfYearbook}" />
 											<h:commandLink id="lnkRemoveFromYearbook"
 												styleClass="free_area0"
 												value="#{lbl.Yearbook_removeFromYearbookViewItem}"
 												action="#{ViewItemFull.removeMemberFromYearbook}"
-												rendered="#{ViewItemFull.isMemberOfYearbook}" />
+												rendered="#{ViewItemFull.isMemberOfYearbook}" onclick="fullItemReloadAjax();"/>
 											<h:panelGroup styleClass="seperator"
 												rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
 											<h:commandLink id="lnkAddSsrn" styleClass="free_area0"
 												title="#{tip.ViewItemFull_lblAddSsrn }"
 												action="#{ViewItemFull.addSsrnTag}"
-												rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}">
+												rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}"
+												onclick="fullItemReloadAjax();">
 												<h:panelGroup styleClass="min_imgBtn add" />
 												<h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
 											</h:commandLink>
@@ -446,7 +447,8 @@
 											<h:commandLink id="lnkRemoveSsrn" styleClass="free_area0"
 												title="#{tip.ViewItemFull_lblRemoveSsrn }"
 												action="#{ViewItemFull.removeSsrnTag}"
-												rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}">
+												rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}"
+												onclick="fullItemReloadAjax();">
 												<h:panelGroup styleClass="min_imgBtn remove" />
 												<h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
 											</h:commandLink>
@@ -506,11 +508,11 @@
 			                             */%> -->
 											<h:commandLink id="btnExportDownload" styleClass="free_area0"
 												value="#{lbl.export_btDownload}"
-												action="#{ViewItemFull.exportDownload}" />
+												action="#{ViewItemFull.exportDownload}"/>
 											<h:outputText styleClass="seperator" />
 											<h:commandLink id="btnExportEMail" styleClass="free_area0"
 												value="#{lbl.export_btEMail}"
-												action="#{ViewItemFull.exportEmail}" />
+												action="#{ViewItemFull.exportEmail}"/>
 										</h:panelGroup>
 										<!-- content menu lower line (export) starts here -->
 										

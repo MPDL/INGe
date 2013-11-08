@@ -94,8 +94,8 @@
 						</div>
 						<div class="full_area0 formButtonArea">
 
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.ReviseItem_lnkCancel}" action="#{ReviseItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.ReviseItem_lnkRevise}" action="#{ReviseItem.revise}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.ReviseItem_lnkCancel}" action="#{ReviseItem.cancel}" onclick="fullItemReloadAjax();"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.ReviseItem_lnkRevise}" action="#{ReviseItem.revise}" onclick="fullItemReloadAjax();"/>
 				
 						</div>
 					</div>

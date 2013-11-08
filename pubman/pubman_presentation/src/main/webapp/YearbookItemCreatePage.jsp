@@ -102,7 +102,7 @@
 						</div>
 							
 						<div class="full_area0 formButtonArea">
-								<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}"/>
+								<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}" onclick="fullItemReloadAjax();"/>
 						</div>
 						
 						

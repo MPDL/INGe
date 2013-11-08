@@ -90,8 +90,8 @@
 						</div>
 							
 						<div class="full_area0 formButtonArea">
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="Cancel" action="#{YearbookItemEditBean.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemEditBean.save}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="Cancel" action="#{YearbookItemEditBean.cancel}" onclick="fullItemReloadAjax();"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemEditBean.save}" onclick="fullItemReloadAjax();"/>
 						</div>
 					</div>
 				<!-- end: content section -->

@@ -146,7 +146,7 @@
 			</h:panelGroup>
 		</h:panelGroup>
 		<div class="half_area0 formButtonArea">
-			<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" value="Delete" action="#{YearbookItemEditBean.delete}"/>
+			<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" value="Delete" action="#{YearbookItemEditBean.delete}" onclick="fullItemReloadAjax();"/>
 		</div>
 	</span>
 </h:panelGroup>

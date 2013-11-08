@@ -119,15 +119,11 @@
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:commandLink 
-										id="lnkViewItemPage" styleClass="free_area0"
-										action="#{ViewItemFull.showDetailedItemView }">
+									<h:commandLink id="lnkViewItemPage" styleClass="free_area0" action="#{ViewItemFull.showDetailedItemView }">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:commandLink 
-										id="lnkViewItemOverviewPage" styleClass="free_area0"
-										action="#{ViewItemFull.showOverviewItemView }">
+									<h:commandLink id="lnkViewItemOverviewPage" styleClass="free_area0" action="#{ViewItemFull.showOverviewItemView }">
 										<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
@@ -162,8 +158,8 @@
 						</div>
 						<div class="full_area0 formButtonArea">
 
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel"  value="#{lbl.EditItem_lnkCancel}" action="#{AudienceBean.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept"  value="#{lbl.EditItem_lnkSave}" action="#{AudienceBean.save}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel"  value="#{lbl.EditItem_lnkCancel}" action="#{AudienceBean.cancel}" onclick="fullItemReloadAjax();"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept"  value="#{lbl.EditItem_lnkSave}" action="#{AudienceBean.save}" onclick="fullItemReloadAjax();"/>
 				
 						</div>
 					</div>

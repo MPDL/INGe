@@ -44,20 +44,20 @@
 		<!-- content menu starts here -->
 			<div class="free_area0 sub">
 			<!-- content menu lower line starts here -->										
-				<h:commandLink id="lnkSubmission_lnkEasySubmissionMenu" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:commandLink id="lnkSubmission_lnkEasySubmissionMenu" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkSubmission_lnkNewSubmissionMenu" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:commandLink id="lnkSubmission_lnkNewSubmissionMenu" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkSubmission_lnkImportMenu" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+				<h:commandLink id="lnkSubmission_lnkImportMenu" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<h:outputText styleClass="seperator void" />
-					<h:commandLink id="lnkSubmission_lnkMultipleImportMenu" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+					<h:commandLink id="lnkSubmission_lnkMultipleImportMenu" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" onclick="fullItemReloadAjax();">
 						<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
 					</h:commandLink>
 				</h:panelGroup>
@@ -82,7 +82,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSubmission_lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:commandLink id="lnkSubmission_lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 			</b>
@@ -108,7 +108,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 			</b>
@@ -134,7 +134,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSubmission_lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+				<h:commandLink id="lnkSubmission_lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 			</b>
@@ -161,7 +161,7 @@
 			<span class="seperator"></span>
 			<span class="free_area0_p8 endline itemHeadline">
 				<b>
-					<h:commandLink id="lnkSubmission_lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+					<h:commandLink id="lnkSubmission_lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" onclick="fullItemReloadAjax();">
 						<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 					</h:commandLink>
 				</b>

@@ -49,25 +49,25 @@
 		<!-- content menu starts here -->
 			<div class="sub">
 			<!-- content menu lower line starts here -->										
-				<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'MANUAL'}">
+				<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'MANUAL'}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:panelGroup styleClass=" " rendered="#{EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:panelGroup>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'FETCH_IMPORT'}">
+				<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'FETCH_IMPORT'}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:panelGroup styleClass=" " rendered="#{EasySubmissionSessionBean.currentSubmissionMethod == 'FETCH_IMPORT'}">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:panelGroup>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkMultipleImport"  title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport"  title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 			<!-- content menu lower line ends here -->
