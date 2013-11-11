@@ -48,7 +48,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 				<h:outputText value="#{MultipleImportForm.beanName}" styleClass="noDisplay" />
-				<h:form  rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<h:form  rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						

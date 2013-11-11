@@ -171,9 +171,9 @@
 									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{MyItemsRetrieverRequestBean.changeItemState}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="quad_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">	
-									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags}" rendered="#{LoginHelper.isModerator}"/>
+									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags}"/>
 									
-									<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer" rendered="#{LoginHelper.isModerator}">
+									<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xDouble_area0">
 											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
@@ -183,7 +183,7 @@
 										</h:selectOneMenu>
 									</h:panelGroup>
 				
-									<h:commandButton id="btnChangeImport" styleClass="noDisplay changeImport" action="#{MyItemsRetrieverRequestBean.changeImport}" value="change import" rendered="#{LoginHelper.isModerator}"/>
+									<h:commandButton id="btnChangeImport" styleClass="noDisplay changeImport" action="#{MyItemsRetrieverRequestBean.changeImport}" value="change import"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">

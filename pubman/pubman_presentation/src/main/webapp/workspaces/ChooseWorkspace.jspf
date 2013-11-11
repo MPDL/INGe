@@ -55,7 +55,7 @@
 		</div>
 	</div>
 </h:panelGroup>
-<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+<h:panelGroup rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 	<div class="full_area0 itemHeader">
 		<span class="xLarge_area0 endline">
 			&#160;
@@ -63,7 +63,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:outputLink id="lnkImportWorkspace" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<h:outputLink id="lnkImportWorkspace" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
 				</h:outputLink>
 			</b>

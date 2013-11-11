@@ -62,7 +62,7 @@
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
 				<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" onclick="fullItemReloadAjax();">
-					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 			<!-- content menu lower line ends here -->
 			</div>

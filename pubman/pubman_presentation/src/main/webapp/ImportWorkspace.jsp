@@ -232,8 +232,12 @@
 																<h:commandLink id="lnkDeleteAll" title="#{tip.import_workspace_delete_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}" onclick="fullItemReloadAjax();">
 																	<h:outputText value="#{lbl.import_workspace_delete_items}" />
 																</h:commandLink>
+																
+																<h:commandLink id="lnkSubmitAll" title="#{tip.import_workspace_submit_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{import.importedItems and !import.simpleWorkflow}">
+																	<h:outputText value="#{lbl.import_workspace_submit_items}" />
+																</h:commandLink>
 			
-																<h:commandLink id="lnkSubmitAndReleaseAll" title="#{tip.import_workspace_submit_release_items}" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}" onclick="fullItemReloadAjax();">
+																<h:commandLink id="lnkSubmitAndReleaseAll" title="#{tip.import_workspace_submit_release_items}" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems and (LoginHelper.isModerator or import.simpleWorkflow)}" onclick="fullItemReloadAjax();">
 																	<h:outputText
 																		value="#{lbl.import_workspace_submit_release_items}" />
 																</h:commandLink>
