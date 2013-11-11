@@ -189,6 +189,7 @@ function install_javascripts() {
 		installSameHeight();
 	}
 	if (typeof bindSuggests == 'function') {
+		
 		bindSuggests();
 	}
 }
@@ -297,6 +298,8 @@ function beforeAjaxRequest()
 function afterAjaxRequest()
 {
 	
+	//Remove old autosuggest result lists
+	$pb('ul.ac_results').remove();
 	if(typeof window.fullItemReloadStop == 'function')
 	{ 
 		fullItemReloadStop();
