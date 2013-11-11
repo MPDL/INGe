@@ -33,7 +33,6 @@
 			//Create new result element if it does not exist
 			if(! $results.length)
 			{
-				console.log("Create suggest ul for" + input.id);
 				$results = $("<ul></ul>").attr("id", resultListElementId).addClass(options.resultsClass).appendTo('body');
 			}
 			
