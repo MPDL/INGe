@@ -26,15 +26,9 @@
 			
 
 			var $input = $(input).attr("autocomplete", "off");
-			var resultListElementId = $input.attr('id') + "_autoSuggest";
 			
-			var $results = $('#'+ escapeSelector(resultListElementId));
+			var	$results = $("<ul></ul>").addClass(options.resultsClass).appendTo('body');
 			
-			//Create new result element if it does not exist
-			if(! $results.length)
-			{
-				$results = $("<ul></ul>").attr("id", resultListElementId).addClass(options.resultsClass).appendTo('body');
-			}
 			
 			resetPosition();
 			$(window)
