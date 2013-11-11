@@ -16,41 +16,57 @@
 		var suggestXhr;
 		
 		$.suggest = function(input, options) {
-	
-			var $input = $(input).attr("autocomplete", "off");
-			var $results = $(document.createElement("ul"));
+			
 
 			var timeout = false;		// hold timeout ID for suggestion results to appear	
 			var prevLength = 0;			// last recorded length of $input.val()
 			var cache = [];				// cache MRU list
 			var cacheSize = 0;			// size of cache in chars (bytes?)
-			
 			var displayResults = true;
-			$results.addClass(options.resultsClass).appendTo('body');
-				
+			
 
+			var $input = $(input).attr("autocomplete", "off");
+			var resultListElementId = $input.attr('id') + "_autoSuggest";
+			
+			var $results = $('#'+ escapeSelector(resultListElementId));
+			
+			//Create new result element if it does not exist
+			if(! $results.length)
+			{
+				console.log("Create suggest ul for" + input.id);
+				$results = $("<ul></ul>").attr("id", resultListElementId).addClass(options.resultsClass).appendTo('body');
+			}
+			
 			resetPosition();
 			$(window)
 				.load(resetPosition)		// just in case user is changing size of page while loading
 				.resize(resetPosition);
 
-			//$input.blur(function() {
-			//	setTimeout(function() { $results.hide() }, 200);
-			//});
-			
-			
 			// help IE users if possible
 			try {
 				$results.bgiframe();
 			} catch(e) { }
 
 
+			
+			//unbind events on input
+			$input.unbind('keypress');
+			$input.unbind('keydown');
+			$input.unbind('blur');
+			
 			// I really hate browser detection, but I don't see any other way
 			if ($.browser.mozilla)
 				$input.keypress(processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
 			else
 				$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
 			
+			
+			
+			
+			//unbind events on result
+			$results.unbind('mouseover');
+			$results.unbind('mouseenter');
+			$results.unbind('mouseleave');
 			
 			var mouseOverResults = false;
 			
@@ -77,6 +93,14 @@
 					top: (offset.top + input.offsetHeight) + 'px',
 					left: offset.left + 'px'
 				});
+			}
+			
+			function escapeSelector(str)
+			{
+				if( str)
+				     return str.replace(/([ #;?%&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
+				 else
+				     return str;
 			}
 			
 			
