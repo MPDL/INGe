@@ -284,8 +284,9 @@ body .wrapper {
 	color:#FFFFFF;
 }
 .metaMenu .seperator {
-    background-color: transparent;
+    background-color: #7CADB4;
 	border-color: transparent;
+	max-height: 0.363636em;
 }
 /*META MENU - CUSTOMIZED SELECTBOX*/
 .metaMenu .selectContainer select {
