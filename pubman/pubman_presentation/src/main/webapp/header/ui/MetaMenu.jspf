@@ -47,20 +47,20 @@
 	</div>
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 	<!-- Help -->
-	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink id="lnkHelp" styleClass="free_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
-	<!-- Policy -->
-	<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
+	<!-- Policy -->	<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Contact -->
-	<h:commandLink id="lnkContact" styleClass="medium_area0_p8 endline" title="#{tip.contact}" onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false" value="#{lbl.contact}" />
+	<h:commandLink id="lnkContact" styleClass="free_area0_p8 endline" title="#{tip.contact}" onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false" value="#{lbl.contact}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- LogIn, LogOut -->
-	<h:commandLink id="lnkLoginLogout" styleClass="medium_area0_p8 endline" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
-	<h:panelGroup styleClass="seperator"></h:panelGroup>
+	<h:commandLink id="lnkLoginLogout" styleClass="free_area0_p8 endline" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
+	
+	<h:panelGroup styleClass="seperator" rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
 
 	<h:commandLink id="lnkAccountUserName" styleClass="free_area0_p8 endline" action="#{LoginHelper.getUserAccountOptionsLink}" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}" />
 
