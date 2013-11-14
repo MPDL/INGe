@@ -77,11 +77,11 @@
 			    			)"
 			    		/>
 					<xsl:attribute name="class" select="'Item'"/>[Item] </xsl:element>
-				<xsl:variable name="con" select="$item/escidocComponents:components/escidocComponents:component/escidocComponents:content"/>			
-				<xsl:for-each select="$con[@storage='internal-managed']">
-					<xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'File'"/><xsl:element name="span"><xsl:value-of select="concat('[File ', position(), ']')"/></xsl:element></xsl:element>
+				<xsl:variable name="comp" select="$item/escidocComponents:components/escidocComponents:component"/>			
+				<xsl:for-each select="$comp[escidocComponents:content/@storage='internal-managed' and escidocComponents:properties/prop:visibility = 'public']/escidocComponents:content">
+					<a><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'File'"/><span><xsl:value-of select="concat('[File ', position(), ']')"/></span></a>
 				</xsl:for-each>
-				<xsl:for-each select="$con[@storage!='internal-managed']">
+				<xsl:for-each select="$comp/escidocComponents:content[@storage!='internal-managed']">
 					<xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'Locator'"/><xsl:element name="span"><xsl:value-of select="concat('[Locator ', position(), ']')"/></xsl:element></xsl:element>
 				</xsl:for-each>
 			</xsl:if>
