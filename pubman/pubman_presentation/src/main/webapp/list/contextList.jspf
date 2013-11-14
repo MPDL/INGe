@@ -41,7 +41,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSelectContextFirst" title="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
+				<h:commandLink id="lnkSelectContextFirst" title="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 				<h:outputText id="txtSelectContextFirst" rendered="#{context.disabled}" value="#{context.name}">
@@ -56,7 +56,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSelectContext" title="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
+				<h:commandLink id="lnkSelectContext" title="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}" onclick="fullItemReloadAjax();">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 				<h:outputText id="txtSelectContext" rendered="#{context.disabled}" value="#{context.name}">
