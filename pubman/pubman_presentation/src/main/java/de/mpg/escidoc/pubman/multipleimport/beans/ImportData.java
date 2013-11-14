@@ -135,4 +135,10 @@ public class ImportData extends FacesBean
         this.importId = importId;
     }
     
+    public boolean isSimpleWorkflow()
+    {
+    	System.out.println("WF: " + getImport().getSimpleWorkflow());
+    	return getImport().getSimpleWorkflow();
+    }
+    
 }
