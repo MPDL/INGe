@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -56,12 +58,20 @@ public class Login
         }
         tokens.nextToken();
         StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
-        if (hostPort.countTokens() != NUMBER_OF_URL_TOKENS)
+        /*if (hostPort.countTokens() != NUMBER_OF_URL_TOKENS)
         {
             throw new IOException("Url in the config file is in the wrong format, needs to be http://<host>:<port>");
-        }
+        }*/
         String host = hostPort.nextToken();
-        int port = Integer.parseInt(hostPort.nextToken());
+        int port;
+        try
+        {
+            port = Integer.parseInt(hostPort.nextToken());
+        }
+        catch (NoSuchElementException e)
+        {
+            port = 8080;
+        }
         HttpClient client = new HttpClient();
         client.getHostConfiguration().setHost(host, port, "http");
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
@@ -110,12 +120,25 @@ public class Login
     {
         if (this.userHandle == null)
         {
-            return login("perf_tester", "perf_tester");
+            return login("siedersleben", "pubman"); //TODO
         }
         else
         {
             return this.userHandle;
         }
+    }
+    
+    /**
+     * Logs the user roland in and returns the corresponding user handle.
+     * 
+     * @return userhandle
+     * @throws ServiceException
+     * @throws HttpException
+     * @throws IOException
+     */
+    protected  String loginSystemAdministrator() throws ServiceException, HttpException, IOException, URISyntaxException
+    {
+        return login(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }
     
     public void logout(String handle) throws WebserverSystemException, SqlDatabaseSystemException,

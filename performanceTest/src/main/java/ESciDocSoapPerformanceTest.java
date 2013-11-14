@@ -1,23 +1,25 @@
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.swing.text.html.parser.ContentModel;
-
+import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class ESciDocSoapPerformanceTest
@@ -51,10 +53,14 @@ public class ESciDocSoapPerformanceTest
     private static long minRelease = 0;
     private static long maxRelease = 0;
     
+    protected static List<String> objectsToDelete;
+    
     public static void main (String[] args) throws Exception
     {
       Login login = new Login();
       String userHdl = login.loginPubManUser();
+      
+      objectsToDelete = new ArrayList<String>();
 
       System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Start performance tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       
@@ -77,7 +83,7 @@ public class ESciDocSoapPerformanceTest
       
 
       start = new Date().getTime();     
-      int count = 1;
+      int count = 0;
       
       System.out.println("-- START "+ count +" ITEMS --");
       for (int i = 0; i<count; i++)
@@ -87,16 +93,18 @@ public class ESciDocSoapPerformanceTest
       end = new Date().getTime() - start;
       total += end;
 
-      System.out.println("-- "+totalCreate+"ms    --   Create                           [min: "+minCreate+"] [max: "+maxCreate+"] [avg: "+totalCreate/count+"]");
-      System.out.println("-- "+totalUpdate+"ms    --   Update                           [min: "+minUpdate+"] [max: "+maxUpdate+"] [avg: "+totalUpdate/count+"]");
-      System.out.println("-- "+totalSubmit+"ms    --   Submit                           [min: "+minSubmit+"] [max: "+maxSubmit+"] [avg: "+totalSubmit/count+"]");
-      System.out.println("-- "+totalAssignVersionPid+"ms    --   Assign Version Pid     [min: "+minAssignVersionPid+"] [max: "+maxAssignVersionPid+"] [avg: "+totalAssignVersionPid/count+"]");
-      System.out.println("-- "+totalRelease+"ms    --   Release                         [min: "+minRelease+"] [max: "+maxRelease+"] [avg: "+totalRelease/count+"]");
+      System.out.println("-- "+totalCreate+"ms    --   Create                           [min: "+minCreate+"] [max: "+maxCreate+"] [avg: "+totalCreate/(count+1)+"]");
+      System.out.println("-- "+totalUpdate+"ms    --   Update                           [min: "+minUpdate+"] [max: "+maxUpdate+"] [avg: "+totalUpdate/(count+1)+"]");
+      System.out.println("-- "+totalSubmit+"ms    --   Submit                           [min: "+minSubmit+"] [max: "+maxSubmit+"] [avg: "+totalSubmit/(count+1)+"]");
+      System.out.println("-- "+totalAssignVersionPid+"ms    --   Assign Version Pid     [min: "+minAssignVersionPid+"] [max: "+maxAssignVersionPid+"] [avg: "+totalAssignVersionPid/(count+1)+"]");
+      System.out.println("-- "+totalRelease+"ms    --   Release                         [min: "+minRelease+"] [max: "+maxRelease+"] [avg: "+totalRelease/(count+1)+"]");
       System.out.println("-- "+total+"ms    --   Whole process (create, update, submit, pid, release, retrieve)");
       
       System.out.println("-- END "+count+" ITEMS --");
       
       System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ End performance tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      
+      tearDown(login);
     }
     
     public static void processItem(String user, boolean multiple) throws Exception
@@ -120,10 +128,11 @@ public class ESciDocSoapPerformanceTest
         md.setTitle(new TextVO("SOAP Performance Test Item " + new Date()));
         md.setGenre(Genre.ARTICLE);
         item.setMetadata(md);
+                
         ContextRO ctx = new ContextRO();
-        ctx.setObjectId("escidoc:31126");
+        ctx.setObjectId(PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
         item.setContext(ctx);
-        item.setContentModel("escidoc:persistent4");
+        item.setContentModel(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         
         //Create item
         startCreate = new Date().getTime();
@@ -163,7 +172,7 @@ public class ESciDocSoapPerformanceTest
         item = xmlTransforming.transformToPubItem(itemXml);
     
         //Assign version pid
-        String url = "http://dev-pubman.mpdl.mpg.de:8080/pubman/item/" + item.getLatestVersion().getObjectId();
+        String url = PropertyReader.getProperty("escidoc.framework_access.framework.url") + "/item/" + item.getLatestVersion().getObjectId();
         PidTaskParamVO pidParam = new PidTaskParamVO(item.getModificationDate(), url);
         String paramXml = xmlTransforming.transformToPidTaskParam(pidParam);       
         startAssignVersionPid = new Date().getTime();
@@ -193,5 +202,31 @@ public class ESciDocSoapPerformanceTest
         totalRelease += endRelease;
         if (endRelease > maxRelease) maxRelease = endRelease;
         if (minRelease ==0 || endRelease < minRelease) minRelease = endRelease;
+        
+        objectsToDelete.add(item.getVersion().getObjectId());
+    }
+    
+    public static void tearDown(Login l) throws Exception
+    {        
+        AdminHandler adminHandler = ServiceLocator.getAdminHandler(l.loginSystemAdministrator());
+        
+        StringBuffer b = new StringBuffer();
+        b.append("<param>");
+        
+        for (String objId : objectsToDelete)
+        {
+            b.append("<id>");
+            b.append(objId);
+            b.append("</id>");
+        }
+
+        b.append("</param>");
+        
+        String params = b.toString();
+        
+        System.out.println("starting to delete created objects: " + params);
+
+        String frameworkReturnXml = adminHandler.deleteObjects(params);
+        System.out.println("Adminhandler.deleteObjects returned: " + frameworkReturnXml);
     }
 }

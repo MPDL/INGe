@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>commons-discovery</groupId>
 			<artifactId>commons-discovery</artifactId>
-			<version>0.2</version>
+			<version>0.4</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -59,14 +59,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.47-SNAPSHOT</version>
+			<version>1.0.61-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		      <groupId>de.mpg.escidoc.services</groupId>
 		      <artifactId>common_logic</artifactId>
-		      <version>1.1.42-SNAPSHOT</version>
+		      <version>1.1.72-SNAPSHOT</version>
 		      <scope>compile</scope>
 	    </dependency>
 	    <dependency>
@@ -79,6 +79,11 @@
 		    <groupId>commons-httpclient</groupId>
 		    <artifactId>commons-httpclient</artifactId>
 		    <version>3.1</version>
+		</dependency>
+		<dependency>
+  			<groupId>com.google.caliper</groupId>
+  			<artifactId>caliper</artifactId>
+  			<version>1.0-beta-1</version>
 		</dependency>
 	</dependencies>
 </project>
