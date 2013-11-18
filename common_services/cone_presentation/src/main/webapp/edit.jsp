@@ -90,9 +90,17 @@
 	        	if (model != null && predicate.getId().equals(model.getIdentifier()))
 	        	{
 					if (results.get(predicate.getId()) != null)
-					{						
-						for (LocalizedTripleObject object : results.get(predicate.getId()))
+					{				
+						List<LocalizedTripleObject> resList = results.get(predicate.getId());
+						
+						if (resList.isEmpty())
 						{
+							out.append("Will be the same value as Cone-ID");
+						}
+						
+						for (LocalizedTripleObject object : resList) 
+						{
+							
 							out.append(object.toString());
 							
 							if (object instanceof TreeFragment)
