@@ -70,13 +70,13 @@
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</h:outputLink>
 							&nbsp;
-							<h:outputLink id="lnkCitationURLDownload" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
+							<h:outputLink id="lnkCitationURLDownload" styleClass="tiny_marginLExcl" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="std_imgBtn downloadFileIcon "></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</h:outputLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
-							<h:outputLink id="lnkSearchHitsURLDownload" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download#search=#{file.openPDFSearchParameter}" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
+							<h:outputLink id="lnkSearchHitsURLDownload" styleClass="tiny_marginLExcl" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download#search=#{file.openPDFSearchParameter}" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="std_imgBtn downloadFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</h:outputLink>
 						</div>
