@@ -100,22 +100,12 @@ public class RedirectServlet extends HttpServlet
         if (!id.contains("/component/"))
         {
             LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
-            ViewItemSessionBean visb = (ViewItemSessionBean) req.getSession().getAttribute("ViewItemSessionBean");
-            if (visb == null && loginHelper != null && loginHelper.isLoggedIn())
+            if (loginHelper != null && loginHelper.isDetailedMode())
             {
-                resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
-            }
-            else if (visb != null && visb.isDetailedMode())
-            {
-                visb.setDetailedMode(true);
                 resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
             }
             else 
             {
-                if(visb != null) 
-                {
-                    visb.setDetailedMode(false);
-                }
                 resp.sendRedirect("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
             }
             return;

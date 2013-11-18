@@ -686,10 +686,10 @@ public class ViewItemFull extends FacesBean
     
     public String showDetailedItemView()
     {
-        ViewItemSessionBean visb = (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
-        if (visb != null) 
+        LoginHelper loginhelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        if (loginhelper != null) 
         {
-            visb.setDetailedMode(true);
+            loginhelper.setDetailedMode(true);
         }
         
         return ViewItemFull.LOAD_VIEWITEM;
@@ -697,10 +697,10 @@ public class ViewItemFull extends FacesBean
     
     public String showOverviewItemView()
     {
-        ViewItemSessionBean visb = (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
-        if (visb != null)
+        LoginHelper loginhelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        if (loginhelper != null)
         {
-            visb.setDetailedMode(false);
+            loginhelper.setDetailedMode(false);
         }
         return ViewItemFull.LOAD_VIEWITEM_OVERVIEW;
     }

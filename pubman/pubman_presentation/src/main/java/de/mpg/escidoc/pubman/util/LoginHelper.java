@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.qaws.QAWSSessionBean;
+import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
@@ -99,12 +101,17 @@ public class LoginHelper extends FacesBean
     private List<UserGroup> userAccountUserGroups;
     private List<GrantVO>   userGrants;
     private List<GrantVO> userGrantsWithoutAudience;
-
+    private boolean detailedMode = false;
+    
+    
+    private ViewItemSessionBean visb;
+    
     /**
      * Public constructor.
      */
     public LoginHelper()
     {
+        System.out.println("Konstruktor");
     }
 
     /**
@@ -205,7 +212,8 @@ public class LoginHelper extends FacesBean
                 this.eSciDocUserHandle = new String(Base64.decode(userHandle));
                 this.loggedIn = true;
                 this.wasLoggedIn = true;
-
+                this.setDetailedMode(true);
+                
             }
         }
         if (this.eSciDocUserHandle != null && !this.eSciDocUserHandle.equals("") && this.wasLoggedIn)
@@ -214,7 +222,6 @@ public class LoginHelper extends FacesBean
             this.btnLoginLogout = "login_btLogout";
             //reinitialize ContextList
             ((ContextListSessionBean)getSessionBean(ContextListSessionBean.class)).init();
-            this.wasLoggedIn = false;
         }
 
         // enable the depositor links if necessary
@@ -537,6 +544,24 @@ public class LoginHelper extends FacesBean
     public String getUserAccountOptionsLink()
     {
         return "loadUserAccountOptionsPage";
+    }
+
+    /**
+     * sets whether detailedMode is activated or not
+     * @param detailedMode the detailedMode to set
+     */
+    public void setDetailedMode (boolean detailedMode)
+    {
+        this.detailedMode = detailedMode;
+    }
+
+    /**
+     * returns whether detailedMode is activated or not
+     * @return detailedMode [boolean]
+     */
+    public boolean isDetailedMode ()
+    {
+        return this.detailedMode;
     }
     
 }
