@@ -33,9 +33,9 @@
 <div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 	<!-- search Menu starts here -->
 	<span class="std_imgArea quickSearchIcon">&#160;</span>
-	<span class="large_area0 quickSearchMenu">
-		<h:inputText id="quickSearchString" styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
-		<h:panelGroup styleClass="large_checkbox quickSearchCheckBoxMenu">
+	<span class="xLarge_area0 quickSearchMenu">
+		<h:inputText id="quickSearchString" styleClass="xLarge_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+		<h:panelGroup styleClass="xLarge_checkbox quickSearchCheckBoxMenu">
 			<h:selectBooleanCheckbox id="quickSearchCheckBox" value="#{Search.includeFiles}" />
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
