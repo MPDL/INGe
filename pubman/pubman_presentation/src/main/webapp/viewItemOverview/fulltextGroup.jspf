@@ -41,7 +41,7 @@
 		</h5>
 	</h:panelGroup>
 	<!-- If no fulltexts are available show message -->
-	<h:panelGroup layout="block" styleClass="huge_area0_p6" rendered ="#{ViewItemFull.pubItem.files == null or empty(ViewItemFull.pubItem.files)}">
+	<h:panelGroup layout="block" styleClass="huge_area0_p6" rendered ="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList == null or empty(ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList)}">
 		<h:outputText value="#{msg.ViewItemOverview_noFulttextsAvailable}"/>
 	</h:panelGroup>
 	<!-- Iterator for publicly accessible fulltexts (not only any-fulltext, but also postprint/preprint/publisher-version) -->

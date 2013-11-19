@@ -1500,10 +1500,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             for (FileBean file : this.fileBeanList)
             {
                 if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility()) &&
-                        PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getFile().getContentCategory()) ||
+                        (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getFile().getContentCategory()) ||
                         PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getFile().getContentCategory()) ||
                         PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getFile().getContentCategory()) ||
-                        PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getFile().getContentCategory())){
+                        PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getFile().getContentCategory()))){
                     fulltexts.add(file);
                 }
             }
