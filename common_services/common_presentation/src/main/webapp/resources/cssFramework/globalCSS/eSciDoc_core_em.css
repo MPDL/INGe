@@ -306,6 +306,11 @@ option {	/* fix for FF2 and floating contents */
     height: 2.8181em;
 }
 
+.large_imgBtn {
+	width: 4.272727em;
+	height: 4.272727em;
+}
+
 /*TEXT BUTTONS (base size)*/
 .free_txtBtn, .xTiny_txtBtn, .tiny_txtBtn, .xSmall_txtBtn, .small_txtBtn, .medium_txtBtn, .large_txtBtn, .xLarge_txtBtn, .double_txtBtn, .xDouble_txtBtn, .quad_txtBtn, .huge_txtBtn, .xHuge_txtBtn, .half_txtBtn, .full_txtBtn {
     padding:0;
@@ -1615,6 +1620,16 @@ option {	/* fix for FF2 and floating contents */
     width: 40.6363em;
 }
 
+.third_area0, .third_area0_p0 {
+	float:left;
+    width: 47.7272727272em;
+}
+
+.filled_area0, .filled_area0_p0 {
+	float:left;
+    width: 72.27272727em;
+}
+
 .full_area0_p1 .half_area0_p0, .full_area0_p1 .half_area0, .full_area1 .half_area0_p0, .full_area1 .half_area0, .full_area1_p0 .half_area0_p0, .full_area1_p0 .half_area0_p0 {
     width: 40.5454em;
 }
@@ -1954,6 +1969,31 @@ option {	/* fix for FF2 and floating contents */
     overflow: hidden;
 }
 
+.third_area0_p6 {
+    border-width: 0 !important;
+    display: inline;
+    float: left;
+    margin: 0 0.0909em 0 0;
+    overflow: hidden;
+    padding-bottom: 0.5454em;
+    padding-left: 0.5454em !important;
+    padding-right: 0.5454em !important;
+    padding-top: 0.5454em;
+}
+
+.filled_area0_p6 {
+    border-width: 0 !important;
+    display: inline;
+    float: left;
+    margin: 0 0.0909em 0 0;
+    overflow: hidden;
+    padding-bottom: 0.5454em;
+    padding-left: 0.5454em !important;
+    padding-right: 0.5454em !important;
+    padding-top: 0.5454em;
+    width: 71em;
+}
+
 /*
  .xTiny_area0_p6 {
  width: 3px;
@@ -2112,6 +2152,11 @@ option {	/* fix for FF2 and floating contents */
     float: left;
     display: inline;
     overflow: hidden;
+}
+
+/* OverviewPage: if third_area0 contains two huge_areas */
+.huge_area0.xTiny_marginRExcl.small_marginLExcl + .third_area0 {
+	width: 47.909090em;
 }
 
 /*
@@ -3442,6 +3487,10 @@ option {	/* fix for FF2 and floating contents */
 /*BASE ELEMENTS*/
 /*MARGINS*/
 /*RIGHT MARGINS WITHOUT WHITESPACE*/
+.xxTiny_marginRExcl {
+	margin-right: 0.9090909090909091em;
+}
+
 .xTiny_marginRExcl {
     margin-right: 1.3636em;
 }
@@ -3895,6 +3944,11 @@ option {	/* fix for FF2 and floating contents */
 
 .full_negMarginLIncl {
     margin-left: -81.4545em;
+}
+
+/*BOTTOM MARGINS*/
+.xTiny_marginBExcl {
+    margin-bottom: 1.3636em;
 }
 
 /*MARGINS*/

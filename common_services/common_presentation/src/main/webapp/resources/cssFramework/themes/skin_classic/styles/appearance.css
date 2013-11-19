@@ -800,3 +800,106 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .checkboxDoubleContainer .large_checkbox label {
 	white-space:normal;
 }
+
+/* OVERVIEW PAGE */
+.tile_category {
+	margin-top: 1.363636em;
+	border-top-color: #FFFFFF;
+	border-top-style: solid;
+	border-top-width: 9px !important;
+	background-color: #E7E8E2;
+	border-radius: 6px 6px 6px 6px;
+}
+.colorBackground {
+	background-color: #CBE0E5;
+	border-radius: 6px 6px 6px 6px;
+}
+.tile_category img[align="left"] {
+	clear:left;
+	border:none;
+} 
+.tile_category div {
+	line-height: 150%;
+	display: inline-block;
+	margin: 0 0 1em 0; 
+	*clear:both; /* IE7 Hack */
+}
+.tile_category div p {
+	margin-left: 0;
+}
+.tile_category div .big_imgBtn[align="left"] {
+	*margin-bottom: 0.5em; /* IE7 Hack */
+}
+.tile_category div .large_imgBtn[align="right"],
+.tile_category div .big_imgBtn[align="right"] {
+	margin-left: 0.545454em;
+	display: block;
+	border:none;
+}
+.tile_category.borderDarkTurquoise {
+	border-top-color: #307086;
+}
+.tile_category.borderDarkBlue {
+	border-top-color: #183944;
+}
+.tile_category.borderDarkGreen {
+	border-top-color: #66852C;
+}
+.tile_category.borderYellow {
+	border-top-color: #3EABC9;
+}
+.tile_category.borderRed {
+	border-top-color: #50106D;
+}
+.tile_category.borderOrange {
+	border-top-color: #C65D1F;
+}
+.tile_category.borderBrown {
+	border-top-color: #71140C;
+}
+.tile_category .tile_title {
+	font-size: 1.454545em;
+	display: block;
+	margin: 0.454545em 0;
+}
+.tile_category .tile_title img {
+	width: 1.9375em;
+	height: 1.9375em;
+}
+.tile_category h4.tile_publication_title {
+	font-size: 1.909090909090909em;
+	margin: 0.454545em 0;
+	line-height: normal;
+	text-align: center;
+}
+.tile_category .tile_publication_title img {
+	width: 1.476190476190476em;
+	height: 1.476190476190476em;
+}
+.tile_category .status_group {
+	margin-top: 0.4545454545455em;
+	float: left;
+	text-align: center;
+}
+.tile_category .status_group img{
+	display: inline-block;
+}
+.tile_category .genre_group {
+	margin-top: 0.4545454545455em;
+	float: right;
+	text-align: center;
+}
+.tile_category h5.tile_citation_title {
+	font-size: 2.181818em;
+	margin: 0.454545em 0;
+}
+.tile_category .tile_citation_title img {
+	width: 1.291666666666667em;
+	height: 1.291666666666667em;
+}
+.tile_category .author_name {
+	font-weight: bold;
+}
+.tile_category .author_organization {
+	font-style: italic;
+}

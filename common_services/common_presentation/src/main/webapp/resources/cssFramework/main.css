@@ -44,5 +44,7 @@
 		@import url(./componentCSS/lists.css);
 	/* import full item component styles | das Stylesheet für die Komponente für die Itemvollansicht einbinden */
 		@import url(./componentCSS/fullItem.css);
+	/* import overview item component styles | das Stylesheet für die Komponente für die Itemübersicht einbinden */
+		@import url(./componentCSS/overviewItem.css);
 	/* import single elements styles | das Stylesheet für die einzelnen Elemente einbinden */
 		@import url(./componentCSS/externalOverrides.css);	
