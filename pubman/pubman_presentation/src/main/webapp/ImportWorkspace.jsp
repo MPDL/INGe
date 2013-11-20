@@ -233,7 +233,7 @@
 																	<h:outputText value="#{lbl.import_workspace_delete_items}" />
 																</h:commandLink>
 																
-																<h:commandLink id="lnkSubmitAll" title="#{tip.import_workspace_submit_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{import.importedItems and !import.simpleWorkflow}">
+																<h:commandLink id="lnkSubmitAll" title="#{tip.import_workspace_submit_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{import.importedItems and !import.simpleWorkflow and !LoginHelper.isModerator}">
 																	<h:outputText value="#{lbl.import_workspace_submit_items}" />
 																</h:commandLink>
 			
