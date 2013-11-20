@@ -1184,9 +1184,9 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIEIS'">
+						<xsl:when test="$import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 							<xsl:choose>
-								<xsl:when test="$access='INSTITUT' or $access='INSTITUT'">
+								<xsl:when test="$access='INSTITUT' or $access='INSTERNAL'">
 									<prop:visibility>audience</prop:visibility>
 								</xsl:when>
 								<xsl:when test="$access='PUBLIC'">
@@ -1272,7 +1272,7 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1439,7 +1439,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1528,6 +1528,11 @@
 								<xsl:when test="$import-name = 'MPIIB' and $access='PUBLIC'">
 									<dc:rights>
 										<xsl:value-of select="../../../rights/copyright"/>
+									</dc:rights>
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPIKG' and fn:exists(../../../rights/copyright) and fn:matches(fn:normalize-space(../../../rights/copyright), 'Jahrbuch \d\d\d\d, Copyright MPG \d\d\d\d')">
+									<dc:rights>
+										<xsl:value-of select="fn:substring(fn:normalize-space(../../../rights/copyright), fn:string-length(fn:normalize-space(../../../rights/copyright)) - 4)" />
 									</dc:rights>
 								</xsl:when>
 								<xsl:when test="$import-name = 'FHI'">
@@ -2328,7 +2333,9 @@
 			<!--ALTTITLE -->
 			<xsl:apply-templates select="titlealt"/>
 			<!-- TITLEABBREVIATION FOR JOURNALS-->
-			<xsl:apply-templates select="journalabbreviation"/>
+			<xsl:if test="$gen = 'journal'">
+				<xsl:apply-templates select="journalabbreviation"/>
+			</xsl:if>
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier">
 				<xsl:with-param name="gen" select="$gen"/>
@@ -3680,6 +3687,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIEIS'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institut für Eisenforschung GmbH')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIKG'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Colloids and Interfaces')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
