@@ -42,7 +42,7 @@
 		There are several ways to enter new publications into PubMan. You can
 		<ul style="list-style-position: outside">
 			<li>use the 
-				<h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>. Here you can enter basic metadata of a publication.
 			</li>
