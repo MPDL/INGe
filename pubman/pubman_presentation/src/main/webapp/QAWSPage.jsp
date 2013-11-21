@@ -183,7 +183,7 @@
 									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeContext" styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="third_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
 									
 									<h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer">
@@ -201,7 +201,7 @@
 									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{MyTasksRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="third_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags} "/>
 									
 									<h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer">
