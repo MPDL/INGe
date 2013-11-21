@@ -2213,6 +2213,7 @@ public class ViewItemFull extends FacesBean
     public boolean getHasFreeKeywords()
     {
         return this.pubItem.getMetadata().getFreeKeywords() != null
+        && this.pubItem.getMetadata().getFreeKeywords().getValue() != null
         && this.pubItem.getMetadata().getFreeKeywords().getValue().length()>0;
     }
 
