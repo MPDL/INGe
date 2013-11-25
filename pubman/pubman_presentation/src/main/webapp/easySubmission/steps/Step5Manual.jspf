@@ -333,26 +333,26 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'easy-submission' || genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'all')}">
-							<h:panelGroup styleClass="medium_area0">
+						<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'easy-submission' || genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'all')}">
+							<h:panelGroup styleClass="large_area0">
 								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true'}" />
 								<h:outputText value="#{genre.events_event_place_label}"  converter="GenreLabelConverter"/>
 							</h:panelGroup>
-							<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
+							<h:inputText styleClass="large_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
 						</h:panelGroup>
-						<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'easy-submission' || genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'all')}">
-							<h:panelGroup styleClass="medium_area0">
+						<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'easy-submission' || genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'all')}">
+							<h:panelGroup styleClass="large_area0">
 								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_start_date_optional != 'true'}" />
 								<h:outputText value="#{genre.events_event_start_date_label}"  converter="GenreLabelConverter"/>
 							</h:panelGroup>
-							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" />
 						</h:panelGroup>
-						<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'easy-submission' || genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'all')}">
-							<h:panelGroup styleClass="medium_area0">
+						<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'easy-submission' || genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'all')}">
+							<h:panelGroup styleClass="large_area0">
 								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_end_date_optional != 'true'}" />
 								<h:outputText value="#{genre.events_event_end_date_label}"  converter="GenreLabelConverter"/>
 							</h:panelGroup>
-							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
 						</h:panelGroup>
 						<h:panelGroup styleClass="medium_area0 toLabelBottom" rendered="#{!(genre.events_event_invitation_status_display == 'false' && genre.events_event_invitation_status_form_id == 'easy-submission' || genre.events_event_invitation_status_display == 'false' && genre.events_event_invitation_status_form_id == 'all')}">
 							<span class="medium_checkbox">
