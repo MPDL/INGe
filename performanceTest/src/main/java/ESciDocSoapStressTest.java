@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -27,7 +25,7 @@ public class ESciDocSoapStressTest extends Thread
     
     private static Logger logger = Logger.getLogger(ESciDocSoapStressTest.class);
     
-    private static int numThreads = 50;
+    private static int numThreads = 100;
     
     private static String[][] itemsWithComponent = {
         {"escidoc:1808292","escidoc:1810312"},
@@ -70,7 +68,7 @@ public class ESciDocSoapStressTest extends Thread
                         itemComponent = itemHandler.retrieveComponents(id[0]);
                         //itemComponent = itemHandler.retrieveComponent(id[0], id[1]);
                         String url = location + "/ir/item/" + id[0]  + "/components/component/" + id[1] + "/content";  
-                        logger.info(this.getName() + " " + url);
+                        //logger.info(this.getName() + " " + url);
                         GetMethod method = new GetMethod(url);
                         ProxyHelper.executeMethod(httpClient, method);
                         
