@@ -106,7 +106,7 @@
 							<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 						</h:outputLink>
 
-						<h:outputLink styleClass="large_area0_p8 noPaddingTopBottom endline"  title="#{tip.import_workspace_submit_items}" value="ImportWorkspaceSubmit.jsp?id=#{ImportData.importId}" rendered="#{ImportData.import.importedItems and !ImportData.simpleWorkflow}">
+						<h:outputLink styleClass="large_area0_p8 noPaddingTopBottom endline"  title="#{tip.import_workspace_submit_items}" value="ImportWorkspaceSubmit.jsp?id=#{ImportData.importId}" rendered="#{ImportData.import.importedItems and !ImportData.simpleWorkflow and !LoginHelper.isModerator}">
 							<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 						</h:outputLink>
 
