@@ -417,7 +417,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         try
         {
             Connection connection = ImportLog.getConnection();
-            String sql = "SELECT * FROM escidoc_import_log WHERE ? LIKE '%,' || context || ',%' order by STARTDATE DESC";
+            String sql = "SELECT * FROM escidoc_import_log WHERE ? LIKE '%,' || context || ',%' ORDER BY startdate DESC";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setString(1, contextString);
