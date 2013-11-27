@@ -376,7 +376,15 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 	
 	public String getUrlEncodedQueryString() {
 		try {
-			return URLEncoder.encode(queryString, "UTF-8");
+			if(queryString != null)
+			{
+				return URLEncoder.encode(queryString, "UTF-8");
+			}
+			else
+			{
+				return "";
+			}
+			
 		} catch (UnsupportedEncodingException e) {
 			logger.error("Could not encode query string", e);
 			return "";
