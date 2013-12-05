@@ -31,7 +31,8 @@
 %>
 <%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
 <%
-	String urlBase = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "");
+	//String urlBase = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "");
+	String urlBase = PropertyReader.getProperty("escidoc.pubman.instance.url");
 	String cqlString = request.getQueryString();
 	String searchPath = urlBase + "/search/SearchAndExport";
 	String feedPath = urlBase + "/syndication/feed";
