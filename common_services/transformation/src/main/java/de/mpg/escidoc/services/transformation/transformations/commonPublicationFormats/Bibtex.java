@@ -289,7 +289,7 @@ public class Bibtex implements BibtexInterface
                             || bibGenre == BibTexUtil.Genre.inproceedings
                             || bibGenre == BibTexUtil.Genre.conference
                             || bibGenre == BibTexUtil.Genre.incollection)
-                            && (sourceVO.getTitle() == null))
+                            && (sourceVO.getTitle() == null || sourceVO.getTitle().getValue() == null))
                     {
                         publishingInfoVO.setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("address").toString()), false));
                     }
@@ -310,14 +310,14 @@ public class Bibtex implements BibtexInterface
                 {
                     publishingInfoVO.setEdition(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("edition").toString()), false));
                 }
-
+                
                 // publisher
                 if (!(bibGenre == BibTexUtil.Genre.article
                         || bibGenre == BibTexUtil.Genre.inbook
                         || bibGenre == BibTexUtil.Genre.inproceedings
                         || bibGenre == BibTexUtil.Genre.conference
                         || bibGenre == BibTexUtil.Genre.incollection)
-                        && (sourceVO.getTitle() == null))
+                        && (sourceVO.getTitle() == null || sourceVO.getTitle().getValue() == null))
                 {
                     if (fields.get("publisher") != null)
                     {
@@ -1249,7 +1249,7 @@ public class Bibtex implements BibtexInterface
                                             || bibGenre == BibTexUtil.Genre.inproceedings
                                             || bibGenre == BibTexUtil.Genre.conference
                                             || bibGenre == BibTexUtil.Genre.incollection)
-                                            && (sourceVO.getTitle() != null))
+                                            && (sourceVO.getTitle() != null || sourceVO.getTitle().getValue() == null))
                                     {
                                         sourceVO.getCreators().add(creatorVO);
                                     }
@@ -1393,7 +1393,7 @@ public class Bibtex implements BibtexInterface
                 }
 
                 //Prevent the creation of an empty source
-                if (sourceVO.getTitle()!= null && sourceVO.getTitle().getValue()!="" 
+                if (sourceVO.getTitle()!= null  && sourceVO.getTitle().getValue() != null && sourceVO.getTitle().getValue()!=""
                     && sourceVO.getGenre()!= null)
                 {
                     mds.getSources().add(sourceVO);
