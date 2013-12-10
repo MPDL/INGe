@@ -3673,7 +3673,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Digital Library')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIC'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), '&quot;*Max Planck Institute for Chemistry*&quot;')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Chemistry')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIEM'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Experimental Medicine')"/>
@@ -3793,6 +3793,66 @@
 									</xsl:when>
 									<xsl:when test="$import-name = 'CBS' and (@internextern='mpg' or @internextern='unknown')">
 										<xsl:comment> Case CBS </xsl:comment>
+									</xsl:when>
+									<xsl:when test="$import-name = 'MPISOC' and (@internextern='mpg')">
+										<xsl:comment> Case MPISOC </xsl:comment>
+										<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20for%20Social%20Law%20and%20Social%20Policy%22")' />
+								        <xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
+										<organization:organization>
+											<dc:title>
+												<xsl:value-of select="'Max Planck Institute for Social Law and Social Policy, Max Planck Society'"/>
+											</dc:title>
+											<dc:identifier>
+								            	<xsl:choose>
+								                	<xsl:when test="$organizational-search/search:searchRetrieveResponse/search:numberOfRecords = 1 and $organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') != ''">
+								                    	<xsl:value-of select="$organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+								                    </xsl:when>
+								                    <xsl:otherwise>
+								                    	<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OrganizationalUnitNotFound' ), 'There is no or too many OU-ID(s) for -Max Planck Institute for Social Law and Social Policy-')"/>
+								                   	</xsl:otherwise>
+								                 </xsl:choose>
+								        	</dc:identifier>
+										</organization:organization>
+									</xsl:when>
+									<xsl:when test="$import-name = 'CPFS' and (@internextern='mpg')">
+										<xsl:comment> Case MPICPFS </xsl:comment>
+										<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20for%20Chemical%20Physics%20of%20Solids%22")' />
+								        <xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
+										<organization:organization>
+											<dc:title>
+												<xsl:value-of select="'Max Planck Institute for Chemical Physics of Solids'"/>
+											</dc:title>
+											<dc:identifier>
+								            	<xsl:choose>
+								                	<xsl:when test="$organizational-search/search:searchRetrieveResponse/search:numberOfRecords = 1 and $organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') != ''">
+								                    	<xsl:value-of select="$organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+								                    </xsl:when>
+								                    <xsl:otherwise>
+								                    	<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OrganizationalUnitNotFound' ), 'There is no or too many OU-ID(s) for -Max Planck Institute for Social Law and Social Policy-')"/>
+								                   	</xsl:otherwise>
+								                 </xsl:choose>
+								        	</dc:identifier>
+										</organization:organization>
+									</xsl:when>
+									<xsl:when test="$import-name = 'MPIEM' and (@internextern='mpg')">
+										<xsl:comment> Case MPIEM </xsl:comment>
+										<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20of%20Experimental%20Medicine%22")' />
+								        <xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
+										<organization:organization>
+											<dc:title>
+												<xsl:value-of select="'Max Planck Institute of Experimental Medicine, Max Planck Society'"/>
+											</dc:title>
+											<dc:identifier>
+								            	<xsl:choose>
+								                	<xsl:when test="$organizational-search/search:searchRetrieveResponse/search:numberOfRecords = 1 and $organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') != ''">
+								                    	<xsl:value-of select="$organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+								                    </xsl:when>
+								                    <xsl:otherwise>
+								                    	<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OrganizationalUnitNotFound' ), 'There is no or too many OU-ID(s) for -Max Planck Institute of Experimental Medicine-')"/>
+								                   	</xsl:otherwise>
+								                 </xsl:choose>
+								        	</dc:identifier>
+										</organization:organization>
 									</xsl:when>
 									<xsl:when test="$import-name = 'MPIPsykl' and (@internextern='mpg')">
 										<xsl:comment> Case MPIPsykl </xsl:comment>
