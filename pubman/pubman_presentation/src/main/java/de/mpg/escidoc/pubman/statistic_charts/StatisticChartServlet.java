@@ -202,10 +202,9 @@ public class StatisticChartServlet extends HttpServlet
         }
         
         
-        //sort the report records by date, newest first
-        //List<StatisticReportRecordVOPresentation> sortingListAllUsers = new ArrayList<StatisticReportRecordVOPresentation>();
+      
+        //Organize report records in map with month/year as key
         Map<String, StatisticReportRecordVOPresentation> mapAllUserRequests = new HashMap<String, StatisticReportRecordVOPresentation>();
-        
         for (StatisticReportRecordVO reportRec : reportListAllUsers)
         {
             //sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
@@ -215,7 +214,6 @@ public class StatisticChartServlet extends HttpServlet
         }
 
         Map<String, StatisticReportRecordVOPresentation> mapAnonymousUserRequests = new HashMap<String, StatisticReportRecordVOPresentation>();
-        
         for (StatisticReportRecordVO reportRec : reportListAnonymousUsers)
         {
            
