@@ -177,8 +177,12 @@ public class DataHandlerBean implements DataHandler
 
 			if (fetchType.equals(this.fetchTypeTEXTUALDATA))
 			{
-				fetchedData = this.fetchTextualData(identifier, trgFormatName, trgFormatType, trgFormatEncoding)
-				        .getBytes(this.enc);
+			    String textualData = this.fetchTextualData(identifier, trgFormatName, trgFormatType, trgFormatEncoding);
+                if (textualData == null)
+                {
+                    return null;
+                }
+				fetchedData = textualData.getBytes(this.enc);				        
 			}
 			if (fetchType.equals(this.fetchTypeFILEDATA))
 			{
@@ -352,6 +356,10 @@ public class DataHandlerBean implements DataHandler
 			MetadataVO md = this.util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
 			        trgFormatEncoding);
 
+			if (md == null)
+			{
+			    return null;
+			}
 			String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
 			md.setMdUrl(new URL(decoded));
 			md.setMdUrl(new URL(md.getMdUrl().toString().replaceAll(this.regex, identifier.trim())));
