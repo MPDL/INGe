@@ -36,8 +36,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -201,29 +203,30 @@ public class StatisticChartServlet extends HttpServlet
         
         
         //sort the report records by date, newest first
-        List<StatisticReportRecordVOPresentation> sortingListAllUsers = new ArrayList<StatisticReportRecordVOPresentation>();
+        //List<StatisticReportRecordVOPresentation> sortingListAllUsers = new ArrayList<StatisticReportRecordVOPresentation>();
+        Map<String, StatisticReportRecordVOPresentation> mapAllUserRequests = new HashMap<String, StatisticReportRecordVOPresentation>();
+        
         for (StatisticReportRecordVO reportRec : reportListAllUsers)
         {
-            sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
+            //sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
+        	StatisticReportRecordVOPresentation repRecPres = new StatisticReportRecordVOPresentation(reportRec);
+        	mapAllUserRequests.put(repRecPres.getMonth() + "/" + repRecPres.getYear(), repRecPres);
         
         }
-        Collections.sort(sortingListAllUsers);
-        //take the newest values
-        if (sortingListAllUsers.size()>(numberOfMonths))
-            sortingListAllUsers = sortingListAllUsers.subList(sortingListAllUsers.size()-(numberOfMonths)-1, sortingListAllUsers.size());
+
+        Map<String, StatisticReportRecordVOPresentation> mapAnonymousUserRequests = new HashMap<String, StatisticReportRecordVOPresentation>();
         
-        List<StatisticReportRecordVOPresentation> sortingListAnonymousUsers = new ArrayList<StatisticReportRecordVOPresentation>();
         for (StatisticReportRecordVO reportRec : reportListAnonymousUsers)
         {
-            sortingListAnonymousUsers.add(new StatisticReportRecordVOPresentation(reportRec));
+           
+        	StatisticReportRecordVOPresentation repRecPres = new StatisticReportRecordVOPresentation(reportRec);
+        	mapAnonymousUserRequests.put(repRecPres.getMonth() + "/" + repRecPres.getYear(), repRecPres);
         
         }
-        Collections.sort(sortingListAnonymousUsers);
-        if (sortingListAnonymousUsers.size()>(numberOfMonths))
-            sortingListAnonymousUsers = sortingListAnonymousUsers.subList(sortingListAnonymousUsers.size()-(numberOfMonths)-1, sortingListAnonymousUsers.size());
+        
+      
         
         //Create the dataset with 2 series for anonmyous and logged-in users.
-        
         String loggedInUsersSeries = "Logged-in Users";
         String anonymousUsersSeries = "Anonymous Users";
         
@@ -237,49 +240,24 @@ public class StatisticChartServlet extends HttpServlet
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -(numberOfMonths-1));
         
-        Iterator<StatisticReportRecordVOPresentation> iter = sortingListAllUsers.iterator();
-        StatisticReportRecordVOPresentation currentAllUsersRecord = null;
-        if (iter.hasNext()) currentAllUsersRecord = iter.next();
-        
-        Iterator<StatisticReportRecordVOPresentation> iterAnonymous = sortingListAnonymousUsers.iterator();
-        StatisticReportRecordVOPresentation currentAnonymousUsersRecord = null;
-        if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
-
-        // start ticks with the smallest date
-        int differenceInMonths = findStartDifferenceInMonths(cal, currentAllUsersRecord, currentAnonymousUsersRecord);
-        cal.add(Calendar.MONTH, -differenceInMonths - 1);
-        // increase number of ticks 
-        numberOfMonths+= differenceInMonths + 1;
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (int i=0; i<numberOfMonths ; i++)
+        for (int i=0; i<numberOfMonths; i++)
         {
             String xLabel = cal.get(Calendar.MONTH)+1 +"/"+cal.get(Calendar.YEAR);
             int allUserRequests = 0;
             int anonymousUserrequests = 0;
             
-            if (currentAllUsersRecord!=null && currentAllUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAllUsersRecord.getYear()==cal.get(Calendar.YEAR))
+            if(mapAllUserRequests.get(xLabel) != null)
             {
-                allUserRequests = currentAllUsersRecord.getRequests();
-                //logger.info("allUserRequests " + allUserRequests);
-                if (iter.hasNext()) currentAllUsersRecord = iter.next();
-            }
-            else
-            {
-                allUserRequests = 0;
+            	allUserRequests = mapAllUserRequests.get(xLabel).getRequests();
             }
             
-            if (currentAnonymousUsersRecord!=null && currentAnonymousUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAnonymousUsersRecord.getYear()==cal.get(Calendar.YEAR))
+            if(mapAnonymousUserRequests.get(xLabel) != null)
             {
-                anonymousUserrequests = currentAnonymousUsersRecord.getRequests();
-                //logger.info("anonymousUserrequests " + anonymousUserrequests);
-                if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
+            	anonymousUserrequests = mapAnonymousUserRequests.get(xLabel).getRequests();
             }
-            else
-            {
-                anonymousUserrequests = 0;
-            }
-           
+          
            
            dataset.addValue(allUserRequests-anonymousUserrequests, loggedInUsersSeries, xLabel );
            //logger.info("added value " + (allUserRequests-anonymousUserrequests) + " for "  + loggedInUsersSeries);
@@ -290,59 +268,12 @@ public class StatisticChartServlet extends HttpServlet
         }
 
       
-        /*
-        //fill dataset in reverse order
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for(int i=0; i<loggedInRequestsList.size();i++)
-        {
-            
-          dataset.addValue(loggedInRequestsList.get(i), loggedInUsersSeries, xLabel );
-          dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
-        }
-        dataset.getV
-        */
+       
         return dataset;
 
     }
 
-    /**
-     * Find the difference in month from the given calendar to start from
-     * @param cal
-     * @param currentAllUsersRecord
-     * @param currentAnonymousUsersRecord
-     * @return
-     */
-    private int findStartDifferenceInMonths(Calendar cal, StatisticReportRecordVOPresentation currentAllUsersRecord,
-            StatisticReportRecordVOPresentation currentAnonymousUsersRecord)
-    {
-        Calendar userCal = Calendar.getInstance();
-        userCal.set(Calendar.MONTH, (currentAllUsersRecord != null ? currentAllUsersRecord.getMonth() : cal.get(Calendar.MONTH)));
-        userCal.set(Calendar.YEAR, (currentAllUsersRecord != null ? currentAllUsersRecord.getYear() : cal.get(Calendar.YEAR)));
-        logger.trace("userCal starts with: " + userCal.get(Calendar.MONTH) + "/" + userCal.get(Calendar.YEAR));
-        
-        Calendar anonymousUserCal = Calendar.getInstance();
-        anonymousUserCal.set(Calendar.MONTH, (currentAnonymousUsersRecord != null ? currentAnonymousUsersRecord.getMonth() : cal.get(Calendar.MONTH)));
-        anonymousUserCal.set(Calendar.YEAR, (currentAnonymousUsersRecord != null ? currentAnonymousUsersRecord.getYear() : cal.get(Calendar.YEAR)));
-        
-        logger.trace("anonymousUserCal starts with: " + anonymousUserCal.get(Calendar.MONTH) + "/" + anonymousUserCal.get(Calendar.YEAR));
-        
-        List<Long> startTimeInMillis = new ArrayList<Long>();
-        
-        // find the minimum - this is the first label of the x-axis
-        startTimeInMillis.add(cal.getTimeInMillis());
-        startTimeInMillis.add(userCal.getTimeInMillis());
-        startTimeInMillis.add(anonymousUserCal.getTimeInMillis());
-        long minTimeInMillis = Collections.min(startTimeInMillis);
-        
-        Calendar minCal = Calendar.getInstance();
-        minCal.setTimeInMillis(minTimeInMillis);
-        logger.trace("minCal: " + minCal.get(Calendar.MONTH) + "/" + minCal.get(Calendar.YEAR));
-        
-        int differenceInMonths = cal.get(Calendar.MONTH) - minCal.get(Calendar.MONTH);
-        logger.trace("diffMonth " + differenceInMonths);
-        return differenceInMonths;
-    }
-
+    
     /**
      * Creates the statistic chart.
      *
