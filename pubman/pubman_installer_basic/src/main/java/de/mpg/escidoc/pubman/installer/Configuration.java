@@ -319,12 +319,12 @@ public class Configuration
         String variableToReplace = oldLine.substring(idx + 1).trim();
         String value = getProperty(key);
         
-        logger.debug("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
+        logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
                 + value + ">");
-        /*if (value == null || value.equals(variableToReplace))
+        if (value == null || value.equals(variableToReplace))
         {
             value = "";
-        }*/
+        }
         line = startLine + value;
         return line;
     }
