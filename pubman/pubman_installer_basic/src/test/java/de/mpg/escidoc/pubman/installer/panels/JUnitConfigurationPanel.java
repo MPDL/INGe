@@ -2,7 +2,12 @@ package de.mpg.escidoc.pubman.installer.panels;
 
 import javax.swing.JTextArea;
 
+import com.izforge.izpack.installer.AutomatedInstallData;
+import com.izforge.izpack.installer.AutomatedInstaller;
+import com.izforge.izpack.installer.GUIInstaller;
 import com.izforge.izpack.installer.InstallData;
+import com.izforge.izpack.installer.Installer;
+import com.izforge.izpack.installer.InstallerBase;
 
 /**
  * 
@@ -48,7 +53,19 @@ public class JUnitConfigurationPanel implements IConfigurationCreatorPanel
     @Override
     public InstallData getInstallData()
     {
-        // TODO Auto-generated method stub
-        return null;
+        GUIInstaller installer = null;
+        try
+        {
+            installer = new GUIInstaller();
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        AutomatedInstallData installData = InstallData.getInstance();
+
+        return (InstallData)installData;
     }
 }

@@ -27,7 +27,6 @@ import org.apache.log4j.Logger;
 import com.izforge.izpack.installer.InstallData;
 
 import de.escidoc.www.services.aa.RoleHandler;
-import de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel;
 import de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel;
 import de.mpg.escidoc.pubman.installer.util.Utils;
 import de.mpg.escidoc.services.framework.AdminHelper;
@@ -136,7 +135,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
         Map<String, String> userConfigValues = new HashMap<String, String>();
         Map<String, String> authConfigValues = new HashMap<String, String>();
     
-        userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
+        userConfigValues.put(Configuration.KEY_CORESERVICE_URL, 
+                idata == null || idata.getVariable("CoreserviceUrl") == null ? "http://localhost:8080" : idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));
@@ -269,8 +269,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_SORT_KEYS, "_relevance_");
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_SORT_ORDER, "descending");
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_START_ORDER, "1");
-        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_MAX_RECORDS, "50");
-        
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_MAX_RECORDS, "50");        
         
         // Import
         userConfigValues.put(Configuration.KEY_IMPORT_DB_DRIVER_CLASS, idata.getVariable("DatabaseDriverClassHypersonic"));
