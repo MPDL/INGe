@@ -99,7 +99,7 @@ public abstract class Formatter
      * @return A string that displays the given results in the current format.
      * @throws IOException From XSLT transformation.
      */
-    public abstract String formatQuery(List<? extends Describable> pairs) throws IOException;
+    public abstract String formatQuery(List<? extends Describable> pairs, Model model) throws IOException;
 
     /**
      * Format the results of the details action.

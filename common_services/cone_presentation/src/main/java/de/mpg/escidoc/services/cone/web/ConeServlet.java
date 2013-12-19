@@ -377,7 +377,7 @@ public class ConeServlet extends HttpServlet
                     logger.error(DB_ERROR_MESSAGE, e);
                 }
    
-                response.getWriter().print(formatter.formatQuery(result));
+                response.getWriter().print(formatter.formatQuery(result, model));
             }
             querier.release();
         }
@@ -528,7 +528,7 @@ public class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    response.getWriter().print(formatter.formatQuery(result));
+                    response.getWriter().print(formatter.formatQuery(result, model));
                 }
                 querier.release();
             }
@@ -584,7 +584,7 @@ public class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    response.getWriter().print(formatter.formatQuery(result));
+                    response.getWriter().print(formatter.formatQuery(result, model));
                 }
                 querier.release();
 

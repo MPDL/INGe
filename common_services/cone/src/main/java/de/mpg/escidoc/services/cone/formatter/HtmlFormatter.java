@@ -115,10 +115,10 @@ public class HtmlFormatter extends Formatter
      * @param pairs A list of key-value pairs
      * @return A String formatted as HTML
      */
-    public String formatQuery(List<? extends Describable> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException
     {
         
-        String result = RdfHelper.formatList(pairs);
+        String result = RdfHelper.formatList(pairs, model);
         StringWriter writer = new StringWriter();
         try
         {
@@ -151,7 +151,7 @@ public class HtmlFormatter extends Formatter
         throws IOException
     {
         
-        String result = RdfHelper.formatMap(id, triples);
+        String result = RdfHelper.formatMap(id, triples, model);
         StringWriter writer = new StringWriter();
         try
         {
@@ -187,6 +187,10 @@ public class HtmlFormatter extends Formatter
             transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + id + "\"&exportFormat=" + exportFormat + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
             transformer.setParameter("lang", lang);
+            transformer.setParameter("subjectTagNamespace", model.getRdfAboutTag().getNamespaceURI());
+            transformer.setParameter("subjectTagLocalName", model.getRdfAboutTag().getLocalPart());
+            transformer.setParameter("subjectTagPrefix", model.getRdfAboutTag().getPrefix());
+            
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }
         catch (Exception e)

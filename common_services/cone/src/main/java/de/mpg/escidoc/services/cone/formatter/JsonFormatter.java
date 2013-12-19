@@ -143,7 +143,7 @@ public class JsonFormatter extends Formatter
      * @param pairs The RDF.
      * @return A String formatted in JSON format.
      */
-    public String formatQuery(List<? extends Describable> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException
     {
         
         StringWriter result = new StringWriter();

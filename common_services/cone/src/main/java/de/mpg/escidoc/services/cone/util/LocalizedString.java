@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.cone.util;
 
+import de.mpg.escidoc.services.cone.ModelList.Model;
+
 
 /**
  * A string with a language.
@@ -196,7 +198,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject
     /**
      * {@inheritDoc}
      */
-    public String toRdf()
+    public String toRdf(Model model)
     {
         return RdfHelper.xmlEscape(getValue());
     }

@@ -471,6 +471,8 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}::
 			</result>
 		</results>
 	</model>
+	
+		<!-- 
 	<model>
 		<name>imago</name>
 		<aliases>
@@ -500,6 +502,66 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 			</result>
 		</results>
 	</model>
+	
+
+	<model>
+		<name>imago</name>
+		<aliases>
+			<alias>imago</alias>
+		</aliases>
+		<description>Imago Thesaurus</description>
+		<open>true</open>
+		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="true" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" localized="true" mandatory="false" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" localized="false" mandatory="false" multiple="true" modify="true" resourceModel="imago" includeResource="true" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	-->
+	
+	
+	<model>
+		<name>imago</name>
+		<aliases>
+			<alias>skos_imago</alias>
+		</aliases>
+		<description>Skos Imago Thesaurus</description>
+		<open>true</open>
+		<rdf-about-tag xmlns:skos="http://www.w3.org/2004/02/skos/core#">skos:Concept</rdf-about-tag>
+		<primary-identifier control="false" generate-cone-id="false" subject-prefix="imago/resource/"></primary-identifier>
+		<predicates>
+			<predicate name="Preferred Label" value="http://www.w3.org/2004/02/skos/core#prefLabel" localized="true" mandatory="true" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Alternative Label" value="http://www.w3.org/2004/02/skos/core#altLabel" localized="true" mandatory="false" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Narrower" value="http://www.w3.org/2004/02/skos/core#narrower" localized="false" mandatory="false" multiple="true" modify="true" resourceModel="imago" includeResource="false" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+			<predicate name="Broader" value="http://www.w3.org/2004/02/skos/core#broader" localized="false" mandatory="false" multiple="true" modify="true" resourceModel="imago" includeResource="false" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://www.w3.org/2004/02/skos/core#prefLabel&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	
 
 	<formats>
 		<format id="html">
@@ -532,5 +594,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 		<default-namespace uri="http://purl.org/eprint/terms/" prefix="eprints"/>
 		<default-namespace uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix="rdf"/>
 		<default-namespace uri="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi"/>
+		<default-namespace uri="http://www.w3.org/2004/02/skos/core#" prefix="skos"/>
 	</config>
 </models>

@@ -35,10 +35,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+import javax.xml.namespace.QName;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ShortContentHandler;
+import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.ModelList.Predicate;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
@@ -55,17 +60,30 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class RDFHandler extends ShortContentHandler
+public class RDFHandler extends DefaultHandler
 {
 
     private List<LocalizedTripleObject> result = new ArrayList<LocalizedTripleObject>();
     private Stack<LocalizedTripleObject> stack = new Stack<LocalizedTripleObject>();
     private String instanceUrl;
     
+    private Stack<QName> tagStack = new Stack<QName>();
+    
     private Querier querier;
     
-    public RDFHandler(boolean loggedIn)
+    private Model model;
+    
+    private StringBuffer currentContent;
+    
+    private String currentRdfAbout;
+    
+    private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF", "rdf");
+    public final static QName rdfDescriptionTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "Description", "rdf");
+    
+    
+    public RDFHandler(boolean loggedIn, Model model)
     {
+    	this.model = model;
     	querier  = QuerierFactory.newQuerier(loggedIn);
     	try
     	{
@@ -80,54 +98,45 @@ public class RDFHandler extends ShortContentHandler
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException
     {
-        super.startElement(uri, localName, name, attributes);
-        if ("RDF/Description".equals(getLocalStack().toString()))
+       // super.startElement(uri, localName, name, attributes);
+        
+        
+        QName currentTag = new QName(uri, localName);
+        
+        
+        if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag) && currentTag.equals(model.getRdfAboutTag()))
         {
             // New element
             String subject = attributes.getValue("rdf:about");
             this.stack.push(new TreeFragment(subject));
         }
-        else if (!"RDF".equals(getLocalStack().toString()))
+        
+        
+        else if (tagStack.size() > 1 && tagStack.get(0).equals(rdfRootTag))
         {
             String predicate;
-            String namespace;
-            String tagName;
-            if (name.contains(":"))
+            //String namespace;
+            //String tagName;
+            if (uri!=null)
             {
-                String nsPrefix = name.split(":")[0];
-                namespace = namespaces.get(nsPrefix);
-                tagName = name.split(":")[1];
-                if (!namespace.endsWith("/") && !namespace.endsWith("#"))
+              
+                if (!uri.endsWith("/") && !uri.endsWith("#"))
                 {
-                    predicate = namespace + " " + tagName;
+                    predicate = uri + " " + localName;
                 }
                 else
                 {
-                    predicate = namespace + tagName;
+                    predicate = uri + localName;
                 }
             }
-            else if (namespaces.get("") != null)
-            {
-                namespace = namespaces.get("");
-                if (!namespace.endsWith("/") && !namespace.endsWith("#"))
-                {
-                    predicate = namespace + " " + name;
-                }
-                else
-                {
-                    predicate = namespace + name;
-                }
-                tagName = name;
-                
-            }
+           
             else
             {
-                namespace = null;
-                tagName = name;
                 predicate = name;
             }
 
-            if ("http://www.w3.org/1999/02/22-rdf-syntax-ns#".equals(namespace) && "Description".equals(tagName))
+            if (currentTag.equals(model.getRdfAboutTag()))
+            //if(tag.equals(model.getRdfImportTag()))
             {
                 LocalizedString wrongData = (LocalizedString) this.stack.pop();
                 TreeFragment container = (TreeFragment) this.stack.peek();
@@ -164,6 +173,18 @@ public class RDFHandler extends ShortContentHandler
                 LocalizedString firstValue = new LocalizedString();
                 firstValue.setLanguage(attributes.getValue("xml:lang"));
                 
+                //For predicates that link to other resources, use rdf:resource attribute as content
+                Predicate p = model.getPredicate(predicate);
+                if (p!=null && p.getResourceModel() != null && !p.isIncludeResource())
+                {
+                	if(attributes.getValue("rdf:resource")!=null)
+                	{
+                		firstValue.setValue(attributes.getValue("rdf:resource"));
+                	}
+                	else throw new SAXException("Excpected attribute rdf:resource for element" + name + " (namespace " + uri + "), because it has attribute resourceModel and is set as includeResource=false");
+                	
+                }
+                
                 if (((TreeFragment) this.stack.peek()).get(predicate) != null)
                 {
                     ((TreeFragment) this.stack.peek()).get(predicate).add(firstValue);
@@ -178,21 +199,43 @@ public class RDFHandler extends ShortContentHandler
             }
             else
             {
-                throw new SAXException("Wrong RDF structure at " + getStack());
+                throw new SAXException("Wrong RDF structure at " + name + " (namespace " + uri + ")"  );
             }
         }
+        tagStack.push(currentTag);
+        currentContent = new StringBuffer();
     }
 
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException
     {
-        super.endElement(uri, localName, name);
-        if ("RDF".equals(getLocalStack().toString()))
+        //super.endElement(uri, localName, name);
+        
+        QName currentTag = new QName(uri, localName);
+        
+        if(currentContent != null && currentContent.length()>0)
+        {
+        	if (this.stack.peek() instanceof LocalizedString)
+            {
+                ((LocalizedString) this.stack.peek()).setValue(currentContent.toString());
+            }
+            else
+            {
+                throw new RuntimeException("Wrong RDF structure at " + name + " (namespace " + uri + ")"  );
+            }
+        }
+        
+        
+        tagStack.pop();
+        currentContent = null;
+        
+        if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag))
         {
             result.add(this.stack.pop());
             return;
         }
         
+        /*
         String namespace;
         String tagName;
         if (name.contains(":"))
@@ -211,26 +254,17 @@ public class RDFHandler extends ShortContentHandler
             namespace = null;
             tagName = name;
         }
+        */
 
         
-        if (!this.stack.isEmpty() && !("Description".equals(tagName) && "http://www.w3.org/1999/02/22-rdf-syntax-ns#".equals(namespace)))
+        if (!this.stack.isEmpty() && !currentTag.equals(model.getRdfAboutTag()))
         {
             this.stack.pop();
         }
+        
     }
 
-    @Override
-    public void content(String uri, String localName, String name, String content)
-    {
-        if (this.stack.peek() instanceof LocalizedString)
-        {
-            ((LocalizedString) this.stack.peek()).setValue(content);
-        }
-        else
-        {
-            throw new RuntimeException("Wrong RDF structure at " + getStack());
-        }
-    }
+  
     
     public List<LocalizedTripleObject> getResult()
     {
@@ -250,6 +284,19 @@ public class RDFHandler extends ShortContentHandler
         catch (Exception e)
         {
             throw new SAXException(e);
+        }
+    }
+    
+    
+    /**
+     * Append characters to current content.
+     */
+    @Override
+    public final void characters(char[] ch, int start, int length) throws SAXException
+    {
+        if (currentContent != null)
+        {
+            currentContent.append(ch, start, length);
         }
     }
     

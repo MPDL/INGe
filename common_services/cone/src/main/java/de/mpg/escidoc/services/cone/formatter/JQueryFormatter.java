@@ -141,7 +141,7 @@ public class JQueryFormatter extends Formatter
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    public String formatQuery(List<? extends Describable> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException
     {
         
         StringWriter result = new StringWriter();

@@ -111,10 +111,10 @@ public class RdfFormatter extends Formatter
      * @param pairs A list of key-value pairs
      * @return A String formatted as HTML
      */
-    public String formatQuery(List<? extends Describable> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException
     {
         
-        String result = RdfHelper.formatList(pairs);
+        String result = RdfHelper.formatList(pairs, model);
         
         return result;
     }
@@ -131,7 +131,7 @@ public class RdfFormatter extends Formatter
     public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
         
-        String result = RdfHelper.formatMap(id, triples);
+        String result = RdfHelper.formatMap(id, triples, model);
         
         return result;
     }

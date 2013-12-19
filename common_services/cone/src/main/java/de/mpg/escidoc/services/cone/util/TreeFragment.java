@@ -28,7 +28,9 @@
  */
 package de.mpg.escidoc.services.cone.util;
 
+import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,7 +40,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+
 import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.ModelList.Predicate;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -166,7 +173,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     /**
      * {@inheritDoc}
      */
-    public String toRdf()
+    public String toRdf(Model model)
     {
         if (size() == 0)
         {
@@ -193,7 +200,9 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                 throw new RuntimeException(e);
             }
             int counter = 0;
-            result.append("<rdf:Description");
+            
+            result.append("<" + (model.getRdfAboutTag().getPrefix()!=null ? model.getRdfAboutTag().getPrefix() + ":" : "") + model.getRdfAboutTag().getLocalPart());
+            
             if (!subject.startsWith("genid:"))
             {
                 try
@@ -270,19 +279,55 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                         result.append(value.getLanguage());
                         result.append("\"");
                     }
-                    result.append(">");
-                    result.append(value.toRdf());
-                    result.append("</");
-                    if (namespace != null)
+                   
+                    
+                    Predicate p = model.getPredicate(predicate);
+                    
+                    //display links to other resources as rdf:resource attribute, if includeResource is false
+                    
+                    if(p!=null && p.getResourceModel() != null && !p.isIncludeResource())
                     {
-                        result.append(prefix);
-                        result.append(":");
+                    	String url = value.toString();
+                    	if(!(url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp:")))
+                    	{
+                    		try {
+								if(value.toString().startsWith("/"))
+								{
+									url = PropertyReader.getProperty("escidoc.cone.service.url") + url.substring(0, url.length()-1);
+								}
+								else
+								{
+									url = PropertyReader.getProperty("escidoc.cone.service.url") + url;
+								}
+							} catch (Exception e) {
+								throw new RuntimeException(e);
+							} 
+                    		
+                    	}
+                    	
+                    	result.append(" rdf:resource=\"" + url + "\"/>");
                     }
-                    result.append(tagName);
-                    result.append(">\n");
+                    
+                    else
+                    {
+                    
+                    	result.append(">");
+                     	result.append(value.toRdf(model));
+                     	
+                        result.append("</");
+                        if (namespace != null)
+                        {
+                            result.append(prefix);
+                            result.append(":");
+                        }
+                        result.append(tagName);
+                        result.append(">\n");
+                    }
+                    
+                   
                 }
             }
-            result.append("</rdf:Description>\n");
+            result.append("</"+ (model.getRdfAboutTag().getPrefix()!=null ? model.getRdfAboutTag().getPrefix() + ":" : "") + model.getRdfAboutTag().getLocalPart() + ">\n");
             return result.toString();
         }
     }

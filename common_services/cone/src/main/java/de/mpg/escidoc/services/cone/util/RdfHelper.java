@@ -33,6 +33,10 @@ package de.mpg.escidoc.services.cone.util;
 import java.io.StringWriter;
 import java.util.List;
 
+
+
+
+import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -58,14 +62,22 @@ public class RdfHelper
      * 
      * @return The RDF
      */
-    public static String formatList(List<? extends Describable> pairs)
+    public static String formatList(List<? extends Describable> pairs, Model model)
     {
         
         StringWriter result = new StringWriter();
         
         result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
-                + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n");
+                + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\"");
+        
+        if(model.getRdfAboutTag() != null && model.getRdfAboutTag().getNamespaceURI() != null && !model.getRdfAboutTag().getNamespaceURI().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#") )
+        	
+        {
+        	result.append(" xmlns:" + model.getRdfAboutTag().getPrefix() + "=\"" + model.getRdfAboutTag().getNamespaceURI() + "\"");
+        }
+        
+        result.append(">\n");
         if (pairs != null)
         {
             
@@ -101,7 +113,7 @@ public class RdfHelper
                 }
                 else if (pair instanceof TreeFragment)
                 {
-                    result.append(((TreeFragment) pair).toRdf());
+                    result.append(((TreeFragment) pair).toRdf(model));
                 }
             }
         }
@@ -128,16 +140,25 @@ public class RdfHelper
      * 
      * @return The RDF
      */
-    public static String formatMap(String id, TreeFragment triples)
+    public static String formatMap(String id, TreeFragment triples, Model model)
     {
         if (triples != null)
         {
 	        StringWriter result = new StringWriter();
 	        
 	        result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-	        result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n");
+	        result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"");
 	        
-	        result.append(triples.toRdf());
+	        
+	        if(model.getRdfAboutTag() != null && model.getRdfAboutTag().getNamespaceURI() != null && !model.getRdfAboutTag().getNamespaceURI().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#") )
+	        {
+	        	result.append(" xmlns:" + model.getRdfAboutTag().getPrefix() + "=\"" + model.getRdfAboutTag().getNamespaceURI() + "\"");
+	        }
+	        
+	        
+	        result.append(">\n");
+	        
+	        result.append(triples.toRdf(model));
 	        
 	        result.append("</rdf:RDF>\n");
 	        

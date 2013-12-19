@@ -17,6 +17,8 @@
     						</xs:element>
     						<xs:element name="description" minOccurs="0" type="xs:string"/>
     						<xs:element name="open" minOccurs="0" type="xs:boolean" default="true"/>
+    						<xs:element name="rdf-about-tag" minOccurs="0" type="xs:QName" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" default="rdf:Description"/>
+    						
     						<xs:element name="primary-identifier" minOccurs="1" maxOccurs="1">
     							<xs:complexType>
 	    							<xs:simpleContent>
@@ -101,7 +103,9 @@
 		<xs:attribute name="localized" type="xs:boolean" default="false" use="optional"/>
 		<xs:attribute name="searchable" type="xs:boolean" default="true" use="optional"/>
 		<xs:attribute name="generateObject" type="xs:boolean" default="true" use="optional"/>
+		
 		<xs:attribute name="resourceModel" type="xs:NCName" use="optional"/>
+		<!-- include linked resources for rdf export. If true, the linked resource is completely included. If false, an rdf:resource attribute with an url to the linked resource is created-->
 		<xs:attribute name="includeResource" type="xs:boolean" use="optional"/>
 		<xs:attribute name="default" type="xs:string" default="" use="optional"/>
 		<xs:attribute name="overwrite" type="xs:boolean" use="optional"/>

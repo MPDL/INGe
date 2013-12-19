@@ -28,15 +28,18 @@ import java.util.Set;
 import java.util.Stack;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.QName;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.axis.wsdl.fromJava.Namespaces;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.rdfimport.RDFHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -149,7 +152,7 @@ public class ModelList
      * @author $Author$ (last modification)
      * @version $Revision$ $LastChangedDate$
      */
-    private class ServiceListHandler extends ShortContentHandler
+    private class ServiceListHandler extends de.mpg.escidoc.services.common.util.ShortContentHandler
     {
         private Set<Model> list = new LinkedHashSet<Model>();
         private Model currentService = null;
@@ -159,41 +162,61 @@ public class ModelList
         @Override
         public void content(String uri, String localName, String name, String content)
         {
-            if ("models/model/name".equals(stack.toString()))
+            if ("models/model/name".equals(localStack.toString()))
             {
                 currentService.setName(content.trim());
             }
-            else if ("models/model/description".equals(stack.toString()))
+            else if ("models/model/description".equals(localStack.toString()))
             {
                 currentService.setDescription(content.trim());
             }
-            else if ("models/model/aliases/alias".equals(stack.toString()))
+            else if ("models/model/aliases/alias".equals(localStack.toString()))
             {
                 currentService.getAliases().add(content.trim());
             }
-            else if ("models/model/open".equals(stack.toString()))
+            else if ("models/model/open".equals(localStack.toString()))
             {
                 currentService.setOpen(Boolean.parseBoolean(content.trim()));
             }
-            else if ("models/model/primary-identifier".equals(stack.toString()))
+            else if ("models/model/rdf-about-tag".equals(localStack.toString()))
+            {
+            	String[] parts = content.split(":");
+            	if(parts.length == 2)
+            	{
+            		String ns = getNamespaces().get(parts[0]);
+            		currentService.setRdfAboutTag(new QName(ns, parts[1], parts[0]));
+            	}
+            	else if (parts.length == 1)
+            	{
+            		currentService.setRdfAboutTag(new QName(parts[0]));
+            	}
+            	else
+            	{
+            		
+            	}
+            	
+            	
+            }
+            else if ("models/model/primary-identifier".equals(localStack.toString()))
             {
                 currentService.setIdentifier("".equals(content.trim()) ? null : content.trim());
             }
-            else if ("models/model/results/result/result-pattern".equals(stack.toString()))
+            else if ("models/model/results/result/result-pattern".equals(localStack.toString()))
             {
             	int resultSize = currentService.getResults().size();
                 currentService.getResults().get(resultSize - 1).setResultPattern(content.trim());
             }
-            else if ("models/model/results/result/sort-pattern".equals(stack.toString()))
+            else if ("models/model/results/result/sort-pattern".equals(localStack.toString()))
             {
             	int resultSize = currentService.getResults().size();
                 currentService.getResults().get(resultSize - 1).setSortPattern(content.trim());
             }
-            else if ("models/model/results/result/type".equals(stack.toString()))
+            else if ("models/model/results/result/type".equals(localStack.toString()))
             {
             	int resultSize = currentService.getResults().size();
                 currentService.getResults().get(resultSize - 1).setType(content.trim());
             }
+            
             
             
         }
@@ -202,15 +225,15 @@ public class ModelList
         public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException
         {
             super.startElement(uri, localName, name, attributes);
-            if ("models/model".equals(stack.toString()))
+            if ("models/model".equals(localStack.toString()))
             {
                 currentService = new Model();
             }
-            else if ("models/model/predicates".equals(stack.toString()))
+            else if ("models/model/predicates".equals(localStack.toString()))
             {
                 this.predicateStack.push(currentService.getPredicates());
             }
-            else if ("models/model/results/result".equals(stack.toString()))
+            else if ("models/model/results/result".equals(localStack.toString()))
             {
                 currentService.getResults().add(new ModelResult());
             }
@@ -256,23 +279,23 @@ public class ModelList
                 this.predicateStack.peek().add(predicate);
                 this.predicateStack.push(predicate.getPredicates());
             }
-            else if ("models/model/primary-identifier".equals(stack.toString()))
+            else if ("models/model/primary-identifier".equals(localStack.toString()))
             {
                 currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate-cone-id")));
                 currentService.setIdentifierPrefix((attributes.getValue("identifier-prefix") == null ? "" : attributes.getValue("identifier-prefix")));
                 currentService.setSubjectPrefix((attributes.getValue("subject-prefix") == null ? "" : attributes.getValue("subject-prefix")));
                 currentService.setControlled(Boolean.parseBoolean(attributes.getValue("control")));
             }
-            else if ("models/config/default-namespace".equals(stack.toString()))
+            else if ("models/config/default-namespace".equals(localStack.toString()))
             {
                 defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
             }
-            else if ("models/formats/format".equals(stack.toString()))
+            else if ("models/formats/format".equals(localStack.toString()))
             {
                 currentFormat = new HashSet<String>();
                 formatMimetypes.put(attributes.getValue("id"), currentFormat);
             }
-            else if ("models/formats/format/mime-type".equals(stack.toString()))
+            else if ("models/formats/format/mime-type".equals(localStack.toString()))
             {
                 currentFormat.add(attributes.getValue("id"));
             }
@@ -281,7 +304,7 @@ public class ModelList
         @Override
         public void endElement(String uri, String localName, String name) throws SAXException
         {
-            if ("models/model".equals(stack.toString()))
+            if ("models/model".equals(localStack.toString()))
             {
                 list.add(currentService);
             }
@@ -297,20 +320,20 @@ public class ModelList
         {
             super.endDocument();
             
-            Stack<String> stack = new Stack<String>();
+            Stack<String> modelStack = new Stack<String>();
             
             for (Model model : list)
             {
-                stack.push(model.getName());
-                setI18nFlags(model, model.getPredicates(), stack);
-                stack.pop();
+            	modelStack.push(model.getName());
+                setI18nFlags(model, model.getPredicates(), modelStack);
+                modelStack.pop();
             }
         }
 
         /**
          * @param model
          */
-        private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> stack) throws SAXException
+        private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> modelStack) throws SAXException
         {
             for (Predicate predicate : predicates)
             {
@@ -346,7 +369,7 @@ public class ModelList
                 
                 if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
                 {
-                    setI18nFlags(model, predicate.getPredicates(), stack);
+                    setI18nFlags(model, predicate.getPredicates(), modelStack);
                 }
                 else if (predicate.isResource())
                 {
@@ -356,11 +379,11 @@ public class ModelList
                         {
                             if (nextModel.getName().equals(predicate.getResourceModel()))
                             {
-                                if (!(stack.contains(nextModel.getName())))
+                                if (!(modelStack.contains(nextModel.getName())))
                                 {
-                                    stack.push(nextModel.getName());
-                                    setI18nFlags(model, nextModel.getPredicates(), stack);
-                                    stack.pop();
+                                    modelStack.push(nextModel.getName());
+                                    setI18nFlags(model, nextModel.getPredicates(), modelStack);
+                                    modelStack.pop();
                                 }
                                 break;
                             }
@@ -415,84 +438,7 @@ public class ModelList
    
     }
 
-    /**
-     * Generic SAX handler with convenience methods. Useful for XML with only short string content. Classes that extend
-     * this class should always call super() at the beginning of an overridden method.
-     * 
-     * @author franke (initial creation)
-     * @author $Author$ (last modification)
-     * @version $Revision$ $LastChangedDate$
-     */
-    private class ShortContentHandler extends DefaultHandler
-    {
-        private StringBuffer currentContent;
-        protected XMLStack stack = new XMLStack();
-
-        @Override
-        public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException
-        {
-            stack.push(name);
-            currentContent = new StringBuffer();
-        }
-
-        @Override
-        public void endElement(String uri, String localName, String name) throws SAXException
-        {
-            content(uri, localName, name, currentContent.toString());
-            stack.pop();
-        }
-
-        @Override
-        public final void characters(char[] ch, int start, int length) throws SAXException
-        {
-            currentContent.append(ch, start, length);
-        }
-
-        /**
-         * Called when string content was found.
-         * 
-         * @param uri The Namespace URI, or the empty string if the element has no Namespace URI or if Namespace
-         *            processing is not being performed.
-         * @param localName The local name (without prefix), or the empty string if Namespace processing is not being
-         *            performed.
-         * @param name The qualified name (with prefix), or the empty string if qualified names are not available.
-         * @param content The string content of the current tag.
-         */
-        public void content(String uri, String localName, String name, String content)
-        {
-            // Do nothing by default
-        }
-
-        /**
-         * A {@link Stack} extension to facilitate XML navigation.
-         * 
-         * @author franke (initial creation)
-         * @author $Author$ (last modification)
-         * @version $Revision$ $LastChangedDate$
-         */
-        private class XMLStack extends Stack<String>
-        {
-            /**
-             * Returns a String representation of the Stack in an XPath like way (e.g. "root/subtag/subsub"):
-             */
-            @Override
-            public synchronized String toString()
-            {
-                StringWriter writer = new StringWriter();
-                for (Iterator<String> iterator = this.iterator(); iterator.hasNext();)
-                {
-                    String element = (String) iterator.next();
-                    writer.append(element);
-                    if (iterator.hasNext())
-                    {
-                        writer.append("/");
-                    }
-                }
-                return writer.toString();
-            }
-        }
-    }
-
+ 
     /**
      * A bean holding data of a CoNE service.
      * 
@@ -517,6 +463,7 @@ public class ModelList
         private boolean localizedMatches;
         private boolean globalMatches;
         private boolean open;
+        private QName rdfAboutTag = RDFHandler.rdfDescriptionTag;
         /**
          * Default constructor.
          */
@@ -789,6 +736,14 @@ public class ModelList
 
 		public void setResults(List<ModelResult> results) {
 			this.results = results;
+		}
+
+		public QName getRdfAboutTag() {
+			return rdfAboutTag;
+		}
+
+		public void setRdfAboutTag(QName rdfImportTag) {
+			this.rdfAboutTag = rdfImportTag;
 		}
     }
     

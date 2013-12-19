@@ -62,6 +62,7 @@
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
+<%@page import="org.apache.log4j.Logger"%>
 
 <%!
 	private void removeIdentifierPrefixes(TreeFragment fragment, Model model) throws Exception
@@ -112,6 +113,7 @@
 								<%
 									errors = new ArrayList<String>();
 									boolean loggedIn = Login.getLoggedIn(request);
+									Logger logger = Logger.getLogger( "upload.jsp" );
 									
 									if (!loggedIn)
 									{
@@ -157,13 +159,16 @@
 											}
 										}
 										
-										SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-										RDFHandler rdfHandler = new RDFHandler(loggedIn);
+										SAXParserFactory spf = SAXParserFactory.newInstance();
+										spf.setNamespaceAware(true);
+										SAXParser parser = spf.newSAXParser();
+										RDFHandler rdfHandler = new RDFHandler(loggedIn, model);
 										try {
 											parser.parse(uploadedStream, rdfHandler);
 										}
 										catch(Exception e)
 										{
+											logger.error("Error while parsing RDF import file", e);
 											errors.add("Invalid RDF file!<br/>" + e.getMessage());
 										}
 
