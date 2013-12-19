@@ -87,6 +87,7 @@
         <res id="HTMLInfoPanel.upgradeInfo" src="installer/nextstepsAfterUpgrade.html" parse="yes" type="plain" />
         <res id="Heading.image" src="installer/escidoc-logo-small.jpg" />
         <res id="Splash.image" src="installer/splash.jpg" />
+        <res id="PubMan.image" src="installer/PUBMAN.jpg" />
         <res id="userInputSpec.xml" src="installer/userInputSpec.xml" />
         <res id="userInputLang.xml_eng" src="installer/userInputLang.xml_eng" />
         <res id="AntActionsSpec.xml" src="installer/EscidocAntActionSpec.xml" />
