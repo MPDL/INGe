@@ -9,13 +9,14 @@ import de.mpg.escidoc.pubman.installer.panels.JUnitConfigurationPanel;
 
 public class TestStartEscidocProcess
 {
-    private StartEscidocProcess process = new StartEscidocProcess(new JUnitConfigurationPanel());
+    private StartEscidocProcess process = null;
     
    
     @Test
     @Ignore
     public void test() throws Exception
     {
+        process = new StartEscidocProcess(new JUnitConfigurationPanel());
         process.start();
         
         do
