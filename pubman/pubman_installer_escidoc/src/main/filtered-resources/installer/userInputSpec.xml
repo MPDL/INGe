@@ -438,8 +438,103 @@
         <field type="space" />
         <field type="divider" align="bottom" />
     </panel>
+    <!-- ===========================   Panel 15: Search Engine SiteMap   =============================== -->
+    <panel order="15">
+        <createForPack name="PubMan" />
+         <field type="staticText" align="left"
+            txt="Customize PubMan features and usability aspects" />
+        <field type="title" txt="Search Engine SiteMap" bold="true" size="1" />
+        <field type="divider" align="top" /> 
+        <field type="space" />
+        <field type="text" align="left" variable="escidoc.pubman.sitemap.task.interval">
+            <spec txt="The time (in minutes) between two creations of a sitemap readable by search engines  :" size="15" align="left" set="${escidoc.pubman.sitemap.task.interval}"/>
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of seconds">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.sitemap.max.items">
+            <spec txt="The number of items listed in one file  :" size="15" align="right" set="${escidoc.pubman.sitemap.max.items}"/>
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of items">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.sitemap.retrieve.items">
+            <spec txt="The number of items retrieved in a request  :" size="15" align="left" set="${escidoc.pubman.sitemap.retrieve.items}"/>
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of items">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.sitemap.retrieve.timeout">
+            <spec txt="The time (in seconds) between two requests  :" size="15" align="left" set="${escidoc.pubman.sitemap.retrieve.timeout}"/>
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of seconds">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
+        </field>
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
 
-  <panel order="15" id="Database backup">
+     <!-- ===========================   Panel 11 : Search&amp;Export Service   =============================== -->
+    <panel order="16">
+        <createForPack name="PubMan" />
+         <field type="staticText" align="left"
+            txt="Customize PubMan features and usability aspects" />
+        <field type="title" txt="Search&amp;Export Service" bold="true" size="1" />
+        <field type="divider" align="top" /> 
+        <field type="space" />
+        <field type="text" align="left" variable="escidoc.search.and.export.default.sort.keys">
+            <spec txt="The sort index preselected in the example form  :" size="15" align="left" set="${escidoc.search.and.export.default.sort.keys}"/>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a sort index" />
+        </field>
+        <field type="text" align="left" variable="escidoc.search.and.export.default.sort.order">
+            <spec txt="The sort direction preselected in the example form  :" size="15" align="right" set="${escidoc.search.and.export.default.sort.order}"/>
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter either 'ascending' or 'descending'">
+            	<param name="pattern" value="ascending|descending"/>
+            </validator>
+        </field>
+        <field type="text" align="left" variable="escidoc.search.and.export.maximum.records">
+            <spec txt="The number of records preselected in the example form  :" size="15" align="left" set="${escidoc.search.and.export.maximum.records}"/>
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of records">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
+        </field>
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
+ 
+    <!-- ===========================   Panel 12 : Home Page Content and Survey Advertisements   =============================== -->
+    <panel order="17">
+        <createForPack name="PubMan" />
+        <field type="title" txt="Home Page Content and Survey Advertisements" bold="true" size="1" />
+        <field type="divider" align="top" /> 
+        <field type="space" />
+        <field type="staticText" align="left"
+            txt="Here you can optionally specify an URL to external HTML content which will be displayed on Pubman's homepage instead of the standard content. (e.g. http://example.org/pubman_home.html). Leave the field blank if you do not want to use this feature. " />  
+        <field type="staticText" align="left"
+            txt="If you want to add content for different languages, please add a valid language code suffix ( '.en',  '.de', '.ja') to the HTML's filename (e.g. pubman_home.html.en). The suffix must not be provided in this field, it will be automatically added by Pubman, depending on the selected language. If no HTML for the selected language is found, the specified standard content (pubman_home.html) will be used. " />
+        <field type="text" align="left" variable="escidoc.pubman.home.content.url">
+            <spec txt="URL to external HTML content  :" size="15" align="left" set="${escidoc.pubman.home.content.url}"/>
+        </field>
+        <field type="space" />
+        <field type="divider" align="top" /> 
+        <field type="space" />
+		<field type="staticText" align="left"
+            txt="Pubman can optionally display survey advertisements with a link on every item page. Leave the fields blank if you do not want to use this feature." />
+        <field type="title" txt="Home Page Content and Survey Advertisements" bold="true" size="1" />
+        <field type="text" align="left" variable="escidoc.pubman.survey.url">
+            <spec txt="The URL which leads to the current survey  :" size="15" align="right" set="${escidoc.pubman.survey.url}"/>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.survey.title">
+            <spec txt="The title of the survey  :" size="15" align="left" set="${escidoc.pubman.survey.title}"/>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.survey.text">
+            <spec txt="A short description of the survey  :" size="15" align="left" set="${escidoc.pubman.survey.text}"/>
+        </field>
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
+
+  <panel order="18" id="Database backup">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Backup" bold="true" size="1" />
     <field type="divider" align="top" />
@@ -449,7 +544,7 @@
     <field type="divider" align="bottom" />
   </panel>
 
-  <panel order="16" id="Database migration">
+  <panel order="19" id="Database migration">
     <createForPack name="eSciDoc" />
     <field type="title" txt="Database Migration" bold="true" size="1" />
     <field type="divider" align="top" />

@@ -222,6 +222,11 @@
 		<variable name="AAIPTable" value="ips.xml"/>
 		<variable name="AAClientStartClass" value="de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart"/>
 		<variable name="AAClientFinishClass" value="de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish"/>
+		
+		<variable name="escidoc.pubman.sitemap.task.interval" value="1440"/>
+		<variable name="escidoc.pubman.sitemap.max.items" value="50000"/>
+		<variable name="escidoc.pubman.sitemap.retrieve.items" value="1"/>
+		<variable name="escidoc.pubman.sitemap.retrieve.timeout" value="1000000"/>
     </variables>
     
     <dynamicvariables>
