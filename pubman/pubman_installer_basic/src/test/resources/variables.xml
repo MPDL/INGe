@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+      <!-- Short Installer uses form-based authentication as default -->
+      <entry key="ShortInstaller">true</entry>
+
+      <!-- Show dialog that asks for install or update? -->
+      <entry key="AskForUpgrade">true</entry>
+
+      <!-- Don't show warning in TargetPanel that directory doesn't exist. -->
+      <entry key="ShowCreateDirectoryMessage">false</entry>
+
+      <!-- Hostname of the installation server -->
+      <entry key="EscidocHost">localhost</entry>
+      <!-- Bind port for JBoss Application Server -->
+      <entry key="EscidocPort">8080</entry>
+      <!-- Bind address for JBoss Application Server -->
+      <!-- variable name="jboss.bind.address">0.0.0.0" / -->
+      <!-- eSciDoc version and build -->
+      <entry key="EscidocVersion">${escidoc.core.version}</entry>
+      <!-- make sure to add the appropriate separator as prefix (usually a dot) if needed, e.g. a ".build345" -->
+
+      <!-- JDK checks -->
+      <entry key="JDKPathPanel.minVersion">1.6.0</entry>
+      <entry key="JDKPathPanel.maxVersion">1.6.99</entry>
+      <entry key="JDKPathPanel.skipIfValid">yes</entry>
+
+      <!-- database connection -->
+      <!-- Postgres -->
+      <entry key="jdbc.driver.postgres">lib/postgresql.jar</entry>
+      <entry key="Database">PostgreSQL</entry>
+      <entry key="DatabaseAdminUsernamePostgres">postgres</entry>
+      <entry key="DatabaseDriverClassPostgres">org.postgresql.Driver</entry>
+      <entry key="DatabasePortPostgres">5432</entry>
+      <!-- Hypersonic -->
+      <entry key="DatabaseAdminUsernameHypersonic">sa</entry>
+      <entry key="DatabaseDriverClassHypersonic">org.hsqldb.jdbcDriver</entry>
+      <entry key="DatabaseAdminPasswordHypersonic"></entry>
+      <entry key="DatabaseNameHypersonic">../server/default/data/hypersonic/localDB</entry>
+      <entry key="DatabaseConnectionUrlHypersonic">jdbc:hsqldb:$3</entry>
+      
+      
+      <entry key="SqlScriptDelimiterPostgres">;</entry>
+      <entry key="SqlScriptDelimiterTypePostgres">normal</entry>
+      <entry key="SqlScriptKeepFormatPostgres">false</entry>
+      <entry key="RootDatabaseNamePostgres">postgres</entry>
+      <entry key="DatabaseMaxStatementsPostgres">15000</entry>
+      <entry key="DatabaseMaxStatementsPerConnectionPostgres">1000</entry>
+
+<!-- TODO -->      <entry key="DatabaseAdminPassword">postgres</entry>
+      <entry key="DatabaseUsername">escidoc</entry>
+      <entry key="DatabasePassword">escidoc</entry>
+      <entry key="DatabaseDefaultTablespace">escidoc</entry>
+      <entry key="DatabaseTempTablespace">TEMP</entry>
+      <entry key="DatabaseHost">localhost</entry>
+      <!-- spring security -->
+      <!-- default to form-based. For MySQL support, remove "form-based" from value (see line below) --> 
+      <entry key="AuthenticationMethod">form-based</entry>
+      <!-- variable name="AuthenticationMethod">" /-->
+      <!-- Fedora admin user -->
+      <entry key="FedoraUsername">fedoraAdmin</entry>
+      <entry key="FedoraPassword">fedoraAdmin</entry>
+<!-- TODO -->      <entry key="FedoraAdminMailAddress">xx</entry>
+      <entry key="FedoraDefaultTablespace">fedora</entry>
+      <entry key="FedoraTempTablespace">TEMP</entry>
+      <!-- triplestore database user -->
+      <entry key="TriplestoreUsernameOracle">riTriples</entry>
+      <entry key="TriplestorePasswordOracle">riTriples</entry>
+      <entry key="TriplestoreDefaultTablespace">triples</entry>
+      <entry key="TriplestoreTempTablespace">TEMP</entry>
+      <!-- Identifier prefix -->
+      <entry key="sid-prefix">escidoc</entry>
+      <!-- Infrastructure administrator user -->
+      <entry key="CoreserviceAdminUser">sysadmin</entry>
+<!-- TODO -->      <entry key="CoreserviceAdminPassword">xx</entry>
+      <!-- variable name="AdminEmail">" / -->
+      <!-- Infrastructure inspector user -->
+      <entry key="InspectorUsername">inspector</entry>
+<!-- TODO -->      <entry key="InspectorPassword">xx</entry>
+      <!-- Infrastructure depositor user -->
+      <entry key="DepositorUsername">depositor</entry>
+<!-- TODO -->      <entry key="DepositorPassword">xx</entry>
+      <!-- Creator Id used in migration SQL scripts -->
+      <entry key="CreatorUserid">escidoc:exuser1</entry>
+      
+      <!-- PubMan variables -->
+<!-- TODO -->		<entry key="InitialUserPassword">xx</entry>
+		<entry key="MailHost"></entry>
+		<entry key="MailSenderAdress"></entry>
+		<entry key="MailUseAuthentication"></entry>
+		<entry key="MailUsername"></entry>
+		<entry key="MailPassword"></entry>
+		<entry key="ExternalOrganisationID"></entry>
+		<entry key="ConeHost">localhost</entry>
+		<entry key="ConeDatabase">cone</entry>
+		<entry key="ConePort">5432</entry>
+		<entry key="ConeUser">postgres</entry>
+<!-- TODO -->		<entry key="ConePassword">postgres</entry>		
+		<entry key="PubManLogoURL">./resources/images/pubman_logo.png</entry>
+		<entry key="PubManLogoApply">true</entry>
+		<entry key="StyleSheetStandardURL">/common/resources/cssFramework/themes/skin_blue/styles/theme.css</entry>
+		<entry key="StyleSheetStandardType">stylesheet</entry>
+		<entry key="StyleSheetStandardApply">true</entry>
+		<entry key="StyleSheetContrastURL">/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</entry>
+		<entry key="StyleSheetContrastType">alternate stylesheet</entry>
+		<entry key="StyleSheetContrastApply">true</entry>
+		<entry key="StyleSheetClassicURL">/common/resources/cssFramework/themes/skin_classic/styles/theme.css</entry>
+		<entry key="StyleSheetClassicType">alternate stylesheet</entry>
+		<entry key="StyleSheetClassicApply">true</entry>
+		<entry key="StyleSheetSpecialURL">/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</entry>
+		<entry key="StyleSheetSpecialType">alternate stylesheet</entry>
+		<entry key="StyleSheetSpecialApply">true</entry>
+		<entry key="FavIconURL">./resources/pubman_favicon.ico</entry>
+		<entry key="FavIconApply">true</entry>
+		<entry key="ConeCreateJournals">true</entry>
+		<entry key="ConeCreateLanguages">true</entry>
+		<entry key="ConeCreateDDC">true</entry>
+		<entry key="ConeCreateMimetypes">true</entry>
+		<entry key="ConeCreateEscidocMimeTypes">true</entry>
+		<entry key="ConeCreateCcLicenses">true</entry>
+		<entry key="AAInstanceUrl"></entry>
+		<entry key="AADefaultTarget"></entry>
+		<entry key="AAPrivateKeyFile">private.key</entry>
+		<entry key="AAPublicKeyFile">public.key</entry>
+		<entry key="AAConfigFile">conf.xml</entry>
+		<entry key="AAIPTable">ips.xml</entry>
+		<entry key="AAClientStartClass">de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</entry>
+		<entry key="AAClientFinishClass">de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</entry>
+
+      <entry key="CoreserviceUrl">http://${EscidocHost}:${EscidocPort}</entry>
+      <entry key="InstanceUrl">http://${EscidocHost}:${EscidocPort}</entry>
+      <!-- JBoss Configuration -->
+      <entry key="java.io.tmpdir"> -Djava.io.tmpdir=/tmp" condition="izpack.macinstall</entry>
+      <entry key="java.io.tmpdir">" condition="!izpack.macinstall</entry>
+      <!-- JDBC jar (absolute path) -->
+      <entry key="DatabaseDriver">${jdbc.driver.postgres}</entry>
+     
+      <!-- database driver class -->
+      <entry key="DatabaseDriverClass">${DatabaseDriverClassPostgres}</entry>
+      
+      <!-- database identifier for JDBC URL -->
+      <entry key="DatabaseIdentifier">postgresql</entry>
+      
+      <entry key="DatabaseURL">jdbc:${DatabaseIdentifier}://${DatabaseHost}:${DatabasePortPostgres}</entry> 
+      
+      <entry key="DatabasePort">${DatabasePortPostgres}</entry>
+      
+      <entry key="DatabaseAdminUsername">${DatabaseAdminUsernamePostgres}</entry>
+     
+      <!-- database max prepared statements -->
+      
+      <entry key="DatabaseMaxStatements">${DatabaseMaxStatementsPostgres}</entry>
+      
+      <entry key="DatabaseMaxStatementsPerConnection">${DatabaseMaxStatementsPerConnectionPostgres}</entry>
+      <!-- PostgreSQL requires a root database to which one needs to connected to be able to create database and roles -->
+      <entry key="DatabaseAccessor">DirectPostgresDatabaseAccessor</entry>
+      
+      <!-- PostgreSQL requires autocommit to be switched on, MySQL doesn't understand this parameter -->
+      <entry key="DatabaseAutocommit">autocommit=&quot;true&quot;</entry>
+      
+      <!-- name of the subdirectory containing the SQL scripts -->
+      <entry key="DatabaseScriptPrefix">postgres</entry>      
+      <entry key="DatasourceEscidoc">escidoc-core</entry>     
+      <entry key="DatasourceFedora">fedora3</entry>  
+      <entry key="DatasourceTriplestore">riTriples</entry>      
+      <entry key="HibernateDialect">PostgreSQLDialect</entry>      
+      <entry key="TriplestoreUsername">${FedoraUsername}</entry>      
+      <entry key="TriplestorePassword">${FedoraPassword}</entry>
+      
+      <!-- DDLGenerator for MPTStore -->
+      <entry key="DDLGeneratorClass">org.nsdl.mptstore.impl.postgres.PostgresDDLGenerator</entry>
+      
+      <!-- format of SQL scripts -->
+      <entry key="SqlScriptDelimiter">${SqlScriptDelimiterPostgres}</entry>      
+      <entry key="SqlScriptDelimiterType">${SqlScriptDelimiterTypePostgres}</entry>      
+      <entry key="SqlScriptKeepFormat">${SqlScriptKeepFormatPostgres}</entry>
+    
+      <!-- Oracle doesn't know about a "boolean" datatype -->
+      <entry key="SqlTrue">true</entry>
+      
+</properties>
