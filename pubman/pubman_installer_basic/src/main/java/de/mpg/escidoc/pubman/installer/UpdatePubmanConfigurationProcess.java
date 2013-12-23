@@ -65,7 +65,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
     {      
     }
     
-    public UpdatePubmanConfigurationProcess(IConfigurationCreatorPanel panel, Thread startEscidocThread, boolean createDataset) throws IOException
+    public UpdatePubmanConfigurationProcess(IConfigurationCreatorPanel panel, StartEscidocProcess startEscidocThread, boolean createDataset) throws IOException
     {      
         this.panel = panel;
         this.configPubman = new Configuration();
@@ -90,7 +90,10 @@ public class UpdatePubmanConfigurationProcess extends Thread
             storeConfiguration();
             createDataset();                
         }  
-        storeConfiguration();   
+        storeConfiguration(); 
+        
+        // create a private - public key pair
+        this.createKeys();
         
         deployPubmanEar();
     }
@@ -231,7 +234,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_MAILUSER, idata.getVariable("MailUsername"));
         userConfigValues.put(Configuration.KEY_MAILUSERPW, idata.getVariable("MailPassword"));
         // Panel 9
-        userConfigValues.put(Configuration.KEY_TASK_INT_LINK, idata.getVariable("escidoc.pubman.sitemap.task.interval"));
+        userConfigValues.put(Configuration.KEY_TASK_INT_LINK, 
+                idata.getVariable("escidoc.pubman.sitemap.task.interval") == null ? "10000" : idata.getVariable("escidoc.pubman.sitemap.task.interval"));
         userConfigValues.put(Configuration.KEY_MAX_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.max.items"));
         userConfigValues.put(Configuration.KEY_RETRIEVE_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.retrieve.items"));
         userConfigValues.put(Configuration.KEY_RETRIEVE_TIMEOUT_LINK, idata.getVariable("escidoc.pubman.sitemap.retrieve.timeout"));
@@ -303,12 +307,6 @@ public class UpdatePubmanConfigurationProcess extends Thread
         configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
         
         configAuth.storeXml(idata.getInstallPath() + INSTALL_TMP_PATH + "conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
-        
-        // create a private - public key pair
-        this.createKeys();
-        
-        // copy stylesheets for indexing to jboss index configuration
-        this.updateIndexConfiguration();
         
         // ... and update PropertyReader
         PropertyReader.loadProperties();
@@ -445,31 +443,6 @@ public class UpdatePubmanConfigurationProcess extends Thread
         logger.info("newDate: " + newDate);  
         logger.info("******************************************* Ended doCreateOrUpdate for " + roleName);
         return out;
-    }
-    
-    void updateIndexConfiguration() throws Exception
-    {
-        StringBuffer out = new StringBuffer(4096);
-        File indexProperties = new File(new StringBuffer(2048).append(installPath).append(JBOSS_CONF_PATH).append("search/config/index/escidoc_all").toString(), 
-                                               INDEX_PROPERTIES);
-        File indexPropertiesBak = new File(indexProperties.getAbsolutePath() + ".bak");
-        FileUtils.copyFile(indexProperties, indexPropertiesBak);
-        LineIterator lit = new LineIterator(new FileReader(indexProperties));
-        
-        while(lit.hasNext())
-        {
-            String line = lit.nextLine();
-
-            if (line.endsWith("escidocXmlToLucene"))
-            {
-                line = line.replaceAll("escidocXmlToLucene", "mpdlEscidocXmlToLucene");
-            }
-            out.append(line);
-            out.append("\n");
-        }
-        
-        FileUtils.writeStringToFile(indexProperties, out.toString());       
-        FileUtils.forceDelete(indexPropertiesBak);
     }
     
     private void createDataset() throws Exception
