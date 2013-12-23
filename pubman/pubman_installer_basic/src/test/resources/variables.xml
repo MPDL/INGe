@@ -126,9 +126,14 @@
 		<entry key="AAIPTable">ips.xml</entry>
 		<entry key="AAClientStartClass">de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</entry>
 		<entry key="AAClientFinishClass">de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</entry>
+		
+		<entry key="escidoc.pubman.sitemap.task.interval">1440</entry>
+		<entry key="escidoc.pubman.sitemap.max.items">50000</entry>
+		<entry key="escidoc.pubman.sitemap.retrieve.items">1</entry>
+		<entry key="escidoc.pubman.sitemap.retrieve.timeout">1000000</entry>
 
-      <entry key="CoreserviceUrl">http://${EscidocHost}:${EscidocPort}</entry>
-      <entry key="InstanceUrl">http://${EscidocHost}:${EscidocPort}</entry>
+      <entry key="CoreserviceUrl">http://localhost:8080</entry>
+      <entry key="InstanceUrl">http://localhost:8080</entry>
       <!-- JBoss Configuration -->
       <entry key="java.io.tmpdir"> -Djava.io.tmpdir=/tmp" condition="izpack.macinstall</entry>
       <entry key="java.io.tmpdir">" condition="!izpack.macinstall</entry>
