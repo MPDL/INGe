@@ -33,7 +33,7 @@ public class TestUpdatePubmanConfigurationProcess
     public static void tearDown() throws Exception
     {       
         // move back to deploy dummy pubman_ear
-        FileUtils.moveFileToDirectory(new File(installPath + JBOSS_DEF_PATH + "deploy/" + "pubman_ear.ear"), new File(installPath + JBOSS_DEF_PATH + "pubman_ear.ear"), false);
+        FileUtils.moveFileToDirectory(new File(installPath + JBOSS_DEF_PATH + "deploy/" + "pubman_ear.ear"), new File(installPath + JBOSS_DEF_PATH), false);
     }
 
     @Test

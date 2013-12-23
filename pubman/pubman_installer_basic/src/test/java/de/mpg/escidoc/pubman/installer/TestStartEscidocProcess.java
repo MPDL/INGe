@@ -2,6 +2,7 @@ package de.mpg.escidoc.pubman.installer;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.pubman.installer.panels.JUnitConfigurationPanel;
@@ -12,6 +13,7 @@ public class TestStartEscidocProcess
     
    
     @Test
+    @Ignore
     public void test() throws Exception
     {
         process.start();

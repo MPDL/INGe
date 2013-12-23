@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -12,6 +13,7 @@ import de.mpg.escidoc.services.framework.ProxyHelper;
 public class TestConnectionTimeout
 {
     @Test
+    @Ignore
     public void test()
     {
             GetMethod method = new GetMethod("http://dev-pubman.mpdl.mpg.de:8080");

@@ -136,7 +136,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         Map<String, String> authConfigValues = new HashMap<String, String>();
     
         userConfigValues.put(Configuration.KEY_CORESERVICE_URL, 
-                idata == null || idata.getVariable("CoreserviceUrl") == null ? "http://localhost:8080" : idata.getVariable("CoreserviceUrl"));
+                idata.getVariable("CoreserviceUrl") == null ? "http://localhost:8080" : idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));

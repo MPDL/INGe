@@ -1,13 +1,11 @@
 package de.mpg.escidoc.pubman.installer.panels;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.swing.JTextArea;
 
-import com.izforge.izpack.installer.AutomatedInstallData;
-import com.izforge.izpack.installer.AutomatedInstaller;
-import com.izforge.izpack.installer.GUIInstaller;
 import com.izforge.izpack.installer.InstallData;
-import com.izforge.izpack.installer.Installer;
-import com.izforge.izpack.installer.InstallerBase;
 
 /**
  * 
@@ -47,25 +45,24 @@ public class JUnitConfigurationPanel implements IConfigurationCreatorPanel
     @Override
     public String getInstanceUrl()
     {
-        return "http://localhost:8080";
+        return getInstallData().getVariable("InstanceUrl");
     }
 
     @Override
-    public InstallData getInstallData()
+    public InstallData getInstallData() 
     {
-        GUIInstaller installer = null;
         try
         {
-            installer = new GUIInstaller();
+            return new JUnitInstallData();
         }
-        catch (Exception e)
+        catch (FileNotFoundException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        AutomatedInstallData installData = InstallData.getInstance();
-
-        return (InstallData)installData;
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
