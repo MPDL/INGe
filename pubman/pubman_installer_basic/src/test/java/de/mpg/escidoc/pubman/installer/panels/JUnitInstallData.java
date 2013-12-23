@@ -15,9 +15,11 @@ public class JUnitInstallData extends InstallData
 {
     private static Logger logger = Logger.getLogger(JUnitInstallData.class);
     
+    private static JUnitInstallData instance = null;
+    
     Properties props;
     
-    public JUnitInstallData() throws FileNotFoundException, IOException
+    private JUnitInstallData() throws FileNotFoundException, IOException
     {
         this.props = new Properties();
         this.init();
@@ -30,9 +32,37 @@ public class JUnitInstallData extends InstallData
         logger.info(props);
     }
     
+    public synchronized static JUnitInstallData instance()
+    {
+        if (instance != null)
+            return instance;
+        else
+        {
+            try
+            {
+                instance =  new JUnitInstallData();
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        
+        return instance;
+    }
+    
     public String getVariable(String key)
     {
         return props.getProperty(key);
+    }
+    
+    public String getInstallPath()
+    {
+        return "c:/escidoc.pubman";
     }
     
     

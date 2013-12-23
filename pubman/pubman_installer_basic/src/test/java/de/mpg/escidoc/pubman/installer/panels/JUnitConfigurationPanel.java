@@ -1,8 +1,5 @@
 package de.mpg.escidoc.pubman.installer.panels;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.swing.JTextArea;
 
 import com.izforge.izpack.installer.InstallData;
@@ -39,7 +36,7 @@ public class JUnitConfigurationPanel implements IConfigurationCreatorPanel
     @Override
     public String getInstallPath()
     {
-        return "c:/escidoc.pubman";
+        return getInstallData().getInstallPath();
     }
 
     @Override
@@ -51,18 +48,6 @@ public class JUnitConfigurationPanel implements IConfigurationCreatorPanel
     @Override
     public InstallData getInstallData() 
     {
-        try
-        {
-            return new JUnitInstallData();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
+        return JUnitInstallData.instance();
     }
 }
