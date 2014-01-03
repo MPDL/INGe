@@ -45,6 +45,620 @@
 				<meta name="description" content="Title: #{lbl.Pubman_descriptionMetaTag}"></meta>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
+				
+				<STYLE type="text/css">
+					body {
+						overflow-y: scroll;
+						overflow-x: hidden;
+					}
+					
+					#flakes {
+						position: absolute;
+						top: -200px;
+						display: inline-block;
+					}
+					
+					#flakes div {
+					    background-image:
+					        linear-gradient(180deg, 
+					            rgba(255,255,255,0) 40%, 
+					            #ffffff 40%, 
+					            #ffffff 60%, 
+					            rgba(255,255,255,0) 60%),
+					        linear-gradient(90deg,  
+					            rgba(255,255,255,0) 40%, 
+					            #ffffff 40%, 
+					            #ffffff 60%, 
+					            rgba(255,255,255,0) 60%),
+					        linear-gradient(45deg,  
+					            rgba(255,255,255,0) 43%, 
+					            #ffffff 43%, 
+					            #ffffff 57%, 
+					            rgba(255,255,255,0) 57%),
+					        linear-gradient(135deg,  
+					            rgba(255,255,255,0) 43%, 
+					            #ffffff 43%, 
+					            #ffffff 57%, 
+					            rgba(255,255,255,0) 57%);
+					    border-radius: 50%;
+					    width:32px;
+					    height:32px;
+					    display: inline-block;
+					    margin-left: 75px;
+					    position: relative;
+					    animation-name:rotate, falling;
+					    animation-timing-function:linear;
+					    animation-iteration-count:infinite;
+					    animation-direction:linear;
+					    animation-play-state:running;
+					    /* Safari and Chrome: */
+					    -webkit-animation-name:rotate, falling;
+					    -webkit-animation-timing-function:linear;
+					    -webkit-animation-iteration-count:infinite;
+					    -webkit-animation-direction:linear;
+					    -webkit-animation-play-state:running;
+					}
+					
+					#flakes div:nth-of-type(2n) {
+					    animation-delay:3.5s;
+					    animation-duration:8s;
+					    -webkit-animation-delay:3.5s;
+					    -webkit-animation-duration:8s;
+					    height: 28px;
+					    transform-origin: right -30px 0;
+					    width: 28px;
+					}
+					
+					#flakes div:nth-of-type(2n+1) {
+						animation-delay:0s;
+					    animation-duration:5.5s;
+					    -webkit-animation-delay:0s;
+					    -webkit-animation-duration:5.5s;
+					    height: 24px;
+					    transform-origin: left 0px -30px;
+					    width: 24px;
+					}
+					
+					#flakes div:nth-of-type(3n) {
+					    animation-delay:1.5s;
+					    animation-duration:4.5s;
+					    -webkit-animation-delay:1.5s;
+					    -webkit-animation-duration:4.5s;
+					    height: 16px;
+					    transform-origin: left 30px -30px;
+					    width: 16px;
+					}
+					
+					#flakes div:nth-of-type(4n) {
+					    animation-delay:3.5s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:3.5s;
+					    -webkit-animation-duration:3s;
+					    height:10px;
+					    transform-origin: left 0 30px;
+					    width: 10px;
+					}
+					
+					#flakes div:nth-of-type(5n) {
+					    animation-delay:2s;
+					    animation-duration:4.5s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:4.5s;
+					    height:20px;
+					    transform-origin: left -30px -30px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(6n) {
+					    animation-delay:0.5s;
+					    animation-duration:6s;
+					    -webkit-animation-delay:0.5s;
+					    -webkit-animation-duration:6s;
+					    height: 24px;
+					    transform-origin: left -30px 0;
+					    width: 24px;
+					}
+					
+					#flakes div:nth-of-type(7n) {
+					    animation-delay:2s;
+					    animation-duration:5s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:5s;
+					    height: 16px;
+					    width: 16px;
+					}
+					
+					#flakes div:nth-of-type(8n) {
+					    animation-delay:1.5s;
+					    animation-duration:5.5s;
+					    -webkit-animation-delay:1.5s;
+					    -webkit-animation-duration:5.5s;
+					    transform-origin: left 30px -30px;
+					    height: 20px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(9n) {
+					    animation-delay:1.5s;
+					    animation-duration:5.5s;
+					    -webkit-animation-delay:1.5s;
+					    -webkit-animation-duration:5.5s;
+					    transform-origin: left -30px 30px;
+					    height: 14px;
+					    width: 14px;
+					}
+					
+					#flakes div:nth-of-type(10n) {
+					    animation-delay:1s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:3s;
+					    height: 10px;
+					    transform-origin: left 30px 0;
+					    width: 10px;
+					}
+					
+					#flakes div:nth-of-type(11n) {
+					    animation-delay:0s;
+					    animation-duration:7.5s;
+					    -webkit-animation-delay:0s;
+					    -webkit-animation-duration:7.5s;
+					    height: 12px;
+					    transform-origin: left 30px -30px;
+					    width: 12px;
+					}
+					
+					#flakes div:nth-of-type(12n) {
+					    animation-delay:5s;
+					    animation-duration:3.5s;
+					    -webkit-animation-delay:5s;
+					    -webkit-animation-duration:3.5s;
+					    height: 16px;
+					    transform-origin: left 0px -30px;
+					    width: 16px;
+					}
+					
+					#flakes div:nth-of-type(13n) {
+					    animation-delay:3s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:3s;
+					    -webkit-animation-duration:4s;
+					    height: 18px;
+					    transform-origin: left 0px -30px;
+					    width: 18px;
+					}
+					
+					#flakes div:nth-of-type(14n) {
+					    animation-delay:0.5s;
+					    animation-duration:5.5s;
+					    -webkit-animation-delay:0.5s;
+					    -webkit-animation-duration:5.5s;
+					    height: 24px;
+					    width: 24px;
+					}
+					
+					#flakes div:nth-of-type(15n) {
+					    animation-delay:1s;
+					    animation-duration:7s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:7s;
+					    height: 28px;
+					    transform-origin: left -30px -30px;
+					    width: 28px;
+					}
+					
+					#flakes div:nth-of-type(16n) {
+					    animation-delay:2s;
+					    animation-duration:5.5s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:5.5s;
+					    height: 24px;
+					    width: 24px;
+					}
+					
+					#flakes div:nth-of-type(17n) {
+					    animation-delay:4.5s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:4.5s;
+					    -webkit-animation-duration:3s;
+					    height: 20px;
+					    transform-origin: left -30px 0px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(18n) {
+					    animation-delay:5s;
+					    animation-duration:2.5s;
+					    -webkit-animation-delay:5s;
+					    -webkit-animation-duration:2.5s;
+					    height: 12px;
+					    transform-origin: left 0px -30px;
+					    width: 12px;
+					}
+					
+					#flakes div:nth-of-type(19n) {
+					    animation-delay:6.5s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:6.5s;
+					    -webkit-animation-duration:3s;
+					    height: 10px;
+					    transform-origin: left 30px -30px;
+					    width: 10px;
+					}
+					
+					#flakes div:nth-of-type(20n) {
+					    animation-delay:2.5s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:2.5s;
+					    -webkit-animation-duration:4s;
+					    height: 26px;
+					    transform-origin: left -30px -30px;
+					    width: 26px;
+					}
+					
+					#flakes div:nth-of-type(21n) {
+					    animation-delay:2.5s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:2.5s;
+					    -webkit-animation-duration:4s;
+					    height: 12px;
+					    transform-origin: left -30px 0;
+					    width: 12px;
+					}
+					
+					#flakes div:nth-of-type(22n) {
+					    animation-delay:4s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:4s;
+					    -webkit-animation-duration:4s;
+					    height: 16px;
+					    transform-origin: left -30px -30px;
+					    width: 16px;
+					}
+					
+					#flakes div:nth-of-type(23n) {
+					    animation-delay:1s;
+					    animation-duration:4.5s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:4.5s;
+					    height: 20px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(24n) {
+					    animation-delay:3.5s;
+					    animation-duration:6s;
+					    -webkit-animation-delay:3.5s;
+					    -webkit-animation-duration:6s;
+					    height: 22px;
+					    transform-origin: left 30px 0;
+					    width: 22px;
+					}
+					
+					#flakes div:nth-of-type(25n) {
+					    animation-delay:5s;
+					    animation-duration:3.5s;
+					    -webkit-animation-delay:5s;
+					    -webkit-animation-duration:3.5s;
+					    height: 18px;
+					    transform-origin: left 30px -30px;
+					    width: 18px;
+					}
+					
+					#flakes div:nth-of-type(26n) {
+					    animation-delay:5s;
+					    animation-duration:3.5s;
+					    -webkit-animation-delay:5s;
+					    -webkit-animation-duration:3.5s;
+					    height: 18px;
+					    transform-origin: left 30px -30px;
+					    width: 18px;
+					}
+					
+					#flakes div:nth-of-type(27n) {
+					    animation-delay:2s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:3s;
+					    height: 10px;
+					    width: 10px;
+					}
+					
+					#flakes div:nth-of-type(28n) {
+					    animation-delay:1s;
+					    animation-duration:6s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:6s;
+					    height: 22px;
+					    width: 22px;
+					}
+					
+					#flakes div:nth-of-type(29n) {
+					    animation-delay:2s;
+					    animation-duration:7s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:7s;
+					    height: 24px;
+					    transform-origin: left 30px 0;
+					    width: 24px;
+					}
+					
+					#flakes div:nth-of-type(30n) {
+					    animation-delay:1s;
+					    animation-duration:2.5s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:2.5s;
+					    height: 12px;
+					    transform-origin: left 0px -30px;
+					    width: 12px;
+					}
+					
+					#flakes div:nth-of-type(31n) {
+					    animation-delay:4s;
+					    animation-duration:5s;
+					    -webkit-animation-delay:4s;
+					    -webkit-animation-duration:5s;
+					    height: 18px;
+					    transform-origin: left 30px -30px;
+					    width: 18px;
+					}
+					
+					#flakes div:nth-of-type(32n) {
+					    animation-delay:2s;
+					    animation-duration:7.5s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:7.5s;
+					    height: 24px;
+					    width: 24px;
+					}
+					
+					#flakes div:nth-of-type(33n) {
+					    animation-delay:4s;
+					    animation-duration:5s;
+					    -webkit-animation-delay:4s;
+					    -webkit-animation-duration:5s;
+					    height: 20px;
+					    width: 20px;
+					    transform-origin: left -30px 30px;
+					}
+					
+					#flakes div:nth-of-type(34n) {
+					    animation-delay:7s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:7s;
+					    -webkit-animation-duration:4s;
+					    height: 16px;
+					    width: 16px;
+					    transform-origin: left -30px 0px;
+					}
+					
+					#flakes div:nth-of-type(35n) {
+					    animation-delay:1s;
+					    animation-duration:3.5s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:3.5s;
+					    height: 14px;
+					    width: 14px;
+					    transform-origin: right 0px 30px;
+					}
+					
+					#flakes div:nth-of-type(36n) {
+					    animation-delay:1s;
+					    animation-duration:3.5s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:3.5s;
+					    height: 26px;
+					    width: 26px;
+					}
+					
+					#flakes div:nth-of-type(37n) {
+					    animation-delay:3s;
+					    animation-duration:7s;
+					    -webkit-animation-delay:3s;
+					    -webkit-animation-duration:7s;
+					    height: 20px;
+					    transform-origin: left 0px 30px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(38n) {
+					    animation-delay:3s;
+					    animation-duration:7s;
+					    -webkit-animation-delay:3s;
+					    -webkit-animation-duration:7s;
+					    height: 20px;
+					    transform-origin: left 0px 30px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(39n) {
+					    animation-delay:7s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:7s;
+					    -webkit-animation-duration:3s;
+					    height: 10px;
+					    transform-origin: right -30px 30px;
+					    width:10px;
+					}
+					
+					#flakes div:nth-of-type(40n) {
+					    animation-delay:0s;
+					    animation-duration:7s;
+					    -webkit-animation-delay:0s;
+					    -webkit-animation-duration:7s;
+					    height: 26px;
+					    transform-origin: right 30px 0px;
+					    width:26px;
+					}
+					
+					#flakes div:nth-of-type(41n) {
+					    animation-delay:1s;
+					    animation-duration:6s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:6s;
+					    height: 22px;
+					    width:22px;
+					}
+					
+					#flakes div:nth-of-type(42n) {
+					    animation-delay:0s;
+					    animation-duration:7s;
+					    -webkit-animation-delay:0s;
+					    -webkit-animation-duration:7s;
+					    height: 26px;
+					    transform-origin: right 30px 0px;
+					    width:26px;
+					}
+					
+					#flakes div:nth-of-type(43n) {
+					    animation-delay:3s;
+					    animation-duration:5.5s;
+					    -webkit-animation-delay:3s;
+					    -webkit-animation-duration:5.5s;
+					    height: 20px;
+					    transform-origin: right 0px -30px;
+					    width:20px;
+					}
+					
+					#flakes div:nth-of-type(44n) {
+					    animation-delay:5s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:5s;
+					    -webkit-animation-duration:4s;
+					    height: 16px;
+					    width:16px;
+					}
+					
+					#flakes div:nth-of-type(45n) {
+					    animation-delay:2s;
+					    animation-duration:3.5s;
+					    -webkit-animation-delay:2s;
+					    -webkit-animation-duration:3.5s;
+					    height: 14px;
+					    transform-origin: left 0px -30px;
+					    width:14px;
+					}
+					
+					#flakes div:nth-of-type(46n) {
+					    animation-delay:1s;
+					    animation-duration:8.5s;
+					    -webkit-animation-delay:1s;
+					    -webkit-animation-duration:8.5s;
+					    height: 26px;
+					    width: 26px;
+					}
+					
+					#flakes div:nth-of-type(47n) {
+					    animation-delay:1.5s;
+					    animation-duration:3s;
+					    -webkit-animation-delay:1.5s;
+					    -webkit-animation-duration:3s;
+					    height: 12px;
+					    transform-origin: left 30px 30px;
+					    width: 12px;
+					}
+					
+					#flakes div:nth-of-type(48n) {
+					    animation-delay:4.5s;
+					    animation-duration:8s;
+					    -webkit-animation-delay:4.5s;
+					    -webkit-animation-duration:8s;
+					    height: 26px;
+					    transform-origin: right 30px -30px;
+					    width: 26px;
+					}
+					
+					#flakes div:nth-of-type(49n) {
+					    animation-delay:5s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:5s;
+					    -webkit-animation-duration:4s;
+					    height: 20px;
+					    transform-origin: left -30px -30px;
+					    width: 20px;
+					}
+					
+					#flakes div:nth-of-type(50n) {
+					    animation-delay:6.5s;
+					    animation-duration:4s;
+					    -webkit-animation-delay:6.5s;
+					    -webkit-animation-duration:4s;
+					    height: 18px;
+					    transform-origin: left 0px -30px;
+					    width: 18px;
+					}
+					
+					
+					@keyframes rotate
+					{
+					  0%   {
+					    left:25px; 
+					    transform: rotate(0deg);
+					  }
+					  33% 
+					  {
+					    left:50px;
+					    transform: rotate(50deg);
+					  }
+					  66% 
+					  {
+					    left:0px;
+					    transform: rotate(0deg);
+					  }
+					  100% 
+					  {
+					    left:25px; 
+					    transform: rotate(-50deg);
+					  }
+					}
+					
+					@keyframes falling 
+					{
+					  0%
+					  {
+					    top:0px;
+					  }
+					  100%
+					  {
+					    top:1200px;
+					  }
+					}
+					
+					@-webkit-keyframes rotate
+					{
+					  0%   {
+					    left:25px; 
+					    transform: rotate(0deg);
+					  }
+					  33% 
+					  {
+					    left:50px;
+					    transform: rotate(50deg);
+					  }
+					  66% 
+					  {
+					    left:0px;
+					    transform: rotate(0deg);
+					  }
+					  100% 
+					  {
+					    left:25px; 
+					    transform: rotate(-50deg);
+					  }
+					}
+					
+					@-webkit-keyframes falling 
+					{
+					  0%
+					  {
+					    top:0px;
+					  }
+					  100%
+					  {
+					    top:1200px;
+					  }
+					}
+				</STYLE>
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 				<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
@@ -138,6 +752,68 @@
 						</script>
 					</div> <!-- end: full wrapper -->
 				</h:form>
+				<div id="flakes">
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				    <div>&#160;</div>
+				</div>
 			</body>
 		</html>
 	</f:view>
