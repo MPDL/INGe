@@ -57,7 +57,7 @@
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    xmlns:ce="http://www.elsevier.com"
    xmlns:mml="http://www.w3.org/1998/Math/MathML"   
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder"
    >
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>

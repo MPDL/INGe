@@ -32,9 +32,6 @@ package de.mpg.escidoc.services.transformation.util.creators;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 /**
  * Bean object to hold an author's data.
  *
@@ -230,6 +227,11 @@ public class Author
     public void setFormat(AuthorFormat format)
     {
         this.format = format;
+    }
+    
+    public void addTag(final String key, final String value)
+    {
+        tags.put(key, value);
     }
 
     public Map<String, String> getTags()

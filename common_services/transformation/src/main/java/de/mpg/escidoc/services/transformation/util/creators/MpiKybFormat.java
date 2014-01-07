@@ -32,9 +32,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 /**
  * Very specialized parser to parse author strings like <code>Nachname Vorname{CoNE-Identifier}
  * {CoNE-Affiliation_01}{CoNE-Affiliation_02}...</code>.
@@ -125,24 +122,24 @@ public class MpiKybFormat extends AuthorFormat
                 surname = parts[i] + " " + surname;
             }
             Author author = new Author();
-            author.setInitial(initials.trim());
-            if (surname == null || "".equals(surname))
+            if (surname != null && !(surname.equalsIgnoreCase("")))
             {
-                author.setSurname(initials.trim());
+                author.setInitial(initials.trim());
             }
             else {
-                author.setSurname(surname.trim());
+                surname = initials;
             }
+            author.setSurname(surname.trim());
             if (identifier != null)
             {
-                author.getTags().put(IDENTIFIER, identifier);
+                author.addTag(IDENTIFIER, identifier);
             }
             if (affiliations != null)
             {
-                author.getTags().put(AFFILIATION_COUNT, new Integer(affiliationCount).toString());
+                author.addTag(AFFILIATION_COUNT, new Integer(affiliationCount).toString());
                 for (int j = 0; j < affiliationCount; j++)
                 {
-                    author.getTags().put(AFFILIATION + new Integer(j).toString(), affiliations.get(j));
+                    author.addTag(AFFILIATION + new Integer(j).toString(), affiliations.get(j));
                 }
             }
             author.setFormat(this);

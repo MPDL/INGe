@@ -41,11 +41,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormatList;
-
 /**
  * Main class for author string decoding.
  *
@@ -117,22 +112,22 @@ public class AuthorDecoder
     {
         //Remove newlines that have a separator before or after it
 
-//        //replace newlines before or after commas
-//        authors = authors.replaceAll(",\\s*\\n\\s*", ", ");
-//        authors = authors.replaceAll("\\s*\\n\\s*,", ",");
-//        
-//        //replace newlines before or after semicolons
-//        authors = authors.replaceAll(";\\s*\\n\\s*", "; ");
-//        authors = authors.replaceAll("\\s*\\n\\s*;", ";");
-//        
-//       //replace newlines before or after "and"
-//        authors = authors.replaceAll(" and\\s*\\n\\s*", " and ");
-//        authors = authors.replaceAll("\\s*\\n\\s*and ", " and ");
-//        
-//        //replace newlines before or after "und"
-//        authors = authors.replaceAll(" und\\s*\\n\\s*", " und ");
-//        authors = authors.replaceAll("\\s*\\n\\s*und ", " und ");
-//        
+        //replace newlines before or after commas
+        authors = authors.replaceAll(",\\s*\\n\\s*", ", ");
+        authors = authors.replaceAll("\\s*\\n\\s*,", ",");
+        
+        //replace newlines before or after semicolons
+        authors = authors.replaceAll(";\\s*\\n\\s*", "; ");
+        authors = authors.replaceAll("\\s*\\n\\s*;", ";");
+        
+        //replace newlines before or after "and"
+        authors = authors.replaceAll(" and\\s*\\n\\s*", " and ");
+        authors = authors.replaceAll("\\s*\\n\\s*and ", " and ");
+        
+        //replace newlines before or after "und"
+        authors = authors.replaceAll(" und\\s*\\n\\s*", " und ");
+        authors = authors.replaceAll("\\s*\\n\\s*und ", " und ");
+
 //        //replace newlines before or after "et"
 //        authors = authors.replaceAll(" et\\s*\\n\\s*", " et ");
 //        authors = authors.replaceAll("\\s*\\n\\s*et ", " et ");

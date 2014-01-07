@@ -57,7 +57,7 @@
 	xmlns:organization="${xsd.metadata.organization}"		
 	xmlns:eterms="${xsd.metadata.terms}"   
 	xmlns:escidoc="${xsd.metadata.terms}"
-	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder"
+	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder"
 	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
@@ -988,6 +988,9 @@
 					<xsl:choose>
 						<xsl:when test="($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute of Molecular Plant Physiology')"/>
+						</xsl:when>				
+						<xsl:when test="($Flavor = 'MPIO')"> 
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Ornithology')"/>
 						</xsl:when>				
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat($familyname, ', ', $givenname))"/>

@@ -76,15 +76,9 @@
 							<xsl:with-param name="givenname" select="$givenname"/>
 						</xsl:call-template>
 						
-						<escidoc:degree>
-							<xsl:value-of select="$main/excel:Cell[5]/excel:Data"/>
-							<xsl:if test="$main/excel:Cell[3]/@ss:Index = 4 and normalize-space($main/excel:Cell[3]/excel:Data) != ''">
-								<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
-							</xsl:if>
-							<xsl:if test="$main/excel:Cell[4]/@ss:Index = 5">
-								<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
-							</xsl:if>
-						</escidoc:degree>
+						<xsl:call-template name="start-degree">
+						    <xsl:with-param name="pos" select="$pos"/>
+						</xsl:call-template>
 						
 						<dcterms:created><xsl:value-of select="current-dateTime()"/></dcterms:created>
 						<dcterms:contributor><xsl:value-of select="$user"/></dcterms:contributor>
@@ -107,6 +101,56 @@
 				</xsl:if>
 			</xsl:for-each>
 		</rdf:RDF>
+	</xsl:template>
+	
+	<xsl:template name="start-degree">
+	    <xsl:param name="pos"/>
+	    <xsl:choose>
+	        <!-- GOING BACK TO THE FIRST ROW OF THE ENTRY -->
+	        <xsl:when test="//excel:Row[$pos - 1]/excel:Cell[1]/excel:Data != '' and not(exists(//excel:Row[$pos]/@ss:Index))">
+	            <xsl:call-template name="start-degree">
+	                <xsl:with-param name="pos" select="$pos - 1"/>
+	            </xsl:call-template>
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:call-template name="get-degree">
+	                <xsl:with-param name="pos" select="$pos"/>
+	            </xsl:call-template>
+	        </xsl:otherwise>
+	    </xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="get-degree">
+	    <xsl:param name="pos"/>
+	    <xsl:choose>
+	        <!-- CHECK IF THERE IS ANY DEGREE IN THIS ROW -->
+	        <xsl:when test="//excel:Row[$pos]/excel:Cell[3]/@ss:Index = 4 and normalize-space(//excel:Row[$pos]/excel:Cell[3]/excel:Data) != ''">
+	            <escidoc:degree>
+	                <xsl:comment>DEGREE CASE 1</xsl:comment>
+	                <xsl:value-of select="//excel:Row[$pos]/excel:Cell[4]/excel:Data"/>
+	            </escidoc:degree>
+	        </xsl:when>
+	        <xsl:when test="//excel:Row[$pos]/excel:Cell[4]/@ss:Index = 5">
+	            <xsl:comment>DEGREE CASE 2</xsl:comment>
+	            <escidoc:degree>
+	                <xsl:value-of select="//excel:Row[$pos]/excel:Cell[4]/excel:Data"/>
+	            </escidoc:degree>
+	        </xsl:when>
+	        <xsl:when test="//excel:Row[$pos]/excel:Cell[5]/excel:Data and not(//excel:Row[$pos]/excel:Cell[5]/@ss:Index > 5)">
+	            <escidoc:degree>
+	                <xsl:comment>DEGREE CASE 3</xsl:comment>
+	                <xsl:value-of select="//excel:Row[$pos]/excel:Cell[5]/excel:Data"/>
+	            </escidoc:degree>
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <!-- CALLS THE TEMPLATE WITH THE NEXT ROW -->
+	            <xsl:if test="//excel:Row[$pos + 1]/excel:Cell[1]/excel:Data != '' and not(exists(//excel:Row[$pos]/@ss:Index))">
+	                <xsl:call-template name="get-degree">
+	                    <xsl:with-param name="pos" select="$pos + 1"/>
+	                </xsl:call-template>
+	            </xsl:if>
+	        </xsl:otherwise>
+	    </xsl:choose>
 	</xsl:template>
 	
 	<xsl:template name="start-affiliations">

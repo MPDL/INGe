@@ -31,9 +31,6 @@ package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 /**
  * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
  *

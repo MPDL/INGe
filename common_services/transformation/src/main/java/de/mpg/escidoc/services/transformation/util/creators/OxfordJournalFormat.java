@@ -31,9 +31,6 @@ package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 /**
  * Special parser to parse author strings like
  * <code>Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1</code>.

@@ -31,19 +31,15 @@ package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 public class MpisBibtexFormat extends AuthorFormat {
 
     @Override
     public String getPattern() {
-        return "^\\s*" + NAME + "(\\{\\})?" + ", +" + INITIALS + "( +and +" + NAME + "(\\{\\})?" + ", +" + INITIALS + ")*\\s*$";
+        return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED + "( +and +" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) {
-        System.out.println(getPattern());
         if (authorsString == null || !authorsString.contains("{}") || !authorsString.matches(getPattern())) {
             return null;
         }
@@ -62,7 +58,7 @@ public class MpisBibtexFormat extends AuthorFormat {
 
     @Override
     public int getSignificance() {
-        return 1;
+        return 2;
     }
 
     @Override

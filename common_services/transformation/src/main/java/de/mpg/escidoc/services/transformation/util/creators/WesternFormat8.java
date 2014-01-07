@@ -31,9 +31,6 @@ package de.mpg.escidoc.services.transformation.util.creators;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 public class WesternFormat8 extends AuthorFormat {
     
     @Override

@@ -32,9 +32,6 @@ package de.mpg.escidoc.services.transformation.util.creators;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorFormat;
-
 /**
  * Special parser to write the input string into the surname
  * of a single author if no other parser matched the input.
