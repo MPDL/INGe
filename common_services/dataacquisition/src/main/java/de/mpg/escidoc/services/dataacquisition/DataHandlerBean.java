@@ -743,11 +743,8 @@ public class DataHandlerBean implements DataHandler
     		 {
     		     try
                  {
-    		         logger.info("FopFactory configuration couldn't be loaded from '" + PropertyReader.getProperty("escidoc.dataacquisition.resources.fop.configuration") + "'");
-    		         if (logger.isDebugEnabled())
-    		         {
-    		             logger.debug(e);
-    		         }
+    		         logger.info("FopFactory configuration couldn't be loaded from '" + PropertyReader.getProperty("escidoc.dataacquisition.resources.fop.configuration") + "'", e);
+    		     
     		         // loading in-EAR configuration an fonts
     		         String dataaquisitionUrl = DataHandlerBean.class.getClassLoader().getResource("dataaquisition/").toString();
     		         logger.info("Trying to load FopFactory from: '" + dataaquisitionUrl + "apache-fop-config.xml'");
