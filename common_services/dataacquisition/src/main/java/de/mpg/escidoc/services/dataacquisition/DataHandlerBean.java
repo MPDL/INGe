@@ -737,13 +737,13 @@ public class DataHandlerBean implements DataHandler
     		 try
     		 {
     		     // Trying to load FOP-Configuration from the pubman.properties
-    		     fopFactory.setUserConfig(new File(PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration")));
+    		     fopFactory.setUserConfig(new File(PropertyReader.getProperty("escidoc.dataacquisition.resources.fop.configuration")));
     		 }
     		 catch (Exception e)
     		 {
     		     try
                  {
-    		         logger.info("FopFactory configuration couldn't be loaded from '" + PropertyReader.getProperty("escidoc.dataaquisition.resources.fop.configuration") + "'");
+    		         logger.info("FopFactory configuration couldn't be loaded from '" + PropertyReader.getProperty("escidoc.dataacquisition.resources.fop.configuration") + "'");
     		         if (logger.isDebugEnabled())
     		         {
     		             logger.debug(e);
