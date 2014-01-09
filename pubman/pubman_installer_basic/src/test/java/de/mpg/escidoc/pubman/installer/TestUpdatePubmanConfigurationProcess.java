@@ -59,7 +59,7 @@ public class TestUpdatePubmanConfigurationProcess
         startProcess.start();
         
         UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess(
-                                                panel, startProcess, false);
+                                                panel, startProcess, true);
         updateProcess.start();
         Thread.currentThread().sleep(4*60*1000);
     }

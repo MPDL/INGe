@@ -57,6 +57,7 @@ public class JUnitInstallData extends InstallData
     
     public String getVariable(String key)
     {
+        logger.info(key + " " + props.getProperty(key));
         return props.getProperty(key);
     }
     

@@ -2,6 +2,8 @@ package de.mpg.escidoc.pubman.installer.panels;
 
 import javax.swing.JTextArea;
 
+import org.apache.log4j.Logger;
+
 import com.izforge.izpack.installer.InstallData;
 
 /**
@@ -15,6 +17,7 @@ import com.izforge.izpack.installer.InstallData;
  */
 public class JUnitConfigurationPanel implements IConfigurationCreatorPanel
 {
+    
     @Override
     public void processFinishedSuccessfully(String text, String threadName)
     {

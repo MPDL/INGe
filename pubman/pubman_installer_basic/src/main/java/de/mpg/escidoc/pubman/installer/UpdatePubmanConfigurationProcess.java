@@ -59,6 +59,9 @@ public class UpdatePubmanConfigurationProcess extends Thread
     
     private static RoleHandler roleHandler = null;
     
+    private  Map<String, String> userConfigValues = new HashMap<String, String>();
+    private  Map<String, String> authConfigValues = new HashMap<String, String>();
+    
     private static Logger logger = Logger.getLogger(UpdatePubmanConfigurationProcess.class);
     
     public UpdatePubmanConfigurationProcess()
@@ -87,7 +90,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
                  
         if (this.createDataset)
         {     
-            storeConfiguration();
+//            storeConfiguration();
             createDataset();                
         }  
         storeConfiguration(); 
@@ -135,11 +138,8 @@ public class UpdatePubmanConfigurationProcess extends Thread
     
     private void storeConfiguration() throws Exception
     {
-        Map<String, String> userConfigValues = new HashMap<String, String>();
-        Map<String, String> authConfigValues = new HashMap<String, String>();
     
-        userConfigValues.put(Configuration.KEY_CORESERVICE_URL, 
-                idata.getVariable("CoreserviceUrl") == null ? "http://localhost:8080" : idata.getVariable("CoreserviceUrl"));
+        userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));                
         userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));
@@ -273,7 +273,20 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_SORT_KEYS, "_relevance_");
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_SORT_ORDER, "descending");
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_START_ORDER, "1");
-        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_MAX_RECORDS, "50");        
+        userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_MAX_RECORDS, "50");     
+        
+        // PidCache
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SIZE_MAX, idata.getVariable("escidoc.pidcache.cache.size.max"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_REFRESH_INTERVAL, idata.getVariable("escidoc.pidcache.refresh.interval"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_DUMMY_URL, idata.getVariable("escidoc.pidcache.dummy.url"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SERVICE_URL, idata.getVariable("escidoc.pid.pidcache.service.url"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SERVICE_CREATE_PATH, idata.getVariable("escidoc.pid.service.create.path"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SERVICE_VIEW_PATH, idata.getVariable("escidoc.pid.service.view.path"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SERVICE_DELETE_PATH, idata.getVariable("escidoc.pid.service.delete.path"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SERVICE_UPDATE_PATH, idata.getVariable("escidoc.pid.service.update.path"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_SERVICE_SEARCH_PATH, idata.getVariable("escidoc.pid.service.search.path"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_USER_NAME, idata.getVariable("escidoc.pidcache.user.name"));
+        userConfigValues.put(Configuration.KEY_PIDCACHE_USER_PASSWORD, idata.getVariable("escidoc.pidcache.user.password"));
         
         // Import
         userConfigValues.put(Configuration.KEY_IMPORT_DB_DRIVER_CLASS, idata.getVariable("DatabaseDriverClassHypersonic"));

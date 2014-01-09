@@ -161,7 +161,7 @@ public class Configuration
     public static final String KEY_CONTENTMODEL_PATTERN = "escidoc.content.model.pattern";
     public static final String KEY_CONTEXT_PATTERN = "escidoc.context.pattern";
     public static final String KEY_VALIDATION_SOURCE_CLASSNAME = "escidoc.validation.source.classname";
-    public static final String KEY_VALIDATION_REFRESH_INTERVAL = "escidoc.validation.refresh.interval";
+    public static final String KEY_VALIDATION_REFRESH_INTERVAL = "escidoc.validation.refresh.interval";    
     
     // Search and Export
     public static final String KEY_SEARCH_AND_EXPORT_DEF_QUERY = "escidoc.search.and.export.default.sql.query";
@@ -170,6 +170,19 @@ public class Configuration
     public static final String KEY_SEARCH_AND_EXPORT_DEF_SORT_ORDER = "escidoc.search.and.export.default.sort.order";
     public static final String KEY_SEARCH_AND_EXPORT_DEF_START_ORDER = "escidoc.search.and.export.start.record";
     public static final String KEY_SEARCH_AND_EXPORT_MAX_RECORDS = "escidoc.search.and.export.maximum.records";
+    
+    // PidCache
+    public static final String KEY_PIDCACHE_SIZE_MAX = "escidoc.pidcache.cache.size.max";
+    public static final String KEY_PIDCACHE_REFRESH_INTERVAL = "escidoc.pidcache.refresh.interval";
+    public static final String KEY_PIDCACHE_DUMMY_URL = "escidoc.pidcache.dummy.url";
+    public static final String KEY_PIDCACHE_SERVICE_URL = "escidoc.pid.pidcache.service.url";
+    public static final String KEY_PIDCACHE_SERVICE_CREATE_PATH = "escidoc.pid.service.create.path";
+    public static final String KEY_PIDCACHE_SERVICE_VIEW_PATH = "escidoc.pid.service.view.path";
+    public static final String KEY_PIDCACHE_SERVICE_DELETE_PATH = "escidoc.pid.service.delete.path";
+    public static final String KEY_PIDCACHE_SERVICE_UPDATE_PATH = "escidoc.pid.service.update.path";
+    public static final String KEY_PIDCACHE_SERVICE_SEARCH_PATH = "escidoc.pid.service.search.path";
+    public static final String KEY_PIDCACHE_USER_NAME = "escidoc.pidcache.user.name";
+    public static final String KEY_PIDCACHE_USER_PASSWORD = "escidoc.pidcache.user.password";  
     
     // Import
     public static final String KEY_IMPORT_DB_DRIVER_CLASS = "escidoc.import.database.driver.class";

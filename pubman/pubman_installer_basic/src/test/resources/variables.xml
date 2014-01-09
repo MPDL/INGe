@@ -131,6 +131,24 @@
 		<entry key="escidoc.pubman.sitemap.max.items">50000</entry>
 		<entry key="escidoc.pubman.sitemap.retrieve.items">1</entry>
 		<entry key="escidoc.pubman.sitemap.retrieve.timeout">1000000</entry>
+		
+		<entry key="escidoc.handles.activated">false</entry>
+		<entry key="escidoc.pidcache.cache.size.max"> 100</entry>
+		<entry key="escidoc.pidcache.refresh.interval">1</entry>
+		<entry key="escidoc.pidcache.dummy.url"></entry>	
+		<entry key="escidoc.pid.pidcache.service.url"></entry>
+		<entry key="escidoc.pid.service.create.path">/write/create</entry>
+		<entry key="escidoc.pid.service.view.path">/read/view</entry>
+		<entry key="escidoc.pid.service.delete.path">/write/delete</entry>
+		<entry key="escidoc.pid.service.update.path">/write/modify</entry>
+		<entry key="escidoc.pid.service.search.path">/read/search</entry>
+		
+		<entry key="escidoc.pid.gwdg.service.url"></entry>
+		<entry key="escidoc.pid.gwdg.timeout"> </entry>
+		<entry key="escidoc.pid.gwdg.user.login"> </entry>
+		<entry key="escidoc.pid.gwdg.user.password"></entry>
+		<entry key="escidoc.pidcache.user.name">pid_manager</entry>
+		<entry key="escidoc.pidcache.user.password">wannapid</entry>
 
       <entry key="CoreserviceUrl">http://localhost:8080</entry>
       <entry key="InstanceUrl">http://localhost:8080</entry>
