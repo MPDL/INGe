@@ -84,6 +84,8 @@ public class Configuration
     public static final String KEY_DEFAULT_OU = "escidoc.pubman.root.organisation.id";
     public static final String KEY_PUBLICATION_CM = "escidoc.framework_access.content-model.id.publication";
     public static final String KEY_IMPORT_TASK_CM = "escidoc.import.task.content-model";
+    
+    // CoNE
     public static final String KEY_CONE_SERVER = "escidoc.cone.database.server.name";
     public static final String KEY_CONE_DATABASE = "escidoc.cone.database.name";
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
@@ -91,6 +93,16 @@ public class Configuration
     public static final String KEY_CONE_PW = "escidoc.cone.database.user.password";
     public static final String KEY_CONE_DB_DRIVER_CLASS = "escidoc.cone.database.driver.class";
     public static final String KEY_CONE_MODELSXML_PATH = "escidoc.cone.modelsxml.path";
+    
+    public static final String KEY_CONE_SERVICE_URL = "escidoc.cone.service.url";
+    public static final String KEY_CONE_QUERIER_CLASS = "escidoc.cone.querier.class";
+    public static final String KEY_CONE_MULGARA_SERVER_NAME = "escidoc.cone.mulgara.server.name";
+    public static final String KEY_CONE_MULGARA_SERVER_PORT = "escidoc.cone.mulgara.server.port";
+    public static final String KEY_CONE_LANGUAGE_DEFAULT = "escidoc.cone.language.default";
+    public static final String KEY_CONE_MIMETYPE_PATTERN = "escidoc.cone.mimetype.pattern";
+    public static final String KEY_CONE_RDFS_TEMPLATE = "escidoc.cone.rdfs.template";
+    public static final String KEY_CONE_MAX_RESULTS = "escidoc.cone.maximum.results";
+    
     public static final String KEY_CONE_ROLE_OPEN_VOCABULARY_ID = "escidoc.aa.role.open.vocabulary.id";
     public static final String KEY_CONE_ROLE_CLOSED_VOCABULARY_ID = "escidoc.aa.role.closed.vocabulary.id";    
     
@@ -145,14 +157,8 @@ public class Configuration
     public static final String KEY_PB_SURVEY_URL = "escidoc.pubman.survey.url";
     public static final String KEY_PB_SURVEY_TITLE = "escidoc.pubman.survey.title";
     public static final String KEY_PB_SURVEY_TEXT = "escidoc.pubman.survey.text";
+   
     // Others
-    public static final String KEY_CONE_SERVICE_URL = "escidoc.cone.service.url";
-    public static final String KEY_CONE_QUERIER_CLASS = "escidoc.cone.querier.class";
-    public static final String KEY_CONE_MULGARA_SERVER_NAME = "escidoc.cone.mulgara.server.name";
-    public static final String KEY_CONE_LANGUAGE_DEFAULT = "escidoc.cone.language.default";
-    public static final String KEY_CONE_MIMETYPE_PATTERN = "escidoc.cone.mimetype.pattern";
-    public static final String KEY_CONE_RDFS_TEMPLATE = "escidoc.cone.rdfs.template";
-    
     public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";    
     public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
     public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";    

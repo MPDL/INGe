@@ -153,7 +153,16 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
         userConfigValues.put(Configuration.KEY_CONE_DB_DRIVER_CLASS, idata.getVariable("DatabaseDriverClassPostgres"));
         userConfigValues.put(Configuration.KEY_CONE_MODELSXML_PATH, "models.xml");
+        userConfigValues.put(Configuration.KEY_CONE_RDFS_TEMPLATE, "models2rdfs.xsl");
+        userConfigValues.put(Configuration.KEY_CONE_SERVICE_URL, idata.getVariable("InstanceUrl") + "/cone/");
+        userConfigValues.put(Configuration.KEY_CONE_QUERIER_CLASS, "de.mpg.escidoc.services.cone.SQLQuerier");
+        userConfigValues.put(Configuration.KEY_CONE_MULGARA_SERVER_NAME, "localhost");
+        userConfigValues.put(Configuration.KEY_CONE_MULGARA_SERVER_PORT, "9099");
+        userConfigValues.put(Configuration.KEY_CONE_LANGUAGE_DEFAULT, "en");
+        userConfigValues.put(Configuration.KEY_CONE_MIMETYPE_PATTERN, "application/vnd.cone-(.+)");
+        userConfigValues.put(Configuration.KEY_CONE_MAX_RESULTS, "50");
         
+       
         userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
         
         // style sheets PubMan
@@ -196,7 +205,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
         
-        // PumMan Logo URL
+        // PubMan Logo URL
         userConfigValues.put(Configuration.KEY_PM_LOGO_URL, idata.getVariable("PubManLogoURL"));
         userConfigValues.put(Configuration.KEY_PM_LOGO_APPLY, idata.getVariable("PubManLogoApply"));
         userConfigValues.put(Configuration.KEY_PM_FAVICON_URL, idata.getVariable("FavIconURL"));
@@ -252,10 +261,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         // Others
         userConfigValues.put(Configuration.KEY_PUBMAN_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
         userConfigValues.put(Configuration.KEY_COMMON_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
-        userConfigValues.put(Configuration.KEY_CONE_SERVICE_URL, idata.getVariable("InstanceUrl") + "/cone/");
-        userConfigValues.put(Configuration.KEY_CONE_QUERIER_CLASS, "de.mpg.escidoc.services.cone.SQLQuerier");
-        userConfigValues.put(Configuration.KEY_CONE_MULGARA_SERVER_NAME, "");
-        userConfigValues.put(Configuration.KEY_CONE_LANGUAGE_DEFAULT, "en");
+        
         userConfigValues.put(Configuration.KEY_SYNDICATION_SERVICE_URL, idata.getVariable("InstanceUrl") + "/syndication/");
         userConfigValues.put(Configuration.KEY_INSTANCE_PATH, "/pubman");
         userConfigValues.put(Configuration.KEY_ITEM_PATTERN, "/item/$1");
