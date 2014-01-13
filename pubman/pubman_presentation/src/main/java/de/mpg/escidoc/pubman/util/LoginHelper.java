@@ -111,7 +111,6 @@ public class LoginHelper extends FacesBean
      */
     public LoginHelper()
     {
-        System.out.println("Konstruktor");
     }
 
     /**
