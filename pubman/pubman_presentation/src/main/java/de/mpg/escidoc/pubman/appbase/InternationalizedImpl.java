@@ -3,7 +3,6 @@ package de.mpg.escidoc.pubman.appbase;
 import java.util.ResourceBundle;
 
 import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -25,8 +24,6 @@ public class InternationalizedImpl implements Internationalized
 {
     private static Logger logger = Logger.getLogger(InternationalizedImpl.class);
     
-    //For handling the resource bundles (i18n)
-    protected Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
     private InternationalizationHelper i18nHelper;
 
@@ -73,7 +70,7 @@ public class InternationalizedImpl implements Internationalized
      * @param cls The bean class.
      * @return the actual or new bean instance
      */
-    public static synchronized Object getRequestBean(final Class<?> cls)
+    public static Object getRequestBean(final Class<?> cls)
     {
         String name = null;
 
@@ -92,39 +89,6 @@ public class InternationalizedImpl implements Internationalized
         
         FacesContext context = FacesContext.getCurrentInstance();
         return cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-        
-        /*
-        Object result = FacesContext
-                .getCurrentInstance()
-                .getExternalContext()
-                .getRequestMap()
-                .get(name);
-        
-        logger.debug("Getting bean " + name + ": " + result);
-
-        if (result == null)
-        {
-            try
-            {
-                logger.debug("Creating new request bean: " + name);
-                Object newBean = cls.newInstance();
-                FacesContext
-                        .getCurrentInstance()
-                        .getExternalContext()
-                        .getRequestMap()
-                        .put(name, newBean);
-                return newBean;
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException("Error creating new bean of type " + cls, e);
-            }
-        }
-        else
-        {
-            return result;
-        }
-        */
     }
 
     /**
@@ -132,7 +96,7 @@ public class InternationalizedImpl implements Internationalized
      * @param cls The bean class.
      * @return the actual or new bean instance
      */
-    public static synchronized Object getSessionBean(final Class<?> cls)
+    public static Object getSessionBean(final Class<?> cls)
     {
 
     	
@@ -151,49 +115,11 @@ public class InternationalizedImpl implements Internationalized
             throw new RuntimeException("Error getting bean name of " + cls, e);
         }
         
-        //logger.info("Requesting session bean " + name);
-        //logger.info("In scope: " + FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name));
-        
-        
+             
         FacesContext context = FacesContext.getCurrentInstance();
         Object bean = cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-        //Object bean = FacesContext.getCurrentInstance().getELContext().getELResolver().getValue(FacesContext.getCurrentInstance().getELContext(), null, name);  
        
-        //logger.info("Returning " + bean);
         return bean;
-        
-        /*
-        Object result = FacesContext
-                .getCurrentInstance()
-                .getExternalContext()
-                .getSessionMap()
-                .get(name);
-        
-        logger.debug("Getting bean " + name + ": " + result);
-
-        if (result == null)
-        {
-            try
-            {
-                logger.debug("Creating new session bean: " + name);
-                Object newBean = cls.newInstance();
-                FacesContext
-                        .getCurrentInstance()
-                        .getExternalContext()
-                        .getSessionMap()
-                        .put(name, newBean);
-                return newBean;
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException("Error creating new bean of type " + cls, e);
-            }
-        }
-        else
-        {
-            return result;
-        }
-        */
     }
 
     /**
@@ -201,7 +127,7 @@ public class InternationalizedImpl implements Internationalized
      * @param cls The bean class.
      * @return the actual or new bean instance
      */
-    public static synchronized Object getApplicationBean(final Class<?> cls)
+    public static Object getApplicationBean(final Class<?> cls)
     {
         String name = null;
 
@@ -220,39 +146,7 @@ public class InternationalizedImpl implements Internationalized
         
         FacesContext context = FacesContext.getCurrentInstance();
         return cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-        
-        /*
-        Object result = FacesContext
-                .getCurrentInstance()
-                .getExternalContext()
-                .getApplicationMap()
-                .get(name);
-        
-        logger.debug("Getting bean " + name + ": " + result);
 
-        if (result == null)
-        {
-            try
-            {
-                 logger.debug("Creating new application bean: " + name);
-                Object newBean = cls.newInstance();
-                FacesContext
-                        .getCurrentInstance()
-                        .getExternalContext()
-                        .getApplicationMap()
-                        .put(name, newBean);
-                return newBean;
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException("Error creating new bean of type " + cls, e);
-            }
-        }
-        else
-        {
-            return result;
-        }
-        */
     }
 	public InternationalizationHelper getI18nHelper() {
 		return i18nHelper;
