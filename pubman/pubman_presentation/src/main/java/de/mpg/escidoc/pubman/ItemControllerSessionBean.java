@@ -665,12 +665,13 @@ public class ItemControllerSessionBean extends FacesBean
 		newItem.setPublicStatus(State.PENDING);
 		newItem.setOwner(null);
 		newItem.getFiles().clear();
+		// clear local tags [PUBMAN-2478]
+		newItem.getLocalTags().clear();
 		//clear the relation list according to PUBMAN-357
 		if (newItem.getRelations() != null)
 		{
 			newItem.getRelations().clear();
 		}
-
 
 		this.setCurrentPubItem(new PubItemVOPresentation(newItem));
 
