@@ -72,6 +72,70 @@
 			<xsl:value-of select="text()"/>
 		</li>
 	</xsl:template>
+	
+	
+	<xsl:template match="kml:coordinates">
+		<li>
+			<iframe width="300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.de/maps?hl=de&amp;ie=UTF8&amp;t=h&amp;ll={.}&amp;spn=3.967501,6.591797&amp;z=6&amp;output=embed"></iframe>
+			<ul>
+				<li>
+					<xsl:text>Latitude: </xsl:text>
+					<xsl:choose>
+						<xsl:when test="starts-with(substring-after(., ','), '-')">
+							<xsl:value-of select="escidocFunctions:decimal2degree(substring-after(., ',-'))"/>
+							<xsl:text> W</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="escidocFunctions:decimal2degree(substring-after(., ','))"/>
+							<xsl:text> E</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+				</li>
+				<li>
+					<xsl:text>Longitude: </xsl:text>
+					<xsl:choose>
+						<xsl:when test="starts-with(., '-')">
+							<xsl:value-of select="escidocFunctions:decimal2degree(substring-after(substring-before(., ','), '-'))"/>
+							<xsl:text> S</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="escidocFunctions:decimal2degree(substring-before(., ','))"/>
+							<xsl:text> N</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+				</li>
+			</ul>
+		</li>
+	</xsl:template>
+	
+	<xsl:function name="escidocFunctions:decimal2degree">
+		<xsl:param name="value"/>
+		
+		<xsl:choose>
+			<xsl:when test="not(contains($value, '.'))">
+				<xsl:value-of select="$value"/>
+				<xsl:text>°</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="substring-before($value, '.')"/>
+				<xsl:text>° </xsl:text>
+				<xsl:variable name="minutes" select="round(concat('.', substring-after($value, '.')) cast as xs:float * 3600) div 60"/>
+				<xsl:choose>
+					<xsl:when test="not(contains($minutes cast as xs:string, '.'))">
+						<xsl:value-of select="$minutes"/>
+						<xsl:text>'</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring-before($minutes cast as xs:string, '.')"/>
+						<xsl:text>' </xsl:text>
+						<xsl:variable name="seconds" select="round(concat('.', substring-after($minutes cast as xs:string, '.')) cast as xs:float * 60)"/>
+						<xsl:value-of select="$seconds"/>
+						<xsl:text>''</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
 
 	
 </xsl:stylesheet>
