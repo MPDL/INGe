@@ -229,11 +229,9 @@ public class StructuredExport implements StructuredExportHandler {
 				// URLs to the pubman_instance and to the coreservice_instance 
 				// defined as parameters to be able to test the EDOC_* exports in different instances
 				// see http://jira.mpdl.mpg.de/browse/PUBMAN-1867
-				if (exportFormat.toUpperCase().startsWith("EDOC_"))
-				{
-					trans.setParameter("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url"));
-					trans.setParameter("coreservice_instance", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
-				};
+				trans.setParameter("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url"));
+				trans.setParameter("pubman_instance_context_path", PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
+				trans.setParameter("coreservice_instance", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
 				
 				
 //				logger.info("ENCODING:" + trans.getOutputProperty(OutputKeys.ENCODING)) ;
