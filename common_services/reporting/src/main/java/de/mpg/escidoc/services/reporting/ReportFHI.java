@@ -349,10 +349,10 @@ public class ReportFHI {
 	 * Send report per email(s)
 	 * @param attFileNames - array of paths to report files 
 	 */
-	public static void sendReport(String[] attFileNames)
+	public static void sendReport(String[] attFileNames, boolean testing)
 	{
 		// send email with attachments 
-		String toEmails = rprops.getProperty("FHI.recipients.addresses");
+		String toEmails = (testing ? rprops.getProperty("FHI.recipients.addresses.test") : rprops.getProperty("FHI.recipients.addresses"));
 		if (toEmails != null && !toEmails.trim().equals(""))
 		{
 			String[] timeRange = getStartEndDateOfQuery();
@@ -387,9 +387,9 @@ public class ReportFHI {
 	 * Generate month report and send it per email 
 	 * @throws JRException
 	 */
-	public static void generateAndSendReport() throws JRException
+	public static void generateAndSendReport(boolean testing) throws JRException
 	{
-		sendReport(generateReport());
+		sendReport(generateReport(), testing);
     }		
 	
     /**
@@ -477,12 +477,13 @@ public class ReportFHI {
     }    
     
     
-
+    // This is the main application called periodically by a cron job on continuum
+    // configured in /usr/local/sbin/reporting
 	public static void main(String args[]) throws Exception
 	{
 	    ReportFHI rep = new ReportFHI();
         
-	    ReportFHI.generateAndSendReport(); 	
+	    ReportFHI.generateAndSendReport(false); 	
 	}
 	
     private static void usage()

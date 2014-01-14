@@ -74,7 +74,7 @@ public class ReportingTest
 		}
 		else 
 		{
-			rep.generateAndSendReport();
+			rep.generateAndSendReport(true);
 		}
 		
 	}
