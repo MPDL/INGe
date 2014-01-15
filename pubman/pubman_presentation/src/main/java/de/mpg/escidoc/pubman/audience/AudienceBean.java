@@ -267,13 +267,12 @@ public class AudienceBean extends FacesBean
                         newGrant.setGrantedTo(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo());
                         this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().add(new GrantVOPresentation(newGrant, this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(), i));
                     }
-                }
-                for (int k = 0; k < this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(); k++)
-                {
-                    if(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(k).getGrant().getGrantedTo() == null 
-                            || this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(k).getGrant().getGrantedTo().trim().equals(""))
-                    {
-                        this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().remove(k);
+                    else {
+                     // ensure that at least one grant is in the list (for presentation)
+                        if(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size() == 0)
+                        {
+                            this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().add(new GrantVOPresentation(new Grant(), this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(), i));
+                        }
                     }
                 }
             }
