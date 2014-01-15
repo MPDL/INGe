@@ -43,13 +43,19 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+
 /**
- * @author endres
+ * 
+ * Property store used for installation process. Properties are stored both in a Map and as System properties.
+ * Therefore properties can be accessed everywhere during installation. 
+ *
+ * @author sieders (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class Configuration
 {
-    /** */
     private Properties properties = null;
     /** logging instance */
     private Logger logger = null;
@@ -106,6 +112,7 @@ public class Configuration
     public static final String KEY_CONE_ROLE_OPEN_VOCABULARY_ID = "escidoc.aa.role.open.vocabulary.id";
     public static final String KEY_CONE_ROLE_CLOSED_VOCABULARY_ID = "escidoc.aa.role.closed.vocabulary.id";    
     
+    // style sheets
     public static final String KEY_PM_STYLESHEET_STANDARD_URL = "escidoc.pubman.stylesheet.standard.url";
     public static final String KEY_PM_STYLESHEET_STANDARD_TYPE = "escidoc.pubman.stylesheet.standard.type";
     public static final String KEY_PM_STYLESHEET_STANDARD_APPLY = "escidoc.pubman.stylesheet.standard.apply";
@@ -131,6 +138,7 @@ public class Configuration
     public static final String KEY_CM_STYLESHEET_SPECIAL_URL = "escidoc.common.stylesheet.special.url";
     public static final String KEY_CM_STYLESHEET_SPECIAL_TYPE = "escidoc.common.stylesheet.special.type";
     public static final String KEY_CM_STYLESHEET_SPECIAL_APPLY = "escidoc.common.stylesheet.special.apply";
+    
     // PubMan Logo URL
     public static final String KEY_PM_LOGO_URL = "escidoc.pubman.logo.url";
     public static final String KEY_PM_LOGO_APPLY = "escidoc.pubman.logo.apply";
@@ -143,15 +151,18 @@ public class Configuration
     public static final String KEY_BLOG_NEWS_LINK = "escidoc.pubman.blog.news";
     public static final String KEY_VOCAB_LINK = "escidoc.cone.subjectVocab";
     public static final String KEY_ACCESS_CONF_GENRES_LINK = "escidoc.pubman.genres.configuration";
+    
     // Panel 9
     public static final String KEY_TASK_INT_LINK = "escidoc.pubman.sitemap.task.interval";
     public static final String KEY_MAX_ITEMS_LINK = "escidoc.pubman.sitemap.max.items";
     public static final String KEY_RETRIEVE_ITEMS_LINK = "escidoc.pubman.sitemap.retrieve.items";
     public static final String KEY_RETRIEVE_TIMEOUT_LINK = "escidoc.pubman.sitemap.retrieve.timeout";
+    
     // Panel 10
     public static final String KEY_SORT_KEYS_LINK = "escidoc.search.and.export.default.sort.keys";
     public static final String KEY_SORT_ORDER_LINK = "escidoc.search.and.export.default.sort.order";
     public static final String KEY_MAX_RECORDS_LINK = "escidoc.search.and.export.maximum.records";
+    
     // Panel 12 : Home Page Content and Survey Advertisements
     public static final String KEY_PB_HOME_CONTENT_URL = "escidoc.pubman.home.content.url";
     public static final String KEY_PB_SURVEY_URL = "escidoc.pubman.survey.url";
@@ -178,6 +189,7 @@ public class Configuration
     public static final String KEY_SEARCH_AND_EXPORT_MAX_RECORDS = "escidoc.search.and.export.maximum.records";
     
     // PidCache
+    public static final String KEY_PIDCACHE_HANDLES_ACTIVATED ="escidoc.handles.activated";
     public static final String KEY_PIDCACHE_SIZE_MAX = "escidoc.pidcache.cache.size.max";
     public static final String KEY_PIDCACHE_REFRESH_INTERVAL = "escidoc.pidcache.refresh.interval";
     public static final String KEY_PIDCACHE_DUMMY_URL = "escidoc.pidcache.dummy.url";
@@ -379,15 +391,18 @@ public class Configuration
         System.setProperty(key, value);
     }
     
-    public String getProperty( String key )
+    private String getProperty( String key )
     {
         return properties.getProperty(key);
     }
     
+
     public void setProperties(Map<String, String> props) {
         cleanup(props);
     	properties.putAll(props);
     	System.getProperties().putAll(props);
+    	
+    	logger.info("Properties " + properties);
     }
     
     /**

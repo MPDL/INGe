@@ -3,7 +3,6 @@ package de.mpg.escidoc.pubman.installer;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
@@ -21,7 +20,6 @@ import java.util.NoSuchElementException;
 
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 
 import com.izforge.izpack.installer.InstallData;
@@ -59,9 +57,6 @@ public class UpdatePubmanConfigurationProcess extends Thread
     
     private static RoleHandler roleHandler = null;
     
-    private  Map<String, String> userConfigValues = new HashMap<String, String>();
-    private  Map<String, String> authConfigValues = new HashMap<String, String>();
-    
     private static Logger logger = Logger.getLogger(UpdatePubmanConfigurationProcess.class);
     
     public UpdatePubmanConfigurationProcess()
@@ -87,10 +82,14 @@ public class UpdatePubmanConfigurationProcess extends Thread
     {
         this.panel.getTextArea().append("Starting update...\n");
         logger.info("Updating PubMan configuration continuing..");
+        
+        this.loadConfiguration();
+        
+        // update framework policies and set the role identifier properties for the two CoNE roles
+        this.updatePolicies(configAuth);
                  
         if (this.createDataset)
         {     
-//            storeConfiguration();
             createDataset();                
         }  
         storeConfiguration(); 
@@ -98,7 +97,6 @@ public class UpdatePubmanConfigurationProcess extends Thread
         // create a private - public key pair
         this.createKeys();
         
-        deployPubmanEar();
     }
 
     // only for junit testing
@@ -116,7 +114,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         {
             startEscidocThread.join(3*60*1000);
         }
-        catch (InterruptedException  e1)
+        catch (InterruptedException e1)
         {
             logger.error("Timeout when waiting for eSciDoc Framework start....");
             panel.processFinishedWithError("Timeout when waiting for eSciDoc Framework start", e1, this.getName());
@@ -136,9 +134,18 @@ public class UpdatePubmanConfigurationProcess extends Thread
         }
     }
     
-    private void storeConfiguration() throws Exception
-    {
     
+    /**
+     * Transfer both the data entered into the installation panels and the predefined data from install.xml file.
+     * For JUnit testing we use the subclass JunitInstallData initialized by the variables.xml file. 
+     * 
+     * @throws Exception
+     */
+    private void loadConfiguration() throws Exception
+    {  
+        Map<String, String> userConfigValues = new HashMap<String, String>();
+        Map<String, String> authConfigValues = new HashMap<String, String>();
+        
         userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));                
         userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
@@ -216,22 +223,17 @@ public class UpdatePubmanConfigurationProcess extends Thread
         
         // Panel 6
         userConfigValues.put(Configuration.KEY_PUBLICATION_CM, idata.getVariable("escidoc.framework_access.content-model.id.publication"));
+        
         // Panel 11
         userConfigValues.put(Configuration.KEY_IMPORT_TASK_CM, idata.getVariable("escidoc.import.task.content-model"));
+        
         // Panel 8
-        //userConfigValues.put(Configuration.KEY_VIEWFULLITEM_DEFAULT_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
+        userConfigValues.put(Configuration.KEY_VIEWFULLITEM_DEFAULT_SIZE, 
+                idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize")== null ? "20" : idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
         userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
         userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
         
         // Login URL
-        /*if (idata.getVariable("escidoc.framework_access.login.url") == null || "".equals(idata.getVariable("escidoc.framework_access.login.url")))
-        {
-            userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("CoreserviceUrl"));
-        }
-        else
-        {
-            userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("escidoc.framework_access.login.url"));
-        }*/
         userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
         userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
         userConfigValues.put(Configuration.KEY_ACCESS_CONF_GENRES_LINK, idata.getVariable("escidoc.pubman.genres.configuration"));
@@ -242,16 +244,19 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_MAIL_USE_AUTHENTICATION, idata.getVariable("MailUseAuthentication"));
         userConfigValues.put(Configuration.KEY_MAILUSER, idata.getVariable("MailUsername"));
         userConfigValues.put(Configuration.KEY_MAILUSERPW, idata.getVariable("MailPassword"));
+        
         // Panel 9
         userConfigValues.put(Configuration.KEY_TASK_INT_LINK, 
                 idata.getVariable("escidoc.pubman.sitemap.task.interval") == null ? "10000" : idata.getVariable("escidoc.pubman.sitemap.task.interval"));
         userConfigValues.put(Configuration.KEY_MAX_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.max.items"));
         userConfigValues.put(Configuration.KEY_RETRIEVE_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.retrieve.items"));
         userConfigValues.put(Configuration.KEY_RETRIEVE_TIMEOUT_LINK, idata.getVariable("escidoc.pubman.sitemap.retrieve.timeout"));
+        
         // Panel 10
         userConfigValues.put(Configuration.KEY_SORT_KEYS_LINK, idata.getVariable("escidoc.search.and.export.default.sort.keys"));
         userConfigValues.put(Configuration.KEY_SORT_ORDER_LINK, idata.getVariable("escidoc.search.and.export.default.sort.order"));
         userConfigValues.put(Configuration.KEY_MAX_RECORDS_LINK, idata.getVariable("escidoc.search.and.export.maximum.records"));
+        
         // Panel 12 : Home Page Content and Survey Advertisements
         userConfigValues.put(Configuration.KEY_PB_HOME_CONTENT_URL, idata.getVariable("escidoc.pubman.home.content.url"));
         userConfigValues.put(Configuration.KEY_PB_SURVEY_URL, idata.getVariable("escidoc.pubman.survey.url"));
@@ -282,6 +287,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_MAX_RECORDS, "50");     
         
         // PidCache
+        userConfigValues.put(Configuration.KEY_PIDCACHE_HANDLES_ACTIVATED, idata.getVariable("escidoc.handles.activated"));
         userConfigValues.put(Configuration.KEY_PIDCACHE_SIZE_MAX, idata.getVariable("escidoc.pidcache.cache.size.max"));
         userConfigValues.put(Configuration.KEY_PIDCACHE_REFRESH_INTERVAL, idata.getVariable("escidoc.pidcache.refresh.interval"));
         userConfigValues.put(Configuration.KEY_PIDCACHE_DUMMY_URL, idata.getVariable("escidoc.pidcache.dummy.url"));
@@ -315,13 +321,34 @@ public class UpdatePubmanConfigurationProcess extends Thread
         authConfigValues.put(Configuration.KEY_AUTH_CLIENT_START_CLASS, idata.getVariable("AAClientStartClass"));
         authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));        
         
+        
         configPubman.setProperties(userConfigValues);
+//        configPubman.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
+
+        configAuth.setProperties(authConfigValues);
+//        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
+//        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
+        
+//        configAuth.storeXml(idata.getInstallPath() + INSTALL_TMP_PATH + "conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
+        
+        // ... and update PropertyReader
+        //PropertyReader.loadProperties();
+        /*PropertyReader.setProperty(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));                
+        PropertyReader.setProperty(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
+        PropertyReader.setProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
+        PropertyReader.setProperty(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));
+        PropertyReader.setProperty(Configuration.KEY_INSTANCEURL, idata.getVariable("InstanceUrl"));*/
+    }
+    
+    /**
+     * Store the configuration files 
+     * 
+     * @throws Exception
+     */
+    private void storeConfiguration() throws Exception
+    {  
         configPubman.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
 
-        // update framework policies and set the role identifier properties for the two CoNE roles
-        this.updatePolicies(authConfigValues);
-        
-        configAuth.setProperties(authConfigValues);
         configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
         configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
         
@@ -365,7 +392,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         }
     }
     
-    public void updatePolicies(Map<String, String> config) throws Exception
+    public void updatePolicies(Configuration config) throws Exception
     {
         logger.info("******************************************* Starting updatePolicies");
         
@@ -383,12 +410,12 @@ public class UpdatePubmanConfigurationProcess extends Thread
             out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_OPEN_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_open_vocabulary_editor.xml", config);  
             String roleOpenVocId = Utils.getValueFromXml("objid=\"", out);
             logger.info("Setting " + Configuration.KEY_CONE_ROLE_OPEN_VOCABULARY_ID + "<" + roleOpenVocId + ">");
-            config.put(Configuration.KEY_CONE_ROLE_OPEN_VOCABULARY_ID, roleOpenVocId);
+            config.setProperty(Configuration.KEY_CONE_ROLE_OPEN_VOCABULARY_ID, roleOpenVocId);
             
             out = doCreateOrUpdate(ESCIDOC_ROLE_CONE_CLOSED_VOCABULARY_EDITOR_NAME, "datasetObjects/role_cone_closed_vocabulary_editor.xml", config);
             String roleClosedVocId = Utils.getValueFromXml("objid=\"", out);
             logger.info("Setting " + Configuration.KEY_CONE_ROLE_CLOSED_VOCABULARY_ID + "<" + roleClosedVocId + ">");
-            config.put(Configuration.KEY_CONE_ROLE_CLOSED_VOCABULARY_ID, roleClosedVocId);
+            config.setProperty(Configuration.KEY_CONE_ROLE_CLOSED_VOCABULARY_ID, roleClosedVocId);
         }
         catch (Exception e)
         {
@@ -420,7 +447,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         return out;
     }
     
-    private String doCreateOrUpdate(String roleName, String templateFileName, Map<String, String> config) throws Exception
+    private String doCreateOrUpdate(String roleName, String templateFileName, Configuration config) throws Exception
     {    
         logger.info("******************************************* Starting doCreateOrUpdate for " + roleName);
         

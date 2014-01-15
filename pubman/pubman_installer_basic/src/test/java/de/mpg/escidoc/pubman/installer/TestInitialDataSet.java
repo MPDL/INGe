@@ -2,11 +2,17 @@ package de.mpg.escidoc.pubman.installer;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.net.URL;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
+import de.mpg.escidoc.pubman.installer.panels.IConfigurationCreatorPanel;
+import de.mpg.escidoc.pubman.installer.panels.JUnitConfigurationPanel;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -16,11 +22,26 @@ public class TestInitialDataSet
     private String ouDefId = null;
     private String ctxDefId = null;
     
+    private static StartEscidocProcess escidocProcess;
+    private static IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
+    
+    
     @BeforeClass
     public static void setup() throws Exception
     {
+        escidocProcess = new StartEscidocProcess(panel);
+        escidocProcess.startEscidocAndWaitTillFinished();
+        
         ds = new InitialDataset(new URL(PropertyReader.getProperty("escidoc.framework_access.framework.url")), 
                 PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
+    }
+    
+    @AfterClass
+    public static void tearDown() throws Exception
+    {       
+        escidocProcess.stopEscidoc();  
+        
+        Thread.currentThread().sleep(1000*30);
     }
     
     

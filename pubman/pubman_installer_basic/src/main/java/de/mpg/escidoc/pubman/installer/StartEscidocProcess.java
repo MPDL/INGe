@@ -109,19 +109,19 @@ public class StartEscidocProcess extends Thread
     
     public void stopEscidoc() throws Exception
     {        
-            String osName = System.getProperty("os.name" );
+            String osName = System.getProperty("os.name");
             String[] cmd = new String[3];
             if( osName.startsWith("Windows" ) )
             {
                 cmd[0] = "cmd" ;
                 cmd[1] = "/C" ;
-                cmd[2] = "shutdown.bat";
+                cmd[2] = "shutdown.bat -S";
             }
-            else if( osName.startsWith( "Linux" ) )
+            else if( osName.startsWith("Linux") )
             {
                 cmd[0] = "/bin/sh" ;
                 cmd[1] = "/C" ;
-                cmd[2] = "shutdown.sh";
+                cmd[2] = "shutdown.sh -S";
             }
             
             ProcessBuilder pb =
@@ -143,9 +143,9 @@ public class StartEscidocProcess extends Thread
         HttpClient client = new HttpClient();
         
         client.getHttpConnectionManager().getParams().setConnectionTimeout(3*60*1000);
-        ProxyHelper.executeMethod(client, method);
+        int code = client.executeMethod(method);
         
-        return method.getStatusCode();
+        return code;
     }
     
     // TODO catch IOException in method

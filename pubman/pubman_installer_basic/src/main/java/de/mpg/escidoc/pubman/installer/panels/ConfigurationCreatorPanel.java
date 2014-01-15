@@ -48,7 +48,6 @@ import com.izforge.izpack.installer.InstallerFrame;
 
 import de.mpg.escidoc.pubman.installer.ConeDataset;
 import de.mpg.escidoc.pubman.installer.ConeInsertProcess;
-import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.StartEscidocProcess;
 import de.mpg.escidoc.pubman.installer.UpdatePubmanConfigurationProcess;
 import de.mpg.escidoc.pubman.installer.util.LabelPanel;
@@ -167,7 +166,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
             revalidate();
         }
        
-        configurationPanel = new LabelPanel("Writing configuration (pubman.properties)", true);
+        configurationPanel = new LabelPanel("Updating PubMan configuration (pubman.properties, ...)", true);
         add(configurationPanel, NEXT_LINE);
         try
         {
@@ -221,76 +220,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
         setPanelValid(success);
     }
     
-/*
-    public void coneDataInsertedSuccessfully()
-    {
-        conePanel.showProgressBar(false);
-        conePanel.setEndLabel("CoNE data written and processed!", LabelPanel.ICON_SUCCESS);
-        // always set to true for now
-        setPanelValid(success);
-        if (success)
-        {
-            parent.unlockNextButton();
-        }
-        else
-        {
-            parent.unlockPrevButton();
-        }
-        revalidate();
-    }
-
-    public void coneInsertionError(Exception e)
-    {
-        conePanel.showProgressBar(false);
-        conePanel.setEndLabel("Error. CoNE data could not be inserted.", LabelPanel.ICON_ERROR);
-        conePanel.addToTextArea(e.toString() + ": " + e.getMessage());
-        success = false;
-        // always set to true for now
-        setPanelValid(success);
-        
-        revalidate();
-    }
-
-    public void escidocStartedSuccessfully()
-    {       
-        startEscidocPanel.setEndLabel("eSciDoc Framework started successfully!", LabelPanel.ICON_SUCCESS);           
-       
-        startEscidocPanel.showProgressBar(false);
-        startEscidocPanel.repaint();
-        setPanelValid(success);
-        escidocStarted = true;
-    }
-
-    public void escidocStartedError(Exception e)
-    {
-        startEscidocPanel.setEndLabel("Error or timeout when starting the eSciDoc Framework!", LabelPanel.ICON_ERROR);
-        String hint = "Please rerun installation and ensure that the eSciDoc coreservice is running and the correct coreservice credentials are provided in the installer.";
-        startEscidocPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
-        startEscidocPanel.setMinimumSize(new Dimension(700, 100));
-        logger.error("Error while starting the eSciDoc Framework!", e);
-        startEscidocPanel.showProgressBar(false);
-        startEscidocPanel.repaint();
-    }
-
-    public void pubmanConfigurationUpdatedSuccessfully()
-    {
-        configurationPanel.setEndLabel("PubMan configration updated successfully!", LabelPanel.ICON_SUCCESS);           
-        
-        configurationPanel.showProgressBar(false);
-        configurationPanel.repaint();
-    }
-
-    public void pubmanConfigurationUpdatedError(Exception e)
-    {
-        configurationPanel.setEndLabel("Error or timeout when updateing PubMan configuration!", LabelPanel.ICON_ERROR);
-        String hint = "Please rerun installation and ensure that the eSciDoc coreservice is running and the correct coreservice credentials are provided in the installer.";
-        configurationPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
-        configurationPanel.setMinimumSize(new Dimension(700, 100));
-        logger.error("Error when updateing PubMan configuration!", e);
-        configurationPanel.showProgressBar(false);
-        configurationPanel.repaint();
-    }
-    */
     /**
      * evaluates if some data has to be inserted into cone database
      * 

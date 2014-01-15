@@ -2,9 +2,12 @@ package de.mpg.escidoc.pubman.installer;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,11 +22,20 @@ public class TestUpdatePubmanConfigurationProcess
     private static final String JBOSS_DEF_PATH = "/jboss/server/default/";
     private static String installPath = "c:/escidoc.pubman";
     
+    private static StartEscidocProcess escidocProcess;
     private UpdatePubmanConfigurationProcess updateProcess;
+    private static IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
     
     
     @BeforeClass
     public static void setUp() throws Exception
+    {   
+        escidocProcess = new StartEscidocProcess(panel);
+        escidocProcess.start();
+    }
+    
+    @Before
+    public void setUpBeforeMethod() throws Exception
     {       
         // create dummy pubman_ear
         FileUtils.writeStringToFile(new File(installPath + JBOSS_DEF_PATH + "pubman_ear.ear"), "xxxxx");
@@ -32,15 +44,15 @@ public class TestUpdatePubmanConfigurationProcess
     @AfterClass
     public static void tearDown() throws Exception
     {       
-        // move back to deploy dummy pubman_ear
-        FileUtils.moveFileToDirectory(new File(installPath + JBOSS_DEF_PATH + "deploy/" + "pubman_ear.ear"), new File(installPath + JBOSS_DEF_PATH), false);
+        escidocProcess.stopEscidoc();       
+        
+        Thread.currentThread().sleep(1000*30);
     }
 
     @Test
-    @Ignore
     public void testDeployPubmanEar() throws Exception
     {
-        UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess();
+        updateProcess = new UpdatePubmanConfigurationProcess();
         updateProcess.setInstallPath(installPath);
         updateProcess.deployPubmanEar();
         
@@ -53,14 +65,10 @@ public class TestUpdatePubmanConfigurationProcess
     
     @Test
     public void testUpdatePubmanConfiguration() throws Exception
-    {
-        IConfigurationCreatorPanel panel = new JUnitConfigurationPanel();
-        StartEscidocProcess startProcess = new StartEscidocProcess(panel);
-        startProcess.start();
-        
-        UpdatePubmanConfigurationProcess updateProcess = new UpdatePubmanConfigurationProcess(
-                                                panel, startProcess, true);
+    {       
+        updateProcess = new UpdatePubmanConfigurationProcess(
+                                                panel, escidocProcess, true);
         updateProcess.start();
-        Thread.currentThread().sleep(4*60*1000);
+        Thread.currentThread().sleep(3*60*1000);
     }
 }

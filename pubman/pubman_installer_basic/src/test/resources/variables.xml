@@ -133,7 +133,7 @@
 		<entry key="escidoc.pubman.sitemap.retrieve.timeout">1000000</entry>
 		
 		<entry key="escidoc.handles.activated">false</entry>
-		<entry key="escidoc.pidcache.cache.size.max"> 100</entry>
+		<entry key="escidoc.pidcache.cache.size.max">100</entry>
 		<entry key="escidoc.pidcache.refresh.interval">1</entry>
 		<entry key="escidoc.pidcache.dummy.url"></entry>	
 		<entry key="escidoc.pid.pidcache.service.url"></entry>
