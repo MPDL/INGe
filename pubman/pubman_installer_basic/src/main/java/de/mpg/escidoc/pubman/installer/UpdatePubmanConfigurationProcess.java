@@ -83,7 +83,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         this.panel.getTextArea().append("Starting update...\n");
         logger.info("Updating PubMan configuration continuing..");
         
-        this.loadConfiguration();
+        loadConfiguration();
         
         // update framework policies and set the role identifier properties for the two CoNE roles
         this.updatePolicies(configAuth);
@@ -95,7 +95,9 @@ public class UpdatePubmanConfigurationProcess extends Thread
         storeConfiguration(); 
         
         // create a private - public key pair
-        this.createKeys();
+        createKeys();
+        
+        deployPubmanEar();
         
     }
 
@@ -323,6 +325,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         
         
         configPubman.setProperties(userConfigValues);
+        configPubman.store("pubman.properties");
 //        configPubman.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
 
         configAuth.setProperties(authConfigValues);
@@ -330,14 +333,6 @@ public class UpdatePubmanConfigurationProcess extends Thread
 //        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
         
 //        configAuth.storeXml(idata.getInstallPath() + INSTALL_TMP_PATH + "conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
-        
-        // ... and update PropertyReader
-        //PropertyReader.loadProperties();
-        /*PropertyReader.setProperty(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));                
-        PropertyReader.setProperty(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
-        PropertyReader.setProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
-        PropertyReader.setProperty(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));
-        PropertyReader.setProperty(Configuration.KEY_INSTANCEURL, idata.getVariable("InstanceUrl"));*/
     }
     
     /**
@@ -392,7 +387,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         }
     }
     
-    public void updatePolicies(Configuration config) throws Exception
+    private void updatePolicies(Configuration config) throws Exception
     {
         logger.info("******************************************* Starting updatePolicies");
         

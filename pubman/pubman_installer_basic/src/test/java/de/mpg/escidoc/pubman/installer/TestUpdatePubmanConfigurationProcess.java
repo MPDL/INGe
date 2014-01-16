@@ -50,6 +50,7 @@ public class TestUpdatePubmanConfigurationProcess
     }
 
     @Test
+    @Ignore
     public void testDeployPubmanEar() throws Exception
     {
         updateProcess = new UpdatePubmanConfigurationProcess();
