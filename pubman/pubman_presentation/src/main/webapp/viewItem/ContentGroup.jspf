@@ -46,7 +46,7 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblSubject}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}" converter="HTMLEscapeConverter" escape="false" rendered="#{ViewItemFull.hasFreeKeywords}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}" converter="HTMLSubSupConverter" escape="false" rendered="#{ViewItemFull.hasFreeKeywords}"/>
 				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{!ViewItemFull.hasFreeKeywords}"/>
 			</span>
 		</div>
