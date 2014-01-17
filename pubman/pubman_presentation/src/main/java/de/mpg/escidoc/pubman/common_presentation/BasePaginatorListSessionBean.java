@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.digester.SetTopRule;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -192,6 +193,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         if (currentPNumber!=null)
         {
             setCurrentPageNumber(Integer.parseInt(currentPNumber));
+            setGoToPage(currentPNumber);
         }
         else
         {
