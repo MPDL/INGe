@@ -344,6 +344,31 @@
 		return;
 	}
 	
+	// removes 'readonly' attributes and resets fields for autosuggest
+	function removeOrganizationAutoSuggest(element)
+	{
+		var $input = $pb(element);
+		var parent = $input.parent();
+		var field = null;
+		if ($pb(parent).find('.organizationIdentifier').val() != '')
+		{
+			field = $pb(parent).find('.organizationIdentifier');
+			field.removeAttr('readonly');
+			fillField('organizationIdentifier', '', parent);
+		}
+		if ($pb(parent).find('.organizationName').val() != '')
+		{	
+			field = $pb(parent).find('.organizationName');
+			field.removeAttr('readonly');
+			fillField('organizationName', '', parent);
+		}
+		
+		$input.css('display', 'none');
+		//$input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
+		bindSuggests();
+		return;
+	}
+	
 	function updatePersonUi()
 	{
 		// maintain attributes for autosuggest filled persons
@@ -371,6 +396,7 @@
 				if (this.value) {
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationName').attr('readonly', 'readonly');
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
+					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
 					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
 				}
 			})
