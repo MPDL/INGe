@@ -78,63 +78,58 @@ public class StartEscidocProcess extends Thread
     }
     
     private void startEscidoc() throws Exception
-    {        
-            String osName = System.getProperty("os.name" );
-            String[] cmd = new String[3];
-            if( osName.startsWith("Windows" ) )
-            {
-                cmd[0] = "cmd" ;
-                cmd[1] = "/C" ;
-                cmd[2] = "run.bat";
-            }
-            else if( osName.startsWith( "Linux" ) )
-            {
-                cmd[0] = "/bin/sh" ;
-                cmd[1] = "/C" ;
-                cmd[2] = "run.sh";
-            }
-            
-            ProcessBuilder pb =
-                  new ProcessBuilder(cmd);
-                  
-                  pb.directory(new File("c:/escidoc.pubman/jboss/bin"));
-                  File log = new File("c:/escidoc.pubman/jboss/server/default/log/server.log");
-                  pb.redirectErrorStream(true);
-                  
-            Process process = pb.start();
-            
-            StreamGobbler g = new StreamGobbler(process.getInputStream());
-            g.start();       
+    {
+        String osName = System.getProperty("os.name");
+        String[] cmd = new String[3];
+        
+        if (osName.startsWith("Windows"))
+        {
+            cmd[0] = "cmd";
+            cmd[1] = "/C";
+            cmd[2] = "run.bat";
+        }
+        else if (osName.startsWith("Linux"))
+        {
+            cmd[0] = "/bin/sh";
+            cmd[1] = "/C";
+            cmd[2] = "run.sh";
+        }
+        
+        ProcessBuilder pb = new ProcessBuilder(cmd);
+        
+        pb.directory(new File(installPath + "/jboss/bin"));
+        pb.redirectErrorStream(true);
+        
+        Process process = pb.start();
+        StreamGobbler g = new StreamGobbler(process.getInputStream());
+        g.start();
     }
     
     public void stopEscidoc() throws Exception
-    {        
-            String osName = System.getProperty("os.name");
-            String[] cmd = new String[3];
-            if( osName.startsWith("Windows" ) )
-            {
-                cmd[0] = "cmd" ;
-                cmd[1] = "/C" ;
-                cmd[2] = "shutdown.bat -S";
-            }
-            else if( osName.startsWith("Linux") )
-            {
-                cmd[0] = "/bin/sh" ;
-                cmd[1] = "/C" ;
-                cmd[2] = "shutdown.sh -S";
-            }
-            
-            ProcessBuilder pb =
-                  new ProcessBuilder(cmd);
-                  
-                  pb.directory(new File("c:/escidoc.pubman/jboss/bin"));
-                  File log = new File("c:/escidoc.pubman/jboss/server/default/log/server.log");
-                  pb.redirectErrorStream(true);
-                  
-            Process process = pb.start();
-            
-            StreamGobbler g = new StreamGobbler(process.getInputStream());
-            g.start();       
+    {
+        String osName = System.getProperty("os.name");
+        String[] cmd = new String[3];
+        
+        if (osName.startsWith("Windows"))
+        {
+            cmd[0] = "cmd";
+            cmd[1] = "/C";
+            cmd[2] = "shutdown.bat -S";
+        }
+        else if (osName.startsWith("Linux"))
+        {
+            cmd[0] = "/bin/sh";
+            cmd[1] = "/C";
+            cmd[2] = "shutdown.sh -S";
+        }
+        
+        ProcessBuilder pb = new ProcessBuilder(cmd);
+        pb.directory(new File(installPath + "/jboss/bin"));
+        pb.redirectErrorStream(true);
+        
+        Process process = pb.start();
+        StreamGobbler g = new StreamGobbler(process.getInputStream());
+        g.start();
     }
     
     private int waitForFrameworkStarted() throws HttpException, IOException, URISyntaxException
