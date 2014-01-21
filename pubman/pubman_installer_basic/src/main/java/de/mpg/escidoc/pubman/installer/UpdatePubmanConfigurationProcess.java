@@ -235,7 +235,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
         userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
         
-        // Login URL
+        // Blog, vocabulary
         userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
         userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
         userConfigValues.put(Configuration.KEY_ACCESS_CONF_GENRES_LINK, idata.getVariable("escidoc.pubman.genres.configuration"));
@@ -264,6 +264,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_PB_SURVEY_URL, idata.getVariable("escidoc.pubman.survey.url"));
         userConfigValues.put(Configuration.KEY_PB_SURVEY_TITLE, idata.getVariable("escidoc.pubman.survey.title"));
         userConfigValues.put(Configuration.KEY_PB_SURVEY_TEXT, idata.getVariable("escidoc.pubman.survey.text"));
+        userConfigValues.put(Configuration.KEY_PB_SURVEY_INTERVAL, idata.getVariable("escidoc.import.surveyor.interval"));
        
         // Others
         userConfigValues.put(Configuration.KEY_PUBMAN_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
@@ -279,6 +280,7 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_CONTEXT_PATTERN, ":context +(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"");
         userConfigValues.put(Configuration.KEY_VALIDATION_SOURCE_CLASSNAME, "de.mpg.escidoc.services.validation.VoidValidationSchemaSource");
         userConfigValues.put(Configuration.KEY_VALIDATION_REFRESH_INTERVAL, "180");
+        userConfigValues.put(Configuration.KEY_IMPORT_SOURCES, idata.getVariable("escidoc.import.sources.xml"));
         
         // Search and Export
         userConfigValues.put(Configuration.KEY_SEARCH_AND_EXPORT_DEF_QUERY, "escidoc.metadata=test and escidoc.content-model.objid=escidoc:2001");
@@ -312,6 +314,16 @@ public class UpdatePubmanConfigurationProcess extends Thread
         userConfigValues.put(Configuration.KEY_IMPORT_DB_CONNECTION_URL, idata.getVariable("DatabaseConnectionUrlHypersonic"));
         
         //Authentication
+        userConfigValues.put(Configuration.KEY_AUTH_INSTANCE_URL, idata.getVariable("InstanceUrl") + "/auth/");
+        userConfigValues.put(Configuration.KEY_AUTH_DEFAULT_TARGET, idata.getVariable("InstanceUrl") + "/auth/clientLogin");
+        userConfigValues.put(Configuration.KEY_AUTH_PRIVATE_KEY_FILE, idata.getVariable("AAPrivateKeyFile"));
+        userConfigValues.put(Configuration.KEY_AUTH_PUBLIC_KEY_FILE, idata.getVariable("AAPublicKeyFile"));
+        userConfigValues.put(Configuration.KEY_AUTH_CONFIG_FILE, idata.getVariable("AAConfigFile"));
+        userConfigValues.put(Configuration.KEY_AUTH_IP_TABLE, idata.getVariable("AAIPTable"));
+        userConfigValues.put(Configuration.KEY_AUTH_CLIENT_START_CLASS, idata.getVariable("AAClientStartClass"));
+        userConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));  
+        
+        //Authentication
         authConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
         authConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         authConfigValues.put(Configuration.KEY_AUTH_INSTANCE_URL, idata.getVariable("InstanceUrl") + "/auth/");
@@ -321,18 +333,14 @@ public class UpdatePubmanConfigurationProcess extends Thread
         authConfigValues.put(Configuration.KEY_AUTH_CONFIG_FILE, idata.getVariable("AAConfigFile"));
         authConfigValues.put(Configuration.KEY_AUTH_IP_TABLE, idata.getVariable("AAIPTable"));
         authConfigValues.put(Configuration.KEY_AUTH_CLIENT_START_CLASS, idata.getVariable("AAClientStartClass"));
-        authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));        
+        authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));  
         
         
         configPubman.setProperties(userConfigValues);
+        // store properties for PropertyReader has access to it.
         configPubman.store("pubman.properties");
-//        configPubman.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
 
         configAuth.setProperties(authConfigValues);
-//        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
-//        configAuth.storeProperties(idata.getInstallPath() + INSTALL_TMP_PATH + "auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
-        
-//        configAuth.storeXml(idata.getInstallPath() + INSTALL_TMP_PATH + "conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
     }
     
     /**

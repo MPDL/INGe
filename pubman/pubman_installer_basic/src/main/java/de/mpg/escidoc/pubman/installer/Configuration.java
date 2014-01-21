@@ -168,6 +168,7 @@ public class Configuration
     public static final String KEY_PB_SURVEY_URL = "escidoc.pubman.survey.url";
     public static final String KEY_PB_SURVEY_TITLE = "escidoc.pubman.survey.title";
     public static final String KEY_PB_SURVEY_TEXT = "escidoc.pubman.survey.text";
+    public static final String KEY_PB_SURVEY_INTERVAL = "escidoc.import.surveyor.interval";
    
     // Others
     public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";    
@@ -178,7 +179,8 @@ public class Configuration
     public static final String KEY_CONTENTMODEL_PATTERN = "escidoc.content.model.pattern";
     public static final String KEY_CONTEXT_PATTERN = "escidoc.context.pattern";
     public static final String KEY_VALIDATION_SOURCE_CLASSNAME = "escidoc.validation.source.classname";
-    public static final String KEY_VALIDATION_REFRESH_INTERVAL = "escidoc.validation.refresh.interval";    
+    public static final String KEY_VALIDATION_REFRESH_INTERVAL = "escidoc.validation.refresh.interval";  
+    public static final String KEY_IMPORT_SOURCES = "escidoc.import.sources.xml";
     
     // Search and Export
     public static final String KEY_SEARCH_AND_EXPORT_DEF_QUERY = "escidoc.search.and.export.default.sql.query";

@@ -241,9 +241,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel implements ICo
     }
 
     /**
-     * evaluates if some data has to be inserted into cone database
+     * evaluates if a new initial dataset has to be created
      * 
-     * @return boolean true if data has to be inserted into cone database
+     * @return boolean true if creation has be selected in package tree
      */
     private boolean haveToInstallInitialDataset()
     {
