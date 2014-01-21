@@ -187,11 +187,13 @@
 		<variable name="MailUsername" value=""/>
 		<variable name="MailPassword" value=""/>
 		<variable name="ExternalOrganisationID" value=""/>
+		
 		<variable name="ConeHost" value="localhost"/>
 		<variable name="ConeDatabase" value="cone"/>
 		<variable name="ConePort" value="5432"/>
 		<variable name="ConeUser" value="postgres"/>
-<!-- TODO -->		<variable name="ConePassword" value="postgres"/>		
+<!-- TODO -->		<variable name="ConePassword" value="postgres"/>
+		
 		<variable name="PubManLogoURL" value="./resources/images/pubman_logo.png"/>
 		<variable name="PubManLogoApply" value="true"/>
 		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_blue/styles/theme.css"/>
@@ -206,14 +208,17 @@
 		<variable name="StyleSheetSpecialURL" value="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css"/>
 		<variable name="StyleSheetSpecialType" value="alternate stylesheet"/>
 		<variable name="StyleSheetSpecialApply" value="true"/>
+		
 		<variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
 		<variable name="FavIconApply" value="true"/>
+		
 		<variable name="ConeCreateJournals" value="true"/>
 		<variable name="ConeCreateLanguages" value="true"/>
 		<variable name="ConeCreateDDC" value="true"/>
 		<variable name="ConeCreateMimetypes" value="true"/>
 		<variable name="ConeCreateEscidocMimeTypes" value="true"/>
 		<variable name="ConeCreateCcLicenses" value="true"/>
+		
 		<variable name="AAInstanceUrl" value=""/>
 		<variable name="AADefaultTarget" value=""/>
 		<variable name="AAPrivateKeyFile" value="private.key"/>
@@ -227,6 +232,32 @@
 		<variable name="escidoc.pubman.sitemap.max.items" value="50000"/>
 		<variable name="escidoc.pubman.sitemap.retrieve.items" value="1"/>
 		<variable name="escidoc.pubman.sitemap.retrieve.timeout" value="1000000"/>
+		
+		<variable name="escidoc.handles.activated" value="false"/>
+		<variable name="escidoc.pidcache.cache.size.max" value="100"/>
+		<variable name="escidoc.pidcache.refresh.interval" value="1"/>
+		<variable name="escidoc.pidcache.dummy.url" value=""/>	
+		<variable name="escidoc.pid.pidcache.service.url" value="1440"/>
+		<variable name="escidoc.pid.service.create.path" value="/write/create"/>
+		<variable name="escidoc.pid.service.view.path" value="/read/view"/>
+		<variable name="escidoc.pid.service.delete.path" value="/write/delete"/>
+		<variable name="escidoc.pid.service.update.path" value="/write/modify"/>
+		<variable name="escidoc.pid.service.search.path" value="/read/search"/>
+		
+		<variable name="escidoc.pid.gwdg.service.url" value=""/>
+		<variable name="escidoc.pid.gwdg.timeout" value=""/>
+		<variable name="escidoc.pid.gwdg.user.login" value=""/>
+		<variable name="escidoc.pid.gwdg.user.password" value=""/>
+		<variable name="escidoc.pidcache.user.name" value="pid_manager"/>
+		<variable name="escidoc.pidcache.user.password" value="wannapid"/>
+		
+		<variable name="escidoc.pubman.genres.configuration" value="Genres.xml"/>
+		
+		<variable name="escidoc.cone.subjectVocab" value="ddc;iso639-3"/>
+		
+		<variable name="escidoc.import.surveyor.interval" value="10"/>
+		
+		<variable name="escidoc.import.sources.xml" value="resources/sources.xml"/>
     </variables>
     
     <dynamicvariables>
@@ -242,16 +273,12 @@
       <variable name="DatabaseDriverClass" value="${DatabaseDriverClassPostgres}" />
       
       <!-- database identifier for JDBC URL -->
-      <variable name="DatabaseIdentifier" value="postgresql"/>
-      
-      <variable name="DatabaseURL" value="jdbc:${DatabaseIdentifier}://${DatabaseHost}:${DatabasePortPostgres}/"  />
-      
-      <variable name="DatabasePort" value="${DatabasePortPostgres}" />
-      
+      <variable name="DatabaseIdentifier" value="postgresql"/>     
+      <variable name="DatabaseURL" value="jdbc:${DatabaseIdentifier}://${DatabaseHost}:${DatabasePortPostgres}/"  />      
+      <variable name="DatabasePort" value="${DatabasePortPostgres}" />      
       <variable name="DatabaseAdminUsername" value="${DatabaseAdminUsernamePostgres}" />
      
-      <!-- database max prepared statements -->
-      
+      <!-- database max prepared statements -->     
       <variable name="DatabaseMaxStatements" value="${DatabaseMaxStatementsPostgres}" />
       
       <variable name="DatabaseMaxStatementsPerConnection" value="${DatabaseMaxStatementsPerConnectionPostgres}" />
@@ -286,16 +313,9 @@
       <variable name="FormBasedIn" value="" condition="authMethodIsFormBased" />
       <variable name="FormBasedOut" value="-->" condition="!authMethodIsFormBased" />
       <variable name="FormBasedOut" value="" condition="authMethodIsFormBased" />
-      <variable name="LDAPIn" value="&lt;!--" condition="!authMethodIsLDAP" />
-      <variable name="LDAPIn" value="" condition="authMethodIsLDAP" />
-      <variable name="LDAPOut" value="-->" condition="!authMethodIsLDAP" />
-      <variable name="LDAPOut" value="" condition="authMethodIsLDAP" />
-      <variable name="ShibbolethIn" value="&lt;!--" condition="!authMethodIsShibboleth" />
-      <variable name="ShibbolethIn" value="" condition="authMethodIsShibboleth" />
-      <variable name="ShibbolethOut" value="-->" condition="!authMethodIsShibboleth" />
-      <variable name="ShibbolethOut" value="" condition="authMethodIsShibboleth" />
       <variable name="UpgradeEscidoc" value="true" condition="upgradeEscidoc" />
       <variable name="RemoveJmxConsole" value="true" condition="removeJmxConsole" />
+      
       <!-- static texts dependent on install/upgrade for user input panels -->
       <variable name="EscidocDatabaseUserText" value="The datebase user specified here will be created by the installer and will be used at runtime for eSciDoc. This user should not have administrative privileges. Please take care not to re-use an existing user, as the installer will drop pre-existing users with the same name!" condition="installEscidoc" />
       <variable name="EscidocDatabaseUserText" value="The datebase user specified here will be used at runtime for eSciDoc. This user should not have administrative privileges." condition="upgradeEscidoc" />
@@ -303,49 +323,48 @@
       <variable name="SystemInspectorText" value="Please enter the credentials of the System Inspector user." condition="upgradeEscidoc" />
 
     </dynamicvariables>
-    
-    <conditions>
-      <condition type="variable" id="askForUpgrade">
-        <name>AskForUpgrade</name>
-        <value>true</value>
-      </condition>
-      <condition type="variable" id="upgradeEscidoc">
-        <name>InstallationType</name>
-        <value>upgrade</value>
-      </condition>
-      <condition type="not" id="installEscidoc">
-        <condition type="ref" refid="upgradeEscidoc" />
-      </condition>
-      <condition type="and" id="fullDialog">
-        <condition type="ref" refid="installEscidoc" />
-        <condition type="variable">
-          <name>ShortInstaller</name>
-          <value>false</value>
-        </condition>
-      </condition>
-      <condition type="variable" id=" ">
-        <name>Database</name>
-        <value>PostgreSQL</value>
-      </condition>
-      <condition type="variable" id="authMethodIsFormBased">
-        <name>AuthenticationMethod</name>
-        <value>form-based</value>
-      </condition>
-      <condition type="variable" id="authMethodIsLDAP">
-        <name>AuthenticationMethod</name>
-        <value>ldap</value>
-      </condition>
-      <condition type="variable" id="authMethodIsShibboleth">
-        <name>AuthenticationMethod</name>
-        <value>shibboleth</value>
-      </condition>
-      <condition type="variable" id="removeJmxConsole">
-        <name>DoRemoveJmxConsole</name>
-        <value>true</value>
-      </condition>
-      
-      <!-- PubMan conditions -->
-      <condition type="packselection" id="pubman_selected">
+
+	<conditions>
+		<condition type="variable" id="askForUpgrade">
+			<name>AskForUpgrade</name>
+			<value>true</value>
+		</condition>
+		<condition type="variable" id="upgradeEscidoc">
+			<name>InstallationType</name>
+			<value>upgrade</value>
+		</condition>
+		<condition type="not" id="installEscidoc">
+			<condition type="ref" refid="upgradeEscidoc"/>
+		</condition>
+		<condition type="and" id="fullDialog">
+			<condition type="ref" refid="installEscidoc"/>
+			<condition type="variable">
+				<name>ShortInstaller</name>
+				<value>false</value>
+			</condition>
+		</condition>
+		<condition type="variable" id=" ">
+			<name>Database</name>
+			<value>PostgreSQL</value>
+		</condition>
+		<condition type="variable" id="authMethodIsFormBased">
+			<name>AuthenticationMethod</name>
+			<value>form-based</value>
+		</condition>
+		<condition type="variable" id="removeJmxConsole">
+			<name>DoRemoveJmxConsole</name>
+			<value>true</value>
+		</condition>
+
+		<!-- PubMan conditions -->
+		<condition type="variable" id="upgradePubman">
+			<name>InstallationTypePubman</name>
+			<value>upgradepubman</value>
+		</condition>
+		<condition type="not" id="installPubman">
+			<condition type="ref" refid="upgradePubman"/>
+		</condition>
+		<condition type="packselection" id="pubman_selected">
 			<packid>pack_pubman</packid>
 		</condition>
 		<condition type="packselection" id="pubman_dataset_selected">
@@ -360,7 +379,9 @@
 		<condition type="not" id="not_pubman_conf_selected">
 			<condition type="ref" refid="pubman_conf_selected"/>
 		</condition>
-    </conditions>
+		
+	</conditions>
+	
     <!-- 
         The panels section.
         We indicate here which panels we want to use. The order will be respected.
@@ -400,8 +421,10 @@
           <validator classname="JDKPathValidator" />
         </panel>
         
-        <!-- panel classname="JDKPathPanel" id="CommonJDKPath" / -->
+        <!--  Target Panel -->
         <panel classname="TargetPanel" id="EscidocTarget" />
+        
+        <!--  Tree packs panel -->
         <panel classname="TreePacksPanel" id="EscidocPacks" />
         
         <!-- System administrator user -->
@@ -409,9 +432,6 @@
         
         <!-- System inspector user -->
         <panel classname="UserInputPanel" id="UserInputPanel.8" condition="authMethodIsFormBased" />
-        
-        <!-- Depositor user -->
-        <!--  panel classname="UserInputPanel" id="UserInputPanel.9" condition="installEscidoc+authMethodIsFormBased" /-->
         
         <!-- Remove JMX- + Management Console -->
         <panel classname="UserInputPanel" id="UserInputPanel.9" />
@@ -423,23 +443,40 @@
         <panel classname="UserInputPanel" id="UserInputPanel.11" condition="!removeJmxConsole" />
         
         <!-- PubMan Dataset Settings -->
-        <panel classname="UserInputPanel" id="UserInputPanel.12" />
-        
-        <!-- Mail Server Settings -->
-        <panel classname="UserInputPanel" id="UserInputPanel.13" condition="pubman_conf_selected"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.12" condition="pubman_dataset_selected + installPubman"/>
         
 		<!-- CoNE Settings-->		
-		<panel classname="UserInputPanel" id="UserInputPanel.14"/>
+		<panel classname="UserInputPanel" id="UserInputPanel.13"/>
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel" jar="custom/pubman_installer_basic.jar"/>
+		
+		<!-- Mail Server Settings -->
+        <panel classname="UserInputPanel" id="UserInputPanel.14" condition="pubman_conf_selected"/>
+			
+		<!-- Pubman Style Information -->
+		<panel classname="UserInputPanel" id="UserInputPanel.15" condition="pubman_conf_selected"/>
+		
+		<!-- PubMan Presentation -->
+		<panel classname="UserInputPanel" id="UserInputPanel.16" condition="pubman_conf_selected"/>
+		
+		<!-- Search Engine SiteMap -->
+		<panel classname="UserInputPanel" id="UserInputPanel.17" condition="pubman_conf_selected"/>
+		
+		<!-- Search&Export Service -->
+		<panel classname="UserInputPanel" id="UserInputPanel.18" condition="pubman_conf_selected"/>
+		
+		<!-- Home Page Content and Survey Advertisements -->
+		<panel classname="UserInputPanel" id="UserInputPanel.19" condition="pubman_conf_selected"/>
+		
+		
+		
 		
 		<panel classname="InstallPanel" id="EscidocInstall" />
 		
 		<!-- Creating PubMan Configuration -->
-<!-- TODO -->		<!-- panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar"  condition="installEscidoc"/-->
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" jar="custom/pubman_installer_basic.jar" />
 		
-        <panel classname="UserInputPanel" id="UserInputPanel.15" condition="upgradeEscidoc" />
-        <panel classname="UserInputPanel" id="UserInputPanel.16" condition="upgradeEscidoc" />
+        <panel classname="UserInputPanel" id="UserInputPanel.20" condition="upgradeEscidoc" />
+        <panel classname="UserInputPanel" id="UserInputPanel.21" condition="upgradeEscidoc" />
         
         <panel classname="HTMLInfoPanel" id="installInfo" condition="installEscidoc" />
         <panel classname="HTMLInfoPanel" id="upgradeInfo" condition="upgradeEscidoc" />
@@ -559,16 +596,12 @@
             <depends packname="Database Creation" />
         </pack>
         
-        <pack name="Roles and Users Creation" id="db.roles" parent="Configuration and Initialization" required="yes" condition="authMethodIsFormBased+installEscidoc">
+        <pack name="Roles and Users Creation" id="db.roles" parent="Configuration and Initialization" required="yes" condition="installEscidoc">
             <description>Creates basic user accounts and necessary roles</description>
             <depends packname="Database Creation" />
             <depends packname="Database Initialization" />
         </pack>
         
-        <pack name="Start eSciDoc Framework" id="start.escidoc" parent="Configuration and Initialization" required="yes">
-            <description>Start the eSciDoc framework</description>
-        </pack>
-               
         <pack name="PubMan" required="no" >
 			<description>PubMan binary and configuration</description>			
 		</pack>
@@ -585,14 +618,13 @@
 			<file src="packages/pubman/pubman_ear-${project.version}.ear" targetdir="$INSTALL_PATH/install.tmp"/>
 		</pack>
 		
-		<pack name="PubMan Initial Dataset" parent="PubMan" required="no" condition="installEscidoc">
+		<pack name="PubMan Initial Dataset" parent="PubMan" required="no"  condition="installPubman">
 			<description>Creates an Initial Dataset on the Core Service Instance</description>
-			<depends packname="Start eSciDoc Framework" />
 		</pack>
 		
-		<pack name="PubMan Advanced Configuration" parent="PubMan" required="no" condition="installEscidoc">
+		<pack name="PubMan Advanced Configuration" parent="PubMan" required="no" id="pack_conf">
 			<description>Customize PubMan in Detail</description>
-			<depends packname="Start eSciDoc Framework" />
+			<depends packname="PubMan Binary" />
 		</pack>
     </packs>
     

@@ -498,22 +498,7 @@
 	  		<param name="target" value="${install.dir}/jboss/server/default/conf/search/config/index/item_container_admin/itemContainerAdminXmlToLucene.xslt" />
 	  	</antcall> 
 	  </target>
-	<!--
-	  <target name="start-escidoc" depends="init" description="Starts the eSciDoc Framework ">
-	  	<echo level="debug">Starting JBoss Server</echo>
-	  		<exec dir="${install.dir}/jboss/bin" executable="cmd" spawn="true">
-	  			<arg value="/c"/>
-	  			<arg value="run.bat"/>
-	  		</exec>
-	  </target>
 	
-  	<target name="deploy-pubman" depends="init" description="Deploy the PubMan .ear ">
-  		<antcall target="move-file-with-save">
-  			 <param name="source" value="${install.dir}/jboss/server/default/${pubman_ear.ear}" />
-  			 <param name="target" value="${install.dir}/jboss/server/default/deploy/${pubman_ear.ear}" />
-  		</antcall>  
-  	</target>
-	-->
   <!-- Following target is commented out for debugging purposes only.    -->
   <!-- Remove comments before releasing the installer!                   -->
   <target name="cleanup" depends="init" description="Cleans up after installation">
