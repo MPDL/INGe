@@ -6311,6 +6311,22 @@
                 </type>
             </deferred-value>
         </attribute>
+        <attribute>
+            <description>
+                Defines if the message content will be escaped
+            </description>
+            <name>
+                escape
+            </name>
+            <required>
+                false
+            </required>
+            <deferred-value>
+                <type>
+                    java.lang.String
+                </type>
+            </deferred-value>
+        </attribute>
     </tag>
     <tag>
         <description>

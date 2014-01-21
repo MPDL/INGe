@@ -500,10 +500,43 @@ public class ViewItemFull extends FacesBean
             this.isStateWasReleased  = this.pubItem.getLatestRelease().getObjectId() != null ? true : false;
 
             // display a warn message if the item version is not the latest
-            if (this.isLatestVersion == false)
+            if (this.isLatestVersion == false  && this.pubItem.getLatestVersion() != this.pubItem.getLatestRelease() && this.isLoggedIn)
             {
-
-                warn(getMessage("itemIsNotLatestVersion"));
+                String link = null;
+                try
+                {
+                    link = PropertyReader.getProperty("escidoc.pubman.instance.url")
+                            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                            + PropertyReader
+                            .getProperty("escidoc.pubman.item.pattern")
+                            .replaceAll("\\$1", this.pubItem.getVersion().getObjectId()
+                                    + (this.pubItem.getLatestVersion().getVersionNumber() != 0 ? ":"
+                                            + this.pubItem.getLatestVersion().getVersionNumber() : ""));
+                }
+                catch (Exception e)
+                {
+                    logger.error("Error when trying to access a property via PropertyReader", e);
+                }
+                warn(getMessage("itemIsNotLatestVersion") + "<br/><a href=\"" + (link != null ? link : "") +"\" >" + (link != null ? link : "") + "</a>");
+            }
+            else if (this.isLatestVersion == false && this.pubItem.getLatestRelease().getVersionNumber() > this.pubItem.getVersion().getVersionNumber()) 
+            {
+                String link = null;
+                try
+                {
+                    link = PropertyReader.getProperty("escidoc.pubman.instance.url")
+                            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                            + PropertyReader
+                            .getProperty("escidoc.pubman.item.pattern")
+                            .replaceAll("\\$1", this.pubItem.getVersion().getObjectId()
+                                    + (this.pubItem.getLatestRelease().getVersionNumber() != 0 ? ":"
+                                            + this.pubItem.getLatestRelease().getVersionNumber() : ""));
+                }
+                catch (Exception e)
+                {
+                    logger.error("Error when trying to access a property via PropertyReader", e);
+                }
+                warn(getMessage("itemIsNotLatestVersion") + "<br/><a href=\"" + (link != null ? link : "") +"\" >" + (link != null ? link : "") + "</a>");
             }
             try
             {
@@ -564,6 +597,52 @@ public class ViewItemFull extends FacesBean
                     }
                 }
             }
+            
+            //if item is currently part of invalid yearbook items, show Validation Messages
+            //ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            if(loginHelper.getIsYearbookEditor())
+            {
+
+                yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+
+                if(yisb.getYearbookItem() != null)
+                {
+                    if(yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
+                    {
+                        try {
+                            //revalidate
+                            yisb.validateItem(getPubItem());
+                            YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
+                            if(invItem!=null)
+                            {
+                                ((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
+                            }
+
+                        } catch (Exception e) {
+                            logger.error("Error in Yearbook validation", e);
+                        }
+                    }
+
+
+
+                    try
+                    {
+                        if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState()))
+                        {
+                            this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+                            if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+                            {
+                                this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
 
         }
         // Unapi Export
@@ -613,51 +692,7 @@ public class ViewItemFull extends FacesBean
 				}
 			}*/
 
-        //if item is currently part of invalid yearbook items, show Validation Messages
-        //ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-        if(loginHelper.getIsYearbookEditor())
-        {
-
-            yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-
-            if(yisb.getYearbookItem() != null)
-            {
-                if(yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
-                {
-                    try {
-                        //revalidate
-                        yisb.validateItem(getPubItem());
-                        YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
-                        if(invItem!=null)
-                        {
-                            ((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
-                        }
-
-                    } catch (Exception e) {
-                        logger.error("Error in Yearbook validation", e);
-                    }
-                }
-
-
-
-                try
-                {
-                    if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState()))
-                    {
-                        this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
-                        if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
-                        {
-                            this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
-        }
+        
         
         //set SSRN contexts
         try

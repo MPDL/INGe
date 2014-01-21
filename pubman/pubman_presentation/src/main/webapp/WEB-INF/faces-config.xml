@@ -102,4 +102,11 @@
 		<converter-class>de.mpg.escidoc.pubman.editItem.EnumConverter</converter-class>	  
 		</converter>
 	-->
+	<render-kit>
+	    <renderer>
+	        <component-family>javax.faces.Messages</component-family>
+	        <renderer-type>javax.faces.Messages</renderer-type>
+	        <renderer-class>de.mpg.escidoc.pubman.util.EscapableMessagesRenderer</renderer-class>
+	    </renderer>
+	</render-kit>
 </faces-config>
