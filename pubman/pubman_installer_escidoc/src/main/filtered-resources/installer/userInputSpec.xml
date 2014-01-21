@@ -705,44 +705,5 @@
         <field type="space" />
         <field type="divider" align="bottom" />
     </panel>
- 
-
-	<panel order="20" id="Database backup">
-		<createForPack name="eSciDoc"/>
-		<field type="title" txt="Database Backup" bold="true" size="1"/>
-		<field type="divider" align="top"/>
-		<field type="staticText" align="left"
-			txt="If you don't have a recent backup of your database we strongly recommend to stop here and make a backup now. This ensures you will not loose data if the database migration fails."/>
-		<field type="space"/>
-		<field type="divider" align="bottom"/>
-	</panel>
-
-	<panel order="21" id="Database migration">
-		<createForPack name="eSciDoc"/>
-		<field type="title" txt="Database Migration" bold="true" size="1"/>
-		<field type="divider" align="top"/>
-		<field type="staticText" align="left"
-			txt="Now you may run the database migration. Please stop the infrastructure for this."/>
-		<field type="staticText" align="left"
-			txt="Keep an eye on the tool's output to see if the migration run successfully."/>
-		<field type="space"/>
-		<field type="check" align="left" variable="RunDatabaseMigration">
-			<spec txt="Run the database migration now." size="25" true="true"
-				false="false" set="false"/>
-		</field>
-		<field type="space"/>
-		<field type="staticText" align="left"
-			txt="The database scripts contain a placeholder for the id of the creator's user account."/>
-		<field type="space"/>
-		<field type="text" align="left" variable="CreatorUserid">
-			<spec txt="Creator Userid:" size="25" set=""/>
-			<validator class="com.izforge.izpack.util.NotEmptyValidator"
-				txt="Creator userid must not be an empty string."/>
-		</field>
-		<field type="space"/>
-		<field type="divider" align="bottom"/>
-	</panel>
-
-
 
 </userInput>
