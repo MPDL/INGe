@@ -156,13 +156,16 @@ public class RedirectServlet extends HttpServlet
             // view technical metadata
             if (tme)
             {
+                OutputStream out = resp.getOutputStream();
+                resp.setCharacterEncoding("UTF-8");
+                
                 try
                 {
                     if ("jhove".equals(PropertyReader.getProperty("escidoc.pubman.tme.configuration")))
                     {
                         String technicalMetadata = getTechnicalMetadataByJhove(pieces);
-                        resp.setHeader("Content-Type", "text/xml");
-                        OutputStream out = resp.getOutputStream();
+                        resp.setHeader("Content-Type", "text/xml; charset=UTF-8");
+                        
                         out.write(technicalMetadata.getBytes());
                     }
                     else 
@@ -186,8 +189,9 @@ public class RedirectServlet extends HttpServlet
                         {
                             logger.warn("SAXException when parsing " + pieces[3], e);
                         }
-                        OutputStream out = resp.getOutputStream();
-                        resp.setHeader("Content-Type", "text/plain");
+                        
+                        resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
+                        
                         out.write(b.toString().getBytes());
                         return;
                     }
