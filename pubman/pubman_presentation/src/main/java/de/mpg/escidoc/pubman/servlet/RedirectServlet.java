@@ -280,7 +280,7 @@ public class RedirectServlet extends HttpServlet
         StringBuffer b = new StringBuffer(2048);
         Metadata metadata = new Metadata();
         AutoDetectParser parser = new AutoDetectParser();
-        BodyContentHandler handler = new BodyContentHandler();
+        BodyContentHandler handler = new BodyContentHandler(-1);
         
         parser.parse(input, handler, metadata);
         
