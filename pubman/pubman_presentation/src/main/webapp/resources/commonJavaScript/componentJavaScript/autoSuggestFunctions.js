@@ -236,7 +236,7 @@
 
 		if (personId != null && personId != '')
 		{
-			$pb(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$pb(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 
@@ -288,7 +288,7 @@
 
 				if (orgIdString != null && orgIdString != '')
 				{
-					$input.parents('.itemBlockContent').find('.personOrganizations').find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'AffiliationDetailPage.jsp?id=' + orgIdString + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+					$input.parents('.itemBlockContent').find('.personOrganizations').find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'AffiliationDetailPage.jsp?id=' + orgIdString + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 					
 				}
 				fillField('ouNumber', '1', parent);
@@ -338,7 +338,14 @@
 			field.removeAttr('readonly');
 			fillField('givenName', '', parent);
 		}
+		
+		//Hide remove button
 		$input.css('display', 'none');
+		
+		//Remove link to researcher portfolio with empty space
+		$input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink xTiny_marginRExcl">&nbsp;</span>');
+		
+		//Enlarge givenName Field, because it was smaller before due to the remove button
 		$input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
 		bindSuggests();
 		return;
@@ -362,9 +369,17 @@
 			field.removeAttr('readonly');
 			fillField('organizationName', '', parent);
 		}
+		if ($pb(parent).find('.organizationAddress').val() != '')
+		{	
+			field = $pb(parent).find('.organizationAddress');
+			field.removeAttr('readonly');
+			fillField('organizationAddress', '', parent);
+		}
 		
 		$input.css('display', 'none');
-		//$input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
+		$input.parent().find('.organizationAddress').attr('class', 'xLarge_txtInput organizationAddress');
+		
+		$input.parent().find('.ouLink').replaceWith('<span class="xSmall_area0 ouLink xTiny_marginRExcl">&nbsp;</span>');
 		bindSuggests();
 		return;
 	}
@@ -381,28 +396,28 @@
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
 				}
-			})
+			});
 		}
 		
-	}
-	
-
-	function updateOrganizationUi()
-	{
-		// maintain attributes for autosuggest filled persons
+		
+		// maintain attributes for autosuggest filled organizations
 		if($pb('.organizationIdentifier' != null))
 		{
 			$pb('.organizationIdentifier').each(function(ind){
 				if (this.value) {
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationName').attr('readonly', 'readonly');
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('readonly', 'readonly');
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
 					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
-					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('class', 'large_txtInput organizationAddress');
 				}
-			})
+			});
 		}
 		
 	}
+	
+
+
 	
 	function fillField(name, value, commonParent, readonly)
 	{
@@ -470,7 +485,7 @@
 		
 		if (this.resultID != null && this.resultID != '')
 		{
-			$pb(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$pb(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 
@@ -482,7 +497,7 @@
 				}
 		);
 		
-		updateOrganizationUi();
+		updatePersonUi();
 		
 	}
 	

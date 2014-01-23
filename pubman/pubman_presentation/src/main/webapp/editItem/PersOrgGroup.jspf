@@ -140,7 +140,7 @@
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}"/>
 					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors" title="#{tip.EditItem_lblRemoveAutosuggestAuthor} }"/>
+						onclick="return removeAuthorAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors" title="#{tip.EditItem_lblRemoveAutosuggestAuthor}"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}"/>
 					<a4j:commandButton reRender="editPerson" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
@@ -205,7 +205,7 @@
 						rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}" />
 					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}" title="#{creator.organization.identifier}" />
 					<a4j:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
-						onclick="return removeOrganizationAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors" title="#{tip.EditItem_lblRemoveAutosuggestAuthor} }"/>
+						onclick="return removeOrganizationAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors"/>
 					<h:outputLink styleClass="min_imgBtn ouCard ouLink"
 						rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#"
 						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
@@ -246,6 +246,8 @@
 					value="#{organization.identifier}" />
 				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" title="#{organization.address}" 
 					value="#{organization.address}" />
+				<a4j:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
+						onclick="return removeOrganizationAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors"/>	
 				<h:outputLink styleClass="small_area0 ouCard ouLink xTiny_marginRExcl"
 					rendered="#{organization.identifier != null and organization.identifier != ''}" value="#"
 					onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>

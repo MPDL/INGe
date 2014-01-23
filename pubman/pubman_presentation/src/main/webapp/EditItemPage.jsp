@@ -244,6 +244,7 @@
 					function checkUpdatePersonFunction() {
 						(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
 					}
+					
 					$pb("input[id$='offset']").submit(function() {
 						$pb(this).val($pb(window).scrollTop());
 					});

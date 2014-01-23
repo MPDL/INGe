@@ -200,6 +200,8 @@ All rights reserved. Use is subject to license terms.
 					<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
 					<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}"/>
 					<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" value="#{organization.address}"/>
+					<a4j:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
+						onclick="return removeOrganizationAutoSuggest($pb(this))" reRender="iterCreatorOrganisationAuthors"/>
 					<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{organization.identifier != null and organization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{organization.identifier == null || organization.identifier == ''}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>					
 					<h:panelGroup styleClass="small_area0">

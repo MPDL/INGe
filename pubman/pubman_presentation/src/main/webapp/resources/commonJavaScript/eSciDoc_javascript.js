@@ -314,10 +314,7 @@ function afterAjaxRequest()
 		updatePersonUi();
 	}
 	
-	if(typeof window.updateOrganizationUi == 'function')
-	{ 
-		updateOrganizationUi();
-	}
+	
 }
 
 /*Stops the enter key, otherwise everytime the enter key is pressed in an textfield, the quicksearchbutton is activated  */
