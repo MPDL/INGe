@@ -56,13 +56,27 @@ public class OrganizationSearchCriterion extends
 	private boolean includePredecessorsAndSuccessors;
 
 	@Override
-	public String[] getCqlIndexForHiddenId() {
-		return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
+	public String[] getCqlIndexForHiddenId(Index indexName) {
+		
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
+		}
+		return null;
 	}
 
 	@Override
-	public String[] getCqlIndexForSearchString() {
-		return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
+	public String[] getCqlIndexForSearchString(Index indexName) {
+		
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/md-records/md-record/publication/creator/person/organization/title", "/md-records/md-record/publication/creator/organization/title\""};
+		}
+		return null;
+		
+		
 	}
 
 	/*
@@ -77,10 +91,10 @@ public class OrganizationSearchCriterion extends
 	
 	
 	@Override
-	public String toCqlString()  throws SearchParseException{
+	public String toCqlString(Index indexName)  throws SearchParseException{
 		if(!includePredecessorsAndSuccessors)
 		{
-			return super.toCqlString();
+			return super.toCqlString(indexName);
 		}
 		else
 		{
@@ -104,11 +118,11 @@ public class OrganizationSearchCriterion extends
 				}
 				scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
-				return scListToCql(scList, false);
+				return scListToCql(indexName, scList, false);
 			} catch (Exception e) {
 				System.out.println("Error while retrieving affiliation from id" + e + ": " + e.getMessage());
 		        //logger.error("Error while retrieving affiliation from id", e);
-		        return super.toCqlString();
+		        return super.toCqlString(indexName);
 			}
 		}
 	}

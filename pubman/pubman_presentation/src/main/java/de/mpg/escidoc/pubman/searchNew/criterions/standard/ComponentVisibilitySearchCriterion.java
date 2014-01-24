@@ -34,9 +34,15 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCrit
 public class ComponentVisibilitySearchCriterion extends StandardSearchCriterion {
 
 	@Override
-	public String[] getCqlIndexes() {
+	public String[] getCqlIndexes(Index indexName) {
 		
-		return new String[]{"escidoc.component.visibility"};
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[]{"escidoc.component.visibility"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/components/component/properties/visibility\""};
+		}
+		return null;
+		
 	}
 	
 	/*

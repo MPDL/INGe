@@ -43,8 +43,14 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
 	}
 
 	@Override
-	public String[] getCqlIndexes() {
-		return new String[] {"escidoc.publication.review-method"};
+	public String[] getCqlIndexes(Index indexName) {
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.publication.review-method"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/md-records/md-record/publication/review-method\""};
+		}
+		return null;
+		
 	}
 
 	/*

@@ -37,8 +37,17 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
 	
 
 	@Override
-	public String[] getCqlIndexes() {
-		return new String[] {"escidoc.metadata", "escidoc.fulltext"};
+	public String[] getCqlIndexes(Index indexName) {
+		
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.metadata", "escidoc.fulltext"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"metadata\"", "\"/fulltext\""};
+		}
+		return null;
+		
+		
+		
 	}
 
 	/*

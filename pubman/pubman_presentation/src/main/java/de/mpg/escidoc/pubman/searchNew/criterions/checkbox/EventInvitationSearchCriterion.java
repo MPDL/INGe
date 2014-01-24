@@ -36,15 +36,20 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 	private boolean invited = false;
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
 		if(isInvited())
 		{
-			return "escidoc.publication.event.invitation-status=\"invited\"";
+			switch(indexName)
+			{
+				case ESCIDOC_ALL : return "escidoc.publication.event.invitation-status=\"invited\"";
+				case ITEM_CONTAINER_ADMIN : return "\"/md-records/md-record/publication/event/invitation-status\">\"''\"";
+			}
+			
+			
 		}
-		else
-		{
+		
 			return null;
-		}
+		
 	}
 
 	@Override

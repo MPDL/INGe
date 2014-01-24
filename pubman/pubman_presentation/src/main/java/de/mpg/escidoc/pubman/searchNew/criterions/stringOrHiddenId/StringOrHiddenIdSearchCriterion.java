@@ -66,14 +66,14 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 	}
 	
 	@Override
-	public String toCqlString() throws SearchParseException {
+	public String toCqlString(Index indexName) throws SearchParseException {
 		if(hiddenId!=null && !hiddenId.trim().isEmpty())
 		{
-			return baseCqlBuilder(getCqlIndexForHiddenId(), hiddenId);
+			return baseCqlBuilder(getCqlIndexForHiddenId(indexName), hiddenId);
 		}
 		else
 		{
-			return baseCqlBuilder(getCqlIndexForSearchString(), searchString);
+			return baseCqlBuilder(getCqlIndexForSearchString(indexName), searchString);
 		}
 	}
 	
@@ -108,9 +108,9 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 	}
 	
 	
-	public abstract String[] getCqlIndexForHiddenId();
+	public abstract String[] getCqlIndexForHiddenId(Index indexName);
 	
-	public abstract String[] getCqlIndexForSearchString();
+	public abstract String[] getCqlIndexForSearchString(Index indexName);
 	
 	
 	

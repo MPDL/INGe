@@ -38,8 +38,16 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 public class LocalTagSearchCriterion extends StandardSearchCriterion {
 
 	@Override
-	public String[] getCqlIndexes() {
-		return new String[] {"escidoc.property.content-model-specific.local-tags.local-tag"};
+	public String[] getCqlIndexes(Index indexName) {
+		
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.property.content-model-specific.local-tags.local-tag"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/content-model-specific/local-tags/local-tag\""};
+		}
+		return null;
+		
+		
 	}
 	
 	/*

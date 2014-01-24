@@ -36,15 +36,17 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 	private boolean withEmbargoDate = false;
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
 		if(withEmbargoDate)
 		{
-			return "escidoc.component.file.available>\"''\"";
+			switch(indexName)
+			{
+				case ESCIDOC_ALL : return "escidoc.component.file.available>\"''\"";
+				case ITEM_CONTAINER_ADMIN : return "\"/components/component/md-records/md-record/file/available\">\"''\"";
+			}
 		}
-		else
-		{
-			return null;
-		}
+		
+		return null;
 	}
 
 	@Override

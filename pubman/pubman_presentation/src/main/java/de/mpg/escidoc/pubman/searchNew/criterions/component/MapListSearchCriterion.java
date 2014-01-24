@@ -86,7 +86,7 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 	
 	
 	@Override
-	public String toCqlString()  throws SearchParseException{
+	public String toCqlString(Index indexName)  throws SearchParseException{
 
 		//StringBuffer sb = new StringBuffer();
 		boolean enumSelected = false;
@@ -114,7 +114,7 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 				
 				enumSelected = true;
 				
-				SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(), valueMap.get(entry.getKey()));
+				SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName), valueMap.get(entry.getKey()));
 				
 				//gc.setSearchString(entry.getKey().name().toLowerCase());
 				returnList.add(flexSc);
@@ -136,7 +136,7 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 		
 		if((enumSelected && enumDeselected))
 		{
-			return scListToCql(returnList, false);
+			return scListToCql(indexName, returnList, false);
 		}
 		else 
 		{
@@ -250,7 +250,7 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 	
 
 
-	public abstract String[] getCqlIndexes();
+	public abstract String[] getCqlIndexes(Index indexName);
 
 
 }

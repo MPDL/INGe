@@ -45,13 +45,13 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 	}
 
 	@Override
-	public String toCqlString()  throws SearchParseException {
-		return baseCqlBuilder(getCqlIndexes(), getSearchString(getSelectedEnum()));
+	public String toCqlString(Index indexName)  throws SearchParseException {
+		return baseCqlBuilder(getCqlIndexes(indexName), getSearchString(getSelectedEnum()));
 	}
 
 	public abstract String getSearchString(T selectedEnum);
 
-	public abstract String[] getCqlIndexes();
+	public abstract String[] getCqlIndexes(Index indexName);
 
 	@Override
 	public String toQueryString() {

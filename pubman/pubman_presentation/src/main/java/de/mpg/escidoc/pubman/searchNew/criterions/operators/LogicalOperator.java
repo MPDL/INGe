@@ -42,7 +42,7 @@ public class LogicalOperator extends SearchCriterionBase {
 	
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
 		
 		SearchCriterion sc = getSearchCriterion();
 		

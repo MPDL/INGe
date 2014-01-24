@@ -82,6 +82,11 @@ public abstract class SearchCriterionBase implements Serializable{
 
 	
 	
+	public enum Index
+	{
+		ESCIDOC_ALL, ITEM_CONTAINER_ADMIN
+	}
+	
 	public enum SearchCriterion
 	{
 		TITLE (TitleSearchCriterion.class, DisplayType.STANDARD), 
@@ -212,7 +217,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	protected SearchCriterion searchCriterion;
 	
 
-	public abstract String toCqlString() throws SearchParseException;
+	public abstract String toCqlString(Index indexName) throws SearchParseException;
 	
 	public abstract String toQueryString();
 	
@@ -499,7 +504,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	 * @param criterionList
 	 * @return
 	 */
-	public static String scListToCql(List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)  throws SearchParseException
+	public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)  throws SearchParseException
 	{
 		
 		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList);
@@ -516,11 +521,11 @@ public abstract class SearchCriterionBase implements Serializable{
 			//if first in list is an operator, use it as concatenator to append standard criteria below, else use default "AND"
 			if(i==0 &&  DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType()))
 			{
-				appendOperator = criterion.toCqlString();
+				appendOperator = criterion.toCqlString(indexName);
 			}
 			else
 			{
-				String cql = criterion.toCqlString();
+				String cql = criterion.toCqlString(indexName);
 				if(cql!=null && !cql.trim().isEmpty())
 				{
 					
@@ -726,10 +731,10 @@ public abstract class SearchCriterionBase implements Serializable{
 	}
 	
 	
-	public static String queryStringToCqlString(String query, boolean appendStandardCqlCriteria)  throws SearchParseException
+	public static String queryStringToCqlString(Index indexName, String query, boolean appendStandardCqlCriteria)  throws SearchParseException
 	{
 		List<SearchCriterionBase> scList = queryStringToScList(query);
-		return scListToCql(scList, appendStandardCqlCriteria);
+		return scListToCql(indexName, scList, appendStandardCqlCriteria);
 	}
 	
 	

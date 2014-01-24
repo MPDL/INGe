@@ -48,8 +48,17 @@ import de.mpg.escidoc.services.pubman.PubItemDepositing;
 public class CollectionSearchCriterion extends StandardSearchCriterion {
 
 	@Override
-	public String[] getCqlIndexes() {
-		return new String[] {"escidoc.context.objid"};
+	public String[] getCqlIndexes(Index indexName) {
+		
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.context.objid"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/context/id\""};
+		}
+		return null;
+		
+		
+		
 	}
 	
 	

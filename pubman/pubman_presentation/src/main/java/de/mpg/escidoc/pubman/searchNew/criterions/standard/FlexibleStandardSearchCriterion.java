@@ -43,7 +43,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 	}
 	
 	@Override
-	public String[] getCqlIndexes() {
+	public String[] getCqlIndexes(Index indexName) {
 		return cqlIndexes;
 	}
 	

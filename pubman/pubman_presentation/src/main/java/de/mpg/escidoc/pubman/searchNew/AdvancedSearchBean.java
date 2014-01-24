@@ -67,6 +67,7 @@ import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.Index;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
@@ -868,7 +869,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		
 		String cql;
 		try {
-			cql = SearchCriterionBase.scListToCql(allCriterions, true);
+			cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, allCriterions, true);
 		} catch (SearchParseException e1) {
 			error(getMessage("search_ParseError"));
 			return "";

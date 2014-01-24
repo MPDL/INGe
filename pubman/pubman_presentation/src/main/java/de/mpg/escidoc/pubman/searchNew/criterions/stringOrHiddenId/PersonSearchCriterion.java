@@ -36,10 +36,14 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
 	
-	private static String PERSON_ROLE_INDEX = "escidoc.publication.creator.role";
+	//private static String PERSON_ROLE_INDEX = "escidoc.publication.creator.role";
 	
-	private String[] cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
-	private String[] cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
+	private String[] cqlIndexForHiddenId;
+	private String[] cqlIndexForSearchString;
+	
+	private String[] cqlIndexForHiddenIdAdmin; 
+	private String[] cqlIndexForSearchStringAdmin;
+	
 	
 	
 	
@@ -49,28 +53,43 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 	}
 	
 	@Override
-	public String[] getCqlIndexForHiddenId() {
+	public String[] getCqlIndexForHiddenId(Index indexName) {
 		
-		return cqlIndexForHiddenId;
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return cqlIndexForHiddenId;
+			case ITEM_CONTAINER_ADMIN : return cqlIndexForHiddenIdAdmin;
+		}
+		
+		return null;
 	}
 
 	@Override
-	public String[] getCqlIndexForSearchString() {
-		return cqlIndexForSearchString;
+	public String[] getCqlIndexForSearchString(Index indexName) {
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return cqlIndexForSearchString;
+			case ITEM_CONTAINER_ADMIN : return cqlIndexForSearchStringAdmin;
+		}
+		
+		return null;
 	}
 
 	
 
 	
 	@Override
-	public String toCqlString()  throws SearchParseException{
+	public String toCqlString(Index indexName)  throws SearchParseException{
 		
 		if(SearchCriterion.ANYPERSON.equals(getSearchCriterion()))
 		{
 			cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
 			cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
 			
-			return super.toCqlString();
+			cqlIndexForHiddenIdAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
+			cqlIndexForSearchStringAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""}; 
+			
+			return super.toCqlString(indexName);
 		}
 		else
 		{
@@ -79,6 +98,9 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 			
 			cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
 			cqlIndexForSearchString = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+			
+			cqlIndexForHiddenIdAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/"  + roleAbbr + "\""}; 
+			cqlIndexForSearchStringAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/"  + roleAbbr + "\""}; 
 			
 			/*
 			StringBuilder sb = new StringBuilder();
@@ -89,7 +111,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 			sb.append("=\"");
 			sb.append(escapeForCql(roleUri) + "\")");
 			*/
-			return  super.toCqlString();
+			return  super.toCqlString(indexName);
 		}
 		
 		

@@ -45,9 +45,9 @@ public class DateSearchCriterion extends SearchCriterionBase {
 	}
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
 		
-		return composeCqlFragments(getCQLSearchIndexes(), getFrom(), getTo());
+		return composeCqlFragments(getCQLSearchIndexes(indexName), getFrom(), getTo());
 	}
 
 	@Override
@@ -95,21 +95,48 @@ public class DateSearchCriterion extends SearchCriterionBase {
 	
 	
 	
-	private String[] getCQLSearchIndexes()
+	private String[] getCQLSearchIndexes(Index indexName)
 	{
-		switch(getSearchCriterion())
+		switch(indexName)
 		{
-			case ANYDATE : return new String[] {"escidoc.publication.published-online", "escidoc.publication.issued", "escidoc.publication.dateAccepted", 
-								"escidoc.publication.dateSubmitted", "escidoc.publication.modified", "escidoc.publication.created"};
-			case PUBLISHED : return new String[] {"escidoc.publication.published-online"};
-			case PUBLISHEDPRINT : return new String[] {"escidoc.publication.issued"};
-			case ACCEPTED : return new String[] {"escidoc.publication.dateAccepted"};
-			case SUBMITTED : return new String[] {"escidoc.publication.dateSubmitted"};
-			case MODIFIED : return new String[] {"escidoc.publication.modified"};
-			case CREATED :  return new String[] {"escidoc.publication.created"};
-			case EVENT_STARTDATE :  return new String[] {"escidoc.publication.event.start-date"};
-			case EVENT_ENDDATE :  return new String[] {"escidoc.publication.event.end-date"};
+			case ESCIDOC_ALL : 
+			{
+				switch(getSearchCriterion())
+				{
+					case ANYDATE : return new String[] {"escidoc.publication.published-online", "escidoc.publication.issued", "escidoc.publication.dateAccepted", 
+										"escidoc.publication.dateSubmitted", "escidoc.publication.modified", "escidoc.publication.created"};
+					case PUBLISHED : return new String[] {"escidoc.publication.published-online"};
+					case PUBLISHEDPRINT : return new String[] {"escidoc.publication.issued"};
+					case ACCEPTED : return new String[] {"escidoc.publication.dateAccepted"};
+					case SUBMITTED : return new String[] {"escidoc.publication.dateSubmitted"};
+					case MODIFIED : return new String[] {"escidoc.publication.modified"};
+					case CREATED :  return new String[] {"escidoc.publication.created"};
+					case EVENT_STARTDATE :  return new String[] {"escidoc.publication.event.start-date"};
+					case EVENT_ENDDATE :  return new String[] {"escidoc.publication.event.end-date"};
+				}
+				
+			}
+			
+			
+			
+			case ITEM_CONTAINER_ADMIN : 
+			{
+				switch(getSearchCriterion())
+				{
+					case ANYDATE : return new String[] {"\"/md-records/md-record/publication/published-online\"", "\"/md-records/md-record/publication/issued\"", "\"/md-records/md-record/publication/dateAccepted\"", 
+										"\"/md-records/md-record/publication/dateSubmitted\"", "\"/md-records/md-record/publication/modified\"", "\"/md-records/md-record/publication/created\""};
+					case PUBLISHED : return new String[] {"\"/md-records/md-record/publication/published-online\""};
+					case PUBLISHEDPRINT : return new String[] {"\"/md-records/md-record/publication/issued\""};
+					case ACCEPTED : return new String[] {"\"/md-records/md-record/publication/dateAccepted\""};
+					case SUBMITTED : return new String[] {"\"/md-records/md-record/publication/dateSubmitted\""};
+					case MODIFIED : return new String[] {"\"/md-records/md-record/publication/modified\""};
+					case CREATED :  return new String[] {"\"/md-records/md-record/publication/created\""};
+					case EVENT_STARTDATE :  return new String[] {"\"/md-records/md-record/publication/event/start-date\""};
+					case EVENT_ENDDATE :  return new String[] {"\"/md-records/md-record/publication/event/end-date\""};
+				}
+			}
 		}
+		
 		
 		return null;
 	}

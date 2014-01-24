@@ -43,7 +43,7 @@ public class Parenthesis extends SearchCriterionBase {
 	}
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
 		switch (getSearchCriterion())
 		{
 			case OPENING_PARENTHESIS : return "(";

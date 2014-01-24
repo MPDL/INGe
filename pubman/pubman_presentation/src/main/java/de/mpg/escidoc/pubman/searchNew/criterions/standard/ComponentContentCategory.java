@@ -36,8 +36,16 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCrit
 public class ComponentContentCategory extends StandardSearchCriterion {
 
 	@Override
-	public String[] getCqlIndexes() {
-		return new String[]{"escidoc.component.content-category"};
+	public String[] getCqlIndexes(Index indexName) {
+		
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[]{"escidoc.component.content-category"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/components/component/properties/content-category\""};
+		}
+		return null;
+		
+		
 	}
 
 	/*

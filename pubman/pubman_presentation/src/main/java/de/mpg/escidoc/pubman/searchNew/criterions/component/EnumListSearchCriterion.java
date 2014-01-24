@@ -94,7 +94,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 	
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
 
 		StringBuffer sb = new StringBuffer();
 		boolean enumSelected = false;

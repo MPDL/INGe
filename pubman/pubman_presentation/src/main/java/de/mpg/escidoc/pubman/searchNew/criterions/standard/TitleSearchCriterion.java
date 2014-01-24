@@ -35,8 +35,16 @@ public class TitleSearchCriterion extends StandardSearchCriterion {
 
 	
 	@Override
-	public String[] getCqlIndexes() {
-		return new String[] {"escidoc.publication.title"};
+	public String[] getCqlIndexes(Index indexName) {
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.publication.title"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/md-records/md-record/publication/title\""};
+		}
+		
+		return null;
+		
+		
 	}
 
 	/*

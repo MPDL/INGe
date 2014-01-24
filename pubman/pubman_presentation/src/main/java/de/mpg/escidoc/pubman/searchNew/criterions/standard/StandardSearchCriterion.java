@@ -44,8 +44,8 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase{
 
 	
 	@Override
-	public String toCqlString()  throws SearchParseException {
-		return baseCqlBuilder(getCqlIndexes(), searchString);
+	public String toCqlString(Index indexName)  throws SearchParseException {
+		return baseCqlBuilder(getCqlIndexes(indexName), searchString);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase{
 	
 	
 
-	public abstract String[] getCqlIndexes();
+	public abstract String[] getCqlIndexes(Index indexName);
 
 	public String getSearchString() {
 		return searchString;

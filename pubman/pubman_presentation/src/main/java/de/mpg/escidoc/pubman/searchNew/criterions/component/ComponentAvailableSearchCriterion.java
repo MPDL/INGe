@@ -45,20 +45,43 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 	
 	
 	@Override
-	public String toCqlString() {
+	public String toCqlString(Index indexName) {
+		
+		String indexField = null;
+		
+
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : 
+			{
+				indexField =  "escidoc.component.content.storage";
+				break;
+			}
+			case ITEM_CONTAINER_ADMIN : 
+			{
+				indexField =  "\"/components/component/content/storage\"";
+				break;
+			}
+			
+			
+		}
+		
+		
 		switch (selectedAvailability)
 		{
 			case YES : 	{
-							return "escidoc.component.content.storage=\"" + escapeForCql(getStorageType()) + "\""; 
+							return indexField + "=\"" + escapeForCql(getStorageType()) + "\""; 
 						}
 			
 			case NO : 	{
-							return "escidoc.component.content.storage<>\"" + escapeForCql(getStorageType()) + "\"";
+							return indexField + "<>\"" + escapeForCql(getStorageType()) + "\"";
 						}
 			
 			case WHATEVER : return null;
 		}
+		
 		return null;
+		
 	}
 	
 	public abstract String getStorageType();
