@@ -231,6 +231,12 @@ public class FilterTaskParamVO extends ValueObject
                                 previousFilter, filter);
                 	}
                 }
+                else if (filter instanceof CqlFilter)
+                {
+                	CqlFilter cqlfilterFilter = (CqlFilter) filter;
+                	enhanceQuery(queryBuffer, cqlfilterFilter.getCql(),
+                            previousFilter, filter);
+                }
                 previousFilter = filter;
             }
         }
@@ -364,6 +370,9 @@ public class FilterTaskParamVO extends ValueObject
     {
     }
     
+    
+    
+    
     public abstract class AbstractFilter implements Comparable
     {
         public int compareTo(Object o)
@@ -372,6 +381,25 @@ public class FilterTaskParamVO extends ValueObject
         }
         
     }
+    
+    public class CqlFilter extends AbstractFilter implements Filter
+    {
+    	private String cql;
+
+    	public CqlFilter(String cql)
+    	{
+    		this.cql = cql;
+    	}
+    	
+		public String getCql() {
+			return cql;
+		}
+
+		public void setCql(String cql) {
+			this.cql = cql;
+		}
+    }
+    
 
     /**
      * Class to filter by owner.
