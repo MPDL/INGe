@@ -56,9 +56,9 @@
 				<h:form id="form1">
 					<div class="full wrapper">
 					<h:inputHidden id="offset"></h:inputHidden>
-						<span class="full_area0 metaMenu">
+						<div class="metaMenu">
 							<h:panelGroup styleClass="seperator"></h:panelGroup>
-						</span>
+						</div>
 						
 						<div class="LogoNSearch">
 							<h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
@@ -68,17 +68,17 @@
 							</h:outputLink>
 						</div>
 						<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
-							<h:outputLink id="lnkHome" styleClass="free_area0" style="margin-top:0.5em" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp">
+							<h:outputLink id="lnkHome" styleClass="free_area0" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp">
 								<h:outputText value="#{lbl.mainMenu_lnkHome}" />
 							</h:outputLink>
 						</div>
 						<div id="content" class="full_area0 clear" style="margin-top:4em; ">
 							<span style="font-size: 140%;line-height:140%"> 
 								<p style="margin-left:4em; margin-right:4em;">
-									This publication has been assigned a persistent identifier (PID), but the identifier has not yet been registered in the worldwide Handle system. This may take some time. If you think the registration is overdue, please refer to the PubMan support team.
+									This publication has been assigned a persistent identifier (PID), but the identifier has not yet been registered in the worldwide Handle system. This may take some time. If you think the registration is overdue, please refer to the <h:outputLink value="pubman-support@gwdg.de" title="pubman-support@gwdg.de">PubMan support team</h:outputLink>.
 								</p>
 								<p style="margin-left:4em; margin-right:4em;padding-top:1em;border-top-color: #B0B1B1;border-top-style: solid;border-top-width: 0.09em">
-									Dieser Publikation wurde ein persistenter Identifikator (PID) zugewiesen, der Identifikator wurde aber noch nicht im weltweiten Handle-System registriert. Dies kann einige Zeit dauern. Falls Sie der Meinung sind, die Registrierung sei überfällig, wenden Sie sich bitte an das PubMan-Support-Team.
+									Dieser Publikation wurde ein persistenter Identifikator (PID) zugewiesen, der Identifikator wurde aber noch nicht im weltweiten Handle-System registriert. Dies kann einige Zeit dauern. Falls Sie der Meinung sind, die Registrierung sei überfällig, wenden Sie sich bitte an das <h:outputLink value="pubman-support@gwdg.de" title="pubman-support@gwdg.de">PubMan-Support-Team</h:outputLink>.
 								</p>
 							</span>		
 						</div>
