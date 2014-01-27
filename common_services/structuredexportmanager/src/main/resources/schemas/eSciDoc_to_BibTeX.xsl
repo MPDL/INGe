@@ -221,7 +221,6 @@
 				<xsl:with-param name="xpath" select="concat($degree-ves/enum[@uri=$degree], ' (thesis)')"/>
 			</xsl:call-template>
 		</xsl:if>
-		
 		<!-- PAGES -->
 		<xsl:variable name="type-of-publication" select="./@type"/>
 		<xsl:if test="exists(eterms:total-number-of-pages)
@@ -438,6 +437,14 @@
 				
 			</xsl:otherwise>
 		</xsl:choose>
+		
+		<!-- SEQUENCE NUMBER -->
+		<xsl:if test="fn:exists(eterms:sequence-number) and (fn:normalize-space(eterms:sequence-number) != '')">
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'eid'"/>
+				<xsl:with-param name="xpath" select="eterms:sequence-number"/>
+			</xsl:call-template>	
+		</xsl:if>
 			
 		<!-- TODO SOURCE HOWPUBLISHED -->		
 	</xsl:template>
