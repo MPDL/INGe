@@ -43,28 +43,34 @@ import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 
-public abstract class MapListSearchCriterion extends SearchCriterionBase{
+public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 
 	
 	private Map<String, Boolean> enumMap = new LinkedHashMap<String, Boolean>();
 	
-	private Map<String, String> valueMap;
+	private Map<String, T> valueMap;
 	
 
 	
-	public MapListSearchCriterion(Map<String, String>  m)
+	public MapListSearchCriterion(Map<String, T>  m, boolean preselectAll)
 	{
-		this.valueMap = m;
-		initEnumMap();
+		this.setValueMap(m);
+		initEnumMap(preselectAll);
+	}
+	
+	public MapListSearchCriterion(Map<String, T>  m)
+	{
+		this.setValueMap(m);
+		initEnumMap(false);
 	}
 	
 	
-	public Map<String, Boolean> initEnumMap()
+	public Map<String, Boolean> initEnumMap(boolean preselection)
 	{
 
-		for(String v : valueMap.keySet())
+		for(String v : getValueMap().keySet())
 		{
-			enumMap.put(v, false);
+			enumMap.put(v, preselection);
 		}
 		return enumMap;
 		
@@ -113,8 +119,9 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 
 				
 				enumSelected = true;
+				String value = getCqlValue(indexName, getValueMap().get(entry.getKey()));
 				
-				SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName), valueMap.get(entry.getKey()));
+				SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, value), value);
 				
 				//gc.setSearchString(entry.getKey().name().toLowerCase());
 				returnList.add(flexSc);
@@ -250,7 +257,19 @@ public abstract class MapListSearchCriterion extends SearchCriterionBase{
 	
 
 
-	public abstract String[] getCqlIndexes(Index indexName);
+	public abstract String[] getCqlIndexes(Index indexName, String value);
+	
+	public abstract String getCqlValue(Index indexName, T value);
+
+
+	public Map<String, T> getValueMap() {
+		return valueMap;
+	}
+
+
+	public void setValueMap(Map<String, T> valueMap) {
+		this.valueMap = valueMap;
+	}
 
 
 }

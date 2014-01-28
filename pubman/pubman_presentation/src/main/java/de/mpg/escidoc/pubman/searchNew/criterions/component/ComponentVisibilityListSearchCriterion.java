@@ -54,7 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 
-public class ComponentVisibilityListSearchCriterion extends MapListSearchCriterion{
+public class ComponentVisibilityListSearchCriterion extends MapListSearchCriterion<String>{
 
 	
 	
@@ -86,7 +86,7 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
 	}
 	*/
 	@Override
-	public String[] getCqlIndexes(Index indexName) {
+	public String[] getCqlIndexes(Index indexName, String value) {
 		
 		switch(indexName)
 		{
@@ -95,6 +95,12 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
 		}
 		return null;
 		
+	}
+
+
+	@Override
+	public String getCqlValue(Index indexName, String value) {
+		return value;
 	}
 	
 

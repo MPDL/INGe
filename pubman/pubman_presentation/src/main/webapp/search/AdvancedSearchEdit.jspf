@@ -389,6 +389,84 @@ All rights reserved. Use is subject to license terms.
 		}
 	</style>
 
+
+
+
+
+
+
+	
+	<!-- item state criterions -->
+	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{view.viewId == '/AdminAdvancedSearchPage.jsp'}">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.adv_search_lbHeaderItemState}" />
+		</h3>
+		<span class="seperator">&#160;</span>
+		<h:panelGroup id="editItemState" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
+		
+			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+				<!-- 
+				<span class="double_checkbox">
+					<input type="checkbox" class="checkAllItemStates" id="checkAllItemStates"/>
+					<label for="checkAllItemStates"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
+				</span>
+				-->
+				<span class="free_area0 genreContent clear">
+					
+					<a4j:repeat value="#{AdvancedSearchBean.itemStateListSearchCriterion.enumList}" var="state" rows="0">
+						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
+							<c:set var="stateLabel" value="ENUM_STATE_#{state}"/>
+							<h:selectBooleanCheckbox styleClass="itemStateCheckbox" id="itemStateCriterion" value="#{AdvancedSearchBean.itemStateListSearchCriterion.enumMap[state]}">
+							</h:selectBooleanCheckbox>
+							<h:outputLabel title="#{lbl[stateLabel]}" value="#{lbl[stateLabel]}" for="itemStateCriterion" />	
+						</h:panelGroup>
+					</a4j:repeat>
+				</span>
+			</span>
+			
+			
+		</h:panelGroup>
+	</h:panelGroup>
+	
+	<!-- affiliated contexts criterions -->
+	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{view.viewId == '/AdminAdvancedSearchPage.jsp'}">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.adv_search_lbHeaderAffiliatedContexts}" />
+		</h3>
+		<span class="seperator">&#160;</span>
+		<h:panelGroup id="editAffiliatedContexts" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
+		
+			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+				<!-- 
+				<span class="double_checkbox">
+					<input type="checkbox" class="checkAllItemStates" id="checkAllItemStates"/>
+					<label for="checkAllItemStates"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
+				</span>
+				-->
+				<span class="free_area0 genreContent clear">
+					
+					<a4j:repeat value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumList}" var="context" rows="0">
+						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">							
+							<h:selectBooleanCheckbox styleClass="affiliatedContextCheckbox" id="affiliatedContextCriterion" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumMap[context]}">
+							</h:selectBooleanCheckbox>
+							<h:outputLabel title="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" for="affiliatedContextCriterion" />	
+						</h:panelGroup>
+					</a4j:repeat>
+				</span>
+			</span>
+			
+			
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+
+
+
+
+
+
+
 	<!-- genre criterions -->
 	<div class="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -536,10 +614,27 @@ All rights reserved. Use is subject to license terms.
 								</h:panelGroup>
 							</a4j:repeat>
 						</span>
+						<!-- 
 						<span class="double_checkbox fileCriterionHasEmbargoDate" style="margin-top:0.4545em;">
-							<h:selectBooleanCheckbox id="fileCriterionHasEmbargoDate" value="#{AdvancedSearchBean.embargoDateAvailableSearchCriterion.withEmbargoDate}"/>
+							<h:selectBooleanCheckbox id="fileCriterionHasEmbargoDate" value="#{AdvancedSearchBean.componentEmbargoDateAvailableSearchCriterion.withEmbargoDate}"/>
 							<h:outputLabel for="fileCriterionHasEmbargoDate" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
 						</span>
+						-->
+						
+						
+						<h:outputLabel id="lblComponentEmbargoDate" styleClass="medium_label clear" value="#{lbl.adv_search_fileComponentEmbargoDate}" style="margin-top:0.7272em;"/>
+						<span class="free_area0 fileCriterionEmbargoDate">
+							<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst" value="#{lbl.adv_search_lblFrom}: "/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="startDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.from}" />
+						</span>
+						<span class="free_area0 clear fileCriterionEmbargoDate">
+							<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst" value="#{lbl.adv_search_lblTo}: "/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.to}" />
+						</span>
+						<script type="text/javascript">
+							$pb('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
+						</script>
+						
 					</span>
 					
 					

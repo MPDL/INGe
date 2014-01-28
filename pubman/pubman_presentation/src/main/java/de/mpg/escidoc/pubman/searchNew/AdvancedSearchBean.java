@@ -69,7 +69,9 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.Index;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.AffiliatedContextListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.FileAvailableSearchCriterion;
@@ -83,6 +85,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.CollectionSearchCrite
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.TitleSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -121,7 +124,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	
 	private SearchCriterionBase locatorAvailableSearchCriterion;
 	
-	private SearchCriterionBase embargoDateAvailableSearchCriterion;
+	private SearchCriterionBase componentEmbargoDateAvailableSearchCriterion;
 	
 	private SearchCriterionBase componentContentCategory;
 	
@@ -134,6 +137,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	private SearchCriterionBase componentContentCategoryListSearchCriterion;
 	
 	private SearchCriterionBase genreListSearchCriterion;
+	
+	private SearchCriterionBase itemStateListSearchCriterion;
+	
+	private SearchCriterionBase componentEmbargoDateSearchCriterion;
+	
+	private SearchCriterionBase affiliatedContextListSearchCriterion;
+	
+	
 
 	private Parenthesis currentlyOpenedParenthesis;
 	private Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap = new HashMap<SearchCriterionBase, Boolean>();
@@ -173,14 +184,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	{
 		this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
 		this.locatorAvailableSearchCriterion = new LocatorAvailableSearchCriterion();
-		this.embargoDateAvailableSearchCriterion = new EmbargoDateAvailableSearchCriterion();
+		this.componentEmbargoDateAvailableSearchCriterion = new EmbargoDateAvailableSearchCriterion();
 		this.componentContentCategory = new ComponentContentCategory();
 		this.excludeComponentContentCategory = false;
 		this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
 		this.componentVisibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
 		this.componentContentCategoryListSearchCriterion = new ComponentContentCategoryListSearchCriterion();
 		this.genreListSearchCriterion = new GenreListSearchCriterion();
-		
+		this.itemStateListSearchCriterion = new ItemStateListSearchCriterion();
+		this.componentEmbargoDateSearchCriterion = new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
+		this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
 		currentlyOpenedParenthesis = null;
 		possibleCriterionsForClosingParenthesisMap.clear();
 		balanceMap.clear();
@@ -192,7 +205,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	private void initCriterionListWithEmptyValues()
 	{
 		criterionList = new ArrayList<SearchCriterionBase>();
-		criterionList.add(new AnyFieldSearchCriterion());
+		criterionList.add(new TitleSearchCriterion());
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		criterionList.add(new PersonSearchCriterion(SearchCriterion.ANYPERSON));
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
@@ -225,7 +238,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			}
 			else if(SearchCriterion.EMBARGO_DATE_AVAILABLE.equals(sc.getSearchCriterion()))
 			{
-				this.embargoDateAvailableSearchCriterion = sc;
+				this.componentEmbargoDateAvailableSearchCriterion = sc;
 				toBeRemovedList.add(sc);
 			}
 			/*
@@ -257,9 +270,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 				this.componentVisibilityListSearchCriterion = sc;
 				toBeRemovedList.add(sc);
 			}
+			else if(SearchCriterion.COMPONENT_EMBARGO_DATE.equals(sc.getSearchCriterion()))
+			{
+				this.componentEmbargoDateSearchCriterion = sc;
+				toBeRemovedList.add(sc);
+			}
 			else if(SearchCriterion.GENRE_DEGREE_LIST.equals(sc.getSearchCriterion()))
 			{
 				this.genreListSearchCriterion = sc;
+				toBeRemovedList.add(sc);
+			}
+			else if(SearchCriterion.ITEMSTATE_LIST.equals(sc.getSearchCriterion()))
+			{
+				this.itemStateListSearchCriterion = sc;
+				toBeRemovedList.add(sc);
+			}
+			else if(SearchCriterion.AFFILIATED_CONTEXT_LIST.equals(sc.getSearchCriterion()))
+			{
+				this.affiliatedContextListSearchCriterion = sc;
 				toBeRemovedList.add(sc);
 			}
 		}
@@ -379,6 +407,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		criterionTypeList.add(new SelectItem(SearchCriterion.CLASSIFICATION, getLabel("adv_search_lblClassification")));
 		criterionTypeList.add(new SelectItem(SearchCriterion.ANY, getLabel("adv_search_lblRgbAny")));
 		criterionTypeList.add(new SelectItem(SearchCriterion.ANYFULLTEXT, getLabel("adv_search_lblRgbAnyFulltext")));
+		
+		
+		
+		
+		
+		//AdminStuff
+		List<SelectItem> adminGroupList = new ArrayList<SelectItem>();
+		SelectItemGroup adminGroup = new SelectItemGroup(getLabel("adv_search_lblSearchAdmin"));
+		adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL, getLabel("adv_search_lblItemCreationDate")));
+		adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL, getLabel("adv_search_lblItemLastModificationDate")));
+		
+		adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY, getLabel("adv_search_lblItemCreatedBy")));
+		adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY, getLabel("adv_search_lblItemModifiedBy")));
+		
+		adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
+		criterionTypeList.add(adminGroup);
+		
+		
 		
 		//Persons
 		List<SelectItem> personGroupList = new ArrayList<SelectItem>();
@@ -846,7 +892,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.operatorTypeListMenu = operatorTypeListMenu;
 	}
 
-	public String startSearch()
+	public String startSearch(Index indexName)
 	{
 		
 		
@@ -859,17 +905,28 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		List<SearchCriterionBase> allCriterions = new ArrayList<SearchCriterionBase>();
 		allCriterions.addAll(getCriterionList());
 	
+
+		
+		 if(Index.ITEM_CONTAINER_ADMIN == indexName)
+		 {
+			 allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR)); 
+			 allCriterions.add(this.itemStateListSearchCriterion);
+			 
+			 allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR)); 
+			 allCriterions.add(this.affiliatedContextListSearchCriterion);
+		 }
+		
 		//GenreCriterions
 		allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		allCriterions.add(this.genreListSearchCriterion);
 		
-		allCriterions.addAll(getComponentSearchCriterions());
+		allCriterions.addAll(getComponentSearchCriterions(indexName));
 		
 		
 		
 		String cql;
 		try {
-			cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, allCriterions, true);
+			cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
 		} catch (SearchParseException e1) {
 			error(getMessage("search_ParseError"));
 			return "";
@@ -889,6 +946,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	            return "";
 	      }
 		
+		 
+		 String searchType = "advanced";
+		 if(Index.ITEM_CONTAINER_ADMIN == indexName)
+		 {
+			 searchType = "admin";
+		 }
 
 		 
 		 try {
@@ -897,7 +960,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			 {
 				 bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
 			 }
-			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
+			 else if (bihsb.getCurrentItem().getDisplayValue().equals("AdminAdvancedSearchPage"))
+			 {
+				 bihsb.getCurrentItem().setPage("AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
+			 }
+			getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql, "UTF-8")+"&q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=" + searchType);
 		} catch (Exception e) {
 			logger.error("Error while redirecting to search result page", e);
 		}
@@ -906,8 +973,19 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		return "";
 	}
 	
+	public String startAdminSearch()
+	{
+		
+		return startSearch(Index.ITEM_CONTAINER_ADMIN);
+	}
 	
-	public List<SearchCriterionBase> getComponentSearchCriterions()
+	public String startSearch()
+	{
+		return startSearch(Index.ESCIDOC_ALL);
+	}
+	
+	
+	public List<SearchCriterionBase> getComponentSearchCriterions(Index indexName)
 	{
 		List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
 		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
@@ -915,7 +993,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		returnList.add(locatorAvailableSearchCriterion);
 		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-		returnList.add(embargoDateAvailableSearchCriterion);
+		returnList.add(componentEmbargoDateAvailableSearchCriterion);
+		
+		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		returnList.add(componentEmbargoDateSearchCriterion);
+		
 		
 		if(excludeComponentContentCategory)
 		{
@@ -933,6 +1015,20 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		return returnList;
 
 	}
+	
+	public List<SearchCriterionBase> getItemStatusSearchCriterions()
+	{
+		List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
+		returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		
+		
+		
+		
+		return returnList;
+
+	}
+	
+	
 	
 	
 	
@@ -981,16 +1077,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.locatorAvailableSearchCriterion = locatorAvailableSearchCriterion;
 	}
 
-
-	public SearchCriterionBase getEmbargoDateAvailableSearchCriterion() {
-		return embargoDateAvailableSearchCriterion;
-	}
-
-
-	public void setEmbargoDateAvailableSearchCriterion(
-			SearchCriterionBase embargoDateAvailableSearchCriterion) {
-		this.embargoDateAvailableSearchCriterion = embargoDateAvailableSearchCriterion;
-	}
 
 
 	public SearchCriterionBase getComponentContentCategory() {
@@ -1224,6 +1310,42 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 	public void setQuery(String query) {
 		this.query = query;
+	}
+
+	public SearchCriterionBase getItemStateListSearchCriterion() {
+		return itemStateListSearchCriterion;
+	}
+
+	public void setItemStateListSearchCriterion(
+			SearchCriterionBase itemStateListSearchCriterion) {
+		this.itemStateListSearchCriterion = itemStateListSearchCriterion;
+	}
+
+	public SearchCriterionBase getComponentEmbargoDateSearchCriterion() {
+		return componentEmbargoDateSearchCriterion;
+	}
+
+	public void setComponentEmbargoDateSearchCriterion(
+			SearchCriterionBase componentEmbargoDateSearchCriterion) {
+		this.componentEmbargoDateSearchCriterion = componentEmbargoDateSearchCriterion;
+	}
+
+	public SearchCriterionBase getComponentEmbargoDateAvailableSearchCriterion() {
+		return componentEmbargoDateAvailableSearchCriterion;
+	}
+
+	public void setComponentEmbargoDateAvailableSearchCriterion(
+			SearchCriterionBase componentEmbargoDateAvailableSearchCriterion) {
+		this.componentEmbargoDateAvailableSearchCriterion = componentEmbargoDateAvailableSearchCriterion;
+	}
+
+	public SearchCriterionBase getAffiliatedContextListSearchCriterion() {
+		return affiliatedContextListSearchCriterion;
+	}
+
+	public void setAffiliatedContextListSearchCriterion(
+			SearchCriterionBase affiliatedContextListSearchCriterion) {
+		this.affiliatedContextListSearchCriterion = affiliatedContextListSearchCriterion;
 	}
 
 }

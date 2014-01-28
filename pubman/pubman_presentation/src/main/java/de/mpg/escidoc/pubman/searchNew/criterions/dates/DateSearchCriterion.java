@@ -113,6 +113,11 @@ public class DateSearchCriterion extends SearchCriterionBase {
 					case CREATED :  return new String[] {"escidoc.publication.created"};
 					case EVENT_STARTDATE :  return new String[] {"escidoc.publication.event.start-date"};
 					case EVENT_ENDDATE :  return new String[] {"escidoc.publication.event.end-date"};
+					
+					case MODIFIED_INTERNAL :  return new String[] {"escidoc.last-modification-date"};
+					case CREATED_INTERNAL :  return new String[] {"escidoc.property.creation-date"};
+					
+					case COMPONENT_EMBARGO_DATE :  return new String[] {"escidoc.component.file.available"};
 				}
 				
 			}
@@ -133,6 +138,11 @@ public class DateSearchCriterion extends SearchCriterionBase {
 					case CREATED :  return new String[] {"\"/md-records/md-record/publication/created\""};
 					case EVENT_STARTDATE :  return new String[] {"\"/md-records/md-record/publication/event/start-date\""};
 					case EVENT_ENDDATE :  return new String[] {"\"/md-records/md-record/publication/event/end-date\""};
+					
+					case MODIFIED_INTERNAL :  return new String[] {"\"/last-modification-date\""};
+					case CREATED_INTERNAL :  return new String[] {"\"/properties/creation-date\""};
+					
+					case COMPONENT_EMBARGO_DATE :  return new String[] {"\"/components/component/md-records/md-record/file/available\""};
 				}
 			}
 		}

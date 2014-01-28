@@ -341,5 +341,13 @@ public class ContextListSessionBean extends FacesBean
         }
     }
 
+	public List<PubContextVOPresentation> getAllPrivilegedContextList() {
+		return allPrivilegedContextList;
+	}
+
+	public void setAllPrivilegedContextList(List<PubContextVOPresentation> allPrivilegedContextList) {
+		this.allPrivilegedContextList = allPrivilegedContextList;
+	}
+
 
 }

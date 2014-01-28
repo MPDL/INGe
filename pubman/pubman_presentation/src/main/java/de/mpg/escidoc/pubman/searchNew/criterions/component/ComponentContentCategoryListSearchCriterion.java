@@ -56,7 +56,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 
-public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion{
+public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String>{
 
 	
 	
@@ -93,7 +93,7 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
 	*/
 
 	@Override
-	public String[] getCqlIndexes(Index indexName) {
+	public String[] getCqlIndexes(Index indexName, String value) {
 		switch(indexName)
 		{
 			case ESCIDOC_ALL : return new String[]{"escidoc.component.content-category"};
@@ -101,6 +101,11 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
 		}
 		return null;
 		
+	}
+
+	@Override
+	public String getCqlValue(Index indexName, String value) {
+		return value;
 	}
 	
 

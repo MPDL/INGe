@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.search;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
@@ -21,11 +23,27 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.StandardFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
@@ -189,11 +207,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
     }
 
-    /**
-     * Calls the search service and requests the items for the current cql query.
-     */
-    @Override
-    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
+    
+    public List<PubItemVOPresentation> retrieveListGenericSearch(int offset, int limit, SORT_CRITERIA sc)
     {
         List<PubItemVOPresentation> pubItemList = null; //new ArrayList<PubItemVOPresentation>();
         //checkSortCriterias(sc);
@@ -248,6 +263,87 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
         return pubItemList;
     }
+    
+    public List<PubItemVOPresentation> retrieveListAdminSearch(int offset, int limit, SORT_CRITERIA sc)
+    {
+        List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        try
+        {
+        	ItemHandler itemHandler = null;
+        	
+	        if(loginHelper.getESciDocUserHandle()!=null)
+	        {
+	        	itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+	        }
+	        else
+	        {
+	        	itemHandler = ServiceLocator.getItemHandler();
+	        }
+	        
+        //Return empty list if the user is not logged in, needed to avoid exceptions
+        /*
+        if (!loginHelper.isLoggedIn())
+            return returnList;
+         */
+       
+
+
+
+            InitialContext initialContext = new InitialContext();
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+
+            checkSortCriterias(sc);
+            
+            FilterTaskParamVO filter = new FilterTaskParamVO();
+            Filter f1 = filter.new CqlFilter(getCqlQuery());
+            filter.getFilterList().add(f1);
+            Filter f2 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+            filter.getFilterList().add(f2);
+            Filter f3 = filter.new LimitFilter(String.valueOf(limit));
+            filter.getFilterList().add(f3);
+            Filter f4 = filter.new OffsetFilter(String.valueOf(offset));
+            filter.getFilterList().add(f4);
+
+            
+            String xmlItemList = itemHandler.retrieveItems(filter.toMap());
+
+
+            ItemVOListWrapper pubItemList = xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+            
+            numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
+            returnList = CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList.getItemVOList());
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in retrieving items", e);
+            error("Error in retrieving items");
+            numberOfRecords = 0;
+        }
+        return returnList;
+    }
+    
+    
+    /**
+     * Calls the search service and requests the items for the current cql query.
+     */
+    @Override
+    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
+    {
+    	
+    	if("admin".equals(getSearchType()))
+    	{
+    		return retrieveListAdminSearch(offset, limit, sc);
+    		
+    	}
+    	else
+    	{
+    		return retrieveListGenericSearch(offset, limit, sc);
+    	}
+    	
+
+    }
+    
 
     /**
      * Sets the current cql query

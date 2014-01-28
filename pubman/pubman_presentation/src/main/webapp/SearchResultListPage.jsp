@@ -175,6 +175,7 @@
 									</div>
 								</h:panelGroup>		
 								
+								<!-- For advanced search, show links for refine, cql query and REST -->
 								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<!-- Subheadline starts here -->
 										<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp?q=#{SearchRetrieverRequestBean.urlEncodedQueryString}">								
@@ -184,8 +185,18 @@
 										<h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.pubmanInstanceUrl}/search/SearchAndExport_rest_sample.jsp?#{SearchRetrieverRequestBean.cqlQuery}"  target="_blank"><h:outputText value="#{lbl.SearchResultList_lblRestServiceExamplePage}"/></h:outputLink>
 									<!-- Subheadline ends here -->
 								</h:panelGroup>
+								
+								<!-- For admin search, show links for refine and cql query -->
+								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'admin'}">
+									<!-- Subheadline starts here -->
+										<h:outputLink id="lnkAdminAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdminAdvancedSearchPage.jsp?q=#{SearchRetrieverRequestBean.urlEncodedQueryString}">								
+											<h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/>
+										</h:outputLink>
+										<a class="free_area0 xTiny_marginRIncl" href="#" onclick="$pb(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $pb(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>										
+									<!-- Subheadline ends here -->
+								</h:panelGroup>
 	
-								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
+								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced' or SearchRetrieverRequestBean.searchType == 'admin'}">
 									<!-- Subheadline starts here -->
 										<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
 											<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>

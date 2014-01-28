@@ -10,7 +10,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.component.MapListSearchCriteri
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 
-public class ItemStateListSearchCriterion extends MapListSearchCriterion {
+public class ItemStateListSearchCriterion extends MapListSearchCriterion<String> {
 
 	public ItemStateListSearchCriterion() {
 		
@@ -51,6 +51,11 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public String getCqlValue(Index indexName, String value) {
+		return value;
 	}
 
 	

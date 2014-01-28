@@ -46,8 +46,10 @@ import org.apache.log4j.Logger;
 import org.z3950.zing.cql.CQLParseException;
 
 import de.mpg.escidoc.pubman.searchNew.SearchParseException;
+import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.AffiliatedContextListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EventInvitationSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.FileAvailableSearchCriterion;
@@ -64,6 +66,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.ClassificationSearchC
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.CollectionSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.CreatedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.DegreeSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.EventTitleSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
@@ -72,6 +75,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.JournalSearchCriterio
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.KeywordSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LanguageSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LocalTagSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.ModifiedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.SourceSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.TitleSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.OrganizationSearchCriterion;
@@ -148,6 +152,14 @@ public abstract class SearchCriterionBase implements Serializable{
 		COMPONENT_VISIBILITY(ComponentVisibilitySearchCriterion.class, null),
 		COMPONENT_VISIBILITY_LIST(ComponentVisibilityListSearchCriterion.class, null),
 		COMPONENT_CONTENT_CATEGORY_LIST(ComponentContentCategoryListSearchCriterion.class, null),
+		COMPONENT_EMBARGO_DATE(DateSearchCriterion.class, DisplayType.DATE),
+		ITEMSTATE_LIST(ItemStateListSearchCriterion.class, null),
+		AFFILIATED_CONTEXT_LIST(AffiliatedContextListSearchCriterion.class, null),
+		
+		MODIFIED_INTERNAL (DateSearchCriterion.class, DisplayType.DATE),  
+		CREATED_INTERNAL (DateSearchCriterion.class, DisplayType.DATE),
+		CREATED_BY (CreatedBySearchCriterion.class, DisplayType.STANDARD),  
+		MODIFIED_BY (ModifiedBySearchCriterion.class, DisplayType.STANDARD),  
 		
 		AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
 		OR_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
@@ -561,7 +573,23 @@ public abstract class SearchCriterionBase implements Serializable{
 				
 				
 				String contentModelId = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
-				String standardCriterions = INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\"" + escapeForCql(contentModelId) + "\"";
+				
+				String standardCriterions = null;
+				switch (indexName) 
+				{
+					case ESCIDOC_ALL : 
+					{
+						standardCriterions = INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\"" + escapeForCql(contentModelId) + "\"";
+					}
+					case ITEM_CONTAINER_ADMIN : 
+					{
+						standardCriterions = "\"/properties/content-model/id\"=\"" + escapeForCql(contentModelId) + "\"";
+					}
+				
+				}
+				
+				
+				
 				
 				
 				
