@@ -392,7 +392,36 @@ All rights reserved. Use is subject to license terms.
 
 
 
-
+	<!-- affiliated contexts criterions -->
+	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{view.viewId == '/AdminAdvancedSearchPage.jsp'}">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.adv_search_lbHeaderAffiliatedContexts}" />
+		</h3>
+		<span class="seperator">&#160;</span>
+		<h:panelGroup id="editAffiliatedContexts" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
+		
+			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+				<!-- 
+				<span class="double_checkbox">
+					<input type="checkbox" class="checkAllItemStates" id="checkAllItemStates"/>
+					<label for="checkAllItemStates"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
+				</span>
+				-->
+				<span class="free_area0 genreContent clear">
+					
+					<a4j:repeat value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumList}" var="context" rows="0">
+						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">							
+							<h:selectBooleanCheckbox styleClass="affiliatedContextCheckbox" id="affiliatedContextCriterion" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumMap[context]}">
+							</h:selectBooleanCheckbox>
+							<h:outputLabel title="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" for="affiliatedContextCriterion" />	
+						</h:panelGroup>
+					</a4j:repeat>
+				</span>
+			</span>
+			
+			
+		</h:panelGroup>
+	</h:panelGroup>
 
 
 	
@@ -428,41 +457,6 @@ All rights reserved. Use is subject to license terms.
 		</h:panelGroup>
 	</h:panelGroup>
 	
-	<!-- affiliated contexts criterions -->
-	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{view.viewId == '/AdminAdvancedSearchPage.jsp'}">
-		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText value="#{lbl.adv_search_lbHeaderAffiliatedContexts}" />
-		</h3>
-		<span class="seperator">&#160;</span>
-		<h:panelGroup id="editAffiliatedContexts" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
-		
-			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
-				<!-- 
-				<span class="double_checkbox">
-					<input type="checkbox" class="checkAllItemStates" id="checkAllItemStates"/>
-					<label for="checkAllItemStates"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
-				</span>
-				-->
-				<span class="free_area0 genreContent clear">
-					
-					<a4j:repeat value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumList}" var="context" rows="0">
-						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">							
-							<h:selectBooleanCheckbox styleClass="affiliatedContextCheckbox" id="affiliatedContextCriterion" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumMap[context]}">
-							</h:selectBooleanCheckbox>
-							<h:outputLabel title="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" for="affiliatedContextCriterion" />	
-						</h:panelGroup>
-					</a4j:repeat>
-				</span>
-			</span>
-			
-			
-		</h:panelGroup>
-	</h:panelGroup>
-
-
-
-
-
 
 
 
