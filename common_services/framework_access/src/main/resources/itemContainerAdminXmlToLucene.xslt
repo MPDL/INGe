@@ -69,8 +69,17 @@ Notes:
     <xsl:variable name="FIELDSEPARATOR">/</xsl:variable>
 
     <!-- Paths to Metadata -->
-    <xsl:variable name="ITEM_MDRECORDSPATH" select="/*[local-name()='item']/*[local-name()='md-records']"/>
-    <xsl:variable name="CONTAINER_MDRECORDSPATH" select="/*[local-name()='container']/*[local-name()='md-records']"/>
+    <xsl:variable name="ITEM_METADATAPATH" select="/*[local-name()='item']/*[local-name()='md-records']"/>
+    <xsl:variable name="CONTAINER_METADATAPATH" select="/*[local-name()='container']/*[local-name()='md-records']"/>
+	
+    <!-- Paths to Properties -->
+    <xsl:variable name="ITEM_PROPERTIESPATH" select="/*[local-name()='item']/*[local-name()='properties']"/>
+    <xsl:variable name="CONTAINER_PROPERTIESPATH" select="/*[local-name()='container']/*[local-name()='properties']"/>
+    <xsl:variable name="COMPONENT_PROPERTIESPATH" select="/*[local-name()='item']/*[local-name()='components']/*[local-name()='component']/*[local-name()='properties']"/>
+    <xsl:variable name="CONTENT_MODEL_SPECIFIC_PATH" select="/*[local-name()='item']/*[local-name()='properties']/*[local-name()='content-model-specific']"/>
+
+    
+    
     
     <!-- Paths to Components -->
     <xsl:variable name="COMPONENT_PATH" select="/*[local-name()='item']/*[local-name()='components']/*[local-name()='component']"/>
@@ -152,7 +161,7 @@ Notes:
             <xsl:text disable-output-escaping="yes">
                 &lt;![CDATA[
             </xsl:text>
-                <xsl:copy-of select="$ITEM_MDRECORDSPATH"/>
+                <xsl:copy-of select="$ITEM_METADATAPATH"/>
             <xsl:text disable-output-escaping="yes">
                 ]]&gt;
             </xsl:text>
@@ -241,7 +250,7 @@ Notes:
             <xsl:text disable-output-escaping="yes">
                 &lt;![CDATA[
             </xsl:text>
-                <xsl:copy-of select="$CONTAINER_MDRECORDSPATH"/>
+                <xsl:copy-of select="$CONTAINER_METADATAPATH"/>
             <xsl:text disable-output-escaping="yes">
                 ]]&gt;
             </xsl:text>
@@ -339,6 +348,20 @@ Notes:
                     	</xsl:call-template>
                     </xsl:if>
                 </xsl:if>
+                <!--  WRITE XLINK-TITLE-ATTRIBUTES AS SPECIAL FIELD -->
+                <xsl:if test="string(.) and normalize-space(.)!=''
+                        and string($path) and normalize-space($path)!='' 
+                        and namespace-uri()='http://www.w3.org/1999/xlink'
+                        and local-name()='title'">
+			<xsl:call-template name="writeIndexField">
+				<xsl:with-param name="context" select="$context"/>
+				<xsl:with-param name="fieldname" select="concat($path,$FIELDSEPARATOR,'xLinkTitle')"/>
+				<xsl:with-param name="fieldvalue" select="."/>
+				<xsl:with-param name="indextype">UN_TOKENIZED</xsl:with-param>
+				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+			</xsl:call-template> 
+                </xsl:if>                
+                
             </xsl:for-each>
         </xsl:if>
         <xsl:for-each select="./*">
@@ -518,6 +541,130 @@ Notes:
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
+	
+
+	<!-- REMOVE SUB AND SUP TAGS -->
+	<xsl:template name="removeSubSup">
+		<xsl:param name="elem" />
+		<xsl:call-template name="removeSubSupStr">
+			<xsl:with-param name="name" select="local-name($elem)" />
+			<xsl:with-param name="str" select="$elem"/>
+		</xsl:call-template>
+	</xsl:template>
+		
+	<!-- REMOVE SUB AND SUP TAGS -->
+	<xsl:template name="removeSubSupStr">
+		<xsl:param name="name" />
+		<xsl:param name="str" />
+		<xsl:choose>
+	<!--				FIELDS WHERE SUB/SUPs should be removed-->
+			<xsl:when test=" contains( concat( ',title,alternative,abstract,', ',publication.title,publication.alternative,publication.abstract,', ',publication.source.title,publication.source.alternative,publication.source.abstract,' ), concat(',', $name, ',') )">
+				
+				<xsl:call-template name="removeTag">
+					<xsl:with-param name="str">
+						<xsl:call-template name="removeTag">
+							<xsl:with-param name="str" select="$str" />
+							<xsl:with-param name="tag" select="'sub'" />
+						</xsl:call-template>
+					</xsl:with-param>
+					<xsl:with-param name="tag" select="'sup'" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str" />
+			</xsl:otherwise>
+		</xsl:choose>
+	
+	</xsl:template>	
+	
+	<!-- REMOVE TAG -->
+	<xsl:template name="removeTag">
+		<xsl:param name="str"/>
+		<xsl:param name="tag"/>
+		<xsl:choose>
+			<xsl:when test="contains($str, concat('&lt;', $tag, '&gt;'))">
+				<xsl:call-template name="replace-substring">
+					<xsl:with-param name="original">
+						<xsl:call-template name="replace-substring">
+							<xsl:with-param name="original" select="$str"/>
+							<xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
+						</xsl:call-template>
+					</xsl:with-param>
+					<xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	
+	</xsl:template>
+	
+	<!-- REPLACE STRING -->
+	<xsl:template name="replace-substring">
+		<xsl:param name="original"/>
+		<xsl:param name="substring"/>
+		<xsl:param name="replacement" select="''"/>
+		<xsl:variable name="first">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:value-of select="substring-before($original, $substring)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$original"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="middle">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:value-of select="$replacement"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text></xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="last">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:choose>
+						<xsl:when test="contains(substring-after($original, $substring), $substring)">
+							<xsl:call-template name="replace-substring">
+								<xsl:with-param name="original">
+									<xsl:value-of select="substring-after($original, $substring)"/>
+								</xsl:with-param>
+								<xsl:with-param name="substring">
+									<xsl:value-of select="$substring"/>
+								</xsl:with-param>
+								<xsl:with-param name="replacement">
+									<xsl:value-of select="$replacement"/>
+								</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-after($original, $substring)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text></xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="concat($first, $middle, $last)"/>
+	</xsl:template>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         
     <!-- SORTFIELDS -->
     <xsl:variable name="sortfields">
@@ -570,6 +717,256 @@ Notes:
                 </xsl:choose>
             </element>
         </userdefined-index>
+        
+        
+        
+	<!-- USER DEFINED INDEX: /md-records/md-record/publication/creator/person/compound/person-complete-name -->
+	<userdefined-index name="/md-records/md-record/publication/creator/person/compound/person-complete-name">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="ITEM_MDRECORDSPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
+			<element index="TOKENIZED">
+				<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="concat(./*[local-name()='given-name'],' ', ./*[local-name()='family-name'])"/>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
+			<element index="TOKENIZED">
+				<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="concat(./*[local-name()='given-name'],' ', ./*[local-name()='family-name'])"/>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+	
+	
+	
+	<!-- USER DEFINED INDEX: for every creator, create an index with role in index name  and name or identifier as index value -->
+	<!-- e.g. /md-records/md-record/publication/creator/person/compound/role-person/AUT -->
+	<!-- e.g. /md-records/md-record/publication/creator/organization/compound/role-organization/EDT -->
+	<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']">
+		<xsl:if test="./*[local-name()='person']">
+		<userdefined-index>
+			<xsl:attribute name="name">
+				<xsl:value-of select="concat('/md-records/md-record/publication/creator/person/compound/role-person/', string-helper:getSubstringAfterLast(@role,'/'))"/>
+			</xsl:attribute>
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='family-name'],' ', ./*[local-name()='person']/*[local-name()='given-name'])"/>
+			</element>
+			<element index="TOKENIZED">
+				 <xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='given-name'],' ', ./*[local-name()='person']/*[local-name()='family-name'])"/>
+			</element>
+			<element index="TOKENIZED">
+				 <xsl:value-of select="./*[local-name()='person']/*[local-name()='identifier']"/>
+			</element>
+		</userdefined-index>
+		</xsl:if>
+	
+		<xsl:if test="./*[local-name()='organization']">
+		<userdefined-index>
+			<xsl:attribute name="name">
+				<xsl:value-of select="concat('/md-records/md-record/publication/creator/organization/compound/role-organization/', string-helper:getSubstringAfterLast(@role,'/'))"/>
+			</xsl:attribute>
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
+			</element>
+			<element index="TOKENIZED">
+				 <xsl:value-of select="./*[local-name()='organization']/*[local-name()='identifier']"/>
+			</element>
+		</userdefined-index>
+		</xsl:if>
+	</xsl:for-each>
+	
+	
+	<!-- USER DEFINED INDEX: /md-records/md-record/publication/creator/compound/organization-path-identifiers -->
+	<userdefined-index name="/md-records/md-record/publication/creator/compound/organization-path-identifiers">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']//*[local-name()='organization']/*[local-name()='identifier']">
+			<element index="TOKENIZED">
+				<xsl:variable name="objectId" select="normalize-space(.)"/>
+				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
+					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
+				</xsl:if>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']//*[local-name()='organization']/*[local-name()='identifier']">
+			<element index="TOKENIZED">
+				<xsl:variable name="objectId" select="normalize-space(.)"/>
+				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
+					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
+				</xsl:if>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+
+        
+	<!-- USER DEFINED INDEX: /md-records/md-record/publication/source/compound/any-title -->
+	<userdefined-index name="/md-records/md-record/publication/source/compound/any-title">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']//*[local-name()='source']">
+			<element index="TOKENIZED">
+				<xsl:call-template name="removeSubSup">
+					<xsl:with-param name="elem" select="./*[local-name()='title']"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template name="removeSubSup">
+					<xsl:with-param name="elem" select="./*[local-name()='alternative']"/>
+				</xsl:call-template>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']//*[local-name()='source']">
+			<element index="TOKENIZED">
+				<xsl:call-template name="removeSubSup">
+					<xsl:with-param name="elem" select="./*[local-name()='title']"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template name="removeSubSup">
+					<xsl:with-param name="elem" select="./*[local-name()='alternative']"/>
+				</xsl:call-template>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+	
+	
+	<userdefined-index name="any-identifier">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<element index="TOKENIZED">
+			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="string-helper:removeVersionIdentifier(/*[local-name()='container']/@objid)"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='pid']"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
+		</element>
+		<xsl:for-each select="$COMPONENT_PATH">
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='properties']/*[local-name()='pid']"/>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$ITEM_METADATAPATH//*[local-name()='identifier']">
+			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
+			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,':',.)"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,' ',.)"/>
+				</element>
+			</xsl:if>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*[local-name()='identifier']">
+			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
+			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,':',.)"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,' ',.)"/>
+				</element>
+			</xsl:if>
+		</xsl:for-each>
+	</userdefined-index>
+	
+	
+	<userdefined-index name="/md-records/md-record/publication/event/compound/any">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:variable name="fields">
+			<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='event']/*[local-name()='title']"/>
+			<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='event']/*[local-name()='alternative']"/>
+			<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='event']/*[local-name()='place']"/>
+			<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='event']/*[local-name()='title']"/>
+			<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='event']/*[local-name()='alternative']"/>
+			<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='event']/*[local-name()='place']"/>
+		</xsl:variable>
+		<xsl:for-each select="xalan:nodeset($fields)/*">
+			<xsl:variable name="name" select="name()"/>
+			<element index="TOKENIZED">
+				<xsl:value-of select="."/>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+        
+	<userdefined-index name="metadata">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*[local-name()='identifier']">
+			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
+			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,':',.)"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,' ',.)"/>
+				</element>
+			</xsl:if>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*[local-name()='identifier']">
+			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
+			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,':',.)"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,' ',.)"/>
+				</element>
+			</xsl:if>
+		</xsl:for-each>
+		<element index="TOKENIZED">
+			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='pid']"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
+		</element>
+		<xsl:for-each select="$COMPONENT_PATH">
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='properties']/*[local-name()='pid']"/>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+        
     </xsl:variable>
 
 </xsl:stylesheet>   
