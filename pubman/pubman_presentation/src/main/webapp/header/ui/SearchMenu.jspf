@@ -55,7 +55,7 @@
 		<h:commandLink styleClass="free_area0_p3 organisationSearchMenu tiny_marginLExcl endline" id="lnkBrowseBy" title="#{tip.BrowseBy}" immediate="true" action="#{BrowseByPage.loadBrowseBy}">
 			<h:outputText value="#{lbl.mainMenu_lblBrowse}"/>
 		</h:commandLink>
-		<h:outputLink id="lnkAdminSearch" styleClass="free_area0_p3 advancedSearchMenu tiny_marginLExcl clear" title="#{tip.search_admin}" value="#{ApplicationBean.appContext}AdminAdvancedSearchPage.jsp">
+		<h:outputLink id="lnkAdminSearch" styleClass="free_area0_p3 advancedSearchMenu tiny_marginLExcl clear" title="#{tip.search_admin}" value="#{ApplicationBean.appContext}AdminAdvancedSearchPage.jsp" rendered="#{LoginHelper.loggedIn}">
 		 	<h:outputText value="#{lbl.search_lblAdvancedSearchAdmin}"/>
 		 </h:outputLink>
 	</span>

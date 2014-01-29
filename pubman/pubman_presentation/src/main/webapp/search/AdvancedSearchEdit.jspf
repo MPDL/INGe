@@ -174,14 +174,22 @@ All rights reserved. Use is subject to license terms.
 								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>									
 								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 							</h:panelGroup>
-							<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterionAction}">
+							<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterionAction}" rendered="#{view.viewId == '/AdvancedSearchPage.jsp'}">
 								<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenu}" />
-								
+								<a4j:support event="onchange" reRender="editSearch" >
+									<a4j:actionparam name="indexOfCriterion" value="#{index}"/>
+								</a4j:support>
+							</h:selectOneMenu>
+							
+							<h:selectOneMenu id="selCriterionTypeAdmin" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterionAction}" rendered="#{view.viewId == '/AdminAdvancedSearchPage.jsp'}">
+								<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenuAdmin}" />
 								<a4j:support event="onchange" reRender="editSearch" >
 									<a4j:actionparam name="indexOfCriterion" value="#{index}"/>
 								</a4j:support>
 							</h:selectOneMenu>
 						</h:panelGroup>
+						
+						
 					</h:panelGroup>
 					
 					<!-- input for standard criterions -->

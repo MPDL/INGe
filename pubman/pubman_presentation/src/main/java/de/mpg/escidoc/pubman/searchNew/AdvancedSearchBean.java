@@ -104,7 +104,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	
 	private List<SearchCriterionBase> criterionList;
 	
-	private List<SelectItem> criterionTypeListMenu = initCriterionTypeListMenu();
+	private List<SelectItem> criterionTypeListMenu = initCriterionTypeListMenu(Index.ESCIDOC_ALL);
+	
+	private List<SelectItem> criterionTypeListMenuAdmin = initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN);
 	
 	private List<SelectItem> operatorTypeListMenu = initOperatorListMenu();
 	
@@ -347,6 +349,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		
 		
 	}
+	
+	
+	/**
+	 * Dummy getter method which reads out query parameter form url;
+	 * @return
+	 */
+	
 
 
 	private List<SelectItem> initComponentVisibilityListMenu() {
@@ -396,7 +405,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	
 
 
-	private List<SelectItem> initCriterionTypeListMenu()
+	private List<SelectItem> initCriterionTypeListMenu(Index indexName)
 	{
 		List<SelectItem> criterionTypeList = new ArrayList<SelectItem>();
 		
@@ -410,22 +419,22 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		
 		
 		
-		
-		
 		//AdminStuff
-		List<SelectItem> adminGroupList = new ArrayList<SelectItem>();
-		SelectItemGroup adminGroup = new SelectItemGroup(getLabel("adv_search_lblSearchAdmin"));
-		adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL, getLabel("adv_search_lblItemCreationDate")));
-		adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL, getLabel("adv_search_lblItemLastModificationDate")));
+		if(indexName == Index.ITEM_CONTAINER_ADMIN)
+		{
+			List<SelectItem> adminGroupList = new ArrayList<SelectItem>();
+			SelectItemGroup adminGroup = new SelectItemGroup(getLabel("adv_search_lblSearchAdmin"));
+			adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL, getLabel("adv_search_lblItemCreationDate")));
+			adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL, getLabel("adv_search_lblItemLastModificationDate")));
+			
+			adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY, getLabel("adv_search_lblItemCreatedBy")));
+			adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY, getLabel("adv_search_lblItemModifiedBy")));
+			
+			adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
+			criterionTypeList.add(adminGroup);
+		}
 		
-		adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY, getLabel("adv_search_lblItemCreatedBy")));
-		adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY, getLabel("adv_search_lblItemModifiedBy")));
-		
-		adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
-		criterionTypeList.add(adminGroup);
-		
-		
-		
+
 		//Persons
 		List<SelectItem> personGroupList = new ArrayList<SelectItem>();
 		personGroupList.add(new SelectItem(SearchCriterion.ANYPERSON, getLabel("adv_search_lblSearchPerson")));
@@ -1281,7 +1290,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 	@Override
 	public void languageChanged(String oldLang, String newLang) {
-		criterionTypeListMenu = initCriterionTypeListMenu();
+		criterionTypeListMenu = initCriterionTypeListMenu(Index.ESCIDOC_ALL);
+		setCriterionTypeListMenuAdmin(initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN));
 		operatorTypeListMenu = initOperatorListMenu();
 		genreListMenu = initGenreListMenu();
 		reviewMethodListMenu = initReviewMethodListMenu();
@@ -1346,6 +1356,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	public void setAffiliatedContextListSearchCriterion(
 			SearchCriterionBase affiliatedContextListSearchCriterion) {
 		this.affiliatedContextListSearchCriterion = affiliatedContextListSearchCriterion;
+	}
+
+	public List<SelectItem> getCriterionTypeListMenuAdmin() {
+		return criterionTypeListMenuAdmin;
+	}
+
+	public void setCriterionTypeListMenuAdmin(
+			List<SelectItem> criterionTypeListMenuAdmin) {
+		this.criterionTypeListMenuAdmin = criterionTypeListMenuAdmin;
 	}
 
 }
