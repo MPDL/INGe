@@ -86,6 +86,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCateg
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.TitleSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -211,7 +212,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		criterionList.add(new PersonSearchCriterion(SearchCriterion.ANYPERSON));
 		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		criterionList.add(new OrganizationSearchCriterion());
+		criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		criterionList.add(new DateSearchCriterion(SearchCriterion.ANYDATE));
+		
 		
 		updateListForClosingParenthesis(null);
 	}
