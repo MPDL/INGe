@@ -45,8 +45,8 @@ public class CreatedBySearchCriterion extends StandardSearchCriterion {
 
 		switch(indexName)
 		{
-			case ESCIDOC_ALL : return new String[] {"escidoc.property.created-by.title", "escidoc.property.version.created-by.href"};
-			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/created-by/xLinkTitle\"", "\"/properties/version/created-by/id\""};
+			case ESCIDOC_ALL : return new String[] {"escidoc.property.created-by.title", "escidoc.property.created-by.href"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/created-by/xLinkTitle\"", "\"/properties/created-by/id\""};
 		}
 		return null;
 		

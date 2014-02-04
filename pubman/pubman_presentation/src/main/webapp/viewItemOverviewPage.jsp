@@ -54,8 +54,10 @@
 				</title>
 				<link rel="unapi-server" type="application/xml" title="unAPI"
 					href="#{ViewItemFull.unapiURLview}" />
-				<meta name="description"
-					content="#{ViewItemFull.pubItem.descriptionMetaTag}"/>
+				
+				<h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
+				
+				
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 			</head>
 
@@ -298,7 +300,7 @@
 											value="#{lbl.EditItem_lblCollectionOfItem} '#{ViewItemFull.contextName}', #{lbl.ViewItemFull_lblIsAffiliatedTo}: '#{ViewItemFull.affiliations}'." />
 										<br />
 										<h:outputText
-											value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner}'"
+											value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner.name}'"
 											rendered="#{ViewItemFull.owner != null }" />
 										<h:outputText value="."
 											rendered="#{ViewItemFull.owner != null and ViewItemFull.creationDate == null}" />
@@ -309,7 +311,7 @@
 											rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner == null }" />
 										<br />
 										<h:outputText
-											value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier}'"
+											value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.name}'"
 											rendered="#{ViewItemFull.latestModifier != null}" />
 										<h:outputText value="."
 											rendered="#{ViewItemFull.latestModifier != null and ViewItemFull.modificationDate == null}" />
@@ -559,7 +561,7 @@
 					</div>
 					<jsp:directive.include file="footer/Footer.jspf" />
 				</h:form>
-			</body>
+			
 			<script language="javascript" type="text/javascript">
 				$pb(document).ready(function () {
 					startNanoScrollerWhenLoaded();
@@ -627,6 +629,7 @@
 					});
 				}
 			</script>
+			</body>
 		</html>
 	</f:view>
 </jsp:root>

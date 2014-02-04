@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -70,6 +71,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
@@ -2573,24 +2575,37 @@ public class ItemControllerSessionBean extends FacesBean
 	/**
 	 * Return the value object of the owner of the item.
 	 */
-	public AccountUserVO retrieveCreator(String ownerId)
+	public AccountUserVO retrieveUserAccount(String userId)
     {
 	    try
 	    {
-    	    String handle = loginHelper.getESciDocUserHandle();
-    	    if (handle != null)
-    	    {
-    	        UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(handle);
-    	        //return userAccountHandler.retrieveUserAccounts(in0)
-    	    }
-    	    else
-    	    {
-    	        return null;
-    	    }
+	    	HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+            filterParams.put("operation", new String[] {"searchRetrieve"});
+            filterParams.put("query", new String[] {"\"/id\"=" + userId});
+           
+                    
+            UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+            String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
+            SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+            
+            if (searchedObject != null && searchedObject.getNumberOfRecords() > 0 && !searchedObject.getRecords().isEmpty()) 
+            {
+                if (searchedObject.getRecords().get(0).getData() != null)
+                {
+                	long end = System.currentTimeMillis();
+                	
+                    AccountUserVO userVO = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+                    return userVO;
+                }
+                else 
+                {
+                    return null;
+                }
+            }
 	    }
 	    catch (Exception e)
 	    {
-            logger.error("Error retrieving item owner", e);
+            logger.error("Error retrieving user account", e);
             logger.error("Returning null");
         }
         return null;

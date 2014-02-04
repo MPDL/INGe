@@ -132,6 +132,8 @@ import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -189,7 +191,8 @@ public class ViewItemFull extends FacesBean
     private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
     private HtmlAjaxRepeat locatorIterator = new HtmlAjaxRepeat();
     private ContextVO context = null;
-    private AccountUserVO creator = null;
+    private AccountUserVO owner = null;
+    private AccountUserVO latestModifier = null;
     
     /**
      * The list of formatted organzations in an ArrayList.
@@ -278,6 +281,10 @@ public class ViewItemFull extends FacesBean
     private boolean canShowReleaseHistory = false;
     private boolean canShowLastMessage = false;
     private boolean isStateWasReleased = false;
+	private Transformation transformer;
+	private XmlTransforming xmlTransforming;
+	private String languages;
+	
     
 
 
@@ -297,11 +304,13 @@ public class ViewItemFull extends FacesBean
     public void init()
     {
         // Perform initializations inherited from our superclass
+    	long start = System.currentTimeMillis();
         super.init();
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
         String itemID = "";
         this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+       
         // populate the core service Url
         try
         {
@@ -325,6 +334,8 @@ public class ViewItemFull extends FacesBean
             this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
             this.pubManStatistics = (PubItemSimpleStatistics)initialContext
             .lookup(PubItemSimpleStatistics.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            this.transformer = getApplicationBean().getTransformationService();
 
         }
         catch (NamingException ne)
@@ -408,6 +419,8 @@ public class ViewItemFull extends FacesBean
         }
 
 
+        
+        
         String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
 
         if (subMenu != null) getViewItemSessionBean().setSubMenu(subMenu);
@@ -558,6 +571,44 @@ public class ViewItemFull extends FacesBean
 
             createCreatorsList();
 
+            
+            //START - retrieve languages from CoNE
+            if (this.pubItem.getMetadata().getLanguages() != null && this.pubItem.getMetadata().getLanguages().size() > 0)
+            {
+               
+                StringWriter result = new StringWriter();
+                for (int i = 0; i < this.pubItem.getMetadata().getLanguages().size(); i++)
+                {
+
+                    if (i > 0)
+                    {
+                        result.append(", ");
+                    }
+
+                    String language = this.pubItem.getMetadata().getLanguages().get(i);
+                    InternationalizationHelper internationalizationHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+                    String languageName = null;
+					try {
+						languageName = CommonUtils.getConeLanguageName(language, internationalizationHelper.getLocale());
+					} catch (Exception e) {
+						logger.error("Cannot retrieve language information from CoNE", e);
+					}
+					 if (languageName != null)
+					 {
+	                    result.append(language);
+	                    if (!"".equals(languageName))
+	                    {
+	                        result.append(" - ");
+	                        result.append(languageName);
+	                    }
+					 }
+                }
+                languages = result.toString();
+             }
+            
+             //END - retrieve languages from CoNE  
+            
+            
             // clear source list first
             if (this.pubItem.getMetadata().getSources().size()>0)
             {
@@ -717,6 +768,9 @@ public class ViewItemFull extends FacesBean
         
         setLinks();
 
+        long end = System.currentTimeMillis();
+        
+        System.out.println("Time ViewItemFull.init: " + (end-start));
     }
     
     public String showDetailedItemView()
@@ -1525,35 +1579,12 @@ public class ViewItemFull extends FacesBean
         return false;
     }
 
-    public String getLanguages() throws Exception
+    public String getLanguages()
     {
-        if (this.pubItem.getMetadata().getLanguages() == null || this.pubItem.getMetadata().getLanguages().size() == 0)
-        {
-            return "";
-        }
-        else
-        {
-            StringWriter result = new StringWriter();
-            for (int i = 0; i < this.pubItem.getMetadata().getLanguages().size(); i++)
-            {
-
-                if (i > 0)
-                {
-                    result.append(", ");
-                }
-
-                String language = this.pubItem.getMetadata().getLanguages().get(i);
-                InternationalizationHelper internationalizationHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-                String languageName = CommonUtils.getConeLanguageName(language, internationalizationHelper.getLocale());
-                result.append(language);
-                if (languageName != null && !"".equals(languageName))
-                {
-                    result.append(" - ");
-                    result.append(languageName);
-                }
-            }
-            return result.toString();
-        }
+        
+    	return this.languages;
+    	
+    	
     }
 
     /**
@@ -1802,27 +1833,26 @@ public class ViewItemFull extends FacesBean
         return contextName;
     }
 
-    /**
-     * Gets the name of the Collection the item belongs to.
-     * 
-     * @return String formatted Collection name
-     */
-    public String getCreatorName()
+  
+    
+    public AccountUserVO getOwner()
     {
-        if (this.creator == null)
+    	
+        if (this.owner == null)
         {
             ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
             try
             {
-                this.creator = itemControllerSessionBean.retrieveCreator(this.pubItem.getOwner().getObjectId());
+                this.owner = itemControllerSessionBean.retrieveUserAccount(this.pubItem.getOwner().getObjectId());
             }
             catch (Exception e)
             {
-                logger.error("Error retrieving context", e);
+                logger.error("Error retrieving owner", e);
             }
         }
-        return creator.getName();
+        return owner;
     }
+    
 
     /**
      * Returns the Context the item belongs to
@@ -1920,12 +1950,17 @@ public class ViewItemFull extends FacesBean
         return CommonUtils.formatTimestamp(this.pubItem.getModificationDate());
     }
     
-    public String getLatestModifier() throws Exception
+    public AccountUserVO getLatestModifier() throws Exception
     {
+    	
+    	/*
+    	long start = System.currentTimeMillis();
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InitialContext initialContext = new InitialContext();
         XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
         UserAccountHandler userAccountHandler = null;
+        
+    	
         if (this.pubItem.getVersion().getModifiedByRO() != null && this.pubItem.getVersion().getModifiedByRO().getObjectId() != null)
         {
             HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -1941,6 +1976,8 @@ public class ViewItemFull extends FacesBean
             {
                 if (searchedObject.getRecords().get(0).getData() != null)
                 {
+                	long end = System.currentTimeMillis();
+                	System.out.println("Time last modifier: " + (end-start));
                     AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
                     if (modifier.getName() != null && modifier.getName().trim() != "")
                     {
@@ -1968,9 +2005,40 @@ public class ViewItemFull extends FacesBean
         {
             return null;
         }
+        */
+        if (this.latestModifier == null && this.pubItem.getVersion().getModifiedByRO() != null && this.pubItem.getVersion().getModifiedByRO().getObjectId() != null)
+        {
+            ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
+            try
+            {
+                this.latestModifier = itemControllerSessionBean.retrieveUserAccount(this.pubItem.getVersion().getModifiedByRO().getObjectId());
+            }
+            catch (Exception e)
+            {
+                logger.error("Error retrieving latest modifier", e);
+            }
+        }
+        return latestModifier;
         
     }
     
+    /*
+    public String getLatestModifierName() throws Exception
+    {	
+    	if (this.latestModifier != null)
+        {
+   		 if(this.latestModifier.getName() != null)
+   		 {
+   			 return latestModifier.getName();
+   		 }
+   		 else if(this.latestModifier.getUserid() != null)
+   		 {
+   			 return this.latestModifier.getUserid();
+   		 }
+        }
+   	 return null;
+    }
+    */
     /**
      * Returns the Creation date as formatted String (YYYY-MM-DD)
      * 
@@ -1986,8 +2054,11 @@ public class ViewItemFull extends FacesBean
      * 
      * @return String name or id of the owner
      */
-    public String getOwner() throws Exception
+    /*
+    public String getOwnerName() throws Exception
     {
+    	
+    	long start = System.currentTimeMillis();
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InitialContext initialContext = new InitialContext();
         XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
@@ -2011,6 +2082,9 @@ public class ViewItemFull extends FacesBean
             if (searchedObject.getRecords().get(0).getData() != null)
             {
                 AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+                
+                long end = System.currentTimeMillis();
+            	System.out.println("Time last modifier: " + (end-start));
                 if (owner.getName() != null && owner.getName().trim() != "")
                 {
                     return owner.getName();
@@ -2034,8 +2108,23 @@ public class ViewItemFull extends FacesBean
         {
             return null;
         }
+        
+    	
+   	 if (this.owner != null)
+     {
+		 if(this.owner.getName() != null)
+		 {
+			 return owner.getName();
+		 }
+		 else if(this.owner.getUserid() != null)
+		 {
+			 return this.owner.getUserid();
+		 }
+     }
+	 return null;
+    	
     }
-
+*/
     /**
      * gets the parameters out of the faces context
      * 
@@ -3371,6 +3460,25 @@ public class ViewItemFull extends FacesBean
 
     public boolean isCanShowLastMessage() {
         return canShowLastMessage;
+    }
+    
+    public String getHtmlMetaTags()
+    {
+    	long start = System.currentTimeMillis();
+    	try {
+        	String itemXml = xmlTransforming.transformToItem(new PubItemVO(pubItem));
+        	Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+            Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
+        	
+            byte[] res = transformer.transform(itemXml.getBytes("UTF-8"), source, target, "escidoc");
+            long end = System.currentTimeMillis();
+            System.out.println("Metatags " + (end-start));
+            return new String(res, "UTF-8");
+		} catch (Exception e1) {
+			logger.error("could not create html metatags", e1);
+		}
+    	
+    	return null;
     }
 
     /*{

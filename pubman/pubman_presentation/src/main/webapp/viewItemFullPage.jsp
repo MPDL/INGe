@@ -43,7 +43,10 @@
 
 				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" /></title>
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
-				<meta name="description" content="#{ViewItemFull.pubItem.descriptionMetaTag}"></meta>
+				
+
+				<h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
+				
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
@@ -190,11 +193,11 @@
 							<!-- Subheadline starts here -->
 							<h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{ViewItemFull.pubItem.version.objectIdAndVersion}'." rendered="#{ViewItemFull.pubItem.version.objectIdAndVersion != null}"/><br/>
 							<h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{ViewItemFull.contextName}', #{lbl.ViewItemFull_lblIsAffiliatedTo}: '#{ViewItemFull.affiliations}'." /><br/>
-							<h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner}'" rendered="#{ViewItemFull.owner != null }"/>
+							<h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner.name}'" rendered="#{ViewItemFull.owner != null }"/>
 							<h:outputText value="." rendered="#{ViewItemFull.owner != null and ViewItemFull.creationDate == null}"/>
 							<h:outputText value=" --- #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner != null }"/>
 							<h:outputText value="#{lbl.EditItem_lblItemlatestChange } #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner == null }"/><br/>
-							<h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier}'" rendered="#{ViewItemFull.latestModifier != null}"/>
+							<h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.name}'" rendered="#{ViewItemFull.latestModifier != null}"/>
 							<h:outputText value="." rendered="#{ViewItemFull.latestModifier != null and ViewItemFull.modificationDate == null}"/>
 							<h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier != null }"/>
 							<h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier == null }"/><br/>
