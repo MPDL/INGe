@@ -128,8 +128,8 @@ public class DatabaseHelper
      */
     public static String getTimeStamp()
     {
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-    	Date date = new Date(new Date().getTime());
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	Date date = new Date(System.currentTimeMillis());
     	return dateFormat.format(date);
     }
 }
