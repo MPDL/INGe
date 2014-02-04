@@ -68,6 +68,9 @@
 	
 	<xsl:variable name="escidocId" select="if (/escidocItem:item/@xlink:href) then tokenize(/escidocItem:item/@xlink:href, '/')[last()] else @objid" />
 	
+	<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
+	<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
+	
 	<!-- fulltext links -->
 	<xsl:template match="//escidocComponents:component">
 		<xsl:variable name="contentCategory" select="tokenize(escidocComponents:properties/prop:content-category, '/')[last()]"/>
@@ -123,9 +126,6 @@
 	
 	<!-- start md-record/publication -->
 	<xsl:template match="//pub:publication">
-	
-		<xsl:variable name="gen" select="@type"/>
-		<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
 		
 		<xsl:variable name="pubdate" select="if(dcterms:issued!='') then dcterms:issued else if  (eterms:published-online!='') then eterms:published-online else if (dcterms:dateAccepted!='') then dcterms:dateAccepted else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted else if (dcterms:modified!='') then dcterms:modified else if (dcterms:created!='') then dcterms:created else ''"/>
 		<xsl:call-template name="createMetatag">
@@ -211,6 +211,17 @@
 		</xsl:call-template>
 	</xsl:template>
 	
+	
+	<!-- start EVENT tags -->
+	<xsl:template match="pub:publication/event:event/dc:title">
+		<xsl:call-template name="createMetatag">
+			<xsl:with-param name="name" select="'citation_conference'"/>
+			<xsl:with-param name="content" select="."/>
+		</xsl:call-template>
+	</xsl:template>
+	<!-- end EVENT tags -->
+	
+	
 	<xsl:template match="pub:publication/source:source">
 		<xsl:variable name="sourceGen" select="@type"/>
 		<xsl:variable name="sourceGenre" select="$genre-ves/enum[@uri=$sourceGen]"/>
@@ -218,6 +229,21 @@
 			<xsl:apply-templates mode="journal"/>	
 		<!--</xsl:if>-->
 	</xsl:template>
+	
+	
+	<!-- Use publisher as dissertation institution for thesis -->
+	<xsl:template match="pub:publication/eterms:publishing-info/dc:publisher">
+		<xsl:if test="$genre='thesis'">
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="'citation_dissertation_institution'"/>
+				<xsl:with-param name="content" select="."/>
+			</xsl:call-template>
+		</xsl:if>
+		
+		
+	</xsl:template>
+	
+	
 	
 	
 	<!-- start JOURNAL tags --> 
@@ -283,15 +309,19 @@
 	
 	
 	
+
+	
 	
 	<!-- create meta tag -->
 	<xsl:template name="createMetatag">
 		<xsl:param name="name"/>
 		<xsl:param name="content"/>
-		<xsl:element name="meta" namespace="http://www.w3.org/1999/xhtml" >
-			<xsl:attribute name="name" select="$name"/>
-			<xsl:attribute name="content" select="$content"/>
-		</xsl:element>
+		<xsl:if test="normalize-space($content)">
+			<xsl:element name="meta" namespace="http://www.w3.org/1999/xhtml" >
+				<xsl:attribute name="name" select="$name"/>
+				<xsl:attribute name="content" select="$content"/>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="text()">
