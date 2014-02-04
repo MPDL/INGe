@@ -127,6 +127,17 @@ public class StandardTransformation
         	Transformer transformer = factory.newTransformer(new StreamSource(in));
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
+            
+            if (formatFrom.equalsIgnoreCase("html-meta-tags-highwire-press-citation"))
+        	{	
+            	
+            	transformer.setParameter("pubmanInstanceUrl", PropertyReader.getProperty("escidoc.pubman.instance.url"));
+            	transformer.setParameter("pubmanComponentPattern", PropertyReader.getProperty("escidoc.pubman.component.pattern"));
+            	//transformer.setParameter("handleUrl", PropertyReader.getProperty("escidoc.pubman.instance.url"));
+        	}
+            
+            
+            
             //For zfn transformation
             if (configuration != null)
             {
