@@ -254,7 +254,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
-			<version>0.1.32-SNAPSHOT</version>
+			<version>0.1.38-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
