@@ -945,6 +945,7 @@ public class CommonUtils extends InternationalizedImpl
     
     public static Map<String, String> getDecodedUrlParameterMap(String query) throws UnsupportedEncodingException
     {
+        logger.info("query: " + query);
         String[] parameters = query.split("&");
         Map<String, String> parameterMap = new HashMap<String, String>();
         for( String param : parameters )
