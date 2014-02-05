@@ -69,8 +69,13 @@ Notes:
     <xsl:variable name="FIELDSEPARATOR">/</xsl:variable>
 
     <!-- Paths to Metadata -->
-    <xsl:variable name="ITEM_METADATAPATH" select="/*[local-name()='item']/*[local-name()='md-records']"/>
-    <xsl:variable name="CONTAINER_METADATAPATH" select="/*[local-name()='container']/*[local-name()='md-records']"/>
+	<xsl:variable name="ITEM_METADATAPATH" select="/*[local-name()='item']/*[local-name()='md-records']/*[local-name()='md-record'][@name='escidoc']"/>
+	<xsl:variable name="CONTAINER_METADATAPATH" select="/*[local-name()='container']/*[local-name()='md-records']/*[local-name()='md-record'][@name='escidoc']"/>
+
+	
+	<xsl:variable name="ITEM_MDRECORDSPATH" select="/*[local-name()='item']/*[local-name()='md-records']"/>
+    <xsl:variable name="CONTAINER_MDRECORDSPATH" select="/*[local-name()='container']/*[local-name()='md-records']"/>
+    
 	
     <!-- Paths to Properties -->
     <xsl:variable name="ITEM_PROPERTIESPATH" select="/*[local-name()='item']/*[local-name()='properties']"/>
@@ -161,7 +166,7 @@ Notes:
             <xsl:text disable-output-escaping="yes">
                 &lt;![CDATA[
             </xsl:text>
-                <xsl:copy-of select="$ITEM_METADATAPATH"/>
+                <xsl:copy-of select="$ITEM_MDRECORDSPATH"/>
             <xsl:text disable-output-escaping="yes">
                 ]]&gt;
             </xsl:text>
@@ -250,7 +255,7 @@ Notes:
             <xsl:text disable-output-escaping="yes">
                 &lt;![CDATA[
             </xsl:text>
-                <xsl:copy-of select="$CONTAINER_METADATAPATH"/>
+                <xsl:copy-of select="$CONTAINER_MDRECORDSPATH"/>
             <xsl:text disable-output-escaping="yes">
                 ]]&gt;
             </xsl:text>
@@ -721,11 +726,11 @@ Notes:
         
         
 	<!-- USER DEFINED INDEX: /md-records/md-record/publication/creator/person/compound/person-complete-name -->
-	<userdefined-index name="/md-records/md-record/publication/creator/person/compound/person-complete-name">
+	<userdefined-index name="md-records/md-record/publication/creator/person/compound/person-complete-name">
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
 		</xsl:attribute>
-		<xsl:for-each select="ITEM_MDRECORDSPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
+		<xsl:for-each select="ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
 			<element index="TOKENIZED">
 				<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 			</element>
@@ -752,7 +757,7 @@ Notes:
 		<xsl:if test="./*[local-name()='person']">
 		<userdefined-index>
 			<xsl:attribute name="name">
-				<xsl:value-of select="concat('/md-records/md-record/publication/creator/person/compound/role-person/', string-helper:getSubstringAfterLast(@role,'/'))"/>
+				<xsl:value-of select="concat('md-records/md-record/publication/creator/person/compound/role-person/', string-helper:getSubstringAfterLast(@role,'/'))"/>
 			</xsl:attribute>
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -772,7 +777,7 @@ Notes:
 		<xsl:if test="./*[local-name()='organization']">
 		<userdefined-index>
 			<xsl:attribute name="name">
-				<xsl:value-of select="concat('/md-records/md-record/publication/creator/organization/compound/role-organization/', string-helper:getSubstringAfterLast(@role,'/'))"/>
+				<xsl:value-of select="concat('md-records/md-record/publication/creator/organization/compound/role-organization/', string-helper:getSubstringAfterLast(@role,'/'))"/>
 			</xsl:attribute>
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -789,7 +794,7 @@ Notes:
 	
 	
 	<!-- USER DEFINED INDEX: /md-records/md-record/publication/creator/compound/organization-path-identifiers -->
-	<userdefined-index name="/md-records/md-record/publication/creator/compound/organization-path-identifiers">
+	<userdefined-index name="md-records/md-record/publication/creator/compound/organization-path-identifiers">
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
 		</xsl:attribute>
@@ -813,7 +818,7 @@ Notes:
 
         
 	<!-- USER DEFINED INDEX: /md-records/md-record/publication/source/compound/any-title -->
-	<userdefined-index name="/md-records/md-record/publication/source/compound/any-title">
+	<userdefined-index name="md-records/md-record/publication/source/compound/any-title">
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
 		</xsl:attribute>
@@ -896,7 +901,7 @@ Notes:
 	</userdefined-index>
 	
 	
-	<userdefined-index name="/md-records/md-record/publication/event/compound/any">
+	<userdefined-index name="md-records/md-record/publication/event/compound/any">
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
 		</xsl:attribute>
