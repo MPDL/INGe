@@ -730,7 +730,7 @@ Notes:
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
 		</xsl:attribute>
-		<xsl:for-each select="ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
+		<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
 			<element index="TOKENIZED">
 				<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 			</element>
