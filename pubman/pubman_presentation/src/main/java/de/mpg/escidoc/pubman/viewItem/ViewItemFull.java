@@ -354,7 +354,25 @@ public class ViewItemFull extends FacesBean
                     e);
         }
 
+        System.out.println(getFacesContext().getViewRoot().getViewId());
 
+        
+        if (loginHelper != null) 
+        {
+        	String viewId = getFacesContext().getViewRoot().getViewId();
+        	if("/viewItemOverviewPage.jsp".equals(viewId))
+        	{
+        		 loginHelper.setDetailedMode(false);
+        	}
+        	else if("/viewItemFullPage.jsp".equals(viewId))
+        	{
+        		 loginHelper.setDetailedMode(true);
+        	}
+           
+        }
+        
+        
+        
         boolean logViewAction = false;
         // Try to get a pubitem either via the controller session bean or an URL Parameter
         itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
@@ -773,6 +791,7 @@ public class ViewItemFull extends FacesBean
         System.out.println("Time ViewItemFull.init: " + (end-start));
     }
     
+    /*
     public String showDetailedItemView()
     {
         LoginHelper loginhelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -793,6 +812,7 @@ public class ViewItemFull extends FacesBean
         }
         return ViewItemFull.LOAD_VIEWITEM_OVERVIEW;
     }
+    */
     
     public boolean isSsrnContext() 
     {

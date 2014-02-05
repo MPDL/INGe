@@ -294,12 +294,14 @@
 									<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 								</h:outputLink>
 								<h:panelGroup styleClass="seperator" />
-								<!-- <h:outputLink id="lnkViewItemOverviewPage" styleClass="free_area0" value="#{ViewItemFull.citationURL}">
+								<h:outputLink id="lnkViewItemOverviewPage" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}viewItemOverviewPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
 									<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
-								</h:outputLink> -->
+								</h:outputLink>
+								<!--
 								<h:commandLink id="lnkViewItemOverviewPage" styleClass="free_area0" action="#{ViewItemFull.showOverviewItemView }">
 									<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
 								</h:commandLink>
+								-->
 								<h:panelGroup styleClass="seperator" />
 							</span>
 						</div>
