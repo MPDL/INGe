@@ -222,15 +222,6 @@
 	<!-- end EVENT tags -->
 	
 	
-	<xsl:template match="pub:publication/source:source">
-		<xsl:variable name="sourceGen" select="@type"/>
-		<xsl:variable name="sourceGenre" select="$genre-ves/enum[@uri=$sourceGen]"/>
-		<!--<xsl:if test="$sourceGenre='journal'">-->
-			<xsl:apply-templates mode="journal"/>	
-		<!--</xsl:if>-->
-	</xsl:template>
-	
-	
 	<!-- Use publisher as dissertation institution for thesis -->
 	<xsl:template match="pub:publication/eterms:publishing-info/dc:publisher">
 		<xsl:if test="$genre='thesis'">
@@ -242,6 +233,18 @@
 		
 		
 	</xsl:template>
+	
+	
+	<xsl:template match="pub:publication/source:source">
+		<xsl:variable name="sourceGen" select="@type"/>
+		<xsl:variable name="sourceGenre" select="$genre-ves/enum[@uri=$sourceGen]"/>
+		<!--<xsl:if test="$sourceGenre='journal'">-->
+			<xsl:apply-templates mode="journal"/>	
+		<!--</xsl:if>-->
+	</xsl:template>
+	
+	
+	
 	
 	
 	
