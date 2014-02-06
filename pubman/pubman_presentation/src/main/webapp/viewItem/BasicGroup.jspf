@@ -75,7 +75,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function mendeleyLink() {
-						window.open('http://www.mendeley.com/import/?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'mendeley','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://www.mendeley.com/import/?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'mendeley','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				
@@ -86,7 +86,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function bibsonomyLink() {
-						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'bibsonomy','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&description='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'bibsonomy','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				
@@ -96,11 +96,12 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function citeULikeLink() {
-						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'citeulike','toolbar=no,width=720,height=755,scrollbars,resizable');
+						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'citeulike','toolbar=no,width=720,height=755,scrollbars,resizable');
 					}
 				</script>
 				
 				<!-- Digg -->
+				<!-- 
 				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
 					<h:graphicImage id="imgSocialBookmarkingDigg" title="#{lbl.ViewItemFull_lblSocialBookmarking_Digg}" url="http://www.digg.com/favicon.ico" width="16" onclick="diggLink();" />
 				</h:panelGroup>
@@ -109,6 +110,7 @@
 						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'digg','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
+				-->
 				
 				<!-- Delicious -->
 				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
@@ -116,7 +118,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function deliciousLink() {
-						window.open('http://delicious.com/save?v=5&provider=MPG.PuRe&noui&jump=close&url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
+						window.open('http://delicious.com/save?v=5&provider=MPG.PuRe&noui&jump=close&url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
 						return false;
 					}
 				</script>
