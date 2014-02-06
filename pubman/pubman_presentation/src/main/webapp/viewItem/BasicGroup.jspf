@@ -86,7 +86,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function bibsonomyLink() {
-						window.open('http://www.bibsonomy.org/BibtexHandler?requTask=upload&url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&description='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'bibsonomy','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&description='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'bibsonomy','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				
