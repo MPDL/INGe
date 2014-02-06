@@ -60,40 +60,40 @@
 
 	<xsl:import href="escidoc-publication-item2html-meta-tags.xsl"/>
 	
-	<xsl:variable name="key-title" select="'citation_title'" />
-	<xsl:variable name="key-author" select="'citation_author'" />
-	<xsl:variable name="key-author-affiliation" select="'citation_author_institution'" />
-	<xsl:variable name="key-author-institution" select="'citation_author'" />
-	<xsl:variable name="key-publication-date" select="'citation_publication_date'" />
-	<xsl:variable name="key-pdf-url" select="'citation_pdf_url'" />
-	<xsl:variable name="key-language" select="'citation_language'" />
-	<xsl:variable name="key-fulltext-html-url" select="'citation_fulltext_html_url'" />
+	<xsl:variable name="key-title" select="'DC.title'" />
+	<xsl:variable name="key-author" select="'DC.creator'" />
+	<xsl:variable name="key-author-affiliation" select="''" />
+	<xsl:variable name="key-author-institution" select="'DC.creator'" />
+	<xsl:variable name="key-publication-date" select="'DC.issued'" />
+	<xsl:variable name="key-pdf-url" select="'DC.identifier'" />
+	<xsl:variable name="key-language" select="'DC.language'" />
+	<xsl:variable name="key-fulltext-html-url" select="'DC.identifier'" />
 	
-	<xsl:variable name="key-doi" select="'citation_doi'" />
-	<xsl:variable name="prefix-doi" select="''" />
+	<xsl:variable name="key-doi" select="'DC.identifier'" />
+	<xsl:variable name="prefix-doi" select="'http://dx.doi.org/'" />
 	
-	<xsl:variable name="key-arxiv-id" select="'citation_arxiv_id'" />
+	<xsl:variable name="key-arxiv-id" select="''" />
 	<xsl:variable name="prefix-arxiv-id" select="''" />
 	
-	<xsl:variable name="key-pmid" select="'citation_pmid'" />
+	<xsl:variable name="key-pmid" select="''" />
 	<xsl:variable name="prefix-pmid" select="''" />
 	
-	<xsl:variable name="key-isbn" select="'citation_isbn'" />
-	<xsl:variable name="prefix-isbn" select="''" />
+	<xsl:variable name="key-isbn" select="'DC.identifier'" />
+	<xsl:variable name="prefix-isbn" select="'urn:ISBN:'" />
 	
-	<xsl:variable name="key-keywords" select="'citation_keywords'" />
-	<xsl:variable name="key-conference" select="'citation_conference'" />
-	<xsl:variable name="key-dissertation-institution" select="'citation_dissertation_institution'" />
-	<xsl:variable name="key-journal-title" select="'citation_journal_title'" />
-	<xsl:variable name="key-journal-abbrev" select="'citation_journal_abbrev'" />
-	<xsl:variable name="key-volume" select="'citation_volume'" />
-	<xsl:variable name="key-issue" select="'citation_language'" />
-	<xsl:variable name="key-firstpage" select="'citation_firstpage'" />
-	<xsl:variable name="key-lastpage" select="'citation_lastpage'" />
-	<xsl:variable name="key-publisher" select="'citation_publisher'" />
+	<xsl:variable name="key-keywords" select="'DC.subject'" />
+	<xsl:variable name="key-conference" select="'DC.relation.ispartof'" />
+	<xsl:variable name="key-dissertation-institution" select="'DC.publisher'" />
+	<xsl:variable name="key-journal-title" select="'DC.relation.ispartof'" />
+	<xsl:variable name="key-journal-abbrev" select="''" />
+	<xsl:variable name="key-volume" select="'DC.citation.volume'" />
+	<xsl:variable name="key-issue" select="'DC.citation.issue'" />
+	<xsl:variable name="key-firstpage" select="'DC.citation.spage'" />
+	<xsl:variable name="key-lastpage" select="'DC.citation.epage'" />
+	<xsl:variable name="key-publisher" select="'DC.publisher'" />
 	
-	<xsl:variable name="key-issn" select="'citation_issn'" />
-	<xsl:variable name="prefix-issn" select="''" />
+	<xsl:variable name="key-issn" select="'DC.identifier'" />
+	<xsl:variable name="prefix-issn" select="'urn:ISSN:'" />
 
 	
 </xsl:stylesheet>

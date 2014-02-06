@@ -128,7 +128,7 @@ public class StandardTransformation
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
             
-            if (formatFrom.equalsIgnoreCase("html-meta-tags-highwire-press-citation"))
+            if (formatFrom.startsWith("html-meta-tags"))
         	{	
             	
             	transformer.setParameter("pubmanInstanceUrl", PropertyReader.getProperty("escidoc.pubman.instance.url"));
