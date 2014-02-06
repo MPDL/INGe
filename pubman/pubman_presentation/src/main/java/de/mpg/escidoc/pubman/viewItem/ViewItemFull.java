@@ -376,7 +376,8 @@ public class ViewItemFull extends FacesBean
         boolean logViewAction = false;
         // Try to get a pubitem either via the controller session bean or an URL Parameter
         itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
-
+        long inBetweenTime = System.currentTimeMillis();
+        System.out.println("ViewItemFull.init before ItemRetrieval " + (inBetweenTime - start));
         if (itemID != null)
         {
             try
@@ -437,7 +438,8 @@ public class ViewItemFull extends FacesBean
         }
 
 
-        
+        inBetweenTime = System.currentTimeMillis();
+        System.out.println("ViewItemFull.init after ItemRetrieval " + (inBetweenTime - start));
         
         String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
 
@@ -3487,13 +3489,20 @@ public class ViewItemFull extends FacesBean
     	long start = System.currentTimeMillis();
     	try {
         	String itemXml = xmlTransforming.transformToItem(new PubItemVO(pubItem));
-        	Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-            Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
         	
-            byte[] res = transformer.transform(itemXml.getBytes("UTF-8"), source, target, "escidoc");
+        	Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+            Format targetHighwire = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
+            byte[] resHighwire = transformer.transform(itemXml.getBytes("UTF-8"), source, targetHighwire, "escidoc");
+            
+            Format targetDC = new Format("html-meta-tags-dc", "text/html", "UTF-8");
+            byte[] resDC = transformer.transform(itemXml.getBytes("UTF-8"), source, targetDC, "escidoc");
+            
             long end = System.currentTimeMillis();
+            
+            
+            String result = new String(resHighwire, "UTF-8") + new String(resDC, "UTF-8");
             System.out.println("Metatags " + (end-start));
-            return new String(res, "UTF-8");
+            return result;
 		} catch (Exception e1) {
 			logger.error("could not create html metatags", e1);
 		}
