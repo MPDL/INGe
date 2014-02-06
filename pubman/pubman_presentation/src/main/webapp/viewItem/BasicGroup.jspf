@@ -116,7 +116,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function deliciousLink() {
-						window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&amp;title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
+						window.open('http://delicious.com/save?v=5&provider=MPG.PuRe&noui&jump=close&url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
 						return false;
 					}
 				</script>
