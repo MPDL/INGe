@@ -694,11 +694,13 @@
 	    querier.delete(modelName, uri);
 	    uri = null;
 	    messages.add("Entry deleted.");
+	    /*
 	    if (request.getSession().getAttribute("latestSearch") != null)
 	    {
 	        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
 	        return;
 	    }
+	    */
 	}
 	else if (request.getParameter("save") != null)
 	{
@@ -783,6 +785,7 @@
 	    errors = new ArrayList<String>();
 		messages = new ArrayList<String>();
 	}
+	
 	
 %>
 
