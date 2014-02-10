@@ -290,6 +290,8 @@
 				{
 					$input.parents('.itemBlockContent').find('.personOrganizations').find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'AffiliationDetailPage.jsp?id=' + orgIdString + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 					
+					updatePersonUi();
+					
 				}
 				fillField('ouNumber', '1', parent);
 			}
