@@ -693,7 +693,7 @@
 	{
 	    querier.delete(modelName, uri);
 	    uri = null;
-	    messages.add("Entry deleted.");
+	    messages.add("Entry deleted successfully.");
 	    /*
 	    if (request.getSession().getAttribute("latestSearch") != null)
 	    {
@@ -765,12 +765,20 @@
 	        {
 			    querier.delete(modelName, uri);
 			    querier.create(modelName, uri, results);
+			    
+			    messages.add("Entry saved.");
+			    
+			    response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
+			    return;
+			    
+			    /*
 			    if (request.getSession().getAttribute("latestSearch") != null)
 			    {
 			        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
 			        return;
 			    }
-			    messages.add("Entry saved.");
+			    */
+			    
 	        }
 		 }
 	}
