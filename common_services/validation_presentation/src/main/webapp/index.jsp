@@ -42,7 +42,7 @@
 		</h1>
 		<p>
 			The eSciDoc Validation Service checks XML metadata for syntactical and semantical correctness.
-			This is done by a <a href="http://www.schematron.com/" target="_blank">Schematron</a> validation based on a given 
+			This is done by a Schematron validation based on a given 
 			validation template that is selected by the validation schema id and the given validation point <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Services_ValidationService">[more]</a>.
 		</p>
 		<p>
