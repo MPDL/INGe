@@ -692,6 +692,8 @@
 	else if (request.getParameter("delete") != null)
 	{
 	    querier.delete(modelName, uri);
+	    uri = null;
+	    messages.add("Entry deleted.");
 	    if (request.getSession().getAttribute("latestSearch") != null)
 	    {
 	        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
@@ -700,70 +702,75 @@
 	}
 	else if (request.getParameter("save") != null)
 	{
-        
-        if (uri == null)
-        {
-            String identifierValue;
-            if (model.isGenerateIdentifier())
-            {
-                identifierValue = querier.createUniqueIdentifier(modelName);
-                uri = model.getSubjectPrefix() + identifierValue;
-            }
-            else
-            {
-                identifierValue = request.getParameter("cone_identifier");
-                if (identifierValue != null && !"".equals(identifierValue))
-                {
-                    uri = model.getSubjectPrefix() + identifierValue;
-                    
-                    TreeFragment result = querier.details(modelName, uri, "*");
-                    
-                    if (result.exists())
-                    {
-                        warning = true;
-                        session.setAttribute("currentObject", results);
-                        errors.add("This resource already exists.");
-                    }
-                }
-                else
-                {
-                    errors.add("No primary key is provided.");
-                }
-            }
-            if (model.getIdentifier() != null)
-            {
-                List<LocalizedTripleObject> idList = new ArrayList<LocalizedTripleObject>();
-                idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
-                results.put(model.getIdentifier(), idList);
-            }
-        }
-        else
-        {
-            if (!uri.startsWith(model.getSubjectPrefix()))
-            {
-                errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
-            }
-//            else
-//            {
-//	            String identifierName = model.getIdentifier();
-//	            String identifierValue = uri.substring(model.getIdentifierPrefix().length());
-//	            List<LocalizedTripleObject> objects = new ArrayList<LocalizedTripleObject>();
-//	            objects.add(new LocalizedString(identifierValue));
-//	            results.put(identifierName, objects);
-//           }
-        }
-        
-        if (errors.size() == 0 && !warning)
-        {
-		    querier.delete(modelName, uri);
-		    querier.create(modelName, uri, results);
-		    if (request.getSession().getAttribute("latestSearch") != null)
-		    {
-		        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
-		        return;
-		    }
-		    messages.add("Entry saved.");
-        }
+		
+		 if (errors.size() == 0)
+		 {
+			 
+		 
+	        if (uri == null)
+	        {
+	            String identifierValue;
+	            if (model.isGenerateIdentifier())
+	            {
+	                identifierValue = querier.createUniqueIdentifier(modelName);
+	                uri = model.getSubjectPrefix() + identifierValue;
+	            }
+	            else
+	            {
+	                identifierValue = request.getParameter("cone_identifier");
+	                if (identifierValue != null && !"".equals(identifierValue))
+	                {
+	                    uri = model.getSubjectPrefix() + identifierValue;
+	                    
+	                    TreeFragment result = querier.details(modelName, uri, "*");
+	                    
+	                    if (result.exists())
+	                    {
+	                        warning = true;
+	                        session.setAttribute("currentObject", results);
+	                        errors.add("This resource already exists.");
+	                    }
+	                }
+	                else
+	                {
+	                    errors.add("No primary key is provided.");
+	                }
+	            }
+	            if (model.getIdentifier() != null)
+	            {
+	                List<LocalizedTripleObject> idList = new ArrayList<LocalizedTripleObject>();
+	                idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
+	                results.put(model.getIdentifier(), idList);
+	            }
+	        }
+	        else
+	        {
+	            if (!uri.startsWith(model.getSubjectPrefix()))
+	            {
+	                errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
+	            }
+	//            else
+	//            {
+	//	            String identifierName = model.getIdentifier();
+	//	            String identifierValue = uri.substring(model.getIdentifierPrefix().length());
+	//	            List<LocalizedTripleObject> objects = new ArrayList<LocalizedTripleObject>();
+	//	            objects.add(new LocalizedString(identifierValue));
+	//	            results.put(identifierName, objects);
+	//           }
+	        }
+	        
+	        if (errors.size() == 0 && !warning)
+	        {
+			    querier.delete(modelName, uri);
+			    querier.create(modelName, uri, results);
+			    if (request.getSession().getAttribute("latestSearch") != null)
+			    {
+			        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+			        return;
+			    }
+			    messages.add("Entry saved.");
+	        }
+		 }
 	}
 	//Edit existing entity
 	else if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
