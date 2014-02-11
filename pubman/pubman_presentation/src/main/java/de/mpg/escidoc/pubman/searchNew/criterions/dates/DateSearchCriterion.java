@@ -120,6 +120,8 @@ public class DateSearchCriterion extends SearchCriterionBase {
 					case COMPONENT_EMBARGO_DATE :  return new String[] {"escidoc.component.file.available"};
 				}
 				
+				break;
+				
 			}
 			
 			
@@ -144,6 +146,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 					
 					case COMPONENT_EMBARGO_DATE :  return new String[] {"\"/components/component/md-records/md-record/file/available\""};
 				}
+				break;
 			}
 		}
 		

@@ -580,10 +580,12 @@ public abstract class SearchCriterionBase implements Serializable{
 					case ESCIDOC_ALL : 
 					{
 						standardCriterions = INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\"" + escapeForCql(contentModelId) + "\"";
+						break;
 					}
 					case ITEM_CONTAINER_ADMIN : 
 					{
 						standardCriterions = "\"/properties/content-model/id\"=\"" + escapeForCql(contentModelId) + "\"";
+						break;
 					}
 				
 				}
