@@ -49,6 +49,7 @@ Notes:
         xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper"
         xmlns:sortfield-helper="xalan://de.escidoc.sb.gsearch.xslt.SortFieldHelper"
         xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" 
+        xmlns:element-type-helper="xalan://de.escidoc.sb.gsearch.xslt.ElementTypeHelper"
         extension-element-prefixes="lastdate-helper string-helper sortfield-helper escidoc-core-accessor">
     <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
     
@@ -480,9 +481,17 @@ Notes:
         <xsl:param name="store"/>
         <xsl:param name="noFieldSeparator"/>
         <xsl:if test="string($fieldvalue) and normalize-space($fieldvalue)!=''">
+        <xsl:variable name="isDateOrDecimal" select="element-type-helper:isDateOrDecimal($fieldvalue)"/>
             <IndexField termVector="NO">
                 <xsl:attribute name="index">
-                	<xsl:value-of select="$indextype"/>
+                	<xsl:choose>
+						<xsl:when test="$isDateOrDecimal = true()">
+							<xsl:value-of select="string('UN_TOKENIZED')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$indextype"/>
+						</xsl:otherwise>
+					</xsl:choose>
                 </xsl:attribute>
                 <xsl:attribute name="store">
                     <xsl:value-of select="$store"/>
@@ -919,6 +928,28 @@ Notes:
 				<xsl:value-of select="."/>
 			</element>
 		</xsl:for-each>
+	</userdefined-index>
+	
+	<!-- USER DEFINED INDEX: /properties/creation-date/date
+	contains pure date without time -->
+	<userdefined-index name="properties/creation-date/date">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<element index="UN_TOKENIZED">
+			<xsl:value-of select="substring-before($ITEM_PROPERTIESPATH//*[local-name()='creation-date'], 'T')"/>
+		</element>
+	</userdefined-index>
+
+	<!-- USER DEFINED INDEX: /last-modification-date/date
+	contains pure date without time -->
+	<userdefined-index name="last-modification-date/date">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<element index="UN_TOKENIZED">
+			<xsl:value-of select="substring-before(/*[local-name()='item']/@last-modification-date, 'T')"/>
+		</element>
 	</userdefined-index>
         
 	<userdefined-index name="metadata">
