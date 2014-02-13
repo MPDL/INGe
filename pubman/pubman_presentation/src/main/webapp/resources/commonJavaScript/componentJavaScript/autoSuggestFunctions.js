@@ -386,6 +386,33 @@
 		return;
 	}
 	
+	// removes 'readonly' attributes and resets fields for autosuggest
+	function removeUserAccountAutoSuggest(element)
+	{
+		var $input = $pb(element);
+		var parent = $input.parent();
+		var field = null;
+		if ($pb(parent).find('.userAccountIdentifier').val() != '')
+		{
+			field = $pb(parent).find('.userAccountIdentifier');
+			field.removeAttr('readonly');
+			fillField('userAccountIdentifier', '', parent);
+		}
+		if ($pb(parent).find('.userAccountName').val() != '')
+		{	
+			field = $pb(parent).find('.userAccountName');
+			field.removeAttr('readonly');
+			fillField('userAccountName', '', parent);
+		}
+		
+		
+		$input.css('display', 'none');
+		$input.parent().find('.userAccountName').attr('class', 'xLarge_txtInput organizationAddress');
+		
+		bindSuggests();
+		return;
+	}
+	
 	function updatePersonUi()
 	{
 		// maintain attributes for autosuggest filled persons
@@ -412,6 +439,19 @@
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
 					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('class', 'large_txtInput organizationAddress');
+				}
+			});
+		}
+		
+		f($pb('.userAccountIdentifier' != null))
+		{
+			$pb('.userAccountIdentifier').each(function(ind){
+				if (this.value) {
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('readonly', 'readonly');
+
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestUserAccount').css('display', 'inline');
+					
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('class', 'large_txtInput organizationAddress');
 				}
 			});
 		}
@@ -503,6 +543,37 @@
 		
 	}
 	
+	
+	
+	function fillUserAccountFields()
+	{
+		$input = $pb(this);
+		var parent = $input.parents('.' + commonParentClass);
+		fillField('userAccountName', this.resultValue, parent);
+		fillField('userAccountIdentifier', this.resultID, parent);
+		//fillField('organizationAddress', this.result.address, parent);
+		
+		/*
+		if (this.resultID != null && this.resultID != '')
+		{
+			$pb(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			
+		}
+		*/
+		// Try to disable input field
+		$pb.each($pb(parent).find('.disableAfter'),
+				function ()
+				{
+					$pb(this).attr('readonly', 'readonly');
+				}
+		);
+		
+		updatePersonUi();
+		
+	}
+	
+	
+	
 	function bindJournalSuggest()
 	{
 		if(typeof journalSuggestURL != 'undefined')
@@ -585,6 +656,11 @@
 		if(typeof organizationSuggestURL != 'undefined')
 		{
 			$pb('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
+		}
+		
+		if(typeof userAccountSuggestURL != 'undefined')
+		{
+			$pb('.userAccountSuggest').suggest(userAccountSuggestURL, { onSelect: fillUserAccountFields });
 		}
 	};
 	

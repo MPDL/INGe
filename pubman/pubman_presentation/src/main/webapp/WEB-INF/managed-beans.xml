@@ -594,6 +594,11 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.OrganizationSuggest</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+		<managed-bean>
+		<managed-bean-name>UserAccountSuggest</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.UserAccountSuggest</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookCandidatesRetrieverRequestBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookCandidatesRetrieverRequestBean</managed-bean-class>

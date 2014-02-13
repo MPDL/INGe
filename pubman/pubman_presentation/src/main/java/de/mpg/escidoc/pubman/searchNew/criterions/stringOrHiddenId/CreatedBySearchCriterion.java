@@ -27,30 +27,38 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
-package de.mpg.escidoc.pubman.searchNew.criterions.standard;
+package de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId;
 
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 
 
 
-public class ModifiedBySearchCriterion extends StandardSearchCriterion {
+public class CreatedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 
-	public ModifiedBySearchCriterion() {
+	public CreatedBySearchCriterion() {
 		
 	}
 
+	
 	@Override
-	public String[] getCqlIndexes(Index indexName) {
-		
-
+	public String[] getCqlIndexForHiddenId(Index indexName) {
 		switch(indexName)
 		{
-			case ESCIDOC_ALL : return new String[] {"escidoc.property.version.modified-by.title", "escidoc.property.version.modified-by.href"};
-			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/version/modified-by/xLinkTitle\"", "\"/properties/version/modified-by/id\""};
+			case ESCIDOC_ALL : return new String[] {"escidoc.property.created-by.href"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/created-by/id\""};
 		}
 		return null;
-		
-		
+	}
+
+	@Override
+	public String[] getCqlIndexForSearchString(Index indexName) {
+		switch(indexName)
+		{
+			case ESCIDOC_ALL : return new String[] {"escidoc.property.created-by.title"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/properties/created-by/xLinkTitle\""};
+		}
+		return null;
 	}
 	
 

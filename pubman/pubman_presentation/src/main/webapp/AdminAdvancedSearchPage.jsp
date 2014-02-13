@@ -146,6 +146,7 @@
 				/*languageDetailsBaseURL = '$1?format=json';*/
 				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
+				userAccountSuggestURL = 'UserAccountSuggest.jsp';
 				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
 				journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';

@@ -66,7 +66,6 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.ClassificationSearchC
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.CollectionSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
-import de.mpg.escidoc.pubman.searchNew.criterions.standard.CreatedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.DegreeSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.EventTitleSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
@@ -75,9 +74,10 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.JournalSearchCriterio
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.KeywordSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LanguageSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LocalTagSearchCriterion;
-import de.mpg.escidoc.pubman.searchNew.criterions.standard.ModifiedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.SourceSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.TitleSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.CreatedBySearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.ModifiedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -158,8 +158,8 @@ public abstract class SearchCriterionBase implements Serializable{
 		
 		MODIFIED_INTERNAL (DateSearchCriterion.class, DisplayType.DATE),  
 		CREATED_INTERNAL (DateSearchCriterion.class, DisplayType.DATE),
-		CREATED_BY (CreatedBySearchCriterion.class, DisplayType.STANDARD),  
-		MODIFIED_BY (ModifiedBySearchCriterion.class, DisplayType.STANDARD),  
+		CREATED_BY (CreatedBySearchCriterion.class, null),  
+		MODIFIED_BY (ModifiedBySearchCriterion.class, null),  
 		
 		AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
 		OR_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),

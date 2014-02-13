@@ -346,6 +346,23 @@ All rights reserved. Use is subject to license terms.
 					</h:panelGroup>
 					
 					
+					<!-- input for organization searches-->
+					<h:panelGroup styleClass="free_area0 endline suggestAnchor" rendered="#{criterion.searchCriterion == 'CREATED_BY' or criterion.searchCriterion == 'MODIFIED_BY'}">
+	                    <h:outputLabel id="lblUserAccountSearchTermEmptyFirst" styleClass="small_label label_keyword" value=" " />
+	                    <h:inputText id="userAccountSearchTermEmptyFirst" styleClass="double_txtInput userAccountSuggest userAccountName disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" style="margin-right:0.2727em;"/>
+	                    <h:inputText id="userAccountTermEmptyFirstFilled" styleClass="double_txtInput" readonly="true" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
+						<h:inputText id="userAccountSearchTermEmptyFirstIdentifier" styleClass="noDisplay userAccountIdentifier" value="#{criterion.hiddenId}" />
+						
+						<a4j:commandButton id="btnRemoveUserAccountAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestUserAccount" style="display:none;"
+						oncomplete="return removeUserAccountAutoSuggest($pb(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" reRender="editSearch">
+							<f:attribute name="indexOfCriterion" value="#{index}"/>
+						</a4j:commandButton>
+						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
+							styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>	
+
+	                </h:panelGroup>
+					
+					
 					<!-- +/- buttons -->
 					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and empty AdvancedSearchBean.currentlyOpenedParenthesis}">
 						
