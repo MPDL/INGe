@@ -95,60 +95,57 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 	public String toCqlString(Index indexName)  throws SearchParseException{
 
 		//StringBuffer sb = new StringBuffer();
-		boolean enumSelected = false;
-		boolean enumDeselected = false;
+		//boolean enumSelected = false;
+		//boolean enumDeselected = false;
 		
-		
-	
-		List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
-	
-		returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-		//sb.append("(");
-		
-		int i=0;
-		for(Entry<String, Boolean> entry : enumMap.entrySet())
+		if(!isEmpty())
 		{
-			if(entry.getValue() && i>0)
+			List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
+			
+			returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+			//sb.append("(");
+			
+			int i=0;
+			for(Entry<String, Boolean> entry : enumMap.entrySet())
 			{
-				//sb.append(" OR ");
-				returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+				if(entry.getValue() && i>0)
+				{
+					//sb.append(" OR ");
+					returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+				}
+				
+				if (entry.getValue())
+				{
+
+					
+					//enumSelected = true;
+					String value = getCqlValue(indexName, getValueMap().get(entry.getKey()));
+					
+					SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, value), value);
+					
+					//gc.setSearchString(entry.getKey().name().toLowerCase());
+					returnList.add(flexSc);
+					//sb.append(valueMap.get(entry.getKey()));
+					i++;
+
+		
+				}
+				else
+				{
+					//enumDeselected = true;
+					//allGenres = false;
+				}
+				
 			}
 			
-			if (entry.getValue())
-			{
-
-				
-				enumSelected = true;
-				String value = getCqlValue(indexName, getValueMap().get(entry.getKey()));
-				
-				SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, value), value);
-				
-				//gc.setSearchString(entry.getKey().name().toLowerCase());
-				returnList.add(flexSc);
-				//sb.append(valueMap.get(entry.getKey()));
-				i++;
-
-	
-			}
-			else
-			{
-				enumDeselected = true;
-				//allGenres = false;
-			}
-			
-		}
-		
-		returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-		//sb.append(")");
-		
-		if((enumSelected && enumDeselected))
-		{
+			returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 			return scListToCql(indexName, returnList, false);
+			
 		}
-		else 
-		{
-			return null;
-		}
+	
+
+		return null;
+		
 	}
 
 	@Override
@@ -156,7 +153,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 		StringBuffer sb = new StringBuffer();
 		sb.append(getSearchCriterion()+"=\"");
 		
-		boolean allChecked = true;
+		
 		
 		
 		int i=0;
@@ -172,15 +169,17 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 				sb.append(entry.getKey());
 				i++;
 			}
+			/*
 			else
 			{
 				allChecked = false;
 			}
+			*/
 		}
 		
 
 		sb.append("\"");
-		if(!allChecked)
+		if(!isEmpty())
 		{
 			return sb.toString();
 		}
@@ -225,7 +224,13 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 	public boolean isEmpty() {
 		
 		boolean anySelected = false;
+		
 		boolean anyDeselected = false;
+		
+		anySelected = enumMap.containsValue(true);
+		anyDeselected = enumMap.containsValue(false);
+		
+		/*
 		for(Entry<String, Boolean> entry : getEnumMap().entrySet())
 		{
 			if(entry.getValue())
@@ -238,7 +243,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 			}
 		}
 		
-		
+		*/
 		
 		
 		return !(anySelected && anyDeselected);

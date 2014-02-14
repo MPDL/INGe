@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.searchNew.criterions.checkbox;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
@@ -63,6 +64,22 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 	public String getCqlValue(Index indexName, PubContextVOPresentation value) {
 		
 		return value.getReference().getObjectId();
+	}
+	
+	/**
+	 * List is empty if only if all are deselected
+	 */
+	@Override
+	public boolean isEmpty() {
+		
+		boolean anySelected = false;
+		boolean anyDeselected = false;
+		anySelected = getEnumMap().containsValue(true);
+		anyDeselected = getEnumMap().containsValue(false);
+		
+		
+		System.out.println("isEmpty: " + !anySelected);
+		return !anySelected;
 	}
 
 	
