@@ -72,14 +72,12 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 	@Override
 	public boolean isEmpty() {
 		
-		boolean anySelected = false;
-		boolean anyDeselected = false;
-		anySelected = getEnumMap().containsValue(true);
-		anyDeselected = getEnumMap().containsValue(false);
 		
-		
-		System.out.println("isEmpty: " + !anySelected);
+		boolean anySelected = getEnumMap().containsValue(true);
+		boolean anyDeselected = getEnumMap().containsValue(false);
+
 		return !anySelected;
+	
 	}
 
 	

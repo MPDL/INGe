@@ -223,12 +223,10 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 	@Override
 	public boolean isEmpty() {
 		
-		boolean anySelected = false;
+		boolean anySelected = enumMap.containsValue(true);
 		
-		boolean anyDeselected = false;
+		boolean anyDeselected = enumMap.containsValue(false);
 		
-		anySelected = enumMap.containsValue(true);
-		anyDeselected = enumMap.containsValue(false);
 		
 		/*
 		for(Entry<String, Boolean> entry : getEnumMap().entrySet())
