@@ -580,45 +580,8 @@ All rights reserved. Use is subject to license terms.
 								white-space:nowrap;
 							}
 						</style>
-						<script type="text/javascript">
-							function enableEmbargo(obj) {
-								obj.removeClass("disabled");
-								obj.find("input[type=checkbox]").removeAttr("disabled");
-							}
-							function disableEmbargo(obj) {
-								if (!obj.hasClass("disabled")) {
-									obj.addClass("disabled");
-									obj.find("input[type=checkbox]").attr("disabled", "disabled");
-									obj.find("input[type=checkbox]").removeAttr("checked");
-								}
-							}
-							function toggleEmbargo(obj) {
-								switch (obj.selectedIndex) {
-									case 1:
-										enableEmbargo($pb(obj).parent().next());
-										break;
-									case 2:
-										disableEmbargo($pb(obj).parent().next());
-										break;
-									case 3:
-										enableEmbargo($pb(obj).parent().next());
-										break;
-									default:
-										disableEmbargo($pb(obj).parent().next());
-								}
-							}
 
-							function toggleEmbargoCheckbox() {
-								//console.log($pb('input.visibilityCheckbox.PRIVATE').attr('checked'))
-								if($pb('input.visibilityCheckbox.PRIVATE').attr('checked') || $pb('input.visibilityCheckbox.AUDIENCE').attr('checked')) {
-									//console.log('enable');
-									enableEmbargo($pb('span.fileCriterionHasEmbargoDate'));
-								}
-								else {
-									disableEmbargo($pb('span.fileCriterionHasEmbargoDate'));
-								}
-							}
-						</script>
+						
 						<h:outputLabel id="lblComponentVisibilityOptions" styleClass="medium_label clear" value="#{lbl.adv_search_fileComponentVisibility}" style="margin-top:0.7272em;"/>
 						
 						
@@ -627,7 +590,7 @@ All rights reserved. Use is subject to license terms.
 							<a4j:repeat value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumList}" var="visibility" rows="0">
 								<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
 									<c:set var="label" value="ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_#{visibility}"/>
-									<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{visibility}" id="visibilityCriterion" value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumMap[visibility]}" onclick="toggleEmbargoCheckbox();">
+									<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{visibility}" id="visibilityCriterion" value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumMap[visibility]}">
 									</h:selectBooleanCheckbox>
 									<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="visibilityCriterion" />
 								</h:panelGroup>
