@@ -136,7 +136,7 @@
 					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 
 
-					toggleEmbargoCheckbox();
+					
 					checkUpdatePersonFunction();
 					
 					
