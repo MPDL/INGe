@@ -66,7 +66,8 @@ public final class AuthorFormatList
         new ResidualFormat(),
         new EndnoteFormat(),
         new MpisBibtexFormat(),
-        new MpiKybFormat()
+        new MpiKybFormat(),
+        new BibTeXMixedSurnameAndGivennameFormat()
     };
 
     static

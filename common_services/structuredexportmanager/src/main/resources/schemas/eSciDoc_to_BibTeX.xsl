@@ -108,7 +108,7 @@
 				<xsl:choose>
 					<xsl:when test="eterms:degree=$degree-ves/enum[.='master']/@uri">
 						<xsl:call-template name="createEntry">
-							<xsl:with-param name="entryType" select="'masterthesis'"/>
+							<xsl:with-param name="entryType" select="'mastersthesis'"/>
 						</xsl:call-template>						
 					</xsl:when>
 					<xsl:when test="eterms:degree=$degree-ves/enum[.='phd']/@uri">
@@ -244,9 +244,15 @@
 	
 	<xsl:template match="dc:title">
 		<xsl:if test=".!=''">
+		<xsl:variable name="titleWithoutTags">
+			<xsl:call-template name="removeSubSup">
+				<xsl:with-param name="elem" select="."/>
+			</xsl:call-template>
+		</xsl:variable>
+		
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'title'"/>
-			<xsl:with-param name="xpath" select="concat(normalize-space(.), '')"/>
+			<xsl:with-param name="xpath" select="concat(normalize-space($titleWithoutTags), '')"/>
 		</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -262,10 +268,23 @@
 	
 	<xsl:template match="eterms:publishing-info/dc:publisher">
 		<xsl:if test=".!=''">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'publisher'"/>
-			<xsl:with-param name="xpath" select="."/>
-		</xsl:call-template>
+			<xsl:variable name="gen" select="./../../@type"/>
+			<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
+			<xsl:choose>
+				<xsl:when test="$genre='thesis'"> 
+					<xsl:call-template name="createField">
+						<xsl:with-param name="name" select="'school'"/>
+						<xsl:with-param name="xpath" select="."/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="createField">
+						<xsl:with-param name="name" select="'publisher'"/>
+						<xsl:with-param name="xpath" select="."/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 		</xsl:if>
 	</xsl:template>
 	
@@ -424,7 +443,7 @@
 					<xsl:when test="normalize-space(eterms:start-page)!='' and normalize-space(eterms:end-page) != ''">
 						<xsl:call-template name="createField">
 							<xsl:with-param name="name" select="'pages'"/>
-							<xsl:with-param name="xpath" select="concat(eterms:start-page, ' - ', eterms:end-page)"/>
+							<xsl:with-param name="xpath" select="concat(eterms:start-page, ' -- ', eterms:end-page)"/>
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:when test="normalize-space(eterms:start-page)!='' and (not(eterms:end-page) or normalize-space(eterms:end-page) = '') ">
@@ -571,6 +590,15 @@
                     <xsl:with-param name="xpath" select="jfunc:texString($doi-concated)"/>
                 </xsl:call-template>
 	        </xsl:if>
+	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:ARXIV'])">
+	            <xsl:variable name="arxiv-concated">
+	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:ARXIV']" separator="; " />
+	            </xsl:variable>
+	            <xsl:call-template name="createField">
+                    <xsl:with-param name="name" select="'eprint'"/>
+                    <xsl:with-param name="xpath" select="jfunc:texString($arxiv-concated)"/>
+                </xsl:call-template>
+	        </xsl:if>
 	        <xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:OTHER' and fn:starts-with(fn:lower-case(.), 'local-id:')]) ">
 	            <xsl:variable name="local-id-concated">
 	                <xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:OTHER' and fn:starts-with(fn:lower-case(.), 'local-id:')]" separator="; " />
@@ -582,4 +610,94 @@
 	        </xsl:if>
 	</xsl:template>
 	
+	<!-- REMOVE SUB AND SUP TAGS -->
+	<xsl:template name="removeSubSup">
+		<xsl:param name="elem" />
+		<xsl:call-template name="removeTag">
+			<xsl:with-param name="str">
+				<xsl:call-template name="removeTag">
+					<xsl:with-param name="str" select="$elem" />
+					<xsl:with-param name="tag" select="'sub'" />
+				</xsl:call-template>
+			</xsl:with-param>
+			<xsl:with-param name="tag" select="'sup'" />
+		</xsl:call-template>
+	</xsl:template>
+		
+	<!-- REMOVE TAG -->
+	<xsl:template name="removeTag">
+		<xsl:param name="str"/>
+		<xsl:param name="tag"/>
+		<xsl:choose>
+			<xsl:when test="contains($str, concat('&lt;', $tag, '&gt;'))">
+				<xsl:call-template name="replace-substring">
+					<xsl:with-param name="original">
+						<xsl:call-template name="replace-substring">
+							<xsl:with-param name="original" select="$str"/>
+							<xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
+						</xsl:call-template>
+					</xsl:with-param>
+					<xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<!-- REPLACE STRING -->
+	<xsl:template name="replace-substring">
+		<xsl:param name="original"/>
+		<xsl:param name="substring"/>
+		<xsl:param name="replacement" select="''"/>
+		<xsl:variable name="first">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:value-of select="substring-before($original, $substring)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$original"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="middle">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:value-of select="$replacement"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text></xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="last">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:choose>
+						<xsl:when test="contains(substring-after($original, $substring), $substring)">
+							<xsl:call-template name="replace-substring">
+								<xsl:with-param name="original">
+									<xsl:value-of select="substring-after($original, $substring)"/>
+								</xsl:with-param>
+								<xsl:with-param name="substring">
+									<xsl:value-of select="$substring"/>
+								</xsl:with-param>
+								<xsl:with-param name="replacement">
+									<xsl:value-of select="$replacement"/>
+								</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-after($original, $substring)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text></xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="concat($first, $middle, $last)"/>
+	</xsl:template>
 </xsl:stylesheet>
