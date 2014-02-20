@@ -73,8 +73,6 @@
 		<iso:active pattern="language_code"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
-		
-	
 	</iso:phase>
 	
 	<iso:phase id="easy_submission_step_3">
@@ -122,6 +120,10 @@
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
 	
+	<iso:phase id="save_item">
+		<iso:active pattern="title_required"/>
+	</iso:phase>
+		
 	<iso:phase id="submit_item">
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
