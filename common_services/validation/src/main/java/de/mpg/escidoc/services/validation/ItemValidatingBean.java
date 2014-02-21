@@ -36,7 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -45,7 +45,6 @@ import javax.naming.NamingException;
 import javax.xml.transform.Transformer;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -64,8 +63,7 @@ import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming
  *
  */
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = ItemValidatingBean.SERVICE_NAME)
+@Local(ItemValidating.class)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemValidatingBean implements ItemValidating
 {

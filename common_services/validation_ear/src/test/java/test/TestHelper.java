@@ -46,6 +46,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.transformation.transformations.standardFormats.StandardTransformationInterface;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
 /**
@@ -82,7 +83,7 @@ public class TestHelper
             properties = new Properties();
             try
             {
-                properties.load(ResourceUtil.getResourceAsStream("src/test/resources/test.properties"));
+                properties.load(ResourceUtil.getResourceAsStream("src/test/resources/test.properties", TestHelper.class.getClassLoader()));
             }
             catch (Exception e)
             {

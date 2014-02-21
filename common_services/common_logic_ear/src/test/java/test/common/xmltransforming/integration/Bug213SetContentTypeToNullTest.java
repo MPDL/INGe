@@ -128,7 +128,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName).length());
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName, Bug213SetContentTypeToNullTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list

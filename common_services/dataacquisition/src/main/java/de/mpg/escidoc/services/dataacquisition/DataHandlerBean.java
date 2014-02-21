@@ -27,7 +27,6 @@
  */
 package de.mpg.escidoc.services.dataacquisition;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,7 +47,7 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -63,15 +62,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
-import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -99,8 +96,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  * @author Friederike Kleinfercher (initial creation)
  * @author $Author$ (last modification)
  */
-@Remote
-@RemoteBinding(jndiBinding = DataHandler.SERVICE_NAME)
+@Local
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class DataHandlerBean implements DataHandler

@@ -31,6 +31,7 @@ package de.mpg.escidoc.services.exportmanager;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Interface for the wrapping of the export interfaces like StructuredExportHandler 

@@ -58,7 +58,7 @@ public class CreateJournalRdf
         String sql = "SELECT * FROM qa_journals WHERE sfxid IS NOT NULL AND sfxid != ''";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
-        FileWriter fileWriter = new FileWriter(ResourceUtil.getResourceAsFile("src/main/resources/journals.rdf"));
+        FileWriter fileWriter = new FileWriter(ResourceUtil.getResourceAsFile("src/main/resources/journals.rdf", CreateJournalRdf.class.getClassLoader()));
         StringWriter stringWriter = new StringWriter();
         fileWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!DOCTYPE rdf:RDF>\n"
                 + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "

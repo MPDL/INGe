@@ -38,14 +38,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -72,8 +71,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
-@Remote
-@RemoteBinding(jndiBinding = DataGathering.SERVICE_NAME)
+@Local
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class DataGatheringBean implements DataGathering

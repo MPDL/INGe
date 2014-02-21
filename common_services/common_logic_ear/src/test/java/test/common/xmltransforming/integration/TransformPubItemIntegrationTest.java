@@ -277,7 +277,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformPubItemIntegrationTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
 

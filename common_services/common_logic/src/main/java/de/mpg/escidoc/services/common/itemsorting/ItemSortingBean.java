@@ -32,13 +32,12 @@ package de.mpg.escidoc.services.common.itemsorting;
 
 import java.util.Collections;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.ItemSorting;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
@@ -55,8 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 * Revised by StG: 24.08.2007
 */
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = ItemSorting.SERVICE_NAME)
+@Local
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemSortingBean implements ItemSorting
 {

@@ -61,7 +61,7 @@ public class ImportResolver implements LSResourceResolver
             {
                 LSInput result = new ImportInput();
                 result.setBaseURI(baseURI);
-                result.setByteStream(ResourceUtil.getResourceAsStream(systemId));
+                result.setByteStream(ResourceUtil.getResourceAsStream(systemId, ImportResolver.class.getClassLoader()));
                 result.setCertifiedText(false);
                 result.setEncoding("UTF-8");
                 result.setSystemId(systemId);

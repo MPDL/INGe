@@ -82,7 +82,7 @@ public class FeedTransformationInterface implements Transformation
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, FeedTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -138,7 +138,7 @@ public class FeedTransformationInterface implements Transformation
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, FeedTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -215,7 +215,7 @@ public class FeedTransformationInterface implements Transformation
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, FeedTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)

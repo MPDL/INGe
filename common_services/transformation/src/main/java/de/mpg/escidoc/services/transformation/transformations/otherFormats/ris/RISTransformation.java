@@ -143,7 +143,7 @@ public class RISTransformation implements Transformation, Configurable {
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.ris.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.ris.configuration.filename"), RISTransformation.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))
@@ -190,7 +190,7 @@ public class RISTransformation implements Transformation, Configurable {
                 output = ris.transformRIS2XML(risSource);
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
                 factory.setURIResolver(new LocalUriResolver("transformations/otherFormats/xslt"));
-                InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/risxml2escidoc.xsl");
+                InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/risxml2escidoc.xsl", RISTransformation.class.getClassLoader());
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 
                 if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))

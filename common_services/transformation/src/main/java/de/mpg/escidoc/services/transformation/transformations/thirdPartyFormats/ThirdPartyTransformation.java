@@ -100,7 +100,7 @@ public class ThirdPartyTransformation
             {
                 String propertyKey = "escidoc.transformation." + (formatFrom.toLowerCase()).replace("-", "_") + "2" + (formatTo.toLowerCase()).replace("-", "_") + ".stylesheet.filename";
                 String fileName = PropertyReader.getProperty(propertyKey);
-                stylesheet = ResourceUtil.getResourceAsStream(fileName);
+                stylesheet = ResourceUtil.getResourceAsStream(fileName, ThirdPartyTransformation.class.getClassLoader());
             }
             catch (Exception e)
             {
@@ -142,7 +142,7 @@ public class ThirdPartyTransformation
         
         try {
             
-            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri, ThirdPartyTransformation.class.getClassLoader());
             check = true;
             
         }

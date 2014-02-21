@@ -137,7 +137,7 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, ThirdPartyTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)

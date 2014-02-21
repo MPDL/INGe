@@ -33,7 +33,7 @@ public class RISImportTester {
     	Format inputFormat = new Format("RIS", "text/plain", "UTF-8");
     	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
     	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/RIS_utf8.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/RIS_utf8.txt", RISImportTester.class.getClassLoader());
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -53,7 +53,7 @@ public class RISImportTester {
         this.logger.info("Transform RIS list to xml format");
         Format inputFormat = new Format("RIS", "text/plain", "utf-8");
         Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
-        byte[] result = risTransformer.transform(ResourceUtil.getResourceAsString("testFiles/ris/RIS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
+        byte[] result = risTransformer.transform(ResourceUtil.getResourceAsString("testFiles/ris/RIS.txt", RISImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
 
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));

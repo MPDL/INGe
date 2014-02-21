@@ -64,7 +64,8 @@ public class TransformationBean implements Transformation, Configurable
         if (initializer == null)
         {
             initializer = new TransformationInitializer();
-            initializer.initializeTransformationModules();
+            //Always use local
+            initializer.initializeTransformationModules(true);
         }
     }
     

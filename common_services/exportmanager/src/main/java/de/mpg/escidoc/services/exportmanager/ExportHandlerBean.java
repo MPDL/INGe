@@ -29,16 +29,13 @@
 
 package de.mpg.escidoc.services.exportmanager;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 /**
 * This class provides the ejb implementation of the {@link ExportHandler} interface.
@@ -49,8 +46,7 @@ import org.jboss.annotation.ejb.RemoteBinding;
 */
  
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = ExportHandler.SERVICE_NAME)
+@Local
 
 public class ExportHandlerBean implements ExportHandler
 { 

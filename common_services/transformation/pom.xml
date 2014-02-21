@@ -121,12 +121,6 @@
 			<version>8.7</version>
 		</dependency>
 		<dependency>
-			<groupId>jboss-annotations-ejb3</groupId>
-			<artifactId>jboss-annotations-ejb3</artifactId>
-			<version>4.2.2</version>
-			<scope>compile</scope>
-		</dependency>	
-		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>1.1.75-SNAPSHOT</version>
@@ -231,6 +225,12 @@
 			<groupId>xml-resolver</groupId>
 			<artifactId>xml-resolver</artifactId>
 			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
 		</dependency>
 		
 		

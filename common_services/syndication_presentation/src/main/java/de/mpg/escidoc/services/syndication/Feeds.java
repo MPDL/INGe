@@ -166,7 +166,7 @@ public class Feeds
 		Feeds fs = null;
 		try 
 		{
-	        InputStream input = ResourceUtil.getResourceAsStream( feedsFileName );
+	        InputStream input = ResourceUtil.getResourceAsStream( feedsFileName, Feeds.class.getClassLoader() );
 			fs = (Feeds) digester.parse( input  );
 		} 
 		catch (Exception e) 

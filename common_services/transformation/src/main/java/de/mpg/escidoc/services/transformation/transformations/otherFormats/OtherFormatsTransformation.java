@@ -196,7 +196,7 @@ public class OtherFormatsTransformation
         logger.info("file NAME  "+ this.METADATA_XSLT_LOCATION +"/"+ formatFrom.toLowerCase().trim()+ "2" + formatTo.toLowerCase().trim() + ".xsl");
         try {
             
-            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri, OtherFormatsTransformation.class.getClassLoader());
             check = true;
             
         }

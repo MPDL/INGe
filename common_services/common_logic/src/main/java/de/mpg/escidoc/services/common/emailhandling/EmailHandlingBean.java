@@ -37,7 +37,7 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -56,7 +56,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -72,8 +71,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  */
 
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = EmailHandling.SERVICE_NAME)
+@Local
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class EmailHandlingBean implements EmailHandling
 {

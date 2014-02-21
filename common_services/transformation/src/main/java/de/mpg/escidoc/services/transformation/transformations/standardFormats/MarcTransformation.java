@@ -190,7 +190,7 @@ public class MarcTransformation implements Transformation, Configurable
             }
                 
             factory.setURIResolver(new LocalUriResolver(xslDir));
-            InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
+            InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, MarcTransformation.class.getClassLoader());
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             
             transformer.setParameter("source-format", srcFormat.getName());
@@ -258,7 +258,7 @@ public class MarcTransformation implements Transformation, Configurable
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.marc.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.marc.configuration.filename"), MarcTransformation.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))

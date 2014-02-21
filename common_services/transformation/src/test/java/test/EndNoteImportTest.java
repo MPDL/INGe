@@ -42,7 +42,7 @@ public class EndNoteImportTest
 //	@Ignore
 	public void CheckEndNoteImport() throws Exception
 	{  	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("testFiles/endnote/publikationsliste_2008_endnote.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("testFiles/endnote/publikationsliste_2008_endnote.txt", EndNoteImportTest.class.getClassLoader());
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;

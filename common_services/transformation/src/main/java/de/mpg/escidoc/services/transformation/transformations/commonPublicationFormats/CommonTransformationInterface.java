@@ -96,7 +96,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, CommonTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -152,7 +152,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, CommonTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -303,7 +303,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, CommonTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -356,7 +356,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.bibtex.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.bibtex.configuration.filename"), CommonTransformationInterface.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))

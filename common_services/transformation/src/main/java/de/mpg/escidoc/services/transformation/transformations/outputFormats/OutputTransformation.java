@@ -117,7 +117,7 @@ public class OutputTransformation
         String path = OutputUtil.getPathToCitationStyles() + "/jasper" + "/citation-style.jasper";
 
         logger.info("Jasper path: " + path);
-        InputStream csj =  ResourceUtil.getResourceAsStream(path);   
+        InputStream csj =  ResourceUtil.getResourceAsStream(path, OutputTransformation.class.getClassLoader());   
         JasperReport jr = (JasperReport)JRLoader.loadObject(csj); 
 
         params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);

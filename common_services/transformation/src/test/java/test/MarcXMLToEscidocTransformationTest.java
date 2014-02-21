@@ -74,8 +74,8 @@ public class MarcXMLToEscidocTransformationTest extends XMLTestCase {
 	{
 		try
 			{
-			 	src = ResourceUtil.getResourceAsBytes("testFiles/marcxml/simplemarcrecord.xml");
-				expected = ResourceUtil.getResourceAsString("testFiles/escidoc/simplemarcrecord.xml");
+			 	src = ResourceUtil.getResourceAsBytes("testFiles/marcxml/simplemarcrecord.xml", MarcXMLToEscidocTransformationTest.class.getClassLoader());
+				expected = ResourceUtil.getResourceAsString("testFiles/escidoc/simplemarcrecord.xml", MarcXMLToEscidocTransformationTest.class.getClassLoader());
 			}
 		catch (Exception e)
 			{

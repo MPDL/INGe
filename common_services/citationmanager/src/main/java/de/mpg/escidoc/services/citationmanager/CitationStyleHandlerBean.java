@@ -29,17 +29,18 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
-import javax.ejb.Remote;
+import java.io.IOException;
+
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
-
-import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 
 import net.sf.jasperreports.engine.JRException;
-import java.io.IOException;
+
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 
 
 
@@ -53,8 +54,7 @@ import java.io.IOException;
  * Revised by StG: 24.08.2007
  */
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = CitationStyleHandler.SERVICE_NAME)
+@Local
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class CitationStyleHandlerBean implements CitationStyleHandler
 { 

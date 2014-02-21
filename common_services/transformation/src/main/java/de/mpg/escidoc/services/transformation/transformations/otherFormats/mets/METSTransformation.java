@@ -38,7 +38,6 @@ import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 

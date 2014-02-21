@@ -1218,7 +1218,7 @@ public class TestBase
      */
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
-        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
         PrintWriter pwriter = new PrintWriter("target/schemas.txt");
         logger.debug("Number of schema files: " + schemaFiles.length);
         pwriter.println("Number of schema files: " + schemaFiles.length);
@@ -1504,7 +1504,7 @@ public class TestBase
         String fwUrl = ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
         logger.info("Framework: " + fwUrl);
-        File file = ResourceUtil.getResourceAsFile(fileName);
+        File file = ResourceUtil.getResourceAsFile(fileName, TestBase.class.getClassLoader());
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(file)));
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);

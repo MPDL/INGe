@@ -64,7 +64,7 @@ public class CreateTripleStore
     {
         mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
         mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
-        File tqlFile = ResourceUtil.getResourceAsFile("setup.tql");
+        File tqlFile = ResourceUtil.getResourceAsFile("setup.tql", CreateTripleStore.class.getClassLoader());
         BufferedReader reader = new BufferedReader(new FileReader(tqlFile));
         String line;
         while ((line = reader.readLine()) != null)
@@ -79,7 +79,7 @@ public class CreateTripleStore
         for (String model : models)
         {
             List<String> pattern = new ArrayList<String>();
-            File patternFile = ResourceUtil.getResourceAsFile(model + ".pattern");
+            File patternFile = ResourceUtil.getResourceAsFile(model + ".pattern", CreateTripleStore.class.getClassLoader());
             BufferedReader bufferedReader = new BufferedReader(new FileReader(patternFile));
             while ((line = bufferedReader.readLine()) != null)
             {

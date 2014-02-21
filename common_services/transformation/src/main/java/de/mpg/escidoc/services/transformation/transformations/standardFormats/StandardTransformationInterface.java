@@ -93,7 +93,7 @@ public class StandardTransformationInterface implements Transformation, Configur
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, StandardTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -149,7 +149,7 @@ public class StandardTransformationInterface implements Transformation, Configur
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, StandardTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -244,7 +244,7 @@ public class StandardTransformationInterface implements Transformation, Configur
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, StandardTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -287,7 +287,7 @@ public class StandardTransformationInterface implements Transformation, Configur
         configuration = new LinkedHashMap<String, String>();
         propertiesTrans = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.zfn.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.zfn.configuration.filename"), StandardTransformationInterface.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))

@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -53,7 +53,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
@@ -85,7 +84,6 @@ import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
-import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
@@ -95,6 +93,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
@@ -135,8 +134,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @revised by MuJ: 21.08.2007
  */
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = XmlTransforming.SERVICE_NAME)
+@Local
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class XmlTransformingBean implements XmlTransforming
 {

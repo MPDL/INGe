@@ -192,7 +192,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
      */
     public static Set<String> getNamesFromFile(String filename) throws Exception
     {
-        InputStream file = ResourceUtil.getResourceAsStream(filename);
+        InputStream file = ResourceUtil.getResourceAsStream(filename, AuthorFormat.class.getClassLoader());
         BufferedReader br = new BufferedReader(new InputStreamReader(file));
         String name = "";
         Set<String> result = new HashSet<String>();

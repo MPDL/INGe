@@ -101,7 +101,7 @@ public class BmcToEscidocTransformation implements Transformation, Configurable
 	  
 	        Properties props = new Properties();
 	        try {
-				props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.bmc2escidoc.configuration.filename")));
+				props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.bmc2escidoc.configuration.filename"), BmcToEscidocTransformation.class.getClassLoader()));
 				}
 	        catch (Exception e)
 		        {
@@ -212,7 +212,7 @@ public class BmcToEscidocTransformation implements Transformation, Configurable
 				    InputStream stylesheet;
 					try
 						{
-							stylesheet = ResourceUtil.getResourceAsStream(stylesheetFileName);
+							stylesheet = ResourceUtil.getResourceAsStream(stylesheetFileName, BmcToEscidocTransformation.class.getClassLoader());
 						}
 					catch (Exception e)
 						{

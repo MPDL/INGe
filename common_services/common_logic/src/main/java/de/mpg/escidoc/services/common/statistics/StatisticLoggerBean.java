@@ -34,13 +34,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import com.maxmind.geoip.Country;
 import com.maxmind.geoip.Location;
@@ -62,8 +61,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-@Remote
-@RemoteBinding(jndiBinding = StatisticLogger.SERVICE_NAME)
+@Local
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class StatisticLoggerBean implements StatisticLogger
@@ -115,7 +113,7 @@ public class StatisticLoggerBean implements StatisticLogger
             }
             geopIpCopyFile.deleteOnExit();
             FileOutputStream fos = new FileOutputStream(geopIpCopyFile);
-            InputStream is = ResourceUtil.getResourceAsStream("statistics/GeoIP.dat");
+            InputStream is = ResourceUtil.getResourceAsStream("statistics/GeoIP.dat", StatisticLoggerBean.class.getClassLoader());
             byte[] buf = new byte[1024];
             int i = 0;
             while ((i = is.read(buf)) != -1)

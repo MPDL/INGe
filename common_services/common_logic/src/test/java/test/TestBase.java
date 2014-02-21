@@ -82,6 +82,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import test.common.TestBase;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -1078,7 +1079,7 @@ public class TestBase
      */
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
-        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         for (File file : schemaFiles)

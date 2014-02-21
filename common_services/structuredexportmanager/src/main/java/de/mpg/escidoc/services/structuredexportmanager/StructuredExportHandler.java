@@ -36,8 +36,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
-
 
 /**
  * Interface for retrieving an export file containing and presenting an item list

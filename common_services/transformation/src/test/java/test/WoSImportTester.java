@@ -35,7 +35,7 @@ public class WoSImportTester {
     	Format inputFormat = new Format("WoS", "text/plain", "UTF-8");
     	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
     	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/wok-isi-test.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/wok-isi-test.txt", WoSImportTester.class.getClassLoader());
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -58,7 +58,7 @@ public class WoSImportTester {
         this.logger.info("Transform WoS list 1 to xml format");
         Format inputFormat = new Format("WoS", "text/plain", "utf-8");
         Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
-        byte[] result = wosTransformer.transform(ResourceUtil.getResourceAsString("testFiles/wos/WoS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
+        byte[] result = wosTransformer.transform(ResourceUtil.getResourceAsString("testFiles/wos/WoS.txt", WoSImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
         
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
@@ -74,7 +74,7 @@ public class WoSImportTester {
         this.logger.info("Transform WoS list 2 to xml format");
         Format inputFormat = new Format("WoS", "text/plain", "utf-8");
         Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
-        byte[] result = wosTransformer.transform(ResourceUtil.getResourceAsString("testFiles/wos/WoS_2012.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
+        byte[] result = wosTransformer.transform(ResourceUtil.getResourceAsString("testFiles/wos/WoS_2012.txt", WoSImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
         
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));

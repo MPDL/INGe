@@ -103,7 +103,7 @@
 			    Result:
 			    <br/>
 				<% Context ctx = new InitialContext();
-	            DataSource dataSource = (DataSource) ctx.lookup("Validation");
+	            DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
 	            Statement pstmt = dataSource.getConnection().createStatement();
 	            try
 	            {

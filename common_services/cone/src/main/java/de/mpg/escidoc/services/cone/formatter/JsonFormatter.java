@@ -96,8 +96,8 @@ public class JsonFormatter extends Formatter
     {
         response.setContentType("text/xml");
         
-        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"));
-        InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl");
+        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"), JsonFormatter.class.getClassLoader());
+        InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl", JsonFormatter.class.getClassLoader());
         
         try
         {
@@ -121,7 +121,7 @@ public class JsonFormatter extends Formatter
     public OutputStream format(String source) throws IOException
     {
 
-        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl", JsonFormatter.class.getClassLoader());
         OutputStream result = new ByteArrayOutputStream();
         
         try

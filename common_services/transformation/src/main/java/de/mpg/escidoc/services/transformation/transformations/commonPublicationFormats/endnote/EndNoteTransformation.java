@@ -50,7 +50,7 @@ public class EndNoteTransformation implements Transformation, Configurable
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.endnote.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.endnote.configuration.filename"), EndNoteTransformation.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))
@@ -124,7 +124,7 @@ public class EndNoteTransformation implements Transformation, Configurable
             		fileName = PropertyReader.getProperty("escidoc.transformation.endnote.stylesheet.filename");
             	}
             	
-            	InputStream stylesheet = ResourceUtil.getResourceAsStream(fileName);
+            	InputStream stylesheet = ResourceUtil.getResourceAsStream(fileName, EndNoteTransformation.class.getClassLoader());
             	
             	factory.setURIResolver(new LocalUriResolver("transformations/commonPublicationFormats/xslt"));
             	Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));

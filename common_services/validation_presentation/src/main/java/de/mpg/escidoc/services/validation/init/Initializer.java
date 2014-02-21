@@ -37,6 +37,8 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -50,6 +52,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
+import de.mpg.escidoc.services.validation.ItemValidatingBean;
 
 /**
  * This class initializes the validation cache database. It should be deactivated when there is a central validation
@@ -61,6 +64,7 @@ import de.mpg.escidoc.services.validation.ItemValidating;
  */
 public class Initializer extends Thread
 {
+	
     /**
      * Logger for this class.
      */
@@ -72,7 +76,8 @@ public class Initializer extends Thread
     /**
      * Validation EJB.
      */
-    private static ItemValidating itemValidating;
+    @EJB
+    private ItemValidating itemValidating;
 
     /**
      * Default constructor.
@@ -87,13 +92,13 @@ public class Initializer extends Thread
     @Override
     public void run()
     {
-        initializeDatabase();
+        initializeDatabase(itemValidating);
     }
 
     /**
      * This method executes the initialization.
      */
-    public static void initializeDatabase()
+    public static void initializeDatabase(ItemValidating itemValidating)
     {
         LOGGER.info("Initializing validation database...");
         Connection conn = null;
@@ -113,8 +118,11 @@ public class Initializer extends Thread
                 LOGGER.info("Skipping validation schema creation.");
             }
             
+            /*
             Context ctx = new InitialContext();
-            itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
+            itemValidating = (ItemValidating) ctx.lookup("java:app/validation/ItemValidatingBean");
+            */
+            
             itemValidating.refreshValidationSchemaCache();
             /*
             String contextsXml = FrameworkUtil.getAllContexts();
@@ -192,7 +200,7 @@ public class Initializer extends Thread
     	
     	LOGGER.debug("fullScriptName:" + fullScriptName);
     	
-        String sql = ResourceUtil.getResourceAsString(fullScriptName);
+        String sql = ResourceUtil.getResourceAsString(fullScriptName, Initializer.class.getClassLoader());
         sql = replaceProperties(sql);
         LOGGER.debug("Executing script: " + sql);
         String[] commands = splitSqlScript(sql);
@@ -212,7 +220,7 @@ public class Initializer extends Thread
         try
         {
             Context ctx = new InitialContext();
-            DataSource dataSource = (DataSource) ctx.lookup("Validation");
+            DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
             return dataSource.getConnection();
         }
         catch (Exception e)
@@ -290,7 +298,7 @@ public class Initializer extends Thread
             }
             else
             {
-                String schemaContent = ResourceUtil.getResourceAsString(schema.getAbsolutePath());
+                String schemaContent = ResourceUtil.getResourceAsString(schema.getAbsolutePath(), Initializer.class.getClassLoader());
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser parser = factory.newSAXParser();
                 IdentityHandler idHandler = new IdentityHandler();

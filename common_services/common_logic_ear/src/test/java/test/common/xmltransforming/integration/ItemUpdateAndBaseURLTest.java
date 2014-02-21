@@ -138,7 +138,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
         fileVO.setDescription("The Universe within 50000 Light Years");
         fileVO.setVisibility(Visibility.PRIVATE);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName).length());
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName, ItemUpdateAndBaseURLTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list

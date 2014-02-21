@@ -317,7 +317,7 @@ public class ConeServlet extends HttpServlet
             response.setContentType("text/xml");
             try
             {
-                out.print(ResourceUtil.getResourceAsString(PropertyReader.getProperty("escidoc.cone.modelsxml.path")));
+                out.print(ResourceUtil.getResourceAsString(PropertyReader.getProperty("escidoc.cone.modelsxml.path"), ConeServlet.class.getClassLoader()));
             }
             catch (Exception e) {
                 throw new ServletException(e);

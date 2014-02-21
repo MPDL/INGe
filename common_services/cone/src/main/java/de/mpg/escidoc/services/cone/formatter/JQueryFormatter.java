@@ -94,8 +94,8 @@ public class JQueryFormatter extends Formatter
     {
         response.setContentType("text/xml");
         
-        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"));
-        InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
+        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"), JQueryFormatter.class.getClassLoader());
+        InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl", JQueryFormatter.class.getClassLoader());
         
         try
         {
@@ -119,7 +119,7 @@ public class JQueryFormatter extends Formatter
     public OutputStream format(String source) throws IOException
     {
 
-        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl", JQueryFormatter.class.getClassLoader());
         OutputStream result = new ByteArrayOutputStream();
         
         try

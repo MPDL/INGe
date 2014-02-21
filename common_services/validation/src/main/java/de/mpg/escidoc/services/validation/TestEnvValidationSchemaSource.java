@@ -96,7 +96,7 @@ public class TestEnvValidationSchemaSource implements ValidationSchemaSource
         {
             try
             {
-                InputStreamReader isr = new InputStreamReader(ResourceUtil.getResourceAsStream(fileName));
+                InputStreamReader isr = new InputStreamReader(ResourceUtil.getResourceAsStream(fileName,TestEnvValidationSchemaSource.class.getClassLoader()));
                 BufferedReader br = new BufferedReader(isr);
                 fileBuffer = new StringBuffer();
                 while ((line = br.readLine()) != null)

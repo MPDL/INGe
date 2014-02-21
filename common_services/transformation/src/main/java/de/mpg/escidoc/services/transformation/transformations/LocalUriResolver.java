@@ -112,7 +112,7 @@ public class LocalUriResolver implements URIResolver
             }
             
             return 
-            	new StreamSource(ResourceUtil.getResourceAsStream(path));
+            	new StreamSource(ResourceUtil.getResourceAsStream(path, LocalUriResolver.class.getClassLoader()));
         }
         catch (FileNotFoundException e)
         {

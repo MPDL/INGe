@@ -172,7 +172,7 @@ public class StandardTransformation
         
         try {
             
-            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri, StandardTransformation.class.getClassLoader());
             check = true;
             
         }

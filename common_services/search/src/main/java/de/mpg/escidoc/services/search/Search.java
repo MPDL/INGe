@@ -29,6 +29,9 @@
 
 package de.mpg.escidoc.services.search;
 
+import javax.ejb.Local;
+import javax.ejb.Remote;
+
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
@@ -41,6 +44,7 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
  * @author tendres
  * 
  */
+@Local
 public interface Search
 {
 

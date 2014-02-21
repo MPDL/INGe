@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -34,7 +35,7 @@ public class MABImportTester {
     	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
     	
     	//InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/metadateningest2009-08-13_utf8.txt");
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/mab-metadata-mpi-eva.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/mab-metadata-mpi-eva.txt", MABImportTester.class.getClassLoader());
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -60,7 +61,7 @@ public class MABImportTester {
 	        
 	        Format inputFormat = new Format("MAB", "text/plain", "utf-8");
 	        Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
-	        byte[] result = mapTransformer.transform(ResourceUtil.getResourceAsString("testFiles/mab/mab.txt").getBytes("UTF-8"), 
+	        byte[] result = mapTransformer.transform(ResourceUtil.getResourceAsString("testFiles/mab/mab.txt", MABImportTester.class.getClassLoader()).getBytes("UTF-8"), 
 	                inputFormat, outputFormat, "escidoc");
 
 	        XmlTransformingBean xmlTransforming = new XmlTransformingBean();

@@ -31,13 +31,12 @@ package de.mpg.escidoc.services.validation.xmltransforming;
 
 import java.io.StringReader;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
@@ -55,8 +54,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * @version $Revision$ $LastChangedDate$
  */
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = ValidationTransforming.SERVICE_NAME)
+@Local
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ValidationTransformingBean implements ValidationTransforming
 {

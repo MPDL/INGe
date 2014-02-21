@@ -51,8 +51,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -63,6 +63,12 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
 			<version>1.0.82-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

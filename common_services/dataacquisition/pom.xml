@@ -154,18 +154,6 @@
 			<version>8.7</version>
 		</dependency>
 		<dependency>
-			<groupId>jboss-ejb3x</groupId>
-			<artifactId>jboss-ejb3x</artifactId>
-			<version>4.2.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-annotations-ejb3</groupId>
-			<artifactId>jboss-annotations-ejb3</artifactId>
-			<version>4.2.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
 			<version>1.0.63-SNAPSHOT</version>
@@ -245,6 +233,12 @@
  			<artifactId>avalon-framework</artifactId>
 			<version>4.2.0</version>
 			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

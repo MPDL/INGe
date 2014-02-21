@@ -150,7 +150,7 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
         {
             System.out.print("Started xslt transformation...");
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-            InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH);
+            InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH, eSciDocVer1ToeSciDocVer2.class.getClassLoader());
             
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             

@@ -66,8 +66,8 @@ public class Marc21ToMarcXMLTransformationTest {
 	{
 		try
 			{
-			 	src = ResourceUtil.getResourceAsBytes("testFiles/marc/simplemarcrecord.mrc");
-				expected = ResourceUtil.getResourceAsString("testFiles/marcxml/simplemarcrecord.xml");
+			 	src = ResourceUtil.getResourceAsBytes("testFiles/marc/simplemarcrecord.mrc", Marc21ToMarcXMLTransformationTest.class.getClassLoader());
+				expected = ResourceUtil.getResourceAsString("testFiles/marcxml/simplemarcrecord.xml", Marc21ToMarcXMLTransformationTest.class.getClassLoader());
 			}
 		catch (Exception e)
 			{

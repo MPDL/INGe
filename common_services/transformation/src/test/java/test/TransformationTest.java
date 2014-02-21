@@ -92,7 +92,7 @@ public class TransformationTest
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
         Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
 
-        byte[] result = trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/tei1.tei")
+        byte[] result = trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/tei1.tei", TransformationTest.class.getClassLoader())
                 .getBytes("UTF-8"), teiFormat, escidocFormat, "escidoc");
 
 //        result = trans.transform(this.util.getResourceAsString("testFiles/tei/Springer-351-S2.tei")
@@ -113,7 +113,7 @@ public class TransformationTest
         Format html = new Format("bmc-fulltext-html", "text/html", "UTF-8");
          
         byte[] result;
-        result = trans.transform(ResourceUtil.getResourceAsString("testFiles/bmc_article.xml").getBytes("UTF-8"), xml, html, "escidoc");
+        result = trans.transform(ResourceUtil.getResourceAsString("testFiles/bmc_article.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), xml, html, "escidoc");
         this.logger.debug(new String(result, "UTF-8"));
      }
      
@@ -126,7 +126,7 @@ public class TransformationTest
          Format escidocComponent = new Format("escidoc-publication-component",  "application/xml", "UTF-8");        
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/bmc.xml").getBytes("UTF-8"), bmc, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/bmc.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), bmc, escidoc, "escidoc");
          
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          //System.out.println(new String(result, "UTF-8"));
@@ -134,7 +134,7 @@ public class TransformationTest
          Assert.assertNotNull(itemVO);
          this.logger.info("PubItemVO successfully created.");
              
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/bmc.xml").getBytes("UTF-8"), bmc, escidocComponent, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/bmc.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), bmc, escidocComponent, "escidoc");
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result, "UTF-8"));
          this.logger.info("FileVO successfully created."); 
      }
@@ -148,14 +148,14 @@ public class TransformationTest
          Format escidocComponent = new Format("escidoc-publication-component", "application/xml", "UTF-8");        
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes("UTF-8"), arxivItem, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/arxivItem.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), arxivItem, escidoc, "escidoc");
          
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
          Assert.assertNotNull(itemVO);
          this.logger.info("PubItemVO successfully created.");  
          
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes("UTF-8"), arxivItem, escidocComponent, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/arxivItem.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), arxivItem, escidocComponent, "escidoc");
          System.out.println(new String(result, "UTF-8"));
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result, "UTF-8"));
          Assert.assertNotNull(componentVO);
@@ -170,7 +170,7 @@ public class TransformationTest
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/spires.xml").getBytes("UTF-8"), spires, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/spires.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), spires, escidoc, "escidoc");
          
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
@@ -186,7 +186,7 @@ public class TransformationTest
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8"); 
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/bibtex/bib.bib").getBytes("UTF-8"), bibtex, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/bibtex/bib.bib", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), bibtex, escidoc, "escidoc");
 
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
@@ -202,7 +202,7 @@ public class TransformationTest
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");   
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, bibtex, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), escidoc, bibtex, "escidoc");
          this.logger.debug(new String(result, "UTF-8"));     
      }
      
@@ -214,7 +214,7 @@ public class TransformationTest
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");    
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/endnote/endnote.txt").getBytes("UTF-8"), endnote, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/endnote/endnote.txt", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), endnote, escidoc, "escidoc");
 
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result,"UTF-8"));
@@ -230,7 +230,7 @@ public class TransformationTest
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");    
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, endnote, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), escidoc, endnote, "escidoc");
          this.logger.debug(new String(result, "UTF-8"));  
      }
  
@@ -247,10 +247,10 @@ public class TransformationTest
          configuration.put("CoNE", "false");
          
          String result;
-         byte[] resultBytes = trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc", configuration);
+         byte[] resultBytes = trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml", TransformationTest.class.getClassLoader()), edoc, escidoc, "escidoc", configuration);
          result = new String(resultBytes, "UTF-8");
          
-         String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml");
+         String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml", TransformationTest.class.getClassLoader());
          
          logger.info(resultBytes.length);
          
@@ -296,10 +296,10 @@ public class TransformationTest
          
          conf.put("CoNE", "false");
          
-         byte[] resultBytes = trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc", conf);
+         byte[] resultBytes = trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml", TransformationTest.class.getClassLoader()), edoc, escidoc, "escidoc", conf);
          result = new String(resultBytes, "UTF-8");
          
-         String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml");
+         String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml", TransformationTest.class.getClassLoader());
          
          logger.info(resultBytes.length);
          
@@ -334,7 +334,7 @@ public class TransformationTest
      // temporarily moved to the structuredexportmanager 
      public void escidoc2edocTest() throws Exception
      {
-    	 byte[] src = ResourceUtil.getResourceAsBytes("testFiles/escidoc/escidoc_xml_full.xml");
+    	 byte[] src = ResourceUtil.getResourceAsBytes("testFiles/escidoc/escidoc_xml_full.xml", TransformationTest.class.getClassLoader());
     	 Format escidoc = new Format("escidoc", "application/xml", "UTF-8");
     	 
     	 for (String format: new String[]{"edoc_export", "edoc_import"} )
@@ -368,13 +368,13 @@ public class TransformationTest
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/pmc2.xml").getBytes("UTF-8"), pmcItem, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/pmc2.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), pmcItem, escidoc, "escidoc");
          
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
          Assert.assertNotNull(itemVO);
          this.logger.info("PubItemVO successfully created.");
          
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/pmc2.xml").getBytes("UTF-8"), pmcItem, escidocComponent, "escidoc");           
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/pmc2.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), pmcItem, escidocComponent, "escidoc");           
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result, "UTF-8"));
          Assert.assertNotNull(componentVO);
          this.logger.info("FileVO successfully created.");
@@ -390,7 +390,7 @@ public class TransformationTest
          Format oai = new Format("oai_dc", "application/xml", "UTF-8");
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/mods/mods2.xml").getBytes("UTF-8"), mods, oai, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/mods/mods2.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), mods, oai, "escidoc");
          logger.debug("Result: "+ new String (result, "UTF-8"));
          
 //         String referenceItem = this.normalizeString(this.util.getResourceAsString("testFiles/testResults/modsAsOaidc.xml"));
@@ -408,7 +408,7 @@ public class TransformationTest
          Format marc = new Format("marc21", "application/xml", "UTF-8");
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, marc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/mods/mods.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), mods, marc, "escidoc");
          this.logger.debug(new String(result, "UTF-8"));
      }
      
@@ -423,7 +423,7 @@ public class TransformationTest
          Format escidoc = new Format("escidoc-publication-item-list", "application/xml", "UTF-8");
          
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, escidoc, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/mods/mods.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), mods, escidoc, "escidoc");
 
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          List<PubItemVO> itemList = (List <PubItemVO>)xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
@@ -440,7 +440,7 @@ public class TransformationTest
          Format oai = new Format("oai_dc", "application/xml", "UTF-8");
         
          byte[] result;
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), escidoc, oai, "escidoc");
          logger.debug("Result: "+ new String (result, "UTF-8"));
          
 //         String referenceItem = this.normalizeString(this.util.getResourceAsString("testFiles/testResults/escidocAsOaidc.xml"));
@@ -464,25 +464,25 @@ public class TransformationTest
          
          byte[] result;
          this.logger.info("APA");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output1, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input2, output1, "escidoc");
          this.logger.info("APA - pdf: OK");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output2, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input2, output2, "escidoc");
          this.logger.info(new String (result,"UTF-8"));
          this.logger.info("APA - html: OK");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output3, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input2, output3, "escidoc");
          this.logger.info("APA - rtf: OK");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output4, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input2, output4, "escidoc");
          this.logger.info("APA - odt: OK");
          
          this.logger.info("AJP");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output1, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input3, output1, "escidoc");
          this.logger.info("AJP - pdf: OK");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output2, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input3, output2, "escidoc");
          this.logger.info(new String (result,"UTF-8"));
          this.logger.info("AJP - html: OK");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output3, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input3, output3, "escidoc");
          this.logger.info("AJP - rtf: OK");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output4, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), input3, output4, "escidoc");
          this.logger.info("AJP - odt: OK");
      }
      
@@ -497,13 +497,13 @@ public class TransformationTest
          byte[] result;
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-v2");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-ver1.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_i, out_i, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-v2, file with multiply items (Exception!)");
          try 
          {
-	         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
+	         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_i, out_i, "escidoc");
 	         Assert.fail("Exception should be thrown!");
          }
          catch (Exception e)
@@ -512,15 +512,15 @@ public class TransformationTest
          }
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-ver1.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_i, out_il, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2, file with multiply items");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_i, out_il, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2, file with multiply items");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_i, out_il, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-list-v1 to escidoc-publication-item-v2, 0 items (Exception!)");
@@ -534,7 +534,7 @@ public class TransformationTest
         	 this.logger.info("OK");
          }
          logger.info("escidoc-publication-item-list-v1 to escidoc-publication-item-list-v2, file with multiply items");
-         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_il, out_il, "escidoc");
+         result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_il, out_il, "escidoc");
          this.logger.info("OK");
 
          
@@ -597,7 +597,7 @@ public class TransformationTest
          */
     	   
     	 logger.info("escidoc-publication-item-v2 to escidoc-publication-item-list-v1");
-    	 result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-ver2.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+    	 result = trans.transform(ResourceUtil.getResourceAsString("testFiles/escidoc/escidoc-item-ver2.xml", TransformationTest.class.getClassLoader()).getBytes("UTF-8"), in_i, out_il, "escidoc");
     	 this.logger.info("OK");
     	 
     	 /*

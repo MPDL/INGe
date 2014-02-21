@@ -232,7 +232,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformContainerIntegrationTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list
@@ -302,7 +302,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformContainerIntegrationTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
