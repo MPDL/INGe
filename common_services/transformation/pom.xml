@@ -169,12 +169,19 @@
 			<version>2.3.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>external</groupId>
 			<artifactId>scannotation</artifactId>
 			<version>1.0.2</version>
       		<scope>compile</scope>
 		</dependency>
+		-->
+		<dependency>
+         <groupId>org.reflections</groupId>
+         <artifactId>reflections</artifactId>
+         <version>0.9.9-RC1</version>
+     	</dependency>
 		<dependency>
 			<groupId>external</groupId>
 			<artifactId>java_assist</artifactId>

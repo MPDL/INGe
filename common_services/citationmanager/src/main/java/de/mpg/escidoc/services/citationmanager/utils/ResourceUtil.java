@@ -213,7 +213,12 @@ public class ResourceUtil
     public static String getPathToClasses() throws IOException
     {
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
-        String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
+        
+    	String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
+    	if(result.startsWith("vfs:"))
+    	{
+    		result="";
+    	}
         // jar context!!!
         //logger.debug("result:" + result);
         return 
