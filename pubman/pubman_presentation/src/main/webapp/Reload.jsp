@@ -34,7 +34,7 @@
         doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
-	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
+	<f:view locale="#{InternationalizationHelper.userLocale}" >
 		<h:outputText value="#{AffiliationTree.resetMessage}"/>
 		<h:outputText value="#{ApplicationBean.reloadResourceBundlesAndProperties}"/>
 	</f:view>

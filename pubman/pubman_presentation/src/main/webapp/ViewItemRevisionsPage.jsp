@@ -43,7 +43,7 @@
 			<head>
 
 				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}::#{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter"/></title>
-				<link id="lnkViewItemRevisionsPageTitle" rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
+				<link id="lnkViewItemRevisionsPageTitle" rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 

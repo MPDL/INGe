@@ -44,7 +44,7 @@
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<!-- <% /*
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{MyTasksRetrieverRequestBean.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="${MyTasksRetrieverRequestBean.unapiURLview}"/>
 				*/ %> -->
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 

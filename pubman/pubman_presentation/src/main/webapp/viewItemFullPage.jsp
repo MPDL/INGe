@@ -42,7 +42,7 @@
 			<head>
 
 				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" /></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}"/>
 				
 
 				<h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>

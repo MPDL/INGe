@@ -42,7 +42,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{MyItemsRetrieverRequestBean.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="${MyItemsRetrieverRequestBean.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 			</head>
@@ -69,7 +69,7 @@
 							</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu" rendered="#{LoginHelper.isDepositor}">
+							<div class="contentMenu">
 							<!-- content menu starts here -->
 								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
