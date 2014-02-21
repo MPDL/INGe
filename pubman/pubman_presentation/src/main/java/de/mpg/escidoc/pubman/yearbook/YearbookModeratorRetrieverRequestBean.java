@@ -93,7 +93,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
+            this.searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
             
         }
         catch (NamingException e)
@@ -204,7 +204,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
               LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); 
               ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
               InitialContext initialContext = new InitialContext();
-              XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+              XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         
               // define the filter criteria
               FilterTaskParamVO filter = new FilterTaskParamVO();
@@ -293,7 +293,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
                 InitialContext initialContext = new InitialContext();
                 PubItemPublishing pubItemPublishing = (PubItemPublishing)initialContext
-                    .lookup(PubItemPublishing.SERVICE_NAME);
+                    .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
                 for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems())
                 {
                     if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) 
@@ -334,7 +334,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
                 ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
                 InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
                 TaskParamVO param = null;
                 String paramXml = null;
                 for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems())

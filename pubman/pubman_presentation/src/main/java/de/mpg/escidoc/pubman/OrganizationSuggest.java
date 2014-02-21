@@ -71,7 +71,7 @@ public class OrganizationSuggest extends EditItemBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.search = (Search) initialContext.lookup(Search.SERVICE_NAME);
+            this.search = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
         }
         catch (NamingException ne)
         {

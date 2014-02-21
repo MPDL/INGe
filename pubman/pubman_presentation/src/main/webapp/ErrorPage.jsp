@@ -46,7 +46,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{ErrorPage.beanName}" styleClass="noDisplay" />
 			<h:form id="form1">
 			<div class="full wrapper">

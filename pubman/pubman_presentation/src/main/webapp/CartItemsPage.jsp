@@ -49,7 +49,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{CartItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<h:outputText value="#{CartItemsPage.beanName}" styleClass="noDisplay" />
 			<h:form >

@@ -31,14 +31,18 @@
 package de.mpg.escidoc.pubman.util;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.Internationalized;
@@ -585,6 +589,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getGenreGroup()
     {
+    	URL url = this.getClass().getClassLoader().getResource("Genre_BOOK.properties");
+    	URL url2 = this.getClass().getClassLoader().getResource("pubman.properties");
+    	URL url3 = this.getClass().getClassLoader().getResource("auth.properties");
+    	Logger.getLogger(this.getClass()).info(url);
+    	Logger.getLogger(this.getClass()).info(url2);
+    	Logger.getLogger(this.getClass()).info(url3);
         return ResourceBundle.getBundle("Genre_" + this.getMetadata().getGenre()).getString("genre_group_value");
     }
 

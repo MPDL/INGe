@@ -207,7 +207,7 @@ public class HomePage extends BreadcrumbPage
     public List<PubItemVOPresentation> getLatest() throws Exception
     {
         InitialContext ictx = new InitialContext();
-        Search search = (Search)ictx.lookup(Search.SERVICE_NAME);
+        Search search = (Search)ictx.lookup("java:global/pubman_ear/search/SearchBean");
         String cqlQuery = "escidoc.objecttype=item and escidoc.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         SearchQuery cql = new PlainCqlQuery(cqlQuery);
         cql.setMaximumRecords("4");

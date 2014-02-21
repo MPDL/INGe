@@ -31,12 +31,15 @@
 package de.mpg.escidoc.pubman.init;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -50,14 +53,32 @@ public class GenreServlet extends HttpServlet
     {
         try
         {
+        	/*
+        	InputStream is = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.pubman.genres.configuration"), GenreServlet.class.getClassLoader());
+        	
+        	if(is == null)
+        	{
+        		is = GenreServlet.class.getResourceAsStream(ResourceUtil.resolveFileName(PropertyReader.getProperty("escidoc.pubman.genres.configuration")));
+        	}
+        	*/
+        	
+        	//InputStream defaultIs = GenreServlet.class.getResourceAsStream("WEB-INF/classes/Genres.xml");
 
-            File file = ResourceUtil.getResourceAsFile(PropertyReader.getProperty("escidoc.pubman.genres.configuration"));
-            File defaultFile = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml");
-            String dir = defaultFile.getAbsolutePath().substring(0, defaultFile.getAbsolutePath().lastIndexOf(File.separator));
+         
+            //String dir = defaultFile.getAbsolutePath().substring(0, defaultFile.getAbsolutePath().lastIndexOf(File.separator));
 
+        	
+        	
+        	InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.pubman.genres.configuration"), GenreServlet.class.getClassLoader());
+            //File defaultFile = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml", GenreServlet.class.getClassLoader());
+            //String dir = defaultFile.getAbsolutePath().substring(0, defaultFile.getAbsolutePath().lastIndexOf(File.separator));
+        	
+        	
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
-            DefaultHandler handler = new GenreHandler(dir);
+            
+            String jbossHomeDir = System.getProperty("jboss.home.dir");
+            DefaultHandler handler = new GenreHandler(jbossHomeDir + "/modules/pubman/main");
 
             parser.parse(file, handler);
         }

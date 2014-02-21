@@ -197,7 +197,7 @@ public class EditItem extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.itemValidating = (ItemValidating) initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
         }
         catch (NamingException ne)
         {
@@ -643,7 +643,7 @@ public class EditItem extends FacesBean
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        XmlTransforming ctransforming = (XmlTransforming)context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         return ctransforming.transformUploadResponseToFileURL(response);
     }
 
@@ -2319,7 +2319,7 @@ public String logUploadComplete()
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         UserAccountHandler userAccountHandler = null;
         
         HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -2372,7 +2372,7 @@ public String logUploadComplete()
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         UserAccountHandler userAccountHandler = null;
         
         if (this.item.getVersion().getModifiedByRO() != null && this.item.getVersion().getModifiedByRO().getObjectId() != null)

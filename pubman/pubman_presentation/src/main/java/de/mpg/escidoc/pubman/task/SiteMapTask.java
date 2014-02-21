@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -55,6 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElemen
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.bean.SearchBean;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
@@ -71,6 +74,7 @@ import de.mpg.escidoc.services.search.query.SearchQuery;
 public class SiteMapTask extends Thread
 {
     private static final Logger logger = Logger.getLogger(SiteMapTask.class);
+    
     
     private Search search;
     private ArrayList<String> contentModels;
@@ -102,9 +106,12 @@ public class SiteMapTask extends Thread
         {
             logger.info("Starting to create Sitemap.");
             
+
             InitialContext context = new InitialContext();
-            search = (Search) context.lookup(Search.SERVICE_NAME);
-            
+            //search = (Search) context.lookup(Search.SERVICE_NAME);
+
+            search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
+
             instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
             contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
             itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
@@ -130,10 +137,12 @@ public class SiteMapTask extends Thread
             
             finishSitemap();
             
-            String appPath;
+            String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/sitemap";
+            new File(appPath).mkdir();
+            /*
             try
             {
-                appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp").getAbsolutePath();
+                appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp", SiteMapTask.class.getClassLoader()).getAbsolutePath();
             }
             catch (Exception e)
             {
@@ -141,7 +150,7 @@ public class SiteMapTask extends Thread
                 return;
             }
             appPath = appPath.substring(0, appPath.lastIndexOf(System.getProperty("file.separator")) + 1);
-            
+            */
             if (files.size() == 1)
             {
                 File finalFile = new File(appPath + "sitemap.xml");

@@ -53,7 +53,7 @@
 					converter="HTMLTitleSubSupConverter" />
 				</title>
 				<link rel="unapi-server" type="application/xml" title="unAPI"
-					href="#{ViewItemFull.unapiURLview}" />
+					href="${ViewItemFull.unapiURLview}" />
 				
 				<h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 				
@@ -61,7 +61,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 			</head>
 
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{ViewItemFullPage.beanName}"
 					styleClass="noDisplay" />
 				<!-- The unAPI Identifier for this item -->

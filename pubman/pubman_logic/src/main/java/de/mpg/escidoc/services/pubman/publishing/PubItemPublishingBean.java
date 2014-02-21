@@ -30,10 +30,10 @@
 
 package de.mpg.escidoc.services.pubman.publishing;
 
-import java.net.URLEncoder;
 import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -41,7 +41,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
@@ -80,8 +79,7 @@ import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
  * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
-@Remote
-@RemoteBinding(jndiBinding = PubItemPublishing.SERVICE_NAME)
+@Local(PubItemPublishing.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors({ LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })

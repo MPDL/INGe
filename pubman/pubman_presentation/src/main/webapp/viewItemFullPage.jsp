@@ -50,7 +50,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{ViewItemFullPage.beanName}" styleClass="noDisplay" />
 			<!-- The unAPI Identifier for this item -->
 			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>

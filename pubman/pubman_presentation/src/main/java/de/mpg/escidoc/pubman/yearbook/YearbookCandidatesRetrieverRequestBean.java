@@ -98,7 +98,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
+            this.searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
             
         }
         catch (NamingException e)

@@ -29,14 +29,12 @@
 */
 package de.mpg.escidoc.services.pubman.statistics;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -45,7 +43,6 @@ import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
@@ -72,7 +69,6 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRec
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 
@@ -88,8 +84,7 @@ import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
  *
  */
 
-@Remote
-@RemoteBinding(jndiBinding = PubItemSimpleStatistics.SERVICE_NAME)
+@Local
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
@@ -102,6 +97,8 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     
     //private HashMap<String, String> reportDefinitionMap;
     
+    @EJB
+    private StatisticLogger statisticLogger;
     
     public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS;
     public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS;
@@ -232,7 +229,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
 	    	{
 	    		logger.info("No pubman aggregation definition found, creating one");
 	    		
-	    		String aggregationDefinitionXml = ResourceUtil.getResourceAsString("pubman_object_stats_aggregation.xml");
+	    		String aggregationDefinitionXml = ResourceUtil.getResourceAsString("pubman_object_stats_aggregation.xml", SimpleStatistics.class.getClassLoader());
 	    		String createdAggDefXml = adh.create(aggregationDefinitionXml);
 	    		AggregationDefinitionVO aggCreated = xmlTransforming.transformToStatisticAggregationDefinition(createdAggDefXml);
 	    		logger.info("Pubman aggregation definition created with id " + aggCreated.getObjectId());
@@ -342,7 +339,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     
     private List<StatisticReportDefinitionVO> retrieveReportDefinitionListFromFile() throws Exception
     {
-        String repDefListXML = ResourceUtil.getResourceAsString(REPORTDEFINITION_FILE);
+        String repDefListXML = ResourceUtil.getResourceAsString(REPORTDEFINITION_FILE, SimpleStatistics.class.getClassLoader());
         String[] repDefs = repDefListXML.split("\n");
         List<StatisticReportDefinitionVO> repDefVOList = new ArrayList<StatisticReportDefinitionVO>();
         for(String repDefXml : repDefs)
@@ -459,9 +456,9 @@ public class SimpleStatistics implements PubItemSimpleStatistics
             paramList.addAll(additionalParams);
         }
         
-        InitialContext ic = new InitialContext();
-        StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
-        sl.logItemAction(sessionId, ip, userAgent, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
+        //InitialContext ic = new InitialContext();
+        //StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+        statisticLogger.logItemAction(sessionId, ip, userAgent, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
     }
     
     public void logPubItemAction(PubItemVO pubItem, String ip, String userAgent, ItemAction action, String sessionId,  boolean loggedIn, String referer) throws Exception

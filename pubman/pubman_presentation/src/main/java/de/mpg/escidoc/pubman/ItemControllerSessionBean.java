@@ -153,17 +153,17 @@ public class ItemControllerSessionBean extends FacesBean
 			InitialContext initialContext = new InitialContext();
 
 			// initialize used Beans
-			this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
-			this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
-			this.search = (Search) initialContext.lookup(Search.SERVICE_NAME);
-			this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-			this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
-			this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
-			this.emailHandling = (EmailHandling) initialContext.lookup(EmailHandling.SERVICE_NAME);
-			this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
-			this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
+			this.pubItemDepositing = (PubItemDepositing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+			this.pubItemPublishing = (PubItemPublishing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+			this.search = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
+			this.xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+			this.itemValidating = (ItemValidating) initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+			this.itemExporting = (ItemExporting) initialContext.lookup("java:global/pubman_ear/pubman_logic/ItemExportingBean");
+			this.emailHandling = (EmailHandling) initialContext.lookup("java:global/pubman_ear/common_logic/EmailHandlingBean");
+			this.dataGathering = (DataGathering) initialContext.lookup("java:global/pubman_ear/common_logic/DataGatheringBean");
+			this.qualityAssurance = (QualityAssurance) initialContext.lookup("java:global/pubman_ear/pubman_logic/QualityAssuranceBean");
 			this.pubItemStatistic  =
-				(PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+				(PubItemSimpleStatistics) initialContext.lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
 		}
 		catch (NamingException e)
 		{

@@ -52,7 +52,7 @@
 				
 			</head>
 			<!-- Use onunload here in order to hinder browser to cache the page -->
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<h:form>

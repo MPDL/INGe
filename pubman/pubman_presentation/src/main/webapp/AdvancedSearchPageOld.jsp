@@ -48,7 +48,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<h:form >

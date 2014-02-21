@@ -47,7 +47,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{YearbookModeratorRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<h:form >
 			<div class="full wrapper">

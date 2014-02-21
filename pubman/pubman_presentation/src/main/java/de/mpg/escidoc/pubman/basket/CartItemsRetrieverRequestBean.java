@@ -87,7 +87,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
             
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       
             
             List<ItemRO> idList = new ArrayList<ItemRO>();

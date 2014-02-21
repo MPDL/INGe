@@ -46,17 +46,24 @@
 	</scm>
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.4.2</version>
+				<version>2.9</version>
 				<configuration>
+					<applicationName>pubman_ear</applicationName>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
+					
 					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
-					<version>5</version>
+					<packagingExcludes>./*.properties</packagingExcludes>
+					<version>6</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+
 					<modules>
 						<webModule>
+						
 							<groupId>de.mpg.escidoc.pubman</groupId>
 							<artifactId>pubman_presentation</artifactId>
 							<contextRoot>/pubman</contextRoot>
@@ -119,44 +126,10 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>dataacquisition</artifactId>
 						</ejbModule>
-						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>framework_access</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>cone</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans</groupId>
-							<artifactId>mods_3.2</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans</groupId>
-							<artifactId>mets_1.7</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans</groupId>
-							<artifactId>escidoc-container</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans</groupId>
-							<artifactId>escidoc-item</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans</groupId>
-							<artifactId>escidoc-toc</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
 							<artifactId>pubman_logic</artifactId>
+							<moduleId>pubman_logic</moduleId>
 						</ejbModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -174,221 +147,13 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>transformation</artifactId>
 						</ejbModule>
-						<jarModule>
-							<groupId>org.jibx</groupId>
-							<artifactId>jibx-run</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>stax</groupId>
-							<artifactId>stax</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-httpclient</groupId>
-							<artifactId>commons-httpclient</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-discovery</groupId>
-							<artifactId>commons-discovery</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>jasperreports</groupId>
-							<artifactId>jasperreports</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>axis</groupId>
-							<artifactId>axis</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>wss4j</groupId>
-							<artifactId>wss4j</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>net.sf.saxon</groupId>
-							<artifactId>saxon</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>net.sf.saxon</groupId>
-							<artifactId>saxon-dom</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>						
-						<jarModule>
-							<groupId>org.richfaces.ui</groupId>
-							<artifactId>richfaces-ui</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.richfaces.framework</groupId>
-							<artifactId>richfaces-impl</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-beanutils</groupId>
-							<artifactId>commons-beanutils</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>com.lowagie</groupId>
-							<artifactId>itext</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>javabib</groupId>
-							<artifactId>javabib</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.apache.xmlbeans</groupId>
-							<artifactId>xmlbeans</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.mulgara</groupId>
-							<artifactId>itql</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.dspace</groupId>
-							<artifactId>cql-java</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-digester</groupId>
-							<artifactId>commons-digester</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<!-- 
-						<jarModule>
-							<groupId>jsf-facelets</groupId>
-							<artifactId>jsf-facelets</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						-->
-						<jarModule>
-							<groupId>postgresql</groupId>
-							<artifactId>postgresql</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>urlrewrite</groupId>
-							<artifactId>urlrewrite</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>jfree</groupId>
-							<artifactId>jfreechart</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>jfree</groupId>
-							<artifactId>jcommon</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans</groupId>
-							<artifactId>transformation</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>external</groupId>
-							<artifactId>scannotation</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>external</groupId>
-							<artifactId>java_assist</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans.dataacquisition</groupId>
-							<artifactId>sources</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans.dataacquisition</groupId>
-							<artifactId>unapisources</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xmlbeans.dataacquisition</groupId>
-							<artifactId>unapiformats</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>sword</groupId>
-							<artifactId>swordcommon</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>sword</groupId>
-							<artifactId>xom</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-fileupload</groupId>
-							<artifactId>commons-fileupload</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-io</groupId>
-							<artifactId>commons-io</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>com.maxmind.geoip</groupId>
-							<artifactId>geoip</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>aa_logic</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.apache.tika</groupId>
-			 				<artifactId>tika-core</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.apache.fop</groupId>
-							<artifactId>fop</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.apache.xmlgraphics</groupId>
-							<artifactId>xmlgraphics-commons</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.apache</groupId>
-							<artifactId>batik</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.apache.avalon</groupId>
-							<artifactId>avalon-framework</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>xml-resolver</groupId>
-							<artifactId>xml-resolver</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.marc4j</groupId>
-							<artifactId>marc4j</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
+
 					</modules>
+					-->
+					
 				</configuration>
-			</plugin>			
+			</plugin>
+	
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
@@ -450,18 +215,7 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>wss4j</groupId>
-			<artifactId>wss4j</artifactId>
-			<version>1.5.1</version>
-			<scope>compile</scope>
-		</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -469,10 +223,16 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>framework_access</artifactId>
-			<version>${version.framework_access}</version>
-			<scope>compile</scope>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
@@ -525,6 +285,13 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>cone</artifactId>
+			<version>${version.cone}</version>
+			<scope>compile</scope>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
 	 	<version>${version.dataacquisition_presentation}</version>
 			<scope>compile</scope>
@@ -543,18 +310,6 @@
 			<version>${version.aa_presentation}</version>
 			<scope>compile</scope>
 			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>aa_logic</artifactId>
-			<version>${version.aa_logic}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>transformation</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
@@ -607,18 +362,72 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>cone</artifactId>
-			<version>${version.cone}</version>
-			<scope>compile</scope>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_presentation</artifactId>
 			<version>${version.common_presentation}</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>pid_cache_presentation</artifactId>
+			<version>${version.pid_cache_presentation}</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>pid_cache_presentation</artifactId>
+			<version>${version.pid_cache_presentation}</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.10</version>
+		</dependency>
+		
+	<!--  
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>framework_access</artifactId>
+			<version>${version.framework_access}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>aa_logic</artifactId>
+			<version>${version.aa_logic}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>transformation</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		
+
+
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -776,12 +585,7 @@
 			<version>3.9.0</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0.2</version>
-			<scope>test</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>xmlbeans.dataacquisition</groupId>
 			<artifactId>sources</artifactId>
@@ -839,86 +643,80 @@
 			<artifactId>marc4j</artifactId>
 			<version>2.4</version>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>pid_cache_presentation</artifactId>
-			<version>${version.pid_cache_presentation}</version>
-			<scope>compile</scope>
-			<type>war</type>
-		</dependency>
+
+		-->
 	</dependencies>
 	<profiles>
 		<profile>
 			<id>jboss42</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jboss-maven-plugin</artifactId>
-						<version>1.5.0</version>
-						<configuration>
-							<jbossHome>${jboss.install.dir}</jbossHome>
-							<serverName>${jboss.install.node}</serverName>
-							<hostName>${jboss.deploy.host}</hostName>
-							<port>${jboss.deploy.port}</port>
-						</configuration>
-					</plugin>
+					 <plugin>
+                		<groupId>org.wildfly.plugins</groupId>
+                		<artifactId>wildfly-maven-plugin</artifactId>
+                		<version>1.0.0.Final</version>
+                		<configuration>
+                    		<jboss-home>${jboss.install.dir}</jboss-home>
+                    	</configuration>
+           			 </plugin>
 					<plugin>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<version>1.3</version>
 						<executions>
 							<execution>
 								<id>prepare-test-deployment</id>
-								<phase>generate-test-sources</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
 								<configuration>
 									<tasks>
-										<!-- copy a default jboss server configuration -->
-										<copy todir="${project.build.directory}">
-											<fileset dir="src/jboss/configuration42x" />
-										</copy>
-										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments"/>
+										<!-- configuration for the deploy jboss server -->
+										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
 										<!-- copy over the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${project.build.directory}/jboss/server/conf/cone.properties" />
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/modules/pubman/main/cone.properties" />
 										<!-- copy over the aa configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration xml -->
-										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
 										<!-- copy over the apache FOP configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 									</tasks>
 								</configuration>
 							</execution>
 							<execution>
 								<id>prepare-deployment</id>
-								<phase>process-resources</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
 								<configuration>
 									<tasks>
+									
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments"/>
 										<!-- configuration for the deploy jboss server -->
-										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
+										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
 										<!-- copy over the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/server/${jboss.install.node}/conf/cone.properties" />
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/modules/pubman/main/cone.properties" />
 										<!-- copy over the aa configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration xml -->
-										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
 										<!-- copy over the apache FOP configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- configuration for the runtime server jboss server -->
 										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" /> <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml"> 
 											</copy> -->

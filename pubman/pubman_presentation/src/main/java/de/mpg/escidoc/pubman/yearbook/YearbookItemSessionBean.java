@@ -76,9 +76,9 @@ public class YearbookItemSessionBean extends FacesBean
             this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
             this.itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
             InitialContext initialContext = new InitialContext();
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            this.searchService = (Search)initialContext.lookup(Search.SERVICE_NAME);
-            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+            this.searchService = (Search)initialContext.lookup("java:global/pubman_ear/search/SearchBean");
+            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
             this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
             if (loginHelper.getIsYearbookEditor())
             {
@@ -463,7 +463,7 @@ public class YearbookItemSessionBean extends FacesBean
         try {
             List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
             InitialContext initialContext = new InitialContext();
-            Search searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
+            Search searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
             String query = "";
             PubItemVO item = this.getYearbookItem();
             

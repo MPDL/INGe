@@ -149,7 +149,7 @@ public class PubFileVOPresentation extends FacesBean
             {
                 InitialContext initialContext = new InitialContext();
                 pubItemStatistics = (PubItemSimpleStatistics)
-                        initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+                        initialContext.lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
             }
             catch (NamingException e)
             {

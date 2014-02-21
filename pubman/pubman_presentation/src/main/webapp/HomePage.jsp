@@ -41,12 +41,12 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument"/>
-				<meta name="description" content="Title: #{lbl.Pubman_descriptionMetaTag}"></meta>
+				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="${ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument"/>
+				<meta name="description" content="Title: ${lbl.Pubman_descriptionMetaTag}"></meta>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
 				<h:form id="form1">
 					<div class="full wrapper">

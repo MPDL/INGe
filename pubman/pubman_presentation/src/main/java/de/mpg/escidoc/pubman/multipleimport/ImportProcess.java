@@ -224,7 +224,7 @@ public class ImportProcess extends Thread
             this.rollback = rollback;
             this.duplicateStrategy = duplicateStrategy;
             InitialContext context = new InitialContext();
-            this.itemValidating = (ItemValidating) context.lookup(ItemValidating.SERVICE_NAME);
+            this.itemValidating = (ItemValidating) context.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
             this.xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
             this.pubItemDepositing = (PubItemDepositing) context.lookup(PubItemDepositing.SERVICE_NAME);
             this.search = (Search) context.lookup(Search.SERVICE_NAME);
@@ -594,7 +594,7 @@ public class ImportProcess extends Thread
             HttpClient client = new HttpClient();
             ProxyHelper.setProxy(client, fwUrl);
         
-        	StringBuilder sb = new StringBuilder(ResourceUtil.getResourceAsString("multipleImport/ImportTaskTemplate.xml"));
+        	StringBuilder sb = new StringBuilder(ResourceUtil.getResourceAsString("multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
         	replace("$01", escape(this.escidocContext.getObjectId()), sb);
         	replace("$02", escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
         	replace("$03", escape("Import Task Item for import " + name + " "), sb);

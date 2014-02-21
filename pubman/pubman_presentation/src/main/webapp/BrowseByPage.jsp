@@ -44,7 +44,7 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{BrowseByBreadcrumbPage.beanName}" styleClass="noDisplay" />
 			<h:form  onsubmit="fullItemReload();">
 			<div class="full wrapper">

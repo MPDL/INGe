@@ -70,6 +70,13 @@
 					<ejbVersion>3.0</ejbVersion>
 				</configuration>
 			</plugin>
+					<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-ejb-plugin</artifactId>
+		    <configuration>
+		        <ejbVersion>3.0</ejbVersion>
+		    </configuration>
+		</plugin>
 		</plugins>
 	</build>
 	
@@ -78,37 +85,37 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
 			<version>${version.citationmanager}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>${version.structuredexportmanager}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
 			<version>${version.validation}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>${version.common_logic}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<version>${version.dataacquisition}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
 			<version>${version.transformation}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
@@ -120,7 +127,7 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
 			<version>${version.search}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -149,6 +156,12 @@
 			<artifactId>xom</artifactId>
 			<version>1.2.1</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

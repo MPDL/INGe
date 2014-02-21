@@ -330,11 +330,11 @@ public class ViewItemFull extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.pubItemDepositing = (PubItemDepositing)initialContext.lookup(PubItemDepositing.SERVICE_NAME);
-            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.pubItemDepositing = (PubItemDepositing)initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
             this.pubManStatistics = (PubItemSimpleStatistics)initialContext
-            .lookup(PubItemSimpleStatistics.SERVICE_NAME);
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            .lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
+            this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
             this.transformer = getApplicationBean().getTransformationService();
 
         }
@@ -3193,7 +3193,7 @@ public class ViewItemFull extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            ItemExporting itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
+            ItemExporting itemExporting = (ItemExporting) initialContext.lookup("java:global/pubman_ear/pubman_logic/ItemExportingBean");
 
             List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
             pubItemList.add(new PubItemVO(getPubItem()));

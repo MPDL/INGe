@@ -52,7 +52,7 @@ public interface PubItemPublishing {
     /**
      * The service name.
      */
-	public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/PubItemPublishing";
+	public static final String SERVICE_NAME = "java:global/de/mpg/escidoc/services/pubman/PubItemPublishing";
 
 	/**
 	 * Releases the publication item identified by the given pubItemRef.

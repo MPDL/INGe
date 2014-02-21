@@ -205,8 +205,8 @@ public class EasySubmission extends FacesBean
             InitialContext initialContext = new InitialContext();
             ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
             this.transformer = appBean.getTransformationService();
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidating");
         }
         catch (NamingException ne)
         {
@@ -985,7 +985,7 @@ public class EasySubmission extends FacesBean
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        XmlTransforming ctransforming = (XmlTransforming)context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         return ctransforming.transformUploadResponseToFileURL(response);
     }
 
@@ -1011,7 +1011,7 @@ public class EasySubmission extends FacesBean
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        XmlTransforming ctransforming = (XmlTransforming)context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         return ctransforming.transformUploadResponseToFileURL(response);
     }
 

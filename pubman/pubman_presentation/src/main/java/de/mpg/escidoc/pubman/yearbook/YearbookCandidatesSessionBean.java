@@ -72,7 +72,7 @@ public class YearbookCandidatesSessionBean extends FacesBean
 				orgUnitSelectItems = new ArrayList<SelectItem>();
 	            orgUnitSelectItems.add(new SelectItem("all", "-"));
 				InitialContext initialContext = new InitialContext();
-				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 				String topLevelOU = ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization().getIdentifier());
 				AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);

@@ -85,7 +85,7 @@ public class Home extends FacesBean
     public List<PubItemVOPresentation> getLatest() throws Exception
     {
         InitialContext ictx = new InitialContext();
-        Search search = (Search)ictx.lookup(Search.SERVICE_NAME);
+        Search search = (Search)ictx.lookup("java:global/pubman_ear/search/searchBean");
         //SearchRetrieverRequestBean srrb = (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
         String cqlQuery = "escidoc.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         SearchQuery cql = new PlainCqlQuery(cqlQuery);

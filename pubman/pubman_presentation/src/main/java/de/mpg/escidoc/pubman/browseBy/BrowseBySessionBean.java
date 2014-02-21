@@ -402,7 +402,7 @@ public class BrowseBySessionBean extends FacesBean
         try
         {
             InitialContext ic = new InitialContext();
-            Search search = (Search) ic.lookup(Search.SERVICE_NAME);
+            Search search = (Search) ic.lookup("java:global/pubman_ear/search/SearchBean");
 
             result = search.searchForItemContainer(query);
             item =  extractItemsOfSearchResult(result);

@@ -46,7 +46,7 @@
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{MyItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
 			<h:outputText value="#{DepositorWSPage.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
 			<h:form >

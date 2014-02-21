@@ -59,7 +59,7 @@ public class InitializerServlet extends HttpServlet
         {
             InitialContext initialContext = new InitialContext();
             final PubItemSimpleStatistics statistics =
-                (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+                (PubItemSimpleStatistics) initialContext.lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
             
             //call method as thread. If coreservice and PubMan are deployed ion the same jboss, this method is blocked until both applications are completely deployed
             new Thread(){

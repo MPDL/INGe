@@ -179,7 +179,7 @@ public class StatisticChartServlet extends HttpServlet
         try
         {
             InitialContext initialContext = new InitialContext();
-            pubItemStatistic  = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+            pubItemStatistic  = (PubItemSimpleStatistics) initialContext.lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
         }
         catch (NamingException e1)
         {

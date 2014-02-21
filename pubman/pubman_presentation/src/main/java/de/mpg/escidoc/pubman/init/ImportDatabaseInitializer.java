@@ -66,7 +66,7 @@ public class ImportDatabaseInitializer
                 PropertyReader.getProperty("escidoc.import.database.user.name"),
                 PropertyReader.getProperty("escidoc.import.database.user.password"));
         
-        String dbScript = ResourceUtil.getResourceAsString("import_database.sql");
+        String dbScript = ResourceUtil.getResourceAsString("import_database.sql", ImportDatabaseInitializer.class.getClassLoader());
         
         String[] queries = dbScript.split(";");
         

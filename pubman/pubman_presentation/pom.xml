@@ -67,6 +67,7 @@
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-war-plugin</artifactId>
         		<configuration>
+        			<warName>pubman_presentation</warName>
         			<warSourceExcludes>**/opensource/**</warSourceExcludes>
         		</configuration>
       		</plugin>
@@ -74,7 +75,8 @@
 				<groupId>org.zeroturnaround</groupId>
 				<artifactId>javarebel-maven-plugin</artifactId>
 				<version>1.0.5</version>
-			</plugin>     
+			</plugin>   
+			  
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -381,12 +383,69 @@
 		    <version>1.2</version>
 		    <scope>provided</scope>
 		</dependency>
-		<!-- JBOSS 4.2.3 is using this version of JSF. Just provided for for Eclipse here. -->
+		
+		<dependency>
+		  <groupId>javax.faces</groupId>
+		  <artifactId>jsf-api</artifactId>
+		  <version>1.2_09</version>
+		  <scope>provided</scope>
+		</dependency>
+
 		<dependency>
 		  <groupId>javax.faces</groupId>
 		  <artifactId>jsf-impl</artifactId>
-		  <version>1.2_09-BETA1</version>
+		  <version>1.2_09</version>
 		  <scope>provided</scope>
+		</dependency>
+
+		
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>citationmanager</artifactId>
+			<version>${version.citationmanager}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>structuredexportmanager</artifactId>
+			<version>${version.structuredexportmanager}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>validation</artifactId>
+			<version>${version.validation}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>common_logic</artifactId>
+			<version>${version.common_logic}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>dataacquisition</artifactId>
+			<version>${version.dataacquisition}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>transformation</artifactId>
+			<version>${version.transformation}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>search</artifactId>
+			<version>${version.search}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		

@@ -49,7 +49,7 @@
 
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<h:outputText value="#{ViewRevisionsPage.beanName}" styleClass="noDisplay" />
 			<h:form >

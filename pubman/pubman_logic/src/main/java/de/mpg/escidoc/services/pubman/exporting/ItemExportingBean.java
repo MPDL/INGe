@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -42,7 +43,6 @@ import javax.ejb.TransactionAttributeType;
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
@@ -66,8 +66,7 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
  * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
-@Remote
-@RemoteBinding(jndiBinding = ItemExporting.SERVICE_NAME)
+@Local
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemExportingBean implements ItemExporting

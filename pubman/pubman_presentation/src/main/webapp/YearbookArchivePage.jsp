@@ -45,7 +45,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{YearbookArchiveBean.beanName}" styleClass="noDisplay" />
 			<h:outputText value="#{YearbookArchivePage.beanName}" styleClass="noDisplay" />
 			<h:form >

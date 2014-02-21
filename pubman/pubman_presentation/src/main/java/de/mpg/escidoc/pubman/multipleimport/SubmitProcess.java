@@ -88,9 +88,9 @@ public class SubmitProcess extends Thread
             user.setUserid(log.getUser());
 
             InitialContext context = new InitialContext();
-            this.pubItemDepositing = (PubItemDepositing) context.lookup(PubItemDepositing.SERVICE_NAME);
-            this.pubItemPublishing = (PubItemPublishing) context.lookup(PubItemPublishing.SERVICE_NAME);
-            this.xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+            this.pubItemDepositing = (PubItemDepositing) context.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+            this.pubItemPublishing = (PubItemPublishing) context.lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+            this.xmlTransforming = (XmlTransforming) context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
             this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
             this.contextHandler = ServiceLocator.getContextHandler(this.user.getHandle());
         }

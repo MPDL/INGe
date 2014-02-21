@@ -22,6 +22,16 @@
 			<taglib-location>escidoc.tld</taglib-location>
 		</taglib>
 	</jsp-config>
+	
+	
+
+
+    <context-param>
+       <param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
+       <param-value>mojarra-1.2_15</param-value>
+    </context-param>
+ 
+	
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
@@ -76,10 +86,7 @@
 	<!-- <context-param> <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name> 
 		<param-value>session</param-value> </context-param> <context-param> <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name> 
 		<param-value>com.sun.facelets.FaceletViewHandler</param-value> </context-param> -->
-	<context-param>
-		<param-name>facelets.VIEW_MAPPINGS</param-name>
-		<param-value>*.xhtml</param-value>
-	</context-param>
+
 
 
 	<!-- <context-param> <param-name>org.richfaces.SKIN</param-name> <param-value>plain</param-value> 

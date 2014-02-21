@@ -134,7 +134,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
+            this.searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
 
         }
         catch (NamingException e)
@@ -291,7 +291,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
             InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 
             checkSortCriterias(sc);
             

@@ -48,7 +48,7 @@
 
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{SubmissionPage.beanName}" styleClass="noDisplay" />
 			<h:form >
 			<div class="full wrapper">

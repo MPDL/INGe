@@ -49,7 +49,7 @@
 				<link rel="stylesheet" href="./resources/cc_license_style.css" />
 			
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 				
 				<h:form id="form1">

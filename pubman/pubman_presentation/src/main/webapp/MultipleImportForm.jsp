@@ -46,7 +46,7 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{MultipleImportForm.beanName}" styleClass="noDisplay" />
 				<h:form  rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">

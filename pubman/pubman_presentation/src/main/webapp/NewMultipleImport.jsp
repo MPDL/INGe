@@ -47,7 +47,7 @@
 
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{NewMultipleImport.beanName}" styleClass="noDisplay" />
 				<h:form  rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">

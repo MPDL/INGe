@@ -363,7 +363,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         try
         {
             InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
             OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
             if (affiliations.size()==1)
@@ -445,7 +445,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
             try
             {
                 InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 
                 // TODO tendres: This admin login is neccessary because of bug
                 // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
