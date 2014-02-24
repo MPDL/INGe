@@ -97,7 +97,7 @@ public class RestServlet extends HttpServlet
                 
                 // Init validation service
                 InitialContext ctx = new InitialContext();
-                itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
+                itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
                 PrintWriter out = resp.getWriter();
 
                 // validateItemXml

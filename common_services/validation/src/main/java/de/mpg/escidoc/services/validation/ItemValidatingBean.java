@@ -307,7 +307,7 @@ public class ItemValidatingBean implements ItemValidating
     private ValidationTransforming getValidationTransforming() throws NamingException
     {
         InitialContext context = new InitialContext();
-        return (ValidationTransforming) context.lookup(ValidationTransforming.SERVICE_NAME);
+        return (ValidationTransforming) context.lookup("java:global/pubman_ear/validation/ValidationTransformingBean");
     }
 
     /**

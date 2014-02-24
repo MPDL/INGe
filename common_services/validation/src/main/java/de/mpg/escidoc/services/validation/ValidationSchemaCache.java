@@ -844,7 +844,7 @@ public final class ValidationSchemaCache
         {
 
             Context ctx = new InitialContext();
-            DataSource dataSource = (DataSource) ctx.lookup("Validation");
+            DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
             return dataSource.getConnection();
 
         }
@@ -862,7 +862,7 @@ public final class ValidationSchemaCache
         try
         {
             Context ctx = new InitialContext();
-            xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
+            xmlTransforming = (XmlTransforming) ctx.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
             
             factory = new net.sf.saxon.TransformerFactoryImpl();
             factory.setURIResolver(new LocalURIResolver());        

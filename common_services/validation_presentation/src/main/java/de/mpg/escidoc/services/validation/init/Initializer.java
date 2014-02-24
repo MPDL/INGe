@@ -34,6 +34,7 @@ import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +47,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
+import org.jboss.vfs.VFS;
+import org.jboss.vfs.VirtualFile;
 import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -73,11 +76,6 @@ public class Initializer extends Thread
     public static final String SCHEMA_DIRECTORY = "validation_schema";
     public static final String SQL_DIRECTORY = "validation_sql";
     
-    /**
-     * Validation EJB.
-     */
-    @EJB
-    private ItemValidating itemValidating;
 
     /**
      * Default constructor.
@@ -92,13 +90,13 @@ public class Initializer extends Thread
     @Override
     public void run()
     {
-        initializeDatabase(itemValidating);
+        initializeDatabase();
     }
 
     /**
      * This method executes the initialization.
      */
-    public static void initializeDatabase(ItemValidating itemValidating)
+    public static void initializeDatabase()
     {
         LOGGER.info("Initializing validation database...");
         Connection conn = null;
@@ -118,10 +116,10 @@ public class Initializer extends Thread
                 LOGGER.info("Skipping validation schema creation.");
             }
             
-            /*
+            
             Context ctx = new InitialContext();
-            itemValidating = (ItemValidating) ctx.lookup("java:app/validation/ItemValidatingBean");
-            */
+            ItemValidating itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+            
             
             itemValidating.refreshValidationSchemaCache();
             /*
@@ -200,7 +198,7 @@ public class Initializer extends Thread
     	
     	LOGGER.debug("fullScriptName:" + fullScriptName);
     	
-        String sql = ResourceUtil.getResourceAsString(fullScriptName, Initializer.class.getClassLoader());
+        String sql = ResourceUtil.getResourceAsString(fullScriptName, ItemValidating.class.getClassLoader());
         sql = replaceProperties(sql);
         LOGGER.debug("Executing script: " + sql);
         String[] commands = splitSqlScript(sql);
@@ -264,6 +262,10 @@ public class Initializer extends Thread
     private static void insertValidationData(final Connection conn) throws Exception
     {
         URL dirUrl = Initializer.class.getClassLoader().getResource(SCHEMA_DIRECTORY);
+        VirtualFile dirVirtFile = VFS.getChild(dirUrl.toURI());
+
+        
+        /*
         String[] path = (URLDecoder.decode(dirUrl.getPath(), "UTF-8")).split("/|\\\\");
         String modifiedPath = "";
         for (String pathElement : path)
@@ -283,14 +285,20 @@ public class Initializer extends Thread
         modifiedPath = modifiedPath.substring(1);
         LOGGER.debug("Initial schema path: " + modifiedPath);
         File dir = new File(modifiedPath);
-        insertSchemaDirectory(dir, conn);
+        */
+        insertSchemaDirectory(dirVirtFile, conn);
     }
 
-    private static void insertSchemaDirectory(final File dir, final Connection conn) throws Exception
+    private static void insertSchemaDirectory(final VirtualFile dir, final Connection conn) throws Exception
     {
-        File[] schemas = dir.listFiles();
-        LOGGER.debug("Schemas found :" + schemas.length);
-        for (File schema : schemas)
+       // File[] schemas = dir.listFiles();
+        
+        List<VirtualFile> schemas = dir.getChildren();
+        
+        
+        
+        LOGGER.debug("Schemas found :" + schemas.size());
+        for (VirtualFile schema : schemas)
         {
             if (schema.isDirectory())
             {
@@ -298,8 +306,12 @@ public class Initializer extends Thread
             }
             else
             {
-                String schemaContent = ResourceUtil.getResourceAsString(schema.getAbsolutePath(), Initializer.class.getClassLoader());
-                SAXParserFactory factory = SAXParserFactory.newInstance();
+            	
+                //String schemaContent = ResourceUtil.getResourceAsString(schema.getAbsolutePath(), Initializer.class.getClassLoader());
+                String schemaContent = ResourceUtil.getStreamAsString(schema.openStream());
+                
+            	
+            	SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser parser = factory.newSAXParser();
                 IdentityHandler idHandler = new IdentityHandler();
                 parser.parse(new InputSource(new StringReader(schemaContent)), idHandler);

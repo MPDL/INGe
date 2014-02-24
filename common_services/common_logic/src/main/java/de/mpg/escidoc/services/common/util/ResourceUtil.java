@@ -160,6 +160,28 @@ public class ResourceUtil
         }
         return result.toString();
     }
+    
+    /**
+     * Gets a stream as String.
+     *
+     * @param stream The input stream
+     * @return The resource as String.
+     * @throws IOException Thrown if the resource cannot be located.
+     */
+    public static String getStreamAsString(final InputStream stream) throws IOException
+    {
+       
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        String line = null;
+        StringBuilder result = new StringBuilder();
+        while ((line = br.readLine()) != null)
+        {
+            result.append(line);
+            result.append("\n");
+        }
+        stream.close();
+        return result.toString();
+    }
 
     /**
      * Gets a resource as String.
