@@ -225,9 +225,9 @@ public class ImportProcess extends Thread
             this.duplicateStrategy = duplicateStrategy;
             InitialContext context = new InitialContext();
             this.itemValidating = (ItemValidating) context.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
-            this.xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
-            this.pubItemDepositing = (PubItemDepositing) context.lookup(PubItemDepositing.SERVICE_NAME);
-            this.search = (Search) context.lookup(Search.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming) context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+            this.pubItemDepositing = (PubItemDepositing) context.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+            this.search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
             this.itemContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
             this.configuration = configuration;
         }
