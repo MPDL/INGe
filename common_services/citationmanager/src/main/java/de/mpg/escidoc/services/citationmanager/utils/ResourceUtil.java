@@ -212,19 +212,20 @@ public class ResourceUtil
      */
     public static String getPathToClasses() throws IOException
     {
+    	return "";
+    	/*
+    	
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
         
     	String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
-    	if(result.startsWith("vfs:"))
-    	{
-    		result="";
-    	}
+    	
         // jar context!!!
         //logger.debug("result:" + result);
         return 
         	result.indexOf(".jar!") == -1 ?
         	    //Decode necessary for windows paths
         		URLDecoder.decode(result, "cp1253") : RESOURCES_DIRECTORY_JAR;
+        		*/
     }
 
 
