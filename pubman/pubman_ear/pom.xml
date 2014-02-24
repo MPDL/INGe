@@ -60,8 +60,28 @@
 					<packagingExcludes>./*.properties</packagingExcludes>
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
-
+					<!-- 
+					<jboss>
+						<data-sources>
+							<data-source>validation-ds.xml</data-source>
+							<data-source>pid-cache-ds.xml</data-source>
+						
+						</data-sources>
+					
+					</jboss>
+					-->
 					<modules>
+						<!-- Make hsqldb jar a module in main ear directory, in order to use it as driver -->
+						<!-- 
+						<jarModule>
+							<groupId>org.hsqldb</groupId>
+							<artifactId>hsqldb</artifactId>
+							<bundleDir>.</bundleDir>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						-->
+
+						
 						<webModule>
 						
 							<groupId>de.mpg.escidoc.pubman</groupId>
@@ -149,7 +169,6 @@
 						</ejbModule>
 
 					</modules>
-					-->
 					
 				</configuration>
 			</plugin>
@@ -381,11 +400,19 @@
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
+		<!-- 
 		<dependency>
-			<groupId>hsqldb</groupId>
+			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.10</version>
+			<version>2.3.2</version>
 		</dependency>
+		-->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+		</dependency>
+
 		
 	<!--  
 		<dependency>
@@ -552,11 +579,7 @@
 			<version>1.8</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
-		</dependency>
+
 		<dependency>
 			<groupId>urlrewrite</groupId>
 			<artifactId>urlrewrite</artifactId>

@@ -751,10 +751,10 @@
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
 		<!-- Import database -->
-		<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
+		<escidoc.import.database.driver.class>org.h2.Driver</escidoc.import.database.driver.class>
 		<escidoc.import.database.server.name />
 		<escidoc.import.database.server.port />
-		<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
+		<escidoc.import.database.connection.url>jdbc:h2:${jboss.install.dir}/standalone/data/pubman_db/db</escidoc.import.database.connection.url>
 		<escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>

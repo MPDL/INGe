@@ -138,6 +138,11 @@
               				</includes>
             			</resource>
           			</webResources>
+          			<archive>
+          				<manifestEntries>
+          					<Dependencies>com.h2database.h2</Dependencies>
+          				</manifestEntries>
+          			</archive>
         		</configuration>
       		</plugin>
       		

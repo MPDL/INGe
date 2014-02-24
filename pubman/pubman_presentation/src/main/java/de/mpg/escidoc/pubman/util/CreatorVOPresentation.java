@@ -194,7 +194,7 @@ public class CreatorVOPresentation extends CreatorVO
     
     public void setRoleString(String value)
     {
-        if (value == null)
+        if (value == null || value.isEmpty())
         {
             this.setRole(null);
         }
