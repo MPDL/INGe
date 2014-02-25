@@ -137,7 +137,7 @@ public class SiteMapTask extends Thread
             
             finishSitemap();
             
-            String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/sitemap";
+            String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
             new File(appPath).mkdir();
             /*
             try
