@@ -206,7 +206,7 @@ public class EasySubmission extends FacesBean
             ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
             this.transformer = appBean.getTransformationService();
             this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidating");
+            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
         }
         catch (NamingException ne)
         {
