@@ -82,7 +82,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import test.common.TestBase;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -896,7 +895,7 @@ public class TestBase
      */
     protected static String readFile(String fileName) throws IOException
     {
-        return ResourceUtil.getResourceAsString(fileName);
+        return ResourceUtil.getResourceAsString(fileName, TestBase.class.getClassLoader());
     }
 
     /**
