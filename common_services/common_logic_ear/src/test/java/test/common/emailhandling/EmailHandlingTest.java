@@ -43,6 +43,7 @@ import org.junit.Test;
 
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.EmailHandling;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -127,7 +128,7 @@ public class EmailHandlingTest extends TestBase
     private static EmailHandling getEmailHandling() throws NamingException
     {
         InitialContext context = new InitialContext();
-        EmailHandling emailHandling = (EmailHandling)context.lookup(EmailHandling.SERVICE_NAME);
+        EmailHandling emailHandling = (EmailHandling)context.lookup("ejb:common_logic_ear/common_logic/EmailHandlingBean!" + EmailHandling.class.getName());
         assertNotNull(emailHandling);
         return emailHandling;
     }

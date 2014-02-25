@@ -85,7 +85,7 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
  * {@inheritDoc}
  * 
  */
-@Local(Search.class)
+@Remote(Search.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors(

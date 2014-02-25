@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.citationmanager;
 import java.io.IOException;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -54,7 +55,7 @@ import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
  * Revised by StG: 24.08.2007
  */
 @Stateless
-@Local
+@Remote
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class CitationStyleHandlerBean implements CitationStyleHandler
 { 

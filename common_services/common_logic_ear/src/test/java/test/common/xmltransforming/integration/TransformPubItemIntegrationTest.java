@@ -106,7 +106,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     public static void setUpBeforeClass() throws Exception
     {
         // TODO FrM: Wech
-        // xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
+        // xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         xmlTransforming = new XmlTransformingBean();
         
         PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST);

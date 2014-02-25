@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
  * @author tendres
  * 
  */
-@Local
+@Remote
 public interface Search
 {
 

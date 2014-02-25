@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -61,7 +62,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-@Local
+@Remote
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class StatisticLoggerBean implements StatisticLogger

@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -134,7 +135,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @revised by MuJ: 21.08.2007
  */
 @Stateless
-@Local
+@Remote
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class XmlTransformingBean implements XmlTransforming
 {

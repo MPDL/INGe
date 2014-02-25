@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -63,7 +64,7 @@ import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming
  *
  */
 @Stateless
-@Local(ItemValidating.class)
+@Remote(ItemValidating.class)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemValidatingBean implements ItemValidating
 {

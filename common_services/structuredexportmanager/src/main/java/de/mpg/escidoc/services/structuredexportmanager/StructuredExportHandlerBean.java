@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
 */
 
 @Stateless
-@Local
+@Remote
 
 public class StructuredExportHandlerBean implements StructuredExportHandler
 {

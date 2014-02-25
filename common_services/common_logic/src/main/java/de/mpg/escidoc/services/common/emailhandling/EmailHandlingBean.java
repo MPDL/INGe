@@ -38,6 +38,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -71,7 +72,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  */
 
 @Stateless
-@Local
+@Remote
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class EmailHandlingBean implements EmailHandling
 {

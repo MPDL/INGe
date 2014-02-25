@@ -90,8 +90,8 @@ public class TransformPubItemVersionListIntegrationTest extends
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
-		itemSorting = (ItemSorting) getService(ItemSorting.SERVICE_NAME);
+		xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
+		itemSorting = (ItemSorting) getService("ejb:common_logic_ear/common_logic/ItemSortingBean!" + ItemSorting.class.getName());
 	}
 
 	/**

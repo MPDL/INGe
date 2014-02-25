@@ -76,7 +76,7 @@ public class AffiliationCreator extends TestBase
         try
         {
             InitialContext context = new InitialContext();
-            xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+            xmlTransforming = (XmlTransforming) context.lookup("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         }
         catch (Exception e)
         {

@@ -360,12 +360,12 @@ public class TestBase
     {
         AccountUserVO accountUser = new AccountUserVO();
         String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-        accountUser = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAccountUser(xmlUser);
+        accountUser = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToAccountUser(xmlUser);
         // add the user handle to the transformed account user
         accountUser.setHandle(userHandle);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(
                 accountUser.getReference().getObjectId());
-        List<GrantVO> grants = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
+        List<GrantVO> grants = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName()))
                 .transformToGrantVOList(userGrantXML);
         if (grants != null)
         {
@@ -1513,7 +1513,7 @@ public class TestBase
         ProxyHelper.executeMethod(client, method);
         String response = method.getResponseBodyAsString();
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-        return ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
+        return ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformUploadResponseToFileURL(response);
     }
 
     /**

@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.validation.xmltransforming;
 import java.io.StringReader;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -54,7 +55,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * @version $Revision$ $LastChangedDate$
  */
 @Stateless
-@Local
+@Remote
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ValidationTransformingBean implements ValidationTransforming
 {

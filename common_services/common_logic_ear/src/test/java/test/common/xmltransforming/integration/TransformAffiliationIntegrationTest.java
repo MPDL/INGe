@@ -84,7 +84,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
     public static void setUpBeforeClass() throws Exception
     {
         // get a XmlTransforming instance
-        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
     }
 
     /**

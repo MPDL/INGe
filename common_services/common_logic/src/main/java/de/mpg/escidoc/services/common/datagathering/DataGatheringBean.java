@@ -39,6 +39,7 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -71,7 +72,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
-@Local
+@Remote
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class DataGatheringBean implements DataGathering

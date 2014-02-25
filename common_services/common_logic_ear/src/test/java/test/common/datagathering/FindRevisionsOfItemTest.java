@@ -71,7 +71,7 @@ public class FindRevisionsOfItemTest extends TestBase
      */
     private static DataGathering getDataGathering() throws NamingException
     {
-        return (DataGathering)getService(DataGathering.SERVICE_NAME);
+        return (DataGathering)getService("ejb:common_logic_ear/common_logic/DataGatheringBean!" + DataGathering.class.getName());
     }
 
     /**
@@ -86,7 +86,7 @@ public class FindRevisionsOfItemTest extends TestBase
         String userHandle = loginScientist();
         // create the item with one file
         String item = createItemWithFile(userHandle);
-        PubItemVO pubItem = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToPubItem(item);
+        PubItemVO pubItem = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToPubItem(item);
         logger.debug("Target is " + pubItem.getVersion().getObjectId());
 
         // Create two revisions

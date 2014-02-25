@@ -48,6 +48,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -96,7 +97,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  * @author Friederike Kleinfercher (initial creation)
  * @author $Author$ (last modification)
  */
-@Local
+@Remote
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class DataHandlerBean implements DataHandler

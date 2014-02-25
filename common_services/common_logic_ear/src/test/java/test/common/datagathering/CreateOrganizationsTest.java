@@ -116,9 +116,9 @@ public class CreateOrganizationsTest extends TestBase
         // retrieve affiliation 'HG' from the framework
         String hg2XML = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieve(abbreviationToObjIdMapping.get("objectIdHG"));
         //logger.debug("XML "+hg2XML);
-        AffiliationVO hg = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAffiliation(hg2XML);
+        AffiliationVO hg = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToAffiliation(hg2XML);
         // get the organization list for HG:
-        orgList = ((DataGathering) getService(DataGathering.SERVICE_NAME)).createOrganizationListFromAffiliation(systemAdministratorUserHandle, hg);
+        orgList = ((DataGathering) getService("ejb:common_logic_ear/common_logic/DataGatheringBean!" + DataGathering.class.getName())).createOrganizationListFromAffiliation(systemAdministratorUserHandle, hg);
         // check orgList for HG:
         // only HG
         assertEquals(orgList.size(), 1);
@@ -154,9 +154,9 @@ public class CreateOrganizationsTest extends TestBase
         // retrieve affiliation 'ZEL2' from the framework
         String zel2XML = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieve(abbreviationToObjIdMapping.get("objectIdZEL2"));
         logger.debug(methodName + "() - String zel2XML=\n" + toString(getDocument(zel2XML, false), false));
-        AffiliationVO zel2 = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAffiliation(zel2XML);
+        AffiliationVO zel2 = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToAffiliation(zel2XML);
         // get the organization list for ZEL2:
-        orgList = ((DataGathering) getService(DataGathering.SERVICE_NAME)).createOrganizationListFromAffiliation(systemAdministratorUserHandle, zel2);
+        orgList = ((DataGathering) getService("ejb:common_logic_ear/common_logic/DataGatheringBean!" + DataGathering.class.getName())).createOrganizationListFromAffiliation(systemAdministratorUserHandle, zel2);
         // check orgList for ZEL2:
         // ZEL2 -> MPH-HD -> MPIMF -> MPG
         assertEquals(orgList.size(), 1);
@@ -195,9 +195,9 @@ public class CreateOrganizationsTest extends TestBase
         // retrieve affiliation 'FU-BERLIN' from the framework
         String fuBerlinXML = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieve(abbreviationToObjIdMapping.get("objectIdFuBerlin"));
         logger.debug(methodName + "() - String fuBerlinXML=\n" + toString(getDocument(fuBerlinXML, false), false));
-        AffiliationVO fuBerlin = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAffiliation(fuBerlinXML);
+        AffiliationVO fuBerlin = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToAffiliation(fuBerlinXML);
         // get the organization list for FU-BERLIN:
-        orgList = ((DataGathering) getService(DataGathering.SERVICE_NAME)).createOrganizationListFromAffiliation(systemAdministratorUserHandle, fuBerlin);
+        orgList = ((DataGathering) getService("ejb:common_logic_ear/common_logic/DataGatheringBean!" + DataGathering.class.getName())).createOrganizationListFromAffiliation(systemAdministratorUserHandle, fuBerlin);
         // check orgList size for FU-BERLIN:
         // FU-BERLIN -> MPG, FU-BERLIN -> HG, FU-BERLIN -> FG
         assertEquals(3, orgList.size());
