@@ -777,7 +777,7 @@ Notes:
 			<element index="TOKENIZED">
 				 <xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='given-name'],' ', ./*[local-name()='person']/*[local-name()='family-name'])"/>
 			</element>
-			<element index="TOKENIZED">
+			<element index="UN_TOKENIZED">
 				 <xsl:value-of select="./*[local-name()='person']/*[local-name()='identifier']"/>
 			</element>
 		</userdefined-index>
@@ -794,7 +794,7 @@ Notes:
 			<element index="TOKENIZED">
 				<xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
 			</element>
-			<element index="TOKENIZED">
+			<element index="UN_TOKENIZED">
 				 <xsl:value-of select="./*[local-name()='organization']/*[local-name()='identifier']"/>
 			</element>
 		</userdefined-index>
