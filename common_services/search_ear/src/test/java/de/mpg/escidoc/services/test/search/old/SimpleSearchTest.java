@@ -82,7 +82,7 @@ public class SimpleSearchTest extends TestBase
      */
     @Before
     public void setUp() throws Exception {
-    	itemContainerSearch = (Search)getService(Search.SERVICE_NAME);
+    	itemContainerSearch = (Search)getService("java:global/search_ear/search/SearchBean");
     }
     /*
     @Test 

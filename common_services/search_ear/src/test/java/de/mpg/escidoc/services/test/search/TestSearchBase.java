@@ -100,7 +100,7 @@ public class TestSearchBase extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        this.itemContainerSearch = (Search) getService(Search.SERVICE_NAME);
+        this.itemContainerSearch = (Search) getService("ejb:search_ear/search/SearchBean");
     }
 
     /**
