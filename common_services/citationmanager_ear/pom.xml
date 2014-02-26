@@ -183,7 +183,7 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-      			<!-- client communications with the server use XNIO -->
+      	<!-- client communications with the server use XNIO -->
        <dependency>
            <groupId>org.jboss.xnio</groupId>
            <artifactId>xnio-api</artifactId>
@@ -358,15 +358,17 @@
 						<executions>
 							<execution>
 								<id>prepare-deployment</id>
-								<phase>package</phase>
+								<phase>generate-test-sources</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
 								<configuration>
 									<tasks>
+										<delete dir="${cargo.jboss.install.dir}/modules/pubman"/>
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/solution.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
+										
 									</tasks>
 								</configuration>
 							</execution>

@@ -56,11 +56,13 @@
 					<description>common_logic integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					
 					<archive>
 						<manifestEntries>
 							<Dependencies>pubman</Dependencies>
 						</manifestEntries>
 					</archive>
+				
 					<modules>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -187,13 +189,14 @@
            <artifactId>xnio-api</artifactId>
            <scope>test</scope>
        </dependency>
-      
-       <!-- JBoss EJB client API jar.  -->
+
        <dependency>
            <groupId>org.jboss.xnio</groupId>
            <artifactId>xnio-nio</artifactId>
            <scope>test</scope>
        </dependency>
+       
+       <!-- JBoss EJB client API jar.  -->
       	<dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
@@ -301,7 +304,7 @@
 						<executions>
 							<execution>
 								<id>prepare-deployment</id>
-								<phase>test-compile</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
@@ -309,6 +312,7 @@
 									<tasks>
 										<!-- copy over the jboss service descriptor -->
 										<!-- copy over the configuration file file -->
+										<delete dir="${cargo.jboss.install.dir}/modules/pubman"/>
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/solution.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
