@@ -70,6 +70,14 @@
 						</ejbModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>citationmanager</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>structuredexportmanager</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>search</artifactId>
 						</ejbModule>				
 						<webModule>
@@ -279,12 +287,14 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
 			<version>1.0.80-SNAPSHOT</version>
+			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>1.0.78-SNAPSHOT</version>
+			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
