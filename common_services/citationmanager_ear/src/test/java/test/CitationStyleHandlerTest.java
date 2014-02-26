@@ -59,7 +59,7 @@ public class CitationStyleHandlerTest {
     public static final void getCitationStyleManager() throws Exception
     {
         InitialContext ctx = new InitialContext();
-        pcs = (CitationStyleHandler) ctx.lookup(CitationStyleHandler.SERVICE_NAME);
+        pcs = (CitationStyleHandler) ctx.lookup("ejb:citationmanager_ear/citationmanager/CitationStyleHandlerBean!" + CitationStyleHandler.class.getName());
     }
 
     /**
