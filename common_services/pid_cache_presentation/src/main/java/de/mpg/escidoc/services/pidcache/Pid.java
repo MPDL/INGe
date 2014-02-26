@@ -35,6 +35,7 @@ import javax.naming.NamingException;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
  * TODO Description
@@ -54,8 +55,8 @@ public class Pid extends PidServiceResponseVO
     public Pid() throws NamingException 
     {
 		super();
-		InitialContext context = new InitialContext();
-		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+		//InitialContext context = new InitialContext();
+		xmlTransforming = new XmlTransformingBean();
 	}
     
     /**

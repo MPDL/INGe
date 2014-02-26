@@ -1,11 +1,13 @@
 package de.mpg.escidoc.services.pidcache;
 
+import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgClient;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.tables.Cache;
@@ -23,11 +25,12 @@ public class PidCacheService
 	private Cache cache = null;
 	private Queue queue = null;
 	private GwdgPidService gwdgPidService = null;
-	private InitialContext context = null;
 	private XmlTransforming xmlTransforming = null;
 	
 	private int status = HttpServletResponse.SC_OK;
 	private String location = "http://hdl.handle.net/XXX_LOCATION_XXX?noredirect";
+	
+
 	
 	/**
 	 * Default constructor
@@ -38,8 +41,10 @@ public class PidCacheService
 		cache = new Cache();
 		queue = new Queue();
 		gwdgPidService = new GwdgPidService();
-		context = new InitialContext();
-		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+		//context = new InitialContext();
+		//String appName = (String)context.lookup("java:app/AppName");
+		//String appName = "pid_cache_ear";
+		xmlTransforming = new XmlTransformingBean();
 	}
 	
 	 /**

@@ -2,12 +2,15 @@ package de.mpg.escidoc.services.pidcache.process;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
@@ -28,8 +31,10 @@ public class CacheProcess
 	 private static String DUMMY_URL = null;
 	 private static final Logger logger = Logger.getLogger(CacheProcess.class);
 	 private InitialContext context = null;
-	 private XmlTransforming xmlTransforming = null;
-	
+	 
+	 private XmlTransforming xmlTransforming;
+
+	 
 	/**
 	 * Manage the cache
 	 * @throws Exception
@@ -37,8 +42,11 @@ public class CacheProcess
 	public CacheProcess() throws Exception
 	{
 		DUMMY_URL = PropertyReader.getProperty("escidoc.pidcache.dummy.url");
-		context = new InitialContext();
-		xmlTransforming = (XmlTransforming) context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+		//context = new InitialContext();
+		
+		
+		
+		xmlTransforming = new XmlTransformingBean();
 	}
 
 	/**
