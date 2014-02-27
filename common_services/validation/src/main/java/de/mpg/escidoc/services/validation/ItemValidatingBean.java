@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.validation;
 import static de.mpg.escidoc.services.validation.XsltTransforming.transform;
 
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,6 +80,9 @@ public class ItemValidatingBean implements ItemValidating
      */
     @EJB
     private XmlTransforming xmlTransforming;
+    
+    @EJB
+    private ValidationTransforming validationTransforming;
 
     /**
      * {@inheritDoc}
@@ -307,8 +311,11 @@ public class ItemValidatingBean implements ItemValidating
 
     private ValidationTransforming getValidationTransforming() throws NamingException
     {
-        InitialContext context = new InitialContext();
+        return validationTransforming;
+        /*
+    	InitialContext context = new InitialContext();
         return (ValidationTransforming) context.lookup("java:global/pubman_ear/validation/ValidationTransformingBean");
+        */
     }
 
     /**
@@ -317,6 +324,14 @@ public class ItemValidatingBean implements ItemValidating
     public final void refreshValidationSchemaCache() throws TechnicalException
     {
             ValidationSchemaCache.getInstance().refreshCache();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public final Date getLastRefreshDate() throws TechnicalException
+    {
+            return ValidationSchemaCache.getInstance().getLastRefreshDate();
     }
 
 }

@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.common.types.Validatable;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.util.LocalURIResolver;
@@ -861,8 +862,8 @@ public final class ValidationSchemaCache
     {
         try
         {
-            Context ctx = new InitialContext();
-            xmlTransforming = (XmlTransforming) ctx.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+            //Context ctx = new InitialContext();
+            xmlTransforming = new XmlTransformingBean();
             
             factory = new net.sf.saxon.TransformerFactoryImpl();
             factory.setURIResolver(new LocalURIResolver());        
@@ -908,6 +909,7 @@ public final class ValidationSchemaCache
      * Helper class for creating a Singelton of a ValidationSchemaCache object
      *
      */
+    
     private static class ValidationSchemaCacheHolder
     {
         public static ValidationSchemaCache instance = new ValidationSchemaCache();       

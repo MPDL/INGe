@@ -44,6 +44,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
 /**
  * Test class for the validation package.
@@ -72,7 +73,7 @@ public class ValidatorTest
     public final void getValidator() throws Exception
     {
         InitialContext ctx = new InitialContext();
-        validator = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
+        validator = (ItemValidating) ctx.lookup("ejb:validation_ear/validation/ItemValidatingBean!" + ItemValidating.class.getName());
     }
 
     /**
@@ -83,7 +84,7 @@ public class ValidatorTest
     public final void getTransformer() throws Exception
     {
         InitialContext ctx = new InitialContext();
-        xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming) ctx.lookup("ejb:validation_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
     }
 
     /**
@@ -93,7 +94,7 @@ public class ValidatorTest
     @Before
     public final void getValidItemXml() throws Exception
     {
-        validXml = ResourceUtil.getResourceAsString("validation/validItem.xml");
+        validXml = ResourceUtil.getResourceAsString("validation/validItem.xml", ValidatorTest.class.getClassLoader());
         assertNotNull("Valid item xml not found", validXml);
     }
 
@@ -104,7 +105,7 @@ public class ValidatorTest
     @Before
     public final void getInvalidItemXml() throws Exception
     {
-        invalidXml = ResourceUtil.getResourceAsString("validation/invalidItem.xml");
+        invalidXml = ResourceUtil.getResourceAsString("validation/invalidItem.xml", ValidatorTest.class.getClassLoader());
         assertNotNull("Valid item xml not found", invalidXml);
     }
 

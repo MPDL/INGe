@@ -40,6 +40,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -51,6 +52,7 @@ import org.jboss.vfs.VFS;
 import org.jboss.vfs.VirtualFile;
 import org.xml.sax.InputSource;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -77,11 +79,16 @@ public class Initializer extends Thread
     public static final String SQL_DIRECTORY = "validation_sql";
     
 
+    private ItemValidating itemValidating;
+    
+
+    
     /**
      * Default constructor.
      */
-    public Initializer()
+    public Initializer(ItemValidating itemValidating)
     {
+    	this.itemValidating = itemValidating;
     }
 
     /** 
@@ -90,13 +97,13 @@ public class Initializer extends Thread
     @Override
     public void run()
     {
-        initializeDatabase();
+        initializeDatabase(itemValidating);
     }
 
     /**
      * This method executes the initialization.
      */
-    public static void initializeDatabase()
+    public static void initializeDatabase(ItemValidating itemValidating)
     {
         LOGGER.info("Initializing validation database...");
         Connection conn = null;
@@ -116,9 +123,11 @@ public class Initializer extends Thread
                 LOGGER.info("Skipping validation schema creation.");
             }
             
+
             
-            Context ctx = new InitialContext();
-            ItemValidating itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+            
+            
+            //ItemValidating itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
             
             
             itemValidating.refreshValidationSchemaCache();

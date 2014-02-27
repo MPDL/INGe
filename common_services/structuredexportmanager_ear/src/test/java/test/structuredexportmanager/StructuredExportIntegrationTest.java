@@ -70,7 +70,7 @@ public class StructuredExportIntegrationTest
 	    public final void getStructuredExport() throws Exception
 	    {
 	        InitialContext ctx = new InitialContext();
-	        export = (StructuredExportHandler) ctx.lookup(StructuredExportHandler.SERVICE_NAME);
+	        export = (StructuredExportHandler) ctx.lookup("ejb:structuredexportmanager_ear/structuredexportmanager/StructuredExportHandlerBean!" + StructuredExportHandler.class.getName());
 	    }
 	    
 	    

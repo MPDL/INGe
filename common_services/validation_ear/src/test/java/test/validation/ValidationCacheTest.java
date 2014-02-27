@@ -51,6 +51,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.ValidationSchemaCache;
 
 /**
@@ -69,8 +70,10 @@ public class ValidationCacheTest
     private String contentType = "escidoc.framework_access.content-model.id.publication";
 
     private ValidationSchemaCache cache;
+    
+    private ItemValidating itemValidating;
 
-    private Connection connection;
+    //private Connection connection;
 
     /**
      * Sets the validation schema cache instance.
@@ -79,27 +82,31 @@ public class ValidationCacheTest
     @Before
     public final void getCache() throws Exception
     {
-    	Thread.sleep(10000);
-        cache = ValidationSchemaCache.getInstance();
+    	InitialContext ctx = new InitialContext();
+        itemValidating = (ItemValidating) ctx.lookup("ejb:validation_ear/validation/ItemValidatingBean!" + ItemValidating.class.getName());
+        //cache = ValidationSchemaCache.getInstance();
     }
 
     /**
      * Sets the JDBC connection.
      * @throws Exception Any exception.
      */
+    /*
     @Before
     public final void getConnection() throws Exception
     {
         Context ctx = new InitialContext();
-        DataSource dataSource = (DataSource) ctx.lookup("Validation");
+        DataSource dataSource = (DataSource) ctx.lookup("ejb:jboss/datasources/Validation");
         connection = dataSource.getConnection();
     }
+    */
 
     /**
      * Clears the validation database. Since the schemas cannot be retrieved from the framework
      * the schema table is not not cleared.
      * @throws Exception Any exception.
      */
+    /*
     @Ignore("Won't work until validation repository moves to framework.")
     @Test
     public final void testClearCache() throws Exception
@@ -121,13 +128,14 @@ public class ValidationCacheTest
         assertNotNull("ResultSet is null", rs);
         assertTrue("Precompiled schema table is not empty.", !rs.next());
     }
-
+*/
     /**
      * Tests cache creation. Since the schemas cannot be retrieved from the framework
      * this test is a little fake, because it only tests on the still existing schemas,
      * but not if these are newly retrieved.
      * @throws Exception Any exception.
      */
+    /*
     @Ignore
     @Test
     public final void testCreateCache() throws Exception
@@ -149,20 +157,20 @@ public class ValidationCacheTest
         assertNotNull("ResultSet is null", rs);
         assertTrue("Precompiled schema table is empty.", rs.next());
     }
-
+*/
     /**
      * Tests cache refreshing.
      * @throws Exception Any exception.
-     */
+     */   
     @Test
     public final void testRefreshCache() throws Exception
     {
 
-        Date lastRefreshDate = cache.getLastRefreshDate();
+        Date lastRefreshDate = itemValidating.getLastRefreshDate();
 
-        cache.refreshCache();
+        itemValidating.refreshValidationSchemaCache();
 
-        assertFalse("lastRefreshDate was not updated", cache.getLastRefreshDate().equals(lastRefreshDate));
+        assertFalse("lastRefreshDate was not updated", itemValidating.getLastRefreshDate().equals(lastRefreshDate));
 
     }
 
@@ -171,6 +179,7 @@ public class ValidationCacheTest
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore("Already covered by validator test")
     public final void testGetPrecompiledTransformer() throws Exception
     {
 

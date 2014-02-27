@@ -46,7 +46,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.transformations.standardFormats.StandardTransformationInterface;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
 /**
@@ -117,7 +116,7 @@ public class TestHelper
     {
         InitialContext context = new InitialContext();
         ValidationTransforming vTransforming = (ValidationTransforming) context
-                .lookup(ValidationTransforming.SERVICE_NAME);
+                .lookup("ejb:validation_ear/validation/ValidationTransformingBean!" + ValidationTransforming.class.getName());
         assertNotNull(vTransforming);
         return vTransforming;
     }

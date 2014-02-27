@@ -29,6 +29,8 @@
 
 package de.mpg.escidoc.services.validation;
 
+import java.util.Date;
+
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -146,5 +148,7 @@ public interface ItemValidating extends ItemValidatingWebService
      * @throws TechnicalException Any unmanaged exception.
      */
     void refreshValidationSchemaCache() throws TechnicalException;
+    
+    Date getLastRefreshDate() throws TechnicalException;
 
 }
