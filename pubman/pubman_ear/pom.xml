@@ -730,6 +730,8 @@
 										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
 										<!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/modules/pubman/main" />
+										
+										<copy overwrite="true" file="${project.build.directory}/classes/solution.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/modules/pubman/main/cone.properties" />
 										<!-- copy over the aa configuration file -->
