@@ -180,7 +180,7 @@ public class RetrieveItemTest
         filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
         filterMap.put(VERSION, new String[]{"1.1"});  
 
-        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);       
+        xmlTransforming = (XmlTransforming)getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());       
         contentModelId = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");       
         
         assertTrue(contentModelId != null);

@@ -390,7 +390,7 @@ public class TestBase
     private AccountUserVO getUserWithHandle(String userHandle) throws Exception
     {
         String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-        XmlTransforming xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
+        XmlTransforming xmlTransforming = (XmlTransforming) getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         AccountUserVO user = xmlTransforming.transformToAccountUser(userXML);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(user.getReference().getObjectId());
         List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
@@ -679,7 +679,7 @@ public class TestBase
      */
     protected PubItemVO getPubItemFromFramework(ItemRO pubItemRef, AccountUserVO accountUser) throws Exception
     {
-        XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        XmlTransforming xmlTransforming = (XmlTransforming)getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         String retrievedItem = ServiceLocator.getItemHandler(accountUser.getHandle()).retrieve(pubItemRef.getObjectId());
         
         logger.debug("retrieved item: " + retrievedItem);
@@ -702,7 +702,7 @@ public class TestBase
      */
     protected URL uploadFile(String filename, String mimetype, String userHandle) throws Exception
     {
-        XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        XmlTransforming xmlTransforming = (XmlTransforming)getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         // Prepare the HttpMethod.
         String fwUrl = ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");

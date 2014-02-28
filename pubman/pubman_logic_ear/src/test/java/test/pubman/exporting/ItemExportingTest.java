@@ -50,6 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.ItemExporting;
+import de.mpg.escidoc.services.pubman.PubItemPublishing;
 
 /**
 * Test class for {@link de.mpg.escidoc.services.pubman.ItemExporting}.
@@ -77,7 +78,7 @@ public class ItemExportingTest extends TestBase
     @Before
     public void setUp() throws NamingException
     {
-        itemExporting  = (ItemExporting)getService(ItemExporting.SERVICE_NAME);
+        itemExporting  = (ItemExporting)getService("ejb:pubman_logic_ear/pubman_logic/ItemExportingBean!" + ItemExporting.class.getName());
         
         FileFormatVO fileFormat = new FileFormatVO();
         fileFormat.setName(FileFormatVO.PDF_NAME);

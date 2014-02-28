@@ -66,7 +66,7 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
  * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
-@Local
+@Remote(ItemExporting.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemExportingBean implements ItemExporting

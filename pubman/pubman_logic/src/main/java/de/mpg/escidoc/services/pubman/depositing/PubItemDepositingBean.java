@@ -105,7 +105,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * @version $Revision$ $LastChangedDate$ 
  * @revised by MuJ: 19.09.2007
  */
-@Local
+@Remote(PubItemDepositing.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
@@ -150,7 +150,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public PubItemVO createPubItem(ContextRO pubCollectionRef, AccountUserVO user) throws TechnicalException, SecurityException, PubCollectionNotFoundException
+    public PubItemVO createPubItem(ContextRO pubCollectionRef, AccountUserVO user) throws TechnicalException, SecurityException, PubCollectionNotFoundException, IllegalArgumentException
     {
         if (pubCollectionRef == null)
         {

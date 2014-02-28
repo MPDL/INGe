@@ -86,7 +86,7 @@ import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
  *
  */
 
-@Local
+@Remote(QualityAssurance.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })

@@ -79,7 +79,7 @@ import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
  * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
-@Local(PubItemPublishing.class)
+@Remote(PubItemPublishing.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors({ LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })

@@ -86,7 +86,7 @@ public class RetrievePubCollectionTest extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming)getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         user = getUserTestDepScientistWithHandle();
         
         filterMap.clear();

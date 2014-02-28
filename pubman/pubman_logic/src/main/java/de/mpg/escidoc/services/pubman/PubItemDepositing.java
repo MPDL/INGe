@@ -32,6 +32,8 @@ package de.mpg.escidoc.services.pubman;
 
 import java.net.URISyntaxException;
 
+import javax.ejb.Remote;
+
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
@@ -56,6 +58,7 @@ import de.mpg.escidoc.services.validation.ItemInvalidException;
  * @version $Revision$ $LastChangedDate$
  * @updated 22-Okt-2007 18:20:48
  */
+@Remote
 public interface PubItemDepositing
 {
     
@@ -98,7 +101,7 @@ public interface PubItemDepositing
 	 * @exception PubCollectionNotFoundException
 	 */
     public PubItemVO createPubItem(ContextRO collectionRef, AccountUserVO user)
-	  throws TechnicalException, SecurityException, PubCollectionNotFoundException;
+	  throws TechnicalException, SecurityException, PubCollectionNotFoundException, IllegalArgumentException;
 
     /**
 	 * Deletes the PubItem identified by the given reference.

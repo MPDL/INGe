@@ -84,7 +84,7 @@ import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
  *
  */
 
-@Local
+@Remote(PubItemSimpleStatistics.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })

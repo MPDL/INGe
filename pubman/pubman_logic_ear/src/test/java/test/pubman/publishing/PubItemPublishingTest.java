@@ -77,8 +77,8 @@ public class PubItemPublishingTest extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        pmPublishing = (PubItemPublishing)getService(PubItemPublishing.SERVICE_NAME);
-        pmDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
+        pmPublishing = (PubItemPublishing)getService("ejb:pubman_logic_ear/pubman_logic/PubItemPublishingBean!" + PubItemPublishing.class.getName());
+        pmDepositing = (PubItemDepositing)getService("ejb:pubman_logic_ear/pubman_logic/PubItemDepositingBean!" + PubItemDepositing.class.getName());
         otherUser = getUserTestDepScientistWithHandle();
         user = getUserTestDepLibWithHandle();
     }
