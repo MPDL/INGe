@@ -106,9 +106,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee</artifactId>
-			<version>1.5</version>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

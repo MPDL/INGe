@@ -34,6 +34,7 @@
 		<escidocMetadataRecords:md-record name="escidoc">
 			<virr-book xmlns="http://www.loc.gov/mods/v3">
 				<dc:title xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</dc:title>
+				<!-- 
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo>
@@ -67,6 +68,7 @@
 						<physicalLocation>MPI f�r Europ�ische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
 					</location>
 				</mods>
+				-->
 			</virr-book>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
@@ -212,6 +214,7 @@
 		<escidocMetadataRecords:md-record name="escidoc">
 			<virr-book xmlns="http://www.loc.gov/mods/v3">
 				<dc:title xml:lang="de">Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</dc:title>
+				<!-- 
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">n</genre>
 					<titleInfo>
@@ -239,6 +242,7 @@
 					</recordInfo>
 					<identifier type="local">69448</identifier>
 				</mods>
+				-->
 			</virr-book>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
@@ -280,7 +284,9 @@
 	<escidocMetadataRecords:md-records xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}">
 		<escidocMetadataRecords:md-record name="escidoc">
 			<virr-book xmlns="http://www.loc.gov/mods/v3">
+				
 				<dc:title xml:lang="de">Vollst�ndiges corpus gravaminum evangelicorum</dc:title>
+				<!--
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo type="uniform">
@@ -326,6 +332,7 @@
 						<physicalLocation>MPI f�r Europ�ische Rechtsgeschichte, Dt 9 Bg 20 Q [8]</physicalLocation>
 					</location>
 				</mods>
+				-->
 			</virr-book>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>

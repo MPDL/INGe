@@ -35,6 +35,12 @@ import java.io.Serializable;
 
 public class AllowedRolesRO extends ReferenceObject implements Serializable
 {
+	
+	public AllowedRolesRO()
+	{
+		
+	}
+	
    public AllowedRolesRO(String objid)
    {
 	   super(objid);

@@ -97,6 +97,7 @@ Facultad de Ciencias</search-result:text-fragment-data>
 			<escidocMetadataRecords:md-record name="escidoc">
 				<virr-book xmlns="http://www.loc.gov/mods/v3">
 					<dc:title/>
+					<!-- 
 					<mods version="3.2">
 						<genre authority="MAB2-051/1-3">u</genre>
 						<titleInfo>
@@ -130,6 +131,7 @@ Facultad de Ciencias</search-result:text-fragment-data>
 							<physicalLocation>MPI f�r Europ�ische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
 						</location>
 					</mods>
+					-->
 				</virr-book>
 			</escidocMetadataRecords:md-record>
 			<escidocMetadataRecords:md-record name="virr_mab" md-type="MAB">

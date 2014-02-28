@@ -575,7 +575,7 @@
 	</reporting>
 	<!-- properties valid for all profiles -->
 	<properties>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 		<cargo.port>8080</cargo.port>
 		<cargo.rmi.port>1099</cargo.rmi.port>

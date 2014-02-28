@@ -52,7 +52,6 @@ import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 
-import com.ctc.wstx.io.BufferRecycler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;

@@ -2,7 +2,9 @@ package de.mpg.escidoc.services.common.valueobjects.statistics;
 
 import java.util.List;
 
-public class AggregationIndexVO {
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+
+public class AggregationIndexVO extends ValueObject {
 
 	private String name;
 	
