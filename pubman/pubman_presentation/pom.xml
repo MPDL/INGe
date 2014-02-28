@@ -447,9 +447,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-all-7.0</artifactId>
-			<version>1.0.0.Final</version>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
 
