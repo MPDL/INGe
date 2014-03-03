@@ -224,8 +224,8 @@
 		<module>pubman_installer</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
 	</scm>
 	<repositories>
