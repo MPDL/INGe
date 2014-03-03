@@ -33,7 +33,6 @@ package test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.creators.AuthorDecoderTest;
 import test.referenceobjects.ReferenceObjectTest;
 import test.valueobjects.ValueObjectTest;
 import test.valueobjects.comparator.ComparatorTest;
@@ -52,7 +51,6 @@ import test.xmltransforming.XmlTransformingTest;
                     ,ValueObjectTest.class                                        
                     ,ComparatorTest.class
                     ,XmlTransformingTest.class
-                    ,AuthorDecoderTest.class
                     })
 public class TestCommonLogic
 {
