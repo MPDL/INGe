@@ -1634,11 +1634,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
     	if(getMetadata().getDatePublishedInPrint() != null && !getMetadata().getDatePublishedInPrint().isEmpty())
     	{
-    		return getLabel("ViewItem_lblPublicationState_publishedInPrint");
+    		return getLabel("ViewItem_lblPublicationState_published-in-print");
     	}
     	else if(getMetadata().getDatePublishedOnline() != null && !getMetadata().getDatePublishedOnline().isEmpty())
     	{
-    		return getLabel("ViewItem_lblPublicationState_publishedOnline");
+    		return getLabel("ViewItem_lblPublicationState_published-online");
     	}
     	else if(getMetadata().getDateAccepted() != null && !getMetadata().getDateAccepted().isEmpty())
     	{
