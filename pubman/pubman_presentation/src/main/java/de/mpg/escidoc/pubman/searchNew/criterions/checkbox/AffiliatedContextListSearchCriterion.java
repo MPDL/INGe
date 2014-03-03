@@ -29,10 +29,17 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 		Map<String, PubContextVOPresentation> contextMap = new LinkedHashMap<String, PubContextVOPresentation>();
 
 		
-		for (PubContextVOPresentation context : clsb.getAllPrivilegedContextList())
+		for (PubContextVOPresentation context : clsb.getDepositorContextList())
 		{
 			contextMap.put(context.getReference().getObjectId(), context);
 		}
+		
+		for (PubContextVOPresentation context : clsb.getModeratorContextList())
+		{
+			contextMap.put(context.getReference().getObjectId(), context);
+		}
+		
+
 		
 		
 		
