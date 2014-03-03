@@ -16,9 +16,10 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 
 public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion<PubContextVOPresentation> {
 
+	
+	
 	public AffiliatedContextListSearchCriterion() {
-		
-		super(getItemStateMap(), true);
+		super(getItemStateMap(), getItemStatePreSelectionMap());
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -38,13 +39,30 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 		{
 			contextMap.put(context.getReference().getObjectId(), context);
 		}
-		
 
-		
-		
-		
 		return contextMap;
 	}
+	
+	private static Map<String, Boolean> getItemStatePreSelectionMap()
+	{
+		
+		ContextListSessionBean clsb = (ContextListSessionBean)FacesBean.getSessionBean(ContextListSessionBean.class);
+		Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
+		
+		for (PubContextVOPresentation context : clsb.getDepositorContextList())
+		{
+			preSelectionMap.put(context.getReference().getObjectId(), true);
+		}
+		
+		for (PubContextVOPresentation context : clsb.getModeratorContextList())
+		{
+			preSelectionMap.put(context.getReference().getObjectId(), true);
+		}
+
+		return preSelectionMap;
+	}
+	
+	
 
 	@Override
 	public String[] getCqlIndexes(Index indexName, String value) {
