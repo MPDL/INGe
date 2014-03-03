@@ -1038,7 +1038,7 @@
 				<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 				<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
-				<escidoc.import.database.name>/usr/share/jboss/standalone/data/pubman_db/db</escidoc.import.database.name>
+				<escidoc.import.database.name>/usr/share/wildfly/standalone/data/pubman_db/db</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>15</escidoc.import.surveyor.interval>
 				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
@@ -1047,7 +1047,7 @@
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
-				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
+				<jboss.install.dir>/mnt/wildfly/dev-pubman</jboss.install.dir>
 
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
