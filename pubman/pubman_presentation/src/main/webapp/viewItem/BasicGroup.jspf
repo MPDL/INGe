@@ -102,6 +102,7 @@
 				
 				<!-- Digg -->
 				
+				<!-- 
 				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
 					<h:graphicImage id="imgSocialBookmarkingDigg" title="#{lbl.ViewItemFull_lblSocialBookmarking_Digg}" url="http://www.digg.com/favicon.ico" width="16" onclick="diggLink();" />
 				</h:panelGroup>
@@ -110,7 +111,7 @@
 						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'digg','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
-				
+				-->
 				
 				<!-- Delicious -->
 				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
