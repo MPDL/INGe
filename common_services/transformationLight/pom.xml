@@ -41,8 +41,8 @@
 	<version>1.0.13-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</developerConnection>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/transformationLight</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/transformationLight</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/transformationLight</url>
   </scm>
 	<build>
