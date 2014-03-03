@@ -494,7 +494,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator">&#160;</span>
 		<h:panelGroup id="editGenre" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 		
-			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+			<span class="free_area0 xTiny_marginLExcl endline clear">
 				<span class="double_checkbox">
 					<input type="checkbox" class="checkAllGenre" id="checkAllGenre"/>
 					<label for="checkAllGenre"><h:outputText value="#{lbl.adv_search_btAll}" /></label>
@@ -548,6 +548,34 @@ All rights reserved. Use is subject to license terms.
 			</script>
 		</h:panelGroup>
 	</div>
+	
+	
+		<!-- item state criterions -->
+	<h:panelGroup styleClass="full_area0 itemBlock">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.adv_search_lbHeaderPublicationStatus}" />
+		</h3>
+		<span class="seperator">&#160;</span>
+		<h:panelGroup id="editPublicationstatus" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
+		
+			<span class="free_area0 xTiny_marginLExcl endline clear">
+
+				<span class="free_area0 genreContent clear">
+					
+					<a4j:repeat value="#{AdvancedSearchBean.publicationStatusListSearchCriterion.enumList}" var="state" rows="0">
+						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
+							<c:set var="stateLabel" value="ViewItem_lblPublicationState_#{state}"/>
+							<h:selectBooleanCheckbox styleClass="publicationstatusCheckbox" id="publicationStatusCriterion" value="#{AdvancedSearchBean.publicationStatusListSearchCriterion.enumMap[state]}">
+							</h:selectBooleanCheckbox>
+							<h:outputLabel title="#{lbl[stateLabel]}" value="#{lbl[stateLabel]}" for="publicationStatusCriterion" />	
+						</h:panelGroup>
+					</a4j:repeat>
+				</span>
+			</span>
+			
+			
+		</h:panelGroup>
+	</h:panelGroup>
 	
 	<!-- file criterions -->
 	<div class="full_area0 itemBlock">

@@ -3509,6 +3509,9 @@ public class ViewItemFull extends FacesBean
     	
     	return null;
     }
+    
+    
+
 
     /*{
 	ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"),

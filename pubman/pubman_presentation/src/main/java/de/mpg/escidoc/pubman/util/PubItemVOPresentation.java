@@ -1628,6 +1628,32 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public ValidationReportVO getValidationReport() {
         return validationReport;
     }
+    
+    
+    public String getPublicationStatus()
+    {
+    	if(getMetadata().getDatePublishedInPrint() != null && !getMetadata().getDatePublishedInPrint().isEmpty())
+    	{
+    		return getLabel("ViewItem_lblPublicationState_publishedInPrint");
+    	}
+    	else if(getMetadata().getDatePublishedOnline() != null && !getMetadata().getDatePublishedOnline().isEmpty())
+    	{
+    		return getLabel("ViewItem_lblPublicationState_publishedOnline");
+    	}
+    	else if(getMetadata().getDateAccepted() != null && !getMetadata().getDateAccepted().isEmpty())
+    	{
+    		return getLabel("ViewItem_lblPublicationState_accepted");
+    	}
+    	else if(getMetadata().getDateSubmitted() != null && !getMetadata().getDateSubmitted().isEmpty())
+    	{
+    		return getLabel("ViewItem_lblPublicationState_submitted");
+    	}
+    	else 
+    	{
+    		return getLabel("ViewItem_lblPublicationState_notSpecified");
+    	}
+    	
+    }
 
 
 

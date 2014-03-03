@@ -72,6 +72,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCrit
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.AffiliatedContextListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.ItemStateListSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.PublicationStatusListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.FileAvailableSearchCriterion;
@@ -147,6 +148,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	
 	private SearchCriterionBase affiliatedContextListSearchCriterion;
 	
+	private SearchCriterionBase publicationStatusListSearchCriterion;
+	
 	
 
 	private Parenthesis currentlyOpenedParenthesis;
@@ -197,6 +200,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.itemStateListSearchCriterion = new ItemStateListSearchCriterion();
 		this.componentEmbargoDateSearchCriterion = new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
 		this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
+		this.publicationStatusListSearchCriterion = new PublicationStatusListSearchCriterion();
 		currentlyOpenedParenthesis = null;
 		possibleCriterionsForClosingParenthesisMap.clear();
 		balanceMap.clear();
@@ -294,6 +298,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			else if(SearchCriterion.AFFILIATED_CONTEXT_LIST.equals(sc.getSearchCriterion()))
 			{
 				this.affiliatedContextListSearchCriterion = sc;
+				toBeRemovedList.add(sc);
+			}
+			else if(SearchCriterion.PUBLICATION_STATUS_LIST.equals(sc.getSearchCriterion()))
+			{
+				this.publicationStatusListSearchCriterion = sc;
 				toBeRemovedList.add(sc);
 			}
 		}
@@ -933,6 +942,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		allCriterions.add(this.genreListSearchCriterion);
 		
+		
+		allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+		allCriterions.add(this.publicationStatusListSearchCriterion);
+		
 		allCriterions.addAll(getComponentSearchCriterions(indexName));
 		
 		
@@ -1369,6 +1382,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	public void setCriterionTypeListMenuAdmin(
 			List<SelectItem> criterionTypeListMenuAdmin) {
 		this.criterionTypeListMenuAdmin = criterionTypeListMenuAdmin;
+	}
+
+	public SearchCriterionBase getPublicationStatusListSearchCriterion() {
+		return publicationStatusListSearchCriterion;
+	}
+
+	public void setPublicationStatusListSearchCriterion(
+			SearchCriterionBase publicationStatusListSearchCriterion) {
+		this.publicationStatusListSearchCriterion = publicationStatusListSearchCriterion;
 	}
 
 }

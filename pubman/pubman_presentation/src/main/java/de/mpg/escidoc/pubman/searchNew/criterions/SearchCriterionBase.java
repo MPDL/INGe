@@ -50,6 +50,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.AffiliatedContextList
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.EventInvitationSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.ItemStateListSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.PublicationStatusListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentContentCategoryListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.FileAvailableSearchCriterion;
@@ -155,6 +156,8 @@ public abstract class SearchCriterionBase implements Serializable{
 		COMPONENT_EMBARGO_DATE(DateSearchCriterion.class, DisplayType.DATE),
 		ITEMSTATE_LIST(ItemStateListSearchCriterion.class, null),
 		AFFILIATED_CONTEXT_LIST(AffiliatedContextListSearchCriterion.class, null),
+		PUBLICATION_STATUS_LIST(PublicationStatusListSearchCriterion.class, null),
+		
 		
 		MODIFIED_INTERNAL (DateSearchCriterion.class, DisplayType.DATE),  
 		CREATED_INTERNAL (DateSearchCriterion.class, DisplayType.DATE),
