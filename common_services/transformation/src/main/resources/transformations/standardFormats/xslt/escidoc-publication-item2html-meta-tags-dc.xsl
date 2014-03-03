@@ -58,6 +58,7 @@
 	xmlns:escidocItem="${xsd.soap.item.item}">
 	
 
+
 	<xsl:import href="escidoc-publication-item2html-meta-tags.xsl"/>
 	
 	<xsl:variable name="key-title" select="'DC.title'" />
@@ -95,5 +96,4 @@
 	<xsl:variable name="key-issn" select="'DC.identifier'" />
 	<xsl:variable name="prefix-issn" select="'urn:ISSN:'" />
 
-	
 </xsl:stylesheet>
