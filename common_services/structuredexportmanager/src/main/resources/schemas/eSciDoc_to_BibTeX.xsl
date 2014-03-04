@@ -443,7 +443,7 @@
 					<xsl:when test="normalize-space(eterms:start-page)!='' and normalize-space(eterms:end-page) != ''">
 						<xsl:call-template name="createField">
 							<xsl:with-param name="name" select="'pages'"/>
-							<xsl:with-param name="xpath" select="concat(eterms:start-page, ' -- ', eterms:end-page)"/>
+							<xsl:with-param name="xpath" select="concat(eterms:start-page, '--', eterms:end-page)"/>
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:when test="normalize-space(eterms:start-page)!='' and (not(eterms:end-page) or normalize-space(eterms:end-page) = '') ">
