@@ -449,7 +449,12 @@
         for (Predicate predicate : predicates)
         {
             String paramName = prefix + predicate.getId().replaceAll("[/:.]", "_");
+            
+            //System.out.println("-----------------------------------------------------------------------------------------");
+            //System.out.println("Param Name: " + paramName);
+            //System.out.println("-----------------------------------------------------------------------------------------");
             String[] paramValues = request.getParameterValues(paramName);
+            //System.out.println("Values:" + paramValues);
             if (!predicate.isModify() && predicate.getDefaultValue() != null && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
             {
                 paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
@@ -466,6 +471,7 @@
 	            for (int i = 0; i < paramValues.length; i++)
 	            {
 	                String paramValue = paramValues[i];
+	                //System.out.println("workoing on paramValue:" + paramValue);
 	                if (predicate.getDefaultValue() != null && predicate.isOverwrite() && predicate.getEvent() == Event.ONSAVE)
 	                {
 	                    paramValue = predicate.getDefault(request);
@@ -498,6 +504,7 @@
             	        try
             	        {
             	        	String generatedObject = querier.createUniqueIdentifier(null);
+            	        	//System.out.println("Generating new identifier")
             	        	if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
     	            	    {
     	            	        TreeFragment fragment = new TreeFragment(generatedObject, langValue);
