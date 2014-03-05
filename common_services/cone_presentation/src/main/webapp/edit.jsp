@@ -197,39 +197,13 @@
 			                
 				                	if (predicate.isMultiple())
 				    		        {
-			    			            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-		    			    	        if (predicate.isGenerateObject())
-		    		    	    	    {
-		    	    	    	    	    out.append(", true");
-		    	        	    		}
-			    	        	    	else
-			    	            		{
-		    		               			out.append(", false");
-			    		            	}
-				    	    	        if (predicate.isLocalized())
-			    		        	    {
-				    		                out.append(", true");
-			    			            }
-		    			    	        else
-		    		    	    	    {
-		    	    	    	    	    out.append(", false");
-		    	        	    		}
-				    	            	out.append(")\"/>");
+			    			            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 					    	        }
 					    	        else
 					    	        {
 				    		            if (predicate.isLocalized())
 				    		        	{
-		    			    	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-		    	    		    	    	if (predicate.isGenerateObject())
-		    	        		    		{
-		    	            				    out.append(", true");
-		    	            				}
-					    	            	else
-					    	            	{
-		    				                	out.append(", false");
-		    				            	}
-		    	    			        	out.append(", true)\"/>");
+		    			    	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
 				    		        	}
 		    	        			}
 
@@ -333,40 +307,13 @@
 
 								if (predicate.isMultiple())
 					        	{
-							    	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-				    	        	if (predicate.isGenerateObject())
-		    		    	    	{
-		        		    		    out.append(", true");
-		            				}
-			            			else
-			            			{
-				                		out.append(", false");
-				    	        	}
-			            	
-			    	    	    	if (predicate.isLocalized())
-			        	    		{
-		    	        			    out.append(", true");
-			            			}
-			    	        		else
-			        	    		{
-			        	        		out.append(", false");
-		    	       	 			}
-		        	   		 		out.append(")\"/>");
+							    	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 			        			}
 					        	else
 					        	{
 					        	    if (predicate.isLocalized())
 		    			    		{
-		        			    		out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-			            				if (predicate.isGenerateObject())
-			        	   				{
-			            	   				out.append(", true");
-				           				}
-			  		         			else
-			    		        		{
-		    	    		    	   		out.append(", false");
-		        	    				}
-		            					out.append(", true)\"/>");
+		        			    		out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 		        					}
 					        	}
 
@@ -377,40 +324,14 @@
 	    		        else if (predicate.isMultiple())
 			        	{
 	    		            out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-						    	out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-			    	        	if (predicate.isGenerateObject())
-	    		    	    	{
-	        		    		    out.append(", true");
-	            				}
-		            			else
-		            			{
-			                		out.append(", false");
-			    	        	}
-		            	
-		    	    	    	if (predicate.isLocalized())
-		        	    		{
-	    	        			    out.append(", true");
-		            			}
-		    	        		else
-		        	    		{
-		        	        		out.append(", false");
-	    	       	 			}
-	        	   		 		out.append(")\"/>");
+						    out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+			    	        
 	        	   		 	out.append("</span>");
 	        			}
 			        	else if (predicate.isLocalized())
    			    		{
 			        	    out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-	       			    		out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-	            				if (predicate.isGenerateObject())
-	        	   				{
-	            	   				out.append(", true");
-		           				}
-	  		         			else
-	    		        		{
-	   	    		    	   		out.append(", false");
-	       	    				}
-	           					out.append(", true)\"/>");
+	       			    	out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 	           				out.append("</span>");
        					}
 	    		   	}

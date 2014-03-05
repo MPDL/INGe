@@ -159,7 +159,7 @@
 			form.submit();
 		}
 
-		function add(element, predicate, hidden, lang)
+		function add(element, predicate, hidden, lang, hasPredicates)
 		{
 
 			var parentInput =  $(element).parent();
@@ -170,10 +170,15 @@
 				{
 					newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
 				}
-				
+
+			
 			$(parentInput).after(newItem);
 
-			reorderPredicateInputNames($(parentInput).parent());
+			if(hasPredicates)
+			{
+				reorderPredicateInputNames($(parentInput).parent());
+			}
+			
 			element.form.submit();
 
 		
