@@ -83,6 +83,18 @@
 				</h:panelGroup>
 			</span>
 		</div>
+		
+		
+<%-- Publication status --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPublicationStatus}"/><span class="noDisplay">: </span>
+			</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{ViewItemFull.pubItem.publicationStatus}"/>
+				</span>
+			</span>
+		</div>
 
 <%-- Pages --%>
 		<div class="free_area0 endline itemLine">

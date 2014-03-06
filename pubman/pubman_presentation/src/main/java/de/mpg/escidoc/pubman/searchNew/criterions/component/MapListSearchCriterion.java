@@ -46,31 +46,39 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriteri
 public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 
 	
-	private Map<String, Boolean> enumMap = new LinkedHashMap<String, Boolean>();
+	protected Map<String, Boolean> enumMap = new LinkedHashMap<String, Boolean>();
 	
 	private Map<String, T> valueMap;
 	
 
 	
-	public MapListSearchCriterion(Map<String, T>  m, boolean preselectAll)
+	public MapListSearchCriterion(Map<String, T>  m, Map<String, Boolean> preSelectionMap)
 	{
 		this.setValueMap(m);
-		initEnumMap(preselectAll);
+		initEnumMap(preSelectionMap);
 	}
 	
 	public MapListSearchCriterion(Map<String, T>  m)
 	{
 		this.setValueMap(m);
-		initEnumMap(false);
+		initEnumMap(null);
 	}
 	
 	
-	public Map<String, Boolean> initEnumMap(boolean preselection)
+	public Map<String, Boolean> initEnumMap(Map<String, Boolean> preSelectionMap)
 	{
 
 		for(String v : getValueMap().keySet())
 		{
-			enumMap.put(v, preselection);
+			if(preSelectionMap == null || !preSelectionMap.containsKey(v))
+			{
+				enumMap.put(v, false);
+			}
+			else
+			{
+				enumMap.put(v, preSelectionMap.get(v));
+			}
+			
 		}
 		return enumMap;
 		
@@ -121,10 +129,10 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 					//enumSelected = true;
 					String value = getCqlValue(indexName, getValueMap().get(entry.getKey()));
 					
-					SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, value), value);
+					
 					
 					//gc.setSearchString(entry.getKey().name().toLowerCase());
-					returnList.add(flexSc);
+					returnList.addAll(getSearchCriterionsForValue(indexName, value));
 					//sb.append(valueMap.get(entry.getKey()));
 					i++;
 
@@ -146,6 +154,15 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 
 		return null;
 		
+	}
+	
+	
+	public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue)
+	{
+		List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+		SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, searchValue), searchValue);
+		scList.add(flexSc);
+		return scList;
 	}
 
 	@Override
@@ -263,6 +280,10 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 	public abstract String[] getCqlIndexes(Index indexName, String value);
 	
 	public abstract String getCqlValue(Index indexName, T value);
+	
+	
+
+	
 
 
 	public Map<String, T> getValueMap() {
