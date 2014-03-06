@@ -777,7 +777,7 @@ Notes:
 			<element index="TOKENIZED">
 				 <xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='given-name'],' ', ./*[local-name()='person']/*[local-name()='family-name'])"/>
 			</element>
-			<element index="TOKENIZED">
+			<element index="UN_TOKENIZED">
 				 <xsl:value-of select="./*[local-name()='person']/*[local-name()='identifier']"/>
 			</element>
 		</userdefined-index>
@@ -794,7 +794,7 @@ Notes:
 			<element index="TOKENIZED">
 				<xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
 			</element>
-			<element index="TOKENIZED">
+			<element index="UN_TOKENIZED">
 				 <xsl:value-of select="./*[local-name()='organization']/*[local-name()='identifier']"/>
 			</element>
 		</userdefined-index>
@@ -1001,6 +1001,32 @@ Notes:
 				<xsl:value-of select="./*[local-name()='properties']/*[local-name()='pid']"/>
 			</element>
 		</xsl:for-each>
+	</userdefined-index>
+	
+	<!-- Publication status drawn from dates -->
+	<userdefined-index name="publication-status">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<element index="UN_TOKENIZED">
+			<xsl:choose>
+				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='issued'] and $ITEM_METADATAPATH//*[local-name()='issued'] != ''">
+					<xsl:value-of select="'published-in-print'"/>
+				</xsl:when>
+				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='published-online'] and $ITEM_METADATAPATH//*[local-name()='published-online'] != ''">
+					<xsl:value-of select="'published-online'"/>
+				</xsl:when>
+				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateAccepted'] and $ITEM_METADATAPATH//*[local-name()='dateAccepted'] != ''">
+					<xsl:value-of select="'accepted'"/>
+				</xsl:when>
+				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateSubmitted'] and $ITEM_METADATAPATH//*[local-name()='dateSubmitted'] != ''">
+					<xsl:value-of select="'submitted'"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="'not-specified'"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</element>
 	</userdefined-index>
         
     </xsl:variable>

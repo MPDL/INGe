@@ -87,7 +87,7 @@
 	<xsl:variable name="key-journal-title" select="'citation_journal_title'" />
 	<xsl:variable name="key-journal-abbrev" select="'citation_journal_abbrev'" />
 	<xsl:variable name="key-volume" select="'citation_volume'" />
-	<xsl:variable name="key-issue" select="'citation_language'" />
+	<xsl:variable name="key-issue" select="'citation_issue'" />
 	<xsl:variable name="key-firstpage" select="'citation_firstpage'" />
 	<xsl:variable name="key-lastpage" select="'citation_lastpage'" />
 	<xsl:variable name="key-publisher" select="'citation_publisher'" />

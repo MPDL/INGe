@@ -1,4 +1,5 @@
 /*
+*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -25,51 +26,76 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.transformation.util.creators;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MpisBibtexFormat extends AuthorFormat {
+/**
+ * TODO Description
+ *
+ * @author walter (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+public class BibTeXMixedSurnameAndGivennameFormat extends AuthorFormat {
 
     @Override
     public String getPattern() {
-        return "^\\s*" + NAME + "(\\{\\})?" + ", +" + INITIALS + "( +and +" + NAME + "(\\{\\})?" + ", +" + INITIALS + ")*\\s*$";
+        return "";
     }
 
     @Override
-    public List<Author> getAuthors(String authorsString) {
-        System.out.println(getPattern());
-        if (authorsString == null || !authorsString.contains("{}") || !authorsString.matches(getPattern())) {
+    public List<Author> getAuthors(String authorsString) throws Exception{
+        if (authorsString == null || !(authorsString.contains(" and ") && authorsString.contains(", ")))
+        {
             return null;
         }
         String[] authors = authorsString.split(" +and +");
-        List<Author> result = getAuthorListLeadingSurname(authors, ",");
-        for (Author author : result)
+        List<String> surnameFirst = new ArrayList<String>();
+        List<String> givennameFirst = new ArrayList<String>();
+        for (String author : authors)
         {
-            if (author.getSurname().endsWith("{}"))
+            if (author.contains(", "))
             {
-                author.setSurname(author.getSurname().replace("{}", ""));
-                author.getTags().put("brackets", "true");
+                surnameFirst.add(author);
+            }
+            else 
+            {
+                givennameFirst.add(author) ;
             }
         }
+        
+        List<Author> authorListSurnnameFirst = getAuthorListLeadingSurname(surnameFirst.toArray(new String[surnameFirst.size()]), ",");
+        List<Author> authorListGivennameFirst = getAuthorListNormalFormat(givennameFirst.toArray(new String[givennameFirst.size()]));
+        
+        if (authorListSurnnameFirst == null || authorListGivennameFirst == null)
+        {
+            return null;
+        }
+        
+        List<Author> result;
+        result = authorListSurnnameFirst;
+        result.addAll(authorListGivennameFirst);
         return result;
     }
 
     @Override
     public int getSignificance() {
-        return 1;
+        return 3;
     }
 
     @Override
     public String getDescription() {
-        return "V. Nachname[; V.-N. Nach-Name]";
+        return "Vorname Nachname and Nachname, Vorname... (or vice versa)";
     }
 
     @Override
     public String getName() {
-        return "BibTeX-Format mit geschweiften Klammern als CoNE-Indikator";
+        return "BibTeXMixedSurnameAndGivennameFormat";
     }
 
     @Override

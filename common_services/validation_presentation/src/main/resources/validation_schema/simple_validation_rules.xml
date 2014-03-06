@@ -120,6 +120,10 @@
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
 	
+	<iso:phase id="save_item">
+		<iso:active pattern="title_required"/>
+	</iso:phase>
+	
 	<iso:phase id="submit_item">
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>

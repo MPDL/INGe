@@ -144,6 +144,12 @@
 					$(parent).find('input[class*="small_txtInput"]').remove();
 					$(parent).find('input[class="noDisplay"]').remove();
 				}
+
+				if(listSize>1)
+				{
+					reorderPredicateInputNames($(parent).parent());
+				}
+				
 			}
 			else
 			{
@@ -153,23 +159,69 @@
 			form.submit();
 		}
 
-		function add(element, predicate, hidden, lang)
+		function add(element, predicate, hidden, lang, hasPredicates)
 		{
-			var parent = $(element).parents('.itemLine:eq(0)');
-			var singleItem = $(parent).find('.singleItem')[0];
-			var lastItem = $(parent).find('.singleItem:last');
 
-			var newItem = $(singleItem).clone().empty();
+			var parentInput =  $(element).parent();
+			
+			var newItem = $(parentInput).clone().empty();
 				newItem.append('<input name="'+ predicate +'" value="" type="hidden">');
 				if (lang)
 				{
 					newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
 				}
-				
-			$(lastItem).after(newItem);
 
-			element.form.submit();
 			
+			$(parentInput).after(newItem);
+
+			if(hasPredicates)
+			{
+				reorderPredicateInputNames($(parentInput).parent());
+			}
+			
+			element.form.submit();
+
+		
+		}
+
+
+		function reorderPredicateInputNames(parent)
+		{
+			//Reorder rest of elements with predicates
+			var count = 0;
+			$(parent).children(".inputField").each(
+				function (index) {
+
+					if($(this).find("input:text, input:hidden").size())
+					{
+						//console.log("found inputs for " + $(this));
+						$(this).find("input:text").each(function (index) {
+
+							if($(this).attr("name").contains("|"))
+							{
+								//console.log("Name:" + $(this).attr("name"));
+								var name = $(this).attr("name").split("|");
+								var predicatePos = name.length - 2;
+
+								//console.log("Predicate Pos:" + predicatePos);
+
+								
+								name[predicatePos] = name[predicatePos].substring(0, name[predicatePos].lastIndexOf('_')) + "_" + count;
+								console.log(name[predicatePos]);
+
+								var newName = name.join("|");
+								//console.log("New name:" + newName);
+								$(this).attr("name", newName);
+							}
+							
+															
+							
+						});
+						//console.log("count++");
+						count++;
+					}
+				});
+
 		}
 
 		function bindSuggest(element, model, cutId)
@@ -361,7 +413,19 @@
 			var object;
 			if (counter != null)
 			{
-				object = document.editform[formField][counter].value;
+
+				if(!(typeof document.editform[formField][counter] === "undefined"))
+				{
+					object = document.editform[formField][counter].value;
+				}
+				else
+				{
+					object = document.editform[formField].value;
+				}
+				
+				
+				
+				
 			}
 			else
 			{

@@ -381,7 +381,8 @@ public class Bibtex implements BibtexInterface
                     }
                     else if (bibGenre == BibTexUtil.Genre.inbook
                             || bibGenre == BibTexUtil.Genre.incollection
-                            || bibGenre == BibTexUtil.Genre.inproceedings)
+                            || bibGenre == BibTexUtil.Genre.inproceedings
+                            || bibGenre == BibTexUtil.Genre.conference)
                     {
                         SourceVO secondSource = new SourceVO(
                                 new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
@@ -436,7 +437,10 @@ public class Bibtex implements BibtexInterface
                     {
                         sourceVO.setVolume(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("volume").toString()), false));
                     }
-                    else if (bibGenre == BibTexUtil.Genre.inbook)
+                    else if (bibGenre == BibTexUtil.Genre.inbook
+                            || bibGenre == BibTexUtil.Genre.inproceedings
+                            || bibGenre == BibTexUtil.Genre.incollection
+                            || bibGenre == BibTexUtil.Genre.conference)
                     {
                         if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty()) 
                         {
@@ -1327,19 +1331,52 @@ public class Bibtex implements BibtexInterface
                 // isbn
                 if (fields.get("isbn") != null)
                 {
-                    mds.getIdentifiers().add(
-                            new IdentifierVO(
-                                    IdentifierVO.IdType.ISBN,
-                                    BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("isbn").toString()), false)));
+                    if (bibGenre == BibTexUtil.Genre.inproceedings
+                            || bibGenre == BibTexUtil.Genre.inbook
+                            || bibGenre == BibTexUtil.Genre.incollection
+                            || bibGenre == BibTexUtil.Genre.conference)
+                    {
+                        if (sourceVO != null)
+                        {
+                            sourceVO.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISBN, BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("isbn").toString()), false)));
+                        }
+                    }
+                    else 
+                    {
+                        mds.getIdentifiers().add(
+                                new IdentifierVO(
+                                        IdentifierVO.IdType.ISBN,
+                                        BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("isbn").toString()), false)));
+                    }
                 }
 
                 // issn
                 if (fields.get("issn") != null)
                 {
-                    mds.getIdentifiers().add(
-                            new IdentifierVO(
-                                    IdentifierVO.IdType.ISSN,
-                                    BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
+                    if (bibGenre == BibTexUtil.Genre.inproceedings
+                            || bibGenre == BibTexUtil.Genre.inbook
+                            || bibGenre == BibTexUtil.Genre.incollection
+                            || bibGenre == BibTexUtil.Genre.conference)
+                    {
+                        if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty())
+                        {
+                            sourceVO.getSources().get(0).getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISSN, BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
+                        }
+                    }
+                    else if (bibGenre == BibTexUtil.Genre.article)
+                    {
+                        if (sourceVO != null)
+                        {
+                            sourceVO.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISSN, BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
+                        }
+                    }
+                    else 
+                    {
+                        mds.getIdentifiers().add(
+                                new IdentifierVO(
+                                        IdentifierVO.IdType.ISSN,
+                                        BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
+                    }
                 }
 
                 // keywords
@@ -1397,7 +1434,19 @@ public class Bibtex implements BibtexInterface
                     && sourceVO.getGenre()!= null)
                 {
                     mds.getSources().add(sourceVO);
+                    //Prevent the creation of an empty second
+                    if (sourceVO.getSources() != null 
+                            && !sourceVO.getSources().isEmpty() 
+                            && sourceVO.getSources().get(0) != null 
+                            && sourceVO.getSources().get(0).getTitle() != null
+                            && sourceVO.getSources().get(0).getTitle().getValue() != null
+                            && sourceVO.getSources().get(0).getTitle().getValue() != "")
+                    {
+                        mds.getSources().add(sourceVO.getSources().get(0));
+                    }
                 }
+                
+                
                 
                 // New mapping for MPIS
                 // DOI

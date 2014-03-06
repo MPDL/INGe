@@ -62,12 +62,15 @@
 		<xsl:if test="count($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]) &gt; 1">
 			<xsl:comment>ERROR with "<xsl:value-of select="$ou"/>" (found more than one entry)</xsl:comment>
 		</xsl:if>
-		<xsl:if test="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = ''">
-			<xsl:comment>ERROR with "<xsl:value-of select="$ou"/>" (ID empty)</xsl:comment>
+		<xsl:if test="not(exists($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@xlink:href))">
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"/>" (NO ID FOUND)</xsl:comment>
 		</xsl:if>
-		<xsl:element name="dc:identifier">
+		<xsl:if test="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = ''">
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"/>" (ID EMPTY)</xsl:comment>
+		</xsl:if>
+		<dc:identifier>
 			<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
-		</xsl:element>
+		</dc:identifier>
 		<xsl:comment>ID set for OU '<xsl:value-of select="$ou"/>'</xsl:comment>
 	</xsl:template>
 	

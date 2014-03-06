@@ -64,6 +64,7 @@
 						<include>**/MarcXMLToEscidocTransformationTest.java</include>
 						<include>**/Marc21ToMarcXMLTransformationTest.java</include>
 						<include>**/EntityResolverTest.java</include>
+						<include>**/AuthorDecoderTest.java</include>
 					</includes>
 				</configuration>
 			</plugin>

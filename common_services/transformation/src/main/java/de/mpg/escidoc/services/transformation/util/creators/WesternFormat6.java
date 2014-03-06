@@ -61,7 +61,7 @@ public class WesternFormat6 extends AuthorFormat {
 
     @Override
     public int getSignificance() {
-        return 8;
+        return 11;
     }
 
     @Override

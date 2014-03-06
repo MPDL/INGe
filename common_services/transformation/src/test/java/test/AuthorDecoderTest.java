@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.creators;
+package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,8 +40,9 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.util.creators.Author;
-import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
+import de.mpg.escidoc.services.transformation.util.creators.Author;
+import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
+
 
 /**
  * Tests for the AuthorDecoder class.
@@ -178,6 +179,57 @@ public class AuthorDecoderTest
         assertEquals("Ludwig I.", bestList.get(2).getGivenName());
         assertEquals("Dorin", bestList.get(0).getSurname());
         assertEquals("König", bestList.get(2).getSurname());
+    }
+    
+    @Test
+    public void testGivennameSurnameAuthroDelimiterAnd () throws Exception {
+        // Givenname Surname and Givenname Surname and ...
+        final String TEST = "Max Maier and Evélin Chambers and Vîctor Ærgåï";
+        
+        AuthorDecoder authorDecoder = new AuthorDecoder (TEST);
+        List<Author> bestList = authorDecoder.getBestAuthorList();
+        assertNotNull(bestList);
+        assertEquals(3, bestList.size());
+        assertEquals("Max", bestList.get(0).getGivenName());
+        assertEquals("Evélin", bestList.get(1).getGivenName());
+        assertEquals("Vîctor", bestList.get(2).getGivenName());
+        assertEquals("Maier", bestList.get(0).getSurname());
+        assertEquals("Chambers", bestList.get(1).getSurname());
+        assertEquals("Ærgåï", bestList.get(2).getSurname());
+    }
+    
+    @Test
+    public void testSurnameGivennameAuthroDelimiterAnd () throws Exception {
+        // Surname, Givenname and Surname, Givenname and ...  
+        final String TEST = "Maier, Max and Chambers, Evélin and Ærgåï, Vîctor";
+        
+        AuthorDecoder authorDecoder = new AuthorDecoder (TEST);
+        List<Author> bestList = authorDecoder.getBestAuthorList();
+        assertNotNull(bestList);
+        assertEquals(3, bestList.size());
+        assertEquals("Max", bestList.get(0).getGivenName());
+        assertEquals("Evélin", bestList.get(1).getGivenName());
+        assertEquals("Vîctor", bestList.get(2).getGivenName());
+        assertEquals("Maier", bestList.get(0).getSurname());
+        assertEquals("Chambers", bestList.get(1).getSurname());
+        assertEquals("Ærgåï", bestList.get(2).getSurname());
+    }
+    
+    @Test
+    public void testMixedNamesAuthorDelimiterAnd () throws Exception {
+        // Surname, Givenname and Givenname Surname and Givenname Surname and Surname, Givenname ... (names mixed)
+        final String TEST = "Maier, Max and Evélin Chambers and Ærgåï, Vîctor";
+        
+        AuthorDecoder authorDecoder = new AuthorDecoder (TEST);
+        List<Author> bestList = authorDecoder.getBestAuthorList();
+        assertNotNull(bestList);
+        assertEquals(3, bestList.size());
+        assertEquals("Max", bestList.get(0).getGivenName());
+        assertEquals("Vîctor", bestList.get(1).getGivenName());
+        assertEquals("Evélin", bestList.get(2).getGivenName());
+        assertEquals("Maier", bestList.get(0).getSurname());
+        assertEquals("Ærgåï", bestList.get(1).getSurname());
+        assertEquals("Chambers", bestList.get(2).getSurname());
     }
     
     @Test
