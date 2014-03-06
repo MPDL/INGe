@@ -75,10 +75,10 @@
 						<div id="content" class="full_area0 clear" style="margin-top:4em; ">
 							<span style="font-size: 140%;line-height:140%"> 
 								<p style="margin-left:4em; margin-right:4em;">
-									This publication has been assigned a persistent identifier (PID), but the identifier has not yet been registered in the worldwide Handle system. This may take some time. If you think the registration is overdue, please refer to the <h:outputLink value="pubman-support@gwdg.de" title="pubman-support@gwdg.de">PubMan support team</h:outputLink>.
+									This publication has been assigned a persistent identifier (PID), but the identifier has not yet been registered in the worldwide Handle system. This may take some time. If you think the registration is overdue, please refer to the <h:outputLink value="mailto:pubman-support@gwdg.de" title="pubman-support@gwdg.de">PubMan support team</h:outputLink>.
 								</p>
 								<p style="margin-left:4em; margin-right:4em;padding-top:1em;border-top-color: #B0B1B1;border-top-style: solid;border-top-width: 0.09em">
-									Dieser Publikation wurde ein persistenter Identifikator (PID) zugewiesen, der Identifikator wurde aber noch nicht im weltweiten Handle-System registriert. Dies kann einige Zeit dauern. Falls Sie der Meinung sind, die Registrierung sei überfällig, wenden Sie sich bitte an das <h:outputLink value="pubman-support@gwdg.de" title="pubman-support@gwdg.de">PubMan-Support-Team</h:outputLink>.
+									Dieser Publikation wurde ein persistenter Identifikator (PID) zugewiesen, der Identifikator wurde aber noch nicht im weltweiten Handle-System registriert. Dies kann einige Zeit dauern. Falls Sie der Meinung sind, die Registrierung sei überfällig, wenden Sie sich bitte an das <h:outputLink value="mailto:pubman-support@gwdg.de" title="pubman-support@gwdg.de">PubMan-Support-Team</h:outputLink>.
 								</p>
 							</span>		
 						</div>
