@@ -30,11 +30,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
-		<groupId>de.mpg.escidoc.services</groupId>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<version>1.0.58-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>fledgeddata_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>fledgeddata_ear</name>
@@ -55,7 +55,7 @@
 					<version>5</version>
 					<modules>
 						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>framework_access</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
@@ -100,11 +100,11 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services</groupId>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>transformation</artifactId>
 						</ejbModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>fledgeddata_presentation</artifactId>
 							<contextRoot>/fledgeddata</contextRoot>
 						</webModule>						
@@ -236,7 +236,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>1.0.61-SNAPSHOT</version>
 			<scope>compile</scope>
@@ -290,14 +290,14 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>fledgeddata</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
 			<version>1.0.46-SNAPSHOT</version>
 			<scope>compile</scope>
@@ -310,7 +310,7 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>fledgeddata_presentation</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<type>war</type>

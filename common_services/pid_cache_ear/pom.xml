@@ -30,11 +30,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
-		<groupId>de.mpg.escidoc.services</groupId>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<version>1.0.75-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>pid_cache_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>pid_cache_ear</name>
@@ -62,12 +62,12 @@
 					</archive>
 					<modules>
 						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>pid_cache_presentation</artifactId>
 							<contextRoot>pidcache</contextRoot>
 						</webModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services</groupId>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
 
@@ -248,20 +248,20 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>1.3.20-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
 			<version>0.1.38-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>1.1.75-SNAPSHOT</version>
 			<type>ejb</type>
