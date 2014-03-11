@@ -17,12 +17,12 @@
 
 	<parent>
 		<artifactId>pubman</artifactId>
-		<groupId>de.mpg.escidoc.pubman</groupId>
+		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 		<version>7.5.3-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.pubman</groupId>
+	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_installer_escidoc</artifactId>
 	<name>pubman_installer_escidoc</name>
 	<packaging>jar</packaging>
@@ -159,7 +159,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>de.mpg.escidoc.pubman</groupId>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_installer_basic</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
@@ -298,7 +298,7 @@
 								</artifactItem>
 
 								<artifactItem>
-									<groupId>de.mpg.escidoc.pubman</groupId>
+									<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 									<artifactId>pubman_ear</artifactId>
 									<type>ear</type>
 									<version>${project.version}</version>
@@ -399,7 +399,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<groupId>de.mpg.escidoc.pubman</groupId>
+							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 							<includeArtifactIds>pubman_ear</includeArtifactIds>
 							<version>7.5.0</version>
 							<type>jar</type>
@@ -438,7 +438,7 @@
 						<version>${izpack.standalone.compiler.version}</version>
 					</dependency>
 					<dependency>
-						<groupId>de.mpg.escidoc.pubman</groupId>
+						<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 						<!-- artifactId>pubman_installer_basic-jar-with-dependencies</artifactId-->
 						<artifactId>pubman_installer_basic</artifactId>
 						<version>${project.version}</version>
