@@ -51,7 +51,8 @@
 				<configuration>
 					<displayName>dataacquisition</displayName>
 					<description>Data Acquisition Service integration testing ear</description>
-					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<version>6</version>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<archive>
 						<manifestEntries>

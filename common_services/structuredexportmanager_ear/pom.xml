@@ -54,7 +54,8 @@
 				<configuration>
 					<displayName>structuredexportmanager_ear</displayName>
 					<description>structuredexportmanager_ear integration testing ear</description>
-					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<version>6</version>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<archive>
 						<manifestEntries>
