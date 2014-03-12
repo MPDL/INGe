@@ -53,7 +53,7 @@
 					<displayName>validation</displayName>
 					<description>validation integration testing ear</description>
 					<version>6</version>
-					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<archive>
 						<manifestEntries>
