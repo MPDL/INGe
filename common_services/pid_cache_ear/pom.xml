@@ -53,7 +53,8 @@
 				<configuration>
 					<displayName>pid_cache</displayName>
 					<description>pid cache integration testing ear</description>
-					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<version>6</version>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<archive>
 						<manifestEntries>
