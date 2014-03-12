@@ -54,7 +54,7 @@
 					<applicationName>pubman_logic_ear</applicationName>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
-					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<archive>
