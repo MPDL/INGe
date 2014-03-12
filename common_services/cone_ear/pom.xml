@@ -284,7 +284,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_presentation</artifactId>
-			<version>1.0.52-SNAPSHOT</version>
+			<version>1.0.64-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
