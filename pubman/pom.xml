@@ -239,7 +239,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		    <repository>
+		<repository>
       		<id>org.escidoc.core</id>
       		<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
       		<snapshots>
@@ -249,6 +249,17 @@
 	</repositories>
 	
 	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<url>http://rd.mpdl.mpg.de/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+    	<!-- 
     	<pluginRepository>
       		<id>org.escidoc.core</id>
       		<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
@@ -256,6 +267,7 @@
         		<enabled>true</enabled>
       		</snapshots>
    		 </pluginRepository>
+   		 -->
    		 <!--  
     <pluginRepository>
       <id>maven2-repository.dev.java.net</id>
