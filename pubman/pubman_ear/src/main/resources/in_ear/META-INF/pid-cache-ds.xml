@@ -29,7 +29,7 @@
 <!-- HSqlDB configuration -->
 <datasources>
   <datasource enabled="true" jndi-name="java:jboss/datasources/PidCache" jta="true" pool-name="PidCache" use-java-context="false">
-    <connection-url>jdbc:h2:${jboss.install.dir}/standalone/data/pubman_db/db</connection-url>
+    <connection-url>jdbc:h2:${jboss.server.data.dir}/pubman_db/db</connection-url>
     <!-- <driver>${project.build.finalName}.${project.packaging}_org.hsqldb.jdbc.JDBCDriver_2_3</driver>-->
     <driver>h2</driver>
     <pool>
