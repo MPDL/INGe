@@ -69,6 +69,11 @@
         		<configuration>
         			<warName>pubman_presentation</warName>
         			<warSourceExcludes>**/opensource/**</warSourceExcludes>
+        			<archive>
+          				<manifestEntries>
+          					<Dependencies>com.h2database.h2</Dependencies>
+          				</manifestEntries>
+          			</archive>
         		</configuration>
       		</plugin>
 			<plugin>
@@ -78,43 +83,6 @@
 			</plugin>   
 			  
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.zeroturnaround
-										</groupId>
-										<artifactId>
-											javarebel-maven-plugin
-										</artifactId>
-										<versionRange>
-											[1.0.5,)
-										</versionRange>
-										<goals>
-											<goal>generate</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-								
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		
 	</build>
 	
 	<profiles>
@@ -138,11 +106,6 @@
               				</includes>
             			</resource>
           			</webResources>
-          			<archive>
-          				<manifestEntries>
-          					<Dependencies>com.h2database.h2</Dependencies>
-          				</manifestEntries>
-          			</archive>
         		</configuration>
       		</plugin>
       		
