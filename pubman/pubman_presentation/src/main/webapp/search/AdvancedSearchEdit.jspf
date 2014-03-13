@@ -425,7 +425,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator">&#160;</span>
 		<h:panelGroup id="editAffiliatedContexts" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 		
-			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+			<span class="free_area0 xTiny_marginLExcl endline clear">
 				<!-- 
 				<span class="double_checkbox">
 					<input type="checkbox" class="checkAllItemStates" id="checkAllItemStates"/>
@@ -458,7 +458,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator">&#160;</span>
 		<h:panelGroup id="editItemState" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 		
-			<span class="free_area0 xTiny_marginLExcl endline genreContainer clear">
+			<span class="free_area0 xTiny_marginLExcl endline clear">
 				<!-- 
 				<span class="double_checkbox">
 					<input type="checkbox" class="checkAllItemStates" id="checkAllItemStates"/>
@@ -494,7 +494,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator">&#160;</span>
 		<h:panelGroup id="editGenre" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
 		
-			<span class="free_area0 xTiny_marginLExcl endline clear">
+			<span class="free_area0 xTiny_marginLExcl genreContainer endline clear">
 				<span class="double_checkbox">
 					<input type="checkbox" class="checkAllGenre" id="checkAllGenre"/>
 					<label for="checkAllGenre"><h:outputText value="#{lbl.adv_search_btAll}" /></label>

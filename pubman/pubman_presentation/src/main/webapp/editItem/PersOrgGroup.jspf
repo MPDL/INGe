@@ -45,15 +45,21 @@
 <%-- Hidden field for display/non-display Author copy&paste group --%>
 			<h:inputHidden id="inpshowAuthorCopyPaste" value="#{EditItemSessionBean.showAuthorCopyPaste}"></h:inputHidden>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText styleClass="mandatory"
-					title="#{msg.mandatoryField}" value="*" rendered="false" /> <h:outputText
-					value="#{lbl.submission_lblAuthorCopyPasteLabel}" /> <span class="noDisplay">: </span> </b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText styleClass="quad_area0"
-					value="#{lbl.submission_lblAuthorCopyPaste}" /> <h:inputTextarea id="inpcreatorParseString" title="#{EditItemSessionBean.creatorParseString}" 
+				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /> 
+					<h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}" />
+					<span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText styleClass="quad_area0" value="#{lbl.submission_lblAuthorCopyPaste}" />
+					<h:inputTextarea id="inpcreatorParseString" title="#{EditItemSessionBean.creatorParseString}" 
 					styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EditItemSessionBean.creatorParseString}"
-					cols="15" rows="3" /> <span class="large_checkbox"> <h:selectBooleanCheckbox id="chkOverwriteStatus"
-					value="#{EditItemSessionBean.overwriteCreators}" /> <h:outputLabel for="chkOverwriteStatus"
-					value="#{lbl.EditItem_btnAddAuthorsOverwrite}" /> </span> </span>
+					cols="15" rows="3" />
+					<span class="large_checkbox">
+						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EditItemSessionBean.overwriteCreators}" />
+						<h:outputLabel for="chkOverwriteStatus"	value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
+					</span>
+				</span>
 			</h:panelGroup>
 			<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
 				<a4j:commandButton reRender="editPerson" id="btnAddAuthors" title="#{tip.EditItem_btnAddAuthors}"

@@ -239,7 +239,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		    <repository>
+		<repository>
       		<id>org.escidoc.core</id>
       		<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
       		<snapshots>

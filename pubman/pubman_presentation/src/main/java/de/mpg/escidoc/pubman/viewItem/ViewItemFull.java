@@ -569,7 +569,7 @@ public class ViewItemFull extends FacesBean
                 {
                     logger.error("Error when trying to access a property via PropertyReader", e);
                 }
-                warn(getMessage("itemIsNotLatestVersion") + "<br/><a href=\"" + (link != null ? link : "") +"\" >" + (link != null ? link : "") + "</a>");
+                warn(getMessage("itemIsNotLatestReleasedVersion") + "<br/><a href=\"" + (link != null ? link : "") +"\" >" + (link != null ? link : "") + "</a>");
             }
             try
             {

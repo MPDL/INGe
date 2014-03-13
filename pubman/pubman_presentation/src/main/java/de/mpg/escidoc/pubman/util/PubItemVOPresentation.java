@@ -1660,7 +1660,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	}
     	else 
     	{
-    		return getLabel("ViewItem_lblPublicationState_notSpecified");
+    		return getLabel("ViewItem_lblPublicationState_not-specified");
     	}
     	
     }
