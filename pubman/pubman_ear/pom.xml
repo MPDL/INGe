@@ -257,49 +257,49 @@
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>${version.common_logic}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
 			<version>${version.citationmanager}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<version>${version.dataacquisition}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>${version.structuredexportmanager}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
 			<version>${version.validation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
 			<version>${version.validation_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>cone_presentation</artifactId>
 			<version>${version.cone_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
@@ -312,71 +312,71 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-	 		<version>${version.dataacquisition_presentation}</version>
-			<scope>provided</scope>
+	 	<version>${version.dataacquisition_presentation}</version>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
 			<version>${version.transformation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>aa_presentation</artifactId>
 			<version>${version.aa_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search</artifactId>
 			<version>${version.search}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search_presentation</artifactId>
 			<version>${version.search_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>syndication_presentation</artifactId>
 			<version>${version.syndication_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_logic</artifactId>
 			<version>7.5.3-SNAPSHOT</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<version>7.5.3-SNAPSHOT</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>sword_presentation</artifactId>
 			<version>${version.sword_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
 			<version>${version.pid_cache_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
@@ -384,20 +384,20 @@
 			<artifactId>common_presentation</artifactId>
 			<version>${version.common_presentation}</version>
 			<type>war</type>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
 			<version>${version.pid_cache_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
 			<version>${version.pid_cache_presentation}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<!-- 
