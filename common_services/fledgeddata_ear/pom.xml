@@ -211,9 +211,11 @@
 								<configuration>
 									<tasks>
 										<!-- copy a default jboss server configuration -->
+										<!--
 										<copy todir="${project.build.directory}">
 											<fileset dir="src/jboss/configuration42x" />
 										</copy> 
+										-->
 										<!-- copy over the jboss service descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
 										<!-- copy the configuration file -->
