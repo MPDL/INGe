@@ -173,7 +173,8 @@
 								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
 									<url>${cargo.jboss.url}</url>
-									<installDir>${cargo.install.dir}</installDir>
+									<downloadDir>${cargo.install.dir}</downloadDir>
+									<extractDir>${cargo.install.dir}</extractDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
@@ -211,11 +212,11 @@
 								<configuration>
 									<tasks>
 										<!-- copy a default jboss server configuration -->
-										<!--
+										
 										<copy todir="${project.build.directory}">
 											<fileset dir="src/jboss/configuration42x" />
 										</copy> 
-										-->
+										
 										<!-- copy over the jboss service descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
 										<!-- copy the configuration file -->
