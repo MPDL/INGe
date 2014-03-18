@@ -41,9 +41,9 @@
 	<packaging>war</packaging>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/search_presentation</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/search_presentation</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/search_presentation</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/search_presentation</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/search_presentation</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/search_presentation</url>
 	</scm>
 	<build>
 		<plugins>
