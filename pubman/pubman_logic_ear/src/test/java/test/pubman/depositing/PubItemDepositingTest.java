@@ -39,6 +39,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -86,10 +87,11 @@ public class PubItemDepositingTest extends TestBase
     private AccountUserVO user;
     private AccountUserVO adminUser;
     
-    @Before
-    public void waitForValidationDatabase() throws Exception
+    @BeforeClass
+    public static void waitForValidationDatabase() throws Exception
     {
-        Thread.sleep(10000);
+    	logger.info("------------------------------ Sleeping 20 s to wait for validation database ------------------------------------");
+        Thread.sleep(20000);
     }
     
     
