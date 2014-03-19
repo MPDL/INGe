@@ -34,41 +34,39 @@
 	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
-   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:fn="http://www.w3.org/2005/xpath-functions"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:ei="http://www.escidoc.de/schemas/item/0.9"
-   xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    
-   xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-   xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
-   xmlns:prop="http://escidoc.de/core/01/properties/"
-   xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-   xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-   xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-   xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-   xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-   
-    xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" 
-	xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" 
-
-
-	xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.9" 
-	xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" 
-	xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" 
-	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
-	xmlns:version="http://escidoc.de/core/01/properties/version/" 
-	xmlns:release="http://escidoc.de/core/01/properties/release/" 
-	xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.9" 
-	xmlns:container="http://www.escidoc.de/schemas/container/0.8" 
-	xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.8" 
-	xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" 
-	xmlns:mods-md="http://www.loc.gov/mods/v3" 
-	xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" >
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:container="${xsd.soap.container.container}"
+	xmlns:container-list="${xsd.soap.container.containerlist}"
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+	xmlns:escidocComponents="${xsd.soap.item.components}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
+	xmlns:escidocRelations="${xsd.soap.common.relations}" 
+	xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" 
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+	xmlns:member-list="${xsd.soap.common.memberlist}"
+	xmlns:mods-md="http://www.loc.gov/mods/v3"
+	xmlns:prop="${xsd.core.properties}"
+	xmlns:pub="${xsd.metadata.publication}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:escidocContext="${xsd.soap.context.context}" 
+	xmlns:escidocContextList="${xsd.soap.context.contextlist}" 
+	xmlns:release="${xsd.soap.common.release}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
+	xmlns:struct-map="${xsd.soap.container.structmap}" 
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:escidocFunctions="urn:escidoc:functions" >
 
 	
 	<xsl:import href="vocabulary-mappings.xsl"/>	
@@ -90,7 +88,7 @@
 		
 		<!-- detect entry type -->		
 		<xsl:choose>
-			<xsl:when test="$genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume'">				
+			<xsl:when test="$genre='manual' or $genre='multi-volume' or (($genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='commentary') and (not(exists(./eterms:creator[@role=$creator-ves/enum[.='editor']/@uri]))))">				
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Book</xsl:with-param>					
 				</xsl:call-template>
@@ -100,22 +98,22 @@
 					<xsl:with-param name="entryType">Book Section</xsl:with-param>					
 				</xsl:call-template>
 			</xsl:when>	
-			<xsl:when test="$genre='proceedings'">
+			<xsl:when test="$genre='proceedings' or $genre='conference-paper' or $genre='conference-report'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Conference Proceedings</xsl:with-param>					
 				</xsl:call-template>				
 			</xsl:when>
-			<xsl:when test="$genre='conference-paper' or $genre='conference-report'">
+			<xsl:when test="($genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='commentary' or $genre='encyclopedia') and (exists(./eterms:creator[@role=$creator-ves/enum[.='editor']/@uri]))">				
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType">Conference Paper</xsl:with-param>					
-				</xsl:call-template>				
+					<xsl:with-param name="entryType">Edited Book</xsl:with-param>					
+				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$genre='encyclopedia'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Encyclopedia</xsl:with-param>					
 				</xsl:call-template>								
 			</xsl:when>
-			<xsl:when test="$genre='article' or $genre='editorial'">
+			<xsl:when test="$genre='article' or $genre='editorial' or $genre='book-review'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Journal Article</xsl:with-param>					
 				</xsl:call-template>				
@@ -135,7 +133,7 @@
 					<xsl:with-param name="entryType">Patent</xsl:with-param>					
 				</xsl:call-template>								
 			</xsl:when>	
-			<xsl:when test="$genre='report'">
+			<xsl:when test="$genre='report' or $genre='paper'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Report</xsl:with-param>					
 				</xsl:call-template>				
@@ -173,17 +171,42 @@
 		<xsl:apply-templates select="eterms:creator">
 			<xsl:with-param name="genre" select="$genre"/>
 		</xsl:apply-templates>
+		<!-- AFFILIATIONS -->
+		<xsl:variable name="affiliation">
+			<xsl:for-each select="eterms:creator/person:person/organization:organization/dc:title">
+				<xsl:value-of select="."/>
+				<xsl:value-of select="if (position()!=last()) then '&#10;' else ''"/>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:if test="$affiliation and $affiliation != ''">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag" select="'+'"/>
+				<xsl:with-param name="value" select="$affiliation"/>
+			</xsl:call-template>
+		</xsl:if>
 		
 		<!-- TITLE -->
+		<xsl:variable name="subtitle-as-suffix">
+			<xsl:value-of select="concat(' : ', dcterms:alternative[@xsi:type='eterms:SUBTITLE'])"/>
+		</xsl:variable>
+		<xsl:variable name="title-and-subtitle">
+			<xsl:value-of select="concat(dc:title, $subtitle-as-suffix)"/>
+		</xsl:variable>
 		<xsl:call-template name="print-line">
 			<xsl:with-param name="tag">T</xsl:with-param>
-			<xsl:with-param name="value" select="dc:title"/>
+			<xsl:with-param name="value" select="$title-and-subtitle"/>
 		</xsl:call-template>
 		<!-- ALTTITLE -->
-		<xsl:if test="$genre='report'">
+		<xsl:if test="exists(dcterms:alternative[@xsi:type='eterms:ABBREVIATION']) and ($genre='report' or $genre='book' or $genre='thesis' or $genre='paper' or $genre='monograph' or $genre='collected-edition' or $genre='handbook' or $genre='festschrift' or $genre='commentary' or $genre='encyclopedia')">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">O</xsl:with-param>
-				<xsl:with-param name="value" select="dcterms:alternative"/>
+				<xsl:with-param name="value" select="dcterms:alternative[@xsi:type='eterms:ABBREVIATION']"/>
+			</xsl:call-template>		
+		</xsl:if>
+		<xsl:if test="exists(dcterms:alternative[@xsi:type='eterms:ABBREVIATION']) and $genre='article'">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">!</xsl:with-param>
+				<xsl:with-param name="value" select="dcterms:alternative[@xsi:type='eterms:ABBREVIATION']"/>
 			</xsl:call-template>		
 		</xsl:if>
 		
@@ -192,6 +215,14 @@
 			<xsl:with-param name="tag">G</xsl:with-param>
 			<xsl:with-param name="value" select="dc:language"/>
 		</xsl:call-template>
+		
+		<!-- HANDLE -->
+		<xsl:if test="../../../escidocItem:properties/prop:pid and ../../../escidocItem:properties/prop:pid != '' ">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">U</xsl:with-param>
+				<xsl:with-param name="value" select="fn:concat('http://hdl.handle.net/', fn:substring-after(../../../escidocItem:properties/prop:pid, 'hdl:'))"/>
+			</xsl:call-template>
+		</xsl:if>
 		
 		<!-- IDENTIFIER -->
 		 <xsl:apply-templates select="dc:identifier">
@@ -244,6 +275,12 @@
 							<xsl:with-param name="tag">D</xsl:with-param>
 							<xsl:with-param name="value" select="fn:substring-before(dcterms:issued, '-')"/>
 						</xsl:call-template>
+						<xsl:if test="matches(dcterms:issued, '^\d{4}-\d{1,2}-\d{1,2}$')">
+							<xsl:call-template name="print-line">
+								<xsl:with-param name="tag">8</xsl:with-param>
+								<xsl:with-param name="value" select="escidocFunctions:eSciDocDateFormatToGermanDateFormat(dcterms:issued)"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="print-line">
@@ -260,6 +297,12 @@
 							<xsl:with-param name="tag">D</xsl:with-param>
 							<xsl:with-param name="value" select="fn:substring-before(eterms:published-online, '-')"/>
 						</xsl:call-template>
+						<xsl:if test="matches(eterms:published-online, '^\d{4}-\d{1,2}-\d{1,2}$')">
+							<xsl:call-template name="print-line">
+								<xsl:with-param name="tag">8</xsl:with-param>
+								<xsl:with-param name="value" select="escidocFunctions:eSciDocDateFormatToGermanDateFormat(eterms:published-online)"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="print-line">
@@ -276,6 +319,12 @@
 							<xsl:with-param name="tag">D</xsl:with-param>
 							<xsl:with-param name="value" select="fn:substring-before(dcterms:dateAccepted, '-')"/>
 						</xsl:call-template>
+						<xsl:if test="matches(dcterms:dateAccepted, '^\d{4}-\d{1,2}-\d{1,2}$')">
+							<xsl:call-template name="print-line">
+								<xsl:with-param name="tag">8</xsl:with-param>
+								<xsl:with-param name="value" select="escidocFunctions:eSciDocDateFormatToGermanDateFormat(dcterms:dateAccepted)"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="print-line">
@@ -292,6 +341,12 @@
 							<xsl:with-param name="tag">D</xsl:with-param>
 							<xsl:with-param name="value" select="fn:substring-before(dcterms:dateSubmitted, '-')"/>
 						</xsl:call-template>
+						<xsl:if test="matches(dcterms:dateSubmitted, '^\d{4}-\d{1,2}-\d{1,2}$')">
+							<xsl:call-template name="print-line">
+								<xsl:with-param name="tag">8</xsl:with-param>
+								<xsl:with-param name="value" select="escidocFunctions:eSciDocDateFormatToGermanDateFormat(dcterms:dateSubmitted)"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="print-line">
@@ -308,6 +363,12 @@
 							<xsl:with-param name="tag">D</xsl:with-param>
 							<xsl:with-param name="value" select="fn:substring-before(dcterms:modified, '-')"/>
 						</xsl:call-template>
+						<xsl:if test="matches(dcterms:modified, '^\d{4}-\d{1,2}-\d{1,2}$')">
+							<xsl:call-template name="print-line">
+								<xsl:with-param name="tag">8</xsl:with-param>
+								<xsl:with-param name="value" select="escidocFunctions:eSciDocDateFormatToGermanDateFormat(dcterms:modified)"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="print-line">
@@ -324,6 +385,12 @@
 							<xsl:with-param name="tag">D</xsl:with-param>
 							<xsl:with-param name="value" select="fn:substring-before(dcterms:created, '-')"/>
 						</xsl:call-template>
+						<xsl:if test="matches(dcterms:created, '^\d{4}-\d{1,2}-\d{1,2}$')">
+							<xsl:call-template name="print-line">
+								<xsl:with-param name="tag">8</xsl:with-param>
+								<xsl:with-param name="value" select="escidocFunctions:eSciDocDateFormatToGermanDateFormat(dcterms:created)"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="print-line">
@@ -339,10 +406,21 @@
 		<xsl:variable name="review-method-uri" select="eterms:review-method"/>
 		<xsl:variable name="review-method" select="concat('Review method: ',$reviewMethod-ves/enum[@uri=$review-method-uri])"/>
 		<xsl:if test="$review-method-uri!=''">
-			<xsl:call-template name="print-line">
-				<xsl:with-param name="tag">Z</xsl:with-param>
-				<xsl:with-param name="value" select="$review-method"/>
-			</xsl:call-template>
+			<xsl:choose>
+				<xsl:when test="$entryType='Generic' or $entryType='Book Section' or $entryType='Journal Article' or $entryType='Newspaper Article'">
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag">*</xsl:with-param>
+						<xsl:with-param name="value" select="$review-method"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag">Z</xsl:with-param>
+						<xsl:with-param name="value" select="$review-method"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 		</xsl:if>
 		
 		<!-- EVENT -->
@@ -358,10 +436,15 @@
 		</xsl:if>
 		<!-- DEGREE -->
 		<xsl:if test="$genre='thesis'">
+			<xsl:variable name="degree" select="eterms:degree"/>
 			<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">V</xsl:with-param>
-					<xsl:with-param name="value" select="eterms:degree"/>
-				</xsl:call-template>
+				<xsl:with-param name="tag">V</xsl:with-param>
+				<xsl:with-param name="value" select="$degree-ves/enum[@uri=$degree]"/>
+			</xsl:call-template>
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">9</xsl:with-param>
+				<xsl:with-param name="value" select="$degree-ves/enum[@uri=$degree]"/>
+			</xsl:call-template>
 		</xsl:if>
 		<!-- ABSTRACT -->
 		<xsl:call-template name="print-line">
@@ -378,11 +461,21 @@
 			<xsl:with-param name="value" select="dcterms:subject"/>
 		</xsl:call-template>
 		<!-- TOC -->
-		<xsl:if test="$genre='report'">
-			<xsl:call-template name="print-line">
-				<xsl:with-param name="tag">(</xsl:with-param>
-				<xsl:with-param name="value" select="dcterms:tableOfContents"/>
-			</xsl:call-template>
+		<xsl:if test="dcterms:tableOfContents and dcterms:tableOfContents!=''">
+			<xsl:choose>
+				<xsl:when test="$genre='report'">
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag">(</xsl:with-param>
+						<xsl:with-param name="value" select="dcterms:tableOfContents"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag">Z</xsl:with-param>
+						<xsl:with-param name="value" select="dcterms:tableOfContents"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:if>
 		<!-- ESCIDOC ID -->
 		<xsl:call-template name="print-line">
@@ -394,6 +487,9 @@
 		<xsl:apply-templates select="source:source">
 			<xsl:with-param name="genre" select="$genre"/>
 		</xsl:apply-templates>
+		
+		<!-- COMPONENT -->
+		<xsl:apply-templates select="../../../escidocComponents:components" />
 		
 		<!-- new lines at the end of the entry -->
 		<xsl:value-of select="'&#13;&#10;'"/>
@@ -559,7 +655,7 @@
 					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
 				</xsl:call-template>
 			</xsl:when>			
-		</xsl:choose>		
+		</xsl:choose>
 	</xsl:template>
 	<!-- ORGANIZATION -->
 	<xsl:template match="organization:organization">
@@ -739,6 +835,23 @@
 			<xsl:with-param name="tag">Z</xsl:with-param>
 			<xsl:with-param name="value" select="concat('date of event: ',$event-date)"/>
 		</xsl:call-template>
+		<xsl:if test="($genre='proceedings' or $genre='talk-at-event') and eterms:start-date and eterms:start-date!=''">
+			<xsl:variable name="event-start-date-year">
+				<xsl:choose>
+					<xsl:when test="fn:contains(eterms:start-date, '-')">
+						<xsl:value-of select="fn:substring-before(eterms:start-date, '-')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="eterms:start-date"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">D</xsl:with-param>
+				<xsl:with-param name="value" select="$event-start-date-year"/>
+			</xsl:call-template>
+		</xsl:if>
+		
 		<!-- PLACE -->
 		<xsl:choose>
 			<xsl:when test="$genre='proceedings' or $genre='proceedings-paper' or $genre='conference-paper' or $genre='conference-report' ">
@@ -754,7 +867,12 @@
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+		<xsl:if test="eterms:invitation-status and eterms:invitation-status!=''">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">9</xsl:with-param>
+				<xsl:with-param name="value" select="eterms:invitation-status"/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 
 	<!-- SOURCE -->
@@ -918,9 +1036,15 @@
 		<!-- IDENTIFIER -->
 		<xsl:choose>
 			<xsl:when test="dc:identifier/@xsi:type='eterms:ISSN'">
+				<xsl:variable name="source-issn">
+					<xsl:for-each select="dc:identfier/@xsi:type='eterms:ISSN'">
+						<xsl:if test="not(position()=1)">&#10;</xsl:if>
+    					<xsl:value-of select="."/>
+					</xsl:for-each>
+				</xsl:variable>
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">@</xsl:with-param>
-					<xsl:with-param name="value" select="dc:identifier[@xsi:type='eterms:ISSN']"/>
+					<xsl:with-param name="value" select="$source-issn"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="dc:identifier/@xsi:type='eterms:ISBN'">
@@ -943,12 +1067,27 @@
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
+	
+	<!-- COMPONENTS -->
+	<xsl:template match="escidocComponents:components">
+		<!-- EXTERNAL LOCATORS -->
+		<xsl:variable name="external-locator">
+			<xsl:for-each select="escidocComponents:component/escidocComponents:content[@storage = 'external-url' and @xlink:href != '']">
+				<xsl:if test="not(position()=1)">&#10;</xsl:if>
+    			<xsl:value-of select="./@xlink:href"/>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:if test="$external-locator and $external-locator != ''">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">U</xsl:with-param>
+				<xsl:with-param name="value" select="$external-locator"/>
+			</xsl:call-template>
+		</xsl:if>
+		<!-- FILES (TODO) -->
+	</xsl:template>
 
 
 
-
-
-	<!-- TEMPLATES -->
 	<!-- Prints result line in EndNote format -->
 	<xsl:template name="print-line">
 		<xsl:param name="tag"/>
@@ -961,7 +1100,12 @@
 		</xsl:if>
 	</xsl:template>
 	
+	<!-- FUNCTIONS -->
+	<xsl:function name="escidocFunctions:eSciDocDateFormatToGermanDateFormat">
+		<xsl:param name="eSciDocDate" />
+		<xsl:variable name="tokens" select="tokenize($eSciDocDate, '-')"/>
+		<xsl:value-of select="concat(concat(concat(concat($tokens[3], '.'), $tokens[2]), '.'), $tokens[1])"/>
+	</xsl:function>
 	
-	<!-- TEMPLATES END-->
 
 </xsl:stylesheet>
