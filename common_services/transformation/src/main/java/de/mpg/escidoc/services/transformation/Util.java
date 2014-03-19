@@ -908,10 +908,7 @@ public class Util
                 {
                      logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);
                 }
-            	
-            	
-            	//File temp = File.createTempFile("bmc_temp", ".tmp");
-            	//FileOutputStream fos = new FileOutputStream(temp);
+
             	InputStream is = getMethod.getResponseBodyAsStream();
             	long size = 0;
             	
@@ -921,13 +918,9 @@ public class Util
             	}
             	is.close();
 
-            			
-            	
-            	logger.info("GET request to " + url + " returned a file with length: " + size);
+            	 logger.info("GET request to " + url + " returned a file with length: " + size);
 	             element.setTextContent(String.valueOf(size));
 	             return document;
-                
-                
             }
            
             
