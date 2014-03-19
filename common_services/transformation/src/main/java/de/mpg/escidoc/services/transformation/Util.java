@@ -888,6 +888,7 @@ public class Util
             Element element = document.createElement("size");
             document.appendChild(element);
             Header header = headMethod.getResponseHeader("Content-Length");
+            logger.info("HEAD Request to " + url + " returned Content-Length: " + (header!=null?header.getValue():null) );
             if (header != null)
             {
                 element.setTextContent(header.getValue());
@@ -895,9 +896,33 @@ public class Util
             }
             else
             {
-                element.setTextContent("0");
-                return document;
+            	//did not get length via HEAD request, try to do a GET request 
+            	//workaround for biomed central, where HEAD requests sometimes return Content-Length, sometimes not
+            	
+            	logger.info("HEAD request to " + url + " did not return any Content-Length. Trying GET request.");
+            	httpClient = new HttpClient();
+            	GetMethod getMethod = new GetMethod(url);
+            	ProxyHelper.executeMethod(httpClient, getMethod);
+            	 
+            	if (getMethod.getStatusCode() != 200)
+                {
+                     logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);
+                }
+
+            	InputStream is = getMethod.getResponseBodyAsStream();
+            	long size = 0;
+            	
+            	while(is.read() != -1)
+            	{
+            		size++;
+            	}
+            	is.close();
+
+            	 logger.info("GET request to " + url + " returned a file with length: " + size);
+	             element.setTextContent(String.valueOf(size));
+	             return document;
             }
+           
             
         }
         catch (Exception e)

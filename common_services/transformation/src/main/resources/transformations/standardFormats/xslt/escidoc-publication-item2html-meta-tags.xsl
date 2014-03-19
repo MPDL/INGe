@@ -73,6 +73,12 @@
 	<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
 	<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
 	
+    <!--Start with a line break -->
+	<xsl:template match="/">	
+		<xsl:text>&#xa;</xsl:text>
+		<xsl:apply-templates />
+	</xsl:template>
+	
 	<!-- fulltext links -->
 	<xsl:template match="//escidocComponents:component">
 		<xsl:variable name="contentCategory" select="tokenize(escidocComponents:properties/prop:content-category, '/')[last()]"/>
