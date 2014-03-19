@@ -407,7 +407,7 @@
 		
 		
 		$input.css('display', 'none');
-		$input.parent().find('.userAccountName').attr('class', 'xLarge_txtInput organizationAddress');
+		$input.parent().find('.userAccountName').attr('class', 'double_txtInput userAccountSuggest userAccountName disableAfter');
 		
 		bindSuggests();
 		return;
@@ -451,7 +451,7 @@
 
 					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestUserAccount').css('display', 'inline');
 					
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('class', 'large_txtInput organizationAddress');
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('class', 'large_txtInput userAccountName');
 				}
 			});
 		}
