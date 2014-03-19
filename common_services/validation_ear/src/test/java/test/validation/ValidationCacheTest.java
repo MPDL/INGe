@@ -72,7 +72,7 @@ public class ValidationCacheTest
 
     private static ValidationSchemaCache cache;
     
-    private ItemValidating itemValidating;
+    private static ItemValidating itemValidating;
 
     //private Connection connection;
 
