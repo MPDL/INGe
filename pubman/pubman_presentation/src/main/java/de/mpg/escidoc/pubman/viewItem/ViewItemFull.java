@@ -533,7 +533,7 @@ public class ViewItemFull extends FacesBean
             this.isStateWasReleased  = this.pubItem.getLatestRelease().getObjectId() != null ? true : false;
 
             // display a warn message if the item version is not the latest
-            if (this.isLatestVersion == false  && this.pubItem.getLatestVersion() != this.pubItem.getLatestRelease() && this.isLoggedIn)
+            if (this.isLatestVersion == false  && this.pubItem.getLatestVersion().getVersionNumber() != this.pubItem.getLatestRelease().getVersionNumber() && this.isLoggedIn)
             {
                 String link = null;
                 try
