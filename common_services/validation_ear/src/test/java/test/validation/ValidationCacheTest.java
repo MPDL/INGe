@@ -47,6 +47,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -68,7 +69,7 @@ public class ValidationCacheTest
     private String context = "publication";
     private String contentType = "escidoc.framework_access.content-model.id.publication";
 
-    private ValidationSchemaCache cache;
+    private static ValidationSchemaCache cache;
 
     private Connection connection;
 
@@ -76,10 +77,10 @@ public class ValidationCacheTest
      * Sets the validation schema cache instance.
      * @throws Exception Any exception.
      */
-    @Before
-    public final void getCache() throws Exception
+    @BeforeClass
+    public static final void getCache() throws Exception
     {
-    	Thread.sleep(10000);
+    	Thread.sleep(20000);
         cache = ValidationSchemaCache.getInstance();
     }
 
