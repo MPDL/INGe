@@ -48,7 +48,7 @@
 	xmlns:srel="${xsd.soap.common.srel}"
 	xmlns:prop="${xsd.core.properties}"
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-	xmlns:ec="${xsd.soap.item.components}"
+	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:file="${xsd.metadata.file}"
 	xmlns:pub="${xsd.metadata.publication}"
 	xmlns:person="${xsd.metadata.person}"
@@ -104,12 +104,14 @@
 			<m key="Conference Paper">conference-paper</m>
 			<m key="Conference Proceedings">proceedings</m>
 			<m key="Journal Article">article</m>
-			<m key="Magazine Article">article</m>
+			<m key="Magazine Article">newspaper-article</m>
 			<m key="Meeting Abstract">meeting-abstract</m>
-			<m key="Newspaper Article">article</m>
+			<m key="Newspaper Article">newspaper-article</m>
 			<m key="Electronic Article">article</m>
+			<m key="Patent">patent</m>
 			<m key="Report">report</m>
 			<m key="Manuscript">manuscript</m>
+			<m key="Talk at Event">talk-at-event</m>
 			<m key="Thesis">thesis</m>
 			<m key="Generic">other</m>
 	</xsl:variable>
@@ -180,12 +182,20 @@
 					<xsl:call-template name="itemMetadata"/>
 				</mdr:md-record>
 			</mdr:md-records>
-			<xsl:element name="ec:components">
+			<xsl:element name="escidocComponents:components">
 				<xsl:if test="MORE and ($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt')">
 					<xsl:variable name="oa" select="EQUAL = '1'"/>
 					<xsl:for-each select="MORE">
 						<xsl:call-template name="component">
 							<xsl:with-param name="oa" select="$oa"/>
+							<xsl:with-param name="internal-managed" select="true()"/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:if>
+				<xsl:if test="U">
+					<xsl:for-each select="U">
+						<xsl:call-template name="component">
+							<xsl:with-param name="internal-managed" select="false()"/>
 						</xsl:call-template>
 					</xsl:for-each>
 				</xsl:if>
@@ -205,6 +215,9 @@
 				<xsl:when test="($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt') and NUM_9 = 'Meeting Abstract'">
 					<xsl:value-of select="$genreMap/m[@key='Meeting Abstract']"/>
 				</xsl:when> 
+				<xsl:when test="($refType = 'Generic' or $refType = 'Conference Paper' or $refType = 'Report') and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')">
+					<xsl:value-of select="$genreMap/m[@key='Talk at Event']"/>
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$genreMap/m[@key=$refType]"/>
 				</xsl:otherwise>
@@ -408,11 +421,34 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:for-each select="U">
+			<xsl:for-each select="AT[
+				      $refType = 'Patent'
+				]">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:PATENT_NR</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="U[
+					$refType = 'Patent'
+				]">
+				<dc:identifier xsi:type="eterms:OTHER">
+					<xsl:value-of select="."/>
+				</dc:identifier>
+			</xsl:for-each>
+			<xsl:for-each select="V[
+					$refType = 'Patent'
+				]">
+				<dc:identifier xsi:type="eterms:OTHER">
+					<xsl:value-of select="."/>
+				</dc:identifier>
+			</xsl:for-each>
+			<xsl:for-each select="AMPERSAND[
+					$refType = 'Patent'
+				]">
+				<dc:identifier xsi:type="eterms:PATENT_NR">
+					<xsl:value-of select="."/>
+				</dc:identifier>
 			</xsl:for-each>
 			<!-- END OF IDENTIFIERS -->
 			
@@ -430,26 +466,26 @@
 			"/>
 			 
 			<xsl:if test="$publisher != '' or  $edition != ''">
-				<xsl:element name="eterms:publishing-info">
-					<xsl:element name="dc:publisher">
+				<eterms:publishing-info>
+					<dc:publisher>
 						<xsl:value-of select="$publisher"/>
-					</xsl:element>
+					</dc:publisher>
 					<xsl:variable name="place" select="
 						if (C and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article', 'Generic')) then C
 						else ''
 					"/>
 					<xsl:if test="$place!=''">
-						<xsl:element name="eterms:place">
+						<eterms:place>
 							<xsl:value-of select="$place"/>
-						</xsl:element>
+						</eterms:place>
 					</xsl:if>
 					
 					<xsl:if test="$edition!=''">
-						<xsl:element name="eterms:edition">
+						<eterms:edition>
 							<xsl:value-of select="$edition"/>
-						</xsl:element>
+						</eterms:edition>
 					</xsl:if>
-				</xsl:element>
+				</eterms:publishing-info>
 			</xsl:if>			
 			<!-- END OF PUBLISHING INFO -->
 			
@@ -479,6 +515,14 @@
 			"/>
 			<xsl:if test="$dateModified!=''">
 				<dcterms:modified xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateModified"/></dcterms:modified>
+			</xsl:if>
+			
+			<xsl:variable name="dateAccepted" select="
+				if (not(D) and NUM_8 and $refType = 'Thesis') then escidocFunctions:normalizeDate(NUM_8)
+				else ''
+			"/>
+			<xsl:if test="$dateAccepted != ''">
+				<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateAccepted"/></dcterms:dateAccepted>
 			</xsl:if>
           	<!-- end of DATES -->
 
@@ -514,7 +558,7 @@
 			
 			
 			<!-- EVENT -->
-			<xsl:if test="B and $refType = ('Conference Paper', 'Conference Proceedings')">
+			<xsl:if test="B and ($refType = ('Conference Paper', 'Conference Proceedings') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
 				<xsl:element name="event:event">
 					<xsl:element name="dc:title">
 						<xsl:value-of select="B"/>
@@ -528,6 +572,11 @@
 						<xsl:element name="eterms:place">
 							<xsl:value-of select="C"/>
 						</xsl:element>
+					</xsl:if>
+					<xsl:if test="D">
+						<eterms:start-date xsi:type="dcterms:W3CDTF">
+							<xsl:value-of select="D"/>
+						</eterms:start-date>
 					</xsl:if>
 				</xsl:element>
 			</xsl:if>
@@ -1086,99 +1135,123 @@
 	
 	<xsl:template name="component">
 		<xsl:param name="oa" select="false()"/>
-		<xsl:variable name="suffix">
-			<xsl:choose>
-				<xsl:when test="contains(., '.')">
-					<xsl:value-of select="substring-after(., '.')"/>
-				</xsl:when>
-				<xsl:otherwise>pdf</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<!-- PATH(-SUFFIX) BEFORE NAME -->
-		<xsl:variable name="path">
-			<xsl:choose>
-				<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
-					<xsl:value-of select="fn:replace(concat(substring-before(., '/'), '/'), ' ', '%20')"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="''"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:variable name="filename">
-			<xsl:choose>
-				<xsl:when test="contains(., '.')">
+		<xsl:param name="internal-managed" select="true()"/>
+		<xsl:choose>
+			<xsl:when test="$internal-managed">
+				<xsl:variable name="suffix">
 					<xsl:choose>
-						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'"> 
-							<xsl:value-of select="fn:replace(substring-after(., '/'), ' ', '%20')"/>
+						<xsl:when test="contains(., '.')">
+							<xsl:value-of select="substring-after(., '.')"/>
 						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="fn:replace(., ' ', '%20')"/>
-						</xsl:otherwise>
+						<xsl:otherwise>pdf</xsl:otherwise>
 					</xsl:choose>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:choose>
-						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'"> 
-							<xsl:value-of select="fn:replace(substring-after(., '/'), ' ', '%20')"/>.<xsl:value-of select="$suffix"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="fn:replace(., ' ', '%20')"/>.<xsl:value-of select="$suffix"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:variable name="mimetype">
-			<xsl:value-of select="Util:getMimetype($filename)"/>
-		</xsl:variable>
-		<ec:component>
-			<ec:properties xmlns:xlink="http://www.w3.org/1999/xlink">
-				<prop:visibility>
-					<xsl:choose>
-						<xsl:when test="$oa">
-							public
-						</xsl:when>
-						<xsl:when test="not($oa) and $Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
-							audience
-						</xsl:when>
-						<xsl:otherwise>private</xsl:otherwise>
-					</xsl:choose>
-				</prop:visibility>
-				<prop:content-category>
+				</xsl:variable>
+				<!-- PATH(-SUFFIX) BEFORE NAME -->
+				<xsl:variable name="path">
 					<xsl:choose>
 						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
-							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+							<xsl:value-of select="fn:replace(concat(substring-before(., '/'), '/'), ' ', '%20')"/>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+							<xsl:value-of select="''"/>
 						</xsl:otherwise>
 					</xsl:choose>
-				</prop:content-category>
-				<prop:file-name>
-					<xsl:value-of select="$filename"/>
-				</prop:file-name>
-				<prop:mime-type>
-					<xsl:value-of select="$mimetype"/>
-				</prop:mime-type>
-			</ec:properties>
-			<ec:content xlink:type="simple" xlink:title="{$filename}" xlink:href="{$fulltext-location}{$path}{$filename}" storage="internal-managed"/>
-			<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
-				<mdr:md-record name="escidoc">
-					<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-						<dc:title>
-							<xsl:value-of select="fn:replace($filename, '%20', ' ')"/>
-						</dc:title>
-						<dc:format xsi:type="dcterms:IMT">
+				</xsl:variable>
+				<xsl:variable name="filename">
+					<xsl:choose>
+						<xsl:when test="contains(., '.')">
+							<xsl:choose>
+								<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'"> 
+									<xsl:value-of select="fn:replace(substring-after(., '/'), ' ', '%20')"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="fn:replace(., ' ', '%20')"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:choose>
+								<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'"> 
+									<xsl:value-of select="fn:replace(substring-after(., '/'), ' ', '%20')"/>.<xsl:value-of select="$suffix"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="fn:replace(., ' ', '%20')"/>.<xsl:value-of select="$suffix"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<xsl:variable name="mimetype">
+					<xsl:value-of select="Util:getMimetype($filename)"/>
+				</xsl:variable>
+				<escidocComponents:component>
+					<escidocComponents:properties xmlns:xlink="http://www.w3.org/1999/xlink">
+						<prop:visibility>
+							<xsl:choose>
+								<xsl:when test="$oa">
+									public
+								</xsl:when>
+								<xsl:when test="not($oa) and $Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
+									audience
+								</xsl:when>
+								<xsl:otherwise>private</xsl:otherwise>
+							</xsl:choose>
+						</prop:visibility>
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+						</prop:content-category>
+						<prop:file-name>
+							<xsl:value-of select="$filename"/>
+						</prop:file-name>
+						<prop:mime-type>
 							<xsl:value-of select="$mimetype"/>
-						</dc:format>
-						<dcterms:extent>
-							<xsl:value-of select="Util:getSize(concat($fulltext-location, $path, $filename))"/>
-						</dcterms:extent>
-					</file:file>
-				</mdr:md-record>
-			</mdr:md-records>
-		</ec:component>
+						</prop:mime-type>
+					</escidocComponents:properties>
+					<escidocComponents:content xlink:type="simple" xlink:title="{$filename}" xlink:href="{$fulltext-location}{$path}{$filename}" storage="internal-managed"/>
+					<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+						<mdr:md-record name="escidoc">
+							<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								<dc:title>
+									<xsl:value-of select="fn:replace($filename, '%20', ' ')"/>
+								</dc:title>
+								<dc:format xsi:type="dcterms:IMT">
+									<xsl:value-of select="$mimetype"/>
+								</dc:format>
+								<dcterms:extent>
+									<xsl:value-of select="Util:getSize(concat($fulltext-location, $path, $filename))"/>
+								</dcterms:extent>
+							</file:file>
+						</mdr:md-record>
+					</mdr:md-records>
+				</escidocComponents:component>
+			</xsl:when>
+			<xsl:otherwise>
+				<escidocComponents:component>
+					<escidocComponents:properties xmlns:xlink="http://www.w3.org/1999/xlink">
+						<prop:visibility>
+							public
+						</prop:visibility>
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+						</prop:content-category>
+						<prop:file-name>
+							<xsl:value-of select="normalize-space(.)"/>
+						</prop:file-name>
+					</escidocComponents:properties>
+					<escidocComponents:content xlink:type="simple" xlink:title="{normalize-space(.)}" xlink:href="{normalize-space(.)}" storage="external-url"/>
+					<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+						<mdr:md-record name="escidoc">
+							<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								<dc:title>
+									<xsl:value-of select="normalize-space(.)"/>
+								</dc:title>
+							</file:file>
+						</mdr:md-record>
+					</mdr:md-records>
+				</escidocComponents:component>
+			</xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:template>
 
 	<!-- FUNCTIONS-->
