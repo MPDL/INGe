@@ -80,7 +80,7 @@ public class ValidationCacheTest
     @BeforeClass
     public static final void getCache() throws Exception
     {
-    	Thread.sleep(20000);
+    	Thread.sleep(40000);
         cache = ValidationSchemaCache.getInstance();
     }
 
