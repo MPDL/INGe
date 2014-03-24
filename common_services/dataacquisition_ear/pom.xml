@@ -31,18 +31,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.75</version>
+		<version>1.0.76-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>dataacquisition_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>dataacquisition_ear</name>
-	<version>1.0.71</version>
+	<version>1.0.72-SNAPSHOT</version>
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.75/dataacquisition_ear</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.75/dataacquisition_ear</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/dataacquisition_ear/tags/common_services-1.0.75/dataacquisition_ear</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/dataacquisition_ear</url>
   </scm>
 	<build>
 		<plugins>
@@ -325,7 +325,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.20</version>
+			<version>1.3.21-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -379,14 +379,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.71</version>
+			<version>1.0.72-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-			<version>1.0.71</version>
+			<version>1.0.72-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
@@ -394,7 +394,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.63</version>
+			<version>1.0.64-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -425,7 +425,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.78</version>
+			<version>1.0.79-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -438,7 +438,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.35</version>
+			<version>1.2.36-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
