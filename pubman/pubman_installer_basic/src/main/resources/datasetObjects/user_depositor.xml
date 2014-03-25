@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user-account:user-account xmlns:user-account="${xsd.soap.useraccount.useraccount}" xmlns:prop="${xsd.soap.common.prop}"
+    xmlns:srel="${xsd.soap.common.srel}">
+    <user-account:properties>
+        <prop:name>PubMan Depositor</prop:name>
+        <prop:login-name>pubman_depositor</prop:login-name>
+        <prop:active>true</prop:active>
+    </user-account:properties>
+</user-account:user-account>

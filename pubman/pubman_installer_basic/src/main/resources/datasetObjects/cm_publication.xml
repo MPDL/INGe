@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocContentModel:content-model xmlns:escidocContentModel="${xsd.soap.contentmodel}" xmlns:prop="${xsd.core.properties}" xmlns:xlink="http://www.w3.org/1999/xlink">
+	
+	<escidocContentModel:properties>
+		<prop:name>Publication Content Model</prop:name>
+		<prop:description>eSciDoc content model for publications</prop:description>
+	</escidocContentModel:properties>
+	
+	<escidocContentModel:md-record-definitions>
+		<escidocContentModel:md-record-definition name="escidoc">
+			<escidocContentModel:schema xlink:href="https://www.escidoc.org/schemas/soap/content-model/0.1/content-model.xsd" />
+		</escidocContentModel:md-record-definition>
+	</escidocContentModel:md-record-definitions>
+	
+	<escidocContentModel:resource-definitions>
+		<escidocContentModel:resource-definition name="trans">
+			<escidocContentModel:xslt xlink:type="simple" xlink:title="trans" xlink:href="http://localhost:8080/xsl/resultCheck.xsl" />
+			<escidocContentModel:md-record-name>escidoc</escidocContentModel:md-record-name>
+		</escidocContentModel:resource-definition>
+	</escidocContentModel:resource-definitions>
+	
+	<escidocContentStreams:content-streams xmlns:escidocContentStreams="${xsd.soap.contentmodel.contentstreams}">
+		<escidocContentStreams:content-stream name="DC-MAPPING" xlink:href="http://localhost:8080/xsl/mapping-unknown2dc-onlyMD.xsl" mime-type="text/xml" storage="external-managed" />
+	</escidocContentStreams:content-streams>
+
+</escidocContentModel:content-model>

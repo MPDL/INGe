@@ -1,0 +1,81 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
+<!-- Title tile -->
+<h:panelGroup layout="block" styleClass="filled_area0 tiny_marginRExcl small_marginLExcl tile_category borderDarkTurquoise" >
+	<h:panelGroup layout="block" styleClass="filled_area0_p6">
+		<!-- Status icon and label -->
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateWithdrawn}" >
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon withdrawnItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemPublicState}"/>
+		</h:panelGroup>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStatePending}" >
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon pendingItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
+		</h:panelGroup>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateSubmitted}" >
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon submittedItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
+		</h:panelGroup>
+		<h:panelGroup styleClass="status_group tiny_marginRExcl" rendered="#{ViewItemFull.isStateReleased}" >
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon releasedItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
+		</h:panelGroup>
+		<h:panelGroup styleClass="status_group" rendered="#{ViewItemFull.isStateInRevision}" >
+			<!-- transparent src image needed for correct illustration in IE -->
+			<img class="big_imgBtn statusIcon inRevisionItem" src="../resources/images/overviewPage/1x1transparent.gif"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.itemState}"/>
+		</h:panelGroup>
+		<!-- Genre(-group) icon and label -->
+		<h:panelGroup styleClass="genre_group tiny_marginLExcl">
+			<h:graphicImage value="../resources/images/overviewPage/#{ViewItemFull.pubItem.genreGroup}_31.png" styleClass="big_imgBtn"/>
+			<br />
+			<h:outputText value="#{ViewItemFull.pubItem.genre}"/>
+		</h:panelGroup>
+		<!-- Publication title -->
+		<h4 class="tile_publication_title">
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/>
+		</h4>
+	</h:panelGroup>
+</h:panelGroup>

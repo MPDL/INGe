@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<auth-config>
+	<authentication>
+		<name>eSciDoc Localhost</name>
+		<url>${escidoc.aa.instance.url}</url>
+	</authentication>
+	<!--<authentication>
+		<name>IP Test 1</name>
+		<url>http://localhost:8080/aa_ip/</url>
+	</authentication>
+	<authentication>
+		<name>IP Test 2</name>
+		<url>http://localhost:8080/aa_ip2/</url>
+	</authentication>
+	<authentication>
+		<name>Basic Auth</name>
+		<url>http://localhost:8080/aa_basic/</url>
+	</authentication>-->
+</auth-config>
