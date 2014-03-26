@@ -63,12 +63,13 @@
 	<xsl:output method="xhtml" version="1.0" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/>
 	
 	<xsl:param name="pubmanInstanceUrl"/>
+	<xsl:param name="pubmanContextPath"/>
 	<xsl:param name="pubmanComponentPattern"/>
 	<xsl:param name="handleUrl" select="'http://hdl.handle.net'"/>
 
 	
 	
-	<xsl:variable name="escidocId" select="if (/escidocItem:item/@xlink:href) then tokenize(/escidocItem:item/@xlink:href, '/')[last()] else @objid" />
+	<xsl:variable name="escidocId" select="if (/escidocItem:item/@xlink:href) then tokenize(/escidocItem:item/@xlink:href, '/')[last()] else /escidocItem:item/@objid" />
 	
 	<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
 	<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
@@ -111,9 +112,10 @@
 							<xsl:variable name="path" select="replace(replace(replace($pubmanComponentPattern, '\$1', $escidocId), '\$2', $componentId), '\$3', $filename)" />
 							<xsl:call-template name="createMetatag">
 									<xsl:with-param name="name" select="$citationKey"/>
-									<xsl:with-param name="content" select="concat($pubmanInstanceUrl, $path)"/>
+									<xsl:with-param name="content" select="concat($pubmanInstanceUrl, $pubmanContextPath, $path)"/>
 							</xsl:call-template>
 						</xsl:otherwise>
+						
 					</xsl:choose>
 				</xsl:if>
 			</xsl:if>
