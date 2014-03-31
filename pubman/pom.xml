@@ -261,19 +261,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-<<<<<<< .working
-    	<!-- 
-    	<pluginRepository>
-      		<id>org.escidoc.core</id>
-      		<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
-      		<snapshots>
-        		<enabled>true</enabled>
-      		</snapshots>
-   	</pluginRepository>
-   	-->
-=======
-    	
->>>>>>> .merge-right.r5511
    		 <!--  
     <pluginRepository>
       <id>maven2-repository.dev.java.net</id>
