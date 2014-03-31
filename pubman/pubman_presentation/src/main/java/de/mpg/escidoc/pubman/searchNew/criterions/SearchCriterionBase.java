@@ -417,7 +417,10 @@ public abstract class SearchCriterionBase implements Serializable{
 			List<String> splittedSearchStrings = new ArrayList<String>();
 			List<String> splittedOperators = new ArrayList<String>();
 			
-			Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
+			//Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
+			
+			// /u3000 is the Unicode for Japanese full-width-space
+			Pattern pattern = Pattern.compile("(?<=[\\s\\u3000]|^)\"(.*?)\"(?=[\\s\\u3000]|$)|([^\\s\\u3000]+)");
 			Matcher m = pattern.matcher(searchString);
 			
 			while(m.find())
