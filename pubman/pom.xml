@@ -239,6 +239,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<!--  
 		<repository>
       		<id>org.escidoc.core</id>
       		<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
@@ -246,6 +247,7 @@
         		<enabled>true</enabled>
       		</snapshots>
     	</repository>
+    	-->
 	</repositories>
 	
 	<pluginRepositories>
@@ -259,15 +261,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-    	<!-- 
-    	<pluginRepository>
-      		<id>org.escidoc.core</id>
-      		<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
-      		<snapshots>
-        		<enabled>true</enabled>
-      		</snapshots>
-   		 </pluginRepository>
-   		 -->
+    	
    		 <!--  
     <pluginRepository>
       <id>maven2-repository.dev.java.net</id>
@@ -638,25 +632,25 @@
 		<jboss.property.2>com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0</jboss.property.2>
 		
 		<!-- version of the common_services dependencies -->
-		<version.aa_logic>0.2.14</version.aa_logic>
-		<version.aa_presentation>0.2.14</version.aa_presentation>
-		<version.citationmanager>1.0.81</version.citationmanager>
-		<version.common_logic>1.1.76</version.common_logic>
-		<version.common_presentation>1.0.65</version.common_presentation>
-		<version.cone>1.2.36</version.cone>
-		<version.cone_presentation>1.2.36</version.cone_presentation>
-		<version.dataacquisition>1.0.72</version.dataacquisition>
-		<version.dataacquisition_presentation>1.0.72</version.dataacquisition_presentation>
-		<version.framework_access>1.3.21</version.framework_access>
-		<version.pid_cache_presentation>0.1.39</version.pid_cache_presentation>
-		<version.search>1.1.10</version.search>
-		<version.search_presentation>1.1.10</version.search_presentation>
-		<version.structuredexportmanager>1.0.79</version.structuredexportmanager>
-		<version.sword_presentation>1.0.54</version.sword_presentation>
-		<version.syndication_presentation>1.0.60</version.syndication_presentation>
-		<version.transformation>1.0.64</version.transformation>
-		<version.validation>1.0.83</version.validation>
-		<version.validation_presentation>1.0.83</version.validation_presentation>
+		<version.aa_logic>0.2.15-SNAPSHOT</version.aa_logic>
+		<version.aa_presentation>0.2.15-SNAPSHOT</version.aa_presentation>
+		<version.citationmanager>1.0.82-SNAPSHOT</version.citationmanager>
+		<version.common_logic>1.1.77-SNAPSHOT</version.common_logic>
+		<version.common_presentation>1.0.66-SNAPSHOT</version.common_presentation>
+		<version.cone>1.2.37-SNAPSHOT</version.cone>
+		<version.cone_presentation>1.2.37-SNAPSHOT</version.cone_presentation>
+		<version.dataacquisition>1.0.73-SNAPSHOT</version.dataacquisition>
+		<version.dataacquisition_presentation>1.0.73-SNAPSHOT</version.dataacquisition_presentation>
+		<version.framework_access>1.3.22-SNAPSHOT</version.framework_access>
+		<version.pid_cache_presentation>0.1.40-SNAPSHOT</version.pid_cache_presentation>
+		<version.search>1.1.11-SNAPSHOT</version.search>
+		<version.search_presentation>1.1.11-SNAPSHOT</version.search_presentation>
+		<version.structuredexportmanager>1.0.80-SNAPSHOT</version.structuredexportmanager>
+		<version.sword_presentation>1.0.55-SNAPSHOT</version.sword_presentation>
+		<version.syndication_presentation>1.0.61-SNAPSHOT</version.syndication_presentation>
+		<version.transformation>1.0.65-SNAPSHOT</version.transformation>
+		<version.validation>1.0.84-SNAPSHOT</version.validation>
+		<version.validation_presentation>1.0.84-SNAPSHOT</version.validation_presentation>
 		
 		<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 		<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
