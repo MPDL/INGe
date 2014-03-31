@@ -31,14 +31,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.75-SNAPSHOT</version>
+		<version>1.0.77-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>dataacquisition_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>dataacquisition_ear</name>
-	<version>1.0.71-SNAPSHOT</version>
+	<version>1.0.73-SNAPSHOT</version>
 	<scm>
 	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/dataacquisition_ear</connection>
     <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/dataacquisition_ear</developerConnection>
@@ -247,7 +247,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.20-SNAPSHOT</version>
+			<version>1.3.22-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -327,14 +327,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.71-SNAPSHOT</version>
+			<version>1.0.73-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-			<version>1.0.71-SNAPSHOT</version>
+			<version>1.0.73-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
@@ -342,7 +342,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.63-SNAPSHOT</version>
+			<version>1.0.65-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -373,7 +373,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.78-SNAPSHOT</version>
+			<version>1.0.80-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -386,7 +386,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.35-SNAPSHOT</version>
+			<version>1.2.37-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

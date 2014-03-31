@@ -128,11 +128,12 @@ public class StandardTransformation
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
             
-            if (formatFrom.startsWith("html-meta-tags"))
+            if (formatTo.startsWith("html-meta-tags"))
         	{	
             	
             	transformer.setParameter("pubmanInstanceUrl", PropertyReader.getProperty("escidoc.pubman.instance.url"));
             	transformer.setParameter("pubmanComponentPattern", PropertyReader.getProperty("escidoc.pubman.component.pattern"));
+            	transformer.setParameter("pubmanContextPath", PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
             	//transformer.setParameter("handleUrl", PropertyReader.getProperty("escidoc.pubman.instance.url"));
         	}
             
