@@ -386,6 +386,13 @@
 							<artifactId>marc4j</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							  <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+							  <groupId>org.jsoup</groupId>
+							  <artifactId>jsoup</artifactId>
+							  <includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						
 					</modules>
 				</configuration>
 			</plugin>			
@@ -845,6 +852,12 @@
 			<version>${version.pid_cache_presentation}</version>
 			<scope>compile</scope>
 			<type>war</type>
+		</dependency>
+		<dependency>
+		  <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+		  <groupId>org.jsoup</groupId>
+		  <artifactId>jsoup</artifactId>
+		  <version>1.7.3</version>
 		</dependency>
 	</dependencies>
 	<profiles>
