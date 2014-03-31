@@ -82,7 +82,7 @@
 	<xsl:variable name="prefix-isbn" select="''" />
 	
 	<xsl:variable name="key-keywords" select="'citation_keywords'" />
-	<xsl:variable name="key-conference" select="'citation_conference'" />
+	<xsl:variable name="key-conference" select="'citation_conference_title'" />
 	<xsl:variable name="key-dissertation-institution" select="'citation_dissertation_institution'" />
 	<xsl:variable name="key-journal-title" select="'citation_journal_title'" />
 	<xsl:variable name="key-journal-abbrev" select="'citation_journal_abbrev'" />

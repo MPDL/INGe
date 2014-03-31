@@ -55,7 +55,8 @@
 	xmlns:organization="${xsd.metadata.organization}"
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:escidocComponents="${xsd.soap.item.components}"
-	xmlns:escidocItem="${xsd.soap.item.item}">
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util">
 	
 
 	
@@ -149,7 +150,7 @@
 	<xsl:template match="pub:publication/dc:title">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-title"/>
-			<xsl:with-param name="content" select="."/>
+			<xsl:with-param name="content" select="Util:stripHtml(.)"/>
 		</xsl:call-template>
 
 	</xsl:template>
