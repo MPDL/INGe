@@ -55,7 +55,8 @@
 	xmlns:organization="${xsd.metadata.organization}"
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:escidocComponents="${xsd.soap.item.components}"
-	xmlns:escidocItem="${xsd.soap.item.item}">
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util">
 	
 
 	
@@ -93,10 +94,12 @@
 				<xsl:variable name="mimeType" select="escidocComponents:properties/prop:mime-type"/>
 				<xsl:variable name="citationKey" select="if ($mimeType='application/pdf') then $key-pdf-url else if  ($mimeType='text/html' or $mimeType='application/xhtml+xml') then $key-fulltext-html-url else ''" />
 				
-				
+				<!--  Do not use handles as fulltext links for now, because Google Scholar only accepts links from same host -->
 				<xsl:if test="$citationKey!=''">
-					<xsl:choose>
+					<!--
+					<xsl:choose>-->
 						<!-- PID available -->
+						<!-- 
 						<xsl:when test="escidocComponents:properties/prop:pid">
 							<xsl:variable name="pid" select="tokenize(escidocComponents:properties/prop:pid, ':')[last()]"/>
 							<xsl:call-template name="createMetatag">
@@ -104,9 +107,11 @@
 									<xsl:with-param name="content" select="concat($handleUrl, '/', $pid)"/>
 							</xsl:call-template>
 						</xsl:when>
-						
+						-->
 						<!-- no PID available -->
+						<!-- 
 						<xsl:otherwise>
+						-->
 							<xsl:variable name="componentId" select="if (@xlink:href) then tokenize(@xlink:href, '/')[last()] else @objid" />      
 							<xsl:variable name="filename" select="escidocComponents:properties/prop:file-name" />
 							<xsl:variable name="path" select="replace(replace(replace($pubmanComponentPattern, '\$1', $escidocId), '\$2', $componentId), '\$3', $filename)" />
@@ -114,9 +119,10 @@
 									<xsl:with-param name="name" select="$citationKey"/>
 									<xsl:with-param name="content" select="concat($pubmanInstanceUrl, $pubmanContextPath, $path)"/>
 							</xsl:call-template>
+						<!-- 
 						</xsl:otherwise>
-						
 					</xsl:choose>
+					-->
 				</xsl:if>
 			</xsl:if>
 			
@@ -149,7 +155,7 @@
 	<xsl:template match="pub:publication/dc:title">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-title"/>
-			<xsl:with-param name="content" select="."/>
+			<xsl:with-param name="content" select="Util:stripHtml(.)"/>
 		</xsl:call-template>
 
 	</xsl:template>

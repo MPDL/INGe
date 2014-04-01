@@ -53,9 +53,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-
 import javax.xml.parsers.DocumentBuilder;
 
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
@@ -70,6 +70,8 @@ import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
+import org.jsoup.Jsoup;
+import org.jsoup.examples.HtmlToPlainText;
 import org.purl.dc.elements.x11.SimpleLiteral;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -899,7 +901,7 @@ public class Util
             	//did not get length via HEAD request, try to do a GET request 
             	//workaround for biomed central, where HEAD requests sometimes return Content-Length, sometimes not
             	
-            	logger.info("HEAD request to " + url + " did not return any Content-Length. Trying GET request.");
+            	logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
             	httpClient = new HttpClient();
             	GetMethod getMethod = new GetMethod(url);
             	ProxyHelper.executeMethod(httpClient, getMethod);
@@ -1087,6 +1089,16 @@ public class Util
             
         }
         
+    }
+    
+    public static String stripHtml(String text)
+    {
+    	if(text!=null)
+    	{
+    		return new HtmlToPlainText().getPlainText(Jsoup.parse(text));
+    	}
+    	else return "";
+    	
     }
 
 }
