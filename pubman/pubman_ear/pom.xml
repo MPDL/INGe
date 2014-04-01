@@ -167,14 +167,6 @@
 							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>transformation</artifactId>
 						</ejbModule>
-
-						<jarModule>
-							  <!-- jsoup HTML parser library @ http://jsoup.org/ -->
-							  <groupId>org.jsoup</groupId>
-							  <artifactId>jsoup</artifactId>
-							  <includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						
 					</modules>
 					
 				</configuration>
