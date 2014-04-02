@@ -86,11 +86,26 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<div class="free_area0 sub">
-								<!-- content menu lower line starts here -->	
+								<h:panelGroup layout="block" styleClass="free_area0 sub">
+									<h:outputLink id="lnkMenuQAWorkspace" title="#{tip.chooseWorkspace_QAWorkspace}"  value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
+									</h:outputLink>
 									
-								<!-- content menu lower line ends here -->
-								</div>
+									<h:outputText styleClass="seperator void" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+									<h:outputLink id="lnkSubmission_lnkImportWorkspaceMenu" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}"/>
+									</h:outputLink>  
+									
+									<h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor}" />
+									<h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}"/>
+									</h:outputLink>
+									
+									<h:panelGroup id="txtMenuReportWorkspace" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
+										<h:outputText styleClass="seperator void"  />
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}"/>
+									</h:panelGroup>
+								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
