@@ -231,8 +231,8 @@ public class ConeServlet extends HttpServlet
         
         formatter = Formatter.getFormatter(format);
 
-        logger.info("Formatter is '" + formatter + "'");
-        logger.info("Querying for '" + model + "'");
+        logger.debug("Formatter is '" + formatter + "'");
+        logger.debug("Querying for '" + model + "'");
         
 //        if ("explain".equals(model))
 //        {
