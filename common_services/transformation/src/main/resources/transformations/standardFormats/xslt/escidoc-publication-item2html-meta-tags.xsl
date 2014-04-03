@@ -223,7 +223,7 @@
 	<xsl:template match="pub:publication/dcterms:subject">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-keywords"/>
-			<xsl:with-param name="content" select="."/>
+			<xsl:with-param name="content" select="Util:stripHtml(.)"/>
 		</xsl:call-template>
 	</xsl:template>
 	
