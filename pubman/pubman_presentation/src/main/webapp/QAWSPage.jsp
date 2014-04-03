@@ -73,7 +73,27 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<div class="free_area0 sub">
+								<h:panelGroup layout="block" styleClass="free_area0 sub">
+									<h:panelGroup id="txtMenuQAWorkspace" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuQAWorkspace}" />
+									</h:panelGroup>
+									
+									<h:outputText styleClass="seperator void" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+									<h:outputLink id="lnkMenuImportWorkspace" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}"/>
+									</h:outputLink>  
+									
+									<h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor}" />
+									<h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}"/>
+									</h:outputLink>
+									
+									<h:outputText styleClass="seperator void" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />
+									<h:outputLink id="lnkMenuReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
+										<h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}"/>
+									</h:outputLink>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="free_area0 sub">
 								<!-- content menu upper line starts here -->
 									<h:commandLink id="lnkChangeSubmenuToView" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" onclick="fullItemReloadAjax();"/>
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
@@ -89,7 +109,7 @@
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkList_lblAddToBasket" title="#{tip.List_lblAddToBasket}" styleClass="free_area0" value="#{lbl.List_lblAddToBasket}" action="#{PubItemListSessionBean.addSelectedToCart}" onclick="fullItemReloadAjax();"/>
 								<!-- content menu upper line ends here -->
-								</div>
+								</h:panelGroup>
 								<!-- content menu lower line starts here -->
 								<h:panelGroup layout="block" styleClass="third_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									

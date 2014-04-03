@@ -68,9 +68,25 @@
 									<div class="contentMenu">
 									<!-- content menu starts here -->
 										<h:panelGroup layout="block" styleClass="free_area0 sub">
-											<span>
-												<h:outputText value="#{lbl.submission_lnkImportWorkspace}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-											</span>
+											<h:outputLink id="lnkMenuQAWorkspace" title="#{tip.chooseWorkspace_QAWorkspace}"  value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+												<h:outputText value="#{lbl.chooseWorkspace_optMenuQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
+											</h:outputLink>
+											
+											<h:panelGroup id="txtMenuImportWorkspace" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+												<h:outputText styleClass="seperator void"  />
+												<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}" />
+											</h:panelGroup>
+											
+											
+											<h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor}" />
+											<h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
+												<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}"/>
+											</h:outputLink>
+											
+											<h:outputText styleClass="seperator void" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />
+											<h:outputLink id="lnkMenuReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
+												<h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}"/>
+											</h:outputLink>
 										</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="free_area0 sub action">
 										<!-- content menu lower line starts here -->

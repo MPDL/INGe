@@ -87,6 +87,8 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCateg
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.TitleSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.CreatedBySearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.ModifiedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
@@ -601,6 +603,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		{
 			((StandardSearchCriterion) newSc).setSearchString(((StandardSearchCriterion)oldSc).getSearchString());
 			
+		}
+		else if ((oldSc instanceof CreatedBySearchCriterion && newSc instanceof ModifiedBySearchCriterion) || 
+				(oldSc instanceof ModifiedBySearchCriterion && newSc instanceof CreatedBySearchCriterion))
+		{
+			((StringOrHiddenIdSearchCriterion) newSc).setHiddenId(((StringOrHiddenIdSearchCriterion)oldSc).getHiddenId());
+			((StringOrHiddenIdSearchCriterion) newSc).setSearchString(((StringOrHiddenIdSearchCriterion)oldSc).getSearchString());
 		}
 	}
 	

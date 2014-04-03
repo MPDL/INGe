@@ -100,10 +100,7 @@ public class ExportItems extends FacesBean
      */
     public void init()
     {
-        if (logger.isDebugEnabled())
-        {
-            logger.info(" init ExportItems >>>");                     
-        }   
+       logger.debug(" init ExportItems >>>");   
        super.init();
        setExportFormats();
 
