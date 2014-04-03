@@ -158,7 +158,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			
 			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
 			
-			logger.info("Transformation item-list 2 snippet: " + (System.currentTimeMillis() - start));
+			logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
 			
 			snippet = sw.toString(); 
 			
