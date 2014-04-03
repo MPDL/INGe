@@ -197,19 +197,19 @@ body .wrapper {
 .pageBrowser .skipToFirst {
     background-image: url('../images/All_Paginator_ArrowFirst_15_Active.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center 0.090909em;
 }
 
 .pageBrowser .skipToFirst:hover, .pageBrowser .skipToFirst:focus {
     background-image: url('../images/All_Paginator_ArrowFirst_15_Hover.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center 0.090909em;
 }
 
 .pageBrowser .skipToFirst:disabled {
     background-image: url('../images/All_Paginator_ArrowFirst_15_Deactivated.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center 0.090909em;
 }
 
 .pageBrowser .backward {
@@ -340,19 +340,19 @@ body .wrapper {
 .pageBrowser .skipToLast {
     background-image: url('../images/All_Paginator_ArrowLast_15_Active.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center 0.090909em;
 }
 
 .pageBrowser .skipToLast:hover, .pageBrowser .skipToLast:focus {
     background-image: url('../images/All_Paginator_ArrowLast_15_Hover.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center 0.090909em;
 }
 
 .pageBrowser .skipToLast:disabled {
     background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center 0.090909em;
 }
 
 /*LIST COMPONENT*/

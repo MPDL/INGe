@@ -397,6 +397,8 @@ th .selectMenu {
 
 .listItem .itemHeadline {
 	width: 59.56em;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .itemHeader label {

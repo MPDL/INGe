@@ -307,6 +307,7 @@
 	height:1.6363em;
 	margin-top:0.0909em;
 	text-transform:uppercase;
+	clear: left;
 }
 
 .contentMenu .action {

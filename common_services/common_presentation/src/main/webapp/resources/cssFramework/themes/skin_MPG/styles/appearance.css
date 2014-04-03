@@ -668,6 +668,7 @@ body .wrapper {
 }
 .listItem .itemHeadline b {
     font-size: 14px !important;
+    white-space: nowrap;
 }
 
 /***** FULL ITEM *****/

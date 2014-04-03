@@ -531,6 +531,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .listItem .itemHeadline b {
     font-size: 14px !important;
     font-weight: normal;
+    white-space: nowrap;
 }
 
 .listItem td .itemHeadline b {
