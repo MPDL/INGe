@@ -215,7 +215,10 @@ public abstract class SearchCriterionBase implements Serializable{
 	
 	
 
-	
+	public enum QueryType
+	{
+		CQL, INTERNAL
+	}
 	
 	
 	
@@ -238,7 +241,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	
 	public abstract void parseQueryStringContent(String content)  throws SearchParseException;
 	
-	public abstract boolean isEmpty();
+	public abstract boolean isEmpty(QueryType queryType);
 	
 	private boolean parenthesisCanBeOpened;
 	
@@ -525,7 +528,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)  throws SearchParseException
 	{
 		
-		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList);
+		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList, QueryType.CQL);
 		
 		
 		String appendOperator = "AND";
@@ -622,7 +625,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	public static String scListToQueryString(List<SearchCriterionBase> criterionList)
 	{
 		
-		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList);
+		List<SearchCriterionBase> removedList = removeEmptyFields(criterionList, QueryType.INTERNAL);
 		
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i< removedList.size(); i++)
@@ -680,7 +683,7 @@ public abstract class SearchCriterionBase implements Serializable{
 					while((contentChar = sr.read()) != -1)
 					{
 						
-						if(contentChar == '"' &&  contentBuffer.length()>0 && contentBuffer.charAt(contentBuffer.length()-1)!='\\')
+						if(contentChar == '"' &&  !(contentBuffer.length()>0 && contentBuffer.charAt(contentBuffer.length()-1)=='\\'))
 						{
 							//end of content
 							currentSearchCriterion = initSearchCriterion(currentSearchCriterionName);
@@ -775,7 +778,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	
 	
 
-	public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList)
+	public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList, QueryType queryType)
 	{
 		if(criterionList==null)
 		{
@@ -791,7 +794,7 @@ public abstract class SearchCriterionBase implements Serializable{
 			
 			for(SearchCriterionBase sc : copyForIteration)
 			{
-				if(sc.isEmpty())
+				if(sc.isEmpty(queryType))
 				{
 					removeSearchCriterionWithOperator(copyForRemoval, sc);
 					//logger.info("Remove " + sc);

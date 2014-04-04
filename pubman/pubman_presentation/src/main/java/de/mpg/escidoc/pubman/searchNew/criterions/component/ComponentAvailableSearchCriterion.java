@@ -99,7 +99,7 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 	
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty(QueryType queryType) {
 		return ComponentAvailability.WHATEVER.equals(selectedAvailability);
 	}
 

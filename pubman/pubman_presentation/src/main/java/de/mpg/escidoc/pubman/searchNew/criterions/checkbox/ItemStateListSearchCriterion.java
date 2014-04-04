@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.Index;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.QueryType;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.MapListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
@@ -102,6 +103,23 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 		}
 		
 		return scList;
+	}
+	
+	
+	@Override
+	public boolean isEmpty(QueryType queryType) {
+
+		if(queryType == QueryType.CQL )
+		{
+			return super.isEmpty(queryType);
+		}
+		else if(queryType == QueryType.INTERNAL )
+		{
+			return false;
+		}
+		
+		return false;
+	
 	}
 
 	

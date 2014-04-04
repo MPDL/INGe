@@ -219,7 +219,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 	 * List is empty if either all genres or degrees are selected or all are deselected
 	 */
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty(QueryType queryType) {
 		
 		boolean anySelected = false;
 		boolean anyDeselected = false;
