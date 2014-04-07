@@ -1052,13 +1052,14 @@
 				<xsl:if test="$multiplePersonsFound">
 					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($familyname, ', ', $givenname), '-'))"/>
 				</xsl:if>
-				<xsl:element name="person:person">
-					<xsl:element name="eterms:family-name">
+				
+				<person:person>
+					<eterms:family-name>
 						<xsl:value-of select="$familyname"/>
-					</xsl:element>
-					<xsl:element name="eterms:given-name">
+					</eterms:family-name>
+					<eterms:given-name>
 						<xsl:value-of select="$givenname"/>
-					</xsl:element>
+					</eterms:given-name>
 					<!-- Affiliated Institution depends on publication-date) -->
 					<xsl:variable name="publication-date">
 						<xsl:choose>
@@ -1110,22 +1111,9 @@
 								</xsl:if>
 							</xsl:for-each>
 						</xsl:when>
-						<xsl:otherwise>
-							<organization:organization>
-								<dc:title>External Organizations</dc:title>
-								<dc:identifier>
-									<xsl:value-of select="$external-ou"/>
-								</dc:identifier>
-							</organization:organization>
-						</xsl:otherwise>
 					</xsl:choose>
-					<xsl:choose>
-						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
-							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></dc:identifier>
-						</xsl:when>
-					</xsl:choose>
-					
-				</xsl:element>
+				</person:person>
+				
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

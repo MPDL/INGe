@@ -140,6 +140,9 @@
                         <xsl:variable name="l_editorial">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"/>
                         </xsl:variable>
+                        <xsl:variable name="l_multi-volume">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/multi-volume'"/>
+                        </xsl:variable>
                         <xsl:variable name="l_author">
                             <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/AUT'"/>
                         </xsl:variable>
@@ -2074,7 +2077,7 @@
                         <!--### End of Predefined Layout Elements ###-->
 	<!--### Citation Style Layout Definitions ###-->
 	<xsl:choose>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;$genre = $l_article or&#xA;&#x9;&#x9;&#x9;$genre = $l_case-note or&#xA;&#x9;&#x9;&#x9;$genre = $l_book-review or&#xA;&#x9;&#x9;&#x9;$genre = $l_case-study or&#xA;&#x9;&#x9;&#x9;$genre = $l_editorial or&#xA;&#x9;&#x9;&#x9;($genre = $l_conference-paper and $sourceGenre = $l_journal) or&#xA;&#x9;&#x9;&#x9;($genre = $l_conference-report and $sourceGenre = $l_journal)&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;$genre = $l_article or&#xA;&#x9;&#x9;&#x9;$genre = $l_case-note or&#xA;&#x9;&#x9;&#x9;$genre = $l_book-review or&#xA;&#x9;&#x9;&#x9;$genre = $l_case-study or&#xA;&#x9;&#x9;&#x9;$genre = $l_editorial or&#xA;&#x9;&#x9;&#x9;($genre = $l_conference-paper and $sourceGenre = $l_journal) or&#xA;&#x9;&#x9;&#x9;($genre = $l_meeting-abstract and $sourceGenre = $l_journal) or&#xA;&#x9;&#x9;&#x9;($genre = $l_conference-report and $sourceGenre = $l_journal)&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="journal-article-and-similar"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
@@ -2287,7 +2290,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$journal-article-and-similar"/>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-collect-ed or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-handbook or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-encyclopedia or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-festschrift or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-report and $sourceGenre = $l_proceedings)or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_monograph) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_collected-edition) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_proceedings)&#xA;&#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-collect-ed or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-handbook or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-encyclopedia or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-festschrift or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-report and $sourceGenre = $l_proceedings)or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_monograph) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_meeting-abstract and $sourceGenre = $l_monograph) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_collected-edition) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_meeting-abstract and $sourceGenre = $l_collected-edition) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_proceedings) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_meeting-abstract and $sourceGenre = $l_proceedings)&#xA;&#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="contr-to-collected-edition"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
