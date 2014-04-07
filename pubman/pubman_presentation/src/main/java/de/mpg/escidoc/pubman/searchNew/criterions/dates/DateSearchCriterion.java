@@ -71,7 +71,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 	
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty(QueryType queryType) {
 		return (from==null || from.trim().isEmpty()) && (to==null || to.trim().isEmpty());
 	}
 

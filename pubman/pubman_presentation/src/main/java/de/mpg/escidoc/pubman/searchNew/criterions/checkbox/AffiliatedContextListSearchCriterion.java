@@ -95,19 +95,20 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 	 * List is empty if only if all are deselected
 	 */
 	@Override
-	public boolean isEmpty() {
-		
-		
-		boolean anySelected = getEnumMap().containsValue(true);
-		boolean anyDeselected = getEnumMap().containsValue(false);
+	public boolean isEmpty(QueryType queryType) {
 
-		return !anySelected;
+		if(queryType == QueryType.CQL )
+		{
+			boolean anySelected = getEnumMap().containsValue(true);
+			return !anySelected;
+		}
+		else if(queryType == QueryType.INTERNAL )
+		{
+			return false;
+		}
+		
+		return false;
 	
 	}
-
-	
-
-	
-	
 
 }

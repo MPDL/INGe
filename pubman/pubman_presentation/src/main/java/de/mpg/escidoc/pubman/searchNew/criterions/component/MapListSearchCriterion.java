@@ -106,7 +106,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 		//boolean enumSelected = false;
 		//boolean enumDeselected = false;
 		
-		if(!isEmpty())
+		if(!isEmpty(QueryType.CQL))
 		{
 			List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
 			
@@ -167,12 +167,25 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 
 	@Override
 	public String toQueryString() {
+		
+		if(!isEmpty(QueryType.INTERNAL))
+		{
+			return getQueryString();
+		}
+		else
+		{
+			return null;
+		}
+		
+		
+		
+	}
+	
+	
+	protected String getQueryString()
+	{
 		StringBuffer sb = new StringBuffer();
 		sb.append(getSearchCriterion()+"=\"");
-		
-		
-		
-		
 		int i=0;
 		for(Entry<String, Boolean> entry : getEnumMap().entrySet())
 		{
@@ -196,17 +209,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 		
 
 		sb.append("\"");
-		if(!isEmpty())
-		{
-			return sb.toString();
-		}
-		else
-		{
-			return null;
-		}
-		
-		
-		
+		return sb.toString();
 	}
 
 	@Override
@@ -222,6 +225,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 		String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
 		for(String part : enumParts)
 		{
+		
 			/*
 			T v = Enum.valueOf(enumClass, part);
 			if(v==null)
@@ -229,7 +233,11 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 				throw new RuntimeException("Invalid visibility: " + part);
 			}
 			*/
-			getEnumMap().put(part, true);
+			if(part!=null && !part.trim().isEmpty())
+			{
+				getEnumMap().put(part, true);
+			}
+			
 		}
 		
 	}
@@ -238,28 +246,11 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase{
 	 * List is empty if either all genres or degrees are selected or all are deselected
 	 */
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty(QueryType queryType) {
 		
 		boolean anySelected = enumMap.containsValue(true);
 		
 		boolean anyDeselected = enumMap.containsValue(false);
-		
-		
-		/*
-		for(Entry<String, Boolean> entry : getEnumMap().entrySet())
-		{
-			if(entry.getValue())
-			{
-				anySelected = true;
-			}
-			else
-			{
-				anyDeselected = true;
-			}
-		}
-		
-		*/
-		
 		
 		return !(anySelected && anyDeselected);
 	}

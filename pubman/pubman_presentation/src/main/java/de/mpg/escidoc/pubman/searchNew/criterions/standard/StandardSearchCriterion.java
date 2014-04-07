@@ -71,7 +71,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase{
 	}
 	
 	@Override
-	public boolean isEmpty()
+	public boolean isEmpty(QueryType queryType)
 	{
 		return searchString==null || searchString.trim().isEmpty();
 	}

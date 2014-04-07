@@ -283,7 +283,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase{
 	 * List is empty if either all genres or degrees are selected or all are deselected
 	 */
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty(QueryType queryType) {
 		
 		boolean genreSelected = false;
 		boolean genreDeselected = false;

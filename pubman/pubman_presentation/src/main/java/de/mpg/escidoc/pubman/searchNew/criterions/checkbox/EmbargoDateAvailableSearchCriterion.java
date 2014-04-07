@@ -61,7 +61,7 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty(QueryType queryType) {
 		return !withEmbargoDate;
 	}
 
