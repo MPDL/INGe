@@ -209,6 +209,11 @@
 							<artifactId>geoip</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+						    <groupId>org.apache.commons</groupId>
+  							<artifactId>commons-lang3</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -420,6 +425,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+		  	<groupId>org.apache.commons</groupId>
+  			<artifactId>commons-lang3</artifactId>
+  			<version>3.3.1</version>
+  		</dependency>
 	</dependencies>
 	
 	<profiles>
