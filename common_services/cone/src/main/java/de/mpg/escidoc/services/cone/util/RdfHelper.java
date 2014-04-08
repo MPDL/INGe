@@ -36,6 +36,9 @@ import java.util.List;
 
 
 
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -93,16 +96,16 @@ public class RdfHelper
                         {
                             if (((LocalizedString)((Pair) pair).getValue()).getLanguage() != null)
                             {
-                                result.append("\t\t<dc:title xml:lang=\"" + ((LocalizedString)((Pair) pair).getValue()).getLanguage() + "\">" + xmlEscape(((LocalizedString)((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
+                                result.append("\t\t<dc:title xml:lang=\"" + ((LocalizedString)((Pair) pair).getValue()).getLanguage() + "\">" + StringEscapeUtils.escapeXml10(((LocalizedString)((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
                             }
                             else
                             {
-                                result.append("\t\t<dc:title>" + xmlEscape(((LocalizedString)((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
+                                result.append("\t\t<dc:title>" + StringEscapeUtils.escapeXml10(((LocalizedString)((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
                             }
                         }
                         else
                         {
-                            result.append("\t\t<dc:title>" + xmlEscape(((Pair) pair).getValue().toString()) + "</dc:title>\n");
+                            result.append("\t\t<dc:title>" + StringEscapeUtils.escapeXml10(((Pair) pair).getValue().toString()) + "</dc:title>\n");
                         }
                         result.append("\t</rdf:Description>\n");
                     }
@@ -123,6 +126,7 @@ public class RdfHelper
         return result.toString();
     }
     
+    /*
     public static String xmlEscape(String value)
     {
         value = value.replace("&", "&amp;");
@@ -131,7 +135,7 @@ public class RdfHelper
 
         return value;
     }
-
+*/
     /**
      * Formats an a Map of triples into RDF.
      * 

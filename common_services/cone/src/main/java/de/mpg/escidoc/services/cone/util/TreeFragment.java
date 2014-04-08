@@ -43,6 +43,9 @@ import java.util.regex.Pattern;
 
 
 
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.ModelList.Predicate;
@@ -179,7 +182,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             try
             {
-                return RdfHelper.xmlEscape(PropertyReader.getProperty("escidoc.cone.service.url") + subject);
+                return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("escidoc.cone.service.url") + subject);
             }
             catch (Exception e)
             {
