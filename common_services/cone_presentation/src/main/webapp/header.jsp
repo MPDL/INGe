@@ -207,7 +207,7 @@
 
 								
 								name[predicatePos] = name[predicatePos].substring(0, name[predicatePos].lastIndexOf('_')) + "_" + count;
-								console.log(name[predicatePos]);
+								//console.log(name[predicatePos]);
 
 								var newName = name.join("|");
 								//console.log("New name:" + newName);
@@ -236,12 +236,12 @@
 				
 				if (typeof cutId != 'undefined' && cutId)
 				{
-					console.log("Bind suggest true: " + element + " cutId: " + cutId);
+					//console.log("Bind suggest true: " + element + " cutId: " + cutId);
 					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
-					console.log("Bind suggest false: " + element + " cutId: " + cutId);
+					//console.log("Bind suggest false: " + element + " cutId: " + cutId);
 					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
 				}
 			}

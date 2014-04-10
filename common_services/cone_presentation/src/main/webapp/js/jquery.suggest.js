@@ -16,7 +16,6 @@
 		var suggestXhr;
 		
 		$.suggest = function(input, options) {
-			console.log("Process suggest bind");
 
 			var timeout = false;		// hold timeout ID for suggestion results to appear	
 			var prevLength = 0;			// last recorded length of $input.val()
