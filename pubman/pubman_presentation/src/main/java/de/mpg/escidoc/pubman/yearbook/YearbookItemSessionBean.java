@@ -290,7 +290,6 @@ public class YearbookItemSessionBean extends FacesBean
 
     public boolean validateItem(PubItemVO pubItem) throws Exception
     {
-    	logger.info("Validate Item: " + pubItem.getVersion().getObjectId());
         YearbookInvalidItemRO storedItem = null;
         for (CreatorVO creator : pubItem.getMetadata().getCreators())
         {
