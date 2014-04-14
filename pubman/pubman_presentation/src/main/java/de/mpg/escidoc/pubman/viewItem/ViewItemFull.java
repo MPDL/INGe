@@ -699,7 +699,7 @@ public class ViewItemFull extends FacesBean
 
                     try
                     {
-                        if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState()))
+                        if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState()) || ItemVO.State.IN_REVISION.equals(yisb.getYearbookItem().getVersion().getState()))
                         {
                             this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
                             if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
