@@ -1023,10 +1023,16 @@
 						<xsl:value-of select="$givenname"/>
 					</xsl:element>
 					<xsl:choose>
-						<xsl:when test="not($isSource)">
+						<xsl:when test="not($isSource) and $Flavor != 'MPFI'">
 							<organization:organization>
 								<dc:title>Max Planck Society</dc:title>
 								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
+							</organization:organization>
+						</xsl:when>
+						<xsl:when test="not($isSource) and $Flavor = 'MPFI'">
+							<organization:organization>
+								<dc:title>Max Planck Florida Institute for Neuroscience</dc:title>
+								<dc:identifier>escidoc:1950288</dc:identifier>
 							</organization:organization>
 						</xsl:when>
 					</xsl:choose>
@@ -1040,6 +1046,9 @@
 						</xsl:when>				
 						<xsl:when test="($Flavor = 'MPIO')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Ornithology')"/>
+						</xsl:when>				
+						<xsl:when test="($Flavor = 'MPFI')"> 
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Florida Institute for Neuroscience')"/>
 						</xsl:when>				
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat($familyname, ', ', $givenname))"/>

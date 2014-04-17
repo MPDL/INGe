@@ -302,6 +302,9 @@
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])) and not(exists(escidoc:creator/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 
+			<!-- DateAccepted is required -->
+			<iso:assert test="dcterms:dateAccepted != ''">DateAcceptedNotProvided</iso:assert>
+
 			<iso:report test="not(escidoc:publishing-info/dc:publisher != '')">PublisherNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/escidoc:place != '')">PublisherPlaceNotProvided</iso:report>
 		</iso:rule>

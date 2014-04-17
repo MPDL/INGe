@@ -3614,7 +3614,6 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMF'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Medical Research')"/>
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMMG'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for the Study of Religious and Ethnic Diversity')"/>
@@ -3650,12 +3649,12 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Biological Cybernetics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'BiblHertz'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana - Max-Planck-Institut für Kunstgeschichte')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana - Max-Planck-Institut für Kunstgeschichte')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Fachbeirat des MPIeR')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIDynamics'">
