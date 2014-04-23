@@ -22,14 +22,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.77-SNAPSHOT</version>
+		<version>1.0.78-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>dataacquisition</artifactId>
 	<name>dataacquisition</name>
 	<packaging>ejb</packaging>
-	<version>1.0.73-SNAPSHOT</version>
+	<version>1.0.74-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/dataacquisition</connection>
@@ -156,7 +156,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.65-SNAPSHOT</version>
+			<version>1.0.66-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

@@ -2773,20 +2773,24 @@
 						<xsl:attribute name="xsi:type" select="'eterms:DOI'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
-					<xsl:when test="@type='issn'">
-						<xsl:attribute name="xsi:type" select="'eterms:ISSN'"/>
-						<xsl:value-of select="."/>
-					</xsl:when>
 					<xsl:when test="@type='isbn'">
 						<xsl:attribute name="xsi:type" select="'eterms:ISBN'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='isi'">
+						<xsl:attribute name="xsi:type" select="'eterms:ISI'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='issn'">
+						<xsl:attribute name="xsi:type" select="'eterms:ISSN'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='uri' or @type='url'">
 						<xsl:attribute name="xsi:type" select="'eterms:URI'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
-					<xsl:when test="@type='isi'">
-						<xsl:attribute name="xsi:type" select="'eterms:ISI'"/>
+					<xsl:when test="@type='report number'">
+						<xsl:attribute name="xsi:type" select="'eterms:REPORT_NR'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='localid' and ($import-name = 'MPINEURO' or $import-name = 'MPIBioChem')">
@@ -3513,6 +3517,9 @@
 			<xsl:when test="@role='author'">
 				<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
 			</xsl:when>
+			<xsl:when test="@role='constructor'">
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'inventor']/@uri"/>
+			</xsl:when>
 			<xsl:when test="@role='contributor'">
 				<xsl:attribute name="role" select="$creator-ves/enum[. = 'contributor']/@uri"/>
 			</xsl:when>
@@ -3607,7 +3614,6 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMF'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Medical Research')"/>
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMMG'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for the Study of Religious and Ethnic Diversity')"/>
@@ -3643,12 +3649,12 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Biological Cybernetics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'BiblHertz'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana - Max-Planck-Institut für Kunstgeschichte')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana - Max-Planck-Institut für Kunstgeschichte')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Fachbeirat des MPIeR')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIDynamics'">
