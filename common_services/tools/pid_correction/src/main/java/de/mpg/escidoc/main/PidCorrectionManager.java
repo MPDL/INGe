@@ -3,7 +3,6 @@ package de.mpg.escidoc.main;
 import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import gov.loc.www.zing.srw.service.SRWPort;
 
@@ -13,12 +12,11 @@ import java.net.URL;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.axis.message.MessageElement;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
-import de.mpg.escidoc.pid.PidProvider;
+import de.mpg.escidoc.pid.PidProviderMock;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -26,13 +24,13 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class PidCorrectionManager
 {
-    static String[] pidsToCorrect = {"11858/00-001Z-0000-0023-673A-F"};  //Version pid of escidoc:6728221:1
-  /*      "11858/00-001M-0000-0013-B522-3",
+    static String[] pidsToCorrect = {"11858/00-001Z-0000-0023-673A-F",  //Version pid of escidoc:6728221:1
+        "11858/00-001M-0000-0013-B522-3",
         "11858/00-001M-0000-0013-B25E-6",
         "11858/00-001M-0000-0013-B448-8",
-        "11858/00-001M-0000-0013-B2AE-3"
+        "11858/00-001M-0000-0013-B2AE-3"/**/
     };
-    */
+    
     
     private static Logger logger = Logger.getLogger(PidCorrectionManager.class);  
     
@@ -42,20 +40,23 @@ public class PidCorrectionManager
     
     public void correctList(String[] pids) throws Exception
     {
-        PidProvider pidProvider = new PidProvider();
+        PidProviderMock pidProvider = new PidProviderMock();
         try
         {
             SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-            
             
             for (String pid: pids)
             {            
                 RecordType record = this.searchForPid(pid);
                 
                 if (record == null) 
-                    continue;
+                {
+                    pidProvider.updatePid(pid, "");
+                    continue;       
+                }
+                
                 File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
-                FileUtils.writeStringToFile(tmp, record.getRecordData().get_any().toString(), "UTF-8");
+                FileUtils.writeStringToFile(tmp, record.getRecordData().get_any()[0].getAsString(), "UTF-8");
                 
                 srwSearchResponseHandler = new SrwSearchResponseHandler();
                 srwSearchResponseHandler.setPidToSearchFor(pid);
@@ -70,9 +71,7 @@ public class PidCorrectionManager
                 else if (srwSearchResponseHandler.isComponentPid())
                 {
                     pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl()); 
-                }
-                    
-                
+                }    
             }
         }
         catch (Exception e)
@@ -105,7 +104,6 @@ public class PidCorrectionManager
 
     private RecordType searchForPid(String pid) throws Exception
     {
-        
         StringBuffer cql = new StringBuffer("escidoc.metadata=");
         
         cql.append("\"hdl:");

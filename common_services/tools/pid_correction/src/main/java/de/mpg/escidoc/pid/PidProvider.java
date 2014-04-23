@@ -76,6 +76,11 @@ public class PidProvider
     {
         logger.debug("updatePid starting");
         
+        if ("".equals(irItemId))
+        {
+            successMap.put(irItemId, "");
+        }
+        
         int code = HttpStatus.SC_OK;
         String newUrl = "";
         String pidCacheUrl = location + "/write/modify";
