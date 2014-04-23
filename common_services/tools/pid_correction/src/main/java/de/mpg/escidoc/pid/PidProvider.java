@@ -1,7 +1,10 @@
 package de.mpg.escidoc.pid;
 
 
-import javax.naming.NamingException;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -9,10 +12,11 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.handler.SrwSearchResponseHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
+
 
 
 public class PidProvider
@@ -25,6 +29,9 @@ public class PidProvider
     private String server;
     
     private HttpClient httpClient;
+    
+    private Map<String, String> successMap;
+    private Map<String, String> failureMap;
     
     public PidProvider() throws Exception
     {
@@ -44,20 +51,18 @@ public class PidProvider
         httpClient = getHttpClient();
         httpClient.getParams().setAuthenticationPreemptive(true);
         
+        this.successMap = new HashMap<String, String>();
+        this.failureMap = new HashMap<String, String>();
+        
         logger.debug("init finished");
     }
 
-    private String getRegisterUrlForItem(String itemId) throws Exception
+    private String getRegisterUrl(String itemId) throws Exception
     {
         String registerUrl =  PropertyReader.getProperty("escidoc.pubman.instance.url") +
-                PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
-                PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", itemId);
+                PropertyReader.getProperty("escidoc.pubman.instance.context.path") + itemId;
+                
         return registerUrl;
-    }
-    
-    private String getRegisterUrlForComponent(String componentId, String fileName) 
-    {
-       return null;
     }
     
     public static HttpClient getHttpClient()
@@ -67,9 +72,72 @@ public class PidProvider
         return httpClient;
     }
 
-    public void sendRegisterUrl(SrwSearchResponseHandler srwSearchResponseHandler)
+    public int updatePid(String pid, String irItemId)
     {
-        // TODO Auto-generated method stub
+        logger.debug("updatePid starting");
+        
+        int code = HttpStatus.SC_OK;
+        String newUrl = "";
+        String pidCacheUrl = location + "/write/modify";
+        
+        PostMethod method = null;
+        method = new PostMethod(pidCacheUrl.concat("?pid=").concat(pid));
+        
+        try
+        {
+            newUrl = getRegisterUrl(irItemId);
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error occured when registering Url for <" + irItemId + ">");
+        }
+        
+        method.setParameter("url", newUrl);
+        
+        long start = System.currentTimeMillis();
+        try
+        {
+            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+                    new UsernamePasswordCredentials(user, password));
+            
+            code = httpClient.executeMethod(method);
+
+            if (code != HttpStatus.SC_OK)
+            {
+                logger.warn("Problem updating a pid <" + pid + ">" + "with newUrl <" + newUrl + ">");
+                failureMap.put(pid, newUrl);
+            }
+            else
+            {
+                successMap.put(pid, newUrl);
+            }
+   
+            logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error occured when registering Url for <" + irItemId + ">" );
+        }
+        
+        long end = System.currentTimeMillis();
+        
+        logger.info("Time used for updating pid <" + (end - start) + ">ms");
+        
+        return code;
+    }
+
+    public void storeResults()
+    {
+        try
+        {
+            FileUtils.writeStringToFile(new File("success"), successMap.toString());
+            FileUtils.writeStringToFile(new File("failure"), failureMap.toString());
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
     }
 }

@@ -26,7 +26,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class PidCorrectionManager
 {
-    static String[] pidsToCorrect = {"11858/00-001Z-0000-0023-673A-F"};
+    static String[] pidsToCorrect = {"11858/00-001Z-0000-0023-673A-F"};  //Version pid of escidoc:6728221:1
   /*      "11858/00-001M-0000-0013-B522-3",
         "11858/00-001M-0000-0013-B25E-6",
         "11858/00-001M-0000-0013-B448-8",
@@ -42,27 +42,49 @@ public class PidCorrectionManager
     
     public void correctList(String[] pids) throws Exception
     {
-        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         PidProvider pidProvider = new PidProvider();
-        
-        for (String pid: pids)
-        {            
-            RecordType record = this.searchForPid(pid);
+        try
+        {
+            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
             
-            if (record == null) 
-                continue;
-            File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
-            FileUtils.writeStringToFile(tmp, record.getRecordData().get_any().toString(), "UTF-8");
             
-            srwSearchResponseHandler = new SrwSearchResponseHandler();
-            srwSearchResponseHandler.setPidToSearchFor(pid);
-            parser.parse(tmp, srwSearchResponseHandler);
-            
-            pidProvider.sendRegisterUrl(srwSearchResponseHandler); 
-            
+            for (String pid: pids)
+            {            
+                RecordType record = this.searchForPid(pid);
+                
+                if (record == null) 
+                    continue;
+                File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
+                FileUtils.writeStringToFile(tmp, record.getRecordData().get_any().toString(), "UTF-8");
+                
+                srwSearchResponseHandler = new SrwSearchResponseHandler();
+                srwSearchResponseHandler.setPidToSearchFor(pid);
+                parser.parse(tmp, srwSearchResponseHandler);
+                
+                if (srwSearchResponseHandler.isObjectPid())
+                    pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl()); 
+                else if (srwSearchResponseHandler.isVersionPid())
+                {
+                    pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl()); 
+                }
+                else if (srwSearchResponseHandler.isComponentPid())
+                {
+                    pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl()); 
+                }
+                    
+                
+            }
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } 
-    }
-    
+        finally
+        {
+            pidProvider.storeResults();          
+        }
+    } 
 
     private void init(String url)
     {   
@@ -79,8 +101,6 @@ public class PidCorrectionManager
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-       
-        
     }
 
     private RecordType searchForPid(String pid) throws Exception
@@ -91,9 +111,7 @@ public class PidCorrectionManager
         cql.append("\"hdl:");
         cql.append(pid);
         cql.append("\"");
-        
-        
-        
+                
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType(); 
         
         searchRetrieveRequest.setVersion("1.1");
@@ -121,9 +139,7 @@ public class PidCorrectionManager
             case 0:
             default:
                 return null;
-        }
-            
-        
+        }  
     }
     
     /**
