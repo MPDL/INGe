@@ -30,14 +30,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-		<version>7.6.2-SNAPSHOT</version>
+		<version>7.6.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_installer</artifactId>
 	<name>pubman_installer</name>
 	<packaging>jar</packaging>
-	<version>7.6.2-SNAPSHOT</version>
+	<version>7.6.3-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_installer</connection>
@@ -346,7 +346,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
-			<version>7.6.2-SNAPSHOT</version>
+			<version>7.6.3-SNAPSHOT</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>

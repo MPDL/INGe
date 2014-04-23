@@ -293,7 +293,7 @@ public class YearbookItemSessionBean extends FacesBean
         YearbookInvalidItemRO storedItem = null;
         for (CreatorVO creator : pubItem.getMetadata().getCreators())
         {
-            if (creator.getOrganization() != null)
+            if (creator.getOrganization() != null && creator.getOrganization().getIdentifier()!=null)
             {
                 creator.getOrganization().setIdentifier(creator.getOrganization().getIdentifier().trim());
             }
@@ -301,7 +301,11 @@ public class YearbookItemSessionBean extends FacesBean
             {
                 for (OrganizationVO organization : creator.getPerson().getOrganizations())
                 {
-                    organization.setIdentifier(organization.getIdentifier().trim());
+                	if(organization.getIdentifier()!=null)
+                	{
+                		organization.setIdentifier(organization.getIdentifier().trim());
+                	}
+                    
                 }
             }
         }
