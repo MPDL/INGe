@@ -836,6 +836,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .tile_category div p {
 	margin-left: 0;
 }
+.tile_category .image {
+	float: left;
+	width: 4.272727em;
+	margin-right: 1.363636em;
+}
 .tile_category div .big_imgBtn[align="left"] {
 	*margin-bottom: 0.5em; /* IE7 Hack */
 }

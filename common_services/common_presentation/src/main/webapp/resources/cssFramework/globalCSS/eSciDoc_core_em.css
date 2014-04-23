@@ -311,6 +311,11 @@ option {	/* fix for FF2 and floating contents */
 	height: 4.272727em;
 }
 
+.large_imgImg {
+	max-width: 4.272727em;
+	max-height: 4.272727em;	
+}
+
 /*TEXT BUTTONS (base size)*/
 .free_txtBtn, .xTiny_txtBtn, .tiny_txtBtn, .xSmall_txtBtn, .small_txtBtn, .medium_txtBtn, .large_txtBtn, .xLarge_txtBtn, .double_txtBtn, .xDouble_txtBtn, .quad_txtBtn, .huge_txtBtn, .xHuge_txtBtn, .half_txtBtn, .full_txtBtn {
     padding:0;
