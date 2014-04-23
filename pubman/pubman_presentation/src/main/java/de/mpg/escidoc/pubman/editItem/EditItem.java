@@ -762,7 +762,7 @@ public class EditItem extends FacesBean
         try
         {
             PubItemVO itemVO = new PubItemVO(getPubItem());
-            report = this.itemValidating.validateItemObject(itemVO, "save_item");
+            report = this.itemValidating.validateItemObject(itemVO, "default");
         }
         catch (Exception e)
         {
