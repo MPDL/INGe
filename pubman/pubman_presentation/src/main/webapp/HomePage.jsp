@@ -42,7 +42,7 @@
 			<head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="${ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument"/>
-				<meta name="description" content="#{lbl.Pubman_descriptionMetaTag}"></meta>
+				<meta name="description" content="${lbl.Pubman_descriptionMetaTag}"></meta>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
 			</head>
