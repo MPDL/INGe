@@ -91,6 +91,7 @@ public class PidProvider
         try
         {
             newUrl = getRegisterUrl(irItemId);
+            logger.info("Register Url for <" + pid + "> " + " <"+ irItemId + ">");
         }
         catch (Exception e)
         {
