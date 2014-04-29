@@ -7,12 +7,17 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import gov.loc.www.zing.srw.service.SRWPort;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
@@ -24,13 +29,14 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class PidCorrectionManager
 {
+    /*
     static String[] pidsToCorrect = {"11858/00-001Z-0000-0023-673A-F",  //Version pid of escidoc:6728221:1
         "11858/00-001M-0000-0013-B522-3",
         "11858/00-001M-0000-0013-B25E-6",
         "11858/00-001M-0000-0013-B448-8",
-        "11858/00-001M-0000-0013-B2AE-3"/**/
+        "11858/00-001M-0000-0013-B2AE-3"
     };
-    
+    */
     
     private static Logger logger = Logger.getLogger(PidCorrectionManager.class);  
     
@@ -38,7 +44,7 @@ public class PidCorrectionManager
     private String userHandle;
     private SrwSearchResponseHandler srwSearchResponseHandler;
     
-    public void correctList(String[] pids) throws Exception
+    public void correctList(List<String> pids) throws Exception
     {
         PidProviderMock pidProvider = new PidProviderMock();
         try
@@ -71,7 +77,8 @@ public class PidCorrectionManager
                 else if (srwSearchResponseHandler.isComponentPid())
                 {
                     pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl()); 
-                }    
+                } 
+                FileUtils.deleteQuietly(tmp);
             }
         }
         catch (Exception e)
@@ -140,22 +147,66 @@ public class PidCorrectionManager
         }  
     }
     
+    private List<String> getPidsToCorrect(File pids) throws Exception, URISyntaxException
+    {
+        List<String> pidsToCorrect = new ArrayList<String>();
+        LineIterator lit = FileUtils.lineIterator(pids);
+        
+        while(lit.hasNext())
+        {
+            String pid = lit.next();
+            if (pid != null && !"".equals(pid))
+                pidsToCorrect.add(pid.trim());
+        }
+        
+        return pidsToCorrect;
+    }
+    
+    static public void usage(String message)
+    {
+        System.out.print("***** " + message + " *****\n");
+        System.out.print("Usage: ");
+        System.out.println("java <pidFile> update|verify");
+        
+        System.out.println("  pidFile\tThe file containing the problem pids (one pid per line)");
+        
+        System.out.println("  -update\t\tSend the corresponing update requests to the Handle Service");
+        System.out.println("  -verify\t\tVerify that the former update requests have been successful.");
+    
+        System.exit(-1);
+    }
+    
     /**
      * @param args
      * @throws Exception 
      */
     public static void main(String[] args) throws Exception
     {
-        String frameworkUrl = "http://dev-pubman.mpdl.mpg.de";
+        if (args.length != 2)
+            usage("Wrong number of parameters....");
+        
+        String pidFileName = args[0];
+        String mode = args[1];       
+        
+        if (pidFileName == null || "".equals(pidFileName) || !new File(pidFileName).exists())
+            usage("pidFileName may not be null or empty or the file does not exists.");
+        if (mode == null || (!mode.contains("update") && !mode.contains("verify")))
+            usage("Mode should be <update> or <verify>");
+        
+        String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
         
         PidCorrectionManager manager = new PidCorrectionManager();
         
         manager.init(frameworkUrl);
         
-        manager.correctList(pidsToCorrect);
+        List<String>pidsToCorrect = manager.getPidsToCorrect(new File(pidFileName));
         
-        
+        manager.correctList(pidsToCorrect);        
     }
+
+    
+
+    
 
     
 }
