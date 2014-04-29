@@ -7,7 +7,6 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import gov.loc.www.zing.srw.service.SRWPort;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
+import de.mpg.escidoc.pid.PidProvider;
 import de.mpg.escidoc.pid.PidProviderMock;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -29,15 +29,6 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class PidCorrectionManager
 {
-    /*
-    static String[] pidsToCorrect = {"11858/00-001Z-0000-0023-673A-F",  //Version pid of escidoc:6728221:1
-        "11858/00-001M-0000-0013-B522-3",
-        "11858/00-001M-0000-0013-B25E-6",
-        "11858/00-001M-0000-0013-B448-8",
-        "11858/00-001M-0000-0013-B2AE-3"
-    };
-    */
-    
     private static Logger logger = Logger.getLogger(PidCorrectionManager.class);  
     
     private SRWPort searchHandler;
@@ -91,6 +82,29 @@ public class PidCorrectionManager
             pidProvider.storeResults();          
         }
     } 
+    
+    public void verifyList(List<String> pidsCorrected) throws Exception
+    {
+        PidProvider pidProvider = new PidProvider();
+        
+        try
+        {
+            for (String pid : pidsCorrected)
+            {
+                pidProvider.checkToResolvePid(pid);
+            }
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        finally
+        {
+            pidProvider.storeResults();          
+        }
+        
+    }
 
     private void init(String url)
     {   
@@ -193,16 +207,23 @@ public class PidCorrectionManager
         if (mode == null || (!mode.contains("update") && !mode.contains("verify")))
             usage("Mode should be <update> or <verify>");
         
-        String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-        
         PidCorrectionManager manager = new PidCorrectionManager();
         
-        manager.init(frameworkUrl);
-        
-        List<String>pidsToCorrect = manager.getPidsToCorrect(new File(pidFileName));
-        
-        manager.correctList(pidsToCorrect);        
+        if (mode.contains("update"))
+        {
+            String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+            manager.init(frameworkUrl);
+            List<String> pidsToCorrect = manager.getPidsToCorrect(new File(pidFileName));
+            manager.correctList(pidsToCorrect);
+        }
+        if (mode.contains("verify"))
+        {   
+            List<String> pidsToCorrect = manager.getPidsToCorrect(new File(pidFileName));
+            manager.verifyList(pidsToCorrect);
+        }
     }
+
+    
 
     
 
