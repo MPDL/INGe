@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -22,6 +23,20 @@ public class AbstractPidProvider
     protected String latestSuccessFile;
     protected String latestFailureFile;
     
+    public AbstractPidProvider()
+    {
+        super();
+    }
+    
+    public void init() throws Exception
+    {
+        logger.debug("init starting");
+        
+        this.successMap = new HashMap<String, String>();
+        this.failureMap = new HashMap<String, String>();
+        
+        logger.debug("init finished");
+    }
 
     public String getLatestSuccessFile()
     {
@@ -33,19 +48,9 @@ public class AbstractPidProvider
         return latestFailureFile;
     }
 
-    public AbstractPidProvider()
+    public Map<String, String>getFailureMap()
     {
-        super();
-    }
-
-    public void init() throws Exception
-    {
-        logger.debug("init starting");
-        
-        this.successMap = new HashMap<String, String>();
-        this.failureMap = new HashMap<String, String>();
-        
-        logger.debug("init finished");
+        return this.failureMap;
     }
 
     public void storeResults(HandleUpdateStatistic statistic)
@@ -54,22 +59,24 @@ public class AbstractPidProvider
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
         String date = DATE_FORMAT.format(today);
         
-        this.latestSuccessFile = "success-" + date;
-        this.latestFailureFile = "failure-" + date;      
+        this.latestSuccessFile = "success_" + date;
+        this.latestFailureFile = "failure_" + date;      
        
         try
         {
-            FileUtils.writeStringToFile(new File(this.latestSuccessFile), statistic.toString() + System.getProperty("line.separator"));
+            FileUtils.writeStringToFile(new File(this.latestSuccessFile), statistic.toString() + System.getProperty("line.separator"), true);
             
-            while (successMap.entrySet().iterator().hasNext())
+            Iterator<Entry<String, String>> itSuc = successMap.entrySet().iterator();
+            while (itSuc.hasNext())
             {
-                Entry<String, String> entry = successMap.entrySet().iterator().next();
+                Entry<String, String> entry = (Entry<String, String>)itSuc.next();
                 FileUtils.writeStringToFile(new File(this.latestSuccessFile), entry + System.getProperty("line.separator"), true);
             }
             
-            while (failureMap.entrySet().iterator().hasNext())
+            Iterator<Entry<String, String>> itFail = failureMap.entrySet().iterator();
+            while (itFail.hasNext())
             {
-                Entry<String, String> entry = failureMap.entrySet().iterator().next();
+                Entry<String, String> entry = (Entry<String, String>)itFail.next();
                 FileUtils.writeStringToFile(new File(this.latestFailureFile), entry + System.getProperty("line.separator"), true);
             }
         }

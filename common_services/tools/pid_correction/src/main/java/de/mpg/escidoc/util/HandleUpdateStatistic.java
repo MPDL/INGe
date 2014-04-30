@@ -52,10 +52,10 @@ public class HandleUpdateStatistic
     {
         StringBuffer b = new StringBuffer();
         
-        b.append("<handlesTotal> " + new Integer(getHandlesTotal()) + System.getProperty("line.separator"));
-        b.append("<handlesUpdated> " + new Integer(getHandlesUpdated()) + System.getProperty("line.separator"));
-        b.append("<handlesNotFound> " + new Integer(getHandlesNotFound()) + System.getProperty("line.separator"));
-        b.append("<handlesUpdateError> " + new Integer(getHandlesUpdateError()) + System.getProperty("line.separator"));
+        b.append("handlesTotal " + new Integer(getHandlesTotal()) + System.getProperty("line.separator"));
+        b.append("handlesUpdated " + new Integer(getHandlesUpdated()) + System.getProperty("line.separator"));
+        b.append("handlesNotFound " + new Integer(getHandlesNotFound()) + System.getProperty("line.separator"));
+        b.append("handlesUpdateError " + new Integer(getHandlesUpdateError()) + System.getProperty("line.separator"));
         
         return b.toString();  
     }

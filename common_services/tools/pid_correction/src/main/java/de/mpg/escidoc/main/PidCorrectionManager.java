@@ -40,7 +40,7 @@ public class PidCorrectionManager
     
     public void correctList(List<String> pids) throws Exception
     {
-        PidProviderMock pidProvider = new PidProviderMock();
+        PidProvider pidProvider = new PidProvider();
         
         statistic = new HandleUpdateStatistic();
         
@@ -50,36 +50,45 @@ public class PidCorrectionManager
             
             for (String pid: pids)
             {    
-                statistic.incrementHandlesTotal();
-                
-                RecordType record = this.searchForPid(pid);
-                
-                if (record == null) 
+                try
                 {
-                    pidProvider.updatePid(pid, "", statistic);
-                    continue;       
+                    statistic.incrementHandlesTotal();
+                    
+                    RecordType record = this.searchForPid(pid);
+                    
+                    if (record == null) 
+                    {
+                        pidProvider.updatePid(pid, "", statistic);
+                        continue;       
+                    }
+                    
+                    File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
+                    FileUtils.writeStringToFile(tmp, record.getRecordData().get_any()[0].getAsString(), "UTF-8");
+                    
+                    srwSearchResponseHandler = new SrwSearchResponseHandler();
+                    srwSearchResponseHandler.setPidToSearchFor(pid);
+                    parser.parse(tmp, srwSearchResponseHandler);
+                    
+                    if (srwSearchResponseHandler.isObjectPid())
+                        pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl(), statistic); 
+                    else if (srwSearchResponseHandler.isVersionPid())
+                    {
+                        pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl(), statistic); 
+                    }
+                    else if (srwSearchResponseHandler.isComponentPid())
+                    {
+                        pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl(), statistic); 
+                    } 
+                    FileUtils.deleteQuietly(tmp);
+                    
+                    Thread.currentThread().sleep(5*1000);
                 }
-                
-                File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
-                FileUtils.writeStringToFile(tmp, record.getRecordData().get_any()[0].getAsString(), "UTF-8");
-                
-                srwSearchResponseHandler = new SrwSearchResponseHandler();
-                srwSearchResponseHandler.setPidToSearchFor(pid);
-                parser.parse(tmp, srwSearchResponseHandler);
-                
-                if (srwSearchResponseHandler.isObjectPid())
-                    pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl(), statistic); 
-                else if (srwSearchResponseHandler.isVersionPid())
+                catch (Exception e)
                 {
-                    pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl(), statistic); 
+                    statistic.incrementHandlesUpdateError();
+                    pidProvider.getFailureMap().put(pid, e.toString());
+                    continue;
                 }
-                else if (srwSearchResponseHandler.isComponentPid())
-                {
-                    pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl(), statistic); 
-                } 
-                FileUtils.deleteQuietly(tmp);
-                
-                //Thread.currentThread().sleep(5*1000);
             }
         }
         catch (Exception e)
@@ -180,7 +189,7 @@ public class PidCorrectionManager
         while(lit.hasNext())
         {
             String pid = lit.next();
-            if (pid != null && !"".equals(pid))
+            if (pid != null && !"".equals(pid.trim()))
                 pidsToCorrect.add(pid.trim());
         }
         

@@ -65,7 +65,8 @@ public class PidProvider extends AbstractPidProvider
         if ("".equals(irItemId))
         {
             statistic.incrementHandlesNotFound();
-            successMap.put(irItemId, "");
+            successMap.put(pid, "NOT USED");
+            return 0;
         }
         
         int code = HttpStatus.SC_OK;
@@ -172,5 +173,10 @@ public class PidProvider extends AbstractPidProvider
                 PropertyReader.getProperty("escidoc.pubman.instance.context.path") + itemId;
                 
         return registerUrl;
+    }
+
+    public void addToFailure(String pid, String string)
+    {
+        this.failureMap.put(pid, "");      
     }
 }
