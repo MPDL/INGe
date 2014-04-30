@@ -25,6 +25,7 @@ import de.mpg.escidoc.pid.PidProviderMock;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.util.HandleUpdateStatistic;
 
 
 public class PidCorrectionManager
@@ -35,20 +36,27 @@ public class PidCorrectionManager
     private String userHandle;
     private SrwSearchResponseHandler srwSearchResponseHandler;
     
+    private HandleUpdateStatistic statistic;
+    
     public void correctList(List<String> pids) throws Exception
     {
         PidProviderMock pidProvider = new PidProviderMock();
+        
+        statistic = new HandleUpdateStatistic();
+        
         try
         {
             SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
             
             for (String pid: pids)
-            {            
+            {    
+                statistic.incrementHandlesTotal();
+                
                 RecordType record = this.searchForPid(pid);
                 
                 if (record == null) 
                 {
-                    pidProvider.updatePid(pid, "");
+                    pidProvider.updatePid(pid, "", statistic);
                     continue;       
                 }
                 
@@ -60,16 +68,18 @@ public class PidCorrectionManager
                 parser.parse(tmp, srwSearchResponseHandler);
                 
                 if (srwSearchResponseHandler.isObjectPid())
-                    pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl()); 
+                    pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl(), statistic); 
                 else if (srwSearchResponseHandler.isVersionPid())
                 {
-                    pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl()); 
+                    pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl(), statistic); 
                 }
                 else if (srwSearchResponseHandler.isComponentPid())
                 {
-                    pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl()); 
+                    pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl(), statistic); 
                 } 
                 FileUtils.deleteQuietly(tmp);
+                
+                //Thread.currentThread().sleep(5*1000);
             }
         }
         catch (Exception e)
@@ -79,13 +89,14 @@ public class PidCorrectionManager
         } 
         finally
         {
-            pidProvider.storeResults();          
+            pidProvider.storeResults(statistic);          
         }
     } 
     
     public void verifyList(List<String> pidsCorrected) throws Exception
     {
         PidProvider pidProvider = new PidProvider();
+        statistic = new HandleUpdateStatistic();
         
         try
         {
@@ -101,7 +112,7 @@ public class PidCorrectionManager
         } 
         finally
         {
-            pidProvider.storeResults();          
+            pidProvider.storeResults(statistic);          
         }
         
     }

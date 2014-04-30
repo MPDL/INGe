@@ -1,10 +1,6 @@
 package de.mpg.escidoc.pid;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -14,14 +10,14 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.util.HandleUpdateStatistic;
 
 
 
-public class PidProvider
+public class PidProvider extends AbstractPidProvider
 {
     private static Logger logger = Logger.getLogger(PidProvider.class);  
     
@@ -31,10 +27,7 @@ public class PidProvider
     private String server;
     
     private HttpClient httpClient;
-    
-    private Map<String, String> successMap;
-    private Map<String, String> failureMap;
-    
+
     public PidProvider() throws Exception
     {
         this.init();
@@ -44,6 +37,8 @@ public class PidProvider
     {
         logger.debug("init starting");
         
+        super.init();
+        
         location = PropertyReader.getProperty("escidoc.pidcache.service.url");
         user = PropertyReader.getProperty("escidoc.pidcache.user.name");
         password = PropertyReader.getProperty("escidoc.pidcache.user.password");
@@ -52,19 +47,8 @@ public class PidProvider
         
         httpClient = getHttpClient();
         httpClient.getParams().setAuthenticationPreemptive(true);
-        
-        this.successMap = new HashMap<String, String>();
-        this.failureMap = new HashMap<String, String>();
-        
-        logger.debug("init finished");
-    }
 
-    private String getRegisterUrl(String itemId) throws Exception
-    {
-        String registerUrl =  PropertyReader.getProperty("escidoc.pubman.instance.url") +
-                PropertyReader.getProperty("escidoc.pubman.instance.context.path") + itemId;
-                
-        return registerUrl;
+        logger.debug("init finished");
     }
     
     public static HttpClient getHttpClient()
@@ -74,12 +58,13 @@ public class PidProvider
         return httpClient;
     }
 
-    public int updatePid(String pid, String irItemId)
+    public int updatePid(String pid, String irItemId, HandleUpdateStatistic statistic)
     {
         logger.debug("updatePid starting");
         
         if ("".equals(irItemId))
         {
+            statistic.incrementHandlesNotFound();
             successMap.put(irItemId, "");
         }
         
@@ -97,7 +82,7 @@ public class PidProvider
         }
         catch (Exception e)
         {
-            logger.warn("Error occured when registering Url for <" + irItemId + ">");
+            logger.warn("Error occured when getting Url for <" + irItemId + ">");
         }
         
         method.setParameter("url", newUrl);
@@ -114,10 +99,12 @@ public class PidProvider
             {
                 logger.warn("Problem updating a pid <" + pid + ">" + "with newUrl <" + newUrl + ">");
                 failureMap.put(pid, newUrl);
+                statistic.incrementHandlesUpdateError();
             }
             else
             {
                 successMap.put(pid, newUrl);
+                statistic.incrementHandlesUpdated();
             }
    
             logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
@@ -125,6 +112,7 @@ public class PidProvider
         catch (Exception e)
         {
             logger.warn("Error occured when registering Url for <" + irItemId + ">" );
+            statistic.incrementHandlesUpdateError();
         }
         
         long end = System.currentTimeMillis();
@@ -137,9 +125,7 @@ public class PidProvider
     public int checkToResolvePid(String pid)
     {
         logger.debug("updatePid starting");
-        
-        //String pidCacheUrl = location + "/read/view";
-        
+
         StringBuffer b = new StringBuffer("http://hdl.handle.net/");
         b.append(pid);
 
@@ -157,17 +143,16 @@ public class PidProvider
             code = httpClient.executeMethod(method);
 
             if (code != HttpStatus.SC_OK)
-            {
-                logger.warn("Problem when resolving <" + pid + ">");
-                failureMap.put(pid, "");
+            {               
+                failureMap.put(pid, "http code " + code);
+                logger.warn("Problem when resolving <" + pid + "> http code " + code);
             }
             else
             {
                 String response = method.getResponseBodyAsString();
-                    successMap.put(pid, response);
-            }
-   
-            logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
+                successMap.put(pid, "http code " + code);
+                logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
+            }              
         }
         catch (Exception e)
         {
@@ -176,26 +161,16 @@ public class PidProvider
         
         long end = System.currentTimeMillis();
         
-        logger.info("Time used for updating pid <" + (end - start) + ">ms");
+        logger.info("Time used for resolving pid <" + (end - start) + ">ms");
         
-        return code;
-        
+        return code;   
     }
 
-    public void storeResults()
+    private String getRegisterUrl(String itemId) throws Exception
     {
-        try
-        {
-            FileUtils.writeStringToFile(new File("success"), successMap.toString());
-            FileUtils.writeStringToFile(new File("failure"), failureMap.toString());
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+        String registerUrl =  PropertyReader.getProperty("escidoc.pubman.instance.url") +
+                PropertyReader.getProperty("escidoc.pubman.instance.context.path") + itemId;
+                
+        return registerUrl;
     }
-
-    
 }
