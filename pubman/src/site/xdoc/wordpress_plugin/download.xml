@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<author email="walter@mpdl.mpg.de">Matthias Walter</author>
+		<title>Download</title>
+	</properties>
+	<!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
+	<body>
+		<!-- The body of the document contains a number of sections -->
+		<section name="Download the PubMan WordPress-Plugin">
+
+			<!-- Within sections, any XHTML can be used -->
+			<p>The WordPress Plugin for PubMan can be downloaded here</p>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Description</th>
+						<th>Server</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>PubMan WordPress-Plugin (bundle including documentation and themes)</td>
+						<td>
+							<a href="http://pubman.mpdl.mpg.de/software/wordpress_plugin/pubman_wp_plugin_bundle.zip">pubman_wp_plugin_bundle.zip</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<p>For more information visit our <a href="http://test-wordpress.mpdl.mpg.de">test instance</a>, or contact the <a href="mailto:pubman-support@gwdg.de">pubman-suppport</a></p>
+			
+			<h3>System requirements</h3>
+			
+			<table border="1">
+				<tbody>
+					<tr>
+						<td>WordPress</td>
+						<td>3.5.X</td>
+					</tr>
+					<tr>
+						<td>PHP</td>
+						<td>5.3</td>
+					</tr>
+					<tr>
+						<td>jQuery</td>
+						<td>(included in WordPress)</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</body>
+</document>
