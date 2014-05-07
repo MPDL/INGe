@@ -17,7 +17,7 @@
 		<menu ref="parent"/> <!-- Erzeugt Link zum Parent-Modul-->
 		<menu ref="modules"/>
 		<menu ref="reports"/>
-		<menu ref="WordPress Plugin">
+		<menu name="WordPress Plugin">
 			<item name="Download" href="wordpress_plugin/download.html"/>
 			<item name="Documentation" href="wordpress_plugin/documentation.html"/>
 		</menu>
