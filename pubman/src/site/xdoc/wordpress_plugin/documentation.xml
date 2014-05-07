@@ -20,21 +20,21 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>User documentation</td>
+						<td>User documentation (german)</td>
 						<td>
-							<a href="http://pubman.mpdl.mpg.de/software/wordpress_plugin/user_doc.docx">user_doc.docx</a>
+							<a href="http://pubman.mpdl.mpg.de/software/wordpress_plugin/user_doc.pdf">user_doc.pdf</a>
 						</td>
 					</tr>
 					<tr>
-						<td>Technical documentation</td>
+						<td>Technical documentation (english)</td>
 						<td>
-							<a href="http://pubman.mpdl.mpg.de/software/wordpress_plugin/tech_doc.docx">tech_doc.docx</a>
+							<a href="http://pubman.mpdl.mpg.de/software/wordpress_plugin/tech_doc.pdf">tech_doc.pdf</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			
-			<p>For more information visit our <a href="http://test-wordpress.mpdl.mpg.de">test instance</a>, or contact the <a href="mailto:pubman-support@gwdg.de">pubman-suppport</a></p>
+			<p>For more information visit our <a href="http://test-wordpress.mpdl.mpg.de">test instance</a>, or contact the <a href="mailto:pubman-support@gwdg.de">pubman-support</a></p>
 			
 		</section>
 	</body>

@@ -28,26 +28,7 @@
 				</tbody>
 			</table>
 			
-			<p>For more information visit our <a href="http://test-wordpress.mpdl.mpg.de">test instance</a>, or contact the <a href="mailto:pubman-support@gwdg.de">pubman-suppport</a></p>
-			
-			<h3>System requirements</h3>
-			
-			<table border="1">
-				<tbody>
-					<tr>
-						<td>WordPress</td>
-						<td>3.5.X</td>
-					</tr>
-					<tr>
-						<td>PHP</td>
-						<td>5.3</td>
-					</tr>
-					<tr>
-						<td>jQuery</td>
-						<td>(included in WordPress)</td>
-					</tr>
-				</tbody>
-			</table>
+			<p>For more information visit our <a href="http://test-wordpress.mpdl.mpg.de">test instance</a>, or contact the <a href="mailto:pubman-support@gwdg.de">pubman-support</a></p>
 		</section>
 	</body>
 </document>
