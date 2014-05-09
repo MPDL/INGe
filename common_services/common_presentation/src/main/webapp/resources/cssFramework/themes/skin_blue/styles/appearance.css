@@ -421,13 +421,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	text-align:left;
 	cursor:pointer;
 	font-family: Verdana,Arial,Helvetica,sans-serif;
-	height:1.3636em;
+	height:1.363636em;
 	overflow:hidden;
 }
 .selectContainer {
 	padding-top:0em;
 	padding-bottom:0.18em;
-	height:1.3636em; 
+	height:1.363636em; 
 	background-color:#FFFFFF;
 	border:0.0909em solid #9fafae;
 }
@@ -440,6 +440,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 .free_area0.third_txtInput {
 	background-color:#FFFFFF;
+}
+/* special definitions for different height of selectContainer and following text input fields */
+.selectContainer + input[type=text],
+.selectContainer + input[type=text] + input[type=text],
+.xSmall_txtInput.ouNumber {
+	height:1.363636em;
 }
 
 /*LISTS & FULL ITEM*/

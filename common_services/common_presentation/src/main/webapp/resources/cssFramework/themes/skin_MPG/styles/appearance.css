@@ -919,13 +919,13 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 	text-align:left;
 	cursor:pointer;
 	font-family: Verdana,Arial,Helvetica,sans-serif;
-	height:1.3636em;
+	height:1.363636em;
 	overflow:hidden;
 }
 .selectContainer {
 	padding-top:0em;
 	padding-bottom:0.18em;
-	height:1.1818em; 
+	height:1.363636em;
 	background-color:#F3F5F5;
 	border:0.0909em solid #9fafae;
 }
@@ -939,7 +939,12 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 .free_area0.third_txtInput {
 	background-color:#f3f5f5;
 }
-
+/* special definitions for different height of selectContainer and following text input fields */
+.selectContainer + input[type=text],
+.selectContainer + input[type=text] + input[type=text],
+.xSmall_txtInput.ouNumber {
+	height:1.363636em;
+}
 
 
 /***** ALBUM *****/
