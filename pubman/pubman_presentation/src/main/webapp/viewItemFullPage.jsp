@@ -344,10 +344,10 @@
 								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon releasedItem" rendered="#{ViewItemFull.isStateReleased}" />
 								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
 								<h:outputText styleClass="noDisplay" value="Item is " />
-								<h:outputLabel styleClass="medium_label statusLabel free_area_p3" rendered="#{ViewItemFull.isStateWithdrawn}">
+								<h:outputLabel styleClass="medium_label statusLabel free_area0_p3" rendered="#{ViewItemFull.isStateWithdrawn}">
 									<h:outputText value="#{ViewItemFull.itemPublicState}" />
 								</h:outputLabel>
-								<h:outputLabel styleClass="medium_label statusLabel free_area_p3" rendered="#{!ViewItemFull.isStateWithdrawn}">
+								<h:outputLabel styleClass="medium_label statusLabel free_area0_p3" rendered="#{!ViewItemFull.isStateWithdrawn}">
 									<h:outputText value="#{ViewItemFull.itemState}" />
 								</h:outputLabel>
 							</h:panelGroup>
