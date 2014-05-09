@@ -915,7 +915,7 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 	white-space:nowrap;
 }
 .selectionBox {
-	color:#3A3B3B;
+	color:#000000;
 	text-align:left;
 	cursor:pointer;
 	font-family: Verdana,Arial,Helvetica,sans-serif;
