@@ -1,21 +1,23 @@
 package de.mpg.escidoc.pid;
 
 
-import javax.naming.NamingException;
+import java.util.Map;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.handler.SrwSearchResponseHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.util.HandleUpdateStatistic;
 
 
-public class PidProvider
+
+public class PidProvider extends AbstractPidProvider
 {
     private static Logger logger = Logger.getLogger(PidProvider.class);  
     
@@ -25,7 +27,7 @@ public class PidProvider
     private String server;
     
     private HttpClient httpClient;
-    
+
     public PidProvider() throws Exception
     {
         this.init();
@@ -35,6 +37,8 @@ public class PidProvider
     {
         logger.debug("init starting");
         
+        super.init();
+        
         location = PropertyReader.getProperty("escidoc.pidcache.service.url");
         user = PropertyReader.getProperty("escidoc.pidcache.user.name");
         password = PropertyReader.getProperty("escidoc.pidcache.user.password");
@@ -43,21 +47,8 @@ public class PidProvider
         
         httpClient = getHttpClient();
         httpClient.getParams().setAuthenticationPreemptive(true);
-        
-        logger.debug("init finished");
-    }
 
-    private String getRegisterUrlForItem(String itemId) throws Exception
-    {
-        String registerUrl =  PropertyReader.getProperty("escidoc.pubman.instance.url") +
-                PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
-                PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", itemId);
-        return registerUrl;
-    }
-    
-    private String getRegisterUrlForComponent(String componentId, String fileName) 
-    {
-       return null;
+        logger.debug("init finished");
     }
     
     public static HttpClient getHttpClient()
@@ -67,9 +58,125 @@ public class PidProvider
         return httpClient;
     }
 
-    public void sendRegisterUrl(SrwSearchResponseHandler srwSearchResponseHandler)
+    public int updatePid(String pid, String irItemId, HandleUpdateStatistic statistic)
     {
-        // TODO Auto-generated method stub
+        logger.debug("updatePid starting");
         
+        if ("".equals(irItemId))
+        {
+            statistic.incrementHandlesNotFound();
+            successMap.put(pid, "NOT USED");
+            return 0;
+        }
+        
+        int code = HttpStatus.SC_OK;
+        String newUrl = "";
+        String pidCacheUrl = location + "/write/modify";
+        
+        PostMethod method = null;
+        method = new PostMethod(pidCacheUrl.concat("?pid=").concat(pid));
+        
+        try
+        {
+            newUrl = getRegisterUrl(irItemId);
+            logger.info("Register Url for <" + pid + "> " + " <"+ irItemId + ">");
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error occured when getting Url for <" + irItemId + ">");
+        }
+        
+        method.setParameter("url", newUrl);
+        
+        long start = System.currentTimeMillis();
+        try
+        {
+            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+                    new UsernamePasswordCredentials(user, password));
+            
+            code = httpClient.executeMethod(method);
+
+            if (code != HttpStatus.SC_OK)
+            {
+                logger.warn("Problem updating a pid <" + pid + ">" + "with newUrl <" + newUrl + ">");
+                failureMap.put(pid, newUrl);
+                statistic.incrementHandlesUpdateError();
+            }
+            else
+            {
+                successMap.put(pid, newUrl);
+                statistic.incrementHandlesUpdated();
+            }
+   
+            logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error occured when registering Url for <" + irItemId + ">" );
+            statistic.incrementHandlesUpdateError();
+        }
+        
+        long end = System.currentTimeMillis();
+        
+        logger.info("Time used for updating pid <" + (end - start) + ">ms");
+        
+        return code;
+    }
+    
+    public int checkToResolvePid(String pid)
+    {
+        logger.debug("updatePid starting");
+
+        StringBuffer b = new StringBuffer("http://hdl.handle.net/");
+        b.append(pid);
+
+        int code = HttpStatus.SC_OK;
+        
+        GetMethod method =  new GetMethod(b.toString());
+        method.setFollowRedirects(true);
+        
+        long start = System.currentTimeMillis();
+        try
+        {
+            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+                    new UsernamePasswordCredentials(user, password));
+         
+            code = httpClient.executeMethod(method);
+
+            if (code != HttpStatus.SC_OK)
+            {               
+                failureMap.put(pid, "http code " + code);
+                logger.warn("Problem when resolving <" + pid + "> http code " + code);
+            }
+            else
+            {
+                String response = method.getResponseBodyAsString();
+                successMap.put(pid, "http code " + code);
+                logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
+            }              
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error occured when resolving Url for <" + pid + ">" );
+        }
+        
+        long end = System.currentTimeMillis();
+        
+        logger.info("Time used for resolving pid <" + (end - start) + ">ms");
+        
+        return code;   
+    }
+
+    private String getRegisterUrl(String itemId) throws Exception
+    {
+        String registerUrl =  PropertyReader.getProperty("escidoc.pubman.instance.url") +
+                PropertyReader.getProperty("escidoc.pubman.instance.context.path") + itemId;
+                
+        return registerUrl;
+    }
+
+    public void addToFailure(String pid, String string)
+    {
+        this.failureMap.put(pid, "");      
     }
 }

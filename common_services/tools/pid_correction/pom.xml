@@ -57,9 +57,9 @@
 	</ciManagement>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/pid_correction/</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/pid_correction/</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/pid_correction/</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/pid_correction/</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 	
 	<build>
@@ -69,6 +69,7 @@
 			<filtering>true</filtering>
 			<includes>
 				<include>**/*.properties</include>
+				<include>**/*.txt</include>
 			</includes>
 		</resource>
 	</resources>

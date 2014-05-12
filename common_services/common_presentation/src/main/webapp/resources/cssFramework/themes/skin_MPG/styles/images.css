@@ -200,33 +200,70 @@ body .wrapper {
 
 /*EXTENDED PAGINATOR*/
 /*PAGE BROWSER*/
+
+.pageBrowser .skipToFirst, 
+.pageBrowser .backward {
+	background-repeat: no-repeat;
+    background-position: left top;
+}
+
 .pageBrowser .skipToFirst {
     background-image: url('../images/All_Paginator_ArrowFirst_15_Active.png');
-    background-repeat: no-repeat;
-    background-position: center 0.090909em;
+    margin-right: 0;
 }
-
-.pageBrowser .skipToFirst:hover, .pageBrowser .skipToFirst:focus {
+.pageBrowser .skipToFirst:hover, 
+.pageBrowser .skipToFirst:focus {
     background-image: url('../images/All_Paginator_ArrowFirst_15_Hover.png');
-    background-repeat: no-repeat;
-    background-position: center 0.090909em;
 }
-
 .pageBrowser .skipToFirst:disabled {
     background-image: url('../images/All_Paginator_ArrowFirst_15_Deactivated.png');
-    background-repeat: no-repeat;
-    background-position: center 0.090909em;
 }
 
 .pageBrowser .backward {
     background-image: url('../images/All_Paginator_ArrowPrevious_15_Active.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-right: 0px;
-    padding-left: 20px;
+    padding-right: 0;
+    padding-left: 1.6666666em;
+}
+.pageBrowser .backward:hover, 
+.pageBrowser .backward:focus {
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.png');
+}
+.pageBrowser .backward:disabled {
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.png');
 }
 
+.pageBrowser .skipToLast, 
+.pageBrowser .forward {
+	background-repeat: no-repeat;
+    background-position: right top;
+}
 
+.pageBrowser .forward {
+    background-image: url('../images/All_Paginator_ArrowNext_15_Active.png');
+    padding-right: 1.6666666em;
+    padding-left: 0;
+}
+.pageBrowser .forward:hover, 
+.pageBrowser .forward:focus {
+    background-image: url('../images/All_Paginator_ArrowNext_15_Hover.png');
+}
+.pageBrowser .forward:disabled {
+    background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.png');
+}
+
+.pageBrowser .skipToLast {
+    background-image: url('../images/All_Paginator_ArrowLast_15_Active.png');
+    margin-left: 0;
+}
+.pageBrowser .skipToLast:hover, 
+.pageBrowser .skipToLast:focus {
+    background-image: url('../images/All_Paginator_ArrowLast_15_Hover.png');
+}
+.pageBrowser .skipToLast:disabled {
+    background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.png');
+}
+
+/* fullItem pageBrowserItem */
 .fullItem .pageBrowserItem .skipToFirst {
 	padding-left:1.3636em;
 	margin-right:0.45em;
@@ -281,7 +318,7 @@ body .wrapper {
 	padding-right:1.3636em;
 	margin-left:0.45em;
 	background-image: url("../images/All_Paginator_ArrowLast_15_Active.png");
-	background-position: center center;
+	background-position: right center;
 	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .skipToLast:hover {
@@ -292,75 +329,6 @@ body .wrapper {
 	background-repeat: no-repeat;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .backward {
-    /*		padding-left: 0px;
-     */
-}
-
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .backward {
-    /*		padding-left: 0px;
-     */
-}
-
-.pageBrowser .backward:hover, .pageBrowser .backward:focus {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.png');
-    background-repeat: no-repeat;
-    background-position: left;
-}
-
-.pageBrowser .backward:disabled {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.png');
-    background-repeat: no-repeat;
-    background-position: left;
-}
-
-.pageBrowser .forward {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Active.png');
-    background-repeat: no-repeat;
-    background-position: right;
-    padding-right: 20px;
-    padding-left: 0px;
-}
-
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .forward {
-    /*		padding-right: 2px;
-     */
-}
-
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .forward {
-    /*		padding-right: 2px;
-     */
-}
-
-.pageBrowser .forward:hover, .pageBrowser .forward:focus {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Hover.png');
-    background-repeat: no-repeat;
-    background-position: right;
-}
-
-.pageBrowser .forward:disabled {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.png');
-    background-repeat: no-repeat;
-    background-position: right;
-}
-
-.pageBrowser .skipToLast {
-    background-image: url('../images/All_Paginator_ArrowLast_15_Active.png');
-    background-repeat: no-repeat;
-    background-position: center 0.090909em;
-}
-
-.pageBrowser .skipToLast:hover, .pageBrowser .skipToLast:focus {
-    background-image: url('../images/All_Paginator_ArrowLast_15_Hover.png');
-    background-repeat: no-repeat;
-    background-position: center 0.090909em;
-}
-
-.pageBrowser .skipToLast:disabled {
-    background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.png');
-    background-repeat: no-repeat;
-    background-position: center 0.090909em;
-}
 
 /*LIST COMPONENT*/
 .itemList, .tiledList, .fullItem {

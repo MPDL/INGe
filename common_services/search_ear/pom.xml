@@ -31,13 +31,13 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.78-SNAPSHOT</version>
+		<version>1.0.79-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>search_ear</artifactId>
 	<name>search_ear</name>
-	<version>1.1.12-SNAPSHOT</version>
+	<version>1.1.13-SNAPSHOT</version>
 	<packaging>ear</packaging>
 
 	<scm>
@@ -267,35 +267,35 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search</artifactId>
-			<version>1.1.12-SNAPSHOT</version>
+			<version>1.1.13-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search_presentation</artifactId>
-			<version>1.1.12-SNAPSHOT</version>
+			<version>1.1.13-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.78-SNAPSHOT</version>
+			<version>1.1.79-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.83-SNAPSHOT</version>
+			<version>1.0.84-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.81-SNAPSHOT</version>
+			<version>1.0.82-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>

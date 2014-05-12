@@ -30,13 +30,13 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.78-SNAPSHOT</version>
+		<version>1.0.79-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>sword_presentation</artifactId>
 	<name>sword_presentation</name>
-	<version>1.0.56-SNAPSHOT</version>
+	<version>1.0.57-SNAPSHOT</version>
 	<packaging>war</packaging>
 	
 	<scm>
