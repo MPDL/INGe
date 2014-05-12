@@ -32,18 +32,20 @@ package de.mpg.escidoc.pubman.desktop;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.StatisticLogger;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.Index;
+import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldAndFulltextSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.IdentifierSearchCriterion;
 
 
 public class Search extends FacesBean
@@ -123,6 +125,43 @@ public class Search extends FacesBean
 
     public static String generateCQLRequest(String searchString, boolean includeFiles) throws Exception
     {
+    	
+    	List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
+    
+    	
+    	if(includeFiles) 
+    	{
+    		AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();
+    		anyFulltext.setSearchString(searchString);
+    		criteria.add(anyFulltext);
+        }
+        else 
+        {
+        	AnyFieldSearchCriterion any = new AnyFieldSearchCriterion();
+        	any.setSearchString(searchString);
+        	criteria.add(any);
+        }
+    	
+    	criteria.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    	
+    	IdentifierSearchCriterion identifier = new IdentifierSearchCriterion();
+    	identifier.setSearchString(searchString);
+    	criteria.add(identifier);
+    	
+    	/*
+    	CollectionSearchCriterion collection = new CollectionSearchCriterion();
+    	collection.setSearchString(searchString);
+    	criteria.add(collection);
+    	
+    	CreatedBySearchCriterion createdBy = new CreatedBySearchCriterion();
+    	createdBy.setHiddenId(searchString);
+    	criteria.add(createdBy);
+    	*/
+    	String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
+    	
+    	
+    	/*
+    	
         String cql = "";
         
             ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
@@ -152,7 +191,7 @@ public class Search extends FacesBean
 
             MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
             cql = query.getCqlQuery();
-       
+       */
             return cql;
     }
 

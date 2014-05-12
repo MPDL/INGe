@@ -30,14 +30,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-		<version>7.6.3-SNAPSHOT</version>
+		<version>7.6.4-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
 	<packaging>ejb</packaging>
-	<version>7.6.3-SNAPSHOT</version>
+	<version>7.6.4-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_logic</connection>
