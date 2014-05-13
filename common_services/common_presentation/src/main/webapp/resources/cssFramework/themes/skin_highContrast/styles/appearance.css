@@ -179,8 +179,7 @@ a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
     text-decoration: none;
 }
 
-input[type =
-"button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
+input[type = "button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
     cursor: pointer;
 }
 
@@ -189,8 +188,7 @@ input, textarea, select {
     border-color: #A4A4A4;
 }
 
-input[type =
-"text"], textarea, select {
+input[type = "text"], textarea, select {
     background-color: #F2F8FC;
 }
 
@@ -415,7 +413,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	white-space:nowrap;
 }
 .selectionBox {
-	color:#3A3B3B;
 	text-align:left;
 	cursor:pointer;
 	font-family: Verdana,Arial,Helvetica,sans-serif;
