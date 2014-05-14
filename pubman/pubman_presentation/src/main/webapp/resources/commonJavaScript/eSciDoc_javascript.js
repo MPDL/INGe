@@ -257,7 +257,7 @@ $pb(function(){
 
 function fullItemReloadAjax()
 {
-	var style, overlayDiv;
+	var overlayDiv;
 	/*
 	var fi = $pb('#fullItem');
 	var fil = $pb('#ImgFullItemLoad');
@@ -277,25 +277,7 @@ function fullItemReloadAjax()
 	overlayDiv = $pb('#overlayAjaxRequest');
 	if(!overlayDiv || overlayDiv.length == 0)
 	{
-		style = '<style type="text/css">'
-				+ '.overlayAjaxRequestBackground, '
-				+ '.overlayAjaxRequestBackground + .smallThrobber { '
-				+ ' position: fixed; left: 0; top: 0;' 
-				+ ' width: 100%; height: 100%;'
-				+ ' text-align:center;'
-				+ '}'
-				+ '.overlayAjaxRequestBackground { '
-				+ ' z-index: 2000;'
-				+ ' background-color: white;'
-				+ ' opacity:0.4; filter: alpha(opacity=40); -khtml-opacity: 0.4; -moz-opacity: 0.4;'
-				+ '}'
-				+ '.overlayAjaxRequestBackground + .smallThrobber { '
-				+ ' z-index: 2001;'
-				+ ' background-color: transparent;'
-				+ ' background-position: center 35%;'
-				+ '}'
-				+ '</style>';
-		overlayDiv = $pb(style + '<div id="overlayAjaxRequest" class="overlayAjaxRequestBackground">&#160;</div>'
+		overlayDiv = $pb('<div id="overlayAjaxRequest" class="overlayAjaxRequestBackground">&#160;</div>'
 				+ '<div  class="big_imgArea smallThrobber">&#160;</div>');
 		$pb('body').append(overlayDiv);
 	}
