@@ -47,6 +47,8 @@
 
 				<h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 				
+				<meta name="description" content="#{ViewItemFull.pubItem.descriptionMetaTag}"/>
+				
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
