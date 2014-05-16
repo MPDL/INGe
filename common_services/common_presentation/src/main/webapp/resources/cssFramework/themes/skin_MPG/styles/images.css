@@ -84,7 +84,7 @@
     background-position: center center;
     margin-top: 1.37em;
     margin-bottom: 1.37em;
-	background-color:#ffffff;
+	background-color: transparent;
 }
 
 .bigThrobber {
@@ -264,69 +264,53 @@ body .wrapper {
 }
 
 /* fullItem pageBrowserItem */
-.fullItem .pageBrowserItem .skipToFirst {
-	padding-left:1.3636em;
-	margin-right:0.45em;
-	background-image: url("../images/All_Paginator_ArrowFirst_15_Active.png");
-	background-position: center center;
+.fullItem .pageBrowserItem .skipToFirst,
+.fullItem .pageBrowserItem .backward {
+	padding-right: 0;
+	text-align: center;
+	background-position: left center;
 	background-repeat: no-repeat;
+}
+.fullItem .pageBrowserItem .skipToFirst {
+	padding-left: 1.363636em;
+	margin-right: 0;
+	background-image: url("../images/All_Paginator_ArrowFirst_15_Active.png");
 }
 .fullItem .pageBrowserItem .skipToFirst:hover {
-	padding-left:1.3636em;
-	margin-right:0.45em;
 	background-image: url("../images/All_Paginator_ArrowFirst_15_Hover.png");
-	background-position: center center;
-	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .backward {
-	padding-left: 20px;
-	padding-right: 0;
-	margin-right:0.64em;
-	text-align:center;
+	margin-right: 0.454545em;
+	padding-left: 1.545454em;
 	background-image: url("../images/All_Paginator_ArrowPrevious_15_Active.png");
-	background-position: left center;
-	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .backward:hover {
-	padding-left: 20px;
-	padding-right: 0;
-	margin-right:0.64em;
-	text-align:center;
 	background-image: url("../images/All_Paginator_ArrowPrevious_15_Hover.png");
-	background-position: left center;
+}
+
+
+.fullItem .pageBrowserItem .forward, 
+.fullItem .pageBrowserItem .skipToLast {
+	padding-left: 0;
+	text-align: center;
+	background-position: right center;
 	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .forward {
-	padding-left: 0;
-	padding-right: 20px;
-	margin-left:0.64em;
-	text-align:left;
+	margin-left: 0.454545em;
+	padding-right: 1.545454em;
 	background-image: url("../images/All_Paginator_ArrowNext_15_Active.png");
-	background-position: right center;
-	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .forward:hover {
-	padding-left: 0;
-	padding-right: 20px;
-	margin-left:0.64em;
-	text-align:left;
 	background-image: url("../images/All_Paginator_ArrowNext_15_Hover.png");
-	background-position: right center;
-	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .skipToLast {
-	padding-right:1.3636em;
-	margin-left:0.45em;
+	margin-left: 0;
+	padding-right: 1.363636em;
 	background-image: url("../images/All_Paginator_ArrowLast_15_Active.png");
-	background-position: right center;
-	background-repeat: no-repeat;
 }
 .fullItem .pageBrowserItem .skipToLast:hover {
-	padding-right:1.3636em;
-	margin-left:0.45em;
 	background-image: url("../images/All_Paginator_ArrowLast_15_Hover.png");
-	background-position: center center;
-	background-repeat: no-repeat;
 }
 
 

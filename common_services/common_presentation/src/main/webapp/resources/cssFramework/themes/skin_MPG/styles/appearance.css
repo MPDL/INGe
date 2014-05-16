@@ -203,9 +203,9 @@ a:disabled {
 	color: #888B8B;
 }
 /* TEXT DECORATION FOR ALL LINKS WITH one or more CLASS-ATTRIBUTE - e.g. images */
-a[class] { 
+/*a[class] { 
 	text-decoration:none;
-}
+}*/
 
 /***TEXTAREA***/
 textarea {
@@ -619,7 +619,13 @@ body .wrapper {
         background-color: white;
 	}
 }
-
+.fullItem .pageBrowserItem a:hover {
+	text-decoration: underline;
+}
+.fullItem .pageBrowserItem .skipToFirst:hover,
+.fullItem .pageBrowserItem .skipToLast:hover {
+	text-decoration: none;
+}
 
 /***** BREADCRUMP *****/
 .breadcrumb li {
