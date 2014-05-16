@@ -316,7 +316,7 @@
 										Indexes<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >here</a> all allowed indexes.
+										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >here</a> all allowed indexes.
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
