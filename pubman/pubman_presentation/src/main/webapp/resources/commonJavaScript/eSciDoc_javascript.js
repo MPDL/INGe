@@ -227,11 +227,37 @@ applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};
 
 
+/* these function is currently not in use
+ * @returnValue = src or id
+ */
+function getLayout(returnValue) {
+	var activeThemeSrc, activeLayoutId, ptn;
+	var doccook = document.cookie;
+	var ptnid = /layout=(.+)*;/;
+	ptnid.exec(doccook);
+	activeLayoutId = RegExp.$1;
+	
+	switch(returnValue) {
+		case 'id':
+			activeThemeSrc = $pb('#'+activeLayoutId).attr("href");
+			ptn = /(\/common.+\/)*styles/;
+			ptn.exec(activeThemeSrc);
+			return (RegExp.$1);
+			break;
+		default:
+			return (activeLayoutId);
+			break;
+	}
+}
 
-
+// append a hidden field to preload the throbber image because of load error in webkit engine
+$pb(function(){
+	$pb('body').append('<input type="hidden" class="smallThrobber"/>');
+});
 
 function fullItemReloadAjax()
 {
+	var overlayDiv;
 	/*
 	var fi = $pb('#fullItem');
 	var fil = $pb('#ImgFullItemLoad');
@@ -248,23 +274,16 @@ function fullItemReloadAjax()
 	}
 	*/
 	
-	
-	var overlayDiv = $pb('#overlayAjaxRequest');
+	overlayDiv = $pb('#overlayAjaxRequest');
 	if(!overlayDiv || overlayDiv.length == 0)
 	{
-		overlayDiv = $pb('<div id="overlayAjaxRequest"'
-				+ 'style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; text-align:center; z-index: 200; background-color: black; opacity:0.4; filter: alpha(opacity=40); -khtml-opacity: 0.4; -moz-opacity: 0.4;">'
-				+ '<div id="bigThrobber" class="big_imgArea smallThrobber" style="z-index: 201; margin: 30em auto; opacity:1.0;">&#160;</div>'
-				+ '</div>"');
-		$pb('body').prepend(overlayDiv);
+		overlayDiv = $pb('<div id="overlayAjaxRequest" class="overlayAjaxRequestBackground">&#160;</div>'
+				+ '<div  class="big_imgArea smallThrobber">&#160;</div>');
+		$pb('body').append(overlayDiv);
 	}
-	
-	
-	
 }
 function fullItemReloadStop()
 {
-	
 	$pb('#overlayAjaxRequest').remove();
 	
 	/*
@@ -279,17 +298,13 @@ function fullItemReloadStop()
 		fi.find("input[type='text'], textarea").removeAttr("readonly");
 	}
 	*/
-	
-	
 }
 
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
 function beforeAjaxRequest()
 {
-	
 	if(typeof window.fullItemReloadAjax == 'function')
 	{ 
-		
 		fullItemReloadAjax();
 	}
 }
@@ -297,7 +312,6 @@ function beforeAjaxRequest()
 /*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
 function afterAjaxRequest()
 {
-	
 	//Remove old autosuggest result lists
 	$pb('ul.ac_results').remove();
 	if(typeof window.fullItemReloadStop == 'function')
@@ -313,8 +327,6 @@ function afterAjaxRequest()
 	{ 
 		updatePersonUi();
 	}
-	
-	
 }
 
 /*Stops the enter key, otherwise everytime the enter key is pressed in an textfield, the quicksearchbutton is activated  */
