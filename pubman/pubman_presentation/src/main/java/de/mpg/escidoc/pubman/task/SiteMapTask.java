@@ -96,6 +96,8 @@ public class SiteMapTask extends Thread
     
     private List<File> files = new ArrayList<File>();
     
+    public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+    
     /**
      * {@inheritDoc}
      */
@@ -137,8 +139,8 @@ public class SiteMapTask extends Thread
             
             finishSitemap();
             
-            String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
-            new File(appPath).mkdir();
+            //String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+            new File(SITEMAP_PATH).mkdir();
             /*
             try
             {
@@ -153,7 +155,7 @@ public class SiteMapTask extends Thread
             */
             if (files.size() == 1)
             {
-                File finalFile = new File(appPath + "sitemap.xml");
+                File finalFile = new File(SITEMAP_PATH + "sitemap.xml");
                 try
                 {
                     finalFile.delete();
@@ -162,9 +164,9 @@ public class SiteMapTask extends Thread
                 {
                     // Unable to delete file, it probably didn't exist
                 }
-                fileWriter = new FileWriter(appPath + "sitemap.xml");
+                fileWriter = new FileWriter(SITEMAP_PATH + "sitemap.xml");
                 
-                File newSiteMap = new File(appPath + "sitemap.xml");
+                File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
                 this.copySiteMap(files.get(0), finalFile, (int) files.get(0).length(), true);
             }
             else
@@ -182,7 +184,7 @@ public class SiteMapTask extends Thread
                 
                 for (int i = 0; i < files.size(); i++)
                 {
-                    File finalFile = new File(appPath + "sitemap" + (i + 1) + ".xml");
+                    File finalFile = new File(SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
                     try
                     {
                         finalFile.delete();
@@ -204,7 +206,7 @@ public class SiteMapTask extends Thread
                 indexFileWriter.flush();
                 indexFileWriter.close();
                 
-                File finalFile = new File(appPath + "sitemap.xml");
+                File finalFile = new File(SITEMAP_PATH + "sitemap.xml");
                 logger.info("Sitemap file: " + finalFile.getAbsolutePath());
                 try
                 {

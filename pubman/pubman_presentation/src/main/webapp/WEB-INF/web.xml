@@ -92,6 +92,19 @@
 	<!-- <context-param> <param-name>org.richfaces.SKIN</param-name> <param-value>plain</param-value> 
 		</context-param> <context-param> <param-name>org.richfaces.CONTROL_SKINNING</param-name> 
 		<param-value>disable</param-value> </context-param> -->
+	
+	
+	<filter>
+		<display-name>Sitemap Filter</display-name>
+		<filter-name>sitemap</filter-name>
+		<filter-class>de.mpg.escidoc.pubman.servlet.SitemapFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemap</filter-name>
+		<servlet-name>default</servlet-name>
+	</filter-mapping>
+
+	
 	<filter>
 		<display-name>RichFaces Filter</display-name>
 		<filter-name>richfaces</filter-name>
@@ -165,6 +178,7 @@
 	<listener>
 		<listener-class>de.mpg.escidoc.pubman.appbase.PubManSessionListener</listener-class>
 	</listener>
+	 
 
 	<filter>
 		<filter-name>SessionTimeoutFilter</filter-name>
