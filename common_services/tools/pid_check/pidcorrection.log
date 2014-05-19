@@ -1,0 +1,63 @@
+13:56:41,695 DEBUG [PropertyReader.java] solution.properties file not found. Trying default.
+13:56:41,695 INFO  [PropertyReader.java] Properties loaded from /C:/pubMan/projects/common/common_services/tools/pid_check/target/classes/pubman.properties
+13:56:48,574 WARN  [JavaUtils.java] Unable to find required classes (javax.activation.DataHandler and javax.mail.internet.MimeMultipart). Attachment support is disabled.
+13:56:48,684 INFO  [ServiceLocator.java] Initialization of UserManagementWrapperServiceLocator started: de.escidoc.www.services.aa.UserManagementWrapperServiceLocator@1c286e2
+13:56:48,684 INFO  [ServiceLocator.java] UserManagementWrapper URL=http://dev-pubman.mpdl.mpg.de/axis/services/UserManagementWrapperService
+13:56:48,684 INFO  [ServiceLocator.java] Initializing UserManagementWrapperServiceLocator finished.
+13:56:48,684 INFO  [ServiceLocator.java] Initialization of UserAccountHandlerServiceLocator started: de.escidoc.www.services.aa.UserAccountHandlerServiceLocator@1d6fbb3
+13:56:48,699 INFO  [ServiceLocator.java] UserAccountHandler URL=http://dev-pubman.mpdl.mpg.de/axis/services/UserAccountHandlerService
+13:56:48,699 INFO  [ServiceLocator.java] Initializing UserAccountHandlerServiceLocator finished.
+13:56:48,699 INFO  [ServiceLocator.java] Initialization of UserGroupHandlerServiceLocator started: de.escidoc.www.services.aa.UserGroupHandlerServiceLocator@cc0e01
+13:56:48,699 INFO  [ServiceLocator.java] UserGroupHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/UserGroupHandlerService
+13:56:48,715 INFO  [ServiceLocator.java] Initializing UserGroupHandlerServiceLocator finished.
+13:56:48,715 INFO  [ServiceLocator.java] Initialization of OrganizationalUnitHandlerServiceLocator started: de.escidoc.www.services.oum.OrganizationalUnitHandlerServiceLocator@d5c0f9
+13:56:48,715 INFO  [ServiceLocator.java] OrganizationalUnitHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/OrganizationalUnitHandlerService
+13:56:48,715 INFO  [ServiceLocator.java] Initializing OrganizationalUnitHandlerServiceLocator finished.
+13:56:48,730 INFO  [ServiceLocator.java] Initialization of ContentModelHandlerServiceLocator started: de.escidoc.www.services.cmm.ContentModelHandlerServiceLocator@12c5431
+13:56:48,730 INFO  [ServiceLocator.java] ContentModelHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ContentModelHandlerService
+13:56:48,730 INFO  [ServiceLocator.java] Initializing ContentModelHandlerServiceLocator finished.
+13:56:48,730 INFO  [ServiceLocator.java] Initialization of ContextHandlerServiceLocator started: de.escidoc.www.services.om.ContextHandlerServiceLocator@14eaec9
+13:56:48,746 INFO  [ServiceLocator.java] ContextHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ContextHandlerService
+13:56:48,746 INFO  [ServiceLocator.java] Initializing ContextHandlerServiceLocator finished.
+13:56:48,746 INFO  [ServiceLocator.java] Initialization of ItemHandlerServiceLocator started: de.escidoc.www.services.om.ItemHandlerServiceLocator@1c7865b
+13:56:48,746 INFO  [ServiceLocator.java] ItemHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ItemHandlerService
+13:56:48,746 INFO  [ServiceLocator.java] Initializing ItemHandlerServiceLocator finished.
+13:56:48,762 INFO  [ServiceLocator.java] Initialization of ContainerHandlerServiceLocator started: de.escidoc.www.services.om.ContainerHandlerServiceLocator@1295fe8
+13:56:48,762 INFO  [ServiceLocator.java] ContainerHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ContainerHandlerService
+13:56:48,762 INFO  [ServiceLocator.java] Initializing ContainerHandlerServiceLocator finished.
+13:56:48,777 INFO  [ServiceLocator.java] Initialization of SemanticStoreHandlerServiceLocator started: de.escidoc.www.services.om.SemanticStoreHandlerServiceLocator@13e15f7
+13:56:48,777 INFO  [ServiceLocator.java] SemanticStoreHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/SemanticStoreHandlerService
+13:56:48,777 INFO  [ServiceLocator.java] Initializing SemanticStoreHandlerServiceLocator finished.
+13:56:48,777 INFO  [ServiceLocator.java] Initialization of ScopeHandlerServiceLocator started: de.escidoc.www.services.sm.ScopeHandlerServiceLocator@1f44ec7
+13:56:48,777 INFO  [ServiceLocator.java] ScopeHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ScopeHandlerService
+13:56:48,777 INFO  [ServiceLocator.java] Initializing ScopeHandlerServiceLocator finished.
+13:56:48,793 INFO  [ServiceLocator.java] Initialization of AggregationDefinitionHandlerServiceLocator started: de.escidoc.www.services.sm.AggregationDefinitionHandlerServiceLocator@1db9852
+13:56:48,793 INFO  [ServiceLocator.java] AggregationDefinitionHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/AggregationDefinitionHandlerService
+13:56:48,793 INFO  [ServiceLocator.java] Initializing AggregationDefinitionHandlerServiceLocator finished.
+13:56:48,808 INFO  [ServiceLocator.java] Initialization of StatisticDataHandlerServiceLocator started: de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator@a7c45e
+13:56:48,808 INFO  [ServiceLocator.java] StatisticDataHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/StatisticDataHandlerService
+13:56:48,808 INFO  [ServiceLocator.java] Initializing StatisticDataHandlerServiceLocator finished.
+13:56:48,808 INFO  [ServiceLocator.java] Initialization of ReportDefinitionHandlerServiceLocator started: de.escidoc.www.services.sm.ReportDefinitionHandlerServiceLocator@c6f734
+13:56:48,808 INFO  [ServiceLocator.java] ReportDefinitionHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ReportDefinitionHandlerService
+13:56:48,808 INFO  [ServiceLocator.java] Initializing ReportDefinitionHandlerServiceLocator finished.
+13:56:48,824 INFO  [ServiceLocator.java] Initialization of ReportHandlerServiceLocator started: de.escidoc.www.services.sm.ReportHandlerServiceLocator@4ed904
+13:56:48,824 INFO  [ServiceLocator.java] ReportHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/ReportHandlerService
+13:56:48,824 INFO  [ServiceLocator.java] Initializing ReportHandlerServiceLocator finished.
+13:56:48,840 INFO  [ServiceLocator.java] Initialization of IngestHandlerServiceLocator started: de.escidoc.www.services.om.IngestHandlerServiceLocator@15d252d
+13:56:48,840 INFO  [ServiceLocator.java] IngestHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/IngestHandlerService
+13:56:48,840 INFO  [ServiceLocator.java] Initializing IngestHandlerServiceLocator finished.
+13:56:48,840 INFO  [ServiceLocator.java] Initialization of AdminHandlerServiceLocator started: de.escidoc.www.services.adm.AdminHandlerServiceLocator@fa39d7
+13:56:48,840 INFO  [ServiceLocator.java] AdminHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/AdminHandlerService
+13:56:48,840 INFO  [ServiceLocator.java] Initializing AdminHandlerServiceLocator finished.
+13:56:48,855 INFO  [ServiceLocator.java] Initialization of RoleHandlerServiceLocator started: de.escidoc.www.services.aa.RoleHandlerServiceLocator@15e92d7
+13:56:48,855 INFO  [ServiceLocator.java] RoleHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/RoleHandlerService
+13:56:48,855 INFO  [ServiceLocator.java] Initializing RoleHandlerServiceLocator finished.
+13:56:48,871 INFO  [ServiceLocator.java] Initialization of JhoveHandlerServiceLocator started: de.escidoc.www.services.tme.JhoveHandlerServiceLocator@f894ce
+13:56:48,871 INFO  [ServiceLocator.java] JhoveHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/axis/services/JhoveHandlerService
+13:56:48,871 INFO  [ServiceLocator.java] Initializing JhoveHandlerServiceLocator finished.
+13:56:48,871 INFO  [ServiceLocator.java] Creating UserAccountHandlerServiceLocator finished.
+13:56:48,886 INFO  [ServiceLocator.java] Creating OrganizationalUnitHandlerServiceLocator finished.
+13:56:48,886 INFO  [ServiceLocator.java] Creating ContentModelHandlerServiceLocator in ExtContentModelHandlerServiceLocatorHolder finished.
+13:56:48,902 INFO  [ServiceLocator.java] Creating ContextHandlerServiceLocator finished.
+13:56:48,902 INFO  [ServiceLocator.java] Creating ItemHandlerServiceLocator finished.
+13:56:49,120 INFO  [ServiceLocator.java] searchHandlerServiceLocator URL=http://dev-pubman.mpdl.mpg.de/srw/search/escidoc_all/SRW
