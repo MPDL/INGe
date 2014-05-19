@@ -8,7 +8,7 @@
 	<name>pid_check</name>
 	<url>http://www.mpdl.mpg.de</url>
 	
-	<description>pid_check is a tool to find pids which have been overwritten and correct them</description>
+	<description>pid_check is a tool for consistency check</description>
 	<licenses>
 		<license>
 			<name>Common Development And Distribution License</name>
