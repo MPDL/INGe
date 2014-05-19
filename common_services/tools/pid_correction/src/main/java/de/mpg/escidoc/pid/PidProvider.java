@@ -1,8 +1,6 @@
 package de.mpg.escidoc.pid;
 
 
-import java.util.Map;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -123,9 +121,9 @@ public class PidProvider extends AbstractPidProvider
         return code;
     }
     
-    public int checkToResolvePid(String pid)
+    public int checkToResolvePid(String pid, HandleUpdateStatistic statistic)
     {
-        logger.debug("updatePid starting");
+        logger.debug("checkToResolvePid startingfor <" + pid + ">");
 
         StringBuffer b = new StringBuffer("http://hdl.handle.net/");
         b.append(pid);
@@ -138,30 +136,33 @@ public class PidProvider extends AbstractPidProvider
         long start = System.currentTimeMillis();
         try
         {
-            httpClient.getState().setCredentials(new AuthScope(server, 8080),
-                    new UsernamePasswordCredentials(user, password));
-         
+        	httpClient.getState().setAuthenticationPreemptive(true);
+            
             code = httpClient.executeMethod(method);
 
             if (code != HttpStatus.SC_OK)
             {               
                 failureMap.put(pid, "http code " + code);
                 logger.warn("Problem when resolving <" + pid + "> http code " + code);
+                statistic.incrementHandlesNotFound();
             }
             else
             {
-                String response = method.getResponseBodyAsString();
                 successMap.put(pid, "http code " + code);
-                logger.info("pid update returning code <" + code + ">" + method.getResponseBodyAsString());
+                statistic.incrementHandlesUpdated();
             }              
         }
         catch (Exception e)
         {
+        	statistic.incrementHandlesUpdateError();
             logger.warn("Error occured when resolving Url for <" + pid + ">" );
+        }   
+        finally
+        {
+        	method.releaseConnection();
+        	
         }
-        
-        long end = System.currentTimeMillis();
-        
+        long end = System.currentTimeMillis();        
         logger.info("Time used for resolving pid <" + (end - start) + ">ms");
         
         return code;   

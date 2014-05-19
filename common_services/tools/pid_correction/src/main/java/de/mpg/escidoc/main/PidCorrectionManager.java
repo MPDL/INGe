@@ -111,7 +111,9 @@ public class PidCorrectionManager
         {
             for (String pid : pidsCorrected)
             {
-                pidProvider.checkToResolvePid(pid);
+            	statistic.incrementHandlesTotal();
+                pidProvider.checkToResolvePid(pid, statistic);
+                Thread.currentThread().sleep(1*1000);
             }
         }
         catch (Exception e)

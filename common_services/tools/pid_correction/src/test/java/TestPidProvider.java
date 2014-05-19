@@ -16,6 +16,7 @@ public class TestPidProvider
 {
     static PidProvider pidProvider;
     static HandleUpdateStatistic updateStatistic = new HandleUpdateStatistic();
+    static HandleUpdateStatistic verifyStatistic = new HandleUpdateStatistic();
     
     // handle occurs on dev-pubman
     @Test
@@ -48,7 +49,7 @@ public class TestPidProvider
         int code = pidProvider.updatePid("11858/00-001M-0000-0013-B522-3", "/item/escidoc:1787368", updateStatistic);
         
         assertTrue(code == HttpStatus.SC_OK);
-        
+       
         pidProvider.storeResults(updateStatistic);
         
         assertTrue((new File(pidProvider.getLatestSuccessFile())).exists());
@@ -59,21 +60,33 @@ public class TestPidProvider
     }
     
     @Test
-    @Ignore
-    public void testVerifyPid() throws Exception
+    public void testVerifyPidLive() throws Exception
     {
         pidProvider = new PidProvider();
         
-        int code = pidProvider.checkToResolvePid("11858/00-001Z-0000-0023-47DF-E");
-        
+        int code = pidProvider.checkToResolvePid("11858/00-001M-0000-0013-B1A4-0", verifyStatistic);        
         assertTrue(code == HttpStatus.SC_OK);
         
         pidProvider.storeResults(updateStatistic);
         
         assertTrue((new File(pidProvider.getLatestSuccessFile())).exists());
+        assertTrue(!(new File(pidProvider.getLatestFailureFile())).exists());
+        
+        assertTrue(FileUtils.readFileToString((new File(pidProvider.getLatestSuccessFile()))).contains("11858/00-001M-0000-0013-B1A4-0"));       
+    }
+    
+    @Test
+    public void testVerifyPidLiveDoesNotExists() throws Exception
+    {
+        pidProvider = new PidProvider();
+        
+        int code = pidProvider.checkToResolvePid("11858/00-001M-0000-0013-XXXX-0", verifyStatistic);
+        assertTrue(code != HttpStatus.SC_OK);
+        
+        pidProvider.storeResults(updateStatistic);
+        
         assertTrue((new File(pidProvider.getLatestFailureFile())).exists());
         
-        assertTrue(FileUtils.readFileToString((new File(pidProvider.getLatestSuccessFile()))).contains("11858/00-001Z-0000-0023-47DF-E"));       
-        assertTrue(!FileUtils.readFileToString((new File(pidProvider.getLatestFailureFile()))).contains("11858/00-001Z-0000-0023-47DF-E"));    
+        assertTrue(FileUtils.readFileToString((new File(pidProvider.getLatestFailureFile()))).contains("11858/00-001M-0000-0013-XXXX-0"));       
     }
 }
