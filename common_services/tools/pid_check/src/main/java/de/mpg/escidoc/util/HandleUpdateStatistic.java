@@ -1,7 +1,7 @@
 package de.mpg.escidoc.util;
 
 
-public class HandleUpdateStatistic
+public class HandleUpdateStatistic extends Statistic
 {
     private int handlesTotal = 0;
     private int handlesUpdated = 0;
