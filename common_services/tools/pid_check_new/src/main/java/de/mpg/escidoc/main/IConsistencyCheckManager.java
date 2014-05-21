@@ -19,7 +19,7 @@ public interface IConsistencyCheckManager
      * @param pids
      * @throws Exception
      */
-    public void generateOrCorrectList(List<String> pids) throws Exception;
+    public void createOrCorrectList(List<String> pids) throws Exception;
 
     /**
      * Checks if the List entries are consistent

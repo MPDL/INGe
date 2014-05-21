@@ -72,7 +72,6 @@ public abstract class AbstractConsistencyCheckManager
             for (String object : objects)
             {
             	doResolve(object);
-                Thread.currentThread().sleep(1*300);
             }
         }
         catch (Exception e)
@@ -104,7 +103,7 @@ public abstract class AbstractConsistencyCheckManager
     /**
      * abstract methods - subclass responsibility
      */    
-    abstract public void generateOrCorrectList(List<String> pids) throws Exception;
+    abstract public void createOrCorrectList(List<String> pids) throws Exception;
     
     abstract protected void doResolve(String object);
     
@@ -134,7 +133,7 @@ public abstract class AbstractConsistencyCheckManager
         
         if (mode.contains("update"))
         {            
-            manager.generateOrCorrectList(pidsToCorrect);
+            manager.createOrCorrectList(pidsToCorrect);
         }
         if (mode.contains("verify"))
         {   

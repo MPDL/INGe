@@ -1,5 +1,8 @@
 package de.mpg.escidoc.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -14,6 +17,9 @@ public class LdhSrwSearchResponseHandler extends DefaultHandler
     private StringBuffer currentContent;  
     
     private String currentLocator;
+    private List<String> locators = new ArrayList<String>();
+    
+    private String escidocId;
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -28,6 +34,11 @@ public class LdhSrwSearchResponseHandler extends DefaultHandler
         {
             currentLocator = attributes.getValue("xlink:href"); 
             logger.info("locator found <" + currentLocator + ">");
+            locators.add(escidocId + " | " + currentLocator);
+        }
+        else if (!inComponent && "escidocItem:item".equals(qName))
+        {
+            escidocId = attributes.getValue("xlink:href").replace("/ir/item/", "");
         }
         
         currentContent = new StringBuffer();
@@ -53,8 +64,8 @@ public class LdhSrwSearchResponseHandler extends DefaultHandler
             return;
     }
 
-    public String getLocator()
+    public List<String> getLocators()
     {
-        return currentLocator;
-    }
+        return locators;
+    }  
 }

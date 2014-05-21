@@ -36,7 +36,7 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
     }
 
     @Override
-    public void generateOrCorrectList(List<String> objects) throws Exception
+    public void createOrCorrectList(List<String> objects) throws Exception
     {
         objects = this.searchForPid();
         
@@ -97,7 +97,7 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
                     FileUtils.writeStringToFile(tmp, searchResult.getRecords().getRecord(i).getRecordData().get_any()[0].getAsString(), "UTF-8");
                     parser.parse(tmp, ldhSearchresponseHandler);
                     
-                    locators.add(ldhSearchresponseHandler.getLocator());
+                    locators.addAll(ldhSearchresponseHandler.getLocators());
                 }
             }
             catch (Exception e)

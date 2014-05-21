@@ -31,7 +31,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
         statistic = new HandleUpdateStatistic();
     }
     
-    public void generateOrCorrectList(List<String> pids) throws Exception
+    public void createOrCorrectList(List<String> pids) throws Exception
     {
         PidProvider pidProvider = new PidProvider();
         

@@ -70,14 +70,14 @@ public class AbstractPidProvider
             while (itSuc.hasNext())
             {
                 Entry<String, String> entry = (Entry<String, String>)itSuc.next();
-                FileUtils.writeStringToFile(new File(this.latestSuccessFile), entry + System.getProperty("line.separator"), true);
+                FileUtils.writeStringToFile(new File(this.latestSuccessFile), entry.toString().replace("=http", " | http") + System.getProperty("line.separator"), true);
             }
             
             Iterator<Entry<String, String>> itFail = failureMap.entrySet().iterator();
             while (itFail.hasNext())
             {
                 Entry<String, String> entry = (Entry<String, String>)itFail.next();
-                FileUtils.writeStringToFile(new File(this.latestFailureFile), entry + System.getProperty("line.separator"), true);
+                FileUtils.writeStringToFile(new File(this.latestFailureFile), entry.toString().replace("=http", " | http") + System.getProperty("line.separator"), true);
             }
         }
         catch (IOException e)

@@ -171,13 +171,14 @@ public class PidProvider extends AbstractPidProvider
     
     public int checkToResolveLocator(String locatorUrl, LocatorCheckStatistic statistic)
     {
-        logger.debug("checkToResolveLocator startingfor <" + locatorUrl + ">");
+        logger.debug("checkToResolveLocator <" + locatorUrl + ">");
 
         int code = HttpStatus.SC_OK;
         
         statistic.incrementTotal();
         
-        GetMethod method =  new GetMethod(locatorUrl);
+        int idx = locatorUrl.lastIndexOf("|");
+        GetMethod method =  new GetMethod(locatorUrl.substring(idx+1).trim());
         method.setFollowRedirects(true);
         
         long start = System.currentTimeMillis();
@@ -202,6 +203,7 @@ public class PidProvider extends AbstractPidProvider
         catch (Exception e)
         {
             statistic.incrementLocatorsNotResolved();
+            failureMap.put(locatorUrl, e.toString());
             logger.warn("Error occured when resolving Url for <" + locatorUrl + ">" );
         }   
         finally
@@ -221,10 +223,5 @@ public class PidProvider extends AbstractPidProvider
                 PropertyReader.getProperty("escidoc.pubman.instance.context.path") + itemId;
                 
         return registerUrl;
-    }
-
-    public void addToFailure(String pid, String string)
-    {
-        this.failureMap.put(pid, "");      
     }
 }

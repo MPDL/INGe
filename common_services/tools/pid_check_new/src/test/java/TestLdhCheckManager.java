@@ -20,9 +20,9 @@ public class TestLdhCheckManager
         ldhCheckManager = new LdhCheckManager();
     }
     @Test
-    public void testGenerateOrCorrectList() throws Exception
+    public void testCreateOrCorrectList() throws Exception
     {
-        ldhCheckManager.generateOrCorrectList(new ArrayList<String>());
+        ldhCheckManager.createOrCorrectList(new ArrayList<String>());
         
         assertTrue(new File("./allLocators.txt").exists());
     }
