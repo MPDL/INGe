@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.util.HandleUpdateStatistic;
+import de.mpg.escidoc.util.Statistic;
 
 public class AbstractPidProvider
 {
@@ -53,7 +53,7 @@ public class AbstractPidProvider
         return this.failureMap;
     }
 
-    public void storeResults(HandleUpdateStatistic statistic)
+    public void storeResults(Statistic statistic)
     {
         Date today = new Date();
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");

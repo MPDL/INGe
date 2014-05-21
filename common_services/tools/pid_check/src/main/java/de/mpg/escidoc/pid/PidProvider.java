@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.util.HandleUpdateStatistic;
+import de.mpg.escidoc.util.LocatorCheckStatistic;
 
 
 
@@ -161,6 +162,52 @@ public class PidProvider extends AbstractPidProvider
         {
         	method.releaseConnection();
         	
+        }
+        long end = System.currentTimeMillis();        
+        logger.info("Time used for resolving pid <" + (end - start) + ">ms");
+        
+        return code;   
+    }
+    
+    public int checkToResolveLocator(String locatorUrl, LocatorCheckStatistic statistic)
+    {
+        logger.debug("checkToResolveLocator startingfor <" + locatorUrl + ">");
+
+        int code = HttpStatus.SC_OK;
+        
+        statistic.incrementTotal();
+        
+        GetMethod method =  new GetMethod(locatorUrl);
+        method.setFollowRedirects(true);
+        
+        long start = System.currentTimeMillis();
+        try
+        {
+            httpClient.getState().setAuthenticationPreemptive(true);
+            
+            code = httpClient.executeMethod(method);
+
+            if (code != HttpStatus.SC_OK)
+            {               
+                failureMap.put(locatorUrl, "http code " + code);
+                logger.warn("Problem when resolving <" + locatorUrl + "> http code " + code);
+                statistic.incrementLocatorsNotResolved();
+            }
+            else
+            {
+                successMap.put(locatorUrl, "http code " + code);
+                statistic.incrementLocatorsResolved();
+            }              
+        }
+        catch (Exception e)
+        {
+            statistic.incrementLocatorsNotResolved();
+            logger.warn("Error occured when resolving Url for <" + locatorUrl + ">" );
+        }   
+        finally
+        {
+            method.releaseConnection();
+            
         }
         long end = System.currentTimeMillis();        
         logger.info("Time used for resolving pid <" + (end - start) + ">ms");
