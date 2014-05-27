@@ -199,11 +199,6 @@ public class YearbookArchiveRetrieverRequestBean extends BaseListRetrieverReques
                   Filter sortFilter = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
                   filter.getFilterList().add(sortFilter);
               }
-              if (this.getSessionBean().getSelectedOrgUnit() != null)
-              {
-                  Filter organisationFilter = filter.new PersonsOrganizationsFilter(this.getSessionBean().getSelectedOrgUnit());
-                  filter.getFilterList().add(organisationFilter);
-              }
               
               String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 
