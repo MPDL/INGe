@@ -32,8 +32,6 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<%--<h:outputText value="#{RevisionList.dummy}"/>--%>
-
 <h:panelGroup rendered="#{RevisionItemListSessionBean.totalNumberOfElements>0}">
 	<ol>
 		<jsp:directive.include file="../list/itemRevisionsList.jspf"/>

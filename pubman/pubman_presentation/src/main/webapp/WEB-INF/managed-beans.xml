@@ -38,25 +38,9 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>PaginatorControlSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ui.PaginatorControlSessionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>ListControlSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ui.ListControlSessionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-
-	<managed-bean>
 		<managed-bean-name>ApplicationBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.ApplicationBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>Breadcrumb</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.desktop.Breadcrumb</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>Navigation</managed-bean-name>
@@ -81,11 +65,6 @@
 	<managed-bean>
 		<managed-bean-name>Login</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.desktop.Login</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>ViewItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItem</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -167,11 +146,6 @@
 		<managed-bean-name>AdvancedSearchPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.AdvancedSearchPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>SearchResultList</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.search.SearchResultList</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ExportItems</managed-bean-name>
@@ -268,12 +242,6 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistoryRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-
-	<managed-bean>
-		<managed-bean-name>HelpPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.help.HelpPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationSearchResultListPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationSearchResultListPage</managed-bean-class>
@@ -283,11 +251,6 @@
 		<managed-bean-name>AffiliationTreePage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationTreePage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>CommonSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.CommonSessionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>RightsManagementSessionBean</managed-bean-name>
@@ -365,11 +328,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
-		<managed-bean-name>RevisionList</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RevisionList</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>	
-	<managed-bean>
 		<managed-bean-name>RelationListSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RelationListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -387,16 +345,6 @@
 	<managed-bean>
 		<managed-bean-name>ViewItemRevisionsPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemRevisionsPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>Loop</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.jsf.tags.Loop</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>FileUploadBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.editItem.FileUploadBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -432,16 +380,6 @@
 	<managed-bean>
 		<managed-bean-name>ViewItemLog</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.itemLog.ViewItemLog</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>TestPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.TestPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>QAWS</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.qaws.QAWS</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -563,11 +501,6 @@
         <managed-bean-name>ImportItems</managed-bean-name>
         <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItems</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>CollaboratorSessionBean</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.collaborator.CollaboratorSessionBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>AudienceBean</managed-bean-name>

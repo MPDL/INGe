@@ -31,24 +31,6 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<%-- 
-<h:selectOneMenu styleClass="topSpace5" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}" rendered="#{ItemListSessionBean.isSearchResultList}">
-	<f:selectItems value="#{ListControlSessionBean.selectMultipleItemOptions}" />
-</h:selectOneMenu>
-
-<div class="listHeaderSort">
-	<h:outputLabel for="sortBy" value="#{lbl.ItemList_SortBy}"/>
-	<h:selectOneMenu id="sortBy" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
-		<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
-	</h:selectOneMenu>			
-
-	<h:outputLabel styleClass="rightSpace" for="sortOrderAsc" value="#{lbl.ItemList_SortOrderAscending}" rendered="#{ItemListSessionBean.isAscending}"/>
-	<h:outputLabel styleClass="rightSpace" for="sortOrderDesc" value="#{lbl.ItemList_SortOrderDescending}" rendered="#{!ItemListSessionBean.isAscending}"/>
-	<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderAsc" image="./resources/escidoc-css/images/ascending.gif" value=" " rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
-	<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderDesc" image="./resources/escidoc-css/images/descending.gif" value=" " rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
-</div>
---%>
-
 <f:subview id="gridList">
 
  <div class="full_area0 paginator">
