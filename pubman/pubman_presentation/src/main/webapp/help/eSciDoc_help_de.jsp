@@ -62,54 +62,54 @@
 		            	<li><a href="#HomePage" lang="de-DE">&#220;ber PubMan</a></li>
 		            	<li><a href="#Allgemeines" lang="de-DE">Allgemeines</a>
 		            		<ul>
-		            			<li><span class="sectiontoc">2.1.</span><a href="#login" lang="de-DE">Login</a></li>
-		            			<li><span class="sectiontoc">2.2.</span><a href="#Nutzerrollen_und_Workflows" lang="de-DE">Nutzerrollen und Workflows</a>
+		            			<li><span class="titlemark">2.1.</span><a href="#login" lang="de-DE">Login</a></li>
+		            			<li><span class="titlemark">2.2.</span><a href="#Nutzerrollen_und_Workflows" lang="de-DE">Nutzerrollen und Workflows</a>
 		            				<ul>
-		            					<li><span class="subsectiontoc">2.2.1.</span><a href="#Workflows" lang="de-DE">Workflows</a>
+		            					<li><span class="titlemark">2.2.1.</span><a href="#Workflows" lang="de-DE">Workflows</a>
 		            						<ul>
-		            							<li><span class="sectiontoc">2.2.1.1.</span><a href="#Standard_Workflow" lang="de-DE">Standard Workflow&#160;</a></li>
-		            							<li><span class="sectiontoc">2.2.1.2.</span><a href="#Simple_Workflow" lang="de-DE">Simple Workflow</a></li>
+		            							<li><span class="titlemark">2.2.1.1.</span><a href="#Standard_Workflow" lang="de-DE">Standard Workflow&#160;</a></li>
+		            							<li><span class="titlemark">2.2.1.2.</span><a href="#Simple_Workflow" lang="de-DE">Simple Workflow</a></li>
 		            						</ul>
 		            					</li>
-		            					<li><span class="subsectiontoc">2.2.2.</span><a href="#PubMan_Nutzerrollen" lang="de-DE">Pubman Nutzerrollen</a></li>
+		            					<li><span class="titlemark">2.2.2.</span><a href="#PubMan_Nutzerrollen" lang="de-DE">Pubman Nutzerrollen</a></li>
 		            				</ul>
 		            			</li>
 		            		</ul>
 		            	</li>
 		            	<li><a href="#PubMan+Funktionalit%E4ten">PubMan Funktionalit&#228;ten</a>
 			            	<ul>
-				            	<li><span class="sectiontoc">3.1.</span><a href="#Suchm%F6glichkeiten+in+PubMan">Suchm&#246;glichkeiten in PubMan</a>
+				            	<li><span class="titlemark">3.1.</span><a href="#Suchm%F6glichkeiten+in+PubMan">Suchm&#246;glichkeiten in PubMan</a>
 				            		<ul>
-						            	<li><span class="subsectiontoc">3.1.1.</span><a href="#Einfache_Suche">Einfache Suche</a></li>
-				            			<li><span class="subsectiontoc">3.1.2.</span><a href="#AdvancedSearchPage">Erweiterte Suche</a>
+						            	<li><span class="titlemark">3.1.1.</span><a href="#Einfache_Suche">Einfache Suche</a></li>
+				            			<li><span class="titlemark">3.1.2.</span><a href="#AdvancedSearchPage">Erweiterte Suche</a>
 				            				<ul>
 								            	<li>
-								            		<span class="subsectiontoc">3.1.2.1.</span><a href="#Datum-Suche">Suche nach Daten und Zeitspannen</a>
+								            		<span class="titlemark">3.1.2.1.</span><a href="#Datum-Suche">Suche nach Daten und Zeitspannen</a>
 								            	</li>
 								            </ul>
 				            			</li>
-				            			<li><span class="subsectiontoc">3.1.3.</span><a href="#AffiliationTreePage">Organisationssuche</a></li>
+				            			<li><span class="titlemark">3.1.3.</span><a href="#AffiliationTreePage">Organisationssuche</a></li>
 				            			
 				            		</ul>
 				            	</li>
-		            			<li><span class="sectiontoc">3.2.</span><a href="#Suchergebnisse">Suchergebnisse</a>
+		            			<li><span class="titlemark">3.2.</span><a href="#Suchergebnisse">Suchergebnisse</a>
 		            				<ul>
-						            	<li><span class="subsectiontoc">3.2.1.</span><a href="#Exportieren">Exportieren</a>
+						            	<li><span class="titlemark">3.2.1.</span><a href="#Exportieren">Exportieren</a>
 						            		<ul>
 								            	<li>
-								            		<span class="subsectiontoc">3.2.1.1.</span><a href="#Export_per_E-Mail_verschicken">Export per E-Mail verschicken</a>
+								            		<span class="titlemark">3.2.1.1.</span><a href="#Export_per_E-Mail_verschicken">Export per E-Mail verschicken</a>
 								            	</li>
 						            		</ul>
 						            	</li>
 				            		</ul>
 		            			</li>
-		            			<li><span class="sectiontoc">3.4.</span><a href="#Datensatz-Vollansicht">Datensatz-Vollansicht</a>
+		            			<li><span class="titlemark">3.4.</span><a href="#Datensatz-Vollansicht">Datensatz-Vollansicht</a>
 		            				<ul>
-		            					<li><span class="subsectiontoc">3.4.1.</span><a href="#Freigabegeschichte_einsehen">Freigabegeschichte einsehen</a></li>
-				            			<li><span class="subsectiontoc">3.4.2.</span><a href="#Revisionen_einsehen">Revisionen einsehen</a></li>
-				            			<li><span class="subsectiontoc">3.4.3.</span><a href="#Statistik_zum_Datensatz_einsehen">Statistik zum Datensatz einsehen</a></li>
-				            			<li><span class="subsectiontoc">3.4.4.</span><a href="#Bearbeitungsgeschichte">Bearbeitungsgeschichte (nur registrierte Nutzer)</a></li>
-				            			<li><span class="subsectiontoc">3.4.5.</span><a href="eSciDoc_help_de.jsp#ViewLocalTagsPage">Lokale Tags (nur registrierte Nutzer)</a></li>
+		            					<li><span class="titlemark">3.4.1.</span><a href="#Freigabegeschichte_einsehen">Freigabegeschichte einsehen</a></li>
+				            			<li><span class="titlemark">3.4.2.</span><a href="#Revisionen_einsehen">Revisionen einsehen</a></li>
+				            			<li><span class="titlemark">3.4.3.</span><a href="#Statistik_zum_Datensatz_einsehen">Statistik zum Datensatz einsehen</a></li>
+				            			<li><span class="titlemark">3.4.4.</span><a href="#Bearbeitungsgeschichte">Bearbeitungsgeschichte (nur registrierte Nutzer)</a></li>
+				            			<li><span class="titlemark">3.4.5.</span><a href="eSciDoc_help_de.jsp#ViewLocalTagsPage">Lokale Tags (nur registrierte Nutzer)</a></li>
 		            				</ul>
 		            			</li>
 		            		</ul>
@@ -117,28 +117,28 @@
 	            		<li>
 	            			<a href="#SubmissionPage">Dateneingabe</a>
 	            			<ul>
-				            	<li><span class="sectiontoc">4.1.</span><a href="#neuen_Datensatz_anlegen">Einen neuen Datensatz anlegen</a></li>
-		            			<li><span class="sectiontoc">4.2.</span><a href="#Datensatz_bearbeiten">Anlegen und Bearbeiten eines Datensatzes</a>
+				            	<li><span class="titlemark">4.1.</span><a href="#neuen_Datensatz_anlegen">Einen neuen Datensatz anlegen</a></li>
+		            			<li><span class="titlemark">4.2.</span><a href="#Datensatz_bearbeiten">Anlegen und Bearbeiten eines Datensatzes</a>
 		            				<ul>
-						            	<li><span class="subsectiontoc">4.2.1.</span><a href="#Personen_und_Organisationen">Personen und Organisationen eingeben</a></li>
-				            			<li><span class="subsectiontoc">4.2.2.</span><a href="#Zeitschriftennamen_eingeben">Zeitschriftennamen eingeben</a></li>
-				            			<li><span class="subsectiontoc">4.2.3.</span><a href="#Sprache_der_Publikation_eingeben">Sprache der Publikation angeben</a></li>
-				            			<li><span class="subsectiontoc">4.2.4.</span><a href="#Ein_Datum_eingeben">Ein Datum eingeben</a></li>
-				            			<li><span class="subsectiontoc">4.2.5.</span><a href="#Rechte">Rechte-Informationen f&#252;r eine Datei hinterlegen</a></li>
+						            	<li><span class="titlemark">4.2.1.</span><a href="#Personen_und_Organisationen">Personen und Organisationen eingeben</a></li>
+				            			<li><span class="titlemark">4.2.2.</span><a href="#Zeitschriftennamen_eingeben">Zeitschriftennamen eingeben</a></li>
+				            			<li><span class="titlemark">4.2.3.</span><a href="#Sprache_der_Publikation_eingeben">Sprache der Publikation angeben</a></li>
+				            			<li><span class="titlemark">4.2.4.</span><a href="#Ein_Datum_eingeben">Ein Datum eingeben</a></li>
+				            			<li><span class="titlemark">4.2.5.</span><a href="#Rechte">Rechte-Informationen f&#252;r eine Datei hinterlegen</a></li>
 				            		</ul>
 		            			</li>
-		            			<li><span class="sectiontoc">4.3.</span><a href="#Revision_anlegen">Eine neue Revision anlegen</a></li>
-	            				<li><span class="sectiontoc">4.4.</span><a href="#Validierung">Validierung</a></li>
-	            				<li><span class="sectiontoc">4.5.</span><a href="#Speichern">Speichern eines Datensatzes</a></li>
-	            				<li><span class="sectiontoc">4.6.</span><a href="#L%F6schen_des_Datensatzes">L&#246;schen eines Datensatzes</a></li>
-	            				<li><span class="sectiontoc">4.7.</span><a href="#Einstellen_eines_Datensatzes">Einstellen eines Datensatzes</a>
+		            			<li><span class="titlemark">4.3.</span><a href="#Revision_anlegen">Eine neue Revision anlegen</a></li>
+	            				<li><span class="titlemark">4.4.</span><a href="#Validierung">Validierung</a></li>
+	            				<li><span class="titlemark">4.5.</span><a href="#Speichern">Speichern eines Datensatzes</a></li>
+	            				<li><span class="titlemark">4.6.</span><a href="#L%F6schen_des_Datensatzes">L&#246;schen eines Datensatzes</a></li>
+	            				<li><span class="titlemark">4.7.</span><a href="#Einstellen_eines_Datensatzes">Einstellen eines Datensatzes</a>
 	            					<ul>
-						            	<li><span class="subsectiontoc">4.7.1.</span><a href="#Kommentar_Einstellen">Kommentar zum Einstellen</a></li>
+						            	<li><span class="titlemark">4.7.1.</span><a href="#Kommentar_Einstellen">Kommentar zum Einstellen</a></li>
 				            		</ul>
 	            				</li>
-	            				<li><span class="sectiontoc">4.8.</span><a href="#Freigeben">Freigeben eines Datensatzes</a>
+	            				<li><span class="titlemark">4.8.</span><a href="#Freigeben">Freigeben eines Datensatzes</a>
 	            					<ul>
-						            	<li><span class="subsectiontoc">4.8.1.</span><a href="#Kommentar_zum_Freigeben">Kommentar zum Freigeben</a></li>
+						            	<li><span class="titlemark">4.8.1.</span><a href="#Kommentar_zum_Freigeben">Kommentar zum Freigeben</a></li>
 				            		</ul>
 	            				</li>
 		            		</ul>
@@ -146,31 +146,31 @@
 	            		
 	            		<li><a href="#Qualit%E4tssicherung+in+PubMan">Qualit&#228;tssicherung in PubMan</a>
 	            			<ul>
-				            	<li><span class="sectiontoc">5.1.</span><a href="#%DCberarbeitung">Einen Datensatz zur &#220;berarbeitung an den Depositor zur&#252;cksenden</a></li>
-		            			<li><span class="sectiontoc">5.2.</span><a href="#Einen%20Datensatz%20modifizieren">Einen Datensatz modifizieren</a></li>
-		            			<li><span class="sectiontoc">5.3.</span><a href="#Akzeptieren">Akzeptieren</a>
+				            	<li><span class="titlemark">5.1.</span><a href="#%DCberarbeitung">Einen Datensatz zur &#220;berarbeitung an den Depositor zur&#252;cksenden</a></li>
+		            			<li><span class="titlemark">5.2.</span><a href="#Einen%20Datensatz%20modifizieren">Einen Datensatz modifizieren</a></li>
+		            			<li><span class="titlemark">5.3.</span><a href="#Akzeptieren">Akzeptieren</a>
 	            					<ul>
-						            	<li><span class="subsectiontoc">5.3.1.</span><a href="#Kommentar_Akzeptieren">Kommentar zum Akzeptieren</a></li>
+						            	<li><span class="titlemark">5.3.1.</span><a href="#Kommentar_Akzeptieren">Kommentar zum Akzeptieren</a></li>
 				            		</ul>
 	            				</li>
-	            				<li><span class="sectiontoc">5.4.</span><a href="#Datensatz_zur%FCckziehen">Einen Datensatz zur&#252;ckziehen</a></li>
+	            				<li><span class="titlemark">5.4.</span><a href="#Datensatz_zur%FCckziehen">Einen Datensatz zur&#252;ckziehen</a></li>
 		            		</ul>
 	            		</li>
 	            		<li><a href="#Hilfsmittel%20zur%20Datenverwaltung">Hilfsmittel zur Datenverwaltung</a>
 	            			<ul>
-				            	<li><span class="sectiontoc">6.1.</span><a href="#Meine_Datens%E4tze">Meine Datens&#228;tze</a>
+				            	<li><span class="titlemark">6.1.</span><a href="#Meine_Datens%E4tze">Meine Datens&#228;tze</a>
 				            		<ul>
-						            	<li><span class="subsectiontoc">6.1.1.</span><a href="#Status_eines_Datensatzes">Status eines Datensatzes</a></li>
-				            			<li><span class="subsectiontoc">6.1.2.</span><a href="#Datens%E4tze_Sortieren">Datens&#228;tze sortieren</a></li>
+						            	<li><span class="titlemark">6.1.1.</span><a href="#Status_eines_Datensatzes">Status eines Datensatzes</a></li>
+				            			<li><span class="titlemark">6.1.2.</span><a href="#Datens%E4tze_Sortieren">Datens&#228;tze sortieren</a></li>
 				            		</ul>
 				            	</li>
-		            			<li><span class="sectiontoc">6.2.</span><a href="#Qualit%E4tssicherung">Qualit&#228;tssicherungs Bereich</a>
+		            			<li><span class="titlemark">6.2.</span><a href="#Qualit%E4tssicherung">Qualit&#228;tssicherungs Bereich</a>
 		            				<ul>
-						            	<li><span class="subsectiontoc">6.2.1.</span><a href="#Status_eines_Datensatzes_QA">Status eines Datensatzes</a></li>
-				            			<li><span class="subsectiontoc">6.2.2.</span><a href="#Datens%E4tze_sortieren_QA">Datens&#228;tze sortieren</a></li>
+						            	<li><span class="titlemark">6.2.1.</span><a href="#Status_eines_Datensatzes_QA">Status eines Datensatzes</a></li>
+				            			<li><span class="titlemark">6.2.2.</span><a href="#Datens%E4tze_sortieren_QA">Datens&#228;tze sortieren</a></li>
 				            		</ul>
 		            			</li>
-		            			<li><span class="sectiontoc">6.3.</span><a href="#Import%20Bereich">Import Bereich</a></li>
+		            			<li><span class="titlemark">6.3.</span><a href="#Import%20Bereich">Import Bereich</a></li>
 		            		</ul>
 	            		</li>
 		            </ol>
@@ -195,10 +195,8 @@
 		                registrierten Nutzern zur
 		                Verf&#252;gung stehen, z.B. um Datens&#228;tze in PubMan
 		                einzugeben.
-		                <span style="font-weight: bold;"></span>&#160;
 		            </p>
 		            <p class="noindent">
-	                    <span style="font-weight: bold;"></span>
 	                    Wenn Sie noch &#252;ber kein Login f&#252;r PubMan verf&#252;gen, dann 
 	                    wenden Sie sich bitte an: <a href="mailto:pubman-support@gwdg.de">PubMan Support.</a>
 		            </p>
@@ -318,7 +316,7 @@
 		                    NICHT (NOT)
 		                </li>
 		            </ul>
-		            <p class="MsoNormal" style="margin-left: 0cm; text-indent: 0cm;">
+		            <p class="indent">
 		                Wenn Sie neben
 		                den Metadaten auch die
 		                angeh&#228;ngten Volltexte
