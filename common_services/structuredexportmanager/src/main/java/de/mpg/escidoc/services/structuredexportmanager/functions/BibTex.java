@@ -104,7 +104,7 @@ public class BibTex {
                 put("õ","{\\~o}");
                 put("ö","{\\\"o}");
                 put("œ","{\\oe}");
-                put("ø","\\o}");
+                put("ø","{\\o}");
                 put("ş","{\\c s}");
                 put("š","{\\v s}");
                 put("Ţ","{\\c T}");
@@ -163,7 +163,8 @@ public class BibTex {
                 put("β","\\beta");
                 put("γ","\\gamma");
                 put("δ","\\delta");
-                put("ε","\\epsilon");
+                put("ε","\\varepsilon");
+                put("ϵ","\\epsilon");
                 put("ζ","\\zeta");
                 put("η","\\eta");
                 put("θ","\\theta");
