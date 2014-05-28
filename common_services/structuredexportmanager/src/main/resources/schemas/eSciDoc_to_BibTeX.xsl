@@ -139,6 +139,9 @@
 		        <xsl:when test="fn:exists(.//dc:identifier[@xsi:type='eterms:BIBTEX_CITEKEY'])">
 		            <xsl:value-of select=".//dc:identifier[@xsi:type='eterms:BIBTEX_CITEKEY'][1]"/>
 		        </xsl:when>
+		        <xsl:when test="exists(.//dc:identifier[@xsi:type='eterms:OTHER' and fn:matches(., '^Local-ID: [A-Z0-9]*?-.*$')]) ">
+		        	<xsl:value-of select="fn:normalize-space(fn:substring-after(fn:substring-after((.//dc:identifier[@xsi:type='eterms:OTHER' and fn:matches(., '^Local-ID: [A-Z0-9]*?-.*$')][1]), 'Local-ID:'), '-'))" />
+		        </xsl:when>
 		        <xsl:when test="fn:exists(parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@xlink:href)">
 		        	<xsl:value-of select="fn:substring-after(fn:substring-after(fn:substring-after(parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@xlink:href, '/'), '/'), '/')"/>
 		       </xsl:when>
