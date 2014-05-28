@@ -854,7 +854,7 @@
 		
 		<!-- PLACE -->
 		<xsl:choose>
-			<xsl:when test="$genre='proceedings' or $genre='proceedings-paper' or $genre='conference-paper' or $genre='conference-report' ">
+			<xsl:when test="$genre='proceedings' or $genre='conference-paper' or $genre='conference-report' ">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">C</xsl:with-param>
 					<xsl:with-param name="value" select="eterms:place"/>
