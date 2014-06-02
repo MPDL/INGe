@@ -51,31 +51,33 @@
 		        
 		        <!-- <link rel="stylesheet" type="text/css" href="eSciDoc_help_de.css"> -->
 		    </head>
-		    <body id="helppage">
+		    <body id="helppage" lang="de-DE" dir="ltr">
 		        <div class="maketitle wrapper" style="padding: 0.74em 0.74em 3em 0.74em; font-size: 129% !important; width: auto;">
 		            <h1>PubMan Onlinehilfe</h1>
-		            <p class="MsoNormal">
+		            <p class="noindent">
 		                <span class="cmr-12x-x-120">20. April 2009</span>
 		            </p>
 		            <h2>Inhaltsverzeichnis</h2>
 		            <ol>
-		            	<li><a href="#HomePage" lang="de-DE">&#220;ber PubMan</a></li>
-		            	<li><a href="#Allgemeines" lang="de-DE">Allgemeines</a>
+		            	<li><a href="#HomePage">&#220;ber PubMan</a></li>
+		            	
+		            	<li><a href="#Allgemeines">Allgemeines</a>
 		            		<ul>
-		            			<li><span class="titlemark">2.1.</span><a href="#login" lang="de-DE">Login</a></li>
-		            			<li><span class="titlemark">2.2.</span><a href="#Nutzerrollen_und_Workflows" lang="de-DE">Nutzerrollen und Workflows</a>
+		            			<li><span class="titlemark">2.1.</span><a href="#login">Login</a></li>
+		            			<li><span class="titlemark">2.2.</span><a href="#Nutzerrollen_und_Workflows">Nutzerrollen und Workflows</a>
 		            				<ul>
-		            					<li><span class="titlemark">2.2.1.</span><a href="#Workflows" lang="de-DE">Workflows</a>
+		            					<li><span class="titlemark">2.2.1.</span><a href="#Workflows">Workflows</a>
 		            						<ul>
-		            							<li><span class="titlemark">2.2.1.1.</span><a href="#Standard_Workflow" lang="de-DE">Standard Workflow&#160;</a></li>
-		            							<li><span class="titlemark">2.2.1.2.</span><a href="#Simple_Workflow" lang="de-DE">Simple Workflow</a></li>
+		            							<li><span class="titlemark">2.2.1.1.</span><a href="#Standard_Workflow">Standard Workflow&#160;</a></li>
+		            							<li><span class="titlemark">2.2.1.2.</span><a href="#Simple_Workflow">Simple Workflow</a></li>
 		            						</ul>
 		            					</li>
-		            					<li><span class="titlemark">2.2.2.</span><a href="#PubMan_Nutzerrollen" lang="de-DE">Pubman Nutzerrollen</a></li>
+		            					<li><span class="titlemark">2.2.2.</span><a href="#PubMan_Nutzerrollen">Pubman Nutzerrollen</a></li>
 		            				</ul>
 		            			</li>
 		            		</ul>
 		            	</li>
+		            	
 		            	<li><a href="#PubMan+Funktionalit%E4ten">PubMan Funktionalit&#228;ten</a>
 			            	<ul>
 				            	<li><span class="titlemark">3.1.</span><a href="#Suchm%F6glichkeiten+in+PubMan">Suchm&#246;glichkeiten in PubMan</a>
@@ -89,7 +91,6 @@
 								            </ul>
 				            			</li>
 				            			<li><span class="titlemark">3.1.3.</span><a href="#AffiliationTreePage">Organisationssuche</a></li>
-				            			
 				            		</ul>
 				            	</li>
 		            			<li><span class="titlemark">3.2.</span><a href="#Suchergebnisse">Suchergebnisse</a>
@@ -114,6 +115,7 @@
 		            			</li>
 		            		</ul>
 	            		</li>
+	            		
 	            		<li>
 	            			<a href="#SubmissionPage">Dateneingabe</a>
 	            			<ul>
@@ -156,6 +158,7 @@
 	            				<li><span class="titlemark">5.4.</span><a href="#Datensatz_zur%FCckziehen">Einen Datensatz zur&#252;ckziehen</a></li>
 		            		</ul>
 	            		</li>
+	            		
 	            		<li><a href="#Hilfsmittel%20zur%20Datenverwaltung">Hilfsmittel zur Datenverwaltung</a>
 	            			<ul>
 				            	<li><span class="titlemark">6.1.</span><a href="#Meine_Datens%E4tze">Meine Datens&#228;tze</a>
@@ -175,33 +178,29 @@
 	            		</li>
 		            </ol>
 		            
+		            
 		            <h2><span class="titlemark">1.</span><a name="HomePage">&#220;ber PubMan</a></h2>
 		            <p>
-			            PubMan unterst&#252;tzt Forschungsorganisationen im Management, der
-			            Verbreitung und der Nachnutzung von Publikationen und Supplementary
-			            Material. Die Anwendung PubMan ist eine Komponente der eResearch
-			            Infrastruktur der Max-Planck-Gesellschaft und basiert auf der
-			            service-orientierten Architektur von eSciDoc. Weitere Informationen 
-			            finden Sie unter: <span class="nobreak"><a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" title="Information zu PubMan im MPDL Colab">http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan</a></span>
+			            PubMan unterst&#252;tzt Forschungsorganisationen im Management, der Verbreitung und der Nachnutzung von Publikationen und 
+			            Supplementary Material. Die Anwendung PubMan ist eine Komponente der eResearch Infrastruktur der Max-Planck-Gesellschaft 
+			            und basiert auf der service-orientierten Architektur von eSciDoc. Weitere Informationen finden Sie unter: 
+			            <span class="nobreak"><a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" title="Information zu PubMan im MPDL Colab">http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan</a></span>
 		            </p>
 		            
 		            
 		            <h2><span class="titlemark">2.</span><a name="Allgemeines">Allgemeines</a></h2>
-		            <h3><span class="titlemark">2.1.</span><a name="login" lang="de-DE">Login</a></h3>
+		            <h3><span class="titlemark">2.1.</span><a name="login">Login</a></h3>
 		            <p class="noindent">
-		                Bitte geben Sie Ihren Nutzernamen und
-		                Ihr Passwort ein, um
-		                alle Funktionalit&#228;ten nutzen zu k&#246;nnen, die nur
-		                registrierten Nutzern zur
-		                Verf&#252;gung stehen, z.B. um Datens&#228;tze in PubMan
-		                einzugeben.
+		                Bitte geben Sie Ihren Nutzernamen und Ihr Passwort ein, um alle 
+		                Funktionalit&#228;ten nutzen zu k&#246;nnen, die nur registrierten Nutzern zur 
+		                Verf&#252;gung stehen, z.B. um Datens&#228;tze in PubMan einzugeben.
 		            </p>
 		            <p class="noindent">
 	                    Wenn Sie noch &#252;ber kein Login f&#252;r PubMan verf&#252;gen, dann 
 	                    wenden Sie sich bitte an: <a href="mailto:pubman-support@gwdg.de">PubMan Support.</a>
 		            </p>
 		            
-		            <h3><span class="titlemark">2.2.</span><a name="Nutzerrollen_und_Workflows" lang="de-DE">Nutzerrollen und Workflows</a></h3>
+		            <h3><span class="titlemark">2.2.</span><a name="Nutzerrollen_und_Workflows">Nutzerrollen und Workflows</a></h3>
 					<p class="noindent">
 						Derzeit sind in PubMan zwei Workflows implementiert: Zum einen ein sehr einfacher Workflow, 
 						genannt <a href="#Simple_Workflow">Simple Workflow</a>, zum anderen der so genannte <a href="#Standard_Workflow">Standard Workflow</a>,
@@ -223,41 +222,29 @@
 					</p>
 		            
 		            <h4><span class="titlemark">2.2.1.</span><a name="Workflows">Workflows</a></h4>
-		            <h5 class="MsoNormal"><span class="titlemark">2.2.1.1.</span><a name="Standard_Workflow" lang="de-DE">Standard Workflow</a></h5>
-		            <p class="MsoNormal">
-		                Im
-		                Standard Workflow werden die Datens&#228;tze nach ihrer Eingabe
-		                (Status: "pending")
-		                vom Depositor&#160;eingestellt
-		                (Status: "eingestellt"), und dann vom Moderator
-		                &#252;berpr&#252;ft. Nach der
-		                Qualit&#228;tskontrolle kann der Moderator den Datensatz entweder
-		                akzeptieren
-		                (Status: "freigegeben") oder, wenn noch weitere
-		                Angaben ben&#246;tigt werden, dem Depositor
-		                zur &#220;berarbeitung zur&#252;ckschicken (Status: "in
-		                &#220;berarbeitung"). Der Moderator und der Depositor haben die
-		                M&#246;glichkeit, einen bereits freigegebenen Datensatz nochmals zu
-		                bearbeiten. Nach einer erneuten Bearbeitung durch den Depositor 
-		                erscheint der Datensatz wieder im Status "pending". 
+		            <h5><span class="titlemark">2.2.1.1.</span><a name="Standard_Workflow">Standard Workflow</a></h5>
+		            <p class="noindent">
+		                Im Standard Workflow werden die Datens&#228;tze nach ihrer Eingabe (Status: "pending") 
+		                vom Depositor&#160;eingestellt (Status: "eingestellt"), und dann vom Moderator &#252;berpr&#252;ft. 
+		                Nach der Qualit&#228;tskontrolle kann der Moderator den Datensatz entweder akzeptieren 
+		                (Status: "freigegeben") oder, wenn noch weitere Angaben ben&#246;tigt werden, dem Depositor 
+		                zur &#220;berarbeitung zur&#252;ckschicken (Status: "in &#220;berarbeitung"). Der Moderator und der 
+		                Depositor haben die M&#246;glichkeit, einen bereits freigegebenen Datensatz nochmals zu bearbeiten. 
+		                Nach einer erneuten Bearbeitung durch den Depositor erscheint der Datensatz wieder im Status "pending". 
 		            </p>
 		            
-		            <h5 class="MsoNormal"><span class="titlemark">2.2.1.2.</span><a name="Simple_Workflow">Simple Workflow</a></h5>
-		            <p class="MsoNormal">
-		                Hier
-		                kann der Depositor einen Datensatz eingeben (Status des Datensatzes:
-		                "pending") und f&#252;r die
-		                &#246;ffentliche Sicht freigeben (Status: "freigegeben"). Der
-		                Moderator und der Depositor k&#246;nnen dann den
-		                bereits
-		                freigegebenen Datensatz noch modifizieren. Nach der Modifikation kann
-		                der Moderator den Datensatz
-		                akzeptieren (Status: "freigegeben"). Die Option "zum Bearbeiten
-		                schicken" ist
-		                im Simple Workflow nicht vorhanden.
+		            <h5><span class="titlemark">2.2.1.2.</span><a name="Simple_Workflow">Simple Workflow</a></h5>
+		            <p class="noindent">
+		                Hier kann der Depositor einen Datensatz eingeben (Status des Datensatzes: "pending") 
+		                und f&#252;r die &#246;ffentliche Sicht freigeben (Status: "freigegeben"). Der 
+		                Moderator und der Depositor k&#246;nnen dann den bereits freigegebenen Datensatz noch 
+		                modifizieren. Nach der Modifikation kann der Moderator den Datensatz akzeptieren 
+		                (Status: "freigegeben"). Die Option "zum Bearbeiten schicken" ist im Simple Workflow 
+		                nicht vorhanden.
 		            </p>
-		            <h4 class="MsoNormal"><span class="titlemark">2.2.2.</span><a name="PubMan_Nutzerrollen">PubMan Nutzerrollen</a></h4>
-		            <p class="MsoNormal">
+		            
+		            <h4><span class="titlemark">2.2.2.</span><a name="PubMan_Nutzerrollen">PubMan Nutzerrollen</a></h4>
+		            <p class="noindent">
 		                Wie bereits
 		                oben erw&#228;hnt, sind
 		                derzeit in PubMan zwei Nutzerrollen implementiert, der Depositor und
@@ -268,19 +255,17 @@
 		            
 		            
 		            <h2><span class="titlemark">3.</span><a name="PubMan+Funktionalit%E4ten">PubMan Funktionalit&#228;ten</a></h2>
-		            <p class="MsoNormal">
+		            <p class="noindent">
 		                Eine Vielzahl der Funktionalit&#228;ten in PubMan
 		                steht nicht nur eingeloggten Nutzern zur Verf&#252;gung, sondern sind
 		                auch f&#252;r nicht eingeloggte Nutzer vorgesehen. Im Folgenden
 		                erhalten Sie eine &#220;bersicht der Funktionalit&#228;ten, die auch
 		                f&#252;r nicht eingeloggte Nutzer verf&#252;gbar sind.
 		            </p>
+		            
 		            <h3><span class="titlemark">3.1.</span><a name="Suchm%F6glichkeiten+in+PubMan">Suchm&#246;glichkeiten in PubMan</a></h3>
 		            <p class="MsoNormal" style="margin-left: 0cm; text-indent: 0cm;">
-		                PubMan bietet
-		                drei unterschiedliche
-		                Sucheinstiegspunkte:
-		                <br/>
+		                PubMan bietet drei unterschiedliche Sucheinstiegspunkte:
 		            </p>
 		            <ul>
 		                <li>
@@ -293,17 +278,14 @@
 		                    Organisationssuche
 		                </li>
 		            </ul>
+		            
 		            <h4><span class="titlemark">3.1.1.</span><a name="Einfache_Suche">Einfache Suche</a></h4>
 		            <p class="noindent">
-		                Bitte geben Sie einen oder mehrere
-		                Suchbegriffe ein und
-		                klicken Sie den "Los"
-		                Knopf rechts neben dem Sucheingabefeld, um 
-		                die Suche auszuf&#252;hren. 
+		                Bitte geben Sie einen oder mehrere Suchbegriffe ein und klicken Sie den "Los" 
+		                Knopf rechts neben dem Sucheingabefeld, um die Suche auszuf&#252;hren. 
 		            </p>
 		            <p class="indent">
-		                Folgende boolschen Operatoren werden in 
-		                der Suche unterst&#252;tzt: 
+		                Folgende boolschen Operatoren werden in der Suche unterst&#252;tzt: 
 		            </p>
 		            <ul>
 		                <li>
@@ -317,15 +299,9 @@
 		                </li>
 		            </ul>
 		            <p class="indent">
-		                Wenn Sie neben
-		                den Metadaten auch die
-		                angeh&#228;ngten Volltexte
-		                durchsuchen m&#246;chten, dann w&#228;hlen Sie bitte die
-		                Checkbox neben "Volltexte
-		                einbinden" an. Bitte beachten Sie, dass nur folgende Arten
-		                von Volltext
-		                durchsuchbar sind:
-		                <br/>
+		                Wenn Sie neben den Metadaten auch die angeh&#228;ngten Volltexte durchsuchen m&#246;chten, 
+		                dann w&#228;hlen Sie bitte die Checkbox neben "Volltexte einbinden" an. Bitte beachten Sie, 
+		                dass nur folgende Arten von Volltext durchsuchbar sind:
 		            </p>
 		            <ul>
 		                <li>
@@ -345,31 +321,24 @@
 		                </li>
 		            </ul>
 		            <p>
-			            Alle Suchanfragen k&#246;nnen auch mit Wildcards versehen werden.
-			            Unterst&#252;tzt wird "?" f&#252;r ein oder kein Zeichen und
-			            "*"
-			            f&#252;r null bis unendlich viele Zeichen. Bitte beachten Sie, dass
-			            Trunkierungen am Anfang des Suchbegriffs nicht unterst&#252;tz
-			            werden.
+			            Alle Suchanfragen k&#246;nnen auch mit Wildcards versehen werden. Unterst&#252;tzt wird "?" f&#252;r ein 
+			            oder kein Zeichen und "*" f&#252;r null bis unendlich viele Zeichen. Bitte beachten Sie, dass 
+			            Trunkierungen am Anfang des Suchbegriffs nicht unterst&#252;tz werden.
 			        </p>
 		            
-		            <h4><span class="titlemark">3.1.2.</span><a name="AdvancedSearchPage">Erweiterte Suche</a></h4>
+		            <h4 id="AdvancedSearchPage"><span class="titlemark">3.1.2.</span><a name="AdvancedSearchPage">Erweiterte Suche</a></h4>
 		            <p class="noindent">
-		                Sie haben die M&#246;glichkeit,
-		                die Suchoptionen (Alle Felder,
-		                Personen, Organisationen usw.) entweder einzeln oder in Kombination zu
-		                verwenden. Die Suchoptionen k&#246;nnen mit "AND", "OR"
-		                oder "NOT"
-		                miteinander
-		                verkn&#252;pft werden. Voreingestellt ist eine Verkn&#252;pfung
-		                mit "AND" 
-		                zwischen allen Feldern. Eine &#220;bersicht der verf&#252;gbaren Suchfelder und deren Indexierung finden Sie unter: <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing">http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing</a>
+		                Sie haben die M&#246;glichkeit, die Suchoptionen (Alle Felder, Personen, Organisationen usw.) 
+		                entweder einzeln oder in Kombination zu verwenden. Die Suchoptionen k&#246;nnen mit "AND", "OR" oder "NOT" 
+		                miteinander verkn&#252;pft werden. Voreingestellt ist eine Verkn&#252;pfung mit "AND" zwischen allen Feldern. 
+		                Eine &#220;bersicht der verf&#252;gbaren Suchfelder und deren Indexierung finden Sie 
+		                unter: <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing">http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing</a>
 		            </p>
 		            
 		            <h5><span class="titlemark">3.1.2.1.</span><a name="Datum-Suche">Suche nach Daten und Zeitspannen</a></h5>
-		            <p>Um nach einem Datum zu suchen geben Sie dieses bitte im Format
-		            YYYY-MM-DD im Suchfeld ein. Wie auch bei der Dateneingabe ist es ebenso
-		            m&#246;glich nur nach YYYY oder YYYY-MM zu suchen.
+		            <p>
+		            	Um nach einem Datum zu suchen geben Sie dieses bitte im Format YYYY-MM-DD im Suchfeld ein. 
+		            	Wie auch bei der Dateneingabe ist es ebenso m&#246;glich nur nach YYYY oder YYYY-MM zu suchen.
 		            </p>
 		            <p>
 		                Einige weitere Hinweise:
@@ -393,51 +362,37 @@
 		            
 		            <h3><span class="titlemark">3.3.</span><a name="AffiliationTreePage">Organisationssuche</a></h3>
 		            <p class="noindent">
-		                W&#228;hlen Sie hier die
-		                Organisation (oder Unterorganisation) aus, &#252;ber die Sie sich
-		                informieren m&#246;chten. Sie bekommen dann alle in PubMan
-		                eingegebenen Referenzen
-		                des Instituts angezeigt. Wenn Sie auf "Beschreibung" klicken,
-		                erhalten
+		                W&#228;hlen Sie hier die Organisation (oder Unterorganisation) aus, &#252;ber die Sie sich 
+		                informieren m&#246;chten. Sie bekommen dann alle in PubMan eingegebenen Referenzen 
+		                des Instituts angezeigt. Wenn Sie auf "Beschreibung" klicken, erhalten 
 		                Sie weitere Informationen zur Organisation.
 		            </p>
 		            
 		            <h3><span class="titlemark">3.2.</span><a name="Suchergebnisse">Suchergebnisse</a></h3>
 		            <p class="noindent">
-		                Wenn Sie die Option "Volltexte
-		                einbinden" gew&#228;hlt haben,
-		                bekommen Sie auch Ergebnisse angezeigt, bei denen der Suchbegriff
-		                innerhalb des
-		                angeh&#228;ngten Textes gefunden wurde. Sie k&#246;nnen sich
-		                die ganze Liste oder einzelne
-		                Datens&#228;tze in einem kurzen oder in einem mittleren
-		                Anzeigeformat ausgeben
-		                lassen. Wenn Sie auf den Titel der Publikation klicken, bekommen Sie
-		                die 
+		                Wenn Sie die Option "Volltexte einbinden" gew&#228;hlt haben, bekommen Sie auch 
+		                Ergebnisse angezeigt, bei denen der Suchbegriff innerhalb des angeh&#228;ngten 
+		                Textes gefunden wurde. Sie k&#246;nnen sich die ganze Liste oder einzelne 
+		                Datens&#228;tze in einem kurzen oder in einem mittleren Anzeigeformat ausgeben 
+		                lassen. Wenn Sie auf den Titel der Publikation klicken, bekommen Sie die 
 		                Vollansicht des Datensatzes angezeigt. 
 		            </p>
+		            
 		            <h4><span class="titlemark">3.2.1.</span><a name="Exportieren">Exportieren</a></h4>
 		            <p class="noindent">
-		                Sie
-		                k&#246;nnen&#160;Ergebnisse im&#160;Zitierstil,
-		                z.B.
-		                APA, oder in ein bestimmtes Format, z.B. EndNote Exportformat,
-		                exportieren.
+		                Sie k&#246;nnen&#160;Ergebnisse im&#160;Zitierstil, z.B. APA, oder in 
+		                ein bestimmtes Format, z.B. EndNote Exportformat, exportieren.
 		            </p>
+		            
 		            <h5><span class="titlemark">3.2.1.1</span><a name="Export_per_E-Mail_verschicken">Export per E-Mail verschicken</a></h5>
 		            <p class="noindent">
-		                &#160;Sie k&#246;nnen Daten
-		                auch per E-Mail verschicken. Hierf&#252;r geben
-		                Sie bitte den
-		                Empf&#228;nger der E-Mail an und die E-Mail Adresse, an die der
-		                Empf&#228;nger antworten 
-		                kann. 
+		                Sie k&#246;nnen Daten auch per E-Mail verschicken. Hierf&#252;r geben Sie 
+		                bitte den Empf&#228;nger der E-Mail an und die E-Mail Adresse, an die der
+		                Empf&#228;nger antworten kann. 
 		            </p>
 		            <p class="indent">
-		                Wenn Sie die Export E-Mail an mehr als
-		                eine E-Mail Adresse
-		                verschicken m&#246;chten, dann trennen Sie diese bitte mit einem
-		                Komma und einem 
+		                Wenn Sie die Export E-Mail an mehr als eine E-Mail Adresse verschicken 
+		                m&#246;chten, dann trennen Sie diese bitte mit einem Komma und einem 
 		                Leerzeichen voneinander ab. 
 		            </p>
 		            
@@ -454,26 +409,25 @@
 		                gespeichert werden kann. Ein Export aller Datens&#228;tze im Basket ist 
 		                m&#246;glich. 
 		            </p>
+		            
 		            <h3><span class="titlemark">3.4.</span><a name="Datensatz-Vollansicht">Datensatz-Vollansicht</a></h3>
 		            <p>
-			            In der Datenvollansicht haben Sie die M&#246;glichkeit verschiedene <span style="font-weight: bold;">Social Bookmarking Services</span>
-			            zu nutzen. Derzeit bietet Pubman Bookmarking-Optionen f&#252;r <span style="font-weight: bold;">Delicious, Citeulike</span>
-			            und <span style="font-weight: bold;">Connotea</span>
-			            an. 
+			            In der Datenvollansicht haben Sie die M&#246;glichkeit verschiedene <b>Social Bookmarking Services</b>
+			            zu nutzen. Derzeit bietet Pubman Bookmarking-Optionen f&#252;r <b>Delicious, Citeulike</b>
+			            und <b>Connotea</b> an. 
 			            <br/>
-			            Ist f&#252;r den Datensatz ein&#160; <span style="font-weight: bold;">ISI Web of Knowledge Identifier</span>
+			            Ist f&#252;r den Datensatz ein&#160; <b>ISI Web of Knowledge Identifier</b>
 			            hinterlegt, dient dieser Identifier als Link zu ISI und bietet die
 			            M&#246;glichkeit nach dem angezeigten Datensatz bei ISI Web of
 			            Knowledge zu suchen, um dort m&#246;glicherweise erg&#228;nzende
 			            Informationen zum Artikel zu finden.
 			            <br/>
-			            Ist hinter dem Autor des angezeigten Datensatzes das Symbol einer Visitenkarte platziert, dient diese als Link zum <span style="font-weight: bold;">Researcher Posrtfolio</span>
+			            Ist hinter dem Autor des angezeigten Datensatzes das Symbol einer Visitenkarte platziert, dient diese als Link zum <b>Researcher Posrtfolio</b>
 			            des Autors. Auf dieser Seite erh&#228;lt der Nutzer erg&#228;nzende
 			            Informationen &#252;ber&#160;den Autor. Alle in PubMan gespeicherten
 			            Publikationen des Autores sind dort gelistet. Au&#223;erdem bietet das
 			            Researcher Portfolio&#160;die M&#246;gllichkeit nach dem angezeigten 
-			            Autor in <span style="font-weight: bold;">WorldCat</span>
-			            und <span style="font-weight: bold;">Google Scholar</span>
+			            Autor in <b>WorldCat</b> und <b>Google Scholar</b>
 			            zu suchen, um dar&#252;ber m&#246;glicherweise weitere Publikationen der gesuchten Person zu erhalten.
 			            <br/>
 			            Ist hinter der Organisation, zu der der Autor des angezeigten
@@ -487,6 +441,7 @@
 		                Datensatzes angezeigt, und Sie k&#246;nnen Ver&#228;nderungen am
 		                Metadatensatz nachvollziehen
 		            </p>
+		            
 		            <h4><span class="titlemark">3.4.2.</span><a name="Revisionen_einsehen">Revisionen einsehen</a></h4>
 		            <p class="noindent">
 		                Eine Revision ist eine inhaltlich ver&#228;nderte
@@ -494,6 +449,7 @@
 		                verlinkt ist. Unter "Revisionen einsehen" werden Ihnen alle Revisionen 
 		                eines Datensatzes angezeigt. 
 		            </p>
+		            
 		            <h4><span class="titlemark">3.4.3.</span><a name="Statistik_zum_Datensatz_einsehen">Statistik zum Datensatz einsehen</a></h4>
 		            <p class="noindent">
 		                Hier k&#246;nnen Sie einsehen, wie
@@ -502,120 +458,88 @@
 		                beachten Sie, 
 		                dass die Statistiken nur einmal pro Nacht erneuert werden. 
 		            </p>
+		            
 		            <h4><span class="titlemark">3.4.4.</span><a name="Bearbeitungsgeschichte">Bearbeitungsgeschichte (nur registrierte Nutzer)</a></h4>
 		            <p class="noindent">
-		                Die Option ist nur f&#252;r
-		                registrierte Nutzer sichtbar. Es wird
-		                die vollst&#228;ndige Bearbeitungsgeschichte des Datensatzes
-		                angezeigt, also alle
-		                Aktionen, die vom System aufgezeichnet worden sind.
+		                Die Option ist nur f&#252;r registrierte Nutzer sichtbar. Es wird die vollst&#228;ndige 
+		                Bearbeitungsgeschichte des Datensatzes angezeigt, also alle Aktionen, die vom System aufgezeichnet worden sind.
 		            </p>
+		            
 		            <h4><span class="titlemark">3.4.5.</span><a name="ViewLocalTagsPage">Lokale Tags (nur f&#252;r registrierte Nutzer)</a></h4>
 		            <p class="noindent">
-		                Hier k&#246;nnen Sie selbstgew&#228;hlte "Tags"
-		                bestimmen, mittels derer Sie die Datens&#228;tze kategorisieren
-		                k&#246;nnen und so z.B. f&#252;r bestimmte Zwecke Sets erstellen
-		                k&#246;nnen, z.B. "my best publications".
+		                Hier k&#246;nnen Sie selbstgew&#228;hlte "Tags" bestimmen, mittels derer Sie die Datens&#228;tze kategorisieren 
+		                k&#246;nnen und so z.B. f&#252;r bestimmte Zwecke Sets erstellen k&#246;nnen, z.B. "my best publications".
 		            </p>
 		            
 		            
 		            <h2><span class="titlemark">4.</span><a name="SubmissionPage">Dateneingabe</a></h2>
 		            <p class="MsoNormal" style="margin-left: 0cm; text-indent: 0cm;">
-		                In PubMan gibt es
-		                grunds&#228;tzlich vier verschiedene
-		                M&#246;glichkeiten, Daten einzugeben.
+		                In PubMan gibt es grunds&#228;tzlich vier verschiedene M&#246;glichkeiten, Daten einzugeben.
 		            </p>
 		            <ul>
 		                <li>
-		                    <b style="">Detaillierte
-		                        Eingabe:</b>Bei der detaillierten
-		                    Eingabe steht Ihnen eine dokumentenspezifische Eingabemaske zur
-		                    Verf&#252;gung, die alle relevanten Felder f&#252;r das von Ihnen
-		                    gew&#228;hlte Genre enth&#228;lt.
+		                    <b>Detaillierte Eingabe:</b> Bei der detaillierten Eingabe steht Ihnen 
+		                    eine dokumentenspezifische Eingabemaske zur Verf&#252;gung, die alle 
+		                    relevanten Felder f&#252;r das von Ihnen gew&#228;hlte Genre enth&#228;lt.
 		                </li>
 		                <li>
-		                    Einfache Eingabe:
-		                    Hier k&#246;nnen Sie eine kurze, schrittweise
-		                    aufgebaute manuelle
-		                    Eingabe vornehmen.
+		                    <b>Einfache Eingabe:</b> Hier k&#246;nnen Sie eine kurze, schrittweise 
+		                    aufgebaute manuelle Eingabe vornehmen.
 		                </li>
 		                <li>
-		                    Importieren:
-		                    Hier haben Sie die M&#246;glichkeit, eine BibTeX
-		                    Referenz hochzuladen oder Metadaten inklusive Volltext(e)
-		                    (wenn vorhanden) von arXiv, PubMed Central, SPIRES oder BioMed Central
-		                    zu importieren.Bitte verwenden Sie
-		                    hierf&#252;r die auf den jeweiligen Webseiten angegebenen IDs. (<span style="font-weight: bold;">Ausnahme</span>:
-		                    Bitte
-		                    beachten Sie, dass bei BioMed Central nur der hintere Teil der DOI -
-		                    nach dem Schr&#228;gstrich - als ID anerkannt wird. Beispiel:
-		                    doi:10.1186<span style="font-weight: bold;">1471-2253-8-8</span>)
+		                    <b>Importieren:</b> Hier haben Sie die M&#246;glichkeit, eine BibTeX
+		                    Referenz hochzuladen oder Metadaten inklusive Volltext(e) (wenn vorhanden) 
+		                    von arXiv, PubMed Central, SPIRES oder BioMed Central zu importieren. Bitte 
+		                    verwenden Sie hierf&#252;r die auf den jeweiligen Webseiten angegebenen IDs. 
+		                    (<b>Ausnahme</b>: Bitte beachten Sie, dass bei BioMed Central nur der 
+		                    hintere Teil der DOI - nach dem Schr&#228;gstrich - als ID anerkannt wird. 
+		                    <i>Beispiel: doi:10.1186<b>1471-2253-8-8</b></i>)
 		                </li>
 		                <li>
-		                    Massenimport:
-		                    Hier haben Sie die M&#246;glichkeit
-		                    einen Massenimport von Web of 
-		                    Science Daten, EndNote, BibTeX oder RIS vorzunehmen. <span style="font-style: italic;">Hinweis
-		                        zum EndNote-Massenimport: Alle Autoren eines Datensatzes bekommen
-		                        standardm&#228;&#223;ig die Organisation "Max Planck Society"
-		                        zugewiesen. Gew&#252;nschte &#196;nderungen/Verfeinerungen in der
-		                        Angabe der Organisation m&#252;ssen h&#228;ndisch nach dem Import im
-		                        jeweiligen Datensatz nachbearbeitet werden.</span>
+		                    <b>Massenimport:</b> Hier haben Sie die M&#246;glichkeit einen Massenimport 
+		                    von Web of Science Daten, EndNote, BibTeX oder RIS vorzunehmen. <i>Hinweis 
+		                    zum EndNote-Massenimport: Alle Autoren eines Datensatzes bekommen 
+		                    standardm&#228;&#223;ig die Organisation "Max Planck Society" zugewiesen. 
+		                    Gew&#252;nschte &#196;nderungen/Verfeinerungen in der Angabe der 
+		                    Organisation m&#252;ssen h&#228;ndisch nach dem Import im jeweiligen 
+		                    Datensatz nachbearbeitet werden.</i>
 		                </li>
 		            </ul>
 		            
 		            <h3><span class="titlemark">4.1.</span><a name="neuen_Datensatz_anlegen">Einen neuen Datensatz anlegen</a></h3>
 		            <p class="noindent">
-		                Bevor Sie einen neuen Datensatz
-		                anlegen k&#246;nnen, m&#252;ssen Sie zun&#228;chst die Eingabemethode bestimmen und dann die
-		                Collection ausw&#228;hlen, in der Sie den Eintrag vornehmen
-		                m&#246;chten. Diese w&#228;hlen Sie aus, indem Sie auf den 
-		                Namen der Collection klicken. 
+		                Bevor Sie einen neuen Datensatz anlegen k&#246;nnen, m&#252;ssen Sie zun&#228;chst die Eingabemethode 
+		                bestimmen und dann die Collection ausw&#228;hlen, in der Sie den Eintrag vornehmen m&#246;chten. 
+		                Diese w&#228;hlen Sie aus, indem Sie auf den Namen der Collection klicken. 
 		            </p>
+		            
 		            <h3><span class="titlemark">4.2.</span><a name="Datensatz_bearbeiten">Anlegen und Bearbeiten eines Datensatzes</a></h3>
 		            <p class="noindent">
-		                Bevor Sie Ihre Publikationsdaten
-		                eingeben,
-		                w&#228;hlen Sie bitte
-		                den Dokumenttyp (Genre) ihres Datensatzes aus. Sie bekommen dann, dem
-		                Dokumenttyp entsprechend, eine Eingabemaske angezeigt. Bitte beachten
-		                Sie, dass Sie den Dokumenttypen nur so lange &#228;ndern
-		                k&#246;nnen,
-		                bis Sie den Datensatz einmal speichern oder einstellen, beziehungsweise
-		                freigeben, da PubMan dann die Felder, die f&#252;r das
-		                gew&#228;hlte
-		                Genre nicht mehr ben&#246;tigt werden, herausl&#246;scht.
+		                Bevor Sie Ihre Publikationsdaten eingeben, w&#228;hlen Sie bitte den Dokumenttyp (Genre) ihres Datensatzes aus. 
+		                Sie bekommen dann, dem Dokumenttyp entsprechend, eine Eingabemaske angezeigt. Bitte beachten Sie, dass Sie den 
+		                Dokumenttypen nur so lange &#228;ndern k&#246;nnen, bis Sie den Datensatz einmal speichern oder einstellen, 
+		                beziehungsweise freigeben, da PubMan dann die Felder, die f&#252;r das gew&#228;hlte Genre nicht mehr 
+		                ben&#246;tigt werden, herausl&#246;scht.
 		            </p>
 		            <p class="noindent">
-		                Bitte
-		                f&#252;llen Sie alle Felder aus, die mit einem Stern
-		                markiert
-		                sind, da diese Mindestangaben ben&#246;tigt werden, um einen
-		                Datensatz in PubMan anzulegen.
-		                Sollte eins der Felder nicht
-		                gef&#252;llt 
+		                Bitte f&#252;llen Sie alle Felder aus, die mit einem Stern markiert sind, da diese Mindestangaben 
+		                ben&#246;tigt werden, um einen Datensatz in PubMan anzulegen. Sollte eins der Felder nicht gef&#252;llt 
 		                sein, so bekommen Sie eine Validierungsmeldung. Siehe auch <a href="#Validierung">Validierung</a>.
 		            </p>
+		            
 		            <h4><span class="titlemark">4.2.1.</span><a name="Personen_und_Organisationen">Personen und Organisationen eingeben</a></h4>
 		            <p class="noindent">
-		                Sie haben zwei M&#246;glichkeiten,
-		                Personen
-		                einzugeben. Entweder alle einzeln, hierf&#252;r verwenden Sie die
-		                Eingabemaske f&#252;r Personen und klicken auf das Plussymbol, wenn
-		                Sie
-		                weitere Personen hinzuf&#252;gen m&#246;chten. Wenn der Name, den Sie
-		                eingeben, vom System erkannt wird, bekommen Sie eine Vorschlagsliste;
-		                Sie k&#246;nnen dann einen Namen ausw&#228;hlen oder die Liste mit ESC
-		                schlie&#223;en. Um mehrere Personen gleichzeitig einzugeben, klicken
-		                Sie bitte auf &#34;viele hinzuf&#252;gen&#34;. Dadurch &#246;ffnet
-		                sich dann ein Textfeld,in
-		                das Sie eine Liste von Personen entweder eingeben oder hineinkopieren
-		                k&#246;nnen. Diese Liste wird dann vom System in die einzelnen
-		                Felder
-		                f&#252;r die Eingabe von Personen eingef&#252;gt. Bitte
-		                beachten Sie, dass mindestens eine Person eine Affiliation tragen muss,
+		                Sie haben zwei M&#246;glichkeiten, Personen einzugeben. Entweder alle einzeln, hierf&#252;r verwenden 
+		                Sie die Eingabemaske f&#252;r Personen und klicken auf das Plussymbol, wenn Sie weitere Personen 
+		                hinzuf&#252;gen m&#246;chten. Wenn der Name, den Sie eingeben, vom System erkannt wird, bekommen Sie 
+		                eine Vorschlagsliste; Sie k&#246;nnen dann einen Namen ausw&#228;hlen oder die Liste mit ESC schlie&#223;en. 
+		                Um mehrere Personen gleichzeitig einzugeben, klicken Sie bitte auf &#34;viele hinzuf&#252;gen&#34;. 
+		                Dadurch &#246;ffnet sich dann ein Textfeld,in das Sie eine Liste von Personen entweder eingeben oder 
+		                hineinkopieren k&#246;nnen. Diese Liste wird dann vom System in die einzelnen Felder f&#252;r die Eingabe 
+		                von Personen eingef&#252;gt. Bitte beachten Sie, dass mindestens eine Person eine Affiliation tragen muss, 
 		                da ansonsten der Eintrag nicht erstellt werden kann.
 		            </p>
+		            
 		            <h4><span class="titlemark">4.2.2.</span><a name="Zeitschriftennamen_eingeben">Zeitschriftennamen eingeben</a></h4>
 		            <p>
 			            Wenn Sie als Quelle einen Zeitschriftennamen eingeben m&#246;chten,
@@ -630,54 +554,46 @@
 			            Vorschlagsliste schlie&#223;en Sie mit ESC, wenn Sie keinen der
 		            	vorgeschlagenen Namen &#252;bernehmen m&#246;chten.
 		            </p>
+		            
 		            <h4><span class="titlemark">4.2.3.</span><a name="Sprache_der_Publikation_eingeben">Sprache der Publikation angeben</a></h4>
 		            <p>
-			            Auch bei der Sprache der Publikation wird mit Vorschlagslisten
-			            gearbeitet. Sie k&#246;nnen hier sogar die Sprache entweder in
-			            Deutsch
-			            oder in Englisch eingeben. Sie wird in beiden F&#228;llen erkannt.
+			            Auch bei der Sprache der Publikation wird mit Vorschlagslisten gearbeitet. Sie k&#246;nnen 
+			            hier sogar die Sprache entweder in Deutsch oder in Englisch eingeben. Sie wird in beiden 
+			            F&#228;llen erkannt.
 		            </p>
+		            
 		            <h4><span class="titlemark">4.2.4.</span><a name="Ein_Datum_eingeben">Ein Datum eingeben</a></h4>
 		            <p>
-			            Das Datum sollte folgendes Format haben: JJJJ-MM-TT. Sie
-			            k&#246;nnen jedoch auch Begriffe wie "gestern", "letztes Jahr" oder
-			            &#228;hnliches angeben und PubMan wandelt diese Angabe dann in
-			            das
-			            richtige Format um.
+			            Das Datum sollte folgendes Format haben: JJJJ-MM-TT. Sie k&#246;nnen jedoch auch Begriffe 
+			            wie "gestern", "letztes Jahr" oder &#228;hnliches angeben und PubMan wandelt diese Angabe 
+			            dann in das richtige Format um.
 			            <br/>
-			            <span style="font-style: italic;">Hinweis zur Angabe eines Datums
-			                f&#252;r die Publikationstypen "Serie" und "Zeitschrift": Das
-			                anzugebende Datum entspricht in diesen beiden F&#228;llen dem Beginn
-			                der jeweiligen Ver&#246;ffentlichung.</span>
+			            <i>Hinweis zur Angabe eines Datums f&#252;r die Publikationstypen "Serie" und "Zeitschrift":  
+			            Das anzugebende Datum entspricht in diesen beiden F&#228;llen dem Beginn der jeweiligen 
+			            Ver&#246;ffentlichung.</i>
 		            </p>
 		            
 		            <h4><span class="titlemark">4.2.5.</span><a name="Rechte">Rechte-Informationen f&#252;r eine Datei hinterlegen</a></h4>
 		            <p>
-			            Sie haben die M&#246;glichkeit die dem Datensatz angef&#252;gten
-			            Dateien und externen Referenzen mit verschiedenen Rechte-Informationen
-			            zu versehen. Sie k&#246;nnen Zugriffsrechte ("&#246;ffentlich",
-			            "privat", "eingeschr&#228;nkt") festlegen bzw. diese f&#252;r
-			            definierte Nutzergruppen vergeben. Sie k&#246;nnen auch ein "Copyright
-			            Statement" (als Freitext)
-			            abgeben sowie ein "Copyright Date" (im Datums-Format) zur
-			            Verf&#252;gung stellen. Au&#223;erdem haben Sie die M&#246;glichkeit
-			            den gespeicherten Datensatz mit einer Creative Commons Lizenz (<a href="http://creativecommons.org/">http://creativecommons.org/</a>) zu versehen. Alle diese Angaben sind optional. Bitte beachten Sie, die 
-			            Richtigkeit dieser Rechte-Angaben im Vorfeld zu &#252;berpr&#252;fen!
+			            Sie haben die M&#246;glichkeit die dem Datensatz angef&#252;gten Dateien und externen Referenzen 
+			            mit verschiedenen Rechte-Informationen zu versehen. Sie k&#246;nnen Zugriffsrechte 
+			            ("&#246;ffentlich", "privat", "eingeschr&#228;nkt") festlegen bzw. diese f&#252;r definierte 
+			            Nutzergruppen vergeben. Sie k&#246;nnen auch ein "Copyright Statement" (als Freitext) abgeben 
+			            sowie ein "Copyright Date" (im Datums-Format) zur Verf&#252;gung stellen. Au&#223;erdem haben 
+			            Sie die M&#246;glichkeit den gespeicherten Datensatz mit einer Creative Commons Lizenz 
+			            (<a href="http://creativecommons.org/">http://creativecommons.org/</a>) zu versehen. Alle diese 
+			            Angaben sind optional. Bitte beachten Sie, die Richtigkeit dieser Rechte-Angaben im Vorfeld 
+			            zu &#252;berpr&#252;fen!
 			        </p>
 			        
 		            <h3><span class="titlemark">4.3.</span><a name="Revision_anlegen">Eine neue Revision anlegen</a></h3>
 		            <p class="noindent">
-		                Eine neue Revision ist eine
-		                intellektuell &#252;berarbeitete Version
-		                eines Werkes (z.B. erst Pre Print, dann Post Print). Bitte beachten
-		                Sie, dass jede neue Revision ein neuer,
-		                separater Datensatz ist, der mit dem urspr&#252;nglichen Datensatz
-		                verkn&#252;pft ist 
-		                ("ist Revision von"). 
+		                Eine neue Revision ist eine intellektuell &#252;berarbeitete Version eines Werkes 
+		                (z.B. erst Pre Print, dann Post Print). Bitte beachten Sie, dass jede neue Revision ein neuer,
+		                separater Datensatz ist, der mit dem urspr&#252;nglichen Datensatz verkn&#252;pft ist ("ist Revision von"). 
 		            </p>
 		            <p class="noindent">
-		                Bevor Sie die Revision (den neuen
-		                Datensatz) freigeben, haben
+		                Bevor Sie die Revision (den neuen Datensatz) freigeben, haben
 		                Sie die M&#246;glichkeit, einen Kommentar hierzu abzugeben.
 		            </p>
 		            
@@ -696,6 +612,7 @@
 		                einstellen k&#246;nnen, wenn er den Kriterien der Collection 
 		                entspricht. 
 		            </p>
+		            
 		            <h3><span class="titlemark">4.5.</span><a name="Speichern">Speichern des Datensatzes</a></h3>
 		            <p class="noindent">
 		                Wenn Sie den "speichern"
@@ -712,6 +629,7 @@
 		                Arbeitsplatz 
 		                aufrufen und editieren. 
 		            </p>
+		            
 		            <h3><span class="titlemark">4.6.</span><a name="L&#246;schen_des_Datensatzes">L&#246;schen des Datensatzes</a></h3>
 		            <p class="noindent">
 		                Bitte beachten Sie, dass Sie nur
@@ -724,58 +642,41 @@
 		            </p>
 		            <h3><span class="titlemark">4.7.</span><a name="Einstellen_eines_Datensatzes">Einstellen eines Datensatzes</a></h3>
 		            <p class="noindent">
-		                Der Depositor kann seine
-		                Datens&#228;tze im Standard Workflow
-		                einstellen.
+		                Der Depositor kann seine Datens&#228;tze im Standard Workflow einstellen.
 		            </p>
 		            <p class="noindent">
-		                Wenn Sie den "einstellen"
-		                Knopf bet&#228;tigen, wird Ihr
-		                Datensatz
-		                zun&#228;chst validiert. Wenn Ihr Datensatz valide ist, werden Sie
-		                auf eine Maske
-		                navigiert, auf der Sie diese Aktion best&#228;tigen und
-		                kommentieren k&#246;nnen. Der
-		                Datensatz wird nun an den Moderator Ihrer Collection weitergeleitet,
-		                der die
-		                Daten &#252;berpr&#252;ft und den Datensatz entweder
-		                f&#252;r die &#246;ffentliche Sicht freigibt oder
-		                ihn an Sie zur weiteren Bearbeitung zur&#252;ckschickt.
-		                Datens&#228;tze, die an Sie
-		                zur&#252;ckgeschickt wurden, finden Sie in Ihrem Arbeitsplatz unter
-		                dem Filter "in 
-		                &#220;berarbeitung". 
+		                Wenn Sie den "einstellen" Knopf bet&#228;tigen, wird Ihr Datensatz
+		                zun&#228;chst validiert. Wenn Ihr Datensatz valide ist, werden Sie auf eine Maske
+		                navigiert, auf der Sie diese Aktion best&#228;tigen und kommentieren k&#246;nnen. 
+		                Der Datensatz wird nun an den Moderator Ihrer Collection weitergeleitet, der die 
+		                Daten &#252;berpr&#252;ft und den Datensatz entweder f&#252;r die &#246;ffentliche 
+		                Sicht freigibt oder ihn an Sie zur weiteren Bearbeitung zur&#252;ckschickt. 
+		                Datens&#228;tze, die an Sie zur&#252;ckgeschickt wurden, finden Sie in Ihrem 
+		                Arbeitsplatz unter dem Filter "in &#220;berarbeitung". 
 		            </p>
+		            
 		            <h4><span class="titlemark">4.7.1.</span><a name="Kommentar_Einstellen">Kommentar zum Einstellen</a></h4>
 		            <p class="noindent">
-		                In diesem Kommentarfeld
-		                k&#246;nnen Sie dem Nutzer, der den
-		                Datensatz nach Ihnen im Workflow bearbeitet, einen Kommentar
-		                hinterlassen, den 
-		                er dann einsehen kann. 
+		                In diesem Kommentarfeld k&#246;nnen Sie dem Nutzer, der den Datensatz nach Ihnen im 
+		                Workflow bearbeitet, einen Kommentar hinterlassen, den er dann einsehen kann. 
 		            </p>
+		            
 		            <h3><span class="titlemark">4.8.</span><a name="Freigeben">Freigeben eines Datensatzes</a></h3>
 		            <p class="noindent">
-		                Im
-		                Simple Workflow
-		                k&#246;nnen Sie Ihre Datens&#228;tze direkt f&#252;r die
-		                &#246;ffentliche Sicht freigeben (sie 
-		                m&#252;ssen nicht vorher eingestellt werden). 
+		                Im Simple Workflow k&#246;nnen Sie Ihre Datens&#228;tze direkt f&#252;r die 
+		                &#246;ffentliche Sicht freigeben (sie m&#252;ssen nicht vorher eingestellt werden). 
 		            </p>
+		            
 		            <h4><span class="titlemark">4.8.1.</span><a name="Kommentar_zum_Freigeben">Kommentar zum Freigeben</a></h4>
 		            <p class="noindent">
-		                In diesem Kommentarfeld
-		                k&#246;nnen Sie dem Nutzer, der den
-		                Datensatz nach Ihnen im Workflow bearbeitet, einen Kommentar
-		                hinterlassen, den 
-		                er dann einsehen kann. 
+		                In diesem Kommentarfeld k&#246;nnen Sie dem Nutzer, der den Datensatz nach Ihnen im 
+		                Workflow bearbeitet, einen Kommentar hinterlassen, den er dann einsehen kann. 
 		            </p>
 		            
 		            
 		            <h2><span class="titlemark">5.</span><a name="Qualit&#228;tssicherung in PubMan">Qualit&#228;tssicherung in PubMan</a></h2>
 		            <p class="noindent">
-		                Um eine hohe Qualit&#228;t der in PubMan
-		                enthaltenen Daten zu garantieren, ist ein
+		                Um eine hohe Qualit&#228;t der in PubMan enthaltenen Daten zu garantieren, ist ein 
 		                Qualit&#228;tssicherungsworkflow implementiert worden, so dass alle 
 		                Datens&#228;tze bestimmte Qualit&#228;tskriterien erf&#252;llen. 
 		            </p>
@@ -795,6 +696,7 @@
 		                die dem Zweck der Langzeitarchivierung dient und die Zitierbarkeit der
 		                Datens&#228;tze weiterhin garantiert.
 		            </p>
+		            
 		            <h3><span class="titlemark">5.1.</span><a name="&#220;berarbeitung">Einen Datensatz zur &#220;berarbeitung an den Depositor zur&#252;cksenden</a></h3>
 		            <p class="noindent">
 		                Im Standard Workflow kann der
@@ -805,9 +707,9 @@
 		                &#220;berarbeitung&#34; sind sowohl f&#252;r den
 		                Depositor als auch f&#252;r den Moderator sichtbar, k&#246;nnen
 		                jedoch nur noch vom 
-		                Depositor bearbeitet werden, bis sie erneut eingestellt werden. <span lang="de-DE">
-		                </span>
+		                Depositor bearbeitet werden, bis sie erneut eingestellt werden.
 		            </p>
+		            
 		            <h3><span class="titlemark">5.2.</span><a name="Einen Datensatz modifizieren">Einen Datensatz modifizieren</a></h3>
 		            <p class="noindent">
 		                Datens&#228;tze im Status "pending" k&#246;nnen vom
@@ -817,6 +719,7 @@
 		                Datens&#228;tze k&#246;nnen vom Moderator ver&#228;ndert werden, 
 		                "freigegebene" Datens&#228;tze auch vom Ersteller. 
 		            </p>
+		            
 		            <h3><span class="titlemark">5.3.</span><a name="Akzeptieren">Akzeptieren</a></h3>
 		            <p class="noindent">
 		                Wenn Sie den Datensatz, den Sie
@@ -824,32 +727,24 @@
 		                &#246;ffentliche Sicht wieder freischalten m&#246;chten, dann
 		                m&#252;ssen Sie ihn akzeptieren.
 		            </p>
+		            
 		            <h4><span class="titlemark">5.3.1.</span><a name="Kommentar_Akzeptieren">Kommentar zum Akzeptieren</a></h4>
 		            <p class="noindent">
-		                Sie haben hier die
-		                M&#246;glichkeit einen Kommentar
-		                zu Ihrer &#220;berarbeitung abzugeben, der dann &#246;ffentlich 
-		                sichtbar ist &#252;ber die Freigabegeschichte. 
+		                Sie haben hier die M&#246;glichkeit einen Kommentar zu Ihrer &#220;berarbeitung abzugeben, 
+		                der dann &#246;ffentlich sichtbar ist &#252;ber die Freigabegeschichte. 
 		            </p>
+		            
 		            <h3><span class="titlemark">5.4.</span><a name="Datensatz_zur&#252;ckziehen">Einen Datensatz zur&#252;ckziehen</a></h3>
 		            <p class="noindent">
-		                Freigegebene Datens&#228;tze
-		                k&#246;nnen nicht mehr
-		                gel&#246;scht, sondern nur
-		                noch zur&#252;ckgezogen werden; die Metadaten bleiben dabei
-		                sichtbar,
-		                der Volltext jedoch nicht,
-		                sodass die Datens&#228;tze weiterhin zitierbar sind.
-		                Zur&#252;ckgezogene Datens&#228;tze sind nicht mehr suchbar,
-		                sondern
-		                k&#246;nnen nur angezeigt werden, wenn die ID des Datensatzes
+		                Freigegebene Datens&#228;tze k&#246;nnen nicht mehr gel&#246;scht, sondern nur noch 
+		                zur&#252;ckgezogen werden; die Metadaten bleiben dabei sichtbar, der Volltext jedoch nicht, 
+		                sodass die Datens&#228;tze weiterhin zitierbar sind. Zur&#252;ckgezogene Datens&#228;tze 
+		                sind nicht mehr suchbar, sondern k&#246;nnen nur angezeigt werden, wenn die ID des Datensatzes
 		                eingegeben wird.
 		            </p>
 		            <p class="noindent">
-		                Datens&#228;tze k&#246;nnen
-		                nur vom Ersteller (Depositor) zur&#252;ckgezogen werden. Bitte
-		                geben Sie den Grund an, weswegen Sie das Item zur&#252;ckziehen 
-		                m&#246;chten. 
+		                Datens&#228;tze k&#246;nnen nur vom Ersteller (Depositor) zur&#252;ckgezogen werden. 
+		                Bitte geben Sie den Grund an, weswegen Sie das Item zur&#252;ckziehen m&#246;chten. 
 		            </p>
 		            
 		            
@@ -864,157 +759,106 @@
 		                ausgew&#228;hlte Datens&#228;tze exportieren oder einen Basket
 		                erstellen.
 		            </p>
+		            
 		            <h3><span class="titlemark">6.1.</span><a name="Meine_Datens&#228;tze">Meine Datens&#228;tze</a></h3>
 		            <p class="noindent">
-		                Unter &#34;Meine
-		                Datens&#228;tze&#34; werden alle Eintr&#228;ge
-		                aufgelistet,
-		                die der Depositor angelegt hat. Es besteht die M&#246;glichkeit,
-		                sie nach Status zu
-		                filtern. So kann der Depositor z.B. Daten, die noch nicht fertig
-		                gestellt sind,
-		                erneut &#252;berarbeiten oder l&#246;schen oder er kann Daten,
-		                die vom Moderator zur
-		                Bearbeitung zur&#252;ckgeschickt wurden, anreichern. Ein weiterer
-		                Filter zeigt Ihnen importierte Datens&#228;tze nach datum sortiert an.
+		                Unter &#34;Meine Datens&#228;tze&#34; werden alle Eintr&#228;ge aufgelistet, die der 
+		                Depositor angelegt hat. Es besteht die M&#246;glichkeit, sie nach Status zu filtern. 
+		                So kann der Depositor z.B. Daten, die noch nicht fertig gestellt sind, erneut 
+		                &#252;berarbeiten oder l&#246;schen oder er kann Daten, die vom Moderator zur 
+		                Bearbeitung zur&#252;ckgeschickt wurden, anreichern. Ein weiterer Filter zeigt 
+		                Ihnen importierte Datens&#228;tze nach datum sortiert an.
 		            </p>
+		            
 		            <h4><span class="titlemark">6.1.1.</span><a name="Status_eines_Datensatzes">Status eines Datensatzes</a></h4>
-		            <p>Bitte klicken Sie auf "Filter" und
-		                &#246;ffnen&#160;die
-		                pull-down Liste "Status", wenn Sie Datens&#228;tze in
-		                einem anderen Status angezeigt bekommen m&#246;chten. Folgende
-		                Statusangaben sind m&#246;glich:
+		            <p>
+		            	Bitte klicken Sie auf "Filter" und &#246;ffnen&#160;die pull-down Liste "Status", wenn Sie 
+		            	Datens&#228;tze in einem anderen Status angezeigt bekommen m&#246;chten. Folgende Statusangaben 
+		            	sind m&#246;glich:
 		            </p>
-		            <br style="background-color: rgb(255, 255, 255);"/>
 		            <ul>
 		                <li>
-		                    "pending": Der
-		                    Datensatz wurde von Ihnen eingegeben und bisher nur abgespeichert, da
-		                    Sie noch nicht mit der Eingabe fertig waren. Dieser Datensatz muss noch eingestellt oder
+		                    <b>"pending":</b> Der Datensatz wurde von Ihnen eingegeben und bisher nur abgespeichert, da 
+		                    Sie noch nicht mit der Eingabe fertig waren. Dieser Datensatz muss noch eingestellt oder 
 		                    freigeschaltet werden, sobald die Bearbeitung abgeschlossen ist.
 		                </li>
 		                <li>
-		                    "eingestellt":
-		                    Dieser Status kommt nur im Standard Workflow vor. Dies sind
-		                    Datens&#228;tze, die Sie fertig eingegeben haben und die derzeit
-		                    beim
-		                    Moderator Ihrer Collection zur Kontrolle vorliegen.
+		                    <b>"eingestellt":</b> Dieser Status kommt nur im Standard Workflow vor. Dies sind 
+		                    Datens&#228;tze, die Sie fertig eingegeben haben und die derzeit beim Moderator 
+		                    Ihrer Collection zur Kontrolle vorliegen.
 		                </li>
 		                <li>
-		                    "freigegeben":
-		                    Datens&#228;tze im Status "freigegeben" sind &#246;ffentlich
-		                    sichtbar.
-		                    &#196;nderungen k&#246;nnen von Ihnen und dem Moderator vorgenommen werden.
+		                    <b>"freigegeben":</b> Datens&#228;tze im Status "freigegeben" sind &#246;ffentlich
+		                    sichtbar. &#196;nderungen k&#246;nnen von Ihnen und dem Moderator vorgenommen werden.
 		                </li>
 		                <li>
-		                    "zur&#252;ckgezogen":
-		                    Datens&#228;tze
-		                    im Status "zur&#252;ckgezogen" sind nicht mehr &#252;ber die
-		                    Suche oder
-		                    &#252;ber die Organisationen einsehbar. Sie k&#246;nnen
-		                    lediglich von
-		                    Ihnen als Ersteller eingesehen werden oder wenn die genaue URL zu dem
-		                    Datensatz eingegeben wird.
+		                    <b>"zur&#252;ckgezogen":</b> Datens&#228;tze im Status "zur&#252;ckgezogen" sind 
+		                    nicht mehr &#252;ber die Suche oder &#252;ber die Organisationen einsehbar. Sie 
+		                    k&#246;nnen lediglich von Ihnen als Ersteller eingesehen werden oder wenn die 
+		                    genaue URL zu dem Datensatz eingegeben wird.
 		                </li>
 		                <li>
-		                    "in &#220;berarbeitung": dieser
-		                    Status kommt nur im Standard Workflow vor. Dies sind
-		                    Datens&#228;tze,
-		                    die der Moderator zur &#220;berarbeitung an Sie
-		                    zur&#252;ckgeschickt
-		                    hat. Achtung, vergessen Sie bitte nicht die Datens&#228;tze wieder 
-		                    einzustellen, wenn Sie mit der &#220;berarbeitung fertig sind! 
+		                    <b>"in &#220;berarbeitung":</b> dieser Status kommt nur im Standard Workflow vor. 
+		                    Dies sind Datens&#228;tze, die der Moderator zur &#220;berarbeitung an Sie 
+		                    zur&#252;ckgeschickt hat. Achtung, vergessen Sie bitte nicht die Datens&#228;tze 
+		                    wieder einzustellen, wenn Sie mit der &#220;berarbeitung fertig sind! 
 		                </li>
 		            </ul>
+		            
 		            <h4><span class="titlemark">6.1.2.</span><a name="Datens&#228;tze_Sortieren">Datens&#228;tze Sortieren</a></h4>
 		            <p class="noindent">
-		                Hier k&#246;nnen Sie das
-		                Sortierkriterium Ihrer Liste &#228;ndern.
-		                Dar&#252;ber hinaus k&#246;nnen Sie angeben, ob die Liste
-		                aufsteigend oder absteigend 
-		                sortiert werden soll. 
+		                Hier k&#246;nnen Sie das Sortierkriterium Ihrer Liste &#228;ndern. Dar&#252;ber hinaus 
+		                k&#246;nnen Sie angeben, ob die Liste aufsteigend oder absteigend sortiert werden soll. 
 		            </p>
 		            
 		            <h3><span class="titlemark">6.2.</span><a name="Qualit&#228;tssicherung">Qualit&#228;tssicherungs Bereich</a></h3>
 		            <p class="noindent">
-		                Im Qualit&#228;tssicherungs
-		                Bereich werden alle Daten
-		                angezeigt, die f&#252;r den Moderator relevant sind.
-		                Datens&#228;tze in Status
-		                &#34;eingestellt&#34; m&#252;ssen noch
-		                &#252;berpr&#252;ft werden. Der Moderator kann die
-		                Datens&#228;tze
-		                dann entweder akzeptieren (f&#252;r die &#246;ffentliche Sicht
-		                freischalten) oder an den
-		                Depositor zur &#220;berarbeitung zur&#252;ckschicken
-		                ("zum
-		                Bearbeiten schicken").
+		                Im Qualit&#228;tssicherungs Bereich werden alle Daten angezeigt, die f&#252;r den Moderator relevant sind. 
+		                Datens&#228;tze in Status &#34;eingestellt&#34; m&#252;ssen noch &#252;berpr&#252;ft werden. Der Moderator 
+		                kann die Datens&#228;tze dann entweder akzeptieren (f&#252;r die &#246;ffentliche Sicht freischalten) oder 
+		                an den Depositor zur &#220;berarbeitung zur&#252;ckschicken ("zum Bearbeiten schicken").
 		            </p>
 		            <p class="noindent">
-		                Bitte beachten Sie, dass das oben
-		                Genannte nur
-		                f&#252;r den Standard Workflow gilt. Im Simple Workflow gibt es
-		                keine
-		                Datens&#228;tze im Status "eingestellt".
+		                Bitte beachten Sie, dass das oben Genannte nur f&#252;r den Standard Workflow gilt. Im Simple Workflow 
+		                gibt es keine Datens&#228;tze im Status "eingestellt".
 		            </p>
+		            
 		            <h4><span class="titlemark">6.2.1.</span><a name="Status_eines_Datensatzes_QA">Status eines Datensatzes</a></h4>
 		            <p class="noindent">
-		                Bitte klicken Sie auf "Filter"
-		                und &#246;ffnen&#160;die
-		                pull-down Liste, wenn Sie Datens&#228;tze in
-		                einem anderen Status angezeigt bekommen m&#246;chten. Folgende
-		                Statusangaben sind m&#246;glich:
+		                Bitte klicken Sie auf "Filter" und &#246;ffnen die pull-down Liste, wenn Sie Datens&#228;tze in 
+		                einem anderen Status angezeigt bekommen m&#246;chten. Folgende Statusangaben sind m&#246;glich:
 		            </p>
 		            <ul>
 		                <li>
-		                    "eingestellt":
-		                    Dieser
-		                    Status kommt nur im Standard Workflow vor. Dies sind
-		                    Datens&#228;tze,
-		                    die von Ihnen noch &#252;berpr&#252;ft werden m&#252;ssen.
-		                    Sie
-		                    k&#246;nnen dann entweder den Datensatz selbst editieren und
-		                    f&#252;r
-		                    die &#246;ffentliche Sicht freischalten oder an den Depositor zur
-		                    &#220;berarbeitung zur&#252;ckschicken.&#160;
+		                    <b>"eingestellt":</b> Dieser Status kommt nur im Standard Workflow vor. Dies sind Datens&#228;tze, 
+		                    die von Ihnen noch &#252;berpr&#252;ft werden m&#252;ssen. Sie k&#246;nnen dann entweder den 
+		                    Datensatz selbst editieren und f&#252;r die &#246;ffentliche Sicht freischalten oder an den 
+		                    Depositor zur &#220;berarbeitung zur&#252;ckschicken.
 		                </li>
 		                <li>
-		                    "freigegeben":
-		                    Datens&#228;tze im
-		                    Status "freigegeben" sind
-		                    &#246;ffentlich sichtbar und k&#246;nnen
-		                    von Ihnen bei Bedarf noch ver&#228;ndert werden.
+		                    <b>"freigegeben":</b> Datens&#228;tze im Status "freigegeben" sind &#246;ffentlich sichtbar und 
+		                    k&#246;nnen von Ihnen bei Bedarf noch ver&#228;ndert werden.
 		                </li>
 		                <li>
-		                    "in
-		                    &#220;berarbeitung": Dieser
-		                    Status kommt nur im Standard Workflow vor. Dies sind
-		                    Datens&#228;tze,
-		                    die Sie an den Depositor zur &#220;berarbeitung
-		                    zur&#252;ckgeschickt
-		                    haben.
+		                    <b>"in &#220;berarbeitung":</b> Dieser Status kommt nur im Standard Workflow vor. Dies sind 
+		                    Datens&#228;tze, die Sie an den Depositor zur &#220;berarbeitung zur&#252;ckgeschickt haben.
 		                </li>
 		            </ul>
+		            
 		            <h4><span class="titlemark">6.2.2.</span><a name="Datens&#228;tze_sortieren_QA">Datens&#228;tze Sortieren</a></h4>
-		            <p class="MsoNormal">
-		                Hier k&#246;nnen Sie das
-		                Sortierkriterium Ihrer Liste &#228;ndern.
-		                Dar&#252;ber hinaus k&#246;nnen Sie angeben, ob die Liste
-		                aufsteigend oder absteigend
-		                sortiert werden soll.
+		            <p class="noindent">
+		                Hier k&#246;nnen Sie das Sortierkriterium Ihrer Liste &#228;ndern. Dar&#252;ber hinaus k&#246;nnen Sie 
+		                angeben, ob die Liste aufsteigend oder absteigend sortiert werden soll.
 		            </p>
 		            
-		            <h3><span class="titlemark">6.3.</span><a name="Import Bereich">Import Bereich</a></h3>
+		            <h3 id="ImportWorkspace"><span class="titlemark">6.3.</span><a name="Import%20Bereich">Import Bereich</a></h3>
 		            <p class="noindent">
-		                Im Import Bereich k&#246;nnen
-		                Sie sich den Status Ihrer Importe nachverfolgen und
-		                Stapelverarbeitungen vornehmen, wie z.B. alle Datens&#228;tze, die
-		                Sie importiert haben auf einmal freischalten. Mit dem
-		                &#34;Entfernen&#34;-Button k&#246;nnen Sie den Import l&#246;schen
-		                &#8211; ohne gleichzeitig die importierten Datensauml;tze zu
-		                l&#246;schen. Mit dem &#34;L&#246;schen"-Button werden die
-		                Datens&#228;tze gel&#246;scht, sofern sie sich noch im Status "pending"
-		                befinden.
+		                Im Import Bereich k&#246;nnen Sie sich den Status Ihrer Importe nachverfolgen und 
+		                Stapelverarbeitungen vornehmen, wie z.B. alle Datens&#228;tze, die 
+		                Sie importiert haben auf einmal freischalten. Mit dem &#34;Entfernen&#34;-Button 
+		                k&#246;nnen Sie den Import l&#246;schen &#8211; ohne gleichzeitig die importierten 
+		                Datensauml;tze zu l&#246;schen. Mit dem &#34;L&#246;schen"-Button werden die 
+		                Datens&#228;tze gel&#246;scht, sofern sie sich noch im Status "pending" befinden.
 		            </p>
 		        </div>
 		    </body>
