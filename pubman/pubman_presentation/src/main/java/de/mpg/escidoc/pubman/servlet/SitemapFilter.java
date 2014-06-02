@@ -43,7 +43,7 @@ public class SitemapFilter implements Filter {
 			HttpServletResponse resp = (HttpServletResponse) response;
 			String filename = req.getServletPath(); 
 			
-			if(filename!=null && filename.matches("/sitemap\\d*\\.xml"))
+			if(filename!=null && filename.matches("^/sitemap\\d*\\.xml$"))
 			{
 				
 				File sitemapFile = new File(SiteMapTask.SITEMAP_PATH + filename);
