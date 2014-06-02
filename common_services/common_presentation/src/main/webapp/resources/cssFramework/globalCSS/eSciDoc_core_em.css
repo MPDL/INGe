@@ -4004,6 +4004,7 @@ option {	/* fix for FF2 and floating contents */
 
 /**
  * HELPPAGE DEFINITION
+ * see page eSciDoc_help_de.jsp, eSciDoc_help_en.jsp
  */
 body#helppage {
 	width: 96%;
@@ -4027,6 +4028,11 @@ body#helppage h5 {
 body#helppage h6 {
 	font-size: 107%;
 }
+
+body#helppage b {
+	font-weight: bold;
+}
+
 body#helppage ul {
 	list-style: none;
 	max-width: 70em;
