@@ -714,7 +714,7 @@ body .wrapper {
 	cursor:default;
 }
 .fullItem li  {
-    border-top-color: #C9C9C9;
+    border-top-color: #B0B1B1;
 }
 .fullItem .itemHeadline b {
     font-size: 16px !important;
@@ -800,7 +800,7 @@ body .wrapper {
 	color: #B0B1B1;
 }
 .itemBlock .itemLine {
-	border-top-color: #C9C9C9;
+	border-top-color: #B0B1B1;
 }
 .itemBlock .newBlock { /*short line color*/
 	border-top-color: #CFD1D1;	
