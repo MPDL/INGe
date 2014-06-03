@@ -3997,3 +3997,59 @@ option {	/* fix for FF2 and floating contents */
 	background-position: center 35%;
 	z-index: 2001;
 }
+
+
+
+
+
+/**
+ * HELPPAGE DEFINITION
+ * see page eSciDoc_help_de.jsp, eSciDoc_help_en.jsp
+ */
+body#helppage {
+	width: 96%;
+	margin: 0 auto 2em auto;
+}
+body#helppage h1 {
+	font-size: 142%;
+}
+body#helppage h2 {
+	font-size: 135%;
+}
+body#helppage h3 {
+	font-size: 129% !important;
+}
+body#helppage h4 {
+	font-size: 123%;
+}
+body#helppage h5 {
+	font-size: 115%;
+}
+body#helppage h6 {
+	font-size: 107%;
+}
+
+body#helppage b {
+	font-weight: bold;
+}
+
+body#helppage ul {
+	list-style: none;
+	max-width: 70em;
+}
+
+body#helppage ol ul {
+	padding-left: 1em;
+}
+body#helppage ol ul li {
+	font-style: italic;
+}
+body#helppage p {
+	max-width: 70em;
+}
+body#helppage .titlemark {
+	margin-right: 0.272727em;
+}
+body#helppage .nobreak {
+	white-space: nowrap;
+}

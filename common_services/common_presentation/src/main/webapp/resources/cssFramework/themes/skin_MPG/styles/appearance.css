@@ -714,7 +714,7 @@ body .wrapper {
 	cursor:default;
 }
 .fullItem li  {
-    border-top-color: #C9C9C9;
+    border-top-color: #B0B1B1;
 }
 .fullItem .itemHeadline b {
     font-size: 16px !important;
@@ -800,7 +800,7 @@ body .wrapper {
 	color: #B0B1B1;
 }
 .itemBlock .itemLine {
-	border-top-color: #C9C9C9;
+	border-top-color: #B0B1B1;
 }
 .itemBlock .newBlock { /*short line color*/
 	border-top-color: #CFD1D1;	
@@ -977,17 +977,18 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 	padding-bottom: 0.10em;
 }
 .cancelButton:hover {
-	color: #012846;
-	border-right-color: #012846;
-	border-bottom-color: #012846;
-	text-decoration:underline;
+	color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-bottom-color: #FFFFFF;
+	text-decoration: underline;
+	background-color: #012846;
 }
 .activeButton {
 	float: right;
-	color: #FFFFFF !important;
+	color: #FFFFFF;
 	border-top:0 !important;
 	border-left:0 !important;
-	background-color:#006F7B !important;
+	background-color:#006F7B;
 	border-color: #004465;
 	border-style: solid;
 	padding-top: 0.10em;
@@ -995,12 +996,11 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 }
 .activeButton:hover {
 	text-decoration:underline;
-/*	color: #FFFFFF;
-	background-color: #004465;*/
+	background-color: #012846;
 }
 .activeButton.disabled {
 	background-color:#888B8B !important;
-	cursor:auto; 
+	cursor:auto;
 }
 .activeButton.disabled:hover {
 	text-decoration:none;
