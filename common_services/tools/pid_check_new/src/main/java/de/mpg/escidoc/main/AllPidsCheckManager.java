@@ -14,59 +14,56 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.io.FileUtils;
 
 import de.mpg.escidoc.handler.LdhSrwSearchResponseHandler;
-import de.mpg.escidoc.util.LocatorCheckStatistic;
+import de.mpg.escidoc.util.AllPidsCheckStatistic;
 import de.mpg.escidoc.util.Statistic;
 
-public class LdhCheckManager extends AbstractConsistencyCheckManager implements IConsistencyCheckManager
-{
-    private LocatorCheckStatistic statistic;
+public class AllPidsCheckManager extends AbstractConsistencyCheckManager implements IConsistencyCheckManager{
 
-    private static String queryForLocators = 
-            "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"escidoc:persistent4\" AND ((escidoc.context.objid=\"escidoc:37005\") AND (escidoc.component.content.storage=\"external-url\") )";
+	private AllPidsCheckStatistic statistic;
+
+    private static String queryForPids = 
+            "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"escidoc:persistent4\"";
  
-    // query for dev
-    /*private static String queryForLocators = 
-            "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"escidoc:2001\" AND ((escidoc.context.objid=\"escidoc:171002\") AND (escidoc.component.content.storage=\"external-url\") )";
-*/
-    
-    public LdhCheckManager()
+    public AllPidsCheckManager()
     {
-        super.init();
-        statistic = new LocatorCheckStatistic();
+    	super.init();
+        statistic = new AllPidsCheckStatistic();
     }
-
-    @Override
-    public void createOrCorrectList(List<String> objects) throws Exception
-    {
-        objects = this.searchForLocators();
+    
+	@Override
+	public void createOrCorrectList(List<String> objects) throws Exception 
+	{
+		objects = this.searchForPids();
         
-        statistic = new LocatorCheckStatistic();
-        statistic.setLocatorsTotal(objects.size());
+        statistic = new AllPidsCheckStatistic();
+        statistic.setObjectsTotal(objects.size());
         
-        File allLocators = new File("./allLocators.txt");
+        File allLocators = new File("./allPids.txt");
        
         FileUtils.writeLines(allLocators, objects);      
-    }
+		
+	}
 
-    @Override
-    protected void doResolve(String object)
-    {
-        pidProvider.checkToResolveLocator(object, (LocatorCheckStatistic)getStatistic());
-    }
-    
-    @Override
-    protected Statistic getStatistic()
-    {
-        return this.statistic;
-    }
-    
-    private List<String> searchForLocators() throws Exception
-    {
-        List<String> locators = new ArrayList<String>();
+	@Override
+	protected void doResolve(String object) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected Statistic getStatistic() 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private List<String> searchForPids() throws Exception
+	{
+        List<String> pids = new ArrayList<String>();
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType(); 
         
         searchRetrieveRequest.setVersion("1.1");
-        searchRetrieveRequest.setQuery(queryForLocators);
+        searchRetrieveRequest.setQuery(queryForPids);
         searchRetrieveRequest.setRecordPacking("xml");
         
         logger.info("searchRetrieveRequest query <" + searchRetrieveRequest.getQuery() + ">");
@@ -85,11 +82,12 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
         
         if (searchResult.getNumberOfRecords().intValue() > 0)
         {
+        	File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pids");
+            
             try
             {
                 SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
                 LdhSrwSearchResponseHandler ldhSearchresponseHandler = new LdhSrwSearchResponseHandler();
-                File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "srw");
                 
                 for (int i = 0; i < searchResult.getNumberOfRecords().intValue(); i++)
                 { 
@@ -97,7 +95,7 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
                     FileUtils.writeStringToFile(tmp, searchResult.getRecords().getRecord(i).getRecordData().get_any()[0].getAsString(), "UTF-8");
                     parser.parse(tmp, ldhSearchresponseHandler);
                     
-                    locators.addAll(ldhSearchresponseHandler.getLocators());
+                    pids.addAll(ldhSearchresponseHandler.getLocators());
                 }
             }
             catch (Exception e)
@@ -105,8 +103,13 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            finally
+            {
+            	FileUtils.deleteQuietly(tmp);
+            	
+            }
         }
-       return locators;
-    }
+       return pids;
+	}
 
 }

@@ -8,4 +8,9 @@ public class Statistic
     {
         this.objectsTotal++;
     }
+    
+    public void setObjectsTotal(int total)
+    {
+    	this.objectsTotal = total;
+    }
 }
