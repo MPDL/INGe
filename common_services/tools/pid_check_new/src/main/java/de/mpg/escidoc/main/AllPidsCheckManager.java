@@ -1,19 +1,18 @@
 package de.mpg.escidoc.main;
 
-import gov.loc.www.zing.srw.SearchRetrieveRequestType;
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
+import gov.loc.www.zing.srw.ScanRequestType;
+import gov.loc.www.zing.srw.ScanResponseType;
+import gov.loc.www.zing.srw.TermType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
+import org.apache.axis.types.NonNegativeInteger;
+import org.apache.axis.types.PositiveInteger;
 import org.apache.commons.io.FileUtils;
 
-import de.mpg.escidoc.handler.LdhSrwSearchResponseHandler;
 import de.mpg.escidoc.util.AllPidsCheckStatistic;
 import de.mpg.escidoc.util.Statistic;
 
@@ -21,9 +20,13 @@ public class AllPidsCheckManager extends AbstractConsistencyCheckManager impleme
 
 	private AllPidsCheckStatistic statistic;
 
-    private static String queryForPids = 
-            "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"escidoc:persistent4\"";
- 
+    private static String scanClauses[] = {
+    	"escidoc.property.latest-release.pid=\"xxx\"",
+    	"escidoc.property.pid=\"xxx\"", 
+    	"escidoc.property.version.pid=\"xxx\"", 
+    	"escidoc.compnent.pid=\"xxx\""
+    };
+    
     public AllPidsCheckManager()
     {
     	super.init();
@@ -31,16 +34,14 @@ public class AllPidsCheckManager extends AbstractConsistencyCheckManager impleme
     }
     
 	@Override
-	public void createOrCorrectList(List<String> objects) throws Exception 
+	public void createOrCorrectSet(Set<String> objects) throws Exception 
 	{
 		objects = this.searchForPids();
         
         statistic = new AllPidsCheckStatistic();
         statistic.setObjectsTotal(objects.size());
-        
-        File allLocators = new File("./allPids.txt");
        
-        FileUtils.writeLines(allLocators, objects);      
+        FileUtils.writeLines(new File("./allPids.txt"), objects);      
 		
 	}
 
@@ -57,59 +58,70 @@ public class AllPidsCheckManager extends AbstractConsistencyCheckManager impleme
 		return null;
 	}
 	
-	private List<String> searchForPids() throws Exception
+	private Set<String> searchForPids() throws Exception
 	{
-        List<String> pids = new ArrayList<String>();
-        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType(); 
+        Set<String> pids = new HashSet<String>();
+        String lastTerm = "", veryLastTerm = "";
         
-        searchRetrieveRequest.setVersion("1.1");
-        searchRetrieveRequest.setQuery(queryForPids);
-        searchRetrieveRequest.setRecordPacking("xml");
-        
-        logger.info("searchRetrieveRequest query <" + searchRetrieveRequest.getQuery() + ">");
-        
-        searchHandler.searchRetrieveOperation(searchRetrieveRequest);
-        
-        SearchRetrieveResponseType searchResult = searchHandler.searchRetrieveOperation(searchRetrieveRequest);
-        if (searchResult.getDiagnostics() != null)
-        {
-             // something went wrong
-            for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
-            {
-                    logger.info("diagnostic <" + diagnostic.getDetails() + ">");
-            }
-        }
-        
-        if (searchResult.getNumberOfRecords().intValue() > 0)
-        {
-        	File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pids");
-            
-            try
-            {
-                SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-                LdhSrwSearchResponseHandler ldhSearchresponseHandler = new LdhSrwSearchResponseHandler();
-                
-                for (int i = 0; i < searchResult.getNumberOfRecords().intValue(); i++)
-                { 
-                    ldhSearchresponseHandler = new LdhSrwSearchResponseHandler();
-                    FileUtils.writeStringToFile(tmp, searchResult.getRecords().getRecord(i).getRecordData().get_any()[0].getAsString(), "UTF-8");
-                    parser.parse(tmp, ldhSearchresponseHandler);
-                    
-                    pids.addAll(ldhSearchresponseHandler.getLocators());
-                }
-            }
-            catch (Exception e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            finally
-            {
-            	FileUtils.deleteQuietly(tmp);
-            	
-            }
-        }
+		for (String scanClause : scanClauses)
+		{
+
+			ScanRequestType scanRequest = new ScanRequestType();
+
+			scanRequest.setVersion("1.1");
+			scanRequest.setResponsePosition(new NonNegativeInteger("0"));
+			scanRequest.setMaximumTerms(new PositiveInteger("10000"));
+			
+			lastTerm = ""; veryLastTerm = "";
+
+			do
+			{
+				lastTerm = veryLastTerm;
+				scanRequest.setScanClause(scanClause.replace("xxx", lastTerm));
+
+				ScanResponseType scanResponse = searchHandler.scanOperation(scanRequest);
+	
+				if (scanResponse.getDiagnostics() != null)
+				{
+					// something went wrong
+					for (DiagnosticType diagnostic : scanResponse
+							.getDiagnostics().getDiagnostic())
+					{
+						logger.info("diagnostic <" + diagnostic.getDetails() + ">");		
+					}
+
+					return pids;
+				}
+
+				if (scanResponse.getTerms() != null)
+				{
+					TermType[] term = scanResponse.getTerms().getTerm();
+
+					if (term == null)
+						break;
+					int i;
+					String value = "";
+					for (i = 0; i < term.length; i++)
+					{
+						value = term[i].getValue().toString();
+						NonNegativeInteger number = term[i].getNumberOfRecords();
+								
+						if (!number.equals(new NonNegativeInteger("1")))
+						{
+							logger.warn("Handle <" + value + "> occurs <"
+									+ number.toString() + "> times!");
+						}
+
+						pids.add(value);
+
+					}
+					logger.info("found <" + i + "> handles for <" + scanClause);		
+					veryLastTerm = value;
+				}
+			} while (!lastTerm.equals(veryLastTerm));
+
+		}
+
        return pids;
 	}
-
 }

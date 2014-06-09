@@ -6,7 +6,9 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,7 +38,7 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
     }
 
     @Override
-    public void createOrCorrectList(List<String> objects) throws Exception
+    public void createOrCorrectSet(Set<String> objects) throws Exception
     {
         objects = this.searchForLocators();
         
@@ -60,9 +62,9 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
         return this.statistic;
     }
     
-    private List<String> searchForLocators() throws Exception
+    private Set<String> searchForLocators() throws Exception
     {
-        List<String> locators = new ArrayList<String>();
+        Set<String> locators = new HashSet<String>();
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType(); 
         
         searchRetrieveRequest.setVersion("1.1");

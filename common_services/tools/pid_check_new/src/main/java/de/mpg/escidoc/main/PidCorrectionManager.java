@@ -7,6 +7,7 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -31,7 +32,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
         statistic = new HandleUpdateStatistic();
     }
     
-    public void createOrCorrectList(List<String> pids) throws Exception
+    public void createOrCorrectSet(Set<String> pids) throws Exception
     {
         PidProvider pidProvider = new PidProvider();
         
