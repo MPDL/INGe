@@ -13,4 +13,9 @@ public class Statistic
     {
     	this.objectsTotal = total;
     }
+    
+    public int getObjectsTotal()
+    {
+    	return this.objectsTotal;
+    }
 }

@@ -13,12 +13,12 @@ import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.commons.io.FileUtils;
 
-import de.mpg.escidoc.util.AllPidsCheckStatistic;
+import de.mpg.escidoc.util.HandleUpdateStatistic;
 import de.mpg.escidoc.util.Statistic;
 
 public class AllPidsCheckManager extends AbstractConsistencyCheckManager implements IConsistencyCheckManager{
 
-	private AllPidsCheckStatistic statistic;
+	private HandleUpdateStatistic statistic;
 
     private static String scanClauses[] = {
     	"escidoc.property.latest-release.pid=\"xxx\"",
@@ -27,35 +27,35 @@ public class AllPidsCheckManager extends AbstractConsistencyCheckManager impleme
     	"escidoc.compnent.pid=\"xxx\""
     };
     
-    public AllPidsCheckManager()
+    public AllPidsCheckManager() throws Exception
     {
     	super.init();
-        statistic = new AllPidsCheckStatistic();
+        statistic = new HandleUpdateStatistic();
     }
     
 	@Override
+	/**
+	 * Creates a Set of all handles (object pids, version pids and component pids).
+	 */
 	public void createOrCorrectSet(Set<String> objects) throws Exception 
 	{
 		objects = this.searchForPids();
         
-        statistic = new AllPidsCheckStatistic();
         statistic.setObjectsTotal(objects.size());
        
-        FileUtils.writeLines(new File("./allPids.txt"), objects);      
-		
+        FileUtils.writeLines(new File("./allPids.txt"), objects);    
 	}
 
 	@Override
-	protected void doResolve(String object) {
-		// TODO Auto-generated method stub
-		
+	protected void doResolve(String pid) throws Exception
+	{
+		pidProvider.checkToResolvePid(pid, (HandleUpdateStatistic)getStatistic());
 	}
 
 	@Override
 	protected Statistic getStatistic() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return statistic;
 	}
 	
 	private Set<String> searchForPids() throws Exception

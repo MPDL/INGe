@@ -6,7 +6,6 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.File;
-import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
@@ -26,7 +25,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
     private SrwSearchResponseHandler srwSearchResponseHandler;
     private HandleUpdateStatistic statistic;
     
-    public PidCorrectionManager()
+    public PidCorrectionManager() throws Exception
     {
         super.init();
         statistic = new HandleUpdateStatistic();
@@ -44,7 +43,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             {    
                 try
                 {
-                    statistic.incrementHandlesTotal();
+                    statistic.incrementTotal();
                     
                     RecordType record = this.searchForPid(pid);
                     

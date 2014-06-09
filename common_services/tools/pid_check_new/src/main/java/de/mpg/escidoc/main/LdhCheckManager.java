@@ -5,9 +5,7 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
@@ -31,13 +29,16 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
             "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"escidoc:2001\" AND ((escidoc.context.objid=\"escidoc:171002\") AND (escidoc.component.content.storage=\"external-url\") )";
 */
     
-    public LdhCheckManager()
+    public LdhCheckManager() throws Exception
     {
         super.init();
         statistic = new LocatorCheckStatistic();
     }
 
     @Override
+    /**
+     * Creates a Set of all used Locators in the LDH context
+     */
     public void createOrCorrectSet(Set<String> objects) throws Exception
     {
         objects = this.searchForLocators();

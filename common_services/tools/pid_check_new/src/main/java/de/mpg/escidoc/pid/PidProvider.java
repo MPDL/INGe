@@ -124,7 +124,7 @@ public class PidProvider extends AbstractPidProvider
     
     public int checkToResolvePid(String pid, HandleUpdateStatistic statistic)
     {
-        logger.debug("checkToResolvePid startingfor <" + pid + ">");
+        logger.info("checkToResolvePid startingfor <" + pid + ">");
 
         StringBuffer b = new StringBuffer("http://hdl.handle.net/");
         b.append(pid);

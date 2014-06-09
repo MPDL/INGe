@@ -15,7 +15,7 @@ public class TestLdhCheckManager
     static LdhCheckManager ldhCheckManager = null;
     
     @BeforeClass
-    public static void init()
+    public static void init() throws Exception
     {
         ldhCheckManager = new LdhCheckManager();
     }

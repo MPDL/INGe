@@ -6,7 +6,7 @@ import java.util.Set;
 public interface IConsistencyCheckManager
 {
     /**
-     * Utility method: reads the file returns as List
+     * Utility method: reads the file returns as Set
      * 
      * @param file
      * @return
@@ -15,7 +15,7 @@ public interface IConsistencyCheckManager
     public Set<String> getObjectsToCorrect(File file) throws Exception;
     
     /**
-     * Generates the Set or modifies the objects contained
+     * Creates the Set or modifies the objects contained
      * @param pids
      * @throws Exception
      */

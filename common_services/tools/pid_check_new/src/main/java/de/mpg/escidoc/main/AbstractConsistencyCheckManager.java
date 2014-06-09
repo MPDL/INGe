@@ -4,9 +4,7 @@ import gov.loc.www.zing.srw.service.SRWPort;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -33,8 +31,10 @@ public abstract class AbstractConsistencyCheckManager
         super();
     }
     
-    protected  void init()
-    {   
+    protected  void init() throws Exception
+    {  
+    	pidProvider = new PidProvider(); 
+    	
         try
         {
             this.userHandle = AdminHelper.loginUser(
@@ -68,6 +68,8 @@ public abstract class AbstractConsistencyCheckManager
     public void verifySet(Set<String> objects) throws Exception
     {    
         pidProvider = new PidProvider();
+        
+        getStatistic().setObjectsTotal(objects.size());
         
         try
         {
@@ -107,7 +109,7 @@ public abstract class AbstractConsistencyCheckManager
      */    
     abstract public void createOrCorrectSet(Set<String> pids) throws Exception;
     
-    abstract protected void doResolve(String object);
+    abstract protected void doResolve(String object) throws Exception;
     
     abstract protected Statistic getStatistic();
 
@@ -131,15 +133,15 @@ public abstract class AbstractConsistencyCheckManager
         String checkClass = PropertyReader.getProperty("escidoc.pid_check.consistencycheck.implementation.class");
         IConsistencyCheckManager manager = (IConsistencyCheckManager)(Class.forName(checkClass)).newInstance();
         
-        Set<String> pidsToCorrect = manager.getObjectsToCorrect(new File(pidFileName));
+        Set<String> pids = manager.getObjectsToCorrect(new File(pidFileName));
         
         if (mode.contains("update"))
         {            
-            manager.createOrCorrectSet(pidsToCorrect);
+            manager.createOrCorrectSet(pids);
         }
         if (mode.contains("verify"))
         {   
-            manager.verifySet(pidsToCorrect);
+            manager.verifySet(pids);
         }
     }
 }

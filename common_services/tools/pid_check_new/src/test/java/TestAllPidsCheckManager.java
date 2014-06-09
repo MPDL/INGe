@@ -14,7 +14,7 @@ public class TestAllPidsCheckManager
 	static AllPidsCheckManager allPidsCheckManager = null;
     
     @BeforeClass
-    public static void init()
+    public static void init() throws Exception 
     {
     	allPidsCheckManager = new AllPidsCheckManager();
     }
