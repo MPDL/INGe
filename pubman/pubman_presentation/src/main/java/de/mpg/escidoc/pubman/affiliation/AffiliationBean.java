@@ -12,6 +12,10 @@ import javax.faces.event.ActionEvent;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hslf.record.ParentAwareRecord;
+import org.primefaces.event.NodeExpandEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -46,6 +50,8 @@ public class AffiliationBean extends FacesBean
     private String source = null;
     private Object cache = null;
     private long timestamp;
+    
+    private TreeNode rootTreeNode;
 
     private static final String PROPERTY_CONTENT_MODEL =
         "escidoc.framework_access.content-model.id.publication";
@@ -58,6 +64,17 @@ public class AffiliationBean extends FacesBean
         //tree = new ChildPropertyTreeModel(getAffiliations(), "children");
         timestamp = new Date().getTime();
         this.setTopLevelAffs(getTopLevelAffiliations());
+        
+        
+        rootTreeNode = new DefaultTreeNode("Root", null);
+    	for(AffiliationVOPresentation aff : getAffiliations())
+    	{
+    		TreeNode affNode = new DefaultTreeNode(aff, rootTreeNode);
+    		affNode.setSelectable(false);
+    		loadChildTreeNodes(affNode);
+    	}
+        
+        
     }
 
     /*
@@ -135,6 +152,7 @@ public class AffiliationBean extends FacesBean
 
     public String startSearch()
     {
+    	System.out.println("AFFILIATION START SEARCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if ("EditItem".equals(source))
         {
             setAffiliationsPath();
@@ -250,6 +268,57 @@ public class AffiliationBean extends FacesBean
     {
         return ((AffiliationTree) getSessionBean(AffiliationTree.class)).getAffiliations();
     }
+    
+    public TreeNode getRootTreeNode()
+    {
+
+    	return rootTreeNode;
+    }
+    
+	public void setRootTreeNode(TreeNode rootTreeNode) {
+		this.rootTreeNode = rootTreeNode;
+	}
+    
+    
+    public void onNodeExpand(NodeExpandEvent event) {  
+		//System.out.println("OnNodeExpand!!!!" + ((AffiliationVOPresentation)event.getTreeNode().getData()).getName());
+    	List<TreeNode> children = event.getTreeNode().getChildren();
+    	
+    	if(children!=null)
+		{
+			for(TreeNode childAff : children)
+			{
+				loadChildTreeNodes(childAff);
+			
+			}
+		}
+		
+			
+   }
+    
+    private void loadChildTreeNodes(TreeNode parent)
+    {
+    	try {
+			//parent.getChildren().clear();
+			
+			AffiliationVOPresentation parentAff = (AffiliationVOPresentation)parent.getData();
+			
+			List<AffiliationVOPresentation> childList = parentAff.getChildren();
+			if(childList!=null)
+			{
+				for(AffiliationVOPresentation childAff : childList)
+				{
+					//System.out.println("Loading aff " + childAff.getName());
+					TreeNode childNode = new DefaultTreeNode(childAff, parent);
+					childNode.setSelectable(false);
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			logger.error("Error while loading child affiliations", e);
+		}
+    }
 
     /**
      * Searches Items by Affiliation.
@@ -346,4 +415,6 @@ public class AffiliationBean extends FacesBean
     {
         this.topLevelAffs = topLevelAffs;
     }
+
+
 }

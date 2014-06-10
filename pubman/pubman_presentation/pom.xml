@@ -123,8 +123,8 @@
 									<tasks>
 										<delete file="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
 										<delete file="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
-										<copy file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedIn.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
-										<copy file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedOut.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
+										<copy file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedIn.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" encoding="UTF-8" outputencoding="UTF-8"/>
+										<copy file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedOut.jspf" tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" encoding="UTF-8" outputencoding="UTF-8"/>
 										<!--  delete dir="${project.build.directory}/main/webapp/home/mpg"/-->
 									</tasks>
 								</configuration>
@@ -319,16 +319,33 @@
 			<version>3.0.1</version>
 			<scope>compile</scope>
 		</dependency>
+<!--
 		<dependency>
 			<groupId>org.richfaces.ui</groupId>
-			<artifactId>richfaces-ui</artifactId>
-			<version>3.3.4.Final</version>
+			<artifactId>richfaces-components-ui</artifactId>
+			<version>4.3.7.Final</version>
 		</dependency>
 		<dependency>
-			<groupId>org.richfaces.framework</groupId>
-			<artifactId>richfaces-impl</artifactId>
-			<version>3.3.4.Final</version>
+			<groupId>org.richfaces.core</groupId>
+			<artifactId>richfaces-core-impl</artifactId>
+			<version>4.3.7.Final</version>
 	    </dependency>
+	    
+	    <dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+	    </dependency>
+	    
+	    -->
+	    
+	  
+	  	<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.0</version>
+		</dependency>
+	    
 	    <dependency>
 		  <groupId>org.apache.tika</groupId>
 		  <artifactId>tika-core</artifactId>
@@ -345,26 +362,29 @@
 			<version>1.2.14</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>jstl</artifactId>
 		    <version>1.2</version>
 		    <scope>provided</scope>
 		</dependency>
-		
+		-->
 		<dependency>
 		  <groupId>javax.faces</groupId>
-		  <artifactId>jsf-api</artifactId>
-		  <version>1.2_09</version>
+		  <artifactId>javax.faces-api</artifactId>
+		  <version>2.2</version>
 		  <scope>provided</scope>
 		</dependency>
-
+ 
 		<dependency>
-		  <groupId>javax.faces</groupId>
+		  <groupId>com.sun.faces</groupId>
 		  <artifactId>jsf-impl</artifactId>
-		  <version>1.2_09</version>
+		  <version>2.2.5</version>
 		  <scope>provided</scope>
 		</dependency>
+		
+
 
 		
 		<dependency>

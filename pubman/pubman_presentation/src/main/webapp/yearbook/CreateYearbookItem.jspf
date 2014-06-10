@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -67,12 +64,12 @@
 						<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline" id="contextGroup">	
-						<a4j:repeat var="context" value="#{YearbookItemCreateBean.contextIds}" rowKeyVar="index">
+						<ui:repeat var="context" value="#{YearbookItemCreateBean.contextIds}" varStatus="index">
 							<h:panelGroup styleClass="xHuge_area0 endline multipleAjax">
 								<div class="xHuge_area0 endline selectContainer">
 									<div class="xHuge_area0">
-										<span class="xHuge_area0 selectionBox">&nbsp;</span>
-										<div class="min_imgArea selectboxIcon">&nbsp;</div>
+										<span class="xHuge_area0 selectionBox">&#160;</span>
+										<div class="min_imgArea selectboxIcon">&#160;</div>
 									</div>
 									<h:selectOneMenu styleClass="xDouble_select" value="#{context.objectId}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
 										<f:selectItems value="#{YearbookItemCreateBean.contextSelectItems}"/>
@@ -81,13 +78,13 @@
 							</h:panelGroup>
 							<h:panelGroup styleClass="large_area0_p8 lineToolSection">
 								<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{YearbookItemCreateBean.addContext}" >
-									<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+									<f:setPropertyActionListener value="#{index.index}" target="#{YearbookItemCreateBean.contextPosition}"/>
 								</h:commandButton>
 								<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " action="#{YearbookItemCreateBean.removeContext}" rendered="#{YearbookItemCreateBean.contextIdsListSize>1}">
-									<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+									<f:setPropertyActionListener value="#{index.index}" target="#{YearbookItemCreateBean.contextPosition}"/>
 								</h:commandButton>
 							</h:panelGroup>
-						</a4j:repeat>
+						</ui:repeat>
 					</span>
 				</h:panelGroup>
 				
@@ -102,8 +99,8 @@
 										<h:panelGroup styleClass="small_area0 tiny_marginRIncl">
 											<div class="small_area0 endline selectContainer">
 												<div class="small_area0">
-													<span class="small_area0 selectionBox">&nbsp;</span>
-													<div class="min_imgArea selectboxIcon">&nbsp;</div>
+													<span class="small_area0 selectionBox">&#160;</span>
+													<div class="min_imgArea selectboxIcon">&#160;</div>
 												</div>
 												<h:selectOneMenu styleClass="small_select" id="selectYear" value="#{YearbookItemCreateBean.year}" onfocus="updateSelectionBox(this);">
 													<a4j:support event="onchange" reRender="titleGroup, dateGroup" oncomplete="updateSelectionBox(this);"/>
@@ -122,12 +119,12 @@
 											</h:panelGroup>
 										</h:panelGroup>
 									</span>
-									<%-- 
+									<!-- 
 									<span class="large_area0_p8 lineToolSection">
 										<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 										<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 									</span>
-									--%>
+									-->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -142,8 +139,8 @@
 									</h:panelGroup>
 									
 									
-									<%-- 
-									<a4j:repeat var="coll" value="#{YearbookItemCreateBean.collaboratorUserIds}" rowKeyVar="indexUser">				
+									<!-- 
+									<ui:repeat var="coll" value="#{YearbookItemCreateBean.collaboratorUserIds}" rowKeyVar="indexUser">				
 										<h:panelGroup>
 											<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 												<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{coll.objectId}">
@@ -159,9 +156,11 @@
 												</h:commandButton>
 											</h:panelGroup>
 										</h:panelGroup>
-									</a4j:repeat>
-									--%>
+									</ui:repeat>
+									-->
 
 								</h:panelGroup>
 							</span>
 						</h:panelGroup>
+						
+</ui:composition>

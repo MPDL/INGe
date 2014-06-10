@@ -34,7 +34,6 @@ package de.mpg.escidoc.pubman.statistics;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -46,7 +45,6 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 
 /**
@@ -69,7 +67,7 @@ public class ViewItemStatistics extends FacesBean
     private List<PubFileVOPresentation> fileList;
     
     
-    private HtmlAjaxRepeat fileIterator;
+    //private HtmlAjaxRepeat fileIterator;
    
     /** The current pub item*/
     private PubItemVO pubItem;
@@ -151,15 +149,7 @@ public class ViewItemStatistics extends FacesBean
         this.fileList = fileList;
     }
 
-    public HtmlAjaxRepeat getFileIterator()
-    {
-        return fileIterator;
-    }
-
-    public void setFileIterator(HtmlAjaxRepeat fileIterator)
-    {
-        this.fileIterator = fileIterator;
-    }
+    
 
     
     /**

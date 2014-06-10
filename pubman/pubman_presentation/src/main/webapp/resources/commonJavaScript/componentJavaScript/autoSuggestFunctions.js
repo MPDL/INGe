@@ -152,7 +152,7 @@
 		fillField('publisher', publisher, parent);
 		fillField('place', place, parent);
 		fillField('sourceIdentifierPasteField', allIDs, parent);
-		$pb(parent).find('.hiddenAutosuggestUploadBtn').click();
+		$(parent).find('.hiddenAutosuggestUploadBtn').click();
 	}
 
 	function getPersonDetails(details)
@@ -197,7 +197,7 @@
 					if (details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_eprint_terms_affiliatedInstitution.replace(/^\s*(.*\S)\s*$/, '$1') == orgName
 						&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined')
 					{
-						orgId = $pb.trim(details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier);
+						orgId = $.trim(details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier);
 						break;
 					}
 				}
@@ -231,20 +231,20 @@
 		$input.blur();
 		$input.focus();
 		fillField('personIdentifier', personId, parent, true);
-		$pb(parent).find('.removeAutoSuggestPerson').css('display', 'inline');
-		$pb(parent).find('.givenName').attr('class', 'medium_txtInput givenName');
+		$(parent).find('.removeAutoSuggestPerson').css('display', 'inline');
+		$(parent).find('.givenName').attr('class', 'medium_txtInput givenName');
 
 		if (personId != null && personId != '')
 		{
-			$pb(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 
 		// Try to disable input field
-		$pb.each($pb(parent).find('.disableAfter'),
+		$.each($(parent).find('.disableAfter'),
 				function ()
 				{
-					$pb(this).attr('readonly', 'readonly');
+					$(this).attr('readonly', 'readonly');
 				}
 		);
 		
@@ -255,11 +255,11 @@
 		var orgIdString = (orgId == null ? '' : orgId);
 		
 		
-		$pb.each($input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName'),
+		$.each($input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName'),
 			function ()
 			{
-				var otherOrgName = $pb(this).val();
-				var otherOrgId = $pb(this).siblings('.organizationIdentifier').val();
+				var otherOrgName = $(this).val();
+				var otherOrgId = $(this).siblings('.organizationIdentifier').val();
 				
 				if (orgName == otherOrgName && orgIdString == otherOrgId)
 				{
@@ -308,9 +308,9 @@
 	
 	function removeConeId(element)
 	{
-		var $input = $pb(element);
+		var $input = $(element);
 		var parent = $input.parents('.' + personSuggestCommonParentClass);
-		if ($pb(parent).find('.personIdentifier').val() != '')
+		if ($(parent).find('.personIdentifier').val() != '')
 		{
 			fillField('personIdentifier', '', parent);
 		}
@@ -319,24 +319,24 @@
 	// removes 'readonly' attributes and resets fields for autosuggest
 	function removeAuthorAutoSuggest(element)
 	{
-		var $input = $pb(element);
+		var $input = $(element);
 		var parent = $input.parent();
 		var field = null;
-		if ($pb(parent).find('.personIdentifier').val() != '')
+		if ($(parent).find('.personIdentifier').val() != '')
 		{
-			field = $pb(parent).find('.personIdentifier');
+			field = $(parent).find('.personIdentifier');
 			field.removeAttr('readonly');
 			fillField('personIdentifier', '', parent);
 		}
-		if ($pb(parent).find('.familyName').val() != '')
+		if ($(parent).find('.familyName').val() != '')
 		{	
-			field = $pb(parent).find('.familyName');
+			field = $(parent).find('.familyName');
 			field.removeAttr('readonly');
 			fillField('familyName', '', parent);
 		}
-		if ($pb(parent).find('.givenName').val() != '')
+		if ($(parent).find('.givenName').val() != '')
 		{
-			field = $pb(parent).find('.givenName');
+			field = $(parent).find('.givenName');
 			field.removeAttr('readonly');
 			fillField('givenName', '', parent);
 		}
@@ -356,24 +356,24 @@
 	// removes 'readonly' attributes and resets fields for autosuggest
 	function removeOrganizationAutoSuggest(element)
 	{
-		var $input = $pb(element);
+		var $input = $(element);
 		var parent = $input.parent();
 		var field = null;
-		if ($pb(parent).find('.organizationIdentifier').val() != '')
+		if ($(parent).find('.organizationIdentifier').val() != '')
 		{
-			field = $pb(parent).find('.organizationIdentifier');
+			field = $(parent).find('.organizationIdentifier');
 			field.removeAttr('readonly');
 			fillField('organizationIdentifier', '', parent);
 		}
-		if ($pb(parent).find('.organizationName').val() != '')
+		if ($(parent).find('.organizationName').val() != '')
 		{	
-			field = $pb(parent).find('.organizationName');
+			field = $(parent).find('.organizationName');
 			field.removeAttr('readonly');
 			fillField('organizationName', '', parent);
 		}
-		if ($pb(parent).find('.organizationAddress').val() != '')
+		if ($(parent).find('.organizationAddress').val() != '')
 		{	
-			field = $pb(parent).find('.organizationAddress');
+			field = $(parent).find('.organizationAddress');
 			field.removeAttr('readonly');
 			fillField('organizationAddress', '', parent);
 		}
@@ -389,18 +389,18 @@
 	// removes 'readonly' attributes and resets fields for autosuggest
 	function removeUserAccountAutoSuggest(element)
 	{
-		var $input = $pb(element);
+		var $input = $(element);
 		var parent = $input.parent();
 		var field = null;
-		if ($pb(parent).find('.userAccountIdentifier').val() != '')
+		if ($(parent).find('.userAccountIdentifier').val() != '')
 		{
-			field = $pb(parent).find('.userAccountIdentifier');
+			field = $(parent).find('.userAccountIdentifier');
 			field.removeAttr('readonly');
 			fillField('userAccountIdentifier', '', parent);
 		}
-		if ($pb(parent).find('.userAccountName').val() != '')
+		if ($(parent).find('.userAccountName').val() != '')
 		{	
-			field = $pb(parent).find('.userAccountName');
+			field = $(parent).find('.userAccountName');
 			field.removeAttr('readonly');
 			fillField('userAccountName', '', parent);
 		}
@@ -416,42 +416,42 @@
 	function updatePersonUi()
 	{
 		// maintain attributes for autosuggest filled persons
-		if($pb('.personIdentifier' != null))
+		if($('.personIdentifier' != null))
 		{
-			$pb('.personIdentifier').each(function(ind){
+			$('.personIdentifier').each(function(ind){
 				if (this.value) {
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.familyName').attr('readonly', 'readonly');
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('readonly', 'readonly');
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.familyName').attr('readonly', 'readonly');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('readonly', 'readonly');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
 				}
 			});
 		}
 		
 		
 		// maintain attributes for autosuggest filled organizations
-		if($pb('.organizationIdentifier' != null))
+		if($('.organizationIdentifier' != null))
 		{
-			$pb('.organizationIdentifier').each(function(ind){
+			$('.organizationIdentifier').each(function(ind){
 				if (this.value) {
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationName').attr('readonly', 'readonly');
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('readonly', 'readonly');
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
-					//$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('class', 'large_txtInput organizationAddress');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.organizationName').attr('readonly', 'readonly');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('readonly', 'readonly');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
+					//$(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('class', 'large_txtInput organizationAddress');
 				}
 			});
 		}
 		
-		f($pb('.userAccountIdentifier' != null))
+		if($('.userAccountIdentifier' != null))
 		{
-			$pb('.userAccountIdentifier').each(function(ind){
+			$('.userAccountIdentifier').each(function(ind){
 				if (this.value) {
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('readonly', 'readonly');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('readonly', 'readonly');
 
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestUserAccount').css('display', 'inline');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestUserAccount').css('display', 'inline');
 					
-					$pb(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('class', 'large_txtInput userAccountName');
+					$(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('class', 'large_txtInput userAccountName');
 				}
 			});
 		}
@@ -463,7 +463,7 @@
 	
 	function fillField(name, value, commonParent, readonly)
 	{
-		var field = $pb(commonParent).find('.' + name);
+		var field = $(commonParent).find('.' + name);
 		
 		if(field.length)
 		{
@@ -494,24 +494,24 @@
 	
 	function fillFields()
 	{
-		$input = $pb(this);
+		$input = $(this);
 		globalId = this.resultID;
-		$pb.getJSON(journalDetailsBaseURL.replace('$1', this.resultID), getJournalDetails);
+		$.getJSON(journalDetailsBaseURL.replace('$1', this.resultID), getJournalDetails);
 	}
 	
 	function fillPersonFields()
 	{
-		$input = $pb(this);
+		$input = $(this);
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
 		$input.resultLanguage = this.resultLanguage;
 		if (typeof this.resultLanguage != 'undefined')
 		{
-			$pb.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
+			$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
 		}
 		else
 		{
-			$pb.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
+			$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
 		}
 		$input.unbind('keydown');
 		$input.unbind('keypress');
@@ -519,7 +519,7 @@
 	
 	function fillOrganizationFields()
 	{
-		$input = $pb(this);
+		$input = $(this);
 		var parent = $input.parents('.' + commonParentClass);
 		fillField('organizationName', this.resultValue, parent);
 		fillField('organizationIdentifier', this.resultID, parent);
@@ -527,15 +527,15 @@
 		
 		if (this.resultID != null && this.resultID != '')
 		{
-			$pb(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 
 		// Try to disable input field
-		$pb.each($pb(parent).find('.disableAfter'),
+		$.each($(parent).find('.disableAfter'),
 				function ()
 				{
-					$pb(this).attr('readonly', 'readonly');
+					$(this).attr('readonly', 'readonly');
 				}
 		);
 		
@@ -547,7 +547,7 @@
 	
 	function fillUserAccountFields()
 	{
-		$input = $pb(this);
+		$input = $(this);
 		var parent = $input.parents('.' + commonParentClass);
 		fillField('userAccountName', this.resultValue, parent);
 		fillField('userAccountIdentifier', this.resultID, parent);
@@ -556,15 +556,15 @@
 		/*
 		if (this.resultID != null && this.resultID != '')
 		{
-			$pb(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 		*/
 		// Try to disable input field
-		$pb.each($pb(parent).find('.disableAfter'),
+		$.each($(parent).find('.disableAfter'),
 				function ()
 				{
-					$pb(this).attr('readonly', 'readonly');
+					$(this).attr('readonly', 'readonly');
 				}
 		);
 		
@@ -579,37 +579,37 @@
 		if(typeof journalSuggestURL != 'undefined')
 		{
 			//journalsuggestQuotes is used for advanced search, adds quotes around title
-			$pb('.journalSuggest, .journalSuggestQuotes').suggest(journalSuggestURL, { onSelect: fillFields});
+			$('.journalSuggest, .journalSuggestQuotes').suggest(journalSuggestURL, { onSelect: fillFields});
 		}
 	}
 	
 	function bindSuggests()
 	{
-		$pb('select.journalPulldown[value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
-		$pb('span.journalPulldown').find('input[type=hidden][value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+		$('select.journalPulldown[value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+		$('span.journalPulldown').find('input[type=hidden][value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 		
-		$pb('select.journalPulldown').change(
+		$('select.journalPulldown').change(
 				function(){
-					if($pb(this).val() == journalSuggestTrigger) {
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+					if($(this).val() == journalSuggestTrigger) {
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 					} else { 
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
-						$pb('.autoSuggestsArea').hide();
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+						$('.autoSuggestsArea').hide();
 					};
 					var t = window.setTimeout('bindJournalSuggest()', 500);
 				});
 
-		$pb('span.journalPulldown').find('input[type=hidden]').change(
+		$('span.journalPulldown').find('input[type=hidden]').change(
 				function(){
-					if($pb(this).val() == journalSuggestTrigger) {
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+					if($(this).val() == journalSuggestTrigger) {
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 					} else {
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
-						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
-						$pb('.autoSuggestsArea').hide();
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+						$('.autoSuggestsArea').hide();
 					};
 					var t = window.setTimeout('bindJournalSuggest()', 500);
 				});
@@ -617,37 +617,37 @@
 		bindJournalSuggest();
 		if(typeof languageSuggestURL != 'undefined')
 		{
-			$pb('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
+			$('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
 		}
-		$pb('.subjectSuggest').each(
+		$('.subjectSuggest').each(
 			function(i,ele){
 				if(typeof subjectSuggestURL != 'undefined')
 				{
-					$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {
-						$pb(this).val(this.resultValue);
+					$(ele).suggest(subjectSuggestURL, { vocab: $(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {
+						$(this).val(this.resultValue);
 						}
 					});
 				}
 			});
 		
 		//for search, adds result in quotes
-		$pb('.subjectSuggestQuotes').each(
+		$('.subjectSuggestQuotes').each(
 			function(i,ele){
 				if(typeof subjectSuggestURL != 'undefined')
 				{
-					$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {
-						$pb(this).val('"' + this.resultValue + '"');
+					$(ele).suggest(subjectSuggestURL, { vocab: $(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {
+						$(this).val('"' + this.resultValue + '"');
 						}
 					});
 				}
 			});
 		if(typeof personSuggestURL != 'undefined')
 		{
-			$pb('.personSuggest').each (
+			$('.personSuggest').each (
 				function(i,ele){
-					if($pb(ele).parent().find('.personIdentifier').val() == null || $pb(ele).parent().find('.personIdentifier').val() == '')
+					if($(ele).parent().find('.personIdentifier').val() == null || $(ele).parent().find('.personIdentifier').val() == '')
 					{
-						$pb(ele).suggest(personSuggestURL, { onSelect: fillPersonFields });
+						$(ele).suggest(personSuggestURL, { onSelect: fillPersonFields });
 					}
 				}
 			);
@@ -655,25 +655,25 @@
 		}
 		if(typeof organizationSuggestURL != 'undefined')
 		{
-			$pb('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
+			$('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
 		}
 		
 		if(typeof userAccountSuggestURL != 'undefined')
 		{
-			$pb('.userAccountSuggest').suggest(userAccountSuggestURL, { onSelect: fillUserAccountFields });
+			$('.userAccountSuggest').suggest(userAccountSuggestURL, { onSelect: fillUserAccountFields });
 		}
 	};
 	
 	function selectLanguage()
 	{
-		$input = $pb(this);
-		if (($pb.trim(this.resultValue)).indexOf(' ') !== -1){
-			var langShortHand = $pb.trim(($pb.trim(this.resultValue)).substr(0, ($pb.trim(this.resultValue)).indexOf(' ')));
+		$input = $(this);
+		if (($.trim(this.resultValue)).indexOf(' ') !== -1){
+			var langShortHand = $.trim(($.trim(this.resultValue)).substr(0, ($.trim(this.resultValue)).indexOf(' ')));
 			if (langShortHand != ''){
 				$input.val(langShortHand); 
 				$input.attr('title', langShortHand);
 			}
-			var lang = $pb.trim(($pb.trim(this.resultValue)).substr(($pb.trim(this.resultValue)).lastIndexOf(' ') + 1));
+			var lang = $.trim(($.trim(this.resultValue)).substr(($.trim(this.resultValue)).lastIndexOf(' ') + 1));
 			if (lang != ''){
 				$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(lang);
 				$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').attr('title', lang);

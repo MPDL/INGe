@@ -1,37 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
+            CDDL HEADER START
 
- <%--
- /* 
- CDDL HEADER START
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
 
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
 
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
- See the License for the specific language governing permissions
- and limitations under the License.
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
 
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
-
- CDDL HEADER END
+            CDDL HEADER END
 
 
- Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
-  */
- --%>
-
- <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
- <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
- <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+</ui:remove>
 
  <f:subview id="itemList">
 
@@ -43,7 +38,7 @@
 				<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 			</h:panelGroup>
-			<h:selectOneMenu id="extSelectTop" value="#{PubItemListSessionBean.elementsPerPageTop}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+			<h:selectOneMenu id="extSelectTop" value="#{PubItemListSessionBean.elementsPerPageTop}" onfocus="updateSelectionBox(this);" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
 				<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 				<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  				<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -51,13 +46,13 @@
 				<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 			</h:selectOneMenu>
 		</h:panelGroup>
-<%--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageTop}" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+<!--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageTop}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
  			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
  			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
  			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
  			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
- 		</h:selectOneMenu>	--%>
+ 		</h:selectOneMenu>	-->
 		
 		<h:commandButton id="btnChangeElementsPerPageTop" title="#{tip.list_btGo}" styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton" value="#{lbl.list_btGo}" action="#{PubItemListSessionBean.changeElementsPerPageTop}"/>
  		<h:outputLabel id="lblItemList_ObjectsPerPage" for="extSelectTop" styleClass="free_label hitsLabel" value=" #{lbl.ItemList_ObjectsPerPage}" />
@@ -72,8 +67,8 @@
 			<h:outputText value="#{lbl.List_lkPrevious}"/>
  		</h:outputLink>
  		<h:panelGroup styleClass="seperator" />
- 		<a4j:repeat id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
- 	
+ 		<ui:repeat id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}"  offset="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" varStatus="status">
+ 			<ui:fragment rendered="#{status.index lt PubItemListSessionBean.firstPaginatorPageNumber + 6}">
  			<h:outputLink  id="btPageNumber1" styleClass="xSmall_txtBtn"   title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"  value="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"  >
 				<h:outputText value="#{paginatorPage.number}"/>
  			</h:outputLink>
@@ -81,8 +76,8 @@
 				<h:outputText value="#{paginatorPage.number}"/>
  			</h:outputLink>
  			<h:panelGroup styleClass="seperator" />
- 		
- 		</a4j:repeat>
+ 			</ui:fragment>
+ 		</ui:repeat>
  		<h:outputLink  id="btList_lkNext" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
 			<h:outputText value="#{lbl.List_lkNext}"/>
 		 </h:outputLink>
@@ -113,7 +108,7 @@
  				<h:commandLink id="lnkList_lkToggle" title="#{tip.List_lkToggle}" disabled="true" styleClass="large_area0 toggleAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkToggleAll}"/></span></h:commandLink>
  				<h:commandLink id="lnkList_lkNone" title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
  			</div>
- 			&nbsp;
+ 			&#160;
  		</span>
  		<span class="seperator"></span>
  		<span class="free_area0 endline status statusArea">
@@ -135,7 +130,7 @@
  	</div>
  	<ol>
 
- 	<a4j:repeat id="iterCurrentPartList" var="item" value="#{PubItemListSessionBean.currentPartList}" rows="0">
+ 	<ui:repeat id="iterCurrentPartList" var="item" value="#{PubItemListSessionBean.currentPartList}">
  	<h:panelGroup>
  		<li class="full_area0 listItem">
  			<h:panelGroup layout="block" styleClass="free_area0 itemHeader">
@@ -196,7 +191,7 @@
  			
 
 			<h:panelGroup layout="block" styleClass="full_area0 mediumView">
-				<a4j:repeat var="rel" value="#{item.relations}" rows="0">
+				<ui:repeat var="rel" value="#{item.relations}">
 				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 					<span class="huge_area0_p8 endline labelLine">
 						<h:outputText value="#{lbl.Yearbook_member}"/><span class="noDisplay">: </span>
@@ -205,12 +200,12 @@
 						<h:outputLink value="#{ApplicationBean.appContext}../item/#{rel.targetItemRef.objectId}"><h:outputText value="#{rel.targetItemRef.objectId}" /></h:outputLink>
 					</span>
 				</div>
-				</a4j:repeat>
+				</ui:repeat>
 			</h:panelGroup>
  			
  		</li>
  	</h:panelGroup>
- 	</a4j:repeat>
+ 	</ui:repeat>
  	</ol>
  </div>
 
@@ -227,7 +222,7 @@
 				<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 			</h:panelGroup>
-			<h:selectOneMenu id="extSelectBottom" value="#{PubItemListSessionBean.elementsPerPageBottom}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+			<h:selectOneMenu id="extSelectBottom" value="#{PubItemListSessionBean.elementsPerPageBottom}" onfocus="updateSelectionBox(this);" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
 				<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 				<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  				<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -235,13 +230,13 @@
 				<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 			</h:selectOneMenu>
 		</h:panelGroup>
-<%--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+<!--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
  			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
  			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
  			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
  			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
- 		</h:selectOneMenu>	--%>
+ 		</h:selectOneMenu>	-->
 		
 		<h:commandButton id="btnChangeElementsPerPageBottom" title="#{tip.list_btGo}" styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"  value="#{lbl.list_btGo}"  action="#{PubItemListSessionBean.changeElementsPerPageBottom}"/>
  		<h:outputLabel id="lblItemList_ObjectsPerPageBottom" for="extSelectBottom" styleClass="free_label hitsLabel" value=" #{lbl.ItemList_ObjectsPerPage}" />
@@ -256,8 +251,8 @@
 			<h:outputText value="#{lbl.List_lkPrevious}"/>
  		</h:outputLink>
  		<h:panelGroup styleClass="seperator" />
- 		<a4j:repeat id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
- 	
+ 		<ui:repeat id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}"  offset="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" varStatus="status">
+ 			<ui:fragment rendered="#{status.index lt PubItemListSessionBean.firstPaginatorPageNumber + 6}">
  			<h:outputLink  id="btPageNumber1Bottom" styleClass="xSmall_txtBtn"   title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"  value="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"  >
 				<h:outputText value="#{paginatorPage.number}"/>
  			</h:outputLink>
@@ -265,8 +260,8 @@
 				<h:outputText value="#{paginatorPage.number}"/>
 			 </h:outputLink>
  			<h:panelGroup styleClass="seperator" />
- 		
- 		</a4j:repeat>
+ 			</ui:fragment>
+ 		</ui:repeat>
  		<h:outputLink  id="btList_lkNextBottom" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
 			<h:outputText value="#{tip.List_lkNext}"/>
  		</h:outputLink>
@@ -285,3 +280,5 @@
 
 </div>
  </f:subview>
+ 
+ </ui:composition>

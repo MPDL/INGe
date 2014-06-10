@@ -1,5 +1,6 @@
-<%
-/* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
 CDDL HEADER START
 
 The contents of this file are subject to the terms of the
@@ -22,15 +23,10 @@ CDDL HEADER END
 
 
 Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
- */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
-
+</ui:remove>
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.adv_search_lbHeaderLanguage}" />
@@ -40,7 +36,7 @@ All rights reserved. Use is subject to license terms.
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
 
-		<a4j:repeat id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" rowKeyVar="index">
+		<ui:repeat id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{languageCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -59,16 +55,16 @@ All rights reserved. Use is subject to license terms.
 							<f:selectItems value="#{languageCriterionBean.languageOptions}" />
 						</h:selectOneMenu>
 					</h:panelGroup>
-			<%--	<h:selectOneMenu id="selLanguageOptions" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+			<!--	<h:selectOneMenu id="selLanguageOptions" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
-					</h:selectOneMenu>	 --%>
+					</h:selectOneMenu>	 -->
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
 					<h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{languageCriterionIterator.rowIndex > 0}">
@@ -88,16 +84,16 @@ All rights reserved. Use is subject to license terms.
 							<f:selectItems value="#{languageCriterionBean.languageOptions}" />
 						</h:selectOneMenu>
 					</h:panelGroup>
-			<%--	<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+			<!--	<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
-					</h:selectOneMenu>	 --%>
+					</h:selectOneMenu>	 -->
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
 					<h:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 
@@ -113,11 +109,12 @@ All rights reserved. Use is subject to license terms.
 						<f:selectItems value="#{languageCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
 					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	 --%>
+				</h:selectOneMenu>	 -->
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 	</div>
 </div>
+</ui:composition>

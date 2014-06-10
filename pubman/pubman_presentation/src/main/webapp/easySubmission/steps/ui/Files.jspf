@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>    /* 
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,18 +23,15 @@
 
 
             Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 
 
-<h:panelGroup layout="block" id="editFile" styleClass="full_area0 itemBlock" rendered="#{!(genre.files_display == 'false' && genre.files_form_id == 'easy-submission' || genre.files_display == 'false' && genre.files_form_id == 'all')}">
+<h:panelGroup layout="block" id="editFile" styleClass="full_area0 itemBlock" rendered="#{!(genre.files_display == 'false' and genre.files_form_id == 'easy-submission' || genre.files_display == 'false' and genre.files_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/>
 	</h3>
@@ -41,12 +39,12 @@
 	<h:panelGroup id="files" styleClass="free_area0 itemBlockContent endline">
 		
 	
-		<a4j:repeat var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" rowKeyVar="index">
+		<ui:repeat var="component" id="fileUploads" value="#{EasySubmission.files}">
 
-<%-- Add File --%>
-<%--
-		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder fileSection xSmall_negMarginLExcl"  rendered="#{component.index == 0 && component.size == 0}">
+<!-- Add File -->
+<!--
+		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' and genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' and genre.files_component_content_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder fileSection xSmall_negMarginLExcl"  rendered="#{component.index == 0 and component.size == 0}">
 				<span class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
 						  <h:outputText value="#{lbl.EditItem_lblFile}"/>
@@ -64,7 +62,7 @@
 				</span>
 			</h:panelGroup>
 			
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 and component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
 						  <h:outputText value="#{lbl.EditItem_btAddFile}" />
@@ -80,9 +78,9 @@
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>
-		--%>
-<%-- Add File from url--%>
-<%--
+		-->
+<!-- Add File from url-->
+<!--
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
@@ -96,9 +94,9 @@
 									  title="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
 				</span>
 			</h:panelGroup>
---%>
-<%-- Real filename --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0}">
+-->
+<!-- Real filename -->
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 and component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -106,7 +104,7 @@
 					<h:outputText value="#{component.file.name}" />
 				</span>
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{component.index > 0 && component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{component.index > 0 and component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -115,8 +113,8 @@
 				</span>
 			</h:panelGroup>
 
-<%-- File content category --%>
-		<h:panelGroup layout="block" rendered="#{!(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'easy-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
+<!-- File content category -->
+		<h:panelGroup layout="block" rendered="#{!(genre.files_component_content_category_display == 'false' and genre.files_component_content_category_form_id == 'easy-submission' || genre.files_component_content_category_display == 'false' and genre.files_component_content_category_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" />
@@ -134,21 +132,21 @@
 							<f:selectItems id="selContentCategorys" value="#{EasySubmission.contentCategories}" />
 						</h:selectOneMenu>
 					</h:panelGroup>
-				<%--
+				<!--
 					<h:selectOneMenu id="selContentCategory" styleClass="double_select replace" value="#{component.file.contentCategory}" >
 						<f:selectItems id="selContentCategorys" value="#{EasySubmission.contentCategories}" />
-					</h:selectOneMenu>	--%>
+					</h:selectOneMenu>	-->
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>
 
-<%-- Filename, File visibility --%>
+<!-- Filename, File visibility -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_name_optional != 'true' || genre.files_component_visibility_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup rendered="#{!(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'easy-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
+					<h:panelGroup rendered="#{!(genre.files_component_name_display == 'false' and genre.files_component_name_form_id == 'easy-submission' || genre.files_component_name_display == 'false' and genre.files_component_name_form_id == 'all')}">
 						<span class="quad_area0 tiny_marginRIncl">
 							<label class="quad_label">
 								<span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">
@@ -162,13 +160,13 @@
 				</span>
 			</h:panelGroup>
 
-<%-- File visibility, Embargo Date --%>
+<!-- File visibility, Embargo Date -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup rendered="#{!(genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'easy-submission' || genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'all')}">
+					<h:panelGroup rendered="#{!(genre.files_component_visibility_display == 'false' and genre.files_component_visibility_form_id == 'easy-submission' || genre.files_component_visibility_display == 'false' and genre.files_component_visibility_form_id == 'all')}">
 						<span class="xDouble_area0 tiny_marginRIncl endline">
 							<h:outputLabel id="lblFilesComponentVisibility" styleClass="xDouble_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter"/>
 							
@@ -181,10 +179,10 @@
 									<f:selectItems id="selFileVisibilities" value="#{EasySubmission.visibilities}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
-						<%--
+						<!--
 							<h:selectOneMenu id="selFileVisibility" styleClass="xDouble_select" value="#{component.file.visibility}" onchange="this.form.submit()">
 								<f:selectItems id="selFileVisibilities" value="#{EasySubmission.visibilities}" />
-							</h:selectOneMenu>	--%>
+							</h:selectOneMenu>	-->
 						</span>
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="#{component.showEmbargoDate}">
@@ -198,13 +196,13 @@
 				</span>
 			</h:panelGroup>
 
-<%-- File description, MIME type --%>
+<!-- File description, MIME type -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.files_component_description_display == 'false' && genre.files_component_description_form_id == 'easy-submission' || genre.files_component_description_display == 'false' && genre.files_component_description_form_id == 'all')}">
+					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.files_component_description_display == 'false' and genre.files_component_description_form_id == 'easy-submission' || genre.files_component_description_display == 'false' and genre.files_component_description_form_id == 'all')}">
 						<span class="xDouble_area0">
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" />
 							<h:outputLabel id="lblFilesComponentDescription" styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter"/>
@@ -218,7 +216,7 @@
 				</span>
 			</h:panelGroup>
 
-<%-- Copyright Statement, Copyright Date, File Licence --%>
+<!-- Copyright Statement, Copyright Date, File Licence -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder copyrightArea" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
@@ -254,21 +252,21 @@
 									 value="#{component.file.defaultMetadata.license}"/>
 
 						<h:outputLink styleClass="large_txtBtn groupBtn ccLicense" value=""
-									onclick="var actualCCContent = $pb(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
-											 var currentURL = $pb(this).parents('.licenseArea').find('.licenseURL').val();
+									onclick="var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
+											 var currentURL = $(this).parents('.licenseArea').find('.licenseURL').val();
 											 appendLicenseBox(actualCCContent, currentURL);
-											 $pb(actualCCContent).parents('.messageArea').removeClass('noDisplay');return false;"
+											 $(actualCCContent).parents('.messageArea').removeClass('noDisplay');return false;"
 									ondblclick="return false;">
 									<h:outputText value="#{lbl.EditItem_btnSelectCCLicense}"/>
 						</h:outputLink>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
-						<input type="button" onclick="$pb(this).parents('.messageArea').addClass('noDisplay');" 
+						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" 
 							   value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 						<div class="ccContent">&#160;</div>
 						<h:outputLink styleClass="activeButton" value=""
-									 onclick="$pb(this).parents('.licenseArea').find('.licenseURL').val($pb(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
-									  		  $pb(this).parents('.messageArea').addClass('noDisplay');return false;">
+									 onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
+									  		  $(this).parents('.messageArea').addClass('noDisplay');return false;">
 				  		  <h:outputText value="#{lbl.EditItem_btnSelectCCLicenseApply}" />
 				  		  </h:outputLink>
 				     </h:panelGroup>
@@ -277,21 +275,21 @@
 					<a4j:commandButton id="btnRemoveFileEasySubmission" reRender="files" styleClass="min_imgBtn sectionTool remove" 
 									  value=" " action="#{component.removeFileEasySubmission}" 
 									  rendered="#{genre.files_repeatable != 'false'}"/>
-					<%--
+					<!--
 					<h:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" 
 									  value=" " action="#{EasySubmission.addFile}" 
 									  disabled="#{EasySubmission.files[EasySubmission.numberOfFiles-1].size == 0}" 
 									  rendered="#{genre.files_repeatable != 'false'}"/>
-									  --%>
+									  -->
 				</span>
 				
 			</h:panelGroup>
 		
-		</a4j:repeat>	
+		</ui:repeat>	
 
 
-		<%-- Add Files --%>
-		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
+		<!-- Add Files -->
+		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' and genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' and genre.files_component_content_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine fileSection xSmall_negMarginLExcl #{EasySubmission.numberOfFiles == 0 ? 'noTopBorder' : ''}">
 				<span class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
@@ -307,15 +305,15 @@
 						
 					</rich:fileUpload>
 				</span>
-				<%-- 
+				<!-- 
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
 									  text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
 				</span>
-				--%>
+				-->
 			</h:panelGroup>
 			
-			<%-- Add File from url--%>
+			<!-- Add File from url-->
 			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder xTiny_negMarginLExcl">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
@@ -333,3 +331,5 @@
 		
 	</h:panelGroup>
 </h:panelGroup>
+
+</ui:composition>

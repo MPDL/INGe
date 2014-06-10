@@ -29,20 +29,14 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -51,15 +45,8 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.ResponseStateManager;
 import javax.naming.InitialContext;
 
-import org.ajax4jsf.config.FacesConfig;
-import org.ajax4jsf.event.AjaxEvent;
-import org.ajax4jsf.model.KeepAlive;
-import org.apache.axis.utils.URLHashSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -81,7 +68,6 @@ import de.mpg.escidoc.pubman.searchNew.criterions.dates.DateSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.genre.GenreListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
-import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.CollectionSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;

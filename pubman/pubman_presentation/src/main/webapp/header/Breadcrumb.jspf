@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,36 +23,35 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
+
 
 <f:subview id="Breadcrumb">
 
 <div class="clear breadcrumb">
 	<!-- Breadcrumb starts here -->
 	<ol>
-		<a4j:repeat id="BreadcrumbNavigation" var="item" value="#{BreadcrumbItemHistorySessionBean.breadcrumbItemHistory}">
+		<ui:repeat id="BreadcrumbNavigation" var="item" value="#{BreadcrumbItemHistorySessionBean.breadcrumbItemHistory}">
 			<li>
-<%-- start has to be reworked anyway --%>
-				<h:outputLink id="lnkDestination" value="#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
+<!-- start has to be reworked anyway -->
+				<h:outputLink id="lnkDestination" value="#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast and item.defaultAction == null}">
 					<h:outputText value="#{item.pageLabel}" />
 				</h:outputLink>
-				<h:commandLink id="lnkAction" action="#{item.executeDefaultAction}" rendered="#{!item.isLast && item.defaultAction != null}">
+				<h:commandLink id="lnkAction" action="#{item.executeDefaultAction}" rendered="#{!item.isLast and item.defaultAction != null}">
 					<h:outputText value="#{item.pageLabel}" />
 				</h:commandLink>
 				<h:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
 				<h:outputText value="&#160;/&#160;" rendered="#{!item.isLast}" escape="false"/>
-<%-- stop has to be reworked anyway --%>
+<!-- stop has to be reworked anyway -->
 			</li>
-		</a4j:repeat>
+		</ui:repeat>
 		<li></li>
 	</ol>
 	<!-- Breadcrumb ends here -->
 </div>
 </f:subview>
+</ui:composition>

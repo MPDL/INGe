@@ -29,11 +29,11 @@
 */
 
 function addPaginatorFunctions() {
-	$pb('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $pb(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
+	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
 }
 
 function addPaginatorItemFunctions() {
-	$pb('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $pb(this).parents('.gotoBox').find('.pageChangeHiddenBtn').click(); break;   }});
+	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.pageChangeHiddenBtn').click(); break;   }});
 }
 
 function installExtPaginator() {

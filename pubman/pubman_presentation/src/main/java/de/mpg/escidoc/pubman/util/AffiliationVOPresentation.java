@@ -162,6 +162,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 
     public String startSearch()
     {
+    	logger.info("START AFF SEArcH aFFvopRES!!!!!!!!!!!!!!!!!!!!!!");
         ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSelectedAffiliation(this);
         ((AffiliationDetail) getSessionBean(AffiliationDetail.class)).setAffiliationVO(this);
         return ((AffiliationBean) getSessionBean(AffiliationBean.class)).startSearch();

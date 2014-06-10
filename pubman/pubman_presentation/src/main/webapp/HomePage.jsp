@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 
  CDDL HEADER START
@@ -27,25 +28,18 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-
-<jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
-
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
-	<f:view locale="#{InternationalizationHelper.userLocale}" >
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="${ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument"/>
 				<meta name="description" content="${lbl.Pubman_descriptionMetaTag}"></meta>
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
-			</head>
+				<ui:include src="header/ui/StandardImports.jspf" />
+				<ui:include src="home/HomePageFeedLinks.jspf" />
+			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
 				<h:form id="form1">
@@ -53,13 +47,13 @@
 						<h:inputHidden id="offset"></h:inputHidden>
 		
 						<!-- import header -->
-						<jsp:directive.include file="header/Header.jspf" />
+						<ui:include src="header/Header.jspf" />
 						<div id="content" class="full_area0 clear">
 						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
 								<div class="headerSection">
 									
-								<jsp:directive.include file="header/Breadcrumb.jspf" />
+								<ui:include src="header/Breadcrumb.jspf" />
 						
 									<div id="contentSkipLinkAnchor" class="clear headLine">
 										<!-- Headline starts here -->
@@ -102,19 +96,19 @@
 									</h:panelGroup>
 									
 									<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent==null}">
-										<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
+										<ui:include src="home/StartPageLoggedOut.jspf" />
 									</h:panelGroup>
 									
 									<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{PubManSessionBean.loggedIn}">
-										<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
+										<ui:include src="home/StartPageLoggedIn.jspf" />
 									</h:panelGroup>
 									
 									<!-- Side Panels -->
 									<h:panelGroup styleClass="sideSectionArea">
 										<h:panelGroup styleClass="free_area0_p8 sideSection">
-											<jsp:directive.include file="home/LastReleased.jspf" />
+											<ui:include src="home/LastReleased.jspf" />
 											<h:panelGroup rendered="#{ApplicationBean.pubmanBlogFeedUrl != ''}" >
-												<jsp:directive.include file="home/BlogIntegration.jspf"  />
+												<ui:include src="home/BlogIntegration.jspf"  />
 											</h:panelGroup>
 											<h:panelGroup>
 												<div id="searchCloudDiv">&#160;</div>
@@ -126,14 +120,14 @@
 							</div>
 						</div>
 						<!-- end: content section -->
-						<jsp:directive.include file="footer/Footer.jspf" />
+						<ui:include src="footer/Footer.jspf" />
 						<script type="text/javascript">
-							$pb("input[id$='offset']").submit(function() {
-								$pb(this).val($pb(window).scrollTop());
+							$("input[id$='offset']").submit(function() {
+								$(this).val($(window).scrollTop());
 							});
-							$pb(document).ready(function () {
-								$pb(window).scrollTop($pb("input[id$='offset']").val());
-								$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop())});
+							$(document).ready(function () {
+								$(window).scrollTop($("input[id$='offset']").val());
+								$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
 							});
 						</script>
 					</div> <!-- end: full wrapper -->
@@ -141,4 +135,3 @@
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

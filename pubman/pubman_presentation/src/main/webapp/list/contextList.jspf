@@ -1,5 +1,6 @@
-<%
-/* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
 CDDL HEADER START
 
 The contents of this file are subject to the terms of the
@@ -22,18 +23,14 @@ CDDL HEADER END
 
 
 Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
- */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
-<a4j:repeat id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" rows="0" rowKeyVar="index">
+<ui:repeat id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" varStatus="index">
 
-	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{index == 0}">
+	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{index.index == 0}">
 		
 		<span class="xLarge_area0 endline">
 			&#160;
@@ -49,7 +46,7 @@ All rights reserved. Use is subject to license terms.
 			</b>
 		</span>
 	</h:panelGroup>
-	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{index > 0}">
+	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{index.index > 0}">
 		<span class="xLarge_area0 endline">
 			&#160;
 		</span>
@@ -78,4 +75,5 @@ All rights reserved. Use is subject to license terms.
 		</div>
 	</h:panelGroup>
 
-</a4j:repeat>
+</ui:repeat>
+</ui:composition>

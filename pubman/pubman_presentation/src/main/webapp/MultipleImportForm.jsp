@@ -27,32 +27,30 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}" >
+	 
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
 
-			</head>
+			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{MultipleImportForm.beanName}" styleClass="noDisplay" />
 				<h:form  rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						
-						<jsp:directive.include file="header/Header.jspf" />
+						<ui:include src="header/Header.jspf" />
 							
 							<div id="content" class="full_area0 clear">
 								<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
@@ -60,7 +58,7 @@
 								<div class="clear">
 				                    <div class="headerSection">
 				                            
-				                        <jsp:directive.include file="header/Breadcrumb.jspf" />
+				                        <ui:include src="header/Breadcrumb.jspf" />
 	
 										<div id="contentSkipLinkAnchor" class="clear headLine">
 											<!-- Headline starts here -->
@@ -103,12 +101,12 @@
 										<div class="subHeader">
 											<!-- Subheadline starts here -->
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasErrorMessages}">
-												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 												<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasMessages and !MultipleImport.hasErrorMessages}">
-												<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+												<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 												<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
@@ -191,7 +189,7 @@
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
 														<span class="free_area0">
-															<a4j:repeat var="parameter" value="#{MultipleImport.configParameters}">
+															<ui:repeat var="parameter" value="#{MultipleImport.configParameters}">
 																<h:outputLabel styleClass="double_label clear" value="#{parameter.label} "/>
 																<h:inputText id="inpImportParamStandard" styleClass="xLarge_txtInput" value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] == null}" />
 																
@@ -204,11 +202,7 @@
 																		<f:selectItems value="#{MultipleImport.parametersValues[parameter.label]}" />
 																	</h:selectOneMenu>
 																</h:panelGroup>
-															<!-- <% /*
-																<h:selectOneMenu  value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] != null}" styleClass="xLarge_select">
-																	<f:selectItems value="#{MultipleImport.parametersValues[parameter.label]}"/>
-																</h:selectOneMenu>	*/ %> -->
-															</a4j:repeat>
+															</ui:repeat>
 														</span>
 													</span>
 												</h:panelGroup>
@@ -223,9 +217,8 @@
 							<!-- end: content section -->
 							</div>			
 					</div>
-				<jsp:directive.include file="footer/Footer.jspf" />
+				<ui:include src="footer/Footer.jspf" />
 				</h:form>
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

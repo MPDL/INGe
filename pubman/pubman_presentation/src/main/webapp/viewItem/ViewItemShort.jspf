@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,14 +26,12 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 shortView">
-	<h:outputText value="<abbr class='unapi-id' title='#{item.identifier}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
+	<h:panelGroup rendered="#{item.isReleased}">
+		<abbr class="unapi-id" title="#{item.identifier}"></abbr>
+	</h:panelGroup>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
  			<div><a class="collapseTriangle"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblLess}"/><span class="noDisplay"> <h:outputText  value="#{lbl.ViewItemShort_lblDetails}"/></span></a>
@@ -82,3 +81,5 @@
 		</h:panelGroup>
 	</div>
 </h:panelGroup>
+
+</ui:composition>

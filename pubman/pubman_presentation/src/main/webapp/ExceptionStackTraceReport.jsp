@@ -1,4 +1,4 @@
-<%--
+<!--
 
  CDDL HEADER START
 
@@ -25,7 +25,7 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
---%>
+-->
 <%@page session="true"%>
 <%@page import="java.io.PrintStream"%>
 

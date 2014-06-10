@@ -27,10 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-
-	<jsp:directive.page contentType="text/xml;charset=UTF-8" pageEncoding="UTF-8" />
-	<f:view locale="#{InternationalizationHelper.userLocale}" >
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
@@ -46,4 +43,3 @@
 			<Image height="16" width="16" type="image/vnd.microsoft.icon"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}resources/pubman_favicon.ico" /></Image>
 		</OpenSearchDescription>
 	</f:view>
-</jsp:root>

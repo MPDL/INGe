@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,12 +23,12 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+</ui:remove>
 
-<link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/rss_2.0/publications/organization/<h:outputText value='#{AffiliationDetailPage.affiliation.reference.objectId}'/>" rel="alternate" type="application/rss+xml" title="<h:outputText value='#{lbl.Feed_Recent_Releases}'/>, <h:outputText value='#{AffiliationDetailPage.affiliation.defaultMetadata.name}' />|rss_2.0" />
-<link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/atom_1.0/publications/organization/<h:outputText value='#{AffiliationDetailPage.affiliation.reference.objectId}'/>" rel="alternate" type="application/atom+xml" title="<h:outputText value='#{lbl.Feed_Recent_Releases}'/>, <h:outputText value='#{AffiliationDetailPage.affiliation.defaultMetadata.name}' />|atom_1.0" />  
+<link href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/rss_2.0/publications/organization/#{AffiliationDetailPage.affiliation.reference.objectId}" rel="alternate" type="application/rss+xml" title="#{lbl.Feed_Recent_Releases}, #{AffiliationDetailPage.affiliation.defaultMetadata.name}|rss_2.0" />
+<link href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/atom_1.0/publications/organization/#{AffiliationDetailPage.affiliation.reference.objectId}" rel="alternate" type="application/atom+xml" title="#{lbl.Feed_Recent_Releases}, #{AffiliationDetailPage.affiliation.defaultMetadata.name}|atom_1.0" />
+</ui:composition>  

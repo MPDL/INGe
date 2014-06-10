@@ -51,7 +51,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
-import org.richfaces.model.UploadItem;
+
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;

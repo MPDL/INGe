@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,15 +23,11 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
-
+             
+</ui:remove>
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.adv_search_lbHeaderGenre}" />
@@ -41,7 +38,7 @@
 		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderGenre}" /></a>
 
 <!-- Start Genre -->
-		<a4j:repeat id="genreCriterion" rows="0" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" rowKeyVar="index">
+		<ui:repeat id="genreCriterion" rows="0" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" rowKeyVar="index">
 			
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -197,7 +194,7 @@
 						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
-			<%--
+			<!--
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
 					<h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
@@ -205,7 +202,7 @@
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
 
 				</span>
-		--%>
+		-->
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -361,9 +358,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
 					<h:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 
@@ -379,16 +376,16 @@
 						<f:selectItems value="#{genreCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selGenreCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{genreCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selGenreCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{genreCriterionBean.logicOperator}">
 					<f:selectItems value="#{genreCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	 --%>
+				</h:selectOneMenu>	 -->
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 <!-- End Genre -->
 
 <!-- Start Degree -->
-		<a4j:repeat id="degreeCriterion" rows="0" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" rowKeyVar="index">
+		<ui:repeat id="degreeCriterion" rows="0" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" rowKeyVar="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" >
 				<span class="xLarge_area0_p8 endline labelLine clear">  
 					<h:outputText value="#{lbl.EditItem_lblDegreeType}" />
@@ -430,12 +427,12 @@
 						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
-			<%--
+			<!--
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddDegree" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.addObject}" />
 					<h:commandButton id="btnRemoveDegree" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.size == 1}" action="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.removeObject}"/>
 				</span>
-				 --%>
+				 -->
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline noTopBorder itemLine" ></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" >
@@ -449,11 +446,12 @@
 						<f:selectItems value="#{degreeCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selDegreeCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{degreeCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selDegreeCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{degreeCriterionBean.logicOperator}">
 					<f:selectItems value="#{degreeCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	 --%>
+				</h:selectOneMenu>	 -->
 			</h:panelGroup>
-		</a4j:repeat>
+		</ui:repeat>
 <!-- End Degree -->
 	</div>
 </div>
+</ui:composition>

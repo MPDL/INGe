@@ -1,5 +1,6 @@
-<%
-/* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:p="http://primefaces.org/ui">
+<ui:remove>
 CDDL HEADER START
 
 The contents of this file are subject to the terms of the
@@ -22,17 +23,11 @@ CDDL HEADER END
 
 
 Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
- */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %>
-<%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+</ui:remove>
+
 
 	
 <div class="full_area0 itemBlock">
@@ -123,9 +118,9 @@ All rights reserved. Use is subject to license terms.
 
 		<h:outputText value="#{AdvancedSearchBean.readOutParams}"/>
 		
-		<a4j:repeat id="criterions" rows="0" var="criterion" value="#{AdvancedSearchBean.criterionList}" rowKeyVar="index">
+		<ui:repeat id="criterions" var="criterion" value="#{AdvancedSearchBean.criterionList}" varStatus="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine #{index == 0 ? 'noTopBorder' : ''} paranthesis_level_#{criterion.level}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine #{index.index == 0 ? 'noTopBorder' : ''} paranthesis_level_#{criterion.level}">
 				
 				<h:panelGroup styleClass="free_area0 endline" style="width:100%;">
 					<!-- select menu for boolean operator -->
@@ -151,18 +146,20 @@ All rights reserved. Use is subject to license terms.
 						<h:panelGroup rendered="#{criterion.searchCriterion == 'CLOSING_PARENTHESIS'}">
 							<h:outputText value=")" />
 						</h:panelGroup>
-						<a4j:commandButton value="x" styleClass="removeParanthesis" reRender="editSearch" actionListener="#{AdvancedSearchBean.removeParenthesis}">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
+						<h:commandButton value="x" styleClass="removeParanthesis" actionListener="#{AdvancedSearchBean.removeParenthesis}">
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
 					</h:panelGroup>
 					
 					
 					<!-- select menu for search criterion -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginRExcl" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion.displayType != 'PARENTHESIS'}">
 						
-						<a4j:commandButton value="(" reRender="editSearch" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{empty AdvancedSearchBean.currentlyOpenedParenthesis}" styleClass="addOpenParanthesis">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
+						<h:commandButton value="(" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{empty AdvancedSearchBean.currentlyOpenedParenthesis}" styleClass="addOpenParanthesis">
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
 						
 						<!-- Placeholder if button for opening parenthesis is not displayed -->
 						<h:panelGroup styleClass="tiny_area0" rendered="#{not empty AdvancedSearchBean.currentlyOpenedParenthesis}">
@@ -176,16 +173,15 @@ All rights reserved. Use is subject to license terms.
 							</h:panelGroup>
 							<h:selectOneMenu id="selCriterionType" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterionAction}" rendered="#{view.viewId == '/AdvancedSearchPage.jsp'}">
 								<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenu}" />
-								<a4j:support event="onchange" reRender="editSearch" >
-									<a4j:actionparam name="indexOfCriterion" value="#{index}"/>
-								</a4j:support>
+								<f:ajax render="form1:editSearch" execute="@all" />
+								<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+								
 							</h:selectOneMenu>
 							
 							<h:selectOneMenu id="selCriterionTypeAdmin" styleClass="replace" value="#{criterion.searchCriterion}" valueChangeListener="#{AdvancedSearchBean.changeCriterionAction}" rendered="#{view.viewId == '/AdminAdvancedSearchPage.jsp'}">
 								<f:selectItems value="#{AdvancedSearchBean.criterionTypeListMenuAdmin}" />
-								<a4j:support event="onchange" reRender="editSearch" >
-									<a4j:actionparam name="indexOfCriterion" value="#{index}"/>
-								</a4j:support>
+								<f:ajax render="form1:editSearch" execute="@all" />
+								<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 							</h:selectOneMenu>
 						</h:panelGroup>
 						
@@ -198,20 +194,22 @@ All rights reserved. Use is subject to license terms.
 						<h:inputText id="anyFieldSearchStringFirst" styleClass="double_txtInput" value="#{criterion.searchString}" />
 					</h:panelGroup>
 					
-					
+					<h:outputText value="#{criterion.searchCriterion.displayType == 'STANDARD'}"/>
+					<h:outputText value="#{criterion.searchCriterion.displayType == 'PERSON'}"/>
 					<!-- input for person searches-->
 					<h:panelGroup styleClass="free_area0 endline personArea suggestAnchor" rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
 						<h:outputLabel styleClass="small_label" value=" " />
 						<h:inputText id="personSearchString" styleClass="double_txtInput personSuggest disableAfter" value="#{criterion.searchString}" rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"/>
 						<h:inputText id="personSearchStringFilled" styleClass="double_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 						<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{criterion.hiddenId}"/>
-						<a4j:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						oncomplete="return removeAuthorAutoSuggest($pb(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" reRender="editSearch">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
+						<h:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}">
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
 						
-						<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&nbsp;</h:outputLink>
-						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" styleClass="xSmall_area0 authorLink">&nbsp;</h:panelGroup>
+						<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&#160;</h:outputLink>
+						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}" styleClass="xSmall_area0 authorLink">&#160;</h:panelGroup>
 						<span class="tooltip">&#160;</span>
 					</h:panelGroup>
 					
@@ -227,7 +225,7 @@ All rights reserved. Use is subject to license terms.
 							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" />
 						</span>
 						<script type="text/javascript">
-							$pb('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
+							$('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
 						</script>
 					</h:panelGroup>
 					
@@ -239,14 +237,15 @@ All rights reserved. Use is subject to license terms.
 	                    <h:inputText id="organizationSearchTermEmptyFirstFilled" styleClass="double_txtInput" readonly="true" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 						<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
 							value="#{criterion.hiddenId}" />
-						<a4j:commandButton id="btnRemoveOrganizationAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
-						oncomplete="return removeOrganizationAutoSuggest($pb(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" reRender="editSearch">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
+						<h:commandButton id="btnRemoveOrganizationAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
+						oncomplete="return removeOrganizationAutoSuggest($(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" >
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
 						<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" value="#"
-							onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+							onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
-							styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>	
+							styleClass="xSmall_area0 ouLink">&#160;</h:panelGroup>	
 	                
 		                <h:panelGroup styleClass="free_area0 clear" >							
 									<h:outputLabel styleClass="small_label label_keyword" value=" " />
@@ -313,9 +312,9 @@ All rights reserved. Use is subject to license terms.
 						<h:inputText id="languageSuggestMultiple" styleClass="small_txtInput languageSuggest" value="#{criterion.searchString}"/>
 						<h:inputText styleClass="double_txtInput languageText readonlyInput" value="#{criterion.alternativeValue}" readonly="true"/>
 						
-						<%--<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+						<!--<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 							<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
-						</h:selectOneMenu>--%>
+						</h:selectOneMenu>-->
 					</h:panelGroup>
 					
 					
@@ -353,12 +352,13 @@ All rights reserved. Use is subject to license terms.
 	                    <h:inputText id="userAccountTermEmptyFirstFilled" styleClass="double_txtInput userAccountName" readonly="true" value="#{criterion.searchString}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 						<h:inputText id="userAccountSearchTermEmptyFirstIdentifier" styleClass="noDisplay userAccountIdentifier" value="#{criterion.hiddenId}" />
 						
-						<a4j:commandButton id="btnRemoveUserAccountAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestUserAccount" style="display:none;"
-						oncomplete="return removeUserAccountAutoSuggest($pb(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" reRender="editSearch">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
+						<h:commandButton id="btnRemoveUserAccountAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestUserAccount" style="display:none;"
+						oncomplete="return removeUserAccountAutoSuggest($(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}">
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
 						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
-							styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>	
+							styleClass="xSmall_area0 ouLink">&#160;</h:panelGroup>	
 
 	                </h:panelGroup>
 					
@@ -366,12 +366,14 @@ All rights reserved. Use is subject to license terms.
 					<!-- +/- buttons -->
 					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and empty AdvancedSearchBean.currentlyOpenedParenthesis}">
 						
-						<a4j:commandButton id="btnAddFirst" reRender="editSearch" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" actionListener="#{AdvancedSearchBean.addSearchCriterion}" >
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
-						<a4j:commandButton id="btnRemoveFirst" reRender="editSearch" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}" disabled="#{criterion.searchCriterion.displayType == 'PARENTHESIS' || AdvancedSearchBean.numberOfSearchCriterions <= 1}">
-							<f:attribute name="indexOfCriterion" value="#{index}"/>
-						</a4j:commandButton>
+						<h:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" actionListener="#{AdvancedSearchBean.addSearchCriterion}" >
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
+						<h:commandButton id="btnRemoveFirst"  styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}" disabled="#{criterion.searchCriterion.displayType == 'PARENTHESIS' || AdvancedSearchBean.numberOfSearchCriterions le 1}">
+							<f:ajax render="form1:editSearch" execute="@form"/>	
+							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+						</h:commandButton>
 					</h:panelGroup>
 					
 					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion == 'CLOSING_PARENTHESIS'}">
@@ -382,12 +384,13 @@ All rights reserved. Use is subject to license terms.
 				
 				
 				<!-- add close paranthesis -->
-				<a4j:commandButton value=")" reRender="editSearch" styleClass="addCloseParanthesis" actionListener="#{AdvancedSearchBean.addClosingParenthesis}" rendered="#{criterion.searchCriterion != 'OPENING_PARENTHESIS' and AdvancedSearchBean.currentlyOpenedParenthesis != null and AdvancedSearchBean.possibleCriterionsForClosingParenthesisMap[criterion]!=null}">
-					<f:attribute name="indexOfCriterion" value="#{index}"/>
-				</a4j:commandButton>
+				<h:commandButton value=")" styleClass="addCloseParanthesis" actionListener="#{AdvancedSearchBean.addClosingParenthesis}" rendered="#{criterion.searchCriterion != 'OPENING_PARENTHESIS' and AdvancedSearchBean.currentlyOpenedParenthesis != null and AdvancedSearchBean.possibleCriterionsForClosingParenthesisMap[criterion]!=null}">
+					<f:ajax render="form1:editSearch" execute="@form"/>	
+					<f:attribute name="indexOfCriterion" value="#{index.index}"/>
+				</h:commandButton>
 				
 			</h:panelGroup>
-		</a4j:repeat>
+		</ui:repeat>
 	</h:panelGroup>
 	
 	<style type="text/css">
@@ -434,13 +437,13 @@ All rights reserved. Use is subject to license terms.
 				-->
 				<span class="free_area0 genreContent clear">
 					
-					<a4j:repeat value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumList}" var="context" rows="0">
+					<ui:repeat value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumList}" var="context">
 						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">							
 							<h:selectBooleanCheckbox styleClass="affiliatedContextCheckbox" id="affiliatedContextCriterion" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.enumMap[context]}">
 							</h:selectBooleanCheckbox>
 							<h:outputLabel title="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" value="#{AdvancedSearchBean.affiliatedContextListSearchCriterion.valueMap[context].name}" for="affiliatedContextCriterion" />	
 						</h:panelGroup>
-					</a4j:repeat>
+					</ui:repeat>
 				</span>
 			</span>
 			
@@ -467,14 +470,14 @@ All rights reserved. Use is subject to license terms.
 				-->
 				<span class="free_area0 genreContent clear">
 					
-					<a4j:repeat value="#{AdvancedSearchBean.itemStateListSearchCriterion.enumList}" var="state" rows="0">
+					<ui:repeat value="#{AdvancedSearchBean.itemStateListSearchCriterion.enumList}" var="state">
 						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
-							<c:set var="stateLabel" value="ENUM_STATE_#{state}"/>
+							<ui:param name="stateLabel" value="ENUM_STATE_#{state}"/>
 							<h:selectBooleanCheckbox styleClass="itemStateCheckbox" id="itemStateCriterion" value="#{AdvancedSearchBean.itemStateListSearchCriterion.enumMap[state]}">
 							</h:selectBooleanCheckbox>
 							<h:outputLabel title="#{lbl[stateLabel]}" value="#{lbl[stateLabel]}" for="itemStateCriterion" />	
 						</h:panelGroup>
-					</a4j:repeat>
+					</ui:repeat>
 				</span>
 			</span>
 			
@@ -501,32 +504,32 @@ All rights reserved. Use is subject to license terms.
 				</span>
 				<span class="free_area0 genreContent clear">
 					
-					<a4j:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.genreList}" var="genre" rows="0">
+					<ui:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.genreList}" var="genre">
 						<h:panelGroup styleClass="#{genre == 'THESIS' ? 'free_checkbox subGenre clear' : 'double_checkbox xTiny_marginRIncl'}">
-							<c:set var="genreLabel" value="ENUM_GENRE_#{genre}"/>
+							<ui:param name="genreLabel" value="ENUM_GENRE_#{genre}"/>
 							<h:selectBooleanCheckbox styleClass="genreCheckbox" id="genreCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
-								<a4j:support event="onclick" reRender="degrees" rendered="#{genre=='THESIS'}"/>
+								<f:ajax render="degrees" rendered="#{genre=='THESIS'}"/>
 							</h:selectBooleanCheckbox>
 							<h:outputLabel title="#{lbl[genreLabel]}" value="#{lbl[genreLabel]}" for="genreCriterion" />
 							
 							<h:panelGroup id="degrees" styleClass="clear degrees free_checkbox" rendered="#{genre=='THESIS'}">
-								<a4j:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.degreeList}" var="degree" rows="0">
+								<ui:repeat value="#{AdvancedSearchBean.genreListSearchCriterion.degreeList}" var="degree">
 									<h:panelGroup styleClass="free_area0 xTiny_marginRExcl">
-										<c:set var="degreeLabel" value="ENUM_DEGREETYPE_#{degree}"/>
+										<ui:param name="degreeLabel" value="ENUM_DEGREETYPE_#{degree}"/>
 										<h:selectBooleanCheckbox id="thesisCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.degreeMap[degree]}" disabled="#{not AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}"/>
 										<h:outputLabel title="#{lbl[degreeLabel]}" value="#{lbl[degreeLabel]}" for="thesisCriterion" />
 									</h:panelGroup>
-								</a4j:repeat>
+								</ui:repeat>
 							</h:panelGroup>
 						</h:panelGroup>
-					</a4j:repeat>
+					</ui:repeat>
 				</span>
 			</span>
 			
 			<script type="text/javascript">
-			  $pb(document).ready(function () {
+			  $(document).ready(function () {
 				
-				var checkboxinput = $pb('.genreContainer input.checkAllGenre');
+				var checkboxinput = $('.genreContainer input.checkAllGenre');
 				var genreArea = checkboxinput.parent().next();
 				var subgenre = genreArea.find(".subGenre input");
 				var genre = genreArea.find("input.genreCheckbox");
@@ -562,14 +565,14 @@ All rights reserved. Use is subject to license terms.
 
 				<span class="free_area0 genreContent clear">
 					
-					<a4j:repeat value="#{AdvancedSearchBean.publicationStatusListSearchCriterion.enumList}" var="state" rows="0">
+					<ui:repeat value="#{AdvancedSearchBean.publicationStatusListSearchCriterion.enumList}" var="state">
 						<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
-							<c:set var="stateLabel" value="ViewItem_lblPublicationState_#{state}"/>
+							<ui:param name="stateLabel" value="ViewItem_lblPublicationState_#{state}"/>
 							<h:selectBooleanCheckbox styleClass="publicationstatusCheckbox" id="publicationStatusCriterion" value="#{AdvancedSearchBean.publicationStatusListSearchCriterion.enumMap[state]}">
 							</h:selectBooleanCheckbox>
 							<h:outputLabel title="#{lbl[stateLabel]}" value="#{lbl[stateLabel]}" for="publicationStatusCriterion" />	
 						</h:panelGroup>
-					</a4j:repeat>
+					</ui:repeat>
 				</span>
 			</span>
 			
@@ -615,14 +618,14 @@ All rights reserved. Use is subject to license terms.
 						
 						<span class="free_area0 clear">
 					
-							<a4j:repeat value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumList}" var="visibility" rows="0">
+							<ui:repeat value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumList}" var="visibility">
 								<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
-									<c:set var="label" value="ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_#{visibility}"/>
+									<ui:param name="label" value="ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_#{visibility}"/>
 									<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{visibility}" id="visibilityCriterion" value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumMap[visibility]}">
 									</h:selectBooleanCheckbox>
 									<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="visibilityCriterion" />
 								</h:panelGroup>
-							</a4j:repeat>
+							</ui:repeat>
 						</span>
 						<!-- 
 						<span class="double_checkbox fileCriterionHasEmbargoDate" style="margin-top:0.4545em;">
@@ -642,7 +645,7 @@ All rights reserved. Use is subject to license terms.
 							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.to}" />
 						</span>
 						<script type="text/javascript">
-							$pb('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
+							$('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
 						</script>
 						
 					</span>
@@ -670,14 +673,14 @@ All rights reserved. Use is subject to license terms.
 						
 						<span class="free_area0 clear">
 							
-							<a4j:repeat value="#{AdvancedSearchBean.componentContentCategoryListSearchCriterion.enumList}" var="cc" rows="0">
+							<ui:repeat value="#{AdvancedSearchBean.componentContentCategoryListSearchCriterion.enumList}" var="cc">
 								<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
-									<c:set var="label" value="ENUM_CONTENTCATEGORY_#{cc}"/>
+									<ui:param name="label" value="ENUM_CONTENTCATEGORY_#{cc}"/>
 									<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{cc}" id="contentCategoryCriterion" value="#{AdvancedSearchBean.componentContentCategoryListSearchCriterion.enumMap[cc]}">
 									</h:selectBooleanCheckbox>
 									<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="contentCategoryCriterion" />
 								</h:panelGroup>
-							</a4j:repeat>
+							</ui:repeat>
 						</span>
 					</span>
 				</span>
@@ -685,5 +688,7 @@ All rights reserved. Use is subject to license terms.
 		</h:panelGroup>
 	</div>
 </div>
+
+</ui:composition>
 	
 	

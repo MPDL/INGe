@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <!-- Fulltext tile -->
 <h:panelGroup layout="block" styleClass="huge_area0 tile_category borderDarkGreen xTiny_marginRExcl">
@@ -47,7 +44,7 @@
 	<!-- Iterator for publicly accessible fulltexts (not only any-fulltext, but also postprint/preprint/publisher-version) -->
 	<h:panelGroup layout="block" styleClass="huge_area0_p0 nano" style="max-height:300px;">
 		<h:panelGroup layout="block" styleClass="free_area0_p6 content">
-			<a4j:repeat var="file" value="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList}" rendered ="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList != null and !empty(ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList) }" rowKeyVar="index">
+			<ui:repeat var="file" value="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList}" rendered ="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList != null and !empty(ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList) }">
 				<div>
 					<img src="../resources/images/overviewPage/fulltext_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
 					<p class="double_area0">
@@ -70,7 +67,9 @@
 						<h:outputText value=", #{file.fileSize}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 					</p>
 				</div>
-			</a4j:repeat>
+			</ui:repeat>
 		</h:panelGroup>
 	</h:panelGroup>
 </h:panelGroup>
+
+</ui:composition>

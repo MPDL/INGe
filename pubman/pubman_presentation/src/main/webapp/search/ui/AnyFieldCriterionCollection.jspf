@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,14 +23,11 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -38,7 +36,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-		<a4j:repeat id="anyFieldCriterion" rows="0" var="anyFieldCriterionBean" value="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.anyFieldCriterionIterator}" rowKeyVar="index">
+		<ui:repeat id="anyFieldCriterion" rows="0" var="anyFieldCriterionBean" value="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.anyFieldCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.anyFieldCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -51,9 +49,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
 					<h:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size == 1}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.anyFieldCriterionIterator.rowIndex > 0}">
@@ -92,12 +90,13 @@
 						<f:selectItems value="#{anyFieldCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selAnyFieldCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{anyFieldCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selAnyFieldCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{anyFieldCriterionBean.logicOperator}">
 					<f:selectItems value="#{anyFieldCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	 --%>
+				</h:selectOneMenu>	 -->
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 		
 	</div>
 </div>
+</ui:composition>

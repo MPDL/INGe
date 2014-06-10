@@ -239,7 +239,7 @@ function getLayout(returnValue) {
 	
 	switch(returnValue) {
 		case 'id':
-			activeThemeSrc = $pb('#'+activeLayoutId).attr("href");
+			activeThemeSrc = $('#'+activeLayoutId).attr("href");
 			ptn = /(\/common.+\/)*styles/;
 			ptn.exec(activeThemeSrc);
 			return (RegExp.$1);
@@ -251,47 +251,47 @@ function getLayout(returnValue) {
 }
 
 // append a hidden field to preload the throbber image because of load error in webkit engine
-$pb(function(){
-	$pb('body').append('<input type="hidden" class="smallThrobber"/>');
+$(function(){
+	$('body').append('<input type="hidden" class="smallThrobber"/>');
 });
 
 function fullItemReloadAjax()
 {
 	var overlayDiv;
 	/*
-	var fi = $pb('#fullItem');
-	var fil = $pb('#ImgFullItemLoad');
+	var fi = $('#fullItem');
+	var fil = $('#ImgFullItemLoad');
 	if ((fi && fi.length > 0) && (fil && fil.length > 0))
 	{
-		if (!$pb.browser.msie) {
+		if (!$.browser.msie) {
 			fi.css('opacity','0.4');
 		}
 		fil.attr('class','big_imgArea half_marginLIncl smallThrobber');
-		if ($pb.browser.msie && $pb.browser.version == 7) {
+		if ($.browser.msie && $.browser.version == 7) {
 			fil.css("left", "25%");
 		}
 		fi.find("input[type='text'], textarea").attr("readonly", "true");
 	}
 	*/
 	
-	overlayDiv = $pb('#overlayAjaxRequest');
+	overlayDiv = $('#overlayAjaxRequest');
 	if(!overlayDiv || overlayDiv.length == 0)
 	{
-		overlayDiv = $pb('<div id="overlayAjaxRequest" class="overlayAjaxRequestBackground">&#160;</div>'
+		overlayDiv = $('<div id="overlayAjaxRequest" class="overlayAjaxRequestBackground">&#160;</div>'
 				+ '<div  class="big_imgArea smallThrobber">&#160;</div>');
-		$pb('body').append(overlayDiv);
+		$('body').append(overlayDiv);
 	}
 }
 function fullItemReloadStop()
 {
-	$pb('#overlayAjaxRequest').remove();
+	$('#overlayAjaxRequest').remove();
 	
 	/*
-	var fi = $pb('#fullItem');
-	var fil = $pb('#ImgFullItemLoad');
+	var fi = $('#fullItem');
+	var fil = $('#ImgFullItemLoad');
 	if ((fi && fi.length > 0) && (fil && fil.length > 0))
 	{
-		if (!$pb.browser.msie) {
+		if (!$.browser.msie) {
 			fi.css('opacity','1.0');
 		}
 		fil.attr('class','noDisplay');
@@ -303,6 +303,7 @@ function fullItemReloadStop()
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
 function beforeAjaxRequest()
 {
+	console.log("Before Ajax!!");
 	if(typeof window.fullItemReloadAjax == 'function')
 	{ 
 		fullItemReloadAjax();
@@ -312,8 +313,9 @@ function beforeAjaxRequest()
 /*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
 function afterAjaxRequest()
 {
+	console.log("After Ajax!!");
 	//Remove old autosuggest result lists
-	$pb('ul.ac_results').remove();
+	$('ul.ac_results').remove();
 	if(typeof window.fullItemReloadStop == 'function')
 	{ 
 		fullItemReloadStop();
@@ -329,6 +331,24 @@ function afterAjaxRequest()
 	}
 }
 
+
+if (!window["busystatus"]) {
+	var busystatus = {};
+}
+ 
+busystatus.onStatusChange = function onStatusChange(data) {
+	var status = data.status;
+ 
+	//alert("ajax event triggered")
+	if (status === "begin") { // turn on busy indicator
+		beforeAjaxRequest();
+	} else { // turn off busy indicator, on either "complete" or "success"
+		afterAjaxRequest();
+	}
+};
+ 
+jsf.ajax.addOnEvent(busystatus.onStatusChange);
+
 /*Stops the enter key, otherwise everytime the enter key is pressed in an textfield, the quicksearchbutton is activated  */
 function stopRKey(evt) {
 	var evt = (evt) ? evt : ((event) ? event : null);
@@ -343,16 +363,16 @@ document.onkeypress = stopRKey;
 function appendLicenseBox(divToAppend, currentLicenseUrl)
 {
 	 //empty each ccContent
-	 $pb.each($pb('.ccContent'), function(index, value) {$pb(this).empty();});
-	 $pb(divToAppend).addClass('big_imgArea smallThrobber');
+	 $.each($('.ccContent'), function(index, value) {$(this).empty();});
+	 $(divToAppend).addClass('big_imgArea smallThrobber');
 	 
 	 var hiddenInput = document.createElement( 'input' );
 	 hiddenInput.type = 'hidden';
 	 hiddenInput.id = 'cc_js_seed_uri';
 	 hiddenInput.value = currentLicenseUrl;
-	 $pb(divToAppend)[0].appendChild(hiddenInput);
+	 $(divToAppend)[0].appendChild(hiddenInput);
 	 
-	 var locale = $pb('.header .metaMenu .selectionBox').text();
+	 var locale = $('.header .metaMenu .selectionBox').text();
 	 if (locale.match(/deu/gi)) {
 		 locale = 'de_DE';
 	 } else {
@@ -365,22 +385,22 @@ function appendLicenseBox(divToAppend, currentLicenseUrl)
 	 var ccScript = document.createElement( 'script' );
 	 ccScript.type = 'text/javascript';
 	 ccScript.src = url;
-	 $pb(divToAppend)[0].appendChild(ccScript);
+	 $(divToAppend)[0].appendChild(ccScript);
 	 
 	 //IE
-	 if ($pb.browser.msie) {
+	 if ($.browser.msie) {
 		 ccScript.onreadystatechange = function () {
 			 if (ccScript.readyState == 'loaded') {
 				 //init does not work in IE...
 				 //cc_js_pageInit();
-				 $pb(divToAppend).removeClass('big_imgArea smallThrobber');
+				 $(divToAppend).removeClass('big_imgArea smallThrobber');
 				 cc_js_pageInit();
 			 }
 		 }
 	 } else { //FF & Co.
 		 ccScript.onload = function () {
 			 cc_js_pageInit();
-			 $pb(divToAppend).removeClass('big_imgArea smallThrobber');
+			 $(divToAppend).removeClass('big_imgArea smallThrobber');
 		 }
 	 }
 	 

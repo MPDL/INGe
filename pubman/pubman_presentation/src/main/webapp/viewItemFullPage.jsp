@@ -27,19 +27,17 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"   xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 	<f:loadBundle var="lbl" basename="Label"/>
 	<f:loadBundle var="msg" basename="Messages"/>
 	<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 
 				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" /></title>
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}"/>
@@ -49,9 +47,9 @@
 				
 				<meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}"/>
 				
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
 
-			</head>
+			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{ViewItemFullPage.beanName}" styleClass="noDisplay" />
 			<!-- The unAPI Identifier for this item -->
@@ -61,14 +59,14 @@
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
-				<jsp:directive.include file="header/Header.jspf" />
+				<ui:include src="header/Header.jspf" />
 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
 							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
+						<ui:include src="header/Breadcrumb.jspf" />
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
@@ -151,12 +149,12 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+										<h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
 								<!-- 
-									<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+									<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>	-->
 									
@@ -171,17 +169,6 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*  
-									<h:selectOneMenu id="selFILEFORMAT" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	*/ %> -->
-					<!-- <% /* 	</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
-								 */ %> -->
-									<!-- <% /*
-									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{ViewItemFull.exportDisplay}"/>
-									<h:outputText styleClass="seperator" />
-									*/ %> -->
 									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{ViewItemFull.exportDownload}"/>
 									<h:outputText styleClass="seperator" />
 									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{ViewItemFull.exportEmail}"/>
@@ -221,7 +208,7 @@
 							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
 								<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 								<ul>
-								<a4j:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
+								<ui:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
 									<h:panelGroup rendered="#{valitem.restrictive}">
 										<li class="messageWarn">
 										<h:outputText value="#{msg[valitem.content]}"/>
@@ -232,7 +219,7 @@
 										<h:outputText value="#{msg[valitem.content]}"/>
 										</li>
 									</h:panelGroup>
-								</a4j:repeat>
+								</ui:repeat>
 								</ul>	
 					   		</h:panelGroup>
 						   	<!-- Survey link -->
@@ -299,11 +286,6 @@
 								<h:outputLink id="lnkViewItemOverviewPage" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}viewItemOverviewPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
 									<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
 								</h:outputLink>
-								<!--
-								<h:commandLink id="lnkViewItemOverviewPage" styleClass="free_area0" action="#{ViewItemFull.showOverviewItemView }">
-									<h:outputText value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
-								</h:commandLink>
-								-->
 								<h:panelGroup styleClass="seperator" />
 							</span>
 						</div>
@@ -377,27 +359,27 @@
 							<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblAll}" /></a>
 						</h:panelGroup> 
 
-							<jsp:directive.include file="viewItem/BasicGroup.jspf" />
-							<jsp:directive.include file="viewItem/FilesGroup.jspf" />
-							<jsp:directive.include file="viewItem/LocatorsGroup.jspf" />
-							<jsp:directive.include file="viewItem/PersOrgGroup.jspf" />
-							<jsp:directive.include file="viewItem/ContentGroup.jspf" />
-							<jsp:directive.include file="viewItem/DetailGroup.jspf" />
-							<jsp:directive.include file="viewItem/EventGroup.jspf" />
+							<ui:include src="viewItem/BasicGroup.jspf" />
+							<ui:include src="viewItem/FilesGroup.jspf" />
+							<ui:include src="viewItem/LocatorsGroup.jspf" />
+							<ui:include src="viewItem/PersOrgGroup.jspf" />
+							<ui:include src="viewItem/ContentGroup.jspf" />
+							<ui:include src="viewItem/DetailGroup.jspf" />
+							<ui:include src="viewItem/EventGroup.jspf" />
 							<!--JUS content section -->
-							<jsp:directive.include file="viewItem/LegalCaseGroup.jspf" />
-							<jsp:directive.include file="viewItem/SourceGroup.jspf" />
-							<jsp:directive.include file="viewItem/WithdrawnGroup.jspf" />
+							<ui:include src="viewItem/LegalCaseGroup.jspf" />
+							<ui:include src="viewItem/SourceGroup.jspf" />
+							<ui:include src="viewItem/WithdrawnGroup.jspf" />
 
 						</div>
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
 			</div>
-			<jsp:directive.include file="footer/Footer.jspf" />
+			<ui:include src="footer/Footer.jspf" />
 			</h:form>
 			
 			</body>
 		</html>
 	</f:view>
-</jsp:root>
+

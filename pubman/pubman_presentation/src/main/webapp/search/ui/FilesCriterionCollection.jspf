@@ -1,5 +1,6 @@
-<%
-/* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
 CDDL HEADER START
 
 The contents of this file are subject to the terms of the
@@ -22,15 +23,10 @@ CDDL HEADER END
 
 
 Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
- */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
-
+</ui:remove>
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.adv_search_lbHeaderFiles}" />
@@ -40,7 +36,7 @@ All rights reserved. Use is subject to license terms.
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
 
-    <a4j:repeat id="fileCriterion" rows="0" var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" rowKeyVar="index">
+    <ui:repeat id="fileCriterion" rows="0" var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" rowKeyVar="index">
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
@@ -60,9 +56,9 @@ All rights reserved. Use is subject to license terms.
 								<f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-				<%--	<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
+				<!--	<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
                             <f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
-                        </h:selectOneMenu>	--%>
+                        </h:selectOneMenu>	-->
                             
                     </span>
 				    <span class="large_area0 tiny_marginRIncl">
@@ -77,13 +73,13 @@ All rights reserved. Use is subject to license terms.
 								<f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-				<%--    <h:selectOneMenu id="selComponentVisibilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
+				<!--    <h:selectOneMenu id="selComponentVisibilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
                             <f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
-                        </h:selectOneMenu>	--%>
+                        </h:selectOneMenu>	-->
                             
                     </span>
 					<span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="&nbsp;" escape="false"/>
+                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="&#160;" escape="false"/>
                         
                         <span class="large_checkbox">
 							<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate" value="#{fileCriterionBean.fileCriterionVO.searchForEmbargoFiles}" />
@@ -103,13 +99,13 @@ All rights reserved. Use is subject to license terms.
 								<f:selectItems value="#{fileCriterionBean.contentCategories}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-				<%--	<h:selectOneMenu id="selContentCategories" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
+				<!--	<h:selectOneMenu id="selContentCategories" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
 							<f:selectItems value="#{fileCriterionBean.contentCategories}" />
-						</h:selectOneMenu>	--%>
+						</h:selectOneMenu>	-->
 							
 					</span>
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="&nbsp;" escape="false"/>
+						<h:outputLabel styleClass="large_label" value="&#160;" escape="false"/>
 
                         <span class="large_checkbox">
 							<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="#{fileCriterionBean.fileCriterionVO.excludeCategory}" />
@@ -122,9 +118,9 @@ All rights reserved. Use is subject to license terms.
 			<span class="large_area0_p8 lineToolSection">
                     <h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.addObject}" />
                     <h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.size == 1}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
                     <h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
---%>
+-->
             </span>
 		</h:panelGroup>
 
@@ -140,11 +136,12 @@ All rights reserved. Use is subject to license terms.
 						<f:selectItems value="#{fileCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selFileCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selFileCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
 					<f:selectItems value="#{fileCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	 --%>
+				</h:selectOneMenu>	 -->
 		</h:panelGroup>
  
-       </a4j:repeat>
+       </ui:repeat>
 	</div>
 </div>
+</ui:composition>

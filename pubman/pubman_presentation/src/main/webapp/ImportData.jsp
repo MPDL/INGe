@@ -27,10 +27,10 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
@@ -86,7 +86,7 @@
 	      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 	      		<span class="large_area0_p8 detailsLinkArea">
 					<h:inputHidden id="inpImportItemsLink" value="#{ImportData.import.itemsLink}" />
-					<a onclick="if(!$pb(this).parents('tr').next('tr').hasClass('importDetails')) {$pb(this).parents('tr').after(detailsAwaiting); $pb(this).parents('tr').next('.importDetails').find('td').load($pb(this).siblings('input').val())} else {$pb(this).parents('tr').next('.importDetails').remove();}">
+					<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 							<b><h:outputText value="#{lbl.import_workspace_detailsView}"/></b>
  					</a>
 	      		</span>
@@ -120,4 +120,3 @@
 	    </tbody>
 	    </table>
 	</f:view>
-</jsp:root>

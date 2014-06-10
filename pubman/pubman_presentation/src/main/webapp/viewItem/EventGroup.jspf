@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,7 +37,7 @@
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showEvents}">
 		<a id="lnkHideGroupEvent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
-<%-- Event title --%>
+<!-- Event title -->
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblEventTitle}"/><span class="noDisplay">: </span>
@@ -51,8 +48,8 @@
 			</span>
 		</div>
 
-<%-- Event alternative title --%>
-		<a4j:repeat var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}" binding="#{ViewItemFull.eventAltTitleIterator}" rowKeyVar="index">
+<!-- Event alternative title -->
+		<ui:repeat var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/><span class="noDisplay">: </span>
@@ -61,9 +58,9 @@
 					<h:outputText value="#{eventAltTitles.value}"/>
 				</span>
 			</h:panelGroup>
-		</a4j:repeat>
+		</ui:repeat>
 
-<%-- Event place --%>
+<!-- Event place -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblEventPlace}"/><span class="noDisplay">: </span>
@@ -74,7 +71,7 @@
 			</span>
 		</div>
 
-<%-- Start / end date --%>
+<!-- Start / end date -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblEventStartEndDate}"/><span class="noDisplay">: </span>
@@ -85,7 +82,7 @@
 			</span>
 		</div>
 
-<%-- Invitation status --%>
+<!-- Invitation status -->
 		<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemMedium_lblEventInvited}"/><span class="noDisplay">: </span>
@@ -96,3 +93,5 @@
 		</h:panelGroup>
 	</h:panelGroup>
 </h:panelGroup>
+
+</ui:composition>

@@ -39,7 +39,6 @@ import java.util.Locale;
 
 import javax.faces.model.SelectItem;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
@@ -68,9 +67,6 @@ public class BrowseByPage extends BreadcrumbPage
     private final String queryPerson = "foaf:family_name";
     private final String queryDdc = "dc:title";
     private BrowseBySessionBean bbBean;
-    private HtmlAjaxRepeat characterIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat subjectIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat yearIterator = new HtmlAjaxRepeat();
     private String currentCharacter = "A";
     private List<String> creators;
     private List<String> subjects;
@@ -106,18 +102,9 @@ public class BrowseByPage extends BreadcrumbPage
      * 
      * @return navigation string for page reload
      */
-    public String startCharacterSearch()
+    public String startCharacterSearch(String selChar)
     {
-        String curChar = "";
-        if (characterIterator.getRowIndex() != -1)
-        {
-            int index = this.characterIterator.getRowIndex();
-            curChar = this.characterIterator.getRowData().toString();
-        }
-        else
-        {
-            curChar = this.getCurrentCharacter();
-        }
+        String curChar = selChar;
         List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
         this.bbBean.setCurrentCharacter(curChar);
         this.bbBean.setSearchResults(links);
@@ -246,10 +233,10 @@ public class BrowseByPage extends BreadcrumbPage
      * 
      * @return String navigation string (JSF navigation) to load the browse by subject page.
      */
-    public String loadBrowseBySubject()
+    public String loadBrowseBySubject(String selSubject)
     {
-        int index = this.subjectIterator.getRowIndex();
-        String curSubject = this.subjectIterator.getRowData().toString();
+       
+        String curSubject = selSubject;
         this.setSelectedValue(curSubject);
         this.setSearchIndex(this.subSearchIndex);
         if (this.bbBean.getSearchResults() != null)
@@ -325,15 +312,6 @@ public class BrowseByPage extends BreadcrumbPage
         return false;
     }
 
-    public HtmlAjaxRepeat getCharacterIterator()
-    {
-        return characterIterator;
-    }
-
-    public void setCharacterIterator(HtmlAjaxRepeat characterIterator)
-    {
-        this.characterIterator = characterIterator;
-    }
 
     public String getCurrentCharacter()
     {
@@ -365,15 +343,6 @@ public class BrowseByPage extends BreadcrumbPage
         this.subjects = subjects;
     }
 
-    public HtmlAjaxRepeat getSubjectIterator()
-    {
-        return subjectIterator;
-    }
-
-    public void setSubjectIterator(HtmlAjaxRepeat subjectIterator)
-    {
-        this.subjectIterator = subjectIterator;
-    }
 
     public String getPortfolioLink()
     {
@@ -401,16 +370,6 @@ public class BrowseByPage extends BreadcrumbPage
             this.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
         }
         return "";
-    }
-
-    public HtmlAjaxRepeat getYearIterator()
-    {
-        return yearIterator;
-    }
-
-    public void setYearIterator(HtmlAjaxRepeat yearIterator)
-    {
-        this.yearIterator = yearIterator;
     }
 
     public String getPubYearSearchIndex()

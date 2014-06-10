@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,16 +23,15 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
+</ui:remove>
 
 <div class="clear">
 	<div class="headerSection">
 		
-	<jsp:directive.include file="../header/Breadcrumb.jspf" />
+	<ui:include src="../header/Breadcrumb.jspf" />
 
 		<div id="contentSkipLinkAnchor" class="clear headLine">
 			<!-- Headline starts here -->
@@ -182,3 +182,4 @@
 		</div>
 	</h:panelGroup>
 </div>
+</ui:composition>

@@ -16,11 +16,42 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+<!-- 
     <context-param>
        <param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
        <param-value>mojarra-1.2_15</param-value>
     </context-param>
- 
+ -->
+	
+     <context-param>     
+     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+     <param-value>.jsp</param-value>
+     </context-param>
+     
+     <context-param>
+        <param-name>facelets.VIEW_MAPPINGS</param-name>
+        <param-value>*.jsp</param-value>
+    </context-param> 
+	
+	<mime-mapping>
+	    <extension>jsp</extension>
+	    <mime-type>text/html</mime-type>
+  	</mime-mapping>
+  	
+  		<mime-mapping>
+	    <extension>jspf</extension>
+	    <mime-type>text/html</mime-type>
+  	</mime-mapping>
+	
+	<context-param>  
+	    <param-name>org.richfaces.skin</param-name>  
+	    <param-value>plain</param-value>  
+	</context-param> 
+	 
+	<context-param>  
+	    <param-name>org.richfaces.enableControlSkinning</param-name>  
+	    <param-value>false</param-value>  
+	</context-param>  
 	
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -94,7 +125,7 @@
 		<servlet-name>default</servlet-name>
 	</filter-mapping>
 
-	
+	<!-- 
 	<filter>
 		<display-name>RichFaces Filter</display-name>
 		<filter-name>richfaces</filter-name>
@@ -108,7 +139,7 @@
 			<param-value>512000000</param-value>
 		</init-param>
 	</filter>
-
+	
 
 
 	<filter-mapping>
@@ -118,7 +149,7 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
-
+-->
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
@@ -208,12 +239,6 @@
 
 	<welcome-file-list>
 		<welcome-file>faces/HomePage.jsp</welcome-file>
-		<welcome-file>redirectSearching.jsp</welcome-file>
-		<welcome-file>redirectDepositing.jsp</welcome-file>
-		<welcome-file>redirectViewing.jsp</welcome-file>
-		<welcome-file>redirectEditing.jsp</welcome-file>
-		<welcome-file>redirectAffiliation.jsp</welcome-file>
-		<welcome-file>redirectAdvancedSearch.jsp</welcome-file>
 	</welcome-file-list>
 
 	<!-- <listener> -->

@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,21 +23,18 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <f:subview id="easySubmissionStep2Manual">
 
 <div class="clear">
 	<div class="headerSection headerDistanceFix">
 	
-	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
+	<ui:include src="../../header/Breadcrumb.jspf" />
 
 		<div id="contentSkipLinkAnchor" class="clear headLine">
 			<!-- Headline starts here -->
@@ -95,7 +93,7 @@
 	<div class="full_area0 fullItem">
 		<h:panelGroup layout="block" styleClass="full_area0 easySubmissionHeader" >
 			<span class="small_area0 endline">
-				&nbsp;
+				&#160;
 			</span>
 			<span class="seperator"></span>
 			<span class="endline xLarge_area0_p7 step messageSuccess">
@@ -120,8 +118,8 @@
 			</span>
 		</h:panelGroup>
 
-		<%-- Creators --%>
-		<jsp:directive.include file="ui/CreatorCollection.jspf"/>
+		<!-- Creators -->
+		<ui:include src="ui/CreatorCollection.jspf"/>
 
 		<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{!(genre.content_display == 'false' || genre.content_form_id == 'full-submission')}">
 			
@@ -131,7 +129,7 @@
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent marginTExcl6p endline">
 
-				<%-- Subject (Free Keywords) --%>
+				<!-- Subject (Free Keywords) -->
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					
 					
@@ -143,8 +141,8 @@
 					</span>
 				</h:panelGroup>
 
-				<%-- DDC Subject (List -> first element) --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{EditItem.hasSubjectClassification && !(genre.content_item_subject_display == 'false' || genre.content_item_subject_form_id == 'full-submission')}">
+				<!-- DDC Subject (List -> first element) -->
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{EditItem.hasSubjectClassification and !(genre.content_item_subject_display == 'false' || genre.content_item_subject_form_id == 'full-submission')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}"/><span class="noDisplay">: </span>
 					</b>
@@ -161,10 +159,10 @@
 									<f:selectItems value="#{EditItem.subjectTypes}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
-						<%--
+						<!--
 							<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{EasySubmission.subject.type}">
 								<f:selectItems value="#{EditItem.subjectTypes}"/>
-							</h:selectOneMenu>	--%>
+							</h:selectOneMenu>	-->
 						</h:panelGroup>
 						<h:panelGroup styleClass="xDouble_area0">
 							<h:outputLabel id="lblSubjectValue" value="#{genre.content_item_subject_item_subject_value_label}" converter="GenreLabelConverter"/>
@@ -173,7 +171,7 @@
 					</span>
 				</h:panelGroup>
 		
-				<%-- Abstract --%>		
+				<!-- Abstract -->		
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.content_item_abstract_display == 'false' || (genre.content_item_abstract_form_id == 'full-submission'))}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -196,3 +194,5 @@
 </div>
 
 </f:subview>
+
+</ui:composition>

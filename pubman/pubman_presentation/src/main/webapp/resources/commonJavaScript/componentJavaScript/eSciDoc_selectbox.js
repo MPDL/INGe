@@ -41,12 +41,12 @@
  * @notice if the content is greater than the maximum width it would be cutted
  */
 function resizeSelectbox(maxWidth) {
-	$pb('.selectContainer').each(function(i, box) {
+	$('.selectContainer').each(function(i, box) {
 		//check if the selectbox is on metaMenu
-		if ($pb(box).parent().hasClass("metaMenu")) {
-//			console.log('Parent: ' + $pb(box).parent().attr('class'))
+		if ($(box).parent().hasClass("metaMenu")) {
+//			console.log('Parent: ' + $(box).parent().attr('class'))
 		} else {
-			var element = $pb(box);
+			var element = $(box);
 			//Define the current width of customized selectBox
 			var curSelectWidth = element.find('select').width();
 			
@@ -81,7 +81,7 @@ function updateSelectionBox(box, isStart) {
 	
 	if (isStart) 
 	{	//if start or ajax request every selectbox will be focused to update the selectionBox
-		var sb = $pb('select');
+		var sb = $('select');
 		sb.each(function(i, slb)
 		{
 			selCont = null;
@@ -89,14 +89,14 @@ function updateSelectionBox(box, isStart) {
 			tooltip = null;
 			selVal = null;
 			
-			selCont = $pb(slb).parents(".selectContainer");
+			selCont = $(slb).parents(".selectContainer");
 			if (selCont && selCont.length > 0) {
 				selVal = slb.options[slb.selectedIndex].text;
-				$pb(slb).find("option").each(function(i, opt)
+				$(slb).find("option").each(function(i, opt)
 				{
-					if ($pb(opt).val() == selVal) 
+					if ($(opt).val() == selVal) 
 					{
-						selVal = $pb(opt).text();
+						selVal = $(opt).text();
 					}
 				});
 				
@@ -116,7 +116,7 @@ function updateSelectionBox(box, isStart) {
 		});
 	} else {
 		var contentText = box.options[box.selectedIndex].text;
-		selCont = $pb(box).parent();
+		selCont = $(box).parent();
 		selCont.find('.selectionBox').text(contentText);
 		tooltip = selCont.find(".tooltip");
 		if (tooltip && tooltip.length > 0)
@@ -127,14 +127,14 @@ function updateSelectionBox(box, isStart) {
 		tooltip = null;
 		
 		/* at first: exclude all logical operation selectboxes */
-		if ($pb.trim(contentText) != 'AND' && $pb.trim(contentText) != 'OR' && $pb.trim(contentText) != 'NOT') 
+		if ($.trim(contentText) != 'AND' && $.trim(contentText) != 'OR' && $.trim(contentText) != 'NOT') 
 		{
 			var parent = null; //define the parent object
-			for (var ij = 0; ij < $pb(box).parents().length; ij++) 
+			for (var ij = 0; ij < $(box).parents().length; ij++) 
 			{
-				if ($pb($pb(box).parents().get(ij)).hasClass('.itemBlock')) 
+				if ($($(box).parents().get(ij)).hasClass('.itemBlock')) 
 				{
-					parent = $pb($pb(box).parents().get(ij));
+					parent = $($(box).parents().get(ij));
 					break;
 				}
 			}
@@ -142,7 +142,7 @@ function updateSelectionBox(box, isStart) {
 			//compare the contentText and decide for remove hidden class
 			if (parent) 
 			{
-				if ($pb.trim(contentText) != '-' && $pb.trim(contentText) != '--' && $pb.trim(contentText) != '') 
+				if ($.trim(contentText) != '-' && $.trim(contentText) != '--' && $.trim(contentText) != '') 
 				{
 					parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
 					parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
@@ -154,7 +154,7 @@ function updateSelectionBox(box, isStart) {
 }
 
 
-$pb(document).ready(function(e){
+$(document).ready(function(e){
 	resizeSelectbox(431);
 	updateSelectionBox(null, true);
 });

@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 id="lblViewItemFull_lblCreatorsHeader" class="xLarge_area0_p8 endline blockHeader">
@@ -40,15 +37,16 @@
 	<div class="free_area0 itemBlockContent endline">
 		<a id="lnkHideGroupPersOrg" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
-<%-- Creators --%>
+<!-- Creators -->
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b id="lblViewItemFull_lblCreators" class="xLarge_area0_p8 endline labelLine">
-				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
+				<sup>&#160;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="free_area0 authorsGroup">
 					<!-- Display {ViewItemFull.defaultSize} creators by default -->
-					<a4j:repeat var="creator" value="#{ViewItemFull.creators}" rows="#{ViewItemFull.defaultSize}" rowKeyVar="creatorStatus"> 
+					<ui:repeat var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus"> 
+						<ui:fragment rendered="#{creatorStatus.index lt ViewItemFull.defaultSize}">
 						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear" rendered="#{creator.creatorType == 'PERSON'}">
 							<h:outputText value="#{creator.creatorObj.formattedDisplay}, #{creator.creatorRole}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
@@ -65,10 +63,11 @@
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<br/>
-					</a4j:repeat>
+						</ui:fragment>
+					</ui:repeat>
 
 					<!-- Hidden creators, visible after clicking on more -->
-					<a4j:repeat var="creator" value="#{ViewItemFull.creators}" rowKeyVar="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
+					<ui:repeat var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus" offset="#{ViewItemFull.defaultSize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
 						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'PERSON'}">
 							<h:outputText value="#{creator.creatorObj.formattedDisplay}, #{creator.creatorRole}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
@@ -83,7 +82,7 @@
 							&#160;
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
-					</a4j:repeat>
+					</ui:repeat>
 					
 					<h:panelGroup rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}">
 						<a class="large_area0 tiny_marginRIncl showMoreAuthors" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
@@ -94,13 +93,13 @@
 			</span>
 		</div>
 
-<%-- Affiliations --%>
+<!-- Affiliations -->
 		<div class="free_area0 endline itemLine" style="padding-top:0.1818em;">
 			<b id="lblViewItemFull_lblAffiliations" class="xLarge_area0_p8 endline labelLine">
 				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<a4j:repeat var="creatorAffiliation" value="#{ViewItemFull.organizationList}" rows="0">
+				<ui:repeat var="creatorAffiliation" value="#{ViewItemFull.organizationList}">
 					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 					<h:panelGroup id="txtCreatorAffiliation" styleClass="free_area0 affiliation">
 					<h:outputText value="#{creatorAffiliation.organizationDescription}"/>
@@ -114,9 +113,10 @@
 							<h:outputLink id="lnkAffiliationDetail" value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 980, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 					</h:panelGroup>
-					<h:outputText value="<br />" escape="false"/>
-				</a4j:repeat>
+					<br />
+				</ui:repeat>
 			</span>
 		</div>
 	</div>
 </h:panelGroup>
+</ui:composition>

@@ -27,21 +27,21 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
-			</head>
+			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{MultipleImport.beanName}" styleClass="noDisplay" />
 				<script type="text/javascript">
@@ -50,14 +50,14 @@
 				<h:form>
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
-						<jsp:directive.include file="header/Header.jspf" />
+						<ui:include src="header/Header.jspf" />
 
 						<div id="content" class="full_area0 clear">
 							<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 
 							<h:panelGroup layout="block" styleClass="clear">
 			                    <h:panelGroup layout="block" styleClass="headerSection">
-			                        <jsp:directive.include file="header/Breadcrumb.jspf" />
+			                        <ui:include src="header/Breadcrumb.jspf" />
 									<div id="contentSkipLinkAnchor" class="clear headLine">
 										<!-- Headline starts here -->
 										<h1><h:outputText value="#{lbl.import_workspace_title}"/></h1>
@@ -177,7 +177,7 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: left; vertical-align: top;">
-										<a4j:repeat var="import" rows="0" value="#{ImportWorkspace.imports}" binding="#{ImportWorkspace.importIterator}">
+										<ui:repeat var="import" rows="0" value="#{ImportWorkspace.imports}" varStatus="status">
 											<h:panelGroup>
 												<tr class="full_area0 listItem">
 													<td class="tiny_area0 endline">
@@ -207,7 +207,7 @@
 													<td class="free_area0 endline">
 														<h:panelGroup styleClass="seperator"></h:panelGroup> 
 														<span class="large_area0_p8"> 
-															<h:outputText value="#{ImportWorkspace.formatLabel}" />
+															<h:outputText value="#{ImportWorkspace.formatLabel(import)}" />
 															&#160; 
 														</span>
 													</td>
@@ -229,7 +229,7 @@
 														<h:panelGroup styleClass="seperator"></h:panelGroup> 
 														<span class="large_area0_p8 detailsLinkArea"> 
 															<h:inputHidden id="inpImportItemsLink" value="#{import.itemsLink}" /> 
-															<a onclick="if(!$pb(this).parents('tr').next('tr').hasClass('importDetails')) {$pb(this).parents('tr').after(detailsAwaiting); $pb(this).parents('tr').next('.importDetails').find('td').load($pb(this).siblings('input').val())} else {$pb(this).parents('tr').next('.importDetails').remove();}">
+															<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 																<h:outputText value="#{lbl.import_workspace_detailsView}" />
 															</a> 
 														</span>
@@ -262,34 +262,34 @@
 													</td>
 												</tr>
 											</h:panelGroup>
-										</a4j:repeat>
+										</ui:repeat>
 									</tbody>
 								</table>
 							</div>
 							<!-- end: content section -->
 						</div>			
 					</div>
-					<jsp:directive.include file="footer/Footer.jspf" />
+					<ui:include src="footer/Footer.jspf" />
 				</h:form>
 				<script type="text/javascript">
 					function reloadImports() {
-						$pb('.listItem').find('.statusArea').find('div:not(.FINISHED)').siblings('input').each(
+						$('.listItem').find('.statusArea').find('div:not(.FINISHED)').siblings('input').each(
 							function(i,ele) {
-								$pb.get($pb(ele).val(), function(data){
-									$pb(ele).parents('tr').replaceWith($pb(data).find('tr'));
+								$.get($(ele).val(), function(data){
+									$(ele).parents('tr').replaceWith($(data).find('tr'));
 								});
 							}
 						);
 						window.setTimeout("reloadImports()", 2000);
 					}
 					function reloadDetails() {
-						$pb('.listItem').find('.statusArea').find('div:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
+						$('.listItem').find('.statusArea').find('div:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
 							function(i,ele) {	
-								$pb.get($pb(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
-									$pb(ele).children('td').empty().append(data);
+								$.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
+									$(ele).children('td').empty().append(data);
 								});
-								if(($pb(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0 ) &amp;&amp; ($pb(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
-									$pb(ele).prev('.listItem').find('.ajaxedImport').removeClass('ajaxedImport');
+								if(($(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0 ) &amp;&amp; ($(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
+									$(ele).prev('.listItem').find('.ajaxedImport').removeClass('ajaxedImport');
 								}
 							}
 						);
@@ -301,4 +301,4 @@
 			</body>
 		</html>
 	</f:view>
-</jsp:root>
+

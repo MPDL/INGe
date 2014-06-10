@@ -1,5 +1,6 @@
-<%
-/* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
 CDDL HEADER START
 
 The contents of this file are subject to the terms of the
@@ -22,29 +23,26 @@ CDDL HEADER END
 
 
 Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
- */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
-<a4j:repeat id="itemVersionIterator" value="#{ItemVersionListSessionBean.versionList}" binding="#{ItemVersionListSessionBean.versionIterator}" var="versionEntry" rowKeyVar="index">
+
+<ui:repeat id="itemVersionIterator" value="#{ItemVersionListSessionBean.versionList}" var="versionEntry" varStatus="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
 			<br/>
-			<h:commandLink id="lnkRollback" action="#{versionEntry.rollback}" value="#{lbl.ViewItemFull_lblRollback}" rendered="#{index > 0}" onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
+			<h:commandLink id="lnkRollback" action="#{versionEntry.rollback}" value="#{lbl.ViewItemFull_lblRollback}" rendered="#{index.index > 0}" onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
 		</h3>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
 
-		<a4j:repeat value="#{versionEntry.eventLogEntries}" var="eventEntry" rowKeyVar="index" binding="#{ItemVersionListSessionBean.eventIterator}">
+		<ui:repeat value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="status">
 
-			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex == 0}">
+			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{status.index == 0}">
 				<span class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{eventEntry.currentTypeLabel}"/>&#160;<span class="noDisplay">: </span>
 				</span>
@@ -52,7 +50,7 @@ All rights reserved. Use is subject to license terms.
 					<h:outputText value="#{eventEntry.formattedDate}"/>
 				</span>
 			</h:panelGroup>
-			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex != 0}">
+			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{status.index!= 0}">
 				<span class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{eventEntry.currentTypeLabel}"/>&#160;<span class="noDisplay">: </span>
 				</span>
@@ -69,8 +67,9 @@ All rights reserved. Use is subject to license terms.
 				</span>
 			</div>
 
-		</a4j:repeat>
+		</ui:repeat>
 		</div>
 	</h:panelGroup>
 		
-</a4j:repeat>
+</ui:repeat>
+</ui:composition>

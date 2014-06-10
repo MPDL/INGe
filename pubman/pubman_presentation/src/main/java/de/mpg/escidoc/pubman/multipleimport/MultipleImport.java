@@ -30,9 +30,8 @@
 
 package de.mpg.escidoc.pubman.multipleimport;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -44,9 +43,10 @@ import javax.faces.convert.Converter;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
@@ -91,7 +91,7 @@ public class MultipleImport extends FacesBean
 
     
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
-    private UploadItem uploadedImportFile;
+    private UploadedFile uploadedImportFile;
     
     private ImportProcess importProcess = null;
     
@@ -184,7 +184,7 @@ public class MultipleImport extends FacesBean
     {
         if (this.uploadedImportFile != null)
         {
-            long size = uploadedImportFile.getFileSize();
+            long size = uploadedImportFile.getSize();
             if (size < 1024)
             {
                 return size + "B";
@@ -233,7 +233,9 @@ public class MultipleImport extends FacesBean
     	}
     	*/
         
-        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), uploadedImportFile.getFile(), format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
+        File f = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
+        IOUtils.copy(uploadedImportFile.getInputstream(), new FileOutputStream(f));
+        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), f, format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
         importProcess.start();
         
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -397,7 +399,7 @@ public class MultipleImport extends FacesBean
     /**
      * @return the uploadedImportFile
      */
-    public UploadItem getUploadedImportFile()
+    public UploadedFile getUploadedImportFile()
     {
         return uploadedImportFile;
     }
@@ -405,7 +407,7 @@ public class MultipleImport extends FacesBean
     /**
      * @param uploadedImportFile the uploadedImportFile to set
      */
-    public void setUploadedImportFile(UploadItem uploadedImportFile)
+    public void setUploadedImportFile(UploadedFile uploadedImportFile)
     {
         this.uploadedImportFile = uploadedImportFile;
     }
@@ -475,9 +477,9 @@ public class MultipleImport extends FacesBean
         this.formatConverter = formatConverter;
     }
     
-    public void fileUploaded(UploadEvent evt)
+    public void fileUploaded(FileUploadEvent evt)
     {
-    	this.uploadedImportFile = evt.getUploadItem();
+    	this.uploadedImportFile = evt.getFile();
     }
     
     public void clearImportFile(ActionEvent evt)

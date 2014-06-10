@@ -81,7 +81,7 @@ public static final String BEAN_NAME = "LanguageCriterionCollection";
         }
         
         @Override
-        protected void removeObjectAtIndex(int i)
+		public void removeObjectAtIndex(int i)
         {
             // due to wrapped data handling
             super.removeObjectAtIndex(i);

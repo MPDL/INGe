@@ -22,20 +22,20 @@
 
 
  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:directive.page contentType="text/plain;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		[
-			<a4j:repeat var="ou" value="#{OrganizationSuggest.creatorOrganizations}" rows="50">
+			<ui:repeat var="ou" value="#{OrganizationSuggest.creatorOrganizations}">
 				<h:panelGroup>
 				{
 					"id" : "<h:outputText value="#{ou.identifier}" escape="false"/>",
@@ -43,8 +43,7 @@
 					"address" : "<h:outputText value="#{ou.address}" escape="false"/>"
 				}<h:panelGroup rendered="#{!ou.last}">,</h:panelGroup>
 				</h:panelGroup>
-			</a4j:repeat>
+			</ui:repeat>
 		]
 		
 	</f:view>
-</jsp:root>

@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup rendered="#{!ViewItemFull.isStateWithdrawn}">
 <div id="locators" class="full_area0 itemBlock">
@@ -41,11 +38,11 @@
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
 		<a id="lnkHideGroupLocator" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
-		<a4j:repeat var="locator" value="#{ViewItemFull.pubItem.locatorBeanList}" rowKeyVar="index">
+		<ui:repeat var="locator" value="#{ViewItemFull.pubItem.locatorBeanList}" varStatus="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index > 0}"/>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index.index > 0}"/>
 
-<%-- Locator URL --%>
+<!-- Locator URL -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemFull_lblLocatorLocation}"/><span class="noDisplay">: <br /></span>
@@ -58,7 +55,7 @@
 						<h:outputText value=" (#{locator.contentCategory})" />
 				</span>
 			</h:panelGroup>
-<%-- Locator description --%>
+<!-- Locator description -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
@@ -69,7 +66,8 @@
 				</span>
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 	</h:panelGroup>
 </div>
 </h:panelGroup>
+</ui:composition>

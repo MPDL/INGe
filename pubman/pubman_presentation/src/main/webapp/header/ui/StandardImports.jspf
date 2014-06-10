@@ -1,5 +1,6 @@
-<%
-/* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
   CDDL HEADER START
 
   The contents of this file are subject to the terms of the
@@ -24,12 +25,7 @@
   fuer wissenschaftlich-technische Information mbH and Max-Planck-
   Gesellschaft zur Foerderung der Wissenschaft e.V.
   All rights reserved. Use is subject to license terms.
-*/
-   
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="pragma" content="no-cache"/>
@@ -44,9 +40,9 @@
 </style>
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 
-<link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
+<link rel="search" type="application/opensearchdescription+xml" title="#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}" href="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}search/OpenSearch.jsp" />
 
-<%--
+<ui:remove>
 <script> 
 
 var $rf, jQueryRf;
@@ -59,11 +55,17 @@ if(typeof jQuery != 'undefined')
 	}
 	
 </script>
---%>
+</ui:remove>
+<h:outputScript library="javax.faces" name="jsf.js"/>
+<h:outputScript library="primefaces" name="jquery/jquery.js"/>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 
-<a4j:loadScript src="resource://jquery.js"/>
+
 <script>
-if (jQuery.browser.msie && jQuery.browser.version == 9) {
+
+/* <![CDATA[ */
+
+  if (jQuery.browser.msie && jQuery.browser.version == 9) {
     window.XMLSerializer = function() {
 
     };
@@ -73,46 +75,18 @@ if (jQuery.browser.msie && jQuery.browser.version == 9) {
 
     };
   }
+  
+/* ]]> */
 </script>
 
-<%--
-<script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/commonJavaScript/jquery/jquery-1.4.min.js">;</script>
 
-<script type="text/javascript">
+<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/scripts.js">;</script>
+<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
 
-var $pb = $;
-var jQueryPb = jQuery;
-console.log('Set $pb to ' + $pb().jquery);
-
-</script>
---%>
-<script>
-var $pb, jQueryPb;
-$pb = jQuery;
-jQueryPb = jQuery;
-//Globally turn off caching of ajax requests. Bugfix for IE: IE caches ajax requests and therfore does not display the correct value
-//for newly entered or edited CONE entries when using autosuggest.
-$pb.ajaxSetup({ cache: false });
-</script>
-<%--
-<script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" />
-<script type="text/javascript" language="JavaScript" src="http://code.jquery.com/jquery-latest.js" />
---%>
-
-<script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/scripts.js">;</script>
-<script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
-<script type="text/javascript"> 
-<%--if($rf != null)
-{
-	
-		$ = $rf;
-		jQuery = jQueryRf;
-		console.log('Set $ to ' + jQueryRf.fn.jquery);
-}
---%>
-</script>
 
 
 
 
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
+
+</ui:composition>

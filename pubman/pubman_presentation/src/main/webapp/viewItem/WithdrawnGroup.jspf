@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -38,7 +35,7 @@
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
 
-<%-- Date of withdrawal --%>
+<!-- Date of withdrawal -->
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalDate}"/><span class="noDisplay">: </span>
@@ -48,7 +45,7 @@
 			</span>
 		</div>
 
-<%-- Withdrawal comment --%>
+<!-- Withdrawal comment -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalComment}"/><span class="noDisplay">: </span>
@@ -58,15 +55,16 @@
 			</span>
 		</div>
 
-<%-- Creators --%>
+<!-- Creators -->
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b id="lblViewItemFull_lblCreators" class="xLarge_area0_p8 endline labelLine">
-				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
+				<sup>&#160;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="free_area0 authorsGroup">
 					<!-- Display {ViewItemFull.defaultSize} creators by default -->
-					<a4j:repeat var="creator" value="#{ViewItemFull.creators}" rows="#{ViewItemFull.defaultSize}" rowKeyVar="creatorStatus"> 
+					<ui:repeat var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus"> 
+						<ui:fragment rendered="#{creatorStatus.index lt ViewItemFull.defaultSize}">
 						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear" rendered="#{creator.creatorType == 'PERSON'}">
 							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
@@ -83,10 +81,11 @@
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<br/>
-					</a4j:repeat>
+						</ui:fragment>
+					</ui:repeat>
 
 					<!-- Hidden creators, visible after clicking on more -->
-					<a4j:repeat var="creator" value="#{ViewItemFull.creators}" rowKeyVar="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
+					<ui:repeat var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus" offset="#{ViewItemFull.defaultSize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
 						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'PERSON'}">
 							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
@@ -101,7 +100,7 @@
 							&#160;
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
-					</a4j:repeat>
+					</ui:repeat>
 					
 					<h:panelGroup rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}">
 						<a class="large_area0 tiny_marginRIncl showMoreAuthors" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
@@ -112,13 +111,13 @@
 			</span>
 		</div>
 
-<%-- Affiliations --%>
+<!-- Affiliations -->
 		<div class="free_area0 endline itemLine">
 			<b id="lblViewItemFull_lblAffiliations" class="xLarge_area0_p8 endline labelLine">
 				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<a4j:repeat var="creatorAffiliation" value="#{ViewItemFull.organizationList}" rows="0">
+				<ui:repeat var="creatorAffiliation" value="#{ViewItemFull.organizationList}">
 					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 					<h:panelGroup id="txtCreatorAffiliation" styleClass="free_area0 affiliation">
 						<h:outputText value="#{creatorAffiliation.organizationName}"/>
@@ -130,45 +129,45 @@
 							<h:outputLink id="lnkAffiliationDetail" value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 980, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 					</h:panelGroup>
-					<h:outputText value="<br />" escape="false"/>
-				</a4j:repeat>
+					<br />
+				</ui:repeat>
 			</span>
 		</div>
 
-<%-- Dates --%>
+<!-- Dates -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblDates}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null && ViewItemFull.pubItem.metadata.dateCreated != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null and ViewItemFull.pubItem.metadata.dateCreated != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateCreatedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " />
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null && ViewItemFull.pubItem.metadata.dateModified != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null and ViewItemFull.pubItem.metadata.dateModified != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateModifiedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " />
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null && ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null and ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateSubmittedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null && ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null and ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateAcceptedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null && ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null and ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
 					<h:outputLabel id="lblViewItem_lblDatePublishedOnlineWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null and ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
 					<h:outputLabel id="lblViewItem_lblDatePublishedInPrintWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 				</h:panelGroup>
 			</span>
 		</div>
 
-<%-- Files total --%>
+<!-- Files total -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/><span class="noDisplay">: </span>
@@ -179,7 +178,7 @@
 			</span>
 		</div>
 
-<%-- Locators total --%>
+<!-- Locators total -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/><span class="noDisplay">: </span>
@@ -190,7 +189,7 @@
 			</span>
 		</div>
 
-<%-- Item identifier --%>
+<!-- Item identifier -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
@@ -200,7 +199,7 @@
 			</span>
 		</div>
 
-<%-- Item state --%>
+<!-- Item state -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
@@ -210,7 +209,7 @@
 			</span>
 		</div>
 
-<%-- Collection name --%>
+<!-- Collection name -->
 		<h:panelGroup styleClass="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
@@ -223,3 +222,5 @@
 	</h:panelGroup>
 
 </h:panelGroup>
+
+</ui:composition>

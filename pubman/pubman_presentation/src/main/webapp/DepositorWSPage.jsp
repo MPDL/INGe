@@ -28,24 +28,22 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="${MyItemsRetrieverRequestBean.unapiURLview}"/>
 
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-			</head>
+				<ui:include src="header/ui/StandardImports.jspf" />
+			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{MyItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
 			<h:outputText value="#{DepositorWSPage.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
@@ -53,14 +51,14 @@
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
-				<jsp:directive.include file="header/Header.jspf" />
+				<ui:include src="header/Header.jspf" />
 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
 							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
+						<ui:include src="header/Breadcrumb.jspf" />
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
@@ -101,14 +99,10 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+										<h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /* 
-									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
-										<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	*/ %> -->
 									
 									<h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
 									
@@ -121,18 +115,6 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /* 
-									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	*/ %> -->
-							<!-- 		
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-								 -->
-									<!--
-									<h:commandButton title="#{tip.export_btDisplay}" id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
-									<h:outputText styleClass="seperator" />
-									 -->
 									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0 xTiny_marginLExcl" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}"/>
 									<h:outputText styleClass="seperator" />
 									<h:commandLink title="#{tip.export_btEMail}" id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
@@ -160,14 +142,10 @@
 											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="cboItemstate" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$pb(this).parents('div').find('.changeState').click();">
+										<h:selectOneMenu id="cboItemstate" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 											<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /* 
-									<h:selectOneMenu styleClass="xDouble_select replace" id="cboItemstate" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$pb(this).parents('div').find('.changeState').click();">
-										<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}"/>
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{MyItemsRetrieverRequestBean.changeItemState}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="quad_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">	
@@ -178,7 +156,7 @@
 											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedImport" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$pb(this).parents('div').find('.changeImport').click();">
+										<h:selectOneMenu id="selSelectedImport" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
 											<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
@@ -195,14 +173,10 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="sortBy" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();">
+										<h:selectOneMenu id="sortBy" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /* 
-									<h:selectOneMenu styleClass="xLarge_select" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();" >
-										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandLink title="#{tip.list_ascending}" styleClass="ascSort xTiny_marginLExcl" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();"/>
 									<h:commandLink title="#{tip.list_descending}" styleClass="desSort xTiny_marginLExcl" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();"/>
 									<h:commandButton id="btnChangeSortBy" styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>
@@ -236,10 +210,10 @@
 						</div>
 					</div>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
-						<jsp:directive.include file="list/itemList.jspf" />
+						<ui:include src="list/itemList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
-						<jsp:directive.include file="list/gridList.jspf" />
+						<ui:include src="list/gridList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
@@ -247,18 +221,17 @@
 				<!-- end: content section -->
 				</div>
 			</div>
-			<jsp:directive.include file="footer/Footer.jspf" />
+			<ui:include src="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
-				$pb("input[id$='offset']").submit(function() {
-					$pb(this).val($pb(window).scrollTop());
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
 				});
-				$pb(document).ready(function () {
-					$pb(window).scrollTop($pb("input[id$='offset']").val());
-					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
 			</script>
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

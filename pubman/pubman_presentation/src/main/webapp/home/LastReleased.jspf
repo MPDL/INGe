@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,19 +23,13 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
-		<f:loadBundle var="lbl" basename="Label"/>
-		<f:loadBundle var="tip" basename="Tooltip"/>
-
+</ui:remove>
 <!-- TODO: Exchange this with lastsubmitted feed -->
-<h:panelGroup>
+<h:panelGroup >
     
 
     <h2>
@@ -48,7 +43,7 @@
     					<div class="gfc-title"></div>
 					</div>
 					<div class="gfc-results">
-    					<a4j:repeat var="item" value="#{HomePage.latest}">
+    					<ui:repeat var="item" value="#{HomePage.latest}">
     						<div class="gfc-result">
 								<div class="gf-result">
 									<div class="gf-title">
@@ -60,13 +55,14 @@
 									<div class="gf-snippet"><h:outputText value="#{item.shortAbstract}"/></div>
 								</div>
 							</div>
-    					</a4j:repeat>
+    					</ui:repeat>
     				</div>
     			</div>
     		</div>
     	</div>
     </div>
 </h:panelGroup>
+</ui:composition>
 
 
 

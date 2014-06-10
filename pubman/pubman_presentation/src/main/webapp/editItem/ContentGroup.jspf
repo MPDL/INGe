@@ -1,5 +1,6 @@
-<%
-            /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -22,16 +23,13 @@
 
 
             Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
-<h:panelGroup layout="block" id="editContent" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.content_display == 'false' && genre.content_form_id == 'full-submission' || genre.content_display == 'false' && genre.content_form_id == 'all')}">
+<h:panelGroup layout="block" id="editContent" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.content_display == 'false' and genre.content_form_id == 'full-submission' || genre.content_display == 'false' and genre.content_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/>
 	</h3>
@@ -40,8 +38,8 @@
 	<div class="free_area0 itemBlockContent endline">
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 	
-<%-- Subject (Free Keywords) --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder marginTExcl6p" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+<!-- Subject (Free Keywords) -->
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder marginTExcl6p" rendered="#{!(genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
@@ -50,14 +48,14 @@
 			</span>
 		</h:panelGroup>
 
-<%-- Classified Subject (List) --%>		
-		<a4j:repeat id="iterContentGroupDDCSubjectList" var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{EditItem.hasSubjectClassification && !(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+<!-- Classified Subject (List) -->		
+		<ui:repeat id="iterContentGroupDDCSubjectList" var="subject" varStatus="status" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{EditItem.hasSubjectClassification and !(genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}" rendered="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM.rowIndex == 0}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline subjectArea">
-					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_type_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_type_form_id == 'all')}">
+					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_type_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_type_form_id == 'all')}">
 						<h:outputLabel id="lblSelectIdentifierType" styleClass="large_label" value="#{genre.content_item_subject_item_subject_type_label}" converter="GenreLabelConverter"/>
 						
 						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
@@ -69,26 +67,30 @@
 								<f:selectItems value="#{EditItem.subjectTypes}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-					<%--
+					<!--
 						<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{subject.type}">
 							<f:selectItems value="#{EditItem.subjectTypes}"/>
 						</h:selectOneMenu>
-					--%>
+					-->
 					</h:panelGroup>
-					<h:panelGroup rendered="#{!(genre.content_item_subject_item_subject_value_display == 'false' && genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_display == 'false' && genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_form_id == 'all')}">
+					<h:panelGroup rendered="#{!(genre.content_item_subject_item_subject_value_display == 'false' and genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_value_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_value_display == 'false' and genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_value_form_id == 'all')}">
 						<h:outputLabel id="lblSubjectValue" styleClass="xDouble_label" value="#{genre.content_item_subject_item_subject_value_label}" converter="GenreLabelConverter"/>
 						<h:inputText id="inpSubjectValue" styleClass="xDouble_txtInput subjectSuggest" value="#{subject.value}" />
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<a4j:commandButton reRender="editContent" id="btnAddSubject" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
-					<a4j:commandButton reRender="editContent" id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+					<h:commandButton id="btnAddSubject" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObjectAtIndex(status.index)}" rendered="#{genre.content_item_subject_repeatable != 'false'}">
+						<f:ajax render="form1:editContent" execute="@form"/>
+					</h:commandButton>
+					<h:commandButton id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObjectAtIndex(status.index)}" rendered="#{genre.content_item_subject_repeatable != 'false'}">
+						<f:ajax render="form1:editContent" execute="@form"/>
+					</h:commandButton>
 				</span>
 			</h:panelGroup>
-		</a4j:repeat>
+		</ui:repeat>
 
-<%-- Abstract --%>		
-		<a4j:repeat id="iterContentGroupAbstract" var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
+<!-- Abstract -->		
+		<ui:repeat id="iterContentGroupAbstract" var="abstract" varStatus="status" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' and genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' and genre.content_item_abstract_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;
@@ -109,19 +111,24 @@
 								<f:selectItems value="#{EditItem.languageOptions}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-						<%-- 
+						<!-- 
 						<h:selectOneMenu value="#{abstract.language}" styleClass="large_select endline">
 							<f:selectItems value="#{EditItem.languageOptions}"/>
 						</h:selectOneMenu>
-						--%>
+						-->
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<a4j:commandButton reRender="editContent" id="btnAddAbstract" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
-						<a4j:commandButton reRender="editContent" id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
+						<h:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObjectAtIndex(status.index)}" rendered="#{genre.content_item_abstract_repeatable != 'false'}">
+							<f:ajax render="form1:editContent" execute="@form"/>
+						</h:commandButton>
+						<h:commandButton id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObjectAtIndex(status.index)}" rendered="#{genre.content_item_abstract_repeatable != 'false'}">
+							<f:ajax render="form1:editContent" execute="@form"/>
+						</h:commandButton>
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
-		</a4j:repeat>
+		</ui:repeat>
 	</div>
 	
 </h:panelGroup>
+</ui:composition>

@@ -36,7 +36,6 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -52,12 +51,10 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -68,7 +65,6 @@ import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
@@ -111,27 +107,22 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.AlternativeTitleType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -177,19 +168,6 @@ public class ViewItemFull extends FacesBean
     private static final String FUNCTION_MODIFY = "modify";
     private static final String FUNCTION_NEW_REVISION = "new_revision";
     private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
-    private HtmlAjaxRepeat titleIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat creatorPersonsIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat creatorOrganizationsIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat creatorAffiliationsIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat abstractIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat eventAltTitleIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceTitleIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceCreatorPersonsIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceCreatorOrganizationsIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceCreatorAffiliationsIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat locatorIterator = new HtmlAjaxRepeat();
     private ContextVO context = null;
     private AccountUserVO owner = null;
     private AccountUserVO latestModifier = null;
@@ -2449,95 +2427,9 @@ public class ViewItemFull extends FacesBean
         return this.getCreators().size();
     }
 
-    public HtmlAjaxRepeat getTitleIterator()
-    {
-        return this.titleIterator;
-    }
 
-    public void setTitleIterator(HtmlAjaxRepeat titleIterator)
-    {
-        this.titleIterator = titleIterator;
-    }
 
-    public HtmlAjaxRepeat getCreatorPersonsIterator()
-    {
-        return this.creatorPersonsIterator;
-    }
 
-    public void setCreatorPersonsIterator(HtmlAjaxRepeat creatorPersonsIterator)
-    {
-        this.creatorPersonsIterator = creatorPersonsIterator;
-    }
-
-    public HtmlAjaxRepeat getCreatorAffiliationsIterator()
-    {
-        return this.creatorAffiliationsIterator;
-    }
-
-    public void setCreatorAffiliationsIterator(HtmlAjaxRepeat creatorAffiliationsIterator)
-    {
-        this.creatorAffiliationsIterator = creatorAffiliationsIterator;
-    }
-
-    public HtmlAjaxRepeat getAbstractIterator()
-    {
-        return this.abstractIterator;
-    }
-
-    public void setAbstractIterator(HtmlAjaxRepeat abstractIterator)
-    {
-        this.abstractIterator = abstractIterator;
-    }
-
-    public HtmlAjaxRepeat getEventAltTitleIterator()
-    {
-        return this.eventAltTitleIterator;
-    }
-
-    public void setEventAltTitleIterator(HtmlAjaxRepeat eventAltTitleIterator)
-    {
-        this.eventAltTitleIterator = eventAltTitleIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceIterator()
-    {
-        return this.sourceIterator;
-    }
-
-    public void setSourceIterator(HtmlAjaxRepeat sourceIterator)
-    {
-        this.sourceIterator = sourceIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceTitleIterator()
-    {
-        return this.sourceTitleIterator;
-    }
-
-    public void setSourceTitleIterator(HtmlAjaxRepeat sourceTitleIterator)
-    {
-        this.sourceTitleIterator = sourceTitleIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceCreatorPersonsIterator()
-    {
-        return this.sourceCreatorPersonsIterator;
-    }
-
-    public void setSourceCreatorPersonsIterator(HtmlAjaxRepeat sourceCreatorPersonsIterator)
-    {
-        this.sourceCreatorPersonsIterator = sourceCreatorPersonsIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceCreatorAffiliationsIterator()
-    {
-        return this.sourceCreatorAffiliationsIterator;
-    }
-
-    public void setSourceCreatorAffiliationsIterator(HtmlAjaxRepeat sourceCreatorAffiliationsIterator)
-    {
-        this.sourceCreatorAffiliationsIterator = sourceCreatorAffiliationsIterator;
-    }
 
     public List<SourceBean> getSourceList()
     {
@@ -2549,35 +2441,7 @@ public class ViewItemFull extends FacesBean
         this.sourceList = sourceList;
     }
 
-    public HtmlAjaxRepeat getFileIterator()
-    {
-        return this.fileIterator;
-    }
 
-    public void setFileIterator(HtmlAjaxRepeat fileIterator)
-    {
-        this.fileIterator = fileIterator;
-    }
-
-    public HtmlAjaxRepeat getLocatorIterator()
-    {
-        return this.locatorIterator;
-    }
-
-    public void setLocatorIterator(HtmlAjaxRepeat locatorIterator)
-    {
-        this.locatorIterator = locatorIterator;
-    }
-
-    public HtmlAjaxRepeat getCreatorOrganizationsIterator()
-    {
-        return this.creatorOrganizationsIterator;
-    }
-
-    public void setCreatorOrganizationsIterator(HtmlAjaxRepeat creatorOrganizationsIterator)
-    {
-        this.creatorOrganizationsIterator = creatorOrganizationsIterator;
-    }
 
     public void setCitationURL(String citationURL)
     {
@@ -2747,15 +2611,7 @@ public class ViewItemFull extends FacesBean
         return false;
     }
 
-    public HtmlAjaxRepeat getSourceCreatorOrganizationsIterator()
-    {
-        return this.sourceCreatorOrganizationsIterator;
-    }
 
-    public void setSourceCreatorOrganizationsIterator(HtmlAjaxRepeat sourceCreatorOrganizationsIterator)
-    {
-        this.sourceCreatorOrganizationsIterator = sourceCreatorOrganizationsIterator;
-    }
 
     public boolean getIsWorkflowStandard()
     {
@@ -3509,7 +3365,7 @@ public class ViewItemFull extends FacesBean
     	
     	return null;
     }
-    
+
     
 
 

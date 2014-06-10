@@ -27,43 +27,40 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"  xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label" />
 		<f:loadBundle var="msg" basename="Messages" />
 		<f:loadBundle var="tip" basename="Tooltip" />
 		<f:loadBundle var="genre" basename="#{EditItem.genreBundle}" />
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 				
 				<link rel="stylesheet" href="./resources/cc_license_style.css" />
 			
-			</head>
+			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 				
 				<h:form id="form1">
-					<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
 					<div class="full wrapper">
 						<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
 					
-						<jsp:directive.include file="header/Header.jspf" />
+						<ui:include src="header/Header.jspf" />
 		
 						<div id="content" class="full_area0 clear">
 						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
 								<div class="headerSection">
-									<jsp:directive.include file="header/Breadcrumb.jspf" />
+									<ui:include src="header/Breadcrumb.jspf" />
 									<div id="contentSkipLinkAnchor" class="clear headLine">
 										<!-- Headline starts here -->
 										<h1><h:outputText value="#{lbl.EditItemPage}" /></h1>
@@ -122,7 +119,7 @@
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{EditItem.item.validationReport!=null}">
 											<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 											<ul>
-											<a4j:repeat var="valitem" value="#{EditItem.item.validationReport.items}">
+											<ui:repeat var="valitem" value="#{EditItem.item.validationReport.items}">
 													<h:panelGroup rendered="#{valitem.restrictive}">
 														<li class="messageWarn">
 														<h:outputText value="#{msg[valitem.content]}"/>
@@ -133,17 +130,17 @@
 														<h:outputText value="#{msg[valitem.content]}"/>
 														</li>
 													</h:panelGroup>
-											</a4j:repeat>
+											</ui:repeat>
 											</ul>	
 									   </h:panelGroup>
 										
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{EditItem.hasErrorMessages}">
-											<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+											<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 											<h2><h:outputText value="#{lbl.warning_lblMessageHeader}" /></h2>
 											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 										</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{EditItem.hasMessages and !EditItem.hasErrorMessages}">
-											<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+											<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 											<h2><h:outputText value="#{lbl.info_lblMessageHeader}" /></h2>
 											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 										</h:panelGroup>
@@ -199,16 +196,16 @@
 										</span>
 									</div>
 		
-								 	<jsp:directive.include file="editItem/BasicGroup.jspf" />
-									<jsp:directive.include file="editItem/FilesGroup.jspf" />
-									<jsp:directive.include file="editItem/LocatorsGroup.jspf" />
-									<jsp:directive.include file="editItem/PersOrgGroup.jspf" />
-									<jsp:directive.include file="editItem/ContentGroup.jspf" />
-									<jsp:directive.include file="editItem/DetailGroup.jspf" />
-									<jsp:directive.include file="editItem/EventGroup.jspf" />
+								 	<ui:include src="editItem/BasicGroup.jspf" />
+									<ui:include src="editItem/FilesGroup.jspf" />
+									<ui:include src="editItem/LocatorsGroup.jspf" />
+									<ui:include src="editItem/PersOrgGroup.jspf" />
+									<ui:include src="editItem/ContentGroup.jspf" />
+									<ui:include src="editItem/DetailGroup.jspf" />
+									<ui:include src="editItem/EventGroup.jspf" />
 									<!--JUS content section -->
-									<jsp:directive.include file="editItem/LegalCaseGroup.jspf" />
-									<jsp:directive.include file="editItem/SourceGroup.jspf" />
+									<ui:include src="editItem/LegalCaseGroup.jspf" />
+									<ui:include src="editItem/SourceGroup.jspf" />
 									<p>&#160;</p>
 									<div class="free_area0 xTiny_marginLIncl">
 										<h:outputText value="* " />
@@ -236,7 +233,7 @@
 						</div> <!-- end: content section -->
 					</div> <!--  end: full wrapper -->
 					
-					<jsp:directive.include file="footer/Footer.jspf" />
+					<ui:include src="footer/Footer.jspf" />
 					
 				</h:form>
 				
@@ -245,12 +242,12 @@
 						(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
 					}
 					
-					$pb("input[id$='offset']").submit(function() {
-						$pb(this).val($pb(window).scrollTop());
+					$("input[id$='offset']").submit(function() {
+						$(this).val($(window).scrollTop());
 					});
-					$pb(document).ready(function () {
-						$pb(window).scrollTop($pb("input[id$='offset']").val());
-						$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+					$(document).ready(function () {
+						$(window).scrollTop($("input[id$='offset']").val());
+						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 						checkUpdatePersonFunction();
 					});
 				
@@ -270,4 +267,3 @@
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

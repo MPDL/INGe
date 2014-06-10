@@ -27,26 +27,17 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<jsp:output doctype-root-element="html"
-		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+	
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8"
-		pageEncoding="UTF-8" />
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label" />
 		<f:loadBundle var="msg" basename="Messages" />
 		<f:loadBundle var="tip" basename="Tooltip" />
 		<html xmlns="http://www.w3.org/1999/xhtml">
 	
-			<head>
+			<h:head>
 				<title>
 					<h:outputText
 					value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}"
@@ -59,8 +50,8 @@
 				
 				<meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}"/>
 				
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-			</head>
+				<ui:include src="header/ui/StandardImports.jspf" />
+			</h:head>
 
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{ViewItemFullPage.beanName}"
@@ -75,13 +66,13 @@
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 			
-						<jsp:directive.include file="header/Header.jspf" />
+						<ui:include src="header/Header.jspf" />
 			
 						<div id="content" class="full_area0 clear">
 							<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
 								<div class="headerSection">
-									<jsp:directive.include file="header/Breadcrumb.jspf" />
+									<ui:include src="header/Breadcrumb.jspf" />
 			
 									<div id="contentSkipLinkAnchor" class="clear headLine">
 										<!-- Headline starts here -->
@@ -240,12 +231,12 @@
 												<h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace"
 													onfocus="updateSelectionBox(this);"
 													value="#{ExportItemsSessionBean.exportFormatName}"
-													onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+													onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 													<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
 												</h:selectOneMenu>
 											</h:panelGroup>
 											<!-- 
-												<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+												<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 														 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 												</h:selectOneMenu>	-->
 											<h:commandButton styleClass="noDisplay exportUpdateButton"
@@ -266,17 +257,6 @@
 													<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 												</h:selectOneMenu>
 											</h:panelGroup>
-											<!-- <%/*  
-			                             <h:selectOneMenu id="selFILEFORMAT" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-			                             <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-			                             </h:selectOneMenu>	*/%> -->
-											<!-- <%/* 	</h:panelGroup>
-			                             <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
-			                             */%> -->
-											<!-- <%/*
-			                             <h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{ViewItemFull.exportDisplay}"/>
-			                             <h:outputText styleClass="seperator" />
-			                             */%> -->
 											<h:commandLink id="btnExportDownload" styleClass="free_area0"
 												value="#{lbl.export_btDownload}"
 												action="#{ViewItemFull.exportDownload}"/>
@@ -369,7 +349,7 @@
 												<h:outputText value="#{lbl.Yearbook_validationMessageHeader}" />
 											</h2>
 											<ul>
-												<a4j:repeat var="valitem"
+												<ui:repeat var="valitem"
 													value="#{ViewItemFull.pubItem.validationReport.items}">
 													<h:panelGroup rendered="#{valitem.restrictive}">
 														<li class="messageWarn"><h:outputText
@@ -379,7 +359,7 @@
 														<li class="messageStatus"><h:outputText
 																value="#{msg[valitem.content]}" /></li>
 													</h:panelGroup>
-												</a4j:repeat>
+												</ui:repeat>
 											</ul>
 										</h:panelGroup>
 										<!-- Survey link -->
@@ -483,14 +463,6 @@
 												value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}viewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
 												<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 											</h:outputLink>
-											
-											<!-- 
-											<h:commandLink 
-												id="lnkViewItemPage" styleClass="free_area0"
-												action="#{ViewItemFull.showDetailedItemView }">
-												<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
-											</h:commandLink>
-											-->
 											<h:panelGroup styleClass="seperator" />
 											<h:outputLink id="lnkViewItemOverviewPage" 
 												styleClass="free_area0 actual" 
@@ -545,16 +517,16 @@
 									<!-- Paginator ends here -->
 									<!-- ItemView starts here -->
 									<h:panelGroup layout="block" styleClass="full_area0" >
-										<jsp:directive.include file="viewItemOverview/titleGroup.jspf" />
+										<ui:include src="viewItemOverview/titleGroup.jspf" />
 										<h:panelGroup layout="block" styleClass="huge_area0 xTiny_marginRExcl small_marginLExcl" style="overflow:visible;">
-											<jsp:directive.include file="viewItemOverview/authorGroup.jspf" />
-											<jsp:directive.include file="viewItemOverview/externalResourceGroup.jspf" />
+											<ui:include src="viewItemOverview/authorGroup.jspf" />
+											<ui:include src="viewItemOverview/externalResourceGroup.jspf" />
 										</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="third_area0">
-											<jsp:directive.include file="viewItemOverview/fulltextGroup.jspf" />
-											<jsp:directive.include file="viewItemOverview/supplementaryMaterialGroup.jspf" />
-											<jsp:directive.include file="viewItemOverview/citationGroup.jspf" />
-											<jsp:directive.include file="viewItemOverview/abstractGroup.jspf" />
+											<ui:include src="viewItemOverview/fulltextGroup.jspf" />
+											<ui:include src="viewItemOverview/supplementaryMaterialGroup.jspf" />
+											<ui:include src="viewItemOverview/citationGroup.jspf" />
+											<ui:include src="viewItemOverview/abstractGroup.jspf" />
 										</h:panelGroup>
 									</h:panelGroup>
 									<!-- ItemView ends here -->
@@ -563,19 +535,19 @@
 							<!-- end: content section -->
 						</div>
 					</div>
-					<jsp:directive.include file="footer/Footer.jspf" />
+					<ui:include src="footer/Footer.jspf" />
 				</h:form>
 			
 			<script language="javascript" type="text/javascript">
-				$pb(document).ready(function () {
+				$(document).ready(function () {
 					startNanoScrollerWhenLoaded();
 					// enable overflow of links on mouseover
-					$pb('.tile_category a').mouseenter(function (evt) {
-					    $pb(this).parent().css({"overflow": "visible"})
+					$('.tile_category a').mouseenter(function (evt) {
+					    $(this).parent().css({"overflow": "visible"})
 					});
 
-					$pb('.tile_category a').mouseleave(function (evt) {
-					    $pb(this).parent().css({"overflow": "hidden"})
+					$('.tile_category a').mouseleave(function (evt) {
+					    $(this).parent().css({"overflow": "hidden"})
 					});
 					// Try to replace standard author images with CoNE-images
 					replaceAuthorImage();
@@ -586,11 +558,11 @@
 				// Add NanoScroller (Scrollbar only visible when hovering the marked div)
 				function startNanoScrollerWhenLoaded () {
 					clearTimeout(startNanoScrollerTimeout);
-					switch (typeof $pb.fn.nanoScroller) {
+					switch (typeof $.fn.nanoScroller) {
 						case 'function':
-							var nanoDiv = $pb(".nano");
+							var nanoDiv = $(".nano");
 							// IE lower 9 will get no NanoScroller attached. Instead a standard scrollbar is added
-							if (!$pb.browser.msie || ($pb.browser.msie &amp;&amp; $pb.browser.version &gt; 8)) {
+							if (!$.browser.msie || ($.browser.msie &amp;&amp; $.browser.version &gt; 8)) {
 								nanoDiv.nanoScroller();
 							} else {
 								nanoDiv.css("overflow", "auto");
@@ -611,10 +583,10 @@
 					var url;
 					var jsonRequestUrl;
 					var imgElement;
-					$pb('.mpgAuthorId').each(function (index) {
-						url = $pb(this).text();
+					$('.mpgAuthorId').each(function (index) {
+						url = $(this).text();
 						jsonRequestUrl = url+'?format=json';
-						imgElement = $pb(this).parent().find('img').get(0);
+						imgElement = $(this).parent().find('img').get(0);
 					    updateImage(imgElement, jsonRequestUrl);
 						
 					});
@@ -623,12 +595,12 @@
 				// JSon request to CoNE (works only if CoNE is on the same server as PubMan [Cross-site-scripting])
 				// !DOES NOT WORK LOCALLY! (Cross-site-scripting)
 				function updateImage(imgElement, jsonRequestUrl) {	
-					$pb.getJSON(jsonRequestUrl, function (result) {
+					$.getJSON(jsonRequestUrl, function (result) {
 						console.log(result);
 						console.log("");
 						var pictureUrl =  result.http_xmlns_com_foaf_0_1_depiction;
-						if (pictureUrl != undefined &amp;&amp; $pb.trim().pictureUrl != '') {
-							$pb(imgElement).attr('src', pictureUrl);
+						if (pictureUrl != undefined &amp;&amp; $.trim().pictureUrl != '') {
+							$(imgElement).attr('src', pictureUrl);
 						}
 					});
 				}
@@ -636,4 +608,4 @@
 			</body>
 		</html>
 	</f:view>
-</jsp:root>
+

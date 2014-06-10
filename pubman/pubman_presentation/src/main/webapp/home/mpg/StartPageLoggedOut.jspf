@@ -1,5 +1,7 @@
-<jsp:scriptlet>
-  /* 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove> 
+ 
   CDDL HEADER START
 
   The contents of this file are subject to the terms of the
@@ -25,19 +27,14 @@
   für wissenschaftlich-technische Information mbH and Max-Planck-
   Gesellschaft zur Förderung der Wissenschaft e.V.
   All rights reserved. Use is subject to license terms.
-   */
-</jsp:scriptlet>
-<jsp:directive.page pageEncoding="UTF-8" />
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-		<f:loadBundle var="lbl" basename="Label"/>
-		<f:loadBundle var="tip" basename="Tooltip"/>
+
+</ui:remove>
 
 <!-- HOMEPAGE ENGLISH VERSION -->
-<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
-	<div itemscope itemtype="http://schema.org/WebPage">
+<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}"  >
+	<div itemscope="itemscope" itemtype="http://schema.org/WebPage">
 	<h2 itemprop="name">MPG.PuRe</h2>
-	<p itemprop="description">This is the publication repository of the <span itemprop="sourceOrganization" itemscope itemtype="http://schema.org/Organization"> <a itemtype="url" href="http://www.mpg.de/en" target="_blank"><span itemprop=name>Max Planck Society</span></a>.</span>  <br/>
+	<p itemprop="description">This is the publication repository of the <span itemprop="sourceOrganization" itemscope="itemscope" itemtype="http://schema.org/Organization"> <a itemtype="url" href="http://www.mpg.de/en" target="_blank"><span itemprop="name">Max Planck Society</span></a>.</span>  <br/>
 		It contains bibliographic data and numerous fulltexts of the publications of its researchers. <br/>
 		The repository is based on eSciDoc.PubMan, a publication repository software developed by the <a itemtype="provider" href="http://www.mpdl.mpg.de/" target="_blank">Max Planck Digital Library</a>. <br/>
 		<br/>
@@ -50,11 +47,11 @@
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text" />
 		</span>
-		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or browse through different categories.</a>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or browse through different categories.</a>
 	<br/><br/><br/>
 	<h2>
 		Tools and Interfaces
@@ -88,9 +85,9 @@
 
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
-<div itemscope itemtype="http://schema.org/WebPage">
+<div itemscope="itemscope" itemtype="http://schema.org/WebPage">
 	<h2 itemprop="name">MPG.PuRe </h2>
-	<p itemprop="description">	Dies ist das Publikationsrepositorium der <span itemprop="sourceOrganization" itemscope itemtype="http://schema.org/Organization"> <a itemtype="url" href="http://www.mpg.de/de" target="_blank"><span itemprop=name>Max Planck Gesellschaft</span></a>.</span>  <br/>
+	<p itemprop="description">	Dies ist das Publikationsrepositorium der <span itemprop="sourceOrganization" itemscope="itemscope" itemtype="http://schema.org/Organization"> <a itemtype="url" href="http://www.mpg.de/de" target="_blank"><span itemprop="name">Max Planck Gesellschaft</span></a>.</span>  <br/>
 		Es beinhaltet bibliografische Daten und zahlreiche Volltexte zu den Veröffentlichungen ihrer Wissenschaftler. <br/>
 		Das Repositorium basiert auf eSciDoc.PubMan, einer Anwendung für Publikationsdaten, die von der <a itemtype="provider" href="http://www.mpdl.mpg.de/" target="_blank">Max Planck Digital Library</a> entwickelt wird. <br/>
 		<br/>
@@ -103,11 +100,11 @@
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text" />
 		</span>
-		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder browsen Sie durch verschiedene Kategorien.</a>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder browsen Sie durch verschiedene Kategorien.</a>
 	<br/><br/><br/>
 	<h2>
 		Werkzeuge und Schnittstellen
@@ -156,19 +153,19 @@
 	<h3>文献検索</h3>
 	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
-			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text"/>
 		</span>
-		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/><br/>
 	<h2>
 	PubManインタフェース
 	</h2>
 		<ul>
-			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>検索エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
@@ -195,19 +192,19 @@
 	<h3>文献検索</h3>
 	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
-			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text"/>
 		</span>
-		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/><br/>
 	<h2>
 	PubManインタフェース
 	</h2>
 		<ul>
-			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>検索エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
@@ -216,3 +213,4 @@
 	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
+</ui:composition>

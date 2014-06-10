@@ -32,9 +32,6 @@ package de.mpg.escidoc.pubman.search;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import javax.naming.InitialContext;
-
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -53,10 +50,7 @@ import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.ObjectCriterion;
-import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
@@ -96,19 +90,6 @@ public class AdvancedSearchEdit extends FacesBean
     private LocalTagCriterionCollection localTagCriterionCollection = null;
     
 
-    private HtmlAjaxRepeat anyFieldCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat contextCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat personCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat dateCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat genreCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat degreeCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat organizationCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat eventCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat identifierCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat fileCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat languageCriterionIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat localTagCriterionIterator = new HtmlAjaxRepeat();
     
     private String suggestConeUrl = null;
 
@@ -449,106 +430,7 @@ public class AdvancedSearchEdit extends FacesBean
         this.languageCriterionCollection = languageCriterionCollection;
     }
 
-    public HtmlAjaxRepeat getAnyFieldCriterionIterator()
-    {
-        return anyFieldCriterionIterator;
-    }
-
-    public void setAnyFieldCriterionIterator(HtmlAjaxRepeat anyFieldCriterionIterator)
-    {
-        this.anyFieldCriterionIterator = anyFieldCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getContextCriterionIterator()
-    {
-        return contextCriterionIterator;
-    }
-
-    public void setContextCriterionIterator(HtmlAjaxRepeat contextCriterionIterator)
-    {
-        this.contextCriterionIterator = contextCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getPersonCriterionIterator()
-    {
-        return personCriterionIterator;
-    }
-
-    public void setPersonCriterionIterator(HtmlAjaxRepeat personCriterionIterator)
-    {
-        this.personCriterionIterator = personCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getDateCriterionIterator()
-    {
-        return dateCriterionIterator;
-    }
-
-    public void setDateCriterionIterator(HtmlAjaxRepeat dateCriterionIterator)
-    {
-        this.dateCriterionIterator = dateCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getGenreCriterionIterator()
-    {
-        return genreCriterionIterator;
-    }
-
-    public void setGenreCriterionIterator(HtmlAjaxRepeat genreCriterionIterator)
-    {
-        this.genreCriterionIterator = genreCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getOrganizationCriterionIterator()
-    {
-        return organizationCriterionIterator;
-    }
-
-    public void setOrganizationCriterionIterator(HtmlAjaxRepeat organizationCriterionIterator)
-    {
-        this.organizationCriterionIterator = organizationCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getEventCriterionIterator()
-    {
-        return eventCriterionIterator;
-    }
-
-    public void setEventCriterionIterator(HtmlAjaxRepeat eventCriterionIterator)
-    {
-        this.eventCriterionIterator = eventCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceCriterionIterator()
-    {
-        return sourceCriterionIterator;
-    }
-
-    public void setSourceCriterionIterator(HtmlAjaxRepeat sourceCriterionIterator)
-    {
-        this.sourceCriterionIterator = sourceCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getIdentifierCriterionIterator()
-    {
-        return identifierCriterionIterator;
-    }
-
-    public void setIdentifierCriterionIterator(HtmlAjaxRepeat identifierCriterionIterator)
-    {
-        this.identifierCriterionIterator = identifierCriterionIterator;
-    }
-
-    public HtmlAjaxRepeat getLanguageCriterionIterator()
-    {
-        return languageCriterionIterator;
-    }
-
-    public void setLanguageCriterionIterator(HtmlAjaxRepeat languageCriterionIterator)
-    {
-        this.languageCriterionIterator = languageCriterionIterator;
-    }
-
+   
     public String getSuggestConeUrl() throws Exception
     {
         if (suggestConeUrl == null)
@@ -573,15 +455,7 @@ public class AdvancedSearchEdit extends FacesBean
         this.fileCriterionCollection = fileCriterionCollection;
     }
 
-    public HtmlAjaxRepeat getFileCriterionIterator()
-    {
-        return fileCriterionIterator;
-    }
-
-    public void setFileCriterionIterator(HtmlAjaxRepeat fileCriterionIterator)
-    {
-        this.fileCriterionIterator = fileCriterionIterator;
-    }
+  
 
     /**
      * @return the localTagCriterionCollection
@@ -599,21 +473,7 @@ public class AdvancedSearchEdit extends FacesBean
         this.localTagCriterionCollection = localTagCriterionCollection;
     }
 
-    /**
-     * @return the localTagCriterionIterator
-     */
-    public HtmlAjaxRepeat getLocalTagCriterionIterator()
-    {
-        return localTagCriterionIterator;
-    }
-
-    /**
-     * @param localTagCriterionIterator the localTagCriterionIterator to set
-     */
-    public void setLocalTagCriterionIterator(HtmlAjaxRepeat localTagCriterionIterator)
-    {
-        this.localTagCriterionIterator = localTagCriterionIterator;
-    }
+  
     
     public DegreeCriterionCollection getDegreeCriterionCollection()
     {
@@ -625,15 +485,6 @@ public class AdvancedSearchEdit extends FacesBean
         this.degreeCriterionCollection = degreeCriterionCollection;
     }
     
-    public HtmlAjaxRepeat getDegreeCriterionIterator()
-    {
-        return degreeCriterionIterator;
-    }
-
-    public void setDegreeCriterionIterator(HtmlAjaxRepeat degreeCriterionIterator)
-    {
-        this.degreeCriterionIterator = degreeCriterionIterator;
-    }
 
 
 
