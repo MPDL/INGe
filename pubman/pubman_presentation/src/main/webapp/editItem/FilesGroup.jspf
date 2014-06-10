@@ -204,9 +204,6 @@
 					<h:commandButton id="btnRemoveFile" styleClass="min_imgBtn sectionTool remove" value=" " title="#{tip.EditItem_removeFile}" action="#{fileVar.removeFile}" rendered="#{genre.files_repeatable != 'false'}">
 						<f:ajax render="form1:files" execute="@form"/>
 					</h:commandButton>
-					<!--
-					<h:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" value=" " title="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" rendered="#{genre.files_repeatable != 'false'}"/>
-					-->
 				</span>
 			</h:panelGroup>
 
@@ -222,11 +219,9 @@
 					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
 					-->
 					
-					<rich:fileUpload listHeight="60px" addControlLabel="#{lbl.EditItem_btAddFile}" allowFlash="auto" id="inpFile" styleClass="quad_area1 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="50"
-					immediateUpload="true">
-						<a4j:ajax event="uploadcomplete" render="files" />
+					<p:fileUpload  fileUploadListener="#{EditItem.fileUploaded}"  label="#{lbl.EditItem_btAddFile}" multiple="true" id="inpFile" styleClass="quad_area1 fileInput" fileLimit="50" update="files" dragDropSupport="true" auto="true">
 						
-					</rich:fileUpload>
+					</p:fileUpload>
 				</span>
 				<!--
 				<span class="large_area0_p8 lineToolSection">

@@ -104,5 +104,14 @@
 	        <renderer-type>javax.faces.Messages</renderer-type>
 	        <renderer-class>de.mpg.escidoc.pubman.util.EscapableMessagesRenderer</renderer-class>
 	    </renderer>
+	    
+	    <!-- Use this renderer until this bug is fixed: 
+	https://code.google.com/p/primefaces/issues/detail?id=6925
+	http://stackoverflow.com/questions/19262356/file-upload-doesnt-work-with-ajax-in-primefaces-4-0-running-on-jsf-2-2-x/19752138#19752138-->
+	    <renderer>
+	        <component-family>org.primefaces.component</component-family>
+	        <renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+	        <renderer-class>de.mpg.escidoc.pubman.util.MyFileUploadRenderer</renderer-class>
+    </renderer>
 	</render-kit>
 </faces-config>
