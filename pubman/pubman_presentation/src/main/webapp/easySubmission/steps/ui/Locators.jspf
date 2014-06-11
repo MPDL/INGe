@@ -114,7 +114,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup rendered="#{!(genre.locators_component_name_display == 'false' and genre.locators_component_name_form_id == 'easy-submission' || genre.locators_component_name_display == 'false' and genre.locators_component_name_form_id == 'all')}">
 					<span class="xDouble_area0 tiny_marginRIncl">
-						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
+						<label class="xDouble_label"><span class="mandatory" title="#{msg.mandatoryField}"><h:outputText value="*" rendered="#{genre.locators_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
 						<h:inputText id="inpLocatorFileDefaultMetadataTitle" styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}"/>
 					</span>
 					</h:panelGroup>

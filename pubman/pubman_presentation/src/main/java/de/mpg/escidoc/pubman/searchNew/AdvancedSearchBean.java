@@ -689,9 +689,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.criterionTypeListMenu = criterionTypeListMenu;
 	}
 	
-	public void addSearchCriterion(ActionEvent ae)
+	public void addSearchCriterion(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		SearchCriterionBase oldSearchCriterion =  criterionList.get(position); 
 		
 		//If the add button of a Parenthesis is used, add an ANYFIELD Criterion, else add the same criterion as in the line of the add button.
@@ -706,54 +706,54 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		}
 		
 		newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
-		criterionList.add(position.intValue() + 1, newSearchCriterion);
+		criterionList.add(position + 1, newSearchCriterion);
 		
 		//If the add button of an opening parenthesis is used, the logical operator has to be added after the new criterion
 		if(SearchCriterion.OPENING_PARENTHESIS.equals(oldSearchCriterion.getSearchCriterion()))
 		{
-			criterionList.add(position.intValue() + 2, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+			criterionList.add(position + 2, new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		}
 		else
 		{
-			criterionList.add(position.intValue() + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+			criterionList.add(position + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		}
 		
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
 	
-	public void removeSearchCriterion(ActionEvent ae)
+	public void removeSearchCriterion(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		SearchCriterionBase sc = criterionList.get(position);
 		SearchCriterionBase.removeSearchCriterionWithOperator(criterionList, sc);
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 		
 	}
 	
-	public void addOpeningParenthesis(ActionEvent ae)
+	public void addOpeningParenthesis(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		this.currentlyOpenedParenthesis = new Parenthesis(SearchCriterion.OPENING_PARENTHESIS);
 		this.currentlyOpenedParenthesis.setLevel(criterionList.get(position).getLevel());
 		//add before criterion
-		criterionList.add(position.intValue(), currentlyOpenedParenthesis);
+		criterionList.add(position, currentlyOpenedParenthesis);
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
 	
-	public void addClosingParenthesis(ActionEvent ae)
+	public void addClosingParenthesis(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		Parenthesis closingParenthesis = new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS);
 		this.currentlyOpenedParenthesis.setPartnerParenthesis(closingParenthesis);
 		closingParenthesis.setPartnerParenthesis(this.currentlyOpenedParenthesis);
 		this.currentlyOpenedParenthesis = null;
-		criterionList.add(position.intValue() + 1, closingParenthesis);
+		criterionList.add(position + 1, closingParenthesis);
 		updateListForClosingParenthesis(null);
 	}
 	
-	public void removeParenthesis(ActionEvent ae)
+	public void removeParenthesis(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		Parenthesis parenthesis = (Parenthesis)criterionList.get(position);
 		Parenthesis partnerParenthesis = parenthesis.getPartnerParenthesis();
 
@@ -1252,9 +1252,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.numberOfSearchCriterions = numberOfSearchCriterions;
 	}
 	
-	public void removeAutoSuggestValues (ActionEvent e)
+	public void removeAutoSuggestValues (int position)
     {
-		Integer position = (Integer) e.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) e.getComponent().getAttributes().get("indexOfCriterion");
 		
 		SearchCriterionBase sc = criterionList.get(position);
        if(sc instanceof StringOrHiddenIdSearchCriterion)

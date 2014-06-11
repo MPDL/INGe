@@ -45,8 +45,10 @@ All rights reserved. Use is subject to license terms.
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}" reRender="personCriterions"/>
+					<h:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}">
+						<f:ajax render="form1:personCriterions" execute="@form"/>
+					</h:commandButton>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
 							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&#160;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
@@ -66,8 +68,10 @@ All rights reserved. Use is subject to license terms.
 					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}" reRender="personCriterions"/>
+					<h:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}">
+						<f:ajax render="form1:personCriterions" execute="@form"/>
+					</h:commandButton>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
 							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&#160;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"

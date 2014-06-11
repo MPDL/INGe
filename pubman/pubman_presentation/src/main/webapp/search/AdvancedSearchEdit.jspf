@@ -121,7 +121,6 @@ All rights reserved. Use is subject to license terms.
 		<ui:repeat id="criterions" var="criterion" value="#{AdvancedSearchBean.criterionList}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine #{index.index == 0 ? 'noTopBorder' : ''} paranthesis_level_#{criterion.level}">
-				
 				<h:panelGroup styleClass="free_area0 endline" style="width:100%;">
 					<!-- select menu for boolean operator -->
 					<h:panelGroup styleClass="free_area0" rendered="#{criterion.searchCriterion.displayType == 'OPERATOR'}">
@@ -146,9 +145,8 @@ All rights reserved. Use is subject to license terms.
 						<h:panelGroup rendered="#{criterion.searchCriterion == 'CLOSING_PARENTHESIS'}">
 							<h:outputText value=")" />
 						</h:panelGroup>
-						<h:commandButton value="x" styleClass="removeParanthesis" actionListener="#{AdvancedSearchBean.removeParenthesis}">
+						<h:commandButton value="x" styleClass="removeParanthesis" action="#{AdvancedSearchBean.removeParenthesis(index.index)}">
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
 					</h:panelGroup>
 					
@@ -156,9 +154,8 @@ All rights reserved. Use is subject to license terms.
 					<!-- select menu for search criterion -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginRExcl" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and criterion.searchCriterion.displayType != 'PARENTHESIS'}">
 						
-						<h:commandButton value="(" actionListener="#{AdvancedSearchBean.addOpeningParenthesis}" rendered="#{empty AdvancedSearchBean.currentlyOpenedParenthesis}" styleClass="addOpenParanthesis">
+						<h:commandButton value="(" action="#{AdvancedSearchBean.addOpeningParenthesis(index.index)}" rendered="#{empty AdvancedSearchBean.currentlyOpenedParenthesis}" styleClass="addOpenParanthesis">
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
 						
 						<!-- Placeholder if button for opening parenthesis is not displayed -->
@@ -194,8 +191,6 @@ All rights reserved. Use is subject to license terms.
 						<h:inputText id="anyFieldSearchStringFirst" styleClass="double_txtInput" value="#{criterion.searchString}" />
 					</h:panelGroup>
 					
-					<h:outputText value="#{criterion.searchCriterion.displayType == 'STANDARD'}"/>
-					<h:outputText value="#{criterion.searchCriterion.displayType == 'PERSON'}"/>
 					<!-- input for person searches-->
 					<h:panelGroup styleClass="free_area0 endline personArea suggestAnchor" rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
 						<h:outputLabel styleClass="small_label" value=" " />
@@ -203,9 +198,8 @@ All rights reserved. Use is subject to license terms.
 						<h:inputText id="personSearchStringFilled" styleClass="double_txtInput" value="#{criterion.searchString}" readonly="true" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}"/>
 						<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{criterion.hiddenId}"/>
 						<h:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}">
+						oncomplete="return removeAuthorAutoSuggest($(this))" action="#{AdvancedSearchBean.removeAutoSuggestValues(index.index)}">
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
 						
 						<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&#160;</h:outputLink>
@@ -238,9 +232,8 @@ All rights reserved. Use is subject to license terms.
 						<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
 							value="#{criterion.hiddenId}" />
 						<h:commandButton id="btnRemoveOrganizationAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
-						oncomplete="return removeOrganizationAutoSuggest($(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}" >
+						oncomplete="return removeOrganizationAutoSuggest($(this))" action="#{AdvancedSearchBean.removeAutoSuggestValues(index.index)}" >
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
 						<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" value="#"
 							onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{criterion.hiddenId}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -353,9 +346,8 @@ All rights reserved. Use is subject to license terms.
 						<h:inputText id="userAccountSearchTermEmptyFirstIdentifier" styleClass="noDisplay userAccountIdentifier" value="#{criterion.hiddenId}" />
 						
 						<h:commandButton id="btnRemoveUserAccountAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestUserAccount" style="display:none;"
-						oncomplete="return removeUserAccountAutoSuggest($(this))" actionListener="#{AdvancedSearchBean.removeAutoSuggestValues}">
+						oncomplete="return removeUserAccountAutoSuggest($(this))" action="#{AdvancedSearchBean.removeAutoSuggestValues(index.index)}">
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
 						<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
 							styleClass="xSmall_area0 ouLink">&#160;</h:panelGroup>	
@@ -366,13 +358,11 @@ All rights reserved. Use is subject to license terms.
 					<!-- +/- buttons -->
 					<h:panelGroup styleClass="free_area0_p8 lineToolSection" rendered="#{criterion.searchCriterion.displayType != 'OPERATOR' and empty AdvancedSearchBean.currentlyOpenedParenthesis}">
 						
-						<h:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" actionListener="#{AdvancedSearchBean.addSearchCriterion}" >
+						<h:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchBean.addSearchCriterion(index.index)}" >
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
-						<h:commandButton id="btnRemoveFirst"  styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" actionListener="#{AdvancedSearchBean.removeSearchCriterion}" disabled="#{criterion.searchCriterion.displayType == 'PARENTHESIS' || AdvancedSearchBean.numberOfSearchCriterions le 1}">
+						<h:commandButton id="btnRemoveFirst"  styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" action="#{AdvancedSearchBean.removeSearchCriterion(index.index)}" disabled="#{criterion.searchCriterion.displayType == 'PARENTHESIS' || AdvancedSearchBean.numberOfSearchCriterions le 1}">
 							<f:ajax render="form1:editSearch" execute="@form"/>	
-							<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 						</h:commandButton>
 					</h:panelGroup>
 					
@@ -384,9 +374,8 @@ All rights reserved. Use is subject to license terms.
 				
 				
 				<!-- add close paranthesis -->
-				<h:commandButton value=")" styleClass="addCloseParanthesis" actionListener="#{AdvancedSearchBean.addClosingParenthesis}" rendered="#{criterion.searchCriterion != 'OPENING_PARENTHESIS' and AdvancedSearchBean.currentlyOpenedParenthesis != null and AdvancedSearchBean.possibleCriterionsForClosingParenthesisMap[criterion]!=null}">
+				<h:commandButton value=")" styleClass="addCloseParanthesis" action="#{AdvancedSearchBean.addClosingParenthesis(index.index)}" rendered="#{criterion.searchCriterion != 'OPENING_PARENTHESIS' and AdvancedSearchBean.currentlyOpenedParenthesis != null and AdvancedSearchBean.possibleCriterionsForClosingParenthesisMap[criterion]!=null}">
 					<f:ajax render="form1:editSearch" execute="@form"/>	
-					<f:attribute name="indexOfCriterion" value="#{index.index}"/>
 				</h:commandButton>
 				
 			</h:panelGroup>

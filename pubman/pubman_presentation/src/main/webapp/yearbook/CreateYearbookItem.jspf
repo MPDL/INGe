@@ -103,7 +103,7 @@
 													<div class="min_imgArea selectboxIcon">&#160;</div>
 												</div>
 												<h:selectOneMenu styleClass="small_select" id="selectYear" value="#{YearbookItemCreateBean.year}" onfocus="updateSelectionBox(this);">
-													<a4j:support event="onchange" reRender="titleGroup, dateGroup" oncomplete="updateSelectionBox(this);"/>
+													<f:ajax render="titleGroup dateGroup" execute="@form"  />
 													<f:selectItems value="#{YearbookItemCreateBean.selectYear }"/>
 												</h:selectOneMenu>
 											</div>

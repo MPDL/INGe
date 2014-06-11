@@ -157,11 +157,10 @@
 					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
 						<span class="free_area0 xTiny_marginLExcl endline fileSection">
 							<h:panelGroup style="line-height:2.5454em;">
-								<rich:fileUpload listHeight="60px" addControlLabel="#{lbl.easy_submission_lblUploadBibtex}" id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
-									immediateUpload="true" maxFilesQuantity="1">
-									<a4j:support event="onclear" reRender="uploadBibtexFile,buttons" actionListener="#{EasySubmission.clearBibtexFile}"/>
-									<a4j:support event="onfileuploadcomplete" reRender="buttons"/>
-									</rich:fileUpload>
+									
+								<p:fileUpload fileUploadListener="#{EasySubmission.bibtexFileUploaded}" label="#{lbl.easy_submission_lblUploadBibtex}" multiple="false" id="inpFile" styleClass="fileInput" fileLimit="1" update="buttons" dragDropSupport="true" auto="true">
+						
+								</p:fileUpload>
 							</h:panelGroup>
 						</span>
 					</h:panelGroup>

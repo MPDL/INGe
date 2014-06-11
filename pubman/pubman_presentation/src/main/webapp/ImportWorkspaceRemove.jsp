@@ -31,7 +31,7 @@
 
 	 
 	
-	<f:view>
+	<f:view  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<h:outputText value="#{ImportData.remove}"/>
 	</f:view>
 

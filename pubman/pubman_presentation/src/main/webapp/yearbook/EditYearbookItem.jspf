@@ -109,7 +109,7 @@
 						</div>
 						<h:selectOneMenu styleClass="small_select" id="selectYear"
 							value="#{YearbookItemEditBean.year}" onfocus="updateSelectionBox(this);" >
-							<a4j:support event="onchange" reRender="titleGroup, dateGroup" oncomplete="updateSelectionBox(this);"/>
+							<f:ajax render="titleGroup dateGroup" />
 							<f:selectItems value="#{YearbookItemEditBean.selectYear }"/>
 						</h:selectOneMenu>
 					</div>

@@ -53,7 +53,7 @@
 			<body lang="${InternationalizationHelper.locale}">
 			
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			<h:form>	
+			<h:form id="form1">	
 			<div class="full wrapper">
 			<h:inputHidden id="offset"/>
 			
