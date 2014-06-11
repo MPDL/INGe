@@ -141,10 +141,10 @@
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
 				personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';
 				/*languageDetailsBaseURL = '$1?format=json';*/
-				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+				languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
 				userAccountSuggestURL = 'UserAccountSuggest.jsp';
-				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+				personDetailsBaseURL = '$1?format=json&amp;lang=$2';
 				subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
 				journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';
 				journalSuggestTrigger = 'JOURNAL';

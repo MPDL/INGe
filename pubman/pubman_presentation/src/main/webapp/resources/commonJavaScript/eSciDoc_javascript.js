@@ -322,7 +322,9 @@ function afterAjaxRequest()
 	}
 	install_javascripts();
 	
+	
 	resizeSelectbox(431);
+	
 	updateSelectionBox(null, true);
 	
 	if(typeof window.updatePersonUi == 'function')

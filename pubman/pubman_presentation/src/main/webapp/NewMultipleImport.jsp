@@ -150,11 +150,9 @@
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<rich:fileUpload id="inpMultipleImportUploadedImportFile" listHeight="60px" addControlLabel="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
-															immediateUpload="true" maxFilesQuantity="1">
-															<a4j:support event="onclear" reRender="uploadFile,buttons" actionListener="#{MultipleImport.clearImportFile}"/>
-															<a4j:support event="onfileuploadcomplete" reRender="buttons"/>
-														</rich:fileUpload>
+														<p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
+															auto="true" fileLimit="1" update="uploadFile,buttons">
+														</p:fileUpload>
 													</span>
 												</h:panelGroup>
 											</div>

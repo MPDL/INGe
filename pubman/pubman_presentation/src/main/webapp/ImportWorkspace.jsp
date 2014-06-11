@@ -40,14 +40,43 @@
 			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<ui:include src="header/ui/StandardImports.jspf" />
+				  <link rel="stylesheet" href="./resources/commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
+				<script src="./resources/commonJavaScript/jquery/jquery-ui-1.10.4.min.js"></script>
+				<!-- 
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
+				-->
+				<style>
+				.dialogNoTitleBar .ui-dialog-titlebar {display:none;}
+				.dialogNoTitleBar	{background:none; border:none;}
+				</style>
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{MultipleImport.beanName}" styleClass="noDisplay" />
 				<script type="text/javascript">
+				/* <![CDATA[ */
 					var detailsAwaiting = '<tr class="full_area0 importDetails"><td colspan="8" class="full_area0"><div class="big_imgArea half_marginLIncl smallThrobber"></div></td></tr>';
+					var currentDialog;
+					
+					function showDialog(detailsLink){
+						fullItemReloadAjax();
+						currentDialog = $('<div class="big_imgArea smallThrobber">&#160;</div>').load(detailsLink, function() {fullItemReloadStop();} ).dialog(
+								{
+									dialogClass: 'dialogNoTitleBar',
+									modal:true, 
+									closeOnEscape:true,  
+									width: 'auto',
+									resizable: false,
+									draggable:false,
+									close: function(event, ui)
+									{ 
+				            			$(this).dialog('destroy');
+				        			} 
+			        			});
+						}
+						
+					/* ]]> */
 				</script>
-				<h:form>
+				<h:form id="form1">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						<ui:include src="header/Header.jspf" />
@@ -177,7 +206,7 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: left; vertical-align: top;">
-										<ui:repeat var="import" rows="0" value="#{ImportWorkspace.imports}" varStatus="status">
+										<ui:repeat var="import" value="#{ImportWorkspace.imports}" varStatus="status">
 											<h:panelGroup>
 												<tr class="full_area0 listItem">
 													<td class="tiny_area0 endline">
@@ -207,7 +236,7 @@
 													<td class="free_area0 endline">
 														<h:panelGroup styleClass="seperator"></h:panelGroup> 
 														<span class="large_area0_p8"> 
-															<h:outputText value="#{ImportWorkspace.formatLabel(import)}" />
+															<h:outputText value="#{ImportWorkspace.getFormatLabel(import)}" />
 															&#160; 
 														</span>
 													</td>

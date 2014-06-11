@@ -172,7 +172,7 @@ public class EditItem extends FacesBean
     private ContentSubjectCollection contentSubjectCollection;
     private IdentifierCollection identifierCollection;
     private List<ListItem> languages = null;
-    private UploadedFile uploadedFile;
+    //private UploadedFile uploadedFile;
     private String locatorUpload;
     
 
@@ -1302,7 +1302,7 @@ public class EditItem extends FacesBean
         this.contentSubjectCollection = null;
         this.identifierCollection = null;
         this.languages = null;
-        this.uploadedFile = null;
+        //this.uploadedFile = null;
         //this.fileTable = null;
     }
 
@@ -1474,9 +1474,9 @@ public String logUploadComplete()
 	return "";
 }
     
-    public String uploadFile()
+    public String uploadFile(UploadedFile file)
     {
-    	UploadedFile file = uploadedFile;
+    	//UploadedFile file = uploadedFile;
     	/*
     	for(UploadedFile file: getUploadedFile())
     	{
@@ -1486,7 +1486,7 @@ public String logUploadComplete()
 	        String contentURL;
 	        if (file != null && file.getSize() > 0)
 	        {
-	            contentURL = uploadFile(file);
+	            contentURL = uploadFileToEscidoc(file);
 	            if (contentURL != null && !contentURL.trim().equals(""))
 	            {
 	            	 FileVO fileVO = new FileVO();
@@ -1547,7 +1547,7 @@ public String logUploadComplete()
 
     }
 
-    public String uploadFile(UploadedFile file)
+    public String uploadFileToEscidoc(UploadedFile file)
     {
         String contentURL = "";
         if (file != null)
@@ -1592,8 +1592,8 @@ public String logUploadComplete()
 
     public void fileUploaded(FileUploadEvent event)
     {
-        this.uploadedFile = event.getFile();
-        uploadFile();
+        
+        uploadFile(event.getFile());
     }
 
     /*
@@ -2267,6 +2267,7 @@ public String logUploadComplete()
         this.getEditItemSessionBean().setLocators(locators);
     }
 
+    /*
     public UploadedFile getUploadedFile()
     {
         return this.uploadedFile;
@@ -2276,6 +2277,7 @@ public String logUploadComplete()
     {
         this.uploadedFile = uploadedFile;
     }
+    */
 
     /*
     public CoreTable getFileTable()

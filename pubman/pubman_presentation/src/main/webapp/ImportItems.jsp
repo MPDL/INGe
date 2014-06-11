@@ -42,9 +42,12 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		<html>
+
 		<body>
-			<ui:repeat var="item" value="#{ImportItems.import.items}" offset="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}" varStatus="status">
-				<ui:fragment rendered="#{status.index lt (ImportItems.page * ImportItems.itemsPerPage) + ImportItems.itemsPerPage - 1}">
+
+		
+			<ui:repeat var="item" value="#{ImportItems.import.items}" varStatus="status">
+
 				<h:panelGroup>
 					<div class="full_area0" style="margin-bottom: 0.19em;">
 						<div class="medium_area0_p8 state noPaddingTopBottom" style="margin-left: 2.28em;">					
@@ -64,17 +67,19 @@
 						</div>
 						<div class="large_area0_p8 noPaddingTopBottom">
 							<h:inputHidden id="inpItemDetailsLink" value="#{item.detailsLink}"/>
-							<a onmouseover="$(this).createDialog({addr: $(this).siblings('input').val(), bg: '#FFF',opacity: 0.5});">
+							<a href="#" onclick="console.log('click!!'); showDialog($(this).siblings('input').val());return false;">
 								Details
 							</a>
+
+							
 						</div>
 						<div class="large_area0_p8 endline noPaddingTopBottom">
 							<h:outputText value="#{item.errorLevel}"/>&#160;
 						</div>
 					</div>
 				</h:panelGroup>
-				</ui:fragment>
 			</ui:repeat>
+			
 		</body>
 		</html>
 	</f:view>

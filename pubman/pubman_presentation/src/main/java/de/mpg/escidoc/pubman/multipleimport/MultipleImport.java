@@ -31,7 +31,10 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -92,6 +95,7 @@ public class MultipleImport extends FacesBean
     
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
     private UploadedFile uploadedImportFile;
+    private File uploadedFile;
     
     private ImportProcess importProcess = null;
     
@@ -233,9 +237,8 @@ public class MultipleImport extends FacesBean
     	}
     	*/
         
-        File f = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
-        IOUtils.copy(uploadedImportFile.getInputstream(), new FileOutputStream(f));
-        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), f, format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
+        
+        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), uploadedFile, format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
         importProcess.start();
         
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -479,7 +482,18 @@ public class MultipleImport extends FacesBean
     
     public void fileUploaded(FileUploadEvent evt)
     {
-    	this.uploadedImportFile = evt.getFile();
+    	try {
+			this.uploadedImportFile = evt.getFile();
+			uploadedFile = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
+			FileOutputStream fos = new FileOutputStream(uploadedFile);
+			InputStream is = uploadedImportFile.getInputstream();
+			IOUtils.copy(is, fos);
+			fos.flush();
+			fos.close();
+			is.close();
+		} catch (Exception e) {
+			logger.error("Error while uplaoding file", e);
+		} 
     }
     
     public void clearImportFile(ActionEvent evt)

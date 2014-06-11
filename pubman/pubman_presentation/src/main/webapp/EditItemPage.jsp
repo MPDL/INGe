@@ -257,8 +257,8 @@
 					personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query?lang=*';
 					organizationSuggestURL = 'OrganizationSuggest.jsp';
 					journalDetailsBaseURL = '$1?format=json';
-					personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
-					languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+					personDetailsBaseURL = '$1?format=json&amp;lang=$2';
+					languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
 					journalSuggestCommonParentClass = 'itemBlock';
 					personSuggestCommonParentClass = 'suggestAnchor';
 					journalSuggestTrigger = 'JOURNAL';
