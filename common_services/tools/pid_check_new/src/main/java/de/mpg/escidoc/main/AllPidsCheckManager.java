@@ -24,7 +24,7 @@ public class AllPidsCheckManager extends AbstractConsistencyCheckManager impleme
     	"escidoc.property.latest-release.pid=\"xxx\"",
     	"escidoc.property.pid=\"xxx\"", 
     	"escidoc.property.version.pid=\"xxx\"", 
-    	"escidoc.compnent.pid=\"xxx\""
+    	"escidoc.component.pid=\"xxx\""
     };
     
     public AllPidsCheckManager() throws Exception

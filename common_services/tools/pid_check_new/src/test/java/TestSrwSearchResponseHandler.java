@@ -23,7 +23,7 @@ public class TestSrwSearchResponseHandler
         SrwSearchResponseHandler handler = new SrwSearchResponseHandler();
         
         
-        handler.setPidToSearchFor("11858/00-001Z-0000-0023-673A-F");
+        handler.setPidToSearchFor("hdl:11858/00-001Z-0000-0023-673A-F");
         
         parser.parse(new File("src/test/resources/escidoc_672822"), handler);
         
@@ -35,7 +35,7 @@ public class TestSrwSearchResponseHandler
         
         // search for object pid
         handler = new SrwSearchResponseHandler();
-        handler.setPidToSearchFor("11858/00-001Z-0000-0023-6739-2");
+        handler.setPidToSearchFor("hdl:11858/00-001Z-0000-0023-6739-2");
         
         parser.parse(new File("src/test/resources/escidoc_672822"), handler);
         
@@ -48,7 +48,7 @@ public class TestSrwSearchResponseHandler
         // search in item with several versions and components        
         handler = new SrwSearchResponseHandler();
         // object pid
-        handler.setPidToSearchFor("11858/00-001Z-0000-0022-C896-2");        
+        handler.setPidToSearchFor("hdl:11858/00-001Z-0000-0022-C896-2");        
         parser.parse(new File("src/test/resources/escidoc_530180"), handler);
         
         assertTrue(!handler.isVersionPid());
@@ -59,7 +59,7 @@ public class TestSrwSearchResponseHandler
         
         // version pid
         handler = new SrwSearchResponseHandler();
-        handler.setPidToSearchFor("11858/00-001Z-0000-0023-2D99-2");     
+        handler.setPidToSearchFor("hdl:11858/00-001Z-0000-0023-2D99-2");     
         parser.parse(new File("src/test/resources/escidoc_530180"), handler);
         
         assertTrue(handler.isVersionPid());
@@ -70,7 +70,7 @@ public class TestSrwSearchResponseHandler
         
         // component pid1
         handler = new SrwSearchResponseHandler();
-        handler.setPidToSearchFor("11858/00-001Z-0000-0022-EE20-8");        
+        handler.setPidToSearchFor("hdl:11858/00-001Z-0000-0022-EE20-8");        
         parser.parse(new File("src/test/resources/escidoc_530180"), handler);
         
         assertTrue(!handler.isVersionPid());
@@ -82,7 +82,7 @@ public class TestSrwSearchResponseHandler
         assertTrue(handler.getComponentUrl().equals("/item/escidoc:530180/component/escidoc:553224/Rest_api_doc_SB_Search.pdf"));
         // component pid2
         handler = new SrwSearchResponseHandler();
-        handler.setPidToSearchFor("11858/00-001Z-0000-0022-C899-B");        
+        handler.setPidToSearchFor("hdl:11858/00-001Z-0000-0022-C899-B");        
         parser.parse(new File("src/test/resources/escidoc_530180"), handler);
         
         assertTrue(!handler.isVersionPid());

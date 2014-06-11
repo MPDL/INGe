@@ -106,7 +106,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             propPid = currentContent.toString();
-            if (propPid.contains(pidToSearchFor))
+            if (propPid.equalsIgnoreCase(pidToSearchFor))
             {
                 isObjectPid = true;
             }
@@ -117,7 +117,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             versionPid = currentContent.toString();
-            if (versionPid.contains(pidToSearchFor))
+            if (versionPid.equalsIgnoreCase(pidToSearchFor))
             {
                 isVersionPid = true;
                 matchingPropVersion = currentPropVersion;
@@ -130,7 +130,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             propPid = currentContent.toString();
-            if (propPid.contains(pidToSearchFor))
+            if (propPid.equalsIgnoreCase(pidToSearchFor))
             {
                 isComponentPid = true;
                 matchingComponentAttributes = currentComponentAttributes;

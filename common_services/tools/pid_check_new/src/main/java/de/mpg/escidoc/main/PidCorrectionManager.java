@@ -1,6 +1,6 @@
 package de.mpg.escidoc.main;
 
-import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.RecordsType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
@@ -42,37 +42,60 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             for (String pid: pids)
             {    
                 try
-                {
-                    statistic.incrementTotal();
+                {                    
+                    RecordsType records = this.searchForPid(pid);
                     
-                    RecordType record = this.searchForPid(pid);
-                    
-                    if (record == null) 
+                    if (records == null) 
                     {
                         pidProvider.updatePid(pid, "", statistic);
                         continue;       
                     }
                     
-                    File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
-                    FileUtils.writeStringToFile(tmp, record.getRecordData().get_any()[0].getAsString(), "UTF-8");
-                    
-                    srwSearchResponseHandler = new SrwSearchResponseHandler();
-                    srwSearchResponseHandler.setPidToSearchFor(pid);
-                    parser.parse(tmp, srwSearchResponseHandler);
-                    
-                    if (srwSearchResponseHandler.isObjectPid())
-                        pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl(), statistic); 
-                    else if (srwSearchResponseHandler.isVersionPid())
-                    {
-                        pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl(), statistic); 
-                    }
-                    else if (srwSearchResponseHandler.isComponentPid())
-                    {
-                        pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl(), statistic); 
-                    } 
-                    FileUtils.deleteQuietly(tmp);
-                    
-                    Thread.currentThread().sleep(5*1000);
+					for (int i = 0; i < records.getRecord().length; i++)
+					{
+						statistic.incrementTotal();
+
+						File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
+						
+						String record = records.getRecord()[i].getRecordData().get_any()[0].getAsString();
+								
+						FileUtils.writeStringToFile(tmp, record, "UTF-8");
+								
+						srwSearchResponseHandler = new SrwSearchResponseHandler();
+						srwSearchResponseHandler.setPidToSearchFor("hdl:" + pid);
+						parser.parse(tmp, srwSearchResponseHandler);
+
+						// if the same pid has been used several times, we need new pids from pidcache
+						if (i > 0)
+						{
+			//				String newPid = pidCache.getPid();
+			//				String escidocId = srwSearchResponsehandler.getEscidocId();
+							
+						}
+						if (srwSearchResponseHandler.isObjectPid())
+							pidProvider.updatePid(pid,
+									srwSearchResponseHandler.getItemUrl(),
+									statistic);
+							if (i > 0)
+							{
+								//itemHandler.setObjectPid(newPid();
+							}
+						else if (srwSearchResponseHandler.isVersionPid())
+						{
+							pidProvider.updatePid(pid,
+									srwSearchResponseHandler.getVersionUrl(),
+									statistic);
+						} 
+						else if (srwSearchResponseHandler.isComponentPid())
+						{
+							pidProvider.updatePid(pid,
+									srwSearchResponseHandler.getComponentUrl(),
+									statistic);
+						}
+						FileUtils.deleteQuietly(tmp);
+
+						Thread.currentThread().sleep(1000);
+					}
                 }
                 catch (Exception e)
                 {
@@ -93,7 +116,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
         }
     }  
 
-    private RecordType searchForPid(String pid) throws Exception
+    private RecordsType searchForPid(String pid) throws Exception
     {
         StringBuffer cql = new StringBuffer("escidoc.metadata=");
         
@@ -109,8 +132,6 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
         
         logger.info("searchRetrieveRequest query <" + searchRetrieveRequest.getQuery() + ">");
         
-        searchHandler.searchRetrieveOperation(searchRetrieveRequest);
-        
         SearchRetrieveResponseType searchResult = searchHandler.searchRetrieveOperation(searchRetrieveRequest);
         if (searchResult.getDiagnostics() != null)
         {
@@ -121,14 +142,13 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             }
         }
         
-        switch (searchResult.getNumberOfRecords().intValue())
-        {
-            case 1:
-                return searchResult.getRecords().getRecord(0);
-            case 0:
-            default:
-                return null;
-        }  
+		if (searchResult.getNumberOfRecords().intValue() > 0)
+		{
+			return searchResult.getRecords();
+		} else
+		{
+			return null;
+		}
     }
 
 

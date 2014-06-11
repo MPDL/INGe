@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.main.AllPidsCheckManager;
@@ -20,6 +21,7 @@ public class TestAllPidsCheckManager
     }
     
     @Test
+    @Ignore
     public void testCreateOrCorrectList() throws Exception
     {
     	allPidsCheckManager.createOrCorrectSet(new HashSet<String>());
