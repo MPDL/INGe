@@ -28,11 +28,11 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:view xmlns="http://www.w3.org/1999/xhtml" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
-		<html xmlns="http://www.w3.org/1999/xhtml">
+		<html>
 			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="${ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument"/>
