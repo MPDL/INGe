@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:remove>
   CDDL HEADER START
@@ -38,27 +37,17 @@
 	/*.headerLogo {background-image: url("<h:outputText value='#{ApplicationBean.logoUrl}'/>") !important; background-repeat: norepeat; background-position: top left;}*/
 	.headerLogo {background-image: none; <h:outputText value='#{ApplicationBean.additionalLogoCss}'/>}
 </style>
+
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 
 <link rel="search" type="application/opensearchdescription+xml" title="#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}" href="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}search/OpenSearch.jsp" />
 
-<ui:remove>
-<script> 
-
-var $rf, jQueryRf;
-if(typeof jQuery != 'undefined')
-	{
-		
-		$rf = $;
-		jQueryRf = jQuery;
-		console.log('Set $rf to ' + jQueryRf.fn.jquery);
-	}
-	
-</script>
-</ui:remove>
 <h:outputScript library="javax.faces" name="jsf.js"/>
 <h:outputScript library="primefaces" name="jquery/jquery.js"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/scripts.js">;</script>
+<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
+
 
 
 <script>
@@ -78,10 +67,6 @@ if(typeof jQuery != 'undefined')
   
 /* ]]> */
 </script>
-
-
-<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/scripts.js">;</script>
-<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
 
 
 

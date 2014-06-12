@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:remove>
             CDDL HEADER START
@@ -219,9 +218,10 @@
 					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
 					-->
 					
-					<p:fileUpload  fileUploadListener="#{EditItem.fileUploaded}"  label="#{lbl.EditItem_btAddFile}" multiple="true" id="inpFile" styleClass="quad_area1 fileInput" fileLimit="50" update="files" dragDropSupport="true" auto="true" onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
+					<p:fileUpload  fileUploadListener="#{EditItem.fileUploaded}"  label="#{lbl.EditItem_btAddFile}" multiple="true" id="inpFile" styleClass="quad_area1 fileInput" fileLimit="50" update="files" process="@form" dragDropSupport="true" auto="true" onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
 						
 					</p:fileUpload>
+					
 				</span>
 				<!--
 				<span class="large_area0_p8 lineToolSection">

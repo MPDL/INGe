@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -28,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-	<f:view xmlns="http://www.w3.org/1999/xhtml" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:view encoding="UTF-8" xmlns="http://www.w3.org/1999/xhtml" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>

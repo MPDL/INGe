@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -33,14 +33,13 @@
 	 
 
 	
-	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 				
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<h:head>
-				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<meta http-equiv="cache-control" content="no-cache" />
 				<meta http-equiv="Pragma" content="no-cache" />
@@ -53,7 +52,7 @@
 			<body lang="${InternationalizationHelper.locale}">
 			
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			<h:form>		
+			<h:form id="form1">		
 			<div class="full wrapper">
 			<h:inputHidden id="offset"/>
 			

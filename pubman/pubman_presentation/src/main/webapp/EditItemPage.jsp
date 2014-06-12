@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -28,18 +28,13 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-
-	 
-
-	
-	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label" />
 		<f:loadBundle var="msg" basename="Messages" />
 		<f:loadBundle var="tip" basename="Tooltip" />
 		<f:loadBundle var="genre" basename="#{EditItem.genreBundle}" />
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<h:head>
-				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<ui:include src="header/ui/StandardImports.jspf" />
 				
@@ -237,6 +232,8 @@
 				</h:form>
 				
 				<script type="text/javascript">
+					var suggestConeUrl = "#{EditItem.suggestConeUrl}";
+					/* <![CDATA[ */
 					function checkUpdatePersonFunction() {
 						(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
 					}
@@ -250,17 +247,19 @@
 						checkUpdatePersonFunction();
 					});
 				
-					languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-3/query';
-					journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query';
-					subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>$1/query?lang=en';
-					personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query?lang=*';
+					languageSuggestURL = suggestConeUrl + 'iso639-3/query';
+					journalSuggestURL = suggestConeUrl + 'journals/query';
+					subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
+					personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
 					organizationSuggestURL = 'OrganizationSuggest.jsp';
 					journalDetailsBaseURL = '$1?format=json';
-					personDetailsBaseURL = '$1?format=json&amp;lang=$2';
-					languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
+					personDetailsBaseURL = '$1?format=json&lang=$2';
+					languageDetailsBaseURL = '$1?format=json&lang=$2';
 					journalSuggestCommonParentClass = 'itemBlock';
 					personSuggestCommonParentClass = 'suggestAnchor';
 					journalSuggestTrigger = 'JOURNAL';
+					/* ]]> */
+					
 				</script>
 
 			</body>
