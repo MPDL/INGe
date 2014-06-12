@@ -239,7 +239,7 @@
 				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">					
 					
-					<p:fileUpload fileUploadListener="#{EasySubmission.fileUploaded}" label="#{lbl.EditItem_btAddFile}" multiple="true" id="inpFile" styleClass="quad_area1 fileInput" fileLimit="50" update="files" dragDropSupport="true" auto="true">
+					<p:fileUpload fileUploadListener="#{EasySubmission.fileUploaded}" label="#{lbl.EditItem_btAddFile}" multiple="true" id="inpFile" styleClass="quad_area1 fileInput" fileLimit="50" update="files" dragDropSupport="true" auto="true"  onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
 						
 					</p:fileUpload>
 					

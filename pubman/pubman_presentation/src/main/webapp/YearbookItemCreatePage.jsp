@@ -43,7 +43,6 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<ui:include src="header/ui/StandardImports.jspf" />
-				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{YearbookItemCreateBean.beanName}" styleClass="noDisplay"/>

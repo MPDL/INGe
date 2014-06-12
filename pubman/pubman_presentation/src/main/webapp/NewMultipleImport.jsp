@@ -151,7 +151,7 @@
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
 														<p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
-															auto="true" fileLimit="1" update="uploadFile,buttons" multiple="false">
+															auto="true" fileLimit="1" update="uploadFile,buttons" multiple="false"  onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
 														</p:fileUpload>
 													</span>
 												</h:panelGroup>

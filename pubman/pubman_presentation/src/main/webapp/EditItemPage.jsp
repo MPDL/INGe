@@ -42,7 +42,6 @@
 				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<ui:include src="header/ui/StandardImports.jspf" />
-				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 				
 				<link rel="stylesheet" href="./resources/cc_license_style.css" />
 			

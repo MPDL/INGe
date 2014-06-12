@@ -42,6 +42,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
@@ -600,18 +601,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	
 	public void changeCriterionAction(ValueChangeEvent evt)
 	{
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		Integer position = Integer.parseInt(params.get("indexOfCriterion"));
-		//String sc = params.get("typeOfCriterion");
-		//logger.info("TypeOfCriterion:" + sc);
-		//logger.info("Old criterion list:" + criterionList);
-		
-		//Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
-		
-		
-		
+		Integer position = (Integer)evt.getComponent().getAttributes().get("indexOfCriterion");
+
 		if(evt.getNewValue() != null && position!=null)
 		{
+			
 			SearchCriterion newValue = SearchCriterion.valueOf(evt.getNewValue().toString());
 			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
 			
@@ -628,43 +622,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			criterionList.add(position, newSearchCriterion);
 			//logger.info("New criterion list:" + criterionList);
 		}
-		
-		
-		/*
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String position = params.get("indexOfChangedCriterion");
-		*/
+
 		
 	}
 	
-	/*
-	public void changeCriterion(AjaxEvent evt)
-	{
-		
-		Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
-		SearchCriterion newValue = (SearchCriterion)evt.getNewValue();
-		if(newValue != null && position!=null)
-		{
-			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
-			
-			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
-			SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
-			newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
-			if(possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion))
-			{
-				boolean oldValue = possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
-				possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
-				possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
-			}
-			criterionList.add(position, newSearchCriterion);
-			logger.info("New criterion list:" + criterionList);
-		}
-		
-		
-		
-		
-	}
-	*/
+	
 	
 	
 	
