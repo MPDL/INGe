@@ -277,14 +277,14 @@ function fullItemReloadAjax()
 	overlayDiv = $('#overlayAjaxRequest');
 	if(!overlayDiv || overlayDiv.length == 0)
 	{
-		overlayDiv = $('<div id="overlayAjaxRequest" class="overlayAjaxRequestBackground">&#160;</div>'
-				+ '<div  class="big_imgArea smallThrobber">&#160;</div>');
+		overlayDiv = $('<div id="overlayAjaxRequestParent" ><div id="overlayAjaxRequest" class="overlayAjaxRequestBackground"></div>'
+				+ '<div class="big_imgArea smallThrobber">&#160;</div></div>');
 		$('body').append(overlayDiv);
 	}
 }
 function fullItemReloadStop()
 {
-	$('#overlayAjaxRequest').remove();
+	$('#overlayAjaxRequestParent').remove();
 	
 	/*
 	var fi = $('#fullItem');
