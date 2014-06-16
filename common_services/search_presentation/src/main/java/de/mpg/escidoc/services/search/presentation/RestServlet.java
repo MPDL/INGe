@@ -119,8 +119,8 @@ public class RestServlet extends HttpServlet
             String qs = req.getQueryString();
             LOGGER.debug("QueryString: " + qs);
             // Init exporting service
-            InitialContext ctx = new InitialContext();
-            itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
+            //InitialContext ctx = new InitialContext();
+            //itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
             cqlQuery = fixURLEncoding(req.getParameter("cqlQuery"));
             if (!checkVal(cqlQuery))
             {
