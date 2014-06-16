@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:srw="http://www.loc.gov/zing/srw/" xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.8" xmlns:excel="urn:schemas-microsoft-com:office:spreadsheet" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"  xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ei="http://www.escidoc.de/schemas/item/0.8" xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file" xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:escidocFunctions="urn:escidoc:functions" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:eprint="http://purl.org/eprint/terms/">
+<xsl:stylesheet version="2.0" 
+		xmlns:dc="http://purl.org/dc/elements/1.1/" 
+		xmlns:dcterms="http://purl.org/dc/terms/" 
+		xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" 
+		xmlns:ei="${xsd.soap.item.item}" 
+		xmlns:eprint="http://purl.org/eprint/terms/"
+		xmlns:escidocFunctions="urn:escidoc:functions" 
+		xmlns:escidoc="${xsd.metadata.terms}" 
+		xmlns:excel="urn:schemas-microsoft-com:office:spreadsheet"
+		xmlns:file="${xsd.metadata.file}"
+		xmlns:fn="http://www.w3.org/2005/xpath-functions"
+		xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+		xmlns:mdou="${xsd.metadata.organizationalunit}"  
+		xmlns:mdp="${xsd.metadata.escidocprofile}" 
+		xmlns:mdr="${xsd.soap.common.mdrecords}" 
+		xmlns:organizational-unit="${xsd.soap.ou.ou}"
+		xmlns:prop="${xsd.soap.common.prop}" 
+		xmlns:publ="${xsd.metadata.publication}"
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		xmlns:release="${xsd.soap.common.release}"  
+		xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+		xmlns:srel="${xsd.soap.common.srel}"
+		xmlns:srw="http://www.loc.gov/zing/srw/"
+		xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" 
+		xmlns:version="${xsd.soap.common.version}"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="ou-url" select="'http://migration-coreservice.mpdl.mpg.de:8080'"/>
