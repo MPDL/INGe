@@ -45,6 +45,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
                 {                    
                     RecordsType records = this.searchForPid(pid);
                     
+                    // pid is not used in PubMan instance
                     if (records == null) 
                     {
                         pidProvider.updatePid(pid, "", statistic);
@@ -66,20 +67,26 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
 						parser.parse(tmp, srwSearchResponseHandler);
 
 						// if the same pid has been used several times, we need new pids from pidcache
-						if (i > 0)
+						/*if (i > 0 || !isValid(pid))
 						{
-			//				String newPid = pidCache.getPid();
-			//				String escidocId = srwSearchResponsehandler.getEscidocId();
+							pidProvider.getPid(escidocId, type, fileName);
 							
-						}
+						}*/
+						
 						if (srwSearchResponseHandler.isObjectPid())
-							pidProvider.updatePid(pid,
+						    if (isValid(pid))
+						    {
+						        pidProvider.updatePid(pid,
 									srwSearchResponseHandler.getItemUrl(),
 									statistic);
-							if (i > 0)
-							{
-								//itemHandler.setObjectPid(newPid();
-							}
+						    }
+						    else
+						    {
+						        String newPid = pidProvider.getPid(srwSearchResponseHandler.getItemUrl(), 
+						            statistic);
+						        itemHandler.assignObjectPid(srwSearchResponseHandler.getEscidocId(), 
+						                getTaskParam(srwSearchResponseHandler.getLastModificationDate(), newPid));
+						    }
 						else if (srwSearchResponseHandler.isVersionPid())
 						{
 							pidProvider.updatePid(pid,
@@ -115,7 +122,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             pidProvider.storeResults(statistic);          
         }
     }  
-
+ 
     private RecordsType searchForPid(String pid) throws Exception
     {
         StringBuffer cql = new StringBuffer("escidoc.metadata=");
@@ -150,7 +157,19 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
 			return null;
 		}
     }
+    
+    private String getTaskParam(String lastModificationDate, String newPid)
+    {
+        StringBuffer b = new StringBuffer(1024);
+        
+        b.append("<param last-modification-date=\"");
+        b.append(lastModificationDate);
+        b.append("\">");
+        b.append("<pid>somePid</pid>".replace("somePid", newPid));
+        b.append("</param>");
 
+        return b.toString();
+    }
 
     @Override
     protected void doResolve(String object)

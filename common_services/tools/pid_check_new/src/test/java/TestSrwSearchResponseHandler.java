@@ -32,6 +32,8 @@ public class TestSrwSearchResponseHandler
         
         assertTrue(handler.getItemUrl().equals("/item/escidoc:672822"));
         assertTrue(handler.getVersionUrl().equals("/item/escidoc:672822:1"));
+        assertTrue(handler.getEscidocId().equals("escidoc:672822"));
+        assertTrue(handler.getLastModificationDate().equals("2014-04-02T12:32:55.440Z"));
         
         // search for object pid
         handler = new SrwSearchResponseHandler();
@@ -55,6 +57,8 @@ public class TestSrwSearchResponseHandler
         assertTrue(handler.isObjectPid());
         
         assertTrue(handler.getItemUrl().equals("/item/escidoc:530180"));
+        assertTrue(handler.getEscidocId().equals("escidoc:530180"));
+        assertTrue(handler.getLastModificationDate().equals("2014-01-22T09:02:39.026Z"));
         assertTrue(handler.getVersionUrl() == null);
         
         // version pid

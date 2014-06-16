@@ -1,6 +1,5 @@
 package de.mpg.escidoc.pid;
 
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -13,7 +12,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.util.HandleUpdateStatistic;
 import de.mpg.escidoc.util.LocatorCheckStatistic;
-
+import de.mpg.escidoc.util.Util;
 
 
 public class PidProvider extends AbstractPidProvider
@@ -55,6 +54,56 @@ public class PidProvider extends AbstractPidProvider
         HttpClient httpClient = new HttpClient();
         httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
         return httpClient;
+    }
+    
+    public String getPid(String irItemId, HandleUpdateStatistic statistic) throws PIDProviderException
+    {
+        logger.debug("getPid starting");
+        
+        int code;
+        String registerUrl = "";
+        String pidCacheUrl = location + "/write/create";
+        
+        PostMethod method = new PostMethod(pidCacheUrl);
+        
+        try
+        {
+            registerUrl = getRegisterUrl(irItemId);
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error occured when registering Url for <" + irItemId + ">");
+            throw new PIDProviderException(e.getMessage(), irItemId);
+        }
+        
+        method.setParameter("url", registerUrl);
+        
+        String pid = "";
+        long start = System.currentTimeMillis();
+        try
+        {
+            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+                    new UsernamePasswordCredentials(user, password));
+            
+            code = httpClient.executeMethod(method);
+            
+            pid = Util.getValueFromXml("<pid>", '<', method.getResponseBodyAsString());
+            if (code != HttpStatus.SC_CREATED || "".equals(pid))
+            {
+                throw new PIDProviderException("Problem getting a PID for <" + irItemId + ">", irItemId);
+            }
+            statistic.incrementHandlesCreated();
+            logger.info("pid create returning " + method.getResponseBodyAsString());
+        }
+        catch (Exception e)
+        {
+            throw new PIDProviderException(e.getMessage(), irItemId);
+        }
+        long end = System.currentTimeMillis();
+        
+        logger.info("Time used for getting pid <" + (end - start) + ">ms");
+       
+        return pid;
     }
 
     public int updatePid(String pid, String irItemId, HandleUpdateStatistic statistic)

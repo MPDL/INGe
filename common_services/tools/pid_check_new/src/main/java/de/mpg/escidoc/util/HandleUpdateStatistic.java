@@ -3,9 +3,20 @@ package de.mpg.escidoc.util;
 
 public class HandleUpdateStatistic extends Statistic
 {
+    private int handlesCreated = 0;
     private int handlesUpdated = 0;
     private int handlesNotFound = 0;
     private int handlesUpdateError = 0;
+
+    public int getHandlesCreated()
+    {
+        return handlesCreated;
+    }
+    
+    public void incrementHandlesCreated()
+    {
+        this.handlesCreated++;   
+    }
 
     public int getHandlesUpdated()
     {
@@ -42,6 +53,7 @@ public class HandleUpdateStatistic extends Statistic
         StringBuffer b = new StringBuffer();
         
         b.append("handlesTotal " + new Integer(super.objectsTotal) + System.getProperty("line.separator"));
+        b.append("handlesCreated " + new Integer(getHandlesCreated()) + System.getProperty("line.separator"));
         b.append("handlesUpdated " + new Integer(getHandlesUpdated()) + System.getProperty("line.separator"));
         b.append("handlesNotFound " + new Integer(getHandlesNotFound()) + System.getProperty("line.separator"));
         b.append("handlesUpdateError " + new Integer(getHandlesUpdateError()) + System.getProperty("line.separator"));
@@ -57,5 +69,6 @@ public class HandleUpdateStatistic extends Statistic
         this.handlesUpdateError = 0;
         
     }
+
     
 }
