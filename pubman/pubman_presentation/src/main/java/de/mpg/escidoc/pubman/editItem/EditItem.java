@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -152,7 +153,11 @@ public class EditItem extends FacesBean
     public final static String VALIDATIONPOINT_SUBMIT = "submit_item";
     public final static String VALIDATIONPOINT_ACCEPT = "accept_item";
     // Validation Service
+    @EJB
     private ItemValidating itemValidating = null;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
     private HtmlMessages valMessage = new HtmlMessages();
     // bindings
     private HtmlCommandLink lnkSave = new HtmlCommandLink();
@@ -192,15 +197,7 @@ public class EditItem extends FacesBean
      */
     public EditItem()
     {
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.itemValidating = (ItemValidating) initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
-        }
-        catch (NamingException ne)
-        {
-            throw new RuntimeException("Validation service not initialized", ne);
-        }
+       
         this.init();
     }
 
@@ -643,8 +640,8 @@ public class EditItem extends FacesBean
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-        return ctransforming.transformUploadResponseToFileURL(response);
+       
+        return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
     public String addLanguage()
@@ -2329,8 +2326,6 @@ public String logUploadComplete()
     public String getOwner() throws Exception
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         UserAccountHandler userAccountHandler = null;
         
         HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -2382,8 +2377,6 @@ public String logUploadComplete()
     public String getLastModifier() throws Exception
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         UserAccountHandler userAccountHandler = null;
         
         if (this.item.getVersion().getModifiedByRO() != null && this.item.getVersion().getModifiedByRO().getObjectId() != null)

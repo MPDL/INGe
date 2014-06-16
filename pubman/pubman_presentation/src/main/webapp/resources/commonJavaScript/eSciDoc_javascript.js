@@ -258,22 +258,6 @@ $(function(){
 function fullItemReloadAjax()
 {
 	var overlayDiv;
-	/*
-	var fi = $('#fullItem');
-	var fil = $('#ImgFullItemLoad');
-	if ((fi && fi.length > 0) && (fil && fil.length > 0))
-	{
-		if (!$.browser.msie) {
-			fi.css('opacity','0.4');
-		}
-		fil.attr('class','big_imgArea half_marginLIncl smallThrobber');
-		if ($.browser.msie && $.browser.version == 7) {
-			fil.css("left", "25%");
-		}
-		fi.find("input[type='text'], textarea").attr("readonly", "true");
-	}
-	*/
-	
 	overlayDiv = $('#overlayAjaxRequest');
 	if(!overlayDiv || overlayDiv.length == 0)
 	{
@@ -285,19 +269,7 @@ function fullItemReloadAjax()
 function fullItemReloadStop()
 {
 	$('#overlayAjaxRequestParent').remove();
-	
-	/*
-	var fi = $('#fullItem');
-	var fil = $('#ImgFullItemLoad');
-	if ((fi && fi.length > 0) && (fil && fil.length > 0))
-	{
-		if (!$.browser.msie) {
-			fi.css('opacity','1.0');
-		}
-		fil.attr('class','noDisplay');
-		fi.find("input[type='text'], textarea").removeAttr("readonly");
-	}
-	*/
+
 }
 
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */

@@ -114,7 +114,7 @@ public class PubContextVOPresentation extends ContextVO implements Comparable<Pu
         }
         else
         {
-            return "loadEasySubmission";
+            return "loadNewEasySubmission";
         }
     }
     

@@ -44,6 +44,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
@@ -133,9 +134,11 @@ public class EasySubmission extends FacesBean
     // Transformation Service
     private Transformation transformer = null;
     // XML Transforming Service
-    private XmlTransforming xmlTransforming = null;
+    @EJB
+    private XmlTransforming xmlTransforming;
     // Validation Service
-    private ItemValidating itemValidating = null;
+    @EJB
+    private ItemValidating itemValidating;
     private HtmlSelectOneRadio radioSelect;
     private HtmlSelectOneMenu dateSelect;
     // constants for the submission method
@@ -194,23 +197,17 @@ public class EasySubmission extends FacesBean
     // Dummy for language autosuggest
     private String alternativeLanguageName;
 
+
     /**
      * Public constructor.
      */
     public EasySubmission()
     {
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
-            this.transformer = appBean.getTransformationService();
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
-        }
-        catch (NamingException ne)
-        {
-            throw new RuntimeException("Validation service not initialized", ne);
-        }
+
+        //InitialContext initialContext = new InitialContext();
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+        this.transformer = appBean.getTransformationService();
+
         this.init();
     }
 
@@ -993,9 +990,7 @@ public class EasySubmission extends FacesBean
         ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-        return ctransforming.transformUploadResponseToFileURL(response);
+        return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
     /**
@@ -1019,9 +1014,7 @@ public class EasySubmission extends FacesBean
         HttpClient client = new HttpClient();
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-        return ctransforming.transformUploadResponseToFileURL(response);
+        return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
     public String uploadBibtexFile()

@@ -43,6 +43,8 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
@@ -160,7 +162,8 @@ public class ViewItemFull extends FacesBean
     public boolean isModerator = false;
     public boolean isPrivilegedViewer = false;
     // Validation Service
-    private ItemValidating itemValidating = null;
+    @EJB
+    private ItemValidating itemValidating;
     private PubItemVOPresentation pubItem = null;
     private HtmlMessages valMessage = new HtmlMessages();
     // Added by DiT: constant for the function modify and new revision to check the rights and/or if the function has to
@@ -226,11 +229,13 @@ public class ViewItemFull extends FacesBean
     private boolean isCreateNewRevisionDisabled;
     private boolean isFromEasySubmission;
     private boolean isFromSearchResult;
+    @EJB
     private PubItemDepositing pubItemDepositing;
     private boolean isWorkflowStandard;
     private boolean isWorkflowSimple;
     private boolean isStateInRevision;
     // private boolean hasRevision;
+    @EJB
     private PubItemSimpleStatistics pubManStatistics;
     private boolean isPublicStateReleased;
 
@@ -260,8 +265,12 @@ public class ViewItemFull extends FacesBean
     private boolean canShowLastMessage = false;
     private boolean isStateWasReleased = false;
 	private Transformation transformer;
+	@EJB
 	private XmlTransforming xmlTransforming;
 	private String languages;
+	
+	@EJB
+	private ItemExporting itemExporting;
 	
     
 
@@ -271,7 +280,13 @@ public class ViewItemFull extends FacesBean
      */
     public ViewItemFull()
     {
-        this.init();
+        //this.init();
+    }
+    
+    @PostConstruct
+    public void postConstruct()
+    {
+    	this.init();
     }
 
     /**
@@ -305,21 +320,9 @@ public class ViewItemFull extends FacesBean
         }
 
         // Try to get the validation service
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.pubItemDepositing = (PubItemDepositing)initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
-            this.pubManStatistics = (PubItemSimpleStatistics)initialContext
-            .lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-            this.transformer = getApplicationBean().getTransformationService();
+       
+          this.transformer = getApplicationBean().getTransformationService();
 
-        }
-        catch (NamingException ne)
-        {
-            throw new RuntimeException("Validation service not initialized", ne);
-        }
 
         try
         {
@@ -3048,8 +3051,6 @@ public class ViewItemFull extends FacesBean
     {
         try
         {
-            InitialContext initialContext = new InitialContext();
-            ItemExporting itemExporting = (ItemExporting) initialContext.lookup("java:global/pubman_ear/pubman_logic/ItemExportingBean");
 
             List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
             pubItemList.add(new PubItemVO(getPubItem()));

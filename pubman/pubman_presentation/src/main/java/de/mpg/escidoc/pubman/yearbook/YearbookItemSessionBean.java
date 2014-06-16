@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -59,10 +61,13 @@ public class YearbookItemSessionBean extends FacesBean
     private YBWORKSPACE selectedWorkspace;
     private PubItemVO yearbookItem;
     private LoginHelper loginHelper;
+    @EJB
     private XmlTransforming xmlTransforming;
     private ItemHandler itemHandler;
     private ContextVO yearbookContext;
+    @EJB
     private Search searchService;
+    @EJB
     private ItemValidating itemValidating;
     private PubItemListSessionBean pilsb;
     private Map<String, YearbookInvalidItemRO> invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
@@ -75,21 +80,31 @@ public class YearbookItemSessionBean extends FacesBean
             this.pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
             this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
             this.itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-            InitialContext initialContext = new InitialContext();
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-            this.searchService = (Search)initialContext.lookup("java:global/pubman_ear/search/SearchBean");
-            this.itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+
+
             this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
-            if (loginHelper.getIsYearbookEditor())
-            {
-                initYearbook();
-            }
+            
         }
         catch (Exception e)
         {
             error("Error retrieving yearbook item!");
             logger.error("Error retrieving yearbook item!", e);
         }
+    }
+    
+    
+    @PostConstruct
+    public void postConstruct()
+    {
+    	try {
+			if (loginHelper.getIsYearbookEditor())
+			{
+			    initYearbook();
+			}
+		} catch (Exception e) {
+			error("Error initializing yearbook item!");
+            logger.error("Error initializing yearbook item!", e);
+		}
     }
 
     public void initYearbook() throws Exception
@@ -466,8 +481,7 @@ public class YearbookItemSessionBean extends FacesBean
     {
         try {
             List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-            InitialContext initialContext = new InitialContext();
-            Search searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
+            
             String query = "";
             PubItemVO item = this.getYearbookItem();
             

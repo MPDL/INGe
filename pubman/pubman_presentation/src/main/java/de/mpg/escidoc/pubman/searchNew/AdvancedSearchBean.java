@@ -155,6 +155,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	 */
 	private String query = "";
 	
+	private PubItemDepositing pubItemDepositing;
+	
 	
 	
 	public AdvancedSearchBean()
@@ -831,9 +833,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		{
 			
 			try{
-	            InitialContext initialContext = new InitialContext(); 
-	            // initialize used Beans
-	            PubItemDepositing pubItemDepositing = (PubItemDepositing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+
 	            List<ContextVO> contexts = pubItemDepositing.getPubCollectionListForDepositing();
 	            
 	            contextListMenu = new ArrayList<SelectItem>();

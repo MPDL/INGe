@@ -37,7 +37,7 @@
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<span class="free_area0_p8 itemHeadline" style="width:62em;">
-			<ui:repeat var="char" id="charIter" value="#{BrowseBySessionBean.characters}" binding="#{BrowseByPage.characterIterator}">
+			<ui:repeat var="char" id="charIter" value="#{BrowseBySessionBean.characters}">
 				<b>
 					<h:panelGroup styleClass="xTiny_area0 free_txtBtn groupBtn" rendered="#{BrowseBySessionBean.currentCharacter != char}">
 						<h:commandLink id="lnkChar" action="#{BrowseByPage.startCharacterSearch(char)}">
@@ -141,7 +141,7 @@
 		</span>
 		
 		<div class="free_area0 itemBlockContent endline">
-			<ui:repeat var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}" binding="#{BrowseByPage.yearIterator}">
+			<ui:repeat var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}">
 				<div class="small_area0 noTopBorder" style="padding-left: 8px !important;">
 					<span class="seperator"></span>
 					

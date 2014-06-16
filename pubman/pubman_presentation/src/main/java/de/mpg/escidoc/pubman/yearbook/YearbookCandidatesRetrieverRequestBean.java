@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -75,11 +76,12 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
      * The total number of records
      */
     private int numberOfRecords;
-    
 
-    private Search searchService;
     private YearbookItemSessionBean yisb;
     private PubItemListSessionBean pilsb;
+    
+    @EJB
+    private Search searchService;
     
     public YearbookCandidatesRetrieverRequestBean()
     {
@@ -95,17 +97,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         pilsb = (PubItemListSessionBean)getBasePaginatorListSessionBean();
         
         yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
-            
-        }
-        catch (NamingException e)
-        {
-            logger.error("Error when trying to find search service.", e);
-            error("Did not find Search service");
-        }
+
       
     }
 

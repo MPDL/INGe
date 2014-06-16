@@ -53,7 +53,7 @@
 <script>
 
 /* <![CDATA[ */
-
+/*
   if (jQuery.browser.msie && jQuery.browser.version == 9) {
     window.XMLSerializer = function() {
 
@@ -64,7 +64,7 @@
 
     };
   }
-  
+*/  
 /* ]]> */
 </script>
 
