@@ -34,7 +34,7 @@
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
-		<table>
+		<table  xmlns="http://www.w3.org/1999/xhtml">
 		<tbody>
 		<tr class="full_area0 listItem">
 	      	<td class="free_area0 endline">

@@ -41,9 +41,7 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
-		<html>
 
-		<body>
 
 		
 			<ui:repeat var="item" value="#{ImportItems.import.items}" varStatus="status">
@@ -67,7 +65,7 @@
 						</div>
 						<div class="large_area0_p8 noPaddingTopBottom">
 							<h:inputHidden id="inpItemDetailsLink" value="#{item.detailsLink}"/>
-							<a href="#" onclick="console.log('click!!'); showDialog($(this).siblings('input').val());return false;">
+							<a href="#" onclick="showDialog($(this).siblings('input').val());return false;">
 								Details
 							</a>
 
@@ -79,7 +77,5 @@
 					</div>
 				</h:panelGroup>
 			</ui:repeat>
-			
-		</body>
-		</html>
+
 	</f:view>
