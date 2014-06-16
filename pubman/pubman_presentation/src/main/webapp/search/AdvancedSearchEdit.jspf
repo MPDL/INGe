@@ -36,6 +36,12 @@ All rights reserved. Use is subject to license terms.
 	</h3>
 	<span class="seperator">&#160;</span>
 	<style type="text/css">
+	
+		.ui-panel-content, .ui-widget-content, .ui-widget {
+   		 	border: 0pt none;
+   		 	font-size: 1.0em;
+		}
+	
 		.fullItem .itemBlock .itemBlockContent div.itemLine {
 			border-top:none !important;
 		}
@@ -118,7 +124,7 @@ All rights reserved. Use is subject to license terms.
 
 		<h:outputText value="#{AdvancedSearchBean.readOutParams}"/>
 		
-		<p:dataList type="none" id="criterions" var="criterion" value="#{AdvancedSearchBean.criterionList}" varStatus="status" rowIndexVar="indexVar">
+		<p:dataList type="none" id="criterions" var="criterion" value="#{AdvancedSearchBean.criterionList}" varStatus="status" rowIndexVar="indexVar" styleClass="sc" itemStyleClass="isc" style="">
 		
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine #{indexVar == 0 ? 'noTopBorder' : ''} paranthesis_level_#{criterion.level}">
 				<h:panelGroup styleClass="free_area0 endline" style="width:100%;">

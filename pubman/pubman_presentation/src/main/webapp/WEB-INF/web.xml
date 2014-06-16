@@ -58,10 +58,12 @@
 		<param-value>/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml</param-value>
 	</context-param>
 
+	<!-- 
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>none</param-value>
 	</context-param>
+	-->
 	
 	<filter>
 		<display-name>Sitemap Filter</display-name>

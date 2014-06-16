@@ -45,8 +45,7 @@
 				<meta http-equiv="Pragma" content="no-cache" />
 				<meta http-equiv="expires" content="0"/>
 				<ui:include src="header/ui/StandardImports.jspf" />
-				
-				
+
 			</h:head>
 			<!-- Use onunload here in order to hinder browser to cache the page -->
 			<body lang="${InternationalizationHelper.locale}">

@@ -71,7 +71,16 @@ public class AffiliationBean extends FacesBean
     	{
     		TreeNode affNode = new DefaultTreeNode(aff, rootTreeNode);
     		affNode.setSelectable(false);
-    		loadChildTreeNodes(affNode);
+    		
+    		loadChildTreeNodes(affNode, false);
+    		
+    		//----- Remove this if tree should not be expanded from begin 
+    		affNode.setExpanded(true);
+    		for (TreeNode node : affNode.getChildren())
+    		{
+    			loadChildTreeNodes(node, false);
+    		}
+    		//-----
     	}
         
         
@@ -288,7 +297,7 @@ public class AffiliationBean extends FacesBean
 		{
 			for(TreeNode childAff : children)
 			{
-				loadChildTreeNodes(childAff);
+				loadChildTreeNodes(childAff, false);
 			
 			}
 		}
@@ -296,7 +305,7 @@ public class AffiliationBean extends FacesBean
 			
    }
     
-    private void loadChildTreeNodes(TreeNode parent)
+    private void loadChildTreeNodes(TreeNode parent, boolean expand)
     {
     	try {
 			//parent.getChildren().clear();
@@ -311,6 +320,7 @@ public class AffiliationBean extends FacesBean
 					//System.out.println("Loading aff " + childAff.getName());
 					TreeNode childNode = new DefaultTreeNode(childAff, parent);
 					childNode.setSelectable(false);
+					childNode.setExpanded(expand);
 				}
 			}
 			

@@ -41,6 +41,8 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
+import com.googlecode.mp4parser.authoring.builder.smoothstreaming.IsmvBuilder;
+
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
@@ -242,6 +244,10 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         if ("closed".equals(this.getPublicStatus()))
         {
             return "3" + getName().toLowerCase();
+        }
+        else if (getMps() && "opened".equals(this.getPublicStatus()))
+        {
+            return "0" + getName().toLowerCase();
         }
         else if ("opened".equals(this.getPublicStatus()))
         {
