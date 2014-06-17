@@ -148,11 +148,14 @@
 													<b class="xLarge_area0 endline labelLine">
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
-													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
+													<h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{empty MultipleImport.uploadedImportFile}">
+														<p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.multipleImport_uploadFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
 															auto="true" fileLimit="1" update="uploadFile,buttons" multiple="false"  onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
 														</p:fileUpload>
-													</span>
+													</h:panelGroup>
+													<h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{not empty MultipleImport.uploadedImportFile}">
+														<b><h:outputText value="#{MultipleImport.uploadedImportFile.fileName}"/></b>
+													</h:panelGroup>
 												</h:panelGroup>
 											</div>
 										</div>
