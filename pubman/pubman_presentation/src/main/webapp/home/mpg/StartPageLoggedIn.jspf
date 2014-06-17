@@ -233,7 +233,7 @@
 		<h2>新規登録</h2>
 		文献資料をPubManへ登録する
 		<ul style="list-style-position: outside">
-			<li>... <h:commandLink id="lnkEasySubmission_es" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+			<li>... <h:commandLink id="lnkEasySubmission_es" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 					<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink> </li>
 			<li>... <h:commandLink id="lnkImport_es" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">

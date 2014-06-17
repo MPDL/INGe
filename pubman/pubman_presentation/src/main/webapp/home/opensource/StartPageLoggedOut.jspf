@@ -1,6 +1,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:remove>
+
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -25,7 +26,7 @@
  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms. */
+ All rights reserved. Use is subject to license terms.
 </ui:remove>
 
 		<f:loadBundle var="lbl" basename="Label"/>
@@ -152,9 +153,9 @@
 	<h3>文献検索</h3>
 	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
-			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text"/>
 		</span>
-		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</span>
 	<div class="clear">&#160;</div>
 	
@@ -164,7 +165,7 @@
 	PubManインタフェース
 	</h2>
 		<ul>
-			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>検索エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
@@ -191,9 +192,9 @@
 	<h3>文献検索</h3>
 	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
-			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text"/>
 		</span>
-		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</span>
 	<div class="clear">&#160;</div>
 	
@@ -203,7 +204,7 @@
 	PubManインタフェース
 	</h2>
 		<ul>
-			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>検索エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
