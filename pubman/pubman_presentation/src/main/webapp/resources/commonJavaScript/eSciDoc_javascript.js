@@ -275,7 +275,7 @@ function fullItemReloadStop()
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
 function beforeAjaxRequest()
 {
-	console.log("Before Ajax!!");
+	//console.log("Before Ajax!!");
 	if(typeof window.fullItemReloadAjax == 'function')
 	{ 
 		fullItemReloadAjax();
@@ -285,7 +285,7 @@ function beforeAjaxRequest()
 /*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
 function afterAjaxRequest()
 {
-	console.log("After Ajax!!");
+	//console.log("After Ajax!!");
 	//Remove old autosuggest result lists
 	$('ul.ac_results').remove();
 	if(typeof window.fullItemReloadStop == 'function')

@@ -596,8 +596,8 @@
 				// !DOES NOT WORK LOCALLY! (Cross-site-scripting)
 				function updateImage(imgElement, jsonRequestUrl) {	
 					$.getJSON(jsonRequestUrl, function (result) {
-						console.log(result);
-						console.log("");
+						//console.log(result);
+						//console.log("");
 						var pictureUrl =  result.http_xmlns_com_foaf_0_1_depiction;
 						if (pictureUrl != undefined &amp;&amp; $.trim().pictureUrl != '') {
 							$(imgElement).attr('src', pictureUrl);
