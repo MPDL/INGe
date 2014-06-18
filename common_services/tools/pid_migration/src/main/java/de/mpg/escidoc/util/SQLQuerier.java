@@ -38,7 +38,8 @@ public class SQLQuerier
     private Connection connection;
     
     // the database table containing the item - component mapping
-    private String table;
+    private String componentTable;
+    private String objectPidTable;
 
 
     /**
@@ -53,15 +54,14 @@ public class SQLQuerier
                 Util.getProperty("triplestore.datasource.username"),
                 Util.getProperty("triplestore.datasource.password"));
         
-        table = Util.getProperty("triplestore.datasource.table");
+        componentTable = Util.getProperty("triplestore.datasource.component.table");  
+        objectPidTable = Util.getProperty("triplestore.datasource.pid.table");  
     }
-
-
-
     
     public String getItemIdForComponent(final String componentId) throws PIDProviderException       
     {
-        String sql = "SELECT s FROM " + table + " WHERE o = ?";
+        
+        String sql = "SELECT s FROM " + componentTable + " WHERE o = ?";
         logger.debug("SQL: " + sql);
 
         try
@@ -102,6 +102,37 @@ public class SQLQuerier
                 logger.error("Error trying to close the connection", e);
             }
             throw new PIDProviderException("Error getting itemId from database", sqle);
+        }
+    }
+    
+    public void updateTripleStorePidTable(final String pid, String escidocId) throws PIDProviderException       
+    {
+        String sql = "UPDATE " + objectPidTable + " SET o=? WHERE s = ?";
+                        
+        logger.debug("SQL: " + sql);
+        
+        try
+        {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, "\"hdl:" + pid + "\"");
+            pstmt.setString(2, "<info:fedora/" + escidocId + ">");
+            
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            connection.close();
+        }
+        catch (SQLException sqle)
+        {
+            try
+            {
+                connection.close();
+            }
+            catch (Exception e)
+            {
+                logger.error("Error trying to close the connection", e);
+            }
+            throw new PIDProviderException("Error when updateing triplestoredatabase", sqle);
         }
     }
 

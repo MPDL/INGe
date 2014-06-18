@@ -26,6 +26,8 @@ public class PIDProvider implements PIDProviderIf
     
     private HttpClient httpClient;
     
+    private boolean doUpdateTripleStore = false;
+    
     private static int totalNumberofPidsRequested = 0;
     
     public PIDProvider() throws NamingException
@@ -45,6 +47,8 @@ public class PIDProvider implements PIDProviderIf
         
         httpClient = Util.getHttpClient();
         httpClient.getParams().setAuthenticationPreemptive(true);
+        
+        doUpdateTripleStore = Util.getProperty("triplestore.datasource.table.update") != null ? true : false;
         
         logger.debug("init finished");
     }
@@ -97,6 +101,13 @@ public class PIDProvider implements PIDProviderIf
             {
                 throw new PIDProviderException("Problem getting a PID for <" + escidocId + ">", escidocId);
             }
+            
+            if (doUpdateTripleStore)
+            {
+                SQLQuerier sqlQuerier = new SQLQuerier();
+                sqlQuerier.updateTripleStorePidTable(pid, escidocId);
+            }
+            
             totalNumberofPidsRequested++;
             logger.info("pid create returning " + method.getResponseBodyAsString());
         }

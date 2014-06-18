@@ -139,9 +139,13 @@ public class AssertionHandlerTest
         
         s = "hdl:12345/00-001Z-0000-000E-1111-1";
         m = handlePattern.matcher(s);
-        assertTrue(m.matches());
+        assertFalse(m.matches());
         
         s = "hdl:someHandle/test/escidoc:1479027";
+        m = handlePattern.matcher(s);
+        assertFalse(m.matches());
+        
+        s = "hdl:11858/00-ZZZZ-0000-0000-43a3-2";
         m = handlePattern.matcher(s);
         assertFalse(m.matches());
   

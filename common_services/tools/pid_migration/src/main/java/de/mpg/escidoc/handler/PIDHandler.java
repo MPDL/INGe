@@ -181,13 +181,14 @@ public class PIDHandler extends IdentityHandler
         // a new pid has to be requested
         
         String oldContent = content;
-        
-        
+                
         // older foxmls contain elements with an empty String value - in this case we don't do anything
         if ("".equals(oldContent))
         {
             return oldContent;
         }
+        
+        String update = Util.getProperty("triplestore.datasource.table.update");
         
         if (withVersion)
         {

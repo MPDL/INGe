@@ -13,8 +13,18 @@ public class PIDProviderMock implements PIDProviderIf
     private static int totalNumberofPidsRequested = 0;
     
     static int count;
-
     
+    @Override
+    public void init()
+    {       
+    }
+
+    @Override
+    public int getTotalNumberOfPidsRequested()
+    {
+        return totalNumberofPidsRequested;
+    }
+  
     public String getPid(String escidocId, Type type, String fileName) throws PIDProviderException
     {
         logger.debug("getPid starting");
@@ -44,27 +54,27 @@ public class PIDProviderMock implements PIDProviderIf
         totalNumberofPidsRequested++;
         
         if (count % 10 == 1)
-            return "hdl:12345/00-001Z-0000-000E-1111-1";
+            return "hdl:11858/00-001Z-0000-000E-1111-1";
         else if (count % 10 == 2)
-            return "hdl:12345/00-001Z-0000-000E-2222-2";
+            return "hdl:11858/00-001Z-0000-000E-2222-2";
         else if (count % 10 == 3)
-            return "hdl:12345/00-001Z-0000-000E-3333-3";
+            return "hdl:11858/00-001Z-0000-000E-3333-3";
         else if (count % 10 == 4)
-            return "hdl:12345/00-001Z-0000-000E-4444-4";
+            return "hdl:11858/00-001Z-0000-000E-4444-4";
         else if (count % 10 == 5)
-            return "hdl:12345/00-001Z-0000-000E-5555-5";
+            return "hdl:11858/00-001Z-0000-000E-5555-5";
         else if (count % 10 == 6)
-            return "hdl:12345/00-001Z-0000-000E-6666-6";
+            return "hdl:11858/00-001Z-0000-000E-6666-6";
         else if (count % 10 == 7)
-            return "hdl:12345/00-001Z-0000-000E-7777-7";
+            return "hdl:11858/00-001Z-0000-000E-7777-7";
         else if (count % 10 == 8)
-            return "hdl:12345/00-001Z-0000-000E-8888-8";
+            return "hdl:11858/00-001Z-0000-000E-8888-8";
         else if (count % 10 == 9)
-            return "hdl:12345/00-001Z-0000-000E-9999-9";
+            return "hdl:11858/00-001Z-0000-000E-9999-9";
         else if (count % 10 == 0)
-            return "hdl:12345/00-001Z-0000-000E-0000-0";
+            return "hdl:11858/00-001Z-0000-000E-0000-0";
         
-        return "hdl:12345/00-001Z-0000-000E-6789-0";
+        return "hdl:11858/00-001Z-0000-000E-6789-0";
             
     }
     
@@ -91,16 +101,5 @@ public class PIDProviderMock implements PIDProviderIf
         logger.debug("URL given to PID resolver: " + registerUrl);
         
         return registerUrl;
-    }
-
-    @Override
-    public void init()
-    {       
-    }
-
-    @Override
-    public int getTotalNumberOfPidsRequested()
-    {
-        return totalNumberofPidsRequested;
     }
 }
