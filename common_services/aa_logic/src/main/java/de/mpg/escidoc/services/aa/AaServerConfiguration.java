@@ -66,7 +66,7 @@ public class AaServerConfiguration extends DefaultHandler
     {
         String file = Config.getProperty("escidoc.aa.config.file");
 
-        InputStream inputStream = ResourceUtil.getResourceAsStream(file);
+        InputStream inputStream = ResourceUtil.getResourceAsStream(file, AaServerConfiguration.class.getClassLoader());
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         parser.parse(inputStream, this);
         inputStream.close();

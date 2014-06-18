@@ -108,7 +108,7 @@ public class RSAEncoder
 
     public static Key readKeyFromFile(String keyFileName, boolean publ) throws Exception
     {
-        InputStream in = ResourceUtil.getResourceAsStream(keyFileName);
+        InputStream in = ResourceUtil.getResourceAsStream(keyFileName, RSAEncoder.class.getClassLoader());
         ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(in));
         try
         {

@@ -93,7 +93,7 @@ public class Aa
                 logger.info("Loading properties from " + propertyFilename);
                 try
                 {
-                    InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename);
+                    InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, Aa.class.getClassLoader());
                     Config.getProperties().load(propertyStream);
                     Config.setLoaded(true);
                     //propertyStream.close();
