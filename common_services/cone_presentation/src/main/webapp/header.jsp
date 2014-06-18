@@ -653,7 +653,7 @@ function getMouseXY(e) {
 
 //-->
 </script>
-	<script type="text/javascript" src="/cone/js/jquery-1.8.3.min.js">;</script>
+	<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>

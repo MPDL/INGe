@@ -47,10 +47,12 @@
 			$input.unbind('blur');
 			
 			// I really hate browser detection, but I don't see any other way
+			/*
 			if ($.browser.mozilla)
 				$input.keypress(processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
 			else
-				$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
+				*/
+			$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
 			
 			
 			
