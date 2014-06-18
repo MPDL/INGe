@@ -4,6 +4,7 @@
 <jboss-deployment-structure>
 <!-- Turn off classloader isolation. thus, every ejb can see the other -->
 	<ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+	<!-- 
 	<deployment>  
 	    
 
@@ -13,5 +14,5 @@
 		</exclude-subsystems>
 
 	  </deployment>
-	  
+	  -->
 </jboss-deployment-structure>
