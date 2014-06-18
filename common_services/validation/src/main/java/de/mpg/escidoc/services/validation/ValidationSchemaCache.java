@@ -43,6 +43,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -77,7 +82,9 @@ import de.mpg.escidoc.services.validation.xmltransforming.ConeContentHandler;
  * @author $Author$
  * @version $Revision$$LastChangedDate$
  */
-public final class ValidationSchemaCache
+@Singleton
+@LocalBean
+public class ValidationSchemaCache
 {
 
     /**
@@ -131,21 +138,26 @@ public final class ValidationSchemaCache
     public static void main(final String[] args) throws Exception
     {
 
-        ValidationSchemaCache cache = ValidationSchemaCache.getInstance();      
+        ValidationSchemaCache cache = new ValidationSchemaCache();      
         cache.resetCache();
         cache.precompileAll();
 
     }
+    
+    
+
 
     /**
      * Get a singleton instance.
      * @return The singleton.
      * @throws TechnicalException Any exception.
      */
+    /*
     public static ValidationSchemaCache getInstance() throws TechnicalException
     {
         return ValidationSchemaCacheHolder.instance;
     }
+    */
 
     /**
      * Retrieve the precompiled schematron validation schema according to the given schemaName and content-type.
@@ -860,7 +872,7 @@ public final class ValidationSchemaCache
     /**
      * Constructor is hidden. An instance can be retrieved by calling getInstance.
      */
-    private ValidationSchemaCache()
+    public ValidationSchemaCache()
     {
         try
         {
@@ -912,8 +924,10 @@ public final class ValidationSchemaCache
      *
      */
     
+    /*
     private static class ValidationSchemaCacheHolder
     {
         public static ValidationSchemaCache instance = new ValidationSchemaCache();       
     }
+    */
 }
