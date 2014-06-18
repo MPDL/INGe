@@ -79,9 +79,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>test-compile</phase>
