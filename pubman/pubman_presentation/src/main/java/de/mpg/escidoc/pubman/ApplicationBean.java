@@ -377,6 +377,7 @@ public class ApplicationBean extends FacesBean
         }
         
         // then append the stylesheet String variables (no matter if empty) to ensure that the stylesheet with the standard rel tag is the last entry in the list.
+        
         styleTags.append(StylesheetStandard);
         styleTags.append(StylesheetContrast);
         styleTags.append(StylesheetClassic);
@@ -386,7 +387,7 @@ public class ApplicationBean extends FacesBean
         try {
             if("true".equals(PropertyReader.getProperty("escidoc.pubman.favicon.apply")))
             {
-                styleTags.append("<link rel=\"SHORTCUT ICON\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
+                styleTags.append("<link rel=\"shortcut icon\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
             }
         } catch (IOException e)
         {
@@ -395,6 +396,7 @@ public class ApplicationBean extends FacesBean
         {
             throw new PubManStylesheetNotAvailableException(e);
         }
+        System.out.println(styleTags.toString());
         return styleTags.toString();
         
     }
