@@ -33,7 +33,39 @@
 	$Revision: 747 $ 
 	$LastChangedDate: 2008-07-21 19:15:26 +0200 (Mo, 21 Jul 2008) $
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ei="${xsd.soap.item.item}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:mdp="${xsd.metadata.escidocprofile}" xmlns:ec="${xsd.soap.item.components}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:eterms="${xsd.metadata.terms}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:escidocFunctions="urn:escidoc:functions" xmlns:escidoc="${xsd.metadata.terms}" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:search="http://www.loc.gov/zing/srw/" xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.8" xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" xmlns:eprints="http://purl.org/eprint/terms/">
+<xsl:stylesheet version="2.0" 
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+		xmlns:xlink="http://www.w3.org/1999/xlink" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:dc="http://purl.org/dc/elements/1.1/" 
+		xmlns:dcterms="http://purl.org/dc/terms/" 
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		xmlns:ei="${xsd.soap.item.item}" 
+		xmlns:mdr="${xsd.soap.common.mdrecords}" 
+		xmlns:mdp="${xsd.metadata.escidocprofile}" 
+		xmlns:ec="${xsd.soap.item.components}" 
+		xmlns:prop="${xsd.soap.common.prop}" 
+		xmlns:srel="${xsd.soap.common.srel}" 
+		xmlns:version="${xsd.soap.common.version}" 
+		xmlns:release="${xsd.soap.common.release}" 
+		xmlns:file="${xsd.metadata.file}" 
+		xmlns:pub="${xsd.metadata.publication}" 
+		xmlns:person="${xsd.metadata.person}" 
+		xmlns:source="${xsd.metadata.source}" 
+		xmlns:eterms="${xsd.metadata.terms}" 
+		xmlns:event="${xsd.metadata.event}" 
+		xmlns:organization="${xsd.metadata.organization}" 
+		xmlns:escidocFunctions="urn:escidoc:functions" 
+		xmlns:escidoc="${xsd.metadata.terms}" 
+		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" 
+		xmlns:itemlist="${xsd.soap.item.itemlist}" 
+		xmlns:search="http://www.loc.gov/zing/srw/" 
+		xmlns:search-result="${xsd.soap.searchresult.searchresult}" 
+		xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.8" 
+		xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" 
+		xmlns:eprints="http://purl.org/eprint/terms/">
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
@@ -1339,7 +1371,7 @@
 						<xsl:otherwise>
 							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
 							<!-- ERROR -->
-							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, '\[',escidocFunctions:suffix($filename), '\] not found in CONE'))"/>
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, '[',escidocFunctions:suffix($filename), '] not found in CONE'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 					<!--  <xsl:choose>
