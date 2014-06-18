@@ -63,6 +63,7 @@
 			<artifactId>search</artifactId>
 			<version>1.1.13-SNAPSHOT</version>
 			<scope>provided</scope>
+			<type>ejb-client</type>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

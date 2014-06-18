@@ -53,6 +53,12 @@
 				<artifactId>maven-ejb-plugin</artifactId>
 				<configuration>
 					<ejbVersion>3.1</ejbVersion>
+					<generateClient>true</generateClient>
+  					<clientIncludes>
+  						 <clientInclude>de/mpg/escidoc/services/citationmanager/utils/Utils.class</clientInclude>
+			             <clientInclude>de/mpg/escidoc/services/citationmanager/CitationStyleHandler.class</clientInclude>
+			             <clientInclude>de/mpg/escidoc/services/citationmanager/CitationStyleManagerException.class</clientInclude>
+			         </clientIncludes>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -64,6 +64,7 @@
 			<artifactId>validation</artifactId>
 			<version>1.0.86-SNAPSHOT</version>
 			<scope>provided</scope>
+			<type>ejb-client</type>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

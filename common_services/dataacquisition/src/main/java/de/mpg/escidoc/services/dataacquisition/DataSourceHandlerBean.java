@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Vector;
 
+import javax.ejb.Stateless;
+
 import org.apache.log4j.Logger;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
@@ -29,7 +31,9 @@ import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.
  * @author kleinfe1
  * @author $Author$ (last modification)
  */
-public class DataSourceHandlerBean
+
+@Stateless
+public class DataSourceHandlerBean implements DataSourceHandler
 {
     private ImportSourcesDocument sourceDoc = null;
     private ImportSourcesType sourceType = null;

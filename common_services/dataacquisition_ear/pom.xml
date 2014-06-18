@@ -333,6 +333,13 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>dataacquisition</artifactId>
+			<version>1.0.75-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb-client</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
 			<version>1.0.75-SNAPSHOT</version>
 			<type>war</type>

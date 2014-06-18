@@ -42,9 +42,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
@@ -61,7 +63,6 @@ import de.mpg.escidoc.services.common.types.Validatable;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.util.LocalURIResolver;
@@ -114,6 +115,7 @@ public final class ValidationSchemaCache
     /**
      * Common XML transforming functionalities.
      */
+    @EJB
     private XmlTransforming xmlTransforming;
     
     /**
@@ -863,7 +865,7 @@ public final class ValidationSchemaCache
         try
         {
             //Context ctx = new InitialContext();
-            xmlTransforming = new XmlTransformingBean();
+            //xmlTransforming = new XmlTransformingBean();
             
             factory = new net.sf.saxon.TransformerFactoryImpl();
             factory.setURIResolver(new LocalURIResolver());        
