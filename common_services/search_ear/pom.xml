@@ -273,6 +273,13 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>search</artifactId>
+			<version>1.1.13-SNAPSHOT</version>
+			<type>ejb-client</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search_presentation</artifactId>
 			<version>1.1.13-SNAPSHOT</version>
 			<type>war</type>
