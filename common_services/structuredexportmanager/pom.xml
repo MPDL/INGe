@@ -53,7 +53,6 @@
 				<artifactId>maven-ejb-plugin</artifactId>
 				<configuration>
 					<ejbVersion>3.1</ejbVersion>
-					<generateClient>true</generateClient>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -146,13 +145,7 @@
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>1.1.79-SNAPSHOT</version>
-			<type>ejb-client</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>common_logic</artifactId>
-			<version>1.1.79-SNAPSHOT</version>
-			<scope>test</scope>
+			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

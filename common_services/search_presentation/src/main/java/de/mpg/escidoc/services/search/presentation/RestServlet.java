@@ -36,6 +36,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -46,13 +47,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the
@@ -79,17 +81,15 @@ public class RestServlet extends HttpServlet
     /** Max number of the simultaneous concurrent searches*/
     private static final int MAX_SEARCHES_NUMBER = 30;
     
-    @EJB
-    private CitationStyleHandler cse;
     
-    @EJB
-    private static StructuredExportHandler se;
+    private static CitationStyleHandler cse;
+    private static StructuredExport se;
     
     
     public RestServlet()
     {
-        //cse = new CitationStyleExecutor();
-        //se = new StructuredExport();
+        cse = new CitationStyleExecutor();
+        se = new StructuredExport();
     }
     
     /**

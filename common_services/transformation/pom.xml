@@ -126,14 +126,13 @@
 			<artifactId>common_logic</artifactId>
 			<version>1.1.79-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
+			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>1.0.82-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
 		</dependency>
       	<dependency>
       		<groupId>xmlbeans</groupId>

@@ -2,8 +2,6 @@ package de.mpg.escidoc.services.dataacquisition;
 
 import java.util.Vector;
 
-import javax.ejb.Remote;
-
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 
 /**
@@ -11,7 +9,6 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
  * 
  * @author kleinfe1
  */
-@Remote
 public interface DataSourceHandler
 {
     /**

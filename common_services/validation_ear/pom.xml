@@ -263,13 +263,6 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>validation</artifactId>
-			<version>1.0.86-SNAPSHOT</version>
-			<type>ejb-client</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
 			<version>1.0.86-SNAPSHOT</version>
 			<type>war</type>

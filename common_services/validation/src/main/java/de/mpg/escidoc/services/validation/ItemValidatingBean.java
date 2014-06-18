@@ -83,9 +83,6 @@ public class ItemValidatingBean implements ItemValidating
     
     @EJB
     private ValidationTransforming validationTransforming;
-    
-    @EJB
-    private ValidationSchemaCache validationSchemaCache;
 
     /**
      * {@inheritDoc}
@@ -176,7 +173,9 @@ public class ItemValidatingBean implements ItemValidating
 
         try
         {
-            String validationSchema = validationSchemaCache.getValidationSchemaId(context);
+            String validationSchema = ValidationSchemaCache
+                .getInstance()
+                .getValidationSchemaId(context);
             
             return this.validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
         }
@@ -215,7 +214,8 @@ public class ItemValidatingBean implements ItemValidating
 
         try
         {
-            Transformer precompiled = validationSchemaCache
+            Transformer precompiled = ValidationSchemaCache
+                    .getInstance()
                     .getPrecompiledTransformer(validationSchema, contentType, validationPoint);
             StringWriter result = transform(itemXml, precompiled, null);
     
@@ -323,7 +323,7 @@ public class ItemValidatingBean implements ItemValidating
      */
     public final void refreshValidationSchemaCache() throws TechnicalException
     {
-            validationSchemaCache.refreshCache();
+            ValidationSchemaCache.getInstance().refreshCache();
     }
     
     /**
@@ -331,7 +331,7 @@ public class ItemValidatingBean implements ItemValidating
      */
     public final Date getLastRefreshDate() throws TechnicalException
     {
-            return validationSchemaCache.getLastRefreshDate();
+            return ValidationSchemaCache.getInstance().getLastRefreshDate();
     }
 
 }

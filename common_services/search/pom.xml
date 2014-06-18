@@ -51,7 +51,6 @@
 				<artifactId>maven-ejb-plugin</artifactId>
 				<configuration>
 					<ejbVersion>3.1</ejbVersion>
-					<generateClient>true</generateClient>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -113,21 +112,18 @@
 			<artifactId>common_logic</artifactId>
 			<version>1.1.79-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
 			<version>1.0.84-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>1.0.82-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
 		</dependency>
 		<dependency>
 			<groupId>org.dspace</groupId>

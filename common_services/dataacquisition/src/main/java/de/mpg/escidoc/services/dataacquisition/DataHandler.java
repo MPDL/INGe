@@ -27,11 +27,8 @@
  */
 package de.mpg.escidoc.services.dataacquisition;
 
-import java.net.URL;
 import java.rmi.AccessException;
 
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
@@ -152,26 +149,4 @@ public interface DataHandler
     byte[] doFetch(String sourceName, String identifier, String[] formats) throws SourceNotAvailableException,
             IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, AccessException, FormatNotAvailableException;
-    
-    public String getContentType();
-    
-    /**
-	 * Retrieves the content of a component from different escidoc instances.
-	 * 
-	 * @param identifier
-	 * @param url
-	 * @return content of a component as byte[]
-	 */
-	public byte[] retrieveComponentContent(String identifier, String url);
-	
-	public String getFileEnding();
-	
-	
-	public FileVO getComponentVO();
-	
-	public String getContentCategory();
-	
-	public Visibility getVisibility();
-	
-	public URL getItemUrl();
 }

@@ -53,7 +53,6 @@
         <artifactId>maven-ejb-plugin</artifactId>
         <configuration>
           <ejbVersion>3.1</ejbVersion>
-          <generateClient>true</generateClient>
         </configuration>
           </plugin>
 			<plugin>
@@ -90,14 +89,12 @@
 			<artifactId>citationmanager</artifactId>
 			<version>1.0.84-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
 		</dependency>
 		<dependency> 
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>1.0.82-SNAPSHOT</version>
 			<scope>compile</scope>
-			<type>ejb-client</type>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ant</groupId>

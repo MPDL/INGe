@@ -64,7 +64,6 @@
 			<artifactId>dataacquisition</artifactId>
 			<version>1.0.75-SNAPSHOT</version>
 			<scope>provided</scope>
-			<type>ejb-client</type>
 		</dependency>
 	</dependencies>
 </project>

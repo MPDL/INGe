@@ -42,16 +42,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
@@ -68,6 +61,7 @@ import de.mpg.escidoc.services.common.types.Validatable;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.util.LocalURIResolver;
@@ -82,9 +76,7 @@ import de.mpg.escidoc.services.validation.xmltransforming.ConeContentHandler;
  * @author $Author$
  * @version $Revision$$LastChangedDate$
  */
-@Singleton
-@LocalBean
-public class ValidationSchemaCache
+public final class ValidationSchemaCache
 {
 
     /**
@@ -122,7 +114,6 @@ public class ValidationSchemaCache
     /**
      * Common XML transforming functionalities.
      */
-    @EJB
     private XmlTransforming xmlTransforming;
     
     /**
@@ -138,26 +129,21 @@ public class ValidationSchemaCache
     public static void main(final String[] args) throws Exception
     {
 
-        ValidationSchemaCache cache = new ValidationSchemaCache();      
+        ValidationSchemaCache cache = ValidationSchemaCache.getInstance();      
         cache.resetCache();
         cache.precompileAll();
 
     }
-    
-    
-
 
     /**
      * Get a singleton instance.
      * @return The singleton.
      * @throws TechnicalException Any exception.
      */
-    /*
     public static ValidationSchemaCache getInstance() throws TechnicalException
     {
         return ValidationSchemaCacheHolder.instance;
     }
-    */
 
     /**
      * Retrieve the precompiled schematron validation schema according to the given schemaName and content-type.
@@ -872,12 +858,12 @@ public class ValidationSchemaCache
     /**
      * Constructor is hidden. An instance can be retrieved by calling getInstance.
      */
-    public ValidationSchemaCache()
+    private ValidationSchemaCache()
     {
         try
         {
             //Context ctx = new InitialContext();
-            //xmlTransforming = new XmlTransformingBean();
+            xmlTransforming = new XmlTransformingBean();
             
             factory = new net.sf.saxon.TransformerFactoryImpl();
             factory.setURIResolver(new LocalURIResolver());        
@@ -924,10 +910,8 @@ public class ValidationSchemaCache
      *
      */
     
-    /*
     private static class ValidationSchemaCacheHolder
     {
         public static ValidationSchemaCache instance = new ValidationSchemaCache();       
     }
-    */
 }
