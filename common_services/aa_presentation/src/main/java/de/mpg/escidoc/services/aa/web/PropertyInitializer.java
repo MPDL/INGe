@@ -73,7 +73,7 @@ public class PropertyInitializer extends HttpServlet
             logger.info("Loading properties from " + propertyFilename);
             try
             {
-                InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename);
+                InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, PropertyInitializer.class.getClassLoader());
                 Config.getProperties().load(propertyStream);
                 //propertyStream.close();
             }

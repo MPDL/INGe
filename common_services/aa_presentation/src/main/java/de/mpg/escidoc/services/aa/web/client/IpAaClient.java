@@ -58,7 +58,7 @@ public class IpAaClient extends FinalClient
     {
 
         Properties ips = new Properties();
-        InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty("escidoc.aa.ip.table"));
+        InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty("escidoc.aa.ip.table"), IpAaClient.class.getClassLoader());
         ips.loadFromXML(ipStream);
         ipStream.close();
         
