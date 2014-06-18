@@ -65,28 +65,18 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
 						srwSearchResponseHandler = new SrwSearchResponseHandler();
 						srwSearchResponseHandler.setPidToSearchFor("hdl:" + pid);
 						parser.parse(tmp, srwSearchResponseHandler);
-
-						// if the same pid has been used several times, we need new pids from pidcache
-						/*if (i > 0 || !isValid(pid))
+						
+						if (!isValid(pid))
 						{
-							pidProvider.getPid(escidocId, type, fileName);
-							
-						}*/
+						    logger.warn("Invalid pid <" + pid + ">");
+						    continue;
+						}
 						
 						if (srwSearchResponseHandler.isObjectPid())
-						    if (isValid(pid))
-						    {
+						    
 						        pidProvider.updatePid(pid,
 									srwSearchResponseHandler.getItemUrl(),
 									statistic);
-						    }
-						    else
-						    {
-						        String newPid = pidProvider.getPid(srwSearchResponseHandler.getItemUrl(), 
-						            statistic);
-						        itemHandler.assignObjectPid(srwSearchResponseHandler.getEscidocId(), 
-						                getTaskParam(srwSearchResponseHandler.getLastModificationDate(), newPid));
-						    }
 						else if (srwSearchResponseHandler.isVersionPid())
 						{
 							pidProvider.updatePid(pid,
