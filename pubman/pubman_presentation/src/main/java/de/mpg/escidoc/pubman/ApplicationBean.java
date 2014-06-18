@@ -395,7 +395,6 @@ public class ApplicationBean extends FacesBean
         {
             throw new PubManStylesheetNotAvailableException(e);
         }
-        System.out.println(styleTags.toString());
         return styleTags.toString();
         
     }

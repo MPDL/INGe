@@ -49,29 +49,6 @@
 <script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
 
 
-
-<script>
-
-/* <![CDATA[ */
-/*
-  if (jQuery.browser.msie && jQuery.browser.version == 9) {
-    window.XMLSerializer = function() {
-
-    };
-    window.XMLSerializer.prototype.serializeToString = function(oNode) {
-
-      return oNode.xml;
-
-    };
-  }
-*/  
-/* ]]> */
-</script>
-
-
-
-
-
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 
 </ui:composition>
