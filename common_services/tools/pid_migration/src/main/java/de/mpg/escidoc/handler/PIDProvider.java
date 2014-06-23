@@ -91,7 +91,7 @@ public class PIDProvider implements PIDProviderIf
         long start = System.currentTimeMillis();
         try
         {
-            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+            httpClient.getState().setCredentials(new AuthScope(server, 8090),
                     new UsernamePasswordCredentials(user, password));
             
             code = httpClient.executeMethod(method);
