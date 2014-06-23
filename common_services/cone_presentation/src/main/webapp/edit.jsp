@@ -647,7 +647,7 @@
 	            }
 	            else
 	            {
-	                identifierValue = request.getParameter("cone_identifier");
+	                identifierValue = request.getParameter("cone_identifier").trim();
 	                if (identifierValue != null && !"".equals(identifierValue))
 	                {
 	                    uri = model.getSubjectPrefix() + identifierValue;
@@ -679,6 +679,7 @@
 	            {
 	                errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
 	            }
+
 	//            else
 	//            {
 	//	            String identifierName = model.getIdentifier();
@@ -698,6 +699,7 @@
 			    
 			    response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
 			    return;
+			    
 			    
 			    /*
 			    if (request.getSession().getAttribute("latestSearch") != null)
