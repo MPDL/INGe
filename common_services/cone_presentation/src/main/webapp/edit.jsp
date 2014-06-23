@@ -647,9 +647,10 @@
 	            }
 	            else
 	            {
-	                identifierValue = request.getParameter("cone_identifier").trim();
+	                identifierValue = request.getParameter("cone_identifier");
 	                if (identifierValue != null && !"".equals(identifierValue))
 	                {
+	                	identifierValue = identifierValue.trim();
 	                    uri = model.getSubjectPrefix() + identifierValue;
 	                    
 	                    TreeFragment result = querier.details(modelName, uri, "*");
