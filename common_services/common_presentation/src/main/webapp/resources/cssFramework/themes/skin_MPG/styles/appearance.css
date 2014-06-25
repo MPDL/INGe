@@ -965,7 +965,7 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 
 
 /***** FORM BUTTONS *****/
-.cancelButton {
+body .cancelButton {
 	float: left;
 	color: #004465;
 	border-right-color: #004465;
@@ -976,14 +976,14 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 	padding-top: 0.10em;
 	padding-bottom: 0.10em;
 }
-.cancelButton:hover {
+body .cancelButton:hover {
 	color: #FFFFFF;
 	border-right-color: #FFFFFF;
 	border-bottom-color: #FFFFFF;
 	text-decoration: underline;
 	background-color: #012846;
 }
-.activeButton {
+body .activeButton {
 	float: right;
 	color: #FFFFFF;
 	border-top:0 !important;
@@ -994,15 +994,15 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 	padding-top: 0.10em;
 	padding-bottom: 0.10em;
 }
-.activeButton:hover {
+body .activeButton:hover {
 	text-decoration:underline;
 	background-color: #012846;
 }
-.activeButton.disabled {
+body .activeButton.disabled {
 	background-color:#888B8B !important;
 	cursor:auto;
 }
-.activeButton.disabled:hover {
+body .activeButton.disabled:hover {
 	text-decoration:none;
 }
 
