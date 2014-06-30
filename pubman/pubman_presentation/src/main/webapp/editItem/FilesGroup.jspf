@@ -242,7 +242,7 @@
 			</span>
 			<span class="large_area0_p8 lineToolSection">
 				<h:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}">
-					<f:ajax render="form1:editEvent form1:messages" execute="@form"/>
+					<f:ajax render="form1:files form1:messages" execute="@form"/>
 				</h:commandButton>
 			</span>
 		</h:panelGroup>
