@@ -267,7 +267,7 @@
 			<ui:include src="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
-				<![CDATA[
+				//<![CDATA[
 					$("input[id$='offset']").submit(function() {
 						$(this).val($(window).scrollTop());
 					});
@@ -276,7 +276,7 @@
 						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 						
 					});
-				]]>
+				//]]>
 			</script>
 			</body>
 		</html>
