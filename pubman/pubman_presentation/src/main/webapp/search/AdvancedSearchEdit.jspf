@@ -48,6 +48,7 @@ All rights reserved. Use is subject to license terms.
 		.addOpenParanthesis {
 			float:left;
 			color:#AAAAAA;
+			background-color:transparent;
 			border:none;
 		}
 		.addOpenParanthesis:hover {
@@ -72,6 +73,7 @@ All rights reserved. Use is subject to license terms.
 			border:none;
 			font-size:90%;
 			color:#AAAAAA;
+			background-color:transparent;
 		}
 		.removeParanthesis:hover {
 			color:#990033;
