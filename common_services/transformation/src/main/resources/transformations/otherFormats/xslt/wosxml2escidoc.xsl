@@ -320,6 +320,9 @@
 					<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'MPDL')"/>
 					<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'External Organizations')"/>
 				</xsl:when>
+				<xsl:when test="$import-name = 'MPL'">
+					<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for the Science of Light')"/>
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$familyname, ', ', $givenname, '&quot;'))"/>
 				</xsl:otherwise>

@@ -190,8 +190,25 @@ public class WoSTransformation implements Transformation, Configurable{
                 WoSImport wos = new WoSImport();
                 output = wos.transformWoS2XML(wosSource);
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-                factory.setURIResolver(new LocalUriResolver("transformations/otherFormats/xslt"));
-                InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/wosxml2escidoc.xsl", WoSTransformation.class.getClassLoader());
+                
+                String xslPath = PropertyReader.getProperty("escidoc.transformation.wos.stylesheet.filename");
+                if (xslPath != null)
+                {
+                    xslPath = xslPath.replace('\\', '/');
+                }
+                String xslDir;
+                if (xslPath.contains("/"))
+                {
+                    xslDir = xslPath.substring(0, xslPath.lastIndexOf("/"));
+                }
+                else
+                {
+                    xslDir = ".";
+                }
+                    
+                
+                factory.setURIResolver(new LocalUriResolver(xslDir));
+                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 //Transformer transformer = factory.newTransformer(stylesheet);
                 

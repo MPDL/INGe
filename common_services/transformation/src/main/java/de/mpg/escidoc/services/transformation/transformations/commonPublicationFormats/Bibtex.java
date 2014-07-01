@@ -114,6 +114,17 @@ public class Bibtex implements BibtexInterface
      */
     public String getBibtex(String bibtex) throws RuntimeException
     {
+    	//Remove Math '$' from the whole BibTex-String
+    	Pattern mathPattern = Pattern.compile("(?sm)\\$(\\\\.*?)(?<!\\\\)\\$");
+    	Matcher mathMatcher = mathPattern.matcher(bibtex);
+    	StringBuffer sb = new StringBuffer();
+    	while ( mathMatcher.find() )
+    	{
+    		mathMatcher.appendReplacement(sb, "$1");
+    	}
+    	mathMatcher.appendTail(sb);
+    	bibtex = sb.toString();
+    	
         BibtexParser parser = new BibtexParser(true);
         BibtexFile file = new BibtexFile();
         try

@@ -163,6 +163,25 @@ public class PIDMigrationManagerTest
         
     }
     
+    @Test
+    public void testReplaceInvalidPid()
+    {
+        PIDMigrationManager m = null;
+        try
+        {
+            m = new PIDMigrationManager(new File("src/test/resources/item/escidoc_832229"));
+        }
+        catch (Exception e)
+        {
+            fail(e.getMessage());
+        }   
+        MigrationStatistic statistic = m.getMigrationStatistic();
+        
+        assertTrue(statistic.getTotalNumberOfPidsRequested() > 0);
+        assertTrue(statistic.getFilesMigrationDone() > 0);
+        
+    }
+    
     @Test 
     @Ignore("needs to set pidchache property to an invalid value")
     public void testOnError() throws Exception

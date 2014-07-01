@@ -115,5 +115,56 @@ public class PIDMigrationQaTest
         assertTrue(new Validator().checkAfterMigration(new File("C:/Test/qa-coreservice/2013"), statistic.getErrorList()));
     }
     
+    @Test
+    @Ignore
+    public void transformInvalidHandleZZZZ() throws Exception
+    {
+        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/0406"));
+        FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/0406_sav"), 
+                new File("C:/Test/qa-coreservice/0406"));
+        PIDMigrationManager mgr = new PIDMigrationManager(new File("C:/Test/qa-coreservice/0406")); 
+        
+        MigrationStatistic statistic = mgr.getMigrationStatistic();
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
+        logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
+        logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
+        logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+        logger.info("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
+        logger.info("***********************");
+        logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
+        assertTrue(statistic.getFilesTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
+                                         + statistic.getFilesMigratedNotUpdated() + statistic.getFilesMigrationDone()));
+        assertTrue(statistic.getTotalNumberOfPidsRequested() == 2361);
+        
+        assertTrue(new Validator().checkAfterMigration(new File("C:/Test/qa-coreservice/0406"), statistic.getErrorList()));
+        
+    }
+    
+    @Test
+    public void transformOneInvalidHandleZZZZ() throws Exception
+    {
+        FileUtils.deleteDirectory(new File("C:/Test/qa-coreservice/0406"));
+        FileUtils.copyDirectory(new File("C:/Test/qa-coreservice/0406_sav"), 
+                new File("C:/Test/qa-coreservice/0406"));
+        PIDMigrationManager mgr = new PIDMigrationManager(new File("C:/Test/qa-coreservice/0406/14/23/escidoc_832229")); 
+        
+        MigrationStatistic statistic = mgr.getMigrationStatistic();
+        logger.info("FilesMigratedTotal              " + statistic.getFilesTotal());
+        logger.info("FilesMigratedNotReleased        " + statistic.getFilesMigratedNotReleased());
+        logger.info("FilesMigratedNotItemOrComponent " + statistic.getFilesMigratedNotItemOrComponent());
+        logger.info("FilesMigratedNotUpdated         " + statistic.getFilesMigratedNotUpdated());
+        logger.info("FilesErrorOccured               " + statistic.getFilesErrorOccured());
+        logger.info("FilesMigrationDone              " + statistic.getFilesMigrationDone());
+        logger.info("***********************");
+        logger.info("TotalNumberOfPidsRequested      " + statistic.getTotalNumberOfPidsRequested());
+        assertTrue(statistic.getFilesTotal() == (statistic.getFilesMigratedNotItemOrComponent() + statistic.getFilesMigratedNotReleased()
+                                         + statistic.getFilesMigratedNotUpdated() + statistic.getFilesMigrationDone()));
+        assertTrue(statistic.getTotalNumberOfPidsRequested() == 1);
+        
+        assertTrue(new Validator().checkAfterMigration(new File("C:/Test/qa-coreservice/0406/14/23/escidoc_832229"), statistic.getErrorList()));
+        
+    }
+    
     
 }

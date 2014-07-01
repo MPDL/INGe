@@ -34,6 +34,8 @@ public class SrwSearchResponseHandler extends DefaultHandler
     private String matchingComponentAttributes;
     private String currentComponentTitle;
     
+    private String lastModificationDate;
+    
     
     private HashMap<String, String> results = new HashMap<String, String>();
 
@@ -60,9 +62,10 @@ public class SrwSearchResponseHandler extends DefaultHandler
         }
         else if ("escidocItem:item".equals(qName))
         {
-            itemUrl = attributes.getValue("xlink:href"); // pattern /item/<escidocId>
-            
+            itemUrl = attributes.getValue("xlink:href"); // pattern /item/<escidocId>           
             results.put("itemUrl", itemUrl.replace("/ir", ""));
+            
+            lastModificationDate = attributes.getValue("last-modification-date");
         }
         else if ("prop:version".equals(qName))
         {
@@ -106,7 +109,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             propPid = currentContent.toString();
-            if (propPid.contains(pidToSearchFor))
+            if (propPid.equalsIgnoreCase(pidToSearchFor))
             {
                 isObjectPid = true;
             }
@@ -117,7 +120,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             versionPid = currentContent.toString();
-            if (versionPid.contains(pidToSearchFor))
+            if (versionPid.equalsIgnoreCase(pidToSearchFor))
             {
                 isVersionPid = true;
                 matchingPropVersion = currentPropVersion;
@@ -130,7 +133,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             propPid = currentContent.toString();
-            if (propPid.contains(pidToSearchFor))
+            if (propPid.equalsIgnoreCase(pidToSearchFor))
             {
                 isComponentPid = true;
                 matchingComponentAttributes = currentComponentAttributes;
@@ -174,5 +177,15 @@ public class SrwSearchResponseHandler extends DefaultHandler
     public String getComponentUrl()
     {
         return results.get("matchingComponentUrl");
+    }
+    
+    public String getEscidocId()
+    {
+        return this.getItemUrl().replace("/item/", "");
+    }
+    
+    public String getLastModificationDate()
+    {
+        return this.lastModificationDate;
     }
 }

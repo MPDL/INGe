@@ -131,7 +131,8 @@ public class BibTexUtil
         encodingTable.put("\\beta", "\u03b2");
         encodingTable.put("\\gamma", "\u03b3");
         encodingTable.put("\\delta", "\u03b4");
-        encodingTable.put("\\epsilon", "\u03b5");
+        encodingTable.put("\\varepsilon", "\u03B5");
+        encodingTable.put("\\epsilon", "\u03F5");
         encodingTable.put("\\zeta", "\u03b6");
         encodingTable.put("\\eta", "\u03b7");
         encodingTable.put("\\theta", "\u03b8");

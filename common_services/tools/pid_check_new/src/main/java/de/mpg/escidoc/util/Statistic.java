@@ -8,4 +8,14 @@ public class Statistic
     {
         this.objectsTotal++;
     }
+    
+    public void setObjectsTotal(int total)
+    {
+    	this.objectsTotal = total;
+    }
+    
+    public int getObjectsTotal()
+    {
+    	return this.objectsTotal;
+    }
 }

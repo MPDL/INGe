@@ -3,14 +3,17 @@ package de.mpg.escidoc.main;
 import gov.loc.www.zing.srw.service.SRWPort;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pid.PidProvider;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -21,18 +24,26 @@ public abstract class AbstractConsistencyCheckManager
 {
     protected static Logger logger = Logger.getLogger(AbstractConsistencyCheckManager.class);
     protected SRWPort searchHandler;
+    protected ItemHandler itemHandler;
     protected String userHandle;
     protected Statistic statistic;
     protected PidProvider pidProvider;
     
+    
+    protected static String gwdgUserLogin = null;
+    
 
-    public AbstractConsistencyCheckManager()
+    public AbstractConsistencyCheckManager() throws IOException, URISyntaxException
     {
         super();
+        
+        gwdgUserLogin = PropertyReader.getProperty("escidoc.pid.gwdg.user.login");
     }
     
-    protected  void init()
-    {   
+    protected  void init() throws Exception
+    {  
+    	pidProvider = new PidProvider(); 
+    	
         try
         {
             this.userHandle = AdminHelper.loginUser(
@@ -40,6 +51,8 @@ public abstract class AbstractConsistencyCheckManager
                     PropertyReader.getProperty("framework.admin.password"));
             
             searchHandler = ServiceLocator.getSearchHandler("escidoc_all", new URL(ServiceLocator.getFrameworkUrl()), userHandle);
+            
+            itemHandler = ServiceLocator.getItemHandler(userHandle);
         }
         catch (Exception e1)
         {
@@ -48,9 +61,9 @@ public abstract class AbstractConsistencyCheckManager
         }
     }  
     
-    public List<String> getObjectsToCorrect(File objects) throws Exception
+    public Set<String> getObjectsToCorrect(File objects) throws Exception
     {
-        List<String> objectsToCorrect = new ArrayList<String>();
+        Set<String> objectsToCorrect = new HashSet<String>();
         LineIterator lit = FileUtils.lineIterator(objects);
         
         while(lit.hasNext())
@@ -63,9 +76,11 @@ public abstract class AbstractConsistencyCheckManager
         return objectsToCorrect;
     }
 
-    public void verifyList(List<String> objects) throws Exception
+    public void verifySet(Set<String> objects) throws Exception
     {    
         pidProvider = new PidProvider();
+        
+        getStatistic().setObjectsTotal(objects.size());
         
         try
         {
@@ -99,13 +114,25 @@ public abstract class AbstractConsistencyCheckManager
     
         System.exit(-1);
     }
+    
+    protected boolean isValid(String pid)
+    {
+        if (pid == null || "".equals(pid))
+            return false;
+        
+        if (!pid.contains(gwdgUserLogin))
+            return false;
+        
+        return true;
+    }
+
 
     /**
      * abstract methods - subclass responsibility
      */    
-    abstract public void createOrCorrectList(List<String> pids) throws Exception;
+    abstract public void createOrCorrectSet(Set<String> pids) throws Exception;
     
-    abstract protected void doResolve(String object);
+    abstract protected void doResolve(String object) throws Exception;
     
     abstract protected Statistic getStatistic();
 
@@ -129,15 +156,15 @@ public abstract class AbstractConsistencyCheckManager
         String checkClass = PropertyReader.getProperty("escidoc.pid_check.consistencycheck.implementation.class");
         IConsistencyCheckManager manager = (IConsistencyCheckManager)(Class.forName(checkClass)).newInstance();
         
-        List<String> pidsToCorrect = manager.getObjectsToCorrect(new File(pidFileName));
+        Set<String> pids = manager.getObjectsToCorrect(new File(pidFileName));
         
         if (mode.contains("update"))
         {            
-            manager.createOrCorrectList(pidsToCorrect);
+            manager.createOrCorrectSet(pids);
         }
         if (mode.contains("verify"))
         {   
-            manager.verifyList(pidsToCorrect);
+            manager.verifySet(pids);
         }
     }
 }

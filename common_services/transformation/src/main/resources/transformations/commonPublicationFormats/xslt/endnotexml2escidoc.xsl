@@ -340,7 +340,7 @@
 			
 			<!--ALTTITLE -->
 			<xsl:for-each select="
-				B[$refType = ('Generic', 'Electronic Book')]
+				B[$refType = ('Electronic Book')]
 				|
 				O[$refType = ('Book', 'Book Section', 'Manuscript', 'Edited Book', 'Electronic Article', 'Report')]
 				|
@@ -461,7 +461,7 @@
 			"/>
 			<xsl:variable name="edition" select="
 				if (NUM_7 and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
-				else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
+				else if (ROUND_RIGHT_BRACKET and not(NUM_7) and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
 				else ''
 			"/>
 			 
@@ -471,7 +471,7 @@
 						<xsl:value-of select="$publisher"/>
 					</dc:publisher>
 					<xsl:variable name="place" select="
-						if (C and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article', 'Generic')) then C
+						if (C and ($refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article') or ($refType = 'Generic' and (not(NUM_9) or (lower-case(normalize-space(NUM_9)) != 'talk'))))) then C
 						else ''
 					"/>
 					<xsl:if test="$place!=''">

@@ -1,12 +1,12 @@
 package de.mpg.escidoc.main;
 
-import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.RecordsType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -25,13 +25,13 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
     private SrwSearchResponseHandler srwSearchResponseHandler;
     private HandleUpdateStatistic statistic;
     
-    public PidCorrectionManager()
+    public PidCorrectionManager() throws Exception
     {
         super.init();
         statistic = new HandleUpdateStatistic();
     }
     
-    public void createOrCorrectList(List<String> pids) throws Exception
+    public void createOrCorrectSet(Set<String> pids) throws Exception
     {
         PidProvider pidProvider = new PidProvider();
         
@@ -42,37 +42,57 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             for (String pid: pids)
             {    
                 try
-                {
-                    statistic.incrementHandlesTotal();
+                {                    
+                    RecordsType records = this.searchForPid(pid);
                     
-                    RecordType record = this.searchForPid(pid);
-                    
-                    if (record == null) 
+                    // pid is not used in PubMan instance
+                    if (records == null) 
                     {
                         pidProvider.updatePid(pid, "", statistic);
                         continue;       
                     }
                     
-                    File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
-                    FileUtils.writeStringToFile(tmp, record.getRecordData().get_any()[0].getAsString(), "UTF-8");
-                    
-                    srwSearchResponseHandler = new SrwSearchResponseHandler();
-                    srwSearchResponseHandler.setPidToSearchFor(pid);
-                    parser.parse(tmp, srwSearchResponseHandler);
-                    
-                    if (srwSearchResponseHandler.isObjectPid())
-                        pidProvider.updatePid(pid, srwSearchResponseHandler.getItemUrl(), statistic); 
-                    else if (srwSearchResponseHandler.isVersionPid())
-                    {
-                        pidProvider.updatePid(pid, srwSearchResponseHandler.getVersionUrl(), statistic); 
-                    }
-                    else if (srwSearchResponseHandler.isComponentPid())
-                    {
-                        pidProvider.updatePid(pid, srwSearchResponseHandler.getComponentUrl(), statistic); 
-                    } 
-                    FileUtils.deleteQuietly(tmp);
-                    
-                    Thread.currentThread().sleep(5*1000);
+					for (int i = 0; i < records.getRecord().length; i++)
+					{
+						statistic.incrementTotal();
+
+						File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "pid");
+						
+						String record = records.getRecord()[i].getRecordData().get_any()[0].getAsString();
+								
+						FileUtils.writeStringToFile(tmp, record, "UTF-8");
+								
+						srwSearchResponseHandler = new SrwSearchResponseHandler();
+						srwSearchResponseHandler.setPidToSearchFor("hdl:" + pid);
+						parser.parse(tmp, srwSearchResponseHandler);
+						
+						if (!isValid(pid))
+						{
+						    logger.warn("Invalid pid <" + pid + ">");
+						    continue;
+						}
+						
+						if (srwSearchResponseHandler.isObjectPid())
+						    
+						        pidProvider.updatePid(pid,
+									srwSearchResponseHandler.getItemUrl(),
+									statistic);
+						else if (srwSearchResponseHandler.isVersionPid())
+						{
+							pidProvider.updatePid(pid,
+									srwSearchResponseHandler.getVersionUrl(),
+									statistic);
+						} 
+						else if (srwSearchResponseHandler.isComponentPid())
+						{
+							pidProvider.updatePid(pid,
+									srwSearchResponseHandler.getComponentUrl(),
+									statistic);
+						}
+						FileUtils.deleteQuietly(tmp);
+
+						Thread.currentThread().sleep(1000);
+					}
                 }
                 catch (Exception e)
                 {
@@ -92,8 +112,8 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             pidProvider.storeResults(statistic);          
         }
     }  
-
-    private RecordType searchForPid(String pid) throws Exception
+ 
+    private RecordsType searchForPid(String pid) throws Exception
     {
         StringBuffer cql = new StringBuffer("escidoc.metadata=");
         
@@ -109,8 +129,6 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
         
         logger.info("searchRetrieveRequest query <" + searchRetrieveRequest.getQuery() + ">");
         
-        searchHandler.searchRetrieveOperation(searchRetrieveRequest);
-        
         SearchRetrieveResponseType searchResult = searchHandler.searchRetrieveOperation(searchRetrieveRequest);
         if (searchResult.getDiagnostics() != null)
         {
@@ -121,16 +139,27 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
             }
         }
         
-        switch (searchResult.getNumberOfRecords().intValue())
-        {
-            case 1:
-                return searchResult.getRecords().getRecord(0);
-            case 0:
-            default:
-                return null;
-        }  
+		if (searchResult.getNumberOfRecords().intValue() > 0)
+		{
+			return searchResult.getRecords();
+		} else
+		{
+			return null;
+		}
     }
+    
+    private String getTaskParam(String lastModificationDate, String newPid)
+    {
+        StringBuffer b = new StringBuffer(1024);
+        
+        b.append("<param last-modification-date=\"");
+        b.append(lastModificationDate);
+        b.append("\">");
+        b.append("<pid>somePid</pid>".replace("somePid", newPid));
+        b.append("</param>");
 
+        return b.toString();
+    }
 
     @Override
     protected void doResolve(String object)
