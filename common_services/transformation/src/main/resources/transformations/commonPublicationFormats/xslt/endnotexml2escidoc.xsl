@@ -446,7 +446,7 @@
 			<xsl:for-each select="AMPERSAND[
 					$refType = 'Patent'
 				]">
-				<dc:identifier xsi:type="eterms:PATENT_NR">
+				<dc:identifier xsi:type="ete rms:PATENT_NR">
 					<xsl:value-of select="."/>
 				</dc:identifier>
 			</xsl:for-each>
