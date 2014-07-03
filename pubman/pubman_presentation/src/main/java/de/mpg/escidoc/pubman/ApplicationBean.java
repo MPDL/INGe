@@ -387,7 +387,9 @@ public class ApplicationBean extends FacesBean
         try {
             if("true".equals(PropertyReader.getProperty("escidoc.pubman.favicon.apply")))
             {
-                styleTags.append("<link rel=\"shortcut icon\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
+                styleTags.append("<link rel=\"icon\" type=\"image/png\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
+                styleTags.append("<link rel=\"shortcut icon\" type=\"image/png\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
+                styleTags.append("<link type=\"image/png\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
             }
         } catch (IOException e)
         {
