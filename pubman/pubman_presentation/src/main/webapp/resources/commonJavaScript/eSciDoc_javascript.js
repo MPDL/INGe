@@ -49,7 +49,7 @@ function applyCookieStyle() {
 			start += cookie.length;
 			var stop = dc.indexOf(";", start);
 			if (stop == -1) stop = dc.length;
-			cookieValue = unescape(dc.substring(start,stop));
+			cookieValue = decodeURIComponent(dc.substring(start,stop));
 		}
 	}
 	var enableHiddenShemes = false;
@@ -60,7 +60,7 @@ function applyCookieStyle() {
 			start += cookie.length;
 			var stop = dc.indexOf(";", start);
 			if (stop == -1) stop = dc.length;
-			if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true; hiddenThemesEnabled = true;};
+			if(decodeURIComponent(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true; hiddenThemesEnabled = true;};
 		}
 	}
 	var isCorrectCookieVersion = false;
@@ -71,7 +71,7 @@ function applyCookieStyle() {
 			start += cookie.length;
 			var stop = dc.indexOf(";", start);
 			if (stop == -1) stop = dc.length;
-			if(unescape(dc.substring(start,stop)) == cookieVersion) {isCorrectCookieVersion = true;};
+			if(decodeURIComponent(dc.substring(start,stop)) == cookieVersion) {isCorrectCookieVersion = true;};
 		}
 	}
 	
@@ -119,7 +119,7 @@ function setStyleCookie() {
 	var exp = new Date(now.getTime() + (1000*60*60*24*30));
 	if(cookieValue != "") {
 		if(hiddenThemesEnabled) {
-			document.cookie = "layout=" + escape(cookieValue) + ";" +
+			document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
 								"cVersion=" + cookieVersion + ";" +
 								"expires=" + exp.toGMTString() + ";" +
 								"path=/";
@@ -130,7 +130,7 @@ function setStyleCookie() {
 								"expires=" + exp.toGMTString() + ";" +
 								"path=/";
 		} else {
-			document.cookie = "layout=" + escape(cookieValue) + ";" +
+			document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
 								"cVersion=" + cookieVersion + ";" +
 								"expires=" + exp.toGMTString() + ";" +
 								"path=/";
