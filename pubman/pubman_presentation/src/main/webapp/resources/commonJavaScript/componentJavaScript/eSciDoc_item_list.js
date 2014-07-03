@@ -104,21 +104,21 @@ function addItemListFunctions(){
 // Select options    
     var tog = '';
     $('.listHeader').find('.allCheckBox').click(function(){
-    	itemList.find("input[type=checkbox]").attr("checked", !tog);
+    	itemList.find("input[type=checkbox]").prop("checked", !tog);
     	tog = !tog;
     });
 
     $('.listHeader').find('.selectAll').click(function(){
-        itemList.find('input[type=checkbox]').attr('checked', true);
+        itemList.find('input[type=checkbox]').prop('checked', true);
         hideElement(slctMenu);
     });
 
     slctMenu.find('.toggleAll').click(function(){
         $('.listItem').find('input[type="checkbox"]').click();
         if (itemList.find('.listItem input[type="checkbox"][checked]').length < 1) {
-        	itemList.find('.allCheckBox').removeAttr("checked");
+        	itemList.find('.allCheckBox').prop('checked', false);
         } else if (itemList.find('.listItem input[type="checkbox"][checked]').length == itemList.find('.listItem input[type="checkbox"]').length) {
-        	itemList.find('.allCheckBox').attr('checked', true);
+        	itemList.find('.allCheckBox').prop('checked', true);
         }
         hideElement(slctMenu);
     });

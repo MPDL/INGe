@@ -533,15 +533,15 @@ All rights reserved. Use is subject to license terms.
 				checkboxinput.click(function(evt) {
 					if (this.checked) {
 						if (!subgenre.is(":checked")) {
-							subgenre.trigger("click").attr("checked", "checked");
+							subgenre.trigger("click").prop("checked", "true");
 						}
-						genre.attr("checked", "checked");
+						genre.prop("checked", "true");
 						
 					} else {
 						if (subgenre.is(":checked")) {
-							subgenre.trigger("click").removeAttr("checked");
+							subgenre.trigger("click").prop("checked", "false");
 						}
-						genre.removeAttr("checked");
+						genre.prop("checked", false);
 					}
 				});
 			  });

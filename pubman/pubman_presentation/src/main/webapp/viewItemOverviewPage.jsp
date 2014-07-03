@@ -561,13 +561,7 @@
 					switch (typeof $.fn.nanoScroller) {
 						case 'function':
 							var nanoDiv = $(".nano");
-							// IE lower 9 will get no NanoScroller attached. Instead a standard scrollbar is added
-							if (!$.browser.msie || ($.browser.msie &amp;&amp; $.browser.version &gt; 8)) {
-								nanoDiv.nanoScroller();
-							} else {
-								nanoDiv.css("overflow", "auto");
-								nanoDiv.removeClass("nano");
-							}
+							nanoDiv.nanoScroller();
 							break;
 						default:
 							counter++;
