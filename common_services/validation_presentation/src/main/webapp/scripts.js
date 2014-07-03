@@ -50,7 +50,7 @@ function changeRuleElement(element)
 
 	}
 	
-	location.href = '?rule-text=' + escape(ruleText);
+	location.href = '?rule-text=' + encodeURIComponent(ruleText);
 }
 
 function addSubsection(element)

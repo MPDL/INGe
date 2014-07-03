@@ -151,7 +151,7 @@
 						vocab = vocab.substring(vocab.lastIndexOf("/"));
 						
 						var source = options.source;
-						var data = "format=json&lang="+lang+"&q="+escape(q)
+						var data = "format=json&lang="+lang+"&q="+encodeURIComponent(q)
 						if (source.indexOf('?') >= 0)
 						{
 							data = source.substring(source.indexOf('?') + 1) + '&' + data;

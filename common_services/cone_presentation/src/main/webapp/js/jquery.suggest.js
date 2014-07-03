@@ -201,11 +201,11 @@
 						if (!(source.indexOf('?lang=') >= 0 || source.indexOf('&lang=') >= 0 || source.indexOf('?l=') >= 0 || source.indexOf('&l=') >= 0))
 						{
 							lang = $('body').attr('lang');
-							data = "format=json&lang="+lang+"&q="+escape(q);
+							data = "format=json&lang="+lang+"&q="+encodeURIComponent(q);
 						}
 						else
 						{
-							data = "format=json&q="+escape(q);
+							data = "format=json&q="+encodeURIComponent(q);
 						}
  
 						if (source.indexOf('?') >= 0)

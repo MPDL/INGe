@@ -74,7 +74,7 @@
 							start += cookie.length;
 							var stop = dc.indexOf(";", start);
 							if (stop == -1) stop = dc.length;
-							cookieValue = unescape(dc.substring(start,stop));
+							cookieValue = decodeURIComponent(dc.substring(start,stop));
 						}
 					}
 					var enableHiddenShemes = false;
@@ -85,7 +85,7 @@
 							start += cookie.length;
 							var stop = dc.indexOf(";", start);
 							if (stop == -1) stop = dc.length;
-							if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
+							if(decodeURIComponent(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
 						}
 					}
 					
@@ -131,7 +131,7 @@
 					var now = new Date();
 					var exp = new Date(now.getTime() + (1000*60*60*24*30));
 					if(cookieValue != "") {
-						document.cookie = "layout=" + escape(cookieValue) + ";" +
+						document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
 											"expires=" + exp.toGMTString() + ";" +
 											"path=/";
 					}
