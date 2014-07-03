@@ -44,6 +44,10 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<ui:include src="header/ui/StandardImports.jspf" />
+				<script src="/cone/js/jquery.suggest.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_datebox.js"/>
+				
 				<link rel="stylesheet" href="./resources/cc_license_style.css" />
 
 			</h:head>

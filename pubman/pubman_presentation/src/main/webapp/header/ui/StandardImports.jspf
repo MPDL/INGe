@@ -51,8 +51,6 @@
 <h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_item_list.js"/>
 <h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_full_item.js"/>
 <h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_single_elements.js"/>
-<script src="/cone/js/jquery.suggest.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
 <h:outputScript name="commonJavaScript/componentJavaScript/breadcrump.js"/>
 
 
