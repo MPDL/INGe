@@ -712,7 +712,7 @@
 		<escidoc.common.stylesheet.special.type>stylesheet</escidoc.common.stylesheet.special.type>
 		<escidoc.common.stylesheet.special.apply>true</escidoc.common.stylesheet.special.apply>
 		<!-- Properties of the favicon-->
-		<escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
+		<escidoc.pubman.favicon.url>./javax.faces.resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
 		<escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
 		<!-- version of the pubman cookie (has to be changed if style information is changed)-->
 		<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>

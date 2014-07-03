@@ -32,7 +32,7 @@ if(typeof cookieVersion=='undefined') {
 	var cookieVersion = "1.1";
 }
 if(typeof jsURL=='undefined') {
-	var jsURL = './resources/commonJavaScript/';
+	var jsURL = './javax.faces.resources/commonJavaScript/';
 }
 if(typeof coneURL=='undefined') {
 	var coneURL = '../../cone/';
