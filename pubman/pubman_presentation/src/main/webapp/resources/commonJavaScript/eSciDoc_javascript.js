@@ -141,20 +141,6 @@ function setStyleCookie() {
 	}
 }
 
-var included = false;
-
- /*INCLUDES EXTERNAL JAVASCRIPT TO PAGE DOM*/
-function include_dom(script_filename) {
-    var html_doc = document.getElementsByTagName('head').item(0);
-    var js = document.createElement('script');
-    js.setAttribute('language', 'javascript');
-    js.setAttribute('charset', 'UTF-8');
-    js.setAttribute('type', 'text/javascript');
-    js.setAttribute('src', script_filename);
-    html_doc.appendChild(js);
-    return false;
-}
-
 /*ADDS MULTIPLE EVENTS TO A EVENTLISTENER*/
 function addEvent(obj, evType, fn){
  if (obj.addEventListener){
@@ -168,61 +154,7 @@ function addEvent(obj, evType, fn){
  }
 }
 
-/*START ALL EXTERNAL JAVASCRIPTS*/
-function install_javascripts() {
-	if (typeof installExtPaginator == 'function') {
-		installExtPaginator();
-	}
-	if (typeof installItemList == 'function') {
-		installItemList();
-	}
-	if (typeof installItemList == 'function') {
-		installFullItem();
-	}
-	if (typeof installQuickSearchShortcut == 'function') {
-		installQuickSearchShortcut();
-	}
-	if (typeof installDateTextbox == 'function') {
-		installDateTextbox();
-	}
-	if (typeof installSameHeight == 'function') {
-		installSameHeight();
-	}
-	if (typeof bindSuggests == 'function') {
-		
-		bindSuggests();
-	}
-}
 
-/*INCLUDES EXTERNAL JAVASCRIPTS*/
-
-function include_javascripts() {
-	
-		if(!included){
-			//console.log("inclide js $ " + $().jquery)
-			//console.log("inclide js jquery " + jQuery.fn.jquery)
-			include_dom(jsURL + 'componentJavaScript/eSciDoc_ext_paginator.js');
-			include_dom(jsURL + 'componentJavaScript/eSciDoc_selectbox.js');
-			include_dom(jsURL + 'componentJavaScript/eSciDoc_item_list.js');
-			include_dom(jsURL + 'componentJavaScript/eSciDoc_full_item.js');
-			include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
-			include_dom(coneURL + 'js/jquery.suggest.js')
-			include_dom(jsURL + 'componentJavaScript/autoSuggestFunctions.js');
-			include_dom(jsURL + 'componentJavaScript/breadcrump.js');
-			/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
-			included = true;
-			include_javascripts();
-		} else {
-			addEvent(window, 'load', function(){window.setTimeout('install_javascripts()', 1);});
-		}
-}
-
-
-
-
-if (!(location.pathname.match(/faces\/help\//))) {
-	include_javascripts();
-}
 applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};
 

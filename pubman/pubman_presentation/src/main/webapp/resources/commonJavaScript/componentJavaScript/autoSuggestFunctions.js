@@ -680,3 +680,7 @@
 			}
 		}
 	}
+	
+	$(function(){
+		bindSuggests();
+	});

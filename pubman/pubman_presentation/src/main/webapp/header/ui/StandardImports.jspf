@@ -44,9 +44,16 @@
 
 <h:outputScript library="javax.faces" name="jsf.js"/>
 <h:outputScript library="primefaces" name="jquery/jquery.js"/>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 <h:outputScript name="scripts.js"/>
 <h:outputScript name="commonJavaScript/eSciDoc_javascript.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_ext_paginator.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_selectbox.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_item_list.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_full_item.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_single_elements.js"/>
+<script src="/cone/js/jquery.suggest.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/breadcrump.js"/>
 
 
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />

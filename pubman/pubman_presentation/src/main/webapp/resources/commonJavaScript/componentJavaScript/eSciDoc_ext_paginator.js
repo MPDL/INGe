@@ -41,3 +41,7 @@ function installExtPaginator() {
 	addPaginatorFunctions();
 	addPaginatorItemFunctions();
 }
+
+$(function(){
+	installExtPaginator();
+});

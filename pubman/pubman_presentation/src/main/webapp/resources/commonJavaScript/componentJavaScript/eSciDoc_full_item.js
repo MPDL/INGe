@@ -236,3 +236,8 @@ function installFullItem() {
 /*
 //@ sourceMappingURL=jquery.nanoscroller.min.js.map
 */
+
+$(function(){
+	installFullItem();
+});
+

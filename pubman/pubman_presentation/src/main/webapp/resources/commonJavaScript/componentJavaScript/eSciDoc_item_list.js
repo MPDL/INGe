@@ -187,14 +187,6 @@ function installItemList(){
     addItemListFunctions();
 }
 
-
-
-
-
-
-
-
-
-
-
-
+$(function(){
+	installItemList();
+});

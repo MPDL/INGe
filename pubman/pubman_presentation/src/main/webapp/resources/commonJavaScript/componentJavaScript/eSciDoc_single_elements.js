@@ -195,11 +195,19 @@ function installDateTextbox() {
 	language = document.body.lang;
 	if(language != '') language = '-'+language;
 	/*INCLUDE RIGHT LANGUAGE HERE*/
-	include_dom(jsURL + 'externalJavaScript/DateJS/date'+language+'.js');
-	addDateJSLabels();
-	addDateJSFunctions();
+	$.getScript(jsURL + 'externalJavaScript/DateJS/date'+language+'.js', function(){
+		addDateJSLabels(); 
+		addDateJSFunctions();
+	});
+	
 }
 
 function installSameHeight() {
 	$('.sameHeightSlave').each(function(i,elem){$(elem).height($('.sameHeightMaster').height());});
 }
+
+$(function(){
+	installQuickSearchShortcut();
+	installDateTextbox();
+	installSameHeight();
+});
