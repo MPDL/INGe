@@ -69,7 +69,7 @@
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
-			<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&amp;type=item&amp;lang=#{InternationalizationHelper.locale}"/>
+			<h:graphicImage url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&amp;type=item&amp;lang=#{InternationalizationHelper.locale}"/>
 		</div>
 	</div>
 	</h:panelGroup>
@@ -132,7 +132,7 @@
 				</span>
 			</div>
 			<div class="free_area0 endline itemLine noTopBorder">
-				<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&amp;type=file&amp;lang=#{InternationalizationHelper.locale}"/>
+				<h:graphicImage url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{file.file.reference.objectId}&amp;type=file&amp;lang=#{InternationalizationHelper.locale}"/>
 			</div>
 			<br/>
 		</ui:repeat>

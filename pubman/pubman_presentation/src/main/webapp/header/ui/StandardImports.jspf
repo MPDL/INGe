@@ -45,8 +45,8 @@
 <h:outputScript library="javax.faces" name="jsf.js"/>
 <h:outputScript library="primefaces" name="jquery/jquery.js"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/scripts.js">;</script>
-<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
+<h:outputScript name="scripts.js"/>
+<h:outputScript name="commonJavaScript/eSciDoc_javascript.js"/>
 
 
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />

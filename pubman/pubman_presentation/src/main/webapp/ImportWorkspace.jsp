@@ -40,8 +40,9 @@
 			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<ui:include src="header/ui/StandardImports.jspf" />
-				  <link rel="stylesheet" href="./resources/commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
-				<script src="./resources/commonJavaScript/jquery/jquery-ui-1.10.4.min.js"></script>
+				
+				<h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
+				<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js"/>
 				<!-- 
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 				-->
