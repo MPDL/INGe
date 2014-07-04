@@ -178,14 +178,16 @@ function addDateJSFunctions() {
 
 function installDateTextbox() {
 	/*GET LANGUAGE*/
+	/*
 	var language = '';
 	language = document.body.lang;
 	if(language != '') language = '-'+language;
+	*/
 	/*INCLUDE RIGHT LANGUAGE HERE*/
-	$.getScript(jsURL + 'externalJavaScript/DateJS/date'+language+'.js', function(){
+	//$.getScript(jsURL + 'externalJavaScript/DateJS/date'+language+'.js', function(){
 		addDateJSLabels(); 
 		addDateJSFunctions();
-	});
+	//});
 	
 }
 
