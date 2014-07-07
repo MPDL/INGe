@@ -208,7 +208,7 @@ public class RedirectServlet extends HttpServlet
             String[] pieces) throws IOException, URISyntaxException, ServletException, HttpException,
             UnsupportedEncodingException
     {
-        String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+        String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
         String url = null;
         try
         {
