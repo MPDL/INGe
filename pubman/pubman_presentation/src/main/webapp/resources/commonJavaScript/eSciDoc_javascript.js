@@ -224,7 +224,7 @@ function afterAjaxRequest()
 	{ 
 		fullItemReloadStop();
 	}
-	install_javascripts();
+	//install_javascripts();
 	
 	
 	resizeSelectbox(431);
