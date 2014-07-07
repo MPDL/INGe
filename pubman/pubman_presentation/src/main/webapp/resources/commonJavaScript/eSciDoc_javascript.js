@@ -154,6 +154,31 @@ function addEvent(obj, evType, fn){
  }
 }
 
+/*START ALL EXTERNAL JAVASCRIPTS*/
+function install_javascripts() {
+	if (typeof installExtPaginator == 'function') {
+		installExtPaginator();
+	}
+	if (typeof installItemList == 'function') {
+		installItemList();
+	}
+	if (typeof installItemList == 'function') {
+		installFullItem();
+	}
+	if (typeof installQuickSearchShortcut == 'function') {
+		installQuickSearchShortcut();
+	}
+	if (typeof installDateTextbox == 'function') {
+		installDateTextbox();
+	}
+	if (typeof installSameHeight == 'function') {
+		installSameHeight();
+	}
+	if (typeof bindSuggests == 'function') {
+		
+		bindSuggests();
+	}
+}
 
 applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};
@@ -224,7 +249,7 @@ function afterAjaxRequest()
 	{ 
 		fullItemReloadStop();
 	}
-	//install_javascripts();
+	install_javascripts();
 	
 	
 	resizeSelectbox(431);
