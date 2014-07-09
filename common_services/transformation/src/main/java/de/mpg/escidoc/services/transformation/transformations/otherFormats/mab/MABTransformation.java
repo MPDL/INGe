@@ -119,14 +119,18 @@ public class MABTransformation implements Transformation{
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
                 
                 String xslPath = PropertyReader.getProperty("escidoc.transformation.mab.stylesheet.filename");
+                String xslDir;
                 if (xslPath != null)
                 {
                     xslPath = xslPath.replace('\\', '/');
-                }
-                String xslDir;
-                if (xslPath.contains("/"))
-                {
-                    xslDir = xslPath.substring(0, xslPath.lastIndexOf("/"));
+                    if (xslPath.contains("/"))
+                    {
+                        xslDir = xslPath.substring(0, xslPath.lastIndexOf("/"));
+                    }
+                    else
+                    {
+                        xslDir = ".";
+                    }
                 }
                 else
                 {

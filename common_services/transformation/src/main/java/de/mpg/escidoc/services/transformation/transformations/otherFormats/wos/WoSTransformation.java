@@ -192,14 +192,18 @@ public class WoSTransformation implements Transformation, Configurable{
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
                 
                 String xslPath = PropertyReader.getProperty("escidoc.transformation.wos.stylesheet.filename");
+                String xslDir;
                 if (xslPath != null)
                 {
                     xslPath = xslPath.replace('\\', '/');
-                }
-                String xslDir;
-                if (xslPath.contains("/"))
-                {
-                    xslDir = xslPath.substring(0, xslPath.lastIndexOf("/"));
+                    if (xslPath.contains("/"))
+                    {
+                        xslDir = xslPath.substring(0, xslPath.lastIndexOf("/"));
+                    }
+                    else
+                    {
+                        xslDir = ".";
+                    }
                 }
                 else
                 {
@@ -208,7 +212,7 @@ public class WoSTransformation implements Transformation, Configurable{
                     
                 
                 factory.setURIResolver(new LocalUriResolver(xslDir));
-                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
+                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, WoSTransformation.class.getClassLoader());
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 //Transformer transformer = factory.newTransformer(stylesheet);
                 
