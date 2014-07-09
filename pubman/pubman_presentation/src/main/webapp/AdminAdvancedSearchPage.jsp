@@ -45,6 +45,10 @@
 				<meta http-equiv="Pragma" content="no-cache" />
 				<meta http-equiv="expires" content="0"/>
 				<ui:include src="header/ui/StandardImports.jspf" />
+				<script src="/cone/js/jquery.suggest.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
+				<h:outputScript name="commonJavaScript/externalJavaScript/DateJS/date-#{InternationalizationHelper.locale}.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_datebox.js"/>
 				
 				
 			</h:head>
