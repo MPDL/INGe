@@ -162,7 +162,7 @@
 						font-style:italic;
 					}
 				</style>
-				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.8.3.min.js">;</script>
+				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.11.1.min.js">;</script>
 				
 				<script type="text/javascript" language="JavaScript" src="/cone/js/smartpaginator/smartpaginator.js">;</script>
 				<script>
