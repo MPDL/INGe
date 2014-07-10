@@ -63,7 +63,7 @@ public class QueueProcess
 				} 
 				catch (Exception e) 
 				{
-					logger.warn("Error, PID can not be updated on GWDG service.");
+					logger.warn("Error, PID can not be updated on GWDG service.", e);
 				}
 				
 				pid = queue.getFirst();
