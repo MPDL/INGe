@@ -967,6 +967,39 @@ Notes:
 		</element>
 	</userdefined-index>
         
+	<userdefined-index name="metadata">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*[local-name()='identifier']">
+			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
+			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,':',.)"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,' ',.)"/>
+				</element>
+			</xsl:if>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*[local-name()='identifier']">
+			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
+			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,':',.)"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat($idtype,' ',.)"/>
+				</element>
+			</xsl:if>
+		</xsl:for-each>
+		<element index="TOKENIZED">
+			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
+		</element>
+		<element index="TOKENIZED">
+			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
+		</element>
+	</userdefined-index>
 	
 	
 	<!-- Publication status drawn from dates -->
