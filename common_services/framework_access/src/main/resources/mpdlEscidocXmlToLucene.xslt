@@ -1439,6 +1439,7 @@ Notes:
 
 
         <!-- COMPOUND INDEXES FOR FORMER REQUIREMENTS. STILL NEEDED????? -->
+        <!-- 
 		<userdefined-index name="metadata">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1489,6 +1490,7 @@ Notes:
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
+		 -->
 		<userdefined-index name="context.objid">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>

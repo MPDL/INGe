@@ -321,6 +321,21 @@ Notes:
                 <xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
                 <xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
             </xsl:call-template>
+             <!-- ADDITIONALLY WRITE VALUE IN metadata-index -->
+			<xsl:call-template name="writeIndexField">
+				<xsl:with-param name="context" select="$CONTEXTNAME"/>
+				<xsl:with-param name="fieldname">metadata</xsl:with-param>
+				<xsl:with-param name="fieldvalue">
+					<xsl:call-template name="removeSubSupStr">
+						<xsl:with-param name="name" select="$path"/>
+						<xsl:with-param name="str" select="text()"/>
+					</xsl:call-template>
+				</xsl:with-param>
+<!--				<xsl:with-param name="fieldvalue" select="text()"/>-->
+				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+			</xsl:call-template>
+            
         </xsl:if>
         <xsl:if test="$indexAttributes='yes'">
             <!-- ITERATE ALL ATTRIBUTES AND WRITE ELEMENT-NAME, ATTRIBUTE-NAME AND ATTRIBUTE-VALUE -->
@@ -952,56 +967,7 @@ Notes:
 		</element>
 	</userdefined-index>
         
-	<userdefined-index name="metadata">
-		<xsl:attribute name="context">
-			<xsl:value-of select="$CONTEXTNAME"/>
-		</xsl:attribute>
-		<xsl:for-each select="$ITEM_METADATAPATH//*[local-name()='identifier']">
-			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
-			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
-				<element index="TOKENIZED">
-					<xsl:value-of select="concat($idtype,':',.)"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="concat($idtype,' ',.)"/>
-				</element>
-			</xsl:if>
-		</xsl:for-each>
-		<xsl:for-each select="$CONTAINER_METADATAPATH//*[local-name()='identifier']">
-			<xsl:variable name="idtype" select="string-helper:getSubstringAfterLast(./@*[local-name()='type'],':')" />
-			<xsl:if test="string($idtype) and normalize-space($idtype)!=''">
-				<element index="TOKENIZED">
-					<xsl:value-of select="concat($idtype,':',.)"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="concat($idtype,' ',.)"/>
-				</element>
-			</xsl:if>
-		</xsl:for-each>
-		<element index="TOKENIZED">
-			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
-		</element>
-		<element index="TOKENIZED">
-			<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>
-		</element>
-		<element index="TOKENIZED">
-			<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
-		</element>
-		<element index="TOKENIZED">
-			<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
-		</element>
-		<element index="TOKENIZED">
-			<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='pid']"/>
-		</element>
-		<element index="TOKENIZED">
-			<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
-		</element>
-		<xsl:for-each select="$COMPONENT_PATH">
-			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='properties']/*[local-name()='pid']"/>
-			</element>
-		</xsl:for-each>
-	</userdefined-index>
+	
 	
 	<!-- Publication status drawn from dates -->
 	<userdefined-index name="publication-status">
