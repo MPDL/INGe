@@ -40,6 +40,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -155,6 +156,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	 */
 	private String query = "";
 	
+	@EJB
 	private PubItemDepositing pubItemDepositing;
 	
 	
