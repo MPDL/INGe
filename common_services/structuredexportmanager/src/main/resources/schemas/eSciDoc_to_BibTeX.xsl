@@ -146,12 +146,16 @@
 		        <xsl:when test="fn:exists(.//dc:identifier[@xsi:type='eterms:BIBTEX_CITEKEY'])">
 		            <xsl:value-of select=".//dc:identifier[@xsi:type='eterms:BIBTEX_CITEKEY'][1]"/>
 		        </xsl:when>
-		        <xsl:when test="exists(.//dc:identifier[@xsi:type='eterms:OTHER' and fn:matches(., '^Local-ID: [A-Z0-9]*?-.*$')]) ">
-		        	<xsl:value-of select="fn:normalize-space(function:substring-after-last((.//dc:identifier[@xsi:type='eterms:OTHER' and fn:matches(., '^Local-ID: [A-Z0-9]*?-.*$')][1]), '-'))" />
+		        <xsl:when test="exists(.//dc:identifier[@xsi:type='eterms:OTHER' and fn:matches(., '^Local-ID:\s[A-Z0-9\-]+?-([a-zA-Z][a-z\W]+.*)')]) ">
+		        	<xsl:analyze-string select=".//dc:identifier[@xsi:type='eterms:OTHER' and fn:matches(., '^Local-ID:\s[A-Z0-9\-]+?-([a-zA-Z][a-z\W]+.*)')]" regex="^Local-ID:\s[A-Z0-9\-]+?-([a-zA-Z][a-z\W]+.*)">
+       					<xsl:matching-substring>
+       						<xsl:value-of select="fn:normalize-space(regex-group(1))"/>
+       					</xsl:matching-substring>
+       				</xsl:analyze-string>
 		        </xsl:when>
 		        <xsl:when test="fn:exists(parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@xlink:href)">
 		        	<xsl:value-of select="fn:substring-after(fn:substring-after(fn:substring-after(parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@xlink:href, '/'), '/'), '/')"/>
-		       </xsl:when>
+		        </xsl:when>
 		        <xsl:otherwise>
 		            <xsl:value-of select="parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@objid"/>
 		        </xsl:otherwise>
@@ -184,8 +188,12 @@
 		<!-- PUBLISHER, ADDRESS -->
 		<xsl:choose>
 			<xsl:when test="(not (source:source/eterms:publishing-info/dc:publisher)) or source:source/eterms:publishing-info/dc:publisher=''">
-				<xsl:apply-templates select="eterms:publishing-info/dc:publisher"/>		
-				<xsl:apply-templates select="eterms:publishing-info/eterms:place"/>
+				<xsl:apply-templates select="eterms:publishing-info/dc:publisher">
+					<xsl:with-param name="genre" select="$type-of-publication"/>
+				</xsl:apply-templates>	
+				<xsl:apply-templates select="eterms:publishing-info/eterms:place">
+					<xsl:with-param name="genre" select="$type-of-publication"/>
+				</xsl:apply-templates>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates select="source:source/eterms:publishing-info/dc:publisher">
@@ -202,7 +210,6 @@
 				<xsl:apply-templates select="eterms:publishing-info/eterms:edition"/>				
 			</xsl:when>
 			<xsl:when test="source:source/eterms:publishing-info/eterms:edition 
-								and source:source/eterms:publishing-info/eterms:edition='' 
 								and $type-of-publication = 'report'
 								and (not(exists(dc:identifier[xsi:type = 'eterms:REPORT_NR'])))">
 				<xsl:call-template name="createField">
@@ -304,7 +311,7 @@
 				</xsl:when>
 				<xsl:when test="$genre='report'"> 
 					<xsl:call-template name="createField">
-						<xsl:with-param name="name" select="'institiution'"/>
+						<xsl:with-param name="name" select="'institution'"/>
 						<xsl:with-param name="xpath" select="."/>
 					</xsl:call-template>
 				</xsl:when>
