@@ -1484,6 +1484,7 @@ public String logUploadComplete()
 	        if (file != null && file.getSize() > 0)
 	        {
 	            contentURL = uploadFileToEscidoc(file);
+	            String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
 	            if (contentURL != null && !contentURL.trim().equals(""))
 	            {
 	            	 FileVO fileVO = new FileVO();
@@ -1491,8 +1492,8 @@ public String logUploadComplete()
 	                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 	                 this.getEditItemSessionBean().getFiles() .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
 	                fileVO.getDefaultMetadata().setSize((int)file.getSize());
-	                fileVO.setName(file.getFileName());
-	                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
+	                fileVO.setName(fixedFileName);
+	                fileVO.getDefaultMetadata().setTitle(new TextVO(fixedFileName));
 	                
 	                
 	                
@@ -1502,9 +1503,9 @@ public String logUploadComplete()
                 	{
                 	*/
                 		try {
-							fileVO.setMimeType(tika.detect(file.getInputstream(), file.getFileName()));
+							fileVO.setMimeType(tika.detect(file.getInputstream(), fixedFileName));
 						} catch (IOException e) {
-							logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+							logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
 						}
                 		/*
                 	}

@@ -837,6 +837,7 @@ public class EasySubmission extends FacesBean
                      * !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-")) {
                      */
                     contentURL = uploadFile(file);
+                    String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
                     if (contentURL != null && !contentURL.trim().equals(""))
                     {
                         
@@ -850,8 +851,8 @@ public class EasySubmission extends FacesBean
                                 .add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile,
                                         false));
                         
-                        newFile.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
-                        newFile.setName(file.getFileName());
+                        newFile.getDefaultMetadata().setTitle(new TextVO(fixedFileName));
+                        newFile.setName(fixedFileName);
                         newFile.getDefaultMetadata().setSize((int)file.getSize());
                         // set the file name automatically if it is not filled by the user
                         /*
@@ -869,9 +870,9 @@ public class EasySubmission extends FacesBean
                         {
                         */
                             try {
-                                newFile.setMimeType(tika.detect(file.getInputstream(), file.getFileName()));
+                                newFile.setMimeType(tika.detect(file.getInputstream(), fixedFileName));
                             } catch (IOException e) {
-                                logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+                                logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
                             }
                             /*
                         }
