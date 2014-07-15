@@ -211,7 +211,7 @@
 			</xsl:when>
 			<xsl:when test="source:source/eterms:publishing-info/eterms:edition 
 								and $type-of-publication = 'report'
-								and (not(exists(dc:identifier[xsi:type = 'eterms:REPORT_NR'])))">
+								and (not(exists(dc:identifier[@xsi:type = 'eterms:REPORT_NR'])))">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'number'"/>
 					<xsl:with-param name="xpath" select="source:source/eterms:publishing-info/eterms:edition"/>
