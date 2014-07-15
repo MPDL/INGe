@@ -187,11 +187,13 @@
 </div>
 <h:panelGroup layout="block" id="buttons" styleClass="full_area0 formButtonArea">		
 	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
+	<ui:remove>
 	<!-- 
 	<h:commandLink id="lnkImportBibtex" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton #{empty EasySubmissionSessionBean.uploadedBibtexFile ? 'disabled' : ''}" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableExternalFields}" disabled="#{empty EasySubmissionSessionBean.uploadedBibtexFile}">
 		<h:outputText value="#{lbl.easy_submission_btnNext}" />
 	</h:commandLink>
 	-->
+	</ui:remove>
 	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}" onclick="fullItemReloadAjax();">
 		<h:outputText value="#{lbl.easy_submission_btnFetch}"/>
 	</h:commandLink>
