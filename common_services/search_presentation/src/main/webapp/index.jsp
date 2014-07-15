@@ -49,9 +49,6 @@
 		
 		<link rel="SHORTCUT ICON" href="/pubman/resources/favicon.ico"/>
 		
-		<script src="/pubman/resources/commonJavaScript/jquery/jquery.min.js" language="JavaScript" type="text/javascript">;</script>
-		<script src="/pubman/resources/commonJavaScript/componentJavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
-		<script type="text/javascript">$(document).ready(function(){installFullItem();});</script>
 
 		<script language="JavaScript" type="text/javascript">
 			  function applyCookieStyle() {
