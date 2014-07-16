@@ -29,6 +29,7 @@
 package de.mpg.escidoc.pubman.editItem;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -623,7 +624,8 @@ public class EditItem extends FacesBean
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
         //if(uploadedFile.isTempFile())
         //{
-        	method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputstream()));
+        InputStream fis = uploadedFile.getInputstream();
+        	method.setRequestEntity(new InputStreamRequestEntity(fis));
 	    /*    
 	    }
         else
@@ -639,7 +641,7 @@ public class EditItem extends FacesBean
         ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
+        fis.close();
        
         return xmlTransforming.transformUploadResponseToFileURL(response);
     }
@@ -1502,8 +1504,11 @@ public String logUploadComplete()
                 	if(file.isTempFile())
                 	{
                 	*/
+                	
                 		try {
-							fileVO.setMimeType(tika.detect(file.getInputstream(), fixedFileName));
+                			InputStream fis = file.getInputstream();
+							fileVO.setMimeType(tika.detect(fis, fixedFileName));
+							fis.close();
 						} catch (IOException e) {
 							logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
 						}

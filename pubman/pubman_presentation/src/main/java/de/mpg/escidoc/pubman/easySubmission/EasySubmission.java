@@ -870,7 +870,9 @@ public class EasySubmission extends FacesBean
                         {
                         */
                             try {
-                                newFile.setMimeType(tika.detect(file.getInputstream(), fixedFileName));
+                            	InputStream fis = file.getInputstream();
+                                newFile.setMimeType(tika.detect(fis, fixedFileName));
+                                fis.close();
                             } catch (IOException e) {
                                 logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
                             }
@@ -976,7 +978,9 @@ public class EasySubmission extends FacesBean
         if(uploadedFile.isTempFile())
         {
         */
-            method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputstream()));
+        	InputStream fis = uploadedFile.getInputstream();
+            method.setRequestEntity(new InputStreamRequestEntity(fis));
+            
     /*    
     }
         else
@@ -991,6 +995,7 @@ public class EasySubmission extends FacesBean
         ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
+        fis.close();
         return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
