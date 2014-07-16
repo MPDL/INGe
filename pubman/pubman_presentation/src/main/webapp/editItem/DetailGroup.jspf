@@ -166,7 +166,7 @@
 		</h:panelGroup>
 
 <!-- Identifier -->
-		<ui:repeat id="iterDetailGroupIdentifier" var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.details_identifiers_display == 'false' and genre.details_identifiers_form_id == 'full-submission' || genre.details_identifiers_display == 'false' and genre.details_identifiers_form_id == 'all')}">
+		<ui:repeat id="iterDetailGroupIdentifier" var="identifier" varStatus="statusId" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.details_identifiers_display == 'false' and genre.details_identifiers_form_id == 'full-submission' || genre.details_identifiers_display == 'false' and genre.details_identifiers_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true' and (genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -195,10 +195,10 @@
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addID}" action="#{EditItem.identifierCollection.identifierManager.addObjectAtIndex(status.index)}" rendered="#{genre.details_identifiers_repeatable != 'false'}">
+					<h:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addID}" action="#{EditItem.identifierCollection.identifierManager.addObjectAtIndex(statusId.index)}" rendered="#{genre.details_identifiers_repeatable != 'false'}">
 						<f:ajax render="form1:editDetail" execute="@form"/>
 					</h:commandButton>
-					<h:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeID}" action="#{EditItem.identifierCollection.identifierManager.removeObjectAtIndex(status.index)}" disabled="#{EditItem.identifierCollection.identifierManager.size == 1}" rendered="#{genre.details_identifiers_repeatable != 'false'}">
+					<h:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeID}" action="#{EditItem.identifierCollection.identifierManager.removeObjectAtIndex(statusId.index)}" disabled="#{EditItem.identifierCollection.identifierManager.size == 1}" rendered="#{genre.details_identifiers_repeatable != 'false'}">
 						<f:ajax render="form1:editDetail" execute="@form"/>
 					</h:commandButton>
 				</span>
