@@ -50,6 +50,7 @@ import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -175,7 +176,7 @@ public class EasySubmission extends FacesBean
     // Import
     private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();
     private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
-    private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
+    //private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
     public SelectItem[] FULLTEXT_OPTIONS;
     public SelectItem[] REFERENCE_OPTIONS;
@@ -1729,10 +1730,11 @@ public class EasySubmission extends FacesBean
      * 
      * @return String navigation string
      */
-    public String changeImportSource()
+    public void changeImportSource(String newImportSource)
     {
+    	
         DataSourceVO currentSource = null;
-        currentSource = this.dataSourceHandler.getSourceByName(this.sourceSelect.getSubmittedValue().toString());
+        currentSource = this.dataSourceHandler.getSourceByName(newImportSource);
         if (currentSource == null)
         {
             currentSource = new DataSourceVO();
@@ -1792,11 +1794,19 @@ public class EasySubmission extends FacesBean
                 this.getEasySubmissionSessionBean().setFulltext(false);
             }
         }
-        this.getEasySubmissionSessionBean().setCurrentExternalServiceType(
-                this.sourceSelect.getSubmittedValue().toString());
-        return "loadNewFetchMetadata";
+        this.getEasySubmissionSessionBean().setCurrentExternalServiceType(newImportSource);
+        
+        //return "loadNewFetchMetadata";
     }
 
+    public void changeImportSourceListener(ValueChangeEvent evt)
+    {
+    	if(evt.getNewValue()!=null)
+    	{
+    		changeImportSource((String)evt.getNewValue());
+    	}
+    }
+    
     private void setBibTexInfo()
     {
 //        this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
@@ -1811,8 +1821,8 @@ public class EasySubmission extends FacesBean
      */
     public String selectImportExternal()
     {
-        this.sourceSelect.setSubmittedValue(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
-        this.changeImportSource();
+        //this.sourceSelect.setSubmittedValue(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
+        this.changeImportSource(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
         this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
         return "loadNewEasySubmission";
     }
@@ -2544,6 +2554,7 @@ public class EasySubmission extends FacesBean
         }
     }
 
+    /*
     public HtmlSelectOneMenu getSourceSelect()
     {
         return this.sourceSelect;
@@ -2553,6 +2564,7 @@ public class EasySubmission extends FacesBean
     {
         this.sourceSelect = sourceSelect;
     }
+    */
 
     public SelectItem[] getFULLTEXT_OPTIONS()
     {

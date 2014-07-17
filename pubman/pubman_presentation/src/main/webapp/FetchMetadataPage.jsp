@@ -49,7 +49,7 @@
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{FetchMetadataPage.beanName}" styleClass="noDisplay" />
-			<h:form  onsubmit="fullItemReload();">
+			<h:form id="form1" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
