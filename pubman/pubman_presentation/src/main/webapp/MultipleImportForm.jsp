@@ -126,7 +126,7 @@
 														&#160;<span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
-														<h:outputText value="#{MultipleImport.uploadedImportFile.fileName}, #{MultipleImport.fileSize}"/>
+														<h:outputText value="#{MultipleImport.fixedFileName}, #{MultipleImport.fileSize}"/>
 													</span>
 												</h:panelGroup>
 												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine">

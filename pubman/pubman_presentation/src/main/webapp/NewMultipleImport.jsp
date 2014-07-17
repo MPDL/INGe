@@ -154,7 +154,7 @@
 														</p:fileUpload>
 													</h:panelGroup>
 													<h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{not empty MultipleImport.uploadedImportFile}">
-														<b><h:outputText value="#{MultipleImport.uploadedImportFile.fileName}"/></b>
+														<b><h:outputText value="#{MultipleImport.fixedFileName}"/></b>
 													</h:panelGroup>
 												</h:panelGroup>
 											</div>

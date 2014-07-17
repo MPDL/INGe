@@ -55,6 +55,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -95,6 +96,7 @@ public class MultipleImport extends FacesBean
     
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
     private UploadedFile uploadedImportFile;
+    private String fixedFileName;
     private File uploadedFile;
     
     private ImportProcess importProcess = null;
@@ -186,9 +188,10 @@ public class MultipleImport extends FacesBean
     
     public String getFileSize()
     {
-        if (this.uploadedImportFile != null)
+        if (this.uploadedFile != null)
         {
-            long size = uploadedImportFile.getSize();
+            long size = uploadedFile.length();
+            System.out.println(size);
             if (size < 1024)
             {
                 return size + "B";
@@ -484,6 +487,7 @@ public class MultipleImport extends FacesBean
     {
     	try {
 			this.uploadedImportFile = evt.getFile();
+			this.fixedFileName = CommonUtils.fixURLEncoding(uploadedImportFile.getFileName());
 			uploadedFile = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
 			FileOutputStream fos = new FileOutputStream(uploadedFile);
 			InputStream is = uploadedImportFile.getInputstream();
@@ -500,5 +504,13 @@ public class MultipleImport extends FacesBean
     {
     	this.uploadedImportFile = null;
     }
+
+	public String getFixedFileName() {
+		return fixedFileName;
+	}
+
+	public void setFixedFileName(String fixedFileName) {
+		this.fixedFileName = fixedFileName;
+	}
 
 }
