@@ -4,11 +4,6 @@
 <jboss-deployment-structure>
 <!-- Turn off classloader isolation. thus, every ejb can see the other -->
 	<ear-subdeployments-isolated>false</ear-subdeployments-isolated>
-	<deployment>  
-    <dependencies>  
-      <module name="pubman" />  
-    </dependencies>  
-  	</deployment>  
 	<!-- 
 	<deployment>  
 	    
