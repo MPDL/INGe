@@ -1439,6 +1439,7 @@ Notes:
 
 
         <!-- COMPOUND INDEXES FOR FORMER REQUIREMENTS. STILL NEEDED????? -->
+        
 		<userdefined-index name="metadata">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1469,26 +1470,10 @@ Notes:
 				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>
-			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
-			</element>
-			<element index="TOKENIZED">
 				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
 			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='pid']"/>
-			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
-			</element>
-			<xsl:for-each select="$COMPONENT_PATH">
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='properties']/*[local-name()='pid']"/>
-				</element>
-			</xsl:for-each>
 		</userdefined-index>
+		
 		<userdefined-index name="context.objid">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -2006,7 +1991,7 @@ Notes:
                         <element index="TOKENIZED">
                                  <xsl:value-of select="concat(./*[local-name()='person']/*[local-name()='given-name'],' ', ./*[local-name()='person']/*[local-name()='family-name'])"/>
                         </element>
-                        <element index="UN_TOKENIZED">
+                        <element index="TOKENIZED">
                                  <xsl:value-of select="./*[local-name()='person']/*[local-name()='identifier']"/>
                         </element>
                 </userdefined-index>
@@ -2023,7 +2008,7 @@ Notes:
                         <element index="TOKENIZED">
                                 <xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
                         </element>
-                        <element index="UN_TOKENIZED">
+                        <element index="TOKENIZED">
                                  <xsl:value-of select="./*[local-name()='organization']/*[local-name()='identifier']"/>
                         </element>
                 </userdefined-index>
