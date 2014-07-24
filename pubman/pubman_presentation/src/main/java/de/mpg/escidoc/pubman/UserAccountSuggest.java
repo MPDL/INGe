@@ -35,34 +35,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.CqlFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
 
 /**
  * @author franke
