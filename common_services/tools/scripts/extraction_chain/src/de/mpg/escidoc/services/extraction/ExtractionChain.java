@@ -34,7 +34,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -57,12 +57,12 @@ public class ExtractionChain
     
     public ExtractionChain(String infileName, String outfileName)
     {
-        File infile = new File(infileName);
         File outfile = new File(outfileName);
         
         System.err.println("Extracting PDF content ----------------------------------------");
         System.err.println("Infile: " + infileName);
         System.err.println("Outfile: " + outfileName);
+        
         Date stepStart = new Date();
         Date current;
         System.err.println(stepStart + " -- started");
@@ -71,36 +71,34 @@ public class ExtractionChain
         try
         {
             System.err.println("Extracting with xPDF");
-            String command ="/usr/bin/pdftotext -cfg /etc/xpdfrc "
-                + infileName + " " + outfileName;
-            Process proc = Runtime.getRuntime().exec(command);
-            InputStream errorStream = proc.getErrorStream();
-            InputStream inputStream = proc.getInputStream();
+            
+            StringBuffer command = new StringBuffer(2048);
+            command.append(System.getProperty("os.name").contains("Windows") ? "C:/xpdfbin-win-3.04/xpdfbin-win-3.04/bin64/pdftotext.exe " : "/usr/bin/pdftotext ");
+            command.append(infileName);
+            command.append(" ");
+            command.append(outfileName);
+                
+            Process proc = Runtime.getRuntime().exec(command.toString());
+            
+            StreamGobbler inputGobbler = new StreamGobbler(proc.getInputStream(), "xPDF");
+            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "xPDF");
+            
+            inputGobbler.start();
+            errorGobbler.start();
+            
             int exitCode = proc.waitFor();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            String line;
-            while ((line = bufferedReader.readLine()) != null)
-            {
-                System.err.println("[WARN]  " + line);
-            }
-            if (exitCode != 0)
-            {
-                System.err.println("[ERROR] xPDF returned " + exitCode);
-                bufferedReader = new BufferedReader(new InputStreamReader(errorStream, "UTF-8"));
-                while ((line = bufferedReader.readLine()) != null)
-                {
-                    System.err.println("[ERROR] " + line);
-                }
-            }
-            else
+                    
+            if (exitCode == 0)
             {
                 if (verbose)
                 {
-                    bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(outfile), "UTF-8"));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(outfile), "UTF-8"));
+                    String line;
                     while ((line = bufferedReader.readLine()) != null)
                     {
                         System.err.println(line);
                     }
+                    bufferedReader.close();
                 }
                 current = new Date();
                 System.err.println(current + " -- finished successfully");
@@ -111,11 +109,11 @@ public class ExtractionChain
         }
         catch (Exception e)
         {
-            System.err.println("[ERROR] Error extracting PDF with xPDF:");
-            System.err.println("[ERROR] " + e.getMessage());
+            System.err.println("[ERROR xPDF] Error extracting PDF with xPDF:");
+            System.err.println("[ERROR xPDF] " + e.getMessage());
             for (StackTraceElement ste : e.getStackTrace())
             {
-                System.err.println("[ERROR] at " + ste.getClassName() + "." + ste.getMethodName() + " (" + ste.getLineNumber() + ")");
+                System.err.println("[ERROR xPDF] at " + ste.getClassName() + "." + ste.getMethodName() + " (" + ste.getLineNumber() + ")");
             }
         }
         
@@ -128,36 +126,36 @@ public class ExtractionChain
         {
             System.err.println("Extracting with PDFBox");
             stepStart = new Date();
-            String command = "/usr/bin/java -jar /usr/share/jboss/server/default/conf/pdfbox-app-1.4.0.jar ExtractText "
-                + infileName + " " + outfileName;
-            Process proc = Runtime.getRuntime().exec(command);
-            InputStream errorStream = proc.getErrorStream();
-            InputStream inputStream = proc.getInputStream();
+            
+            StringBuffer command = new StringBuffer(1024);
+            command.append(System.getProperty("os.name").contains("Windows") ? 
+                    "java -jar c:/tmp/jboss/server/default/conf/pdfbox-app-1.8.6.jar ExtractText "
+                    :
+                    "/usr/bin/java -jar /usr/share/jboss/server/default/conf/pdfbox-app-1.8.6.jar ExtractText "); 
+            command.append(infileName);
+            command.append(" ");
+            command.append(outfileName);
+           
+            Process proc = Runtime.getRuntime().exec(command.toString());
+            StreamGobbler inputGobbler = new StreamGobbler(proc.getInputStream(), "PDFBox");
+            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "PDFBox");
+            
+            inputGobbler.start();
+            errorGobbler.start();
+         
             int exitCode = proc.waitFor();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            String line;
-            while ((line = bufferedReader.readLine()) != null)
-            {
-                System.err.println("[WARN]  " + line);
-            }
-            if (exitCode != 0)
-            {
-                System.err.println("[ERROR] PDFBox returned " + exitCode);
-                bufferedReader = new BufferedReader(new InputStreamReader(errorStream, "UTF-8"));
-                while ((line = bufferedReader.readLine()) != null)
-                {
-                    System.err.println("[ERROR] " + line);
-                }
-            }
-            else
+            
+            if (exitCode == 0)
             {
                 if (verbose)
                 {
-                    bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(outfile), "UTF-8"));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(outfile), "UTF-8"));
+                    String line;
                     while ((line = bufferedReader.readLine()) != null)
                     {
                         System.err.println(line);
                     }
+                    bufferedReader.close();
                 }
                 current = new Date();
                 System.err.println(current + " -- finished successfully");
@@ -168,11 +166,11 @@ public class ExtractionChain
         }
         catch (Exception e)
         {
-            System.err.println("[ERROR] Error extracting PDF with PDFBox:");
-            System.err.println("[ERROR] " + e.getMessage());
+            System.err.println("[ERROR PDFBox] Error extracting PDF with PDFBox:");
+            System.err.println("[ERROR PDFBox] " + e.getMessage());
             for (StackTraceElement ste : e.getStackTrace())
             {
-                System.err.println("[ERROR] at " + ste.getClassName() + "." + ste.getMethodName() + " (" + ste.getLineNumber() + ")");
+                System.err.println("[ERROR PDFBox] at " + ste.getClassName() + "." + ste.getMethodName() + " (" + ste.getLineNumber() + ")");
             }
         }
         
@@ -204,6 +202,7 @@ public class ExtractionChain
                 {
                     System.err.println(line);
                 }
+                bufferedReader.close();
             }
             
             current = new Date();
@@ -215,11 +214,11 @@ public class ExtractionChain
         }
         catch (Exception e)
         {
-            System.err.println("[ERROR] Error extracting PDF with iText:");
-            System.err.println("[ERROR] " + e.getMessage());
+            System.err.println("[ERROR iText] Error extracting PDF with iText:");
+            System.err.println("[ERROR iText] " + e.getMessage());
             for (StackTraceElement ste : e.getStackTrace())
             {
-                System.err.println("[ERROR] at " + ste.getClassName() + "." + ste.getMethodName() + " (" + ste.getLineNumber() + ")");
+                System.err.println("[ERROR iText] at " + ste.getClassName() + "." + ste.getMethodName() + " (" + ste.getLineNumber() + ")");
             }
         }
         
@@ -227,9 +226,36 @@ public class ExtractionChain
         System.err.println(current + " -- finished unsuccessfully");
         System.err.println("Extraction attempt took " + (current.getTime() - stepStart.getTime()));
         
-        
-        
         System.err.println("... giving up");
+        
+        return;
+    }
+    
+    class StreamGobbler extends Thread
+    {
+        InputStream is;
+        String name;
+        
+        StreamGobbler(InputStream is, String name)
+        {
+            this.is = is;
+            this.name = name;
+        }
+        
+        public void run()
+        {
+            try
+            {
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                String line=null;
+                while ( (line = br.readLine()) != null)
+                    System.err.println("[ERROR " + name + "] " + line);    
+                } catch (IOException ioe)
+                  {
+                    ioe.printStackTrace();  
+                  }
+        }
     }
 
     /**
