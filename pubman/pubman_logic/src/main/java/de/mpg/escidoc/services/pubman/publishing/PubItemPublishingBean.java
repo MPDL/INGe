@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.services.pubman.publishing;
 
-import java.net.URLEncoder;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -218,10 +217,10 @@ public class PubItemPublishingBean implements PubItemPublishing
 
             // Loop over files
             for (FileVO file : actualItemVO.getFiles())
-            {
-                long start = System.currentTimeMillis();
-                if(file.getPid()==null || file.getPid().equals(""))
+            {           
+                if((file.getPid()==null || file.getPid().equals("")) && file.getStorageString().equals(FileVO.Storage.INTERNAL_MANAGED))
                 {
+                    long start = System.currentTimeMillis();
                     // Build PidParam
                     url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
                     PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
@@ -251,10 +250,9 @@ public class PubItemPublishingBean implements PubItemPublishing
                         
                         LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
                     }
+                    long end = System.currentTimeMillis();
+                    LOGGER.info("assign content PID for " + pubItemRef.getObjectId() + "> needed <" + (end - start)  + "> msec" );
                 }
-                long end = System.currentTimeMillis();
-                LOGGER.info("assign content PID for " + pubItemRef.getObjectId() + "> needed <" + (end - start)  + "> msec" );
-
             }
 
             // Retrieve the item to get last modification date
