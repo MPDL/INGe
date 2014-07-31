@@ -872,6 +872,51 @@ Notes:
 		</xsl:for-each>
 	</userdefined-index>
 	
+	<userdefined-index name="any-dates">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='created']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='modified']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateAccepted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='issued']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='published-online']"/>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='created']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='modified']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateAccepted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='issued']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='published-online']"/>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
 	
 	<userdefined-index name="any-identifier">
 		<xsl:attribute name="context">
