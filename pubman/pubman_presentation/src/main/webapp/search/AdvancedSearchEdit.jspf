@@ -505,7 +505,7 @@ All rights reserved. Use is subject to license terms.
 						<h:panelGroup styleClass="#{genre == 'THESIS' ? 'free_checkbox subGenre clear' : 'double_checkbox xTiny_marginRIncl'}">
 							<ui:param name="genreLabel" value="ENUM_GENRE_#{genre}"/>
 							<h:selectBooleanCheckbox styleClass="genreCheckbox" id="genreCriterion" value="#{AdvancedSearchBean.genreListSearchCriterion.genreMap[genre]}">
-								<f:ajax render="degrees" rendered="#{genre=='THESIS'}"/>
+								<f:ajax execute="form1:editGenre" render="degrees" rendered="#{genre=='THESIS'}"/>
 							</h:selectBooleanCheckbox>
 							<h:outputLabel title="#{lbl[genreLabel]}" value="#{lbl[genreLabel]}" for="genreCriterion" />
 							
