@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+  xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"
+  xmlns:container="http://www.escidoc.de/schemas/container/0.3"
+  xmlns:technical-metadata="http://www.escidoc.de/schemas/technicalmetadata/0.3"
+  xmlns:components="http://www.escidoc.de/schemas/components/0.3"
+ xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+ xmlns:metadata="http://www.escidoc.de/metadata/schema/0.3"
+ xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.3/"
+ xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+ xmlns:ec="http://escidoc.mpg.de/metadataprofile/schema/0.3/collection"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../common_logic/misc/xsd/soap/item/0.3/item.xsd">
+	<escidocItem:properties>
+		<escidocItem:context objid="persistent:3" />
+		<escidocItem:content-model objid="persistent4" />
+		<escidocItem:content-model-specific>
+			<nix />
+		</escidocItem:content-model-specific>
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records>
+		<escidocMetadataRecords:md-record schema="http://www.escidoc-project.de/metadata/schema/0.1/" name="escidoc">
+			<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+				<publication:creator role="author">
+					<e:person>
+						<e:complete-name>Metzger, Thomas</e:complete-name>
+						<e:organization>
+							<e:organization-name>MPI für Quantenoptik/Attosecond and High-Field Physics</e:organization-name>
+							<e:identifier>PIDAff</e:identifier>
+						</e:organization>
+					</e:person>
+				</publication:creator>
+				<publication:creator role="author">
+					<e:person>
+						<e:complete-name>Rauschenberger, Jens</e:complete-name>
+						<e:organization>
+							<e:organization-name>MPI für Quantenoptik/Attosecond and High-Field Physics</e:organization-name>
+							<e:identifier>PIDAff</e:identifier>
+						</e:organization>
+					</e:person>
+				</publication:creator>
+				<publication:creator role="author">
+					<e:person>
+						<e:complete-name>Apolonski, Alexander</e:complete-name>
+						<e:organization>
+							<e:organization-name>MPI für Quantenoptik/Attosecond and High-Field Physics</e:organization-name>
+							<e:identifier>PIDAff</e:identifier>
+						</e:organization>
+					</e:person>
+				</publication:creator>
+				<publication:creator role="author">
+					<e:person>
+						<e:complete-name>Schmid, Karl</e:complete-name>
+						<e:organization>
+							<e:organization-name>MPI für Quantenoptik/Attosecond and High-Field Physics</e:organization-name>
+							<e:identifier>PIDAff</e:identifier>
+						</e:organization>
+					</e:person>
+				</publication:creator>
+				<dc:title xml:lang="DE">Ultrakurze Laserpulse: Erzeugung und Anwendung</dc:title>
+				<dc:language>DE</dc:language>
+				<dcterms:alternative xml:lang="EN">Very short laser .... :</dcterms:alternative>
+				<dcterms:created>1980-01-23T12:00:00.000+01:00</dcterms:created>
+				<!-- e:source>
+					<dc:title xml:lang="DE">Laser Technik Journal</dc:title>
+					<dcterms:alternative xml:lang="DE">Laser Tech. J.</dcterms:alternative>
+					<e:issue></e:issue>
+					<e:start-page>27</e:start-page>
+					<e:end-page>33</e:end-page>
+					<dc:identifier type="ISSN">1613-7728</dc:identifier>
+					</e:source-->
+			</md-profile-escidoc:publication>
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
+	<components:components>
+		<components:component>
+			<components:properties >
+				<components:description>Ein Auszug aus dem kleinen Prinzen...</components:description>
+				<components:valid-status>valid</components:valid-status>
+				<components:visibility>public</components:visibility>
+				<components:content-category>preprint</components:content-category>
+				<components:file-name>Der_kleine_Prinz_Auszug.pdf</components:file-name>
+				<components:mime-type>application/pdf</components:mime-type>
+				<components:file-size>0</components:file-size>
+			</components:properties>
+			<components:content xlink:type="simple" xlink:href="XXX_CONTENT_REF_XXX" />
+		</components:component>
+	</components:components>
+</escidocItem:item>

@@ -1,0 +1,1640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:1479027"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:1479027"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-04T05:09:03.528Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-03-05T13:10:44.422Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2012-06-04T05:09:03.528Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T05:09:03.528Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T05:09:03.585Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T05:09:03.612Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T05:09:39.813Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T05:09:39.828Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T05:09:39.845Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>content-model-specific</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:17:29.394Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:17:29.428Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:17:29.446Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:17:29.467Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:18:02.641Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:18:02.667Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:18:02.704Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:18:02.725Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-06-04T09:18:02.748Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:42.696Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:42.740Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:43.019Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:43.062Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:43.112Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:43.168Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:59.750Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:59.814Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:05:59.875Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:01.691Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:01.736Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC27">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:01.781Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC28">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:03.225Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC29">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:03.368Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC30">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:03.439Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC31">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:03.483Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC32">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:03.533Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC33">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:04.032Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC34">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:04.071Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC35">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:04.119Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC36">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>content-model-specific</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:23.866Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC37">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:23.974Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC38">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:24.060Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC39">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:24.185Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC40">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:24.231Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC41">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:24.296Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC42">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:27.125Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC43">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:27.185Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC44">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:06:27.236Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC45">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:10:41.173Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC46">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:10:41.224Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC47">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:10:41.273Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC48">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:10:44.332Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC49">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:10:44.373Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC50">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-05T13:10:44.422Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2012-06-04T05:09:03.536Z" MIMETYPE="text/xml" SIZE="188">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content-model-specific.1" LABEL="" CREATED="2012-06-04T09:17:29.394Z" MIMETYPE="text/xml" SIZE="193">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+  <local-tags>
+    <local-tag>staffmeeting-2012-jun</local-tag>
+  </local-tags>
+</prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content-model-specific.2" LABEL="" CREATED="2013-03-05T13:06:23.866Z" MIMETYPE="text/xml" SIZE="242">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+  <local-tags>
+    <local-tag>staffmeeting-2012-jun</local-tag>
+    <local-tag>staffmeeting-2013-apr</local-tag>
+  </local-tags>
+</prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2012-06-04T05:09:03.536Z" MIMETYPE="text/xml" SIZE="534">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:title>
+  <dc:subject></dc:subject>
+  <dc:identifier>escidoc:1479027</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="" CREATED="2012-06-04T09:18:02.641Z" MIMETYPE="text/xml" SIZE="518">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:title>
+  <dc:language>eng</dc:language>
+  <dc:subject></dc:subject>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.2" LABEL="" CREATED="2012-08-10T13:38:51.604Z" MIMETYPE="text/xml" SIZE="1058">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
+<dc:type>Text</dc:type>
+<dc:creator>
+    Lai, Vicky T.
+  </dc:creator>
+<dc:contributor>Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:contributor>
+<dc:creator>
+    Boroditsky, Lera
+  </dc:creator>
+<dc:contributor>Psychology, Stanford</dc:contributor>
+<dc:title>The immediate and chronic influence of spatio-temporal metaphors on the mental representations of time in English, Mandarin, and Mandarin-English speakers</dc:title>
+<dc:language>eng</dc:language>
+<dc:identifier>escidoc:1479027</dc:identifier>
+<dc:date>2012</dc:date>
+<dc:source>Frontiers in Cultural Psychology</dc:source>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.3" LABEL="" CREATED="2013-03-05T13:05:42.696Z" MIMETYPE="text/xml" SIZE="3610">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
+  <dc:type>Text</dc:type>
+  <dc:creator>
+          Lai, Vicky T.
+        </dc:creator>
+  <dc:contributor>Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:contributor>
+  <dc:creator>
+          Boroditsky, Lera
+        </dc:creator>
+  <dc:contributor>Psychology, Stanford</dc:contributor>
+  <dc:title xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication">The immediate and chronic influence of spatio-temporal metaphors on the mental representations of time in English, Mandarin, and Mandarin-English speakers </dc:title>
+  <dc:language xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xsi:type="dcterms:ISO639-3">eng</dc:language>
+  <dc:identifier>escidoc:1479027</dc:identifier>
+  <dc:identifier>eterms:DOI: 10.3389/fpsyg.2013.00142 </dc:identifier>
+  <dc:date>2013</dc:date>
+  <dc:source>Frontiers in Psychology 4</dc:source>
+  <dc:format>142-</dc:format>
+  <dc:description>n this paper we examine whether experience with spatial metaphors for time has an influence on people’s representation of time. In particular we ask whether spatiotemporal metaphors can have both chronic and immediate effects on temporal thinking. In Study 1, we examine the prevalence of ego-moving representations for time in Mandarin speakers, English speakers, and Mandarin-English (ME) bilinguals. As predicted by observations in linguistic analyses, we find that Mandarin speakers are less likely to take an ego-moving perspective than are English speakers. Further, we find that ME bilinguals tested in English are less likely to take an ego-moving perspective than are English monolinguals (an effect of L1 on meaning-making in L2), and also that ME bilinguals tested in Mandarin are more likely to take an ego-moving perspective than are Mandarin monolinguals (an effect of L2 on meaning-making in L1). These findings demonstrate that habits of metaphor use in one language can influence temporal reasoning in another language, suggesting the metaphors can have a chronic effect on patterns in thought. In Study 2 we test Mandarin speakers using either horizontal or vertical metaphors in the immediate context of the task. We find that Mandarin speakers are more likely to construct front-back representations of time when understanding front-back metaphors, and more likely to construct up-down representations of time when understanding up-down metaphors. These findings demonstrate that spatiotemporal metaphors can also have an immediate influence on temporal reasoning. Taken together, these findings demonstrate that the metaphors we use to talk about time have both immediate and long-term consequences for how we conceptualize and reason about this fundamental domain of experience.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2012-06-04T05:09:03.536Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="3549">
+<foxml:xmlContent>
+<publication:publication xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Lai</eterms:family-name>
+            <eterms:given-name>Vicky T.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:792551</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons4274</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Boroditsky</eterms:family-name>
+            <eterms:given-name>Lera</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Psychology, Stanford</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The immediate and chronic influence of spatio-temporal metaphors on the mental representations of time in English, Mandarin, and Mandarin-English speakers</dc:title>
+        <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">2012</dcterms:dateSubmitted>
+        <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Frontiers in Cultural Psychology</dc:title>
+          <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+          <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+          <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+          <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+        </source:source>
+        <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+        <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:DDC"></dc:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+      </publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2012-06-04T09:18:02.667Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="3990">
+<foxml:xmlContent>
+<publication:publication xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Lai</eterms:family-name>
+      <eterms:given-name>Vicky T.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:792551</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons4274</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Boroditsky</eterms:family-name>
+      <eterms:given-name>Lera</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Psychology, Stanford</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The immediate and chronic influence of spatio-temporal metaphors on the mental representations of time in English, Mandarin, and Mandarin-English speakers</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:ISO639-3">eng</dc:language>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">2012</dcterms:dateSubmitted>
+  <eterms:review-method xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Frontiers in Cultural Psychology</dc:title>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:DDC"></dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="md-record" CREATED="2013-03-05T13:05:42.740Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="7279">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Lai</eterms:family-name>
+      <eterms:given-name>Vicky T.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society, Nijmegen, NL</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:792551</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons4274</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Boroditsky</eterms:family-name>
+      <eterms:given-name>Lera</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Psychology, Stanford</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The immediate and chronic influence of spatio-temporal metaphors on the mental representations of time in English, Mandarin, and Mandarin-English speakers </dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:ISO639-3">eng</dc:language>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:DOI">10.3389/fpsyg.2013.00142 </dc:identifier>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2012</dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013</dcterms:dateAccepted>
+  <eterms:review-method xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Frontiers in Psychology</dc:title>
+    <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ABBREVIATION">Front Psychol</dcterms:alternative>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">4</eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">142</eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Frontiers Research Foundation</dc:publisher>
+      <eterms:place>Pully, Switzerland</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISSN">1664-1078</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/1664-1078</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="eng">n this paper we examine whether experience with spatial metaphors for time has an influence on people’s representation of time. In particular we ask whether spatiotemporal metaphors can have both chronic and immediate effects on temporal thinking. In Study 1, we examine the prevalence of ego-moving representations for time in Mandarin speakers, English speakers, and Mandarin-English (ME) bilinguals. As predicted by observations in linguistic analyses, we find that Mandarin speakers are less likely to take an ego-moving perspective than are English speakers. Further, we find that ME bilinguals tested in English are less likely to take an ego-moving perspective than are English monolinguals (an effect of L1 on meaning-making in L2), and also that ME bilinguals tested in Mandarin are more likely to take an ego-moving perspective than are Mandarin monolinguals (an effect of L2 on meaning-making in L1). These findings demonstrate that habits of metaphor use in one language can influence temporal reasoning in another language, suggesting the metaphors can have a chronic effect on patterns in thought. In Study 2 we test Mandarin speakers using either horizontal or vertical metaphors in the immediate context of the task. We find that Mandarin speakers are more likely to construct front-back representations of time when understanding front-back metaphors, and more likely to construct up-down representations of time when understanding up-down metaphors. These findings demonstrate that spatiotemporal metaphors can also have an immediate influence on temporal reasoning. Taken together, these findings demonstrate that the metaphors we use to talk about time have both immediate and long-term consequences for how we conceptualize and reason about this fundamental domain of experience.</dcterms:abstract>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2012-06-04T05:09:03.536Z" MIMETYPE="text/xml" SIZE="1662">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1479027">
+<system:build>1.2</system:build>
+<prop:context-title>Publications of the MPI for Psycholinguistics</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Lai, Vicky T.</prop:modified-by-title>
+<prop:created-by-title>Lai, Vicky T.</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:424640"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:54203"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date>
+<version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T05:09:03.612Z" MIMETYPE="text/xml" SIZE="1755">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build>1.2</system:build>
+    <prop:context-title>Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Lai, Vicky T.</prop:modified-by-title>
+    <prop:created-by-title>Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:424640"></srel:modified-by>
+    <srel:context rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2012-06-04T05:09:03.536Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T05:09:39.813Z" MIMETYPE="text/xml" SIZE="2170">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T05:09:03.536Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T05:09:39.845Z" MIMETYPE="text/xml" SIZE="2170">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T05:09:39.813Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T09:17:29.428Z" MIMETYPE="text/xml" SIZE="2190">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Kastens, Karin</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53213"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T05:09:39.813Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T09:17:29.467Z" MIMETYPE="text/xml" SIZE="2190">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Kastens, Karin</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53213"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T09:17:29.428Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T09:18:02.704Z" MIMETYPE="text/xml" SIZE="2190">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Kastens, Karin</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53213"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T09:17:29.428Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="RELS_EXT DATASTREAM" CREATED="2012-06-04T09:18:02.748Z" MIMETYPE="text/xml" SIZE="2190">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.2</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Kastens, Karin</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53213"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T09:18:02.704Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:05:43.062Z" MIMETYPE="text/xml" SIZE="2338">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2012-06-04T09:18:02.704Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:05:43.168Z" MIMETYPE="text/xml" SIZE="2338">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:05:43.062Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:05:59.750Z" MIMETYPE="text/xml" SIZE="2450">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:05:43.062Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:05:59.875Z" MIMETYPE="text/xml" SIZE="2450">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:05:59.750Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:01.691Z" MIMETYPE="text/xml" SIZE="2581">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:4</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:05:59.750Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:01.781Z" MIMETYPE="text/xml" SIZE="2581">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:4</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:01.691Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.14" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:03.439Z" MIMETYPE="text/xml" SIZE="2581">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:4</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:01.691Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.15" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:03.533Z" MIMETYPE="text/xml" SIZE="2581">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:4</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:03.439Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.16" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:04.032Z" MIMETYPE="text/xml" SIZE="2890">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:4</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:03.439Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">---</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.17" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:04.119Z" MIMETYPE="text/xml" SIZE="2911">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:4</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:04.032Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.18" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:24.185Z" MIMETYPE="text/xml" SIZE="2799">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:04.032Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.19" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:24.296Z" MIMETYPE="text/xml" SIZE="2799">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:24.185Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.20" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:27.125Z" MIMETYPE="text/xml" SIZE="2820">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:24.185Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.21" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:06:27.236Z" MIMETYPE="text/xml" SIZE="2820">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:27.125Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.22" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:10:41.173Z" MIMETYPE="text/xml" SIZE="2951">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:06:27.125Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.23" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:10:41.273Z" MIMETYPE="text/xml" SIZE="2951">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:4</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:10:41.173Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.24" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:10:44.332Z" MIMETYPE="text/xml" SIZE="2911">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1686358"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:424640"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53218"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:54203"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:10:41.173Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">5</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:06:04.032Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.25" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-05T13:10:44.422Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1479027">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1479027:5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1479027:5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1479027</prop:pid>
+    <srel:component rdf:resource="info:fedora/escidoc:1686358" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Psycholinguistics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"/>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Sweere, Annemieke </prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Lai, Vicky T.</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:persistent4" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:424640" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:53218" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:context rdf:resource="info:fedora/escidoc:54203" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"/>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-05T13:10:44.332Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">5</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">5</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-05T13:10:44.332Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.12" LABEL="whole object versioning datastream" CREATED="2013-03-05T13:10:44.373Z" MIMETYPE="text/xml" SIZE="18481">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1479027:5" timestamp="2013-03-05T13:06:24.185Z" xlink:href="/ir/item/escidoc:1479027:5" xlink:title="Version 5" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-03-05T13:06:27.236Z" user="escidoc:53218">hdl:someHandle/test/escidoc:1479027:5</escidocVersions:pid>
+    <escidocVersions:version-number>5</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-03-05T13:10:44.332Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v5e1362489044275">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v5e1362489044275</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:10:44.332Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v5e1362489041117">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v5e1362489041117</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:06:27.236Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v5e1362488787045">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v5e1362488787045</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:06:27.125Z</premis:eventDateTime>
+        <premis:eventDetail>Submission during saving released item.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v5e1362488784160">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v5e1362488784160</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:06:24.185Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1479027:4" timestamp="2013-03-05T13:05:43.062Z" xlink:href="/ir/item/escidoc:1479027:4" xlink:title="Version 4" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-03-05T13:05:59.875Z" user="escidoc:53218">hdl:someHandle/test/escidoc:1479027:4</escidocVersions:pid>
+    <escidocVersions:version-number>4</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-03-05T13:06:04.032Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1362488763959">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v4e1362488763959</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:06:04.032Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1362488761641">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v4e1362488761641</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:05:59.875Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1362488759695">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v4e1362488759695</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignObjectPid</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:05:43.168Z</premis:eventDateTime>
+        <premis:eventDetail>objectPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1362488743013">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v4e1362488743013</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2013-03-05T13:05:43.062Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53218" xlink:title="Sweere, Annemieke " xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53218</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1479027:3" timestamp="2012-06-04T09:18:02.704Z" xlink:href="/ir/item/escidoc:1479027:3" xlink:title="Version 3" xlink:type="simple">
+    <escidocVersions:version-number>3</escidocVersions:version-number>
+    <escidocVersions:timestamp>2012-06-04T09:18:02.704Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>submitted</escidocVersions:version-status>
+    <escidocVersions:comment>ItemHandler.update()</escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1338801481474">    
+    <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v3e1338801481474</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2012-06-04T09:18:02.704Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53213" xlink:title="Kastens, Karin" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53213</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1479027:2" timestamp="2012-06-04T09:17:29.428Z" xlink:href="/ir/item/escidoc:1479027:2" xlink:title="Version 2" xlink:type="simple">
+    <escidocVersions:version-number>2</escidocVersions:version-number>
+    <escidocVersions:timestamp>2012-06-04T09:17:29.428Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>submitted</escidocVersions:version-status>
+    <escidocVersions:comment>ItemHandler.update()</escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1338801448199">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v2e1338801448199</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2012-06-04T09:17:29.428Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:53213" xlink:title="Kastens, Karin" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:53213</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1479027:1" timestamp="2012-06-04T05:09:03.536Z" xlink:href="/ir/item/escidoc:1479027:1" xlink:title="Item escidoc:1479027" xlink:type="simple">
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2012-06-04T05:09:39.813Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>submitted</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1338786579025">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v1e1338786579025</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2012-06-04T05:09:39.813Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:424640" xlink:title="Lai, Vicky T." xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:424640</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1338786542789">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1479027/resources/version-history#v1e1338786542789</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2012-06-04T05:09:03.536Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:424640" xlink:title="Lai, Vicky T." xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:424640</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1479027</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

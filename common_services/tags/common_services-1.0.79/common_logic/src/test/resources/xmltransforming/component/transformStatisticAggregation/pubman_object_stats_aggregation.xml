@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregation-definition:aggregation-definition xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.4"  xmlns:xlink="http://www.w3.org/1999/xlink"  objid="escidoc:12345">
+    <aggregation-definition:name>pubman item statistics without version</aggregation-definition:name>
+    <aggregation-definition:scope  objid="escidoc:scope1"/>
+    <aggregation-definition:aggregation-table>
+        <aggregation-definition:name>pubman_object_stats</aggregation-definition:name>
+        <aggregation-definition:field>
+            <aggregation-definition:info-field feed="statistics-data">
+                <aggregation-definition:name>handler</aggregation-definition:name>
+                <aggregation-definition:type>text</aggregation-definition:type>
+                <aggregation-definition:xpath>//parameter[@name=&quot;handler&quot;]/stringvalue</aggregation-definition:xpath>
+            </aggregation-definition:info-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:info-field feed="statistics-data">
+                <aggregation-definition:name>request</aggregation-definition:name>
+                <aggregation-definition:type>text</aggregation-definition:type>
+                <aggregation-definition:xpath>//parameter[@name=&quot;request&quot;]/stringvalue</aggregation-definition:xpath>
+            </aggregation-definition:info-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:info-field feed="statistics-data">
+                <aggregation-definition:name>object_id</aggregation-definition:name>
+                <aggregation-definition:type>text</aggregation-definition:type>
+                <!-- Cuts off the version from the identifier -->
+                <aggregation-definition:xpath>translate(normalize-space(concat(substring-before(concat(//parameter[@name=&quot;object_id&quot;]/stringvalue, &quot;:&quot;), &quot;:&quot;), &quot; &quot;, substring-before(substring-after(concat(//parameter[@name=&quot;object_id&quot;]/stringvalue, &quot;:&quot;), &quot;:&quot;), &quot;:&quot;)) ), &quot; &quot;, &quot;:&quot;)</aggregation-definition:xpath>
+            </aggregation-definition:info-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:info-field feed="statistics-data">
+                <aggregation-definition:name>parent_object_id</aggregation-definition:name>
+                <aggregation-definition:type>text</aggregation-definition:type>
+                 <!-- Cuts off the version from the identifier -->
+                 <aggregation-definition:xpath>translate(normalize-space(concat(substring-before(concat(//parameter[@name=&quot;parent_object_id1&quot;]/stringvalue, &quot;:&quot;), &quot;:&quot;), &quot; &quot;, substring-before(substring-after(concat(//parameter[@name=&quot;parent_object_id1&quot;]/stringvalue, &quot;:&quot;), &quot;:&quot;), &quot;:&quot;)) ), &quot; &quot;, &quot;:&quot;)</aggregation-definition:xpath>
+            </aggregation-definition:info-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:info-field feed="statistics-data">
+                <aggregation-definition:name>user_id</aggregation-definition:name>
+                <aggregation-definition:type>text</aggregation-definition:type>
+                <aggregation-definition:xpath>//parameter[@name=&quot;user_id&quot;]/stringvalue != ''</aggregation-definition:xpath>
+            </aggregation-definition:info-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:time-reduction-field feed="statistics-data">
+                <aggregation-definition:name>month</aggregation-definition:name>
+                <aggregation-definition:reduce-to>month</aggregation-definition:reduce-to>
+            </aggregation-definition:time-reduction-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:time-reduction-field feed="statistics-data">
+                <aggregation-definition:name>year</aggregation-definition:name>
+                <aggregation-definition:reduce-to>year</aggregation-definition:reduce-to>
+            </aggregation-definition:time-reduction-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:field>
+            <aggregation-definition:count-cumulation-field>
+                <aggregation-definition:name>requests</aggregation-definition:name>
+            </aggregation-definition:count-cumulation-field>
+        </aggregation-definition:field>    
+        <aggregation-definition:index>
+            <aggregation-definition:name>escidocaggdef1_time3_idx</aggregation-definition:name>
+            <aggregation-definition:field>month</aggregation-definition:field>
+            <aggregation-definition:field>year</aggregation-definition:field>
+        </aggregation-definition:index>    
+    </aggregation-definition:aggregation-table>
+    <aggregation-definition:statistic-data>
+        <aggregation-definition:statistic-table>    
+            <aggregation-definition:xpath>//parameter[@name=&quot;successful&quot;]/*=&apos;1&apos; AND //parameter[@name=&quot;internal&quot;]/*=&apos;0&apos;</aggregation-definition:xpath>    
+        </aggregation-definition:statistic-table>    
+    </aggregation-definition:statistic-data>
+</aggregation-definition:aggregation-definition>
+

@@ -1,0 +1,581 @@
+<role:role xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:role="http://www.escidoc.de/schemas/role/0.4" xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/role/0.4 https://www.escidoc.org/schemas/soap/role/0.4/role.xsd">
+	<role:properties>
+		<prop:name>escidoc:role-moderator</prop:name>
+		<prop:description>Moderator role has rights to modiffy items and containers in an eSciDoc repository.
+			For more information about this role, please check http://colab.mpdl.mpg.de/mediawiki/ESciDoc_User_Roles#Moderator </prop:description>
+	</role:properties>
+	<role:scope unlimited="false">
+		<role:scope-def resource-type="context" relation-attribute-id="info:escidoc/names:aa:1.0:resource:context-id"/>
+		<role:scope-def resource-type="item" relation-attribute-id="info:escidoc/names:aa:1.0:resource:item:context"/>
+		<role:scope-def resource-type="component" relation-attribute-id="info:escidoc/names:aa:1.0:resource:component:item:context"/>
+		<role:scope-def resource-type="container" relation-attribute-id="info:escidoc/names:aa:1.0:resource:container:context"/>
+		<role:scope-def resource-type="grant"/>
+		<role:scope-def resource-type="role"/>
+		<role:scope-def resource-type="user-account"/>
+		<role:scope-def resource-type="user-group"/>
+	</role:scope>
+	<xacml-policy:Policy PolicyId="Moderator-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+		<xacml-policy:Target>
+			<xacml-policy:Subjects>
+				<xacml-policy:AnySubject/>
+			</xacml-policy:Subjects>
+			<xacml-policy:Resources>
+				<xacml-policy:AnyResource/>
+			</xacml-policy:Resources>
+			<xacml-policy:Actions>
+				<xacml-policy:Action>
+					<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                    info:escidoc/names:aa:1.0:action:retrieve-item                     info:escidoc/names:aa:1.0:action:update-item                     info:escidoc/names:aa:1.0:action:lock-item                     info:escidoc/names:aa:1.0:action:submit-item                     info:escidoc/names:aa:1.0:action:revise-item                     info:escidoc/names:aa:1.0:action:release-item                     info:escidoc/names:aa:1.0:action:withdraw-item                     info:escidoc/names:aa:1.0:action:retrieve-content                     info:escidoc/names:aa:1.0:action:retrieve-container                     info:escidoc/names:aa:1.0:action:update-container                     info:escidoc/names:aa:1.0:action:lock-container                     info:escidoc/names:aa:1.0:action:add-members-to-container                     info:escidoc/names:aa:1.0:action:remove-members-from-container                      info:escidoc/names:aa:1.0:action:submit-container                     info:escidoc/names:aa:1.0:action:revise-container                     info:escidoc/names:aa:1.0:action:withdraw-container                     info:escidoc/names:aa:1.0:action:release-container                     info:escidoc/names:aa:1.0:action:create-grant                     info:escidoc/names:aa:1.0:action:create-user-group-grant                     </xacml-policy:AttributeValue>
+						<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:ActionMatch>
+				</xacml-policy:Action>
+			</xacml-policy:Actions>
+		</xacml-policy:Target>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-si" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:submit-item                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending submitted</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-revisei" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:revise-item                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released submitted</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-ri" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:release-item                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-wi" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:withdraw-item                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-wc" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:withdraw-container                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-retrievei" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:retrieve-item                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released in-revision</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:version-modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-mi" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:update-item                         info:escidoc/names:aa:1.0:action:lock-item                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released</xacml-policy:AttributeValue>
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+							<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+								<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+							</xacml-policy:Apply>
+							<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+								<xacml-policy:SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+							</xacml-policy:Apply>
+						</xacml-policy:Apply>
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+							<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+								<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+							</xacml-policy:Apply>
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</xacml-policy:AttributeValue>
+						</xacml-policy:Apply>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-rcontent" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:retrieve-content                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-sc" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:submit-container                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending submitted</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-revisec" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:revise-container                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released submitted</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-rc" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:release-container                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</xacml-policy:AttributeValue>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-retrievec" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:retrieve-container                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released in-revision</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</xacml-policy:AttributeValue>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-mc" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:update-container                         info:escidoc/names:aa:1.0:action:lock-container                         info:escidoc/names:aa:1.0:action:add-members-to-container                         info:escidoc/names:aa:1.0:action:remove-members-from-container                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released</xacml-policy:AttributeValue>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<xacml-policy:Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released</xacml-policy:AttributeValue>
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+							<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:Apply>
+					</xacml-policy:Apply>
+					<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+							<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+								<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+							</xacml-policy:Apply>
+							<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+								<xacml-policy:SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+							</xacml-policy:Apply>
+						</xacml-policy:Apply>
+						<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+							<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+								<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+							</xacml-policy:Apply>
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</xacml-policy:AttributeValue>
+						</xacml-policy:Apply>
+					</xacml-policy:Apply>
+				</xacml-policy:Apply>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-grant-create" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                            info:escidoc/names:aa:1.0:action:create-grant                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:user-account:grant:assigned-on:context" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</xacml-policy:Apply>
+				<xacml-policy:SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="info:escidoc/names:aa:1.0:subject:role-grant:escidoc:role-moderator:assigned-on" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+		<xacml-policy:Rule RuleId="Moderator-policy-rule-user-group-grant-create" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                            info:escidoc/names:aa:1.0:action:create-user-group-grant                         </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+			<xacml-policy:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+				<xacml-policy:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<xacml-policy:ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:user-group:grant:assigned-on:context" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</xacml-policy:Apply>
+				<xacml-policy:SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="info:escidoc/names:aa:1.0:subject:role-grant:escidoc:role-moderator:assigned-on" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+			</xacml-policy:Condition>
+		</xacml-policy:Rule>
+	</xacml-policy:Policy>
+</role:role>

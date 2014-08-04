@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/workflowtask/0.3"
+	xmlns:workflow-task="http://www.escidoc.de/schemas/workflowtask/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
+	<xs:element name="workflow-task">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					A task defines a user-interaction-node within a running workflow-instance.
+				</para>
+				<para>
+					The xml-record consists of the id of the task, 
+					name of the task, name of the workflow-definition,
+					available transitions from this task, 
+					log entires and variables of this workflow-instance.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Name of the Task.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="workflow-definition"
+					type="common-types:linkRequired">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								objid of the workflow-template.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="task-actor-list"
+					type="workflow-task:TaskActorType">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Holds information about the users and
+								roles the workflow-task belongs to.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="transition-list"
+					type="workflow-task:TransitionType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								list of possible transitions.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="log-entry-list"
+					type="workflow-task:LogEntryType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								list of log-entries.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="variable-list"
+					type="workflow-task:VariableType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								list of task variables.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+		</xs:complexType>
+	</xs:element>
+
+	<!--*******************************
+		TransitionType
+		********************************-->
+	<xs:complexType name="TransitionType">
+		<xs:sequence>
+			<xs:element name="transition" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<create>
+							<input>required</input>
+							<output>kept</output>
+						</create>
+						<update>
+							<input>required</input>
+							<output>kept</output>
+						</update>
+						<comment>
+							Name of a possible leaving transition.
+						</comment>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!--*******************************
+		LogEntryType
+		********************************-->
+	<xs:complexType name="LogEntryType">
+		<xs:sequence>
+			<xs:element name="log-entry" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<create>
+							<input>required</input>
+							<output>kept</output>
+						</create>
+						<update>
+							<input>required</input>
+							<output>kept</output>
+						</update>
+						<comment>
+							a log-entry of the workflow-log for this workflow-instance.
+						</comment>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!--*******************************
+		VariableType
+		********************************-->
+	<xs:complexType name="VariableType">
+		<xs:sequence>
+			<xs:element name="variable" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<create>
+							<input>required</input>
+							<output>kept</output>
+						</create>
+						<comment>
+							represents one key-value-parameter.
+						</comment>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice maxOccurs="1">
+							<xs:element name="datevalue"
+								type="xs:dateTime">
+								<xs:annotation>
+									<xs:documentation>
+										<comment>
+											value of one field in
+											date-format.
+										</comment>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="stringvalue"
+								type="xs:string">
+								<xs:annotation>
+									<xs:documentation>
+										<comment>
+											value of one field in
+											string-format.
+										</comment>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="decimalvalue"
+								type="xs:decimal">
+								<xs:annotation>
+									<xs:documentation>
+										<comment>
+											value of one field in
+											decimal-format.
+										</comment>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attribute name="name" type="xs:string"
+						use="required">
+						<xs:annotation>
+							<xs:documentation>
+								<comment>name of the field.</comment>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!--*******************************
+		PooledActorType
+		********************************-->
+	<xs:complexType name="TaskActorType">
+		<xs:sequence>
+			<xs:element name="task-actor" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="user"
+							type="common-types:linkRequired" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									<create>
+										<input>required</input>
+										<output>kept</output>
+									</create>
+									<update>
+										<input>required</input>
+										<output>kept</output>
+									</update>
+									<comment>
+										objid of the user.
+									</comment>
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="role"
+							type="common-types:linkRequired" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									<create>
+										<input>required</input>
+										<output>kept</output>
+									</create>
+									<update>
+										<input>required</input>
+										<output>kept</output>
+									</update>
+									<comment>
+										objid of the role.
+									</comment>
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

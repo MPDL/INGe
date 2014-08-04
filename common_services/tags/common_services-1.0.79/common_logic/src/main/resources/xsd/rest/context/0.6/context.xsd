@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes applied to this schema (since Version 03, Februar, 2008):
+	- Februar, 2008
+	- version changed to 04.
+	
+	- changed namespace (both xmlns and targetNamespace)
+	from http://www.escidoc.de/schemas/context/0.3 
+	to http://www.escidoc.de/schemas/context/0.4.
+	-changed namespaces of refered schemas:
+	from http://www.escidoc.de/schemas/commontypes/0.3
+	to http://www.escidoc.de/schemas/commontypes/0.4
+	- refered new schemas with namespaces:
+	xmlns:prop="http://escidoc.de/core/01/properties/
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/
+	moved admin-descriptor from separate namespace to context
+	
+	- changed namespaces of direct child-elements of the element 
+	/context/properties:
+	
+	For elements creation-date, name, description, type, public-status, 
+	changed a namespace
+	from http://www.escidoc.de/schemas/context/0.3
+	to http://escidoc.de/core/01/properties/ 
+	
+	For elements created-by, modified-by
+	changed a namespace
+	from http://www.escidoc.de/schemas/context/0.3
+	to http://escidoc.de/core/01/structural-relations/ 
+	
+	Deleted a reference to the schema with a namespace:
+	http://www.escidoc.de/schemas/admindescriptor/0.3
+	Element admin-descriptors added to carry more than one admin-descriptor. 
+	The element admin-decriptor is now defined within the context and has a
+	attribute name to identify each section. The value of attribute name has to
+	be unique, is limited to 64 character and does not have white spaces. 
+	
+	- April, 2008
+	- version changed to 0.5
+	
+	- Set minOccurs of admin-descriptor to 0.
+	
+	- May, 2008
+	- version changed to 0.6
+	- added properties/public-status-comment
+	
+	
+	July, 2009
+	- removed member-refs from Resources.
+	
+-->
+
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/context/0.6"
+	xmlns:context="http://www.escidoc.de/schemas/context/0.6"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
+
+	<xs:import namespace="http://escidoc.de/core/01/properties/"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/properties.xsd" />
+	<xs:import
+		namespace="http://escidoc.de/core/01/structural-relations/"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/structural-relations.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
+
+	<!-- This xsd is used in the API of Context; REST interface -->
+	<xs:element name="context">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Following you will find information which elements
+					and attributes are "required", "optional",
+					"not-allowed" or will be "discarded" in the input
+					XML-stream when creating or updating such an object.
+				</para>
+				<para>
+					In "create" the rule for creating a new object is
+					defined.
+				</para>
+				<para>
+					In "update" the rule for updating an object is
+					defined.
+				</para>
+				<para>
+					Possible values are: required | optional |
+					not-allowed | discarded
+				</para>
+				<para>
+					required: this element or attribute has to be
+					delivered
+				</para>
+				<para>
+					optional: this element or attribute can be delivered
+					and will be kept
+				</para>
+				<para>
+					not-allowed: this element or attribute is not
+					allowed in delivery and will cause an exception
+				</para>
+				<para>
+					discarded: this element or attribute can be
+					delivered but will not be used
+				</para>
+			</xs:documentation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>
+						<create>required</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:element ref="context:properties" />
+				<xs:element ref="context:resources" minOccurs="0" />
+				<xs:element ref="context:admin-descriptors"
+					minOccurs="0" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="statusTypes">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="created" />
+			<xs:enumeration value="opened" />
+			<xs:enumeration value="closed" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="properties">
+		<xs:annotation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="prop:creation-date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="srel:created-by" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="srel:modified-by" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:public-status" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:public-status-comment" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:name">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:description" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:type">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:organizational-units">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="resources">
+		<xs:annotation>
+			<xs:documentation>
+				<create>discarded</create>
+				<update>discarded</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="members" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup
+							ref="common-types:readOnlyESciDocResourceLinkAttributes" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceLinkAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="admin-descriptors">
+		<xs:annotation>
+			<xs:documentation>
+				<create>optional</create>
+				<update>optional</update>
+			</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="context:admin-descriptor" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:readOnlyESciDocResourceLinkAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="admin-descriptor">
+		<xs:annotation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+				<comment></comment>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any processContents="skip" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:readOnlyESciDocResourceLinkAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+			<xs:attribute name="name" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<create>required</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:pattern value="[^\s]*" />
+						<xs:maxLength value="64" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

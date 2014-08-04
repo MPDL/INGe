@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:srw_dc="info:srw/schema/1/dc-schema"
+           xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+                    
+                    <dc:relation>66230</dc:relation>
+                    <dc:language>ger</dc:language>
+                    
+                    
+                    <dc:format>[9] Bl., 270 S.</dc:format>
+                    <dc:description>Erscheinungsjahr auf dem Lfg.-Titelbl.: 1771</dc:description>
+                    <dc:identifier/>
+                    <dc:title>Vollständiges Corpus Gravaminum Evangelicorum</dc:title>
+                    <dc:title>: mit doppelten Registern</dc:title>
+                    <dc:contributor>Oertel, Christian Gottfried</dc:contributor>
+                    <dc:contributor>Majer, Johann Christian</dc:contributor>
+                    <dc:subject>|Corpus Evangelicorum  |Gravamen  |Quelle</dc:subject>
+                </oai_dc:dc>

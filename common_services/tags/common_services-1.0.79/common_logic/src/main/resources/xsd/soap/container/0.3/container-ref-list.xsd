@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink"
+	targetNamespace="http://www.escidoc.de/schemas/containerreflist/0.3"
+	xmlns:member-ref-list="http://www.escidoc.de/schemas/containerreflist/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
+	<xs:element name="container-ref-list">
+		<xs:annotation>
+			<xs:documentation>
+				Following schema has no comments on elements and
+				attributes, because it used for output xml-streams only. 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="container-ref" minOccurs="0"
+					maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="objid" type="common-types:objid" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

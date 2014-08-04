@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edoc>
+  <record id="395943">
+    <metadata>
+      <basic>
+        <genre>Conference-Paper</genre>
+        <title>Spitzer Observations of Stephan's Quintet -- IGM Dust and Gas in a Multi-galaxy Collision</title>
+        <language>English</language>
+        <publisher>ASP</publisher>
+        <datepublished>2008</datepublished>
+        <spage>88</spage>
+        <epage>88</epage>
+        <volume>381</volume>
+        <nameofevent>2nd annual Spitzer Science Center international conference</nameofevent>
+        <placeofevent>Pasadena, California</placeofevent>
+        <dateofevent>2005-11-10</dateofevent>
+        <enddateofevent>2005-11-13</enddateofevent>
+        <titleofproceedings>The Second Annual Spitzer Science Center Conference: Infrared Diagnostics of Galaxy Evolution</titleofproceedings>
+        <proceedingscontributorfn>Chary, Ranga-Ram; Teplitz, Harry I.; Sheth, Kartik</proceedingscontributorfn>
+        <titleofseries>ASP conference series</titleofseries>
+        <enduser>expertsonly</enduser>
+        <pubstatus>published</pubstatus>
+        <refereed>notspecified</refereed>
+      </basic>
+      <creators>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C. K.</creatorini>
+          <creatornfamily>Xu</creatornfamily>
+          <creatorngiven>C. K.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>P. N.</creatorini>
+          <creatornfamily>Appleton</creatornfamily>
+          <creatorngiven>P. N.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>M.</creatorini>
+          <creatornfamily>Dopita</creatornfamily>
+          <creatorngiven>M.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>Y.</creatorini>
+          <creatornfamily>Gao</creatornfamily>
+          <creatorngiven>Y.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>N. Y.</creatorini>
+          <creatornfamily>Lu</creatornfamily>
+          <creatorngiven>N. Y.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C.</creatorini>
+          <creatornfamily>Popescu</creatornfamily>
+          <creatorngiven>C.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>W. T.</creatorini>
+          <creatornfamily>Reach</creatornfamily>
+          <creatorngiven>W. T.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>J.</creatorini>
+          <creatornfamily>Sulentic</creatornfamily>
+          <creatorngiven>J.</creatorngiven>
+        </creator>
+        <creator internextern="mpg" role="author" creatorType="individual">
+          <creatorini>R.</creatorini>
+          <creatornfamily>Tuffs</creatornfamily>
+          <creatorngiven>R.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>M.</creatorini>
+          <creatornfamily>Yun</creatornfamily>
+          <creatorngiven>M.</creatorngiven>
+        </creator>
+      </creators>
+      <relations></relations>
+      <identifiers>
+        <identifier type="isbn">978-1-58381-325-6</identifier>
+      </identifiers>
+    </metadata>
+    <docaff>
+      <institute id="37">MPI für Kernphysik</institute>
+      <collection id="444">Infrared Astrophysics</collection>
+      <affiliation>
+        <mpgunit id="4851">MPI für Kernphysik</mpgunit>
+        <mpgsunit id="7021">Group of  W. Hofmann</mpgsunit>
+        <mpgssunit id="18929">Infrared Astrophysics (R. Tuffs)</mpgssunit>
+      </affiliation>
+    </docaff>
+    <MPGyearbook status="Released">2009</MPGyearbook>
+    <metametadata>
+      <lastmodified>2008-12-19 12:03:12.128143</lastmodified>
+      <owner>
+        <fullname>Gabriele Weese</fullname>
+        <email>Gabriele.Weese@mpi-hd.mpg.de</email>
+        <insid>37</insid>
+      </owner>
+    </metametadata>
+  </record>
+
+</edoc>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Recommendations for Treatment for Intermittent Mild
+                    Persistent Astma in Children and Adolescents</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Gerd</forename>
+                                <forename type="middle">J</forename>
+                                <surname>Cropp</surname>
+                                <roleName type="degree">M.D.,Ph.D.</roleName>
+                            </persName>
+                            <email>croppgj@msn.com</email>
+                            <affiliation>
+                                <orgName type="institution">UCSF</orgName>
+                                <orgName type="department">Pediatrics</orgName>
+                                <note type="phone">415-476-2072</note>
+                                <address><addrLine>521 Parnassus Avenue</addrLine><addrLine>Suite#C344</addrLine><settlement>San Francisco</settlement><region>California</region><country key="US">United States</country><postCode>94143-0632</postCode></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Charles</forename>
+                                <forename type="middle">K.</forename>
+                                <surname>Naspitz</surname>
+                            </persName>
+                            <email>charles@naspitz.com.br</email>
+                            <affiliation>
+                                <orgName type="institution">Federal University,Sao Paulo</orgName>
+                                <orgName type="department">Pediatrics</orgName>
+                                <address><settlement>Sao Paulo</settlement><country key="BR">Brazil</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Recommendations for Treatment for Intermittent
+                            Mild Persistent Astma in Children and Adolescents</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Pediatric Pulmonology</title>
+                        <idno type="pISSN">8755-6863</idno>
+                        <idno type="eISSN">1099-0496</idno>
+                        <imprint>
+                            <publisher>Pediatric Pulmonology</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">PPUL-08-0336</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Many parents and caretakers of children and adolescents with mild persistent
+                    asthma (MPA) do not follow proposed guidelines, namely the daily and continuous
+                    administration of inhaled corticosteroids (ICS). Instead, parents and caretakers
+                    tend to use ICS and bronchodilators intermittently for short periods and
+                    re-start such therapy only when symptoms reappear. It is our opinion that
+                    intermittent treatment of MPA in children and adolescents might achieve the same
+                    level of asthma control as has been achieved in adults. We propose, therefore,
+                    that after an initial period of stabilization with age-appropriate doses of oral
+                    glucocorticoids or high-dose ICS and short-acting beta-2 agonists (SABA),
+                    caretakers can stop treatment once there are no longer signs or symptoms of
+                    asthma. When asthmatic symptoms recur, treatment should be restarted with ICS
+                    and SABA, or oral corticosteroids if the exacerbation is severe. The perception
+                    of developing asthma symptoms remains an unsolved problem. Based on our clinical
+                    experience with asthmatic children and adolescents, we list a number of signs
+                    and symptoms that precede an exacerbation of asthma, allowing for an early
+                    re-introduction of treatment to prevent an exacerbation. &#xD; &#xD;
+                </p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

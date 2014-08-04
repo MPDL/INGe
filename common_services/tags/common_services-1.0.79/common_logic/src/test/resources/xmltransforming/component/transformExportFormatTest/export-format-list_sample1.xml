@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><citation-styles xmlns="http://escidoc.mpg.de/citation/schema/0.1/explain-styles" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/citation/schema/0.1/explain-styles explain-styles.xsd">
+ 	        <citation-style>
+	                <dc:title>APA Citation Style</dc:title>
+ 	                <dc:identifier>123</dc:identifier>
+ 	                <dc:description>The citation style defines APA Citation Style</dc:description>
+ 	                <format>
+ 	                	<dc:title>pdf</dc:title> 
+	 	                <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>rtf</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>html</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>odt</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+ 	                </format>
+ 	                <dc:creator>vdm</dc:creator>
+ 	        </citation-style>
+ 	        <citation-style>
+ 	                <dc:title>MLA Citation Style</dc:title>
+ 	                <dc:identifier>223</dc:identifier>
+ 	                <format>
+ 	                	<dc:title>pdf</dc:title> 
+	 	                <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>rtf</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>html</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>odt</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+ 	                </format>
+ 	                <dc:creator>Kondic</dc:creator>
+ 	        </citation-style>
+ 	</citation-styles>

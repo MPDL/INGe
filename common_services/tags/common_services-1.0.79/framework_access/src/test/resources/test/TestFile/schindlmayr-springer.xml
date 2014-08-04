@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+    xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:components="http://www.escidoc.de/schemas/components/0.3"
+    xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../common_logic/misc/xsd/soap/item/0.3/item.xsd">
+    <item:properties>
+        <item:context objid="escidoc:persistent3" />
+        <item:content-model objid="escidoc:persistent4" />
+        <item:content-model-specific></item:content-model-specific>
+    </item:properties>
+    <md-records:md-records xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <md-records:md-record name="escidoc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <publication type="book-item" xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <publication:creator role="author">
+                    <e:person>
+                        <e:complete-name>Arno Schindlmayr</e:complete-name>
+                        <e:family-name>Schindlmayr</e:family-name>
+                        <e:given-name>Arno</e:given-name>
+                        <e:organization>
+                            <e:organization-name>Forschungszentrum</e:organization-name>
+                            <e:address>52425 ch, Germany</e:address>
+                            <e:identifier xsi:type="eidt:ESCIDOC">1238</e:identifier>
+                        </e:organization>
+                    </e:person>
+                </publication:creator>
+                <publication:creator role="author">
+                    <e:person>
+                        <e:complete-name>Matthias Scheffler</e:complete-name>
+                        <e:family-name>Scheffler</e:family-name>
+                        <e:given-name>Matthias</e:given-name>
+                        <e:organization>
+                            <e:organization-name>Fritz-Haber-Institut/Theory</e:organization-name>
+                            <e:address>Faradayweg 4-6, 14195 Berlin</e:address>
+                            <e:identifier xsi:type="eidt:ESCIDOC">1239</e:identifier>
+                        </e:organization>
+                    </e:person>
+                </publication:creator>
+                <dc:title xml:lang="en-US">Quasiparticle calculations for point defects at semiconductor surfaces</dc:title>
+                <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+                <dc:identifier xsi:type="eidt:DOI">10.1007/11690320_8</dc:identifier>
+                <dc:identifier xsi:type="eidt:EDOC">290886</dc:identifier>
+                <dc:identifier xsi:type="dcterms:URI">http://www.springerlink.com/content/4877p75301w53364/fulltext.pdf</dc:identifier>
+                <dcterms:issued xsi:type="dcterms:W3CDTF">2006-11-13</dcterms:issued>
+                <publication:review-method>peer</publication:review-method>
+                <publication:source>
+                    <dc:title>Theory of Defects in Semiconductors</dc:title>
+                    <e:creator role="editor">
+                        <e:person>
+                            <e:complete-name>David A. Drabold</e:complete-name>
+                        </e:person>
+                    </e:creator>
+                    <e:creator role="editor">
+                        <e:person>
+                            <e:complete-name>Stefan K. Estreicher</e:complete-name>
+                        </e:person>
+                    </e:creator>
+                    <e:volume>104</e:volume>
+                    <e:start-page>165</e:start-page>
+                    <e:end-page>192</e:end-page>
+                    <dc:identifier xsi:type="eidt:ISBN">978-3-540-33400-2</dc:identifier>
+                    <dc:identifier xsi:type="eidt:DOI">10.1007/11690320</dc:identifier>
+                    <dc:identifier xsi:type="dcterms:URI">http://www.springerlink.com/content/978-3-540-33400-2/</dc:identifier>
+                    <e:source>
+                        <dc:title>Topics in Applied Physics</dc:title>
+                        <dc:identifier xsi:type="eidt:ISSN">1437-0859</dc:identifier>
+                    </e:source>
+                </publication:source>
+                <dcterms:abstract xml:lang="en-US">Some content</dcterms:abstract>
+                <dc:subject>Physics ; Astronomy</dc:subject>
+            </publication>
+        </md-records:md-record>
+    </md-records:md-records>
+    <escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+        <escidocComponents:component>
+            <escidocComponents:properties xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <escidocComponents:description>The full text of the publication.</escidocComponents:description>
+                <escidocComponents:valid-status>valid</escidocComponents:valid-status>
+                <escidocComponents:visibility>public</escidocComponents:visibility>
+                <escidocComponents:content-category>pre-print</escidocComponents:content-category>
+                <escidocComponents:file-name>schindlmayr-springer.pdf</escidocComponents:file-name>
+                <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
+                <escidocComponents:file-size>649066</escidocComponents:file-size>
+            </escidocComponents:properties>
+            <escidocComponents:content xlink:href="XXX_CONTENT_REF_XXX" />
+        </escidocComponents:component>
+    </escidocComponents:components>
+</item:item>
+

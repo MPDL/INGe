@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.escidoc.de/schemas/stagingfile/0.3"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.w3.org/1999/xlink"
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd"/>
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd"/>
+    <xs:element name="staging-file">
+        <xs:complexType>
+            <xs:attribute ref="xlink:href"/>
+            <xs:attribute ref="xlink:type"/>
+            <xs:attribute ref="xml:base"/>
+            <xs:attribute name="last-modification-date"
+                type="xs:dateTime"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

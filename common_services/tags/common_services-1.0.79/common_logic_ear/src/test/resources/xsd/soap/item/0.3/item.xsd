@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.escidoc.de/schemas/item/0.3"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
+           xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
+           xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+           xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+           xmlns:context="http://www.escidoc.de/schemas/context/0.3"
+           xmlns:components="http://www.escidoc.de/schemas/components/0.3"
+           xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+           xmlns:common="http://www.escidoc.de/schemas/commontypes/0.3"
+           xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3">
+
+  <xs:import namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"
+             schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/md-records.xsd"></xs:import>
+
+  <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+             schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd"></xs:import>
+
+  <xs:import namespace="http://www.escidoc.de/schemas/relations/0.3"
+             schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/relations.xsd"></xs:import>
+
+  <xs:import namespace="http://www.escidoc.de/schemas/components/0.3"
+             schemaLocation="http://www.escidoc.org/schemas/soap/item/0.3/components.xsd"></xs:import>
+
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+             schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd"></xs:import>
+
+  <xs:element name="item">
+    <xs:annotation>
+      <xs:documentation><para>Following you will find information which
+      elements and attributes are "required", "optional", "not-allowed" or
+      will be "discarded" in the input XML-stream when creating or updating
+      such an object. </para><para> In "create" the rule for creating a new
+      object is defined. </para><para> In "update" the rule for updating an
+      object is defined. </para><para> Possible values are: required |
+      optional | not-allowed | discarded </para><para> required: this element
+      or attribute has to be delivered </para><para> optional: this element or
+      attribute can be delivered and will be kept </para><para> not-allowed:
+      this element or attribute is not allowed in delivery and will cause an
+      exception </para><para>discarded: this element or attribute can be
+      delivered but will not be used; the system
+      will generate a value which is delivered in this element or attribute
+      when retrieved </para></xs:documentation>
+
+      <xs:documentation><create>required</create><update>required</update></xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="item:properties"></xs:element>
+
+        <xs:element ref="md-records:md-records"></xs:element>
+
+        <xs:element minOccurs="0" ref="components:components"></xs:element>
+
+        <xs:element minOccurs="0" ref="relations:relations"></xs:element>
+      </xs:sequence>
+
+      <xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+      <xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="status-types">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="pending"></xs:enumeration>
+
+      <xs:enumeration value="submitted"></xs:enumeration>
+
+      <xs:enumeration value="in-revision"></xs:enumeration>
+
+      <xs:enumeration value="released"></xs:enumeration>
+
+      <xs:enumeration value="withdrawn"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="valid-status-types">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="valid"></xs:enumeration>
+
+      <xs:enumeration value="invalid"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="lock-status-types">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="locked"></xs:enumeration>
+
+      <xs:enumeration value="unlocked"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="properties">
+    <xs:annotation>
+      <xs:documentation><create>required</create><update>required</update></xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="creation-date" type="xs:dateTime">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="created-by"
+                    type="common-types:readOnlyLink">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="public-status"
+                    type="item:status-types">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="context"
+                    type="common-types:linkForCreate">
+          <xs:annotation>
+            <xs:documentation><create>required</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="content-model"
+                    type="common-types:linkForCreate">
+          <xs:annotation>
+            <xs:documentation><create>required</create><update>discarded</update><comment>not
+            finalized yet</comment></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="lock-status"
+                    type="item:lock-status-types">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="lock-date" type="xs:dateTime">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="lock-owner"
+                    type="common-types:readOnlyLink">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="pid" type="xs:string">
+          <xs:annotation>
+            <xs:documentation><create>optional</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="version">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="number" type="xs:int">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="date" type="xs:dateTime">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="version-status"
+                          type="item:status-types">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="valid-status"
+                          type="item:valid-status-types">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="modified-by"
+                          type="common-types:readOnlyLink">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="comment" type="xs:string">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="pid" type="xs:string">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+
+            <xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"></xs:attributeGroup>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="latest-version">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="number" type="xs:int">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="date" type="xs:dateTime">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+
+            <xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"></xs:attributeGroup>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element minOccurs="0" name="latest-release">
+          <xs:annotation>
+            <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+          </xs:annotation>
+
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="number" type="xs:int">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="date" type="xs:dateTime">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element minOccurs="0" name="pid">
+                <xs:annotation>
+                  <xs:documentation><create>discarded</create><update>discarded</update></xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+
+            <xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"></xs:attributeGroup>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="content-model-specific">
+          <xs:annotation>
+            <xs:documentation><create>required</create><update>required</update></xs:documentation>
+          </xs:annotation>
+
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any maxOccurs="unbounded" minOccurs="0"
+                      processContents="skip"></xs:any>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+
+      <xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"></xs:attributeGroup>
+
+      <xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"></xs:attributeGroup>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
+   <ei:properties>
+      <srel:context xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                    xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                    xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                    xmlns:prop="http://escidoc.de/core/01/properties/"
+                    xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                    xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                    xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                    xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                    xmlns:escidoc="urn:escidoc:functions"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                    xmlns:t="http://www.tei-c.org/ns/1.0"
+                    xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                    xmlns:eterms="${xsd.metadata.terms}"
+                    xmlns:ce="http://www.elsevier.com"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                    xmlns:dcterms="http://purl.org/dc/terms/"
+                    xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
+                    objid="dummy:context"/>
+      <srel:content-model xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                          xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                          xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                          xmlns:prop="http://escidoc.de/core/01/properties/"
+                          xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                          xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                          xmlns:escidoc="urn:escidoc:functions"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                          xmlns:t="http://www.tei-c.org/ns/1.0"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:eterms="${xsd.metadata.terms}"
+                          xmlns:ce="http://www.elsevier.com"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                          xmlns:dc="http://purl.org/dc/elements/1.1/"
+                          xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                          xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
+                          objid="escidoc:persistent4"/>
+      <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4">
+      <mdr:md-record xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                     xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                     xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                     xmlns:t="http://www.tei-c.org/ns/1.0"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:eterms="${xsd.metadata.terms}"
+                     xmlns:ce="http://www.elsevier.com"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                     xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
+                     name="escidoc">
+         <pub:publication type="article">
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:family-name>Qi</eterms:family-name>
+                  <eterms:given-name>Hucheng</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Durisol, A division of Armtec Limited Partnership</dc:title>
+                     <eterms:address>, N0K 1N0 Mitchell, Canada (hqi@durisol.com)</eterms:address>
+                     <dc:identifier>escidoc:persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:family-name>Cooper</eterms:family-name>
+                  <eterms:given-name>Paul A.</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Faculty of Forestry, University of Toronto</dc:title>
+                     <eterms:address>, M5S 3B3 Toronto, Canada ()</eterms:address>
+                     <dc:identifier>escidoc:persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:family-name>Hooton</eterms:family-name>
+                  <eterms:given-name>Doug</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Department of Civil Engineering, University of Toronto</dc:title>
+                     <eterms:address>, M5S 1A4 Toronto, Canada ()</eterms:address>
+                     <dc:identifier>escidoc:persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>The investigation of basic processes of rapidly hardening wood-cement-water mixture with CO2</dc:title>
+            <dcterms:alternative>Untersuchung der Vorgänge bei der schnellen Härtung einer Holz-Zement-Wasser-Mischung mit CO2</dcterms:alternative>
+            <dcterms:alternative>Untersuchung der Vorgänge bei der schnellen Härtung einer Holz-Zement-Wasser-Mischung mit CO2</dcterms:alternative>
+            <dc:identifier xsi:type="eterms:DOI">10.1007/s00107-009-0351-z</dc:identifier>
+            <dcterms:created xsi:type="dcterms:W3CDTF">2008-12-09</dcterms:created>
+            <eterms:published-online xsi:type="dcterms:W3CDTF">2009-05-30</eterms:published-online>
+            <dcterms:abstract>The rapid hardening of wood-cement-water mixture in a carbon dioxide enriched environment
+  was investigated, by studying the development of carbonation degree and monitoring the phase changes
+  in the mixture. The carbonation reaction was a diffusion-controlled process. It occurred very
+  quickly in the first two minutes of reaction. After that, its rate decreased drastically, due to the
+  increasing difficulty of transporting reactants to reaction sites. Jander’s model was found ineffective
+  in predicting the carbonation process. However, its modified version, developed by Kroger and Ziegler,
+  could describe this progress accurately. In addition, the rapid hardening appeared to result mainly
+  from the reactions of calcium silicates in cement with carbon dioxide. The reaction between ettringite
+  and carbon dioxide might also contribute to this rapid hardening process. However, the reaction between
+  calcium hydroxide and carbon dioxide was not confirmed.
+  Untersucht wurde die schnelle Härtung einer Holz-Zement-Wasser-Mischung in einer mit Kohlendioxid
+  angereicherten Atmosphäre. Dabei wurde der Fortschritt des Karbonatisierungsgrades sowie der Phasenwechsel
+  in der Mischung bestimmt. Bei der Karbonatisierungsreaktion handelt es sich um einen diffusionsgesteuerten
+  Prozess. Dieser verläuft in den ersten zwei Minuten der Reaktion sehr schnell und verlangsamt
+  sich danach sehr stark, da der Transport der Reaktanten zu den Reaktionsstellen zunehmend schwieriger
+  wird. Das Modell von Jander erwies sich für die Vorhersage des Karbonatisierungsprozesses als ungeeignet.
+  Allerdings konnte durch die von Kroger und Ziegler modifizierte Version der Ablauf genau beschrieben
+  werden. Außerdem schien die schnelle Härtung hauptsächlich auf den Reaktionen der Kalziumsilikate
+  im Zement mit dem Kohlendioxid zu beruhen. Die Reaktion zwischen Ettringit und Kohlendioxid könnte
+  auch zur schnellen Härtung beigetragen haben. Die Reaktion zwischen Kalziumhydroxid und Kohlendioxid
+  wurde jedoch nicht bestätigt.
+ </dcterms:abstract>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+</ei:item>

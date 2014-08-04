@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="param">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="filter" minOccurs="0"
+					maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:sequence>
+							<xs:element name="id" minOccurs="0"
+								maxOccurs="unbounded" />
+						</xs:sequence>
+						<xs:attribute name="name" type="nameType" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="nameType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="roles" />
+			<xs:pattern value="name" />
+			<xs:pattern value="limited" />
+			<xs:pattern value="unlimited" />
+			<xs:pattern value="user-account" />
+			<xs:pattern value="granted" />
+			<xs:pattern value="never-granted" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

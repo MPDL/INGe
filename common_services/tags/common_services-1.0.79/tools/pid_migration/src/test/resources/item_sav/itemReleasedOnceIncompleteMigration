@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:1648303"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:1648303"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-03-13T09:26:03.388Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-03-13T09:39:45.022Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2013-03-13T09:26:03.388Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:26:03.388Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:26:03.585Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:26:03.631Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:41.820Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:41.847Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:41.887Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:42.970Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:43.010Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:43.050Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:43.978Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:44.009Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:44.056Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:44.940Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:44.973Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-03-13T09:39:45.022Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2013-03-13T09:26:03.398Z" MIMETYPE="text/xml" SIZE="259">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag>multiple_import</local-tag>
+        <local-tag>gjgvjgj 2013-03-13 10:22</local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2013-03-13T09:26:03.399Z" MIMETYPE="text/xml" SIZE="905">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Higher-Order Tensors in Diffusion MRI</dc:title>
+  <dc:creator>Schultz, T</dc:creator>
+  <dc:creator>Fuster A, Ghosh A, Deriche R, Florack, L</dc:creator>
+  <dc:creator>Lim, LH</dc:creator>
+  <dc:contributor>External Organizations</dc:contributor>
+  <dc:date>2012</dc:date>
+  <dc:type>http://purl.org/eprint/type/BookItem</dc:type>
+  <dc:type>Text</dc:type>
+  <dc:identifier>escidoc:1648303</dc:identifier>
+  <dc:identifier>eterms:BIBTEX_CITEKEY: SchultzFGDFLAB2012</dc:identifier>
+  <dc:source>Visualization and Processing of Tensors and Higher Order Descriptors for Multi-Valued Data</dc:source>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2013-03-13T09:26:03.399Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="4138">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/BookItem">
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Schultz</eterms:family-name>
+            <eterms:given-name>T</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Fuster A, Ghosh A, Deriche R, Florack</eterms:family-name>
+            <eterms:given-name>L</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Lim</eterms:family-name>
+            <eterms:given-name>LH</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Westin</eterms:family-name>
+            <eterms:given-name>CF</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Vilanova</eterms:family-name>
+            <eterms:given-name>A</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Burgeth</eterms:family-name>
+            <eterms:given-name>B</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Higher-Order Tensors in Diffusion MRI</dc:title>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:BIBTEX_CITEKEY">SchultzFGDFLAB2012</dc:identifier>
+        <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:publishing-info>
+        <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2012</dcterms:issued>
+        <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/eprint/type/Book">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Visualization and Processing of Tensors and Higher Order Descriptors for Multi-Valued Data</dc:title>
+          <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Springer</dc:publisher>
+          </eterms:publishing-info>
+        </source:source>
+      </publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2013-03-13T09:26:03.399Z" MIMETYPE="text/xml" SIZE="1639">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1648303">
+<system:build>1.3.8</system:build>
+<prop:context-title>MPDL Publications</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Andrea Wuchner</prop:modified-by-title>
+<prop:created-by-title>Andrea Wuchner</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:28054"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date><version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:26:03.631Z" MIMETYPE="text/xml" SIZE="1733">
+<foxml:xmlContent>
+<rdf:RDF xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <system:build>1.3.8</system:build>
+    <prop:context-title>MPDL Publications</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title>Andrea Wuchner</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2013-03-13T09:26:03.399Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:41.820Z" MIMETYPE="text/xml" SIZE="2228">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:26:03.399Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:41.887Z" MIMETYPE="text/xml" SIZE="2228">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:41.820Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:42.970Z" MIMETYPE="text/xml" SIZE="2340">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1648303</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:41.820Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:43.050Z" MIMETYPE="text/xml" SIZE="2340">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1648303</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:42.970Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:43.978Z" MIMETYPE="text/xml" SIZE="2471">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1648303:1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1648303</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:42.970Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:44.056Z" MIMETYPE="text/xml" SIZE="2471">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1648303:1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1648303</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:43.978Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:44.940Z" MIMETYPE="text/xml" SIZE="2800">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:someHandle/test/escidoc:1648303:1</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:someHandle/test/escidoc:1648303:1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1648303</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1583170"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:28054"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:43.978Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">---</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="RELS_EXT DATASTREAM" CREATED="2013-03-13T09:39:45.022Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1648303">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001Z-0000-000E-50F3-0</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001Z-0000-000E-50F3-0</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:1648303</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.8</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">MPDL Publications</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Batch submit/release from import gjgvjgj</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Wuchner</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:persistent4" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:1583170" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:1583170" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:context rdf:resource="info:fedora/escidoc:28054" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Batch submit/release from import gjgvjgj</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-03-13T09:39:44.940Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-03-13T09:39:44.940Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.4" LABEL="whole object versioning datastream" CREATED="2013-03-13T09:39:44.973Z" MIMETYPE="text/xml" SIZE="7260">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1648303:1" timestamp="2013-03-13T09:26:03.399Z" xlink:href="/ir/item/escidoc:1648303:1" xlink:title="Item escidoc:1648303" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-03-13T09:39:43.050Z" user="escidoc:1583170">hdl:someHandle/test/escidoc:1648303:1</escidocVersions:pid>
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-03-13T09:39:44.940Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment>Batch submit/release from import gjgvjgj</escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1363167584916">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1648303/resources/version-history#v1e1363167584916</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-03-13T09:39:44.940Z</premis:eventDateTime>
+        <premis:eventDetail>Batch submit/release from import gjgvjgj</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:1583170" xlink:title="Andrea Wuchner" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:1583170</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1648303</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1363167583957">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1648303/resources/version-history#v1e1363167583957</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-03-13T09:39:43.050Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:1583170" xlink:title="Andrea Wuchner" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:1583170</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1648303</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1363167582962">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1648303/resources/version-history#v1e1363167582962</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignObjectPid</premis:eventType>
+        <premis:eventDateTime>2013-03-13T09:39:41.887Z</premis:eventDateTime>
+        <premis:eventDetail>objectPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:1583170" xlink:title="Andrea Wuchner" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:1583170</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1648303</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1363167581804">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1648303/resources/version-history#v1e1363167581804</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-03-13T09:39:41.820Z</premis:eventDateTime>
+        <premis:eventDetail>Batch submit/release from import gjgvjgj</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:1583170" xlink:title="Andrea Wuchner" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:1583170</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1648303</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1363166763569">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1648303/resources/version-history#v1e1363166763569</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2013-03-13T09:26:03.399Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:1583170" xlink:title="Andrea Wuchner" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:1583170</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1648303</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

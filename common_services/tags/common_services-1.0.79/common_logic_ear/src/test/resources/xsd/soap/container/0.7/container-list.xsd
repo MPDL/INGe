@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) -->
+<!--
+	Changes applied to this schema (since Version 03, Februar, 2008):
+	- Februar, 2008
+	- version changed to 04.
+	
+	- modified namespace (both xmlns and targetNamespace)
+	from http://www.escidoc.de/schemas/containerlist/0.3
+	to http://www.escidoc.de/schemas/containerlist/0.4
+	-namespaces of refered schemas changed:
+	from http://www.escidoc.de/schemas/container/0.3
+	to http://www.escidoc.de/schemas/container/0.4
+	
+	- March, 2008
+	- version changed to 05.
+	
+	-namespaces of refered schemas changed:
+	from http://www.escidoc.de/schemas/container/0.4
+	to http://www.escidoc.de/schemas/container/0.5
+	
+	- April, 2008
+	- changed to version 0.6
+	
+	- changed namespace of refered schema:
+	from http://www.escidoc.de/schemas/container/0.5
+	to http://www.escidoc.de/schemas/container/0.6
+	- reorded ns definition consistent to item
+	
+	- May, 2008
+	- changed to version 0.7
+	- changed namespace of related container schema
+	
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7"
+	xmlns:container="http://www.escidoc.de/schemas/container/0.7"
+	targetNamespace="http://www.escidoc.de/schemas/containerlist/0.7"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+	<xs:import namespace="http://www.escidoc.de/schemas/container/0.7"
+		schemaLocation="http://www.escidoc.org/schemas/soap/container/0.7/container.xsd" />
+
+	<xs:element name="container-list">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="container:container" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

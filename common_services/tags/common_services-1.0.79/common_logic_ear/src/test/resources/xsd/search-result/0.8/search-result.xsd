@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8" 
+	targetNamespace="http://www.escidoc.de/schemas/searchresult/0.8" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" 
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/xml.xsd"/>
+	<xs:element name="search-result-record">
+		<xs:complexType>
+			<xs:sequence>
+                <xs:element name="score" type="xs:float" minOccurs="0"/>
+				<xs:element name="highlight" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="search-hit" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="text-fragment" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="text-fragment-data" type="xs:string"/>
+													<xs:element name="hit-word" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="start-index" type="xs:decimal"/>
+																<xs:element name="end-index" type="xs:decimal"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="type" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:token">
+												<xs:enumeration value="fulltext"/>
+												<xs:enumeration value="metadata"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="objid"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+                <xs:any processContents="skip" namespace="##other" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute ref="xml:base"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

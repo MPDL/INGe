@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976471491" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:publisher>Mohr Siebeck</dc:publisher>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32482</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32483</dc:identifier>
+        <dc:title>Archiv des öffentlichen Rechts</dc:title>
+        <dcterms:publisher>Tübingen</dcterms:publisher>
+        <escidoc:abbreviation>AöR</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976471497" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:publisher>Mohr Siebeck</dc:publisher>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32485</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32486</dc:identifier>
+        <dc:title>Archiv für die civilistische Praxis</dc:title>
+        <dcterms:publisher>Tübingen</dcterms:publisher>
+        <escidoc:abbreviation>AcP</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000270383" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32488</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32489</dc:identifier>
+        <dc:title>Archiv für Presserecht</dc:title>
+        <escidoc:abbreviation>AfP</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/111022269521004" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32491</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32492</dc:identifier>
+        <dc:title>ASA Bulletin</dc:title>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978966558468" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32494</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32495</dc:identifier>
+        <dc:title>Betriebs-Berater</dc:title>
+        <escidoc:abbreviation>BB</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000264364" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32497</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32498</dc:identifier>
+        <dc:title>Börsen-Zeitung</dc:title>
+        <escidoc:abbreviation>BZ</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/954925340710" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32500</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32501</dc:identifier>
+        <dc:title>Cambridge Law Journal</dc:title>
+        <escidoc:abbreviation>CLJ</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978978551803" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32503</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32504</dc:identifier>
+        <dc:title>Civil Justice Quarterly</dc:title>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/958480172532" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32506</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32507</dc:identifier>
+        <dc:title>Computer und Recht</dc:title>
+        <escidoc:abbreviation>CR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/954925334700" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32509</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32510</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32511</dc:identifier>
+        <dc:title>Continuity and Change</dc:title>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978966558486" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32664</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32665</dc:identifier>
+        <dc:title>Das Standesamt</dc:title>
+        <escidoc:abbreviation>STAZ</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000276706" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:publisher>O. Schmidt</dc:publisher>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32677</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32678</dc:identifier>
+        <dc:title>Der Familien-Rechts-Berater international</dc:title>
+        <dcterms:publisher>Köln</dcterms:publisher>
+        <escidoc:abbreviation>FamRBint</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976477237" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32516</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32517</dc:identifier>
+        <dc:title>Der Staat – Zeitschrift für Staatslehre und Verfassungsgeschichte, deutsches und europäisches öffentliches Recht</dc:title>
+        <escidoc:abbreviation>Der Staat</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110979839328941" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32519</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32520</dc:identifier>
+        <dc:title>Deutsche Notar-Zeitschrift</dc:title>
+        <escidoc:abbreviation>DNotZ</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110992357286458" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32540</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32541</dc:identifier>
+        <dc:title>Entscheidungen zum Wirtschaftsrecht</dc:title>
+        <escidoc:abbreviation>EWiR</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/991042754048606" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32643</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32644</dc:identifier>
+        <dc:title>Entscheidungssammlung zum Wirtschafts- und Bankrecht</dc:title>
+        <escidoc:abbreviation>WuB</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979267514" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32525</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32526</dc:identifier>
+        <dc:title>Europäische Zeitschrift für Wirtschaftsrech</dc:title>
+        <escidoc:abbreviation>EuZW</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110974993863472" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32531</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32532</dc:identifier>
+        <dc:title>European Business Organization Law Review</dc:title>
+        <escidoc:abbreviation>EBOR</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110975506070087" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32534</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32535</dc:identifier>
+        <dc:title>European Law Review</dc:title>
+        <escidoc:abbreviation>ELR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/963017585088" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32537</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32538</dc:identifier>
+        <dc:title>European Review of Private Law</dc:title>
+        <dcterms:alternative>Europäische Zeitschrift für Privatrecht</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110976725705168" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32528</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32529</dc:identifier>
+        <dc:title>European transport law</dc:title>
+        <escidoc:abbreviation>Europ. TranspR</escidoc:abbreviation>
+
+        <dcterms:alternative>Europäisches Transportrecht</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/974740728031" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32543</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32544</dc:identifier>
+        <dc:title>Gewerblicher Rechtsschutz und Urheberrecht Internationaler Teil</dc:title>
+        <escidoc:abbreviation>GRUR Int.</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000560958" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32546</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32547</dc:identifier>
+        <dc:title>Haftung und Versicherung</dc:title>
+        <escidoc:abbreviation>HAVE</escidoc:abbreviation>
+        <dcterms:alternative>Responsabilité et Assurance,  REAS</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976474175" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32549</dc:identifier>
+        <dc:title>Handelsblatt</dc:title>
+
+        <escidoc:abbreviation>0017-7296</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000276618" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32554</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32555</dc:identifier>
+        <dc:title>Internationales Handelsrecht</dc:title>
+        <escidoc:abbreviation>IHR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/954928416973" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32551</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32552</dc:identifier>
+        <dc:title>International Journal of Cultural Property</dc:title>
+        <escidoc:abbreviation>IJCP</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/954925465233" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32557</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32558</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32559</dc:identifier>
+
+        <dc:title>Journal of Japanese Studies</dc:title>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976474777" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32561</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32562</dc:identifier>
+        <dc:title>Juristenzeitung</dc:title>
+        <escidoc:abbreviation>JZ</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110976725600088" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32564</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32565</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32566</dc:identifier>
+        <dc:title>Juristische Blätter</dc:title>
+        <escidoc:abbreviation>JurBl.</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976474781" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32568</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32569</dc:identifier>
+
+        <dc:title>Juristische Rundschau</dc:title>
+        <escidoc:abbreviation>JR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/111006469392034" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32571</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32572</dc:identifier>
+        <dc:title>Juristische Schulung</dc:title>
+        <escidoc:abbreviation>JuS</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978977562399" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32577</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32578</dc:identifier>
+        <dc:title>Lloyd’s Maritime and Commercial Law Quarterly</dc:title>
+        <escidoc:abbreviation>LMCLQ</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000526789" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32580</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32581</dc:identifier>
+        <dc:title>Mitteilungen der Vereinigung für deutsch-russisches Wirtschaftsrecht e. V.</dc:title>
+        <escidoc:abbreviation>VDRW-Mitteilungen</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979119667" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32583</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32584</dc:identifier>
+        <dc:title>Mitteilungen des Bayerischen Notarvereins, der Notarkasse und der Landesnotarkammer Bayern</dc:title>
+        <escidoc:abbreviation>MittBayNot</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110979839328945" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32586</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32587</dc:identifier>
+        <dc:title>Neue Juristische Wochenschrift</dc:title>
+        <escidoc:abbreviation>NJW</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/111092172918006" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32589</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32590</dc:identifier>
+        <dc:title>Neue Zeitschrift für Gesellschaftsrecht</dc:title>
+        <escidoc:abbreviation>NZG</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/111092172918008" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32592</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32593</dc:identifier>
+        <dc:title>Neue Zeitschrift für Versicherung und Recht</dc:title>
+        <escidoc:abbreviation>NVersZ</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110992357255974" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32595</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32596</dc:identifier>
+        <dc:title>Orient</dc:title>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/991042724212962" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32601</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32602</dc:identifier>
+
+        <dc:title>Österreichisches Bank Archiv</dc:title>
+        <escidoc:abbreviation>ÖBA</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979116487" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32598</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32599</dc:identifier>
+        <dc:title>Österreichische Zeitschrift für Wirtschaftsrecht</dc:title>
+        <escidoc:abbreviation>ÖZW</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976475999" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32604</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32605</dc:identifier>
+        <dc:title>Osteuropa-Recht</dc:title>
+        <escidoc:abbreviation>OER</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978984442661" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32607</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32608</dc:identifier>
+        <dc:title>Praxis des Internationalen Privat- und Verfahrensrechts</dc:title>
+        <escidoc:abbreviation>IPRax</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976476455" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32610</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32611</dc:identifier>
+        <dc:title>Rabels Zeitschrift für ausländisches und internationales Privatrecht</dc:title>
+        <escidoc:abbreviation>RabelsZ</escidoc:abbreviation>
+
+        <dcterms:alternative>The Rabel Journal of Comparative and International Private Law</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978984446941" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:publisher>Marenex Productions</dc:publisher>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32613</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32614</dc:identifier>
+        <dc:title>Restitution Law Review</dc:title>
+        <escidoc:abbreviation>RLR</escidoc:abbreviation>
+        <dcterms:publisher>Oxford </dcterms:publisher>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/43t43t43t4" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>rtert</escidoc:citation-style>
+        <dc:publisher>erter</dc:publisher>
+        <dc:title>reter</dc:title>
+        <dcterms:publisher>terte</dcterms:publisher>
+        <escidoc:abbreviation>ertert</escidoc:abbreviation>
+        <dcterms:alternative>tert</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976476777" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32616</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32617</dc:identifier>
+        <dc:title>Revue internationale de droit comparé</dc:title>
+        <escidoc:abbreviation>Rev. int. dr. comp.</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/954928497439" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32619</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32620</dc:identifier>
+        <dc:title>The Law Quarterly Review</dc:title>
+
+        <escidoc:abbreviation>L. Q. Rev.</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110974993510291" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32622</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32623</dc:identifier>
+        <dc:title>Tijdschrift voor Rechtsgeschiedenis</dc:title>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/111006469412206" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32625</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32626</dc:identifier>
+        <dc:title>Transportrecht</dc:title>
+        <escidoc:abbreviation>TranspR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000325015" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32628</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32629</dc:identifier>
+        <dc:title>Tydskrif vir hedendaagse Romeins-Hollandse reg</dc:title>
+        <escidoc:abbreviation>THRHR</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978978951232" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32631</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32632</dc:identifier>
+        <dc:title>Tydskrif vir Regswetenskap</dc:title>
+        <dcterms:alternative>Journal for juridical science</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979432948" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32634</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32635</dc:identifier>
+        <dc:title>Verbraucher und Recht</dc:title>
+        <escidoc:abbreviation>VuR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978966560182" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32637</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32638</dc:identifier>
+        <dc:title>Verfassung und Recht in Übersee</dc:title>
+        <escidoc:abbreviation>VRÜ</escidoc:abbreviation>
+
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110992357313630" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32640</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32641</dc:identifier>
+        <dc:title>Wertpapier-Mitteilungen, Zeitschrift für Wirtschafts- und Bankrecht</dc:title>
+        <escidoc:abbreviation>WM</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979431068" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32646</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32647</dc:identifier>
+        <dc:title>Zeitschrift der Savigny-Stiftung für Rechtsgeschichte, Romanistische Abteilung</dc:title>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/200175-5" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32649</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32650</dc:identifier>
+        <dc:title>Zeitschrift für das gesamte Familienrecht</dc:title>
+        <escidoc:abbreviation>FamRZ</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976477977" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Band_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32652</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32653</dc:identifier>
+        <dc:title>Zeitschrift für das gesamte Handelsrecht und Wirtschaftsrecht</dc:title>
+        <escidoc:abbreviation>ZHR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/1000000000276478" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32655</dc:identifier>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32656</dc:identifier>
+        <dc:title>Zeitschrift für das gesamte Insolvenzrecht</dc:title>
+        <escidoc:abbreviation>ZInsO</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979782067" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:publisher>Beck</dc:publisher>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32680</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32681</dc:identifier>
+        <dc:title>Zeitschrift für europäisches Privatrecht</dc:title>
+
+        <escidoc:abbreviation>ZEuP</escidoc:abbreviation>
+        <dcterms:publisher>München</dcterms:publisher>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/111006469427436" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32658</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32659</dc:identifier>
+        <dc:title>Zeitschrift für Europarecht, internationales Privatrecht und Rechtsvergleichung</dc:title>
+        <escidoc:abbreviation>ZfRV</escidoc:abbreviation>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110992357409688" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32661</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32662</dc:identifier>
+        <dc:title>Zeitschrift für Japanisches Recht</dc:title>
+        <escidoc:abbreviation>ZJapanR</escidoc:abbreviation>
+        <dcterms:alternative>Journal of Japanese Law</dcterms:alternative>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978966558428" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32667</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32668</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32669</dc:identifier>
+        <dc:title>Zeitschrift für Unternehmens- und Gesellschaftsrecht</dc:title>
+        <escidoc:abbreviation>ZGR</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978977730399" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32671</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32672</dc:identifier>
+
+        <dc:title>Zeitschrift für vergleichende Rechtswissenschaft</dc:title>
+        <escidoc:abbreviation>ZvglRWiss</escidoc:abbreviation>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978979264656" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <escidoc:citation-style>Kurztitel_ZS_Jahr</escidoc:citation-style>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32674</dc:identifier>
+        <dc:identifier>http://dev-pubman.mpdl.mpg.de/cone/genid:32675</dc:identifier>
+        <dc:title>Zeitschrift für Zivilprozeß</dc:title>
+        <escidoc:abbreviation>ZZP</escidoc:abbreviation>
+    </rdf:Description>
+
+</rdf:RDF>
+

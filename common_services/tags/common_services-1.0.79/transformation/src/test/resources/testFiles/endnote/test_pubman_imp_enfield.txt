@@ -1,0 +1,278 @@
+%0 Journal Article
+%A Bornemeyer, J.
+%A Enfield, N. J.
+%A Essegbey, J.
+%A Ibarretxe-Antunano, I.
+%A Kita, S.
+%A Lupke, F.
+%A Ameka, F. K.
+%D 2007
+%T Principles of event segmentation in language: The case of motion events
+%J Language
+%V 83
+%N 3
+%P 495-532
+%8 Sep
+%! Principles of event segmentation in language: The case of motion events
+%@ 0097-8507
+%M ISI:000249996000003
+%K semantic typology
+constructions
+perception
+%X We examine universals and crosslinguistic variation in constraints on event segmentation. Previous typological studies have focused on segmentation into syntactic (Pawley 1987) or intonational units (Giv6n 1991). We argue that the correlation between such units and semantic/conceptual event representations is language-specific. As an alternative, we introduce the MACRO-EVENT PROPERTY (MEP): a construction has the MEP if it packages event representations such that temporal operators necessarily have scope over all subevents. A case study on the segmentation of motion events into macro-event expressions in eighteen genetically and typologically diverse languages has produced evidence of two types of design principles that impact motion-event segmentation: language-specific lexicalization patterns and universal constraints on form-to-meaning mapping.
+%Z 218DK
+Times Cited:0
+Cited References Count:105
+%U <Go to ISI>://000249996000003
+%+ Bornemeyer, J
+SUNY Buffalo, Dept Linguist, 609 Baldy Hall, Buffalo, NY 14260 USA
+SUNY Buffalo, Dept Linguist, Buffalo, NY 14260 USA
+Max Planck Inst Psycholinguist, Nijmegen, Netherlands
+Univ Florida, Gainesville, FL 32611 USA
+Univ Zaragoza, E-50009 Zaragoza, Spain
+Univ Birmingham, Birmingham B15 2TT, W Midlands, England
+Univ London, London WC1E 7HU, England
+Leiden Univ, NL-2300 RA Leiden, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2007
+%T Lao separation verbs and the logic of linguistic event categorization (vol 18, pg 287, 2007)
+%J Cognitive Linguistics
+%V 18
+%N 4
+%P 581-581
+%! Lao separation verbs and the logic of linguistic event categorization (vol 18, pg 287, 2007)
+%@ 0936-5907
+%R Doi 10.1515/Cog.2007.029
+%M ISI:000252270000005
+%Z 249ZO
+Times Cited:0
+Cited References Count:1
+%U <Go to ISI>://000252270000005
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2008
+%T Language as shaped by social interaction
+%J Behavioral and Brain Sciences
+%V 31
+%N 5
+%P 519-523
+%! Language as shaped by social interaction
+%@ 0140-525X
+%R Doi 10.1017/S0140525x08005104
+%M ISI:000260783900012
+%K conversation
+organization
+%X Language is shaped by its environment, which includes not only the brain, but also the public context in which speech acts are effected. To fully account for why language has the shape it has, we need to examine the constraints imposed by language use as a sequentially organized joint activity, and as the very conduit for linguistic diffusion and change.
+%Z 370SR
+Times Cited:0
+Cited References Count:26
+%U <Go to ISI>://000260783900012
+%+ Enfield, NJ
+Max Planck Inst Psycholinguist, Language & Cognit Grp, Wundtlaan 1, NL-6500 AH Nijmegen, Netherlands
+Max Planck Inst Psycholinguist, Language & Cognit Grp, NL-6500 AH Nijmegen, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2008
+%T The origin of speech
+%J Times Literary Supplement
+%N 5502
+%P 11-12
+%8 Sep 12
+%! The origin of speech
+%@ 0307-661X
+%M ISI:000259277900015
+%U <Go to ISI>://000259277900015
+%+ Enfield, NJ
+Max Planck Inst Psycholinguist, Nijmegen, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2009
+%T Serial verb constructions: A cross-linguistic typology
+%J Language
+%V 85
+%N 2
+%P 445-451
+%8 Jun
+%! Serial verb constructions: A cross-linguistic typology
+%@ 0097-8507
+%M ISI:000268561600011
+%Z 478BB
+Times Cited:0
+Cited References Count:26
+%U <Go to ISI>://000268561600011
+%+ Enfield, NJ
+Max Planck Inst Psycholinguist, Language & Cognit Grp, PB 310, NL-6500 AH Nijmegen, Netherlands
+Max Planck Inst Psycholinguist, Language & Cognit Grp, NL-6500 AH Nijmegen, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2009
+%T Grammars in contact: A cross-linguistic typology
+%J Studies in Language
+%V 33
+%N 1
+%P 241-246
+%! Grammars in contact: A cross-linguistic typology
+%@ 0378-4177
+%R DOI 10.1075/sl.33.1.11enf
+%M ISI:000265033000009
+%Z 431AF
+Times Cited:0
+Cited References Count:17
+%U <Go to ISI>://000265033000009
+%+ Enfield, NJ
+Wundtlaan 1, NL-6525 XD Nijmegen, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2009
+%T Origins of Human Communication
+%J Science
+%V 324
+%N 5923
+%P 39-39
+%8 Apr 3
+%! Origins of Human Communication
+%@ 0036-8075
+%R DOI 10.1126/science.1172660
+%M ISI:000264802100019
+%Z 427TN
+Times Cited:0
+Cited References Count:8
+%U <Go to ISI>://000264802100019
+%+ Enfield, NJ
+Max Planck Inst Psycholinguist, Language & Cognit Grp, NL-6512 HW Nijmegen, Netherlands
+Max Planck Inst Psycholinguist, Language & Cognit Grp, NL-6512 HW Nijmegen, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, N. J.
+%D 2009
+%T Relationship thinking and human pragmatics
+%J Journal of Pragmatics
+%V 41
+%N 1
+%P 60-78
+%8 Jan
+%! Relationship thinking and human pragmatics
+%@ 0378-2166
+%R DOI 10.1016/j.pragma.2008.09.007
+%M ISI:000262051800005
+%K lao language
+relationships
+semiotics
+conversation
+social intelligence
+comparative pragmatics
+turn-taking
+conversation
+organization
+behavior
+context
+world
+talk
+%X The approach to pragmatics explored in this article focuses on elements of social interaction which are of universal relevance, and which may provide bases for a comparative approach. The discussion is anchored by reference to a fragment of conversation from a video-recording of Lao speakers during a home visit in rural Laos. The following points are discussed. First, an understanding of the full richness of context is indispensable for a proper understanding of any interaction. Second, human relationships are a primary locus of social organization, and as such constitute a key focus for pragmatics. Third, human social intelligence forms a universal cognitive under-carriage for interaction, and requires careful cross-cultural study. Fourth, a neo-Peircean framework for a general understanding of semiotic processes gives us a way of stepping away from language as our basic analytical frame. It is argued that in order to act a grip on pragmatics across human groups, we need to take a comparative approach in the biological sense-i.e. with reference to other species as well. From this perspective, human pragmatics is about using semiotic resources to try to meet goals in the realm of social relationships. (C) 2008 Elsevier B.V. All rights reserved.
+%Z 388WW
+Times Cited:0
+Cited References Count:141
+%U <Go to ISI>://000262051800005
+%+ Enfield, NJ
+Max Planck Inst Psycholinguist, Language & Cognit Grp, PB310, NL-6500 AH Nijmegen, Netherlands
+Max Planck Inst Psycholinguist, Language & Cognit Grp, NL-6500 AH Nijmegen, Netherlands
+%G English
+
+%0 Journal Article
+%A Enfield, P.
+%D 2008
+%T Exceeding Our Grasp: Science, History, and the Problem of Unconceived Alternatives
+%J British Journal for the Philosophy of Science
+%V 59
+%N 4
+%P 881-895
+%8 Dec
+%! Exceeding Our Grasp: Science, History, and the Problem of Unconceived Alternatives
+%@ 0007-0882
+%R Doi 10.1093/Bjps/Axn042
+%M ISI:000261300600013
+%K realism
+%Z 378DF
+Times Cited:0
+Cited References Count:17
+%U <Go to ISI>://000261300600013
+%G English
+
+%0 Journal Article
+%A Enfield, R.
+%D 2008
+%T Dependable design and the consequences of failure
+%J Communications of the Acm
+%V 51
+%N 9
+%P 9-9
+%8 Sep
+%! Dependable design and the consequences of failure
+%@ 0001-0782
+%M ISI:000258989500004
+%Z 345IJ
+Times Cited:0
+Cited References Count:0
+%U <Go to ISI>://000258989500004
+%G English
+
+%0 Journal Article
+%A Stivers, T.
+%A Enfield, N. J.
+%A Brown, P.
+%A Englert, C.
+%A Hayashi, M.
+%A Heinemann, T.
+%A Hoymann, G.
+%A Rossano, F.
+%A de Ruiter, J. P.
+%A Yoon, K. E.
+%A Levinson, S. C.
+%D 2009
+%T Universals and cultural variation in turn-taking in conversation
+%J Proceedings of the National Academy of Sciences of the United States of America
+%V 106
+%N 26
+%P 10587-10592
+%8 Jun 30
+%! Universals and cultural variation in turn-taking in conversation
+%@ 0027-8424
+%R DOI 10.1073/pnas.0903616106
+%M ISI:000267564300037
+%K cooperation
+response speed
+social interaction
+organization
+preference
+english
+gaze
+age
+%X Informal verbal interaction is the core matrix for human social life. A mechanism for coordinating this basic mode of interaction is a system of turn-taking that regulates who is to speak and when. Yet relatively little is known about how this system varies across cultures. The anthropological literature reports significant cultural differences in the timing of turn-taking in ordinary conversation. We test these claims and show that in fact there are striking universals in the underlying pattern of response latency in conversation. Using a worldwide sample of 10 languages drawn from traditional indigenous communities to major world languages, we show that all of the languages tested provide clear evidence for a general avoidance of overlapping talk and a minimization of silence between conversational turns. In addition, all of the languages show the same factors explaining within-language variation in speed of response. We do, however, find differences across the languages in the average gap between turns, within a range of 250 ms from the cross-language mean. We believe that a natural sensitivity to these tempo differences leads to a subjective perception of dramatic or even fundamental differences as offered in ethnographic reports of conversational style. Our empirical evidence suggests robust human universals in this domain, where local variations are quantitative only, pointing to a single shared infrastructure for language use with likely ethological foundations.
+%Z 465EI
+Times Cited:0
+Cited References Count:43
+%U <Go to ISI>://000267564300037
+%+ Stivers, T
+Max Planck Inst Psycholinguist, Language & Cognit Grp, Wundtlaan 1, NL-6525 XD Nijmegen, Netherlands
+Max Planck Inst Psycholinguist, Language & Cognit Grp, NL-6525 XD Nijmegen, Netherlands
+Univ Groningen, Ctr Language & Cognit, NL-9172 TS Groningen, Netherlands
+Univ Illinois, Dept E Asian Languages & Cultures, Urbana, IL 61801 USA
+Univ So Denmark, Sonderborg Participatory Innovat Res Ctr, DK-6400 Sonderborg, Denmark
+Univ So Denmark, Inst Business Commun & Informat Sci, DK-6400 Sonderborg, Denmark
+Univ Bielefeld, Fac Linguist & Literary Sci, D-33501 Bielefeld, Germany
+Univ Florida, Dept African & Asian Languages & Literatures, Gainesville, FL 32611 USA
+%G English

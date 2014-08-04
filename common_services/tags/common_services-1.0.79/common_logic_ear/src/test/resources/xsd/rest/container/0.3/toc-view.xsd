@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/tocview/0.3"
+	xmlns:tocview="http://www.escidoc.de/schemas/tocview/0.3"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3"
+	xmlns:member-ref-list="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"	schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/toc-view-member-ref-list.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"  schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
+	<xs:element name="toc">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="description" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element ref="member-ref-list:member-ref-list" />
+			</xs:sequence>
+			<xs:attribute ref="xlink:href" />
+			<xs:attribute ref="xlink:type" />
+			<xs:attribute ref="xlink:title" />
+			<xs:attribute name="name" use="optional" />
+			<xs:attribute name="pid" />
+			<xs:attribute ref="xml:base"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

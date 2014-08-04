@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes applied to this schema since Version 0.4:
+	- Version changed to 0.5.
+	
+	- Added element prop:external-ids to properties.
+	
+	- May, 2008
+	- Version changed to 0.6
+	
+	- Added properties/public-status-comment
+	
+-->
+<xs:schema
+	targetNamespace="http://www.escidoc.de/schemas/organizationalunit/0.6"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
+	xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
+
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
+
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/metadatarecords/0.4"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/md-records.xsd" />
+	<xs:import namespace="http://escidoc.de/core/01/properties/"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/properties.xsd" />
+	<xs:import
+		namespace="http://escidoc.de/core/01/structural-relations/"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/structural-relations.xsd" />
+
+	<!-- This xsd is used in the API of Organizational Units; REST interface -->
+	<xs:element name="organizational-unit">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Following you will find information which elements
+					and attributes are "required", "optional",
+					"not-allowed" or will be "discarded" in the input
+					XML-stream when creating or updating such an object.
+				</para>
+				<para>
+					In "create" the rule for creating a new object is
+					defined.
+				</para>
+				<para>
+					In "update" the rule for updating an object is
+					defined.
+				</para>
+				<para>
+					Possible values are: required | optional |
+					not-allowed | discarded
+				</para>
+				<para>
+					required: this element or attribute has to be
+					delivered
+				</para>
+				<para>
+					optional: this element or attribute can be delivered
+					and will be kept
+				</para>
+				<para>
+					not-allowed: this element or attribute is not
+					allowed in delivery and will cause an exception
+				</para>
+				<para>
+					discarded: this element or attribute can be
+					delivered but will not be used
+				</para>
+			</xs:documentation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="organizational-unit:properties"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="organizational-unit:resources"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="md-records:md-records" minOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="organizational-unit:parents"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+							<comment>
+								The list of parents is updated with this
+								list.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="properties">
+		<xs:annotation>
+			<xs:documentation>
+				<create>discarded</create>
+				<update>discarded</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="prop:creation-date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="srel:created-by" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="srel:modified-by" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:public-status" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:public-status-comment" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:name" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:description" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:external-ids" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="prop:has-children" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="resources">
+		<xs:annotation>
+			<xs:documentation>
+				<create>discarded</create>
+				<update>discarded</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="parent-objects"
+					type="common-types:readOnlyLink">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="child-objects"
+					type="common-types:readOnlyLink">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="path-list"
+					type="common-types:readOnlyLink">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parents">
+		<xs:annotation>
+			<xs:documentation>
+				<create>optional</create>
+				<update>optional</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="srel:parent" minOccurs="0"
+					maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+							<comment>
+								The list of parents is updated with this
+								list.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
