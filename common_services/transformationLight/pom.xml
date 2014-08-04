@@ -32,18 +32,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.80-SNAPSHOT</version>
+		<version>1.0.80</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>transformationLight</artifactId>
 	<name>transformation service light</name>
-	<version>1.0.18-SNAPSHOT</version>
+	<version>1.0.18</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/transformationLight</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/transformationLight</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/transformationLight</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.80/transformationLight</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.80/transformationLight</developerConnection>
+    <url>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.80/transformationLight</url>
   </scm>
 	<build>
 		<plugins>
