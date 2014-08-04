@@ -39,7 +39,7 @@
 	<name>framework_access</name>
 	<version>1.3.25-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/framework_acces</connection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/framework_access</connection>
 		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/framework_access</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
