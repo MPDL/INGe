@@ -221,7 +221,9 @@
 		<module>pubman_logic_ear</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
+		<!-- 
 		<module>pubman_installer</module>
+		-->
 	</modules>
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman</connection>
@@ -337,6 +339,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
+					<tagBase>https://subversion.mpdl.mpg.de/repos/pubman/tags</tagBase>
 					<!-- send an announcement email on release -->
 					<!-- <preparationGoals>changes:announcement-mail</preparationGoals> -->
 					<!-- all the submodules inherit the version of the project -->
