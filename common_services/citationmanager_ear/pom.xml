@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.79-SNAPSHOT</version>
+		<version>1.0.79</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>citationmanager_ear</artifactId>
 	<name>citationmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.84-SNAPSHOT</version>
+	<version>1.0.84</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/citationmanager_ear</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/citationmanager_ear</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/citationmanager_ear/tags/common_services-1.0.79/citationmanager_ear</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/citationmanager_ear/tags/common_services-1.0.79/citationmanager_ear</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.79/common</url>
 	</scm>
 	
 	<build>
@@ -102,8 +102,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<echo message="Sleeping for 20 seconds to wait for wildfly deployment"/>
-								<sleep seconds="20"/>
+								<echo message="Sleeping for 20 seconds to wait for wildfly deployment" />
+								<sleep seconds="20" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -155,13 +155,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.24-SNAPSHOT</version>
+			<version>1.3.24</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.84-SNAPSHOT</version>
+			<version>1.0.84</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -169,7 +169,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.79-SNAPSHOT</version>
+			<version>1.1.79</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -271,7 +271,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.67-SNAPSHOT</version>
+			<version>1.0.67</version>
 			<type>ejb</type>
 		</dependency>
 <!--		<dependency>-->
@@ -366,7 +366,7 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete dir="${cargo.jboss.install.dir}/modules/pubman"/>
+										<delete dir="${cargo.jboss.install.dir}/modules/pubman" />
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/solution.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />

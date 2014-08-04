@@ -31,18 +31,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.79-SNAPSHOT</version>
+		<version>1.0.79</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>validation_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>validation_ear</name>
-	<version>1.0.86-SNAPSHOT</version>
+	<version>1.0.86</version>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/validation_ear</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/common_services/validation_ear</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/validation_ear/tags/common_services-1.0.79/validation_ear</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/common_services-1.0.79/validation_ear</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.79/common</url>
 	</scm>
 	<build>
 		<plugins>
@@ -102,8 +102,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<echo message="Sleeping for 30 seconds to wait for wildfly deployment"/>
-								<sleep seconds="30"/>
+								<echo message="Sleeping for 30 seconds to wait for wildfly deployment" />
+								<sleep seconds="30" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -225,7 +225,7 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete dir="${cargo.jboss.install.dir}/modules/pubman"/>
+										<delete dir="${cargo.jboss.install.dir}/modules/pubman" />
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/solution.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
@@ -248,27 +248,27 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.24-SNAPSHOT</version>
+			<version>1.3.24</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.86-SNAPSHOT</version>
+			<version>1.0.86</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.86-SNAPSHOT</version>
+			<version>1.0.86</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.79-SNAPSHOT</version>
+			<version>1.1.79</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
