@@ -93,6 +93,9 @@
 	<xsl:variable name="key-lastpage" select="'DC.citation.epage'" />
 	<xsl:variable name="key-publisher" select="'DC.publisher'" />
 	
+	<xsl:variable name="key-degree" select="''" />
+	<xsl:variable name="key-inbook-title" select="'DC.relation.ispartof'" />
+	
 	<xsl:variable name="key-issn" select="'DC.identifier'" />
 	<xsl:variable name="prefix-issn" select="'urn:ISSN:'" />
 

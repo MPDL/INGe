@@ -92,6 +92,9 @@
 	<xsl:variable name="key-lastpage" select="'citation_lastpage'" />
 	<xsl:variable name="key-publisher" select="'citation_publisher'" />
 	
+	<xsl:variable name="key-degree" select="'citation_dissertation_name'" />
+	<xsl:variable name="key-inbook-title" select="'citation_inbook_title'" />
+	
 	<xsl:variable name="key-issn" select="'citation_issn'" />
 	<xsl:variable name="prefix-issn" select="''" />
 

@@ -167,23 +167,52 @@
 			<xsl:with-param name="content" select="concat(eterms:family-name, ', ', eterms:given-name)"/>
 		</xsl:call-template>
 		<xsl:for-each select="organization:organization">
-			<xsl:call-template name="createMetatag">
-				<xsl:with-param name="name" select="$key-author-affiliation"/>
-				<xsl:with-param name="content" select="dc:title"/>
-			</xsl:call-template>
+			<xsl:choose>
+				<xsl:when test="$genre='thesis'">
+					<xsl:call-template name="createMetatag">
+						<xsl:with-param name="name" select="$key-dissertation-institution"/>
+						<xsl:with-param name="content" select="dc:title"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="createMetatag">
+						<xsl:with-param name="name" select="$key-author-affiliation"/>
+						<xsl:with-param name="content" select="dc:title"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+
 		</xsl:for-each>
 	</xsl:template>
 	
 	
 	<xsl:template match="pub:publication/eterms:creator/organization:organization">
-		<xsl:call-template name="createMetatag">
-			<xsl:with-param name="name" select="$key-author-institution"/>
-			<xsl:with-param name="content" select="dc:title"/>
-		</xsl:call-template>
+		<xsl:choose>
+				<xsl:when test="$genre='thesis'">
+					<xsl:call-template name="createMetatag">
+						<xsl:with-param name="name" select="$key-dissertation-institution"/>
+						<xsl:with-param name="content" select="dc:title"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="createMetatag">
+						<xsl:with-param name="name" select="$key-author-institution"/>
+						<xsl:with-param name="content" select="dc:title"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
 	</xsl:template>
 	
 	
-	
+	<xsl:template match="pub:publication/eterms:degree">
+		<xsl:if test="$genre='thesis'">
+			<xsl:variable name="degree" select="."/>
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="$key-degree"/>
+				<xsl:with-param name="content" select="$degree-ves/enum[@uri=$degree]"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
 
 	<xsl:template match="pub:publication/dc:language">
 		<xsl:call-template name="createMetatag">
@@ -214,10 +243,12 @@
 	</xsl:template>
 	
 	<xsl:template match="pub:publication/dc:identifier[@xsi:type='eterms:ISBN']">
+		<xsl:if test="$genre='book' or $genre='collected-edition' or $genre='festschrift' or $genre='handbook' or $genre='monograph'">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-isbn"/>
 			<xsl:with-param name="content" select="concat($prefix-isbn, .)"/>
 		</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="pub:publication/dcterms:subject">
@@ -230,24 +261,32 @@
 	
 	<!-- start EVENT tags -->
 	<xsl:template match="pub:publication/event:event/dc:title">
-		<xsl:call-template name="createMetatag">
-			<xsl:with-param name="name" select="$key-conference"/>
-			<xsl:with-param name="content" select="."/>
-		</xsl:call-template>
+		<xsl:if test="$genre='conference-paper' or $genre='proceedings' or $genre='conference-report' or $genre='talk-at-event' or $genre='courseware-lecture' or $genre='poster'">
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="$key-conference"/>
+				<xsl:with-param name="content" select="."/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	<!-- end EVENT tags -->
 	
 	
 	<!-- Use publisher as dissertation institution for thesis -->
 	<xsl:template match="pub:publication/eterms:publishing-info/dc:publisher">
-		<xsl:if test="$genre='thesis'">
-			<xsl:call-template name="createMetatag">
-				<xsl:with-param name="name" select="$key-dissertation-institution"/>
-				<xsl:with-param name="content" select="."/>
-			</xsl:call-template>
-		</xsl:if>
-		
-		
+		<xsl:choose>
+			<xsl:when test="$genre='thesis'">
+				<xsl:call-template name="createMetatag">
+					<xsl:with-param name="name" select="$key-dissertation-institution"/>
+					<xsl:with-param name="content" select="."/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="createMetatag">
+					<xsl:with-param name="name" select="$key-publisher"/>
+					<xsl:with-param name="content" select="."/>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	
@@ -267,31 +306,50 @@
 	
 	<!-- start JOURNAL tags --> 
 	<xsl:template match="source:source/dc:title" mode="journal">
-		<xsl:call-template name="createMetatag">
-			<xsl:with-param name="name" select="$key-journal-title"/>
-			<xsl:with-param name="content" select="."/>
-		</xsl:call-template>
+		<xsl:choose>
+			<xsl:when test="$genre='book-item' or $genre='contribution-to-collected-edition' or $genre='contribution-to-festschrift' or $genre='contribution-to-handbook'">
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="$key-inbook-title"/>
+				<xsl:with-param name="content" select="."/>
+			</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='article' or $genre='newspaper-article'">
+				<xsl:call-template name="createMetatag">
+					<xsl:with-param name="name" select="$key-journal-title"/>
+					<xsl:with-param name="content" select="."/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+			
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="source:source/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']" mode="journal">
-		<xsl:call-template name="createMetatag">
-			<xsl:with-param name="name" select="$key-journal-abbrev"/>
-			<xsl:with-param name="content" select="."/>
-		</xsl:call-template>
+		<xsl:if test="$genre='article' or $genre='newspaper-article'">
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="$key-journal-abbrev"/>
+				<xsl:with-param name="content" select="."/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="source:source/eterms:volume" mode="journal">
-		<xsl:call-template name="createMetatag">
-			<xsl:with-param name="name" select="$key-volume"/>
-			<xsl:with-param name="content" select="."/>
-		</xsl:call-template>
+		<xsl:if test="$genre='article' or $genre='newspaper-article'">
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="$key-volume"/>
+				<xsl:with-param name="content" select="."/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="source:source/eterms:issue" mode="journal">
-		<xsl:call-template name="createMetatag">
-			<xsl:with-param name="name" select="$key-issue"/>
-			<xsl:with-param name="content" select="."/>
-		</xsl:call-template>
+		<xsl:if test="$genre='article' or $genre='newspaper-article'">
+			<xsl:call-template name="createMetatag">
+				<xsl:with-param name="name" select="$key-issue"/>
+				<xsl:with-param name="content" select="."/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>    
 	
 	<xsl:template match="source:source/eterms:start-page" mode="journal">
@@ -316,17 +374,21 @@
 	</xsl:template>
 	
 	<xsl:template match="source:source/dc:identifier[@xsi:type='eterms:ISSN']" mode="journal">
+		<xsl:if test="$genre='article' or $genre='newspaper-article'">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-issn"/>
 			<xsl:with-param name="content" select="concat($prefix-issn, .)"/>
 		</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="source:source/dc:identifier[@xsi:type='eterms:ISBN']" mode="journal">
+		<xsl:if test="$genre='book-item' or $genre='contribution-to-collected-edition' or $genre='contribution-to-festschrift' or $genre='contribution-to-handbook'">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-isbn"/>
 			<xsl:with-param name="content" select="concat($prefix-isbn, .)"/>
 		</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	
 
