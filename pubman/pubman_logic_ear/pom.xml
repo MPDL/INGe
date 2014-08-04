@@ -30,19 +30,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-		<version>7.6.4-SNAPSHOT</version>
+		<version>7.7.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_logic_ear</artifactId>
 	<name>pubman_logic_ear</name>
 	<packaging>ear</packaging>
-	<version>7.6.4-SNAPSHOT</version>
+	<version>7.7.1</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_logic_ear</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_logic_ear</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/7.7.1/pubman_logic_ear</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/7.7.1/pubman_logic_ear</developerConnection>
+		<url>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/7.7.1/pubman</url>
 	</scm>
 	
 	<build>
@@ -131,8 +131,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<echo message="Sleeping for 30 seconds to wait for wildfly deployment"/>
-								<sleep seconds="30"/>
+								<echo message="Sleeping for 30 seconds to wait for wildfly deployment" />
+								<sleep seconds="30" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -346,7 +346,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>7.6.4-SNAPSHOT</version>
+			<version>7.7.1</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
@@ -683,7 +683,7 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete dir="${cargo.jboss.install.dir}/modules/pubman"/>
+										<delete dir="${cargo.jboss.install.dir}/modules/pubman" />
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
 									</tasks>
