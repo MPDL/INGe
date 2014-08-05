@@ -121,7 +121,7 @@
 										</h:panelGroup>
 										<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" valueChangeListener="#{EasySubmission.changeImportSourceListener}">
 											<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
-											<f:ajax render="form1:easySubmission:Import:fetchExternal" execute="form1:easySubmission:Import:identifier"/>
+											<f:ajax render="formFetchMd:easySubmission:Import:fetchExternal" execute="formFetchMd:easySubmission:Import:identifier"/>
 										</h:selectOneMenu>
 									</h:panelGroup>
 									
