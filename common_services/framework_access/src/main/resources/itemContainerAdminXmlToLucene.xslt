@@ -1072,6 +1072,28 @@ Notes:
 			</xsl:choose>
 		</element>
 	</userdefined-index>
+	
+	<userdefined-index name="any-organization-pids">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*[local-name()='creator']//*[local-name()='organization']/*[local-name()='identifier']">
+			<element index="TOKENIZED">
+				<xsl:variable name="objectId" select="normalize-space(.)"/>
+				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
+					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
+				</xsl:if>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*[local-name()='creator']//*[local-name()='organization']/*[local-name()='identifier']">
+			<element index="TOKENIZED">
+				<xsl:variable name="objectId" select="normalize-space(.)"/>
+				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
+					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
+				</xsl:if>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
         
     </xsl:variable>
 
