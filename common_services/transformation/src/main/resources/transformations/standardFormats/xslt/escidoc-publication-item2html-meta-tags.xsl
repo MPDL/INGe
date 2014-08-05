@@ -169,10 +169,12 @@
 		<xsl:for-each select="organization:organization">
 			<xsl:choose>
 				<xsl:when test="$genre='thesis'">
-					<xsl:call-template name="createMetatag">
-						<xsl:with-param name="name" select="$key-dissertation-institution"/>
-						<xsl:with-param name="content" select="dc:title"/>
-					</xsl:call-template>
+					<xsl:if test="not(//pub:publication/eterms:publishing-info/dc:publisher)">
+						<xsl:call-template name="createMetatag">
+							<xsl:with-param name="name" select="$key-dissertation-institution"/>
+							<xsl:with-param name="content" select="dc:title"/>
+						</xsl:call-template>
+					</xsl:if>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="createMetatag">
@@ -189,10 +191,12 @@
 	<xsl:template match="pub:publication/eterms:creator/organization:organization">
 		<xsl:choose>
 				<xsl:when test="$genre='thesis'">
-					<xsl:call-template name="createMetatag">
-						<xsl:with-param name="name" select="$key-dissertation-institution"/>
-						<xsl:with-param name="content" select="dc:title"/>
-					</xsl:call-template>
+					<xsl:if test="not(//pub:publication/eterms:publishing-info/dc:publisher)">
+						<xsl:call-template name="createMetatag">
+							<xsl:with-param name="name" select="$key-dissertation-institution"/>
+							<xsl:with-param name="content" select="dc:title"/>
+						</xsl:call-template>
+					</xsl:if>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="createMetatag">
@@ -277,7 +281,7 @@
 			<xsl:when test="$genre='thesis'">
 				<xsl:call-template name="createMetatag">
 					<xsl:with-param name="name" select="$key-dissertation-institution"/>
-					<xsl:with-param name="content" select="."/>
+					<xsl:with-param name="content" select="normalize-space(concat(., ' ', ../eterms:place))"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
