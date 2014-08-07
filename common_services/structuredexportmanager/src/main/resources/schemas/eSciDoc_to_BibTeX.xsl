@@ -479,10 +479,20 @@
 		
 		<!-- SOURCE ISSUE -->
 		<xsl:if test="eterms:issue!=''">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'issue'"/>
-			<xsl:with-param name="xpath" select="eterms:issue"/>
-		</xsl:call-template>
+			<xsl:choose>
+				<xsl:when test="$publication-type = 'article'">
+					<xsl:call-template name="createField">
+						<xsl:with-param name="name" select="'number'"/>
+						<xsl:with-param name="xpath" select="eterms:issue"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:when test="($publication-type = 'conference-paper' or $publication-type = 'proceedings') and not(eterms:volume)">
+					<xsl:call-template name="createField">
+						<xsl:with-param name="name" select="'number'"/>
+						<xsl:with-param name="xpath" select="eterms:issue"/>
+					</xsl:call-template>
+				</xsl:when>
+			</xsl:choose>
 		</xsl:if>
 		
 		<!-- SOURCE PAGES -->
