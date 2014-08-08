@@ -72,7 +72,7 @@ public class OrganizationSearchCriterion extends
 		switch(indexName)
 		{
 			case ESCIDOC_ALL : return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
-			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/md-records/md-record/publication/creator/person/organization/title", "/md-records/md-record/publication/creator/organization/title\""};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/md-records/md-record/publication/creator/person/organization/title\"", "\"/md-records/md-record/publication/creator/organization/title\""};
 		}
 		return null;
 		
