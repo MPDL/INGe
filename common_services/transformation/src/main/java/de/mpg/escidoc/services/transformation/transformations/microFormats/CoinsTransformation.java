@@ -36,6 +36,7 @@ import javax.naming.InitialContext;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
  * 
@@ -85,8 +86,8 @@ public class CoinsTransformation
         String coins = null;
         try
         {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            
+            XmlTransforming xmlTransforming = new XmlTransformingBean();
             PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(source));
             coins = this.getCOinS(itemVO);
         }
