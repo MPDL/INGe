@@ -43,7 +43,7 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
 		switch(indexName)
 		{
 			case ESCIDOC_ALL :return new String[] {"escidoc.any-identifier", "escidoc.property.latest-release.objid"};
-			case ITEM_CONTAINER_ADMIN : return new String[] {"\"any-identifier\"", "\"/properties/latest-release/id\""};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/any-identifier\"", "\"/properties/latest-release/id\""};
 		}
 		return null;
 		
