@@ -174,9 +174,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
             if (!getSelectedOrgUnit().toLowerCase().equals("all"))
             {
+                Filter orgUnitFilter = filter.new StandardFilter("/any-organization-pids", getSelectedOrgUnit(), "=", "and");
+                filter.getFilterList().add(orgUnitFilter);
+            	/*
                 String orgUNIT = getSelectedOrgUnit();
                 AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
                 addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
+                */
             }
 
             if (!getSelectedImport().toLowerCase().equals("all"))
