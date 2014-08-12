@@ -820,7 +820,6 @@ public class BibTexUtil
     	encodingTable.put("{\\S{}}", "\u00a7");
     	encodingTable.put("\\times", "\u00D7");
     	encodingTable.put("\\micro", "\u00B5");
-    	encodingTable.put("\\textg", "\u0067");
     	encodingTable.put("{\\&{}}", "\u0026");
     	encodingTable.put("{\\#{}}", "\u0023");
     	encodingTable.put("\\odot", "\u2299");

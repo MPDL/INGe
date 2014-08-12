@@ -375,7 +375,7 @@
 		<xsl:param name="name"/>
 		<xsl:param name="xpath"/>
 		
-		<xsl:value-of select="jfunc:texString($name)"/>
+		<xsl:value-of select="$name"/>
 		<xsl:text disable-output-escaping="yes"> = &#123;</xsl:text>
 		<xsl:choose>
 			<xsl:when test="$name = 'title' or $name = 'booktitle' or $name = 'series' or $name = 'booktitle' or $name = 'journal' or $name = 'abstract' or $name = 'keywords '">

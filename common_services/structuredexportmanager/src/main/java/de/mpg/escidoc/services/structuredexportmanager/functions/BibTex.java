@@ -78,7 +78,6 @@ public class BibTex {
             	put("\u0026", "\\&");
             	put("\u0027", "\\textquotesingle");
             	put("\u0060", "\\textasciigrave");
-            	put("\u0067", "$\\textg$");
             	put("\u00A1", "\\textexclamdown");
             	put("\u00A2", "\\textcent");
             	put("\u00A4", "\\textcurrency");
