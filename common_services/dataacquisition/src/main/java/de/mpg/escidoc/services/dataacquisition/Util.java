@@ -127,6 +127,8 @@ public class Util
         { return "application/gzip"; } 
         if (formatName.equalsIgnoreCase("bmcarticleFullTextHtml")) 
         { return "text/html"; } 
+        if (formatName.startsWith("html-meta-tags")) 
+        { return "text/html"; }
         
         return "application/xml";
     }
