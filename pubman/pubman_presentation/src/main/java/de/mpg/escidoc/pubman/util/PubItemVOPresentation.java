@@ -589,12 +589,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getGenreGroup()
     {
-    	URL url = this.getClass().getClassLoader().getResource("Genre_BOOK.properties");
-    	URL url2 = this.getClass().getClassLoader().getResource("pubman.properties");
-    	URL url3 = this.getClass().getClassLoader().getResource("auth.properties");
-    	Logger.getLogger(this.getClass()).info(url);
-    	Logger.getLogger(this.getClass()).info(url2);
-    	Logger.getLogger(this.getClass()).info(url3);
         return ResourceBundle.getBundle("Genre_" + this.getMetadata().getGenre()).getString("genre_group_value");
     }
 
