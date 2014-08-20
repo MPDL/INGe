@@ -46,6 +46,7 @@
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
+				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 			</structure>
 
 			<!-- Node: item.properties.public-status -->
@@ -66,6 +67,7 @@
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
 				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
+				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 
 			</structure>
 
@@ -77,7 +79,7 @@
 				<!-- mandatory in XML during update and during create, useless in VO -->
 				<value style="attribute" name="objid" field="contentModel" usage="optional" />
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setContentModelHref" usage="optional" />
-
+				
 			</structure>			
 
 			<!-- Node: item.properties.lock-status -->
@@ -96,6 +98,7 @@
 			
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
+				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 			
 				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
@@ -115,6 +118,7 @@
 					<!-- Node: item.properties.version.modified-by.@objid -->
 					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
+					<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 	
 				</structure>
 
@@ -128,6 +132,7 @@
 			
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
+				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 			
 				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
@@ -141,6 +146,7 @@
 			
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
+				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 			
 				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" />
