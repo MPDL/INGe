@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -71,7 +71,7 @@ public class OrganizationSuggest extends EditItemBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.search = (Search) initialContext.lookup(Search.SERVICE_NAME);
+            this.search = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
         }
         catch (NamingException ne)
         {

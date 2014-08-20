@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.init;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +48,8 @@ public class InitializerServlet extends HttpServlet
     private SiteMapTask siteMapTask;
     private ImportSurveyor importSurveyor;
     
+    @EJB
+    private PubItemSimpleStatistics statistics;
     /**
      * {@inheritDoc}
      */
@@ -57,9 +60,7 @@ public class InitializerServlet extends HttpServlet
         //initialize report definitions for statistics
         try
         {
-            InitialContext initialContext = new InitialContext();
-            final PubItemSimpleStatistics statistics =
-                (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+           
             
             //call method as thread. If coreservice and PubMan are deployed ion the same jboss, this method is blocked until both applications are completely deployed
             new Thread(){

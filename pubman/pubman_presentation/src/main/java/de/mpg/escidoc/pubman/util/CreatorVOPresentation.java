@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -194,7 +194,7 @@ public class CreatorVOPresentation extends CreatorVO
     
     public void setRoleString(String value)
     {
-        if (value == null)
+        if (value == null || value.isEmpty())
         {
             this.setRole(null);
         }

@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -29,37 +29,26 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.ResponseStateManager;
 import javax.naming.InitialContext;
 
-import org.ajax4jsf.config.FacesConfig;
-import org.ajax4jsf.event.AjaxEvent;
-import org.ajax4jsf.model.KeepAlive;
-import org.apache.axis.utils.URLHashSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -81,7 +70,6 @@ import de.mpg.escidoc.pubman.searchNew.criterions.dates.DateSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.genre.GenreListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
-import de.mpg.escidoc.pubman.searchNew.criterions.standard.AnyFieldSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.CollectionSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentContentCategory;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
@@ -167,6 +155,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	 * Contains the last query
 	 */
 	private String query = "";
+	
+	@EJB
+	private PubItemDepositing pubItemDepositing;
 	
 	
 	
@@ -614,18 +605,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 	
 	public void changeCriterionAction(ValueChangeEvent evt)
 	{
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		Integer position = Integer.parseInt(params.get("indexOfCriterion"));
-		//String sc = params.get("typeOfCriterion");
-		//logger.info("TypeOfCriterion:" + sc);
-		//logger.info("Old criterion list:" + criterionList);
-		
-		//Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
-		
-		
-		
+		Integer position = (Integer)evt.getComponent().getAttributes().get("indexOfCriterion");
+
 		if(evt.getNewValue() != null && position!=null)
 		{
+			
 			SearchCriterion newValue = SearchCriterion.valueOf(evt.getNewValue().toString());
 			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
 			
@@ -642,43 +626,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 			criterionList.add(position, newSearchCriterion);
 			//logger.info("New criterion list:" + criterionList);
 		}
-		
-		
-		/*
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String position = params.get("indexOfChangedCriterion");
-		*/
+
 		
 	}
 	
-	/*
-	public void changeCriterion(AjaxEvent evt)
-	{
-		
-		Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
-		SearchCriterion newValue = (SearchCriterion)evt.getNewValue();
-		if(newValue != null && position!=null)
-		{
-			logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
-			
-			SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
-			SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
-			newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
-			if(possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion))
-			{
-				boolean oldValue = possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
-				possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
-				possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
-			}
-			criterionList.add(position, newSearchCriterion);
-			logger.info("New criterion list:" + criterionList);
-		}
-		
-		
-		
-		
-	}
-	*/
+	
 	
 	
 	
@@ -703,9 +655,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.criterionTypeListMenu = criterionTypeListMenu;
 	}
 	
-	public void addSearchCriterion(ActionEvent ae)
+	public void addSearchCriterion(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		SearchCriterionBase oldSearchCriterion =  criterionList.get(position); 
 		
 		//If the add button of a Parenthesis is used, add an ANYFIELD Criterion, else add the same criterion as in the line of the add button.
@@ -720,54 +672,54 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		}
 		
 		newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
-		criterionList.add(position.intValue() + 1, newSearchCriterion);
+		criterionList.add(position + 1, newSearchCriterion);
 		
 		//If the add button of an opening parenthesis is used, the logical operator has to be added after the new criterion
 		if(SearchCriterion.OPENING_PARENTHESIS.equals(oldSearchCriterion.getSearchCriterion()))
 		{
-			criterionList.add(position.intValue() + 2, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+			criterionList.add(position + 2, new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		}
 		else
 		{
-			criterionList.add(position.intValue() + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
+			criterionList.add(position + 1, new LogicalOperator(SearchCriterion.AND_OPERATOR));
 		}
 		
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
 	
-	public void removeSearchCriterion(ActionEvent ae)
+	public void removeSearchCriterion(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		SearchCriterionBase sc = criterionList.get(position);
 		SearchCriterionBase.removeSearchCriterionWithOperator(criterionList, sc);
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 		
 	}
 	
-	public void addOpeningParenthesis(ActionEvent ae)
+	public void addOpeningParenthesis(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		this.currentlyOpenedParenthesis = new Parenthesis(SearchCriterion.OPENING_PARENTHESIS);
 		this.currentlyOpenedParenthesis.setLevel(criterionList.get(position).getLevel());
 		//add before criterion
-		criterionList.add(position.intValue(), currentlyOpenedParenthesis);
+		criterionList.add(position, currentlyOpenedParenthesis);
 		updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
 	}
 	
-	public void addClosingParenthesis(ActionEvent ae)
+	public void addClosingParenthesis(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		Parenthesis closingParenthesis = new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS);
 		this.currentlyOpenedParenthesis.setPartnerParenthesis(closingParenthesis);
 		closingParenthesis.setPartnerParenthesis(this.currentlyOpenedParenthesis);
 		this.currentlyOpenedParenthesis = null;
-		criterionList.add(position.intValue() + 1, closingParenthesis);
+		criterionList.add(position + 1, closingParenthesis);
 		updateListForClosingParenthesis(null);
 	}
 	
-	public void removeParenthesis(ActionEvent ae)
+	public void removeParenthesis(int position)
 	{
-		Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
 		Parenthesis parenthesis = (Parenthesis)criterionList.get(position);
 		Parenthesis partnerParenthesis = parenthesis.getPartnerParenthesis();
 
@@ -883,9 +835,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		{
 			
 			try{
-	            InitialContext initialContext = new InitialContext(); 
-	            // initialize used Beans
-	            PubItemDepositing pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+
 	            List<ContextVO> contexts = pubItemDepositing.getPubCollectionListForDepositing();
 	            
 	            contextListMenu = new ArrayList<SelectItem>();
@@ -1266,9 +1216,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		this.numberOfSearchCriterions = numberOfSearchCriterions;
 	}
 	
-	public void removeAutoSuggestValues (ActionEvent e)
+	public void removeAutoSuggestValues (int position)
     {
-		Integer position = (Integer) e.getComponent().getAttributes().get("indexOfCriterion");
+		//Integer position = (Integer) e.getComponent().getAttributes().get("indexOfCriterion");
 		
 		SearchCriterionBase sc = criterionList.get(position);
        if(sc instanceof StringOrHiddenIdSearchCriterion)

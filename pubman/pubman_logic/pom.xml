@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -29,19 +29,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>pubman</artifactId>
-		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>7.6.4-SNAPSHOT</version>
+		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+		<version>7.7.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.pubman</groupId>
+	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
 	<packaging>ejb</packaging>
-	<version>7.6.4-SNAPSHOT</version>
+	<version>7.7.3-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_logic</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_logic</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_logic</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_logic</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
 	</scm>
 	
@@ -61,13 +61,10 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>
 				<configuration>
-					<ejbVersion>3.0</ejbVersion>
+					<ejbVersion>3.1</ejbVersion>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -75,40 +72,40 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
 			<version>${version.citationmanager}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>${version.structuredexportmanager}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
 			<version>${version.validation}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>${version.common_logic}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<version>${version.dataacquisition}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
 			<version>${version.transformation}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
@@ -117,10 +114,10 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search</artifactId>
 			<version>${version.search}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -149,6 +146,12 @@
 			<artifactId>xom</artifactId>
 			<version>1.2.1</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

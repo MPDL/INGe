@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -319,11 +319,11 @@ public class ApplicationBean extends FacesBean
             {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='Standard' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
+                    styleTags.append("<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"\" id=\"Standard\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblPubMan") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"\"/>");
                 }
                 else
                 {
-                    StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='Standard' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
+                    StylesheetStandard = "<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"\" id=\"Standard\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblPubMan") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"\"/>";
                 }
             }
         
@@ -334,11 +334,11 @@ public class ApplicationBean extends FacesBean
             {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='HighContrast' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
+                    styleTags.append("<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"\" id=\"HighContrast\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblHighContrast") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"\"/>");
                 }
                 else
                 {
-                    StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='HighContrast' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
+                    StylesheetContrast = "<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"\" id=\"HighContrast\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblHighContrast") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"\"/>";
                 }
             }
         
@@ -349,11 +349,11 @@ public class ApplicationBean extends FacesBean
             {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
+                    styleTags.append("<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"\" id=\"Classic\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblClassic") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"\"/>");
                 }
                 else
                 {
-                    StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
+                    StylesheetClassic = "<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"\" id=\"Classic\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblClassic") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"\"/>";
                 }
             }
         
@@ -364,11 +364,11 @@ public class ApplicationBean extends FacesBean
             {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type").equals(ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>");
+                    styleTags.append("<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"\" id=\"Special\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"\"/>");
                 }
                 else
                 {
-                    StylesheetSpecial = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>";
+                    StylesheetSpecial = "<link href=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"\" id=\"Special\" type=\"text/css\" title=\""+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") +"\" rel=\""+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"\"/>";
                 }
             }
         } catch (Exception e)
@@ -377,6 +377,7 @@ public class ApplicationBean extends FacesBean
         }
         
         // then append the stylesheet String variables (no matter if empty) to ensure that the stylesheet with the standard rel tag is the last entry in the list.
+        
         styleTags.append(StylesheetStandard);
         styleTags.append(StylesheetContrast);
         styleTags.append(StylesheetClassic);
@@ -386,7 +387,7 @@ public class ApplicationBean extends FacesBean
         try {
             if("true".equals(PropertyReader.getProperty("escidoc.pubman.favicon.apply")))
             {
-                styleTags.append("<link rel='SHORTCUT ICON' href='" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "'/>");
+            	styleTags.append("<link rel=\"shortcut icon\" type=\"image/png\" href=\"" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
             }
         } catch (IOException e)
         {

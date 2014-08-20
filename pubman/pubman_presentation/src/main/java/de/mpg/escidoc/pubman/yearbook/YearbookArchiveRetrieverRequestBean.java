@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -46,8 +47,13 @@ public class YearbookArchiveRetrieverRequestBean extends BaseListRetrieverReques
     private String selectedSortOrder;
     private static String parameterSelectedOrgUnit = "orgUnit"; 
     private int numberOfRecords;
-    private Search searchService;
     private PubItemListSessionBean pilsb;
+    
+    @EJB
+    private Search searchService;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
     
     public YearbookArchiveRetrieverRequestBean()
     {
@@ -60,17 +66,7 @@ public class YearbookArchiveRetrieverRequestBean extends BaseListRetrieverReques
     {
         pilsb = (PubItemListSessionBean)getBasePaginatorListSessionBean();
         
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
-            
-        }
-        catch (NamingException e)
-        {
-            logger.error("Error when trying to find search service.", e);
-            error("Did not find Search service");
-        }
+
       
     }
 
@@ -173,8 +169,7 @@ public class YearbookArchiveRetrieverRequestBean extends BaseListRetrieverReques
           {
               LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); 
               YearbookArchiveBean yearbookArchiveBean = (YearbookArchiveBean) getSessionBean(YearbookArchiveBean.class);
-              InitialContext initialContext = new InitialContext();
-              XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+             
         
               // define the filter criteria
               FilterTaskParamVO filter = new FilterTaskParamVO();
@@ -198,11 +193,6 @@ public class YearbookArchiveRetrieverRequestBean extends BaseListRetrieverReques
               {
                   Filter sortFilter = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
                   filter.getFilterList().add(sortFilter);
-              }
-              if (this.getSessionBean().getSelectedOrgUnit() != null)
-              {
-                  Filter organisationFilter = filter.new PersonsOrganizationsFilter(this.getSessionBean().getSelectedOrgUnit());
-                  filter.getFilterList().add(organisationFilter);
               }
               
               String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());

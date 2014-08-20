@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
@@ -80,6 +81,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
      * The currently selected item state.
      */
     private String selectedItemState;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
 
     public MyItemsRetrieverRequestBean()
     {
@@ -155,11 +159,6 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
         try
         {
-
-
-
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 
             checkSortCriterias(sc);
 

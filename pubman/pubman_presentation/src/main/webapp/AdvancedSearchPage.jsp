@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -28,46 +28,45 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 				
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<meta http-equiv="cache-control" content="no-cache" />
 				<meta http-equiv="Pragma" content="no-cache" />
 				<meta http-equiv="expires" content="0"/>
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-				
-				
-			</head>
+				<ui:include src="header/ui/StandardImports.jspf" />
+				<script src="/cone/js/jquery.suggest.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
+				<h:outputScript name="commonJavaScript/externalJavaScript/DateJS/date-#{InternationalizationHelper.locale}.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_datebox.js"/>
+
+			</h:head>
 			<!-- Use onunload here in order to hinder browser to cache the page -->
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="${InternationalizationHelper.locale}">
 			
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			<h:form>
-			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />			
+			<h:form id="form1">	
 			<div class="full wrapper">
 			<h:inputHidden id="offset"/>
 			
-				<jsp:directive.include file="header/Header.jspf" />
+				<ui:include src="header/Header.jspf" />
 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
 							
-							<jsp:directive.include file="header/Breadcrumb.jspf" />
+							<ui:include src="header/Breadcrumb.jspf" />
 							
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
@@ -93,12 +92,12 @@
 							</h:panelGroup>
 							<h:panelGroup id="messages" styleClass="subHeader">
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{AdvancedSearchBean.hasErrorMessages}">
-									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}" /></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchBean.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{AdvancedSearchBean.hasMessages and !AdvancedSearchBean.hasErrorMessages}">
-									<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+									<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}" /></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchBean.hasMessages}"/>
 								</h:panelGroup>
@@ -109,7 +108,7 @@
 					</div>			
 					<div class="full_area0">
 						<div class="full_area0 fullItem">
-							<jsp:directive.include file="search/AdvancedSearchEdit.jspf" />
+							<ui:include src="search/AdvancedSearchEdit.jspf" />
 						</div>
 					</div>
 					<div class="full_area0 formButtonArea">
@@ -119,21 +118,21 @@
 				<!-- end: content section -->
 				</div>
 			</div>
-			<jsp:directive.include file="footer/Footer.jspf" />
+			<ui:include src="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
 				function checkUpdatePersonFunction() {
 					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
 				}
 				
-				$pb(document).ready(function () {
+				$(document).ready(function () {
 					/*
-					$pb("input[id$='offset']").submit(function() {
-						$pb(this).val($pb(window).scrollTop());
+					$("input[id$='offset']").submit(function() {
+						$(this).val($(window).scrollTop());
 					});
 					*/
-					$pb(window).scrollTop($pb("input[id$='offset']").val());
-					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 
 
 					
@@ -144,9 +143,9 @@
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
 				personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';
 				/*languageDetailsBaseURL = '$1?format=json';*/
-				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+				languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
-				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+				personDetailsBaseURL = '$1?format=json&amp;lang=$2';
 				subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
 				journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';
 				journalSuggestTrigger = 'JOURNAL';
@@ -156,4 +155,3 @@
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

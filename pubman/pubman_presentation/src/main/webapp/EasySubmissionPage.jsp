@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -29,61 +29,62 @@
 -->
 
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
 			<f:loadBundle var="genre" basename="#{EasySubmissionSessionBean.genreBundle}"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
+				<script src="/cone/js/jquery.suggest.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
+				<h:outputScript name="commonJavaScript/externalJavaScript/DateJS/date-#{InternationalizationHelper.locale}.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_datebox.js"/>
+				
 				<link rel="stylesheet" href="./resources/cc_license_style.css" />
 
-			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			</h:head>
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{EasySubmissionPage.beanName}" styleClass="noDisplay" />
-			<h:form >
-			<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
+			<h:form id="form1">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
-				<jsp:directive.include file="header/Header.jspf" />   
+				<ui:include src="header/Header.jspf" />   
 				
 				<div class="clear">
                     <div class="headerSection xSmall_marginRExcl">
-                        <jsp:directive.include file="header/Breadcrumb.jspf" />
+                        <ui:include src="header/Breadcrumb.jspf" />
                     </div>
                 </div>   
                 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<jsp:directive.include file="./easySubmission/EasySubmission.jspf"/>
+					<ui:include src="./easySubmission/EasySubmission.jspf" />
 				<!-- end: content section -->
 				</div>
 				
 			</div>
-			<jsp:directive.include file="footer/Footer.jspf" />
+			<ui:include src="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
 				function checkUpdatePersonFunction() {
 					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
 				}
-				$pb("input[id$='offset']").submit(function() {
-					$pb(this).val($pb(window).scrollTop());
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
 				});
-				$pb(document).ready(function () {
-					$pb(window).scrollTop($pb("input[id$='offset']").val());
-					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 					checkUpdatePersonFunction();
 				});
 
@@ -104,11 +105,11 @@
 					document.getElementById('fullItem').style.opacity='0.4';
 					document.getElementById('fullItem').style.bg='FFF';
 					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
-				    $pb('*').attr('readonly', true);
-				    $pb(':input : file').attr('disabled', true);
+				    $('*').attr('readonly', true);
+				    $(':input : file').attr('disabled', true);
 				}								
 			</script>
 			</body>
 		</html>
 	</f:view>
-</jsp:root>
+

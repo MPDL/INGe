@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,12 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.showNIMSLink and ViewItemStatistics.nimsLink!=null}">
@@ -73,7 +69,7 @@
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
-			<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item&lang=#{InternationalizationHelper.locale}"/>
+			<h:graphicImage url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&amp;type=item&amp;lang=#{InternationalizationHelper.locale}"/>
 		</div>
 	</div>
 	</h:panelGroup>
@@ -110,7 +106,7 @@
 			</span>
 		</div>
 
-		<a4j:repeat value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" rowKeyVar="index">
+		<ui:repeat value="#{ViewItemStatistics.fileList}" var="file">
 			<div class="free_area0_p8 endline itemLine">
 				<span class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
@@ -136,9 +132,10 @@
 				</span>
 			</div>
 			<div class="free_area0 endline itemLine noTopBorder">
-				<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
+				<h:graphicImage url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{file.file.reference.objectId}&amp;type=file&amp;lang=#{InternationalizationHelper.locale}"/>
 			</div>
 			<br/>
-		</a4j:repeat>
+		</ui:repeat>
 	</div>
 </h:panelGroup>
+</ui:composition>

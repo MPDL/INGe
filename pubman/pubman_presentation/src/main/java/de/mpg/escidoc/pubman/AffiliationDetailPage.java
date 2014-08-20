@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -69,7 +69,7 @@ public class AffiliationDetailPage extends FacesBean
         {
             String ouXml = null;
             InitialContext initialContext = new InitialContext();
-            this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
             
             String affiliationId = getFacesContext().getExternalContext().getRequestParameterMap().get("id");
 

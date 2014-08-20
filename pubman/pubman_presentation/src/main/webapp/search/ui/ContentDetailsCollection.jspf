@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,11 +26,8 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
+
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,9 +38,9 @@
 	<div class="free_area0 itemBlockContent hideAdvSearchComplexBlockIfVoid endline">
 		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderContentDetails}" /></a>
 		
-<%-- Identifier --%>
+<!-- Identifier -->
 
-		<a4j:repeat id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.identifierCriterionIterator}" rowKeyVar="index">
+		<ui:repeat id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.identifierCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.identifierCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -55,9 +53,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
 					<h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.identifierCriterionIterator.rowIndex > 0}">
@@ -71,9 +69,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
 					<h:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 
@@ -90,16 +88,16 @@
 						<f:selectItems value="#{identifierCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selIdentifierCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{identifierCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selIdentifierCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{identifierCriterionBean.logicOperator}">
 					<f:selectItems value="#{identifierCriterionBean.logicOptions}"/>
-				</h:selectOneMenu> 	--%>				
+				</h:selectOneMenu> 	-->				
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 
-<%-- Event --%>
+<!-- Event -->
 
-		<a4j:repeat id="eventCriterion" rows="0" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.eventCriterionIterator}" rowKeyVar="index">
+		<ui:repeat id="eventCriterion" rows="0" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.eventCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -112,9 +110,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
 					<h:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}" />
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -141,19 +139,19 @@
 						<f:selectItems value="#{eventCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%-- 	<h:selectOneMenu id="selEventCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{eventCriterionBean.logicOperator}">
+		<!-- 	<h:selectOneMenu id="selEventCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{eventCriterionBean.logicOperator}">
 					<f:selectItems value="#{eventCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	--%>				
+				</h:selectOneMenu>	-->				
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 		
 
 
 
 
-<%-- Source --%>
-		<a4j:repeat var="sourceCriterionBean" rows="0" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.sourceCriterionIterator}" rowKeyVar="index">
+<!-- Source -->
+		<ui:repeat var="sourceCriterionBean" rows="0" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.sourceCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -166,9 +164,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
 					<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
-<%-- 
+<!-- 
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
---%>
+-->
 				</span>
 			</h:panelGroup>
 
@@ -185,16 +183,16 @@
 						<f:selectItems value="#{sourceCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{sourceCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{sourceCriterionBean.logicOperator}">
 					<f:selectItems value="#{sourceCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	--%>		
+				</h:selectOneMenu>	-->		
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 
-<%-- Language --%>
+<!-- Language -->
 
-		<a4j:repeat id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}">
+		<ui:repeat id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine languageArea">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -206,9 +204,9 @@
 					<h:inputText id="languageSuggestMultiple" styleClass="large_txtInput tiny_marginRIncl languageSuggest" value="#{languageCriterionBean.languageCriterionVO.searchString}"/>
 					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageText readonlyInput" value="#{languageCriterionBean.alternativeValue}" readonly="true"/>
 					
-					<%--<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+					<!--<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
-					</h:selectOneMenu>--%>
+					</h:selectOneMenu>-->
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
@@ -228,15 +226,15 @@
 						<f:selectItems value="#{languageCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%-- 	<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
+		<!-- 	<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
 					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	--%>				
+				</h:selectOneMenu>	-->				
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 		
-<%-- LocalTag --%>
-        <a4j:repeat var="localTagCriterionBean" rows="0" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.localTagCriterionIterator}" rowKeyVar="index">
+<!-- LocalTag -->
+        <ui:repeat var="localTagCriterionBean" rows="0" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.localTagCriterionIterator}" rowKeyVar="index">
 
             <h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
                 <b class="xLarge_area0_p8 endline labelLine clear">
@@ -249,9 +247,7 @@
                 <span class="large_area0_p8 lineToolSection">
                     <h:commandButton styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.addObject}" />
                     <h:commandButton styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size == 1}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.removeObject}"/>
-<%-- 
-                    <h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
---%>
+
                 </span>
             </h:panelGroup>
 
@@ -267,12 +263,11 @@
 						<f:selectItems value="#{localTagCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{localTagCriterionBean.logicOperator}">
-                    <f:selectItems value="#{localTagCriterionBean.logicOptions}"/>
-                </h:selectOneMenu>	 --%>              
+         
             </h:panelGroup>
 
-        </a4j:repeat>
+        </ui:repeat>
         
 	</div>
 </div>
+</ui:composition>

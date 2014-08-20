@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman.home;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -63,7 +64,9 @@ public class Home extends FacesBean
     // Faces navigation string
     public final static String LOAD_HOME = "loadHome";
 
-
+	@EJB
+	private Search search;
+    
     /**
      * Public constructor.
      */
@@ -84,8 +87,6 @@ public class Home extends FacesBean
     
     public List<PubItemVOPresentation> getLatest() throws Exception
     {
-        InitialContext ictx = new InitialContext();
-        Search search = (Search)ictx.lookup(Search.SERVICE_NAME);
         //SearchRetrieverRequestBean srrb = (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
         String cqlQuery = "escidoc.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         SearchQuery cql = new PlainCqlQuery(cqlQuery);

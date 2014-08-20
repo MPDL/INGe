@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,16 +26,13 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
+
 
 <f:subview id="Import">
 
 <div class="clear headerDistanceFix">
-		<jsp:directive.include file="../../header/Breadcrumb.jspf" />
+		<ui:include src="../../header/Breadcrumb.jspf" />
 		<div id="contentSkipLinkAnchor" class="clear headLine">
 			<!-- Headline starts here -->
 			<h1><h:outputText value="#{lbl.EasySubmission_lblImportMetadata}"/></h1>
@@ -104,52 +102,51 @@
 				<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}"/>
 			</h3>
 			<span class="seperator"></span>
-			<div class="free_area0 itemBlockContent endline">
+			<h:panelGroup id="fetchExternal"  layout="block" class="free_area0 itemBlockContent endline">
 				
 			<!-- Import from external source -->
-				<h:panelGroup layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableBibtexFields}">
-					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine">		
-						<b class="free_area0 endline labelLine" style="float:right;">
+				<h:panelGroup id="identifier" layout="block" styleClass="labelline marginTExcl6p clear" rendered="#{EasySubmission.disableBibtexFields}">
+						<b class="xLarge_area0_p8 endline labelLine clear">
 							<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
 						</b>
-						<br style="line-height:5em;" />
-						<b class="free_area0 endline labelLine" style="float:right;">
-							<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" />
+						
+							<span class="free_area0 xTiny_marginLExcl endline">
+								<span class="large_area0 largeFormPush">
+									<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
+									
+									<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+										<h:panelGroup layout="block" styleClass="large_area0">
+											<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+										</h:panelGroup>
+										<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" valueChangeListener="#{EasySubmission.changeImportSourceListener}">
+											<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
+											<f:ajax render="formFetchMd:easySubmission:Import:fetchExternal" execute="formFetchMd:easySubmission:Import:identifier"/>
+										</h:selectOneMenu>
+									</h:panelGroup>
+									
+							
+								</span>
+								<span class="xDouble_area0">
+									<h:outputLabel id="lblIDValue" styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
+									<h:inputText id="inpServiceID" styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
+								</span>
+							</span>
+						
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{EasySubmissionSessionBean.fulltext}">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							<h:outputText value="#{lbl.easy_submission_lblFulltext}"/>
 							<span class="noDisplay">: </span>
 						</b>
-					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine">
-						<span class="free_area0 xTiny_marginLExcl endline">
-							<span class="large_area0 largeFormPush">
-								<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
-								
-								<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-									<h:panelGroup layout="block" styleClass="large_area0">
-										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-									</h:panelGroup>
-									<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$pb(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
-										<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
-									</h:selectOneMenu>
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0" style="line-height:0.8181em;">
-									&#160;
-									<h:commandButton title="#{tip.easy_submission_btSelectSource}" action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
-								</h:panelGroup>
-							</span>
-							<span class="xDouble_area0">
-								<h:outputLabel id="lblIDValue" styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
-								<h:inputText id="inpServiceID" styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
-							</span>
-						</span>
-						<br class="clear" />
-						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl endline line180" rendered="#{EasySubmissionSessionBean.fulltext}">
-							<h:selectOneRadio value="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">
+						
+						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl endline line180" >
+							<h:selectOneRadio value="#{EasySubmissionSessionBean.radioSelectFulltext}">
 								<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
 							</h:selectOneRadio>
 						</h:panelGroup>
 					</h:panelGroup>
-				</h:panelGroup>
+				
 	
 			<!-- Import from bibtex file -->
 				<h:panelGroup id="uploadBibtexFile" layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableExternalFields}">
@@ -159,11 +156,10 @@
 					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
 						<span class="free_area0 xTiny_marginLExcl endline fileSection">
 							<h:panelGroup style="line-height:2.5454em;">
-								<rich:fileUpload listHeight="60px" addControlLabel="#{lbl.easy_submission_lblUploadBibtex}" id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
-									immediateUpload="true" maxFilesQuantity="1">
-									<a4j:support event="onclear" reRender="uploadBibtexFile,buttons" actionListener="#{EasySubmission.clearBibtexFile}"/>
-									<a4j:support event="onfileuploadcomplete" reRender="buttons"/>
-									</rich:fileUpload>
+									
+								<p:fileUpload fileUploadListener="#{EasySubmission.bibtexFileUploaded}" label="#{lbl.easy_submission_lblUploadBibtex}" multiple="false" id="inpFile" styleClass="fileInput" fileLimit="1" update="buttons" dragDropSupport="true" auto="true">
+						
+								</p:fileUpload>
 							</h:panelGroup>
 						</span>
 					</h:panelGroup>
@@ -184,20 +180,23 @@
 						</h:selectOneRadio>
 					</h:panelGroup>
 				</h:panelGroup>
-			</div>
+			</h:panelGroup>
 		</div>
 	</div>
 </div>
 <h:panelGroup layout="block" id="buttons" styleClass="full_area0 formButtonArea">		
 	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
+	<ui:remove>
 	<!-- 
 	<h:commandLink id="lnkImportBibtex" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton #{empty EasySubmissionSessionBean.uploadedBibtexFile ? 'disabled' : ''}" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableExternalFields}" disabled="#{empty EasySubmissionSessionBean.uploadedBibtexFile}">
 		<h:outputText value="#{lbl.easy_submission_btnNext}" />
 	</h:commandLink>
 	-->
+	</ui:remove>
 	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}" onclick="fullItemReloadAjax();">
 		<h:outputText value="#{lbl.easy_submission_btnFetch}"/>
 	</h:commandLink>
 </h:panelGroup>
 
 </f:subview>
+</ui:composition>

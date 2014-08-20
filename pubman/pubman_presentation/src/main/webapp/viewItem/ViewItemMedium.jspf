@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 mediumView">
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -74,9 +71,9 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.firstSource.volume}"/>
-			<h:outputText value=" (" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
+			<h:outputText value=" (" rendered="#{item.firstSource != null and item.firstSource.issue != null and item.firstSource.issue != ''}" />
 			<h:outputText value="#{item.firstSource.issue}"/>
-			<h:outputText value=")" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
+			<h:outputText value=")" rendered="#{item.firstSource != null and item.firstSource.issue != null and item.firstSource.issue != ''}" />
 			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource==null || (item.firstSource.volume==null and item.firstSource.issue==null) || (item.firstSource.volume=='' and item.firstSource.issue=='')}"/>
 		</span>
 	</div>
@@ -120,7 +117,7 @@
 			<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<a4j:repeat value="#{item.fileBeanList}" var="fileBean" rowKeyVar="index">
+			<ui:repeat value="#{item.fileBeanList}" var="fileBean" >
 				<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{fileBean.showSearchHits}">
 					<h:outputLink id="lnkSearchHitsURL" target="." value="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}" title="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType=='application/pdf'}">
 						<h:outputText value="#{fileBean.fileName}"/>
@@ -129,13 +126,15 @@
 						<h:outputText value="#{fileBean.fileName}"/>
 					</h:outputLink>
 					<br/>
-					<a4j:repeat id="fileSearchHitIterator" var="hit" value="#{fileBean.searchHits}" rowKeyVar="index" >
+					<ui:repeat id="fileSearchHitIterator" var="hit" value="#{fileBean.searchHits}" >
 							<h:outputText value="#{hit.beforeSearchHitString}"/>
 							<h:outputText styleClass="searchHit" value="#{hit.searchHitString}"/>
 							<h:outputText value="#{hit.afterSearchHitString}"/>
-					</a4j:repeat>
+					</ui:repeat>
 				</h:panelGroup>
-			</a4j:repeat>
+			</ui:repeat>
 		</span>
 	</h:panelGroup>
 </h:panelGroup>
+
+</ui:composition>

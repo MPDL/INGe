@@ -33,7 +33,7 @@ public class ContextCriterionCollection
     	try{
             InitialContext initialContext = new InitialContext(); 
             // initialize used Beans
-            this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+            this.pubItemDepositing = (PubItemDepositing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
     		getContextList();
     	}catch(Exception e)
     	{
@@ -153,7 +153,7 @@ public class ContextCriterionCollection
         }
         
         @Override
-        protected void removeObjectAtIndex(int i)
+		public void removeObjectAtIndex(int i)
         {
             // due to wrapped data handling
             super.removeObjectAtIndex(i);

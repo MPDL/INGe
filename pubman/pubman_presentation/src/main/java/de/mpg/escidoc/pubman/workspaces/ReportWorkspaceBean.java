@@ -111,10 +111,10 @@ public class ReportWorkspaceBean extends FacesBean {
 		InitialContext initialContext;
 		try {
 			initialContext = new InitialContext();
-			this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
+			this.searchService = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
 			this.transformer = new TransformationBean();
-			this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-			this.citationStyleHandler = (CitationStyleHandler) initialContext.lookup(CitationStyleHandler.SERVICE_NAME);
+			this.xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+			this.citationStyleHandler = (CitationStyleHandler) initialContext.lookup("java:global/pubman_ear/citationmanager/CitationStyleHandlerBean");
 			this.configuration = new HashMap<String, String>();
 			this.childAffilList = new ArrayList<String>();
 			Format[] targetFormats = ((Transformation)this.transformer).getTargetFormats(JUS_REPORT_SNIPPET_FORMAT);

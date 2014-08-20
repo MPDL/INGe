@@ -79,7 +79,7 @@ public class YearbookArchiveBean extends FacesBean
         this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
         InitialContext initialContext = new InitialContext();
-        this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        this.xmlTransforming = (XmlTransforming)initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
         this.archivedYearbooks = new ArrayList<PubItemVO>();
         HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -162,7 +162,7 @@ public class YearbookArchiveBean extends FacesBean
     public List<PubItemVOPresentation> retrieveAllMembers() throws Exception
     {
         InitialContext initialContext = new InitialContext();
-        Search searchService = (Search)initialContext.lookup(Search.SERVICE_NAME);
+        Search searchService = (Search)initialContext.lookup("java:global/pubman_ear/search/SearchBean");
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
         MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery(this.getSelectedYearbook());
         ItemContainerSearchResult result = searchService.searchForItemContainer(mdQuery);

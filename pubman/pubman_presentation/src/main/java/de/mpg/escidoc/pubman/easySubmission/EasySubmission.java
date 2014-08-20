@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -30,7 +30,6 @@ package de.mpg.escidoc.pubman.easySubmission;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,23 +44,24 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -81,7 +81,6 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.pubman.util.SourceVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -136,9 +135,11 @@ public class EasySubmission extends FacesBean
     // Transformation Service
     private Transformation transformer = null;
     // XML Transforming Service
-    private XmlTransforming xmlTransforming = null;
+    @EJB
+    private XmlTransforming xmlTransforming;
     // Validation Service
-    private ItemValidating itemValidating = null;
+    @EJB
+    private ItemValidating itemValidating;
     private HtmlSelectOneRadio radioSelect;
     private HtmlSelectOneMenu dateSelect;
     // constants for the submission method
@@ -161,10 +162,12 @@ public class EasySubmission extends FacesBean
     public final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
     // Faces navigation string
     public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
-    private List<UploadItem> uploadedFile;
+    private UploadedFile uploadedFile;
+    /*
     private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
     private HtmlAjaxRepeat locatorIterator = new HtmlAjaxRepeat();
     private HtmlAjaxRepeat creatorIterator = new HtmlAjaxRepeat();
+    */
     public SelectItem[] locatorVisibilities;
     private CreatorCollection creatorCollection;
     private IdentifierCollection identifierCollection;
@@ -173,7 +176,7 @@ public class EasySubmission extends FacesBean
     // Import
     private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();
     private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
-    private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
+    //private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
     public SelectItem[] FULLTEXT_OPTIONS;
     public SelectItem[] REFERENCE_OPTIONS;
@@ -186,7 +189,7 @@ public class EasySubmission extends FacesBean
     private String hiddenAlternativeTitlesField;
     private String hiddenIdsField;
     private TitleCollection eventTitleCollection;
-    private HtmlAjaxRepeat identifierIterator;
+    //private HtmlAjaxRepeat identifierIterator;
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
     /** pub context name. */
     private String contextName = null;
@@ -195,23 +198,17 @@ public class EasySubmission extends FacesBean
     // Dummy for language autosuggest
     private String alternativeLanguageName;
 
+
     /**
      * Public constructor.
      */
     public EasySubmission()
     {
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
-            this.transformer = appBean.getTransformationService();
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
-        }
-        catch (NamingException ne)
-        {
-            throw new RuntimeException("Validation service not initialized", ne);
-        }
+
+        //InitialContext initialContext = new InitialContext();
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+        this.transformer = appBean.getTransformationService();
+
         this.init();
     }
 
@@ -632,7 +629,7 @@ public class EasySubmission extends FacesBean
         // Visibility PUBLIC is static default value for locators
         this.getLocators().get(this.getLocators().size() - 1).getFile().setVisibility(Visibility.PUBLIC);
         // As default value set 'supplementary material'
-        this.locatorIterator = new HtmlAjaxRepeat();
+        //this.locatorIterator = new HtmlAjaxRepeat();
         return "loadNewEasySubmission";
     }
 
@@ -786,9 +783,9 @@ public class EasySubmission extends FacesBean
      * 
      * @param event
      */
-    public void fileUploaded(UploadEvent event)
+    public void fileUploaded(FileUploadEvent event)
     {
-        uploadedFile = event.getUploadItems();
+        uploadedFile = event.getFile();
         upload(true);
         /*
          * int indexUpload = this.getEasySubmissionSessionBean().getFiles().size() - 1; UploadedFile file =
@@ -803,9 +800,9 @@ public class EasySubmission extends FacesBean
          */
     }
     
-    public void bibtexFileUploaded(UploadEvent event)
+    public void bibtexFileUploaded(FileUploadEvent event)
     {
-        getEasySubmissionSessionBean().setUploadedBibtexFile(event.getUploadItem());
+        getEasySubmissionSessionBean().setUploadedBibtexFile(event.getFile());
     }
 
     /**
@@ -820,8 +817,11 @@ public class EasySubmission extends FacesBean
     {
         if(uploadedFile!=null)
         {
+        	UploadedFile file = uploadedFile;
+        	/*
             for(UploadItem file : this.uploadedFile)
             {
+            */
                 StringBuffer errorMessage = new StringBuffer();
                 int indexUpload = this.getFiles().size() - 1;
                 //UploadItem file = this.uploadedFile;
@@ -838,6 +838,7 @@ public class EasySubmission extends FacesBean
                      * !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-")) {
                      */
                     contentURL = uploadFile(file);
+                    String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
                     if (contentURL != null && !contentURL.trim().equals(""))
                     {
                         
@@ -851,9 +852,9 @@ public class EasySubmission extends FacesBean
                                 .add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile,
                                         false));
                         
-                        newFile.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
-                        newFile.setName(file.getFileName());
-                        newFile.getDefaultMetadata().setSize((int)file.getFileSize());
+                        newFile.getDefaultMetadata().setTitle(new TextVO(fixedFileName));
+                        newFile.setName(fixedFileName);
+                        newFile.getDefaultMetadata().setSize((int)file.getSize());
                         // set the file name automatically if it is not filled by the user
                         /*
                          * if(this.getFiles().get(indexUpload).getFile().getName() == null ||
@@ -865,19 +866,24 @@ public class EasySubmission extends FacesBean
                         //newFile.setMimeType(file.getContentType());
                         
                         Tika tika = new Tika();
+                       /*
                         if(file.isTempFile())
                         {
+                        */
                             try {
-                                newFile.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
+                            	InputStream fis = file.getInputstream();
+                                newFile.setMimeType(tika.detect(fis, fixedFileName));
+                                fis.close();
                             } catch (IOException e) {
-                                logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+                                logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
                             }
+                            /*
                         }
                         else
                         {
                             newFile.setMimeType(tika.detect(file.getFileName()));
                         }
-                        
+                        */
                         
                         FormatVO formatVO = new FormatVO();
                         formatVO.setType("dcterms:IMT");
@@ -910,7 +916,7 @@ public class EasySubmission extends FacesBean
                 {
                     error(errorMessage.toString());
                 }
-            }
+        //    }
         }
         return "loadNewEasySubmission";
     }
@@ -921,10 +927,10 @@ public class EasySubmission extends FacesBean
      * @param file
      * @return
      */
-    public String uploadFile(UploadItem file)
+    public String uploadFile(UploadedFile file)
     {
         String contentURL = "";
-        if (file != null && file.getFileSize() > 0)
+        if (file != null && file.getSize() > 0)
         {
             try
             {
@@ -964,19 +970,25 @@ public class EasySubmission extends FacesBean
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(UploadItem uploadedFile, String mimetype, String userHandle) throws Exception
+    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+       /*
         if(uploadedFile.isTempFile())
         {
-            method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(uploadedFile.getFile())));
-        }
+        */
+        	InputStream fis = uploadedFile.getInputstream();
+            method.setRequestEntity(new InputStreamRequestEntity(fis));
+            
+    /*    
+    }
         else
         {
             method.setRequestEntity(new InputStreamRequestEntity(new ByteArrayInputStream(uploadedFile.getData())));
         }
+        */
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
@@ -984,9 +996,8 @@ public class EasySubmission extends FacesBean
         ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
-        return ctransforming.transformUploadResponseToFileURL(response);
+        fis.close();
+        return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
     /**
@@ -1010,9 +1021,7 @@ public class EasySubmission extends FacesBean
         HttpClient client = new HttpClient();
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
-        return ctransforming.transformUploadResponseToFileURL(response);
+        return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
     public String uploadBibtexFile()
@@ -1022,8 +1031,10 @@ public class EasySubmission extends FacesBean
             StringBuffer content = new StringBuffer();
             try
             {
-                UploadItem uploadedBibTexFile = getEasySubmissionSessionBean().getUploadedBibtexFile();
+                UploadedFile uploadedBibTexFile = getEasySubmissionSessionBean().getUploadedBibtexFile();
                 InputStream fileIs = null;
+               
+                /*
                 if(uploadedBibTexFile.isTempFile())
                 {
                     fileIs = new FileInputStream(uploadedBibTexFile.getFile());
@@ -1032,8 +1043,9 @@ public class EasySubmission extends FacesBean
                 {
                     fileIs = new ByteArrayInputStream(uploadedBibTexFile.getData());
                 }
+                */
                 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fileIs));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(uploadedBibTexFile.getInputstream()));
                 String line;
                 while ((line = reader.readLine()) != null)
                 {
@@ -1718,10 +1730,11 @@ public class EasySubmission extends FacesBean
      * 
      * @return String navigation string
      */
-    public String changeImportSource()
+    public void changeImportSource(String newImportSource)
     {
+    	
         DataSourceVO currentSource = null;
-        currentSource = this.dataSourceHandler.getSourceByName(this.sourceSelect.getSubmittedValue().toString());
+        currentSource = this.dataSourceHandler.getSourceByName(newImportSource);
         if (currentSource == null)
         {
             currentSource = new DataSourceVO();
@@ -1781,11 +1794,19 @@ public class EasySubmission extends FacesBean
                 this.getEasySubmissionSessionBean().setFulltext(false);
             }
         }
-        this.getEasySubmissionSessionBean().setCurrentExternalServiceType(
-                this.sourceSelect.getSubmittedValue().toString());
-        return "loadNewFetchMetadata";
+        this.getEasySubmissionSessionBean().setCurrentExternalServiceType(newImportSource);
+        
+        //return "loadNewFetchMetadata";
     }
 
+    public void changeImportSourceListener(ValueChangeEvent evt)
+    {
+    	if(evt.getNewValue()!=null)
+    	{
+    		changeImportSource((String)evt.getNewValue());
+    	}
+    }
+    
     private void setBibTexInfo()
     {
 //        this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
@@ -1800,8 +1821,8 @@ public class EasySubmission extends FacesBean
      */
     public String selectImportExternal()
     {
-        this.sourceSelect.setSubmittedValue(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
-        this.changeImportSource();
+        //this.sourceSelect.setSubmittedValue(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
+        this.changeImportSource(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
         this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
         return "loadNewEasySubmission";
     }
@@ -2006,16 +2027,17 @@ public class EasySubmission extends FacesBean
         this.getEasySubmissionSessionBean().setLocators(files);
     }
 
-    public List<UploadItem> getUploadedFile()
+    public UploadedFile getUploadedFile()
     {
         return this.uploadedFile;
     }
 
-    public void setUploadedFile(List<UploadItem> uploadedFile)
+    public void setUploadedFile(UploadedFile uploadedFile)
     {
         this.uploadedFile = uploadedFile;
     }
 
+    /*
     public HtmlAjaxRepeat getFileIterator()
     {
         return this.fileIterator;
@@ -2035,6 +2057,7 @@ public class EasySubmission extends FacesBean
     {
         this.locatorIterator = locatorIterator;
     }
+    */
 
     public String getSelectedDate()
     {
@@ -2531,6 +2554,7 @@ public class EasySubmission extends FacesBean
         }
     }
 
+    /*
     public HtmlSelectOneMenu getSourceSelect()
     {
         return this.sourceSelect;
@@ -2540,6 +2564,7 @@ public class EasySubmission extends FacesBean
     {
         this.sourceSelect = sourceSelect;
     }
+    */
 
     public SelectItem[] getFULLTEXT_OPTIONS()
     {
@@ -2630,6 +2655,7 @@ public class EasySubmission extends FacesBean
         return this.getI18nHelper().getSelectItemsDegreeType(true);
     }
 
+    /*
     public HtmlAjaxRepeat getCreatorIterator()
     {
         return creatorIterator;
@@ -2639,6 +2665,7 @@ public class EasySubmission extends FacesBean
     {
         this.creatorIterator = creatorIterator;
     }
+    */
 
     public void setOverwriteCreators(boolean overwriteCreators)
     {
@@ -2755,17 +2782,18 @@ public class EasySubmission extends FacesBean
         return eventTitleCollection;
     }
 
+    /*
     public void setIdentifierIterator(HtmlAjaxRepeat identifierIterator)
     {
         this.identifierIterator = identifierIterator;
     }
 
-    /* JUS BEGIN */
-    /* JUS BEGIN */
+
     public HtmlAjaxRepeat getIdentifierIterator()
     {
         return identifierIterator;
     }
+    */
 
     public HtmlSelectOneMenu getGenreSelect()
     {

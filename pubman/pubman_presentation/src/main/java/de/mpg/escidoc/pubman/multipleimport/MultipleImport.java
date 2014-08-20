@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -30,8 +30,10 @@
 
 package de.mpg.escidoc.pubman.multipleimport;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -44,14 +46,16 @@ import javax.faces.convert.Converter;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -91,7 +95,9 @@ public class MultipleImport extends FacesBean
 
     
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
-    private UploadItem uploadedImportFile;
+    private UploadedFile uploadedImportFile;
+    private String fixedFileName;
+    private File uploadedFile;
     
     private ImportProcess importProcess = null;
     
@@ -182,9 +188,10 @@ public class MultipleImport extends FacesBean
     
     public String getFileSize()
     {
-        if (this.uploadedImportFile != null)
+        if (this.uploadedFile != null)
         {
-            long size = uploadedImportFile.getFileSize();
+            long size = uploadedFile.length();
+            System.out.println(size);
             if (size < 1024)
             {
                 return size + "B";
@@ -233,7 +240,8 @@ public class MultipleImport extends FacesBean
     	}
     	*/
         
-        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), uploadedImportFile.getFile(), format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
+        
+        importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), uploadedFile, format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
         importProcess.start();
         
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -397,7 +405,7 @@ public class MultipleImport extends FacesBean
     /**
      * @return the uploadedImportFile
      */
-    public UploadItem getUploadedImportFile()
+    public UploadedFile getUploadedImportFile()
     {
         return uploadedImportFile;
     }
@@ -405,7 +413,7 @@ public class MultipleImport extends FacesBean
     /**
      * @param uploadedImportFile the uploadedImportFile to set
      */
-    public void setUploadedImportFile(UploadItem uploadedImportFile)
+    public void setUploadedImportFile(UploadedFile uploadedImportFile)
     {
         this.uploadedImportFile = uploadedImportFile;
     }
@@ -475,14 +483,34 @@ public class MultipleImport extends FacesBean
         this.formatConverter = formatConverter;
     }
     
-    public void fileUploaded(UploadEvent evt)
+    public void fileUploaded(FileUploadEvent evt)
     {
-    	this.uploadedImportFile = evt.getUploadItem();
+    	try {
+			this.uploadedImportFile = evt.getFile();
+			this.fixedFileName = CommonUtils.fixURLEncoding(uploadedImportFile.getFileName());
+			uploadedFile = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
+			FileOutputStream fos = new FileOutputStream(uploadedFile);
+			InputStream is = uploadedImportFile.getInputstream();
+			IOUtils.copy(is, fos);
+			fos.flush();
+			fos.close();
+			is.close();
+		} catch (Exception e) {
+			logger.error("Error while uplaoding file", e);
+		} 
     }
     
     public void clearImportFile(ActionEvent evt)
     {
     	this.uploadedImportFile = null;
     }
+
+	public String getFixedFileName() {
+		return fixedFileName;
+	}
+
+	public void setFixedFileName(String fixedFileName) {
+		this.fixedFileName = fixedFileName;
+	}
 
 }

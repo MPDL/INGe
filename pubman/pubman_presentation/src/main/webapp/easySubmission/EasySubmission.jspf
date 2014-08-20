@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -26,28 +27,28 @@
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
+
 
 <f:subview id="easySubmission">
 	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP1'}">
-		<jsp:directive.include file="steps/Step1.jspf"/>
+		<ui:include src="steps/Step1.jspf"/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP2'}">
-		<jsp:directive.include file="steps/Step2.jspf"/>
+		<ui:include src="steps/Step2.jspf"/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP3' && EasySubmissionSessionBean.currentSubmissionMethod == 'FETCH_IMPORT'}">
-		<jsp:directive.include file="steps/Step3Import.jspf"/>
+	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP3' and EasySubmissionSessionBean.currentSubmissionMethod == 'FETCH_IMPORT'}">
+		<ui:include src="steps/Step3Import.jspf"/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP3' && EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
-		<jsp:directive.include file="steps/Step3Manual.jspf"/>
+	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP3' and EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
+		<ui:include src="steps/Step3Manual.jspf"/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP4' && EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
-		<jsp:directive.include file="steps/Step4Manual.jspf"/>
+	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP4' and EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
+		<ui:include src="steps/Step4Manual.jspf"/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP5' && EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
-		<jsp:directive.include file="steps/Step5Manual.jspf"/>
+	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP5' and EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
+		<ui:include src="steps/Step5Manual.jspf"/>
 	</h:panelGroup>
 </f:subview>
+
+</ui:composition>

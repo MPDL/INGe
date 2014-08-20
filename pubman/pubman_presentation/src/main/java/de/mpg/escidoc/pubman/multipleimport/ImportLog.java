@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -1777,7 +1777,7 @@ public class ImportLog
                 ContextVO contextVO;
                 ContextHandler contextHandler = ServiceLocator.getContextHandler();
                 InitialContext ctx = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
+                XmlTransforming xmlTransforming = (XmlTransforming) ctx.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
                 
                 String contextXml = contextHandler.retrieve(this.context);
                 contextVO = xmlTransforming.transformToContext(contextXml);

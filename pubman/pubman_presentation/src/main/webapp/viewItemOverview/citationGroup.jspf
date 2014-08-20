@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <!-- Citation tile -->
 <h:panelGroup layout="block" styleClass="third_area0 tile_category borderOrange" >
@@ -46,9 +43,9 @@
 		<h:outputText value="#{ViewItemFull.citationHtml}" escape="false"/>
 		<br/>
 		<!-- PID -->
-		<h:outputText id="txtCitationUrlPid" value="#{lbl.ViewItemOverview_lblCiteAs}: " rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}" />
-		<h:outputLink id="lnkCitationUrlPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}">
-			<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.version.pidWithoutPrefix}"/>
+		<h:outputText id="txtCitationUrlItemPid" value="#{lbl.ViewItemOverview_lblCiteAs}: " rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.version.pid != null}" />
+		<h:outputLink id="lnkCitationURLItemPid" value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.objectPidWithoutPrefix}" title="#{tip.ViewItemFull_lblCiteItemAs}" rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.objectPidWithoutPrefix != null}">
+			<h:outputText value="#{ViewItemFull.resolveHandleService}#{ViewItemFull.pubItem.objectPidWithoutPrefix}"/>
 		</h:outputLink>
 		<!-- URL if PID is deactivated -->
 		<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.citationURL}" rendered="#{!ApplicationBean.handlesActivated and ViewItemFull.isStateReleased}">
@@ -56,3 +53,5 @@
 		</h:outputLink>	
 	</h:panelGroup>
 </h:panelGroup>
+
+</ui:composition>

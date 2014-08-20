@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
 <!-- 
@@ -33,17 +33,19 @@
 	- page: The current page of items (optional, default 0)
 	- itemsPerPage: The number of items that should be displayed (optional, default 0, show all)
  -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
-		<html>
-		<body>
-			<a4j:repeat var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
+
+
+		
+			<ui:repeat var="item" value="#{ImportItems.import.items}" varStatus="status">
+
 				<h:panelGroup>
 					<div class="full_area0" style="margin-bottom: 0.19em;">
 						<div class="medium_area0_p8 state noPaddingTopBottom" style="margin-left: 2.28em;">					
@@ -63,17 +65,17 @@
 						</div>
 						<div class="large_area0_p8 noPaddingTopBottom">
 							<h:inputHidden id="inpItemDetailsLink" value="#{item.detailsLink}"/>
-							<a onmouseover="$pb(this).createDialog({addr: $pb(this).siblings('input').val(), bg: '#FFF',opacity: 0.5});">
+							<a href="#" onclick="showDialog($(this).siblings('input').val());return false;">
 								Details
 							</a>
+
+							
 						</div>
 						<div class="large_area0_p8 endline noPaddingTopBottom">
 							<h:outputText value="#{item.errorLevel}"/>&#160;
 						</div>
 					</div>
 				</h:panelGroup>
-			</a4j:repeat>
-		</body>
-		</html>
+			</ui:repeat>
+
 	</f:view>
-</jsp:root>

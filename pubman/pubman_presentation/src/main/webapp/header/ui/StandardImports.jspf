@@ -1,5 +1,5 @@
-<%
-/* 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
   CDDL HEADER START
 
   The contents of this file are subject to the terms of the
@@ -8,7 +8,7 @@
   with the License.
 
   You can obtain a copy of the license at license/ESCIDOC.LICENSE
-  or http://www.escidoc.de/license.
+  or http://www.escidoc.org/license.
   See the License for the specific language governing permissions
   and limitations under the License.
 
@@ -24,12 +24,7 @@
   fuer wissenschaftlich-technische Information mbH and Max-Planck-
   Gesellschaft zur Foerderung der Wissenschaft e.V.
   All rights reserved. Use is subject to license terms.
-*/
-   
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="pragma" content="no-cache"/>
@@ -42,77 +37,23 @@
 	/*.headerLogo {background-image: url("<h:outputText value='#{ApplicationBean.logoUrl}'/>") !important; background-repeat: norepeat; background-position: top left;}*/
 	.headerLogo {background-image: none; <h:outputText value='#{ApplicationBean.additionalLogoCss}'/>}
 </style>
+
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 
-<link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
+<link rel="search" type="application/opensearchdescription+xml" title="#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}" href="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}search/OpenSearch.jsp" />
 
-<%--
-<script> 
-
-var $rf, jQueryRf;
-if(typeof jQuery != 'undefined')
-	{
-		
-		$rf = $;
-		jQueryRf = jQuery;
-		console.log('Set $rf to ' + jQueryRf.fn.jquery);
-	}
-	
-</script>
---%>
-
-<a4j:loadScript src="resource://jquery.js"/>
-<script>
-if (jQuery.browser.msie && jQuery.browser.version == 9) {
-    window.XMLSerializer = function() {
-
-    };
-    window.XMLSerializer.prototype.serializeToString = function(oNode) {
-
-      return oNode.xml;
-
-    };
-  }
-</script>
-
-<%--
-<script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/commonJavaScript/jquery/jquery-1.4.min.js">;</script>
-
-<script type="text/javascript">
-
-var $pb = $;
-var jQueryPb = jQuery;
-console.log('Set $pb to ' + $pb().jquery);
-
-</script>
---%>
-<script>
-var $pb, jQueryPb;
-$pb = jQuery;
-jQueryPb = jQuery;
-//Globally turn off caching of ajax requests. Bugfix for IE: IE caches ajax requests and therfore does not display the correct value
-//for newly entered or edited CONE entries when using autosuggest.
-$pb.ajaxSetup({ cache: false });
-</script>
-<%--
-<script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" />
-<script type="text/javascript" language="JavaScript" src="http://code.jquery.com/jquery-latest.js" />
---%>
-
-<script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/scripts.js">;</script>
-<script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
-<script type="text/javascript"> 
-<%--if($rf != null)
-{
-	
-		$ = $rf;
-		jQuery = jQueryRf;
-		console.log('Set $ to ' + jQueryRf.fn.jquery);
-}
---%>
-</script>
-
-
+<h:outputScript library="javax.faces" name="jsf.js"/>
+<h:outputScript library="primefaces" name="jquery/jquery.js"/>
+<h:outputScript name="scripts.js"/>
+<h:outputScript name="commonJavaScript/eSciDoc_javascript.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_ext_paginator.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_selectbox.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_item_list.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_full_item.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_single_elements.js"/>
+<h:outputScript name="commonJavaScript/componentJavaScript/breadcrump.js"/>
 
 
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
+
+</ui:composition>

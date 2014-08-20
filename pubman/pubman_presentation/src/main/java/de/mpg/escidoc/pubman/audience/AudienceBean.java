@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -422,15 +422,15 @@ public class AudienceBean extends FacesBean
         // populate the core service Url
         try 
         {
-            fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+            fwUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
         } 
         catch (IOException ioE) 
         {
-            throw new RuntimeException("Could  not read the Property file for property 'escidoc.framework_access.framework.url'", ioE);
+            throw new RuntimeException("Could  not read the Property file for property 'escidoc.framework_access.login.url'", ioE);
         } 
         catch (URISyntaxException uE) 
         {
-            throw new RuntimeException("Syntax of property 'escidoc.framework_access.framework.url' not correct", uE);
+            throw new RuntimeException("Syntax of property 'escidoc.framework_access.login.url' not correct", uE);
         }
         return fwUrl;
     }

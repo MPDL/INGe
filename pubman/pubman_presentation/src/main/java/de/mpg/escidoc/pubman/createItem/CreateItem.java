@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -34,7 +34,6 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -175,7 +174,7 @@ public class CreateItem extends FacesBean
                 this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
                 this.getEditItemSessionBean().setGenreBundle(genreBundle);
                 this.getEditItem().setItem(null);
-                this.getEditItem().setIdentifierIterator(new HtmlAjaxRepeat());
+                //this.getEditItem().setIdentifierIterator(new UIRepeat());
                 this.getEditItem().init();
             }
             return navigateTo;

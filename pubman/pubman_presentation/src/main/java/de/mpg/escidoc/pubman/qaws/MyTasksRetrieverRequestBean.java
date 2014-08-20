@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
@@ -69,6 +70,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     public static final String LOAD_QAWS = "loadQAWSPage";
 
     private Map<String, AffiliationVOPresentation> affiliationMap;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
 
     public MyTasksRetrieverRequestBean()
     {
@@ -104,8 +108,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         try
         {
             if (loginHelper.getESciDocUserHandle() == null) return returnList;
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 
             checkSortCriterias(sc);
             // define the filter criteria
@@ -172,9 +174,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
             if (!getSelectedOrgUnit().toLowerCase().equals("all"))
             {
+                Filter orgUnitFilter = filter.new StandardFilter("/any-organization-pids", getSelectedOrgUnit(), "=", "and");
+                filter.getFilterList().add(orgUnitFilter);
+            	/*
                 String orgUNIT = getSelectedOrgUnit();
                 AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
                 addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
+                */
             }
 
             if (!getSelectedImport().toLowerCase().equals("all"))

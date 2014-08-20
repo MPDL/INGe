@@ -2,7 +2,7 @@
 <!-- CDDL HEADER START The contents of this file are subject to the terms 
 	of the Common Development and Distribution License, Version 1.0 only (the 
 	"License"). You may not use this file except in compliance with the License. 
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.de/license. 
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
 	See the License for the specific language governing permissions and limitations 
 	under the License. When distributing Covered Code, include this CDDL HEADER 
 	in each file and include the License file at license/ESCIDOC.LICENSE. If 
@@ -12,16 +12,42 @@
 	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
 	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
 	e.V. All rights reserved. Use is subject to license terms. -->
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
 
-	<jsp-config>
-		<taglib>
-			<taglib-uri>escidoc.tld</taglib-uri>
-			<taglib-location>escidoc.tld</taglib-location>
-		</taglib>
-	</jsp-config>
+<!-- 
+    <context-param>
+       <param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
+       <param-value>mojarra-1.2_15</param-value>
+    </context-param>
+ -->
+ 
+	 <context-param>
+	  <param-name>javax.faces.PROJECT_STAGE</param-name>
+	  <param-value>Production</param-value>
+	</context-param>
+	
+     <context-param>     
+     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+     <param-value>.jsp</param-value>
+     </context-param>
+     
+     <context-param>
+        <param-name>facelets.VIEW_MAPPINGS</param-name>
+        <param-value>*.jsp</param-value>
+    </context-param> 
+	
+	<mime-mapping>
+	    <extension>jsp</extension>
+	    <mime-type>text/html</mime-type>
+  	</mime-mapping>
+  	
+  	<mime-mapping>
+	    <extension>jspf</extension>
+	    <mime-type>text/html</mime-type>
+  	</mime-mapping>
+	
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
@@ -32,59 +58,24 @@
 		<param-value>/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml</param-value>
 	</context-param>
 
-	<!-- RichFaces 3.3.x escapes UTF-8 more than once. Should be deleted after 
-		including a newer RichFaces version is included and https://issues.jboss.org/browse/RF-8615 
-		is resolved 
-		-->
+	<!-- 
 	<context-param>
-		<param-name>com.sun.faces.disableUnicodeEscaping</param-name>
-		<param-value>auto</param-value>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>none</param-value>
 	</context-param>
+	-->
 	
+	<filter>
+		<display-name>Sitemap Filter</display-name>
+		<filter-name>sitemap</filter-name>
+		<filter-class>de.mpg.escidoc.pubman.servlet.SitemapFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemap</filter-name>
+		<servlet-name>default</servlet-name>
+	</filter-mapping>
 
-	<!-- Maximum memory per request (in bytes) -->
-	<!-- Use 500K <context-param> <param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY</param-name> 
-		<param-value>512000</param-value> </context-param> -->
-
-	<!-- Maximum disk space per request (in bytes) -->
-	<!-- Use 5,000K <context-param> <param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE</param-name> 
-		<param-value>512000000</param-value> </context-param> -->
-
-	<!-- Trinidad by default uses an optimized client-side state saving mechanism. 
-		To disable that, uncomment the following -->
-	<!--context-param> <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_METHOD</param-name> 
-		<param-value>all</param-value> </context-param -->
-
-	<!-- Trinidad also supports an optimized strategy for caching some view 
-		state at an application level, which significantly improves scalability. 
-		However, it makes it harder to develop (updates to pages will not be noticed 
-		until the server is restarted), and in some rare cases cannot be used for 
-		some pages (see Trinidad documentation for more information) <context-param> 
-		<param-name>org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE</param-name> 
-		<param-value>false</param-value> </context-param> -->
-	<!-- If this parameter is enabled, Trinidad will automatically check the 
-		modification date of your JSPs, and discard saved state when they change; 
-		this makes development easier, but adds overhead that should be avoided when 
-		your application is deployed <context-param> <param-name>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION</param-name> 
-		<param-value>false</param-value> </context-param> -->
-	<!-- Enables Change Persistence at a session scope. By default, Change Persistence 
-		is entirely disabled. The ChangeManager is an API, which can persist component 
-		modifications (like, is a showDetail or tree expanded or collapsed). For 
-		providing a custom Change Persistence implementation inherit from the Trinidad 
-		API's ChangeManager class. As the value you have to use the fullqualified 
-		class name. -->
-	<!-- <context-param> <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name> 
-		<param-value>session</param-value> </context-param> <context-param> <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name> 
-		<param-value>com.sun.facelets.FaceletViewHandler</param-value> </context-param> -->
-	<context-param>
-		<param-name>facelets.VIEW_MAPPINGS</param-name>
-		<param-value>*.xhtml</param-value>
-	</context-param>
-
-
-	<!-- <context-param> <param-name>org.richfaces.SKIN</param-name> <param-value>plain</param-value> 
-		</context-param> <context-param> <param-name>org.richfaces.CONTROL_SKINNING</param-name> 
-		<param-value>disable</param-value> </context-param> -->
+	<!-- 
 	<filter>
 		<display-name>RichFaces Filter</display-name>
 		<filter-name>richfaces</filter-name>
@@ -98,7 +89,7 @@
 			<param-value>512000000</param-value>
 		</init-param>
 	</filter>
-
+	
 
 
 	<filter-mapping>
@@ -108,7 +99,7 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
-
+-->
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
@@ -158,6 +149,7 @@
 	<listener>
 		<listener-class>de.mpg.escidoc.pubman.appbase.PubManSessionListener</listener-class>
 	</listener>
+	 
 
 	<filter>
 		<filter-name>SessionTimeoutFilter</filter-name>
@@ -197,12 +189,6 @@
 
 	<welcome-file-list>
 		<welcome-file>faces/HomePage.jsp</welcome-file>
-		<welcome-file>redirectSearching.jsp</welcome-file>
-		<welcome-file>redirectDepositing.jsp</welcome-file>
-		<welcome-file>redirectViewing.jsp</welcome-file>
-		<welcome-file>redirectEditing.jsp</welcome-file>
-		<welcome-file>redirectAffiliation.jsp</welcome-file>
-		<welcome-file>redirectAdvancedSearch.jsp</welcome-file>
 	</welcome-file-list>
 
 	<!-- <listener> -->

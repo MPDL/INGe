@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove> 
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -26,12 +27,9 @@
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
-<h:panelGroup layout="block"  id="editLegalCase"  styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.legal_case_display == 'false' && genre.legal_case_form_id == 'full-submission' || genre.legal_case_display == 'false' && genre.legal_case_form_id == 'all')}">
+<h:panelGroup layout="block"  id="editLegalCase"  styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.legal_case_display == 'false' and genre.legal_case_form_id == 'full-submission' || genre.legal_case_display == 'false' and genre.legal_case_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{genre.legal_case_label}" converter="GenreLabelConverter"/>
 	</h3>
@@ -40,21 +38,21 @@
 	<div class="free_area0 itemBlockContent endline">
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
 	
-	<%-- Court --%>
+	<!-- Court -->
 	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">				
 		<b class="xLarge_area0_p8 endline labelLine clear">
 			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false"/><span class="noDisplay"> </span>
 		</b>
 		<span class="xHuge_area0 xTiny_marginLExcl endline">
-			<h:panelGroup styleClass="double_area0 xTiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_court_name_display == 'false' && genre.legal_case_legal_case_court_name_form_id == 'full-submission' || genre.legal_case_legal_case_court_name_display == 'false' && genre.legal_case_legal_case_court_name_form_id == 'all')}">
+			<h:panelGroup styleClass="double_area0 xTiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_court_name_display == 'false' and genre.legal_case_legal_case_court_name_form_id == 'full-submission' || genre.legal_case_legal_case_court_name_display == 'false' and genre.legal_case_legal_case_court_name_form_id == 'all')}">
 				<h:panelGroup styleClass="double_area0">
 					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_court_name_optional != 'true'}" />
 					<h:outputText value="#{genre.legal_case_legal_case_court_name_label}" converter="GenreLabelConverter"/>
 				</h:panelGroup>
 				<h:inputText id="inplegal_case_legal_case_court_nameOptional" styleClass="double_txtInput" value="#{EditItem.pubItem.metadata.legalCase.courtName}" />
 			</h:panelGroup>
-	<%-- Identifier --%>
-			<h:panelGroup styleClass="double_area0" rendered="#{!(genre.legal_case_legal_case_identifier_display == 'false' && genre.legal_case_legal_case_identifier_form_id == 'full-submission' || genre.legal_case_legal_case_identifier_display == 'false' && genre.legal_case_legal_case_identifier_form_id == 'all')}">
+	<!-- Identifier -->
+			<h:panelGroup styleClass="double_area0" rendered="#{!(genre.legal_case_legal_case_identifier_display == 'false' and genre.legal_case_legal_case_identifier_form_id == 'full-submission' || genre.legal_case_legal_case_identifier_display == 'false' and genre.legal_case_legal_case_identifier_form_id == 'all')}">
 				<h:panelGroup styleClass="double_area0">
 					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_identifier_optional != 'true'}" />
 					<h:outputText value="#{genre.legal_case_legal_case_identifier_label}" converter="GenreLabelConverter"/>
@@ -63,8 +61,8 @@
 			</h:panelGroup>
 		</span>
 	</h:panelGroup>
-	<%-- Title --%>
-	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_title_display == 'false' && genre.legal_case_legal_case_title_form_id == 'full-submission' || genre.legal_case_legal_case_title_display == 'false' && genre.legal_case_legal_case_title_form_id == 'all')}">
+	<!-- Title -->
+	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_title_display == 'false' and genre.legal_case_legal_case_title_form_id == 'full-submission' || genre.legal_case_legal_case_title_display == 'false' and genre.legal_case_legal_case_title_form_id == 'all')}">
 		<b class="xLarge_area0_p8 endline labelLine clear">
 			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_title_optional != 'true'}" />
 			<h:outputText value="#{genre.legal_case_legal_case_title_label}" converter="GenreLabelConverter" /><span class="noDisplay">: </span>
@@ -73,13 +71,13 @@
 			<h:inputTextarea id="inputLegalCaseTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.legalCase.title}" cols="15" rows="3" ></h:inputTextarea>
 		</span>
 	</h:panelGroup>
-	<%-- Date --%>
-	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'full-submission' || genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'all')}">
+	<!-- Date -->
+	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' and genre.legal_case_legal_case_date_published_form_id == 'full-submission' || genre.legal_case_legal_case_date_published_display == 'false' and genre.legal_case_legal_case_date_published_form_id == 'all')}">
 		<b class="xLarge_area0_p8 endline labelLine clear">
-			&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" /><span class="noDisplay"> </span>
+			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" /><span class="noDisplay"> </span>
 		</b>
 		<span class="xHuge_area0 xTiny_marginLExcl endline">
-		<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'full-submission' || genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'all')}">
+		<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' and genre.legal_case_legal_case_date_published_form_id == 'full-submission' || genre.legal_case_legal_case_date_published_display == 'false' and genre.legal_case_legal_case_date_published_form_id == 'all')}">
 			<span class="large_area0">
 				<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" />
 				<h:outputText value="#{genre.legal_case_legal_case_date_published_label}" converter="GenreLabelConverter"/>
@@ -90,7 +88,9 @@
 	</h:panelGroup>	
 	
 	</div>
-</h:panelGroup>		
+</h:panelGroup>
+
+</ui:composition>		
 			
 		
 

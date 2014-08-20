@@ -15,7 +15,7 @@ var mpdlCookie = new function() {
 		if (oldValue) {	//if cookie exist -> delete them
 			this.eraseCookie(name, domain, path);
 		}
-		var cooky = name+"="+escape(wert)+"; expires="+expires+"; path=/";
+		var cooky = name+"="+encodeURIComponent(wert)+"; expires="+expires+"; path=/";
 		document.cookie = cooky;
 	}
 	
@@ -27,7 +27,7 @@ var mpdlCookie = new function() {
 				var ende = document.cookie.indexOf(";", i+suche.length);
 				ende = (ende>-1) ? ende : document.cookie.length;
 				var cook = document.cookie.substring(i+suche.length, ende);
-				return unescape(cook);
+				return decodeURIComponent(cook);
 			}
 			i++;
 		}

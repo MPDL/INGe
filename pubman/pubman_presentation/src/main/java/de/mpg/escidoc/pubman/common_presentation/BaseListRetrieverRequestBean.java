@@ -2,6 +2,8 @@ package de.mpg.escidoc.pubman.common_presentation;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -54,16 +56,22 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
         }
         init();
 
-        if (getFacesContext().getRenderResponse()){
-            readOutParameters();
-            getBasePaginatorListSessionBean().update();
-        }
+
         /*
         else
         {
             getBasePaginatorListSessionBean().saveState();
         }
         */
+    }
+    
+    @PostConstruct
+    public void postConstruct()
+    {
+        if (getFacesContext().getRenderResponse()){
+            readOutParameters();
+            getBasePaginatorListSessionBean().update();
+        }
     }
     
     /**

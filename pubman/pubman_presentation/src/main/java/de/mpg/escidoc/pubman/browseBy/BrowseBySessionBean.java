@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -94,6 +95,9 @@ public class BrowseBySessionBean extends FacesBean
     private List<String> browseByYears;
 
     private String dateMode = "published";
+    
+    @EJB
+    private Search search;
 
     /**
      * Public constructor.
@@ -401,9 +405,6 @@ public class BrowseBySessionBean extends FacesBean
         ItemContainerSearchResult result;
         try
         {
-            InitialContext ic = new InitialContext();
-            Search search = (Search) ic.lookup(Search.SERVICE_NAME);
-
             result = search.searchForItemContainer(query);
             item =  extractItemsOfSearchResult(result);
 

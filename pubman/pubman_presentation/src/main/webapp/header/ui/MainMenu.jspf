@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove> 
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -26,11 +27,8 @@
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-
-<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
+</ui:remove>
+<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu" >
 	<!-- main Menu starts here -->
 	
 	<h:outputLink id="lnkHome" styleClass="free_area0" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'HomePage'}">
@@ -38,11 +36,11 @@
 	</h:outputLink>
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkHome}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'HomePage'}" />
 
-<%-- start should replace the following later --%>
+<!--  start should replace the following later -->
 	<h:outputLink id="lnkMyItems" styleClass="free_area0" title="#{tip.MainMenu_myItems}" value="#{ApplicationBean.appContext}MyItemsPage.jsp" rendered="false">
 		<h:outputText value="MY ITEMS" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-<%-- stop should replace the following later --%>
+<!--  stop should replace the following later -->
 	<h:outputLink id="lnkDepWorkspace" styleClass="free_area0" title="#{tip.MainMenu_depWorkspace}" value="#{ApplicationBean.appContext}DepositorWSPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'DepositorWSPage' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<h:outputText value="#{lbl.mainMenu_lnkDepositor}" />
 	</h:outputLink>
@@ -76,8 +74,14 @@
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lblTools}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'ToolsPage'}"/>
 </div>
 <script type="text/javascript">
-	if ($pb.browser.msie && $pb.browser.version == 7) {
-		$pb('.mainMenu').css('margin-top', '-0.7272em');
-		$pb('.wrapper').css('width', '84.0909em');
+/* <![CDATA[ */
+          /*   
+	if ($.browser.msie && $.browser.version == 7) {
+		$('.mainMenu').css('margin-top', '-0.7272em');
+		$('.wrapper').css('width', '84.0909em');
 	}
+	*/
+	
+/* ]]> */
 </script>
+</ui:composition>

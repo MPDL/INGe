@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -68,7 +68,7 @@ public class EscidocProcessor extends FormatProcessor
         try
         {
             InitialContext context = new InitialContext();
-            xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+            xmlTransforming = (XmlTransforming) context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         }
         catch (Exception e)
         {

@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -32,8 +32,6 @@ package de.mpg.escidoc.pubman.viewItem;
 
 
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
-
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
@@ -45,11 +43,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 public class ViewItemMedium extends FacesBean
 {
     
-    private HtmlAjaxRepeat creatorPersonsIterator = new HtmlAjaxRepeat();
-    
-    private HtmlAjaxRepeat creatorAffiliationsIterator = new HtmlAjaxRepeat();    
-    
-    private HtmlAjaxRepeat fileSearchHitIterator = new HtmlAjaxRepeat();
+
     
     /**
      * Public constructor.
@@ -59,32 +53,7 @@ public class ViewItemMedium extends FacesBean
         
     }
 
-    public HtmlAjaxRepeat getCreatorPersonsIterator() {
-        return creatorPersonsIterator;
-    }
-
-    public void setCreatorPersonsIterator(HtmlAjaxRepeat creatorPersonsIterator) {
-        this.creatorPersonsIterator = creatorPersonsIterator;
-    }
-
-    public HtmlAjaxRepeat getCreatorAffiliationsIterator() {
-        return creatorAffiliationsIterator;
-    }
-
-    public void setCreatorAffiliationsIterator(
-            HtmlAjaxRepeat creatorAffiliationsIterator) {
-        this.creatorAffiliationsIterator = creatorAffiliationsIterator;
-    }
-
-    public HtmlAjaxRepeat getFileSearchHitIterator()
-    {
-        return fileSearchHitIterator;
-    }
-
-    public void setFileSearchHitIterator(HtmlAjaxRepeat fileSearchHitIterator)
-    {
-        this.fileSearchHitIterator = fileSearchHitIterator;
-    }
+    
 
     
     

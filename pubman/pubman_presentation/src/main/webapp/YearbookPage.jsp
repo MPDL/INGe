@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -28,39 +28,37 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"  xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+
 	
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{YearbookCandidatesRetrieverRequestBean.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="${YearbookCandidatesRetrieverRequestBean.unapiURLview}"/>
 
-				<jsp:directive.include file="header/ui/StandardImports.jspf"/>
-			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+				<ui:include src="header/ui/StandardImports.jspf" />
+			</h:head>
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{YearbookCandidatesRetrieverRequestBean.beanName}" styleClass="noDisplay"/>
 				<h:outputText value="#{YearbookPage.beanName}" styleClass="noDisplay"/>
 				<h:form >
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 					
-						<jsp:directive.include file="header/Header.jspf"/>
+						<ui:include src="header/Header.jspf" />
 		
 						<div id="content" class="full_area0 clear">
 						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
 								<div class="headerSection">
-									<jsp:directive.include file="header/Breadcrumb.jspf"/>
+									<ui:include src="header/Breadcrumb.jspf" />
 						
 									<div id="contentSkipLinkAnchor" class="clear headLine">
 										<!-- Headline starts here -->
@@ -186,13 +184,10 @@
 													<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 													<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 												</h:panelGroup>
-												<h:selectOneMenu id="selSelectedOrgUnit" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$pb(this).parents('div').find('.changeOrgUnit').click();">
+												<h:selectOneMenu id="selSelectedOrgUnit" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
 													<f:selectItems value="#{YearbookCandidatesRetrieverRequestBean.orgUnitSelectItems}"/>
 												</h:selectOneMenu>
 											</h:panelGroup>
-							<!-- <% /* 		<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$pb(this).parents('div').find('.changeOrgUnit').click();">
-												<f:selectItems value="#{YearbookCandidatesRetrieverRequestBean.orgUnitSelectItems}"/>
-											</h:selectOneMenu>	*/ %> -->
 											<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{YearbookCandidatesRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 										<!-- content menu lower line ends here -->
 										</h:panelGroup>
@@ -205,13 +200,10 @@
 													<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 													<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 												</h:panelGroup>
-												<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();">
+												<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
 													<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}"/>
 												</h:selectOneMenu>
 											</h:panelGroup>
-							<!-- <% /*		<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();" >
-												<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}"/>
-											</h:selectOneMenu>	*/ %> -->
 											
 											<h:commandLink title="#{tip.list_ascending}" styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();"/>
 											<h:commandLink title="#{tip.list_descending}" styleClass="desSort" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();"/>
@@ -225,7 +217,7 @@
 													<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 													<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 												</h:panelGroup>
-												<h:selectOneMenu id="selExportFormatName" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+												<h:selectOneMenu id="selExportFormatName" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 													<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 												</h:selectOneMenu>
 											</h:panelGroup>
@@ -274,10 +266,10 @@
 							
 							<h:panelGroup rendered="#{YearbookItemSessionBean.yearbookItem!=null}">
 								<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
-									<jsp:directive.include file="list/itemList.jspf"/>
+									<ui:include src="list/itemList.jspf" />
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
-									<jsp:directive.include file="list/gridList.jspf"/>
+									<ui:include src="list/gridList.jspf" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 									<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
@@ -304,21 +296,21 @@
 						
 						</div><!-- end: content section -->
 					</div>
-					<jsp:directive.include file="footer/Footer.jspf"/>
+					<ui:include src="footer/Footer.jspf" />
 				</h:form>
 				<script type="text/javascript">
 					<![CDATA[
-						$pb("input[id$='offset']").submit(function() {
-							$pb(this).val($pb(window).scrollTop());
+						$("input[id$='offset']").submit(function() {
+							$(this).val($(window).scrollTop());
 						});
-						$pb(document).ready(function () {
-							$pb(window).scrollTop($pb("input[id$='offset']").val());
-							$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+						$(document).ready(function () {
+							$(window).scrollTop($("input[id$='offset']").val());
+							$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 		
 							var element = document.getElementById('selSelectedOrgUnit');
 							if (element && element.options != null && element.options.length == 2) {
 								throb();
-								$pb.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
+								$.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
 							}
 						});
 					]]>
@@ -328,11 +320,10 @@
 						document.getElementById('content').style.opacity='0.4';
 						document.getElementById('content').style.bg='FFF';
 						document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
-						$pb('#fullItem :input :text').attr('readonly', true);
-					    $pb('#fullItem :textarea').attr('readonly', true);
+						$('#fullItem :input :text').attr('readonly', true);
+					    $('#fullItem :textarea').attr('readonly', true);
 					}
 				</script>
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

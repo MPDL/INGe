@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -27,19 +27,17 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 
-<jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
-	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
+
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html>
-		    <head>
+		    <h:head>
 		        <title>PubMan Onlinehilfe</title>
 		        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 		        <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/>
@@ -47,10 +45,10 @@
 		        <!-- html -->
 		        <meta name="src" content="eSciDoc_help_de.tex"/>
 		        <meta name="date" content="2008-10-08 13:10:00"/>
-		        <jsp:directive.include file="/header/ui/StandardImports.jspf" />
+		        <ui:include src="/header/ui/StandardImports.jspf" />
 		        
 		        <!-- <link rel="stylesheet" type="text/css" href="eSciDoc_help_de.css"> -->
-		    </head>
+		    </h:head>
 		    <body id="helppage" lang="de-DE" dir="ltr">
 		        <div class="maketitle wrapper" style="padding: 0.74em 0.74em 3em 0.74em; font-size: 129% !important; width: auto;">
 		            <h1>PubMan Onlinehilfe</h1>
@@ -864,4 +862,3 @@
 		    </body>
 		</html>
 	</f:view>
-</jsp:root>

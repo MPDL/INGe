@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -26,11 +27,12 @@
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+</ui:remove>
 
-<a4j:repeat id="detailsDescription" var="topAffiliation" value="#{AffiliationBean.topLevelAffs}">
-    <link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/rss_2.0/publications/organization/<h:outputText value='#{topAffiliation.reference.objectId}'/>" rel="alternate" type="application/rss+xml" title="<h:outputText value='#{lbl.Feed_Recent_Releases}'/>, <h:outputText value='#{topAffiliation.name}' />|rss_2.0" />
-    <link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/atom_1.0/publications/organization/<h:outputText value='#{topAffiliation.reference.objectId}'/>" rel="alternate" type="application/atom+xml" title="<h:outputText value='#{lbl.Feed_Recent_Releases}'/>, <h:outputText value='#{topAffiliation.name}' />|atom_1.0" />  
-</a4j:repeat>
+<ui:repeat id="detailsDescription" var="topAffiliation" value="#{AffiliationBean.topLevelAffs}">
+    <link href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/rss_2.0/publications/organization/#{topAffiliation.reference.objectId}" rel="alternate" type="application/rss+xml" title="#{lbl.Feed_Recent_Releases}, #{topAffiliation.name}|rss_2.0" />
+    <link href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/atom_1.0/publications/organization/#{topAffiliation.reference.objectId}" rel="alternate" type="application/atom+xml" title="#{lbl.Feed_Recent_Releases}, #{topAffiliation.name}|atom_1.0" />  
+</ui:repeat>
+
+</ui:composition>
 

@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -125,19 +126,29 @@ public class ItemControllerSessionBean extends FacesBean
 
 	private final LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
 
-	private PubItemDepositing pubItemDepositing = null;
-	private PubItemPublishing pubItemPublishing = null;
-	private QualityAssurance qualityAssurance = null;
-	private Search search = null;
-	private XmlTransforming xmlTransforming = null;
-	private ItemValidating itemValidating = null;
-	private ItemExporting itemExporting = null;
-	private EmailHandling emailHandling = null;
-	private DataGathering dataGathering = null;
+	@EJB
+	private PubItemDepositing pubItemDepositing;
+	@EJB
+	private PubItemPublishing pubItemPublishing;
+	@EJB
+	private QualityAssurance qualityAssurance;
+	@EJB
+	private Search search;
+	@EJB
+	private XmlTransforming xmlTransforming;
+	@EJB
+	private ItemValidating itemValidating;
+	@EJB
+	private ItemExporting itemExporting;
+	@EJB
+	private EmailHandling emailHandling;
+	@EJB
+	private DataGathering dataGathering;
 	private ValidationReportVO currentItemValidationReport = null;
 	private PubItemVOPresentation currentPubItem = null;
 	private ContextVO currentContext = null;
-	private PubItemSimpleStatistics pubItemStatistic = null;
+	@EJB
+	private PubItemSimpleStatistics pubItemStatistic;
 
 	private static final String PROPERTY_CONTENT_MODEL =
 		"escidoc.framework_access.content-model.id.publication";
@@ -148,27 +159,7 @@ public class ItemControllerSessionBean extends FacesBean
 	 */
 	public ItemControllerSessionBean()
 	{
-		try
-		{
-			InitialContext initialContext = new InitialContext();
-
-			// initialize used Beans
-			this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
-			this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
-			this.search = (Search) initialContext.lookup(Search.SERVICE_NAME);
-			this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-			this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
-			this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
-			this.emailHandling = (EmailHandling) initialContext.lookup(EmailHandling.SERVICE_NAME);
-			this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
-			this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-			this.pubItemStatistic  =
-				(PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
-		}
-		catch (NamingException e)
-		{
-			logger.error("ItemControllerSessionBean Initialization Failure", e);
-		}
+		
 
 		this.init();
 

@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -106,7 +106,7 @@ public static final String BEAN_NAME = "FileCriterionCollection";
         }
         
         @Override
-        protected void removeObjectAtIndex(int i)
+		public void removeObjectAtIndex(int i)
         {
             // due to wrapped data handling
             super.removeObjectAtIndex(i);

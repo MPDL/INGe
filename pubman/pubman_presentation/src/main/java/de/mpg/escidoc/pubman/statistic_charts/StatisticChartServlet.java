@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -41,6 +41,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -99,6 +100,9 @@ public class StatisticChartServlet extends HttpServlet
     private String type;
 
     private String language;
+    
+    @EJB
+    private PubItemSimpleStatistics pubItemStatistic;
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -175,16 +179,7 @@ public class StatisticChartServlet extends HttpServlet
 
         // create the dataset...
         
-        PubItemSimpleStatistics pubItemStatistic = null;
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            pubItemStatistic  = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
-        }
-        catch (NamingException e1)
-        {
-            e1.printStackTrace();
-        }
+       
         
         //retrieve the statistic reports
         List<StatisticReportRecordVO> reportListAllUsers = new ArrayList<StatisticReportRecordVO>();

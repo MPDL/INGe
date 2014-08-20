@@ -1,5 +1,6 @@
-<%
-/* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
 CDDL HEADER START
 
 The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@ Common Development and Distribution License, Version 1.0 only
 with the License.
 
 You can obtain a copy of the license at license/ESCIDOC.LICENSE
-or http://www.escidoc.de/license.
+or http://www.escidoc.org/license.
 See the License for the specific language governing permissions
 and limitations under the License.
 
@@ -25,11 +26,7 @@ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 für wissenschaftlich-technische Information mbH and Max-Planck-
 Gesellschaft zur Förderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
- */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -38,7 +35,7 @@ All rights reserved. Use is subject to license terms.
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" id="personCriterions" styleClass="free_area0 itemBlockContent endline">
 
-		<a4j:repeat rows="0" var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" rowKeyVar="index">
+		<ui:repeat rows="0" var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.personCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -48,12 +45,14 @@ All rights reserved. Use is subject to license terms.
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						oncomplete="return removeAuthorAutoSuggest($pb(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}" reRender="personCriterions"/>
+					<h:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}">
+						<f:ajax render="form1:personCriterions" execute="@form"/>
+					</h:commandButton>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
-							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
+							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&#160;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
-						styleClass="xSmall_area0 authorLink">&nbsp;
+						styleClass="xSmall_area0 authorLink">&#160;
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
@@ -69,12 +68,14 @@ All rights reserved. Use is subject to license terms.
 					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}"/>
 					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
-					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						oncomplete="return removeAuthorAutoSuggest($pb(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}" reRender="personCriterions"/>
+					<h:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						oncomplete="return removeAuthorAutoSuggest($(this))" actionListener="#{personCriterionBean.removeAutoSuggestValues}">
+						<f:ajax render="form1:personCriterions" execute="@form"/>
+					</h:commandButton>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
-							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
+							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&#160;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
-						styleClass="xSmall_area0 authorLink">&nbsp;
+						styleClass="xSmall_area0 authorLink">&#160;
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
@@ -168,12 +169,13 @@ All rights reserved. Use is subject to license terms.
 						<f:selectItems value="#{personCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-		<%--	<h:selectOneMenu id="selPersonCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{personCriterionBean.logicOperator}">
+		<!--	<h:selectOneMenu id="selPersonCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{personCriterionBean.logicOperator}">
 					<f:selectItems value="#{personCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>	 --%>
+				</h:selectOneMenu>	 -->
 			</h:panelGroup>
 
-		</a4j:repeat>
+		</ui:repeat>
 		
 	</h:panelGroup>
 </div>
+</ui:composition>

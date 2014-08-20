@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -40,6 +40,8 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
+
+import com.googlecode.mp4parser.authoring.builder.smoothstreaming.IsmvBuilder;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -242,6 +244,10 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         {
             return "3" + getName().toLowerCase();
         }
+        else if (getMps() && "opened".equals(this.getPublicStatus()))
+        {
+            return "0" + getName().toLowerCase();
+        }
         else if ("opened".equals(this.getPublicStatus()))
         {
             return "1" + getName().toLowerCase();
@@ -363,7 +369,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         try
         {
             InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
             OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
             if (affiliations.size()==1)
@@ -445,7 +451,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
             try
             {
                 InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 
                 // TODO tendres: This admin login is neccessary because of bug
                 // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597

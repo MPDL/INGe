@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -99,7 +100,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     /**
      * An instance of the search service.
      */
+    @EJB
     private Search searchService;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
 
     /**
      * The type of the search (simple, advanced, ...)
@@ -131,17 +136,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public void init()
     {
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
 
-        }
-        catch (NamingException e)
-        {
-            logger.error("Error when trying to find search service.", e);
-            error("Did not find Search service");
-        }
     }
 
     /**
@@ -290,8 +285,6 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
 
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 
             checkSortCriterias(sc);
             

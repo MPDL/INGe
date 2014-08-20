@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
@@ -43,6 +44,9 @@ public class YearbookCandidatesSessionBean extends FacesBean
 	private final YearbookItemSessionBean yisb;
 
 	private final PubItemListSessionBean pilsb;
+	
+	@EJB
+	private XmlTransforming xmlTransforming;
 
 
 	public YearbookCandidatesSessionBean()
@@ -71,8 +75,6 @@ public class YearbookCandidatesSessionBean extends FacesBean
 				orgUnitSelectItems = new ArrayList<SelectItem>();
 				orgUnitSelectItems = new ArrayList<SelectItem>();
 	            orgUnitSelectItems.add(new SelectItem("all", "-"));
-				InitialContext initialContext = new InitialContext();
-				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 				String topLevelOU = ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization().getIdentifier());
 				AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);

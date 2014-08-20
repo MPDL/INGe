@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -658,7 +658,7 @@ public class SwordUtil extends FacesBean
         PubItemVO depositedItem = null; 
         InitialContext initialContext = new InitialContext();
         PubItemDepositing depositBean = (PubItemDepositing) 
-            initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+            initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
         String method = this.getMethod(item); 
 
         if (method == null)
@@ -1030,7 +1030,7 @@ public class SwordUtil extends FacesBean
         throws NamingException
     {
         InitialContext initialContext = new InitialContext();
-        ItemValidating itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+        ItemValidating itemValidating = (ItemValidating)initialContext.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
 
         //To set the validation point
         this.getMethod(item);

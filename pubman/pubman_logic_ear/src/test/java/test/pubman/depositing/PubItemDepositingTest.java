@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -37,7 +37,11 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import javax.ejb.EJBException;
+
 import org.apache.log4j.Logger;
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -142,8 +146,8 @@ public class PubItemDepositingTest extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        pmDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
-        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        pmDepositing = (PubItemDepositing)getService("ejb:pubman_logic_ear/pubman_logic/PubItemDepositingBean!" + PubItemDepositing.class.getName());
+        xmlTransforming = (XmlTransforming)getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         user = getUserTestDepLibWithHandle();
         adminUser = getUserSystemAdministratorWithHandle();
     }
@@ -180,11 +184,13 @@ public class PubItemDepositingTest extends TestBase
      * 
      * @throws Exception
      */
-    @Test(expected = IllegalArgumentException.class)
+  
+    @Test(expected = EJBException.class)
     public void testCreatePubItemWithoutCollection() throws Exception
-    {
-        PubItemVO pubItem = pmDepositing.createPubItem(null, user);
-        addForDeletion(pubItem.getLatestRelease().getObjectId());
+    {		
+			PubItemVO pubItem = pmDepositing.createPubItem(null, user);
+			addForDeletion(pubItem.getLatestRelease().getObjectId());
+		
     }
 
     /**

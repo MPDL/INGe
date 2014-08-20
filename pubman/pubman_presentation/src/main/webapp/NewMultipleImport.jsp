@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -27,51 +27,48 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+			<h:head>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
 
 
-			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			</h:head>
+			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{NewMultipleImport.beanName}" styleClass="noDisplay" />
 				<h:form  rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						
-						<jsp:directive.include file="header/Header.jspf" />
+						<ui:include src="header/Header.jspf" />
 							
 							<div id="content" class="full_area0 clear">
-								<!-- <% /* begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) */ %> -->
+								<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
 
 								<div class="clear">
 				                    <div class="headerSection">
 				                            
-				                        <jsp:directive.include file="header/Breadcrumb.jspf" />
+				                        <ui:include src="header/Breadcrumb.jspf" />
 	
 										<div id="contentSkipLinkAnchor" class="clear headLine">
-											<!-- <% /* Headline starts here */ %> -->
+											<!-- Headline starts here -->
 											<h1><h:outputText value="#{lbl.submission_lnkMultipleImportCapitalized}"/></h1>
-											<!-- <% /* Headline ends here */ %> -->
+											<!--  /* Headline ends here */  -->
 										</div>
 				                    </div>
 									<div class="small_marginLIncl subHeaderSection">
 										<div class="contentMenu">
-										<!-- <% /* content menu starts here */ %> -->
+										<!--  /* content menu starts here */  -->
 											<div class="free_area0 sub">
 												<h:commandLink id="lnkNewEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" onclick="fullItemReloadAjax();">
 													<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
@@ -94,30 +91,30 @@
 												</h:outputLink>
 											</div>
 											<div class="free_area0 sub action">
-											<!-- <% /* content menu lower line starts here */ %> -->
+											<!--  /* content menu lower line starts here */  -->
 												
-											<!-- <% /* content menu lower line ends here */ %> -->
+											<!--  /* content menu lower line ends here */  -->
 											</div>
-										<!-- <% /* content menu ends here */ %> -->
+										<!--  /* content menu ends here */  -->
 										</div>
 										<div class="subHeader">
-											<!-- <% /* Subheadline starts here */ %> -->
+											<!--  /* Subheadline starts here */  -->
 										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{MultipleImport.context.name}." />
-											<!-- <% /* Subheadline ends here */ %> -->
+											<!--  /* Subheadline ends here */  -->
 										</div>
 										<div class="subHeader">
-											<!-- <% /* Subheadline starts here */ %> -->
+											<!--  /* Subheadline starts here */  -->
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasErrorMessages}">
-												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 												<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasMessages and !MultipleImport.hasErrorMessages}">
-												<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
+												<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 												<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
-											<!-- <% /* Subheadline ends here */ %> -->
+											<!--  /* Subheadline ends here */  -->
 										</div>
 									</div>
 				              	</div>
@@ -145,22 +142,20 @@
 																<f:selectItems id="selFormats" value="#{MultipleImport.importFormats}" />
 															</h:selectOneMenu>
 														</h:panelGroup>
- 										<!-- <% /*		<h:selectOneMenu id="selFormat" value="#{MultipleImport.format}" converter="#{MultipleImport.formatConverter}">
-															<f:selectItems id="selFormats" value="#{MultipleImport.importFormats}"/>
-														</h:selectOneMenu>	*/ %> -->
 													</span>
 												</h:panelGroup>	
 												<h:panelGroup id="uploadFile" layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 													<b class="xLarge_area0 endline labelLine">
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
-													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<rich:fileUpload id="inpMultipleImportUploadedImportFile" listHeight="60px" addControlLabel="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
-															immediateUpload="true" maxFilesQuantity="1">
-															<a4j:support event="onclear" reRender="uploadFile,buttons" actionListener="#{MultipleImport.clearImportFile}"/>
-															<a4j:support event="onfileuploadcomplete" reRender="buttons"/>
-														</rich:fileUpload>
-													</span>
+													<h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{empty MultipleImport.uploadedImportFile}">
+														<p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.multipleImport_uploadFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
+															auto="true" fileLimit="1" update="uploadFile,buttons" multiple="false"  onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
+														</p:fileUpload>
+													</h:panelGroup>
+													<h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{not empty MultipleImport.uploadedImportFile}">
+														<b><h:outputText value="#{MultipleImport.fixedFileName}"/></b>
+													</h:panelGroup>
 												</h:panelGroup>
 											</div>
 										</div>
@@ -170,12 +165,12 @@
 										<h:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton #{empty MultipleImport.uploadedImportFile ? 'disabled' : ''}" title="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}" disabled="#{empty MultipleImport.uploadedImportFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></h:commandLink>
 									</h:panelGroup>
 								</div>
-							<!-- <% /* end: content section */ %> -->
+							<!--  /* end: content section */  -->
 							</div>			
 					</div>
-				<jsp:directive.include file="footer/Footer.jspf" />
+				<ui:include src="footer/Footer.jspf" />
 				</h:form>
 			</body>
 		</html>
 	</f:view>
-</jsp:root>
+

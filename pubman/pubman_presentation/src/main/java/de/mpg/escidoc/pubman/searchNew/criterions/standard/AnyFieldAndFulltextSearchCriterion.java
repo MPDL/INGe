@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -42,7 +42,7 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
 		switch(indexName)
 		{
 			case ESCIDOC_ALL : return new String[] {"escidoc.metadata", "escidoc.fulltext"};
-			case ITEM_CONTAINER_ADMIN : return new String[] {"\"metadata\"", "\"/fulltext\""};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/metadata\"", "\"/fulltext\""};
 		}
 		return null;
 		

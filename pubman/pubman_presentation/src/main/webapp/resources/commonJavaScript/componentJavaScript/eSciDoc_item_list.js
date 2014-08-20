@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -29,35 +29,35 @@
 
 function addItemListFunctions(){
 	
-	var slctMenu = $pb('.selectMenu');
-    var itemList = $pb('.itemList');
+	var slctMenu = $('.selectMenu');
+    var itemList = $('.itemList');
 	
     itemList.each(function(i, ele){
-        $pb(ele).find('.mediumView').each(function(j, elem){
-            $pb(elem).hide();
+        $(ele).find('.mediumView').each(function(j, elem){
+            $(elem).hide();
         });
-        $pb(ele).find('.collapse').each(function(j, elem){
-            $pb(elem).hide();
+        $(ele).find('.collapse').each(function(j, elem){
+            $(elem).hide();
         });
-        $pb(ele).find('.expand').each(function(j, elem){
-            $pb(elem).show();
+        $(ele).find('.expand').each(function(j, elem){
+            $(elem).show();
         });
-        $pb(ele).find('.collapseTriangle').each(function(j, elem){
-            $pb(elem).hide();
+        $(ele).find('.collapseTriangle').each(function(j, elem){
+            $(elem).hide();
         });
-        $pb(ele).find('.expandTriangle').each(function(j, elem){
-            $pb(elem).show();
+        $(ele).find('.expandTriangle').each(function(j, elem){
+            $(elem).show();
         });
-        $pb(ele).find('.listItem').hover(function(){
-            $pb(this).addClass('listBackground');
+        $(ele).find('.listItem').hover(function(){
+            $(this).addClass('listBackground');
         }, function(){
-            $pb(this).removeClass('listBackground');
+            $(this).removeClass('listBackground');
         });
     });
 // Openration of the select menu for checkboxes 
 // Start with event on document to close the select menu on click elswhere    
-    $pb('html').click(function(){
-//        $pb('.selectMenu').hide();
+    $('html').click(function(){
+//        $('.selectMenu').hide();
     });
     
     
@@ -72,53 +72,53 @@ function addItemListFunctions(){
     	element.hide(100);
     }
     
-    $pb('.checkBoxSelectButton').click(function(evt){
+    $('.checkBoxSelectButton').click(function(evt){
     	evt.preventDefault();
     	evt.stopPropagation();
     	evt.stopImmediatePropagation();
     	
-    	$pb('body').unbind("click");
-    	$pb('body').unbind("keydown");
+    	$('body').unbind("click");
+    	$('body').unbind("keydown");
     	
-    	var cbsButtonPosition = $pb(this).position();
+    	var cbsButtonPosition = $(this).position();
     	
-    	var slctMenu = $pb(this).siblings('.selectMenu');
-    	$pb('body').one("click", function(evt) {
+    	var slctMenu = $(this).siblings('.selectMenu');
+    	$('body').one("click", function(evt) {
     		hideElement(slctMenu);
     	});
-    	$pb('body').one('keydown', function(evt){
+    	$('body').one('keydown', function(evt){
 			if (Number(evt.which) === 27) {	//check the key-number for number of escape
 				hideElement(slctMenu);
 			}
 		});
     	slctMenu.toggle(100, function(){
-    		if ($pb(slctMenu).is(':visible')) {
-    			$pb(slctMenu).css("left", cbsButtonPosition.left + 10);
-//    			$pb(slctMenu).css("top", cbsButtonPosition.top - 2);
+    		if ($(slctMenu).is(':visible')) {
+    			$(slctMenu).css("left", cbsButtonPosition.left + 10);
+//    			$(slctMenu).css("top", cbsButtonPosition.top - 2);
         	}
     	});
     	
-//    	$pb(this).siblings('.selectMenu').toggle(100);
+//    	$(this).siblings('.selectMenu').toggle(100);
     });
     
 // Select options    
     var tog = '';
-    $pb('.listHeader').find('.allCheckBox').click(function(){
-    	itemList.find("input[type=checkbox]").attr("checked", !tog);
+    $('.listHeader').find('.allCheckBox').click(function(){
+    	itemList.find("input[type=checkbox]").prop("checked", !tog);
     	tog = !tog;
     });
 
-    $pb('.listHeader').find('.selectAll').click(function(){
-        itemList.find('input[type=checkbox]').attr('checked', true);
+    $('.listHeader').find('.selectAll').click(function(){
+        itemList.find('input[type=checkbox]').prop('checked', true);
         hideElement(slctMenu);
     });
 
     slctMenu.find('.toggleAll').click(function(){
-        $pb('.listItem').find('input[type="checkbox"]').click();
+        $('.listItem').find('input[type="checkbox"]').click();
         if (itemList.find('.listItem input[type="checkbox"][checked]').length < 1) {
-        	itemList.find('.allCheckBox').removeAttr("checked");
+        	itemList.find('.allCheckBox').prop('checked', false);
         } else if (itemList.find('.listItem input[type="checkbox"][checked]').length == itemList.find('.listItem input[type="checkbox"]').length) {
-        	itemList.find('.allCheckBox').attr('checked', true);
+        	itemList.find('.allCheckBox').prop('checked', true);
         }
         hideElement(slctMenu);
     });
@@ -129,52 +129,52 @@ function addItemListFunctions(){
     });
     
     slctMenu.find('a').each(function(i, elem){
-        $pb(elem).click(function(){
+        $(elem).click(function(){
         	hideElement(slctMenu);
         });
     });
     
-    $pb('.headerSwitchView').find('.expandTriangle').click(function(){
-        $pb(this).hide();
-        $pb(this).siblings('.collapseTriangle').show();
+    $('.headerSwitchView').find('.expandTriangle').click(function(){
+        $(this).hide();
+        $(this).siblings('.collapseTriangle').show();
         itemList.find('.listItem').find('.expandTriangle:visible').each(function(i, elem){
-            $pb(elem).trigger('click');
+            $(elem).trigger('click');
         });
     });
     
-    $pb('.headerSwitchView').find('.collapseTriangle').click(function(){
-        $pb(this).hide();
-        $pb(this).siblings('.expandTriangle').show();
+    $('.headerSwitchView').find('.collapseTriangle').click(function(){
+        $(this).hide();
+        $(this).siblings('.expandTriangle').show();
         itemList.find('.listItem').find('.collapseTriangle:visible').each(function(i, elem){
-            $pb(elem).trigger('click');
+            $(elem).trigger('click');
         });
     });
     
-    $pb('.shortView').find('.expandTriangle').each(function(i, ele){
-        $pb(ele).click(function(){
-            $pb(this).hide();
-            $pb(this).siblings('.collapseTriangle').show();
-            var parentElement = $pb(this).parents('.listItem');
-            $pb(parentElement).children('.mediumView').slideToggle('normal', function(){
-                if (($pb(parentElement).find('.itemHeader').find('.expandTriangle:visible').length) ==
+    $('.shortView').find('.expandTriangle').each(function(i, ele){
+        $(ele).click(function(){
+            $(this).hide();
+            $(this).siblings('.collapseTriangle').show();
+            var parentElement = $(this).parents('.listItem');
+            $(parentElement).children('.mediumView').slideToggle('normal', function(){
+                if (($(parentElement).find('.itemHeader').find('.expandTriangle:visible').length) ==
                 0) {
-                    $pb(parentElement).find('.headerSwitchView').find('.expandTriangle').hide();
-                    $pb(parentElement).find('.headerSwitchView').find('.collapseTriangle').show();
+                    $(parentElement).find('.headerSwitchView').find('.expandTriangle').hide();
+                    $(parentElement).find('.headerSwitchView').find('.collapseTriangle').show();
                 }
             });
         })
     });
     
-    $pb('.shortView').find('.collapseTriangle').each(function(i, ele){
-        $pb(ele).click(function(){
-            $pb(this).hide();
-            $pb(this).siblings('.expandTriangle').show();
-            var parentElement = $pb(this).parents('.listItem');
-            $pb(parentElement).children('.mediumView').slideToggle('normal', function(){
-                if (($pb(parentElement).find('.itemHeader').find('.collapseTriangle:visible').length) ==
+    $('.shortView').find('.collapseTriangle').each(function(i, ele){
+        $(ele).click(function(){
+            $(this).hide();
+            $(this).siblings('.expandTriangle').show();
+            var parentElement = $(this).parents('.listItem');
+            $(parentElement).children('.mediumView').slideToggle('normal', function(){
+                if (($(parentElement).find('.itemHeader').find('.collapseTriangle:visible').length) ==
                 0) {
-                    $pb(parentElement).find('.headerSwitchView').find('.expandTriangle').show();
-                    $pb(parentElement).find('.headerSwitchView').find('.collapseTriangle').hide();
+                    $(parentElement).find('.headerSwitchView').find('.expandTriangle').show();
+                    $(parentElement).find('.headerSwitchView').find('.collapseTriangle').hide();
                 }
             });
         })
@@ -187,14 +187,6 @@ function installItemList(){
     addItemListFunctions();
 }
 
-
-
-
-
-
-
-
-
-
-
-
+$(function(){
+	installItemList();
+});

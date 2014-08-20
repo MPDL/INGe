@@ -2,7 +2,7 @@
 	of this file are subject to the terms of the Common Development and Distribution 
 	License, Version 1.0 only (the "License"). You may not use this file except 
 	in compliance with the License. You can obtain a copy of the license at license/ESCIDOC.LICENSE 
-	or http://www.escidoc.de/license. See the License for the specific language 
+	or http://www.escidoc.org/license. See the License for the specific language 
 	governing permissions and limitations under the License. When distributing 
 	Covered Code, include this CDDL HEADER in each file and include the License 
 	file at license/ESCIDOC.LICENSE. If applicable, add the following below this 
@@ -16,19 +16,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>pubman</artifactId>
-		<groupId>de.mpg.escidoc.pubman</groupId>
+		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 		<version>7.5.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.pubman</groupId>
+	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_installer_basic</artifactId>
 	<name>pubman_installer_basic</name>
 	<packaging>jar</packaging>
 	<version>7.5.3-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_basic</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_basic</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_installer_basic</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/wildfly_migration/pubman/pubman_installer_basic</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
 	</scm>
 
@@ -56,14 +56,6 @@
 			</resource>
 		</resources>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -216,39 +208,39 @@
 	</profiles>
 	<dependencies>
 		<dependency>
-			<groupId>de.mpg.escidoc.pubman</groupId>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
 			<version>7.5.3-SNAPSHOT</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.pubman</groupId>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
 			<version>7.5.2</version>
 			<scope>compile</scope>
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
 			<version>${version.validation_presentation}</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>${version.framework_access}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>cone</artifactId>
 			<version>${version.cone}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>${version.common_logic}</version>
 			<scope>compile</scope>

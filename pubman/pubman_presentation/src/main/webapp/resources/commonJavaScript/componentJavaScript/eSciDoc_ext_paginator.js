@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -29,11 +29,11 @@
 */
 
 function addPaginatorFunctions() {
-	$pb('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $pb(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
+	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
 }
 
 function addPaginatorItemFunctions() {
-	$pb('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $pb(this).parents('.gotoBox').find('.pageChangeHiddenBtn').click(); break;   }});
+	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.pageChangeHiddenBtn').click(); break;   }});
 }
 
 function installExtPaginator() {
@@ -41,3 +41,7 @@ function installExtPaginator() {
 	addPaginatorFunctions();
 	addPaginatorItemFunctions();
 }
+
+$(function(){
+	installExtPaginator();
+});

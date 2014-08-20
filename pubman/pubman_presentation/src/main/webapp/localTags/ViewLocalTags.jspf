@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,13 +26,8 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
-<%-- JIRA AS-583 --%>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,10 +36,10 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-<%-- Tags --%>
+<!-- Tags -->
 
 
-		<a4j:repeat var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
+		<ui:repeat var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
 	
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 	
@@ -55,7 +51,7 @@
 					<h:outputText styleClass="quad_area0" value="#{localTag.value}"/>
 				</span>
 			</h:panelGroup>
-		</a4j:repeat>
+		</ui:repeat>
 
 
 
@@ -64,3 +60,4 @@
 		<h:commandButton id="editLocalTags" styleClass="free_txtBtn groupBtn"  value="#{lbl.actionMenu_lnkEditLocalTags}" action="#{EditItem.loadEditLocalTags}"  rendered="#{EditItem.localTagEditingAllowed}" />
 	</div>
 </div>
+</ui:composition>

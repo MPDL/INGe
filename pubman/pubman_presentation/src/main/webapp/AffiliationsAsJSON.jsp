@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -8,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -22,29 +23,28 @@
 
 
  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ f�r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur F�rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:directive.page contentType="text/plain;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		[
-			<a4j:repeat var="ou" value="#{AffiliationTree.affiliationSelectItems}" rows="0">
+			<ui:repeat var="ou" value="#{AffiliationTree.affiliationSelectItems}">
 				<h:panelGroup>
 				{
 					"id" : "<h:outputText value="#{ou.value}" escape="false"/>",
 					"value" : "<h:outputText value="#{ou.label}" escape="false"/>",
 				},
 				</h:panelGroup>
-			</a4j:repeat>
+			</ui:repeat>
 			{}
 		]
 		
 	</f:view>
-</jsp:root>

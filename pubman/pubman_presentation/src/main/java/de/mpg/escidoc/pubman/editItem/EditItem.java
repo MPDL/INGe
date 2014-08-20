@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -28,9 +28,8 @@
  */
 package de.mpg.escidoc.pubman.editItem;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,6 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -50,14 +50,15 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
+import com.sun.faces.facelets.component.UIRepeat;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.DepositorWSPage;
@@ -153,7 +154,11 @@ public class EditItem extends FacesBean
     public final static String VALIDATIONPOINT_SUBMIT = "submit_item";
     public final static String VALIDATIONPOINT_ACCEPT = "accept_item";
     // Validation Service
+    @EJB
     private ItemValidating itemValidating = null;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
     private HtmlMessages valMessage = new HtmlMessages();
     // bindings
     private HtmlCommandLink lnkSave = new HtmlCommandLink();
@@ -173,13 +178,11 @@ public class EditItem extends FacesBean
     private ContentSubjectCollection contentSubjectCollection;
     private IdentifierCollection identifierCollection;
     private List<ListItem> languages = null;
-    private List<UploadItem> uploadedFile;
+    //private UploadedFile uploadedFile;
     private String locatorUpload;
-    private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat pubLangIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat identifierIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat sourceIdentifierIterator = new HtmlAjaxRepeat();
+    
+
+    
     //private CoreTable fileTable = new CoreTable();
     private PubItemVOPresentation item = null;
     private boolean fromEasySubmission = false;
@@ -188,21 +191,14 @@ public class EditItem extends FacesBean
     //private CoreInputFile inputFile = new CoreInputFile();
     // Flag for the binding method to avoid unnecessary binding
     private boolean bindFilesAndLocators = true;
+	private UIRepeat fileIterator;
 
     /**
      * Public constructor.
      */
     public EditItem()
     {
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
-        }
-        catch (NamingException ne)
-        {
-            throw new RuntimeException("Validation service not initialized", ne);
-        }
+       
         this.init();
     }
 
@@ -621,19 +617,22 @@ public class EditItem extends FacesBean
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(UploadItem uploadedFile, String mimetype, String userHandle) throws Exception
+    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-        if(uploadedFile.isTempFile())
-        {
-        	method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(uploadedFile.getFile())));
-        }
+        //if(uploadedFile.isTempFile())
+        //{
+        InputStream fis = uploadedFile.getInputstream();
+        	method.setRequestEntity(new InputStreamRequestEntity(fis));
+	    /*    
+	    }
         else
         {
         	method.setRequestEntity(new InputStreamRequestEntity(new ByteArrayInputStream(uploadedFile.getData())));
         }
+        */
         
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -642,9 +641,9 @@ public class EditItem extends FacesBean
         ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
-        return ctransforming.transformUploadResponseToFileURL(response);
+        fis.close();
+       
+        return xmlTransforming.transformUploadResponseToFileURL(response);
     }
 
     public String addLanguage()
@@ -1302,7 +1301,7 @@ public class EditItem extends FacesBean
         this.contentSubjectCollection = null;
         this.identifierCollection = null;
         this.languages = null;
-        this.uploadedFile = null;
+        //this.uploadedFile = null;
         //this.fileTable = null;
     }
 
@@ -1474,41 +1473,52 @@ public String logUploadComplete()
 	return "";
 }
     
-    public String uploadFile()
+    public String uploadFile(UploadedFile file)
     {
-    	for(UploadItem file: getUploadedFile())
+    	//UploadedFile file = uploadedFile;
+    	/*
+    	for(UploadedFile file: getUploadedFile())
     	{
+    	*/
 	        //int indexUpload = this.getEditItemSessionBean().getFiles().size() - 1;
 	        
 	        String contentURL;
-	        if (file != null && file.getFileSize() > 0)
+	        if (file != null && file.getSize() > 0)
 	        {
-	            contentURL = uploadFile(file);
+	            contentURL = uploadFileToEscidoc(file);
+	            String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
 	            if (contentURL != null && !contentURL.trim().equals(""))
 	            {
 	            	 FileVO fileVO = new FileVO();
 	            	 fileVO.getMetadataSets().add(new MdsFileVO());
 	                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 	                 this.getEditItemSessionBean().getFiles() .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
-	                fileVO.getDefaultMetadata().setSize((int)file.getFileSize());
-	                fileVO.setName(file.getFileName());
-	                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
+	                fileVO.getDefaultMetadata().setSize((int)file.getSize());
+	                fileVO.setName(fixedFileName);
+	                fileVO.getDefaultMetadata().setTitle(new TextVO(fixedFileName));
 	                
 	                
 	                
                 	Tika tika = new Tika();
+                	/*
                 	if(file.isTempFile())
                 	{
+                	*/
+                	
                 		try {
-							fileVO.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
+                			InputStream fis = file.getInputstream();
+							fileVO.setMimeType(tika.detect(fis, fixedFileName));
+							fis.close();
 						} catch (IOException e) {
-							logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+							logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
 						}
+                		/*
                 	}
                 	else
                 	{
-                		fileVO.setMimeType(tika.detect(file.getFileName()));
+                		fileVO.setMimeType(tika.detect(file.getName()));
                 	}
+                	*/
 	                	
 	                
 	               
@@ -1535,12 +1545,12 @@ public String logUploadComplete()
 	            // show error message
 	            error(getMessage("ComponentEmpty"));
 	        }
-    	}
+    	//}
         return"";
 
     }
 
-    public String uploadFile(UploadItem file)
+    public String uploadFileToEscidoc(UploadedFile file)
     {
         String contentURL = "";
         if (file != null)
@@ -1583,10 +1593,10 @@ public String logUploadComplete()
         return contentURL;
     }
 
-    public void fileUploaded(UploadEvent event)
+    public void fileUploaded(FileUploadEvent event)
     {
-        this.uploadedFile = event.getUploadItems();
-        uploadFile();
+        
+        uploadFile(event.getFile());
     }
 
     /*
@@ -1644,6 +1654,7 @@ public String logUploadComplete()
     /**
      * Preview method for uploaded files
      */
+    /*
     public void fileDownloaded()
     {
         int index = this.fileIterator.getRowIndex();
@@ -1663,6 +1674,7 @@ public String logUploadComplete()
         FileBean File = new FileBean(fileVO, this.getPubItem().getPublicStatus());
         File.downloadFile();
     }
+    */
 
     /**
      * This method adds a file to the list of files of the item
@@ -2258,15 +2270,17 @@ public String logUploadComplete()
         this.getEditItemSessionBean().setLocators(locators);
     }
 
-    public List<UploadItem> getUploadedFile()
+    /*
+    public UploadedFile getUploadedFile()
     {
         return this.uploadedFile;
     }
 
-    public void setUploadedFile(List<UploadItem> uploadedFile)
+    public void setUploadedFile(UploadedFile uploadedFile)
     {
         this.uploadedFile = uploadedFile;
     }
+    */
 
     /*
     public CoreTable getFileTable()
@@ -2318,8 +2332,6 @@ public String logUploadComplete()
     public String getOwner() throws Exception
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
         UserAccountHandler userAccountHandler = null;
         
         HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -2371,8 +2383,6 @@ public String logUploadComplete()
     public String getLastModifier() throws Exception
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
         UserAccountHandler userAccountHandler = null;
         
         if (this.item.getVersion().getModifiedByRO() != null && this.item.getVersion().getModifiedByRO().getObjectId() != null)
@@ -2562,12 +2572,12 @@ public String logUploadComplete()
         return "loadEditLocalTags";
     }
 
-    public HtmlAjaxRepeat getFileIterator()
+    public UIRepeat getFileIterator()
     {
         return this.fileIterator;
     }
 
-    public void setFileIterator(HtmlAjaxRepeat fileIterator)
+    public void setFileIterator(UIRepeat fileIterator)
     {
         this.fileIterator = fileIterator;
     }
@@ -2590,45 +2600,7 @@ public String logUploadComplete()
         this.suggestConeUrl = suggestConeUrl;
     }
 
-    public HtmlAjaxRepeat getPubLangIterator()
-    {
-        return pubLangIterator;
-    }
 
-    public void setPubLangIterator(HtmlAjaxRepeat pubLangIterator)
-    {
-        this.pubLangIterator = pubLangIterator;
-    }
-
-    public HtmlAjaxRepeat getIdentifierIterator()
-    {
-        return identifierIterator;
-    }
-
-    public void setIdentifierIterator(HtmlAjaxRepeat identifierIterator)
-    {
-        this.identifierIterator = identifierIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceIterator()
-    {
-        return sourceIterator;
-    }
-
-    public void setSourceIterator(HtmlAjaxRepeat sourceIterator)
-    {
-        this.sourceIterator = sourceIterator;
-    }
-
-    public HtmlAjaxRepeat getSourceIdentifierIterator()
-    {
-        return sourceIdentifierIterator;
-    }
-
-    public void setSourceIdentifierIterator(HtmlAjaxRepeat sourceIdentifierIterator)
-    {
-        this.sourceIdentifierIterator = sourceIdentifierIterator;
-    }
 
     public HtmlSelectOneMenu getGenreSelect()
     {

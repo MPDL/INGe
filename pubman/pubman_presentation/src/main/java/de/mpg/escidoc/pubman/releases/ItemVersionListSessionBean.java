@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -33,7 +33,6 @@ package de.mpg.escidoc.pubman.releases;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -61,9 +60,7 @@ public class ItemVersionListSessionBean extends FacesBean
     
     private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
-    private HtmlAjaxRepeat eventIterator = new HtmlAjaxRepeat();
-    private HtmlAjaxRepeat versionIterator = new HtmlAjaxRepeat();
-       
+
     /**
      * Public constructor.
      */
@@ -151,15 +148,7 @@ public class ItemVersionListSessionBean extends FacesBean
         this.eventLogList = eventLogList;
     }
 
-    public void setEventIterator(HtmlAjaxRepeat eventIterator)
-    {
-        this.eventIterator = eventIterator;
-    }
-
-    public HtmlAjaxRepeat getEventIterator()
-    {
-        return eventIterator;
-    }
+  
 
     public void setReleaseList(List<EventLogEntryVOPresentation> releaseList)
     {
@@ -171,20 +160,5 @@ public class ItemVersionListSessionBean extends FacesBean
         return releaseList;
     }
 
-    /**
-     * @return the versionIterator
-     */
-    public HtmlAjaxRepeat getVersionIterator()
-    {
-        return versionIterator;
-    }
-
-    /**
-     * @param versionIterator the versionIterator to set
-     */
-    public void setVersionIterator(HtmlAjaxRepeat versionIterator)
-    {
-        this.versionIterator = versionIterator;
-    }
 
 }

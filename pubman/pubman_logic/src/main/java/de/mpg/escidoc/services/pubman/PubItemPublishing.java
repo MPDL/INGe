@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -52,7 +52,7 @@ public interface PubItemPublishing {
     /**
      * The service name.
      */
-	public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/PubItemPublishing";
+	public static final String SERVICE_NAME = "java:global/de/mpg/escidoc/services/pubman/PubItemPublishing";
 
 	/**
 	 * Releases the publication item identified by the given pubItemRef.

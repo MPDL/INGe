@@ -1,5 +1,6 @@
-<%
-            /* 
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:remove>
             CDDL HEADER START
 
             The contents of this file are subject to the terms of the
@@ -8,7 +9,7 @@
             with the License.
 
             You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
+            or http://www.escidoc.org/license.
             See the License for the specific language governing permissions
             and limitations under the License.
 
@@ -25,11 +26,7 @@
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
-             */
-%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
+</ui:remove>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,7 +37,7 @@
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showDetails}">
 		<a id="lnkHideGroupDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
-<%-- Languages --%>
+<!-- Languages -->
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblLanguages}"/><span class="noDisplay">: </span>
@@ -51,33 +48,33 @@
 			</span>
 		</div>
 
-<%-- Dates --%>
+<!-- Dates -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblDates}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null && ViewItemFull.pubItem.metadata.dateCreated != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null and ViewItemFull.pubItem.metadata.dateCreated != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateCreated" styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " title="#{lbl.ViewItem_lblDateCreated}: " />
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null && ViewItemFull.pubItem.metadata.dateModified != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null and ViewItemFull.pubItem.metadata.dateModified != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateModified" styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " title="#{lbl.ViewItem_lblDateModified}: " />
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null && ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null and ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateSubmitted" styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: " title="#{lbl.ViewItem_lblDateSubmitted}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null && ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null and ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
 					<h:outputLabel id="lblViewItem_lblDateAccepted" styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: " title="#{lbl.ViewItem_lblDateAccepted}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null && ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null and ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
 					<h:outputLabel id="lblViewItem_lblDatePublishedOnline" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: " title="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="double_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
+				<h:panelGroup styleClass="double_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null and ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
 					<h:outputLabel id="lblViewItem_lblDatePublishedInPrint" styleClass="double_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: " title="#{lbl.ViewItem_lblDatePublishedInPrint}:"/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 				</h:panelGroup>
@@ -85,7 +82,7 @@
 		</div>
 		
 		
-<%-- Publication status --%>
+<!-- Publication status -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPublicationStatus}"/><span class="noDisplay">: </span>
@@ -93,10 +90,9 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{ViewItemFull.pubItem.publicationStatus}"/>
 				</span>
-			</span>
 		</div>
 
-<%-- Pages --%>
+<!-- Pages -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPages}"/><span class="noDisplay">: </span>
@@ -107,7 +103,7 @@
 			</span>
 		</div>
 
-<%-- Publishing Info --%>
+<!-- Publishing Info -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPublishingInfo}"/><span class="noDisplay">: </span>
@@ -118,7 +114,7 @@
 			</span>
 		</div>
 
-<%-- Table of Content --%>
+<!-- Table of Content -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblTOC}"/><span class="noDisplay">: </span>
@@ -129,7 +125,7 @@
 			</span>
 		</div>
 
-<%-- Review method --%>
+<!-- Review method -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblRevisionMethod}"/><span class="noDisplay">: </span>
@@ -140,7 +136,7 @@
 			</span>
 		</div>
 
-<%-- Identifiers --%>
+<!-- Identifiers -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblIdentifiers}"/><span class="noDisplay">: </span>
@@ -151,7 +147,7 @@
 			</span>
 		</div>
 
-<%-- Degree Type --%>
+<!-- Degree Type -->
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblDegreeType}"/><span class="noDisplay">: </span>
@@ -163,3 +159,4 @@
 		</div>
 	</h:panelGroup>
 </h:panelGroup>
+</ui:composition>

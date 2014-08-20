@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -36,7 +36,7 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
-import org.richfaces.model.UploadItem;
+import org.primefaces.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
@@ -97,7 +97,7 @@ public class EasySubmissionSessionBean extends EditItemBean
     private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 
     
-    private UploadItem uploadedBibtexFile;
+    private UploadedFile uploadedBibtexFile;
     private String selectedDate;
 
     //For import service
@@ -398,11 +398,11 @@ public class EasySubmissionSessionBean extends EditItemBean
         return this.REFERENCE_LOCATOR;
     }
 
-	public UploadItem getUploadedBibtexFile() {
+	public UploadedFile getUploadedBibtexFile() {
 		return uploadedBibtexFile;
 	}
 
-	public void setUploadedBibtexFile(UploadItem uploadedBibtexFile) {
+	public void setUploadedBibtexFile(UploadedFile uploadedBibtexFile) {
 		this.uploadedBibtexFile = uploadedBibtexFile;
 	}
 }

@@ -69,8 +69,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
             .getSessionMap()
             .get(LoginHelper.BEAN_NAME);
         InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-        PubItemDepositing pubItemDepositingBean = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+        PubItemDepositing pubItemDepositingBean = (PubItemDepositing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
         ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
         
         // Get the two versions

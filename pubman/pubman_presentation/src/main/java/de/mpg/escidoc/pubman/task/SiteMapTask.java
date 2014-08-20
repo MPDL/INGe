@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -55,6 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElemen
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.bean.SearchBean;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
@@ -71,6 +74,7 @@ import de.mpg.escidoc.services.search.query.SearchQuery;
 public class SiteMapTask extends Thread
 {
     private static final Logger logger = Logger.getLogger(SiteMapTask.class);
+    
     
     private Search search;
     private ArrayList<String> contentModels;
@@ -92,6 +96,8 @@ public class SiteMapTask extends Thread
     
     private List<File> files = new ArrayList<File>();
     
+    public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+    
     /**
      * {@inheritDoc}
      */
@@ -102,9 +108,12 @@ public class SiteMapTask extends Thread
         {
             logger.info("Starting to create Sitemap.");
             
+
             InitialContext context = new InitialContext();
-            search = (Search) context.lookup(Search.SERVICE_NAME);
-            
+            //search = (Search) context.lookup(Search.SERVICE_NAME);
+
+            search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
+
             instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
             contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
             itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
@@ -130,10 +139,12 @@ public class SiteMapTask extends Thread
             
             finishSitemap();
             
-            String appPath;
+            //String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+            new File(SITEMAP_PATH).mkdir();
+            /*
             try
             {
-                appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp").getAbsolutePath();
+                appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp", SiteMapTask.class.getClassLoader()).getAbsolutePath();
             }
             catch (Exception e)
             {
@@ -141,10 +152,10 @@ public class SiteMapTask extends Thread
                 return;
             }
             appPath = appPath.substring(0, appPath.lastIndexOf(System.getProperty("file.separator")) + 1);
-            
+            */
             if (files.size() == 1)
             {
-                File finalFile = new File(appPath + "sitemap.xml");
+                File finalFile = new File(SITEMAP_PATH + "sitemap.xml");
                 try
                 {
                     finalFile.delete();
@@ -153,9 +164,9 @@ public class SiteMapTask extends Thread
                 {
                     // Unable to delete file, it probably didn't exist
                 }
-                fileWriter = new FileWriter(appPath + "sitemap.xml");
+                fileWriter = new FileWriter(SITEMAP_PATH + "sitemap.xml");
                 
-                File newSiteMap = new File(appPath + "sitemap.xml");
+                File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
                 this.copySiteMap(files.get(0), finalFile, (int) files.get(0).length(), true);
             }
             else
@@ -173,7 +184,7 @@ public class SiteMapTask extends Thread
                 
                 for (int i = 0; i < files.size(); i++)
                 {
-                    File finalFile = new File(appPath + "sitemap" + (i + 1) + ".xml");
+                    File finalFile = new File(SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
                     try
                     {
                         finalFile.delete();
@@ -195,7 +206,7 @@ public class SiteMapTask extends Thread
                 indexFileWriter.flush();
                 indexFileWriter.close();
                 
-                File finalFile = new File(appPath + "sitemap.xml");
+                File finalFile = new File(SITEMAP_PATH + "sitemap.xml");
                 logger.info("Sitemap file: " + finalFile.getAbsolutePath());
                 try
                 {

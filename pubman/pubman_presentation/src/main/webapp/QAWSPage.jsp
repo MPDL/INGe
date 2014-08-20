@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
 
  CDDL HEADER START
@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -28,41 +28,39 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
-	<jsp:output doctype-root-element="html"
-	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	 
+
+	
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
+			<h:head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{MyTasksRetrieverRequestBean.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="${MyTasksRetrieverRequestBean.unapiURLview}"/>
 
-				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				<ui:include src="header/ui/StandardImports.jspf" />
 
-			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			</h:head>
+			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{MyTasksRetrieverRequestBean.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.isModerator}"/>
 			<h:outputText value="#{QAWSPage.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.isModerator}"/>
 			<h:form >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
-				<jsp:directive.include file="header/Header.jspf" />
+				<ui:include src="header/Header.jspf" />
 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
 							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
+						<ui:include src="header/Breadcrumb.jspf" />
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
@@ -118,14 +116,10 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selExportFormatName" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
+										<h:selectOneMenu id="selExportFormatName" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
-											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btUpdateExportFormats" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
 									
 									<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
@@ -137,18 +131,6 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	*/ %> -->
-								<!-- <% /*
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="third_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-								*/ %> -->
-									<!-- <% /*
-									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
-									<h:outputText styleClass="seperator" />
-									 */ %> -->
 									<h:commandLink id="btnExportDownload" styleClass="free_area0 xTiny_marginLExcl" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}"/>
 									<h:outputText styleClass="seperator" />
 									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
@@ -176,14 +158,10 @@
 											<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedItemState" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$pb(this).parents('div').find('.changeState').click();">
+										<h:selectOneMenu id="selSelectedItemState" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 											<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selSelectedItemState" styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$pb(this).parents('div').find('.changeState').click();">
-										<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}"/>
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeItemState" styleClass="noDisplay changeState" action="#{MyTasksRetrieverRequestBean.changeItemState}" value="change item state"/>
 									
 									<h:outputText styleClass="small_label xTiny_marginLExcl" value="#{lbl.qaws_lblCollectionSelection} "/>
@@ -193,14 +171,10 @@
 											<h:panelGroup styleClass="double_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedContext" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$pb(this).parents('div').find('.changeCollection').click();">
+										<h:selectOneMenu id="selSelectedContext" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$(this).parents('div').find('.changeCollection').click();">
 											<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selSelectedContext" styleClass="double_select replace" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$pb(this).parents('div').find('.changeCollection').click();">
-										<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}"/>
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeContext" styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
@@ -211,14 +185,10 @@
 											<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedOrgUnit" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$pb(this).parents('div').find('.changeOrgUnit').click();">
+										<h:selectOneMenu id="selSelectedOrgUnit" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
 											<f:selectItems value="#{MyTasksRetrieverRequestBean.orgUnitSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="quad_select replace endline" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$pb(this).parents('div').find('.changeOrgUnit').click();">
-										<f:selectItems value="#{MyTasksRetrieverRequestBean.orgUnitSelectItems}"/>
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{MyTasksRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
@@ -229,14 +199,10 @@
 											<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedImport" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$pb(this).parents('div').find('.changeImport').click();">
+										<h:selectOneMenu id="selSelectedImport" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
 											<f:selectItems value="#{MyTasksRetrieverRequestBean.importSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu id="selSelectedImport" styleClass="quad_select replace endline" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$pb(this).parents('div').find('.changeImport').click();">
-										<f:selectItems value="#{MyTasksRetrieverRequestBean.importSelectItems}"/>
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeImport" styleClass="noDisplay changeImport" action="#{MyTasksRetrieverRequestBean.changeImport}" value="change import"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
@@ -249,14 +215,10 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();">
+										<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /*
-									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();" >
-										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
-									</h:selectOneMenu>	*/ %> -->
 									<h:commandLink styleClass="ascSort xTiny_marginLExcl" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();"/>
 									<h:commandLink styleClass="desSort xTiny_marginLExcl" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" onclick="fullItemReloadAjax();"/>
 									<h:commandButton id="btChangeSortBy" styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>
@@ -290,10 +252,10 @@
 						</div>
 					</div>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
-						<jsp:directive.include file="list/itemList.jspf" />
+						<ui:include src="list/itemList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
-						<jsp:directive.include file="list/gridList.jspf" />
+						<ui:include src="list/gridList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
@@ -302,21 +264,20 @@
 				</div>
 			
 			</div>
-			<jsp:directive.include file="footer/Footer.jspf" />
+			<ui:include src="footer/Footer.jspf" />
 			</h:form>
 			<script type="text/javascript">
-				<![CDATA[
-					$pb("input[id$='offset']").submit(function() {
-						$pb(this).val($pb(window).scrollTop());
+				//<![CDATA[
+					$("input[id$='offset']").submit(function() {
+						$(this).val($(window).scrollTop());
 					});
-					$pb(document).ready(function () {
-						$pb(window).scrollTop($pb("input[id$='offset']").val());
-						$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+					$(document).ready(function () {
+						$(window).scrollTop($("input[id$='offset']").val());
+						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 						
 					});
-				]]>
+				//]]>
 			</script>
 			</body>
 		</html>
 	</f:view>
-</jsp:root>

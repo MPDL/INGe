@@ -3,7 +3,9 @@ package de.mpg.escidoc.pubman.basket;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.log4j.Logger;
 
@@ -40,6 +42,9 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBasket_NoItemSelected";
     
     Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
+    
+    @EJB
+    XmlTransforming xmlTransforming;
 
     public CartItemsRetrieverRequestBean()
     {
@@ -86,8 +91,6 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
             
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
       
             
             List<ItemRO> idList = new ArrayList<ItemRO>();

@@ -4,6 +4,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -69,8 +70,14 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
      */
     private int numberOfRecords;
     
-
+    @EJB
     private Search searchService;
+    
+    @EJB
+    private XmlTransforming xmlTransforming;
+    
+    @EJB
+    private PubItemPublishing pubItemPublishing;
     //private YearbookItemSessionBean yisb;
     private PubItemListSessionBean pilsb;
     
@@ -90,17 +97,6 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
 //        
 //        yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
         
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
-            
-        }
-        catch (NamingException e)
-        {
-            logger.error("Error when trying to find search service.", e);
-            error("Did not find Search service");
-        }
       
     }
 
@@ -203,8 +199,6 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
           {
               LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); 
               ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-              InitialContext initialContext = new InitialContext();
-              XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
         
               // define the filter criteria
               FilterTaskParamVO filter = new FilterTaskParamVO();
@@ -291,9 +285,6 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
             if (this.pilsb.getSelectedItems().size() > 0)
             {
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-                InitialContext initialContext = new InitialContext();
-                PubItemPublishing pubItemPublishing = (PubItemPublishing)initialContext
-                    .lookup(PubItemPublishing.SERVICE_NAME);
                 for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems())
                 {
                     if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) 
@@ -333,8 +324,6 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
             {
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
                 ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
                 TaskParamVO param = null;
                 String paramXml = null;
                 for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems())

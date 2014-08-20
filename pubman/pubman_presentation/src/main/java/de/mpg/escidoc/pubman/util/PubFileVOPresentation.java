@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -43,9 +43,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.core.dom.ThisExpression;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -149,7 +147,7 @@ public class PubFileVOPresentation extends FacesBean
             {
                 InitialContext initialContext = new InitialContext();
                 pubItemStatistics = (PubItemSimpleStatistics)
-                        initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+                        initialContext.lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
             }
             catch (NamingException e)
             {
@@ -513,7 +511,7 @@ public class PubFileVOPresentation extends FacesBean
          
         easySubmissionSessionBean.getFiles().remove(this.index);
         easySubmission.reorganizeFileIndexes();
-        easySubmission.setFileIterator(new HtmlAjaxRepeat());
+        //easySubmission.setFileIterator(new HtmlAjaxRepeat());
         easySubmission.init();
         return "loadNewEasySubmission";        
     }
@@ -525,7 +523,7 @@ public class PubFileVOPresentation extends FacesBean
          
         easySubmissionSessionBean.getLocators().remove(this.index);
         easySubmission.reorganizeLocatorIndexes();
-        easySubmission.setLocatorIterator(new HtmlAjaxRepeat());
+        //easySubmission.setLocatorIterator(new HtmlAjaxRepeat());
         easySubmission.init();
         return "loadNewEasySubmission";        
     }
