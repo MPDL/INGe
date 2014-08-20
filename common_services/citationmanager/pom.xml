@@ -41,8 +41,8 @@
 	<version>1.0.87-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/citationmanager</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/citationmanager</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citationmanager</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citationmanager</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 

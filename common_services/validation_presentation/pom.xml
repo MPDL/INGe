@@ -41,8 +41,8 @@
  	<packaging>war</packaging>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/validation_presentation</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/validation_presentation</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/validation_presentation</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/validation_presentation</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 
