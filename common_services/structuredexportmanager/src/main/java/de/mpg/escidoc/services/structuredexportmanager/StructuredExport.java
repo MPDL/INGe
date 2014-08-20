@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -196,7 +196,7 @@ public class StructuredExport implements StructuredExportHandler {
 							{
 								InputStream is;
 								try {
-									is = ResourceUtil.getResourceAsStream(PATH_TO_SCHEMAS + href);
+									is = ResourceUtil.getResourceAsStream(PATH_TO_SCHEMAS + href, StructuredExport.class.getClassLoader());
 								} catch (IOException e) {
 									throw new TransformerException(e);
 								}
@@ -215,7 +215,7 @@ public class StructuredExport implements StructuredExportHandler {
 				// xslt source
 				javax.xml.transform.Source xsltSource =
 					new javax.xml.transform.stream.StreamSource(
-							ResourceUtil.getResourceAsStream(xsltFileName)
+							ResourceUtil.getResourceAsStream(xsltFileName, StructuredExport.class.getClassLoader())
 				);
 					
 				
@@ -265,7 +265,7 @@ public class StructuredExport implements StructuredExportHandler {
 		try {
 	        TransformerFactory factory = new TransformerFactoryImpl();
 	        factory.setURIResolver(new LocalURIResolver(PATH_TO_RESOURCES + EXPLAIN_FILE));
-			br = new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream(PATH_TO_RESOURCES + EXPLAIN_FILE), "UTF-8"));
+			br = new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream(PATH_TO_RESOURCES + EXPLAIN_FILE, StructuredExport.class.getClassLoader()), "UTF-8"));
 		} catch (Exception e) {
 			throw new StructuredExportManagerException(e); 
 		}

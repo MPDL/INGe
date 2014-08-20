@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -63,7 +63,7 @@ public class WebServiceTest
     @Before
     public final void getValidItemXml() throws Exception
     {
-        validXml = ResourceUtil.getResourceAsString("validation/validItem.xml");
+        validXml = ResourceUtil.getResourceAsString("validation/validItem.xml", WebServiceTest.class.getClassLoader());
         assertNotNull("Valid item xml not found", validXml);
     }
 
@@ -74,7 +74,7 @@ public class WebServiceTest
     @Before
     public final void getSemiValidItemXml() throws Exception
     {
-        semiValidXml = ResourceUtil.getResourceAsString("validation/semiValidItem.xml");
+        semiValidXml = ResourceUtil.getResourceAsString("validation/semiValidItem.xml", WebServiceTest.class.getClassLoader());
         assertNotNull("Semi valid item xml not found", semiValidXml);
     }
 
@@ -85,7 +85,7 @@ public class WebServiceTest
     @Before
     public final void getInvalidItemXml() throws Exception
     {
-        invalidXml = ResourceUtil.getResourceAsString("validation/invalidItem.xml");
+        invalidXml = ResourceUtil.getResourceAsString("validation/invalidItem.xml", WebServiceTest.class.getClassLoader());
         assertNotNull("Invalid item xml not found", invalidXml);
     }
 

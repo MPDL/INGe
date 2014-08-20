@@ -6,9 +6,9 @@
 <%@page import="javax.xml.transform.Transformer"%>
 <%
 
-	Transformer transformer = new net.sf.saxon.TransformerFactoryImpl().newTransformer(new StreamSource(ResourceUtil.getResourceAsStream("rule2html.xsl")));
+	Transformer transformer = new net.sf.saxon.TransformerFactoryImpl().newTransformer(new StreamSource(ResourceUtil.getResourceAsStream("rule2html.xsl", this.getClass().getClassLoader())));
 	Result result = new StreamResult(out);
 	transformer.setParameter("rule-text", request.getParameter("rule-text"));
-	transformer.transform(new StreamSource(ResourceUtil.getResourceAsStream("ruler.xml")), result);
+	transformer.transform(new StreamSource(ResourceUtil.getResourceAsStream("ruler.xml", this.getClass().getClassLoader())), result);
 
 %>

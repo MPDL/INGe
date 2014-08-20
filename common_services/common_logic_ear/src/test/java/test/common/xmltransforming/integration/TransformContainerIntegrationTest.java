@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -97,7 +97,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
     public static void setUpBeforeClass() throws Exception
     {
         // TODO FrM: Wech
-        // xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
+        // xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         xmlTransforming = new XmlTransformingBean();
     }
 
@@ -232,7 +232,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformContainerIntegrationTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list
@@ -302,7 +302,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformContainerIntegrationTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());

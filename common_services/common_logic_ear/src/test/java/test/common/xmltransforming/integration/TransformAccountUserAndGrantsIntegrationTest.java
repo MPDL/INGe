@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -39,6 +39,7 @@ import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpException;
@@ -92,7 +93,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
-        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming)getService("ejb:common_logic_ear/common_logic//XmlTransformingBean!" + XmlTransforming.class.getName());
         
         TEST_DEP_SCIENTIST_LOGIN_NAME = PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST);
         TEST_DEP_SCIENTIST_ID = PropertyReader.getProperty(PROPERTY_ID_SCIENTIST);

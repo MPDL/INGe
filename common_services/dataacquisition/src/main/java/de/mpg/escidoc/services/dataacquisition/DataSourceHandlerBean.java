@@ -16,6 +16,7 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesDocum
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsType;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
@@ -74,7 +75,8 @@ public class DataSourceHandlerBean
         	System.out.println();
         	ClassLoader cl = this.getClass().getClassLoader();
             java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
-            this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
+            String xml = ResourceUtil.getStreamAsString(in);
+            this.sourceDoc = ImportSourcesDocument.Factory.parse(xml);
             //System.out.println(this.sourceDoc);
             this.thirdPartyTransformer = new ThirdPartyTransformation();
             this.sourceType = this.sourceDoc.getImportSources();

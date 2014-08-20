@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -56,6 +56,7 @@ import test.common.xmltransforming.integration.TransformStatisticsTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
                      TransformAccountUserAndGrantsIntegrationTest.class,
+                     
                      TransformAffiliationIntegrationTest.class,
                      TransformPubCollectionIntegrationTest.class,
                      TransformPubItemIntegrationTest.class,
@@ -66,6 +67,7 @@ import test.common.xmltransforming.integration.TransformStatisticsTest;
 //                     // TODO: Fix this test.
   //                   TransformContainerIntegrationTest.class,
                      TransformStatisticsTest.class
+                     
                      
                     })
 public class XmlTransformingIntegrationTest extends TestBase

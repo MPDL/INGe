@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -93,7 +93,7 @@ public class Syndication implements SyndicationHandler
 			throw new SyndicationException(e);
 		}
 		
-		explainXML = ResourceUtil.getResourceAsString(FEEDS_DEFINITION_FILE);
+		explainXML = ResourceUtil.getResourceAsString(FEEDS_DEFINITION_FILE, Syndication.class.getClassLoader());
 		feeds = Feeds.readFeedsFromXml(
 				FEEDS_DEFINITION_DIGESTER_RULES_FILE,
 				FEEDS_DEFINITION_FILE

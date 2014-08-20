@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -32,10 +32,12 @@ package de.mpg.escidoc.services.validation;
 import static de.mpg.escidoc.services.validation.XsltTransforming.transform;
 
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -45,7 +47,6 @@ import javax.naming.NamingException;
 import javax.xml.transform.Transformer;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -64,8 +65,7 @@ import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming
  *
  */
 @Stateless
-@Remote
-@RemoteBinding(jndiBinding = ItemValidatingBean.SERVICE_NAME)
+@Remote(ItemValidating.class)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemValidatingBean implements ItemValidating
 {
@@ -80,6 +80,9 @@ public class ItemValidatingBean implements ItemValidating
      */
     @EJB
     private XmlTransforming xmlTransforming;
+    
+    @EJB
+    private ValidationTransforming validationTransforming;
 
     /**
      * {@inheritDoc}
@@ -308,8 +311,11 @@ public class ItemValidatingBean implements ItemValidating
 
     private ValidationTransforming getValidationTransforming() throws NamingException
     {
-        InitialContext context = new InitialContext();
-        return (ValidationTransforming) context.lookup(ValidationTransforming.SERVICE_NAME);
+        return validationTransforming;
+        /*
+    	InitialContext context = new InitialContext();
+        return (ValidationTransforming) context.lookup("java:global/pubman_ear/validation/ValidationTransformingBean");
+        */
     }
 
     /**
@@ -318,6 +324,14 @@ public class ItemValidatingBean implements ItemValidating
     public final void refreshValidationSchemaCache() throws TechnicalException
     {
             ValidationSchemaCache.getInstance().refreshCache();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public final Date getLastRefreshDate() throws TechnicalException
+    {
+            return ValidationSchemaCache.getInstance().getLastRefreshDate();
     }
 
 }

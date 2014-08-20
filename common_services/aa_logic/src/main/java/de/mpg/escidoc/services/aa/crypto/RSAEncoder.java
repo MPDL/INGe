@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -108,7 +108,7 @@ public class RSAEncoder
 
     public static Key readKeyFromFile(String keyFileName, boolean publ) throws Exception
     {
-        InputStream in = ResourceUtil.getResourceAsStream(keyFileName);
+        InputStream in = ResourceUtil.getResourceAsStream(keyFileName, RSAEncoder.class.getClassLoader());
         ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(in));
         try
         {

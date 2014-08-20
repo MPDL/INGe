@@ -42,7 +42,7 @@ public class EndNoteImportTest
 //	@Ignore
 	public void CheckEndNoteImport() throws Exception
 	{  	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("testFiles/endnote/publikationsliste_2008_endnote.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("testFiles/endnote/publikationsliste_2008_endnote.txt", EndNoteImportTest.class.getClassLoader());
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -61,7 +61,7 @@ public class EndNoteImportTest
 	{
 	    this.logger.info("Transform EndNote ICE list to escidoc list");
 	    
-       	byte[] result = this.transformation.transform(ResourceUtil.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote2.txt").getBytes(), 
+       	byte[] result = this.transformation.transform(ResourceUtil.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote2.txt", EndNoteImportTest.class.getClassLoader()).getBytes(), 
        	        this.inputFormatICE, this.outputFormat, "escidoc");
        	XmlTransformingBean xmlTransforming = new XmlTransformingBean();
        	List<PubItemVO> itemList = (List<PubItemVO>)xmlTransforming.transformToPubItemList(new String(result, "UTF-8"));
@@ -73,7 +73,7 @@ public class EndNoteImportTest
 	{
 		this.logger.info("Transform EndNote list to escidoc list. New implemetation");
 		
-		byte[] result = this.transformation.transform(ResourceUtil.getResourceAsString("testFiles/endnote/EndNote_Import_revised_implementation.txt").getBytes(), 
+		byte[] result = this.transformation.transform(ResourceUtil.getResourceAsString("testFiles/endnote/EndNote_Import_revised_implementation.txt", EndNoteImportTest.class.getClassLoader()).getBytes(), 
 				this.inputFormat, this.outputFormat, "escidoc");
 		
 //		FileOutputStream fos = new FileOutputStream("target/endnote_transformed.xml");

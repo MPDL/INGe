@@ -9,7 +9,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -24,8 +24,8 @@
 
 /*
 * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 %>

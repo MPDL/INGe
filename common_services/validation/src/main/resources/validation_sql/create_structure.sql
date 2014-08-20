@@ -7,7 +7,7 @@
 -- with the License.
 
 -- You can obtain a copy of the license at license/ESCIDOC.LICENSE
--- or http://www.escidoc.de/license.
+-- or http://www.escidoc.org/license.
 -- See the License for the specific language governing permissions
 -- and limitations under the License.
 
@@ -46,9 +46,9 @@
 -- Name: escidoc_validation_schema_snippets; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
 --
 CREATE TABLE escidoc_validation_schema_SNIPPETS (
-	id_context_ref VARCHAR(255),
-	id_content_type_ref VARCHAR(255),
-    	id_validation_point VARCHAR(255),
+	id_context_ref VARCHAR(255) NOT NULL,
+	id_content_type_ref VARCHAR(255) NOT NULL,
+    	id_validation_point VARCHAR(255) NOT NULL,
 	id_metadata_version_ref VARCHAR(255),
     	snippet_content LONGVARCHAR
 );

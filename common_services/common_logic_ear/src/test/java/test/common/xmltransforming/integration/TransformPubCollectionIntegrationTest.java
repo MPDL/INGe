@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -86,7 +86,7 @@ public class TransformPubCollectionIntegrationTest extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
 
 
         userHandle = loginScientist();

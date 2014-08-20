@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -30,6 +30,7 @@
 package de.mpg.escidoc.services.aa.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,6 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -47,12 +49,13 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or in jar files.
  *
  * @author franke (initial creation)
- * @author $Author: kleinfercher $ (last modification)
- * @version $Revision: 4176 $ $LastChangedDate: 2011-10-28 10:14:07 +0200 (Fr, 28 Okt 2011) $
+ * @author $Author: haarlaender $ (last modification)
+ * @version $Revision: 5021 $ $LastChangedDate: 2014-02-24 15:14:42 +0100 (Mo, 24 Feb 2014) $
  */
 public class ResourceUtil
 {
@@ -74,14 +77,14 @@ public class ResourceUtil
      * @return The resource as InputStream.
      * @throws FileNotFoundException Thrown if the resource cannot be located.
      */
-    public static File getResourceAsFile(final String fileName) throws FileNotFoundException
+    public static File getResourceAsFile(final String fileName, ClassLoader classLoader) throws FileNotFoundException
     {
-        URL url = ResourceUtil.class.getClassLoader().getResource(resolveFileName(fileName));
+        URL url = classLoader.getResource(resolveFileName(fileName));
         
         // Maybe it's in a WAR file
         if (url == null)
         {
-            url = ResourceUtil.class.getClassLoader().getResource(resolveFileName("WEB-INF/classes/" + fileName));
+            url = classLoader.getResource(resolveFileName("WEB-INF/classes/" + fileName));
         }
         
         File file = null;
@@ -117,16 +120,16 @@ public class ResourceUtil
      * @return The resource as InputStream.
      * @throws FileNotFoundException Thrown if the resource cannot be located.
      */
-    public static InputStream getResourceAsStream(final String fileName) throws FileNotFoundException
+    public static InputStream getResourceAsStream(final String fileName, ClassLoader classLoader) throws FileNotFoundException
     {
         
         InputStream fileIn;
-        fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName(fileName));
+        fileIn = classLoader.getResourceAsStream(resolveFileName(fileName));
 
         // Maybe it's in a WAR file
         if (fileIn == null)
         {
-            fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName("WEB-INF/classes/" + fileName));
+            fileIn = classLoader.getResourceAsStream(resolveFileName("WEB-INF/classes/" + fileName));
         }
 
         if (fileIn == null)
@@ -144,9 +147,9 @@ public class ResourceUtil
      * @return The resource as String.
      * @throws IOException Thrown if the resource cannot be located.
      */
-    public static String getResourceAsString(final String fileName) throws IOException
+    public static String getResourceAsString(final String fileName, ClassLoader classLoader) throws IOException
     {
-        InputStream fileIn = getResourceAsStream(fileName);
+        InputStream fileIn = getResourceAsStream(fileName, classLoader);
         BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
         String line = null;
         StringBuilder result = new StringBuilder();
@@ -157,6 +160,28 @@ public class ResourceUtil
         }
         return result.toString();
     }
+    
+    /**
+     * Gets a stream as String.
+     *
+     * @param stream The input stream
+     * @return The resource as String.
+     * @throws IOException Thrown if the resource cannot be located.
+     */
+    public static String getStreamAsString(final InputStream stream) throws IOException
+    {
+       
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        String line = null;
+        StringBuilder result = new StringBuilder();
+        while ((line = br.readLine()) != null)
+        {
+            result.append(line);
+            result.append("\n");
+        }
+        stream.close();
+        return result.toString();
+    }
 
     /**
      * Gets a resource as String.
@@ -165,9 +190,9 @@ public class ResourceUtil
      * @return The resource as String.
      * @throws IOException Thrown if the resource cannot be located.
      */
-    public static byte[] getResourceAsBytes(final String fileName) throws IOException
+    public static byte[] getResourceAsBytes(final String fileName, ClassLoader classLoader) throws IOException
     {
-        InputStream fileIn = getResourceAsStream(fileName);
+        InputStream fileIn = getResourceAsStream(fileName, classLoader);
         
         byte[] buffer = new byte[2048];
         int read;
@@ -187,9 +212,9 @@ public class ResourceUtil
      * @return Array of files.
      * @throws IOException Thrown if file is not found.
      */
-    public static File[] getFilenamesInDirectory(String dir) throws IOException
+    public static File[] getFilenamesInDirectory(String dir, ClassLoader classLoader) throws IOException
     {
-        File dirFile = getResourceAsFile(resolveFileName(dir));
+        File dirFile = getResourceAsFile(resolveFileName(dir), classLoader);
 
         if (dirFile == null)
         {
@@ -214,7 +239,7 @@ public class ResourceUtil
                 }
                 else
                 {
-                    fileArray.addAll(Arrays.asList(getFilenamesInDirectory(file.getAbsolutePath())));
+                    fileArray.addAll(Arrays.asList(getFilenamesInDirectory(file.getAbsolutePath(), classLoader)));
                 }
             }
             return fileArray.toArray(new File[]{});

@@ -27,7 +27,7 @@ public class LocalURIResolver implements URIResolver
     {
         try
         {
-            Source source = new StreamSource(ResourceUtil.getResourceAsStream(base + "/" + href));
+            Source source = new StreamSource(ResourceUtil.getResourceAsStream(base + "/" + href, LocalURIResolver.class.getClassLoader()));
 
             return source;
         }

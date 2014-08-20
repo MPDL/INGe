@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -52,7 +52,7 @@
 						start += cookie.length;
 						var stop = dc.indexOf(";", start);
 						if (stop == -1) stop = dc.length;
-						cookieValue = unescape(dc.substring(start,stop));
+						cookieValue = decodeURIComponent(dc.substring(start,stop));
 					}
 				}
 				var enableHiddenShemes = false;
@@ -63,7 +63,7 @@
 						start += cookie.length;
 						var stop = dc.indexOf(";", start);
 						if (stop == -1) stop = dc.length;
-						if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
+						if(decodeURIComponent(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
 					}
 				}
 				
@@ -109,7 +109,7 @@
 				var now = new Date();
 				var exp = new Date(now.getTime() + (1000*60*60*24*30));
 				if(cookieValue != "") {
-					document.cookie = "layout=" + escape(cookieValue) + ";" +
+					document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
 										"expires=" + exp.toGMTString() + ";" +
 										"path=/";
 				}
@@ -442,7 +442,7 @@
 			if (object != '')
 			{
 
-				var jsonUrl = instanceUrl + model + '/query?' + escape(predicate) + '="' + escape(object) + '"&format=json';
+				var jsonUrl = instanceUrl + model + '/query?' + encodeURIComponent(predicate) + '="' + encodeURIComponent(object) + '"&format=json';
 
 				$.getJSON(
 						jsonUrl
@@ -653,7 +653,7 @@ function getMouseXY(e) {
 
 //-->
 </script>
-	<script type="text/javascript" src="/cone/js/jquery-1.8.3.min.js">;</script>
+	<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>

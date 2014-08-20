@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -28,8 +28,12 @@
 */
 package de.mpg.escidoc.services.validation.init;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.validation.ItemValidating;
 
 /**
  * Starts the initialization process.
@@ -43,6 +47,9 @@ public class InitializerServlet extends HttpServlet
 
     RefreshTask refreshTask;
     
+    @EJB
+    private ItemValidating itemValidating;
+    
     /**
      * {@inheritDoc}
      */
@@ -50,7 +57,8 @@ public class InitializerServlet extends HttpServlet
     public final void init() throws ServletException
     {
         super.init();
-        Thread thread = new Initializer();
+       
+        Thread thread = new Initializer(itemValidating);
         thread.start();
         
         refreshTask = new RefreshTask();

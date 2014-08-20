@@ -47,10 +47,12 @@
 			$input.unbind('blur');
 			
 			// I really hate browser detection, but I don't see any other way
+			/*
 			if ($.browser.mozilla)
 				$input.keypress(processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
 			else
-				$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
+				*/
+			$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
 			
 			
 			
@@ -199,11 +201,11 @@
 						if (!(source.indexOf('?lang=') >= 0 || source.indexOf('&lang=') >= 0 || source.indexOf('?l=') >= 0 || source.indexOf('&l=') >= 0))
 						{
 							lang = $('body').attr('lang');
-							data = "format=json&lang="+lang+"&q="+escape(q);
+							data = "format=json&lang="+lang+"&q="+encodeURIComponent(q);
 						}
 						else
 						{
-							data = "format=json&q="+escape(q);
+							data = "format=json&q="+encodeURIComponent(q);
 						}
  
 						if (source.indexOf('?') >= 0)

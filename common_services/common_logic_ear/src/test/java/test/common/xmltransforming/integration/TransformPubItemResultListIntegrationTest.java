@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -94,7 +94,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
-        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME); 
+        xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName()); 
         
         PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST);
         FACES_TEST_COLLECTION_ID = PUBMAN_TEST_COLLECTION_ID;

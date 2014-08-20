@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -62,7 +62,7 @@ public class Rdfs
      */
     public static Writer getModelAsRdfs(String modelname) throws Exception
     {
-        Source source = new StreamSource(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.rdfs.template")));
+        Source source = new StreamSource(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.rdfs.template"), Rdfs.class.getClassLoader()));
         Transformer transformer = new TransformerFactoryImpl().newTransformer(source);
         if (modelname != null)
         {
@@ -70,7 +70,7 @@ public class Rdfs
         }
         Writer writer = new StringWriter();
         Result result = new StreamResult(writer);
-        transformer.transform(new StreamSource(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"))), result);
+        transformer.transform(new StreamSource(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"), Rdfs.class.getClassLoader())), result);
         return writer;
     }
     

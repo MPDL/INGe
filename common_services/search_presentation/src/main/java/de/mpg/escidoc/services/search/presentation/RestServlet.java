@@ -7,7 +7,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -119,8 +119,8 @@ public class RestServlet extends HttpServlet
             String qs = req.getQueryString();
             LOGGER.debug("QueryString: " + qs);
             // Init exporting service
-            InitialContext ctx = new InitialContext();
-            itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
+            //InitialContext ctx = new InitialContext();
+            //itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
             cqlQuery = fixURLEncoding(req.getParameter("cqlQuery"));
             if (!checkVal(cqlQuery))
             {
@@ -159,6 +159,7 @@ public class RestServlet extends HttpServlet
                 	exportFormat.equalsIgnoreCase("ESCIDOC_XML") ? "escidoc_xml" : 
                 	exportFormat.equalsIgnoreCase("ESCIDOC_XML_V13") ? "escidoc_xml_v13" : 
                 	exportFormat.toUpperCase().startsWith("EDOC_") ? "xml" : 
+                	exportFormat.equalsIgnoreCase("MARCXML") ? "xml" : 	
                 	FileFormatVO.TEXT_NAME;
             } 
             else

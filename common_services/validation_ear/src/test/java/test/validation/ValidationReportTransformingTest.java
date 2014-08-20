@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -85,7 +85,7 @@ public class ValidationReportTransformingTest
     public final void transformEmptyXmlReportToObject() throws Exception
     {
 
-        String xmlReport = ResourceUtil.getResourceAsString("src/test/resources/xmltransforming/validationreport/empty.xml");
+        String xmlReport = ResourceUtil.getResourceAsString("src/test/resources/xmltransforming/validationreport/empty.xml", ValidationReportTransformingTest.class.getClassLoader());
         logger.debug("Creating ValidationReportVO from: " + xmlReport);
 
         ValidationReportVO reportVO = vtransforming.transformToValidationReport(xmlReport);
@@ -102,7 +102,7 @@ public class ValidationReportTransformingTest
     public final void transformFullXmlReportToObject() throws Exception
     {
 
-        String xmlReport = ResourceUtil.getResourceAsString("src/test/resources/xmltransforming/validationreport/full.xml");
+        String xmlReport = ResourceUtil.getResourceAsString("src/test/resources/xmltransforming/validationreport/full.xml", ValidationReportTransformingTest.class.getClassLoader());
         logger.debug("Creating ValidationReportVO from: " + xmlReport);
 
         ValidationReportVO reportVO = vtransforming.transformToValidationReport(xmlReport);

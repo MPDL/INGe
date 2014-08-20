@@ -143,7 +143,7 @@ public class WoSTransformation implements Transformation, Configurable{
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.wos.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.wos.configuration.filename"), WoSTransformation.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))
@@ -212,7 +212,7 @@ public class WoSTransformation implements Transformation, Configurable{
                     
                 
                 factory.setURIResolver(new LocalUriResolver(xslDir));
-                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
+                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, WoSTransformation.class.getClassLoader());
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 //Transformer transformer = factory.newTransformer(stylesheet);
                 

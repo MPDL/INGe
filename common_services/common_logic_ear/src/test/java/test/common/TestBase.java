@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -360,12 +360,12 @@ public class TestBase
     {
         AccountUserVO accountUser = new AccountUserVO();
         String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-        accountUser = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAccountUser(xmlUser);
+        accountUser = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToAccountUser(xmlUser);
         // add the user handle to the transformed account user
         accountUser.setHandle(userHandle);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(
                 accountUser.getReference().getObjectId());
-        List<GrantVO> grants = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
+        List<GrantVO> grants = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName()))
                 .transformToGrantVOList(userGrantXML);
         if (grants != null)
         {
@@ -1218,7 +1218,7 @@ public class TestBase
      */
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
-        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
         PrintWriter pwriter = new PrintWriter("target/schemas.txt");
         logger.debug("Number of schema files: " + schemaFiles.length);
         pwriter.println("Number of schema files: " + schemaFiles.length);
@@ -1504,7 +1504,7 @@ public class TestBase
         String fwUrl = ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
         logger.info("Framework: " + fwUrl);
-        File file = ResourceUtil.getResourceAsFile(fileName);
+        File file = ResourceUtil.getResourceAsFile(fileName, TestBase.class.getClassLoader());
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(file)));
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -1513,7 +1513,7 @@ public class TestBase
         ProxyHelper.executeMethod(client, method);
         String response = method.getResponseBodyAsString();
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-        return ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
+        return ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformUploadResponseToFileURL(response);
     }
 
     /**

@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -30,17 +30,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
-		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.79-SNAPSHOT</version>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<version>1.0.82-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>framework_access</artifactId>
 	<name>framework_access</name>
-	<version>1.3.24-SNAPSHOT</version>
+	<version>1.3.27-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/framework_access</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/framework_access</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/framework_access</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/framework_access</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 	<build>
@@ -168,9 +168,6 @@
 					<subPackageByFileName>true</subPackageByFileName>
 					<useEmitter>false</useEmitter>
 				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -308,10 +305,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee</artifactId>
-			<version>1.5</version>
-			<scope>compile</scope>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

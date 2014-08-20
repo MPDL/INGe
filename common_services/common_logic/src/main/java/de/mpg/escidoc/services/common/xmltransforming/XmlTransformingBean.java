@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -53,7 +54,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
@@ -85,7 +85,6 @@ import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
-import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
@@ -95,6 +94,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
@@ -136,7 +136,6 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 @Stateless
 @Remote
-@RemoteBinding(jndiBinding = XmlTransforming.SERVICE_NAME)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class XmlTransformingBean implements XmlTransforming
 {

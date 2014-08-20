@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -75,7 +75,7 @@ public class EncodingTest extends TestBase
     public final void setUp() throws Exception
     {
         InitialContext context = new InitialContext();
-        xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming) context.lookup("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         // get user handle for user "test_dep_scientist"
         userHandle = loginScientist();
         // use this handle to retrieve configured user
@@ -86,7 +86,7 @@ public class EncodingTest extends TestBase
                 .getUserAccountHandler(userHandle)
                 .retrieveCurrentGrants(userVO.getReference()
                         .getObjectId());
-        List<GrantVO> grants = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToGrantVOList(userGrantXML);
+        List<GrantVO> grants = ((XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName())).transformToGrantVOList(userGrantXML);
         List<GrantVO> userGrants = userVO.getGrants();
         for (GrantVO grant:grants)
         {

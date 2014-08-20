@@ -7,7 +7,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -29,6 +29,9 @@
 
 package de.mpg.escidoc.services.search;
 
+import javax.ejb.Local;
+import javax.ejb.Remote;
+
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
@@ -41,6 +44,7 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
  * @author tendres
  * 
  */
+@Remote
 public interface Search
 {
 

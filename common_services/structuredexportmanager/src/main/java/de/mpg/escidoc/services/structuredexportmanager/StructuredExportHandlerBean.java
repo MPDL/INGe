@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -32,14 +32,11 @@ package de.mpg.escidoc.services.structuredexportmanager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
+import org.apache.log4j.Logger;
 
 /**
 * This class provides the ejb implementation of the {@link StructuredExportHandler} interface.
@@ -51,7 +48,6 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerEx
 
 @Stateless
 @Remote
-@RemoteBinding(jndiBinding = StructuredExportHandler.SERVICE_NAME)
 
 public class StructuredExportHandlerBean implements StructuredExportHandler
 {

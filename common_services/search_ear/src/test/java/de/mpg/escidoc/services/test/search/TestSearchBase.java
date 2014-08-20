@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -100,7 +100,7 @@ public class TestSearchBase extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        this.itemContainerSearch = (Search) getService(Search.SERVICE_NAME);
+        this.itemContainerSearch = (Search) getService("ejb:search_ear/search/SearchBean");
     }
 
     /**

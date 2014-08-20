@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -37,6 +37,7 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -56,7 +57,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -73,7 +73,6 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 @Stateless
 @Remote
-@RemoteBinding(jndiBinding = EmailHandling.SERVICE_NAME)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class EmailHandlingBean implements EmailHandling
 {

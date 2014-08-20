@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -73,7 +73,7 @@ public class PropertyInitializer extends HttpServlet
             logger.info("Loading properties from " + propertyFilename);
             try
             {
-                InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename);
+                InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, PropertyInitializer.class.getClassLoader());
                 Config.getProperties().load(propertyStream);
                 //propertyStream.close();
             }

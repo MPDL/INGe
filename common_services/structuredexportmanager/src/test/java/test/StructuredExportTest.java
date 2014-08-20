@@ -7,7 +7,7 @@ roject* CDDL HEADER START
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -88,7 +88,7 @@ public class StructuredExportTest
     		
 	    	for ( String key : ITEM_LISTS_FILE_MAMES.keySet() )
 	    	{
-	    		String itemList =  ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(key));
+	    		String itemList =  ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(key), StructuredExportTest.class.getClassLoader());
 	    		assertNotNull("Item list xml is not found", itemList);
 	    		itemLists.put(key, itemList);
 	    	}
@@ -152,7 +152,7 @@ public class StructuredExportTest
 	    	{
 	    		logger.info("Export format: " + f);
 	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
-	    		String itemList = ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(f));    		
+	    		String itemList = ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(f), StructuredExportTest.class.getClassLoader());    		
 	    		//logger.info("Test item list:\n" + itemList);
 	    		
 		    	start = System.currentTimeMillis();
@@ -170,7 +170,7 @@ public class StructuredExportTest
 	    @Ignore
 	    public void doExportTest() throws Exception
 	    {
-            String itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml");            
+            String itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml", StructuredExportTest.class.getClassLoader());            
             XmlTransforming xmlTransforming = new XmlTransformingBean();
             PubItemVO itemVO = xmlTransforming.transformToPubItem(itemList);
             List<PubItemVO> pubitemList = Arrays.asList(itemVO);
@@ -180,7 +180,7 @@ public class StructuredExportTest
             logger.info("BIBTEX (Book)");
             logger.info(new String(result));
             
-            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml");            
+            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml", StructuredExportTest.class.getClassLoader());            
             itemVO = xmlTransforming.transformToPubItem(itemList);
             pubitemList = Arrays.asList(itemVO);
             itemList = xmlTransforming.transformToItemList(pubitemList);
@@ -189,7 +189,7 @@ public class StructuredExportTest
             logger.info("ENDNOTE (Book)");
             logger.info(new String(result));
             
-            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml");            
+            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml", StructuredExportTest.class.getClassLoader());            
             xmlTransforming = new XmlTransformingBean();
             itemVO = xmlTransforming.transformToPubItem(itemList);
             pubitemList = Arrays.asList(itemVO);
@@ -199,7 +199,7 @@ public class StructuredExportTest
             logger.info("BIBTEX (Thesis)");
             logger.info(new String(result));
             
-            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml");            
+            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml", StructuredExportTest.class.getClassLoader());            
             itemVO = xmlTransforming.transformToPubItem(itemList);
             pubitemList = Arrays.asList(itemVO);
             itemList = xmlTransforming.transformToItemList(pubitemList);

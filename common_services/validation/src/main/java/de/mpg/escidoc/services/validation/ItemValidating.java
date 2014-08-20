@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -28,6 +28,8 @@
 */
 
 package de.mpg.escidoc.services.validation;
+
+import java.util.Date;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -146,5 +148,7 @@ public interface ItemValidating extends ItemValidatingWebService
      * @throws TechnicalException Any unmanaged exception.
      */
     void refreshValidationSchemaCache() throws TechnicalException;
+    
+    Date getLastRefreshDate() throws TechnicalException;
 
 }

@@ -7,7 +7,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -82,7 +82,7 @@ public class TestHelper
             properties = new Properties();
             try
             {
-                properties.load(ResourceUtil.getResourceAsStream("src/test/resources/test.properties"));
+                properties.load(ResourceUtil.getResourceAsStream("src/test/resources/test.properties", TestHelper.class.getClassLoader()));
             }
             catch (Exception e)
             {
@@ -116,7 +116,7 @@ public class TestHelper
     {
         InitialContext context = new InitialContext();
         ValidationTransforming vTransforming = (ValidationTransforming) context
-                .lookup(ValidationTransforming.SERVICE_NAME);
+                .lookup("ejb:validation_ear/validation/ValidationTransformingBean!" + ValidationTransforming.class.getName());
         assertNotNull(vTransforming);
         return vTransforming;
     }

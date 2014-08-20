@@ -5,7 +5,7 @@
   ~ The contents of this file are subject to the terms of the Common Development and Distribution License, Version 1.0
   ~ only (the "License"). You may not use this file except in compliance with the License.
   ~
-  ~ You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the License
+  ~ You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. See the License
   ~ for the specific language governing permissions and limitations under the License.
   ~
   ~ When distributing Covered Code, include this CDDL HEADER in each file and include the License file at
@@ -872,6 +872,51 @@ Notes:
 		</xsl:for-each>
 	</userdefined-index>
 	
+	<userdefined-index name="any-dates">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='created']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='modified']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateAccepted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='issued']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='published-online']"/>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='created']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='modified']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='dateAccepted']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='issued']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='published-online']"/>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
 	
 	<userdefined-index name="any-identifier">
 		<xsl:attribute name="context">
@@ -1026,6 +1071,28 @@ Notes:
 				</xsl:otherwise>
 			</xsl:choose>
 		</element>
+	</userdefined-index>
+	
+	<userdefined-index name="any-organization-pids">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*[local-name()='creator']//*[local-name()='organization']/*[local-name()='identifier']">
+			<element index="TOKENIZED">
+				<xsl:variable name="objectId" select="normalize-space(.)"/>
+				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
+					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
+				</xsl:if>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*[local-name()='creator']//*[local-name()='organization']/*[local-name()='identifier']">
+			<element index="TOKENIZED">
+				<xsl:variable name="objectId" select="normalize-space(.)"/>
+				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
+					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
+				</xsl:if>
+			</element>
+		</xsl:for-each>
 	</userdefined-index>
         
     </xsl:variable>

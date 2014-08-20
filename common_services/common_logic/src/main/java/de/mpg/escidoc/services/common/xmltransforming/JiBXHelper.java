@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -55,7 +55,6 @@ import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.ChecksumAlgorithm;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -72,6 +71,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
 import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
 import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;

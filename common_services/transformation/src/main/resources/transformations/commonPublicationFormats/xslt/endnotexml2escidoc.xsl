@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -446,7 +446,7 @@
 			<xsl:for-each select="AMPERSAND[
 					$refType = 'Patent'
 				]">
-				<dc:identifier xsi:type="eterms:PATENT_NR">
+				<dc:identifier xsi:type="ete rms:PATENT_NR">
 					<xsl:value-of select="."/>
 				</dc:identifier>
 			</xsl:for-each>

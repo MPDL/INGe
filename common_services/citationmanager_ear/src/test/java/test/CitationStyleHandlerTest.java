@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -59,7 +59,7 @@ public class CitationStyleHandlerTest {
     public static final void getCitationStyleManager() throws Exception
     {
         InitialContext ctx = new InitialContext();
-        pcs = (CitationStyleHandler) ctx.lookup(CitationStyleHandler.SERVICE_NAME);
+        pcs = (CitationStyleHandler) ctx.lookup("ejb:citationmanager_ear/citationmanager/CitationStyleHandlerBean!" + CitationStyleHandler.class.getName());
     }
 
     /**

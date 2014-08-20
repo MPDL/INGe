@@ -9,7 +9,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -152,7 +152,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
         {
             System.out.print("Started xslt transformation...");
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-            InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH);
+            InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH, eSciDocVer2ToeSciDocVer1.class.getClassLoader());
             
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             

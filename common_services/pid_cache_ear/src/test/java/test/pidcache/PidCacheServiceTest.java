@@ -60,7 +60,7 @@ public class PidCacheServiceTest
 	public static void setProperties() throws Exception
 	{
 		InitialContext context = new InitialContext();
-    	xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+    	xmlTransforming = (XmlTransforming)context.lookup("ejb:pid_cache_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
     	
 		CACHE_PIDSERVICE = PropertyReader.getProperty("escidoc.pid.pidcache.service.url");
 		logger.info("escidoc.pid.pidcache.service.url = " + CACHE_PIDSERVICE);

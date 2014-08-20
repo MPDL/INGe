@@ -138,7 +138,7 @@ public class MABTransformation implements Transformation{
                 }
                 
                 factory.setURIResolver(new LocalUriResolver(xslDir));
-                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
+                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, MABTransformation.class.getClassLoader());
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 
                 if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))

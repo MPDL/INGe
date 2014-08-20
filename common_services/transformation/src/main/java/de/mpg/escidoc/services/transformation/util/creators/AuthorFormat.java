@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -192,7 +192,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
      */
     public static Set<String> getNamesFromFile(String filename) throws Exception
     {
-        InputStream file = ResourceUtil.getResourceAsStream(filename);
+        InputStream file = ResourceUtil.getResourceAsStream(filename, AuthorFormat.class.getClassLoader());
         BufferedReader br = new BufferedReader(new InputStreamReader(file));
         String name = "";
         Set<String> result = new HashSet<String>();

@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -78,7 +78,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
     @Before
     public void setUp() throws Exception
     {
-        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         userhandle = loginScientist();
         String userXML = ServiceLocator.getUserAccountHandler(userhandle).retrieve("escidoc:user1");
         user = xmlTransforming.transformToAccountUser(userXML);
@@ -138,7 +138,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
         fileVO.setDescription("The Universe within 50000 Light Years");
         fileVO.setVisibility(Visibility.PRIVATE);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName).length());
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName, ItemUpdateAndBaseURLTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list

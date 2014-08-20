@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>common_services</artifactId>
-    <groupId>de.mpg.escidoc.services</groupId>
+    <groupId>de.mpg.escidoc.services.wildfly</groupId>
     <version>1.0.47-SNAPSHOT</version>
   </parent>
   
@@ -12,8 +12,8 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <scm>
-    <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/foxml_migration</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/foxml_migration</developerConnection>
+    <connection>scm:svn:https://zim02.gwdg.de/repos/common/wildfly_migration/common_services/foxml_migration</connection>
+    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/wildfly_migration/common_services/foxml_migration</developerConnection>
     <url>https://zim02.gwdg.de/repos/common/</url>
   </scm>
   
@@ -164,7 +164,7 @@
 			<version>1.2.14</version>
 		</dependency>  
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>1.0.47-SNAPSHOT</version>
 		</dependency>

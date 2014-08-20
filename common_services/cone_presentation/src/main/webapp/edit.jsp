@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -650,6 +650,7 @@
 	                identifierValue = request.getParameter("cone_identifier");
 	                if (identifierValue != null && !"".equals(identifierValue))
 	                {
+	                	identifierValue = identifierValue.trim();
 	                    uri = model.getSubjectPrefix() + identifierValue;
 	                    
 	                    TreeFragment result = querier.details(modelName, uri, "*");
@@ -679,6 +680,7 @@
 	            {
 	                errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
 	            }
+
 	//            else
 	//            {
 	//	            String identifierName = model.getIdentifier();
@@ -698,6 +700,7 @@
 			    
 			    response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
 			    return;
+			    
 			    
 			    /*
 			    if (request.getSession().getAttribute("latestSearch") != null)

@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -61,7 +61,7 @@ public class ImportResolver implements LSResourceResolver
             {
                 LSInput result = new ImportInput();
                 result.setBaseURI(baseURI);
-                result.setByteStream(ResourceUtil.getResourceAsStream(systemId));
+                result.setByteStream(ResourceUtil.getResourceAsStream(systemId, ImportResolver.class.getClassLoader()));
                 result.setCertifiedText(false);
                 result.setEncoding("UTF-8");
                 result.setSystemId(systemId);

@@ -6,7 +6,7 @@
  (the "License"). You may not use this file except in compliance
  with the License.
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
  When distributing Covered Code, include this CDDL HEADER in each
@@ -22,10 +22,10 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>common_services</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.79-SNAPSHOT</version>
+	<version>1.0.82-SNAPSHOT</version>
 	<name>common_services</name>
 	<url>http://pubman.mpdl.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
@@ -241,9 +241,9 @@
 		<module>transformationLight</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services</url>
 	</scm>
 	<repositories>
 		<repository>
@@ -281,6 +281,29 @@
 			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	
+	<dependencyManagement>
+		<dependencies>
+			 
+			<dependency>
+				<groupId>org.wildfly</groupId>
+				<artifactId>wildfly-ejb-client-bom</artifactId>
+				<version>8.0.0.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--
+			<dependency>
+	            <groupId>org.jboss.spec</groupId>
+	            <artifactId>jboss-javaee-7.0</artifactId>
+	            <version>1.0.0.Final</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	         </dependency>
+	         -->
+		</dependencies>
+	</dependencyManagement>
+	
 	<build>
 		<resources>
 			<resource>
@@ -321,6 +344,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
+					<tagBase>https://subversion.mpdl.mpg.de/repos/common/tags</tagBase>
 					<!-- send an announcement email on release -->
 					<!--  <preparationGoals>changes:announcement-mail</preparationGoals> -->
 					<!-- all the submodules inherit the version of the project -->
@@ -568,7 +592,7 @@
 	</reporting>
 	<!-- properties valid for all profiles -->
 	<properties>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 		<cargo.port>8080</cargo.port>
 		<cargo.rmi.port>1099</cargo.rmi.port>
@@ -576,11 +600,11 @@
 		<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0
 			 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 		<!-- this path is used as root for all jboss installations -->
-		<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
+		<cargo.install.dir>${user.home}/wildfly</cargo.install.dir>
 		<!-- fetch the jboss from this url -->
-		<cargo.jboss.url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</cargo.jboss.url>
+		<cargo.jboss.url>http://download.jboss.org/wildfly/8.0.0.Final/wildfly-8.0.0.Final.zip</cargo.jboss.url>
 		<!-- local intallation of the jboss for integration-tests -->
-		<cargo.jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</cargo.jboss.install.dir>
+		<cargo.jboss.install.dir>${user.home}/wildfly/wildfly-8.0.0.Final/wildfly-8.0.0.Final</cargo.jboss.install.dir>
 		<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 		<jboss.deploy.host>localhost</jboss.deploy.host>
 		<jboss.deploy.port>8080</jboss.deploy.port>
@@ -755,8 +779,6 @@
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
-		<escidoc.transformation.marc.stylesheet.filename>transformations/standardFormats/xslt/marc.xsl</escidoc.transformation.marc.stylesheet.filename>
-		<escidoc.transformation.marc.configuration.filename>transformations/standardFormats/conf/marc.properties</escidoc.transformation.marc.configuration.filename>
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename />
 		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename />

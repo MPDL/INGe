@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -30,19 +30,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
-		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.79-SNAPSHOT</version>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<version>1.0.82-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>aa_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>aa_presentation</name>
-	<version>0.2.17-SNAPSHOT</version>
+	<version>0.2.20-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/aa_presentation</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/aa_presentation</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/aa_presentation</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/aa_presentation</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 	
@@ -64,23 +64,6 @@
 			</resource>
 		</resources>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<wtpversion>1.5</wtpversion>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			  
-			
-			
 		</plugins>
 	</build>
 	<profiles>
@@ -138,9 +121,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee</artifactId>
-			<version>1.5</version>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -157,17 +140,17 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>aa_logic</artifactId>
-			<version>0.2.17-SNAPSHOT</version>
+			<version>0.2.20-SNAPSHOT</version>
 			<type>jar</type>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.79-SNAPSHOT</version>
-			<scope>compile</scope>
+			<version>1.1.82-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>

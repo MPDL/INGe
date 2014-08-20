@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -49,6 +49,7 @@ import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
+import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
@@ -126,6 +127,8 @@ public class Util
         { return "application/gzip"; } 
         if (formatName.equalsIgnoreCase("bmcarticleFullTextHtml")) 
         { return "text/html"; } 
+        if (formatName.startsWith("html-meta-tags")) 
+        { return "text/html"; }
         
         return "application/xml";
     }

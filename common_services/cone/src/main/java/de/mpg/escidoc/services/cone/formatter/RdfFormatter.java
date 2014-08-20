@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -89,8 +89,8 @@ public class RdfFormatter extends Formatter
     {
         response.setContentType("text/xml");
         
-        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"));
-        InputStream template = ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl");
+        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"), RdfFormatter.class.getClassLoader());
+        InputStream template = ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl", RdfFormatter.class.getClassLoader());
         
         try
         {

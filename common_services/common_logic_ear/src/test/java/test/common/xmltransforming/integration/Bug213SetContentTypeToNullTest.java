@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -74,7 +74,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
     @Before
     public void setUp() throws Exception
     {
-        xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        xmlTransforming = (XmlTransforming)getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
         userHandle = loginScientist();
         String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve("escidoc:user1");
         user = xmlTransforming.transformToAccountUser(userXML);
@@ -128,7 +128,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName).length());
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName, Bug213SetContentTypeToNullTest.class.getClassLoader()).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list

@@ -103,7 +103,7 @@ public class ReportTransformation {
 		String inString = null;
 		try {
 			String reportSortOrderPath = PropertyReader.getProperty("escidoc.transformation.report.sortorder.filename");
-			inString = ResourceUtil.getResourceAsString(reportSortOrderPath);
+			inString = ResourceUtil.getResourceAsString(reportSortOrderPath, ReportTransformation.class.getClassLoader());
 		} catch (Exception e1) {
 			logger.info("The report sort order file can not be located");
 			e1.printStackTrace();

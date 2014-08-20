@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.tables.Queue;
@@ -35,8 +36,8 @@ public class QueueProcess
      */
     public QueueProcess() throws Exception
     {
-    	InitialContext context = new InitialContext();
-    	xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+    	
+    	xmlTransforming = new XmlTransformingBean();
     }
 	
 	/**

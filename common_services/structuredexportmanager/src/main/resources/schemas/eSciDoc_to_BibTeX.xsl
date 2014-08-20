@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -211,7 +211,7 @@
 			</xsl:when>
 			<xsl:when test="source:source/eterms:publishing-info/eterms:edition 
 								and $type-of-publication = 'report'
-								and (not(exists(dc:identifier[xsi:type = 'eterms:REPORT_NR'])))">
+								and (not(exists(dc:identifier[@xsi:type = 'eterms:REPORT_NR'])))">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'number'"/>
 					<xsl:with-param name="xpath" select="source:source/eterms:publishing-info/eterms:edition"/>
@@ -375,7 +375,7 @@
 		<xsl:param name="name"/>
 		<xsl:param name="xpath"/>
 		
-		<xsl:value-of select="jfunc:texString($name)"/>
+		<xsl:value-of select="$name"/>
 		<xsl:text disable-output-escaping="yes"> = &#123;</xsl:text>
 		<xsl:choose>
 			<xsl:when test="$name = 'title' or $name = 'booktitle' or $name = 'series' or $name = 'booktitle' or $name = 'journal' or $name = 'abstract' or $name = 'keywords '">
@@ -479,10 +479,20 @@
 		
 		<!-- SOURCE ISSUE -->
 		<xsl:if test="eterms:issue!=''">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'issue'"/>
-			<xsl:with-param name="xpath" select="eterms:issue"/>
-		</xsl:call-template>
+			<xsl:choose>
+				<xsl:when test="$publication-type = 'article'">
+					<xsl:call-template name="createField">
+						<xsl:with-param name="name" select="'number'"/>
+						<xsl:with-param name="xpath" select="eterms:issue"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:when test="($publication-type = 'conference-paper' or $publication-type = 'proceedings') and not(eterms:volume)">
+					<xsl:call-template name="createField">
+						<xsl:with-param name="name" select="'number'"/>
+						<xsl:with-param name="xpath" select="eterms:issue"/>
+					</xsl:call-template>
+				</xsl:when>
+			</xsl:choose>
 		</xsl:if>
 		
 		<!-- SOURCE PAGES -->

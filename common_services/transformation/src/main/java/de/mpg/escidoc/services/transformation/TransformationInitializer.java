@@ -1,13 +1,11 @@
 package de.mpg.escidoc.services.transformation;
 
 import java.io.File;
-import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import org.apache.log4j.Logger;
-import org.scannotation.AnnotationDB;
-import org.scannotation.ClasspathUrlFinder;
+import org.reflections.Reflections;
 
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 
@@ -15,7 +13,7 @@ public class TransformationInitializer
 {
     private final Logger logger = Logger.getLogger(TransformationInitializer.class);   
     
-    private Vector<Class> transformationClasses = new Vector<Class>();
+    private Set<Class<?>> transformationClasses = new HashSet<Class<?>>();
 
     private boolean local = false;
     private boolean init = false;
@@ -33,17 +31,24 @@ public class TransformationInitializer
      */
     public void initializeTransformationModules() throws RuntimeException
     {
-        this.logger.debug("Classes which implement the transformation interface:");
+    	 try
+         {    
+	        this.logger.debug("Classes which implement the transformation interface:");
+	        
+	       transformationClasses = new Reflections("de.mpg.escidoc.services.transformation").getTypesAnnotatedWith(TransformationModule.class);
+        
+        /*
+        
+        
         URL classPath = null;
         Set entities;
         Vector entitiesV = new Vector();
-        ClassLoader cl = this.getClass().getClassLoader();
-        Class transformationClass;
-        ClasspathUrlFinder classPathFinder = new ClasspathUrlFinder();
-        String searchDir= "";
 
-        try
-        {              
+        String searchDir= "";
+        
+        Set<Class<?>> classes = new Reflections("de.mpg.escidoc.services.transformation").getTypesAnnotatedWith(TransformationModule.class);
+
+                 
             //For local testing, only search in Transformation module
             if (this.local)
             {
@@ -94,7 +99,8 @@ public class TransformationInitializer
                 this.logger.debug(entitiesV.get(i));
                 transformationClass = cl.loadClass(entitiesV.get(i).toString());
                 this.transformationClasses.add(transformationClass);
-            }       
+            }   
+            */    
 
         }
         catch (Exception e)
@@ -138,12 +144,12 @@ public class TransformationInitializer
         return path;
     }
     
-    public Vector<Class> getTransformationClasses()
+    public Set<Class<?>> getTransformationClasses()
     {
         return transformationClasses;
     }
 
-    public void setTransformationClasses(Vector<Class> transformationClasses)
+    public void setTransformationClasses(Set<Class<?>> transformationClasses)
     {
         this.transformationClasses = transformationClasses;
     }

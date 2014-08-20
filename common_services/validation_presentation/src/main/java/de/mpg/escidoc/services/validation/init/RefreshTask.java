@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -68,7 +68,7 @@ public class RefreshTask extends Thread
                 Thread.sleep(timeout * 60 * 1000);
                 logger.info("Starting refresh of validation database.");
                 Context ctx = new InitialContext();
-                ItemValidating itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
+                ItemValidating itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
                 itemValidating.refreshValidationSchemaCache();
                 logger.info("Finished refresh of validation database.");
                 

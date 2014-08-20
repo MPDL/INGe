@@ -1,7 +1,7 @@
 /*
  * CDDL HEADER START The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with the License. You can
- * obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the License for the
+ * obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. See the License for the
  * specific language governing permissions and limitations under the License. When distributing Covered Code, include
  * this CDDL HEADER in each file and include the License file at license/ESCIDOC.LICENSE. If applicable, add the
  * following below this CDDL HEADER, with the fields enclosed by brackets "[]" replaced with your own identifying
@@ -64,7 +64,7 @@ public class CreateTripleStore
     {
         mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
         mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
-        File tqlFile = ResourceUtil.getResourceAsFile("setup.tql");
+        File tqlFile = ResourceUtil.getResourceAsFile("setup.tql", CreateTripleStore.class.getClassLoader());
         BufferedReader reader = new BufferedReader(new FileReader(tqlFile));
         String line;
         while ((line = reader.readLine()) != null)
@@ -79,7 +79,7 @@ public class CreateTripleStore
         for (String model : models)
         {
             List<String> pattern = new ArrayList<String>();
-            File patternFile = ResourceUtil.getResourceAsFile(model + ".pattern");
+            File patternFile = ResourceUtil.getResourceAsFile(model + ".pattern", CreateTripleStore.class.getClassLoader());
             BufferedReader bufferedReader = new BufferedReader(new FileReader(patternFile));
             while ((line = bufferedReader.readLine()) != null)
             {

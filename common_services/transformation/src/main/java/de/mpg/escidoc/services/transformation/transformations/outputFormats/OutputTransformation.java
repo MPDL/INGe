@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -117,7 +117,7 @@ public class OutputTransformation
         String path = OutputUtil.getPathToCitationStyles() + "/jasper" + "/citation-style.jasper";
 
         logger.info("Jasper path: " + path);
-        InputStream csj =  ResourceUtil.getResourceAsStream(path);   
+        InputStream csj =  ResourceUtil.getResourceAsStream(path, OutputTransformation.class.getClassLoader());   
         JasperReport jr = (JasperReport)JRLoader.loadObject(csj); 
 
         params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);

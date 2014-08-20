@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -100,7 +100,7 @@ public class ThirdPartyTransformation
             {
                 String propertyKey = "escidoc.transformation." + (formatFrom.toLowerCase()).replace("-", "_") + "2" + (formatTo.toLowerCase()).replace("-", "_") + ".stylesheet.filename";
                 String fileName = PropertyReader.getProperty(propertyKey);
-                stylesheet = ResourceUtil.getResourceAsStream(fileName);
+                stylesheet = ResourceUtil.getResourceAsStream(fileName, ThirdPartyTransformation.class.getClassLoader());
             }
             catch (Exception e)
             {
@@ -142,7 +142,7 @@ public class ThirdPartyTransformation
         
         try {
             
-            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri, ThirdPartyTransformation.class.getClassLoader());
             check = true;
             
         }

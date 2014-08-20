@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -96,8 +96,8 @@ public class RestServlet extends HttpServlet
                 LOGGER.debug("Command: " + command);
                 
                 // Init validation service
-                InitialContext ctx = new InitialContext();
-                itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
+                //InitialContext ctx = new InitialContext();
+                //itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
                 PrintWriter out = resp.getWriter();
 
                 // validateItemXml
@@ -148,10 +148,12 @@ public class RestServlet extends HttpServlet
                 }
 
             }
+            /*
             catch (NamingException ne)
             {
                 handleException(ne, resp);
             }
+            */
             catch (TechnicalException te)
             {
                 handleException(te, resp);

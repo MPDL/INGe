@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -82,7 +82,7 @@ public class OutputTransformationInterface implements Transformation
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, OutputTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -138,7 +138,7 @@ public class OutputTransformationInterface implements Transformation
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, OutputTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -234,7 +234,7 @@ public class OutputTransformationInterface implements Transformation
         java.io.InputStream in;
         try
         {
-            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME, OutputTransformationInterface.class.getClassLoader());
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)

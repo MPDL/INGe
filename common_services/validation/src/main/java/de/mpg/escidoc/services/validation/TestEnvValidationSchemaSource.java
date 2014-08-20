@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -96,7 +96,7 @@ public class TestEnvValidationSchemaSource implements ValidationSchemaSource
         {
             try
             {
-                InputStreamReader isr = new InputStreamReader(ResourceUtil.getResourceAsStream(fileName));
+                InputStreamReader isr = new InputStreamReader(ResourceUtil.getResourceAsStream(fileName,TestEnvValidationSchemaSource.class.getClassLoader()));
                 BufferedReader br = new BufferedReader(isr);
                 fileBuffer = new StringBuffer();
                 while ((line = br.readLine()) != null)

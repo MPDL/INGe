@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -29,17 +29,19 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
+import java.io.IOException;
+
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
-
-import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 
 import net.sf.jasperreports.engine.JRException;
-import java.io.IOException;
+
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 
 
 
@@ -54,7 +56,6 @@ import java.io.IOException;
  */
 @Stateless
 @Remote
-@RemoteBinding(jndiBinding = CitationStyleHandler.SERVICE_NAME)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class CitationStyleHandlerBean implements CitationStyleHandler
 { 

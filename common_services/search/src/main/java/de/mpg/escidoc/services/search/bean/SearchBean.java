@@ -7,7 +7,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -43,6 +43,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -54,7 +55,6 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
@@ -85,8 +85,7 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
  * {@inheritDoc}
  * 
  */
-@Remote
-@RemoteBinding(jndiBinding = Search.SERVICE_NAME)
+
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors(

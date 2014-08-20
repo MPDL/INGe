@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -212,14 +212,20 @@ public class ResourceUtil
      */
     public static String getPathToClasses() throws IOException
     {
+    	return "";
+    	/*
+    	
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
-        String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
+        
+    	String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
+    	
         // jar context!!!
         //logger.debug("result:" + result);
         return 
         	result.indexOf(".jar!") == -1 ?
         	    //Decode necessary for windows paths
         		URLDecoder.decode(result, "cp1253") : RESOURCES_DIRECTORY_JAR;
+        		*/
     }
 
 

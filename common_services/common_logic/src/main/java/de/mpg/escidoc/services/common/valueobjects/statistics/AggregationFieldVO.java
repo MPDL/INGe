@@ -1,6 +1,8 @@
 package de.mpg.escidoc.services.common.valueobjects.statistics;
 
-public class AggregationFieldVO {
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+
+public class AggregationFieldVO extends ValueObject{
 	
 	
 	private String feed;

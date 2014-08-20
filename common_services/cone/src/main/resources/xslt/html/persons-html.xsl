@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -162,7 +162,7 @@
 						font-style:italic;
 					}
 				</style>
-				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.8.3.min.js">;</script>
+				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.11.1.min.js">;</script>
 				
 				<script type="text/javascript" language="JavaScript" src="/cone/js/smartpaginator/smartpaginator.js">;</script>
 				<script>

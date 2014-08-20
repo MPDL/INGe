@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -895,7 +895,7 @@ public class TestBase
      */
     protected static String readFile(String fileName) throws IOException
     {
-        return ResourceUtil.getResourceAsString(fileName);
+        return ResourceUtil.getResourceAsString(fileName, TestBase.class.getClassLoader());
     }
 
     /**
@@ -1078,7 +1078,7 @@ public class TestBase
      */
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
-        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         for (File file : schemaFiles)

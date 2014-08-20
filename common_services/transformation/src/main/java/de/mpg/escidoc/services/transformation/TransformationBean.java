@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -64,7 +64,8 @@ public class TransformationBean implements Transformation, Configurable
         if (initializer == null)
         {
             initializer = new TransformationInitializer();
-            initializer.initializeTransformationModules();
+            //Always use local
+            initializer.initializeTransformationModules(true);
         }
     }
     
@@ -218,12 +219,12 @@ public class TransformationBean implements Transformation, Configurable
         Vector<Format[]> allFormats = new Vector<Format[]>();
         Format[] formats = null;
         
-        for (int i = 0; i < this.initializer.getTransformationClasses().size(); i++)
+        for (Class<?> transformationClass : initializer.getTransformationClasses())
         {
             try
             {
                 //Instanciate the class
-                Class transformationClass = (Class) this.initializer.getTransformationClasses().get(i);
+                //Class transformationClass = (Class) this.initializer.getTransformationClasses().get(i);
                 ClassLoader cl = this.getClass().getClassLoader();
                 transformationClass = cl.loadClass(transformationClass.getName());
   
@@ -261,16 +262,16 @@ public class TransformationBean implements Transformation, Configurable
     private Class getTransformationClassForTransformation(Format source, Format target) 
         throws RuntimeException
     {
-        Class transformationClass = null;
+        
         Format[] targets;
         String methodName = "getTargetFormats";
         
-        for (int i = 0; i < this.initializer.getTransformationClasses().size(); i++)
+        for (Class<?> transformationClass : initializer.getTransformationClasses())
         {
             try
             {
                 //Instanciate the class
-                transformationClass = (Class) this.initializer.getTransformationClasses().get(i);
+                //transformationClass = (Class) this.initializer.getTransformationClasses().get(i);
                 ClassLoader cl = this.getClass().getClassLoader();
                 transformationClass = cl.loadClass(transformationClass.getName());
                 

@@ -9,7 +9,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -207,7 +207,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
                 
             
             factory.setURIResolver(new LocalUriResolver(xslDir));
-            InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
+            InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, EDocImport.class.getClassLoader());
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             
             if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
@@ -402,7 +402,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.edoc.configuration.filename")));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.edoc.configuration.filename"), EDocImport.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))

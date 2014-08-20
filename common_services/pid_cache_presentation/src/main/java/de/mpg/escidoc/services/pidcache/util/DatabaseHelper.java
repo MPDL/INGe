@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -91,7 +91,7 @@ public class DatabaseHelper
     public static Connection getConnection() throws Exception
     {
         Context ctx = new InitialContext();
-        DataSource dataSource = (DataSource) ctx.lookup("PidCache");
+        DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/PidCache");
         return dataSource.getConnection();
     }
     

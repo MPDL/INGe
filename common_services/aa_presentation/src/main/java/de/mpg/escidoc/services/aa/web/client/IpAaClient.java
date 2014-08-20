@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -58,7 +58,7 @@ public class IpAaClient extends FinalClient
     {
 
         Properties ips = new Properties();
-        InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty("escidoc.aa.ip.table"));
+        InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty("escidoc.aa.ip.table"), IpAaClient.class.getClassLoader());
         ips.loadFromXML(ipStream);
         ipStream.close();
         

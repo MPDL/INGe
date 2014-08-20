@@ -9,7 +9,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -58,10 +58,6 @@
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
 		
 		<link rel="SHORTCUT ICON" href="/pubman/resources/favicon.ico"/>
-		
-		<script src="/pubman/resources/commonJavaScript/jquery/jquery.min.js" language="JavaScript" type="text/javascript">;</script>
-		<script src="/pubman/resources/commonJavaScript/componentJavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
-		<script type="text/javascript">$(document).ready(function(){installFullItem();});</script>
 
 		<script language="JavaScript" type="text/javascript">
 			  function applyCookieStyle() {
@@ -74,7 +70,7 @@
 							start += cookie.length;
 							var stop = dc.indexOf(";", start);
 							if (stop == -1) stop = dc.length;
-							cookieValue = unescape(dc.substring(start,stop));
+							cookieValue = decodeURIComponent(dc.substring(start,stop));
 						}
 					}
 					var enableHiddenShemes = false;
@@ -85,7 +81,7 @@
 							start += cookie.length;
 							var stop = dc.indexOf(";", start);
 							if (stop == -1) stop = dc.length;
-							if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
+							if(decodeURIComponent(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
 						}
 					}
 					
@@ -131,7 +127,7 @@
 					var now = new Date();
 					var exp = new Date(now.getTime() + (1000*60*60*24*30));
 					if(cookieValue != "") {
-						document.cookie = "layout=" + escape(cookieValue) + ";" +
+						document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
 											"expires=" + exp.toGMTString() + ";" +
 											"path=/";
 					}

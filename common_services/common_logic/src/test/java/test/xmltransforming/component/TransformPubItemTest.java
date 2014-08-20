@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -164,7 +164,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         md.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         md.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         md.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.escidoc.de/12345"));
-        md.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        md.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformPubItemTest.class.getClassLoader()).length());
         //md.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(md);
         return fileVO;

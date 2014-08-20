@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -96,8 +96,8 @@ public class JsonFormatter extends Formatter
     {
         response.setContentType("text/xml");
         
-        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"));
-        InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl");
+        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"), JsonFormatter.class.getClassLoader());
+        InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl", JsonFormatter.class.getClassLoader());
         
         try
         {
@@ -121,7 +121,7 @@ public class JsonFormatter extends Formatter
     public OutputStream format(String source) throws IOException
     {
 
-        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl", JsonFormatter.class.getClassLoader());
         OutputStream result = new ByteArrayOutputStream();
         
         try
@@ -186,7 +186,7 @@ public class JsonFormatter extends Formatter
                     }
                     
                     result.append("\t\t\"value\" : \"");
-                    result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n"));
+                    result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t"));
                     result.append("\"\n");
                     
                     result.append("\t}");
@@ -223,7 +223,7 @@ public class JsonFormatter extends Formatter
                     }
                     
                     result.append("\t\t\"value\" : \"");
-                    result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n"));
+                    result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t"));
                     result.append("\"\n");
                     
                     result.append("\t}");

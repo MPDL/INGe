@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -30,19 +30,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
-		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.79-SNAPSHOT</version>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<version>1.0.82-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>common_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>common_presentation</name>
-	<version>1.0.68-SNAPSHOT</version>
+	<version>1.0.71-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</developerConnection>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/common_presentation</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/common_presentation</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 	
@@ -52,21 +52,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>
 				<configuration>
-					<ejbVersion>3.0</ejbVersion>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ejb-plugin</artifactId>
-				<configuration>
-					<ejbVersion>3.0</ejbVersion>
+					<ejbVersion>3.1</ejbVersion>
 				</configuration>
 			</plugin>
 			<plugin>

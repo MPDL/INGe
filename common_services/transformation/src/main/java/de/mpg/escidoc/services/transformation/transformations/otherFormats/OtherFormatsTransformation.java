@@ -8,7 +8,7 @@
     * with the License.
     *
     * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-    * or http://www.escidoc.de/license.
+    * or http://www.escidoc.org/license.
     * See the License for the specific language governing permissions
     * and limitations under the License.
     *
@@ -52,7 +52,6 @@ import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 
-import com.ctc.wstx.io.BufferRecycler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -196,7 +195,7 @@ public class OtherFormatsTransformation
         logger.info("file NAME  "+ this.METADATA_XSLT_LOCATION +"/"+ formatFrom.toLowerCase().trim()+ "2" + formatTo.toLowerCase().trim() + ".xsl");
         try {
             
-            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri, OtherFormatsTransformation.class.getClassLoader());
             check = true;
             
         }

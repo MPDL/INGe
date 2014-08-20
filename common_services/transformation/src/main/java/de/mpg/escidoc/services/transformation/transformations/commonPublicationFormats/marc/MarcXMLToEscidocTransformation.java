@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -90,7 +90,7 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
 	  
 	        Properties props = new Properties();
 	        try {
-				props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.marcxml2escidoc.configuration.filename")));
+				props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.marcxml2escidoc.configuration.filename"), MarcXMLToEscidocTransformation.class.getClassLoader()));
 				}
 	        catch (Exception e)
 		        {
@@ -165,7 +165,7 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
 						    InputStream stylesheet;
 							try
 								{
-									stylesheet = ResourceUtil.getResourceAsStream(fileName);
+									stylesheet = ResourceUtil.getResourceAsStream(fileName, MarcXMLToEscidocTransformation.class.getClassLoader());
 								}
 							catch (Exception e) {
 									throw new RuntimeException("Can't open stylesheet " + fileName, e);

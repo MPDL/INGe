@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -66,8 +66,8 @@ public class Marc21ToMarcXMLTransformationTest {
 	{
 		try
 			{
-			 	src = ResourceUtil.getResourceAsBytes("testFiles/marc/simplemarcrecord.mrc");
-				expected = ResourceUtil.getResourceAsString("testFiles/marcxml/simplemarcrecord.xml");
+			 	src = ResourceUtil.getResourceAsBytes("testFiles/marc/simplemarcrecord.mrc", Marc21ToMarcXMLTransformationTest.class.getClassLoader());
+				expected = ResourceUtil.getResourceAsString("testFiles/marcxml/simplemarcrecord.xml", Marc21ToMarcXMLTransformationTest.class.getClassLoader());
 			}
 		catch (Exception e)
 			{

@@ -8,7 +8,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -32,13 +32,13 @@ package de.mpg.escidoc.services.common.itemsorting;
 
 import java.util.Collections;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.ItemSorting;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
@@ -56,7 +56,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 */
 @Stateless
 @Remote
-@RemoteBinding(jndiBinding = ItemSorting.SERVICE_NAME)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemSortingBean implements ItemSorting
 {

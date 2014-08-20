@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.common.types.Validatable;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.util.LocalURIResolver;
@@ -640,7 +641,7 @@ public final class ValidationSchemaCache
         {
             try
             {
-                InputStream fileIn = ResourceUtil.getResourceAsStream("stylesheet/validation_report.xsl");
+                InputStream fileIn = ResourceUtil.getResourceAsStream("stylesheet/validation_report.xsl", ValidationSchemaCache.class.getClassLoader());
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(fileIn));
                 String line = null;
@@ -674,7 +675,7 @@ public final class ValidationSchemaCache
 
             try
             {
-                InputStream fileIn = ResourceUtil.getResourceAsStream("stylesheet/validation_points.xsl");
+                InputStream fileIn = ResourceUtil.getResourceAsStream("stylesheet/validation_points.xsl", ValidationSchemaCache.class.getClassLoader());
                 phaseTemplate = factory.newTransformer(new StreamSource(fileIn));
                 LOGGER.debug("phaseTemplate: " + phaseTemplate);
             }
@@ -844,7 +845,7 @@ public final class ValidationSchemaCache
         {
 
             Context ctx = new InitialContext();
-            DataSource dataSource = (DataSource) ctx.lookup("Validation");
+            DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
             return dataSource.getConnection();
 
         }
@@ -861,8 +862,8 @@ public final class ValidationSchemaCache
     {
         try
         {
-            Context ctx = new InitialContext();
-            xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
+            //Context ctx = new InitialContext();
+            xmlTransforming = new XmlTransformingBean();
             
             factory = new net.sf.saxon.TransformerFactoryImpl();
             factory.setURIResolver(new LocalURIResolver());        
@@ -908,6 +909,7 @@ public final class ValidationSchemaCache
      * Helper class for creating a Singelton of a ValidationSchemaCache object
      *
      */
+    
     private static class ValidationSchemaCacheHolder
     {
         public static ValidationSchemaCache instance = new ValidationSchemaCache();       

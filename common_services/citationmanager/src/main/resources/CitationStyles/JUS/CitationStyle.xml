@@ -4,7 +4,7 @@
 		of the Common Development and Distribution License, Version 1.0 only
 		(the "License"). You may not use this file except in compliance with
 		the License. You can obtain a copy of the license at
-		license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+		license/ESCIDOC.LICENSE or http://www.escidoc.org/license. See the
 		License for the specific language governing permissions and
 		limitations under the License. When distributing Covered Code, include
 		this CDDL HEADER in each file and include the License file at

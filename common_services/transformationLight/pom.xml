@@ -9,7 +9,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -31,29 +31,22 @@
 			
 	<parent>
 		<artifactId>common_services</artifactId>
-		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.79-SNAPSHOT</version>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<version>1.0.82-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services</groupId>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>transformationLight</artifactId>
 	<name>transformation service light</name>
-	<version>1.0.17-SNAPSHOT</version>
+	<version>1.0.20-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</developerConnection>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/transformationLight</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/transformationLight</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/transformationLight</url>
   </scm>
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
 			
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>

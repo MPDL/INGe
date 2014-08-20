@@ -8,7 +8,7 @@
  with the License.
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
+ or http://www.escidoc.org/license.
  See the License for the specific language governing permissions
  and limitations under the License.
 
@@ -92,6 +92,9 @@
 	<xsl:variable name="key-firstpage" select="'DC.citation.spage'" />
 	<xsl:variable name="key-lastpage" select="'DC.citation.epage'" />
 	<xsl:variable name="key-publisher" select="'DC.publisher'" />
+	
+	<xsl:variable name="key-degree" select="''" />
+	<xsl:variable name="key-inbook-title" select="'DC.relation.ispartof'" />
 	
 	<xsl:variable name="key-issn" select="'DC.identifier'" />
 	<xsl:variable name="prefix-issn" select="'urn:ISSN:'" />

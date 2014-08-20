@@ -7,7 +7,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -34,9 +34,13 @@ import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -44,12 +48,16 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
+import org.jboss.vfs.VFS;
+import org.jboss.vfs.VirtualFile;
 import org.xml.sax.InputSource;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
+import de.mpg.escidoc.services.validation.ItemValidatingBean;
 
 /**
  * This class initializes the validation cache database. It should be deactivated when there is a central validation
@@ -61,6 +69,7 @@ import de.mpg.escidoc.services.validation.ItemValidating;
  */
 public class Initializer extends Thread
 {
+	
     /**
      * Logger for this class.
      */
@@ -69,16 +78,17 @@ public class Initializer extends Thread
     public static final String SCHEMA_DIRECTORY = "validation_schema";
     public static final String SQL_DIRECTORY = "validation_sql";
     
-    /**
-     * Validation EJB.
-     */
-    private static ItemValidating itemValidating;
 
+    private ItemValidating itemValidating;
+    
+
+    
     /**
      * Default constructor.
      */
-    public Initializer()
+    public Initializer(ItemValidating itemValidating)
     {
+    	this.itemValidating = itemValidating;
     }
 
     /** 
@@ -87,13 +97,13 @@ public class Initializer extends Thread
     @Override
     public void run()
     {
-        initializeDatabase();
+        initializeDatabase(itemValidating);
     }
 
     /**
      * This method executes the initialization.
      */
-    public static void initializeDatabase()
+    public static void initializeDatabase(ItemValidating itemValidating)
     {
         LOGGER.info("Initializing validation database...");
         Connection conn = null;
@@ -113,8 +123,13 @@ public class Initializer extends Thread
                 LOGGER.info("Skipping validation schema creation.");
             }
             
-            Context ctx = new InitialContext();
-            itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
+
+            
+            
+            
+            //ItemValidating itemValidating = (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+            
+            
             itemValidating.refreshValidationSchemaCache();
             /*
             String contextsXml = FrameworkUtil.getAllContexts();
@@ -192,7 +207,7 @@ public class Initializer extends Thread
     	
     	LOGGER.debug("fullScriptName:" + fullScriptName);
     	
-        String sql = ResourceUtil.getResourceAsString(fullScriptName);
+        String sql = ResourceUtil.getResourceAsString(fullScriptName, ItemValidating.class.getClassLoader());
         sql = replaceProperties(sql);
         LOGGER.debug("Executing script: " + sql);
         String[] commands = splitSqlScript(sql);
@@ -212,7 +227,7 @@ public class Initializer extends Thread
         try
         {
             Context ctx = new InitialContext();
-            DataSource dataSource = (DataSource) ctx.lookup("Validation");
+            DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
             return dataSource.getConnection();
         }
         catch (Exception e)
@@ -256,6 +271,10 @@ public class Initializer extends Thread
     private static void insertValidationData(final Connection conn) throws Exception
     {
         URL dirUrl = Initializer.class.getClassLoader().getResource(SCHEMA_DIRECTORY);
+        VirtualFile dirVirtFile = VFS.getChild(dirUrl.toURI());
+
+        
+        /*
         String[] path = (URLDecoder.decode(dirUrl.getPath(), "UTF-8")).split("/|\\\\");
         String modifiedPath = "";
         for (String pathElement : path)
@@ -275,14 +294,20 @@ public class Initializer extends Thread
         modifiedPath = modifiedPath.substring(1);
         LOGGER.debug("Initial schema path: " + modifiedPath);
         File dir = new File(modifiedPath);
-        insertSchemaDirectory(dir, conn);
+        */
+        insertSchemaDirectory(dirVirtFile, conn);
     }
 
-    private static void insertSchemaDirectory(final File dir, final Connection conn) throws Exception
+    private static void insertSchemaDirectory(final VirtualFile dir, final Connection conn) throws Exception
     {
-        File[] schemas = dir.listFiles();
-        LOGGER.debug("Schemas found :" + schemas.length);
-        for (File schema : schemas)
+       // File[] schemas = dir.listFiles();
+        
+        List<VirtualFile> schemas = dir.getChildren();
+        
+        
+        
+        LOGGER.debug("Schemas found :" + schemas.size());
+        for (VirtualFile schema : schemas)
         {
             if (schema.isDirectory())
             {
@@ -290,8 +315,12 @@ public class Initializer extends Thread
             }
             else
             {
-                String schemaContent = ResourceUtil.getResourceAsString(schema.getAbsolutePath());
-                SAXParserFactory factory = SAXParserFactory.newInstance();
+            	
+                //String schemaContent = ResourceUtil.getResourceAsString(schema.getAbsolutePath(), Initializer.class.getClassLoader());
+                String schemaContent = ResourceUtil.getStreamAsString(schema.openStream());
+                
+            	
+            	SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser parser = factory.newSAXParser();
                 IdentityHandler idHandler = new IdentityHandler();
                 parser.parse(new InputSource(new StringReader(schemaContent)), idHandler);

@@ -8,7 +8,7 @@
  * with the License.
  *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
+ * or http://www.escidoc.org/license.
  * See the License for the specific language governing permissions
  * and limitations under the License.
  *
@@ -74,8 +74,8 @@ public class BmcToEscidocTransformationTest extends XMLTestCase {
 	{
 		try
 			{
-			 	src = ResourceUtil.getResourceAsBytes("testFiles/bmc/1752-1947-5-391.xml");
-				expected = ResourceUtil.getResourceAsString("testFiles/escidoc/1752-1947-5-391.xml");
+			 	src = ResourceUtil.getResourceAsBytes("testFiles/bmc/1752-1947-5-391.xml", BmcToEscidocTransformationTest.class.getClassLoader());
+				expected = ResourceUtil.getResourceAsString("testFiles/escidoc/1752-1947-5-391.xml", BmcToEscidocTransformationTest.class.getClassLoader());
 			}
 		catch (Exception e)
 			{

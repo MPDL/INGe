@@ -7,7 +7,7 @@
 * with the License.
 *
 * You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
+* or http://www.escidoc.org/license.
 * See the License for the specific language governing permissions
 * and limitations under the License.
 *
@@ -770,7 +770,7 @@ public class XmlHelper {
 				nl = xpathNodeList(
 						"/export-formats/output-formats/output-format",
 						ResourceUtil.getResourceAsString(
-								ResourceUtil.getPathToSchemas() 
+								ResourceUtil.SCHEMAS_DIRECTORY 
 							 	+ "explain-styles_new.xml"
 						)
 				);
@@ -846,7 +846,7 @@ public class XmlHelper {
 				nl = xpathNodeList(
 						"/export-formats/export-format/identifier",
 						ResourceUtil.getResourceAsString(
-								ResourceUtil.getPathToSchemas() 
+								ResourceUtil.SCHEMAS_DIRECTORY 
 							 	+ "explain-styles_new.xml"
 						)
 				);
