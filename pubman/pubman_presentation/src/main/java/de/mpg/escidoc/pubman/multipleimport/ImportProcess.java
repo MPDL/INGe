@@ -816,6 +816,7 @@ public class ImportProcess extends Thread
         }
         catch (Exception e)
         {
+        	logger.error("Error while multiple import", e);
             log.addDetail(ErrorLevel.ERROR, e);
             log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported");
             if (this.rollback)
