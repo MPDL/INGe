@@ -208,6 +208,7 @@ public class WoSTransformation implements Transformation, Configurable{
                 else
                 {
                     xslDir = ".";
+                    xslPath = "transformations/otherFormats/xslt/wosxml2escidoc.xsl";
                 }
                     
                 

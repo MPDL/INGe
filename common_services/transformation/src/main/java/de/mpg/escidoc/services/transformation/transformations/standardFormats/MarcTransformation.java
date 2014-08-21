@@ -29,9 +29,8 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.transformation.transformations.otherFormats.edoc;
+package de.mpg.escidoc.services.transformation.transformations.standardFormats;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,50 +44,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
-import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
- * @author kurt (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ 
+ * @author mfranke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 4133 $ $LastChangedDate: 2011-09-22 11:19:17 +0200 (Do, 22 Sep 2011) $
+ * 
+ * Transformation implementation for MARC21 and MARCXML transformations.
  *
  */
 @TransformationModule
-public class EDocImport extends DefaultHandler implements Transformation, Configurable
+public class MarcTransformation implements Transformation, Configurable
 {
-
-    private StringWriter newXml = new StringWriter();
-    private boolean inCreatorstring = false;
-    private StringWriter creatorString = null;
+    private static final Logger logger = Logger.getLogger(MarcTransformation.class);
     
     private static final Format ESCIDOC_ITEM_LIST_FORMAT
         = new Format("eSciDoc-publication-item-list", "application/xml", "*");
     private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
-    private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
-    private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
+    private static final Format MARC21_FORMAT = new Format("marc21", "application/marc", "*");
+    private static final Format MARCXML_FORMAT_UTF8 = new Format("marcxml", "application/marc+xml", "UTF-8");
+    private static final Format MARCXML_FORMAT_MARC8 = new Format("marcxml", "application/marc+xml", "MARC-8");
 
     private Map<String, List<String>> properties = null;
     private Map<String, String> configuration = null;
@@ -98,7 +89,8 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
      */
     public Format[] getSourceFormats()
     {
-        return new Format[]{EDOC_FORMAT, EDOC_FORMAT_AEI};
+        return new Format[]{ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT, MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
+        //return new Format[]{};
     }
 
     /**
@@ -108,7 +100,11 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     {
         if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT)))
         {
-            return new Format[]{EDOC_FORMAT, EDOC_FORMAT_AEI};
+            return new Format[]{MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
+        }
+        else if (trg != null && (trg.matches(MARC21_FORMAT) || trg.matches(MARCXML_FORMAT_UTF8) || trg.matches(MARCXML_FORMAT_MARC8)))
+        {
+            return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
         }
         else
         {
@@ -130,9 +126,13 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
      */
     public Format[] getTargetFormats(Format src) throws RuntimeException
     {
-        if (src != null && (src.matches(EDOC_FORMAT) || src.matches(EDOC_FORMAT_AEI)))
+        if (src != null && (src.matches(MARC21_FORMAT) || src.matches(MARCXML_FORMAT_UTF8) || src.matches(MARCXML_FORMAT_MARC8)))
         {
             return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
+        }
+        else if (src != null && (src.matches(ESCIDOC_ITEM_FORMAT) || src.matches(ESCIDOC_ITEM_LIST_FORMAT)))
+        {
+            return new Format[]{MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
         }
         else
         {
@@ -171,22 +171,10 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         
         try
         {
-            System.out.print("Started SAX parser transformation...");
-            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-            parser.parse(new InputSource(new ByteArrayInputStream(src)), this);
-            System.out.println("done!");
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Error preparsing edoc xml", e);
-        }
-
-        try
-        {
-            System.out.print("Started xslt transformation...");
+            logger.info("Start of XSL transformation...");
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             
-            String xslPath = PropertyReader.getProperty("escidoc.transformation.edoc.stylesheet.filename");
+            String xslPath = PropertyReader.getProperty("escidoc.transformation.marc.stylesheet.filename");
             String xslDir;
             if (xslPath != null)
             {
@@ -203,32 +191,21 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
             else
             {
                 xslDir = ".";
-                xslPath = "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
+                xslPath = "transformations/otherFormats/xslt/marc_to_pubman.xsl";
             }
                 
-            
             factory.setURIResolver(new LocalUriResolver(xslDir));
-            InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, EDocImport.class.getClassLoader());
+            InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath, MarcTransformation.class.getClassLoader());
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             
-            if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
-            {
-                transformer.setParameter("is-item-list", Boolean.TRUE);
-            }
-            else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
-            {
-                transformer.setParameter("is-item-list", Boolean.FALSE);
-            }
-            else
-            {
-                throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
-            }
+            transformer.setParameter("source-format", srcFormat.getName());
+            transformer.setParameter("target-format", trgFormat.getName());
             
             if (configuration != null)
             {
                 for (String key : configuration.keySet())
                 {
-                    System.out.println("ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
+                    logger.debug("ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
                 	transformer.setParameter(key, configuration.get(key));
                 }
             }
@@ -236,136 +213,19 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
-            transformer.setParameter("source-name", srcFormat.getName());
-            transformer.setParameter("framework-url", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
-            transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));
+            transformer.transform(new StreamSource(new StringReader(new String(src, srcFormat.getEncoding()))), new StreamResult(result));
+            
+            logger.info("...end of XSL transformation");
             
             return result.toString().getBytes(trgFormat.getEncoding());
             
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error parsing edoc xml", e);
+            throw new RuntimeException("Error parsing marc xml", e);
         }
-    }
-
-    private String getResult()
-    {
-        
-        return newXml.toString();
-    }
-
-    @Override
-    public void characters(char[] ch, int start, int length)
-            throws SAXException
-    {
-        String string = new String(ch, start, length);
-        if (inCreatorstring)
-        {
-            creatorString.append(string);
-        }
-        else
-        {
-            newXml.append(escape(string));
-        }
-    }
-
-    @Override
-    public void endElement(String uri, String localName, String name)
-            throws SAXException
-    {
-        if ("issuecontributorfn".equals(name)
-                || "proceedingscontributorfn".equals(name)
-                || "seriescontributorfn".equals(name)
-                || "bookcontributorfn".equals(name)
-                || "bookcreatorfn".equals(name))
-        {
-            try
-            {
-                //Added, so the original XML-Elements still exist after conversion
-                newXml.append("<" + name + ">\n" + escape(creatorString.toString()) + "\n</" + name + ">\n");
-                
-                AuthorDecoder authorDecoder = new AuthorDecoder(creatorString.toString());
-                List<Author> authors = authorDecoder.getBestAuthorList();
-                if (authors.size() > 0)
-                {
-                    newXml.append("<creators>\n");
-                    for (int i = 0; i < authors.size(); i++)
-                    {
-                        newXml.append("<creator type=\"" + name + "\" role=\"");
-                        if ("bookcreatorfn".equals(name))
-                        {
-                            newXml.append("author");
-                        }
-                        else
-                        {
-                            newXml.append("editor");
-                        }
-                        newXml.append("\" creatorType=\"individual\">\n");
-                        newXml.append("<creatorini>");    
-                        newXml.append(escape(authors.get(i).getInitial()).trim());
-                        newXml.append("</creatorini>\n");
-                        newXml.append("<creatornfamily>");
-                        newXml.append(escape(authors.get(i).getSurname()).trim());
-                        newXml.append("</creatornfamily>\n");
-                        newXml.append("<creatorngiven>");
-                        newXml.append(escape(authors.get(i).getGivenName()).trim());
-                        newXml.append("</creatorngiven>\n");
-                        newXml.append("</creator>\n");
-                    }
-                    newXml.append("</creators>\n");
-                }
-
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                throw new SAXException(e);
-            }
-            creatorString = null;
-            inCreatorstring = false;
-        }
-        else
-        {
-            newXml.append("</");
-            newXml.append(name);
-            newXml.append(">");
-        }
-    }
-
-    @Override
-    public void startElement(String uri, String localName, String name,
-            Attributes attributes) throws SAXException
-    {
-        if ("issuecontributorfn".equals(name)
-                || "proceedingscontributorfn".equals(name)
-                || "seriescontributorfn".equals(name)
-                || "bookcontributorfn".equals(name)
-                || "bookcreatorfn".equals(name))
-        {
-            inCreatorstring = true;
-            creatorString = new StringWriter();
-            
-        }
-        else
-        {
-            
-            newXml.append("<");
-            newXml.append(name);
-            for (int i = 0; i < attributes.getLength(); i++)
-            {
-                newXml.append(" ");
-                newXml.append(attributes.getQName(i));
-                newXml.append("=\"");
-                newXml.append(escape(attributes.getValue(i)));
-                newXml.append("\"");
-            }
-            newXml.append(">");
-
-        }
-            
     }
     
     public String escape(String input)
@@ -403,7 +263,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
-        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.edoc.configuration.filename"), EDocImport.class.getClassLoader()));
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.marc.configuration.filename"), MarcTransformation.class.getClassLoader()));
         for (Object key : props.keySet())
         {
             if (!"configuration".equals(key.toString()))

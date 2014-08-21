@@ -135,6 +135,7 @@ public class MABTransformation implements Transformation{
                 else
                 {
                     xslDir = ".";
+                    xslPath = "transformations/otherFormats/xslt/mabxml2escidoc.xsl";
                 }
                 
                 factory.setURIResolver(new LocalUriResolver(xslDir));
