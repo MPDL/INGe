@@ -193,9 +193,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>test-compile</phase>
@@ -384,13 +381,6 @@
 			<version>${version.common_presentation}</version>
 			<type>war</type>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>pid_cache_presentation</artifactId>
-			<version>${version.pid_cache_presentation}</version>
-			<scope>compile</scope>
-			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
