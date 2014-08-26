@@ -869,6 +869,7 @@
 					<plugin>
 						<groupId>org.zeroturnaround</groupId>
 						<artifactId>jrebel-maven-plugin</artifactId>
+						<version>1.1.5</version>
 						<configuration>
 		      				<name>${project.artifactId}-development</name>
 		      				<version>${project.version}-${maven.build.timestamp}</version>
