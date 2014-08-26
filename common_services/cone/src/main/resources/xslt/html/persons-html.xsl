@@ -373,7 +373,7 @@
 									</span>
 									<div class="statusArea free_area0">
 										<xsl:if test="foaf:depiction != ''">
-											<img src="{foaf:depiction}" title="{dc:title}" width="120" />
+											<img src="{foaf:depiction}" title="{dc:title}" style="max-width:100%;" />
 										</xsl:if>
 										&#160;
 									</div>
