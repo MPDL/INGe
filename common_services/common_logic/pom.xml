@@ -64,7 +64,7 @@
 								<taskdef classname="org.jibx.binding.ant.CompileTask" name="bind">
 									<classpath refid="maven.compile.classpath" />
 								</taskdef>
-								<bind load="true" verbose="false">
+								<bind load="true" verbose="true">
 									<bindingfileset dir="${project.build.outputDirectory}/jibx">
 										<include name="bindings_AccountUserVO.xml" />
 										<include name="bindings_AffiliationVO_input.xml" />
