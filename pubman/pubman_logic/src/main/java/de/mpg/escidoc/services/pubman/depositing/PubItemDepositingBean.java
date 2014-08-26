@@ -474,7 +474,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             throw new IllegalArgumentException(getClass() + ".submitPubItem: pubItem is null.");
         }
         
-        logger.info("*** start submit of <" + pubItem.getLatestRelease().getObjectId() + ">");
+        logger.info("*** start submit of <" + pubItem.getVersion().getObjectId() + ">");
         
         if (user == null)
         {
@@ -495,7 +495,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             long start = System.currentTimeMillis();
             ValidationReportVO report = itemValidating.validateItemObject(pubItem, VALIDATION_POINT_SUBMIT);
             long end = System.currentTimeMillis();
-            logger.info("validation of <" + pubItem.getLatestRelease().getObjectId() + "> needed <" + (end - start)  + "> msec" );
+            logger.info("validation of <" + pubItem.getVersion().getObjectId() + "> needed <" + (end - start)  + "> msec" );
             if (!report.isValid())
             {
                 throw new ItemInvalidException(report);
@@ -517,7 +517,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             itemHandler.submit(savedPubItem.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
             ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { savedPubItem.getVersion().getObjectId(), user.getUserid() });
             long e1 = System.currentTimeMillis();
-            logger.info("pure itemHandler.submit item " + pubItem.getLatestRelease().getObjectId() + "> needed <" + (e1 - s1)  + "> msec" );
+            logger.info("pure itemHandler.submit item " + pubItem.getVersion().getObjectId() + "> needed <" + (e1 - s1)  + "> msec" );
 
             // Retrieve item once again.
             String item = itemHandler.retrieve(savedPubItem.getVersion().getObjectId());
@@ -537,7 +537,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
         
         long gend = System.currentTimeMillis();
-        logger.info("*** total submit of <" + pubItem.getLatestRelease().getObjectId() + "> needed <" + (gend - gstart)  + "> msec" );
+        logger.info("*** total submit of <" + pubItem.getVersion().getObjectId() + "> needed <" + (gend - gstart)  + "> msec" );
         return pubItemActual;
     }
 
