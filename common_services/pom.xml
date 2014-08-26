@@ -238,6 +238,7 @@
 		<module>aa_logic</module>
 		<module>aa_presentation</module>
 		<module>fledgeddata</module>
+		<module>fledgeddata_presentation</module>
 		<module>transformationLight</module>
 	</modules>
 	<scm>
