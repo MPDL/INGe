@@ -29,7 +29,6 @@
 */ 
 package de.mpg.escidoc.pubman.searchNew.criterions;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.lang.reflect.Constructor;
@@ -40,10 +39,7 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sf.jasperreports.charts.util.SvgChartRendererFactory;
-
 import org.apache.log4j.Logger;
-import org.z3950.zing.cql.CQLParseException;
 
 import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.checkbox.AffiliatedContextListSearchCriterion;
@@ -176,23 +172,23 @@ public abstract class SearchCriterionBase implements Serializable{
 		
 		
 		
-		private Class relatedClass;
+		private Class<?> relatedClass;
 		private DisplayType displayType;
 		
 		
-		SearchCriterion(Class classToInstantiate, DisplayType dt)
+		SearchCriterion(Class<?> classToInstantiate, DisplayType dt)
 		{
 			this.relatedClass = classToInstantiate;
 			this.displayType = dt;
 		}
 
 
-		public Class getRelatedClass() {
+		public Class<?> getRelatedClass() {
 			return relatedClass;
 		}
 
 
-		public void setRelatedClass(Class relatedClass) {
+		public void setRelatedClass(Class<?> relatedClass) {
 			this.relatedClass = relatedClass;
 		}
 
@@ -298,7 +294,7 @@ public abstract class SearchCriterionBase implements Serializable{
 	public static SearchCriterionBase initSearchCriterion(SearchCriterion sc)
 	{
 			try {
-			    Constructor ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
+			    Constructor<?> ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
 			    ctor.setAccessible(true);
 				SearchCriterionBase scb = (SearchCriterionBase)ctor.newInstance(sc);
 				scb.setSearchCriterion(sc);
