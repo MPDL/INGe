@@ -127,7 +127,6 @@ public abstract class DataModelManager<T>
     
     public String addObjectAtIndex(int i)
     {
-    	System.out.println("Add object!!!!" + i);
         T elem = createNewObject();
         
         if(elem != null)
@@ -142,7 +141,6 @@ public abstract class DataModelManager<T>
      */
     public String removeObject()
     {
-    	System.out.println("Remove object!!!!");
         int i = objectDM.getRowIndex();
         removeObjectAtIndex(i);
         return "";
@@ -150,7 +148,6 @@ public abstract class DataModelManager<T>
 
     public void removeObjectAtIndex(int i)
     {
-    	System.out.println("Remove object!!!!" + i);
         objectList.remove(i);
     }
         
