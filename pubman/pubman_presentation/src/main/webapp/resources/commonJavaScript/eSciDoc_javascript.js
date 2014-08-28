@@ -162,7 +162,7 @@ function install_javascripts() {
 	if (typeof installItemList == 'function') {
 		installItemList();
 	}
-	if (typeof installItemList == 'function') {
+	if (typeof installFullItem == 'function') {
 		installFullItem();
 	}
 	if (typeof installQuickSearchShortcut == 'function') {
@@ -229,7 +229,7 @@ function fullItemReloadStop()
 
 }
 
-/*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
+/*This method is called by jsf before every Richfaces Ajax Call */
 function beforeAjaxRequest()
 {
 	//console.log("Before Ajax!!");
@@ -239,7 +239,7 @@ function beforeAjaxRequest()
 	}
 }
 
-/*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
+/*This method is called by jsf after every Richfaces Ajax Call */
 function afterAjaxRequest()
 {
 	//console.log("After Ajax!!");
@@ -273,7 +273,9 @@ busystatus.onStatusChange = function onStatusChange(data) {
 	//alert("ajax event triggered")
 	if (status === "begin") { // turn on busy indicator
 		beforeAjaxRequest();
-	} else { // turn off busy indicator, on either "complete" or "success"
+		
+	} else if (status === "success"){
+		// turn off busy indicator, on "success"
 		afterAjaxRequest();
 	}
 };
