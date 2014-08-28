@@ -222,6 +222,7 @@
 							processData: false,
 							type: "GET",
 							dataType: "json",
+							cache: false,
 							url: (options.vocab == null ? source : source.replace('\$1', vocab)),
 							data: data,
 							success: function(result) {

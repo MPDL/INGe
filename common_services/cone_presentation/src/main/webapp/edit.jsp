@@ -56,6 +56,7 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
+<%@ page import="java.nio.charset.Charset" %>
 
 <%!
 	List<String> errors;
@@ -648,8 +649,10 @@
 	            else
 	            {
 	                identifierValue = request.getParameter("cone_identifier");
-	                if (identifierValue != null && !"".equals(identifierValue))
+	                //Check if identifier is null or not ASCII compatible
+	                if (identifierValue != null && !"".equals(identifierValue) &&  Charset.forName("US-ASCII").newEncoder().canEncode(identifierValue))
 	                {
+	                	System.out.println("Identifier is OK!!!!!!!!!!!!!");
 	                	identifierValue = identifierValue.trim();
 	                    uri = model.getSubjectPrefix() + identifierValue;
 	                    
@@ -664,7 +667,7 @@
 	                }
 	                else
 	                {
-	                    errors.add("No primary key is provided.");
+	                    errors.add("No primary key is provided or the key is invalid. Please do not use special characters or umlauts.");
 	                }
 	            }
 	            if (model.getIdentifier() != null)
