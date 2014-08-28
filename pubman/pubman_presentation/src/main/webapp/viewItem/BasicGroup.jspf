@@ -68,7 +68,7 @@
 				
 				<!-- Mendeley -->
 				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
-					<h:graphicImage id="imgSocialBookmarkingMendeley" title="#{lbl.ViewItemFull_lblSocialBookmarking_Mendeley}" url="http://www.mendeley.com/favicon.ico" width="16" onclick="mendeleyLink();" />
+					<h:graphicImage id="imgSocialBookmarkingMendeley" title="#{lbl.ViewItemFull_lblSocialBookmarking_Mendeley}" url="http://www.mendeley.com/graphics/mendeley.png" width="16" onclick="mendeleyLink();" />
 				</h:panelGroup>
 				<script type="text/javascript">
 				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>';
