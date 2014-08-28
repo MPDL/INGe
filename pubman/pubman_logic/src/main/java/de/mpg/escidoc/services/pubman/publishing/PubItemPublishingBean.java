@@ -217,7 +217,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             // Loop over files
             for (FileVO file : actualItemVO.getFiles())
             {           
-                if((file.getPid()==null || file.getPid().equals("")) && file.getStorageString().equals(FileVO.Storage.INTERNAL_MANAGED))
+                if((file.getPid()==null || file.getPid().equals("")) && file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
                 {
                     long start = System.currentTimeMillis();
                     // Build PidParam
