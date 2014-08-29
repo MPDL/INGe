@@ -51,6 +51,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.SourceVOPresentation;
 import de.mpg.escidoc.services.common.util.CommonUtils;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
@@ -106,6 +107,16 @@ public class ApplicationBean extends FacesBean
 
     private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
     private String instanceContextPath;
+	private String footerSnippet;
+	private String pubmanInstanceUrl;
+	private String commonPresentationUrl;
+	private String pubmanBlogFeedUrl;
+	private String pubmanStyleTags;
+	private String cookieVersion;
+	private String logoUrl;
+	private String additionalLogoCss;
+	private boolean handlesActivated;
+	private String shortVersion;
     
 
     /**
@@ -127,6 +138,8 @@ public class ApplicationBean extends FacesBean
         this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
         this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
         this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
+       
+        loadProperties();
         
         this.init();
     }
@@ -142,6 +155,107 @@ public class ApplicationBean extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         // 
+    }
+    
+    public void loadProperties()
+    {
+    	 try {
+    		 
+    		 
+    		Properties solProperties = CommonUtils.getProperties( PROPERTY_FILENAME );
+            this.version = solProperties.getProperty("escidoc.pubman.version");
+            
+            this.shortVersion = "";
+            int whereToCut;
+            try
+            {
+                shortVersion = solProperties.getProperty("escidoc.pubman.version");
+                // get the position of the first blank before the word 'build'
+                whereToCut = shortVersion.indexOf(" ");
+                shortVersion = shortVersion.substring(0, whereToCut + 1);
+            }
+            catch (Exception e)
+            {
+                logger.warn("The version of the application cannot be retrieved.");
+            }
+
+            
+            this.appTitle = getLabel("Pubman_browserTitle");
+            // hide the version information if system type is production
+            if(!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server) && this.version!=null)
+            {
+            	this.appTitle += " " + this.getVersion();
+            }
+            
+            this.pubmanInstanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+
+            
+            
+            
+            this.commonPresentationUrl = PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
+            if (this.commonPresentationUrl == null)
+            {
+            	this.commonPresentationUrl = "";
+            }
+          
+            
+            this.pubmanBlogFeedUrl = PropertyReader.getProperty("escidoc.pubman.blog.news");
+            if (this.pubmanBlogFeedUrl == null)
+            {
+            	this.pubmanBlogFeedUrl = "";
+            }
+            
+            try {
+				this.pubmanStyleTags = buildPubmanStyleTags();
+			} catch (Exception e) {
+				logger.error("Error while building style tags", e);
+			}
+
+           
+            this.cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
+            if (this.cookieVersion == null)
+            {
+            	this.cookieVersion = "";
+            }
+            
+            this.instanceContextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+            
+            this.appContext = PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "/faces/";
+            
+    		this.logoUrl = PropertyReader.getProperty("escidoc.pubman.logo.url");
+    		
+    		this.additionalLogoCss = PropertyReader.getProperty("escidoc.pubman.logo.css");
+			if (this.additionalLogoCss == null)
+	        {
+	        	this.additionalLogoCss = "";
+	        }
+            
+			try 
+			{
+				this.handlesActivated = Boolean.parseBoolean(PropertyReader.getProperty("escidoc.handles.activated"));
+			} catch (Exception e) {
+				logger.error("Error reading property 'escidoc.handles.activated'", e);
+				this.handlesActivated = false;
+			} 
+			
+			
+			String footerFileName = PropertyReader.getProperty("escidoc.pubman.footer.fileName"); 
+			try {
+				if(footerFileName!= null && !footerFileName.isEmpty())
+				{
+					this.footerSnippet = ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader()); 
+				}
+			} catch (Exception e) {
+				logger.error("Error while reading footer file: " + footerFileName);
+			}
+			
+	
+			
+			
+			
+		} catch (Exception e) {
+			logger.error("Error while reading properties", e);
+		}
     }
 
     /**
@@ -163,33 +277,6 @@ public class ApplicationBean extends FacesBean
      */
     public String getAppTitle()
     {
-        // retrieve version once
-
-            this.appTitle = getLabel("Pubman_browserTitle");
-
-            // hide the version information if system type is production
-            try 
-            {
-                if(!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server))
-                {
-                    try
-                    {
-                        this.appTitle += " " + this.getVersion();
-                    }
-                    catch (PubManVersionNotAvailableException e)
-                    {
-                        // version cannot be retrieved; just show the application title
-                        logger.warn("The version of the application cannot be retrieved.");
-                    }
-                }
-            } 
-            catch (PubManVersionNotAvailableException e) 
-            {
-                // version cannot be retrieved; just show the application title
-                logger.warn("The version of the application cannot be retrieved.");
-            }
-        
-
         return appTitle;
     }
 
@@ -199,20 +286,8 @@ public class ApplicationBean extends FacesBean
      * @return the escidoc version
      * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
      */
-    private String getVersion() throws PubManVersionNotAvailableException
+    private String getVersion()
     {
-    	if(version==null)
-    	{
-    		try
-            {
-                Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
-                version = properties.getProperty("escidoc.pubman.version");
-            }
-            catch (IOException e)
-            {
-                throw new PubManVersionNotAvailableException(e);
-            }
-    	}
     	return version;
         
     }
@@ -225,22 +300,8 @@ public class ApplicationBean extends FacesBean
      */
     public String getShortVersion()
     {
-        String versionWithoutBuildDate = "";
-        int whereToCut;
-        try
-        {
-            Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
-            versionWithoutBuildDate = properties.getProperty("escidoc.pubman.version");
-            // get the position of the first blank before the word 'build'
-            whereToCut = versionWithoutBuildDate.indexOf(" ");
-            versionWithoutBuildDate = versionWithoutBuildDate.substring(0, whereToCut + 1);
-            
-        }
-        catch (IOException e)
-        {
-            logger.warn("The version of the application cannot be retrieved.");
-        }
-        return versionWithoutBuildDate;
+
+        return shortVersion;
     }
     
     /**
@@ -251,16 +312,7 @@ public class ApplicationBean extends FacesBean
      */
     public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException 
     {
-        try
-        {
-            return PropertyReader.getProperty("escidoc.pubman.instance.url");
-        } catch (IOException e)
-        {
-            throw new PubManVersionNotAvailableException(e);
-        } catch (URISyntaxException e)
-        {
-            throw new PubManVersionNotAvailableException(e);
-        }
+       return this.pubmanInstanceUrl;
         
     }
     
@@ -270,15 +322,7 @@ public class ApplicationBean extends FacesBean
     */
    public String getCommonPresentationUrl()
    {
-       try
-       {
-           String prop = PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
-           return prop;
-       } 
-       catch (Exception e)
-       {
-           return "";
-       } 
+       return this.commonPresentationUrl;
    }
     
     /**
@@ -289,15 +333,7 @@ public class ApplicationBean extends FacesBean
     */
    public String getPubmanBlogFeedUrl()
    {
-       try
-       {
-           String prop = PropertyReader.getProperty("escidoc.pubman.blog.news");
-           return prop;
-       } 
-       catch (Exception e)
-       {
-           return "";
-       } 
+       return this.pubmanBlogFeedUrl;
    }
     
     /**
@@ -305,7 +341,7 @@ public class ApplicationBean extends FacesBean
      *
      * @return the escidoc instance
      */
-    public String getPubmanStyleTags() throws PubManStylesheetNotAvailableException
+    public String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException
     {
         StringBuffer styleTags = new StringBuffer();
         String StylesheetStandard = "";
@@ -400,6 +436,11 @@ public class ApplicationBean extends FacesBean
         
     }
     
+    public String getPubmanStyleTags() 
+    {
+    	return this.pubmanStyleTags;
+    }
+    
     
     /**
      * This method returns the cookie version for PubMan hold in the  pubman.properties
@@ -408,20 +449,9 @@ public class ApplicationBean extends FacesBean
      */
     public String getCookieVersion() throws PubManVersionNotAvailableException 
     {
-        String cookieVersion = "";
+        return this.cookieVersion;
         
-        try
-        {
-            cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
-        } catch (IOException e)
-        {
-            throw new PubManVersionNotAvailableException(e);
-        } catch (URISyntaxException e)
-        {
-            throw new PubManVersionNotAvailableException(e);
-        }
-        
-        return cookieVersion;
+
         
     }
     
@@ -433,14 +463,7 @@ public class ApplicationBean extends FacesBean
      */
     public String getAppContext()
     {
-        try
-        {
-            this.appContext = PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "/faces/";
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Property escidoc.pubman.instance.context.path not found", e);
-        }
+        
         return appContext;
     }
     
@@ -461,14 +484,6 @@ public class ApplicationBean extends FacesBean
      */
     public String getInstanceContextPath()
     {
-        try
-        {
-            this.instanceContextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Property escidoc.pubman.instance.context.path not found", e);
-        }
         return instanceContextPath;
     }
 
@@ -538,6 +553,7 @@ public class ApplicationBean extends FacesBean
         String returnVal = "";
         ResourceBundle.clearCache();
         PropertyReader.loadProperties();
+        loadProperties();
         languageSelectItems.clear();
         ouList.clear();
         
@@ -576,24 +592,14 @@ public class ApplicationBean extends FacesBean
     
     public String getLogoUrl()
     {
-    	try {
-			return PropertyReader.getProperty("escidoc.pubman.logo.url");
-
-		} catch (Exception e) {
-			logger.error("Could not retrieve logo", e);
-		}
-    	return null;
+    	return this.logoUrl;
+    	
     }
     
     public String getAdditionalLogoCss()
     {
-    	try {
-			return PropertyReader.getProperty("escidoc.pubman.logo.css");
-
-		} catch (Exception e) {
-			logger.error("Could not retrieve logo css", e);
-		}
-    	return "";
+    	
+    	return this.additionalLogoCss;
     }
     
     /**
@@ -633,12 +639,15 @@ public class ApplicationBean extends FacesBean
     }
 
 	public boolean isHandlesActivated() {
-		try {
-			return Boolean.parseBoolean(PropertyReader.getProperty("escidoc.handles.activated"));
-		} catch (Exception e) {
-			logger.error("Error reading property 'escidoc.handles.activated'", e);
-			return false;
-		} 
+		return this.handlesActivated;
+	}
+
+	public String getFooterSnippet() {
+		return footerSnippet;
+	}
+
+	public void setFooterSnippet(String footerSnippet) {
+		this.footerSnippet = footerSnippet;
 	}
 
 	

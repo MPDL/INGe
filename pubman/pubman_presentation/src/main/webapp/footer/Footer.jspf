@@ -35,6 +35,7 @@
 	<div class="full_area0">
 	<!-- begin: footer section-->
 		&#160;
+		<h:outputText value="#{ApplicationBean.footerSnippet}" escape="false" rendered="#{not empty ApplicationBean.footerSnippet}"/>
 	<!-- end: footer section -->
 	</div>
 </div>
