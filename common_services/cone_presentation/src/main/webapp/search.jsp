@@ -59,10 +59,13 @@
 	while (params.hasMoreElements())
 	{
 	    String param = params.nextElement().toString();
-	    queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
-	    if (params.hasMoreElements())
+	    if(!param.equals("auth"))
 	    {
-	        queryString += "&";
+		    queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
+		    if (params.hasMoreElements())
+		    {
+		        queryString += "&";
+		    }
 	    }
 	}
 	if (!"?".equals(queryString))
