@@ -32,6 +32,11 @@
 		<servlet-class>de.mpg.escidoc.services.aa.web.client.FinalClientServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>LogoutClientServlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.aa.web.client.LogoutClientServlet</servlet-class>
+	</servlet>
+	
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
@@ -54,6 +59,11 @@
 	<servlet-mapping>
 		<servlet-name>AaClientFinish</servlet-name>
 		<url-pattern>/clientReturn</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>LogoutClientServlet</servlet-name>
+		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

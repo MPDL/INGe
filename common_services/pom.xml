@@ -724,6 +724,7 @@
 		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
 		<escidoc.aa.client.start.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
 		<escidoc.aa.client.finish.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
+		<escidoc.aa.client.logout.class>de.mpg.escidoc.services.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
 		<!--Common presentation -->
 		<!-- URL of stylesheets in common-presentation -->
 		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>

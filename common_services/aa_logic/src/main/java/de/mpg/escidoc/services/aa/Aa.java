@@ -141,6 +141,8 @@ public class Aa
         	query = "";
         }
         
-        return page + "login.jsp?from=" + URLEncoder.encode(from + query, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
+        return page + "login.jsp?from=" + URLEncoder.encode(from + query, "UTF-8") + "&tan=" + URLEncoder.encode(tan, "UTF-8");
     }
+    
+   
 }
