@@ -781,6 +781,7 @@
 		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
 		<escidoc.aa.client.start.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
 		<escidoc.aa.client.finish.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
+		<escidoc.aa.client.logout.class>de.mpg.escidoc.services.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
 		<!-- syndication service -->
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
