@@ -18,7 +18,15 @@ import de.mpg.escidoc.pid.PidProvider;
 import de.mpg.escidoc.util.HandleUpdateStatistic;
 import de.mpg.escidoc.util.Statistic;
 
-
+/**
+ * 
+ * This class corrects pids which are more than one time.
+ *
+ * @author sieders (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class PidCorrectionManager extends AbstractConsistencyCheckManager implements IConsistencyCheckManager
 {
 

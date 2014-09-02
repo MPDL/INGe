@@ -97,5 +97,18 @@ public class TestSrwSearchResponseHandler
         assertTrue(handler.getVersionUrl() == null);
         assertTrue(handler.getComponentUrl().equals("/item/escidoc:530180/component/escidoc:530179/model_01.mat"));
         
+        // search for missing component pids
+        handler = new SrwSearchResponseHandler();
+        parser.parse(new File("src/test/resources/escidoc_pid_missing"), handler);    
+        assertTrue(handler.getComponentsWithMissingPid().size() == 1);
+        assertTrue(handler.getComponentsWithMissingPid().contains("/item/escidoc:2053317/component/escidoc:2053316/WEB_BzE_147.pdf"));
+        assertTrue(handler.getLastModificationDate().equals("2014-08-28T14:26:24.844Z"));
+        
+        handler = new SrwSearchResponseHandler();
+        parser.parse(new File("src/test/resources/escidoc_wildfly3"), handler);    
+        assertTrue(handler.getComponentsWithMissingPid().size() == 0);
+        assertTrue(handler.getLastModificationDate().equals("2014-09-01T13:23:57.706Z"));
+        
+        
     }
 }

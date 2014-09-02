@@ -1,6 +1,8 @@
 package de.mpg.escidoc.handler;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
@@ -35,8 +37,8 @@ public class SrwSearchResponseHandler extends DefaultHandler
     private String currentComponentTitle;
     
     private String lastModificationDate;
-    
-    
+   
+    private Set<String> componentsWithMissingPid = new HashSet<String>();
     private HashMap<String, String> results = new HashMap<String, String>();
 
     
@@ -59,6 +61,8 @@ public class SrwSearchResponseHandler extends DefaultHandler
             
             currentComponentAttributes = attributes.getValue("xlink:href"); 
             currentComponentTitle = attributes.getValue("xlink:title");  
+            
+            propPid = "";
         }
         else if ("escidocItem:item".equals(qName))
         {
@@ -93,6 +97,11 @@ public class SrwSearchResponseHandler extends DefaultHandler
         else if ("escidocComponents:component".equals(qName))
         {
             inComponent = false;
+            
+            if (propPid == null || "".equals(propPid))
+            {
+                componentsWithMissingPid.add(currentComponentAttributes.replace("/ir", "").replace("/components", "") + "/" + currentComponentTitle);
+            }
         }
         
         currentContent = null;
@@ -187,5 +196,10 @@ public class SrwSearchResponseHandler extends DefaultHandler
     public String getLastModificationDate()
     {
         return this.lastModificationDate;
+    }
+    
+    public Set<String> getComponentsWithMissingPid()
+    {
+        return componentsWithMissingPid;
     }
 }

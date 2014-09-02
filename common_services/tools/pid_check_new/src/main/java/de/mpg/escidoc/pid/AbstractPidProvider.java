@@ -52,11 +52,16 @@ public class AbstractPidProvider
     {
         return this.failureMap;
     }
+    
+    public Map<String, String>getSuccessMap()
+    {
+        return this.successMap;
+    }
 
     public void storeResults(Statistic statistic)
     {
         Date today = new Date();
-        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
         String date = DATE_FORMAT.format(today);
         
         this.latestSuccessFile = "success_" + date;

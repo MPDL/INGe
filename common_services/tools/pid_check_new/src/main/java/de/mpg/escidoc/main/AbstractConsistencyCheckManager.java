@@ -42,15 +42,20 @@ public abstract class AbstractConsistencyCheckManager
     
     protected  void init() throws Exception
     {  
-    	pidProvider = new PidProvider(); 
-    	
+    	this.init("escidoc_all");
+    }  
+    
+    protected  void init(String searchIndex) throws Exception
+    {  
+        pidProvider = new PidProvider(); 
+        
         try
         {
             this.userHandle = AdminHelper.loginUser(
                     PropertyReader.getProperty("framework.admin.username"),
                     PropertyReader.getProperty("framework.admin.password"));
             
-            searchHandler = ServiceLocator.getSearchHandler("escidoc_all", new URL(ServiceLocator.getFrameworkUrl()), userHandle);
+            searchHandler = ServiceLocator.getSearchHandler(searchIndex, new URL(ServiceLocator.getFrameworkUrl()), userHandle);
             
             itemHandler = ServiceLocator.getItemHandler(userHandle);
         }
@@ -64,6 +69,11 @@ public abstract class AbstractConsistencyCheckManager
     public Set<String> getObjectsToCorrect(File objects) throws Exception
     {
         Set<String> objectsToCorrect = new HashSet<String>();
+        
+        if (!objects.exists())
+        {
+            return objectsToCorrect;
+        }
         LineIterator lit = FileUtils.lineIterator(objects);
         
         while(lit.hasNext())
@@ -148,8 +158,8 @@ public abstract class AbstractConsistencyCheckManager
         String pidFileName = args[0];
         String mode = args[1];       
         
-        if (pidFileName == null || "".equals(pidFileName))
-            usage("pidFileName may not be null or empty or the file does not exists.");
+        /*if (pidFileName == null || "".equals(pidFileName))
+            usage("pidFileName may not be null or empty or the file does not exists.");*/
         if (mode == null || (!mode.contains("update") && !mode.contains("verify")))
             usage("Mode should be <update> or <verify>");
         
