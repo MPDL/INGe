@@ -63,7 +63,6 @@
 					<b class="xLarge_area0 endline labelLine">
 						<h:outputText value="#{lbl.import_workspace_format}" /><span class="noDisplay">: </span>
 					</b>
-					<span class="free_area0 endline">
 					<div class="xSmall_marginLExcl clear">
 						
 						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">

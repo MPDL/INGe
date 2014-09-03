@@ -30,7 +30,7 @@
 
 <f:subview id="YearbookArchiveList">
 
-	<div class="full_area0 itemList <h:outputText value='loggedIn' rendered='#{LoginHelper.loggedIn}' />">
+	<div class="full_area0 itemList #{LoginHelper.loggedIn ? 'loggedIn' : ''}">
 		<ol>
 			<ui:repeat id="iterCurrentPartList" var="item"
 				value="#{YearbookArchiveBean.archivedYearbooks}">
@@ -71,52 +71,6 @@
 								</b>
 							</span>
 						</h:panelGroup>
-						<!-- <h:panelGroup layout="block" styleClass="full_area0 shortView">
-							<h:outputText value="<abbr class='unapi-id' title='#{item.identifier}'></abbr>"
-								escape="false" rendered="#{item.isReleased}" />
-							<div class="free_area0_p0  small_marginLIncl endline listItemLine">
-								<span class="huge_area0_p8 endline labelLine">
-									<div>
-										<a class="collapseTriangle">
-											<span class="noDisplay">
-												<h:outputText value="#{lbl.ViewItemShort_lblShow}" />
-											</span> 
-											<h:outputText value="#{lbl.ViewItemShort_lblLess}" />
-											<span class="noDisplay">
-												<h:outputText value="#{lbl.ViewItemShort_lblDetails}" />
-											</span>
-										</a>
-										<a class="expandTriangle">
-											<span class="noDisplay">
-												<h:outputText value="#{lbl.ViewItemShort_lblShow}" />
-											</span>
-											<h:outputText value="#{lbl.ViewItemShort_lblMore}" />
-											<span class="noDisplay">
-												<h:outputText value="#{lbl.ViewItemShort_lblDetails}" />
-											</span>
-										</a>
-									</div>
-									<h:outputText value="#{lbl.ViewItemShort_lblCreators}" />
-									<span class="noDisplay">: </span>
-								</span>
-								<h:outputLabel id="lblCreatorsShort" styleClass="xHuge_area0 endline" 
-									value="#{item.creatorsShort}" title="#{item.creators}" />
-							</div>
-							<div class="free_area0_p0  small_marginLIncl endline listItemLine">
-								<span class="huge_area0_p8 endline labelLine"> <h:outputText
-										value="#{lbl.YearbookMembersPage}" /><span class="noDisplay">:
-								</span>
-								</span>
-								<h:panelGroup styleClass="xHuge_area0 endline" 
-									rendered="#{item.numberOfRelations > 0}">
-									<h:outputText id="lnkFiles" value="#{item.numberOfRelations}" />
-								</h:panelGroup>
-								<h:panelGroup styleClass="xHuge_area0 endline"
-									rendered="#{item.numberOfRelations == 0}">
-									<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" />
-								</h:panelGroup>
-							</div>
-						</h:panelGroup> -->
 						<h:panelGroup layout="block" styleClass="full_area0 mediumView">
 							<ui:repeat var="rel" value="#{item.relations}">
 								<div class="free_area0_p0 small_marginLIncl endline listItemLine">
