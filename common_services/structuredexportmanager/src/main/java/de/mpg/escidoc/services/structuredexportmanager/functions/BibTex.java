@@ -859,15 +859,25 @@ public class BibTex {
      */
     public static String texString(String str)
     {
-        if ( str==null || "".equals(str.trim()) ) return null;
-        String key;
-        String value;
-        for( Map.Entry<String, String> entry: ENTITIES.entrySet() )
+        StringBuffer retstr = new StringBuffer();
+        if ( str==null || "".equals(str.trim()) )
         {
-            str = str.replace(entry.getKey(), entry.getValue());
+        	return null;
         }
-        return str;
+        int len = str.length();
+        for (int i = 0; i < len; i++) {
+           if (ENTITIES.containsKey(Character.toString(str.charAt(i)))) 
+           {
+               retstr.append(ENTITIES.get(Character.toString(str.charAt(i))));
+           } 
+           else 
+           {
+        	   retstr.append(str.charAt(i));
+           }
+        }
+        return retstr.toString();
     }
+
     
 }
 
