@@ -35,7 +35,7 @@ public class SrwSearchResponseHandler extends DefaultHandler
     private String currentComponentAttributes;
     private String matchingComponentAttributes;
     private String currentComponentTitle;
-    
+    private String currentStorageType = "";
     private String lastModificationDate;
    
     private Set<String> componentsWithMissingPid = new HashSet<String>();
@@ -63,6 +63,10 @@ public class SrwSearchResponseHandler extends DefaultHandler
             currentComponentTitle = attributes.getValue("xlink:title");  
             
             propPid = "";
+        }
+        else if ("escidocComponents:content".equals(qName))
+        {            
+            currentStorageType = attributes.getValue("storage"); 
         }
         else if ("escidocItem:item".equals(qName))
         {
@@ -98,14 +102,17 @@ public class SrwSearchResponseHandler extends DefaultHandler
         {
             inComponent = false;
             
-            if (propPid == null || "".equals(propPid))
+            if ("".equals(propPid) && !currentStorageType.equals("external-url"))
             {
                 componentsWithMissingPid.add(currentComponentAttributes.replace("/ir", "").replace("/components", "") + "/" + currentComponentTitle);
             }
         }
+        else if ("escidocComponents:content".equals(qName))
+        {            
+            currentStorageType = ""; 
+        }
         
-        currentContent = null;
-        
+        currentContent = null;        
     }
     
     @Override

@@ -110,7 +110,7 @@ public abstract class AbstractConsistencyCheckManager
         }
         
     } 
-
+    
     public static void usage(String message)
     {
         System.out.print("***** " + message + " *****\n");
@@ -140,7 +140,7 @@ public abstract class AbstractConsistencyCheckManager
     /**
      * abstract methods - subclass responsibility
      */    
-    abstract public void createOrCorrectSet(Set<String> pids) throws Exception;
+//    abstract public void createOrCorrectSet(Set<String> pids) throws Exception;
     
     abstract protected void doResolve(String object) throws Exception;
     

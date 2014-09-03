@@ -69,6 +69,9 @@ public class AbstractPidProvider
        
         try
         {
+            FileUtils.writeStringToFile(new File(this.latestSuccessFile), "*********************************************************" + System.getProperty("line.separator"), true);
+            FileUtils.writeStringToFile(new File(this.latestSuccessFile), date + System.getProperty("line.separator"), true);
+            FileUtils.writeStringToFile(new File(this.latestSuccessFile), "*********************************************************" + System.getProperty("line.separator"), true);
             FileUtils.writeStringToFile(new File(this.latestSuccessFile), statistic.toString() + System.getProperty("line.separator"), true);
             
             Iterator<Entry<String, String>> itSuc = successMap.entrySet().iterator();
@@ -78,6 +81,9 @@ public class AbstractPidProvider
                 FileUtils.writeStringToFile(new File(this.latestSuccessFile), entry.toString().replace("=http", " | http") + System.getProperty("line.separator"), true);
             }
             
+            FileUtils.writeStringToFile(new File(this.latestFailureFile), "*********************************************************" + System.getProperty("line.separator"), true);
+            FileUtils.writeStringToFile(new File(this.latestFailureFile), date + System.getProperty("line.separator"), true);
+            FileUtils.writeStringToFile(new File(this.latestFailureFile), "*********************************************************" + System.getProperty("line.separator"), true);
             Iterator<Entry<String, String>> itFail = failureMap.entrySet().iterator();
             while (itFail.hasNext())
             {

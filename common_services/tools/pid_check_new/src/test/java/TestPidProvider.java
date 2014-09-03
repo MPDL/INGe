@@ -61,6 +61,7 @@ public class TestPidProvider
     }
     
     @Test
+    @Ignore
     public void testVerifyPidLive() throws Exception
     {
         pidProvider = new PidProvider();

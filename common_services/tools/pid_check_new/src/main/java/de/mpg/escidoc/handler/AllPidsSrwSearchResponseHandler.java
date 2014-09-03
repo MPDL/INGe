@@ -14,10 +14,13 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
 
     private StringBuffer currentContent;  
     
-    private String currentPid;
+    private String currentPid = "";
     private Set<String> pids = new HashSet<String>();
     
     private boolean inPid = false;
+    private String currentStorageType = "";
+
+    private int numberOfPidsMissing = 0;
     
     private String escidocId;
     
@@ -30,9 +33,13 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
         {
             escidocId = attributes.getValue("xlink:href").replace("/ir/item/", "");
         }
+        else if ("escidocComponents:content".equals(qName))
+        {
+            currentStorageType = attributes.getValue("storage");
+        }
         else if ("prop:pid".equals(qName) || "version:pid".equals(qName) || "release:pid".equals(qName))
         {
-        	inPid = true;
+            inPid = true;
         }
         
         currentContent = new StringBuffer();
@@ -46,6 +53,19 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
         if ("prop:pid".equals(qName) || "version:pid".equals(qName) || "release:pid".equals(qName))
         {
         	inPid = false;
+        }
+        else if ("escidocItem:properties".equals(qName))
+        {
+            currentPid = "";
+        }
+        else if ("escidocComponents:component".equals(qName))
+        {           
+            if ("".equals(currentPid) && !"external-url".equals(currentStorageType))
+            {
+                numberOfPidsMissing++;
+                logger.warn("No component pid found for <" + escidocId);
+            }
+            currentPid = "";       
         }
         
         currentContent = null;       
@@ -61,16 +81,20 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
         {
             currentContent.append(ch, start, length);
             currentPid = currentContent.toString();
-            pids.add(escidocId + " | " + currentPid);
+            pids.add(escidocId + " | " + new String(currentPid));
             
             logger.debug("pid =<" + currentPid + ">");
-
         }  
     }
 
     public Set<String> getPids()
     {
         return pids;
+    }  
+    
+    public int getNumberOfPidsMissing()
+    {
+        return numberOfPidsMissing;
     }  
 
 }

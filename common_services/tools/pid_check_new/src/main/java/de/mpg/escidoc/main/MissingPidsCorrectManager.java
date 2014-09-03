@@ -9,11 +9,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Set;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.FileUtils;
+import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.handler.AllPidsSrwSearchResponseHandler;
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.util.HandleUpdateStatistic;
@@ -22,6 +25,7 @@ import de.mpg.escidoc.util.Statistic;
 public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager implements IConsistencyCheckManager
 {
     private HandleUpdateStatistic statistic;
+    SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 
     private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"escidoc:persistent4\" "
             + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) "
@@ -58,33 +62,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         }
         
         logger.info(" query found <" + searchResult.getNumberOfRecords().intValue() + "> objects");
-        if (searchResult.getNumberOfRecords().intValue() > 0)
-        {
-            try
-            {
-                SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-                SrwSearchResponseHandler srwSearchResponseHandler = new SrwSearchResponseHandler();
-                File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "srw");
-                if (new File("./allPids.txt").exists())
-                {
-                    FileUtils.deleteQuietly(new File("./allPids.txt"));
-                }
-                for (int i = 0; i < searchResult.getNumberOfRecords().intValue(); i++)
-                { 
-                    srwSearchResponseHandler = new SrwSearchResponseHandler();
-                    FileUtils.writeStringToFile(tmp, searchResult.getRecords().getRecord(i).getRecordData().get_any()[0].getAsString(), "UTF-8");
-                    parser.parse(tmp, srwSearchResponseHandler);
-                    
-                    FileUtils.writeStringToFile(new File("./allPids.txt"), 
-                            srwSearchResponseHandler.getEscidocId() + " " + srwSearchResponseHandler.getComponentsWithMissingPid() + "\n", true);
-                }
-            }
-            catch (Exception e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+        saveSearchResult(searchResult);
         
         if (searchResult.getNumberOfRecords().intValue() > 0)
         {
@@ -113,13 +91,27 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                 e.printStackTrace();
             }
         }
-        
-        pidProvider.storeResults(getStatistic());
+        pidProvider.storeResults(statistic);
     }
 
     @Override
-    protected void doResolve(String pid) throws Exception
+    protected void doResolve(String escidocId) throws Exception
     {
+        String components = itemHandler.retrieveComponents(escidocId);
+        File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "components");
+        FileUtils.writeStringToFile(tmp, components, "UTF-8");
+              
+        AllPidsSrwSearchResponseHandler handler = new AllPidsSrwSearchResponseHandler();       
+        parser.parse(tmp, handler);
+        
+        if (handler.getNumberOfPidsMissing() > 0)
+            pidProvider.getFailureMap().put(escidocId, "number of component pids missing <" + handler.getNumberOfPidsMissing() + ">");
+        
+        for (String pid : handler.getPids())
+        {
+            pidProvider.checkToResolvePid(pid.substring(pid.lastIndexOf(":") + 1), statistic);
+            Thread.currentThread().sleep(3000);
+        }
     }
 
     @Override
@@ -137,6 +129,14 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         {
             try
             {
+                String componentXml = itemHandler.retrieveComponents(escidocId);
+                
+                // may be component has been modified in the mean time or the tool runs for the second time
+                if (hasComponentPid(componentXml))
+                {
+                    continue;
+                }
+                
                 logger.info("assignContentPid escidocId <" + escidocId + " getComponentId <" + getComponentId(url)
                         + ">" + " getParamXml <" + getParamXml(lastModificationDate, url) + ">");
                 itemHandler.assignContentPid(escidocId, getComponentId(url), getParamXml(lastModificationDate, url));
@@ -198,5 +198,47 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         }
         
         return url.substring(idx1, idx2);
+    }
+    
+    private boolean hasComponentPid(String componentXml) throws Exception
+    {
+        File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "components");
+        FileUtils.writeStringToFile(tmp, componentXml, "UTF-8");
+              
+        AllPidsSrwSearchResponseHandler handler = new AllPidsSrwSearchResponseHandler();       
+        parser.parse(tmp, handler);
+        
+        return (handler.getNumberOfPidsMissing() == 0 ? true : false);
+    }
+    
+    private void saveSearchResult(SearchRetrieveResponseType searchResult)
+    {
+        if (searchResult.getNumberOfRecords().intValue() > 0)
+        {
+            try
+            {
+                SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+                SrwSearchResponseHandler srwSearchResponseHandler = new SrwSearchResponseHandler();
+                File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "srw");
+                if (new File("./allPids.txt").exists())
+                {
+                    FileUtils.deleteQuietly(new File("./allPids.txt"));
+                }
+                for (int i = 0; i < searchResult.getNumberOfRecords().intValue(); i++)
+                { 
+                    srwSearchResponseHandler = new SrwSearchResponseHandler();
+                    FileUtils.writeStringToFile(tmp, searchResult.getRecords().getRecord(i).getRecordData().get_any()[0].getAsString(), "UTF-8");
+                    parser.parse(tmp, srwSearchResponseHandler);
+                    
+                    FileUtils.writeStringToFile(new File("./allPids.txt"), 
+                            srwSearchResponseHandler.getEscidocId() + "\n", true);
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 }
