@@ -22,8 +22,7 @@ static MissingPidsCorrectManager missingPidsCorrectManager = null;
     @Test
     public void testCreateOrCorrectList() throws Exception
     {
-        missingPidsCorrectManager.createOrCorrectSet(new HashSet<String>());
-        
+        missingPidsCorrectManager.createOrCorrectSet(new HashSet<String>());        
         assertTrue(new File("./allPids.txt").exists());
     }
 }
