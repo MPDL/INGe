@@ -758,47 +758,6 @@
 			<id>integration-test</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>start-container</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>stop-container</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<container>
-								<containerId>jboss42x</containerId>
-								<zipUrlInstaller>
-									<url>${cargo.jboss.url}</url>
-									<downloadDir>${cargo.install.dir}</downloadDir>
-									<extractDir>${cargo.install.dir}</extractDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<type>existing</type>
-								<home>${project.build.directory}/jboss/server</home>
-								<properties>
-									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-									<cargo.logging>${cargo.log}</cargo.logging>
-									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
-									<cargo.jboss.configuration>default</cargo.jboss.configuration>
-								</properties>
-							</configuration>
-						</configuration>
-					</plugin>
 					<!-- TODO: Selenium tests from TestSuite.html -->
 					<!-- plugin> <artifactId>maven-antrun-plugin</artifactId> <executions> 
 						<execution> <id>launch-selenium</id> <phase>integration-test</phase> <configuration> 
