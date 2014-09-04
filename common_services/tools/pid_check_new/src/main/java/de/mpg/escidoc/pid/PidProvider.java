@@ -171,12 +171,12 @@ public class PidProvider extends AbstractPidProvider
         return code;
     }
     
-    public int checkToResolvePid(String pid, HandleUpdateStatistic statistic)
+    public int resolvePid(String pid, HandleUpdateStatistic statistic)
     {
-        logger.info("checkToResolvePid startingfor <" + pid + ">");
+        logger.info("resolvePid startingfor <" + pid + ">");
 
         StringBuffer b = new StringBuffer("http://hdl.handle.net/");
-        b.append(pid);
+        b.append(pid.startsWith("hdl:") ? pid.substring(4) : pid);
 
         int code = HttpStatus.SC_OK;
         
@@ -186,7 +186,9 @@ public class PidProvider extends AbstractPidProvider
         long start = System.currentTimeMillis();
         try
         {
-        	httpClient.getState().setAuthenticationPreemptive(true);
+        	httpClient.getParams().setAuthenticationPreemptive(true);
+        	httpClient.getState().setCredentials(new AuthScope(PropertyReader.getProperty("escidoc.pidcache.server"), 80), 
+        			new UsernamePasswordCredentials(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password")));
             
             code = httpClient.executeMethod(method);
 
@@ -205,6 +207,7 @@ public class PidProvider extends AbstractPidProvider
         catch (Exception e)
         {
         	statistic.incrementHandlesUpdateError();
+        	failureMap.put(pid, e.toString());
             logger.warn("Error occured when resolving Url for <" + pid + ">" );
         }   
         finally
@@ -218,9 +221,9 @@ public class PidProvider extends AbstractPidProvider
         return code;   
     }
     
-    public int checkToResolveLocator(String locatorUrl, LocatorCheckStatistic statistic)
+    public int resolveLocator(String locatorUrl, LocatorCheckStatistic statistic)
     {
-        logger.debug("checkToResolveLocator <" + locatorUrl + ">");
+        logger.debug("resolveLocator <" + locatorUrl + ">");
 
         int code = HttpStatus.SC_OK;
         

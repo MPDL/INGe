@@ -172,7 +172,7 @@ public class PidCorrectionManager extends AbstractConsistencyCheckManager implem
     @Override
     protected void doResolve(String object)
     {
-        pidProvider.checkToResolvePid(object, statistic);
+        pidProvider.resolvePid(object, statistic);
         
     }
 

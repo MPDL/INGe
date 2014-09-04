@@ -49,7 +49,7 @@ public class AllPidsCheckManager extends AbstractConsistencyCheckManager impleme
 	@Override
 	protected void doResolve(String pid) throws Exception
 	{
-		pidProvider.checkToResolvePid(pid, (HandleUpdateStatistic)getStatistic());
+		pidProvider.resolvePid(pid, (HandleUpdateStatistic)getStatistic());
 	}
 
 	@Override

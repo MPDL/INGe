@@ -66,7 +66,7 @@ public class TestPidProvider
     {
         pidProvider = new PidProvider();
         
-        int code = pidProvider.checkToResolvePid("11858/00-001M-0000-0013-B1A4-0", verifyStatistic);        
+        int code = pidProvider.resolvePid("11858/00-001M-0000-0013-B1A4-0", verifyStatistic);        
         assertTrue(code == HttpStatus.SC_OK);
         
         pidProvider.storeResults(updateStatistic);
@@ -78,11 +78,12 @@ public class TestPidProvider
     }
     
     @Test
+    @Ignore
     public void testVerifyPidLiveDoesNotExists() throws Exception
     {
         pidProvider = new PidProvider();
         
-        int code = pidProvider.checkToResolvePid("11858/00-001M-0000-0013-XXXX-0", verifyStatistic);
+        int code = pidProvider.resolvePid("11858/00-001M-0000-0013-XXXX-0", verifyStatistic);
         assertTrue(code != HttpStatus.SC_OK);
         
         pidProvider.storeResults(updateStatistic);
@@ -90,5 +91,19 @@ public class TestPidProvider
         assertTrue((new File(pidProvider.getLatestFailureFile())).exists());
         
         assertTrue(FileUtils.readFileToString((new File(pidProvider.getLatestFailureFile()))).contains("11858/00-001M-0000-0013-XXXX-0"));       
+    }
+    
+    @Test
+    public void testVerifyPidLiveContentPrivate() throws Exception
+    {
+        pidProvider = new PidProvider();
+        
+        int code = pidProvider.resolvePid("11858/00-001m-0000-0014-303e-6", verifyStatistic);
+        assertTrue(code == HttpStatus.SC_OK);
+        
+        pidProvider.storeResults(updateStatistic);
+        
+        assertTrue((new File(pidProvider.getLatestSuccessFile())).exists());        
+        assertTrue(FileUtils.readFileToString((new File(pidProvider.getLatestSuccessFile()))).contains("11858/00-001M-0000-0013-B1A4-0"));        
     }
 }

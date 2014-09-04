@@ -54,7 +54,7 @@ public class LdhCheckManager extends AbstractConsistencyCheckManager implements 
     @Override
     protected void doResolve(String object)
     {
-        pidProvider.checkToResolveLocator(object, (LocatorCheckStatistic)getStatistic());
+        pidProvider.resolveLocator(object, (LocatorCheckStatistic)getStatistic());
     }
     
     @Override
