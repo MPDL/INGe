@@ -321,21 +321,21 @@ function appendLicenseBox(divToAppend, currentLicenseUrl)
 	 $(divToAppend)[0].appendChild(ccScript);
 	 
 	 //IE
+	 /*
 	 if ($.browser.msie) {
 		 ccScript.onreadystatechange = function () {
 			 if (ccScript.readyState == 'loaded') {
-				 //init does not work in IE...
-				 //cc_js_pageInit();
 				 $(divToAppend).removeClass('big_imgArea smallThrobber');
 				 cc_js_pageInit();
 			 }
 		 }
 	 } else { //FF & Co.
+		*/ 
 		 ccScript.onload = function () {
 			 cc_js_pageInit();
 			 $(divToAppend).removeClass('big_imgArea smallThrobber');
 		 }
-	 }
+	 //}
 	 
 	 ccScript.onerror = function () {
 		 //fullItemReloadStop();
