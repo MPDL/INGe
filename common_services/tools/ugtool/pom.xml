@@ -57,10 +57,11 @@
 	</ciManagement>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/wildfly_migration/common_services/tools/ugtool/</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/wildfly_migration/common_services/tools/ugtool/</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/ugtool/</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/ugtool/</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
+	
 	
 	<build>
    <!-- For annotations and other Java5 stuff -->
