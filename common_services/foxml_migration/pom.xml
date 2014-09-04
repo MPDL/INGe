@@ -12,8 +12,8 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <scm>
-    <connection>scm:svn:https://zim02.gwdg.de/repos/common/wildfly_migration/common_services/foxml_migration</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/wildfly_migration/common_services/foxml_migration</developerConnection>
+    <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/foxml_migration</connection>
+    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/foxml_migration</developerConnection>
     <url>https://zim02.gwdg.de/repos/common/</url>
   </scm>
   

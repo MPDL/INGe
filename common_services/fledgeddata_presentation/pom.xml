@@ -41,7 +41,7 @@
 	<scm>
 	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_presentation</connection>
 	  <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_presentation</developerConnection>
-	  <url>https://subversion.mpdl.mpg.de/repos/common/wildfly_migration/common_services/fledgeddata_presentation</url>
+	  <url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_presentation</url>
 	</scm>
 
 
