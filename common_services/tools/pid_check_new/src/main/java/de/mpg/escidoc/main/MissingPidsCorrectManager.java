@@ -109,7 +109,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         
         for (String pid : handler.getPids())
         {
-            pidProvider.checkToResolvePid(pid.substring(pid.lastIndexOf(":") + 1), statistic);
+            pidProvider.resolvePid(pid, statistic);
             Thread.currentThread().sleep(3000);
         }
     }
