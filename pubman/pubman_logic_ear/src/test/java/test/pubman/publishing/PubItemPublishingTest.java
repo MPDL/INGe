@@ -63,6 +63,7 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
  */
 public class PubItemPublishingTest extends TestBase
 {
+    private static final String HANDLE_PREFIX = "hdl:";
     private static PubItemPublishing pmPublishing;
     private static PubItemDepositing pmDepositing;
 
@@ -106,11 +107,8 @@ public class PubItemPublishingTest extends TestBase
         assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
         
         // object pid and version pid
-        assertTrue(releasedPubItem.getPid().startsWith("hdl:"));
-        assertTrue(releasedPubItem.getVersion().getPid().startsWith("hdl:"));
-
-        // TODO FRM: uncomment after framework bugfix #188
-        // assertNotNull("PID is null", releasedPubItem.getPid());
+        assertTrue(releasedPubItem.getPid().startsWith(HANDLE_PREFIX));
+        assertTrue(releasedPubItem.getVersion().getPid().startsWith(HANDLE_PREFIX));
     }
 
 
@@ -180,7 +178,7 @@ public class PubItemPublishingTest extends TestBase
         {
             if (pubFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
             {
-                assertTrue(pubFile.getPid().startsWith("hdl:"));
+                assertTrue(pubFile.getPid().startsWith(HANDLE_PREFIX));
             }
             else
             {
