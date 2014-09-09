@@ -104,6 +104,10 @@ public class PubItemPublishingTest extends TestBase
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
         assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
+        
+        // object pid and version pid
+        assertTrue(releasedPubItem.getPid().startsWith("hdl:"));
+        assertTrue(releasedPubItem.getVersion().getPid().startsWith("hdl:"));
 
         // TODO FRM: uncomment after framework bugfix #188
         // assertNotNull("PID is null", releasedPubItem.getPid());
@@ -118,9 +122,9 @@ public class PubItemPublishingTest extends TestBase
     @Test
     public void testReleasePubItemWithFile() throws Exception
     {
-
         // new item
         PubItemVO item = getNewPubItemWithoutFiles();
+        
         // Add file to item
         FileVO file = new FileVO();
         String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
@@ -129,10 +133,8 @@ public class PubItemPublishingTest extends TestBase
         file.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version");
         file.setVisibility(Visibility.PUBLIC);
         
-        
         MdsFileVO mdsFileVO = new MdsFileVO();
-        file.setDefaultMetadata(mdsFileVO);
-        
+        file.setDefaultMetadata(mdsFileVO);       
         file.getDefaultMetadata().setTitle(new TextVO("farbtest.gif"));
         file.getDefaultMetadata().setDescription("Ein Farbtest.");
         FormatVO formatVO = new FormatVO();
@@ -140,10 +142,24 @@ public class PubItemPublishingTest extends TestBase
         formatVO.setValue("image/gif");
         file.getDefaultMetadata().getFormats().add(formatVO);
         
-        //file.setName("farbtest.gif");
-        //file.setDescription("Ein Farbtest.");
         file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         item.getFiles().add(file);
+        
+        // Add external url to item
+        FileVO extUrl = new FileVO();
+        
+        extUrl.setContent("http://google.de");
+        extUrl.setName("Google Link");
+        extUrl.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version");
+        extUrl.setVisibility(Visibility.PUBLIC);
+                           
+        MdsFileVO metadata = new MdsFileVO();
+        metadata.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
+        metadata.setTitle(new TextVO("Link"));
+        extUrl.getMetadataSets().add(metadata);
+        
+        extUrl.setStorage(FileVO.Storage.EXTERNAL_URL);
+        item.getFiles().add(extUrl);
 
         PubItemVO savedItem = pmDepositing.savePubItem(item, user);
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
@@ -158,10 +174,19 @@ public class PubItemPublishingTest extends TestBase
         assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
         assertNotNull(releasedPubItem.getPid());
 
-        assertEquals(1, releasedPubItem.getFiles().size());
-        FileVO pubFile = releasedPubItem.getFiles().get(0);
-        // assertNotNull(pubFile.getPid());
-
+        assertEquals(2, releasedPubItem.getFiles().size());
+        
+        for (FileVO pubFile : releasedPubItem.getFiles())
+        {
+            if (pubFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
+            {
+                assertTrue(pubFile.getPid().startsWith("hdl:"));
+            }
+            else
+            {
+                assertTrue(pubFile.getPid() == null || "".equals(pubFile.getPid()));
+            }
+        }
     }
 
     /**
