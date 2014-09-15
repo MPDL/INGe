@@ -26,10 +26,18 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
 {
     private HandleUpdateStatistic statistic;
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-
+    // live
     private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"escidoc:persistent4\" "
-            + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) "
-            + " AND (( ( (\"/properties/version/status\"=\"in-revision\") NOT (\"/properties/public-status\"=\"withdrawn\") ) OR ( (\"/properties/version/status\"=\"released\") NOT (\"/properties/public-status\"=\"withdrawn\") ) ) ) AND (\"/components/component/content/storage\"=\"internal-managed\") )";
+            + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) )"
+            + " AND (( ( (\"/properties/version/status\"=\"in-revision\") NOT (\"/properties/public-status\"=\"withdrawn\") ) OR ( (\"/properties/version/status\"=\"released\") NOT (\"/properties/public-status\"=\"withdrawn\") ) ) ) " 
+            + " AND (\"/components/component/content/storage\"=\"internal-managed\")";
+   
+    
+    // dev
+    /*private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"escidoc:2001\" "
+            + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) )"
+            + " AND (( ( (\"/properties/version/status\"=\"in-revision\") NOT (\"/properties/public-status\"=\"withdrawn\") ) OR ( (\"/properties/version/status\"=\"released\") NOT (\"/properties/public-status\"=\"withdrawn\") ) ) ) " 
+            + " AND (\"/components/component/content/storage\"=\"internal-managed\")";*/
     
     
     public MissingPidsCorrectManager() throws Exception
@@ -48,8 +56,6 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         searchRetrieveRequest.setRecordPacking("xml");
         
         logger.info("searchRetrieveRequest query <" + searchRetrieveRequest.getQuery() + ">");
-        
-        searchHandler.searchRetrieveOperation(searchRetrieveRequest);
         
         SearchRetrieveResponseType searchResult = searchHandler.searchRetrieveOperation(searchRetrieveRequest);
         if (searchResult.getDiagnostics() != null)
@@ -83,6 +89,8 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                         doCorrect(srwSearchResponseHandler.getEscidocId(), 
                                 srwSearchResponseHandler.getComponentsWithMissingPid(), srwSearchResponseHandler.getLastModificationDate());
                     }
+                    if (i >= 1)
+                        break;
                 }
             }
             catch (Exception e)

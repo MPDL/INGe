@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.main.MissingPidsCorrectManager;
