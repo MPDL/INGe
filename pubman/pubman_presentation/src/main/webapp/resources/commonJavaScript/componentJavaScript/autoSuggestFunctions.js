@@ -350,7 +350,6 @@
 		//Enlarge givenName Field, because it was smaller before due to the remove button
 		$input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
 		bindSuggests();
-		return;
 	}
 	
 	// removes 'readonly' attributes and resets fields for autosuggest

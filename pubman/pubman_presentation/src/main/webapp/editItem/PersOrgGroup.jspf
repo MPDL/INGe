@@ -92,8 +92,8 @@
 			<h:outputText styleClass="medium_area0" value=" " />
 		</h:panelGroup> 
 <!-- Start iteration of authors input -->
-	<span class="full_area0 marginTExcl6p">
-		<ui:repeat id="iterCreatorOrganisationAuthors" var="creator" value="#{EditItemSessionBean.creators}">
+	<span id="iterCreatorOrganisationAuthors" class="full_area0 marginTExcl6p">
+		<ui:repeat var="creator" value="#{EditItemSessionBean.creators}">
 			<h:panelGroup layout="block" styleClass="full_area0 suggestAnchor endline">
 			
 <!-- Creator person family name, Creator person given name -->
@@ -144,9 +144,8 @@
 						rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' and genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' and genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}" />
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}"/>
-					<h:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
-						onclick="return removeAuthorAutoSuggest($(this))" title="#{tip.EditItem_lblRemoveAutosuggestAuthor}">
-						<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>
+					<h:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;" oncomplete="removeAuthorAutoSuggest($(this));" title="#{tip.EditItem_lblRemoveAutosuggestAuthor}">
+						<f:ajax render="form1:editPerson"/>
 					</h:commandButton>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}"/>
