@@ -1037,7 +1037,7 @@
 		<xsl:choose>
 			<xsl:when test="dc:identifier/@xsi:type='eterms:ISSN'">
 				<xsl:variable name="source-issn">
-					<xsl:for-each select="dc:identfier/@xsi:type='eterms:ISSN'">
+					<xsl:for-each select="dc:identifier[@xsi:type='eterms:ISSN']">
 						<xsl:if test="not(position()=1)">&#10;</xsl:if>
     					<xsl:value-of select="."/>
 					</xsl:for-each>
