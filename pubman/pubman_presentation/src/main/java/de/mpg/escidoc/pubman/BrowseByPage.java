@@ -104,6 +104,7 @@ public class BrowseByPage extends BreadcrumbPage
      */
     public String startCharacterSearch(String selChar)
     {
+    	System.out.println("Start char search");
         String curChar = selChar;
         List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
         this.bbBean.setCurrentCharacter(curChar);
@@ -153,8 +154,7 @@ public class BrowseByPage extends BreadcrumbPage
                 if (parts.length == 2)
                 {
                     LinkVO link = new LinkVO(parts[1], parts[0]);
-                    if (parts[1].toLowerCase().startsWith(startChar.toLowerCase())
-                            && (links.isEmpty() || !link.equals(links.get(links.size() - 1))))
+                    if ((links.isEmpty() || !link.equals(links.get(links.size() - 1))))
                     {
                         links.add(link);
                     }
