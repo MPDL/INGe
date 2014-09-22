@@ -421,7 +421,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}: &gt; 
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt; 
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 				</result-pattern>
 			</result>
@@ -443,7 +443,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}: &gt;
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}:: 
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}:: 
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 				</result-pattern>
 			</result>
@@ -465,7 +465,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}::
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}:: 
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}:: 
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 				</result-pattern>
 			</result>
