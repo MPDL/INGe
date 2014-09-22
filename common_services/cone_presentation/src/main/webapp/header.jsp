@@ -197,7 +197,7 @@
 						//console.log("found inputs for " + $(this));
 						$(this).find("input:text").each(function (index) {
 
-							if($(this).attr("name").contains("|"))
+							if($(this).attr("name").indexOf("|") >= 0)
 							{
 								//console.log("Name:" + $(this).attr("name"));
 								var name = $(this).attr("name").split("|");
