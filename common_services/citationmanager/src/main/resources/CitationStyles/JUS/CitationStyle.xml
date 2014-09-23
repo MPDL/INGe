@@ -792,6 +792,17 @@
 				<layout-element ref="pub:publication/dc:title/text()" />
 			</elements>
 		</layout-element>
+		
+		<!--  TITLE and DATE -->
+		<layout-element name="title-date">
+			<parameters>
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="$title" />
+				<layout-element ref="$date" />
+			</elements>
+		</layout-element>
 
 		<!--    SOURCE TITLE -->
 		<layout-element name="source-title">
@@ -1337,8 +1348,7 @@
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator" />
-			<layout-element ref="$title" />
-			<layout-element ref="$date" />
+			<layout-element ref="$title-date" />
 			<layout-element ref="$pages" />
 			<layout-element ref="$second-or-more-creators-with-dot" />
 		</elements>
