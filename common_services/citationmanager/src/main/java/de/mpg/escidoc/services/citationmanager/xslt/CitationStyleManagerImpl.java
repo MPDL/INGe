@@ -93,13 +93,14 @@ public class CitationStyleManagerImpl implements CitationStyleManager
 			
 			transformer.transform(
 					new StreamSource(
+							
 						ResourceUtil.getResourceAsStream(
-							ResourceUtil.getPathToCitationStyleXML(cs)
+								ResourceUtil.RESOURCES_DIRECTORY_LOCAL + ResourceUtil.CITATIONSTYLES_DIRECTORY + cs + "/" + ResourceUtil.CITATION_STYLE_XML
 						)
 					), 
 					new StreamResult(
 						new FileOutputStream(
-								ResourceUtil.getPathToCitationStyleXSL(cs)	
+								ResourceUtil.RESOURCES_DIRECTORY_LOCAL + ResourceUtil.CITATIONSTYLES_DIRECTORY + cs + "/" + ResourceUtil.CITATION_STYLE_XSL
 						)
 					)
 			);
