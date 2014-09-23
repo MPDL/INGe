@@ -31,18 +31,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.83-SNAPSHOT</version>
+		<version>1.0.83</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>dataacquisition_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>dataacquisition_ear</name>
-	<version>1.0.79-SNAPSHOT</version>
+	<version>1.0.79</version>
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/dataacquisition_ear</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.83/dataacquisition_ear</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.83/dataacquisition_ear</developerConnection>
+    <url>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.83/dataacquisition_ear</url>
   </scm>
 	<build>
 		<plugins>
@@ -243,7 +243,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.28-SNAPSHOT</version>
+			<version>1.3.28</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -323,14 +323,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.79-SNAPSHOT</version>
+			<version>1.0.79</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-			<version>1.0.79-SNAPSHOT</version>
+			<version>1.0.79</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
@@ -338,7 +338,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.71-SNAPSHOT</version>
+			<version>1.0.71</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -369,7 +369,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.86-SNAPSHOT</version>
+			<version>1.0.86</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -382,7 +382,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.43-SNAPSHOT</version>
+			<version>1.2.43</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
