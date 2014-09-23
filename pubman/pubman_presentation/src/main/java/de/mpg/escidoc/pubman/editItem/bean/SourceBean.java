@@ -126,11 +126,16 @@ public class SourceBean extends EditItemBean
 
     public void chooseSourceGenre(ValueChangeEvent event)
     {
-        String sourceGenre = event.getNewValue().toString();
-        if (sourceGenre.equals(SourceVO.Genre.JOURNAL.toString()))
-        {
-            this.autosuggestJournals = true;
-        }
+    	if(event.getNewValue()!=null)
+    	{
+    		
+    
+	        String sourceGenre = event.getNewValue().toString();
+	        if (sourceGenre.equals(SourceVO.Genre.JOURNAL.toString()))
+	        {
+	            this.autosuggestJournals = true;
+	        }
+    	}
     }
 
     /**
