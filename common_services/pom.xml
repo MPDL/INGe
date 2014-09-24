@@ -381,6 +381,7 @@
 					<outputEncoding>UTF-8</outputEncoding>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -393,6 +394,11 @@
 						<!-- avoid the outofmemory exception thrown in some test scenarios-->
 						<argLine>-Xmx1200M</argLine>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -423,7 +429,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>2.9.1</version>
 				<configuration>
 					<minmemory>128m</minmemory>
 					<maxmemory>1g</maxmemory>
