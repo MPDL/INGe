@@ -53,19 +53,22 @@
 
 	<xs:complexType name="ExportFormatListType"> 
 		<xs:sequence>
-			<xs:element name="output-formats" type="OutputFormatsType" />
 			<xs:element name="export-format" type="ExportFormatType" maxOccurs="unbounded"/>
+			<xs:element name="output-formats" type="OutputFormatsType" />
+
 		</xs:sequence>
 	</xs:complexType> 
 	
 	<xs:complexType name="ExportFormatType">
 		<xs:sequence maxOccurs="unbounded">
+			
 			<xs:element ref="dc:title"/>
 			<xs:element ref="dc:identifier"/>
-			<xs:element name="open" type="xs:boolean"/>
+			<xs:element name="output-format" type="OutputFormatType" maxOccurs="unbounded"/>
 			<xs:element ref="dc:description" minOccurs="0"/>
-			<xs:element name="output-formats" />
 			<xs:element ref="dc:creator" maxOccurs="unbounded"/>
+			<xs:element name="open" type="xs:boolean"/>
+			<xs:element ref="output-formats"/>
 		</xs:sequence>
 		<xs:attribute name="type" type="ExportTypeEnum" use="required"/>
 		<xs:attribute name="context" type="ListOfSolutions" use="required"/>
@@ -82,7 +85,7 @@
 		<xs:sequence>
 			<xs:element ref="dc:title"/>
 			<xs:element ref="dc:format" />
-			<xs:element name="file-ext"/>
+			<xs:element name="file-ext" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	
