@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>7.7.4-SNAPSHOT</version>
+	<version>7.7.5-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
