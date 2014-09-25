@@ -177,6 +177,7 @@ public class Bibtex implements BibtexInterface
                 MdsPublicationVO.Genre itemGenre = BibTexUtil.getGenreMapping().get(bibGenre);
                 mds.setGenre(itemGenre);
                 SourceVO sourceVO = new SourceVO(new TextVO());
+                SourceVO secondSourceVO = new SourceVO(new TextVO());
                 
 
                 Map fields = entry.getFields();
@@ -395,11 +396,8 @@ public class Bibtex implements BibtexInterface
                             || bibGenre == BibTexUtil.Genre.inproceedings
                             || bibGenre == BibTexUtil.Genre.conference)
                     {
-                        SourceVO secondSource = new SourceVO(
-                                new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
-                        secondSource.setGenre(SourceVO.Genre.SERIES);
-                        sourceVO.getSources().add(secondSource);
-                        
+                        secondSourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
+                        secondSourceVO.setGenre(SourceVO.Genre.SERIES);
                     }
                 }
 
@@ -1455,6 +1453,23 @@ public class Bibtex implements BibtexInterface
                     {
                         mds.getSources().add(sourceVO.getSources().get(0));
                     }
+                }
+                
+                //Prevent the creation of an empty second source
+                if (secondSourceVO.getTitle()!= null  && secondSourceVO.getTitle().getValue() != null && secondSourceVO.getTitle().getValue()!=""
+                		&& secondSourceVO.getGenre()!= null)
+                {
+                	mds.getSources().add(secondSourceVO);
+                	//Prevent the creation of an empty second
+                	if (secondSourceVO.getSources() != null 
+                			&& !secondSourceVO.getSources().isEmpty() 
+                			&& secondSourceVO.getSources().get(0) != null 
+                			&& secondSourceVO.getSources().get(0).getTitle() != null
+                			&& secondSourceVO.getSources().get(0).getTitle().getValue() != null
+                			&& secondSourceVO.getSources().get(0).getTitle().getValue() != "")
+                	{
+                		mds.getSources().add(secondSourceVO.getSources().get(0));
+                	}
                 }
                 
                 
