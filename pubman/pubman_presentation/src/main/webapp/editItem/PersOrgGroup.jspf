@@ -257,11 +257,11 @@
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 				<h:outputText styleClass="xTiny_area0 xTiny_marginRExcl labelLine" value="#{organization.number}" />
-				<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" title="#{organization.name.value}" 
+				<h:inputTextarea id="inporganizations_organization_name" styleClass="huge_txtArea organizationSuggest organizationName" title="#{organization.name.value}" 
 					value="#{organization.name.value}" />
 				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" title="#{organization.identifier}" 
 					value="#{organization.identifier}" />
-				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" title="#{organization.address}" 
+				<h:inputTextarea id="inporganizations_organization_address" styleClass="xLarge_txtArea organizationAddress" title="#{organization.address}" 
 					value="#{organization.address}" />
 				<h:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
 						onclick="return removeOrganizationAutoSuggest($(this))">	

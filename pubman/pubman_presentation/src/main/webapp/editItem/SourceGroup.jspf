@@ -280,9 +280,9 @@
 			<ui:repeat id="iterCreatorOrganisation" var="organization" value="#{sourceBean.creatorOrganizations}" rendered="#{!(genre.sources_source_person_organization_source_persons_display == 'false' and genre.sources_source_person_organization_source_persons_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_display == 'false' and genre.sources_source_person_organization_source_persons_form_id == 'all')}">
 				<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 					<h:outputText styleClass="xSmall_area0" value="#{organization.number}" />
-					<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" value="#{organization.name.value}" />
+					<h:inputTextarea id="inporganizations_organization_name" styleClass="huge_txtArea organizationSuggest organizationName" value="#{organization.name.value}" />
 					<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}" />
-					<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" value="#{organization.address}" />
+					<h:inputTextarea id="inporganizations_organization_address" styleClass="xLarge_txtArea organizationAddress" value="#{organization.address}" />
 				 	<h:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
 						onclick="return removeOrganizationAutoSuggest($(this))">
 						<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>	

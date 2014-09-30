@@ -52,7 +52,7 @@
 									<div class="gf-author"><h:outputText value="#{item.creatorsShort}"/></div>
 									<div class="gf-spacer">-</div>
 									<div class="gf-relativePublishedDate"><h:outputText value="#{item.formattedLatestReleaseModificationDate}"/></div>
-									<div class="gf-snippet"><h:outputText value="#{item.shortAbstract}"/></div>
+									<div class="gf-snippet"><h:outputText value="#{item.shortAbstract}" converter="HTMLSubSupConverter" escape="false"/></div>
 								</div>
 							</div>
     					</ui:repeat>

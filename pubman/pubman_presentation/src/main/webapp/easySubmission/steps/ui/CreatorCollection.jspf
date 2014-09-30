@@ -198,9 +198,9 @@ All rights reserved. Use is subject to license terms.
 			<ui:repeat id="iterCreatorOrganisation" var="organization" value="#{EasySubmissionSessionBean.creatorOrganizations}" rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'easy-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
 				<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 					<h:outputText styleClass="xTiny_area0 xTiny_marginRExcl labelLine" value="#{organization.number}"/>
-					<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
+					<h:inputTextarea id="inporganizations_organization_name" styleClass="huge_txtArea organizationSuggest organizationName" value="#{organization.name.value}"/>
 					<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}"/>
-					<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" value="#{organization.address}"/>
+					<h:inputTextarea id="inporganizations_organization_address" styleClass="xLarge_txtArea organizationAddress" value="#{organization.address}"/>
 					<h:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
 						onclick="return removeOrganizationAutoSuggest($(this))">
 						<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>
