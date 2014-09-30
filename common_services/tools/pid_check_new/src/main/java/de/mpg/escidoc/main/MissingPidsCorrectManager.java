@@ -26,17 +26,17 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     private HandleUpdateStatistic statistic;
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     // live
-    private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
+    /*private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
             + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) )"
             + " AND ( \"/properties/public-status\"=\"released\" AND ( \"/properties/version/status\"=\"in-revision\"  OR  \"/properties/version/status\"=\"released\"  OR  \"/properties/version/status\"=\"submitted\"  OR  \"/properties/version/status\"=\"pending\") ) " 
             + " AND (\"/components/component/content/storage\"=\"internal-managed\")";
-   
+   */
+    // qa teschner
+    private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
+            + " AND (( ( ( \"/properties/creation-date/date\"=\"2011-02-09\" ) ) ) OR ( ( ( \"/last-modification-date/date\"=\"2011-04-26\" ) ) ) )"
+            + " AND ( \"/properties/public-status\"=\"released\" AND ( \"/properties/version/status\"=\"in-revision\"  OR  \"/properties/version/status\"=\"released\"  OR  \"/properties/version/status\"=\"submitted\"  OR  \"/properties/version/status\"=\"pending\") ) " 
+            + " AND (\"/components/component/content/storage\"=\"internal-managed\")";
     
-    // dev
-    /*private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"escidoc:2001\" "
-            + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) )"
-            + " AND (( ( (\"/properties/version/status\"=\"in-revision\") NOT (\"/properties/public-status\"=\"withdrawn\") ) OR ( (\"/properties/version/status\"=\"released\") NOT (\"/properties/public-status\"=\"withdrawn\") ) ) ) " 
-            + " AND (\"/components/component/content/storage\"=\"internal-managed\")";*/
     
     
     public MissingPidsCorrectManager() throws Exception
@@ -98,8 +98,8 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                         logger.info("no component pids missing for <" + srwSearchResponseHandler.getEscidocId() + ">");
                     }
                         
-                    if (i >= 1)
-                        break;
+                    /*if (i >= 1)
+                        break;*/
                 }
             }
             catch (Exception e)
@@ -127,7 +127,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         for (String pid : handler.getPids())
         {
             pidProvider.resolvePid(pid.substring(pid.indexOf("hdl:")), statistic);
-            Thread.currentThread().sleep(3000);
+            Thread.currentThread().sleep(1000);
         }
     }
 

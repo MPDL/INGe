@@ -18,11 +18,12 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
     private Set<String> pids = new HashSet<String>();
     
     private boolean inPid = false;
+    private String currentComponentId = "";
     private String currentStorageType = "";
 
     private int numberOfPidsMissing = 0;
     
-    private String escidocId;
+    private String escidocId = "";
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -32,6 +33,10 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
         if ("escidocItem:item".equals(qName))
         {
             escidocId = attributes.getValue("xlink:href").replace("/ir/item/", "");
+        }
+        else if ("escidocComponents:component".equals(qName))
+        {
+            currentComponentId = attributes.getValue("xlink:href") != null ? attributes.getValue("xlink:href").replace("/ir/item/", "") : attributes.getValue("objid") ;
         }
         else if ("escidocComponents:content".equals(qName))
         {
@@ -63,9 +68,10 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
             if ("".equals(currentPid) && !"external-url".equals(currentStorageType))
             {
                 numberOfPidsMissing++;
-                logger.warn("No component pid found for <" + escidocId);
+                logger.warn("No component pid found for <" + currentComponentId + ">");
             }
-            currentPid = "";       
+            currentPid = "";   
+            currentStorageType = "";
         }
         
         currentContent = null;       
@@ -95,6 +101,12 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
     public int getNumberOfPidsMissing()
     {
         return numberOfPidsMissing;
+    }  
+    
+    // utility if parsing comonents
+    public String getCurrentComponentId()
+    {
+        return new String(currentComponentId);
     }  
 
 }

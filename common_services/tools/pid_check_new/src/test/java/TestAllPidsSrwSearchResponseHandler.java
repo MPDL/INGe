@@ -72,6 +72,18 @@ public class TestAllPidsSrwSearchResponseHandler
         assertTrue(pids.size() == 1);
         assertTrue(pids.contains("null | hdl:11858/00-001Z-0000-0023-D8A7-9"));
         assertTrue(handler.getNumberOfPidsMissing() == 0);
+        
+        handler = new AllPidsSrwSearchResponseHandler();
+        parser.parse(new File("src/test/resources/escidoc_with_ext_url"), handler);
+        
+        pids = handler.getPids();
+        
+        assertTrue(pids.size() == 3);
+        assertTrue(pids.contains("escidoc:740044 | hdl:11858/00-001Z-0000-0023-E692-8"));
+        assertTrue(pids.contains("escidoc:740044 | hdl:11858/00-001Z-0000-0023-E693-6"));
+        assertTrue(pids.contains("escidoc:740044 | hdl:11858/00-001Z-0000-0023-E694-4"));
+        assertTrue(handler.getNumberOfPidsMissing() == 0);
+        assertTrue(handler.getCurrentComponentId().equals("escidoc:740044/components/component/escidoc:740042"));
 	}
 
 }
