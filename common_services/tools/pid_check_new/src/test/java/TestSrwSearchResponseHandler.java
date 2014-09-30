@@ -109,6 +109,9 @@ public class TestSrwSearchResponseHandler
         assertTrue(handler.getComponentsWithMissingPid().size() == 0);
         assertTrue(handler.getLastModificationDate().equals("2014-09-01T13:23:57.706Z"));
         
+        handler = new SrwSearchResponseHandler();
+        parser.parse(new File("src/test/resources/escidoc_with_ext_url"), handler);    
+        assertTrue(handler.getComponentsWithMissingPid().size() == 0);
         
     }
 }

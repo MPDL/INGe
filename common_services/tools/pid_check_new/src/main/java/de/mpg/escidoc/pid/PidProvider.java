@@ -24,6 +24,8 @@ public class PidProvider extends AbstractPidProvider
     private String password;
     private String server;
     
+    final private int port = 80;
+    
     private HttpClient httpClient;
 
     public PidProvider() throws Exception
@@ -82,7 +84,7 @@ public class PidProvider extends AbstractPidProvider
         long start = System.currentTimeMillis();
         try
         {
-            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+            httpClient.getState().setCredentials(new AuthScope(server, port),
                     new UsernamePasswordCredentials(user, password));
             
             code = httpClient.executeMethod(method);
@@ -139,7 +141,7 @@ public class PidProvider extends AbstractPidProvider
         long start = System.currentTimeMillis();
         try
         {
-            httpClient.getState().setCredentials(new AuthScope(server, 8080),
+            httpClient.getState().setCredentials(new AuthScope(server, port),
                     new UsernamePasswordCredentials(user, password));
             
             code = httpClient.executeMethod(method);
@@ -187,7 +189,8 @@ public class PidProvider extends AbstractPidProvider
         try
         {
         	httpClient.getParams().setAuthenticationPreemptive(true);
-        	httpClient.getState().setCredentials(new AuthScope(PropertyReader.getProperty("escidoc.pidcache.server"), 80), 
+        	
+            httpClient.getState().setCredentials(new AuthScope(PropertyReader.getProperty("escidoc.pidcache.server"), port), 
         			new UsernamePasswordCredentials(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password")));
             
             code = httpClient.executeMethod(method);

@@ -21,6 +21,7 @@ static MissingPidsCorrectManager missingPidsCorrectManager = null;
     }
     
     @Test
+    @Ignore
     public void testCreateOrCorrectList() throws Exception
     {
         missingPidsCorrectManager.createOrCorrectSet(new HashSet<String>());        

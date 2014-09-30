@@ -106,9 +106,8 @@ public class SrwSearchResponseHandler extends DefaultHandler
             {
                 componentsWithMissingPid.add(currentComponentAttributes.replace("/ir", "").replace("/components", "") + "/" + currentComponentTitle);
             }
-        }
-        else if ("escidocComponents:content".equals(qName))
-        {            
+            
+            // keep the current storage type till here!
             currentStorageType = ""; 
         }
         

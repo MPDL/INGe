@@ -9,12 +9,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Set;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.axis.types.NonNegativeInteger;
 import org.apache.commons.io.FileUtils;
-import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.handler.AllPidsSrwSearchResponseHandler;
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
@@ -27,9 +26,9 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     private HandleUpdateStatistic statistic;
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     // live
-    private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"escidoc:persistent4\" "
+    private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
             + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) )"
-            + " AND (( ( (\"/properties/version/status\"=\"in-revision\") NOT (\"/properties/public-status\"=\"withdrawn\") ) OR ( (\"/properties/version/status\"=\"released\") NOT (\"/properties/public-status\"=\"withdrawn\") ) ) ) " 
+            + " AND ( \"/properties/public-status\"=\"released\" AND ( \"/properties/version/status\"=\"in-revision\"  OR  \"/properties/version/status\"=\"released\"  OR  \"/properties/version/status\"=\"submitted\"  OR  \"/properties/version/status\"=\"pending\") ) " 
             + " AND (\"/components/component/content/storage\"=\"internal-managed\")";
    
     
@@ -42,6 +41,8 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     
     public MissingPidsCorrectManager() throws Exception
     {
+        searchForItemsWithFileModifiedSince = searchForItemsWithFileModifiedSince.replace("XXXXX", 
+                PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         super.init("item_container_admin");
         statistic = new HandleUpdateStatistic();
     }
@@ -54,6 +55,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         searchRetrieveRequest.setVersion("1.1");
         searchRetrieveRequest.setQuery(searchForItemsWithFileModifiedSince);
         searchRetrieveRequest.setRecordPacking("xml");
+        searchRetrieveRequest.setMaximumRecords(new NonNegativeInteger("10000"));
         
         logger.info("searchRetrieveRequest query <" + searchRetrieveRequest.getQuery() + ">");
         
@@ -69,6 +71,8 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         
         logger.info(" query found <" + searchResult.getNumberOfRecords().intValue() + "> objects");
         saveSearchResult(searchResult);
+        
+        statistic.setObjectsTotal(searchResult.getNumberOfRecords().intValue());
         
         if (searchResult.getNumberOfRecords().intValue() > 0)
         {
@@ -89,6 +93,11 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                         doCorrect(srwSearchResponseHandler.getEscidocId(), 
                                 srwSearchResponseHandler.getComponentsWithMissingPid(), srwSearchResponseHandler.getLastModificationDate());
                     }
+                    else
+                    {
+                        logger.info("no component pids missing for <" + srwSearchResponseHandler.getEscidocId() + ">");
+                    }
+                        
                     if (i >= 1)
                         break;
                 }
@@ -117,7 +126,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         
         for (String pid : handler.getPids())
         {
-            pidProvider.resolvePid(pid, statistic);
+            pidProvider.resolvePid(pid.substring(pid.indexOf("hdl:")), statistic);
             Thread.currentThread().sleep(3000);
         }
     }
@@ -137,11 +146,12 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
         {
             try
             {
-                String componentXml = itemHandler.retrieveComponents(escidocId);
+                String componentXml = itemHandler.retrieveComponent(escidocId, getComponentId(url));
                 
                 // may be component has been modified in the mean time or the tool runs for the second time
                 if (hasComponentPid(componentXml))
                 {
+                    logger.info("already has component pid <" + url + ">"); 
                     continue;
                 }
                 
@@ -155,7 +165,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
             {
                 logger.warn("Component PID assignment for " + escidocId + " failed. ", e);
                 statistic.incrementHandlesUpdateError();
-                pidProvider.getFailureMap().put(escidocId, getParamXml(lastModificationDate, url));
+                pidProvider.getFailureMap().put(escidocId, getParamXml(lastModificationDate, url) + e.getClass().getSimpleName());
             }
         }
     }
@@ -221,6 +231,11 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     
     private void saveSearchResult(SearchRetrieveResponseType searchResult)
     {
+        if (new File("./allPids.txt").exists())
+        {
+            FileUtils.deleteQuietly(new File("./allPids.txt"));
+        }
+        
         if (searchResult.getNumberOfRecords().intValue() > 0)
         {
             try
@@ -228,10 +243,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                 SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
                 SrwSearchResponseHandler srwSearchResponseHandler = new SrwSearchResponseHandler();
                 File tmp = FileUtils.getFile(FileUtils.getTempDirectory(), "srw");
-                if (new File("./allPids.txt").exists())
-                {
-                    FileUtils.deleteQuietly(new File("./allPids.txt"));
-                }
+                
                 for (int i = 0; i < searchResult.getNumberOfRecords().intValue(); i++)
                 { 
                     srwSearchResponseHandler = new SrwSearchResponseHandler();
