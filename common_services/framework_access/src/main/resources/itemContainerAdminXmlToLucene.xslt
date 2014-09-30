@@ -523,7 +523,14 @@ Notes:
 		                </xsl:attribute>
 		            </xsl:otherwise>
 		        </xsl:choose>
-                <xsl:value-of select="$fieldvalue"/>
+		        
+		        <xsl:call-template name="removeSubSupStr">
+					<xsl:with-param name="name" select="$fieldname"/>
+					<xsl:with-param name="str">
+                		<xsl:value-of select="$fieldvalue"/>
+                	</xsl:with-param>
+				</xsl:call-template>
+				
             </IndexField>
             <xsl:call-template name="writeSortField">
                 <xsl:with-param name="context" select="$context"/>
@@ -587,7 +594,7 @@ Notes:
 		<xsl:param name="str" />
 		<xsl:choose>
 	<!--				FIELDS WHERE SUB/SUPs should be removed-->
-			<xsl:when test=" contains( concat( ',title,alternative,abstract,', ',publication.title,publication.alternative,publication.abstract,', ',publication.source.title,publication.source.alternative,publication.source.abstract,' ), concat(',', $name, ',') )">
+			<xsl:when test=" contains( concat( ',title,alternative,abstract,', ',md-records/md-record/publication/title,md-records/md-record/publication/alternative,md-records/md-record/publication/abstract,', ',md-records/md-record/publication/source/title,md-records/md-record/publication/source/alternative,md-records/md-record/publication/source/abstract,' ), concat(',', $name, ',') )">
 				
 				<xsl:call-template name="removeTag">
 					<xsl:with-param name="str">
