@@ -38,10 +38,10 @@ public class TestConfigurationCreatorPanel
         properties.put(Configuration.KEY_CORESERVICE_LOGIN_URL, HTTP_N107_MPDL_MPG_DE);
         properties.put(Configuration.KEY_AUTH_INSTANCE_URL, HTTP_N107_MPDL_MPG_DE);
         
-        authConfig = new Configuration("auth.properties");
+        authConfig = new Configuration();
         authConfig.setProperties(properties);
         
-        pubmanConfig = new Configuration("pubman.properties");
+        pubmanConfig = new Configuration();
         pubmanConfig.setProperties(properties);
     }
     
@@ -90,7 +90,6 @@ public class TestConfigurationCreatorPanel
     }
     
     @Test
-    @Ignore
     public void storePubmanProperties()
     {
         
@@ -123,7 +122,6 @@ public class TestConfigurationCreatorPanel
     }
     
     @Test
-    @Ignore
     public void storeAuthProperties()
     {
         
