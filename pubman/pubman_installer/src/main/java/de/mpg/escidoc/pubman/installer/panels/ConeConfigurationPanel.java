@@ -78,7 +78,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	      
 	       getLayoutHelper().completeLayout();
 	       
-	       configuration = new Configuration("pubman.properties");
+	       configuration = new Configuration();
 	       
 	   }
 

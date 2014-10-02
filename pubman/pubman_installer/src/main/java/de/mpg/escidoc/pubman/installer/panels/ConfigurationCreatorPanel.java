@@ -125,8 +125,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 LEADING);
         add(welcomeLabel, NEXT_LINE);
         getLayoutHelper().completeLayout();
-        configPubman = new Configuration("pubman.properties");
-        configAuth = new Configuration("auth.properties");
+        configPubman = new Configuration();
+        configAuth = new Configuration();
     }
     
     /**
@@ -212,19 +212,13 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         // Panel 11
         userConfigValues.put(Configuration.KEY_IMPORT_TASK_CM, idata.getVariable("escidoc.import.task.content-model"));
         // Panel 8
-        userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
+        userConfigValues.put(Configuration.KEY_VIEWFULLITEM_DEFAULT_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
         userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
         userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
         
         // Login URL
-        if (idata.getVariable("escidoc.framework_access.login.url") == null || "".equals(idata.getVariable("escidoc.framework_access.login.url")))
-        {
-            userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("CoreserviceUrl"));
-        }
-        else
-        {
-            userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("escidoc.framework_access.login.url"));
-        }
+        userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("escidoc.framework_access.login.url"));
+        
         userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
         userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
         userConfigValues.put(Configuration.KEY_ACCESS_CONF_GENRES_LINK, idata.getVariable("escidoc.pubman.genres.configuration"));

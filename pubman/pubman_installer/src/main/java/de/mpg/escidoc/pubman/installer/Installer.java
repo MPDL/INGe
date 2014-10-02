@@ -105,7 +105,7 @@ public class Installer extends InstallerBase
     {
         logger = Logger.getLogger(Installer.class);
         userConfigValues = new HashMap<String, String>();
-        config = new Configuration("pubman.properties");
+//        config = new Configuration("pubman.properties");
     }
 
     public void install() throws IOException, ServiceException, Exception
@@ -215,7 +215,7 @@ public class Installer extends InstallerBase
     public void createInitialData() throws Exception
     {
         System.out.println("Creating initial dataset...");
-        InitialDataset dataset = new InitialDataset(new URL(config.getProperty(Configuration.KEY_CORESERVICE_URL)),
+/*        InitialDataset dataset = new InitialDataset(new URL(config.getProperty(Configuration.KEY_CORESERVICE_URL)),
                 config.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
                 config.getProperty(Configuration.KEY_CORESERVICE_ADMINPW));
         String ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
@@ -229,7 +229,7 @@ public class Installer extends InstallerBase
         String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml", defaultUserPassword,
                 ouDefaultObjectId, contextObjectId);
         String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml", defaultUserPassword,
-                ouDefaultObjectId, contextObjectId);
+                ouDefaultObjectId, contextObjectId);*/
         // createInitialStatisticData(dataset);
     }
 
