@@ -54,7 +54,9 @@
 				<excludes>
 					<exclude>**/userInputSpec.xml*</exclude>
 					<exclude>**/conf.xml</exclude>
+					<!-- 
 					<exclude>**/pubman.properties</exclude>
+					-->
 				</excludes>
 				<filtering>true</filtering>
 			</resource>
@@ -104,6 +106,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
+							<escapeString>\</escapeString>
 							<outputDirectory>${staging.dir}</outputDirectory>
 							<resources>
 								<resource>
@@ -118,7 +121,6 @@
 			
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.1</version>
 				<executions>
 					<execution>
 						<id>create-staging-area</id>
@@ -181,8 +183,66 @@
 							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
 					</execution>
+					<execution>
+						<id>unpack-pubman_ear</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+							<includeArtifactIds>pubman_ear</includeArtifactIds>
+							<version>7.7.4</version>
+							<type>jar</type>
+							<classifier>sources</classifier>
+							<includes>**/pubman.properties, **/conf.xml, **/auth.properties</includes>
+							<outputDirectory>src/main/resources</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
+			
+			<!-- Remove password placeholders from pubman.properties, before they're filled -->
+			<plugin>
+	           <groupId>com.google.code.maven-replacer-plugin</groupId>
+	           <artifactId>replacer</artifactId>
+	           <version>1.5.3</version>
+	           <executions>
+	               <execution>
+	                   <phase>generate-resources</phase>
+	                   <goals>
+	                       <goal>replace</goal>
+	                   </goals>                   
+	               </execution>
+	           </executions>
+	           <configuration>
+	               <file>src/main/resources/pubman.properties</file>
+	               <regex>false</regex>
+	               <replacements>
+	                   <replacement>
+	                       <token>{framework.admin.password}</token>
+	                       <value></value>
+	                   </replacement>
+	                   <replacement>
+	                       <token>{escidoc.pubman_presentation.email.authenticationpwd}</token>
+	                       <value></value>
+	                   </replacement>
+	                   <replacement>
+	                       <token>{escidoc.cone.database.user.password}</token>
+	                       <value></value>
+	                   </replacement>
+	                   <replacement>
+	                       <token>{escidoc.import.database.user.password}</token>
+	                       <value></value>
+	                   </replacement>            
+	               </replacements>
+	           </configuration>
+	       </plugin>
+			
+			
+			
             <!--  see install.xml to see how MyHelloPanel is used -->
 			<plugin>
 				<groupId>org.codehaus.izpack</groupId>
@@ -213,58 +273,6 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-dependency-plugin
-										</artifactId>
-										<versionRange>
-											[2.0,)
-										</versionRange>
-										<goals>
-											<goal>
-												unpack-dependencies
-											</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-antrun-plugin
-										</artifactId>
-										<versionRange>
-											[1.1,)
-										</versionRange>
-										<goals>
-											<goal>run</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -273,6 +281,8 @@
 		<staging.dir>${project.build.directory}/staging</staging.dir>
 		<version.izpack-standalone>4.3.0</version.izpack-standalone>
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
+		<framework.admin.password></framework.admin.password>
+		
 	</properties>
 	
 	<profiles>
@@ -285,8 +295,10 @@
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>			
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.cone.database.server.name>localhost</escidoc.cone.database.server.name>
+				<framework.admin.password></framework.admin.password>
 			</properties>
 			<build>
+			<!-- 
 				<resources>
 					<resource>
 						<directory>src/main/resources/opensource</directory>
@@ -304,6 +316,7 @@
 						</excludes>
 					</resource>
 				</resources>
+				-->
 			</build>
 		
 		</profile>
@@ -315,6 +328,7 @@
 			<properties>
 			</properties>
 			<build>
+			<!-- 
 				<resources>
 					<resource>
 						<directory>src/main/resources/mpg</directory>
@@ -331,6 +345,7 @@
 						<filtering>false</filtering>
 					</resource>
 				</resources>
+				-->
 			</build>		
 		</profile>
 	</profiles>
@@ -338,10 +353,19 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
-			<version>7.6.4-SNAPSHOT</version>
+			<version>7.7.4</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<artifactId>pubman_ear</artifactId>
+			<version>7.7.4</version>
+			<scope>compile</scope>
+			<classifier>sources</classifier>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>

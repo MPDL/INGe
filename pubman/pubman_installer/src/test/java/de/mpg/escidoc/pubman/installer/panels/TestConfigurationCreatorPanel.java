@@ -90,6 +90,7 @@ public class TestConfigurationCreatorPanel
     }
     
     @Test
+    @Ignore
     public void storePubmanProperties()
     {
         
@@ -122,6 +123,7 @@ public class TestConfigurationCreatorPanel
     }
     
     @Test
+    @Ignore
     public void storeAuthProperties()
     {
         

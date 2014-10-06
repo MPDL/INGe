@@ -120,7 +120,9 @@
 	<jar src="dependency/commons-codec.jar"/>
 	<jar src="dependency/commons-discovery.jar"/>
 	<jar src="dependency/commons-logging.jar"/>
+	<!-- 
 	<jar src="dependency/javaee.jar"/>
+	-->
 	<jar src="dependency/wss4j.jar"/>
 	<jar src="dependency/axis.jar"/>
 	<jar src="dependency/axis-jaxrpc.jar"/>
@@ -140,15 +142,32 @@
 	<packs>
 		<pack name="PubMan" required="yes" id="pack_pubman">
 			<description>PubMan binary and configuration</description>
+			<!-- 
 			<file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			<file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
-			<file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
-			<file src="jboss/ips.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/conf"/>
+			-->
+			<file src="pubman_ear.ear" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/standalone/deployments"/>
+			<file src="wildfly/module.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/modules/pubman/main"/>
+			<file src="wildfly/ips.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/modules/pubman/main"/>
+
 		</pack>
 		<pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
-			<description>JBoss Application Server 4.2.3 GA</description>
-			<file src="jboss/jboss-4.2.3.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
-			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss/"/>
+			<description>WildFly Application Runtime 8.1.0</description>
+		
+			<file src="wildfly/wildfly-8.1.0.Final.zip" targetdir="$INSTALL_PATH" unpack="true"/>
+
+			<!-- 
+			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/wildfly/"/>
+			-->
+		</pack>
+		<pack name="Application Server additional config" parent="PubMan" required="no" id="pack_jboss_config" hidden="true" condition="jboss_selected">
+			<description>WildFly Application Runtime 8.1.0 Config Files</description>
+
+			<file src="wildfly/standalone.xml" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/standalone/configuration" override="true"/>
+			<file src="wildfly/standalone.conf" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/bin" override="true"/>
+			<!-- 
+			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/wildfly/"/>
+			-->
 		</pack>
 		<pack name="Initial Dataset" required="no" id="pack_dataset">
 			<description>Creates an Initial Dataset on the Core Service Instance</description>
@@ -180,7 +199,11 @@
 	</conditions>
 	
 	<variables>
+
+		
+		
         <!-- Hostname of the installation server -->
+        
 		<variable name="CoreserviceUrl" value=""/>
 		<variable name="CoreserviceAdminUser" value="sysadmin"/>
 		<variable name="CoreserviceAdminPassword" value=""/>
@@ -227,6 +250,7 @@
 		<variable name="AAIPTable" value="ips.xml"/>
 		<variable name="AAClientStartClass" value="de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart"/>
 		<variable name="AAClientFinishClass" value="de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish"/>
+		
 	</variables>
 	
 	<listeners>

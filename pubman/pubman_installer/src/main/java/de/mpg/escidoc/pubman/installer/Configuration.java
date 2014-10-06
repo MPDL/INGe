@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -272,7 +273,8 @@ public class Configuration
             createDir(outFileName.substring(0, outFileName.lastIndexOf("/")));
         }
         
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(templateFile)));
+        InputStream inStream = getClass().getClassLoader().getResourceAsStream(templateFile);
+        BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
         PrintWriter pw = new PrintWriter(outFileName);
         
         String line = null;
@@ -354,10 +356,17 @@ public class Configuration
         
         logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
                 + value + ">");
+        
+        if(value==null)
+        {
+        	value = variableToReplace;
+        }
+        /*
         if (value == null || value.equals(variableToReplace))
         {
             value = "";
         }
+        */
         line = startLine + value;
         return line;
     }

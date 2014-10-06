@@ -77,7 +77,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
 {
     
     private static final long serialVersionUID = 3257848774955905587L;
-    private static final String JBOSS_CONF_PATH = "/jboss/server/default/conf/";
+    private static final String JBOSS_CONF_PATH = "/wildfly-8.1.0.Final/modules/pubman/main/";
     
     private static final String ESCIDOC_ROLE_MODERATOR = "escidoc:role-moderator";
     private static final String ESCIDOC_ROLE_DEPOSITOR = "escidoc:role-depositor";
@@ -217,7 +217,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
         
         // Login URL
-        userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("escidoc.framework_access.login.url"));
+        userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata.getVariable("CoreserviceUrl"));
         
         userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
         userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
@@ -256,7 +256,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         configPubman.setProperties(userConfigValues);
         configPubman.storeProperties("pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
         // also store in local pubman properties
-//        configPubman.store("pubman.properties");
+        configPubman.store("pubman.properties");
         
         // update framework policies and set the role identifier properties for the two CoNE roles
         this.updatePolicies(authConfigValues);
