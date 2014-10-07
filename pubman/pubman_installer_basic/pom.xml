@@ -149,7 +149,7 @@
 
 	<profiles>
 		<profile>
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -180,7 +180,7 @@
 
 		</profile>
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
