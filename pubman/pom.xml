@@ -320,6 +320,16 @@
 		</testResources>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
 				
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.3</version>
@@ -365,22 +375,22 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
 				<plugin>
-				    <groupId>org.apache.maven.plugins</groupId>
-	        		<artifactId>maven-war-plugin</artifactId>
-	        		<version>2.4</version>
-        		</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ejb-plugin</artifactId>
-					<version>2.3</version>
-					<configuration>
-						<ejbVersion>3.1</ejbVersion>
-					</configuration>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.1</version>
+					<dependencies>
+						<dependency>
+							<groupId>ant</groupId>
+							<artifactId>ant-trax</artifactId>
+							<version>1.6.5</version>
+						</dependency>
+					</dependencies>
 				</plugin>
+				
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.7.2</version>
+					<version>2.7.1</version>
 					<configuration>
 						<!--  if there are no tests, don't bail out -->
 						<failIfNoTests>false</failIfNoTests>
@@ -389,39 +399,8 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ear-plugin</artifactId>
-					<version>2.9</version>
-				</plugin>
-				<plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-compiler-plugin</artifactId>
-			        <version>3.1</version>
-			        <configuration>
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
-					</configuration>
-		        </plugin>
-		        <plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.7</version>
-				</plugin>
-				<plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-resources-plugin</artifactId>
-			        <version>2.6</version>
-        		</plugin>
-        		<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>buildnumber-maven-plugin</artifactId>
-					<version>1.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.cargo</groupId>
-					<artifactId>cargo-maven2-plugin</artifactId>
-					<version>1.4.10</version>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -836,42 +815,14 @@
 		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
 		<escidoc.handles.activated>true</escidoc.handles.activated>
 	</properties>
+	
 	<profiles>
-		<!-- activate this profile for an opensource release production -->
+		<!-- activate this profile for an opensource build -->
 		<profile>			
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.zeroturnaround</groupId>
-						<artifactId>jrebel-maven-plugin</artifactId>
-						<configuration>
-		      				<name>${project.artifactId}-development</name>
-		      				<version>${project.version}-${maven.build.timestamp}</version>
-		      				<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-	     				</configuration>
-						<executions>
-							<execution>
-								<id>generate-rebel-xml</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-							<execution>
-			                    <id>generate-liverebel-xml</id>
-			                    <phase>process-resources</phase>
-			                    <goals>
-			                        <goal>generate-liverebel-xml</goal>
-			                    </goals>
-                			</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
 			<properties>
 			    <escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
@@ -882,44 +833,17 @@
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
 				<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo_web.png</escidoc.pubman.logo.url>
+				<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
+				<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
 			</properties>
 		</profile>
-		<!-- this profile is used by developers -->
+		
+		<!-- activate this profile for an pure build -->
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.zeroturnaround</groupId>
-						<artifactId>jrebel-maven-plugin</artifactId>
-						<version>1.1.5</version>
-						<configuration>
-		      				<name>${project.artifactId}-development</name>
-		      				<version>${project.version}-${maven.build.timestamp}</version>
-		      				<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-	     				</configuration>
-						<executions>
-							<execution>
-								<id>generate-rebel-xml</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-							<execution>
-			                    <id>generate-liverebel-xml</id>
-			                    <phase>process-resources</phase>
-			                    <goals>
-			                        <goal>generate-liverebel-xml</goal>
-			                    </goals>
-                			</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
 			<properties>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
@@ -932,6 +856,8 @@
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 				<jboss.install.node>default</jboss.install.node>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
+				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
+				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 			</properties>
 			<distributionManagement>
 				<site>
@@ -940,6 +866,8 @@
 				</site>
 			</distributionManagement>
 		</profile>
+		
+		<!-- profile for the daily build on continuum -->
 		<profile>
 			<id>env-testing-continuum</id>
 			<activation>
@@ -979,6 +907,61 @@
 				</site>
 			</distributionManagement>
 		</profile>
+		
+		<!-- activate this profile for a nims build -->
+		<profile>			
+			<id>env-nims</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<escidoc.pubman.build.mode>nims</escidoc.pubman.build.mode>
+				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
+			</properties>
+		</profile>
+		
+		<!-- activate this profile for instrumenting code by JRebel -->
+		<profile>			
+			<id>env-jrebel-build</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.zeroturnaround</groupId>
+						<artifactId>jrebel-maven-plugin</artifactId>
+						<configuration>
+		      				<name>${project.artifactId}-development</name>
+		      				<version>${project.version}-${maven.build.timestamp}</version>
+		      				<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+		      				<skip>${escidoc.common.release.build}</skip>
+	     				</configuration>
+						<executions>
+							<execution>
+								<id>generate-rebel-xml</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<!-- activate this profile for a release build, suppresses critical tests -->
+		<profile>
+			<id>env-release-build</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>				
+				<escidoc.common.release.build>true</escidoc.common.release.build>
+			</properties>
+		</profile>
+		
 		<profile>
 			<!-- this profile gets activated if os is windows -->
 			<id>Windows</id>
@@ -992,6 +975,7 @@
 				<jboss.pathcorrection>/</jboss.pathcorrection>
 			</properties>
 		</profile>
+		
 		<profile>
 			<!-- this profile gets activated if os is linux -->
 			<id>Linux</id>
@@ -1006,6 +990,7 @@
 				<jboss.pathcorrection />
 			</properties>
 		</profile>
+		
 		<profile>
 			<id>only-eclipse</id>
   			<activation>

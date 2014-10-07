@@ -57,6 +57,7 @@
           					<Dependencies>com.h2database.h2</Dependencies>
           				</manifestEntries>
           			</archive>
+          			<classifier>${escidoc.pubman.build.mode}</classifier>
         		</configuration>
       		</plugin>
 		</plugins>
@@ -64,7 +65,7 @@
 	
 	<profiles>
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<properties />
 			<build>
 			<plugins>
@@ -112,7 +113,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -199,7 +200,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>env-production-nims</id>
+			<id>env-nims</id>
 			<properties />
 			<build>
 			<plugins>

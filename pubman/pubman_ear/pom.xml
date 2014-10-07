@@ -52,6 +52,7 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
 					<applicationName>pubman_ear</applicationName>
+					<classifier>${escidoc.pubman.build.mode}</classifier>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
 					
@@ -355,6 +356,7 @@
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<version>7.7.5-SNAPSHOT</version>
+			<classifier>${escidoc.pubman.build.mode}</classifier>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -662,7 +664,7 @@
 	</dependencies>
 	<profiles>
 		<profile>
-			<id>jboss42</id>
+			<id>wildfly</id>
 			<build>
 				<plugins>
 					 <plugin>
@@ -684,7 +686,7 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										
@@ -713,7 +715,7 @@
 								<configuration>
 									<tasks>
 									
-										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										
@@ -817,7 +819,7 @@
 		</profile>
 
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>			
@@ -827,7 +829,7 @@
 		</profile>
 		
 		<profile>
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>			
@@ -847,7 +849,7 @@
 		</profile>
 		
 		<profile>
-			<id>env-production-nims</id>
+			<id>env-nims</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>			
