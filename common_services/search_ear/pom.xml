@@ -160,7 +160,7 @@
 	<profiles>
 		
 		<profile>
-			<id>jboss42</id>
+			<id>wildfly</id>
 			<build>
 				<plugins>
 					<plugin>

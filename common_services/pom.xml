@@ -807,32 +807,13 @@
 		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
 	</properties>
 	<profiles>
+	
 		<!-- this profile is used by developers -->
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>			
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.zeroturnaround</groupId>
-						<artifactId>jrebel-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>generate-rebel-xml</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-								<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 			<properties>
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
@@ -845,32 +826,13 @@
 				</site>
 			</distributionManagement>
 		</profile>
+		
 		<profile>
 			<!-- this profile gets activated for an opensource release production -->
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.zeroturnaround</groupId>
-						<artifactId>jrebel-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>generate-rebel-xml</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-								<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 			<properties>
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
@@ -882,6 +844,7 @@
 				</site>
 			</distributionManagement>
 		</profile>
+		
 		<profile>
 			<id>env-testing-continuum</id>
 			<activation>
@@ -900,6 +863,38 @@
 				</site>
 			</distributionManagement>
 		</profile>
+		
+		<!-- activate this profile for instrumenting code by JRebel -->
+		<profile>			
+			<id>env-jrebel-build</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.zeroturnaround</groupId>
+						<artifactId>jrebel-maven-plugin</artifactId>
+						<configuration>
+		      				<name>${project.artifactId}-development</name>
+		      				<version>${project.version}-${maven.build.timestamp}</version>
+		      				<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+		      				<skip>${escidoc.common.release.build}</skip>
+	     				</configuration>
+						<executions>
+							<execution>
+								<id>generate-rebel-xml</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
 		<profile>
 			<id>env-release-build</id>
 			<activation>
@@ -909,6 +904,7 @@
 				<escidoc.common.release.build>true</escidoc.common.release.build>
 			</properties>
 		</profile>
+		
 		<profile>
 			<!-- this profile gets activated if os is windows -->
 			<id>Windows</id>

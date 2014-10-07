@@ -68,7 +68,7 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -95,7 +95,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -104,7 +104,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>env-production-nims</id>
+			<id>env-nims</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>

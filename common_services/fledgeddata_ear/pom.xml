@@ -145,7 +145,7 @@
 	
 	<profiles>
 		<profile>
-			<id>jboss42</id>
+			<id>wildfly</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -170,7 +170,7 @@
 						<configuration>
 							<wait>false</wait>
 							<container>
-								<containerId>jboss42x</containerId>
+								<containerId>wildflyx</containerId>
 								<zipUrlInstaller>
 									<url>${cargo.jboss.url}</url>
 									<downloadDir>${cargo.install.dir}</downloadDir>
