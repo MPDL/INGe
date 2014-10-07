@@ -287,7 +287,7 @@
 	
 	<profiles>
 		<profile>
-			<id>env-production-opensource</id>
+			<id>env-opensource</id>
 			<activation>
 			<activeByDefault>true</activeByDefault>
 			</activation>
@@ -321,7 +321,7 @@
 		
 		</profile>
 		<profile>
-			<id>env-development</id>
+			<id>env-pure</id>
 			<activation>
 			<activeByDefault>false</activeByDefault>
 			</activation>
@@ -366,6 +366,13 @@
 			<classifier>sources</classifier>
 		</dependency>
 		-->
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<artifactId>pubman_ear</artifactId>
+			<version>7.7.4</version>
+			<scope>compile</scope>
+			<classifier>sources</classifier>
+		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
