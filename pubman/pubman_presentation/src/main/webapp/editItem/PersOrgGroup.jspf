@@ -92,7 +92,7 @@
 			<h:outputText styleClass="medium_area0" value=" " />
 		</h:panelGroup> 
 <!-- Start iteration of authors input -->
-	<span id="iterCreatorOrganisationAuthors" class="full_area0 marginTExcl6p">
+	<span  class="full_area0 marginTExcl6p" id="iterCreatorOrganisationAuthors">
 		<ui:repeat var="creator" value="#{EditItemSessionBean.creators}">
 			<h:panelGroup layout="block" styleClass="full_area0 suggestAnchor endline">
 			
@@ -144,12 +144,13 @@
 						rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' and genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' and genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}" />
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}"/>
-					<h:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;" oncomplete="removeAuthorAutoSuggest($(this));" title="#{tip.EditItem_lblRemoveAutosuggestAuthor}">
-						<f:ajax render="form1:editPerson"/>
+					<h:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;"
+						onclick="removeAuthorAutoSuggest($(this))" title="#{tip.EditItem_lblRemoveAutosuggestAuthor}">
+						<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>
 					</h:commandButton>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}"/>
-					<h:commandButton reRender="editPerson" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
+					<h:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
 						action="#{creator.addOrganization}" >
 						<f:ajax render="form1:editPerson" execute="@form"/>
 					</h:commandButton>
@@ -243,7 +244,7 @@
 	</span>
 
 		 <span class="full_area0 clear">&#160;</span>
-		 <span class="free_area0 xTiny_marginLExcl endline">
+		 <span class="free_area0 xTiny_marginLExcl endline" id="iterCreatorOrganisation">
 <!-- Creator Organizations - Headline -->
 		<h:panelGroup layout="block" styleClass="itemLine noTopBorder"
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
@@ -253,7 +254,7 @@
 			<h:outputText styleClass="xLarge_area0" value="#{lbl.EditItem_lblOrganizationAddress}" />
 		</h:panelGroup> 
 		
-		<ui:repeat id="iterCreatorOrganisation" var="organization" value="#{EditItemSessionBean.creatorOrganizations}"
+		<ui:repeat  var="organization" value="#{EditItemSessionBean.creatorOrganizations}"
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 				<h:outputText styleClass="xTiny_area0 xTiny_marginRExcl labelLine" value="#{organization.number}" />
@@ -264,7 +265,7 @@
 				<h:inputTextarea id="inporganizations_organization_address" styleClass="xLarge_txtArea organizationAddress" title="#{organization.address}" 
 					value="#{organization.address}" />
 				<h:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
-						onclick="return removeOrganizationAutoSuggest($(this))">	
+						onclick="removeOrganizationAutoSuggest($(this))">	
 					<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>		
 				</h:commandButton>
 				<h:outputLink styleClass="small_area0 ouCard ouLink xTiny_marginRExcl"
