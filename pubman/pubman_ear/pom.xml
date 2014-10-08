@@ -454,9 +454,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>			
-			<properties>
-				<exclude.module>true</exclude.module>
-			</properties>
 		</profile>
 
 		<profile>
