@@ -462,17 +462,7 @@
 				<exclude.module>true</exclude.module>
 			</properties>
 		</profile>
-		
-		<profile>
-			<id>env-testing-continuum</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>			
-			<properties>
-				<exclude.module>false</exclude.module>
-			</properties>
-		</profile>
-		
+
 		<profile>
 			<id>env-nims</id>
 			<activation>
