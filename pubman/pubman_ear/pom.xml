@@ -80,7 +80,6 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						-->
-
 						
 						<webModule>
 						
