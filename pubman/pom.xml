@@ -962,6 +962,22 @@
 			</properties>
 		</profile>
 		
+		<!-- enabled to perfom the integration tests -->
+		<profile>
+			<id>integration-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		
+		<!-- activate this profile to deploy the artifacts -->
+		<profile>
+			<id>deploy-artifacts</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		
 		<profile>
 			<!-- this profile gets activated if os is windows -->
 			<id>Windows</id>

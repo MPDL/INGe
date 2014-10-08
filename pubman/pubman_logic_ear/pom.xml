@@ -565,7 +565,7 @@
 	
 	<profiles>
 		<profile>
-			<id>wildfly</id>
+			<id>integration-test</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -596,32 +596,8 @@
 									<extractDir>${cargo.install.dir}</extractDir>
 								</zipUrlInstaller>
 							</container>
-							<!-- 
-							<configuration>
-								<type>existing</type>
-								<home>${project.build.directory}/jboss/server</home>
-								<properties>
-									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-									<cargo.logging>${cargo.log}</cargo.logging>
-									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
-									<cargo.jboss.configuration>default</cargo.jboss.configuration>
-								</properties>
-							</configuration>
-							-->
 						</configuration>
 					</plugin>
-					<!-- 
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jboss-maven-plugin</artifactId>
-						<configuration>
-							<jbossHome>${jboss.install.dir}</jbossHome>
-							<hostName>${jboss.deploy.host}</hostName>
-							<port>${jboss.deploy.port}</port>
-						</configuration>
-					</plugin>
-					-->
 					<plugin>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
