@@ -155,7 +155,7 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>wildfly</id>
+			<id>integration-tests</id>
 			<build>
 				<plugins>
 					<plugin>

@@ -895,6 +895,7 @@
 			</build>
 		</profile>
 		
+		<!-- activate this profile for a release build, suppresses critical tests -->
 		<profile>
 			<id>env-release-build</id>
 			<activation>
@@ -903,6 +904,14 @@
 			<properties>				
 				<escidoc.common.release.build>true</escidoc.common.release.build>
 			</properties>
+		</profile>
+		
+		<!-- enabled to perfom the integration tests -->
+		<profile>
+			<id>integration-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		
 		<profile>
