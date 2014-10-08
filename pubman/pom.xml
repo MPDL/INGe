@@ -833,6 +833,8 @@
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
 				<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo_web.png</escidoc.pubman.logo.url>
+				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
+				<escidoc.pubman_presentation.overview_page.authors_ou></escidoc.pubman_presentation.overview_page.authors_ou> 
 				<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
 			</properties>
@@ -856,6 +858,8 @@
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 				<jboss.install.node>default</jboss.install.node>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
+				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
+				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck Society</escidoc.pubman_presentation.overview_page.authors_ou> 
 				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 			</properties>

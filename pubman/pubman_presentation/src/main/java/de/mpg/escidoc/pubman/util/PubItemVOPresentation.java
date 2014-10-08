@@ -30,7 +30,9 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -438,33 +440,48 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     
     
     /**
-     * Delivers all creators, which are part of the MPG
+     * Delivers all creators, which are part of the OU given in the properties
      */
-    public List<CreatorVO> getMpgAuthors()
+    public List<CreatorVO> getOrganizationsAuthors()
     {
         List<CreatorVO> creators = this.getMetadata().getCreators();
         List<CreatorVO> mpgCreators = new ArrayList<CreatorVO> ();
-        boolean isMpgCreator = false;
-        for (CreatorVO creator: creators)
+        String rootOrganization = null;
+		try {
+			rootOrganization = PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+        boolean isPartOfTheOrganization = false;
+        if (rootOrganization != null && !rootOrganization.isEmpty()) 
         {
-            if(creator.getType().equals(CreatorType.PERSON)
-                    && creator.getPerson().getOrganizations() != null )
+        	for (CreatorVO creator: creators)
             {
-                for (OrganizationVO organization : creator.getPerson().getOrganizations())
+                if(creator.getType().equals(CreatorType.PERSON)
+                        && creator.getPerson().getOrganizations() != null )
                 {
-                    if (organization.getName().toString().contains("Max Planck Society"))
+                    for (OrganizationVO organization : creator.getPerson().getOrganizations())
                     {
-                        isMpgCreator = true;
+                        if (organization.getName().toString().contains(rootOrganization))
+                        {
+                            isPartOfTheOrganization = true;
+                        }
+                    }
+                    if (isPartOfTheOrganization)
+                    {
+                        mpgCreators.add(creator);
+                        isPartOfTheOrganization = false;
                     }
                 }
-                if (isMpgCreator)
-                {
-                    mpgCreators.add(creator);
-                    isMpgCreator = false;
-                }
             }
+            return mpgCreators;
         }
-        return mpgCreators;
+        else 
+        {
+        	return creators;
+        }
     }
 
     /**

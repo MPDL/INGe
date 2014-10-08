@@ -1922,6 +1922,35 @@ public class ViewItemFull extends FacesBean
         }
         return affiliations.toString();
     }
+    
+    /**
+     * Returns the name of the specified OU its authors will be shown
+     * @return String name of the specified OU (escidoc.pubman_presentation.overview_page.authors_ou)
+     */
+    public String getSpecificOrganization()
+    {
+    	String rootOrganization = null;
+		try 
+		{
+			rootOrganization = PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (URISyntaxException e) 
+		{
+			e.printStackTrace();
+		}
+		if (rootOrganization != null) 
+		{
+			return rootOrganization;
+		}
+		else
+		{
+			return "";
+		}
+    }
 
     /**
      * Returns a formatted String including the start and the end date of the event
