@@ -454,9 +454,11 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>	
-			<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
-			<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
-			<exclude.module>false</exclude.module>		
+			<properties></properties>
+				<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
+				<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
+				<exclude.module>false</exclude.module>	
+			</properties>	
 		</profile>
 
 		<profile>
