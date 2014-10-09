@@ -453,7 +453,10 @@
 			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
-			</activation>			
+			</activation>	
+			<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
+			<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
+			<exclude.module>false</exclude.module>		
 		</profile>
 
 		<profile>
