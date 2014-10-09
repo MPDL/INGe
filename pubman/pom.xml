@@ -798,7 +798,7 @@
 		<!-- JUS - SSRN contexts -->
 		<escidoc.pubman.instance.ssrn_contexts>escidoc:167026,escidoc:1002</escidoc.pubman.instance.ssrn_contexts>
 		<!-- Externalisation of home page content -->
-		<escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
+		<escidoc.pubman.logo.url>/resources/images/pubman_logo_web.png</escidoc.pubman.logo.url>
 		<escidoc.pubman.logo.css />
 		<escidoc.pubman.home.content.url />
 		<!-- Additional link in meta menu -->
@@ -832,7 +832,7 @@
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
-				<escidoc.pubman.logo.url>/resources/images/pubman_logo_web.png</escidoc.pubman.logo.url>
+				
 				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
 				<escidoc.pubman_presentation.overview_page.authors_ou></escidoc.pubman_presentation.overview_page.authors_ou> 
 				<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
@@ -854,6 +854,7 @@
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
+				<escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
