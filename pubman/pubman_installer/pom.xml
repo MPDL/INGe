@@ -30,14 +30,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-		<version>7.7.3-SNAPSHOT</version>
+		<version>7.7.5-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_installer</artifactId>
 	<name>pubman_installer</name>
 	<packaging>jar</packaging>
-	<version>7.6.4-SNAPSHOT</version>
+	<version>7.7.5-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
@@ -192,10 +192,10 @@
 						<configuration>
 							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 							<includeArtifactIds>pubman_ear</includeArtifactIds>
-							<version>7.7.4</version>
+							<includeClassifiers>sources</includeClassifiers>
+							<!--  version>7.7.4</version-->
 							<type>jar</type>
-							<classifier>sources</classifier>
-							<includes>**/pubman.properties, **/conf.xml, **/auth.properties</includes>
+							<includes>**/pubman.properties, **/conf.xml, **/auth.properties, */pubman.properties, **/conf.xml, **/solution.properties, **/apache-fop-config.xml</includes>
 							<outputDirectory>src/main/resources</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>true</overWriteSnapshots>
@@ -233,10 +233,12 @@
 	                       <token>{escidoc.cone.database.user.password}</token>
 	                       <value></value>
 	                   </replacement>
+	                   <!-- 
 	                   <replacement>
 	                       <token>{escidoc.import.database.user.password}</token>
 	                       <value></value>
-	                   </replacement>            
+	                   </replacement>
+	                   -->            
 	               </replacements>
 	           </configuration>
 	       </plugin>
@@ -354,24 +356,15 @@
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
 			<version>7.7.4</version>
+			<scope>compile</scope>
+			<classifier>sources</classifier>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<artifactId>pubman_ear</artifactId>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 			<type>ear</type>
-		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-			<artifactId>pubman_ear</artifactId>
-			<version>7.7.4</version>
-			<scope>compile</scope>
-			<classifier>sources</classifier>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-			<artifactId>pubman_ear</artifactId>
-			<version>7.7.4</version>
-			<scope>compile</scope>
-			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>

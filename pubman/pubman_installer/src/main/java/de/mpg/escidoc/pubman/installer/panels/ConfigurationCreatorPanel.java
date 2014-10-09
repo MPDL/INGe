@@ -89,6 +89,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     
     private Configuration configPubman = null;
     private Configuration configAuth = null;
+    private Configuration configSolution = null;
     ConeInsertProcess coneInsertProcess;
     private LabelPanel conePanel;
     private boolean success;
@@ -127,6 +128,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         getLayoutHelper().completeLayout();
         configPubman = new Configuration();
         configAuth = new Configuration();
+        configSolution = new Configuration();
     }
     
     /**
@@ -268,6 +270,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
 //        configAuth.store("auth.properties");
         
         configAuth.storeXml("conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
+        
+        configSolution.storeProperties("solution.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "solution.properties");
         
         // create a private - public key pair
         this.createKeys();

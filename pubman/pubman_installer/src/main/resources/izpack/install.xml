@@ -220,8 +220,6 @@
 		<variable name="ConePort" value="5432"/>
 		<variable name="ConeUser" value="postgres"/>
 		<variable name="ConePassword" value=""/>		
-		<variable name="PubManLogoURL" value="./resources/images/pubman_logo.png"/>
-		<variable name="PubManLogoApply" value="true"/>
 		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_blue/styles/theme.css"/>
 		<variable name="StyleSheetStandardType" value="stylesheet"/>
 		<variable name="StyleSheetStandardApply" value="true"/>
@@ -234,8 +232,6 @@
 		<variable name="StyleSheetSpecialURL" value="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css"/>
 		<variable name="StyleSheetSpecialType" value="alternate stylesheet"/>
 		<variable name="StyleSheetSpecialApply" value="true"/>
-		<variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
-		<variable name="FavIconApply" value="true"/>
 		<variable name="ConeCreateJournals" value="true"/>
 		<variable name="ConeCreateLanguages" value="true"/>
 		<variable name="ConeCreateDDC" value="true"/>
