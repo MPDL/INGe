@@ -457,7 +457,7 @@
 			<properties>
 				<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
-				<exclude.module>false</exclude.module>	
+				<exclude.module>true</exclude.module>	
 			</properties>	
 		</profile>
 
@@ -467,7 +467,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>			
 			<properties>
-				<exclude.module>false</exclude.module>
+				<exclude.module>true</exclude.module>
 			</properties>
 		</profile>
 	</profiles>
