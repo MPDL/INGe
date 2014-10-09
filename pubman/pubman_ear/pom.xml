@@ -454,7 +454,7 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>	
-			<properties></properties>
+			<properties>
 				<escidoc.pubman.build.mode></escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen></escidoc.pubman.build.hyphen>
 				<exclude.module>false</exclude.module>	
