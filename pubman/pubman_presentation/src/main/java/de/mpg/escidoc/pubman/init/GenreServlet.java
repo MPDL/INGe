@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman.init;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.log4j.Logger;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -81,6 +83,9 @@ public class GenreServlet extends HttpServlet
             DefaultHandler handler = new GenreHandler(jbossHomeDir + "/modules/pubman/main");
 
             parser.parse(file, handler);
+            
+            //Clear cache of resource bundles in order to load the newly created ones
+            ResourceBundle.clearCache();
         }
         catch (Exception e)
         {
