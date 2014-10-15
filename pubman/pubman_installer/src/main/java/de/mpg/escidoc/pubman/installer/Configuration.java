@@ -193,6 +193,7 @@ public class Configuration
     
     // PidCache
     public static final String KEY_PIDCACHE_HANDLES_ACTIVATED ="escidoc.handles.activated";
+    /*
     public static final String KEY_PIDCACHE_SIZE_MAX = "escidoc.pidcache.cache.size.max";
     public static final String KEY_PIDCACHE_REFRESH_INTERVAL = "escidoc.pidcache.refresh.interval";
     public static final String KEY_PIDCACHE_DUMMY_URL = "escidoc.pidcache.dummy.url";
@@ -204,6 +205,7 @@ public class Configuration
     public static final String KEY_PIDCACHE_SERVICE_SEARCH_PATH = "escidoc.pid.service.search.path";
     public static final String KEY_PIDCACHE_USER_NAME = "escidoc.pidcache.user.name";
     public static final String KEY_PIDCACHE_USER_PASSWORD = "escidoc.pidcache.user.password";  
+    */
     
     // Import
     public static final String KEY_IMPORT_DB_DRIVER_CLASS = "escidoc.import.database.driver.class";
