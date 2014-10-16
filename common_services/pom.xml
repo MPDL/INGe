@@ -606,7 +606,6 @@
 		<escidoc.pubman.instance.seal_number />
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
-		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>

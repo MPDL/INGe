@@ -71,7 +71,6 @@
 	
 <!--	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>-->
 	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>
-<!--	<xsl:param name="fw_instance">${escidoc.common.framework.url}</xsl:param>-->
 	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de:8080</xsl:param>
 	
 	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
