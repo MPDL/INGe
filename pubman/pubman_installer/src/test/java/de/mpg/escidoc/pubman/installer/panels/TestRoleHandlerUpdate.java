@@ -42,7 +42,7 @@ public class TestRoleHandlerUpdate
     {    
         Properties p = PropertyReader.getProperties();
         
-      /*  p.setProperty("escidoc.common.framework.url", "http://localhost:8080");
+/*
         p.setProperty("escidoc.framework_access.framework.url", "http://localhost:8080");
         p.setProperty("escidoc.framework_access.login.url", "http://localhost:8080");
         p.setProperty("framework.admin.username", "roland");
