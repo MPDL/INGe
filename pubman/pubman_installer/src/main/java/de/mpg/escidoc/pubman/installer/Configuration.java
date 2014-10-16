@@ -353,22 +353,28 @@ public class Configuration
         
         String startLine = oldLine.substring(0, idx + 1);
         String key = oldLine.substring(0, idx);
+        
+        // omit pidcache properties and gwdg properties
+        if (key.contains("pidcache") || key.contains("pid.service") || key.contains("pid.gwdg"))
+        {
+            return "";
+        }
+        // return without value
+        if (key.contains("pubman.blog"))
+        {
+            return startLine;
+        }
         String variableToReplace = oldLine.substring(idx + 1).trim();
         String value = getProperty(key);
         
         logger.info("variableToReplace <" + variableToReplace + "> for key <" + key + "> and getProperty(key) <"
                 + value + ">");
         
-        if(value==null)
+        if (value == null)
         {
         	value = variableToReplace;
         }
-        /*
-        if (value == null || value.equals(variableToReplace))
-        {
-            value = "";
-        }
-        */
+        
         line = startLine + value;
         return line;
     }

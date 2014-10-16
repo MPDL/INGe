@@ -162,6 +162,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
         userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
         userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
+        
         // stylesheets PubMan 
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));
@@ -181,6 +182,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             .put(Configuration.KEY_PM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
+        
         // stylesheets common
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));
@@ -200,6 +202,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             .put(Configuration.KEY_CM_STYLESHEET_SPECIAL_APPLY, idata.getVariable("StyleSheetSpecialApply"));
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_URL, idata.getVariable("StyleSheetSpecialURL"));
         userConfigValues.put(Configuration.KEY_CM_STYLESHEET_SPECIAL_TYPE, idata.getVariable("StyleSheetSpecialType"));
+        
+        userConfigValues.put(Configuration.KEY_PUBMAN_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
+        userConfigValues.put(Configuration.KEY_COMMON_PRESENTATION_URL, idata.getVariable("InstanceUrl") + "/common/");
+        
         // PumMan Logo URL
         userConfigValues.put(Configuration.KEY_PM_LOGO_URL, idata.getVariable("PubManLogoURL"));
         userConfigValues.put(Configuration.KEY_PM_LOGO_APPLY, idata.getVariable("PubManLogoApply"));
@@ -242,6 +248,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         // Others
         userConfigValues.put(Configuration.KEY_CONE_SERVICE_URL, idata.getVariable("InstanceUrl") + "/cone/");
         userConfigValues.put(Configuration.KEY_SYNDICATION_SERVICE_URL, idata.getVariable("InstanceUrl") + "/syndication/");
+        userConfigValues.put(Configuration.KEY_AUTH_INSTANCE_URL, idata.getVariable("InstanceUrl") + "/auth/");
+        userConfigValues.put(Configuration.KEY_AUTH_DEFAULT_TARGET, idata.getVariable("InstanceUrl") + "/auth/clientLogin");
         
         //Authentication
         authConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
@@ -266,8 +274,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         configAuth.setProperties(authConfigValues);
         configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "auth.properties");
         configAuth.storeProperties("auth.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "cone.properties");
-        // also store in local auth properties, cone properties
-//        configAuth.store("auth.properties");
         
         configAuth.storeXml("conf.xml", idata.getInstallPath() + JBOSS_CONF_PATH + "conf.xml");
         
