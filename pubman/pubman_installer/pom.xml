@@ -232,6 +232,14 @@
 	                       <token>{escidoc.cone.database.user.password}</token>
 	                       <value></value>
 	                   </replacement>
+	                   <replacement>
+	                       <token>{escidoc.pidcache.user.password}</token>
+	                       <value></value>
+	                   </replacement>
+	                   <replacement>
+	                       <token>{escidoc.pid.gwdg.user.password}</token>
+	                       <value></value>
+	                   </replacement>
 	                   <!-- 
 	                   <replacement>
 	                       <token>{escidoc.import.database.user.password}</token>
