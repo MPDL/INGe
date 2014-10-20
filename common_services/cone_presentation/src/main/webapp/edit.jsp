@@ -57,8 +57,12 @@
 <%@ page import="java.util.HashSet" %>
 <%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
 <%@ page import="java.nio.charset.Charset" %>
+<%@ page import="de.mpg.escidoc.services.aa.AuthenticationVO" %>
+<%@ page import="org.apache.log4j.Logger"%>
 
 <%!
+	static Logger logger = Logger.getLogger("CoNE edit.jsp");
+	
 	List<String> errors;
 	List<String> messages;
 	
@@ -524,6 +528,7 @@
 	
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
+	AuthenticationVO user = (AuthenticationVO) request.getSession().getAttribute("user");
 	Model model = null;
 	TreeFragment results = new TreeFragment();
 
@@ -577,6 +582,7 @@
 		}
 		else if ("overwrite".equals(request.getParameter("workflow")))
 		{
+			logger.info("Overwrite existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		    querier.delete(modelName, uri);
 		    querier.create(modelName, uri, results);
 		    if (request.getSession().getAttribute("latestSearch") != null)
@@ -585,9 +591,11 @@
 		        return;
 		    }
 		    messages.add("Entry saved.");
+		    logger.info("CoNE entry " + uri + " overwritten successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		}
 		else if ("update-overwrite".equals(request.getParameter("workflow")))
 		{
+			logger.info("Merge existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		    TreeFragment existingObject = querier.details(modelName, uri, "*");
 		    existingObject.merge(results, true);
 		    results = existingObject;
@@ -600,6 +608,7 @@
 		        return;
 		    }
 		    messages.add("Entry saved.");
+		    logger.info("CoNE entry " + uri + " merged successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		}
     }
 	else if ((request.getParameter("delete") != null
@@ -620,9 +629,12 @@
     }
 	else if (request.getParameter("delete") != null)
 	{
+		logger.info("Deleting existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 	    querier.delete(modelName, uri);
+	    logger.info("CoNE entry " + uri + " deleted successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 	    uri = null;
 	    messages.add("Entry deleted successfully.");
+	    
 	    /*
 	    if (request.getSession().getAttribute("latestSearch") != null)
 	    {
@@ -652,7 +664,6 @@
 	                //Check if identifier is null or not ASCII compatible
 	                if (identifierValue != null && !"".equals(identifierValue) &&  Charset.forName("US-ASCII").newEncoder().canEncode(identifierValue))
 	                {
-	                	System.out.println("Identifier is OK!!!!!!!!!!!!!");
 	                	identifierValue = identifierValue.trim();
 	                    uri = model.getSubjectPrefix() + identifierValue;
 	                    
@@ -676,6 +687,7 @@
 	                idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
 	                results.put(model.getIdentifier(), idList);
 	            }
+	            logger.info("Creating new CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 	        }
 	        else
 	        {
@@ -683,6 +695,7 @@
 	            {
 	                errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
 	            }
+	            logger.info("Modifying existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 
 	//            else
 	//            {
@@ -696,11 +709,12 @@
 	        
 	        if (errors.size() == 0 && !warning)
 	        {
+	        	
 			    querier.delete(modelName, uri);
 			    querier.create(modelName, uri, results);
 			    
 			    messages.add("Entry saved.");
-			    
+			    logger.info("CoNE entry " + uri + " saved successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 			    response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
 			    return;
 			    
