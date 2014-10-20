@@ -14,7 +14,7 @@ public class ConeInsertProcess extends Thread
 	private ConeDataset coneDataset;
 	private InstallData idata;
 	private ConfigurationCreatorPanel panel;
-	private static final String coneInsertDataFile = "/jboss/server/default/conf/initializeConeDatabase";
+//pivate static final String coneInsertDataFile = "initializeConeDatabase";
 	private static Logger logger = Logger.getLogger(ConeInsertProcess.class);
 	/**
 	 * Public constructor
@@ -103,13 +103,13 @@ public class ConeInsertProcess extends Thread
 			*/
 		   panel.getTextArea().append("\n\n\n");
 		   panel.getTextArea().append("DONE. You can proceed with 'Next' now.\n");
-		   File pf = new File(idata.getInstallPath() + coneInsertDataFile);
+		   /*File pf = new File(idata.getInstallPath() + coneInsertDataFile);
 		   File dir = pf.getParentFile();
 		   if (dir == null || !dir.exists())
 		   {
 		       Configuration.createDir(pf.getAbsolutePath().substring(0, pf.getAbsolutePath().lastIndexOf("/")));
 		   }
-		   pf.createNewFile();
+		   pf.createNewFile();*/
 		   logger.info("Cone initialization finished successfully");
 		
 		

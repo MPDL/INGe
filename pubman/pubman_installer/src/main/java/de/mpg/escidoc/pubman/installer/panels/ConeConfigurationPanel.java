@@ -14,8 +14,6 @@ import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerFrame;
 import com.izforge.izpack.installer.IzPanel;
 
-import de.mpg.escidoc.pubman.installer.Configuration;
-
 public class ConeConfigurationPanel extends IzPanel implements ActionListener
 {
 	/**
@@ -23,9 +21,6 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	 */
 	private static final long serialVersionUID = -4676947351443726470L;
 
-	
-   private Configuration configuration = null;
-   private String ouExternalObjectId = null;
    boolean isValid = true;
    private JLabel emptyLabel = LabelFactory.create(" ", LEADING);
    private JCheckBox checkBoxJournals;
@@ -77,8 +72,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       add(emptyLabel, NEXT_LINE);
 	      
 	       getLayoutHelper().completeLayout();
-	       
-	       configuration = new Configuration();
+	    
 	       
 	   }
 
