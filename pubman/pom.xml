@@ -543,13 +543,7 @@
 		<version.validation>1.0.92-SNAPSHOT</version.validation>
 		<version.validation_presentation>1.0.92-SNAPSHOT</version.validation_presentation>
 		
-		<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
-		<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
-		<escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
-		<escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
-		<escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
-		<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
-		<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
+
 		<!-- URL of this PubMan instance -->
 		<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
@@ -798,9 +792,7 @@
 		<escidoc.framework_access.context.id.test>escidoc:171002</escidoc.framework_access.context.id.test>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<!-- URL of stylesheets in common-presentation -->
-		<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
-		<!-- URL of stylesheets in common-presentation -->
-		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
+		<escidoc.common.presentation.url>/common/</escidoc.common.presentation.url>
 		<escidoc.handles.activated>true</escidoc.handles.activated>
 	</properties>
 	
@@ -910,9 +902,7 @@
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 				<!-- URL of stylesheets in common-presentation -->
-				<escidoc.pubman.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.pubman.common.presentation.url>
-				<!-- URL of stylesheets in common-presentation -->
-				<escidoc.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.common.presentation.url>
+				<escidoc.common.presentation.url>/common/</escidoc.common.presentation.url>
 				<!-- AA -->
 				<escidoc.aa.instance.url>http://dev-pubman.mpdl.mpg.de/auth/</escidoc.aa.instance.url>
 				<escidoc.aa.default.target>http://dev-pubman.mpdl.mpg.de/auth/clientLogin</escidoc.aa.default.target>
