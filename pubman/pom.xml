@@ -654,8 +654,8 @@
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<!-- Blog integration -->
-		<escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
-		<escidoc.pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</escidoc.pubman.blog.news>
+		<escidoc.pubman.blog.baseUrl></escidoc.pubman.blog.baseUrl>
+		<escidoc.pubman.blog.news></escidoc.pubman.blog.news>
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -855,6 +855,8 @@
 				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck Society</escidoc.pubman_presentation.overview_page.authors_ou> 
 				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
+				<escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
+				<escidoc.pubman.blog.news>http://blog.pure.mpg.de/feed/</escidoc.pubman.blog.news>
 			</properties>
 			<distributionManagement>
 				<site>
