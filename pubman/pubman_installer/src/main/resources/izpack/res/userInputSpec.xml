@@ -45,10 +45,10 @@
         <field type="divider" align="top" />
         <field type="space" />
         <field type="staticText" align="left"
-            txt="The URL of your PubMan Instance. This value can't be defined here. It is given by the JBoss Configuration. The initial value of JBoss Instance is 'http://localhost:8080'." />
+            txt="The URL of your PubMan Instance. This value can't be defined here. It is given by the WildFly Configuration. The initial value of WildFly Instance is 'http://localhost:8080'." />
         <field type="text" align="left" variable="InstanceUrl">
-            <spec txt="URL of this JBoss Instance:" size="25" set="${InstanceUrl}" />
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="JBoss Instance URL must not be empty." />
+            <spec txt="URL of this WildFly Instance:" size="25" set="${InstanceUrl}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="WildFly Instance URL must not be empty." />
         </field>
         <field type="space" />
         <field type="divider" align="bottom" />
