@@ -50,7 +50,10 @@
 		<res id="HTMLInfoPanel.info" src="Info.html"/>
 		<res id="userInputSpec.xml" src="res/userInputSpec.xml" />
 		<res id="userInputLang.xml_eng" src="res/userInputLang.xml_eng" />
+		<!-- 
 		<res id="Heading.image" src="img/escidoc-logo-small.jpg" />
+		 -->
+		 <res id="Heading.image" src="img/pubman_logo_web.png" />
 		<res id="TargetPanel.dir.windows" src="res/TargetDir.windows" />
 	</resources>
 
