@@ -93,7 +93,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         //Use dummy value "score" for default sorting
         RELEVANCE (null, "", OrderFilter.ORDER_DESCENDING),
         TITLE ("sort.escidoc.publication.title", "/sort/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
-        GENRE ("sort.escidoc.publication.type sort.escidoc.publication.degree", "/sort/md-records/md-record/publication/type /sort/md-records/md-record/publication/degree", OrderFilter.ORDER_ASCENDING),
+        GENRE ("sort.escidoc.genre-without-uri sort.escidoc.publication.degree", "/sort/genre-without-uri /sort/md-records/md-record/publication/degree", OrderFilter.ORDER_ASCENDING),
         DATE ("sort.escidoc.any-dates", "/sort/any-dates", OrderFilter.ORDER_DESCENDING),
         CREATOR ("sort.escidoc.publication.compound.publication-creator-names", "/sort/md-records/md-record/publication/creator/person/family-name", OrderFilter.ORDER_ASCENDING), //TODO: Change back to sort.escidoc.complete-name when complete name is filled!!
         PUBLISHING_INFO ("sort.escidoc.publication.publishing-info.publisher", "/sort/md-records/md-record/publication/source/publishing-info/publisher", OrderFilter.ORDER_ASCENDING),
