@@ -885,42 +885,42 @@ Notes:
 		</xsl:attribute>
 		<xsl:for-each select="$ITEM_METADATAPATH//*">
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='created']"/>
+				<xsl:value-of select="./*[local-name()='issued']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='modified']"/>
-			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+				<xsl:value-of select="./*[local-name()='published-online']"/>
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="./*[local-name()='dateAccepted']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='issued']"/>
+				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='published-online']"/>
+				<xsl:value-of select="./*[local-name()='modified']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='created']"/>
 			</element>
 		</xsl:for-each>
 		<xsl:for-each select="$CONTAINER_METADATAPATH//*">
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='created']"/>
+				<xsl:value-of select="./*[local-name()='issued']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='modified']"/>
-			</element>
-			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+				<xsl:value-of select="./*[local-name()='published-online']"/>
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="./*[local-name()='dateAccepted']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='issued']"/>
+				<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="./*[local-name()='published-online']"/>
+				<xsl:value-of select="./*[local-name()='modified']"/>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:value-of select="./*[local-name()='created']"/>
 			</element>
 		</xsl:for-each>
 	</userdefined-index>
