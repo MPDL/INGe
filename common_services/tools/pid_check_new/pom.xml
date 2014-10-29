@@ -97,7 +97,7 @@
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-assembly-plugin</artifactId>
-			<version>2.2.2</version>
+			<version>2.3</version>
 			<configuration>
 				<descriptorRefs>
 					<descriptorRef>jar-with-dependencies</descriptorRef>
@@ -105,7 +105,7 @@
 				<archive>
 					<manifest>
 						<addClasspath>true</addClasspath>
-						<mainClass>de.mpg.escidoc.main.PIDMigrationManager</mainClass>
+						<mainClass>de.mpg.escidoc.main.AbstractConsistencyCheckManager</mainClass>
 					</manifest>
 				</archive>
 			</configuration>

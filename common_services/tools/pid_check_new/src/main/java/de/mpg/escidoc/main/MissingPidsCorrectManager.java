@@ -7,6 +7,7 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.rmi.RemoteException;
 import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
@@ -15,6 +16,12 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.commons.io.FileUtils;
 
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ComponentNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.handler.AllPidsSrwSearchResponseHandler;
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -26,17 +33,18 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     private HandleUpdateStatistic statistic;
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     // live
-    /*private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
+    private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
             + " AND (( ( ( \"/properties/creation-date/date\">=\"2014-08-13\" ) ) ) OR ( ( ( \"/last-modification-date/date\">=\"2014-08-13\" ) ) ) )"
             + " AND ( \"/properties/public-status\"=\"released\" AND ( \"/properties/version/status\"=\"in-revision\"  OR  \"/properties/version/status\"=\"released\"  OR  \"/properties/version/status\"=\"submitted\"  OR  \"/properties/version/status\"=\"pending\") ) " 
             + " AND (\"/components/component/content/storage\"=\"internal-managed\")";
-   */
+   
     // qa teschner
+   /*
     private static String searchForItemsWithFileModifiedSince = " \"/properties/content-model/id\"=\"XXXXX\" "
             + " AND (( ( ( \"/properties/creation-date/date\"=\"2011-02-09\" ) ) ) OR ( ( ( \"/last-modification-date/date\"=\"2011-04-26\" ) ) ) )"
             + " AND ( \"/properties/public-status\"=\"released\" AND ( \"/properties/version/status\"=\"in-revision\"  OR  \"/properties/version/status\"=\"released\"  OR  \"/properties/version/status\"=\"submitted\"  OR  \"/properties/version/status\"=\"pending\") ) " 
             + " AND (\"/components/component/content/storage\"=\"internal-managed\")";
-    
+    */
     
     
     public MissingPidsCorrectManager() throws Exception
@@ -50,6 +58,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     @Override
     public void createOrCorrectSet(Set<String> objects) throws Exception 
     {
+    	long start = System.currentTimeMillis();
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType(); 
         
         searchRetrieveRequest.setVersion("1.1");
@@ -108,7 +117,10 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                 e.printStackTrace();
             }
         }
+        long end = System.currentTimeMillis();
         pidProvider.storeResults(statistic);
+        
+        logger.info("Total time used for update <" + (end - start) + ">");
     }
 
     @Override
@@ -141,9 +153,16 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
     {
         logger.info("doCorrect escidocId <" + escidocId 
                 + "> componentsWithMissingPid <" + componentsWithMissingPid + "> lastModificationDate <" + lastModificationDate +">");
+        
+        int numberOfPidsMissing = componentsWithMissingPid.size();
+        String modifiedItemXml = "";
        
         for (String url : componentsWithMissingPid)
         {
+        	if (numberOfPidsMissing > 1)
+        	{
+         		logger.info("item <" + escidocId + "> has <" + componentsWithMissingPid + " > missing component pids");
+        	}
             try
             {
                 String componentXml = itemHandler.retrieveComponent(escidocId, getComponentId(url));
@@ -152,6 +171,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                 if (hasComponentPid(componentXml))
                 {
                     logger.info("already has component pid <" + url + ">"); 
+                    numberOfPidsMissing--;
                     continue;
                 }
                 
@@ -160,17 +180,43 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                 itemHandler.assignContentPid(escidocId, getComponentId(url), getParamXml(lastModificationDate, url));
                 statistic.incrementHandlesCreated();
                 pidProvider.getSuccessMap().put(escidocId, getParamXml(lastModificationDate, url));
+                
+                numberOfPidsMissing--;
+                
+                if (numberOfPidsMissing > 0)
+                {
+                	modifiedItemXml = itemHandler.retrieve(escidocId);
+                	lastModificationDate = getLastModificationDate(modifiedItemXml);
+                	logger.info("lastModificationDate after update <" + lastModificationDate + ">");
+                }
             }
             catch (Exception e)
             {
-                logger.warn("Component PID assignment for " + escidocId + " failed. ", e);
+                logger.warn("Component PID assignment for item <" + escidocId + "> failed. ", e);
+                numberOfPidsMissing--;
                 statistic.incrementHandlesUpdateError();
                 pidProvider.getFailureMap().put(escidocId, getParamXml(lastModificationDate, url) + e.getClass().getSimpleName());
             }
         }
     }
 
-    private String getParamXml(String lastModificationDate, String url)
+	public static String getLastModificationDate(String itemXml)
+	{
+		String result = "";
+		int index = itemXml.indexOf("last-modification-date");
+		if (index > 0)
+		{
+			itemXml = itemXml.trim().substring(index + "last-modification-date".length() + 2);
+			index = itemXml.indexOf('\"');
+			if (index > 0)
+			{
+				result = itemXml.substring(0, index);
+			}
+		}
+		return result;
+	}
+
+	private String getParamXml(String lastModificationDate, String url)
     {
         StringBuffer paramXml = new StringBuffer(2048);
         

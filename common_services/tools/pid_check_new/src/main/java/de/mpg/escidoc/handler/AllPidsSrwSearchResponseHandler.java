@@ -68,7 +68,7 @@ public class AllPidsSrwSearchResponseHandler extends DefaultHandler
             if ("".equals(currentPid) && !"external-url".equals(currentStorageType))
             {
                 numberOfPidsMissing++;
-                logger.warn("No component pid found for <" + currentComponentId + ">");
+                logger.warn("No component pid found for componentId <" + currentComponentId + ">");
             }
             currentPid = "";   
             currentStorageType = "";
