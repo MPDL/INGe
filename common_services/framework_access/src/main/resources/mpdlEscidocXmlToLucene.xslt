@@ -655,6 +655,22 @@ Notes:
 	
 	</xsl:template>
 	
+	
+	<!-- REMOVE TAG -->
+	<xsl:template name="substring-before">
+		<xsl:param name="str"/>
+		<xsl:param name="delimiter"/>
+		<xsl:choose>
+			<xsl:when test="contains($str, $delimiter)">
+				<xsl:value-of select="substring-before($str, $delimiter)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	
 	<!-- REPLACE STRING -->
 	<xsl:template name="replace-substring">
 		<xsl:param name="original"/>
@@ -1803,6 +1819,7 @@ Notes:
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
+		
 		<userdefined-index name="any-genre">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1815,6 +1832,22 @@ Notes:
 			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
 				<element index="TOKENIZED">
 					<xsl:value-of select="./@type"/>
+				</element>
+			</xsl:for-each>
+		</userdefined-index>
+		
+		<userdefined-index name="genre-without-uri">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<xsl:for-each select="$ITEM_METADATAPATH//*">
+				<element index="TOKENIZED">
+					<xsl:value-of select="string-helper:getSubstringAfterLast(./@type,'/')"/>
+				</element>
+			</xsl:for-each>
+			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+				<element index="TOKENIZED">
+					<xsl:value-of select="string-helper:getSubstringAfterLast(./@type,'/')"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -1860,6 +1893,87 @@ Notes:
 				</element>
 				<element index="TOKENIZED">
 					<xsl:value-of select="./*[local-name()='created']"/>
+				</element>
+			</xsl:for-each>
+		</userdefined-index>
+		<userdefined-index name="any-dates-year-only">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<xsl:for-each select="$ITEM_METADATAPATH//*">
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='issued']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='modified']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='created']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+			</xsl:for-each>
+			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+					<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='issued']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='modified']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template>
+						<xsl:with-param name="str" select="./*[local-name()='created']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>

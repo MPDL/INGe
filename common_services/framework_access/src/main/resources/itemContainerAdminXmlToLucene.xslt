@@ -925,6 +925,88 @@ Notes:
 		</xsl:for-each>
 	</userdefined-index>
 	
+	<userdefined-index name="any-dates-year-only">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='issued']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='modified']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='created']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+				<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='issued']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='modified']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+			<element index="TOKENIZED">
+				<xsl:call-template>
+					<xsl:with-param name="str" select="./*[local-name()='created']"/>
+					<xsl:with-param name="delimiter" select="'-'"/>
+				</xsl:call-template>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+	
 	<userdefined-index name="any-identifier">
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
@@ -1098,6 +1180,22 @@ Notes:
 				<xsl:if test="string($objectId) and normalize-space($objectId)!=''">
 					<xsl:value-of select="escidoc-core-accessor:getObjectAttribute( concat('/oum/organizational-unit/',$objectId,'/resources/path-list'),'/organizational-unit-path-list/organizational-unit-path/organizational-unit-ref','href','http://www.w3.org/1999/xlink','false','true')"/>
 				</xsl:if>
+			</element>
+		</xsl:for-each>
+	</userdefined-index>
+	
+	<userdefined-index name="genre-without-uri">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<xsl:for-each select="$ITEM_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast(./@type,'/')"/>
+			</element>
+		</xsl:for-each>
+		<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast(./@type,'/')"/>
 			</element>
 		</xsl:for-each>
 	</userdefined-index>
