@@ -314,28 +314,30 @@ Notes:
         <!-- eg first-name or publication.creator.person.first-name -->
         <xsl:param name="nametype"/>
         <xsl:if test="string(text()) and normalize-space(text())!=''">
-            <xsl:call-template name="writeIndexField">
-                <xsl:with-param name="context" select="$context"/>
-                <xsl:with-param name="fieldname" select="$path"/>
-                <xsl:with-param name="fieldvalue" select="text()"/>
-                <xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-                <xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-            </xsl:call-template>
-             <!-- ADDITIONALLY WRITE VALUE IN metadata-index -->
-			<xsl:call-template name="writeIndexField">
-				<xsl:with-param name="context" select="$CONTEXTNAME"/>
-				<xsl:with-param name="fieldname">metadata</xsl:with-param>
-				<xsl:with-param name="fieldvalue">
-					<xsl:call-template name="removeSubSupStr">
-						<xsl:with-param name="name" select="$path"/>
-						<xsl:with-param name="str" select="text()"/>
-					</xsl:call-template>
-				</xsl:with-param>
-<!--				<xsl:with-param name="fieldvalue" select="text()"/>-->
-				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-			</xsl:call-template>
-            
+        	<!-- Exclude visibility for Locators (components with storage = external-url), see Jira PUBMAN-2627 -->
+			<xsl:if test="not(local-name()='visibility' and ../following-sibling::*[local-name()='content']/@storage='external-url')">
+	            <xsl:call-template name="writeIndexField">
+	                <xsl:with-param name="context" select="$context"/>
+	                <xsl:with-param name="fieldname" select="$path"/>
+	                <xsl:with-param name="fieldvalue" select="text()"/>
+	                <xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+	                <xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+	            </xsl:call-template>
+	             <!-- ADDITIONALLY WRITE VALUE IN metadata-index -->
+				<xsl:call-template name="writeIndexField">
+					<xsl:with-param name="context" select="$CONTEXTNAME"/>
+					<xsl:with-param name="fieldname">metadata</xsl:with-param>
+					<xsl:with-param name="fieldvalue">
+						<xsl:call-template name="removeSubSupStr">
+							<xsl:with-param name="name" select="$path"/>
+							<xsl:with-param name="str" select="text()"/>
+						</xsl:call-template>
+					</xsl:with-param>
+	<!--				<xsl:with-param name="fieldvalue" select="text()"/>-->
+					<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+					<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+				</xsl:call-template>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="$indexAttributes='yes'">
             <!-- ITERATE ALL ATTRIBUTES AND WRITE ELEMENT-NAME, ATTRIBUTE-NAME AND ATTRIBUTE-VALUE -->
