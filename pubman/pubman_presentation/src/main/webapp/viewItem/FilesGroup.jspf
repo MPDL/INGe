@@ -84,7 +84,7 @@
 <!-- File Permalink -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemFull_lblCiteFileAs}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLink id="lnkFileHandle" value="#{ViewItemFull.resolveHandleService}#{file.file.pidWithoutPrefix}" rendered="#{ViewItemFull.isStateReleased and file.file.pid != null and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
