@@ -1902,75 +1902,75 @@ Notes:
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH//*">
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='issued']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='modified']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='created']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
-					<element index="TOKENIZED">
-					<xsl:call-template>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='issued']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='modified']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:call-template>
+					<xsl:call-template name="substring-before">
 						<xsl:with-param name="str" select="./*[local-name()='created']"/>
 						<xsl:with-param name="delimiter" select="'-'"/>
 					</xsl:call-template>
