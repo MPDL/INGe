@@ -656,7 +656,7 @@ Notes:
 	</xsl:template>
 	
 	
-	<!-- REMOVE TAG -->
+	<!-- Substring before delimeter. If no delimter found, return original string -->
 	<xsl:template name="substring-before">
 		<xsl:param name="str"/>
 		<xsl:param name="delimiter"/>

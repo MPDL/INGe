@@ -636,6 +636,22 @@ Notes:
 	
 	</xsl:template>
 	
+	
+	<!-- Substring before delimeter. If no delimter found, return original string -->
+	<xsl:template name="substring-before">
+		<xsl:param name="str"/>
+		<xsl:param name="delimiter"/>
+		<xsl:choose>
+			<xsl:when test="contains($str, $delimiter)">
+				<xsl:value-of select="substring-before($str, $delimiter)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	
 	<!-- REPLACE STRING -->
 	<xsl:template name="replace-substring">
 		<xsl:param name="original"/>
