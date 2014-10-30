@@ -195,7 +195,7 @@
 							<includeClassifiers>sources</includeClassifiers>
 							<type>jar</type>
 							<includes>**/pubman.properties, **/conf.xml, **/auth.properties, */pubman.properties, **/conf.xml, **/solution.properties, **/apache-fop-config.xml</includes>
-							<outputDirectory>src/main/resources</outputDirectory>
+							<outputDirectory>${project.name}/src/main/resources</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
@@ -217,7 +217,7 @@
 	               </execution>
 	           </executions>
 	           <configuration>
-	               <file>src/main/resources/pubman.properties</file>
+	               <file>${project.name}/src/main/resources/pubman.properties</file>
 	               <regex>false</regex>
 	               <replacements>
 	                   <replacement>
