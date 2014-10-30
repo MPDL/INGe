@@ -7,7 +7,6 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.rmi.RemoteException;
 import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
@@ -16,12 +15,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.commons.io.FileUtils;
 
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.ComponentNotFoundException;
-import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.handler.AllPidsSrwSearchResponseHandler;
 import de.mpg.escidoc.handler.SrwSearchResponseHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -107,7 +100,7 @@ public class MissingPidsCorrectManager extends AbstractConsistencyCheckManager i
                         logger.info("no component pids missing for <" + srwSearchResponseHandler.getEscidocId() + ">");
                     }
                         
-                    /*if (i >= 1)
+                    /*if (i >= 10)
                         break;*/
                 }
             }
