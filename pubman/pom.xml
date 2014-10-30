@@ -221,9 +221,7 @@
 		<module>pubman_logic_ear</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-		<!-- 
 		<module>pubman_installer</module>
-		-->
 	</modules>
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</connection>
@@ -402,6 +400,11 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>2.9.1</version>
 				</plugin>
+				<plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-resources-plugin</artifactId>
+			        <version>2.6</version>
+        		</plugin>
 			</plugins>
 		</pluginManagement>
 		<extensions>
@@ -598,6 +601,7 @@
 		<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
@@ -875,6 +879,7 @@
 			<properties>
 				<!-- URL of the FIZ framework instance -->
 				<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+				<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 				<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>/usr/share/pubman/standalone/data/pubman_db/db</escidoc.import.database.name>
@@ -1148,6 +1153,20 @@
 											<versionRange>[1.0.0,)</versionRange>
 											<goals>
 												<goal>copy-dependencies</goal>
+												<goal>unpack-dependencies</goal>
+											</goals>
+										</pluginExecutionFilter>
+										<action>
+											<ignore />
+										</action>
+									</pluginExecution>
+									<pluginExecution>
+										<pluginExecutionFilter>
+											<groupId>com.google.code.maven-replacer-plugin</groupId>
+											<artifactId>replacer</artifactId>
+											<versionRange>[1.5.3,)</versionRange>
+											<goals>
+												<goal>replace</goal>
 											</goals>
 										</pluginExecutionFilter>
 										<action>
