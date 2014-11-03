@@ -520,25 +520,25 @@
 		<jboss.property.2>com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0</jboss.property.2>
 		
 		<!-- version of the common_services dependencies -->
-		<version.aa_logic>0.2.23-SNAPSHOT</version.aa_logic>
-		<version.aa_presentation>0.2.23-SNAPSHOT</version.aa_presentation>
-		<version.citationmanager>1.0.90-SNAPSHOT</version.citationmanager>
-		<version.common_logic>1.1.85-SNAPSHOT</version.common_logic>
-		<version.common_presentation>1.0.74-SNAPSHOT</version.common_presentation>
-		<version.cone>1.2.45-SNAPSHOT</version.cone>
-		<version.cone_presentation>1.2.45-SNAPSHOT</version.cone_presentation>
-		<version.dataacquisition>1.0.81-SNAPSHOT</version.dataacquisition>
-		<version.dataacquisition_presentation>1.0.81-SNAPSHOT</version.dataacquisition_presentation>
-		<version.framework_access>1.3.30-SNAPSHOT</version.framework_access>
-		<version.pid_cache_presentation>0.1.48-SNAPSHOT</version.pid_cache_presentation>
-		<version.search>1.1.19-SNAPSHOT</version.search>
-		<version.search_presentation>1.1.19-SNAPSHOT</version.search_presentation>
-		<version.structuredexportmanager>1.0.88-SNAPSHOT</version.structuredexportmanager>
-		<version.sword_presentation>1.0.63-SNAPSHOT</version.sword_presentation>
-		<version.syndication_presentation>1.0.69-SNAPSHOT</version.syndication_presentation>
-		<version.transformation>1.0.73-SNAPSHOT</version.transformation>
-		<version.validation>1.0.92-SNAPSHOT</version.validation>
-		<version.validation_presentation>1.0.92-SNAPSHOT</version.validation_presentation>
+		<version.aa_logic>0.2.23</version.aa_logic>
+		<version.aa_presentation>0.2.23</version.aa_presentation>
+		<version.citationmanager>1.0.90</version.citationmanager>
+		<version.common_logic>1.1.85</version.common_logic>
+		<version.common_presentation>1.0.74</version.common_presentation>
+		<version.cone>1.2.45</version.cone>
+		<version.cone_presentation>1.2.45</version.cone_presentation>
+		<version.dataacquisition>1.0.81</version.dataacquisition>
+		<version.dataacquisition_presentation>1.0.81</version.dataacquisition_presentation>
+		<version.framework_access>1.3.30</version.framework_access>
+		<version.pid_cache_presentation>0.1.48</version.pid_cache_presentation>
+		<version.search>1.1.19</version.search>
+		<version.search_presentation>1.1.19</version.search_presentation>
+		<version.structuredexportmanager>1.0.88</version.structuredexportmanager>
+		<version.sword_presentation>1.0.63</version.sword_presentation>
+		<version.syndication_presentation>1.0.69</version.syndication_presentation>
+		<version.transformation>1.0.73</version.transformation>
+		<version.validation>1.0.92</version.validation>
+		<version.validation_presentation>1.0.92</version.validation_presentation>
 		
 
 		<!-- URL of this PubMan instance -->
