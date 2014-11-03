@@ -30,19 +30,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
-		<version>7.8.1-SNAPSHOT</version>
+		<version>7.8.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_installer</artifactId>
 	<name>pubman_installer</name>
 	<packaging>jar</packaging>
-	<version>7.8.1-SNAPSHOT</version>
+	<version>7.8.1</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.8.1/pubman_installer</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.8.1/pubman_installer</developerConnection>
+		<url>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.8.1/pubman</url>
 	</scm>
 	
 	<build>
@@ -232,23 +232,23 @@
 	               <replacements>
 	                   <replacement>
 	                       <token>{framework.admin.password}</token>
-	                       <value></value>
+	                       <value />
 	                   </replacement>
 	                   <replacement>
 	                       <token>{escidoc.pubman_presentation.email.authenticationpwd}</token>
-	                       <value></value>
+	                       <value />
 	                   </replacement>
 	                   <replacement>
 	                       <token>{escidoc.cone.database.user.password}</token>
-	                       <value></value>
+	                       <value />
 	                   </replacement>
 	                   <replacement>
 	                       <token>{escidoc.pidcache.user.password}</token>
-	                       <value></value>
+	                       <value />
 	                   </replacement>
 	                   <replacement>
 	                       <token>{escidoc.pid.gwdg.user.password}</token>
-	                       <value></value>
+	                       <value />
 	                   </replacement>
 	                   <!-- 
 	                   <replacement>
@@ -300,7 +300,7 @@
 		<staging.dir>${project.build.directory}/staging</staging.dir>
 		<version.izpack-standalone>4.3.0</version.izpack-standalone>
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
-		<framework.admin.password></framework.admin.password>
+		<framework.admin.password />
 		
 	</properties>
 	
@@ -314,7 +314,7 @@
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>			
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.cone.database.server.name>localhost</escidoc.cone.database.server.name>
-				<framework.admin.password></framework.admin.password>
+				<framework.admin.password />
 			</properties>
 			<build>
 			<!-- 

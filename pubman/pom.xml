@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>7.8.1-SNAPSHOT</version>
+	<version>7.8.1</version>
 	<name>pubman</name>
 	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
@@ -224,9 +224,9 @@
 		<module>pubman_installer</module>
 	</modules>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.8.1</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.8.1</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/pubman/tags/pubman-7.8.1</url>
 	</scm>
 	<repositories>
 		<repository>
@@ -652,8 +652,8 @@
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<!-- Blog integration -->
-		<escidoc.pubman.blog.baseUrl></escidoc.pubman.blog.baseUrl>
-		<escidoc.pubman.blog.news></escidoc.pubman.blog.news>
+		<escidoc.pubman.blog.baseUrl />
+		<escidoc.pubman.blog.news />
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
