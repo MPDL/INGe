@@ -83,34 +83,34 @@
 						<td>pubman_logic</td>
 						<td>Provides the logic of PubMan</td>
 						<td>
-							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/pubman_logic/">nexus dir</a>
+							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/wildfly/pubman_logic/">nexus dir</a>
 						</td>
 					
 					</tr>
 					<td>pubman_presentation</td>
 					<td>Provides the presentation layer of PubMan</td>
 					<td>
-						<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/pubman_presentation">nexus dir</a>
+						<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/wildfly/pubman_presentation">nexus dir</a>
 					</td>
 					<tr>
 						<td>pubman_ear</td>
 						<td>Provides the ear, the deployable to jboss servers</td>
 						<td>
-							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/pubman_ear">nexus dir</a>
+							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/wildfly/pubman_ear">nexus dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>pubman_logic_ear</td>
 						<td>Pubman logic integration tests</td>
 						<td>
-							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/pubman_logic_ear">nexus dir</a>
+							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/wildfly/pubman_logic_ear">nexus dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>pubman_installer</td>
 						<td>Pubman Installer</td>
 						<td>
-							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/pubman_installer">nexus dir</a>
+							<a href="http://rd.mpdl.mpg.de/nexus/content/repositories/releases/de/mpg/escidoc/pubman/wildfly/pubman_installer">nexus dir</a>
 						</td>
 					</tr>
 				</tbody>
