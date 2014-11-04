@@ -47,14 +47,11 @@ public class HtmlUtils
 {
 	
 	private static final Pattern SUBS_OR_SUPS = Pattern.compile(
-			"\\<(\\/?su[bp])\\>",			
+			"\\<(\\/?(su[bp]|SU[BP]))\\>",			
 			Pattern.DOTALL
 	);
 	
-	private static final Pattern SUBS_OR_SUPS_2 = Pattern.compile(
-			"\\<(\\/?)(su[bp])\\>",			
-			Pattern.DOTALL
-	);	
+
 	
 	/**
 	 * Check of the balanced tags sup/sub
@@ -67,11 +64,11 @@ public class HtmlUtils
 			return true; 
 		
 		Stack<String> s = new Stack<String>();
-		Matcher m = SUBS_OR_SUPS.matcher(snippet.toLowerCase());
+		Matcher m = SUBS_OR_SUPS.matcher(snippet);
 		while (m.find()) 
 		{
 			String tag = m.group(1);
-			if( tag.startsWith("su") )
+			if( tag.toLowerCase().startsWith("su") )
 			{
 				s.push(tag);
 			}
@@ -100,7 +97,7 @@ public class HtmlUtils
 		int removeLastCharacters = 0;
 		
 		Stack<SubSupTag> s = new Stack<SubSupTag>();
-		Matcher m = Pattern.compile("\\<(\\/?)(\\S+?)\\>",	Pattern.DOTALL).matcher(snippet.toLowerCase());
+		Matcher m = Pattern.compile("\\<(\\/?)(\\S+?)\\>",	Pattern.DOTALL).matcher(snippet);
 		
 		List<SubSupTag> tagListToBeClosed = new ArrayList<HtmlUtils.SubSupTag>();
 
@@ -109,7 +106,7 @@ public class HtmlUtils
 			String slash = m.group(1);
 			String tag = m.group(2);
 			
-			if(tagsNotToBeEscaped.contains(tag.toLowerCase()))
+			if(tagsNotToBeEscaped.contains(tag))
 			{
 			
 				TagType tagType = null;
@@ -124,7 +121,7 @@ public class HtmlUtils
 					tagType = TagType.END;
 				}
 	
-				SubSupTag subSupTag = new HtmlUtils().new SubSupTag(tag.toLowerCase(), tagType, m.start(), m.end());
+				SubSupTag subSupTag = new HtmlUtils().new SubSupTag(tag, tagType, m.start(), m.end());
 				
 				if(TagType.BEGIN.equals(subSupTag.getTagType()))
 				{
@@ -199,13 +196,12 @@ public class HtmlUtils
 	    	
 	    	if(tagNameExceptions!=null && !tagNameExceptions.isEmpty())
 	    	{
-	    		snippet = Pattern.compile("\\<(?!(\\/?("+ exceptions.toString() +")))", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
+	    		snippet = Pattern.compile("\\<(?!(\\/?("+ exceptions.toString() +")))", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
 	    	}
 	    	else
 	    	{
-	    		snippet = Pattern.compile("\\<", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
+	    		snippet = Pattern.compile("\\<", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
 	    	}
-			
 	    	return snippet;
 			
 		}
