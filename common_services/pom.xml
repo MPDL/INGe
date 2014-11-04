@@ -289,7 +289,7 @@
 			<dependency>
 				<groupId>org.wildfly</groupId>
 				<artifactId>wildfly-ejb-client-bom</artifactId>
-				<version>8.0.0.Final</version>
+				<version>8.1.0.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
