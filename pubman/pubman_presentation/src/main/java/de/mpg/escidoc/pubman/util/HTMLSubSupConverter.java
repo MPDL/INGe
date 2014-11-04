@@ -28,6 +28,8 @@ public class HTMLSubSupConverter implements Converter{
         List<String> tags = new ArrayList<String>();
         tags.add("sup");
         tags.add("sub");
+        tags.add("SUB");
+        tags.add("SUP");
 		return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
 	}
 	

@@ -34,6 +34,8 @@ public class HTMLSubSupShortTitleConverter implements Converter{
         List<String> tags = new ArrayList<String>();
         tags.add("sup");
         tags.add("sub");
+        tags.add("SUB");
+        tags.add("SUP");
         
         if(snippet.length()>LENGTH)
         {
