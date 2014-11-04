@@ -91,7 +91,7 @@ public class XsltHelper {
 			FLAGS
 	);
 	private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile(
-			"\\<(?!(\\/?style)|(\\/?su[bp]))",			
+			"\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))",			
 			FLAGS
 	);
 	private static final Pattern I18_TAGS = Pattern.compile(
@@ -100,7 +100,7 @@ public class XsltHelper {
 	);
 	
 	private static final Pattern SUBS_OR_SUPS = Pattern.compile(
-			"\\<(\\/?su[bp])\\>",			
+			"\\<(\\/?(su[bp]|SU[BP]))\\>",			
 			Pattern.DOTALL
 	);
 
@@ -192,11 +192,11 @@ public class XsltHelper {
 			return true; //????
 		
 		Stack<String> s = new Stack<String>();
-		Matcher m = SUBS_OR_SUPS.matcher(snippet.toLowerCase());
+		Matcher m = SUBS_OR_SUPS.matcher(snippet);
 		while (m.find()) 
 		{
 			String tag = m.group(1);
-			if( tag.startsWith("su") )
+			if( tag.toLowerCase().startsWith("su"))
 			{
 				s.push(tag);
 			}
