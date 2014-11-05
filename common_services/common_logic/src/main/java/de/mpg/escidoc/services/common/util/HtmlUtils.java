@@ -65,7 +65,7 @@ public class HtmlUtils
 		
 		Stack<String> s = new Stack<String>();
 		Matcher m = SUBS_OR_SUPS.matcher(snippet);
-		while (m.find()) 
+		while (m.find())
 		{
 			String tag = m.group(1);
 			if( tag.toLowerCase().startsWith("su") )
@@ -208,7 +208,20 @@ public class HtmlUtils
 	
 	
 	
-	
+	    /**
+	     * Removes sub and sup tags from a string if tags are balanced
+	     * @param snippet
+	     * @return
+	     */
+	    public static String removeSubSupIfBalanced(String snippet)
+	    {
+	    	if(HtmlUtils.isBalanced(snippet))
+	    	{
+	    		snippet = SUBS_OR_SUPS.matcher(snippet).replaceAll("");
+	    	}
+	    	return snippet;
+	        	
+	    }
 	
 	private enum TagType
 	{
