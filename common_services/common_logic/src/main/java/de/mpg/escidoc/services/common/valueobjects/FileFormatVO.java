@@ -96,6 +96,9 @@ public class FileFormatVO extends ValueObject
     
     public static final String EDOC_EXPORT_NAME = "edoc_export";
     public static final String EDOC_EXPORT_MIMETYPE = "application/xml";
+    
+    public static final String DOCX_NAME = "docx";
+    public static final String DOCX_MIMETYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
     public static final String DEFAULT_NAME = PDF_NAME;
     public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
@@ -121,6 +124,7 @@ public class FileFormatVO extends ValueObject
                 put(EDOC_IMPORT_NAME, "xml");
                 put(EDOC_EXPORT_NAME, "xml");
                 put(DEFAULT_NAME, "pdf");
+                put(DOCX_NAME, "docx");
 	    	}  
     	};
 	private static final Map<String, String> formatMimeTypes =   
@@ -142,6 +146,7 @@ public class FileFormatVO extends ValueObject
                 put(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE);
                 put(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE);
     			put(DEFAULT_NAME, DEFAULT_MIMETYPE);
+    			put(DOCX_NAME, DOCX_MIMETYPE);
     		}  
 		};
 	private static final Map<String, String> formatCharsets =   
