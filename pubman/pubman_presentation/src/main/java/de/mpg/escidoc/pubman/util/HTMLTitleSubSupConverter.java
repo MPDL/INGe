@@ -4,6 +4,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
+import de.mpg.escidoc.services.common.util.HtmlUtils;
+
 /**
  * Removes all sub and sup tags from a string, used for browser title
  *
@@ -22,7 +24,7 @@ public class HTMLTitleSubSupConverter implements Converter{
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object object) 
 	{
         String snippet = (String) object;
-		return CommonUtils.removeSubSupIfBalanced(snippet);
+		return HtmlUtils.removeSubSupIfBalanced(snippet);
 	}
 
 }

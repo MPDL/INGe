@@ -506,39 +506,8 @@ public class CommonUtils extends InternationalizedImpl
     }
     
    
-    /**
-     * Removes sub and sup tags from a string if tags are balanced
-     * @param snippet
-     * @return
-     */
-    public static String removeSubSupIfBalanced(String snippet)
-    {
-    	if(HtmlUtils.isBalanced(snippet))
-    	{
-    		snippet = Utils.replaceAllTotal(snippet, "\\<((\\/?su[bp]))\\>", "");
-    	}
-    	return snippet;
-        	
-    }
+
     
-    /**
-     * Escapes html tags except sub and sup tags, if they are balanced
-     * @param snippet
-     * @return
-     */
-    public static String escapeHtmlExceptSubSup(String snippet)
-    {
-    	snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
-		if(HtmlUtils.isBalanced(snippet))
-		{
-			snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?su[bp]))", "&lt;");
-		}
-		else
-		{
-			snippet = Utils.replaceAllTotal(snippet, "\\<", "&lt;");
-		}
-		return snippet;
-	}
     
 
     /**

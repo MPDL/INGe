@@ -52,6 +52,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
+import de.mpg.escidoc.services.common.util.HtmlUtils;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
@@ -1620,7 +1621,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             descriptionMetaTag += "; " + getLabel("ViewItemFull_lblTitle") + ": " + getMetadata().getTitle().getValue() ;
         }
 
-        descriptionMetaTag = CommonUtils.removeSubSupIfBalanced(descriptionMetaTag);
+        descriptionMetaTag = HtmlUtils.removeSubSupIfBalanced(descriptionMetaTag);
         descriptionMetaTag = CommonUtils.htmlEscape(descriptionMetaTag);
         return descriptionMetaTag;
     }
