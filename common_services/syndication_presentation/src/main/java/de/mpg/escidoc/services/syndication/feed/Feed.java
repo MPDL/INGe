@@ -80,6 +80,7 @@ import com.sun.syndication.io.FeedException;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.util.HtmlUtils;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -684,12 +685,13 @@ public class Feed extends SyndFeedImpl
 			MdsPublicationVO md = pi.getMetadata();
 			
 			//Content
+			
+			/*
 			SyndContent scont = new SyndContentImpl();
 			scont.setType("application/xml");
 			try {
-				//        	 		logger.info("XML"  + xt.transformToItem( pi ));
 				String itemXml = replaceXmlHeader(xt.transformToItem( pi ));
-//				logger.info(itemXml);
+
 				scont.setValue( itemXml );
 				if ( "atom_0.3".equals(getFeedType()) )
 					scont.setMode(Content.XML);
@@ -700,9 +702,9 @@ public class Feed extends SyndFeedImpl
 			}; 
 
 			se.setContents(Arrays.asList(scont));
-
+*/
 			//
-			se.setTitle( md.getTitle().getValue() );
+			se.setTitle(HtmlUtils.removeSubSupIfBalanced(md.getTitle().getValue()));
 
 			//Description ??? optional
 			List abs = md.getAbstracts();
@@ -718,7 +720,7 @@ public class Feed extends SyndFeedImpl
 			TextVO subj = md.getFreeKeywords(); 
 			if( subj != null && Utils.checkVal( subj.getValue() ) )
 			{
-				List categories = new ArrayList();
+				List<SyndCategory> categories = new ArrayList<SyndCategory>();
 				SyndCategory scat = new SyndCategoryImpl();
 				scat.setName(subj.getValue());
 				categories.add(scat);
@@ -728,40 +730,36 @@ public class Feed extends SyndFeedImpl
 
 			if ( Utils.checkList(md.getCreators())  )
 			{
-				List authors = new ArrayList();
-//				List contributors = new ArrayList();
+				List<SyndPerson> authors = new ArrayList<SyndPerson>();
 				SyndPerson sp;
-
-				for (  CreatorVO creator : (List<CreatorVO>) md.getCreators()  )
+				StringBuffer allCrs = new StringBuffer();
+				int  counter = 0;
+				for (  CreatorVO creator :  md.getCreators()  )
 				{
-					//					String crs = creator.getPerson() != null  ?
-					//							creator.getPerson().getCompleteName() : 
-					//								creator.getOrganization().getName().getValue();  
+
 					String crs = creator.getPerson() != null  ?
 							Utils.join( Arrays.asList(
 									creator.getPerson().getFamilyName()
 									,creator.getPerson().getGivenName()        	 						
 							), ", ")
 							: creator.getOrganization().getName().getValue();  
-							//        	 					logger.info("cerator--->" + crs);
-							//        	 					logger.info("Role--->" + creator.getRole());
 
-							sp = new SyndPersonImpl();
-							sp.setName(crs);
-							authors.add(sp);
-							// TODO: authors & contributors separately
-//							if ( creator.getRole() == CreatorRole.AUTHOR )
-//							{
-//								//Authors
-//								authors.add(sp);
-//							} 
-//							else // if ( creator.getRole() == CreatorRole.CONTRIBUTOR )
-//							{
-//								//Contributors
-//								contributors.add(sp);
-//							}
-
+					sp = new SyndPersonImpl();
+					sp.setName(crs);
+					authors.add(sp);
+					
+					
+					allCrs.append(crs);
+					if(counter+1 != md.getCreators().size())
+					{
+						allCrs.append("; ");
+					}
+					
+					counter++;
+					
 				} 
+				
+				se.setAuthor(allCrs.toString());
 				se.setAuthors(authors);
 //				se.setContributors(contributors);
 			}
