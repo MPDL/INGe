@@ -34,7 +34,7 @@
 	<xsl:param name="citation-link"/>
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
-	<xsl:param name="escidoc.pubman.common.presentation.url"/>
+	<xsl:param name="escidoc.common.presentation.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.contrast.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.classic.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.standard.url"/>
