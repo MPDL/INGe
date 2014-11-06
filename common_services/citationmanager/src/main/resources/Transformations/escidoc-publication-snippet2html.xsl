@@ -63,29 +63,32 @@
 	</xsl:template>
 	
 	<xsl:template match="dcterms:bibliographicCitation">
-		<xsl:element name="p">
-			<xsl:value-of select="jfunc:convertSnippetToHtml(.)" disable-output-escaping="yes"/>
-			<xsl:variable name="item" select="../../.."/>			
-			<xsl:if test="$html_linked">
-				<xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
-				 <xsl:element name="a">
-					<xsl:attribute name="href" select="
-						concat(
-							$pubman_instance,
-		    				'/item/', 
-		    				$item/escidocItem:properties/prop:version/@objid
-			    			)"
-			    		/>
-					<xsl:attribute name="class" select="'Item'"/>[Item] </xsl:element>
-				<xsl:variable name="comp" select="$item/escidocComponents:components/escidocComponents:component"/>			
-				<xsl:for-each select="$comp[escidocComponents:content/@storage='internal-managed' and escidocComponents:properties/prop:visibility = 'public']/escidocComponents:content">
-					<a><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'File'"/><span><xsl:value-of select="concat('[File ', position(), ']')"/></span></a>
-				</xsl:for-each>
-				<xsl:for-each select="$comp/escidocComponents:content[@storage!='internal-managed']">
-					<xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'Locator'"/><xsl:element name="span"><xsl:value-of select="concat('[Locator ', position(), ']')"/></xsl:element></xsl:element>
-				</xsl:for-each>
-			</xsl:if>
-		</xsl:element>
+		<xsl:variable name="citation" select="jfunc:convertSnippetToHtml(.)"/>
+		<xsl:if test="$citation">
+			<xsl:element name="p">
+				<xsl:value-of select="$citation" disable-output-escaping="yes"/>
+				<xsl:variable name="item" select="../../.."/>			
+				<xsl:if test="$html_linked">
+					<xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
+					 <xsl:element name="a">
+						<xsl:attribute name="href" select="
+							concat(
+								$pubman_instance,
+			    				'/item/', 
+			    				$item/escidocItem:properties/prop:version/@objid
+				    			)"
+				    		/>
+						<xsl:attribute name="class" select="'Item'"/>[Item] </xsl:element>
+					<xsl:variable name="comp" select="$item/escidocComponents:components/escidocComponents:component"/>			
+					<xsl:for-each select="$comp[escidocComponents:content/@storage='internal-managed' and escidocComponents:properties/prop:visibility = 'public']/escidocComponents:content">
+						<a><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'File'"/><span><xsl:value-of select="concat('[File ', position(), ']')"/></span></a>
+					</xsl:for-each>
+					<xsl:for-each select="$comp/escidocComponents:content[@storage!='internal-managed']">
+						<xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'Locator'"/><xsl:element name="span"><xsl:value-of select="concat('[Locator ', position(), ']')"/></xsl:element></xsl:element>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	
 </xsl:stylesheet>
