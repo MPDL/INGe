@@ -40,7 +40,6 @@
 	<xsl:param name="escidoc.pubman.stylesheet.standard.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.special.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.special.apply"/>
-	<xsl:param name="escidoc.common.presentation.url"/>
 	
 	
 	<xsl:variable name="defaultLang" select="'en'"/>
