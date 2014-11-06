@@ -40,6 +40,10 @@
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_plain</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -69,7 +73,7 @@
 		</output-format>		
 		<dc:creator>vmakarenko</dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>
 	<export-format type="layout" context="PubMan">
 		<dc:title>APA(CJK) Citation Style</dc:title>
@@ -83,6 +87,10 @@
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_plain</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -112,7 +120,7 @@
 		</output-format>		
 		<dc:creator>vmakarenko</dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>	
 	<export-format type="layout" context="PubMan">
 		<dc:title>APA6 Citation Style</dc:title>
@@ -126,6 +134,10 @@
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_plain</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -155,7 +167,7 @@
 		</output-format>		
 		<dc:creator>vmakarenko</dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>	
 	<export-format type="layout" context="PubMan">
 		<dc:title>AJP Citation Style</dc:title>
@@ -169,6 +181,10 @@
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_plain</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -198,7 +214,7 @@
 		</output-format>		
 		<dc:creator>vmakarenko</dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>
 	<export-format type="layout" context="PubMan">
 		<dc:title>JUS Citation Style</dc:title>
@@ -212,6 +228,10 @@
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_plain</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -241,7 +261,7 @@
 		</output-format>		
 		<dc:creator></dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>	
 	<export-format type="layout" context="PubMan">
 		<dc:title>JUS_Report Citation Style</dc:title>
@@ -255,6 +275,10 @@
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_plain</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -284,7 +308,7 @@
 		</output-format>		
 		<dc:creator></dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>		
 	<export-format type="layout" context="PubMan">
 		<dc:title>Default Citation Style</dc:title>
@@ -296,6 +320,10 @@
 		<output-format>
 			<dc:title>rtf</dc:title>
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
 		</output-format>
 		<output-format>
 			<dc:title>html_plain</dc:title>
@@ -327,7 +355,7 @@
 		</output-format>		
 		<dc:creator>vmakarenko</dc:creator>
 		<open>false</open>
-		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf rtf docx html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>		
 	<!-- export-format type="layout" context="PubMan">
 		<dc:title>Test Citation Style</dc:title>
@@ -382,6 +410,11 @@
 			<dc:title>rtf</dc:title>
 			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
 			<file-ext>rtf</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>docx</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.openxmlformats-officedocument.wordprocessingml.document</dc:format>
+			<file-ext>docx</file-ext>
 		</output-format>
 		<output-format>
 			<dc:title>html_plain</dc:title>

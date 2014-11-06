@@ -33,10 +33,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -58,6 +61,15 @@ import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 
 import org.apache.log4j.Logger;
+import org.apache.tika.sax.XHTMLContentHandler;
+import org.docx4j.convert.in.xhtml.FormattingOption;
+import org.docx4j.convert.in.xhtml.XHTMLImporter;
+import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.P;
+import org.docx4j.wml.PPrBase.PStyle;
+import org.docx4j.wml.R;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
@@ -188,7 +200,44 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			}
 			else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat))
 			{
-				result = generateHtmlOutput(snippet, outputFormat).getBytes("UTF-8");
+				result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
+			}
+			else if ("docx".equals(outputFormat))
+			{
+				String htmlResult = generateHtmlOutput(snippet, "html_plain", "xhtml", false);
+				WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
+				XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
+				MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
+				//mdp.addStyledParagraphOfText("Title", "Citation Style " + cs);
+
+				List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult,null);
+				
+				
+				//Remove line-height information for every paragraph
+				for(Object xhtmlObject : xhtmlObjects)
+				{
+					try {
+						P paragraph = (P) xhtmlObject;
+						paragraph.getPPr().setSpacing(null);
+					} catch (Exception e) {
+						logger.error("Error while removing spacing information during docx export");
+					}
+					
+				}
+				
+				
+				mdp.getContent().addAll(xhtmlObjects);
+				
+				//Set global space after each paragraph
+				mdp.getStyleDefinitionsPart().getStyleById("DocDefaults").getPPr().getSpacing().setAfter(BigInteger.valueOf(500));
+				
+				
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				
+				wordOutputDoc.save(bos);
+				
+				bos.flush();
+				result = bos.toByteArray();
 			}
 			else
 			{
@@ -365,12 +414,15 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	 * @param html_format is linked format trigger, <code>false</code> by default  
 	 * @return String 
 	 */	
-	private String generateHtmlOutput(String snippets, String html_format)
+	private String generateHtmlOutput(String snippets, String html_format, String outputMethod, boolean indent)
 	{
 		StringWriter result = new StringWriter();
 		try 
 		{ 
 			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
+			transformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
+			
 			transformer.setParameter("pubman_instance", getPubManUrl());
 			if ("html_linked".equals(html_format))
 			{

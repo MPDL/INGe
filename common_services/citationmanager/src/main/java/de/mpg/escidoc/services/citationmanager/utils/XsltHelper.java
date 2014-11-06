@@ -269,7 +269,6 @@ public class XsltHelper {
 		}
 		snippet = m.appendTail(sb).toString();
 
-		
 		return snippet;
 	}	
 	

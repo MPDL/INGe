@@ -248,6 +248,22 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j</artifactId>
+		    <version>3.2.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-ImportXHTML</artifactId>
+		    <version>3.2.0</version>
+		</dependency>
+		<!-- Required for docx4j -->
+		<dependency>
+	        <groupId>com.googlecode.jaxb-namespaceprefixmapper-interfaces</groupId>
+	        <artifactId>JAXBNamespacePrefixMapper</artifactId>
+	        <version>2.2.4</version>
+     	</dependency>
 	</dependencies>
 	
 </project>
