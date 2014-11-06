@@ -229,7 +229,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 				mdp.getContent().addAll(xhtmlObjects);
 				
 				//Set global space after each paragraph
-				mdp.getStyleDefinitionsPart().getStyleById("DocDefaults").getPPr().getSpacing().setAfter(BigInteger.valueOf(500));
+				mdp.getStyleDefinitionsPart().getStyleById("DocDefaults").getPPr().getSpacing().setAfter(BigInteger.valueOf(400));
 				
 				
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();

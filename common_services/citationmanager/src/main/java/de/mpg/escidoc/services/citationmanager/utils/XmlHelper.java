@@ -771,7 +771,7 @@ public class XmlHelper {
 						"/export-formats/output-formats/output-format",
 						ResourceUtil.getResourceAsString(
 								ResourceUtil.SCHEMAS_DIRECTORY 
-							 	+ "explain-styles_new.xml"
+							 	+ "explain-styles.xml"
 						)
 				);
 			}
@@ -847,7 +847,7 @@ public class XmlHelper {
 						"/export-formats/export-format/identifier",
 						ResourceUtil.getResourceAsString(
 								ResourceUtil.SCHEMAS_DIRECTORY 
-							 	+ "explain-styles_new.xml"
+							 	+ "explain-styles.xml"
 						)
 				);
 			}
