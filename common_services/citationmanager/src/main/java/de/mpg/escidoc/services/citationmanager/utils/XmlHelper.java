@@ -354,7 +354,7 @@ public class XmlHelper {
 		   
 			
 		   //populate page header
-		   setPageHeader(jd, cs);
+		  // setPageHeader(jd, cs);
 		   
 		   //set default Report Style
 		   setDefaultReportStyle(jd, cs);

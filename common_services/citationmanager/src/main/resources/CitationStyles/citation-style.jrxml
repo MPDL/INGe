@@ -34,6 +34,7 @@
 			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</background>
+		<!--
 		<title>
 			<band height="52"  isSplitAllowed="true" >
 				<staticText>
@@ -88,6 +89,7 @@
 				</line>
 			</band>
 		</title>
+		-->
 		<pageHeader>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
