@@ -69,7 +69,7 @@
 				<xsl:value-of select="$citation" disable-output-escaping="yes"/>
 				<xsl:variable name="item" select="../../.."/>			
 				<xsl:if test="$html_linked">
-					<xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
+					<br/>
 					 <xsl:element name="a">
 						<xsl:attribute name="href" select="
 							concat(
