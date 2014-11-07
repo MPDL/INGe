@@ -172,6 +172,10 @@ public class XsltHelper {
 		if (snippet == null)
 			return null;
 		
+		//escape ampersands
+		snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
+		
+		//escape tags except <style> and optionally <sub><sup>
 		return Utils.replaceAllTotal(
 			snippet, 
 			isBalanced(snippet) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, 
