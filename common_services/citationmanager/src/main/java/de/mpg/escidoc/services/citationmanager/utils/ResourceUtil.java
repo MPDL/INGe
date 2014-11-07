@@ -53,9 +53,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.data.Loaders;
-import de.mpg.escidoc.services.citationmanager.data.Writers;
+
 import de.mpg.escidoc.services.transformation.TransformationBean;
 
 /**
@@ -475,6 +473,7 @@ public class ResourceUtil
      * @throws SAXException 
      * @throws CitationStyleManagerException 
      */
+    /*
     public static void createNewCitationStyle(ProcessCitationStyles pcs, String templName, String newName) throws JRException, IOException, CitationStyleManagerException, SAXException, CitationStyleManagerException 
     {
     	Utils.checkPcs(pcs);
@@ -505,6 +504,7 @@ public class ResourceUtil
         pcs.getCsc().getCitationStyleByName(templName).setName(newName);
         Writers.writeCitationStyleToXml(pcs, newName);
     }
+    /*
 
     /**
      * Creates new CitationStyle directory on hand of DefaultCitationStyle XMLs
@@ -516,11 +516,14 @@ public class ResourceUtil
      * @throws IOException 
      * @throws CitationStyleManagerException 
      */
+    /*
+     
     public static void createNewCitationStyle(ProcessCitationStyles pcs, String newName) throws JRException, CitationStyleManagerException, IOException, SAXException, CitationStyleManagerException 
     {
     	Utils.checkPcs(pcs);
         createNewCitationStyle(pcs, pcs.DEFAULT_STYLENAME, newName);
     }
+    */
 
 
 

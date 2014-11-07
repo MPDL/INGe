@@ -3,7 +3,6 @@ package de.mpg.escidoc.services.citationmanager.utils;
 import java.util.regex.Pattern;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import net.sf.jasperreports.engine.util.JRStringUtil;
  
 /*
@@ -77,10 +76,12 @@ public class Utils {
     		throw new CitationStyleManagerException(message);
     }
     
+    /*
 	public static void checkPcs(ProcessCitationStyles pcs) throws CitationStyleManagerException
 	{
 		Utils.checkCondition(pcs==null, "Empty ProcessCitationStyles instance");
 	}
+	*/
 	
 	public static void checkName(String name) throws CitationStyleManagerException
 	{
