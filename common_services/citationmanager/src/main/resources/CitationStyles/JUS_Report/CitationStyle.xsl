@@ -39,299 +39,299 @@
                 <xsl:variable name="citation">
                     <xsl:for-each select="../../mdr:md-records/mdr:md-record"><!--### Global Default Variables ###-->
 	<xsl:variable name="l_journal">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/journal'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/journal')"/>
                         </xsl:variable>
                         <xsl:variable name="l_article">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/article'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/article')"/>
                         </xsl:variable>
                         <xsl:variable name="l_issue">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/issue'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/issue')"/>
                         </xsl:variable>
                         <xsl:variable name="l_book">
-                            <xsl:value-of select="'http://purl.org/eprint/type/Book'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Book')"/>
                         </xsl:variable>
                         <xsl:variable name="l_book-item">
-                            <xsl:value-of select="'http://purl.org/eprint/type/BookItem'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/BookItem')"/>
                         </xsl:variable>
                         <xsl:variable name="l_proceedings">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/proceedings')"/>
                         </xsl:variable>
                         <xsl:variable name="l_conference-paper">
-                            <xsl:value-of select="'http://purl.org/eprint/type/ConferencePaper'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/ConferencePaper')"/>
                         </xsl:variable>
                         <xsl:variable name="l_meeting-abstract">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract')"/>
                         </xsl:variable>
                         <xsl:variable name="l_conference-report">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/conference-report'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/conference-report')"/>
                         </xsl:variable>
                         <xsl:variable name="l_poster">
-                            <xsl:value-of select="'http://purl.org/eprint/type/ConferencePoster'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/ConferencePoster')"/>
                         </xsl:variable>
                         <xsl:variable name="l_report">
-                            <xsl:value-of select="'http://purl.org/eprint/type/Report'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Report')"/>
                         </xsl:variable>
                         <xsl:variable name="l_paper">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/paper'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/paper')"/>
                         </xsl:variable>
                         <xsl:variable name="l_talk-at-event">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event')"/>
                         </xsl:variable>
                         <xsl:variable name="l_courseware-lecture">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture')"/>
                         </xsl:variable>
                         <xsl:variable name="l_thesis">
-                            <xsl:value-of select="'http://purl.org/eprint/type/Thesis'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Thesis')"/>
                         </xsl:variable>
                         <xsl:variable name="l_series">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/series'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/series')"/>
                         </xsl:variable>
                         <xsl:variable name="l_manuscript">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/manuscript'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/manuscript')"/>
                         </xsl:variable>
                         <xsl:variable name="l_other">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/other'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/other')"/>
                         </xsl:variable>
                         <xsl:variable name="l_monograph">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/monograph'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/monograph')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contr-to-collect-ed">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition')"/>
                         </xsl:variable>
                         <xsl:variable name="l_case-note">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/case-note'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/case-note')"/>
                         </xsl:variable>
                         <xsl:variable name="l_opinion">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/opinion'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/opinion')"/>
                         </xsl:variable>
                         <xsl:variable name="l_case-study">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/case-study'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/case-study')"/>
                         </xsl:variable>
                         <xsl:variable name="l_book-review">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/book-review'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/book-review')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contr-to-commentary">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contr-to-festschrift">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contr-to-handbook">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contr-to-encyclopedia">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia')"/>
                         </xsl:variable>
                         <xsl:variable name="l_newspaper-article">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article')"/>
                         </xsl:variable>
                         <xsl:variable name="l_collected-edition">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/collected-edition'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/collected-edition')"/>
                         </xsl:variable>
                         <xsl:variable name="l_commentary">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/commentary'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/commentary')"/>
                         </xsl:variable>
                         <xsl:variable name="l_festschrift">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/festschrift'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/festschrift')"/>
                         </xsl:variable>
                         <xsl:variable name="l_handbook">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/handbook'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/handbook')"/>
                         </xsl:variable>
                         <xsl:variable name="l_editorial">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/editorial')"/>
                         </xsl:variable>
                         <xsl:variable name="l_multi-volume">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/multi-volume'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/multi-volume')"/>
                         </xsl:variable>
                         <xsl:variable name="l_author">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/AUT'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/AUT')"/>
                         </xsl:variable>
                         <xsl:variable name="l_artist">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/ART'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/ART')"/>
                         </xsl:variable>
                         <xsl:variable name="l_editor">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/EDT'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/EDT')"/>
                         </xsl:variable>
                         <xsl:variable name="l_painter">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/creator-roles/painter'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/painter')"/>
                         </xsl:variable>
                         <xsl:variable name="l_photographer">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/PHT'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/PHT')"/>
                         </xsl:variable>
                         <xsl:variable name="l_illustrator">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/ILL'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/ILL')"/>
                         </xsl:variable>
                         <xsl:variable name="l_commentator">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/CMM'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/CMM')"/>
                         </xsl:variable>
                         <xsl:variable name="l_transcriber">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/TRC'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/TRC')"/>
                         </xsl:variable>
                         <xsl:variable name="l_translator">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/TRL'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/TRL')"/>
                         </xsl:variable>
                         <xsl:variable name="l_advisor">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/SAD'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/SAD')"/>
                         </xsl:variable>
                         <xsl:variable name="l_advisor">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/THS'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/THS')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contributor">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/CTB'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/CTB')"/>
                         </xsl:variable>
                         <xsl:variable name="l_publisher">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/creator-roles/publisher'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/publisher')"/>
                         </xsl:variable>
                         <xsl:variable name="l_honoree">
-                            <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/HNR'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/HNR')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contributor">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/creator-roles/founder'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/founder')"/>
                         </xsl:variable>
                         <xsl:variable name="l_contributor">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/creator-roles/referee'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/referee')"/>
                         </xsl:variable>
                         <xsl:variable name="l_master">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/master'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/master')"/>
                         </xsl:variable>
                         <xsl:variable name="l_diploma">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/diploma')"/>
                         </xsl:variable>
                         <xsl:variable name="l_magister">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/magister'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/magister')"/>
                         </xsl:variable>
                         <xsl:variable name="l_staatsexamen">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen')"/>
                         </xsl:variable>
                         <xsl:variable name="l_phd">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/phd'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/phd')"/>
                         </xsl:variable>
                         <xsl:variable name="l_habilitation">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation')"/>
                         </xsl:variable>
                         <xsl:variable name="l_bachelor">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor')"/>
                         </xsl:variable>
                         <xsl:variable name="v_degree">
-                            <xsl:value-of select="pub:publication/eterms:degree/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/eterms:degree/text())"/>
                         </xsl:variable>
                         <xsl:variable name="l_degree">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;if ($v_degree=$l_master) then 'Master' else&#xA;&#x9;&#x9;if ($v_degree=$l_diploma) then 'Diploma' else&#xA;&#x9;&#x9;if ($v_degree=$l_magister) then 'Magister' else&#xA;&#x9;&#x9;if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else&#xA;&#x9;&#x9;if ($v_degree=$l_phd) then 'PhD' else&#xA;&#x9;&#x9;if ($v_degree=$l_habilitation) then 'Habilitation' else&#xA;&#x9;&#x9;if ($v_degree=$l_bachelor) then 'Bachelor' else ''&#xA;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;if ($v_degree=$l_master) then 'Master' else&#xA;&#x9;&#x9;if ($v_degree=$l_diploma) then 'Diploma' else&#xA;&#x9;&#x9;if ($v_degree=$l_magister) then 'Magister' else&#xA;&#x9;&#x9;if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else&#xA;&#x9;&#x9;if ($v_degree=$l_phd) then 'PhD' else&#xA;&#x9;&#x9;if ($v_degree=$l_habilitation) then 'Habilitation' else&#xA;&#x9;&#x9;if ($v_degree=$l_bachelor) then 'Bachelor' else ''&#xA;&#x9;)"/>
                         </xsl:variable>
                         <!--### JUS_Report specific Default Variables ###-->
 	<xsl:variable name="jus_default_variable">
-                            <xsl:value-of select="'JUS Report specific default variable'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('JUS Report specific default variable')"/>
                         </xsl:variable>
                         <xsl:variable name="genre">
-                            <xsl:value-of select="pub:publication/@type"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/@type)"/>
                         </xsl:variable>
                         <xsl:variable name="genreTitle">
-                            <xsl:value-of select="pub:publication/dc:title/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
                         </xsl:variable>
                         <xsl:variable name="creatorsCount">
-                            <xsl:value-of select="count(pub:publication/e:creator)"/>
+                            <xsl:value-of select="func:escapeMarkupTags(count(pub:publication/e:creator))"/>
                         </xsl:variable>
                         <xsl:variable name="date">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dcterms:issued/text()) &#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:issued/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/e:published-online/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:dateAccepted/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:dateAccepted/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:dateSubmitted/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:dateSubmitted/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:modified/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:modified/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:created/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:created/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dcterms:issued/text()) &#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:issued/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/e:published-online/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:dateAccepted/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:dateAccepted/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:dateSubmitted/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:dateSubmitted/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:modified/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:modified/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dcterms:created/text())&#xA;&#x9;&#x9;&#x9;&#x9;then func:get_year(pub:publication/dcterms:created/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="sourceGenre">
-                            <xsl:value-of select="pub:publication/source:source[1]/@type"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/source:source[1]/@type)"/>
                         </xsl:variable>
                         <xsl:variable name="sourceStartPage">
-                            <xsl:value-of select="pub:publication/source:source[1]/e:start-page/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/source:source[1]/e:start-page/text())"/>
                         </xsl:variable>
                         <xsl:variable name="sourceEndPage">
-                            <xsl:value-of select="pub:publication/source:source[1]/e:end-page/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/source:source[1]/e:end-page/text())"/>
                         </xsl:variable>
                         <xsl:variable name="sourceCreatorsCount">
-                            <xsl:value-of select="count(pub:publication/source:source/e:creator)"/>
+                            <xsl:value-of select="func:escapeMarkupTags(count(pub:publication/source:source/e:creator))"/>
                         </xsl:variable>
                         <xsl:variable name="firstSourceIssue">
-                            <xsl:value-of select="pub:publication/source:source[1]/e:issue/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/source:source[1]/e:issue/text())"/>
                         </xsl:variable>
                         <xsl:variable name="firstSourceVolume">
-                            <xsl:value-of select="pub:publication/source:source[1]/e:volume/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/source:source[1]/e:volume/text())"/>
                         </xsl:variable>
                         <xsl:variable name="degree_test">
-                            <xsl:value-of select="pub:publication/e:degree/text()"/>
+                            <xsl:value-of select="func:escapeMarkupTags(pub:publication/e:degree/text())"/>
                         </xsl:variable>
                         <xsl:variable name="l_jus_degree">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor')&#xA;&#x9;&#x9;then 'Bachelor'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma')&#xA;&#x9;&#x9;then 'Diplom'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation')&#xA;&#x9;&#x9;then 'Habilitation'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/master')&#xA;&#x9;&#x9;then 'Master'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/magister')&#xA;&#x9;&#x9;then 'Magister'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/phd')&#xA;&#x9;&#x9;then 'Dissertation'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen')&#xA;&#x9;&#x9;then 'Staatsexamen'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor')&#xA;&#x9;&#x9;then 'Bachelor'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma')&#xA;&#x9;&#x9;then 'Diplom'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation')&#xA;&#x9;&#x9;then 'Habilitation'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/master')&#xA;&#x9;&#x9;then 'Master'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/magister')&#xA;&#x9;&#x9;then 'Magister'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/phd')&#xA;&#x9;&#x9;then 'Dissertation'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen')&#xA;&#x9;&#x9;then 'Staatsexamen'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdType">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:DOI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'DOI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:DOI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'DOI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdValue">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdType = 'DOI') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'source_URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdType = 'DOI') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'source_URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdTypePaper">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:SSRN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'SSRN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_SSRN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:SSRN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'SSRN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_SSRN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdValuePaper">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdTypePaper = 'SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url']/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'source_SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdTypePaper = 'SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url']/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'source_SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="idType">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'CONE'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ISSN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ZDB'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'CONE'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ISSN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ZDB'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="idValue">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($idType = 'CONE') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ISSN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ZDB') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($idType = 'CONE') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ISSN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ZDB') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="volume-prefix">
-                            <xsl:value-of select="'Bd.'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('Bd.')"/>
                         </xsl:variable>
                         <xsl:variable name="in-prefix">
-                            <xsl:value-of select="', in:'"/>
+                            <xsl:value-of select="func:escapeMarkupTags(', in:')"/>
                         </xsl:variable>
                         <xsl:variable name="doi-prefix">
-                            <xsl:value-of select="'DOI:'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('DOI:')"/>
                         </xsl:variable>
                         <xsl:variable name="since-prefix">
-                            <xsl:value-of select="'seit'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('seit')"/>
                         </xsl:variable>
                         <xsl:variable name="reviewOf-prefix">
-                            <xsl:value-of select="'Rezension:'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('Rezension:')"/>
                         </xsl:variable>
                         <xsl:variable name="editor-postfix">
-                            <xsl:value-of select="'Hg.'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('Hg.')"/>
                         </xsl:variable>
                         <xsl:variable name="etAll-postfix">
-                            <xsl:value-of select="'et al.'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('et al.')"/>
                         </xsl:variable>
                         <xsl:variable name="edition-postfix">
-                            <xsl:value-of select="'Aufl.'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('Aufl.')"/>
                         </xsl:variable>
                         <xsl:variable name="pages-postfix">
-                            <xsl:value-of select="'S.'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('S.')"/>
                         </xsl:variable>
                         <xsl:variable name="instalment-postfix">
-                            <xsl:value-of select="'Lf.'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('Lf.')"/>
                         </xsl:variable>
                         <xsl:variable name="phd">
-                            <xsl:value-of select="'Dissertation'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('Dissertation')"/>
                         </xsl:variable>
                         <xsl:variable name="in-prefix">
-                            <xsl:value-of select="', in:'"/>
+                            <xsl:value-of select="func:escapeMarkupTags(', in:')"/>
                         </xsl:variable>
                         <xsl:variable name="doi-prefix">
-                            <xsl:value-of select="'DOI:'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('DOI:')"/>
                         </xsl:variable>
                         <xsl:variable name="objid">
-                            <xsl:value-of select="../../@objid"/>
+                            <xsl:value-of select="func:escapeMarkupTags(../../@objid)"/>
                         </xsl:variable>
                         <xsl:variable name="hasPublication" as="xs:boolean">
-                            <xsl:value-of select="exists(pub:publication)"/>
+                            <xsl:value-of select="func:escapeMarkupTags(exists(pub:publication))"/>
                         </xsl:variable>
                         <xsl:variable name="local-tag">
-                            <xsl:value-of select="'../../escidocItem:properties/prop:content-model-specific/local-tags/local-tag/text()'"/>
+                            <xsl:value-of select="func:escapeMarkupTags('../../escidocItem:properties/prop:content-model-specific/local-tags/local-tag/text()')"/>
                         </xsl:variable>
                         <xsl:variable name="online_article">
-                            <xsl:value-of select=" 'ONLINE: '"/>
+                            <xsl:value-of select="func:escapeMarkupTags( 'ONLINE: ')"/>
                         </xsl:variable>
                         <xsl:variable name="print_article">
-                            <xsl:value-of select=" 'PRINT: '"/>
+                            <xsl:value-of select="func:escapeMarkupTags( 'PRINT: ')"/>
                         </xsl:variable>
                         <xsl:variable name="getCitationStyleForJournal">
-                            <xsl:value-of select="if ($sourceGenre=$l_journal and $genre != $l_issue) then func:getCitationStyleForJournal($idType,$idValue) else ''"/>
+                            <xsl:value-of select="func:escapeMarkupTags(if ($sourceGenre=$l_journal and $genre != $l_issue) then func:getCitationStyleForJournal($idType,$idValue) else '')"/>
                         </xsl:variable>
                         <!--### Predefined Layout Elements ###-->
 	<xsl:variable name="source-editors"><!--### Plain Layout Element ###-->
@@ -350,7 +350,7 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="pub:publication/source:source/e:creator[1]/person:person/e:given-name/text()"/>
+                                                                                          select="func:escapeMarkupTags(pub:publication/source:source/e:creator[1]/person:person/e:given-name/text())"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -358,7 +358,7 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="pub:publication/source:source/e:creator[1]/person:person/e:family-name/text()"/>
+                                                                                          select="func:escapeMarkupTags(pub:publication/source:source/e:creator[1]/person:person/e:family-name/text())"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -366,7 +366,7 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="pub:publication/source:source/e:creator[1]/organization:organization/dc:title/text()"/>
+                                                                                          select="func:escapeMarkupTags(pub:publication/source:source/e:creator[1]/organization:organization/dc:title/text())"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -396,21 +396,22 @@
                                                                                 <xsl:with-param name="les">
                                                                                     <le>
                                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="person:person/e:given-name/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(person:person/e:given-name/text())"/>
                                                                                             <xsl:copy-of select="$var"/>
                                                                                         </xsl:variable>
                                                                                         <xsl:copy-of select="$var"/>
                                                                                     </le>
                                                                                     <le>
                                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="person:person/e:family-name/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(person:person/e:family-name/text())"/>
                                                                                             <xsl:copy-of select="$var"/>
                                                                                         </xsl:variable>
                                                                                         <xsl:copy-of select="$var"/>
                                                                                     </le>
                                                                                     <le>
                                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="organization:organization/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                          select="func:escapeMarkupTags(organization:organization/dc:title/text())"/>
                                                                                             <xsl:copy-of select="$var"/>
                                                                                         </xsl:variable>
                                                                                         <xsl:copy-of select="$var"/>
@@ -540,7 +541,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:substringBeforeEdition(pub:publication/e:publishing-info/e:edition/text())"/>
+                                                                                                  select="func:escapeMarkupTags(func:substringBeforeEdition(pub:publication/e:publishing-info/e:edition/text()))"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -548,7 +549,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:substringBeforeEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
+                                                                                                  select="func:escapeMarkupTags(func:substringBeforeEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text()))"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -569,7 +570,7 @@
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                                      select="func:substringAfterEdition(pub:publication/e:publishing-info/e:edition/text())"/>
+                                                                                                                      select="func:escapeMarkupTags(func:substringAfterEdition(pub:publication/e:publishing-info/e:edition/text()))"/>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
                                                                                                     <xsl:copy-of select="$var"/>
@@ -577,7 +578,7 @@
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                                      select="func:substringAfterEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
+                                                                                                                      select="func:escapeMarkupTags(func:substringAfterEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text()))"/>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
                                                                                                     <xsl:copy-of select="$var"/>
@@ -633,7 +634,7 @@
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                                      select="func:substringBeforeInstalment(pub:publication/e:publishing-info/e:edition/text())"/>
+                                                                                                                      select="func:escapeMarkupTags(func:substringBeforeInstalment(pub:publication/e:publishing-info/e:edition/text()))"/>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
                                                                                                     <xsl:copy-of select="$var"/>
@@ -641,7 +642,7 @@
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                                      select="func:substringBeforeInstalment(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
+                                                                                                                      select="func:escapeMarkupTags(func:substringBeforeInstalment(pub:publication/source:source[1]/e:publishing-info/e:edition/text()))"/>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
                                                                                                     <xsl:copy-of select="$var"/>
@@ -690,7 +691,8 @@
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/e:edition/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                  select="func:escapeMarkupTags(pub:publication/e:publishing-info/e:edition/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -698,7 +700,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="pub:publication/source:source[1]/e:publishing-info/e:edition/text()"/>
+                                                                                                  select="func:escapeMarkupTags(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -745,7 +747,8 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/dc:publisher/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/e:publishing-info/dc:publisher/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -771,14 +774,16 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/dc:publisher/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/e:publishing-info/dc:publisher/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/e:place/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/e:publishing-info/e:place/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -805,7 +810,7 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/source:source[1]/e:publishing-info/dc:publisher/text()"/>
+                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/e:publishing-info/dc:publisher/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -813,7 +818,7 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/source:source[1]/e:publishing-info/e:place/text()"/>
+                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/e:publishing-info/e:place/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -839,7 +844,8 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/dc:publisher/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/e:publishing-info/dc:publisher/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -855,7 +861,7 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="func:substringBeforeSince(pub:publication/e:publishing-info/e:place/text())"/>
+                                                                                          select="func:escapeMarkupTags(func:substringBeforeSince(pub:publication/e:publishing-info/e:place/text()))"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -870,7 +876,7 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="func:substringAfterSince(pub:publication/e:publishing-info/e:place/text())"/>
+                                                                                          select="func:escapeMarkupTags(func:substringAfterSince(pub:publication/e:publishing-info/e:place/text()))"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -896,7 +902,8 @@
                                                                 <xsl:with-param name="les">
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/e:place/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:escapeMarkupTags(pub:publication/e:publishing-info/e:place/text())"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -935,7 +942,8 @@
                                             <xsl:with-param name="les">
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:total-number-of-pages/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                      select="func:escapeMarkupTags(pub:publication/e:total-number-of-pages/text())"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -1230,7 +1238,8 @@
                                             <xsl:with-param name="les">
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                      select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -1269,7 +1278,8 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1282,14 +1292,16 @@
                                                         <xsl:with-param name="les">
                                                             <le>
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[2]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                  select="func:escapeMarkupTags(pub:publication/source:source[2]/dc:title/text())"/>
                                                                     <xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
                                                                 <xsl:copy-of select="$var"/>
                                                             </le>
                                                             <le>
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[2]/e:volume/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                  select="func:escapeMarkupTags(pub:publication/source:source[2]/e:volume/text())"/>
                                                                     <xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
                                                                 <xsl:copy-of select="$var"/>
@@ -1343,7 +1355,8 @@
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                  select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -1387,7 +1400,8 @@
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                  select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -1505,7 +1519,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:get_reverse_date(pub:publication/e:published-online/text())"/>
+                                                                                                  select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/e:published-online/text()))"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -1545,7 +1559,7 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1563,7 +1577,8 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1590,7 +1605,7 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text()"/>
+                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1652,7 +1667,7 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1667,7 +1682,8 @@
                                                                 <xsl:with-param name="les">
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/legalCase:legal-case/e:court/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/e:court/text())"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -1704,7 +1720,8 @@
                                                                 <xsl:with-param name="les">
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/legalCase:legal-case/e:court/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/e:court/text())"/>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
@@ -1731,7 +1748,7 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="func:get_reverse_date(pub:publication/legalCase:legal-case/dcterms:issued/text())"/>
+                                                              select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/legalCase:legal-case/dcterms:issued/text()))"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1744,7 +1761,8 @@
                                                         <xsl:with-param name="les">
                                                             <le>
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/legalCase:legal-case/dc:identifier/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                  select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/dc:identifier/text())"/>
                                                                     <xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
                                                                 <xsl:copy-of select="$var"/>
@@ -1767,7 +1785,8 @@
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/legalCase:legal-case/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/dc:title/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -2118,7 +2137,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:substringAfterReviewOf(pub:publication/dc:title/text())"/>
+                                                                                                  select="func:escapeMarkupTags(func:substringAfterReviewOf(pub:publication/dc:title/text()))"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -2232,7 +2251,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:get_reverse_date(pub:publication/e:published-online/text())"/>
+                                                                                                  select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/e:published-online/text()))"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -2517,7 +2536,7 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                      select="func:get_reverse_date(pub:publication/dcterms:issued/text())"/>
+                                                                      select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/dcterms:issued/text()))"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -3034,9 +3053,12 @@
                   name="func:get_initials">
 		      <xsl:param name="str"/>
 		      <xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '"/>
-		      <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
-			         <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
-		      </xsl:for-each>
+		      <xsl:variable name="result">
+		          <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
+			             <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
+		          </xsl:for-each>
+		      </xsl:variable>
+		      <xsl:value-of select="$result"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:fname_initials">

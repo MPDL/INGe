@@ -74,12 +74,14 @@
 	
 	<xsl:function name="func:get_initials">
 		<xsl:param name="str" />
-		<xsl:variable name="delim"
-			select="if (contains ($str, '-')) then '-' else ' '" />
+		<xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '" />
+		<xsl:variable name="result">
 		<xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
 			<xsl:value-of
 				select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')" />
 		</xsl:for-each>
+		</xsl:variable>
+		<xsl:value-of select="$result"/>
 	</xsl:function>
 
 

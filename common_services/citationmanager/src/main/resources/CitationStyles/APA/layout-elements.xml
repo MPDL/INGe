@@ -161,14 +161,14 @@
 		</layout-element>
 
 
-		<layout-element name="title-with-dot" ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
+		<layout-element name="title-with-dot" ref="pub:publication/dc:title/text()">
 			<parameters>
 				<starts-with value=" " />
 				<ends-with value="." />
 			</parameters>
 		</layout-element>
 
-		<layout-element name="title-italic" ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
+		<layout-element name="title-italic" ref="pub:publication/dc:title/text()">
 			<parameters>
 				<font-style ref="ITALIC" />
 			</parameters>
@@ -355,7 +355,7 @@
 						<ends-with value=","/>
 					</parameters>
 					<elements>
-						<layout-element  ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
+						<layout-element  ref="pub:publication/source:source[1]/dc:title/text()"/>
 					</elements>
 				</layout-element>
 				<layout-element>
@@ -370,7 +370,7 @@
 						<ends-with value=""/>
 					</parameters>
 					<elements>
-						<layout-element  ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
+						<layout-element  ref="pub:publication/source:source[1]/dc:title/text()"/>
 					</elements>
 				</layout-element>
 			</elements>

@@ -148,11 +148,12 @@ public class XsltHelper {
 		}
 		snippet = m.appendTail(sb).toString();
 
+		/*
 		//escape all non-escaped & 
 		snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
 		
 		snippet = escapeMarkupTags(snippet);
-
+		*/
 		//logger.info("processed snippet:" + snippet);
 
 		return snippet;
@@ -169,6 +170,7 @@ public class XsltHelper {
 	 */
 	public static String escapeMarkupTags(String snippet) 
 	{
+		//logger.info("Escape Markup: " + snippet);
 		if (snippet == null)
 			return null;
 		

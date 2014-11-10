@@ -382,7 +382,7 @@
 							<valid-if><![CDATA[$genre = $l_book]]></valid-if>
 						</parameters>
 						<elements>
-							<layout-element ref="func:escapeMarkupTags(pub:publication/dcterms:alternative[1]/text())">
+							<layout-element ref="pub:publication/dcterms:alternative[1]/text()">
 								<parameters>
 									<starts-with value=": "/>
 									<font-style ref="ITALIC" />
@@ -562,7 +562,7 @@
 					</layout-element>
 					
  					
-					<layout-element ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())">
+					<layout-element ref="pub:publication/source:source[1]/dc:title/text()">
 						<parameters>
 							<font-style ref="ITALIC" />
 						</parameters>
@@ -606,7 +606,7 @@
 				</parameters>
 			</layout-element>
 
-			<layout-element ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
+			<layout-element ref="pub:publication/dc:title/text()">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value=" [Special Issue]. " />
@@ -724,7 +724,7 @@
 					<ends-with value="." />
 				</parameters>
 				<elements>
-					<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())">
+					<layout-element ref="pub:publication/event:event/dc:title/text()">
 						<parameters>
 							<starts-with value="Talk presented at "/>
 						</parameters>
@@ -765,7 +765,7 @@
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())">
+			<layout-element ref="pub:publication/event:event/dc:title/text()">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value="." />
@@ -821,7 +821,7 @@
 					<delimiter value=", " />
 				</parameters>
 				<elements>
-					<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())" />
+					<layout-element ref="pub:publication/event:event/dc:title/text()" />
 					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				</elements>
 			</layout-element>

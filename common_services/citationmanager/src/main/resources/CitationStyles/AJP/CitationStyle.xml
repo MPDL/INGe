@@ -46,8 +46,8 @@
 		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
 		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
 		
-		<variable name="title">func:escapeMarkupTags(pub:publication/dc:title/text())</variable>
-		<variable name="stitle">func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())</variable>
+		<variable name="title">pub:publication/dc:title/text()</variable>
+		<variable name="stitle">pub:publication/source:source[1]/dc:title/text()</variable>
 			
 		<!--
 			variables which use java-like expressions with references to other
@@ -535,7 +535,7 @@
 					<starts-with value="in "/>
 				</parameters>
 				<elements>
-					<layout-element ref="func:escapeMarkupTags(pub:publication/source:source[@type=$l_book][1]/dc:title/text())">
+					<layout-element ref="pub:publication/source:source[@type=$l_book][1]/dc:title/text()">
 						<parameters>
 							<font-style ref="ITALIC"/>
 						</parameters>

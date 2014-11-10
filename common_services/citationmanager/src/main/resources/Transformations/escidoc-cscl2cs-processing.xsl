@@ -452,7 +452,9 @@
 		<xsl:element name="xsl:variable">
 			<xsl:attribute name="name" select="'var'" />
 <!--			<xsl:attribute name="select" select="concat('concat(', $start-val, ', '''')')" />-->
-			<xsl:attribute name="select" select="$start-val" />
+
+			<!-- Escape Markup if ref is not a variable or empty -->
+			<xsl:attribute name="select" select="if ($start-val = '''''' or contains($start-val, '$')) then $start-val else concat('func:escapeMarkupTags(', $start-val, ')')" />
 		</xsl:element>
 		
 		<!-- check valid-if firstly-->
@@ -902,7 +904,7 @@
 					<xsl:attribute name="as" select="@type"/>
 				</xsl:if>
 				<xsl:element name="xsl:value-of">
-					<xsl:attribute name="select" select="."/>
+					<xsl:attribute name="select" select="concat('func:escapeMarkupTags(', ., ')')"/>
 				</xsl:element>
 			</xsl:element>
 		</xsl:for-each>
