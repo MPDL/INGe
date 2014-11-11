@@ -372,15 +372,16 @@
 											<label class="double_label" for="outputFormat">Output Format</label>
 											<select class="double_select" disabled="disabled"  name="outputFormat">
 							                    <option value="pdf">pdf</option>
-												<option value="odt">odt</option>
-												<option value="docx">docx</option>
-												<option value="rtf">rtf</option>
-												<option value="html_plain">html (plain)</option>
+							                    <option value="docx">docx</option>
+							                    <option value="html_plain">html (plain)</option>
 												<option value="html_linked">html (linked)</option>
-												<option value="html_styled">html (styled)</option>
+												<option value="escidoc_snippet">snippet</option>
+												<option value="odt">odt (DEPRECATED!)</option>
+												<option value="rtf">rtf (DEPRECATED!)</option>
+												<option value="html_styled">html (styled) (DEPRECATED!)</option>
 												<!-- <option value="snippet">snippet v5.x</option>
 												<option value="escidoc_snippet">snippet v6.x</option>  -->
-												<option value="escidoc_snippet">snippet</option>
+												
 							                </select>
 										</span>
 									</span>
