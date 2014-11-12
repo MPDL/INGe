@@ -1299,12 +1299,12 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'MPIPF'  or $import-name = 'MPIIB'">
+						<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIBPH'or $import-name = 'MPIIB' or $import-name = 'MPIMET' or $import-name = 'MPIPF'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIDS' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1454,7 +1454,7 @@
 										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'MPIIB'">
+								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIBPH' or $import-name = 'MPIIB' or $import-name = 'MPIMET'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 									</eterms:content-category>
@@ -1471,7 +1471,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDS' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -3616,6 +3616,12 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'BPC'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for biophysical chemistry')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIBPH'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Biophysics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIDS'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Dynamics and Self-Organization')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIK'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Nuclear Physics')"/>
