@@ -46,12 +46,12 @@
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{YearbookModeratorRetrieverRequestBean.beanName}" styleClass="noDisplay"/>
-				<h:form >
+				
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						
 						<ui:include src="header/Header.jspf" />
-						
+						<h:form >
 						<div id="content" class="full_area0 clear">
 						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
@@ -188,9 +188,10 @@
 								<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;">&#160;</div>
 							</div>
 						</div> <!-- end: content section -->
+						</h:form>
 					</div>
 					<ui:include src="footer/Footer.jspf" />
-				</h:form>
+				
 				<script type="text/javascript">
 					<![CDATA[
 						$("input[id$='offset']").submit(function() {

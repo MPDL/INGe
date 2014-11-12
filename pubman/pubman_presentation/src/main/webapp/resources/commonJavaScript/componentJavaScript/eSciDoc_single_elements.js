@@ -19,6 +19,6 @@ function installSameHeight() {
 }
 
 $(function(){
-	installQuickSearchShortcut();
+	//installQuickSearchShortcut();
 	installSameHeight();
 });

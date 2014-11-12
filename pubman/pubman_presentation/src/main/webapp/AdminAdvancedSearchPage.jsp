@@ -56,12 +56,12 @@
 			<body lang="${InternationalizationHelper.locale}">
 			
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			<h:form id="form1">		
+					
 			<div class="full wrapper">
 			<h:inputHidden id="offset"/>
 			
 				<ui:include src="header/Header.jspf" />
-
+				<h:form id="form1">
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
@@ -115,12 +115,13 @@
 					<div class="full_area0 formButtonArea">
 							<h:commandLink id="lnkAdvancedSearchClearAll" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchBean.clearAndInit}" onclick="fullItemReloadAjax();"/>
 							<h:commandLink id="lnkAdvancedSearchStartSearch" styleClass="free_area1_p8 activeButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchBean.startAdminSearch}" onclick="fullItemReloadAjax();"/>
-						</div>
+					</div>
 				<!-- end: content section -->
 				</div>
+				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			</h:form>
+			
 			<script type="text/javascript">
 				function checkUpdatePersonFunction() {
 					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);

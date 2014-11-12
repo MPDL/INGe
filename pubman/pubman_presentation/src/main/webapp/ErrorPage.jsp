@@ -46,13 +46,13 @@
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{ErrorPage.beanName}" styleClass="noDisplay" />
-			<h:form id="form1">
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 
 				<!-- import header -->
 				<ui:include src="header/Header.jspf" />
-
+				<h:form id="form1">
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
@@ -100,10 +100,11 @@
 						</div>	
 					</div>
 				</div>
+				</h:form>
 
 				</div>
 				<ui:include src="footer/Footer.jspf" />
-				</h:form>
+				
 				<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());

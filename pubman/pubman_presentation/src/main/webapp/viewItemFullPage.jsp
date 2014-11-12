@@ -55,12 +55,12 @@
 			<!-- The unAPI Identifier for this item -->
 			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 
-			<h:form >
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
 				<ui:include src="header/Header.jspf" />
-
+				<h:form >
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
@@ -375,9 +375,10 @@
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
+				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			</h:form>
+			
 			
 			</body>
 		</html>

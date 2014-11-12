@@ -50,12 +50,13 @@
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{CartItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<h:outputText value="#{CartItemsPage.beanName}" styleClass="noDisplay" />
-			<h:form >
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
 				<ui:include src="header/Header.jspf" />
 
+				<h:form >
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
@@ -188,10 +189,10 @@
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
-			
+				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			</h:form>
+			
 			<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());

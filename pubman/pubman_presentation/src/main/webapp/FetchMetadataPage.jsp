@@ -49,12 +49,12 @@
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{FetchMetadataPage.beanName}" styleClass="noDisplay" />
-			<h:form id="formFetchMd" onsubmit="fullItemReload();">
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
 				<ui:include src="header/Header.jspf" />   
-				
+				<h:form id="formFetchMd" onsubmit="fullItemReload();">
 				<div class="clear">
                     <div class="headerSection xSmall_marginRExcl">
                         <ui:include src="header/Breadcrumb.jspf" />
@@ -66,10 +66,10 @@
 					<ui:include src="./easySubmission/EasySubmission.jspf" />
 				<!-- end: content section -->
 				</div>
-				
+				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			</h:form>
+			
 			<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());

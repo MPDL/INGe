@@ -31,6 +31,7 @@
 
 <div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 	<!-- search Menu starts here -->
+	<h:form>
 	<span class="std_imgArea quickSearchIcon">&#160;</span>
 	<span class="xLarge_area0 quickSearchMenu">
 		<h:inputText id="quickSearchString" styleClass="xLarge_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
@@ -46,6 +47,7 @@
 		<h:outputText value="#{lbl.search_lblAdvancedSearch}"/>
 	</h:commandLink>
 	 -->
+	
 	 <span class="free_area0">
 		 <h:outputLink id="lnkAdvancedSearch" styleClass="free_area0_p3 advancedSearchMenu tiny_marginLExcl" title="#{tip.search_advanced}" value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp">
 		 	<h:outputText value="#{lbl.search_lblAdvancedSearch}"/>
@@ -57,7 +59,9 @@
 		<h:outputLink id="lnkAdminSearch" styleClass="free_area0_p3 advancedSearchMenu tiny_marginLExcl clear" title="#{tip.search_admin}" value="#{ApplicationBean.appContext}AdminAdvancedSearchPage.jsp" rendered="#{LoginHelper.loggedIn}">
 		 	<h:outputText value="#{lbl.search_lblAdvancedSearchAdmin}"/>
 		 </h:outputLink>
+	
 	</span>
+	</h:form>
 	
 	
 	

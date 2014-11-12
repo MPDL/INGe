@@ -50,7 +50,7 @@
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<h:outputText value="#{ViewRevisionsPage.beanName}" styleClass="noDisplay" />
-			<h:form >
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
@@ -69,7 +69,7 @@
 			<!-- end: skip link navigation -->
 			
 				<ui:include src="header/Header.jspf" />
-
+				<h:form >
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
@@ -182,9 +182,10 @@
 					</div>
 				<!-- end: content section -->
 				</div>
+				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			</h:form>
+			
 			<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());

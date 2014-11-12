@@ -51,8 +51,7 @@ public class ExportItemsSessionBean extends FacesBean
 {
     //private static Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
     public static final String BEAN_NAME = "ExportItemsSessionBean";
-    private String message = null;
-    List<ExportFormatVO> listExportFormatVO  = new ArrayList<ExportFormatVO>();   
+    private String message = null; 
     
     private String exportFormatType = "LAYOUT";
     private String exportFormatName = "APA";
@@ -151,16 +150,7 @@ public class ExportItemsSessionBean extends FacesBean
         this.message = message;
     }
 
-     public List<ExportFormatVO> getListExportFormatVO()
-    {
-        return this.listExportFormatVO;
-    }
 
-    public void setListExportFormatVO(List<ExportFormatVO> listExportFormatVO)
-    {
-        this.listExportFormatVO = listExportFormatVO;
-        
-    }
     
     public String getExportFormatType()
     {

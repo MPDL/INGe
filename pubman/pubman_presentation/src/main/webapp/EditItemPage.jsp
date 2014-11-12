@@ -48,12 +48,12 @@
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 				
-				<h:form id="form1">
+				
 					<div class="full wrapper">
 						<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
 					
 						<ui:include src="header/Header.jspf" />
-		
+						<h:form id="form1">
 						<div id="content" class="full_area0 clear">
 						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
@@ -229,11 +229,12 @@
 							</div>
 						
 						</div> <!-- end: content section -->
+						</h:form>
 					</div> <!--  end: full wrapper -->
 					
 					<ui:include src="footer/Footer.jspf" />
 					
-				</h:form>
+				
 				
 				<script type="text/javascript">
 					var suggestConeUrl = "#{EditItem.suggestConeUrl}";
@@ -249,6 +250,8 @@
 						$(window).scrollTop($("input[id$='offset']").val());
 						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 						checkUpdatePersonFunction();
+						//Disable return button for form1
+						document.getElementById('form1').onkeypress = stopRKey;
 					});
 				
 					languageSuggestURL = suggestConeUrl + 'iso639-3/query';

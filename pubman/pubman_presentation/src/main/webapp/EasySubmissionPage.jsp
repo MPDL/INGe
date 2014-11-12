@@ -54,12 +54,13 @@
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 			<h:outputText value="#{EasySubmissionPage.beanName}" styleClass="noDisplay" />
-			<h:form id="form1">
+			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
 				<ui:include src="header/Header.jspf" />   
 				
+				<h:form id="form1">
 				<div class="clear">
                     <div class="headerSection xSmall_marginRExcl">
                         <ui:include src="header/Breadcrumb.jspf" />
@@ -71,10 +72,11 @@
 					<ui:include src="./easySubmission/EasySubmission.jspf" />
 				<!-- end: content section -->
 				</div>
+				</h:form>
 				
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			</h:form>
+			
 			<script type="text/javascript">
 				function checkUpdatePersonFunction() {
 					(typeof updatePersonUi == 'function') ?	updatePersonUi() :	setTimeout("checkUpdatePersonFunction()", 30);
@@ -86,6 +88,8 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 					checkUpdatePersonFunction();
+					//Disable return button for form1
+					document.getElementById('form1').onkeypress = stopRKey;
 				});
 
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />journals/query?format=json';

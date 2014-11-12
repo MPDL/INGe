@@ -30,7 +30,7 @@
 </ui:remove>
 <span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu"  >
 	<!-- meta Menu starts here -->
-	
+	<h:form>
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 	<div class="medium_area0 endline selectContainer">
 		<div class="medium_area0">
@@ -63,5 +63,6 @@
 	<h:commandLink id="lnkAccountUserName" styleClass="free_area0_p8 endline" action="#{LoginHelper.getUserAccountOptionsLink}" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}" />
 
 	<!-- meta Menu ends here -->
+	</h:form>
 </span>
 </ui:composition>

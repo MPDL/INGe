@@ -41,12 +41,13 @@
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
 				<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
-				<h:form id="form1">
+				
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 		
 						<!-- import header -->
 						<ui:include src="header/Header.jspf" />
+						<h:form id="form1">
 						<div id="content" class="full_area0 clear">
 						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 							<div class="clear">
@@ -117,7 +118,9 @@
 									
 								</div>	
 							</div>
+							
 						</div>
+						</h:form>
 						<!-- end: content section -->
 						<ui:include src="footer/Footer.jspf" />
 						<script type="text/javascript">
@@ -130,7 +133,7 @@
 							});
 						</script>
 					</div> <!-- end: full wrapper -->
-				</h:form>
+				
 			</body>
 		</html>
 	</f:view>

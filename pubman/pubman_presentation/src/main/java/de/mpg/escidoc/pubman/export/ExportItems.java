@@ -102,7 +102,7 @@ public class ExportItems extends FacesBean
     {
        logger.debug(" init ExportItems >>>");   
        super.init();
-       setExportFormats();
+       //setExportFormats();
 
     }
    
@@ -127,23 +127,7 @@ public class ExportItems extends FacesBean
         return !this.getRightsManagementSessionBean().isDisabled(getRightsManagementSessionBean().PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + this.FUNCTION_EXPORT);
     }    
     
-    public String setExportFormats(){
-        logger.debug(">>> setExportFormats "); 
-        try
-        {
-            //get the existing export formats from the external service 
-            List<ExportFormatVO> listExportFormatVO = this.getItemControllerSessionBean().retrieveExportFormats();
-            this.getSessionBean().setListExportFormatVO(listExportFormatVO);
-       }        
-        catch (TechnicalException e)
-        {
-            logger.error("Could not ser the export formats." + "\n" + e.toString(), e);
-            ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e);
-        
-            return ErrorPage.LOAD_ERRORPAGE;
-        }
-         return "OK";
-    }
+    
     
 
     
@@ -178,14 +162,14 @@ public class ExportItems extends FacesBean
     public SelectItem[] getFILEFORMAT_OPTIONS()
     {
         SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
-        SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
         SelectItem FILEFORMAT_DOCX = new SelectItem("docx", getLabel("Export_FileFormat_DOCX"));
-        SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
         SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", getLabel("Export_FileFormat_HTML_PLAIN"));
         SelectItem FILEFORMAT_HTML_LINKED = new SelectItem("html_linked", getLabel("Export_FileFormat_HTML_LINKED"));
-        SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled", getLabel("Export_FileFormat_HTML_STYLED"));
         SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
-        SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_DOCX, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
+        SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
+        SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
+        SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled", getLabel("Export_FileFormat_HTML_STYLED"));
+        SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET, FILEFORMAT_RTF, FILEFORMAT_ODT, FILEFORMAT_HTML_STYLED};
         return FILEFORMAT_OPTIONS;
     }
     

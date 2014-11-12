@@ -166,7 +166,7 @@ function install_javascripts() {
 		installFullItem();
 	}
 	if (typeof installQuickSearchShortcut == 'function') {
-		installQuickSearchShortcut();
+		//installQuickSearchShortcut();
 	}
 	if (typeof installDateTextbox == 'function') {
 		installDateTextbox();
@@ -289,7 +289,7 @@ function stopRKey(evt) {
 	if ((evt.keyCode == 13) && (node.type=="text" || node.type=="password"))  {return false;}
 }
 
-document.onkeypress = stopRKey;
+//document.onkeypress = stopRKey;
 
 
 //Appends the creative commons license chooser to the given div
