@@ -1,5 +1,6 @@
 /*QUICK SEARCH INITIALISATION*/
 
+/*
 function addQuickSearchFunction(){
 	$('.quickSearchTextInput').keyup(function(keyEvent){
 		if(keyEvent.keyCode == '13'){
@@ -13,7 +14,7 @@ function installQuickSearchShortcut() {
 	addQuickSearchFunction();
 }
 
-
+*/
 function installSameHeight() {
 	$('.sameHeightSlave').each(function(i,elem){$(elem).height($('.sameHeightMaster').height());});
 }
