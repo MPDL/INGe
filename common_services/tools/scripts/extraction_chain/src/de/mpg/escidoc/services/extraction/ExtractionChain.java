@@ -73,7 +73,7 @@ public class ExtractionChain
             System.err.println("Extracting with xPDF");
             
             StringBuffer command = new StringBuffer(2048);
-            command.append(System.getProperty("os.name").contains("Windows") ? "C:/xpdfbin-win-3.04/xpdfbin-win-3.04/bin64/pdftotext.exe " : "/usr/bin/pdftotext ");
+            command.append(System.getProperty("os.name").contains("Windows") ? "C:/xpdfbin-win-3.04/xpdfbin-win-3.04/bin64/pdftotext.exe  -enc UTF-8 " : "/usr/bin/pdftotext -enc UTF-8 ");
             command.append(infileName);
             command.append(" ");
             command.append(outfileName);
@@ -129,9 +129,9 @@ public class ExtractionChain
             
             StringBuffer command = new StringBuffer(1024);
             command.append(System.getProperty("os.name").contains("Windows") ? 
-                    "java -jar c:/tmp/jboss/server/default/conf/pdfbox-app-1.8.6.jar ExtractText "
+                    "java -Dfile.encoding=UTF-8 -jar c:/tmp/jboss/server/default/conf/pdfbox-app-1.8.6.jar ExtractText "
                     :
-                    "/usr/bin/java -jar /usr/share/jboss/server/default/conf/pdfbox-app-1.8.6.jar ExtractText "); 
+                    "/usr/bin/java -Dfile.encoding=UTF-8 -jar /usr/share/jboss/server/default/conf/pdfbox-app-1.8.6.jar ExtractText "); 
             command.append(infileName);
             command.append(" ");
             command.append(outfileName);
@@ -246,7 +246,7 @@ public class ExtractionChain
         {
             try
             {
-                InputStreamReader isr = new InputStreamReader(is);
+                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
                 BufferedReader br = new BufferedReader(isr);
                 String line=null;
                 while ( (line = br.readLine()) != null)
