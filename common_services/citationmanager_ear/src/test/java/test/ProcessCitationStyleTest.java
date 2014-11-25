@@ -29,26 +29,7 @@
 
 package test;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import junit.framework.TestCase;
-
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRXmlUtils;
-
-import org.apache.log4j.Logger;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.w3c.dom.Document;
-
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 
 /**
  * Test class for citation manager processing component
