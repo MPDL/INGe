@@ -63,6 +63,17 @@ public interface Search
      *             if some errors occur during search
      */
     public ItemContainerSearchResult searchForItemContainer(SearchQuery query) throws Exception;
+    
+    /**
+     * Searches for items and containers in administrative index.
+     * 
+     * @param query
+     *            search query
+     * @return search result
+     * @throws Exception
+     *             if some errors occur during search
+     */
+    public ItemContainerSearchResult searchForItemContainerAdmin(SearchQuery query, String userHandle) throws Exception;
 
     /**
      * 

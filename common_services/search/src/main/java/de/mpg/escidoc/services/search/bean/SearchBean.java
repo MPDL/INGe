@@ -34,6 +34,7 @@ import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+import gov.loc.www.zing.srw.service.SRWPort;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,6 +123,8 @@ public class SearchBean implements Search
 
     /** Coreservice identifier for the 'all' lucene index database. */
     public static final String INDEXDATABASE_ALL = "escidoc_all";
+    /** Coreservice identifier for the 'item_container_admin' lucene index database. */
+    public static final String INDEXDATABASE_ADMIN = "item_container_admin";
     /** Coreservice identifier for the 'german' lucene index database. */
     public static final String INDEXDATABASE_EN = "escidoc_en";
     /** Coreservice identifier for the 'english' lucene index database. */
@@ -162,7 +165,34 @@ public class SearchBean implements Search
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
-            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL);
+            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL, null);
+            List<SearchResultElement> resultList = transformToSearchResultList(searchResult);
+            ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery, searchResult
+                    .getNumberOfRecords());
+            return result;
+        }
+        catch (Exception e)
+        {
+            throw new TechnicalException(e);
+        }
+    }
+    
+    public ItemContainerSearchResult searchForItemContainerAdmin(SearchQuery query, String userHandle) throws Exception
+    {
+
+        try
+        {
+            // call framework Search service
+            String cqlQuery = query.getCqlQuery();
+
+            SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
+            searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
+            searchRetrieveRequest.setQuery(cqlQuery);
+            searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
+            searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
+            searchRetrieveRequest.setStartRecord(query.getStartRecord());
+            searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
+            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ADMIN, userHandle);
             List<SearchResultElement> resultList = transformToSearchResultList(searchResult);
             ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery, searchResult
                     .getNumberOfRecords());
@@ -193,7 +223,7 @@ public class SearchBean implements Search
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
-            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_OU);
+            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_OU, null);
             List<AffiliationVO> resultList = transformToAffiliationList(searchResult);
             OrgUnitsSearchResult result = new OrgUnitsSearchResult(resultList, cqlQuery, searchResult
                     .getNumberOfRecords());
@@ -220,7 +250,7 @@ public class SearchBean implements Search
      * @throws TechnicalException
      *             if the search fails
      */
-    private SearchRetrieveResponseType performSearch(SearchRetrieveRequestType searchRetrieveRequest, String index)
+    private SearchRetrieveResponseType performSearch(SearchRetrieveRequestType searchRetrieveRequest, String index, String userHandle)
         throws TechnicalException
     {
 
@@ -228,9 +258,19 @@ public class SearchBean implements Search
 
         try
         {
+        	SRWPort searchHandler;
+        	if(userHandle == null)
+        	{
+        		searchHandler = ServiceLocator.getSearchHandler(index);
+        	}
+        	else
+        	{
+        		searchHandler = ServiceLocator.getSearchHandler(index, userHandle);
+        	}
+        	
             logger.info("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
             logger.info("Cql sorting key(s): <" + searchRetrieveRequest.getSortKeys() + ">");
-            searchResult = ServiceLocator.getSearchHandler(index).searchRetrieveOperation(searchRetrieveRequest);
+            searchResult = searchHandler.searchRetrieveOperation(searchRetrieveRequest);
             logger.debug("Search result: " + searchResult.getNumberOfRecords() + " item(s) or container(s)");
         } 
         catch (Exception e)
@@ -327,11 +367,11 @@ public class SearchBean implements Search
 
         if (query.getIndexSelector() == null)
         {
-            searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL);
+            searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL, null);
         } 
         else
         {
-            searchResult = performSearch(searchRetrieveRequest, query.getIndexSelector());
+            searchResult = performSearch(searchRetrieveRequest, query.getIndexSelector(), null);
         }
 
         List<SearchResultElement> searchElements = transformToSearchResultList(searchResult);
