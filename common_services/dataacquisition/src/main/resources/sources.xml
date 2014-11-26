@@ -131,7 +131,10 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www-spires.fnal.gov/spires/</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
+		<item-url>http://inspirehep.net/search?p=GETID</item-url>
+		<!--  
 		<item-url>http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=GETID</item-url>
+		-->
 		<source-identifier>spires</source-identifier>
 		<source-identifier-example>spires:hep-ph/0001001</source-identifier-example>
 		<source-identifier-example>spires:arXiv:0812.2902</source-identifier-example>
@@ -145,7 +148,10 @@
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://www.slac.stanford.edu/spires/hep/api/</dc:description>
+				<!--  
 				<dc:identifier>http://www.slac.stanford.edu/spires/find/hep/xmlpublic?rawcmd=GETID</dc:identifier>
+				-->
+				<dc:identifier>http://inspirehep.net/search?p=GETID</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>SPIRES</label>
 				<name>spires</name>
