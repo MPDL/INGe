@@ -202,7 +202,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
     }
 
-    
+    /*
     public List<PubItemVOPresentation> retrieveListGenericSearch(int offset, int limit, SORT_CRITERIA sc)
     {
         List<PubItemVOPresentation> pubItemList = null; //new ArrayList<PubItemVOPresentation>();
@@ -211,18 +211,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         {
         	
         	
-        	/*
-        	if(queryString!=null && !queryString.trim().equals(""))
-        	{
-        		cql = SearchCriterionBase.queryStringToCqlString(queryString, true);
-        		
-        	}
-        	else
-        	{
-        		
-        	}
-        	*/
-
+        	
             PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
             query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
             query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
@@ -258,7 +247,9 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
         return pubItemList;
     }
+    */
     
+    /*
     public List<PubItemVOPresentation> retrieveListAdminSearch(int offset, int limit, SORT_CRITERIA sc)
     {
         List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
@@ -276,11 +267,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 	        	itemHandler = ServiceLocator.getItemHandler();
 	        }
 	        
-        //Return empty list if the user is not logged in, needed to avoid exceptions
-        /*
-        if (!loginHelper.isLoggedIn())
-            return returnList;
-         */
+
        
 
 
@@ -315,6 +302,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
         return returnList;
     }
+    /*
     
     
     /**
@@ -324,15 +312,67 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
     	
-    	if("admin".equals(getSearchType()))
-    	{
-    		return retrieveListAdminSearch(offset, limit, sc);
-    		
-    	}
-    	else
-    	{
-    		return retrieveListGenericSearch(offset, limit, sc);
-    	}
+    	 List<PubItemVOPresentation> pubItemList = null; //new ArrayList<PubItemVOPresentation>();
+         //checkSortCriterias(sc);
+         try
+         {
+         	
+
+             PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
+             query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
+             query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
+
+             if(sc.getIndex()!=null)
+             {
+            	 if("admin".equals(getSearchType()))
+            	 {
+            		 query.setSortKeys(sc.getSortPath());
+            	 }
+            	 else
+            	 {
+            		 query.setSortKeys(sc.getIndex());
+            	 }
+                 
+             }
+
+             if(sc.getIndex() == null || !sc.getIndex().equals(""))
+             {
+                 if (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING))
+                 {
+
+                     query.setSortOrder(SortingOrder.DESCENDING);
+                 }
+
+                 else
+                 {
+                     query.setSortOrder(SortingOrder.ASCENDING);
+                 }
+             }
+             ItemContainerSearchResult result = null;
+            
+             if("admin".equals(getSearchType()))
+         	 {
+            	 LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+            	 result = this.searchService.searchForItemContainerAdmin(query, loginHelper.getESciDocUserHandle());
+         	 }
+             else
+             {
+            	 result = this.searchService.searchForItemContainer(query);
+             }
+             
+             pubItemList =  extractItemsOfSearchResult(result);
+             this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
+         }
+         catch (Exception e)
+         {
+             error("Error in search!");
+             logger.error("Error during search. ", e);
+         }
+
+         return pubItemList;
+    	
+    	
+   
     	
 
     }

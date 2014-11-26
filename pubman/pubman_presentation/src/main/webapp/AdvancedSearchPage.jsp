@@ -109,7 +109,7 @@
 						</h:panelGroup>
 					</div>	
 					
-					<!--  hidden button for return key start search. If only visiblity:hidden is used, the button does not work in IE -->	
+					<!--  hidden button to enable return key for starting search. If only visiblity:hidden is used, the button does not work in IE -->	
 					<h:commandButton id="lnkAdvancedSearchStartSearchTop" style="height:0; width:0; padding:0; margin:0; border:none;" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchBean.startSearch}" onclick="fullItemReloadAjax();"/>
 					
 					<div class="full_area0">
