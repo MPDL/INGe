@@ -909,7 +909,7 @@
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
-				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
+				<jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir>
 
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
