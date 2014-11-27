@@ -1,5 +1,5 @@
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <ui:remove>
 CDDL HEADER START
 
@@ -220,15 +220,12 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup styleClass="free_area0 endline" rendered="#{criterion.searchCriterion.displayType == 'DATE'}">
 						<h:panelGroup styleClass="free_area0">
 							<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst" value="#{lbl.adv_search_lblFrom}: "/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" pt:placeholder="YYYY-MM-DD"/>
 						</h:panelGroup>
 						<span class="free_area0 clear">
 							<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst" value="#{lbl.adv_search_lblTo}: "/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" pt:placeholder="YYYY-MM-DD" />
 						</span>
-						<script type="text/javascript">
-							$('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
-						</script>
 					</h:panelGroup>
 					
 					
