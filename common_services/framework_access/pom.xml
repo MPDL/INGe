@@ -221,7 +221,7 @@
 										<scp file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" 
 													todir="continuum@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/server/default/conf/search/config/index/item_container_admin"
 													keyfile="${user.home}/.ssh/id_rsa"
-													passphrase=""/> 
+													passphrase="" trust="true"/> 
 													
                                         <!-- copy over the configuration file -->
                                         <!-- 
