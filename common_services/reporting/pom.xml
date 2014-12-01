@@ -76,6 +76,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<test>ReportingTest</test>
+					<systemPropertyVariables>
+						<java.awt.headless>true</java.awt.headless>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 		</plugins>
