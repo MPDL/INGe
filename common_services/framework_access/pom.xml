@@ -202,7 +202,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
+				<jboss.install.dir>/usr/share/jboss</jboss.install.dir>
 			</properties>
 			<build>
 				<plugins>
@@ -218,7 +218,9 @@
 								<configuration>
 									<tasks>
                                         <!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" todir="${jboss.install.dir}/server/default/conf/search/config/index/item_container_admin" />
+										<scp overwrite="true" file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" 
+													todir="continuum@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/server/default/conf/search/config/index/item_container_admin"
+													keyfile="srv/continuum/.ssh/id_rsa" />
                                         <!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt" todir="${jboss.install.dir}/server/default/conf/search/config/index/escidoc_all" />
                                        
