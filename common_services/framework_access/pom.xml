@@ -220,7 +220,7 @@
                                         <!-- copy over the validation datasource descriptor -->
 										<scp file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" 
 													todir="continuum@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/server/default/conf/search/config/index/item_container_admin"
-													keyfile="{user.home}.ssh/id_rsa"
+													keyfile="${user.home}/.ssh/id_rsa"
 													passphrase=""/> 
 													
                                         <!-- copy over the configuration file -->
