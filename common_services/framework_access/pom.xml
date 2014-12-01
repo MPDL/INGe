@@ -316,13 +316,11 @@
 		<groupId>ant</groupId>
 			<artifactId>ant-jsch</artifactId>
 			<version>1.6.5</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>jsch</groupId>
 			<artifactId>jsch</artifactId>
 			<version>0.1.25</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
