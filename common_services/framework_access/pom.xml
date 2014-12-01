@@ -218,12 +218,13 @@
 								<configuration>
 									<tasks>
                                         <!-- copy over the validation datasource descriptor -->
-										<scp overwrite="true" file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" 
+										<scp file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" 
 													todir="continuum@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/server/default/conf/search/config/index/item_container_admin"
 													keyfile="srv/continuum/.ssh/id_rsa" />
                                         <!-- copy over the configuration file -->
+                                        <!-- 
 										<copy overwrite="true" file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt" todir="${jboss.install.dir}/server/default/conf/search/config/index/escidoc_all" />
-                                       
+                                        -->
 									</tasks>
 								</configuration>
 							</execution>
