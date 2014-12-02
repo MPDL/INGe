@@ -522,7 +522,7 @@
 												passphrase="" trust="true" verbose="true"/>
 										<!-- copy over the aa configuration file -->
 										<scp file="${project.build.directory}/classes/auth.properties" 
-												tofile="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main/cone.properties"
+												remoteTofile="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main/cone.properties"
 												keyfile="${user.home}/.ssh/id_rsa"
 												knownhosts="${user.home}/.ssh/known_hosts"
 												passphrase="" trust="true" verbose="true"/>
