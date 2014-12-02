@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <ui:remove>
             CDDL HEADER START
 
@@ -126,7 +126,7 @@
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="#{fileVar.showEmbargoDate}">
 						<label class="large_label"><span class="mandatory" title="#{msg.mandatoryField}"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblFileEmbargo}"/></label>
-						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value="#{fileVar.file.defaultMetadata.embargoUntil}"/>
+						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput" value="#{fileVar.file.defaultMetadata.embargoUntil}" pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}"/>
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>
@@ -166,7 +166,7 @@
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblTitleLicensingDate" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblCopyrightDate}" />
-						<h:inputText id="fileLicenseDate" styleClass="large_txtInput dateJSInput" value="#{fileVar.file.defaultMetadata.copyrightDate}" />
+						<h:inputText id="fileLicenseDate" styleClass="large_txtInput" value="#{fileVar.file.defaultMetadata.copyrightDate}" pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}"/>
 					</span>
 				</span>
 				<b class="xLarge_area0_p8 endline labelLine clear">

@@ -169,10 +169,11 @@ function install_javascripts() {
 	if (typeof installQuickSearchShortcut == 'function') {
 		installQuickSearchShortcut();
 	}
-	*/
+	
 	if (typeof installDateTextbox == 'function') {
 		installDateTextbox();
 	}
+	*/
 	if (typeof installSameHeight == 'function') {
 		installSameHeight();
 	}

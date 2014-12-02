@@ -1,5 +1,5 @@
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <ui:remove> 
             CDDL HEADER START
 
@@ -82,7 +82,7 @@
 				<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" />
 				<h:outputText value="#{genre.legal_case_legal_case_date_published_label}" converter="GenreLabelConverter"/>
 			</span>
-			<h:inputText id="inplegal_case_legal_case_date-published" styleClass="large_txtInput dateJSInput" value="#{EditItem.pubItem.metadata.legalCase.datePublished}" />
+			<h:inputText id="inplegal_case_legal_case_date-published" styleClass="large_txtInput" value="#{EditItem.pubItem.metadata.legalCase.datePublished}" pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}"/>
 		</h:panelGroup>
 		</span>
 	</h:panelGroup>	

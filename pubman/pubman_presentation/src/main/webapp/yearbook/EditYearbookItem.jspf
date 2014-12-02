@@ -1,5 +1,5 @@
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <ui:remove>
             CDDL HEADER START
 
@@ -116,12 +116,12 @@
 				</h:panelGroup> <h:panelGroup styleClass="double_area0" id="dateGroup">
 					<h:panelGroup styleClass="double_area0 tiny_marginRIncl">
 						<h:outputText styleClass="small_label" value="from" />
-						<h:outputText styleClass="medium_txtInput dateJSInput"
+						<h:outputText styleClass="medium_txtInput"
 							id="txtDateFrom" value="#{YearbookItemEditBean.startDate}" />
 					</h:panelGroup>
 					<h:panelGroup styleClass="double_area0 tiny_marginRIncl">
 						<h:outputText styleClass="small_label" value="to" />
-						<h:outputText styleClass="medium_txtInput dateJSInput"
+						<h:outputText styleClass="medium_txtInput"
 							id="txtDateTo" value="#{YearbookItemEditBean.endDate}" />
 					</h:panelGroup>
 				</h:panelGroup>

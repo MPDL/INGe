@@ -220,11 +220,11 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup styleClass="free_area0 endline" rendered="#{criterion.searchCriterion.displayType == 'DATE'}">
 						<h:panelGroup styleClass="free_area0">
 							<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst" value="#{lbl.adv_search_lblFrom}: "/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="startDateFirst" value="#{criterion.from}" pt:placeholder="YYYY-MM-DD"/>
+							<h:inputText styleClass="large_txtInput" id="startDateFirst" value="#{criterion.from}" pt:placeholder="#{lbl.adv_search_lblDateFormatPlaceholder}" title="#{tip.DateFormatDescription}"/>
 						</h:panelGroup>
 						<span class="free_area0 clear">
 							<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst" value="#{lbl.adv_search_lblTo}: "/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{criterion.to}" pt:placeholder="YYYY-MM-DD" />
+							<h:inputText styleClass="large_txtInput" id="endDateFirst" value="#{criterion.to}" pt:placeholder="#{lbl.adv_search_lblDateFormatPlaceholder}" title="#{tip.DateFormatDescription}"/>
 						</span>
 					</h:panelGroup>
 					
@@ -632,15 +632,12 @@ All rights reserved. Use is subject to license terms.
 						<h:outputLabel id="lblComponentEmbargoDate" styleClass="medium_label clear" value="#{lbl.adv_search_fileComponentEmbargoDate}" style="margin-top:0.7272em;"/>
 						<span class="free_area0 fileCriterionEmbargoDate">
 							<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst" value="#{lbl.adv_search_lblFrom}: "/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="startDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.from}" />
+							<h:inputText styleClass="large_txtInput" id="startDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.from}" pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}"/>
 						</span>
 						<span class="free_area0 clear fileCriterionEmbargoDate">
 							<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst" value="#{lbl.adv_search_lblTo}: "/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="endDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.to}" />
+							<h:inputText styleClass="large_txtInput" id="endDateFirst" value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.to}" pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}" />
 						</span>
-						<script type="text/javascript">
-							$('.dateJSInput').attr("placeholder", "YYYY-MM-DD");
-						</script>
 						
 					</span>
 					
