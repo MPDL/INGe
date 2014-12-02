@@ -224,10 +224,12 @@
 													knownhosts="${user.home}/.ssh/known_hosts"
 													passphrase="" trust="true" verbose="true"/> 
 													
-                                        <!-- copy over the configuration file -->
-                                        <!-- 
-										<copy overwrite="true" file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt" todir="${jboss.install.dir}/server/default/conf/search/config/index/escidoc_all" />
-                                        -->
+                                        <!-- copy over the configuration file -->                     
+										<scp file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt" 
+													todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/server/default/conf/search/config/index/escidoc_all"
+													keyfile="${user.home}/.ssh/id_rsa"
+													knownhosts="${user.home}/.ssh/known_hosts"
+													passphrase="" trust="true" verbose="true"/>
 									</tasks>
 								</configuration>
 							</execution>
