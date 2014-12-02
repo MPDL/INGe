@@ -70,6 +70,7 @@ import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
@@ -1247,11 +1248,10 @@ public class EditItem extends FacesBean
         {
             try
             {
-                EditItemPage editItemPage = (EditItemPage)getRequestBean(EditItemPage.class);
+                BreadcrumbItemHistorySessionBean bihsb = (BreadcrumbItemHistorySessionBean)getRequestBean(BreadcrumbItemHistorySessionBean.class);
                 FacesContext fc = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
-                System.out.println("Previous Page: " + editItemPage.getPreviousPageName());
-                if ("ViewLocalTagsPage.jsp".equals(editItemPage.getPreviousPageURI()))
+                if ("ViewLocalTagsPage.jsp".equals(bihsb.getPreviousItem().getPage()))
                 {
                     String viewItemPage = PropertyReader.getProperty("escidoc.pubman.instance.url")
                     + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
@@ -1259,10 +1259,10 @@ public class EditItem extends FacesBean
                             this.getPubItem().getVersion().getObjectId());
                     FacesContext.getCurrentInstance().getExternalContext().redirect(viewItemPage);
                 }
-                else if (editItemPage.getPreviousPageURI().contains("viewItemFullPage.jsp"))
+                else if (bihsb.getPreviousItem().getPage().contains("viewItemFullPage.jsp"))
                 {
                     fc.getExternalContext().redirect(
-                            request.getContextPath() + "/faces/" + editItemPage.getPreviousPageURI());
+                            request.getContextPath() + "/faces/" + bihsb.getPreviousItem().getPage());
                 }
                 else
                 {

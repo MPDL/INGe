@@ -35,6 +35,7 @@ import java.lang.reflect.Method;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 
 /**
@@ -45,7 +46,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
  * @author: $Author: mfranke$
  * @version: $Revision$ $LastChangedDate$
  */
-public class EasySubmissionPage extends BreadcrumbPage
+public class EasySubmissionPage extends FacesBean
 {
     private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
 
@@ -71,6 +72,7 @@ public class EasySubmissionPage extends BreadcrumbPage
         checkForLogin();
     }
     
+    /*
     @Override
     protected Method getDefaultAction() throws NoSuchMethodException
     {
@@ -84,5 +86,6 @@ public class EasySubmissionPage extends BreadcrumbPage
         // TODO Auto-generated method stub
         return true;
     }
+    */
     
 }

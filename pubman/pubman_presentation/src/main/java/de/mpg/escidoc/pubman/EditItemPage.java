@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Navigation;
 
 /**
@@ -48,7 +49,7 @@ import de.mpg.escidoc.pubman.desktop.Navigation;
  * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
-public class EditItemPage extends BreadcrumbPage
+public class EditItemPage extends FacesBean
 {
     private static Logger logger = Logger.getLogger(EditItemPage.class);
     public static final String BEAN_NAME = "EditItemPage";
@@ -97,6 +98,7 @@ public class EditItemPage extends BreadcrumbPage
         return "";
     }
 
+    /*
     @Override
     protected Method getDefaultAction() throws NoSuchMethodException
     {
@@ -108,6 +110,7 @@ public class EditItemPage extends BreadcrumbPage
     {
         return true;
     }
+    */
 
 
 }
