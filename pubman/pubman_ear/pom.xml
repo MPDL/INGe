@@ -477,7 +477,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<escidoc.pubman.build.mode>nims</escidoc.pubman.build.mode>
+				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 				<jboss.install.dir>/usr/share/pubman</jboss.install.dir>
 			</properties>
