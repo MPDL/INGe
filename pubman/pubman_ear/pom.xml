@@ -448,7 +448,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>			
 		</profile>
-		<!--  -->
+		
 		<profile>
 			<id>env-opensource</id>
 			<activation>
@@ -470,5 +470,108 @@
 				<exclude.module>true</exclude.module>
 			</properties>
 		</profile>
-	</profiles>
+	
+		<profile>
+			<id>env-testing-continuum</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<jboss.install.dir>/usr/share/jboss</jboss.install.dir>
+			</properties>
+			<build>
+				<plugins>					 
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+									
+										<scp file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/standalone/deployments" 
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										<!-- configuration for the deploy jboss server -->
+										<scp file="${project.build.directory}/classes/module.xml" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main" 
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
+										<!-- copy over the configuration file -->
+										<scp file="${project.build.directory}/classes/pubman.properties" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main" 
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										
+										<scp file="${project.build.directory}/classes/solution.properties" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main" 
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										<!-- copy over the aa configuration file -->
+										<scp file="${project.build.directory}/classes/auth.properties" 
+												tofile="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main/cone.properties"
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										<!-- copy over the aa configuration file -->
+										<scp file="${project.build.directory}/classes/auth.properties" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main"
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										<!-- copy over the aa configuration xml -->
+										<scp file="${project.build.directory}/classes/conf.xml" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main"
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										<!-- copy over the validation datasource descriptor -->
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
+										<!-- copy over the apache FOP configuration file -->
+										<scp file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" 
+												todir="jboss@dev-pubman.mpdl.mpg.de:${jboss.install.dir}/modules/pubman/main"
+												keyfile="${user.home}/.ssh/id_rsa"
+												knownhosts="${user.home}/.ssh/known_hosts"
+												passphrase="" trust="true" verbose="true"/>
+										<!-- configuration for the runtime server jboss server -->
+										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" /> <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml"> 
+											</copy> -->
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-trax</artifactId>
+								<version>1.6.5</version>
+							</dependency>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-jsch</artifactId>
+								<version>1.6.5</version>
+							</dependency>
+							<dependency>
+								<groupId>jsch</groupId>
+								<artifactId>jsch</artifactId>
+								<version>0.1.25</version>
+							</dependency>
+					
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		</profiles>
 </project>
