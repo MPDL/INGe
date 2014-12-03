@@ -31,18 +31,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>1.0.86</version>
+		<version>1.0.87-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>validation_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>validation_ear</name>
-	<version>1.0.93</version>
+	<version>1.0.94-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.86/validation_ear</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.86/validation_ear</developerConnection>
-		<url>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.86/common</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/validation_ear</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/common_services/validation_ear</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 	<build>
 		<plugins>
@@ -245,27 +245,27 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.31</version>
+			<version>1.3.32-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.93</version>
+			<version>1.0.94-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.93</version>
+			<version>1.0.94-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.86</version>
+			<version>1.1.87-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
