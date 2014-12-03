@@ -601,6 +601,9 @@
 									<downloadDir>${cargo.install.dir}</downloadDir>
 									<extractDir>${cargo.install.dir}</extractDir>
 								</zipUrlInstaller>
+								<systemProperties>
+      								<java.awt.headless>true</java.awt.headless>
+    							</systemProperties>
 							</container>
 						</configuration>
 					</plugin>
