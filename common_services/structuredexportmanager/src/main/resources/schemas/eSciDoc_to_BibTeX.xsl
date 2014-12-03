@@ -537,7 +537,7 @@
 						and ($publication-type = 'proceedings'
 							or $publication-type = 'conference-paper')">
 			<xsl:call-template name="createField">
-				<xsl:with-param name="name" select="'adress'"/>
+				<xsl:with-param name="name" select="'address'"/>
 				<xsl:with-param name="xpath" select="./eterms:place"/>
 			</xsl:call-template>
 		</xsl:if>
