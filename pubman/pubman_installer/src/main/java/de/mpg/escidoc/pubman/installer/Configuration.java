@@ -57,9 +57,12 @@ import org.apache.log4j.Logger;
  */
 public class Configuration
 {
-    private Properties properties = null;
+    private static final String DATA_PUBMAN_DB_PATH = "/wildfly-8.1.0.Final/standalone/data/pubman_db/db";
+    
+	private Properties properties = null;
     /** logging instance */
     private Logger logger = null;
+    private String installPath = null;
     
     // Email configuration for SMTP server
     public static final String KEY_MAILSERVER = "escidoc.pubman_presentation.email.mailservername";
@@ -266,6 +269,11 @@ public class Configuration
         this.store(templateFile, outFileName, ReplaceType.TYPE_PROP);
     }
     
+    public void setInstallPath(String path)
+    {
+    	this.installPath = path;
+    }
+    
     private void store(String templateFile, String outFileName, ReplaceType typeXml) throws IOException
     {
         logger.info("Start configuration store:  " + outFileName + " with template " + templateFile + " type = " + typeXml);
@@ -363,6 +371,12 @@ public class Configuration
         if (key.contains("pubman.blog"))
         {
             return startLine;
+        }
+        // 
+        if (key.equals("escidoc.import.database.name"))
+        { 
+        	logger.info("escidoc.import.database.name = " + installPath + "/standalone/data/pubman_db/db");
+            return startLine + installPath + DATA_PUBMAN_DB_PATH;
         }
         String variableToReplace = oldLine.substring(idx + 1).trim();
         String value = getProperty(key);

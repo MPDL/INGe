@@ -264,6 +264,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         authConfigValues.put(Configuration.KEY_AUTH_CLIENT_FINISH_CLASS, idata.getVariable("AAClientFinishClass"));        
         
         configPubman.setProperties(userConfigValues);
+        configPubman.setInstallPath(idata.getInstallPath());
         configPubman.storeProperties("pubman.properties", idata.getInstallPath() + JBOSS_CONF_PATH + "pubman.properties");
         // also store in local pubman properties
         configPubman.store("pubman.properties");
