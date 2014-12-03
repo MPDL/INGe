@@ -141,9 +141,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
-					<systemProperties>
+					<systemPropertyVariables>
 						<java.awt.headless>true</java.awt.headless>
-					</systemProperties>
+					</systemPropertyVariables>
 				</configuration>
 				<executions>
 					<execution>
@@ -154,9 +154,9 @@
 						<configuration>
 							<skip>false</skip>
 							<test>TestPubManLogic</test>
-							<systemProperties>
+							<systemPropertyVariables>
 								<java.awt.headless>true</java.awt.headless>
-							</systemProperties>
+							</systemPropertyVariables>
 						</configuration>
 					</execution>
 				</executions>
