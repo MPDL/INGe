@@ -139,6 +139,10 @@
 			<xsl:for-each select="distinct-values($collected-856/marc:subfield[@code eq 'u']/text())">
 				<xsl:copy-of select="$collected-856[marc:subfield[@code eq 'u']/text() eq current()][1]"/>
 			</xsl:for-each>
+
+			<!-- Context Id in field 887 -->
+			<xsl:sequence select="local:datafield('887', (local:subfield('a', ../../../escidocItem:properties/srel:context/@objid), local:subfield('2', 'mpg.pure.context.id')))"/>
+
 			<xsl:apply-templates select="source:source" mode="local:make-952"/>
 			<xsl:variable name="local-tags" as="xs:string*" select="../../../escidocItem:properties/prop:content-model-specific/local-tags/local-tag[normalize-space(.)]/string()"/>
 			<xsl:if test="$local-tags[1]">
