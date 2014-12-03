@@ -49,23 +49,34 @@ public class RISImport{
     public String transformRIS2XML(String file){
     	String result = "";
     	
-    	String[] itemList = getItemListFromString(file, "(\\n|\\r|\\r\\n)ER\\s\\s-");    	// extract items to array
+    	List<String> itemList = getItemListFromString(file);    	// extract items to array
     	    	
-    	List<List<Pair>> items = new ArrayList();
-    	if(itemList!=null && itemList.length>1){ //transform items to XML
+    	List<List<Pair>> items = new ArrayList<List<Pair>>();
+    	
+    	Pattern risLinePattern = Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)", Pattern.DOTALL|Pattern.MULTILINE);
+    	
+    	if(itemList!=null){ //transform items to XML
     		
-    		for (String item : itemList) {
-    			List<Pair> itemPairs = getItemPairs(getItemFromString(item, "([A-Z0-9]{2})\\s+- ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))"));
-    			for(Pair p : itemPairs){
-    				//System.out.print(p.getKey()+" : "+p.getValue()+"\n");
+    		for (String item : itemList)
+    		{
+    			List<Pair> itemPairs = new ArrayList<Pair>();
+    			Matcher risLineMatcher = risLinePattern.matcher(item);
+    			while(risLineMatcher.find())
+    			{
+    				
+    				String line = risLineMatcher.group();
+    				if(line!=null)
+    				{
+    					Pair pair = createRISPairByString(line);
+    					itemPairs.add(pair);
+    				}
+    				
     			}
+
     			items.add(itemPairs);  
 			}
     		result = transformItemListToXML(items); 
     		
-    	}else if(itemList!=null && itemList.length==1){
-    		List<Pair> item = getItemPairs(getItemFromString(itemList[0], "([A-Z0-9]{2})\\s+- ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))"));
-    		result = transformItemToXML(item);
     	}
     	return result;
     }
@@ -95,53 +106,30 @@ public class RISImport{
    
     
     /**
-     * identifies item lines from input string and stores it in a List<String>
-     * @param string
-     * @return
-     */
-    public List<String> getItemFromString(String string, String patternString){    	
-    	   	
-    	//Pattern p = Pattern.compile("([A-Z0-9]{2})  - ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))");     	
-    	Pattern pattern = Pattern.compile(patternString);
-    	Matcher matcher = pattern.matcher(string);
-    	List<String> strArr = new ArrayList();
-    	while(matcher.find()){
-    		strArr.add(matcher.group());
-    	}
-    	return strArr;
-    }
-    
-    /**
      * identifies RIS items from input string and stores it in an String Array
      * @param string 
      * @return
      */
-    public String[] getItemListFromString(String string, String pattern){
+    public List<String> getItemListFromString(String string){
     	
     	//String s[] = string.split("ER\\s -");
     	
     	//replace first empty lines and BOM 
     	string = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string).replaceFirst("$1");
-    	String itemList[] = string.split(pattern);
-    	return itemList;
-    }
-    
-    /**
-     * get item pairs from item string (by regex string)
-     * @param string - RIS item as string
-     * @return String list with item key-value pairs
-     */
-    public List<Pair> getItemPairs(List<String> lines){
     	
-    	List<Pair> pairList = new ArrayList();    	
-    	if(lines !=null){    		
-    		for (String line : lines) {
-    			Pair pair = createRISPairByString(line);
-    			pairList.add(pair);
-			}
-    	}    	
-    	return pairList;
+    	Pattern risItemPattern = Pattern.compile("^TY  -.*?^ER  -", Pattern.DOTALL|Pattern.MULTILINE);
+    	Matcher risItemMatcher = risItemPattern.matcher(string);
+    	
+    	List<String> itemStrings = new ArrayList<String>();
+    	while(risItemMatcher.find())
+    	{
+    		itemStrings.add(risItemMatcher.group());
+    		System.out.println();
+    	}
+    	
+    	return itemStrings;
     }
+   
     
     /**
      * get a pair from line string (by regex string)
