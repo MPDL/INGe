@@ -50,6 +50,7 @@ import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.SourceVOPresentation;
+import de.mpg.escidoc.services.citationmanager.utils.XsltHelper;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -557,7 +558,10 @@ public class ApplicationBean extends FacesBean
         languageSelectItems.clear();
         ouList.clear();
         
-        returnVal = "... Resource bundles and properties reloaded, language selection menu reset.";
+        //Renew Journal CitationStyles for JUS Exports
+        XsltHelper.getJournalsXML();
+        
+        returnVal = "... Resource bundles and properties reloaded, language selection menu reset, Journal citation styles from CoNE reloaded.";
         return returnVal;
         
         
