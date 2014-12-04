@@ -73,6 +73,7 @@ public class XsltHelper {
 
 	public static final String I18N_TAG = "localized";
 	static Map<Pair, String> citationMap = new HashMap<Pair, String>();
+	private static long lastCitationMapUpdate = 0;
 	
 	// precompiled patterns
 	
@@ -310,8 +311,11 @@ public class XsltHelper {
 				idValue = idValue.substring(idValue.lastIndexOf("/")+1);
 			}
 			Pair keyValue = new Pair(idType, idValue);
-			if (citationMap.size() == 0) {
+			//Update citationMap if empty or if last update > 1h
+			long timeSinceLastUpdate = System.currentTimeMillis() - lastCitationMapUpdate;
+			if (citationMap.size() == 0 || timeSinceLastUpdate > (3600 * 1000)){
 				getJournalsXML();
+				lastCitationMapUpdate = System.currentTimeMillis();
 			}
 			if (citationMap.get(keyValue) == null) {
 				citationStyle = "default";
@@ -360,6 +364,7 @@ public class XsltHelper {
 		xr.parse(new InputSource(r));
 
 		citationMap = handler.getCitationStyleMap();
+		
 	}
 
 
