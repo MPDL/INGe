@@ -2603,21 +2603,6 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$uri"/>
-                                                        <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text> Retrieved from </xsl:text>
-                                                            </xsl:if>
-                                                            <xsl:copy-of select="$var"/>
-                                                        </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
-                                                </le>
-                                                <le>
-                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$published-online-and-external-locator"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>

@@ -515,12 +515,14 @@
 					</layout-element>	
 				</elements>
 			</layout-element>
-
+			
+			<!-- 
 			<layout-element ref="$uri">
 				<parameters>
 					<starts-with value=" Retrieved from " />
 				</parameters>
 			</layout-element>
+			-->
 			
 			<layout-element ref="$published-online-and-external-locator" />
 

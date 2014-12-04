@@ -364,7 +364,7 @@
 						<starts-with value="published-online:" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="$doi">
+				<layout-element ref="$source-doi">
 					<parameters>
 						<starts-with value="doi:" />
 					</parameters>
@@ -435,7 +435,7 @@
 	<cs-layout-definition name="journal-article-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article) 
+				$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article ) 
 				or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper, $l_meeting-abstract) and $source-type = $l_journal )  
 			]]></valid-if>
 			<delimiter value="" />
@@ -448,12 +448,12 @@
 
 			<layout-element name="volume-issue-start-page-end-page">
 				<parameters>
-					<ends-with value="."/>
-					<delimiter value=", " />
+					<ends-with value=". "/>
 				</parameters>
 				<elements>
 					<layout-element ref="$source-title" />
 					<layout-element ref="$volume-issue" />
+					<layout-element ref="$e-number" />
 					<layout-element ref="$start-page-end-page" />
 				</elements>
 			</layout-element>
@@ -560,7 +560,6 @@
 	</cs-layout-definition>
 
 
-
 	<!-- THESIS, in print or accepted -->
 	<!--
 		http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Thesis
@@ -590,6 +589,8 @@
 					<layout-element ref="pub:publication/eterms:publishing-info/eterms:place/text()" />
 				</elements>
 			</layout-element>
+
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 	</cs-layout-definition>
@@ -630,12 +631,16 @@
 					</layout-element>	
 				</elements>
 			</layout-element>
-
+			
+			<!-- 
 			<layout-element ref="$uri">
 				<parameters>
 					<starts-with value=" Retrieved from " />
 				</parameters>
 			</layout-element>
+			-->
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 	</cs-layout-definition>
@@ -674,6 +679,7 @@
 						</parameters>
 					</layout-element>
 					
+ 					
 					<layout-element ref="pub:publication/source:source[1]/dc:title/text()">
 						<parameters>
 							<font-style ref="ITALIC" />
@@ -737,6 +743,8 @@
 					<layout-element ref="$volume-issue" />
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -762,6 +770,8 @@
 					<ends-with value="."/>
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -803,6 +813,8 @@
 					<ends-with value="."/>
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -847,6 +859,8 @@
 					</layout-element>
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 			
 		</elements>
 
@@ -894,7 +908,9 @@
 						</elements>
 					</layout-element>
 				</elements>
-			</layout-element>	
+			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />	
 			
 		</elements>
 
@@ -927,6 +943,8 @@
 					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -978,6 +996,8 @@
 					<ends-with value="." />
 				</parameters>
 			</layout-element>
+			
+			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
 
@@ -1000,6 +1020,20 @@
 		</elements>
 
 	</cs-layout-definition>
+	
+
+	<!--	Test CSLD: -->
+<!--		<cs-layout-definition name="notMatched">-->
+<!--			<parameters>-->
+<!--		<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
+<!--			</parameters>-->
+<!--			<elements>-->
+<!--				-->
+<!--				<layout-element ref="$debugBlock" />-->
+<!--			-->
+<!--			</elements>-->
+<!--		</cs-layout-definition>-->
+
 
 
 
