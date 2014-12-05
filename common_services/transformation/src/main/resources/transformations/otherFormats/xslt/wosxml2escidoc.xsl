@@ -130,11 +130,11 @@
 		<xsl:choose>
 			<xsl:when test="$datePD">
 				<!-- Format JAN 19 2001 -->
-				<xsl:variable name="dateFormatRegex1" select="'(^\w{3}) (\d{1,2}) (\d{4})$'"/>
+				<xsl:variable name="dateFormatRegex1" select="'^(\w{3}) (\d{1,2}) (\d{4})$'"/>
 				<!-- Format JAN 2001 -->
-				<xsl:variable name="dateFormatRegex2" select="'(^\w{3}) (\d{4})$'"/>
+				<xsl:variable name="dateFormatRegex2" select="'^(\w{3}) (\d{4})$'"/>
 				<!-- Format 2001 -->
-				<xsl:variable name="dateFormatRegex3" select="'(^\d{4})$'"/>
+				<xsl:variable name="dateFormatRegex3" select="'^(\d{4})$'"/>
 	
 				<xsl:choose>
 					<xsl:when test="fn:matches($datePD, $dateFormatRegex1)">
