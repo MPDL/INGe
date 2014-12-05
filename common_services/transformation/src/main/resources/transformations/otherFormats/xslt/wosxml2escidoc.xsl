@@ -119,6 +119,88 @@
 	
 	</xsl:function>
 	
+	<xsl:function name="escidocFunction:formatWosDate">
+		
+		<xsl:param name="datePD"/>
+		<xsl:param name="datePY"/>
+		
+		<xsl:message select="concat($datePD, ' PD formatWosDate called!!!!')"/>
+		<xsl:message select="concat($datePY, ' PY formatWosDate called!!!!')"/>
+		
+		<xsl:choose>
+			<xsl:when test="$datePD">
+				<!-- Format JAN 19 2001 -->
+				<xsl:variable name="dateFormatRegex1" select="'(\w{3}) (\d{1,2}) (\d{4})'"/>
+				<!-- Format JAN 2001 -->
+				<xsl:variable name="dateFormatRegex2" select="'(\w{3}) (\d{4})'"/>
+				<!-- Format 2001 -->
+				<xsl:variable name="dateFormatRegex3" select="'(\d{4})'"/>
+	
+				<xsl:choose>
+					<xsl:when test="fn:matches($datePD, $dateFormatRegex1)">
+						<xsl:variable name="monthNumber" select="escidocFunction:monthStringToNumber(fn:replace($datePD, $dateFormatRegex1, '$1'))"/>
+						<xsl:variable name="dayNumber" select="escidocFunction:fillDayWithZero(fn:replace($datePD, $dateFormatRegex1, '$2'))"/>
+						<xsl:value-of select="fn:replace($datePD, $dateFormatRegex1, concat('$3-', $monthNumber, '-', $dayNumber))"/>
+					</xsl:when>
+		
+					
+					<xsl:when test="fn:matches($datePD, $dateFormatRegex2)">
+						<xsl:variable name="monthNumber" select="escidocFunction:monthStringToNumber(fn:replace($datePD, $dateFormatRegex2, '$1'))"/>
+						<xsl:value-of select="fn:replace($datePD, $dateFormatRegex2, concat('$2-', $monthNumber))"/>
+					</xsl:when>
+					
+					<xsl:when test="fn:matches($datePD, $dateFormatRegex3)">
+						<xsl:value-of select="$datePD"/>
+					</xsl:when>
+				</xsl:choose>
+				
+			</xsl:when>
+
+			<xsl:otherwise>
+				<xsl:if test="$datePY">
+					<xsl:value-of select="$datePY"/>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
+	
+	<xsl:function name="escidocFunction:monthStringToNumber" as="xs:string">
+		<xsl:param name="monthStr"/>
+		
+		<xsl:choose>
+			<xsl:when test="$monthStr='JAN'">01</xsl:when>
+			<xsl:when test="$monthStr='FEB'">02</xsl:when>
+			<xsl:when test="$monthStr='MAR'">03</xsl:when>
+			<xsl:when test="$monthStr='APR'">04</xsl:when>
+			<xsl:when test="$monthStr='MAY'">05</xsl:when>
+			<xsl:when test="$monthStr='JUN'">06</xsl:when>
+			<xsl:when test="$monthStr='JUL'">07</xsl:when>
+			<xsl:when test="$monthStr='AUG'">08</xsl:when>
+			<xsl:when test="$monthStr='SEP'">09</xsl:when>
+			<xsl:when test="$monthStr='OCT'">10</xsl:when>
+			<xsl:when test="$monthStr='NOV'">11</xsl:when>
+			<xsl:when test="$monthStr='DEC'">12</xsl:when>
+		</xsl:choose>
+		
+	</xsl:function>
+	
+	<xsl:function name="escidocFunction:fillDayWithZero" as="xs:string">
+		<xsl:param name="day"/>
+		
+		<xsl:choose>
+			<xsl:when test="string-length($day)=1">
+				<xsl:value-of select="concat('0',$day)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$day"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		
+	</xsl:function>
+	
+	
+	
+	
 	<xsl:function name="escidocFunction:ou-id">
 		<xsl:param name="name"/>
 		
@@ -165,10 +247,10 @@
 			</xsl:when>
 			
 			<xsl:when test="count(//item) = 0">
-				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSourceForSingleTarget' ), 'Single item was selected as target, but the source contained no items')"/>
+				<xsl:value-of select="fn:error(QName('http://www.escidoc.de', 'err:NoSourceForSingleTarget' ), 'Single item was selected as target, but the source contained no items')"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleSourceForSingleTarget' ), 'Single item was selected as target, but the source contained multiple items')"/>
+				<xsl:value-of select="fn:error(QName('http://www.escidoc.de', 'err:MultipleSourceForSingleTarget' ), 'Single item was selected as target, but the source contained multiple items')"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -212,7 +294,7 @@
 	<!-- Create eSciDoc Entry -->
 	<xsl:template name="createEntry">
 		<xsl:param name="gen"/>
-		
+
 		<xsl:element name="pub:publication">
 			<xsl:attribute name="type">
 				<xsl:value-of select="$genre-ves/enum[.=$gen]/@uri"/>
@@ -374,35 +456,22 @@
 					<dc:identifier xsi:type="eterms:CONE">
 						<xsl:value-of select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
 					</dc:identifier>
-					<!-- CBS OU depend on date (affiliatedInstitution depend on publicationDateFormatted) -->
-					<xsl:variable name="publicationDateFormatted">
-						<xsl:choose>
-							<xsl:when test="exists($publicationDate) and fn:matches($publicationDate, '\d+?/\d+?/\d+?/')">
-								<xsl:value-of select="fn:substring-before($publicationDate, '/')"/>-<xsl:value-of select="fn:substring-before(fn:substring-after($publicationDate, '/'), '/')"/>-<xsl:value-of select="fn:substring-before(fn:substring-after(fn:substring-after($publicationDate, '/'), '/'), '/')"/>
-							</xsl:when>
-							<xsl:when test="exists($publicationDate) and fn:matches($publicationDate/text(), '\d+?/\d+?//')">
-								<xsl:value-of select="fn:substring-before($publicationDate, '/')"/>-<xsl:value-of select="fn:substring-before(fn:substring-after($publicationDate, '/'), '/')"/>
-							</xsl:when>
-							<xsl:when test="exists($publicationDate) and fn:matches($publicationDate, '\d+?///')">
-								<xsl:value-of select="fn:substring-before($publicationDate, '/')"/>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:variable>
+				
 					
 					<xsl:choose>
-						<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDateFormatted) and escidocFunction:smaller($publicationDateFormatted, rdf:Description/escidoc:end-date)]">
+						<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDate) and escidocFunction:smaller($publicationDate, rdf:Description/escidoc:end-date)]">
 							<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
-								<xsl:comment>pubdate: <xsl:value-of select="$publicationDateFormatted"/>
+								<xsl:comment>pubdate: <xsl:value-of select="$publicationDate"/>
 								</xsl:comment>
 								<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
 								</xsl:comment>
-								<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDateFormatted)"/>
+								<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDate)"/>
 								</xsl:comment>
 								<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
 								</xsl:comment>
-								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunction:smaller($publicationDateFormatted, rdf:Description/escidoc:end-date)"/>
+								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunction:smaller($publicationDate, rdf:Description/escidoc:end-date)"/>
 								</xsl:comment>
-								<xsl:if test="escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDateFormatted) and escidocFunction:smaller($publicationDateFormatted, rdf:Description/escidoc:end-date)">
+								<xsl:if test="escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDate) and escidocFunction:smaller($publicationDate, rdf:Description/escidoc:end-date)">
 									<xsl:comment> Case 1 </xsl:comment>
 									<organization:organization>
 										<dc:title>
@@ -434,9 +503,11 @@
 		<xsl:variable name="var">
            <xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
-      	<xsl:variable name="publicationDate">
-      		<xsl:value-of select="../PD" />
-      	</xsl:variable>
+      	
+      	<xsl:variable name="PD" select="../PD"/>
+      	<xsl:variable name="PY" select="../PY"/>
+      	
+      	
         <xsl:for-each select="$var/authors/author">
         	<xsl:element name="eterms:creator">
 				<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
@@ -444,7 +515,7 @@
 						<xsl:with-param name="familyname" select="familyname"/>
 						<xsl:with-param name="givenname" select="givenname"/>
 						<xsl:with-param name="title" select="title"/>
-						<xsl:with-param name="publicationDate" select="$publicationDate"/>
+						<xsl:with-param name="publicationDate" select="escidocFunction:formatWosDate($PD,$PY)"/>
 					</xsl:call-template>
 			</xsl:element>
        </xsl:for-each>
@@ -739,46 +810,22 @@
 	</xsl:template>
 	<!-- DATES -->
 	<xsl:template name="createDate">
-		<xsl:if test="PY">
-			
-			<xsl:variable name="monthStr" select="PD"/>
-			<xsl:variable name="month">
-				<xsl:choose>
-					<xsl:when test="$monthStr='JAN'">01</xsl:when>
-					<xsl:when test="$monthStr='FEB'">02</xsl:when>
-					<xsl:when test="$monthStr='MAR'">03</xsl:when>
-					<xsl:when test="$monthStr='APR'">04</xsl:when>
-					<xsl:when test="$monthStr='MAY'">05</xsl:when>
-					<xsl:when test="$monthStr='JUN'">06</xsl:when>
-					<xsl:when test="$monthStr='JUL'">07</xsl:when>
-					<xsl:when test="$monthStr='AUG'">08</xsl:when>
-					<xsl:when test="$monthStr='SEP'">09</xsl:when>
-					<xsl:when test="$monthStr='OCT'">10</xsl:when>
-					<xsl:when test="$monthStr='NOV'">11</xsl:when>
-					<xsl:when test="$monthStr='DEC'">12</xsl:when>
-				</xsl:choose>
-			</xsl:variable>
-			
+
+			<xsl:variable name="publicationDate" select="escidocFunction:formatWosDate(PD,PY)"/>
 			<xsl:choose>
 				<xsl:when test="AR and AR != ''">
 					<eterms:published-online>				
-						<xsl:value-of select="PY"/>
-						<xsl:if test="not($month='')">
-							<xsl:value-of select="concat('-',$month)"/>
-						</xsl:if>				
+						<xsl:value-of select="$publicationDate"/>			
 					</eterms:published-online>
 				</xsl:when>
 				<xsl:otherwise>
 					<dcterms:issued>				
-						<xsl:value-of select="PY"/>
-						<xsl:if test="not($month='')">
-							<xsl:value-of select="concat('-',$month)"/>
-						</xsl:if>				
+						<xsl:value-of select="$publicationDate"/>			
 					</dcterms:issued>
 				</xsl:otherwise>
 			</xsl:choose>
 			
-		</xsl:if>
+
 	</xsl:template>
 	
 	

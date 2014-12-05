@@ -351,6 +351,7 @@ public class Util
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
+            client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
             GetMethod method = new GetMethod(queryUrl);
             
             String coneSession = getConeSession();
