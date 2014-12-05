@@ -123,18 +123,18 @@
 		
 		<xsl:param name="datePD"/>
 		<xsl:param name="datePY"/>
-		
+		 <!-- 
 		<xsl:message select="concat($datePD, ' PD formatWosDate called!!!!')"/>
 		<xsl:message select="concat($datePY, ' PY formatWosDate called!!!!')"/>
-		
+		-->		
 		<xsl:choose>
 			<xsl:when test="$datePD">
 				<!-- Format JAN 19 2001 -->
-				<xsl:variable name="dateFormatRegex1" select="'(\w{3}) (\d{1,2}) (\d{4})'"/>
+				<xsl:variable name="dateFormatRegex1" select="'(^\w{3}) (\d{1,2}) (\d{4})$'"/>
 				<!-- Format JAN 2001 -->
-				<xsl:variable name="dateFormatRegex2" select="'(\w{3}) (\d{4})'"/>
+				<xsl:variable name="dateFormatRegex2" select="'(^\w{3}) (\d{4})$'"/>
 				<!-- Format 2001 -->
-				<xsl:variable name="dateFormatRegex3" select="'(\d{4})'"/>
+				<xsl:variable name="dateFormatRegex3" select="'(^\d{4})$'"/>
 	
 				<xsl:choose>
 					<xsl:when test="fn:matches($datePD, $dateFormatRegex1)">
@@ -152,6 +152,12 @@
 					<xsl:when test="fn:matches($datePD, $dateFormatRegex3)">
 						<xsl:value-of select="$datePD"/>
 					</xsl:when>
+					
+					<xsl:otherwise>
+						<xsl:if test="$datePY">
+							<xsl:value-of select="$datePY"/>
+						</xsl:if>
+					</xsl:otherwise>
 				</xsl:choose>
 				
 			</xsl:when>
@@ -812,6 +818,9 @@
 	<xsl:template name="createDate">
 
 			<xsl:variable name="publicationDate" select="escidocFunction:formatWosDate(PD,PY)"/>
+			<!-- 
+			<xsl:message select="concat('formatted date:', $publicationDate)"/>
+			-->
 			<xsl:choose>
 				<xsl:when test="AR and AR != ''">
 					<eterms:published-online>				
