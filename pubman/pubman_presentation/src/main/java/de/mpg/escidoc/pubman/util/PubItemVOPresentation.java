@@ -1141,13 +1141,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         if (this.getVersion() !=  null && this.getVersion().getObjectId() != null)
         {
-            return PropertyReader.getProperty("escidoc.pubman.instance.url")
-            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-            + PropertyReader
-            .getProperty("escidoc.pubman.item.pattern")
-            .replaceAll("\\$1", this.getVersion().getObjectId()
-                    + (this.getVersion().getVersionNumber() != 0 ? ":"
-                            + this.getVersion().getVersionNumber() : ""));
+        	return CommonUtils.getGenericItemLink(this.getVersion().getObjectId(), this.getVersion().getVersionNumber());
         }
         else
         {
@@ -1159,13 +1153,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         if (this.getLatestRelease()!=null && this.getLatestRelease().getObjectId() != null)
         {
-            return PropertyReader.getProperty("escidoc.pubman.instance.url")
-            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-            + PropertyReader
-            .getProperty("escidoc.pubman.item.pattern")
-            .replaceAll("\\$1", this.getLatestRelease().getObjectId()
-                    + (this.getLatestRelease().getVersionNumber() != 0 ? ":"
-                            + this.getLatestRelease().getVersionNumber() : ""));
+        	return CommonUtils.getGenericItemLink(this.getLatestRelease().getObjectId(), this.getLatestRelease().getVersionNumber());
         }
         else
         {

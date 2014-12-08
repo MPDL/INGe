@@ -47,6 +47,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.aa.UserManagementWrapper;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -215,22 +216,16 @@ public class Login extends FacesBean
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         try
         {
+        	String targetUrl = CommonUtils.getGenericItemLink(itemID);
             fc.getExternalContext().redirect(
-                    ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL() + "?itemId=" + itemID);
+                    ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + URLEncoder.encode(targetUrl, "UTF-8"));
             //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             logger.error("Could not redirect to Fremework login page", e);
         }
-        catch (ServiceException e)
-        {
-            logger.error("Could not redirect to Fremework login page", e);
-        }
-        catch (URISyntaxException e)
-        {
-            logger.error("Could not redirect to Fremework login page", e);
-        }
+
 
 
         return "";

@@ -96,18 +96,27 @@ public class RedirectServlet extends HttpServlet
         boolean download = ("download".equals(req.getParameter("mode")));
         boolean tme = ("tme".equals(req.getParameter("mode")));
         
+        String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+        
+        
         // no component -> viewItemOverviewPage
         if (!id.contains("/component/"))
         {
+        	StringBuffer redirectUrl = new StringBuffer();
             LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
             if (loginHelper != null && loginHelper.isDetailedMode())
             {
-                resp.sendRedirect("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+                redirectUrl.append("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
             }
             else 
             {
-                resp.sendRedirect("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
+            	redirectUrl.append("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
             }
+            if(userHandle!=null)
+            {
+            	redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle); 
+            }
+            resp.sendRedirect(redirectUrl.toString());
             return;
         }
         

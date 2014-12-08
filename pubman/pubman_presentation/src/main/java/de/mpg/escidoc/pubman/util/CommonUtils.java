@@ -963,4 +963,25 @@ public class CommonUtils extends InternationalizedImpl
         }
     }
     
+    public static String getGenericItemLink(String objectId, int version) throws Exception
+    {
+    	if(objectId != null)
+    	{
+    		return PropertyReader.getProperty("escidoc.pubman.instance.url")
+                    + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                    + PropertyReader
+                    .getProperty("escidoc.pubman.item.pattern")
+                    .replaceAll("\\$1", objectId
+                            + (version != 0 ? ":" + version : ""));
+    	}
+    	return null;
+    	
+    	
+    }
+    
+    public static String getGenericItemLink(String objectId) throws Exception
+    {
+    	return getGenericItemLink(objectId, 0);
+    }
+    
 }
