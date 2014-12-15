@@ -26,7 +26,6 @@ import org.junit.Test;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -80,7 +79,8 @@ public class TestFullTextSearch
     
     private static long sleepingTime = 5000;
     
-    private static final String BAYESIAN = "\"Bayesian\"";
+    private static final String BAYESIAN = "\"Bayesian parameter estimation\"";
+    private static final String BODY_MASS = "\"log-transformed body-mass\"";
 	
 	@BeforeClass
 	public static void init() throws Exception
@@ -186,9 +186,36 @@ public class TestFullTextSearch
     	assertTrue("Found result_escidoc_all_3 <" + result_escidoc_all_3.getNumberOfHits() + "> result_escidoc_all_4 <" + result_escidoc_all_4.getNumberOfHits() + ">", 
 				result_escidoc_all_3.getNumberOfHits() == (result_escidoc_all_4.getNumberOfHits() + 1));
 	
-    	// add other component
+    	// add another component
+    	pubItemVO = this.addComponentAndSubmit(pubItemVO, "BGC1891.pdf");
+    	
+    	// fulltext search in item_container_admin with search string in new component
+     	Thread.sleep(sleepingTime);
+    	FulltextSearchResult result_item_container_4 = this.doFulltextSearch(searchHandler_item_container_admin, 
+    												query_item_container_admin, BODY_MASS, pubItemVO.getLatestVersion().getObjectId());
+    	
+     	assertTrue("Expected positive number of hits ", result_item_container_4.getNumberOfHits() > 0);
+     	assertTrue(result_item_container_4.isFound());
+     	assertTrue(result_item_container_4.getVersionNumber() == 3);
+     	
+     	// search for search string of old component should be negative
+     	FulltextSearchResult result_item_container_5 = this.doFulltextSearch(searchHandler_item_container_admin, 
+				query_item_container_admin, BAYESIAN, pubItemVO.getLatestVersion().getObjectId());
+
+     	assertTrue(!result_item_container_5.isFound());
+     	
+     	// release item with new component
+     	pubItemVO = this.releaseItem(pubItemVO);
+     	
+     	// fulltext search in escidoc_all for search string of new component
+     	Thread.sleep(sleepingTime);
+     	FulltextSearchResult result_escidoc_all_5 = this.doFulltextSearch(searchHandler_escidoc_all, 
+     												query_escidoc_all, BODY_MASS, pubItemVO.getLatestRelease().getObjectId());
+     	assertTrue("Expected positive number of hits ", result_escidoc_all_5.getNumberOfHits() > 0);
+     	assertTrue(result_escidoc_all_5.isFound());
+     	assertTrue(result_escidoc_all_5.getVersionNumber() == 3);
     }
-    
+
 	private String getQuery(String querySnippet, String s)
 	{
 		return querySnippet.replaceAll("XXX", s);
@@ -199,7 +226,8 @@ public class TestFullTextSearch
 		// new item
         PubItemVO actualItemVO = getComplexPubItemWithoutFiles();
         
-        String actualItem = addFileToItem(actualItemVO, "BGC1879.pdf");
+        actualItemVO = addFileToItem(actualItemVO, "BGC1879.pdf");
+        String actualItem = xmlTransforming.transformToItem(actualItemVO);
 		long start = System.currentTimeMillis();
 		actualItem = itemHandler.create(actualItem);
 		long end = System.currentTimeMillis();
@@ -213,7 +241,7 @@ public class TestFullTextSearch
 		return submitItem(actualItemVO);
 	}
 
-	private String addFileToItem(PubItemVO actualItemVO, String fileName) throws Exception
+	private PubItemVO addFileToItem(PubItemVO pubItemVO, String fileName) throws Exception
 	{
 		// Add file to item
         FileVO initPubFile = new FileVO();
@@ -233,10 +261,9 @@ public class TestFullTextSearch
 
         initPubFile.getMetadataSets().add(mdsFile);
         
-        actualItemVO.getFiles().add(initPubFile);
+        pubItemVO.getFiles().add(initPubFile);
 
-		String actualItem = xmlTransforming.transformToItem(actualItemVO);
-		return actualItem;
+		return pubItemVO;
 	}
 
 	private PubItemVO submitItem(PubItemVO actualItemVO) throws Exception			
@@ -415,6 +442,20 @@ public class TestFullTextSearch
 		actualItemVO = xmlTransforming.transformToPubItem(actualItem);
 		
 		return actualItemVO;
+	}
+	
+	private PubItemVO addComponentAndSubmit(PubItemVO pubItemVO, String fileName) throws Exception
+	{
+		pubItemVO = this.addFileToItem(pubItemVO, fileName);
+		
+		String actualItem = xmlTransforming.transformToItem(pubItemVO);
+		
+		itemHandler.update(pubItemVO.getVersion().getObjectId(), actualItem);
+		
+		String item = itemHandler.retrieve(pubItemVO.getVersion().getObjectId());
+		pubItemVO = xmlTransforming.transformToPubItem(item);
+
+		return this.submitItem(pubItemVO);
 	}
 	
 	private PubItemVO removeComponentsAndSubmit(PubItemVO pubItemVO) throws Exception
