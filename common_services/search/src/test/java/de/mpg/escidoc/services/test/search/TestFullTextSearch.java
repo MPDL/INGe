@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,18 +23,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
-import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.ComponentNotFoundException;
-import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.application.violated.LockingException;
-import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
-import de.escidoc.core.common.exceptions.application.violated.ReadonlyVersionException;
-import de.escidoc.core.common.exceptions.application.violated.ReadonlyViolationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -67,7 +54,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -151,6 +137,7 @@ public class TestFullTextSearch
      	assertTrue("Found result_item_container_1 " + result_item_container_1.getNumberOfHits() + " result_item_container_2 " + result_item_container_2.getNumberOfHits(), 
      												result_item_container_2.getNumberOfHits() == (result_item_container_1.getNumberOfHits() + 1));
      	assertTrue(result_item_container_2.isFound());
+     	assertTrue(result_item_container_2.getVersionNumber() == 1);
     	
      	
      	// release item
@@ -165,6 +152,7 @@ public class TestFullTextSearch
     	
     	assertTrue(result_escidoc_all_2.getNumberOfHits() > 0);
     	assertTrue(result_escidoc_all_2.isFound());
+    	assertTrue(result_escidoc_all_2.getVersionNumber() == 1);
     	assertTrue("Found result_escidoc_all_1 <" + result_escidoc_all_1.getNumberOfHits() + "> result_escidoc_all_2 <" + result_escidoc_all_2.getNumberOfHits() + ">", 
     												result_escidoc_all_2.getNumberOfHits() == (result_escidoc_all_1.getNumberOfHits() + 1));
     	
@@ -175,13 +163,29 @@ public class TestFullTextSearch
      	Thread.sleep(sleepingTime);
     	FulltextSearchResult result_item_container_3 = this.doFulltextSearch(searchHandler_item_container_admin, 
     												query_item_container_admin, BAYESIAN, pubItemVO.getLatestVersion().getObjectId());
-    	
-     	assertTrue("Found result_item_container_2 " + result_item_container_2.getNumberOfHits() + " result_item_container_3 " + result_item_container_3.getNumberOfHits(), 
-     												result_item_container_3.getNumberOfHits() == (result_item_container_2.getNumberOfHits() - 1));
+    	// found the latest released version
+    	assertTrue(result_item_container_3.isFound());
+    	assertTrue(result_item_container_3.getVersionNumber() == 1);
+     	assertTrue("Found result_item_container_2 <" + result_item_container_2.getNumberOfHits() + "> result_item_container_3 <" + result_item_container_3.getNumberOfHits() + ">", 
+     												result_item_container_3.getNumberOfHits() == (result_item_container_2.getNumberOfHits()));
+     	assertTrue("Got result_item_container_2.getVersion <" + result_item_container_2.getVersionNumber() + "> result_item_container_3 <" + result_item_container_3.getVersionNumber() + ">", 
+     												result_item_container_3.getVersionNumber() == result_item_container_2.getVersionNumber());
      	
     	
-    	// fulltext search in escidoc_all
+     	// release item without component
+     	FulltextSearchResult result_escidoc_all_3 = this.doFulltextSearch(searchHandler_escidoc_all, 
+				query_escidoc_all, BAYESIAN, pubItemVO.getLatestVersion().getObjectId());
+     	pubItemVO = this.releaseItem(pubItemVO);
     	
+     	// fulltext search in escidoc_all
+     	Thread.sleep(sleepingTime);
+    	FulltextSearchResult result_escidoc_all_4 = this.doFulltextSearch(searchHandler_escidoc_all, 
+    												query_escidoc_all, BAYESIAN, pubItemVO.getLatestRelease().getObjectId());
+    	// find one less
+    	assertTrue(!result_escidoc_all_4.isFound());
+    	assertTrue("Found result_escidoc_all_3 <" + result_escidoc_all_3.getNumberOfHits() + "> result_escidoc_all_4 <" + result_escidoc_all_4.getNumberOfHits() + ">", 
+				result_escidoc_all_3.getNumberOfHits() == (result_escidoc_all_4.getNumberOfHits() + 1));
+	
     	// add other component
     }
     
@@ -195,27 +199,7 @@ public class TestFullTextSearch
 		// new item
         PubItemVO actualItemVO = getComplexPubItemWithoutFiles();
         
-        // Add file to item
-        FileVO initPubFile = new FileVO();
-        String testfile = "src/test/resources/components/BGC1879.pdf";
-        initPubFile.setDescription("Sehen Sie B6?");
-        initPubFile.setVisibility(Visibility.PUBLIC);
-        initPubFile.setContentCategoryString("http://purl.org/escidoc/metadata/ves/content-categories/abstract");
-        initPubFile.setContent(uploadFile(testfile, "application/pdf", userHandle).toString());
-        initPubFile.setName("BGC1879.pdf");
-        initPubFile.setMimeType("application/pdf");
-        //initPubFile.setSize((int)new File("src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif").length());
-        initPubFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-       
-        MdsFileVO mdsFile = new MdsFileVO();
-        mdsFile.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/abstract");
-        mdsFile.setTitle(new TextVO("BGC1879.pdf"));
-
-        initPubFile.getMetadataSets().add(mdsFile);
-        
-        actualItemVO.getFiles().add(initPubFile);
-
-		String actualItem = xmlTransforming.transformToItem(actualItemVO);
+        String actualItem = addFileToItem(actualItemVO, "BGC1879.pdf");
 		long start = System.currentTimeMillis();
 		actualItem = itemHandler.create(actualItem);
 		long end = System.currentTimeMillis();
@@ -227,6 +211,32 @@ public class TestFullTextSearch
 		
 		// Submit the item
 		return submitItem(actualItemVO);
+	}
+
+	private String addFileToItem(PubItemVO actualItemVO, String fileName) throws Exception
+	{
+		// Add file to item
+        FileVO initPubFile = new FileVO();
+        String testfile = "src/test/resources/components/" + fileName;
+        initPubFile.setDescription("Sehen Sie B6?");
+        initPubFile.setVisibility(Visibility.PUBLIC);
+        initPubFile.setContentCategoryString("http://purl.org/escidoc/metadata/ves/content-categories/abstract");
+        initPubFile.setContent(uploadFile(testfile, "application/pdf", userHandle).toString());
+        initPubFile.setName(fileName);
+        initPubFile.setMimeType("application/pdf");
+        //initPubFile.setSize((int)new File("src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif").length());
+        initPubFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+       
+        MdsFileVO mdsFile = new MdsFileVO();
+        mdsFile.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/abstract");
+        mdsFile.setTitle(new TextVO(fileName));
+
+        initPubFile.getMetadataSets().add(mdsFile);
+        
+        actualItemVO.getFiles().add(initPubFile);
+
+		String actualItem = xmlTransforming.transformToItem(actualItemVO);
+		return actualItem;
 	}
 
 	private PubItemVO submitItem(PubItemVO actualItemVO) throws Exception			
@@ -759,10 +769,12 @@ public class TestFullTextSearch
 						float score = sr.getScore();
 
 						String currentObjectId = ((ItemResultVO)sr).getLatestVersion().getObjectId();
+						int currentVersion = ((ItemResultVO)sr).getVersion().getVersionNumber();
 						logger.info("objId found <" + currentObjectId + "> searching <" + objectId +">");
 						if (((ItemResultVO)sr).getLatestVersion().getObjectId().equals(objectId))
 						{
 							result.setFound(true);
+							result.setVersionNumber(currentVersion);
 							break;
 						}
 					}
@@ -781,6 +793,7 @@ public class TestFullTextSearch
     {
     	private boolean found = false;
     	private int numberOfHits = 0;
+    	private int versionNumber = 0;
     	
 		public boolean isFound()
 		{
@@ -797,6 +810,14 @@ public class TestFullTextSearch
 		public void setNumberOfHits(int numberOfHits)
 		{
 			this.numberOfHits = numberOfHits;
+		}
+		public int getVersionNumber()
+		{
+			return versionNumber;
+		}
+		public void setVersionNumber(int versionNumber)
+		{
+			this.versionNumber = versionNumber;
 		}
     }
 	
