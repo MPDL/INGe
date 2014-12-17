@@ -260,7 +260,6 @@
 					journalDetailsBaseURL = '$1?format=json';
 					personDetailsBaseURL = '$1?format=json&lang=$2';
 					languageDetailsBaseURL = '$1?format=json&lang=$2';
-					journalSuggestCommonParentClass = 'itemBlock';
 					personSuggestCommonParentClass = 'suggestAnchor';
 					journalSuggestTrigger = 'JOURNAL';
 					/* ]]> */

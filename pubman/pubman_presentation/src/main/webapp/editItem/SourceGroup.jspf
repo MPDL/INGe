@@ -31,7 +31,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0" id="editSource" rendered="#{EditItem.pubItem!=null and !(genre.sources_display == 'false' and genre.sources_form_id == 'full-submission' || genre.sources_display == 'false' and genre.sources_form_id == 'all')}">
 <ui:repeat var="sourceBean" value="#{EditItemSessionBean.sources}">
-	<h:panelGroup layout="block" styleClass="full_area0 itemBlock free_area0">
+	<h:panelGroup layout="block" styleClass="full_area0 itemBlock free_area0 journalSuggestAnchor">
 		<h3 class="xLarge_area0_p8 endline blockHeader"><h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter" /><h:outputText value="#{sourceBean.position + 1}" />
 		</h3>
 		<span class="seperator"></span>

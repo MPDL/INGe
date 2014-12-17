@@ -41,7 +41,7 @@
 	var languageDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
 	var autopasteInnerDelimiter = ' @@~~@@ ';
-	var journalSuggestCommonParentClass = 'itemBlock';
+	var journalSuggestCommonParentClass = 'journalSuggestAnchor';
 	var journalSuggestTrigger = 'JOURNAL';
 	var subjectSuggestCommonParentClass = 'parentArea';
 	var languageSuggestCommonParentClass = 'languageArea';
