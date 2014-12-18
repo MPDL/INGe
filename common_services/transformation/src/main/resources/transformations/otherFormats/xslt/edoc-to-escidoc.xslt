@@ -1134,6 +1134,26 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIBF'">
+							<xsl:choose>
+								<xsl:when test="$access='USER'">
+									<prop:visibility>private</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='MPG' or $access='INSTITUT'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC' and exists(../titleofseries) and (../titleofseries='Materialien aus der Bildungsforschung' or ../titleofseries='Studien und Berichte')">
+									<prop:visibility>private</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC' and (not(exists(../titleofseries) and (../titleofseries='Materialien aus der Bildungsforschung' or ../titleofseries='Studien und Berichte')))">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>	
 						<xsl:when test="$import-name = 'MPIMET'">
 							<xsl:choose>
 								<xsl:when test="$access='MPG' or $access='INSTITUT'">
@@ -1304,7 +1324,7 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIDS' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIDS' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIBF' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP'  or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1374,6 +1394,11 @@
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, '[',escidocFunctions:suffix($filename), '] not found in CONE'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
+					<xsl:if test="$import-name = 'MPIBF' and exists(@comment)">
+						<prop:description>
+							<xsl:value-of select="@comment"/>
+						</prop:description>
+					</xsl:if>
 					<!--  <xsl:choose>
 						<xsl:when test="ends-with($filename, '.doc')">
 							<prop:mime-type>application/msword</prop:mime-type>
@@ -1471,7 +1496,7 @@
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDS' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIBF' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDS' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
@@ -1519,7 +1544,7 @@
 										<xsl:value-of select="@comment"/>
 									</xsl:element>
 								</xsl:when>
-								<xsl:when test="($import-name = 'MPIE' or $import-name = 'MPIA' or $import-name = 'MPIPF') and exists(@comment)">
+								<xsl:when test="( $import-name = 'MPIA' or  $import-name = 'MPIBF' or $import-name = 'MPIE'or $import-name = 'MPIPF') and exists(@comment)">
 									<xsl:element name="dc:description">
 										<xsl:value-of select="@comment"/>
 									</xsl:element>
@@ -1577,7 +1602,7 @@
 										<xsl:value-of select="../../../rights/copyright"/>
 									</xsl:element>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEIS'">
+								<xsl:when test="$import-name = 'MPIBF' or $import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEIS'">
 									<xsl:if test="exists(../../../rights/copyright)">
 										<xsl:element name="dc:rights">
 											<xsl:value-of select="../../../rights/copyright"/>
@@ -2601,6 +2626,8 @@
 			<xsl:apply-templates select="abstract"/>
 			<xsl:call-template name="abstractMPIEMPIA"/>
 			
+			<xsl:apply-templates select="authorcomment"/>
+			
 			<!-- SUBJECT -->
 			<xsl:apply-templates select="discipline"/>
 			
@@ -2715,6 +2742,23 @@
 			<xsl:for-each select="../relations/relation[@type = 'isbn' and @reltype='hasreferences']">
 				<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
+		</xsl:if>
+		<xsl:if test="$import-name = 'MPIBF'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof']">
+					<xsl:choose>
+						<xsl:when test="@type = 'url'">
+							<dc:identifier xsi:type="eterms:URI"><xsl:value-of select="identifier"/></dc:identifier>
+						</xsl:when>
+						<xsl:when test="@type = 'isbn'">
+							<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="identifier"/></dc:identifier>
+						</xsl:when>
+						<xsl:when test="@type = 'issn'">
+							<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="identifier"/></dc:identifier>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:for-each>
+			</xsl:if>
 		</xsl:if>
 	</xsl:template>
 	
@@ -4385,6 +4429,15 @@
 		</xsl:when>
 		 -->
 	</xsl:template>
+	<xsl:template match="authorcomment">
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIBF'">
+				<dcterms:abstract>
+					<xsl:value-of select="." />
+				</dcterms:abstract>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
 	<!-- #################### TEST TEST TEST ########################## --> 
 	
 	<!-- Publication dates -->
@@ -4641,6 +4694,12 @@
 						<xsl:value-of select="normalize-space(keywords)"/>
 						<xsl:text></xsl:text>
 					</xsl:if>
+				</xsl:when>
+				<xsl:when test="$import-name = 'MPIBF'">					
+					<xsl:for-each select="../../docaff/affiliation/mpgsunit[. = 'BASE' or . = 'BASE II' or .='FACES']">
+						<xsl:value-of select="normalize-space(.)"/>
+						<xsl:text>; </xsl:text>
+					</xsl:for-each>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:if test="exists(keywords)">
