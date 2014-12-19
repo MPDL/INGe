@@ -591,4 +591,24 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         assertNotNull(yearbookPubItem.getYearbookMetadata().getIncludedContexts().get(0));
         assertNotNull(yearbookPubItem.getYearbookMetadata().getIncludedContexts().get(1));
     }
+    
+    @Test
+    public void testCleanupItem() throws Exception
+    {
+    	 // read PubItemVO from base test class
+        PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
+
+        // transform the item into XML
+        String itemXml = xmlTransforming.transformToItem(pubItem);
+        logger.info("Transformed item(XML):\n" + itemXml);
+        
+        pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).getName().setValue("");
+        pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).setAddress("");
+        pubItem.getMetadata().cleanup();
+        
+        String itemXmlCleanedUp = xmlTransforming.transformToItem(pubItem);
+        logger.info("-----------------------------------------------------");
+        logger.info("Cleaned up item(XML):\n" + itemXmlCleanedUp);
+        
+    }
 }

@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import de.mpg.escidoc.services.common.valueobjects.IgnoreForCleanup;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -83,6 +84,8 @@ public class IdentifierVO extends ValueObject implements Cloneable
         PATENT_NR ("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"),
         PATENT_APPLICATION_NR ("http://purl.org/escidoc/metadata/terms/0.1/PATENT-APPLICATION-NR"),
         PATENT_PUBLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"),
+        OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"),
+        GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"),
         OTHER ("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
         
         
@@ -100,6 +103,8 @@ public class IdentifierVO extends ValueObject implements Cloneable
     }
 
     private String id;
+    
+    @IgnoreForCleanup
     private IdType type;
 
     /**
@@ -220,4 +225,5 @@ public class IdentifierVO extends ValueObject implements Cloneable
             setType(newVal);
         }
     }
+    
 }

@@ -39,6 +39,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -295,6 +296,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     private java.util.List<TextVO> abstracts = new java.util.ArrayList<TextVO>();
 
     /**
+     * Information about project and funding
+     */
+    private ProjectInfoVO projectInfo;
+    
+    /**
      * Creates a new instance.
      */
     public MdsPublicationVO()
@@ -389,7 +395,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         {
             setTableOfContents((TextVO) other.getTableOfContents().clone());
         }
+        
         setTotalNumberOfPages(other.getTotalNumberOfPages());
+        if (other.getProjectInfo() != null)
+        {
+        	 setProjectInfo(other.getProjectInfo().clone());
+        }
+       
     }
 
     /**
@@ -820,4 +832,12 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
             datePublishedOnline = newVal;
         }
     }
+
+	public ProjectInfoVO getProjectInfo() {
+		return projectInfo;
+	}
+
+	public void setProjectInfo(ProjectInfoVO projectInfo) {
+		this.projectInfo = projectInfo;
+	}
 }

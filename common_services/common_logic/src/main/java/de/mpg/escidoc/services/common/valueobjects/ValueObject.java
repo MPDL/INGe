@@ -31,6 +31,14 @@
 package de.mpg.escidoc.services.common.valueobjects;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 /**
  * The super class of all value objects.
@@ -51,6 +59,7 @@ public abstract class ValueObject implements Serializable
      * @author Johannes Mueller
      */
 
+	private static Logger logger = Logger.getLogger(ValueObject.class);
     /*
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -79,4 +88,175 @@ public abstract class ValueObject implements Serializable
         }
         return true;
     }
+    
+
+    
+    public boolean cleanup() throws Exception
+    {
+    	return this.isEmpty(true);
+    }
+    
+    public boolean isEmpty(boolean cleanup) throws Exception
+    {
+    	return isEmpty(this, cleanup, null);
+    }
+    
+
+    
+    public static List<Field> getAllFields(Class<?> type) {
+        List<Field> fields = new ArrayList<Field>();
+        for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            fields.addAll(Arrays.asList(c.getDeclaredFields()));
+        }
+        return fields;
+    }
+
+    
+    public static boolean isEmpty(Object obj, boolean cleanup, Field fromField) throws Exception
+    {
+    	boolean empty = true;
+    	
+    	
+    	if(obj!=null)
+    	{
+	    	if(String.class.isAssignableFrom(obj.getClass()))
+			{
+				empty = ((String)obj).isEmpty();
+				
+			}
+			else if (Collection.class.isAssignableFrom(obj.getClass()))
+			{
+				Collection<?> coll = (Collection<?>)obj;
+				
+				if(coll!=null)
+				{
+					
+	    			Collection<Object> toBeRemoved = new ArrayList<Object>();
+	    			
+	    			for(Object collObj : coll)
+	    			{
+	    				
+	    				boolean subObjectIsEmpty = isEmpty(collObj, cleanup, null);
+	    				if(subObjectIsEmpty && cleanup)
+	    				{
+	    					toBeRemoved.add(collObj);
+	    				}
+	    				
+	    				empty = empty && subObjectIsEmpty;
+	    			}
+	    			
+	    			if(cleanup && toBeRemoved.size()>0)
+	    			{
+	    				logger.debug("Cleaning up collection " + fromField.getDeclaringClass().getCanonicalName() + " / " + fromField.getName() );
+	    				coll.removeAll(toBeRemoved);
+	    			}
+				}
+			}
+			else if (ValueObject.class.isAssignableFrom(obj.getClass()))
+			{
+				for(Field f : getAllFields(obj.getClass()))
+		    	{
+		    		if((!Modifier.isStatic(f.getModifiers())) && f.getAnnotation(IgnoreForCleanup.class)==null)
+		    		{
+		    			
+		    			f.setAccessible(true);
+		    			Object fieldObject = f.get(obj);
+		    			boolean fieldIsEmpty = isEmpty(fieldObject, cleanup, f);
+		    			if(cleanup && fieldIsEmpty && fieldObject!= null && !Collection.class.isAssignableFrom(fieldObject.getClass()))
+		    			{
+		    				logger.debug("Cleaning up object" + obj.getClass().getCanonicalName() + " / " + f.getName() );
+		    				f.set(obj,  null);
+		    			}
+		    			
+		    			empty = empty && fieldIsEmpty;
+		    		}
+				
+		    	}
+
+			}
+			else if (Object.class.isAssignableFrom(obj.getClass()))
+			{
+				empty = obj==null;
+
+			}
+    	}
+    	
+    	
+    	
+    	
+    	
+    	/*
+    	if(obj!=null)
+    	{
+
+	    	Class<?> c = obj.getClass();
+	    	
+	    	for(Field f : getAllFields(c))
+	    	{
+	    		if((!Modifier.isStatic(f.getModifiers())) && f.getAnnotation(IgnoreForCleanup.class)==null)
+	    		{
+	    			
+	    			f.setAccessible(true);
+	    			
+		    		boolean fieldIsEmpty = true;
+		    		
+		    		
+		    		if(f.getType().equals(String.class))
+		    		{
+		    			fieldIsEmpty = f.get(obj)==null || ((String)f.get(obj)).isEmpty();
+		    			
+		    		}
+		    		else if (ValueObject.class.isAssignableFrom(f.getType()))
+		    		{
+		    			fieldIsEmpty = f.get(obj)==null || ((ValueObject)f.get(obj)).isEmpty(cleanup);
+		    		}
+		    		else if (Collection.class.isAssignableFrom(f.getType()))
+		    		{
+		    			Collection<?> coll = (Collection<?>)f.get(obj);
+		    			
+		    			if(coll!=null)
+		    			{
+		    				
+			    			Collection<Object> toBeRemoved = new ArrayList<Object>();
+			    			
+			    			for(Object collObj : coll)
+			    			{
+			    				
+			    				boolean subObjectIsEmpty = isEmpty(collObj, cleanup);
+			    				if(subObjectIsEmpty && cleanup)
+			    				{
+			    					toBeRemoved.add(collObj);
+			    				}
+			    				
+			    				fieldIsEmpty = fieldIsEmpty && subObjectIsEmpty;
+			    			}
+			    			
+			    			if(cleanup && toBeRemoved.size()>0)
+			    			{
+			    				logger.info("Cleaning up collection " + obj.getClass().getCanonicalName() + " / " + f.getName() );
+			    				coll.removeAll(toBeRemoved);
+			    			}
+		    			}
+		    		}
+		    		else if (Object.class.isAssignableFrom(f.getType()))
+		    		{
+		    			fieldIsEmpty = f.get(obj)==null;
+		    		}
+		    		
+		    		if(fieldIsEmpty && cleanup && f.get(obj)!=null)
+		    		{
+		    			logger.info("Cleaning up object " + obj.getClass().getCanonicalName() + " / " + f.getName() );
+		    			f.set(obj, null);
+		    		}
+		    		
+		    		empty = empty && fieldIsEmpty;
+	    		}
+    		
+	    	}
+    	}
+    	
+    	*/
+    	return empty;
+    }
+    
 }

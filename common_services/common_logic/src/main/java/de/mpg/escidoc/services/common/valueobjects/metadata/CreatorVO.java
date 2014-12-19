@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import de.mpg.escidoc.services.common.valueobjects.IgnoreForCleanup;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -104,7 +105,11 @@ public class CreatorVO extends ValueObject implements Cloneable
 
     private OrganizationVO organization;
     private PersonVO person;
+    
+    @IgnoreForCleanup
     private CreatorRole role;
+    
+    @IgnoreForCleanup
     private CreatorType type;
 
     /**

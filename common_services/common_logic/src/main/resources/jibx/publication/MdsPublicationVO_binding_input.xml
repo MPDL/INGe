@@ -42,8 +42,10 @@
 	<namespace prefix="event" uri="${xsd.metadata.event}" default="none" />
 	<namespace prefix="source" uri="${xsd.metadata.source}" default="none" />
 	<namespace prefix="organization" uri="${xsd.metadata.organization}" default="none" />
+	<namespace prefix="project" uri="${xsd.metadata.project}" default="none"/>
 	<!-- JUS -->
 	<namespace prefix="legalCase" uri="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" default="none"/>
+	
 	
 
 	<!--  -->
@@ -58,6 +60,7 @@
 	<include path="../ReferenceObject_binding.xml" />
 	<include path="SourceVO_binding_abstract.xml" />		
 	<include path="TextVO_binding.xml" />
+	<include path="ProjectInfoVO_binding.xml" />
 
 	<mapping abstract="true" ns="${xsd.metadata.publication}"
 		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
@@ -299,6 +302,10 @@
 			<!-- Field: PubItemVO.metadata.location [String] -->
 			<value style="element" name="location" ns="${xsd.metadata.escidocprofile.types}"
 				field="location" usage="optional" />
+				
+				
+				
+			<structure name="project-info" ns="${xsd.metadata.project}" field="projectInfo" usage="optional"/>
 
 		</structure>
 	</mapping>

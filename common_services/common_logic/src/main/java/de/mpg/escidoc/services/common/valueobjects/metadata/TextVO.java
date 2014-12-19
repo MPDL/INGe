@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import de.mpg.escidoc.services.common.valueobjects.IgnoreForCleanup;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -51,7 +52,10 @@ public class TextVO extends ValueObject implements Cloneable
      * @author Johannes Mueller
      */
     private static final long serialVersionUID = 1L;
+    
+    @IgnoreForCleanup
     private String language;
+    
     private String value;
     private String type;
 

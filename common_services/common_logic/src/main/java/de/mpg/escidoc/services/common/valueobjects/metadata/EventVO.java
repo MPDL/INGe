@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import de.mpg.escidoc.services.common.valueobjects.IgnoreForCleanup;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 
@@ -62,7 +63,10 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable
 
     private java.util.List<TextVO> alternativeTitles = new java.util.ArrayList<TextVO>();
     private String endDate;
+    
+    @IgnoreForCleanup
     private InvitationStatus invitationStatus;
+    
     private TextVO place;
     private String startDate;
     private TextVO title;

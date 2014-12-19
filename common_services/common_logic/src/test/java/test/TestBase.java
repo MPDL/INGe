@@ -96,10 +96,14 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingInfoVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingOrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingProgramVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -304,7 +308,7 @@ public class TestBase
         person.getOrganizations().add(organizationVO);
         creator.setPerson(person);
         mds.getCreators().add(creator);
-        mds.getCreators().add(creator);
+        mds.getCreators().add((CreatorVO)creator.clone());
         // dates
         mds.setDateCreated("2007");
         mds.setDatePublishedInPrint("2007-01-02");
@@ -329,7 +333,29 @@ public class TestBase
         // table of contents
         TextVO toc = new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.", "it");
         mds.setTableOfContents(toc);
+        
+        ProjectInfoVO projectInfo = new ProjectInfoVO();
+        projectInfo.setTitle("Test Project Name");
+        IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "grantIdentifier1234");
+        projectInfo.setGrantIdentifier(grantIdentifier);
+        
+        FundingInfoVO fundingInfo = new FundingInfoVO();
+        FundingOrganizationVO fundingOrganization = new FundingOrganizationVO();
+        fundingOrganization.setTitle("Test Funding Organization European Council");
+        fundingOrganization.getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, "EC"));
+        FundingProgramVO fundingProgram = new FundingProgramVO();
+        fundingProgram.setTitle("Test funding Horizon2020");
+        fundingProgram.getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, "H2020"));
+        
+        
+        fundingInfo.setFundingOrganization(fundingOrganization);
+        fundingInfo.setFundingProgram(fundingProgram);
+        
+        projectInfo.setFundingInfo(fundingInfo);
+        
+        
 
+        mds.setProjectInfo(projectInfo);
         item.setMetadata(mds);
 
         return item;
