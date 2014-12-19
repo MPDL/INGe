@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -56,7 +57,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
@@ -379,7 +379,11 @@ public class InternationalizationHelper implements Serializable
     }
     public String getLabel(String placeholder)
     {
-        return ResourceBundle.getBundle(this.getSelectedLabelBundle()).getString(placeholder);
+        try {
+			return ResourceBundle.getBundle(this.getSelectedLabelBundle()).getString(placeholder);
+		} catch (MissingResourceException e) {
+				return "???" + placeholder + "???";
+		}
     }
     
     /**

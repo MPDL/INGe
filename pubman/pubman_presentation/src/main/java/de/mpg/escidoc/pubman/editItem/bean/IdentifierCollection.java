@@ -42,6 +42,7 @@ import javax.faces.model.SelectItem;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
  * Bean to handle the IdentifierCollection on a single jsp.
@@ -86,12 +87,41 @@ public class IdentifierCollection
         InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
         ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 
+        
+        IdType[] typesToDisplay = new IdType[]{
+        		IdType.CONE, 
+        		IdType.URI, 
+        		IdType.ISBN, 
+        		IdType.ISSN, 
+        		IdType.DOI, 
+        		IdType.URN,
+        		IdType.PII,
+        		IdType.EDOC, 
+        		IdType.ESCIDOC, 
+        		IdType.ISI, 
+        		IdType.PND,
+        		IdType.ZDB ,
+        		IdType.PMID ,
+        		IdType.ARXIV ,
+        		IdType.PMC ,
+        		IdType.BMC,
+        		IdType.BIBTEX_CITEKEY ,
+        		IdType.REPORT_NR,
+        		IdType.SSRN,
+        		IdType.PATENT_NR ,
+        		IdType.PATENT_APPLICATION_NR ,
+        		IdType.PATENT_PUBLICATION_NR,
+        		IdType.OTHER};
+        
         ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
         
         // constants for comboBoxes
         selectItemList.add(new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET")));
         
-        for (IdentifierVO.IdType type : IdentifierVO.IdType.values())
+        
+        
+        
+        for (IdentifierVO.IdType type : typesToDisplay)
         {
             selectItemList.add(new SelectItem(type.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_" + type.toString())));
         }

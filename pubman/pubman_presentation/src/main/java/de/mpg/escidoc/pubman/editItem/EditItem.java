@@ -350,6 +350,8 @@ public class EditItem extends FacesBean
                 bindFiles();
                 this.getEditItemSessionBean().setFilesInitialized(true);
             }
+            
+            
             if (this.getEditItemSessionBean().getSources().size() == 0)
             {
                 this.getEditItemSessionBean().bindSourcesToBean(pubItem.getMetadata().getSources());
@@ -391,6 +393,7 @@ public class EditItem extends FacesBean
             {
                 this.getEditItemSessionBean().initOrganizationsFromCreators();
             }
+            
             // Source creators
             for (SourceBean sourceBean : this.getEditItemSessionBean().getSources())
             {
@@ -434,6 +437,7 @@ public class EditItem extends FacesBean
                     sourceBean.initOrganizationsFromCreators();
                 }
             }
+            
         }
         else
         {

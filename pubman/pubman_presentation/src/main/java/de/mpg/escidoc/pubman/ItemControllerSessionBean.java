@@ -78,11 +78,15 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingProgramVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingInfoVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingOrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -914,6 +918,40 @@ public class ItemControllerSessionBean extends FacesBean
 		{
 			newPubItem.getMetadata().setTableOfContents(new TextVO());
 		}
+		
+		if (newPubItem.getMetadata().getProjectInfo() == null)
+		{
+			ProjectInfoVO projectInfo = new ProjectInfoVO();
+			newPubItem.getMetadata().setProjectInfo(projectInfo);
+		}
+		
+		if (newPubItem.getMetadata().getProjectInfo().getFundingInfo() == null)
+		{
+			newPubItem.getMetadata().getProjectInfo().setFundingInfo(new FundingInfoVO());
+		}
+		
+		if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization() == null)
+		{
+			newPubItem.getMetadata().getProjectInfo().getFundingInfo().setFundingOrganization(new FundingOrganizationVO());
+		}
+		
+		if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization().getIdentifiers().size() == 0)
+		{
+			newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+		}
+		
+		if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram() == null)
+		{
+			newPubItem.getMetadata().getProjectInfo().getFundingInfo().setFundingProgram(new FundingProgramVO());
+		}
+		
+		if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram().getIdentifiers().size() == 0)
+		{
+			newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+		}
+			
+		
+		
 
 		return newPubItem;
 	}
@@ -948,6 +986,7 @@ public class ItemControllerSessionBean extends FacesBean
 		/*
 		 * FrM: Validation with validation point "default"
 		 */
+    	logger.info(xmlTransforming.transformToItem(pubItem));
 		ValidationReportVO report = this.itemValidating.validateItemObject(pubItem);
 		currentItemValidationReport = report;
 
@@ -1240,13 +1279,19 @@ public class ItemControllerSessionBean extends FacesBean
 	 * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
 	 * @param pubItem the PubItem to clean up
 	 */
-	public void cleanUpItem(PubItemVO pubItem)
+	public void cleanUpItem(PubItemVO pubItem) 
 	{
 		if (logger.isDebugEnabled())
 		{
 			logger.debug("Cleaning up PubItem...");
 		}
 
+		try {
+			pubItem.getMetadata().cleanup();
+		} catch (Exception e1) {
+			throw new RuntimeException("Error while cleaning up  item", e1);
+		}
+		/*
 		for (int i = pubItem.getMetadata().getCreators().size() - 1; i >= 0; i--)
 		{
 			CreatorVO creator = pubItem.getMetadata().getCreators().get(i);
@@ -1272,6 +1317,7 @@ public class ItemControllerSessionBean extends FacesBean
 			}
 		}
 
+		
 		// delete unfilled publishingInfo
 		if (pubItem.getMetadata().getPublishingInfo() != null)
 		{
@@ -1285,7 +1331,8 @@ public class ItemControllerSessionBean extends FacesBean
 				pubItem.getMetadata().setPublishingInfo(null);
 			}
 		}
-
+		*/
+		
 		// delete unfilled file
 		if (pubItem.getFiles() != null)
 		{
@@ -1300,6 +1347,7 @@ public class ItemControllerSessionBean extends FacesBean
 			}
 		}
 
+		/*
 		// delete unfilled ContentLanguage
 		if (pubItem.getMetadata().getLanguages() != null)
 		{
@@ -1471,7 +1519,9 @@ public class ItemControllerSessionBean extends FacesBean
 				}
 			}
 		}
+		
 
+		 */
 		// TODO MF: Check specification for this behaviour: Always when an organization does not have an identifier, make it "external".
 		// assign the external org id to default organisation
 		try
@@ -1495,22 +1545,28 @@ public class ItemControllerSessionBean extends FacesBean
 					}
 				}
 			}
-			for (SourceVO source : pubItem.getMetadata().getSources()) {
-				for (CreatorVO creator : source.getCreators()) {
-					if (creator.getPerson() != null)
-					{
-						for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
-							if (organization.getIdentifier() == null || organization.getIdentifier().equals(""))
-							{
-								organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+			
+			if(pubItem.getMetadata().getSources()!=null)
+			{
+				
+				
+				for (SourceVO source : pubItem.getMetadata().getSources()) {
+					for (CreatorVO creator : source.getCreators()) {
+						if (creator.getPerson() != null)
+						{
+							for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
+								if (organization.getIdentifier() == null || organization.getIdentifier().equals(""))
+								{
+									organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+								}
 							}
 						}
-					}
-					else
-					{
-						if (creator.getOrganization() != null && (creator.getOrganization().getIdentifier() == null  || creator.getOrganization().getIdentifier().equals("")))
+						else
 						{
-							creator.getOrganization().setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+							if (creator.getOrganization() != null && (creator.getOrganization().getIdentifier() == null  || creator.getOrganization().getIdentifier().equals("")))
+							{
+								creator.getOrganization().setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+							}
 						}
 					}
 				}

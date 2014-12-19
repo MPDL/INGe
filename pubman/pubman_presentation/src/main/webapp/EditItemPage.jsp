@@ -199,6 +199,7 @@
 									<ui:include src="editItem/ContentGroup.jspf" />
 									<ui:include src="editItem/DetailGroup.jspf" />
 									<ui:include src="editItem/EventGroup.jspf" />
+									<ui:include src="editItem/ProjectInfoGroup.jspf" />
 									<!--JUS content section -->
 									<ui:include src="editItem/LegalCaseGroup.jspf" />
 									<ui:include src="editItem/SourceGroup.jspf" />

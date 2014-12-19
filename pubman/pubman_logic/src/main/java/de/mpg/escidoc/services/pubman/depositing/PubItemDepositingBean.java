@@ -381,6 +381,7 @@ public class PubItemDepositingBean implements PubItemDepositing
              * Validation of the existing items - gets Item string and Validation point "default" - returns
              * validation report (as exception).
              */
+
             ValidationReportVO report = itemValidating.validateItemObject(pubItem);
             if (!report.isValid())
             {
