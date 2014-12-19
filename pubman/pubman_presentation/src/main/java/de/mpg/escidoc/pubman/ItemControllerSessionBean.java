@@ -986,7 +986,7 @@ public class ItemControllerSessionBean extends FacesBean
 		/*
 		 * FrM: Validation with validation point "default"
 		 */
-    	logger.info(xmlTransforming.transformToItem(pubItem));
+    	//logger.info(xmlTransforming.transformToItem(pubItem));
 		ValidationReportVO report = this.itemValidating.validateItemObject(pubItem);
 		currentItemValidationReport = report;
 
