@@ -717,6 +717,7 @@
 		<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
 		<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
 		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
+		<xsd.metadata.project>http://purl.org/escidoc/metadata/profiles/0.1/project</xsd.metadata.project>
 		<escidoc.statistics.max_mind_geo_lite_city_db.location />
 		<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
 		<escidoc.pubman.statistics.nims.link />
