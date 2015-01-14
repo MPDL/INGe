@@ -2747,13 +2747,10 @@
 			<xsl:if test="exists(../relations/relation)">
 				<xsl:for-each select="../relations/relation[@reltype = 'ispartof']">
 					<xsl:choose>
-						<xsl:when test="@type = 'url'">
-							<dc:identifier xsi:type="eterms:URI"><xsl:value-of select="identifier"/></dc:identifier>
-						</xsl:when>
-						<xsl:when test="@type = 'isbn'">
+						<xsl:when test="@type = 'isbn' and ( not (../../basic/booktitle or ../../basic/titleofproceedings or ../../basic/issuetitle))">
 							<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="identifier"/></dc:identifier>
 						</xsl:when>
-						<xsl:when test="@type = 'issn'">
+						<xsl:when test="@type = 'issn' and ( not (../../basic/journaltitle or ../../basic/titleofseries))">
 							<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="identifier"/></dc:identifier>
 						</xsl:when>
 					</xsl:choose>
@@ -2954,6 +2951,16 @@
 				<xsl:with-param name="sources-count" select="$sources-count"/>
 			</xsl:call-template>
 		</xsl:for-each>
+		
+		<!-- ISBN -->
+		<xsl:if test="$import-name = 'MPIBF'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'issn']">
+					<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="."/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:if>
+		
 	</xsl:template>
 	
 	<!-- SOURCE IDENTIFIERS -->
@@ -3038,6 +3045,15 @@
 				<xsl:with-param name="sources-count" select="$sources-count"/>
 			</xsl:call-template>
 		</xsl:for-each>
+		
+		<!-- ISBN -->
+		<xsl:if test="$import-name = 'MPIBF'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'isbn']">
+					<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="."/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:if>
 	
 	</xsl:template>
 	
@@ -3124,6 +3140,15 @@
 			</xsl:call-template>
 		</xsl:for-each>
 	
+		<!-- ISBN -->
+		<xsl:if test="$import-name = 'MPIBF'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'isbn']">
+					<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="."/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:if>
+		
 	</xsl:template>
 	
 	<!-- COLLECTED EDITION TEMPLATE -->
@@ -3485,6 +3510,15 @@
 				<xsl:with-param name="sources-count" select="$sources-count"/>
 			</xsl:call-template>
 		</xsl:for-each>
+		
+		<!-- ISBN -->
+		<xsl:if test="$import-name = 'MPIBF'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'issn']">
+					<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="."/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:if>
 	
 	</xsl:template>
 	
@@ -3568,6 +3602,15 @@
 				<xsl:with-param name="sources-count" select="$sources-count"/>
 			</xsl:call-template>
 		</xsl:for-each>
+		
+		<!-- ISBN -->
+		<xsl:if test="$import-name = 'MPIBF'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'isbn']">
+					<dc:identifier xsi:type="eterms:ISBN"><xsl:value-of select="."/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:if>
 	
 	</xsl:template>
 	
