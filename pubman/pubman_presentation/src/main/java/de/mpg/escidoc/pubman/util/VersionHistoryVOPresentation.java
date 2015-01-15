@@ -89,7 +89,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         for (FileVO fileVO : pubItemVOThisVersion.getFiles())
         {
             FileVO clonedFile = new FileVO (fileVO);
-            clonedFile.setReference(new FileRO());
+            clonedFile.setReference(fileVO.getReference());
             pubItemVOLatestVersion.getFiles().add(clonedFile);
         }
         
