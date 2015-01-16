@@ -99,7 +99,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
         if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED && pubItemVONewVersion.getVersion().getState() == State.PENDING)
         {
-            pubItemDepositingBean.submitAndReleasePubItem(pubItemVONewVersion, "Submit and release after rollback", loginHelper.getAccountUser());
+            pubItemDepositingBean.submitAndReleasePubItem(pubItemVONewVersion, "Submit and release after rollback to version " + this.getReference().getVersionNumber(), loginHelper.getAccountUser());
             xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
             pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
         }
