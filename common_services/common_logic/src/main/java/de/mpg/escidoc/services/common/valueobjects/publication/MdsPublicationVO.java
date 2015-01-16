@@ -648,7 +648,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
                 && equals(getFreeKeywords(), other.getFreeKeywords())
                 && equals(getSubjects(), other.getSubjects()) && equals(getAbstracts(), other.getAbstracts())
                 && equals(getTableOfContents(), other.getTableOfContents())
-                && equals(getTotalNumberOfPages(), other.getTotalNumberOfPages());
+                && equals(getTotalNumberOfPages(), other.getTotalNumberOfPages())
+                && equals(getProjectInfo(), other.getProjectInfo());
     }
 
     /**

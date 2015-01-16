@@ -41,4 +41,21 @@ public class FundingProgramVO extends ValueObject
 		return clonedFundingProgram;
 	}
 	
+	  /*
+		* (non-Javadoc)
+		* 
+		* @see java.lang.Object#equals(java.lang.Object)
+		*/
+	@Override
+	public boolean equals(Object obj)
+	{
+	  if (obj == null || !(getClass().isAssignableFrom(obj.getClass())))
+	  {
+	      return false;
+	  }
+	  FundingProgramVO other = (FundingProgramVO)obj;
+	  return equals(getIdentifiers(), other.getIdentifiers()) && 
+	         equals(getTitle(), other.getTitle());
+	}
+	
 }

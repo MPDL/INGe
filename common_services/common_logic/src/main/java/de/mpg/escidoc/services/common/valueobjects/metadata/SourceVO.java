@@ -405,7 +405,8 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
                 && equals(getCreators(), vo.getCreators()) && equals(getIdentifiers(), vo.getIdentifiers())
                 && equals(getSources(), vo.getSources())
                 // added by DiT, 27.11.2007
-                && equals(this.getGenre(), vo.getGenre());                
+                && equals(this.getGenre(), vo.getGenre())
+                && equals(this.getTotalNumberOfPages(), vo.getTotalNumberOfPages());                
     }
 
 	public void setDatePublishedInPrint(Date datePublishedInPrint) {

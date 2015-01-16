@@ -45,6 +45,25 @@ public class ProjectInfoVO extends ValueObject {
 		clonedProjectInfo.setTitle(this.getTitle());
 		return clonedProjectInfo;
 	}
+	
+	  /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null || !(getClass().isAssignableFrom(obj.getClass())))
+        {
+            return false;
+        }
+        ProjectInfoVO other = (ProjectInfoVO)obj;
+        return equals(getTitle(), other.getTitle()) && 
+               equals(getGrantIdentifier(), other.getGrantIdentifier()) && 
+               equals(getFundingInfo(), other.getFundingInfo());
+    }
+
 
 	
 
