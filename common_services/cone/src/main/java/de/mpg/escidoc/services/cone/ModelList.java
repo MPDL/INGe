@@ -243,7 +243,10 @@ public class ModelList
                 {
                     throw new SAXException("Predicate value for " + attributes.getValue("name") + " in model " + currentService.getName() + " must not be null");
                 }
-                else if (attributes.getValue("value").equals(currentService.getIdentifier()))
+                
+                
+                //if parent is "predicates" (and therefore not another sub-predicate) and value is same as primary identifier
+                else if (localStack.size()>1 && "predicates".equals(localStack.get(localStack.size()-2)) && attributes.getValue("value").equals(currentService.getIdentifier()))
                 {
                     if (!Boolean.parseBoolean(attributes.getValue("mandatory")))
                     {

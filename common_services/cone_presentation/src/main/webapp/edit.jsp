@@ -92,7 +92,7 @@
 	        	out.append("</b>");
 	        	out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
 
-	        	if (model != null && predicate.getId().equals(model.getIdentifier()))
+	        	if (model != null && predicate.getId().equals(model.getIdentifier()) && prefix.isEmpty())
 	        	{
 					if (results.get(predicate.getId()) != null)
 					{				
