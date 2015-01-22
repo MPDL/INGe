@@ -2501,10 +2501,6 @@ public class ItemControllerSessionBean extends FacesBean
 		this.cleanUpItem(oldPubItemClone);
 		this.cleanUpItem(newPubItemClone);
 		
-		System.out.println(oldPubItemClone.getMetadata().getProjectInfo().equals(newPubItemClone.getMetadata().getProjectInfo()));
-		System.out.println(oldPubItemClone.getMetadata().equals(newPubItemClone.getMetadata()));
-		
-		
 		// compare the metadata and files of the two items
 		boolean metadataChanged = !(oldPubItemClone.getMetadata().equals(newPubItemClone.getMetadata()));
 		boolean fileChanged = !(oldPubItemClone.getFiles().equals(newPubItemClone.getFiles()));
