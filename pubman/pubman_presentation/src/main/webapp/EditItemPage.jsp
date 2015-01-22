@@ -257,10 +257,12 @@
 					journalSuggestURL = suggestConeUrl + 'journals/query';
 					subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
 					personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
+					fundingProgramSuggestURL = suggestConeUrl + 'open-aire-funding-programs/query';
 					organizationSuggestURL = 'OrganizationSuggest.jsp';
 					journalDetailsBaseURL = '$1?format=json';
 					personDetailsBaseURL = '$1?format=json&lang=$2';
 					languageDetailsBaseURL = '$1?format=json&lang=$2';
+					fundingProgramDetailsBaseURL = '$1?format=json';
 					personSuggestCommonParentClass = 'suggestAnchor';
 					journalSuggestTrigger = 'JOURNAL';
 					/* ]]> */

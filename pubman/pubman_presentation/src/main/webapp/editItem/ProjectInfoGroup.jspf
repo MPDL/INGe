@@ -38,25 +38,34 @@
 	<div class="free_area0 itemBlockContent endline">
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 	
-	<!-- Project Title -->
-	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder marginTExcl6p" rendered="#{!(genre.project_info_title_display == 'false' and genre.project_info_title_form_id == 'full-submission' || genre.project_info_title_display == 'false' and genre.project_info_title_form_id == 'all')}">
-		<b class="xLarge_area0_p8 endline labelLine clear">
-			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_title_optional != 'true'}" /><h:outputText value="#{genre.project_info_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+	<!-- Project Title and Grant Identifier -->
+	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder marginTExcl6p" >
+		<b class="xLarge_area0_p8 endline labelLine clear"> &#160;
+			<span class="noDisplay"></span>
 		</b>
 		<span class="xHuge_area0 xTiny_marginLExcl endline">
-			<h:inputTextarea id="inputProjectTitle" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.projectInfo.title}" cols="15" rows="3" />
+		
+			<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_title_display == 'false' and genre.project_info_title_form_id == 'full-submission' || genre.project_info_title_display == 'false' and genre.project_info_title_form_id == 'all')}">
+				<span class="xDouble_area0">
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_title_optional != 'true'}" />
+					<h:outputText value="#{genre.project_info_label}" converter="GenreLabelConverter"/>
+					
+				</span>
+				<h:inputTextarea id="inputProjectTitle" styleClass="xDouble_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.projectInfo.title}" cols="15" rows="3" />
+			</h:panelGroup>
+			
+			<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_grant_id_display == 'false' and genre.project_info_grant_id_form_id == 'full-submission' || genre.project_info_grant_id_display == 'false' and genre.project_info_grant_id_form_id == 'all')}">
+				<span class="large_area0">
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_grant_id_optional != 'true'}" />
+					<h:outputText value="#{genre.project_info_grant_id_label}" converter="GenreLabelConverter"/>
+					
+				</span>
+				<h:inputText id="inputProjectId" styleClass="large_txtInput" value="#{EditItem.pubItem.metadata.projectInfo.grantIdentifier.id}"/>
+			</h:panelGroup>
 		</span>
 	</h:panelGroup>
 	
-	<!-- Project Id -->
-	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.project_info_grant_id_display == 'false' and genre.project_info_grant_id_form_id == 'full-submission' || genre.project_info_grant_id_display == 'false' and genre.project_info_grant_id_form_id == 'all')}">
-		<b class="xLarge_area0_p8 endline labelLine clear">
-			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_grant_id_optional != 'true'}" /><h:outputText value="#{genre.project_info_grant_id_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
-		</b>
-		<span class="xHuge_area0 xTiny_marginLExcl endline">
-			<h:inputText id="inputProjectId" styleClass="quad_txtArea" value="#{EditItem.pubItem.metadata.projectInfo.grantIdentifier.id}"/>
-		</span>
-	</h:panelGroup>
+
 	
 	
 	
@@ -65,27 +74,55 @@
 		<b class="xLarge_area0_p8 endline labelLine clear">
 			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_funding_info_grant_id_optional != 'true'}" /><h:outputText value="#{genre.project_funding_info_grant_id_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 		</b>
-		<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.project_info_funding_organization_title_display == 'false' and genre.project_info_funding_organization_title_form_id == 'full-submission' || genre.project_info_funding_organization_title_display == 'false' and project_info_funding_organization_title_form_id == 'all')}">
-					<h:outputLabel styleClass="quad_label" value="#{genre.project_info_funding_organization_title_label}" converter="GenreLabelConverter" />
-					<h:inputText id="inpProjectInfoFundingOrganization" styleClass="quad_txtInput" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.title}" />
-				</h:panelGroup>
-				
-				<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.project_info_funding_organization_id_display == 'false' and genre.project_info_funding_organization_id_form_id == 'full-submission' || genre.project_info_funding_organization_id_display == 'false' and project_info_funding_organization_id_form_id == 'all')}">
-					<h:outputLabel styleClass="quad_label" value="#{genre.project_info_funding_organization_id_label}" converter="GenreLabelConverter" />
-					<h:inputText id="inpProjectInfoFundingId" styleClass="quad_txtInput" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.identifiers[0].id}" />
-				</h:panelGroup>
+		
+		
+		<div class="xHuge_area0 xTiny_marginLExcl endline suggestAnchor">
+		
+		
+			<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_program_title_display == 'false' and genre.project_info_funding_program_title_form_id == 'full-submission' || genre.project_info_funding_program_title_display == 'false' and project_info_funding_program_title_form_id == 'all')}">
+				<span class="xDouble_area0">
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_program_title != 'true'}" />
+					<h:outputText value="#{genre.project_info_funding_program_title_label}" converter="GenreLabelConverter"/>
+					
+				</span>
+				<h:inputText id="inpProjectInfoFundingProgram" styleClass="xDouble_txtInput fundingProgramSuggest fundingProgramTitle" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingProgram.title}" />
+			</h:panelGroup>
+			
+			<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_program_id_display == 'false' and genre.project_info_funding_program_id_form_id == 'full-submission' || genre.project_info_funding_program_id_display == 'false' and project_info_funding_program_id_form_id == 'all')}">
+				<span class="large_area0">
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_program_id_optional != 'true'}" />
+					<h:outputText value="#{genre.project_info_funding_program_id_label}" converter="GenreLabelConverter"/>
+					
+				</span>
+				<h:inputText id="inpProjectInfoFundingProgramId" styleClass="large_txtInput fundingProgramIdentifier" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingProgram.identifiers[0].id}"/>
+			</h:panelGroup>
+		
+		
+			<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_organization_title_display == 'false' and genre.project_info_funding_organization_title_form_id == 'full-submission' || genre.project_info_funding_organization_title_display == 'false' and project_info_funding_organization_title_form_id == 'all')}">
+				<span class="xDouble_area0">
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_organization_title != 'true'}" />
+					<h:outputText value="#{genre.project_info_funding_organization_title_label}" converter="GenreLabelConverter"/>
+					
+				</span>
+				<h:inputText id="inpProjectInfoFundingOrganization" styleClass="xDouble_txtInput fundingOrganizationTitle" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.title}" />
+			</h:panelGroup>
+			
+			<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_organization_id_display == 'false' and genre.project_info_funding_organization_id_form_id == 'full-submission' || genre.project_info_funding_organization_id_display == 'false' and project_info_funding_organization_id_form_id == 'all')}">
+				<span class="large_area0">
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_organization_id_optional != 'true'}" />
+					<h:outputText value="#{genre.project_info_funding_organization_id_label}" converter="GenreLabelConverter"/>
+					
+				</span>
+				<h:inputText id="inpProjectInfoFundingId" styleClass="large_txtInput fundingOrganizationIdentifier" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.identifiers[0].id}"/>
+			</h:panelGroup>
+		
 
-				<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.project_info_funding_program_title_display == 'false' and genre.project_info_funding_program_title_form_id == 'full-submission' || genre.project_info_funding_program_title_display == 'false' and project_info_funding_program_title_form_id == 'all')}">
-					<h:outputLabel styleClass="quad_label" value="#{genre.project_info_funding_program_title_label}" converter="GenreLabelConverter" />
-					<h:inputText id="inpProjectInfoFundingProgram" styleClass="quad_txtInput" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingProgram.title}" />
-				</h:panelGroup>
-				
-				<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.project_info_funding_program_id_display == 'false' and genre.project_info_funding_program_id_form_id == 'full-submission' || genre.project_info_funding_program_id_display == 'false' and project_info_funding_program_id_form_id == 'all')}">
-					<h:outputLabel styleClass="xDouble_label" value="#{genre.project_info_funding_program_id_label}" converter="GenreLabelConverter" />
-					<h:inputText id="inpProjectInfoFundingProgramId" styleClass="quad_txtInput" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingProgram.identifiers[0].id}" />
-				</h:panelGroup>
-		</span>
+
+	
+		</div>
+		
+		
+
 	</h:panelGroup>
 
 

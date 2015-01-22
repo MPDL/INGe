@@ -2500,12 +2500,18 @@ public class ItemControllerSessionBean extends FacesBean
 		// clean both items up from unused sub-VOs
 		this.cleanUpItem(oldPubItemClone);
 		this.cleanUpItem(newPubItemClone);
-
+		
+		System.out.println(oldPubItemClone.getMetadata().getProjectInfo().equals(newPubItemClone.getMetadata().getProjectInfo()));
+		System.out.println(oldPubItemClone.getMetadata().equals(newPubItemClone.getMetadata()));
+		
+		
 		// compare the metadata and files of the two items
 		boolean metadataChanged = !(oldPubItemClone.getMetadata().equals(newPubItemClone.getMetadata()));
 		boolean fileChanged = !(oldPubItemClone.getFiles().equals(newPubItemClone.getFiles()));
 		boolean localTagsChanged = !(oldPubItemClone.getLocalTags().equals(newPubItemClone.getLocalTags()));
 
+		System.out.println(String.valueOf(metadataChanged) + fileChanged + localTagsChanged);
+		
 		return (metadataChanged || fileChanged || localTagsChanged);
 	}
 

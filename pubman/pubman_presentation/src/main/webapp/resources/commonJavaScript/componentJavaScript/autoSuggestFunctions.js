@@ -572,6 +572,46 @@
 	}
 	
 	
+	function fillFundingProgramFields()
+	{
+		$input = $(this);
+		$input.resultValue = this.resultValue;
+		$input.resultID = this.resultID;
+		
+		$.getJSON(fundingProgramDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID), getFundingProgramDetails);
+		
+		//$input.unbind('keydown');
+		//$input.unbind('keypress');
+	}
+	
+	
+	
+	
+	function getFundingProgramDetails(details)
+	{
+		
+		var parent = $input.parents('.'+commonParentClass);
+		var programTitle = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
+		var programIdentifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_purl_org_dc_elements_1_1_identifier : null);
+		
+		var organizationTitle = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_title != 'undefined' ? 
+				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_title : null);
+		
+		var organizationIdentifier = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? 
+				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier : null);
+
+		
+		fillField('fundingProgramTitle', programTitle, parent);
+		fillField('fundingProgramIdentifier', programIdentifier, parent);
+		fillField('fundingOrganizationTitle', organizationTitle, parent);
+		fillField('fundingOrganizationIdentifier', organizationIdentifier, parent);
+		
+		
+	}
+	
+	
+	
+	
 	
 	function bindJournalSuggest()
 	{
@@ -660,6 +700,12 @@
 		if(typeof userAccountSuggestURL != 'undefined')
 		{
 			$('.userAccountSuggest').suggest(userAccountSuggestURL, { onSelect: fillUserAccountFields });
+		}
+		
+		
+		if(typeof fundingProgramSuggestURL != 'undefined')
+		{
+			$('.fundingProgramSuggest').suggest(fundingProgramSuggestURL, { onSelect: fillFundingProgramFields });
 		}
 	};
 	
