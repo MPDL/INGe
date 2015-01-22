@@ -81,7 +81,7 @@
 		
 			<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_info_program_title_display == 'false' and genre.project_info_funding_info_program_title_form_id == 'full-submission' || genre.project_info_funding_info_program_title_display == 'false' and project_info_funding_info_program_title_form_id == 'all')}">
 				<span class="xDouble_area0">
-					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_info_program_title != 'true'}" />
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_info_program_title_optional != 'true'}" />
 					<h:outputText value="#{genre.project_info_funding_info_program_title_label}" converter="GenreLabelConverter"/>
 					
 				</span>
@@ -91,7 +91,7 @@
 			<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_info_program_id_display == 'false' and genre.project_info_funding_info_program_id_form_id == 'full-submission' || genre.project_info_funding_info_program_id_display == 'false' and project_info_funding_info_program_id_form_id == 'all')}">
 				<span class="large_area0">
 					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_info_program_id_optional != 'true'}" />
-					<h:outputText value="#{genre.project_info_funding_info_program_id_label}" converter="GenreLabelConverter"/>
+					<h:outputText value="#{genre.project_info_funding_info_program_id_label}" styleClass="large_label" converter="GenreLabelConverter"/>
 					
 				</span>
 				<h:inputText id="inpProjectInfoFundingProgramId" styleClass="large_txtInput fundingProgramIdentifier" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingProgram.identifiers[0].id}"/>
@@ -100,7 +100,7 @@
 		
 			<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_info_organization_title_display == 'false' and genre.project_info_funding_info_organization_title_form_id == 'full-submission' || genre.project_info_funding_info_organization_title_display == 'false' and project_info_funding_info_organization_title_form_id == 'all')}">
 				<span class="xDouble_area0">
-					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_info_organization_title != 'true'}" />
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_info_organization_title_optional != 'true'}" />
 					<h:outputText value="#{genre.project_info_funding_info_organization_title_label}" converter="GenreLabelConverter"/>
 					
 				</span>
@@ -110,7 +110,7 @@
 			<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_info_organization_id_display == 'false' and genre.project_info_funding_info_organization_id_form_id == 'full-submission' || genre.project_info_funding_info_organization_id_display == 'false' and project_info_funding_info_organization_id_form_id == 'all')}">
 				<span class="large_area0">
 					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.project_info_funding_info_organization_id_optional != 'true'}" />
-					<h:outputText value="#{genre.project_info_funding_info_organization_id_label}" converter="GenreLabelConverter"/>
+					<h:outputText value="#{genre.project_info_funding_info_organization_id_label}" styleClass="large_label" converter="GenreLabelConverter"/>
 					
 				</span>
 				<h:inputText id="inpProjectInfoFundingId" styleClass="large_txtInput fundingOrganizationIdentifier" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.identifiers[0].id}"/>
