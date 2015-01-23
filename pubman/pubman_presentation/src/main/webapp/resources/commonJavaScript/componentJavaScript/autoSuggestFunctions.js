@@ -586,7 +586,6 @@
 	
 	
 	
-	
 	function getFundingProgramDetails(details)
 	{
 		
@@ -609,6 +608,35 @@
 		
 	}
 	
+
+	function fillFundingOrganizationFields()
+	{
+		$input = $(this);
+		$input.resultValue = this.resultValue;
+		$input.resultID = this.resultID;
+		
+		$.getJSON(fundingOrganizationDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID), getFundingOrganizationDetails);
+	}
+	
+	
+	
+	function getFundingOrganizationDetails(details)
+	{
+		
+		var parent = $input.parents('.'+commonParentClass);
+
+		var organizationTitle = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? 
+				details.http_purl_org_dc_elements_1_1_title : null);
+		
+		var organizationIdentifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? 
+				details.http_purl_org_dc_elements_1_1_identifier : null);
+
+
+		fillField('fundingOrganizationTitle', organizationTitle, parent);
+		fillField('fundingOrganizationIdentifier', organizationIdentifier, parent);
+		
+		
+	}
 	
 	
 	
@@ -706,6 +734,11 @@
 		if(typeof fundingProgramSuggestURL != 'undefined')
 		{
 			$('.fundingProgramSuggest').suggest(fundingProgramSuggestURL, { onSelect: fillFundingProgramFields });
+		}
+		
+		if(typeof fundingOrganizationSuggestURL != 'undefined')
+		{
+			$('.fundingOrganizationSuggest').suggest(fundingOrganizationSuggestURL, { onSelect: fillFundingOrganizationFields });
 		}
 	};
 	

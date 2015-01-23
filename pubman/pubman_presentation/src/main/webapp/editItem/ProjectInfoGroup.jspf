@@ -104,7 +104,7 @@
 					<h:outputText value="#{genre.project_info_funding_info_organization_title_label}" converter="GenreLabelConverter"/>
 					
 				</span>
-				<h:inputText id="inpProjectInfoFundingOrganization" styleClass="xDouble_txtInput fundingOrganizationTitle" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.title}" />
+				<h:inputText id="inpProjectInfoFundingOrganization" styleClass="xDouble_txtInput fundingOrganizationSuggest fundingOrganizationTitle" value="#{EditItem.pubItem.metadata.projectInfo.fundingInfo.fundingOrganization.title}" />
 			</h:panelGroup>
 			
 			<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.project_info_funding_info_organization_id_display == 'false' and genre.project_info_funding_info_organization_id_form_id == 'full-submission' || genre.project_info_funding_info_organization_id_display == 'false' and project_info_funding_info_organization_id_form_id == 'all')}">
