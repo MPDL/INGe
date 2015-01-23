@@ -257,8 +257,8 @@
 					journalSuggestURL = suggestConeUrl + 'journals/query';
 					subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
 					personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
-					fundingProgramSuggestURL = suggestConeUrl + 'open-aire-funding-programs/query';
-					fundingOrganizationSuggestURL = suggestConeUrl + 'open-aire-funding-organizations/query';
+					fundingProgramSuggestURL = suggestConeUrl + 'funding-programs/query';
+					fundingOrganizationSuggestURL = suggestConeUrl + 'funding-organizations/query';
 					organizationSuggestURL = 'OrganizationSuggest.jsp';
 					journalDetailsBaseURL = '$1?format=json';
 					personDetailsBaseURL = '$1?format=json&lang=$2';
