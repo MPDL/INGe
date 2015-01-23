@@ -36,6 +36,7 @@
 	<f:loadBundle var="lbl" basename="Label"/>
 	<f:loadBundle var="msg" basename="Messages"/>
 	<f:loadBundle var="tip" basename="Tooltip"/>
+	<f:loadBundle var="genre" basename="Genre_#{ViewItemFull.pubItem.metadata.genre}" />
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<h:head>
 
@@ -368,6 +369,7 @@
 							<ui:include src="viewItem/EventGroup.jspf" />
 							<!--JUS content section -->
 							<ui:include src="viewItem/LegalCaseGroup.jspf" />
+							<ui:include src="viewItem/ProjectInfoGroup.jspf" />
 							<ui:include src="viewItem/SourceGroup.jspf" />
 							<ui:include src="viewItem/WithdrawnGroup.jspf" />
 
