@@ -597,21 +597,21 @@ OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|htt
 	
 	
 	<model>
-		<name>open-aire-funding-organizations</name>
+		<name>funding-organizations</name>
 		<description>Funding organizations and the correspondent OpenAire Identifiers</description>
 		<open>false</open>
-		<primary-identifier control="true" subject-prefix="open-aire-funding-organizations/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="true"/>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
-			<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
 		</predicates>
 		<results>
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
- (
-&lt;http://purl.org/dc/elements/1.1/identifier&gt;
-)
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 				</result-pattern>
 			</result>
 		</results>
@@ -619,22 +619,22 @@ OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|htt
 	
 	
 		<model>
-		<name>open-aire-funding-programs</name>
+		<name>funding-programs</name>
 		<description>Funding programs and the correspondent OpenAire Identifiers</description>
 		<open>false</open>
-		<primary-identifier control="true" subject-prefix="open-aire-funding-programs/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="true"/>
 		<predicates>	
-				<predicate name="Open Aire funding Organization Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="open-aire-funding-organizations" shouldBeUnique="false"/>
+				<predicate name="Open Aire funding Organization Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="funding-organizations" shouldBeUnique="false"/>
 				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
-				<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+				<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
 		</predicates>
 		<results>
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
- (
-&lt;http://purl.org/dc/elements/1.1/identifier&gt;
-)
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}: - 
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: (
