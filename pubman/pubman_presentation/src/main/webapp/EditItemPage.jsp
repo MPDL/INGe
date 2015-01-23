@@ -199,9 +199,9 @@
 									<ui:include src="editItem/ContentGroup.jspf" />
 									<ui:include src="editItem/DetailGroup.jspf" />
 									<ui:include src="editItem/EventGroup.jspf" />
-									<ui:include src="editItem/ProjectInfoGroup.jspf" />
 									<!--JUS content section -->
 									<ui:include src="editItem/LegalCaseGroup.jspf" />
+									<ui:include src="editItem/ProjectInfoGroup.jspf" />
 									<ui:include src="editItem/SourceGroup.jspf" />
 									<p>&#160;</p>
 									<div class="free_area0 xTiny_marginLIncl">
