@@ -90,8 +90,8 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
 		
 		switch(indexName)
 		{
-			case ESCIDOC_ALL : return new String[]{"escidoc.component.visibility"};
-			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/components/component/properties/visibility\""};
+			case ESCIDOC_ALL : return new String[]{"escidoc.component.internal-managed.visibility"};
+			case ITEM_CONTAINER_ADMIN : return new String[] {"\"/components/component/internal-managed/visibility\""};
 		}
 		return null;
 		
