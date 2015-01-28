@@ -524,6 +524,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 		//Collection
 		criterionTypeList.add(new SelectItem(SearchCriterion.COLLECTION, getLabel("adv_search_lbHeaderCollection")));
 		
+		//ProjectInfo
+		criterionTypeList.add(new SelectItem(SearchCriterion.PROJECT_INFO, getLabel("g_project_info")));
+		
 		return criterionTypeList;
 		
 	}

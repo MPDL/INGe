@@ -2505,8 +2505,6 @@ public class ItemControllerSessionBean extends FacesBean
 		boolean metadataChanged = !(oldPubItemClone.getMetadata().equals(newPubItemClone.getMetadata()));
 		boolean fileChanged = !(oldPubItemClone.getFiles().equals(newPubItemClone.getFiles()));
 		boolean localTagsChanged = !(oldPubItemClone.getLocalTags().equals(newPubItemClone.getLocalTags()));
-
-		System.out.println(String.valueOf(metadataChanged) + fileChanged + localTagsChanged);
 		
 		return (metadataChanged || fileChanged || localTagsChanged);
 	}

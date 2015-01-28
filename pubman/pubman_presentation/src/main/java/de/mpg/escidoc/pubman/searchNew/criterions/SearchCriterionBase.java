@@ -71,6 +71,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.standard.JournalSearchCriterio
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.KeywordSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LanguageSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.LocalTagSearchCriterion;
+import de.mpg.escidoc.pubman.searchNew.criterions.standard.ProjectInfoSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.SourceSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.TitleSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.CreatedBySearchCriterion;
@@ -137,6 +138,7 @@ public abstract class SearchCriterionBase implements Serializable{
 		LOCAL (LocalTagSearchCriterion.class, DisplayType.STANDARD), 
 		IDENTIFIER (IdentifierSearchCriterion.class, DisplayType.STANDARD), 
 		COLLECTION (CollectionSearchCriterion.class, null),
+		PROJECT_INFO(ProjectInfoSearchCriterion.class, DisplayType.STANDARD),
 		
 		GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null),
 		GENRE(GenreSearchCriterion.class, null),
