@@ -308,8 +308,6 @@ Notes:
         <!-- eg first-name or publication.creator.person.first-name -->
 		<xsl:param name="nametype"/>
 		<xsl:if test="string(text()) and normalize-space(text())!=''">
-			<!-- Exclude visibility for Locators (components with storage = external-url), see Jira PUBMAN-2627 -->
-			<xsl:if test="not(local-name()='visibility' and ../following-sibling::*[local-name()='content']/@storage='external-url')">
 				<xsl:call-template name="writeIndexField">
 					<xsl:with-param name="context" select="$context"/>
 					<xsl:with-param name="fieldname" select="$path"/>
@@ -332,7 +330,6 @@ Notes:
 					<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 				</xsl:call-template>
 			</xsl:if>
-		</xsl:if>
 		<xsl:if test="$indexAttributes='yes'">
             <!-- ITERATE ALL ATTRIBUTES AND WRITE ELEMENT-NAME, ATTRIBUTE-NAME AND ATTRIBUTE-VALUE -->
 			<xsl:for-each select="@*">
@@ -2149,31 +2146,17 @@ Notes:
 		</xsl:for-each>
 		
 		
-	<!-- Publication status drawn from dates -->
-	<userdefined-index name="publication-status">
-		<xsl:attribute name="context">
-			<xsl:value-of select="$CONTEXTNAME"/>
-		</xsl:attribute>
-		<element index="UN_TOKENIZED">
-			<xsl:choose>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='issued'] and $ITEM_METADATAPATH//*[local-name()='issued'] != ''">
-					<xsl:value-of select="'published-in-print'"/>
-				</xsl:when>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='published-online'] and $ITEM_METADATAPATH//*[local-name()='published-online'] != ''">
-					<xsl:value-of select="'published-online'"/>
-				</xsl:when>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateAccepted'] and $ITEM_METADATAPATH//*[local-name()='dateAccepted'] != ''">
-					<xsl:value-of select="'accepted'"/>
-				</xsl:when>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateSubmitted'] and $ITEM_METADATAPATH//*[local-name()='dateSubmitted'] != ''">
-					<xsl:value-of select="'submitted'"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="'not-specified'"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</element>
-	</userdefined-index>
+		<!-- Compound index for project information -->
+		<userdefined-index name="publication.compound.project-info">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='project-info']"/>
+			</element>
+		</userdefined-index>
+	
+	
 		
 	</xsl:variable>
 

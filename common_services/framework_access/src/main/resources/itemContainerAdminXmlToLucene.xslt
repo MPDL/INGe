@@ -314,8 +314,6 @@ Notes:
         <!-- eg first-name or publication.creator.person.first-name -->
         <xsl:param name="nametype"/>
         <xsl:if test="string(text()) and normalize-space(text())!=''">
-        	<!-- Exclude visibility for Locators (components with storage = external-url), see Jira PUBMAN-2627 -->
-			<xsl:if test="not(local-name()='visibility' and ../following-sibling::*[local-name()='content']/@storage='external-url')">
 	            <xsl:call-template name="writeIndexField">
 	                <xsl:with-param name="context" select="$context"/>
 	                <xsl:with-param name="fieldname" select="$path"/>
@@ -337,7 +335,6 @@ Notes:
 					<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 					<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 				</xsl:call-template>
-            </xsl:if>
         </xsl:if>
         <xsl:if test="$indexAttributes='yes'">
             <!-- ITERATE ALL ATTRIBUTES AND WRITE ELEMENT-NAME, ATTRIBUTE-NAME AND ATTRIBUTE-VALUE -->
@@ -1231,7 +1228,18 @@ Notes:
 			</element>
 		</xsl:for-each>
 	</userdefined-index>
-        
+	
+	
+	<!-- Compound index for project information -->
+	<userdefined-index name="md-records/md-record/publication/compound/project-info">
+		<xsl:attribute name="context">
+			<xsl:value-of select="$CONTEXTNAME"/>
+		</xsl:attribute>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='project-info']"/>
+		</element>
+	</userdefined-index>
+       
     </xsl:variable>
 
 </xsl:stylesheet>   
