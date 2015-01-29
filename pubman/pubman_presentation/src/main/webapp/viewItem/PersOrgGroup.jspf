@@ -100,14 +100,9 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<ui:repeat var="creatorAffiliation" value="#{ViewItemFull.organizationList}">
-					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
+					<h:panelGroup styleClass="tiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 					<h:panelGroup id="txtCreatorAffiliation" styleClass="free_area0 affiliation">
 					<h:outputText value="#{creatorAffiliation.organizationDescription}"/>
-						<!--<h:outputText value="#{creatorAffiliation.organizationName}"/>
-						<h:outputText value=", #{creatorAffiliation.organizationAddress}" rendered="#{not empty creatorAffiliation.organizationAddress}"/>
-						<h:outputText value=", #{creatorAffiliation.organizationIdentifier}" rendered="#{not empty creatorAffiliation.organizationIdentifier}"/>
-						-->
-						
 						<h:panelGroup rendered="#{creatorAffiliation.hasOrganizationalIdentifier}">
 							&#160;
 							<h:outputLink id="lnkAffiliationDetail" value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 980, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
