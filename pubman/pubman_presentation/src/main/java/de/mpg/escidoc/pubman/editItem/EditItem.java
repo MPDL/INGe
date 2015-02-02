@@ -109,6 +109,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
@@ -452,24 +453,27 @@ public class EditItem extends FacesBean
         int fileCount = 0;
         int locatorCount = 0;
         // add files
-        for (int i = 0; i < this.item.getFiles().size(); i++)
+        for (FileVO file : this.item.getFiles())
         {
-            if (this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
+            if (file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
             {
-                PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, this.item.getFiles().get(i),
-                        false);
+            	//Add identifierVO if not available yet
+            	if(file.getDefaultMetadata()!= null && (file.getDefaultMetadata().getIdentifiers() == null || file.getDefaultMetadata().getIdentifiers().isEmpty()))
+            	{
+            		file.getDefaultMetadata().getIdentifiers().add(new IdentifierVO());
+            	}
+                PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, file, false);
                 files.add(filepres);
                 fileCount++;
             }
         }
         this.getEditItemSessionBean().setFiles(files);
         // add locators
-        for (int i = 0; i < this.item.getFiles().size(); i++)
+        for (FileVO file : this.item.getFiles())
         {
-            if (this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.EXTERNAL_URL))
+            if (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL))
             {
-                PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount,
-                        this.item.getFiles().get(i), true);
+                PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, file, true);
                 // This is a small hack for locators generated out of Bibtex files
                 if (locatorpres.getLocator() == null && locatorpres.getFile() != null
                         && locatorpres.getFile().getName() != null)
@@ -1494,7 +1498,9 @@ public String logUploadComplete()
 	            if (contentURL != null && !contentURL.trim().equals(""))
 	            {
 	            	 FileVO fileVO = new FileVO();
-	            	 fileVO.getMetadataSets().add(new MdsFileVO());
+	            	 MdsFileVO mdsFileVO = new MdsFileVO();
+	                 mdsFileVO.getIdentifiers().add(new IdentifierVO());
+	                 fileVO.getMetadataSets().add(mdsFileVO);
 	                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 	                 this.getEditItemSessionBean().getFiles() .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
 	                fileVO.getDefaultMetadata().setSize((int)file.getSize());
@@ -1655,67 +1661,8 @@ public String logUploadComplete()
         }
     }
 
-    /**
-     * Preview method for uploaded files
-     */
-    /*
-    public void fileDownloaded()
-    {
-        int index = this.fileIterator.getRowIndex();
-        FileVO fileVO = this.getEditItemSessionBean().getFiles().get(index).getFile();
-        try
-        {
-            fileVO.setContent(fileVO.getContent().replaceFirst(ServiceLocator.getFrameworkUrl(), ""));
-        }
-        catch (ServiceException e)
-        {
-            e.printStackTrace();
-        }
-        catch (URISyntaxException e)
-        {
-            e.printStackTrace();
-        }
-        FileBean File = new FileBean(fileVO, this.getPubItem().getPublicStatus());
-        File.downloadFile();
-    }
-    */
 
-    /**
-     * This method adds a file to the list of files of the item
-     * 
-     * @return navigation string (null)
-     */
-    public String addFile()
-    {
-        // avoid to upload more than one item before filling the metadata
-        if (this.getEditItemSessionBean().getFiles() != null)
-        {
-            FileVO newFile = new FileVO();
-            newFile.getMetadataSets().add(new MdsFileVO());
-            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-            this.getEditItemSessionBean().getFiles()
-            .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
-        }
-        return null;
-    }
 
-    /**
-     * This method adds a file to the list of files of the item
-     * 
-     * @return navigation string (null)
-     */
-    public void addFile(ActionEvent event)
-    {
-        // avoid to upload more than one item before filling the metadata
-        if (this.getEditItemSessionBean().getFiles() != null)
-        {
-            FileVO newFile = new FileVO();
-            newFile.getMetadataSets().add(new MdsFileVO());
-            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-            this.getEditItemSessionBean().getFiles()
-            .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
-        }
-    }
 
     /**
      * This method adds a locator to the list of locators of the item
@@ -2700,5 +2647,11 @@ public String logUploadComplete()
             }
         }
         return list;
+    }
+    
+    public void addNewIdentifier(List<IdentifierVO> idList, int pos)
+    {
+    	System.out.println("Add new id: " +pos);
+    	idList.add(pos, new IdentifierVO());
     }
 }

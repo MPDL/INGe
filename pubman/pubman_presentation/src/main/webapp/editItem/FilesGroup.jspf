@@ -150,6 +150,45 @@
 					</span>
 				</span>
 			</h:panelGroup>
+			
+			
+<!-- File identifiers -->
+		<ui:repeat id="iterFileGroupIdentifier" var="identifier" varStatus="statusId" value="#{fileVar.file.defaultMetadata.identifiers}" rendered="#{!(genre.files_component_identifiers_display == 'false' and genre.files_component_identifiers_form_id == 'full-submission' || genre.files_component_identifiers_display == 'false' and genre.files_component_identifiers_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_identifiers_optional != 'true' and (genre.files_component_identifiers_identifier_type_optional != 'true' || genre.files_component_identifiers_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.files_component_identifiers_label}" rendered="#{EditItem.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.files_component_identifiers_identifier_type_display == 'false' and genre.files_component_identifiers_identifier_type_form_id == 'full-submission' || genre.files_component_identifiers_identifier_type_display == 'false' and genre.files_component_identifiers_identifier_type_form_id == 'all')}">
+						<h:outputLabel id="lblSelectIdentifierType" styleClass="large_label" value="#{genre.files_component_identifiers_identifier_type_label}" converter="GenreLabelConverter"/>
+						
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selSelectIdentifierType" styleClass="replace" value="#{identifier.typeString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+
+					</h:panelGroup>
+					<h:panelGroup rendered="#{!(genre.files_component_identifiers_identifier_value_display == 'false' and genre.files_component_identifiers_identifier_value_form_id == 'full-submission' || genre.files_component_identifiers_identifier_value_display == 'false' and genre.files_component_identifiers_identifier_value_form_id == 'all')}">
+						<h:outputLabel id="lblIdentifierValue" styleClass="xDouble_label" value="#{genre.files_component_identifiers_identifier_value_label}" converter="GenreLabelConverter"/>
+						<h:inputText id="inpIdentifierValue" styleClass="xDouble_txtInput" value="#{identifier.id}" />
+					</h:panelGroup>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addID}" action="#{EditItem.addNewIdentifier(fileVar.file.defaultMetadata.identifiers, statusId.index + 1)}" rendered="#{genre.files_component_identifiers_repeatable != 'false'}">
+						<f:ajax render="form1:files" execute="@form"/>
+					</h:commandButton>
+					<h:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeID}" action="#{fileVar.file.defaultMetadata.identifiers.remove(identifier)}" disabled="#{statusId.last and statusId.first}" rendered="#{genre.files_component_identifiers_repeatable != 'false'}">
+						<f:ajax render="form1:files" execute="@form"/>
+					</h:commandButton>
+				</span>
+			</h:panelGroup>
+			
+		</ui:repeat>
 
 <!-- Copyright Statement, Copyright Date, File Licence -->
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{fileVar.file.name != null and fileVar.file.name != ''}">

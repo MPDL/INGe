@@ -1288,240 +1288,32 @@ public class ItemControllerSessionBean extends FacesBean
 
 		try {
 			pubItem.getMetadata().cleanup();
+		
+
+		
+			// delete unfilled file
+			if (pubItem.getFiles() != null)
+			{
+				for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--)
+				{
+					//Cleanup MD
+					pubItem.getFiles().get(i).getDefaultMetadata().cleanup();
+					if ((pubItem.getFiles().get(i).getName() == null
+							|| pubItem.getFiles().get(i).getName().length() == 0) && (pubItem.getFiles().get(i).getContent() == null
+									|| pubItem.getFiles().get(i).getContent().length() == 0))
+					{
+						pubItem.getFiles().remove(i);
+					}
+				}
+			}
 		} catch (Exception e1) {
 			throw new RuntimeException("Error while cleaning up  item", e1);
 		}
-		/*
-		for (int i = pubItem.getMetadata().getCreators().size() - 1; i >= 0; i--)
-		{
-			CreatorVO creator = pubItem.getMetadata().getCreators().get(i);
 
-			// delete unfilled PersonOrganizations
-			if (creator.getPerson() != null && creator.getPerson().getOrganizations() != null)
-			{
-				for (int j = (creator.getPerson().getOrganizations().size() - 1); j >= 0; j--)
-				{
-					if (creator.getPerson() != null
-							&& (creator.getPerson().getOrganizations().get(j).getName() == null ||
-									creator.getPerson().getOrganizations().get(j).getName().getValue() == null ||
-									creator.getPerson().getOrganizations().get(j).getName().getValue().length() == 0))
-					{
-						creator.getPerson().getOrganizations().remove(j);
-					}
-				}
-			}
-			// delete unfilled PersonIdentifiers
-			if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null && (creator.getPerson().getIdentifier().getId() == null || "".equals(creator.getPerson().getIdentifier().getId())))
-			{
-				creator.getPerson().setIdentifier(null);
-			}
-		}
 
 		
-		// delete unfilled publishingInfo
-		if (pubItem.getMetadata().getPublishingInfo() != null)
-		{
-			if ((pubItem.getMetadata().getPublishingInfo().getPublisher() == null
-					        || pubItem.getMetadata().getPublishingInfo().getPublisher().length() == 0)
-					&& (pubItem.getMetadata().getPublishingInfo().getEdition() == null
-							|| pubItem.getMetadata().getPublishingInfo().getEdition().length() == 0)
-					&& (pubItem.getMetadata().getPublishingInfo().getPlace() == null
-							|| pubItem.getMetadata().getPublishingInfo().getPlace().length() == 0))
-			{
-				pubItem.getMetadata().setPublishingInfo(null);
-			}
-		}
-		*/
-		
-		// delete unfilled file
-		if (pubItem.getFiles() != null)
-		{
-			for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--)
-			{
-				if ((pubItem.getFiles().get(i).getName() == null
-						|| pubItem.getFiles().get(i).getName().length() == 0) && (pubItem.getFiles().get(i).getContent() == null
-								|| pubItem.getFiles().get(i).getContent().length() == 0))
-				{
-					pubItem.getFiles().remove(i);
-				}
-			}
-		}
 
-		/*
-		// delete unfilled ContentLanguage
-		if (pubItem.getMetadata().getLanguages() != null)
-		{
-			for (int i = (pubItem.getMetadata().getLanguages().size() - 1); i >= 0; i--)
-			{
-				if (pubItem.getMetadata().getLanguages().get(i) == null
-						|| pubItem.getMetadata().getLanguages().get(i).length() == 0)
-				{
-					pubItem.getMetadata().getLanguages().remove(i);
-				}
-			}
-		}
-
-		// remove languages from subjects
-		if (pubItem.getMetadata().getSubjects() != null)
-		{
-		    List<TextVO> emptySubjects = new ArrayList<TextVO>();
-            
-			for (TextVO subject : pubItem.getMetadata().getSubjects())
-			{
-			    if (subject.getValue() == null || "".equals(subject.getValue()))
-			    {
-			        emptySubjects.add(subject);
-			    }
-				subject.setLanguage(null);
-			}
-			for (TextVO emptySubject : emptySubjects)
-            {
-			    pubItem.getMetadata().getSubjects().remove(emptySubject);
-            }
-		}
-
-		// delete unfilled Sources
-		if (pubItem.getMetadata().getSources() != null)
-		{
-			for (int i = (pubItem.getMetadata().getSources().size() - 1); i >= 0; i--)
-			{
-				// delete source if title is not filled
-				if (pubItem.getMetadata().getSources().get(i) == null
-						|| pubItem.getMetadata().getSources().get(i).getTitle() == null
-						|| pubItem.getMetadata().getSources().get(i).getTitle().getValue() == null 
-						|| pubItem.getMetadata().getSources().get(i).getTitle().getValue().trim().equals(""))
-				{
-					pubItem.getMetadata().getSources().remove(i);
-				}
-				else
-				{
-					// delete unfilled publishingInfo
-					if (pubItem.getMetadata().getSources().get(i).getPublishingInfo() != null)
-					{
-						if ((pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher() == null
-								    || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher().length() == 0)
-    							&& (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getEdition() == null
-                                    || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getEdition().length() == 0)
-                                && (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace() == null
-                                    || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace().length() == 0))
-						{
-							pubItem.getMetadata().getSources().get(i).setPublishingInfo(null);
-						}
-					}
-
-					// delete unfilled identifiers
-					if (pubItem.getMetadata().getSources().get(i).getIdentifiers() != null)
-					{
-						for (int j = pubItem.getMetadata().getSources().get(i).getIdentifiers().size() - 1; j >= 0; j--)
-						{
-							IdentifierVO identifier = pubItem.getMetadata().getSources().get(i).getIdentifiers().get(j);
-							if (identifier.getId() == null
-									|| identifier.getId().length() == 0
-									|| identifier.getTypeString() == null
-									|| identifier.getTypeString().length() == 0)
-							{
-								pubItem.getMetadata().getSources().get(i).getIdentifiers().remove(j);
-							}
-						}
-					}
-
-					// delete unfilled source creators
-					if (pubItem.getMetadata().getSources().get(i).getCreators() != null)
-					{
-						for (int j = pubItem.getMetadata().getSources().get(i).getCreators().size() - 1; j >= 0; j--)
-						{
-							CreatorVO creator = pubItem.getMetadata().getSources().get(i).getCreators().get(j);
-							if (creator.getRoleString() == null
-									|| creator.getRoleString().length() == 0
-									|| creator.getTypeString() == null
-									|| creator.getTypeString().length() == 0
-									|| (creator.getPerson() != null
-											&& (creator.getPerson().getFamilyName() == null
-													|| creator.getPerson().getFamilyName().length() == 0))
-													|| (creator.getOrganization() != null
-															&& (creator.getOrganization().getName() == null
-																	|| creator.getOrganization().getName().getValue() == null
-																	|| creator.getOrganization().getName().getValue().length() == 0)))
-							{
-								pubItem.getMetadata().getSources().get(i).getCreators().remove(j);
-							}
-							else
-							{
-								this.cleanUpCreator(creator);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// delete unfilled Event
-		if (pubItem.getMetadata().getEvent() != null
-				&& (pubItem.getMetadata().getEvent().getTitle() == null
-						|| pubItem.getMetadata().getEvent().getTitle().getValue() == null
-						|| pubItem.getMetadata().getEvent().getTitle().getValue().length() == 0)
-						    && (pubItem.getMetadata().getEvent().getStartDate() == null
-						        || pubItem.getMetadata().getEvent().getStartDate().length() == 0)
-						            && (pubItem.getMetadata().getEvent().getEndDate() == null
-						                || pubItem.getMetadata().getEvent().getEndDate().length() == 0)
-						                    && (pubItem.getMetadata().getEvent().getPlace() == null
-						                        || pubItem.getMetadata().getEvent().getPlace().getValue() == null
-						                        || pubItem.getMetadata().getEvent().getPlace().getValue().length() == 0)
-        						                    && (pubItem.getMetadata().getEvent().getInvitationStatus() == null)
-        						                            && (pubItem.getMetadata().getEvent().getAlternativeTitles() == null
-        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().size() == 0
-        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1) == null
-        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue() == null
-        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue().length() == 0))
-		{
-			pubItem.getMetadata().setEvent(null);
-		}
-
-		// delete unfilled LegalCase
-		if (pubItem.getMetadata().getLegalCase() != null
-				&& (pubItem.getMetadata().getLegalCase().getTitle() == null ||
-						pubItem.getMetadata().getLegalCase().getTitle().length() == 0)
-						&& (pubItem.getMetadata().getLegalCase().getIdentifier() == null ||
-								pubItem.getMetadata().getLegalCase().getIdentifier().length() == 0)
-								&& (pubItem.getMetadata().getLegalCase().getDatePublished()== null ||
-										pubItem.getMetadata().getLegalCase().getDatePublished().length() == 0)
-										&& (pubItem.getMetadata().getLegalCase().getCourtName() == null ||
-												pubItem.getMetadata().getLegalCase().getCourtName().length() == 0)
-
-		) {
-			pubItem.getMetadata().setLegalCase(null);
-		}
-
-		// delete unfilled Identifier
-		if (pubItem.getMetadata().getIdentifiers() != null)
-		{
-			for (int i = (pubItem.getMetadata().getIdentifiers().size() - 1); i >= 0; i--)
-			{
-				if (pubItem.getMetadata().getIdentifiers().get(i) == null
-						|| pubItem.getMetadata().getIdentifiers().get(i).getId() == null
-						|| pubItem.getMetadata().getIdentifiers().get(i).getId().length() == 0)
-				{
-					pubItem.getMetadata().getIdentifiers().remove(i);
-				}
-			}
-		}
-
-		// delete unfilled Abstract
-		if (pubItem.getMetadata().getAbstracts() != null)
-		{
-			for (int i = (pubItem.getMetadata().getAbstracts().size() - 1); i >= 0; i--)
-			{
-				if (pubItem.getMetadata().getAbstracts().get(i) == null
-						|| pubItem.getMetadata().getAbstracts().get(i).getValue() == null
-						|| pubItem.getMetadata().getAbstracts().get(i).getValue().length() == 0)
-				{
-					pubItem.getMetadata().getAbstracts().remove(i);
-				}
-			}
-		}
-		
-
-		 */
+		 
 		// TODO MF: Check specification for this behaviour: Always when an organization does not have an identifier, make it "external".
 		// assign the external org id to default organisation
 		try
