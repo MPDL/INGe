@@ -318,23 +318,25 @@
 826: %G de 	
  -->		
 			<xsl:if test="G">
-				<xsl:variable name="g" select="G"/>
-				<xsl:choose>
-					<xsl:when test="$vm/language/v1-to-v2/map[$g=.]!=''">
-						<dc:language>
-							<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-							<xsl:value-of select="G"/>
-						</dc:language>
-					</xsl:when>
-					<xsl:when test="$vm/language/v2-to-edoc/map=$g and $vm/language/v2-to-edoc/map[$g=.]/@v2 != ''">
-						<dc:language>
-							<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-							<xsl:value-of select="$vm/language/v2-to-edoc/map[$g=.]/@v2"/>
-						</dc:language>
-					</xsl:when>
-				</xsl:choose>				
-				
-			</xsl:if> 
+				<xsl:for-each select="G">
+					<xsl:variable name="g" select="."/>
+					<xsl:choose>
+						<xsl:when test="$vm/language/v1-to-v2/map[$g=.]!=''">
+							<dc:language>
+					 			<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+								<xsl:value-of select="."/>
+							</dc:language>
+						</xsl:when>
+						<xsl:when test="$vm/language/v2-to-edoc/map=$g and $vm/language/v2-to-edoc/map[$g=.]/@v2 != ''">
+							<dc:language>
+								<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+								<xsl:value-of select="$vm/language/v2-to-edoc/map[$g=.]/@v2"/>
+							</dc:language>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:for-each>
+			</xsl:if>
+
 
 			
 			
@@ -447,7 +449,14 @@
 			<xsl:for-each select="AMPERSAND[
 					$refType = 'Patent'
 				]">
-				<dc:identifier xsi:type="ete rms:PATENT_NR">
+				<dc:identifier xsi:type="eterms:PATENT_NR">
+					<xsl:value-of select="."/>
+				</dc:identifier>
+			</xsl:for-each>
+			<xsl:for-each select="N[
+					$refType = 'Patent'
+				]">
+				<dc:identifier xsi:type="eterms:PATENT_APPLICATION_NR">
 					<xsl:value-of select="."/>
 				</dc:identifier>
 			</xsl:for-each>
@@ -455,13 +464,15 @@
 			
 			<!-- PUBLISHING INFO -->
 			<xsl:variable name="publisher" select="
-				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
+				if (I and B and J and S) then ''
+				else if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
 				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Thesis' )) then I
 				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
 				else ''
 			"/>
 			<xsl:variable name="edition" select="
-				if (NUM_7 and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
+				if (NUM_7 and B and J and S) then ''
+				else if (NUM_7 and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
 				else if (ROUND_RIGHT_BRACKET and not(NUM_7) and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
 				else ''
 			"/>
@@ -493,7 +504,8 @@
 			
 			<!-- DATES -->
 			<xsl:variable name="dateCreated" select="
-				if (D) then escidocFunctions:normalizeDate(D)
+				if (D and NUM_8) then escidocFunctions:normalizeDate(NUM_8)
+				else if (D) then escidocFunctions:normalizeDate(D)
 				else if (NUM_8) then escidocFunctions:normalizeDate(NUM_8)
 				else ''
 			"/>
@@ -519,7 +531,7 @@
 			</xsl:if>
 			
 			<xsl:variable name="dateAccepted" select="
-				if (not(D) and NUM_8 and $refType = 'Thesis') then escidocFunctions:normalizeDate(NUM_8)
+				if ($dateCreated and $refType = 'Thesis') then $dateCreated
 				else ''
 			"/>
 			<xsl:if test="$dateAccepted != ''">
