@@ -454,17 +454,7 @@ Notes:
 		<xsl:choose>
 			<xsl:when test="string($mime-type) and contains($SUPPORTED_MIMETYPES,$mime-type) and string($component-type) and contains($NON_SUPPORTED_COMPONENT_TYPES,concat(' ',$component-type,' '))=false and string($visibility) and contains($SUPPORTED_COMPONENT_VISIBILITIES,concat(' ',$visibility,' '))">
                
-               	<!-- Create index field escidoc.internal-file.visibility to avoid finding locators when searching for public files -->
-				<xsl:variable name="storage" select="$components[$num]/*[local-name()='content']/@storage"/>
-				<xsl:if test="$storage='internal-managed'">
-					<xsl:call-template name="writeIndexField">
-							<xsl:with-param name="context" select="$CONTEXTNAME"/>
-							<xsl:with-param name="fieldname">component.internal-managed.visibility</xsl:with-param>
-							<xsl:with-param name="fieldvalue" select="$visibility"/>
-							<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-							<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-					</xsl:call-template>
-				</xsl:if>
+
                
                 <!-- INDEX FULLTEXT -->
 				<IndexField index="TOKENIZED" store="YES" termVector="NO">
@@ -2155,7 +2145,24 @@ Notes:
 				<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='project-info']"/>
 			</element>
 		</userdefined-index>
-	
+		
+		
+		
+		<!-- Create index field escidoc.internal-file.visibility to avoid finding locators when searching for public files -->
+		<xsl:for-each select="/*[local-name()='item']/*[local-name()='components']/*[local-name()='component' and *[local-name()='content']/@storage='internal-managed']">
+			<xsl:variable name="storage" select="*[local-name()='content']/@storage"/>
+			<userdefined-index name="component.internal-managed.visibility">
+				<xsl:attribute name="context">
+					<xsl:value-of select="$CONTEXTNAME"/>
+				</xsl:attribute>
+				<element index="TOKENIZED">
+					<xsl:value-of select="*[local-name()='properties']/*[local-name()='visibility']"/>
+				</element>
+			</userdefined-index>					
+		</xsl:for-each>
+		        
+				
+
 	
 		
 	</xsl:variable>
