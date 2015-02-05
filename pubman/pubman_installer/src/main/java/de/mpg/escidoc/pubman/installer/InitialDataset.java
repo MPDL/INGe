@@ -71,7 +71,7 @@ public class InitialDataset
     {
         logger = Logger.getLogger(InitialDataset.class);
         logger.info("FrameworkURL '" + frameworkUrl +"'");
-        logger.info("username '" + username +"'" + " password '" + password +"'");
+        logger.info("username '" + username +"'");
                
         this.frameworkUrl = frameworkUrl;
         this.userHandle = AdminHelper.loginUser(username, password);
