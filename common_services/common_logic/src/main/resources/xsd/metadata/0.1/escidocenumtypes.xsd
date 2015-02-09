@@ -76,6 +76,7 @@
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/festschrift"/>
 			<xs:enumeration value="http://purl.org/eprint/type/Patent"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/film"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
