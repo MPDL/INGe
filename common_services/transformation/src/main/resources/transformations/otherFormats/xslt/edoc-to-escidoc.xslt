@@ -1136,10 +1136,7 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIBF'">
 							<xsl:choose>
-								<xsl:when test="$access='USER'">
-									<prop:visibility>private</prop:visibility>
-								</xsl:when>
-								<xsl:when test="$access='MPG' or $access='INSTITUT'">
+								<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='USER' or $access='INTERNAL'">
 									<prop:visibility>audience</prop:visibility>
 								</xsl:when>
 								<xsl:when test="$access='PUBLIC' and exists(../titleofseries) and (../titleofseries='Materialien aus der Bildungsforschung' or ../titleofseries='Studien und Berichte')">
