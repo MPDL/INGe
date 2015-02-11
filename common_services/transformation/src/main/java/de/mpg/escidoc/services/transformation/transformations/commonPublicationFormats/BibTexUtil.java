@@ -144,6 +144,21 @@ public class BibTexUtil
     	 * 
     	 * needs to be sorted by lenght (descending)
     	 * (use textmechanic.conm/Sort-TextLines.html or something similar)
+    	 * 
+    	 * ----------
+    	 * 
+    	 * remove all following lines
+    	 * 
+    	 * encodingTable.put("-", "\u2010");
+    	 * encodingTable.put("-", "\u2011");
+    	 * encodingTable.put("\\-", "\u207B");
+		 * encodingTable.put("\\+", "\u207A");
+		 * 
+		 * ----------
+		 * 
+		 * add all following lines
+		 * 
+		 * 
     	 */
     	encodingTable.put("\\textdoublevbaraccent{}", "\u030E");
     	encodingTable.put("\\textdoublemacronbelow", "\u035F");
@@ -275,6 +290,8 @@ public class BibTexUtil
     	encodingTable.put("\\textbrokenbar", "\u00A6");
     	encodingTable.put("\\textquotedbl", "\\u0022");
     	encodingTable.put("\\textbraceleft", "\u007B");
+    	encodingTable.put("\\mbox{$^{+}$}", "\u207A");
+    	encodingTable.put("\\mbox{$^{-}$}", "\u207B");
     	encodingTable.put("\\risingdotseq", "\u2253");
     	encodingTable.put("\\quotedblbase", "\u201E");
     	encodingTable.put("\\subdoublebar", "\u0347");
@@ -316,6 +333,10 @@ public class BibTexUtil
     	encodingTable.put("\\textonehalf", "\u00BD");
     	encodingTable.put("\\textpercent", "\u0025");
     	encodingTable.put("\\textgreater", "\u003E");
+    	encodingTable.put("\\mbox{$^+$}", "\u207A");
+    	encodingTable.put("\\mbox{$^-$}", "\u207B");
+       	encodingTable.put("\\textemdash", "\u2014");
+    	encodingTable.put("\\textendash", "\u2013");
     	encodingTable.put("\\sqsupseteq", "\u2292");
     	encodingTable.put("\\sqsubseteq", "\u2291");
     	encodingTable.put("\\complement", "\u2201");
@@ -774,7 +795,6 @@ public class BibTexUtil
     	encodingTable.put("{\\j{}}", "\u0237");
     	encodingTable.put("{\\l{}}", "\u0142");
     	encodingTable.put("{\\L{}}", "\u0141");
-    	encodingTable.put("{\\L{}}", "\u0141");
     	encodingTable.put("{\\i{}}", "\u0131");
     	encodingTable.put("\\Kappa", "\u039A");
     	encodingTable.put("{\\G{}}", "\u030F");
@@ -822,6 +842,8 @@ public class BibTexUtil
     	encodingTable.put("\\micro", "\u00B5");
     	encodingTable.put("{\\&{}}", "\u0026");
     	encodingTable.put("{\\#{}}", "\u0023");
+    	encodingTable.put("{$^+$}", "\u207A");
+    	encodingTable.put("{$^-$}", "\u207B");
     	encodingTable.put("\\odot", "\u2299");
     	encodingTable.put("\\ngeq", "\u2271");
     	encodingTable.put("\\nleq", "\u2270");
@@ -1356,6 +1378,8 @@ public class BibTexUtil
     	encodingTable.put("{\\&}", "\u0026");
     	encodingTable.put("\\#{}", "\u0023");
     	encodingTable.put("{\\#}", "\u0023");
+    	encodingTable.put("$^+$", "\u207A");
+    	encodingTable.put("$^-$", "\u207B");
     	encodingTable.put("\\wr", "\u2240");
     	encodingTable.put("\\mp", "\u2213");
     	encodingTable.put("\\in", "\u2208");
@@ -1553,11 +1577,8 @@ public class BibTexUtil
     	encodingTable.put("\\5", "\u2075");
     	encodingTable.put("\\4", "\u2074");
     	encodingTable.put("\\i", "\u2071");
-    	encodingTable.put("---", "\u2014");
     	encodingTable.put("\\)", "\u207E");
     	encodingTable.put("\\(", "\u207D");
-    	encodingTable.put("\\-", "\u207B");
-    	encodingTable.put("\\+", "\u207A");
     	encodingTable.put("\\B", "\u0335");
     	encodingTable.put("\\b", "\u0331");
     	encodingTable.put("\\k", "\u0328");
@@ -1597,16 +1618,11 @@ public class BibTexUtil
     	encodingTable.put("\\S", "\u00a7");
     	encodingTable.put("\\&", "\u0026");
     	encodingTable.put("\\#", "\u0023");
-    	encodingTable.put("\n", "\\u000A");
     	encodingTable.put("^0", "\u2070");
-    	encodingTable.put("--", "\u2013");
-    	encodingTable.put("--", "\u2012");
     	encodingTable.put("^=", "\u207C");
     	encodingTable.put("^y", "\u02B8");
     	encodingTable.put("^w", "\u02B7");
     	encodingTable.put("^r", "\u02B3");
-    	encodingTable.put("-", "\u2011");
-    	encodingTable.put("-", "\u2010");
     }
 
     /**

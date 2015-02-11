@@ -537,6 +537,7 @@ public class Bibtex implements BibtexInterface
                 }
 
                 // author
+                boolean noConeAuthorFound = true;
                 if (fields.get("author") != null)
                 {
                     if (fields.get("author") instanceof BibtexPersonList)
@@ -609,7 +610,6 @@ public class Bibtex implements BibtexInterface
 
                             if (decoder.getBestFormat() != null)
                             {
-                                boolean noConeAuthorFound = true;
                                 List<Author> authors = decoder.getAuthorListList().get(0);
                                 for (Author author : authors)
                                 {
@@ -663,6 +663,7 @@ public class Bibtex implements BibtexInterface
                                                         if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
                                                         {
                                                             first = false;
+                                                            noConeAuthorFound = false;
                                                             Node coneEntry = currentNode;
                                                             String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
                                                             personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
@@ -714,10 +715,6 @@ public class Bibtex implements BibtexInterface
                                                         }
                                                         currentNode = currentNode.getNextSibling();
                                                     }
-                                                    if (first)
-                                                    {
-                                                        throw new RuntimeException("Missing CoNE entry for " + query);
-                                                    }
                                                 }
                                                 else
                                                 {
@@ -740,6 +737,7 @@ public class Bibtex implements BibtexInterface
                                                 if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
                                                 {
                                                     first = false;
+                                                    noConeAuthorFound = false;
                                                     Node coneEntry = currentNode;
                                                     String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
                                                     personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
@@ -790,10 +788,6 @@ public class Bibtex implements BibtexInterface
                                                     throw new RuntimeException("Ambigous CoNE entries for " + query);
                                                 }
                                                 currentNode = currentNode.getNextSibling();
-                                            }
-                                            if (first)
-                                            {
-                                                throw new RuntimeException("Missing CoNE entry for " + query);
                                             }
                                         }
                                         else
@@ -883,10 +877,7 @@ public class Bibtex implements BibtexInterface
                                     CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.AUTHOR);
                                     mds.getCreators().add(creatorVO);
                                 }
-                                if(noConeAuthorFound == true && configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("CurlyBracketsForCoNEAuthors"))))
-                                {
-                                    throw new RuntimeException("No CoNE-Author was found");
-                                }
+                                
                             }
                             if (!teams.isEmpty())
                             {
@@ -902,6 +893,7 @@ public class Bibtex implements BibtexInterface
                 }
 
                 // editor
+                boolean noConeEditorFound = false;
                 if (fields.get("editor") != null)
                 {
 
@@ -1031,6 +1023,7 @@ public class Bibtex implements BibtexInterface
                                                         if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
                                                         {
                                                             first = false;
+                                                            noConeEditorFound = false;
                                                             Node coneEntry = currentNode;
                                                             String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
                                                             personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
@@ -1082,10 +1075,6 @@ public class Bibtex implements BibtexInterface
                                                         }
                                                         currentNode = currentNode.getNextSibling();
                                                     }
-                                                    if (first)
-                                                    {
-                                                        throw new RuntimeException("Missing CoNE entry for " + query);
-                                                    }
                                                 }
                                                 else
                                                 {
@@ -1108,6 +1097,7 @@ public class Bibtex implements BibtexInterface
                                                 if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
                                                 {
                                                     first = false;
+                                                    noConeEditorFound = false;
                                                     Node coneEntry = currentNode;
                                                     String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
                                                     personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
@@ -1158,10 +1148,6 @@ public class Bibtex implements BibtexInterface
                                                     throw new RuntimeException("Ambigous CoNE entries for " + query);
                                                 }
                                                 currentNode = currentNode.getNextSibling();
-                                            }
-                                            if (first)
-                                            {
-                                                throw new RuntimeException("Missing CoNE entry for " + query);
                                             }
                                         }
                                         else
@@ -1184,6 +1170,7 @@ public class Bibtex implements BibtexInterface
                                                 if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
                                                 {
                                                     first = false;
+                                                    noConeEditorFound = false;
                                                     Node coneEntry = currentNode;
                                                     String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
                                                     personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
@@ -1235,14 +1222,6 @@ public class Bibtex implements BibtexInterface
                                                 }
                                                 currentNode = currentNode.getNextSibling();
                                             }
-                                            if (first)
-                                            {
-                                                throw new RuntimeException("Missing CoNE entry for " + query);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            throw new RuntimeException("Missing CoNE entry for " + query);
                                         }
                                     }
                                     
@@ -1283,6 +1262,12 @@ public class Bibtex implements BibtexInterface
                         }
                         
                     }
+                }
+                
+                //No CoNE Author or Editor Found
+                if(noConeAuthorFound == true && noConeEditorFound == true && configuration != null && "true".equals(configuration.get("CoNE")))
+                {
+                    throw new RuntimeException("No CoNE-Author and no CoNE-Editor was found");
                 }
 
                 // If no affiliation is given, set the first author to "external"
