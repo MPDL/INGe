@@ -56,7 +56,6 @@ import bibtex.dom.BibtexToplevelComment;
 import bibtex.parser.BibtexParser;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -1685,7 +1684,13 @@ public class Bibtex implements BibtexInterface
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         while ((line = bufferedReader.readLine()) != null)
         {
-            result.add(line.replaceAll("(\\d|_)+\\|", ""));
+            //result.add(line.replaceAll("(\\d|_)+\\|", ""));
+        	try 
+        	{
+				result.add(line.substring(line.indexOf("|")+1, line.length()));
+			} catch (IndexOutOfBoundsException e) 
+			{
+			}
         }
         inputStream.close();
         return result;
@@ -1708,7 +1713,14 @@ public class Bibtex implements BibtexInterface
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         while ((line = bufferedReader.readLine()) != null)
         {
-            result.add(line.replaceAll("(\\d|_)+\\|", ""));
+        	try 
+        	{
+				result.add(line.substring(line.indexOf("|")+1, line.length()));
+			} catch (IndexOutOfBoundsException e) 
+			{
+				
+			}
+            //result.add(line.replaceAll("(\\d|_)+\\|", ""));
         }
         inputStream.close();
         return result;
