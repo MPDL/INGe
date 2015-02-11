@@ -1143,7 +1143,7 @@
 									<prop:visibility>audience</prop:visibility>
 								</xsl:when>
 								<xsl:when test="$access='PUBLIC' and exists(../titleofseries) and (../titleofseries='Materialien aus der Bildungsforschung' or ../titleofseries='Studien und Berichte')">
-									<prop:visibility>private</prop:visibility>
+									<prop:visibility>public</prop:visibility>
 								</xsl:when>
 								<xsl:when test="$access='PUBLIC' and (not(exists(../titleofseries) and (../titleofseries='Materialien aus der Bildungsforschung' or ../titleofseries='Studien und Berichte')))">
 									<prop:visibility>public</prop:visibility>
