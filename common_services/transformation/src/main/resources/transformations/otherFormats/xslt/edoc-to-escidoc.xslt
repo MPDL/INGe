@@ -4476,7 +4476,7 @@
 		<xsl:choose>
 			<xsl:when test="$import-name = 'MPIBF'">
 				<dcterms:abstract>
-					<xsl:value-of select="fn:concat('Author&apos;s comment: ', .)" />
+					<xsl:value-of select="fn:concat('Author''s comment: ', .)" />
 				</dcterms:abstract>
 			</xsl:when>
 		</xsl:choose>
