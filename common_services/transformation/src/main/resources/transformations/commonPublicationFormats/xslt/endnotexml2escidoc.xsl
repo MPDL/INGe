@@ -1069,7 +1069,7 @@
 					</xsl:choose>
 				</xsl:variable>
 
-				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
+				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != $cone-creator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
 			
 				<xsl:if test="$multiplePersonsFound">
 					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($familyname, ', ', $givenname), '-'))"/>
