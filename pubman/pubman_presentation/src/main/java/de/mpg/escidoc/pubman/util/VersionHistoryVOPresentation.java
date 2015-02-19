@@ -1,7 +1,10 @@
 package de.mpg.escidoc.pubman.util;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -72,31 +75,56 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         PubItemDepositing pubItemDepositingBean = (PubItemDepositing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
         ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+        Map<String, String> xmlComponentsThisVersionMap = new HashMap<String, String>();
         
         // Get the two versions
         String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
         String xmlItemThisVersion = itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
+
         PubItemVO pubItemVOLatestVersion = xmlTransforming.transformToPubItem(xmlItemLatestVersion);
         PubItemVO pubItemVOThisVersion = xmlTransforming.transformToPubItem(xmlItemThisVersion);
-        
+         
         // Now copy the old stuff into the current item
         pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
         pubItemVOLatestVersion.getLocalTags().clear();
-        pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());
+        pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());    
         
         // Do not forget the files and locators
-        pubItemVOLatestVersion.getFiles().clear();
         for (FileVO fileVO : pubItemVOThisVersion.getFiles())
         {
+        	String xmlThisComponent = itemHandler.retrieveComponent(this.getReference().getObjectIdAndVersion(), fileVO.getReference().getObjectId());
+        	xmlComponentsThisVersionMap.put(fileVO.getReference().getObjectId(), xmlThisComponent);
+        	
+        	/*xmlItemNewVersion = itemHandler.createComponent(this.getReference().getObjectId(), xmlThisComponent);
             FileVO clonedFile = new FileVO (fileVO);
-            clonedFile.setReference(fileVO.getReference());
-            pubItemVOLatestVersion.getFiles().add(clonedFile);
+            clonedFile.setReference(new FileRO());
+            pubItemVOLatestVersion.getFiles().add(clonedFile);*/
         }
-        
+        pubItemVOLatestVersion.getFiles().clear();
+
         // Then process it into the framework ...
+        // item without components
         String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
         xmlItemNewVersion = itemHandler.update(this.getReference().getObjectId(), xmlItemNewVersion);
+        
         PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+        Date lastModificationDate = pubItemVONewVersion.getLatestVersion().getModificationDateForXml();
+   
+        for (Map.Entry<String, String> entry : xmlComponentsThisVersionMap.entrySet())
+        {
+        	String xmlComponentNewVersion = entry.getValue();
+        	
+        	FileVO fileVO = xmlTransforming.transformToFileVO(xmlComponentNewVersion);
+        	fileVO.setLastModificationDate(lastModificationDate);
+        	fileVO.setReference(new FileRO());
+        	
+        	xmlComponentNewVersion = xmlTransforming.transformToFile(fileVO);
+        	xmlComponentNewVersion = itemHandler.createComponent(pubItemVONewVersion.getLatestVersion().getObjectIdAndVersion(), xmlComponentNewVersion);
+        }
+        
+        xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
+        pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+        
         if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED && pubItemVONewVersion.getVersion().getState() == State.PENDING)
         {
             pubItemDepositingBean.submitAndReleasePubItem(pubItemVONewVersion, "Submit and release after rollback to version " + this.getReference().getVersionNumber(), loginHelper.getAccountUser());
@@ -122,4 +150,5 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         
         return ViewItemFull.LOAD_VIEWITEM;
     }
+  
 }
