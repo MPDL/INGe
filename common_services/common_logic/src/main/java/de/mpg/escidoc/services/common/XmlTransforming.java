@@ -472,6 +472,8 @@ public interface XmlTransforming
     
     public FileVO transformToFileVO(String fileXML) throws TechnicalException;
     
+    public String transformToFile(FileVO fileVO) throws TechnicalException, MarshallingException;
+    
     public List<AffiliationRO> transformToSuccessorAffiliationList(String successorOrganizationalUnitList) throws TechnicalException, 
         UnmarshallingException;
     

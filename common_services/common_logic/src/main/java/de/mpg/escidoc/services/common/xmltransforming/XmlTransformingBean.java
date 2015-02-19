@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -2194,9 +2193,6 @@ public class XmlTransformingBean implements XmlTransforming
         return resultVO;
     }
     
-    
-   
-    
     public FileVO transformToFileVO(String fileXML) throws TechnicalException
     {
         logger.debug("transformToFileVO(String) - String file=\n" + fileXML);
@@ -2227,6 +2223,43 @@ public class XmlTransformingBean implements XmlTransforming
         
         
         return fileVO;
+    }
+    
+    public String transformToFile(FileVO fileVO) throws TechnicalException
+    {
+        logger.debug("transformToFile(FileVO)");
+        if (fileVO == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToFile:fileVO is null");
+        }
+        
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_output", FileVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(fileVO, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(fileVO.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToStatisticReportDefinition() - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
     }
     
     public String transformToPidServiceResponse(PidServiceResponseVO pidServiceResponseVO) throws TechnicalException
