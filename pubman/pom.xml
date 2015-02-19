@@ -867,6 +867,7 @@
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 				<escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
 				<escidoc.pubman.blog.news>http://blog.pure.mpg.de/feed/</escidoc.pubman.blog.news>
+				<escidoc.cone.subjectVocab>ddc;iso639-3;mpipks;mpis-groups;mpis-projects;mpinp;mpirg</escidoc.cone.subjectVocab>
 			</properties>
 			<distributionManagement>
 				<site>
