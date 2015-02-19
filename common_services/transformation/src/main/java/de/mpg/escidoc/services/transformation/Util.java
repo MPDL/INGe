@@ -534,8 +534,8 @@ public class Util
             document.appendChild(element);
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                 + model + "/query?format=jquery&dc:title=\"" + URLEncoder.encode(name, "UTF-8")
-                 + "\"&escidoc:position/eprints:affiliatedInstitution=\"*" + URLEncoder.encode(ou, "UTF-8") + "*\"";
+                 + model + "/query?format=jquery&" + URLEncoder.encode("dc:title", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8")
+                 + "&" + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "=" + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8") ;
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
@@ -555,8 +555,8 @@ public class Util
                 ArrayList<String> results = new ArrayList<String>();
                 results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
                 queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                    + model + "/query?format=jquery&dcterms:alternative=\"" + URLEncoder.encode(name, "UTF-8")
-                    + "\"&escidoc:position/eprints:affiliatedInstitution=\"*" + URLEncoder.encode(ou, "UTF-8") + "*\"";
+                    + model + "/query?format=jquery&" + URLEncoder.encode("dcterms:alternative", "UTF-8") + "=" + URLEncoder.encode( "\"" + name + "\"", "UTF-8")
+                    + "&" +  URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "=" + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8") ;
                 client = new HttpClient();
                 method = new GetMethod(queryUrl);
                 if (coneSession != null)
@@ -641,8 +641,8 @@ public class Util
             document.appendChild(element);
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                    + model + "/query?format=jquery&dc:identifier/rdf:value=\"" + URLEncoder.encode(identifier, "UTF-8")
-                    + "\"&escidoc:position/eprints:affiliatedInstitution=\"*" + URLEncoder.encode(ou, "UTF-8") + "*\"";
+                    + model + "/query?format=jquery&dc:identifier/" + URLEncoder.encode("rdf:value", "UTF-8") + "=" + URLEncoder.encode("\"" + identifier + "\"", "UTF-8")
+                    + "&" + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "=" + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                     + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
@@ -758,8 +758,8 @@ public class Util
 				for (String childId : childIds) {
 					queryUrl = PropertyReader.getProperty("escidoc.cone.service.url") 
 							+ model
-							+ "/query?format=jquery&escidoc:position/dc:identifier=\""
-							+ childId + "\"&n=0";
+							+ "/query?format=jquery&" + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "="
+							+ URLEncoder.encode("\"" + childId + "\"", "UTF-8") + "&n=0";
 					executeGetMethod(client, queryUrl, documentBuilder, document, element);
 				}
 			} else {
