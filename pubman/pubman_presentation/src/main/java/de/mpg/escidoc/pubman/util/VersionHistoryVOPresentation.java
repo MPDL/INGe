@@ -75,6 +75,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
         PubItemDepositing pubItemDepositingBean = (PubItemDepositing) initialContext.lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
         ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+        
+        // temporary cache for keeping the components of item to rollback to
         Map<String, String> xmlComponentsThisVersionMap = new HashMap<String, String>();
         
         // Get the two versions
@@ -94,11 +96,6 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         {
         	String xmlThisComponent = itemHandler.retrieveComponent(this.getReference().getObjectIdAndVersion(), fileVO.getReference().getObjectId());
         	xmlComponentsThisVersionMap.put(fileVO.getReference().getObjectId(), xmlThisComponent);
-        	
-        	/*xmlItemNewVersion = itemHandler.createComponent(this.getReference().getObjectId(), xmlThisComponent);
-            FileVO clonedFile = new FileVO (fileVO);
-            clonedFile.setReference(new FileRO());
-            pubItemVOLatestVersion.getFiles().add(clonedFile);*/
         }
         pubItemVOLatestVersion.getFiles().clear();
 
@@ -110,6 +107,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
         Date lastModificationDate = pubItemVONewVersion.getLatestVersion().getModificationDateForXml();
    
+        // add the components again after synchronizing the Date
         for (Map.Entry<String, String> entry : xmlComponentsThisVersionMap.entrySet())
         {
         	String xmlComponentNewVersion = entry.getValue();
