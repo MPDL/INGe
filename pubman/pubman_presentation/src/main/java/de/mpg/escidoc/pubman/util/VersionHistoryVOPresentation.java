@@ -106,6 +106,19 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         
         PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
         Date lastModificationDate = pubItemVONewVersion.getLatestVersion().getModificationDateForXml();
+        
+        // remove remaining components belonging to the item...
+        if (pubItemVONewVersion.getFiles().size() > 0)
+        {
+        	for (FileVO fileVO : pubItemVONewVersion.getFiles() )
+        	{
+        		logger.info("Still components to remove <" + fileVO.getReference().getObjectId() + ">");
+        		itemHandler.deleteComponent(this.getReference().getObjectId(), fileVO.getReference().getObjectId());
+        		xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
+        		pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+                lastModificationDate = pubItemVONewVersion.getLatestVersion().getModificationDateForXml();
+        	}
+        }
    
         // add the components again after synchronizing the Date
         for (Map.Entry<String, String> entry : xmlComponentsThisVersionMap.entrySet())
