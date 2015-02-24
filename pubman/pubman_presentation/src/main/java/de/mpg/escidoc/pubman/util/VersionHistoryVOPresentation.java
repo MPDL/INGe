@@ -118,10 +118,11 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         	
         	xmlComponentNewVersion = xmlTransforming.transformToFile(fileVO);
         	xmlComponentNewVersion = itemHandler.createComponent(pubItemVONewVersion.getLatestVersion().getObjectIdAndVersion(), xmlComponentNewVersion);
+        	
+        	xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
+            pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+            lastModificationDate = pubItemVONewVersion.getLatestVersion().getModificationDateForXml();
         }
-        
-        xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
-        pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
         
         if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED && pubItemVONewVersion.getVersion().getState() == State.PENDING)
         {
