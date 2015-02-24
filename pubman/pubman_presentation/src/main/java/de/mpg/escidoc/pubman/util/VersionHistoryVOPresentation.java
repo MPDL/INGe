@@ -91,7 +91,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         pubItemVOLatestVersion.getLocalTags().clear();
         pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());    
         
-        // Do not forget the files and locators
+        // Do not forget the files and locators - put them into the cache before calling clear
         for (FileVO fileVO : pubItemVOThisVersion.getFiles())
         {
         	String xmlThisComponent = itemHandler.retrieveComponent(this.getReference().getObjectIdAndVersion(), fileVO.getReference().getObjectId());
@@ -100,7 +100,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         pubItemVOLatestVersion.getFiles().clear();
 
         // Then process it into the framework ...
-        // item without components
+        // should be item without components, but sometimes eSciDoc keeps some
         String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
         xmlItemNewVersion = itemHandler.update(this.getReference().getObjectId(), xmlItemNewVersion);
         
