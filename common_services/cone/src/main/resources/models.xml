@@ -222,22 +222,22 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<predicate name="Actual Status" value="http://purl.org/escidoc/metadata/terms/0.1/person-activity-status" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
 			<predicate name="Last Modification Date"
 				value="http://purl.org/dc/terms/modified" multiple="false"
-				mandatory="true" localized="false" searchable="true"
+				mandatory="true" localized="false" searchable="false"
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Creation Date"
 				value="http://purl.org/dc/terms/created" multiple="false"
-				mandatory="true" localized="false" searchable="true"
+				mandatory="true" localized="false" searchable="false"
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 			<predicate name="Modified By"
 				value="http://purl.org/dc/terms/creator" multiple="false"
-				mandatory="true" localized="false" searchable="true"
+				mandatory="true" localized="false" searchable="false"
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Created By"
 				value="http://purl.org/dc/terms/contributor" multiple="false"
-				mandatory="true" localized="false" searchable="true"
+				mandatory="true" localized="false" searchable="false"
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 		</predicates>
