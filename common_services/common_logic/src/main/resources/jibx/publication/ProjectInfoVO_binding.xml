@@ -31,7 +31,7 @@
    <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO" abstract="true">
       	<value style="element" name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
       	
-		<structure name="identifier" ns="${xsd.metadata.dc}" field="grantIdentifier" />
+		<structure name="identifier" ns="${xsd.metadata.dc}" field="grantIdentifier" usage="optional" />
 
 		<structure name="funding-info" field="fundingInfo" ns="${xsd.metadata.project}" usage="optional" ordered="false">
 		

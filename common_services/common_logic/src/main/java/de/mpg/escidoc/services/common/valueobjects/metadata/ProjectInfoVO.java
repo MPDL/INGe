@@ -40,8 +40,15 @@ public class ProjectInfoVO extends ValueObject {
 	public ProjectInfoVO clone()
 	{
 		ProjectInfoVO clonedProjectInfo = new ProjectInfoVO();
-		clonedProjectInfo.setFundingInfo((FundingInfoVO)this.getFundingInfo().clone());
-		clonedProjectInfo.setGrantIdentifier((IdentifierVO)this.getGrantIdentifier().clone());
+		if(this.getFundingInfo()!=null)
+		{
+			clonedProjectInfo.setFundingInfo((FundingInfoVO)this.getFundingInfo().clone());
+		}
+		if(this.getGrantIdentifier()!=null)
+		{
+			clonedProjectInfo.setGrantIdentifier((IdentifierVO)this.getGrantIdentifier().clone());
+		}
+		
 		clonedProjectInfo.setTitle(this.getTitle());
 		return clonedProjectInfo;
 	}
