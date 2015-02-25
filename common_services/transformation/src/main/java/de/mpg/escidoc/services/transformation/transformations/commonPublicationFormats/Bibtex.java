@@ -1379,10 +1379,13 @@ public class Bibtex implements BibtexInterface
                 }
 
                 // language
+                /*
                 if (fields.get("language") != null)
+                
                 {
                     mds.getLanguages().add(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("language").toString()), false));
                 }
+                */
 
                 // subtitle
                 if (fields.get("subtitle") != null)
