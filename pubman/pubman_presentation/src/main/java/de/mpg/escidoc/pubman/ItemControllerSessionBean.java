@@ -925,6 +925,11 @@ public class ItemControllerSessionBean extends FacesBean
 			newPubItem.getMetadata().setProjectInfo(projectInfo);
 		}
 		
+		if(newPubItem.getMetadata().getProjectInfo().getGrantIdentifier() == null)
+		{
+			newPubItem.getMetadata().getProjectInfo().setGrantIdentifier(new IdentifierVO(IdType.GRANT_ID, null));
+		}
+		
 		if (newPubItem.getMetadata().getProjectInfo().getFundingInfo() == null)
 		{
 			newPubItem.getMetadata().getProjectInfo().setFundingInfo(new FundingInfoVO());
