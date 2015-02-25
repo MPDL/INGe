@@ -7,6 +7,8 @@
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="java.sql.Statement"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%
 /*
 *
@@ -93,39 +95,65 @@
 			This is a makeshift to administer the validation cache database until a proper frontend is available.
 		</p>
 		<form method="post" action="db.jsp">
-			<textarea rows="10" cols="100" name="sql"><%= (request.getParameter("sql") == null ? "" : request.getParameter("sql")) %></textarea>
+			Query:
+			<br/>
+			<textarea rows="10" cols="100" name="sql_query"><%= (request.getParameter("sql_query") == null ? "" : request.getParameter("sql_query")) %></textarea>
+			<br/>
+			<input type="submit"/>
+		</form>
+		<form method="post" action="db.jsp">	
+			Update:
+			<br/>
+			<textarea rows="10" cols="100" name="sql_update"><%= (request.getParameter("sql_update") == null ? "" : request.getParameter("sql_update")) %></textarea>
 			<br/>
 			<input type="submit"/>
 		</form>
 		<%
-			if (request.getParameter("sql") != null)
+			if (request.getParameter("sql_query") != null || request.getParameter("sql_update") != null )
 			{ %>
-			    Result:
+			    Result [<% out.println( new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date())); %>]
 			    <br/>
 				<% Context ctx = new InitialContext();
 	            DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
 	            Statement pstmt = dataSource.getConnection().createStatement();
 	            try
 	            {
-		            ResultSet rs = pstmt.executeQuery(request.getParameter("sql"));
-		            ResultSetMetaData resultSetMetaData = rs.getMetaData();
-	            
-		            %><table cellspacing="1" bgcolor="#EEEEEE"><thead><%
-					for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++)
-					{
-					    %><th><%= resultSetMetaData.getColumnName(i) %></th><%
-					}
-		            %></thead><%
-		            while (rs.next())
-		            {
-		                %><tr><%
-		                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++)
-						{
-						    %><td valign="top"><%= (rs.getObject(i) == null ? "---" : rs.getObject(i).toString().replace("&", "&amp;").replace("<", "&lt;").replace("\n", "<br/>")) %></td><%
-						}
-		                %></tr><%
-		            }
-		            %></table><%
+		            
+	            	if(request.getParameter("sql_query") != null)
+	            	{
+	            		 ResultSet rs = pstmt.executeQuery(request.getParameter("sql_query"));
+	            		
+	            		 ResultSetMetaData resultSetMetaData = rs.getMetaData();
+	     	            
+	 		            %><table cellspacing="1" bgcolor="#EEEEEE"><thead><%
+	 					for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++)
+	 					{
+	 					    %><th><%= resultSetMetaData.getColumnName(i) %></th><%
+	 					}
+	 		            %></thead><%
+	 		            while (rs.next())
+	 		            {
+	 		                %><tr><%
+	 		                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++)
+	 						{
+	 						    %><td valign="top"><%= (rs.getObject(i) == null ? "---" : rs.getObject(i).toString().replace("&", "&amp;").replace("<", "&lt;").replace("\n", "<br/>")) %></td><%
+	 						}
+	 		                %></tr><%
+	 		            }
+	 		            %></table><%
+	            		
+	            		
+	            	}
+	            	else if (request.getParameter("sql_update") != null)
+	            	{
+	            		int count = pstmt.executeUpdate(request.getParameter("sql_update"));
+	            		out.println("Successfully updated " + count + " rows.");
+	            	}
+	            	
+		            
+		            
+		            
+		           
 	            }
 	            catch (SQLException sqle)
 	            {
