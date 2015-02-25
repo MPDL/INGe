@@ -261,6 +261,12 @@
 			<iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">DateFormatIncorrect</iso:assert>
 			<iso:assert test=". = '' or ../escidoc:start-date != ''">EndDateWithoutStartDate</iso:assert>
 		</iso:rule>
+		<iso:rule context="dcterms:available">
+			<iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">DateFormatIncorrect</iso:assert>
+		</iso:rule>
+		<iso:rule context="dcterms:dateCopyrighted">
+			<iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">DateFormatIncorrect</iso:assert>
+		</iso:rule>
 	</iso:pattern>
 	
 	<iso:pattern name="component_data_required" id="component_data_required">
