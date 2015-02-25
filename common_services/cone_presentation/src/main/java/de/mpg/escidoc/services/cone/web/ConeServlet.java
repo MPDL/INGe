@@ -239,17 +239,19 @@ public class ConeServlet extends HttpServlet
 //            explain(response);
 //        }
         
+        Querier.ModeType modeType = Querier.ModeType.FAST;
+        String mode = (request.getParameter("mode") != null ? request.getParameter("mode") : request.getParameter("m"));
+        if (mode != null && "full".equals(mode.toLowerCase()))
+        {
+            modeType = Querier.ModeType.FULL;
+        }
+        
         if ("query".equals(action))
         {
             String query = UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
             int limit = -1;
-            String mode = (request.getParameter("mode") != null ? request.getParameter("mode") : request.getParameter("m"));
-            Querier.ModeType modeType = Querier.ModeType.FAST;
+           
             
-            if (mode != null && "full".equals(mode.toLowerCase()))
-            {
-                modeType = Querier.ModeType.FULL;
-            }
             try
             {
                 limit = Integer.parseInt((request.getParameter("number") != null ? request.getParameter("number") : request.getParameter("n")));
@@ -287,7 +289,7 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                allAction(request, response, formatter, model, loggedIn);
+                allAction(lang, modeType, response, formatter, model, loggedIn);
             }
             catch (Exception e)
             {
@@ -347,14 +349,14 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void allAction(HttpServletRequest request, HttpServletResponse response, Formatter formatter, String modelName, boolean loggedIn) throws Exception
+    private void allAction(String lang, Querier.ModeType modeType, HttpServletResponse response, Formatter formatter, String modelName, boolean loggedIn) throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
 
         if (model != null)
         {
             response.setContentType(formatter.getContentType());
-            String lang = request.getParameter("lang");
+            
 
             Querier querier = QuerierFactory.newQuerier(loggedIn);
             
@@ -370,7 +372,7 @@ public class ConeServlet extends HttpServlet
                 
                 try
                 {
-                    result = querier.query(model.getName(), "*", lang, Querier.ModeType.FAST, 0);
+                    result = querier.query(model.getName(), "*", lang, modeType, 0);
                 }
                 catch (Exception e)
                 {
