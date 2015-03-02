@@ -577,11 +577,13 @@ public class EditItem extends FacesBean
                     {
                         defaultMetadata.setTitle(new TextVO(loc.getFile().getContent()));                                                             
                     }
+                   /*
                     if (defaultMetadata.getDescription() == null
                             || defaultMetadata.getDescription().equals(""))
                     {
                         defaultMetadata.setDescription(loc.getFile().getDescription());                      
                     }
+                    */
                     
                     // Visibility PUBLIC is static default value for locators
                     loc.getFile().setVisibility(Visibility.PUBLIC);
