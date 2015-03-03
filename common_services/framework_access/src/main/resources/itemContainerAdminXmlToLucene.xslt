@@ -1205,16 +1205,9 @@ Notes:
 		<xsl:attribute name="context">
 			<xsl:value-of select="$CONTEXTNAME"/>
 		</xsl:attribute>
-		<xsl:for-each select="$ITEM_METADATAPATH//*">
-			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:getSubstringAfterLast(./@type,'/')"/>
-			</element>
-		</xsl:for-each>
-		<xsl:for-each select="$CONTAINER_METADATAPATH//*">
-			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:getSubstringAfterLast(./@type,'/')"/>
-			</element>
-		</xsl:for-each>
+		<element index="TOKENIZED">
+			<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/string-helper:getSubstringAfterLast(./@type,'/')"/>
+		</element>
 	</userdefined-index>
 	
 	
