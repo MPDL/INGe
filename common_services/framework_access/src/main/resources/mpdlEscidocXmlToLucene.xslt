@@ -1847,7 +1847,7 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/string-helper:getSubstringAfterLast(./@type,'/')"/>
+				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_METADATAPATH/*[local-name()='publication']/@type,'/')"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="any-dates">
