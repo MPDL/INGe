@@ -809,7 +809,6 @@
 			</activation>
 			<properties>
 			    <escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
-				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>${jboss.install.dir}/standalone/data/pubman_db/db</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
@@ -837,7 +836,6 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 				<escidoc.import.database.name>${jboss.install.dir}/standalone/data/pubman_db/db</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
