@@ -3,6 +3,7 @@ package de.mpg.escidoc.services.pidcache.gwdg;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -21,6 +22,8 @@ public class GwdgPidService
     public static String GWDG_PIDSERVICE = null;
 	public static String GWDG_PIDSERVICE_EDIT = null;
 	public static String GWDG_PIDSERVICE_DELETE = null;
+	
+	private static final Logger logger = Logger.getLogger(GwdgPidService.class);
 	
 	/**
 	 * Default constructor
@@ -65,7 +68,8 @@ public class GwdgPidService
     	create.setParameter("url", url);
     	GwdgClient client = new GwdgClient();
     	ProxyHelper.executeMethod(client, create);
-    	System.out.println(create.getResponseBodyAsString());
+    	logger.info("New pid created.");
+    	
     	return create.getResponseBodyAsString();
 	}
 	
@@ -81,6 +85,7 @@ public class GwdgPidService
 		GwdgClient client = new GwdgClient();
 		GetMethod retrieve = new GetMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_VIEW).concat("?pid=").concat(id));
     	ProxyHelper.executeMethod(client, retrieve);
+    	
     	return retrieve.getResponseBodyAsString();
 	}
 	

@@ -79,7 +79,7 @@ public class CacheProcess
         }
         else 
         {
-             logger.info("PID manager at GWDG not available.");
+             logger.warn("PID manager at GWDG not available.");
         }
         
     }

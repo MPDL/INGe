@@ -69,15 +69,22 @@ public class RefreshTask extends Thread
             
             while (!signal)
             {
-                Thread.sleep(Long.parseLong(Integer.toString(timeout)));
-                if (!queueProcess.isEmpty())
-                {
-                    queueProcess.emptyBlock();
-                }
-                if (!cacheProcess.isFull())
-                {
-                    cacheProcess.fill(BLOCK_SIZE);
-                }
+                try
+				{
+					Thread.sleep(Long.parseLong(Integer.toString(timeout)));
+					if (!queueProcess.isEmpty())
+					{
+					    queueProcess.emptyBlock();
+					}
+					if (!cacheProcess.isFull())
+					{
+					    cacheProcess.fill(BLOCK_SIZE);
+					}
+				} catch (Exception e)
+				{
+					logger.warn("Exception caught ", e);
+					e.printStackTrace();
+				}
             }
         }
         catch (Exception e)
