@@ -371,7 +371,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
-			<version>7.8.0</version>
+			<version>7.8.2</version>
 			<scope>compile</scope>
 			<classifier>sources</classifier>
 		</dependency>
@@ -379,6 +379,7 @@
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
 			<version>${project.version}</version>
+			<classifier>${escidoc.pubman.build.mode}</classifier>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
