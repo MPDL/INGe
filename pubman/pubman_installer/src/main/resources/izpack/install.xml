@@ -149,7 +149,7 @@
 			<file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			<file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			-->
-			<file src="pubman_ear.ear" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/standalone/deployments"/>
+			<file src="pubman_ear-pure.ear" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/standalone/deployments"/>
 			<file src="wildfly/module.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/modules/pubman/main"/>
 			<file src="wildfly/ips.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/modules/pubman/main"/>
 
