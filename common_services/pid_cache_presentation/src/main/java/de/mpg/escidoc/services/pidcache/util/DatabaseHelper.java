@@ -91,7 +91,7 @@ public class DatabaseHelper
     public static Connection getConnection() throws Exception
     {
         Context ctx = new InitialContext();
-        DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/PidCache");
+        DataSource dataSource = (DataSource) ctx.lookup("PidCache");
         return dataSource.getConnection();
     }
     
