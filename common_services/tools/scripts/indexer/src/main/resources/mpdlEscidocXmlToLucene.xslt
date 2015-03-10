@@ -608,6 +608,11 @@ Notes:
 	<!-- REMOVE SUB AND SUP TAGS -->
 	<xsl:template name="removeSubSup">
 		<xsl:param name="elem" />
+		
+		<xsl:message terminate="no">
+			<xsl:copy-of select="$elem"/>
+		</xsl:message>
+		
 		<xsl:call-template name="removeSubSupStr">
 			<xsl:with-param name="name" select="local-name($elem)" />
 			<xsl:with-param name="str" select="$elem"/>

@@ -17,6 +17,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import net.sf.saxon.TransformerFactoryImpl;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -41,9 +43,15 @@ public class Indexer
 	
 	private File baseDir;
 	private File dbFile;
+	private File indexStylesheet;
+	private String indexName;
+	private String indexAttributesName;
+	private TransformerFactory saxonFactory = TransformerFactoryImpl.newInstance();
+	private TransformerFactory xalanFactory = org.apache.xalan.processor.TransformerFactoryImpl.newInstance();
 	
-	Transformer transformer1 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
-	Transformer transformer2 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("mpdlEscidocXmlToLucene.xslt")));
+	private Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
+	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("prepareStylesheet.xsl")));
+	private Transformer transformer2;
 
 	IndexWriter writer;
 	
@@ -51,10 +59,22 @@ public class Indexer
 	 * Constructor with initial base directory, should be the fedora "objects" directory.
 	 * @param baseDir
 	 */
-	public Indexer(File baseDir, File dbFile) throws Exception
+	public Indexer(File baseDir, File dbFile, File indexStylesheet, String indexName, String indexAttributesName) throws Exception
 	{
 		this.baseDir = baseDir;
 		this.dbFile = dbFile;
+		this.indexStylesheet = indexStylesheet;
+		this.indexName = indexName;
+		this.indexAttributesName = indexAttributesName;
+		
+		File tmpFile = File.createTempFile("file", ".tmp");
+		
+		System.out.println(tmpFile);
+		
+		transformer3.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
+		transformer3.transform(new StreamSource(indexStylesheet), new StreamResult(tmpFile));
+		
+		transformer1 = xalanFactory.newTransformer(new StreamSource(tmpFile));
 		transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
 	}
 	
@@ -202,21 +222,27 @@ public class Indexer
 	public static void main(String[] args) throws Exception
 	{
 
-		if (null == args || args.length != 3)
+		if (null == args || args.length != 6)
 		{
 			System.out.println("Usage: java Indexer [parameters]");
 			System.out.println("Parameters:");
 			System.out.println("1 - Base directory");
 			System.out.println("2 - Index result directory");
 			System.out.println("3 - File for temporary component data");
+			System.out.println("4 - Index stylesheet");
+			System.out.println("5 - Index stylesheet attributes");
+			System.out.println("6 - Index name");
 			System.exit(0);
 		}
 		
 		File baseDir = new File(args[0]);
 		indexPath = args[1];
 		File dbFile = new File(args[2]);
+		File indexStylesheet = new File(args[3]);
+		String indexAttributesName = args[4];
+		String indexName = args[5];
 		
-		Indexer indexer = new Indexer(baseDir, dbFile);
+		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName);
 		indexer.prepareIndex();
 		indexer.createDatabase();
 		
