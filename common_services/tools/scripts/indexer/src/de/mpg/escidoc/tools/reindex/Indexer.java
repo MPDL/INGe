@@ -17,7 +17,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -27,6 +26,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.helpers.DefaultHandler;
+
+import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
 
 /**
  * @author franke
@@ -61,8 +62,8 @@ public class Indexer
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:
-	    	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_36);
-	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_36, analyzer);
+	    	Analyzer analyzer = new EscidocAnalyzer();
+	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
 
 	    	if (create) {
 	    	  // Create a new index in the directory, removing any
