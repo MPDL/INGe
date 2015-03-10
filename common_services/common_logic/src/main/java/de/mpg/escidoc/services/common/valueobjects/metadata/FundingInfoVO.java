@@ -36,8 +36,15 @@ public class FundingInfoVO extends ValueObject {
 	public FundingInfoVO clone()
 	{
 		FundingInfoVO clonedFundingInfo = new FundingInfoVO();
-		clonedFundingInfo.setFundingOrganization(this.getFundingOrganization().clone());
-		clonedFundingInfo.setFundingProgram(this.getFundingProgram().clone());
+		if(this.getFundingOrganization()!=null)
+		{
+			clonedFundingInfo.setFundingOrganization(this.getFundingOrganization().clone());
+		}
+		if(this.getFundingProgram()!=null)
+		{
+			clonedFundingInfo.setFundingProgram(this.getFundingProgram().clone());
+		}
+		
 		
 		return clonedFundingInfo;
 	}
