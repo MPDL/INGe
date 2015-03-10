@@ -42,8 +42,8 @@ public class Indexer
 	private File baseDir;
 	private File dbFile;
 	
-	Transformer transformer1 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("scripts/indexer/src/de/mpg/escidoc/tools/reindex/foxml2escidoc.xsl")));
-	Transformer transformer2 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("scripts/indexer/src/de/mpg/escidoc/tools/reindex/mpdlEscidocXmlToLucene.xslt")));
+	Transformer transformer1 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
+	Transformer transformer2 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("mpdlEscidocXmlToLucene.xslt")));
 
 	IndexWriter writer;
 	
@@ -65,8 +65,8 @@ public class Indexer
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:
-	    	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_36);
-	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_36, analyzer);
+	    	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_34);
+	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
 
 	    	if (create) {
 	    	  // Create a new index in the directory, removing any
