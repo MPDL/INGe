@@ -59,7 +59,6 @@ public class BibTex {
             	 * Changes need to be done for the import side too!
             	 * (de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.BibTexUtil.java)
             	 */
-            	put("\\u000A", "\n");
             	put("\u002A", "\\textasteriskcentered");
             	put("\u003C", "\\textless");
             	put("\u003D", "\\textequals");
@@ -435,7 +434,6 @@ public class BibTex {
             	put("\u0138", "\\textkra");
             	put("\u0139", "\\'L");
             	put("\u0141", "\\L");
-            	put("\u0141", "\\L");
             	put("\u0142", "\\l");
             	put("\u0143", "\\'N");
             	put("\u0144", "\\'n");
@@ -679,8 +677,8 @@ public class BibTex {
             	put("\u203A", "\\guilsinglright");
             	put("\u203B", "\\textreferencemark");
             	put("\u203D", "\\textinterrobang");
-            	put("\u207A", "\\+");
-            	put("\u207B", "\\-");
+            	put("\u207A", "\\mbox{$^{+}$}");
+            	put("\u207B", "\\mbox{$^{-}$}");
             	put("\u207C", "$^=$");
             	put("\u207D", "\\(");
             	put("\u207E", "\\)");
@@ -731,9 +729,9 @@ public class BibTex {
             	put("\u266F", "$\\sharp$");
             	put("\u2010", "-");
             	put("\u2011", "-");
-            	put("\u2012", "--");
-            	put("\u2013", "--");
-            	put("\u2014", "---");
+            	put("\u2012", "\\textendash");
+            	put("\u2013", "\\textendash");
+            	put("\u2014", "\\textemdash");
             	put("\u2018", "\\textquoteleft");
             	put("\u2019", "\\textquoteright");
             	put("\u2020", "\\dag");
