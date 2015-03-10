@@ -189,7 +189,9 @@ public class Indexer
 	{
 		File tmpFile1 = File.createTempFile("file", ".tmp");
 		File tmpFile2 = File.createTempFile("file", ".tmp");
+		System.out.println("FOXML2eSciDoc: " + tmpFile1);
 		transformer1.transform(new StreamSource(file), new StreamResult(tmpFile1));
+		System.out.println("eSciDoc2IndexDoc: " + tmpFile2);
 		transformer2.transform(new StreamSource(tmpFile1), new StreamResult(tmpFile2));
 		indexDoc(new FileInputStream(tmpFile2));
 	}
