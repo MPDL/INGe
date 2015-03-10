@@ -1084,46 +1084,10 @@ public class EditItem extends FacesBean
         }
         
 
-        // start: check if the item has been changed
-        PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-        PubItemVO oldPubItem = null;
-        if (newPubItem.getVersion().getObjectId() != null)
-        {
-            try
-            {
-                oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
-            }
-            catch (Exception e)
-            {
-                logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-                ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
-                return ErrorPage.LOAD_ERRORPAGE;
-            }
-            if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
-            {
-                if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED)
-                {
-                    logger.warn("Item has not been changed.");
-                    // create a validation report
-                    ValidationReportVO changedReport = new ValidationReportVO();
-                    ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-                    changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-                    changedReportItem.setContent("itemHasNotBeenChanged");
-                    changedReport.addItem(changedReportItem);
-                    // show report and stay on this page
-                    this.showValidationMessages(changedReport);
-                    return null;
-                }
-                else
-                {
-                    return SubmitItem.LOAD_SUBMITITEM;
-                }
-            }
-        }
+        
         // end: check if the item has been changed
         // cleanup item according to genre specific MD specification
-        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(getPubItem(),
-                GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
         try
         {
             this.item = (PubItemVOPresentation) itemManager.cleanupItem();
@@ -1132,6 +1096,7 @@ public class EditItem extends FacesBean
         {
             throw new RuntimeException("Error while cleaning up item genre specifcly", e);
         }
+        
         ValidationReportVO report = null;
         try
         {
@@ -1143,12 +1108,57 @@ public class EditItem extends FacesBean
             throw new RuntimeException("Validation error", e);
         }
         logger.debug("Validation Report: " + report);
-        if (report.isValid() && !report.hasItems())
+        
+        
+        if (report.isValid())
         {
             if (logger.isDebugEnabled())
             {
                 logger.debug("Submitting item...");
             }
+            
+            
+            
+            // start: check if the item has been changed
+            PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+            PubItemVO oldPubItem = null;
+            if (newPubItem.getVersion().getObjectId() != null)
+            {
+                try
+                {
+                    oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+                }
+                catch (Exception e)
+                {
+                    logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+                    return ErrorPage.LOAD_ERRORPAGE;
+                }
+                if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
+                {
+                    if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED)
+                    {
+                        logger.warn("Item has not been changed.");
+                        // create a validation report
+                        ValidationReportVO changedReport = new ValidationReportVO();
+                        ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+                        changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+                        changedReportItem.setContent("itemHasNotBeenChanged");
+                        changedReport.addItem(changedReportItem);
+                        // show report and stay on this page
+                        this.showValidationMessages(changedReport);
+                        return null;
+                    }
+                    else
+                    {
+                        return SubmitItem.LOAD_SUBMITITEM;
+                    }
+                }
+            }
+            
+            
+
+            
             String retVal = "";
             try
             {
@@ -1163,30 +1173,6 @@ public class EditItem extends FacesBean
                 this.valMessage.setRendered(true);
                 return retVal;
             }
-            if (retVal == null)
-            {
-                this.showValidationMessages(this.getItemControllerSessionBean().getCurrentItemValidationReport());
-            }
-            else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
-            {
-                // set the current submission method to empty string (for GUI purpose)
-                this.getEditItemSessionBean().setCurrentSubmission("");
-                getSubmitItemSessionBean().setNavigationStringToGoBack(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-                String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
-                info(localMessage);
-                getSubmitItemSessionBean().setMessage(localMessage);
-            }
-            PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-            if (pubItemListSessionBean != null)
-            {
-                pubItemListSessionBean.update();
-            }
-            return retVal;
-        }
-        else if (report.isValid())
-        {
-            // TODO FrM: Informative messages
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
             if (retVal == null)
             {
                 this.showValidationMessages(this.getItemControllerSessionBean().getCurrentItemValidationReport());

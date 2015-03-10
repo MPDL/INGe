@@ -290,7 +290,7 @@ public class ItemControllerSessionBean extends FacesBean
 			}
 
 			// submitting the current item
-			ItemRO pubItemRO = this.submitOrReleasePubItem(this.currentPubItem, submissionComment, true);
+			ItemRO pubItemRO = this.submitOrReleasePubItem(this.currentPubItem, submissionComment);
 
 			if (pubItemRO == this.currentPubItem.getVersion())
 			{
@@ -479,7 +479,7 @@ public class ItemControllerSessionBean extends FacesBean
 				try
 				{
 					// submitting the item
-					ItemRO pubItemRO = this.submitOrReleasePubItem(pubItemList.get(i), submissionComment, true);
+					ItemRO pubItemRO = this.submitOrReleasePubItem(pubItemList.get(i), submissionComment);
 					if (pubItemRO == pubItemList.get(i).getVersion()) {
 						allSubmitted = false;
 					}
@@ -1051,7 +1051,7 @@ public class ItemControllerSessionBean extends FacesBean
 	 * @param pubItem the PubItem to submit
 	 * @return a reference to the PubItem returned by the framework
 	 */
-	private ItemRO submitOrReleasePubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
+	private ItemRO submitOrReleasePubItem(PubItemVO pubItem, String submissionComment) throws Exception
 	{
 		if (logger.isDebugEnabled())
 		{
@@ -1078,7 +1078,7 @@ public class ItemControllerSessionBean extends FacesBean
 
 		logger.debug("Validation Report: " + report);
 
-		if (report.isValid() && !report.hasItems())
+		if (report.isValid())
 		{
 
 
@@ -1095,27 +1095,7 @@ public class ItemControllerSessionBean extends FacesBean
 
 			return submittedPubItem;
 		}
-		else if (report.isValid())
-		{
-			// Item is valid, but has informative messages.
-			if (ignoreInformativeMessages)
-			{
-				// clean up the item from unused sub-VOs
-				this.cleanUpItem(pubItem);
-
-				if (logger.isDebugEnabled())
-				{
-					logger.debug("Submitting item...");
-				}
-
-				// submit the item
-				ItemRO submittedPubItem = submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser()).getVersion();
-
-				return submittedPubItem;
-			}
-
-			return pubItem.getVersion();
-		}
+		
 		else
 		{
 			// Item is invalid, do not submit anything.
