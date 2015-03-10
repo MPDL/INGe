@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -17,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -27,8 +29,6 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
-
 /**
  * @author franke
  *
@@ -36,10 +36,11 @@ import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
 public class Indexer
 {
 
-	String indexPath = "c:/tmp/index";
+	static String indexPath = null;
 	boolean create = true;
 	
 	private File baseDir;
+	private File dbFile;
 	
 	Transformer transformer1 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("scripts/indexer/src/de/mpg/escidoc/tools/reindex/foxml2escidoc.xsl")));
 	Transformer transformer2 = TransformerFactory.newInstance().newTransformer(new StreamSource(new File("scripts/indexer/src/de/mpg/escidoc/tools/reindex/mpdlEscidocXmlToLucene.xslt")));
@@ -50,9 +51,11 @@ public class Indexer
 	 * Constructor with initial base directory, should be the fedora "objects" directory.
 	 * @param baseDir
 	 */
-	public Indexer(File baseDir) throws Exception
+	public Indexer(File baseDir, File dbFile) throws Exception
 	{
 		this.baseDir = baseDir;
+		this.dbFile = dbFile;
+		transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
 	}
 	
 	public void prepareIndex()
@@ -62,8 +65,8 @@ public class Indexer
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:
-	    	Analyzer analyzer = new EscidocAnalyzer();
-	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
+	    	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_36);
+	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_36, analyzer);
 
 	    	if (create) {
 	    	  // Create a new index in the directory, removing any
@@ -138,9 +141,9 @@ public class Indexer
 	 * 
 	 * @param file The file where to write the data to.
 	 */
-	public void createDatabase(File file) throws Exception
+	public void createDatabase() throws Exception
 	{
-		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		FileOutputStream fileOutputStream = new FileOutputStream(dbFile);
 		fileOutputStream.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n".getBytes("UTF-8"));
 		fileOutputStream.write("<index>\n".getBytes("UTF-8"));
 		checkDir(baseDir, fileOutputStream);
@@ -165,14 +168,18 @@ public class Indexer
 	
 	private void indexItems(File dir) throws Exception
 	{
+		Arrays.sort(dir.listFiles());
 		for (File file : dir.listFiles())
 		{
 			if (file.isDirectory())
 			{
+				System.out.println();
+				System.out.println("Indexing directory " + file);
 				indexItems(file);
 			}
 			else
 			{
+				System.out.println(file);
 				indexItem(file);
 			}
 		}
@@ -193,12 +200,23 @@ public class Indexer
 	public static void main(String[] args) throws Exception
 	{
 
-		File baseDir = new File(args[0]);
-		File dbFile = new File(args[1]);
+		if (null == args || args.length != 3)
+		{
+			System.out.println("Usage: java Indexer [parameters]");
+			System.out.println("Parameters:");
+			System.out.println("1 - Base directory");
+			System.out.println("2 - Index result directory");
+			System.out.println("3 - File for temporary component data");
+			System.exit(0);
+		}
 		
-		Indexer indexer = new Indexer(baseDir);
+		File baseDir = new File(args[0]);
+		indexPath = args[1];
+		File dbFile = new File(args[2]);
+		
+		Indexer indexer = new Indexer(baseDir, dbFile);
 		indexer.prepareIndex();
-		indexer.createDatabase(dbFile);
+		indexer.createDatabase();
 		
 		indexer.indexItems(baseDir);
 		indexer.finalizeIndex();

@@ -11,8 +11,10 @@
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
 	<xsl:param name="version" select="'latest-release'"/>
+	<xsl:param name="index-db"/>
 	
-	<xsl:variable name="database" select="document('../../../../../../../../indexdb.xml')"/>
+	<xsl:variable name="database" select="document($index-db)"/>
+	
 	<xsl:template match="/">
 		<xsl:variable name="PID" select="foxml:digitalObject/@PID"/>
 		<xsl:variable name="first-dc-title" select="(//dc:title)[1]"/>
