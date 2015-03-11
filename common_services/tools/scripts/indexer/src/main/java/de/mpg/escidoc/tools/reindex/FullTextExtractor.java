@@ -6,12 +6,15 @@ package de.mpg.escidoc.tools.reindex;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.tools.util.ExtractionStatistic;
 
 /**
  * @author franke
@@ -25,6 +28,7 @@ public class FullTextExtractor
 
 	private String fulltextPath = "c:/fulltexts";	
 	private File baseDir;
+	private ExtractionStatistic statistic = new ExtractionStatistic();
 	
 	
 	/**
@@ -43,10 +47,17 @@ public class FullTextExtractor
 		return this.fulltextPath;
 	}
 	
+	public ExtractionStatistic getStatistic()
+	{
+		return this.statistic;
+	}
+	
 	void extractFulltexts(File dir) throws Exception
 	{
 		File[] files = dir.listFiles();
 		Collections.sort(Arrays.asList(files));
+		
+		statistic.setFilesTotal(files.length);
 		
 		for (File file : files)
 		{
@@ -70,37 +81,24 @@ public class FullTextExtractor
         logger.info("****************** Start extracting " + file.getName());
         
 		String cmd = getCommand(extractCmd, file);
-		Process p = Runtime.getRuntime().exec(cmd);
+		Process proc = Runtime.getRuntime().exec(cmd);
 		
-		//wait until process is finished
-        stdIn = new BufferedReader(
-                new InputStreamReader(p.getInputStream(), "UTF-8"));
-        errIn = new BufferedReader(
-                new InputStreamReader(p.getErrorStream(), "UTF-8"));
-        StringBuffer outBuf = new StringBuffer("");
-        long time = System.currentTimeMillis();
-        while (true) {
-            try {
-                p.exitValue();
-        		logger.info("exit value " + p.exitValue());
-                break;
-            } catch (Exception e) {
-                Thread.sleep(200);
-                int c;
-                if (stdIn.ready()) {
-                   while ((stdIn.read()) > -1) {
-                   }
-                }
-                if (errIn.ready()) {
-                   while ((c = errIn.read()) > -1) {
-                       outBuf.append((char)c);
-                   }
-                }
-                if (System.currentTimeMillis() - time > 60000) {
-                    throw new IOException(
-                            "couldnt extract text from pdf, timeout reached");
-                }
-            }
+		StreamGobbler inputGobbler = new StreamGobbler(proc.getInputStream(), "Extractor in");
+        StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "Extractor err");
+        
+        inputGobbler.start();
+        errorGobbler.start();
+        
+        int exitCode = proc.waitFor();
+        
+        if (proc.exitValue() == 0)
+        {
+        	statistic.incrementFilesExtractionDone();
+        }
+        else
+        {
+        	statistic.incrementFilesErrorOccured();
+        	statistic.addToErrorList(file.getName());
         }
 	}
 
@@ -117,18 +115,42 @@ public class FullTextExtractor
 		logger.info("extract command <" + b.toString() + ">");
 		return b.toString();
 	}
+	
+    class StreamGobbler extends Thread
+    {
+        InputStream is;
+        String name;
+        
+        StreamGobbler(InputStream is, String name)
+        {
+            this.is = is;
+            this.name = name;
+        }
+        
+        public void run()
+        {
+            try
+            {
+                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                String line=null;
+                while ( (line = br.readLine()) != null)
+                    System.out.println("[" + name + "] " + line);    
+                } catch (IOException ioe)
+                  {
+                    ioe.printStackTrace();  
+                  }
+        }
+    }
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception
 	{
-
 		File baseDir = new File(args[0]);
 		
 		FullTextExtractor extractor = new FullTextExtractor(baseDir);
-		
-			
 	}
 
 }
