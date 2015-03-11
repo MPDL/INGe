@@ -32,15 +32,15 @@ public class TestFulltextExtractor
 	}
 	
 	@Test
-	public void testFile1() throws Exception
+	public void testFileFailure() throws Exception
 	{
 		extractor.extractFulltext(new File("src/test/resources/19/escidoc_28177+content+content.0"));
 		
-		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
-		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).length() > 100);
-		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
+		
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 1);
 		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
-		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 1);
 	}
 	
 	public void tearDown() throws IOException
