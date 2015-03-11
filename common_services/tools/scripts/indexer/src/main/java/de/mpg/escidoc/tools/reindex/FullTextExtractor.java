@@ -133,9 +133,10 @@ public class FullTextExtractor
             {
                 InputStreamReader isr = new InputStreamReader(is, "UTF-8");
                 BufferedReader br = new BufferedReader(isr);
-                String line=null;
+                String line = null;
+                
                 while ( (line = br.readLine()) != null)
-                    System.out.println("[" + name + "] " + line);    
+                    logger.info("[" + name + "] " + line);    
                 } catch (IOException ioe)
                   {
                     ioe.printStackTrace();  
@@ -151,6 +152,10 @@ public class FullTextExtractor
 		File baseDir = new File(args[0]);
 		
 		FullTextExtractor extractor = new FullTextExtractor(baseDir);
+		
+		extractor.extractFulltexts(baseDir);
+		
+		logger.info(extractor.getStatistic().toString());
 	}
 
 }
