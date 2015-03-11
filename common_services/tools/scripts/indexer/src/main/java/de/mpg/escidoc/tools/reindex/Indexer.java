@@ -46,8 +46,8 @@ public class Indexer
 	private File indexStylesheet;
 	private String indexName;
 	private String indexAttributesName;
-	private TransformerFactory saxonFactory = TransformerFactoryImpl.newInstance();
-	private TransformerFactory xalanFactory = org.apache.xalan.processor.TransformerFactoryImpl.newInstance();
+	private TransformerFactory saxonFactory = new TransformerFactoryImpl();
+	private TransformerFactory xalanFactory = new org.apache.xalan.processor.TransformerFactoryImpl();
 	
 	private Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
 	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("prepareStylesheet.xsl")));
@@ -67,15 +67,20 @@ public class Indexer
 		this.indexName = indexName;
 		this.indexAttributesName = indexAttributesName;
 		
+		// Create temp file for modified index stylesheet
 		File tmpFile = File.createTempFile("file", ".tmp");
 		
 		System.out.println(tmpFile);
 		
 		transformer3.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformer3.transform(new StreamSource(indexStylesheet), new StreamResult(tmpFile));
+
+		transformer2 = saxonFactory.newTransformer(new StreamSource(tmpFile));
+		//Xalan transformation not possible due to needed XSLT2 functions
+		//transformer2 = xalanFactory.newTransformer(new StreamSource(tmpFile));
 		
-		transformer1 = xalanFactory.newTransformer(new StreamSource(tmpFile));
 		transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+		transformer2.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
 	}
 	
 	public void prepareIndex()
@@ -222,29 +227,35 @@ public class Indexer
 	public static void main(String[] args) throws Exception
 	{
 
-		if (null == args || args.length != 6)
+		if (null == args || args.length != 7)
 		{
 			System.out.println("Usage: java Indexer [parameters]");
 			System.out.println("Parameters:");
 			System.out.println("1 - Base directory");
 			System.out.println("2 - Index result directory");
-			System.out.println("3 - File for temporary component data");
-			System.out.println("4 - Index stylesheet");
-			System.out.println("5 - Index stylesheet attributes");
-			System.out.println("6 - Index name");
+			System.out.println("3 - File for temporary foxml data");
+			System.out.println("4 - Generate temporary foxml data (true/false)");
+			System.out.println("5 - Index stylesheet");
+			System.out.println("6 - Index stylesheet attributes");
+			System.out.println("7 - Index name");
 			System.exit(0);
 		}
 		
 		File baseDir = new File(args[0]);
 		indexPath = args[1];
 		File dbFile = new File(args[2]);
-		File indexStylesheet = new File(args[3]);
-		String indexAttributesName = args[4];
-		String indexName = args[5];
+		File indexStylesheet = new File(args[4]);
+		String indexAttributesName = args[5];
+		String indexName = args[6];
 		
 		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName);
+		
 		indexer.prepareIndex();
-		indexer.createDatabase();
+		
+		if ("true".equals(args[3]))
+		{
+			indexer.createDatabase();
+		}
 		
 		indexer.indexItems(baseDir);
 		indexer.finalizeIndex();
