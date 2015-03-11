@@ -26,6 +26,9 @@ public class TestFulltextExtractor
 		extractor.extractFulltext(new File("src/test/resources/19/escidoc_20017+content+content.0"));
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
 	}
 	
 	public void tearDown() throws IOException
@@ -34,6 +37,8 @@ public class TestFulltextExtractor
 		{
 			FileUtils.forceDelete(f);
 		}
+		
+		extractor.getStatistic().clear();
 				
 	}
 
