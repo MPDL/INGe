@@ -36,6 +36,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
+
 /**
  * @author franke
  *
@@ -122,7 +124,7 @@ public class Indexer
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:
-	    	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_34);
+	    	Analyzer analyzer = new EscidocAnalyzer();
 	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
 
 	    	if (create) {
@@ -170,7 +172,7 @@ public class Indexer
 	        // make a new, empty document
 	        Document doc = new Document();
 	        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-	        DefaultHandler dh = new IndexDocument(doc);
+	        DefaultHandler dh = new IndexDocument(doc, fulltextDir);
 	        parser.parse(inputStream, dh);
 
 	        if (writer.getConfig().getOpenMode() == OpenMode.CREATE)

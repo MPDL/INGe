@@ -3,6 +3,8 @@
  */
 package de.mpg.escidoc.tools.reindex;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.StringWriter;
 
 import org.apache.lucene.document.Document;
@@ -24,10 +26,13 @@ public class IndexDocument extends DefaultHandler
 	boolean storeField = false;
 	String fieldName = null;
 	StringWriter content = null;
+	String fulltextPath = null;
+	String fulltextDir;
 	
-	public IndexDocument(Document document)
+	public IndexDocument(Document document, String fulltextDir)
 	{
 		this.document = document;
+		this.fulltextDir = fulltextDir;
 	}
 	
 	@Override
@@ -51,6 +56,28 @@ public class IndexDocument extends DefaultHandler
 			fieldName = attributes.getValue("IFname");
 			storeField = "YES".equals(attributes.getValue("store"));
 			content = new StringWriter();
+			fulltextPath = attributes.getValue("dsId");
+			if (fulltextPath != null)
+			{
+				String realPath = fulltextDir + "/" + fulltextPath.replaceAll(".+/([^/]+)/content", "$1").replace(":", "_") + "+content+content.0.txt";
+				System.out.println("Reading fulltext from " + realPath);
+				int readNum;
+				try
+				{
+					FileReader reader = new FileReader(new File(realPath));
+					char[] ftch = new char[2048];
+					while ((readNum = reader.read(ftch)) != -1)
+					{
+						content.write(ftch, 0, readNum);
+					}
+					reader.close();
+				}
+				catch (Exception e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+			inField = true;
 		}
 	}
 

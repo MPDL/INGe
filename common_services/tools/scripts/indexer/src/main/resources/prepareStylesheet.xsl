@@ -37,14 +37,14 @@
 		</xxsl:call-template>
 	</xsl:template>
 
-	<xsl:template match="IndexField[xsl:attribute/@name='dsId']">
+	<!-- <xsl:template match="IndexField[xsl:attribute/@name='dsId']">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|*|text()"/>
 			<xxsl:variable name="component-id" select="string-helper:getSubstringAfterLast($components[$num]/@xlink:href, '/')"/>
 			<xxsl:variable name="component-content" select="document(concat($fulltext-directory, '/', replace($component-id, ':', '_'), '+content+content.0.txt'))"/>
 			<xxsl:value-of select="$component-content"/>
 		</xsl:copy>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="xsl:stylesheet">
 		<xsl:param name="include" select="false()"/>
