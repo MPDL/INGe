@@ -3,11 +3,15 @@
  */
 package de.mpg.escidoc.tools.reindex;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import javax.xml.parsers.SAXParser;
@@ -18,6 +22,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.trans.DynamicError;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -39,6 +44,9 @@ public class Indexer
 {
 
 	static String indexPath = null;
+	
+	static final String defaultDate = "0000-01-01 00:00:00";
+	
 	boolean create = true;
 	
 	private File baseDir;
@@ -46,6 +54,11 @@ public class Indexer
 	private File indexStylesheet;
 	private String indexName;
 	private String indexAttributesName;
+	private String fulltextDir;
+	private long mDateMillis;
+	
+	private String mimetypes;
+	
 	private TransformerFactory saxonFactory = new TransformerFactoryImpl();
 	private TransformerFactory xalanFactory = new org.apache.xalan.processor.TransformerFactoryImpl();
 	
@@ -59,13 +72,16 @@ public class Indexer
 	 * Constructor with initial base directory, should be the fedora "objects" directory.
 	 * @param baseDir
 	 */
-	public Indexer(File baseDir, File dbFile, File indexStylesheet, String indexName, String indexAttributesName) throws Exception
+	public Indexer(File baseDir, File dbFile, File indexStylesheet, String indexName, String indexAttributesName, long mDateMillis, String fulltextDir) throws Exception
 	{
 		this.baseDir = baseDir;
 		this.dbFile = dbFile;
 		this.indexStylesheet = indexStylesheet;
 		this.indexName = indexName;
 		this.indexAttributesName = indexAttributesName;
+		this.fulltextDir = fulltextDir;
+		this.mDateMillis = mDateMillis;
+		this.mimetypes = readMimetypes();
 		
 		// Create temp file for modified index stylesheet
 		File tmpFile = File.createTempFile("file", ".tmp");
@@ -81,8 +97,24 @@ public class Indexer
 		
 		transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
 		transformer2.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+		transformer2.setParameter("SUPPORTED_MIMETYPES", mimetypes);
+		transformer2.setParameter("fulltext-directory", fulltextDir.replace("\\", "/"));
 	}
 	
+	private String readMimetypes() throws Exception
+	{
+		File file = new File("mimetypes.txt");
+		String line;
+		StringWriter result = new StringWriter();
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		while ((line = reader.readLine()) != null)
+		{
+			result.write(line);
+			result.write("\n");
+		}
+		return result.toString();
+	}
+
 	public void prepareIndex()
 	{
 	    try {
@@ -202,7 +234,7 @@ public class Indexer
 				System.out.println("Indexing directory " + file);
 				indexItems(file);
 			}
-			else
+			else if (file.lastModified() >= mDateMillis)
 			{
 				System.out.println(file);
 				indexItem(file);
@@ -215,7 +247,17 @@ public class Indexer
 		File tmpFile1 = File.createTempFile("file", ".tmp");
 		File tmpFile2 = File.createTempFile("file", ".tmp");
 		System.out.println("FOXML2eSciDoc: " + tmpFile1);
-		transformer1.transform(new StreamSource(file), new StreamResult(tmpFile1));
+		try
+		{
+			transformer1.transform(new StreamSource(file), new StreamResult(tmpFile1));
+		}
+		catch (DynamicError de)
+		{
+			if ("noitem".equals(de.getErrorCodeLocalPart()))
+			{
+				return;
+			}
+		}
 		System.out.println("eSciDoc2IndexDoc: " + tmpFile2);
 		transformer2.transform(new StreamSource(tmpFile1), new StreamResult(tmpFile2));
 		indexDoc(new FileInputStream(tmpFile2));
@@ -227,7 +269,7 @@ public class Indexer
 	public static void main(String[] args) throws Exception
 	{
 
-		if (null == args || args.length != 7)
+		if (null == args || args.length != 9)
 		{
 			System.out.println("Usage: java Indexer [parameters]");
 			System.out.println("Parameters:");
@@ -238,6 +280,8 @@ public class Indexer
 			System.out.println("5 - Index stylesheet");
 			System.out.println("6 - Index stylesheet attributes");
 			System.out.println("7 - Index name");
+			System.out.println("8 - Modification date");
+			System.out.println("9 - Fulltext directory");
 			System.exit(0);
 		}
 		
@@ -248,7 +292,13 @@ public class Indexer
 		String indexAttributesName = args[5];
 		String indexName = args[6];
 		
-		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName);
+		String mDate = args[7];
+		String fulltextDir = args[8];
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String combinedDate = mDate + defaultDate.substring(mDate.length());
+		long mDateMillis = dateFormat.parse(combinedDate).getTime();
+		
+		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName, mDateMillis, fulltextDir);
 		
 		indexer.prepareIndex();
 		

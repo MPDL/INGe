@@ -23,7 +23,7 @@ import de.mpg.escidoc.tools.util.ExtractionStatistic;
 public class FullTextExtractor
 {
 	private static Logger logger = Logger.getLogger(FullTextExtractor.class);
-	private static String extractCmd = "java -jar C:/Users/sieders.MUCAM/.m2/repository/de/mpg/escidoc/tools/extraction_chain/1.0-SNAPSHOT/extraction_chain-1.0-SNAPSHOT-jar-with-dependencies.jar ";
+	private static String extractCmd = "java -jar C:/Users/franke.B251/.m2/repository/de/mpg/escidoc/tools/extraction_chain/1.0-SNAPSHOT/extraction_chain-1.0-SNAPSHOT-jar-with-dependencies.jar ";
 //	private static String extractCmd = "java de.mpg.escidoc.services.extraction.ExtractionChain ";
 
 	private String fulltextPath = "c:/fulltexts";	

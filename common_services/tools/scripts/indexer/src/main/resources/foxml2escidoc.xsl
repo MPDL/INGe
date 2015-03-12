@@ -16,6 +16,11 @@
 	<xsl:variable name="database" select="document($index-db)"/>
 	
 	<xsl:template match="/">
+	
+		<xsl:if test="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[1]/foxml:xmlContent/rdf:RDF/rdf:Description/rdf:type/@rdf:resource != 'http://escidoc.de/core/01/resources/Item'">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is no item') "/>
+		</xsl:if>
+		
 		<xsl:variable name="PID" select="foxml:digitalObject/@PID"/>
 		<xsl:variable name="first-dc-title" select="(//dc:title)[1]"/>
 		<xsl:variable name="latest-version-rels-ext"><xsl:copy-of select="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description/*"/></xsl:variable>

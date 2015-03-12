@@ -5,12 +5,10 @@
 	
 	<xsl:param name="attributes-file"/>
 
-	<xsl:template match="*">
+	<xsl:template match="node()">
 		<xsl:copy>
-			<xsl:apply-templates select="@*|*"/>
+			<xsl:apply-templates select="@*|*|text()"/>
 		</xsl:copy>
-		<xsl:text>
-</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="@*">
@@ -21,6 +19,7 @@
 	<xsl:template match="xsl:include">
 	
 		<xxsl:param name="index-db"/>
+		<xxsl:param name="fulltext-directory"/>
 	
 		<xxsl:variable name="database" select="document($index-db)"/>
 	
@@ -30,6 +29,21 @@
 			<xsl:with-param name="include" select="true()"/>
 		</xsl:apply-templates>
 
+	</xsl:template>
+
+	<xsl:template match="xsl:value-of[contains(@select, 'escidoc-core-accessor:getObjectAttribute') and contains(@select, '/oum/organizational-unit/')]">
+		<xxsl:call-template name="get-parent-ous">
+			<xxsl:with-param name="ou-id" select="$objectId"/>
+		</xxsl:call-template>
+	</xsl:template>
+
+	<xsl:template match="IndexField[xsl:attribute/@name='dsId']">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|*|text()"/>
+			<xxsl:variable name="component-id" select="string-helper:getSubstringAfterLast($components[$num]/@xlink:href, '/')"/>
+			<xxsl:variable name="component-content" select="document(concat($fulltext-directory, '/', replace($component-id, ':', '_'), '+content+content.0.txt'))"/>
+			<xxsl:value-of select="$component-content"/>
+		</xsl:copy>
 	</xsl:template>
 
 	<xsl:template match="xsl:stylesheet">
