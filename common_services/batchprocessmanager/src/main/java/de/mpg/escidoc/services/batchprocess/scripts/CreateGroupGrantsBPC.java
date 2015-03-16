@@ -152,7 +152,7 @@ public class CreateGroupGrantsBPC
 
     private List<String> getSpecialList() throws Exception
     {
-        String listString = ResourceUtil.getResourceAsString("c:/tmp/edoc_pdfs.txt");
+        String listString = ResourceUtil.getResourceAsString("c:/tmp/edoc_pdfs.txt", this.getClass().getClassLoader());
         return Arrays.asList(listString.split("\n"));
     }
     

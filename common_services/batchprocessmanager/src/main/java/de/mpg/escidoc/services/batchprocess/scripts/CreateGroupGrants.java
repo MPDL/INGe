@@ -67,60 +67,54 @@ public class CreateGroupGrants
      */
     public static void main(String[] args) throws Exception
     {
-        if (args.length < 2 || args.length > 4)
+        if (args.length < 2 || args.length > 3)
         {
-            System.out.println("usage: CreateGroupGrants <context> <user-group> [<maximum-records>] [<visibility-scope>]");
+            System.out.println("usage: CreateGroupGrants <context> <user-group> [<maximum-records>]");
         }
         else
         {
-            int max = 1;
-            String visibility = null;
+            int max = 0;
             if (args.length > 2)
             {
                 max = Integer.parseInt(args[2]);
-                if (args.length > 3)
-                {
-                    // Visibility might be "INSTITUT", "MPG", "PUBLIC", "USER" or "INTERNAL"
-                    visibility = args[3];
-                }
             }
-            new CreateGroupGrants(args[0], args[1], max, visibility);
+            new CreateGroupGrants(args[0], args[1], max);
         }
             
     }
     
-    public CreateGroupGrants(String context, String userGroup, int maximumNumberOfElements, String visibility) throws Exception
+    public CreateGroupGrants(String contextId, String userGroupId, int maximumNumberOfElements) throws Exception
     {
         System.out.print("Getting handle...");
         String handle = AdminHelper.loginUser(PropertyReader.getProperty("escidoc.user.name"), PropertyReader.getProperty("escidoc.user.password"));
         System.out.println("done!");
         
         System.out.println("Getting items...");
-        List<ItemVO> list = getList(context, maximumNumberOfElements);
+        List<ItemVO> list = getList(contextId, maximumNumberOfElements);
         System.out.println("...done!");
         
         for (ItemVO itemVO : list)
         {
             for (FileVO fileVO : itemVO.getFiles())
             {
-                if (fileVO.getVisibility() == Visibility.AUDIENCE && (visibility == null || (fileVO.getMetadataSets().get(0) instanceof MdsFileVO && ("eDoc_access: " + visibility).equals(((MdsFileVO) fileVO.getMetadataSets().get(0)).getRights()))))
+                if (fileVO.getVisibility() == Visibility.AUDIENCE)
                 {
-                    createGrant(fileVO, userGroup, handle);
+                    createGrant(fileVO, userGroupId, handle);
                 }
             }
         }
     }
 
-    private void createGrant(FileVO fileVO, String userGroup, String handle) throws Exception
+    private void createGrant(FileVO fileVO, String userGroupId, String handle) throws Exception
     {
         UserGroupHandler userGroupHandler = ServiceLocator.getUserGroupHandler(handle);
-        GrantVO grantVO = new GrantVO("escidoc:role-audience", userGroup);
+        GrantVO grantVO = new GrantVO("escidoc:role-audience", userGroupId);
         grantVO.setObjectRef(fileVO.getReference().getObjectId());
         String grantXml = xmlTransforming.transformToGrant(grantVO);
         try
         {
             System.out.print("Creating grant for " + fileVO.getReference().getObjectId() + "...");
-            userGroupHandler.createGrant(userGroup, grantXml);
+            userGroupHandler.createGrant(userGroupId, grantXml);
             System.out.println("done!");
         }
         catch (Exception e) {
@@ -128,15 +122,18 @@ public class CreateGroupGrants
         }
     }
 
-    private List<ItemVO> getList(String context, int maximumNumberOfElements) throws Exception
+    private List<ItemVO> getList(String contextId, int maximumNumberOfElements) throws Exception
     {
 
-        String query = "escidoc.context.objid=" + context + " and escidoc.component.visibility=audience and escidoc.content-model.objid=escidoc:persistent4";
+        String query = "escidoc.context.objid=\"" + contextId + "\" and escidoc.component.internal-managed.visibility=\"audience\" and escidoc.content-model.objid=\"escidoc:persistent4\"";
 
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion("1.1");
         searchRetrieveRequest.setQuery(query);
-        searchRetrieveRequest.setMaximumRecords(new NonNegativeInteger(maximumNumberOfElements + ""));
+        if(maximumNumberOfElements > 0) 
+        {
+        	searchRetrieveRequest.setMaximumRecords(new NonNegativeInteger(maximumNumberOfElements + ""));
+        }
         searchRetrieveRequest.setRecordPacking("xml");
         SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
 
