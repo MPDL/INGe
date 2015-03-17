@@ -79,11 +79,11 @@ public class ExtractionStatistic
     {
     	long s = (System.currentTimeMillis() - start)/1000;
     	return 
-    			"filesTotal 			<" + filesTotal.get() + "> \n"
+    			"\nfilesTotal 			<" + filesTotal.get() + "> \n"
     			+ "filesErrorOccured 	<" + filesErrorOccured.get() + "> \n"
     			+ "filesExtractionDone 	<" + filesExtractionDone.get() + "> \n"
     			+ "time used  			<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
-    			+ "errorList 			<" + Arrays.toString(errorList.toArray());
+    			+ "errorList 			<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }
      

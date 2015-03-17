@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,42 +19,73 @@ public class TestFulltextExtractor
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
-		extractor = new FullTextExtractor(new File("src/test/resources/19"));
-	}
-
-	@Test
-	@Ignore
-	public void testFile() throws Exception
-	{
-		extractor.extractFulltext(new File("src/test/resources/19/escidoc_20017+content+content.0"));
+		extractor = new FullTextExtractor();
 		
-		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
-		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
-		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
-		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
-	}
-	
-	@Test
-	public void testFileFailure() throws Exception
-	{
-		extractor.extractFulltext(new File("src/test/resources/19/escidoc_28177+content+content.0"));
-		
-		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
-		
-		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 1);
-		//assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
-		assertTrue(extractor.getStatistic().getErrorList().size() == 1);
-	}
-	
-	public void tearDown() throws IOException
-	{
 		for (File f : new File(extractor.getFulltextPath()).listFiles())
 		{
 			FileUtils.forceDelete(f);
 		}
-		
-		extractor.getStatistic().clear();
-				
+	}
+	
+	@Before
+	public void setUp() throws IOException
+	{
+		extractor.getStatistic().clear();			
 	}
 
+	@Test
+	public void testFiles() throws Exception
+	{	
+		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"));
+		
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
+		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+		
+		// only with iText successful 
+		extractor.init(new File("src/test/resources/19/escidoc_28177+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_28177+content+content.0"));
+		
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
+		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 2);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+	}
+
+	@Test
+	public void testDir() throws Exception
+	{
+		
+		extractor.init(new File("src/test/resources/19"));
+		extractor.extractFulltexts(new File("src/test/resources/19"));
+		
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
+		
+		assertTrue("Expected 2 Found " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 2);
+		assertTrue("Expected 0 Found " + extractor.getStatistic().getFilesErrorOccured(), extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 2);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+	}
+	
+	@Test
+	public void testDirWithHtmlFile() throws Exception
+	{
+		
+		extractor.init(new File("C:/Test/datastreams-2013-2015-03-09/X/fedora/data/datastreams/2013/0102/15/33"));
+		extractor.extractFulltexts(new File("C:/Test/datastreams-2013-2015-03-09/X/fedora/data/datastreams/2013/0102/15/33"));
+		
+		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_1587192+content+content.0.txt")).exists());
+		
+		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
+		assertTrue("expected <1> got <" + extractor.getStatistic().getFilesErrorOccured() + ">", extractor.getStatistic().getFilesErrorOccured() == 1) ;
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 0);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 1);
+	}
+	
+	
 }

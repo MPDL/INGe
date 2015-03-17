@@ -5,41 +5,60 @@ package de.mpg.escidoc.tools.reindex;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.extraction.ExtractionChain;
 import de.mpg.escidoc.tools.util.ExtractionStatistic;
+import de.mpg.escidoc.tools.util.Util;
 
 /**
- * @author franke
+ * @author siedersleben
  *
  */
 public class FullTextExtractor
 {
 	private static Logger logger = Logger.getLogger(FullTextExtractor.class);
-	private static String extractCmd = "java -jar C:/Users/franke.B251/.m2/repository/de/mpg/escidoc/tools/extraction_chain/1.0-SNAPSHOT/extraction_chain-1.0-SNAPSHOT-jar-with-dependencies.jar ";
-//	private static String extractCmd = "java de.mpg.escidoc.services.extraction.ExtractionChain ";
+	private static String propFileName = "indexer.properties";
 
-	private String fulltextPath = "c:/fulltexts";	
-	private File baseDir;
+	private String fulltextPath = "";
 	private ExtractionStatistic statistic = new ExtractionStatistic();
+	private Properties properties = new Properties();
+	private String[] envp = new String[2]; 
 	
 	
-	/**
-	 * Constructor with initial base directory, should be the fedora "objects" directory.
-	 * @param baseDir
-	 */
-	public FullTextExtractor(File baseDir) throws Exception
-	{
-		this.baseDir = baseDir;
+	public FullTextExtractor() throws Exception
+	{		
+		InputStream s = getClass().getClassLoader().getResourceAsStream(propFileName);
 		
-		FileUtils.forceMkdir(new File(fulltextPath));
+		if (s != null)
+		{
+			properties.load(s);
+			logger.info(properties.toString());
+		}
+		else 
+		{
+			throw new FileNotFoundException("Not found " + propFileName);
+		}
+		
+		fulltextPath = properties.getProperty("fulltexts.path");
+		FileUtils.forceMkdir(new File(properties.getProperty("fulltexts.path")));
+		
+		envp[0] = "pdftotext.path=" + properties.getProperty("pdftotext.path");
+		envp[1] = "pdfbox-app-jar.path=" + properties.getProperty("pdfbox-app-jar.path");
+	}
+	
+	public void init(File baseDir)
+	{		
+		statistic.setFilesTotal(Util.countFilesInDirectory(baseDir));	
 	}
 	
 	public String getFulltextPath()
@@ -52,12 +71,20 @@ public class FullTextExtractor
 		return this.statistic;
 	}
 	
-	void extractFulltexts(File dir) throws Exception
+	void extractFulltexts(File dirOrFile) throws Exception
 	{
-		File[] files = dir.listFiles();
-		Collections.sort(Arrays.asList(files));
+		File[] files = dirOrFile.listFiles();
 		
-		statistic.setFilesTotal(files.length);
+		if (files != null)
+		{
+			Collections.sort(Arrays.asList(files));
+		}
+		else 
+		{
+			files = new File[1];
+			files[0] = dirOrFile;
+		}
+		
 		
 		for (File file : files)
 		{
@@ -67,21 +94,52 @@ public class FullTextExtractor
 			}
 			else
 			{
-				extractFulltext(file);
+				try
+				{
+					ExtractionChain chain = new ExtractionChain();
+					
+					// too much properties 
+					
+					chain.setProperties(properties, this.logger);
+					int ret = chain.doExtract(file.getAbsolutePath(), (new File(fulltextPath, file.getName())).getAbsolutePath().concat(".txt"));
+					
+					if (ret == 0)
+					{
+						statistic.incrementFilesExtractionDone();
+					}
+					else
+					{
+						statistic.incrementFilesErrorOccured();
+						statistic.addToErrorList(file.getName());
+					}
+				} catch (Exception e)
+				{
+					statistic.incrementFilesErrorOccured();
+					statistic.addToErrorList(file.getName());
+					e.printStackTrace();
+					
+					continue;
+				}
 			}
 		}
 	}
 
 
 	void extractFulltext(File file) throws Exception
-	{
-		BufferedReader stdIn = null;
-        BufferedReader errIn = null;
+	{   
+		if (!(new File(fulltextPath, file.getName()).exists()))
+		{
+			logger.info("****************** Start extracting " + file.getName());
+		}
+		else 
+		{
+			logger.info("****************** Skipping extraction " + file.getName());
+			return;
+		}
         
-        logger.info("****************** Start extracting " + file.getName());
-        
-		String cmd = getCommand(extractCmd, file);
-		Process proc = Runtime.getRuntime().exec(cmd);
+		String[] cmd = getCommand(file);
+		
+		Process proc = Runtime.getRuntime().exec(cmd, envp);
 		
 		StreamGobbler inputGobbler = new StreamGobbler(proc.getInputStream(), "Extractor in");
         StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "Extractor err");
@@ -102,18 +160,18 @@ public class FullTextExtractor
         }
 	}
 
-	private String getCommand(String cmd, File f)
+	private String[] getCommand(File f)
 	{
-		StringBuffer b = new StringBuffer();
-		b.append(cmd);
-		b.append(" ");
-		b.append(f.getAbsolutePath());
-		b.append(" ");
-		b.append((new File(fulltextPath, f.getName())).getAbsolutePath());
-		b.append(".txt");
+		String[] cmd = new String[5];
 		
-		logger.info("extract command <" + b.toString() + ">");
-		return b.toString();
+		cmd[0] = "java";
+		cmd[1] = "-jar";
+		cmd[2] = properties.getProperty("extraction-chain.path");
+		cmd[3] = f.getAbsolutePath();
+		cmd[4] = (new File(fulltextPath, f.getName())).getAbsolutePath().concat(".txt");
+		
+		logger.info("extract command <" + Arrays.toString(cmd) + ">");
+		return cmd;
 	}
 	
     class StreamGobbler extends Thread
@@ -129,18 +187,18 @@ public class FullTextExtractor
         
         public void run()
         {
-            try
-            {
-                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-                BufferedReader br = new BufferedReader(isr);
-                String line = null;
-                
-                while ( (line = br.readLine()) != null)
-                    logger.info("[" + name + "] " + line);    
-                } catch (IOException ioe)
-                  {
-                    ioe.printStackTrace();  
-                  }
+			try
+			{
+				InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+				BufferedReader br = new BufferedReader(isr);
+				String line = null;
+
+				while ((line = br.readLine()) != null)
+					logger.info("[" + name + "] " + line);
+			} catch (IOException ioe)
+			{
+				ioe.printStackTrace();
+			}
         }
     }
 
@@ -151,8 +209,12 @@ public class FullTextExtractor
 	{
 		File baseDir = new File(args[0]);
 		
-		FullTextExtractor extractor = new FullTextExtractor(baseDir);
+		// TODO check parameter
 		
+
+		FullTextExtractor extractor = new FullTextExtractor();
+		
+		extractor.init(baseDir);		
 		extractor.extractFulltexts(baseDir);
 		
 		logger.info(extractor.getStatistic().toString());
