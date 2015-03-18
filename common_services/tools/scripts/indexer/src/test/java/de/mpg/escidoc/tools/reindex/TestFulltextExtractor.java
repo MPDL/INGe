@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
@@ -20,17 +22,23 @@ public class TestFulltextExtractor
 	public static void setUpBeforeClass() throws Exception
 	{
 		extractor = new FullTextExtractor();
-		
-		for (File f : new File(extractor.getFulltextPath()).listFiles())
-		{
-			FileUtils.forceDelete(f);
-		}
 	}
 	
 	@Before
 	public void setUp() throws IOException
 	{
-		extractor.getStatistic().clear();			
+		extractor.getStatistic().clear();		
+		
+		for (File f : new File(extractor.getFulltextPath()).listFiles())
+		{
+			try
+			{
+				FileUtils.forceDelete(f);
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Test
@@ -43,6 +51,7 @@ public class TestFulltextExtractor
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
 		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
 		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
 		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
 		
 		// only with iText successful 
@@ -53,6 +62,7 @@ public class TestFulltextExtractor
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
 		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
 		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 2);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
 		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
 	}
 
@@ -69,6 +79,7 @@ public class TestFulltextExtractor
 		assertTrue("Expected 2 Found " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 2);
 		assertTrue("Expected 0 Found " + extractor.getStatistic().getFilesErrorOccured(), extractor.getStatistic().getFilesErrorOccured() == 0);
 		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 2);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
 		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
 	}
 	
@@ -84,7 +95,43 @@ public class TestFulltextExtractor
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
 		assertTrue("expected <1> got <" + extractor.getStatistic().getFilesErrorOccured() + ">", extractor.getStatistic().getFilesErrorOccured() == 1) ;
 		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 0);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
 		assertTrue(extractor.getStatistic().getErrorList().size() == 1);
+	}
+	
+	@Test
+	public void testLastModifiedFile1() throws Exception
+	{
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// extract all modified since 2015-03-12. Thetestfiles have lastModificationDate 2015-03-14.
+		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"), f.parse("2015-03-12").getTime());
+		
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
+		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+
+	}
+	
+	@Test
+	public void testLastModifiedFile2() throws Exception
+	{
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
+		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"), f.parse("2016-03-12").getTime());
+		
+		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
+		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 0);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 1);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+
 	}
 	
 	

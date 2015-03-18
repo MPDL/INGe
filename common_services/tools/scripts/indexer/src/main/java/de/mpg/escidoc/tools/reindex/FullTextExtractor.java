@@ -9,14 +9,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.extraction.ExtractionChain;
+import de.mpg.escidoc.services.extraction.ExtractionChain.ExtractionResult;
 import de.mpg.escidoc.tools.util.ExtractionStatistic;
 import de.mpg.escidoc.tools.util.Util;
 
@@ -26,14 +29,15 @@ import de.mpg.escidoc.tools.util.Util;
  */
 public class FullTextExtractor
 {
+	private static final String propFileName = "indexer.properties";
+	private static final String defaultDate = "0000-01-01 00:00:00";
+	
 	private static Logger logger = Logger.getLogger(FullTextExtractor.class);
-	private static String propFileName = "indexer.properties";
 
 	private String fulltextPath = "";
 	private ExtractionStatistic statistic = new ExtractionStatistic();
 	private Properties properties = new Properties();
 	private String[] envp = new String[2]; 
-	
 	
 	public FullTextExtractor() throws Exception
 	{		
@@ -71,7 +75,12 @@ public class FullTextExtractor
 		return this.statistic;
 	}
 	
-	void extractFulltexts(File dirOrFile) throws Exception
+	public void extractFulltexts(File dirOrFile) throws Exception
+	{
+		this.extractFulltexts(dirOrFile, 0);
+	}
+	
+	public void extractFulltexts(File dirOrFile, long mDateMillis) throws Exception
 	{
 		File[] files = dirOrFile.listFiles();
 		
@@ -90,10 +99,16 @@ public class FullTextExtractor
 		{
 			if (file.isDirectory())
 			{
-				extractFulltexts(file);
+				extractFulltexts(file, mDateMillis);
 			}
 			else
 			{
+				if (file.lastModified() < mDateMillis)
+				{
+					logger.info("Skipping " + file.getName() + " last modification date <" + new Date(file.lastModified()) + ">");
+					statistic.incrementFilesSkipped();
+					continue;
+				}
 				try
 				{
 					ExtractionChain chain = new ExtractionChain();
@@ -101,9 +116,9 @@ public class FullTextExtractor
 					// too much properties 
 					
 					chain.setProperties(properties, this.logger);
-					int ret = chain.doExtract(file.getAbsolutePath(), (new File(fulltextPath, file.getName())).getAbsolutePath().concat(".txt"));
+					ExtractionResult ret = chain.doExtract(file.getAbsolutePath(), (new File(fulltextPath, file.getName())).getAbsolutePath().concat(".txt"));
 					
-					if (ret == 0)
+					if (ret == ExtractionResult.OK)
 					{
 						statistic.incrementFilesExtractionDone();
 					}
@@ -209,13 +224,25 @@ public class FullTextExtractor
 	{
 		File baseDir = new File(args[0]);
 		
+		
+		long mDateMillis = 0;
+		
+		if (args.length > 1)
+		{
+			String mDate = args[1];
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");					
+			String combinedDate = mDate + defaultDate.substring(mDate.length());
+
+			mDateMillis = dateFormat.parse(combinedDate).getTime();
+		}
+		
 		// TODO check parameter
 		
 
 		FullTextExtractor extractor = new FullTextExtractor();
 		
 		extractor.init(baseDir);		
-		extractor.extractFulltexts(baseDir);
+		extractor.extractFulltexts(baseDir, mDateMillis);
 		
 		logger.info(extractor.getStatistic().toString());
 	}

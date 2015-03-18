@@ -11,6 +11,7 @@ public class ExtractionStatistic
     private AtomicInteger filesTotal = new AtomicInteger(0);
     private AtomicInteger filesErrorOccured  = new AtomicInteger(0);
     private AtomicInteger filesExtractionDone  = new AtomicInteger(0);
+    private AtomicInteger filesSkipped  = new AtomicInteger(0);
   
     private long start = System.currentTimeMillis();
     private Collection<String> errorList = Collections.synchronizedList(new ArrayList<String>());
@@ -49,6 +50,16 @@ public class ExtractionStatistic
     {
         this.filesExtractionDone.incrementAndGet();
     }
+    
+    public int getFilesSkipped()
+    {
+        return this.filesSkipped.get();
+    } 
+    
+    public void incrementFilesSkipped()
+    {
+        this.filesSkipped.incrementAndGet();
+    }
 
     public long getTimeUsed()
     {
@@ -79,11 +90,12 @@ public class ExtractionStatistic
     {
     	long s = (System.currentTimeMillis() - start)/1000;
     	return 
-    			"\nfilesTotal 			<" + filesTotal.get() + "> \n"
-    			+ "filesErrorOccured 	<" + filesErrorOccured.get() + "> \n"
-    			+ "filesExtractionDone 	<" + filesExtractionDone.get() + "> \n"
-    			+ "time used  			<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
-    			+ "errorList 			<" + Arrays.toString(errorList.toArray())  + "> \n";
+    			"\nfilesTotal\t\t<" + filesTotal.get() + "> \n"
+    			+ "filesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
+    			+ "filesSkipped\t\t<" + filesSkipped.get() + "> \n"
+    			+ "filesExtractionDone\t<" + filesExtractionDone.get() + "> \n"
+    			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
+    			+ "errorList\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }
      
