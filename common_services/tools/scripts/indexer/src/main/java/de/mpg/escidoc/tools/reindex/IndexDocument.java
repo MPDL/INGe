@@ -4,9 +4,11 @@
 package de.mpg.escidoc.tools.reindex;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringWriter;
 
+import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Index;
@@ -20,7 +22,8 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class IndexDocument extends DefaultHandler
 {
-
+	private static Logger logger = Logger.getLogger(IndexDocument.class);
+	
 	Document document;
 	boolean inField = false;
 	boolean storeField = false;
@@ -60,7 +63,7 @@ public class IndexDocument extends DefaultHandler
 			if (fulltextPath != null)
 			{
 				String realPath = fulltextDir + "/" + fulltextPath.replaceAll(".+/([^/]+)/content", "$1").replace(":", "_") + "+content+content.0.txt";
-				System.out.println("Reading fulltext from " + realPath);
+				logger.info("Reading fulltext from " + realPath);
 				int readNum;
 				try
 				{
@@ -71,6 +74,10 @@ public class IndexDocument extends DefaultHandler
 						content.write(ftch, 0, readNum);
 					}
 					reader.close();
+				}
+				catch (FileNotFoundException e)
+				{
+					logger.error("File not found: " + realPath);
 				}
 				catch (Exception e)
 				{

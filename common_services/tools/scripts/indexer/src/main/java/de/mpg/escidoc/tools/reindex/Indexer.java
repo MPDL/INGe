@@ -8,11 +8,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Stack;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -21,11 +25,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.saxon.TransformerFactoryImpl;
 import net.sf.saxon.trans.DynamicError;
 
+import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -34,6 +37,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
@@ -45,6 +49,8 @@ import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
 public class Indexer
 {
 
+	private static Logger logger = Logger.getLogger(Indexer.class);
+	
 	static String indexPath = null;
 	
 	static final String defaultDate = "0000-01-01 00:00:00";
@@ -58,23 +64,154 @@ public class Indexer
 	private String indexAttributesName;
 	private String fulltextDir;
 	private long mDateMillis;
+	private String resumeFilename = "current-dir.txt";
+	private String resumeDir = null;
+	private int procCount;
+	int busyProcesses = 0;
+	private String currentDir = null;
 	
 	private String mimetypes;
+	private int itemCount = 0;
 	
-	private TransformerFactory saxonFactory = new TransformerFactoryImpl();
+	Stack<Transformer> transformerStack1 = new Stack<Transformer>();
+	Stack<Transformer> transformerStack2 = new Stack<Transformer>();
+	
+	private TransformerFactory saxonFactory = new net.sf.saxon.TransformerFactoryImpl();
 	private TransformerFactory xalanFactory = new org.apache.xalan.processor.TransformerFactoryImpl();
 	
-	private Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
 	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("prepareStylesheet.xsl")));
-	private Transformer transformer2;
 
 	IndexWriter writer;
 	
 	/**
-	 * Constructor with initial base directory, should be the fedora "objects" directory.
-	 * @param baseDir
+	 * Subclass to enable parallelization.
+	 * 
+	 * @author franke
+	 *
 	 */
-	public Indexer(File baseDir, File dbFile, File indexStylesheet, String indexName, String indexAttributesName, long mDateMillis, String fulltextDir) throws Exception
+	class IndexThread extends Thread
+	{
+		File file;
+		Transformer transformer1;
+		Transformer transformer2;
+		
+		/**
+		 * Constructor with the FOXML file.
+		 * 
+		 * @param file The FOXML file
+		 */
+		public IndexThread(File file)
+		{
+			this.file = file;
+			transformer1 = transformerStack1.pop();
+			transformer2 = transformerStack2.pop();
+		}
+		
+		public void run()
+		{
+			try
+			{
+				indexItem(file);
+			}
+			catch (Exception e)
+			{
+				cleanup();
+				throw new RuntimeException(e);
+			}
+			cleanup();
+		}
+		
+		void cleanup()
+		{
+			transformerStack1.push(transformer1);
+			transformerStack2.push(transformer2);
+			busyProcesses--;
+			System.out.println(transformer1.getParameter("number") + " done.");
+		}
+		
+		/**
+		 * Do all the necessary transformations and build the index document.
+		 * 
+		 * @param file The FOXML file.
+		 * @throws Exception Any exception.
+		 */
+		private void indexItem(File file) throws Exception
+		{
+			logger.info("Indexing file " + file);
+			//File tmpFile1 = File.createTempFile("file", ".tmp");
+			//File tmpFile2 = File.createTempFile("file", ".tmp");
+			StringWriter writer1 = new StringWriter();
+			StringWriter writer2 = new StringWriter();
+			//System.out.println("FOXML2eSciDoc: " + tmpFile1);
+			try
+			{
+				transformer1.transform(new StreamSource(file), new StreamResult(writer1));
+			}
+			catch (DynamicError de)
+			{
+				if ("noitem".equals(de.getErrorCodeLocalPart()))
+				{
+					return;
+				}
+			}
+			itemCount++;
+			//System.out.println("eSciDoc2IndexDoc: " + tmpFile2);
+			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
+			indexDoc(new StringReader(writer2.toString()));
+		}
+		
+		/**
+		 * Write the contents of the index document and the fulltext to the lucene index.
+		 * 
+		 * @param inputStream The index document.
+		 * @throws Exception Any exception.
+		 */
+		public void indexDoc(StringReader inputStream) throws Exception
+		{
+
+		      try {
+
+		        // make a new, empty document
+		        Document doc = new Document();
+		        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+		        DefaultHandler dh = new IndexDocument(doc, fulltextDir);
+		        parser.parse(new InputSource(inputStream), dh);
+
+		        if (writer.getConfig().getOpenMode() == OpenMode.CREATE)
+		        {
+					// New index, so we just add the document (no old document can be there):
+					writer.addDocument(doc);
+		        }
+		        else
+		        {
+		        	// Existing index (an old copy of this document may have been indexed) so 
+		        	// we use updateDocument instead to replace the old one matching the exact 
+		        	// path, if present:
+		        	writer.updateDocument(new Term("PID", doc.get("PID")), doc);
+		        }
+		        
+		      }
+		      finally
+		      {
+		    	  inputStream.close();
+		      }
+		}
+	}
+	
+	/**
+	 * Constructor with initial base directory, should be the fedora "objects" directory.
+	 * 
+	 * @param baseDir
+	 * @param dbFile
+	 * @param indexStylesheet
+	 * @param indexName
+	 * @param indexAttributesName
+	 * @param mDateMillis
+	 * @param fulltextDir
+	 * @param procCount
+	 * @throws Exception
+	 */
+	public Indexer(File baseDir, File dbFile, File indexStylesheet, String indexName, String indexAttributesName, long mDateMillis, String fulltextDir, int procCount) throws Exception
 	{
 		this.baseDir = baseDir;
 		this.dbFile = dbFile;
@@ -84,25 +221,67 @@ public class Indexer
 		this.fulltextDir = fulltextDir;
 		this.mDateMillis = mDateMillis;
 		this.mimetypes = readMimetypes();
+		this.procCount = procCount;
+		
 		
 		// Create temp file for modified index stylesheet
 		File tmpFile = File.createTempFile("file", ".tmp");
 		
-		System.out.println(tmpFile);
+		logger.info("transforming index stylesheet to " + tmpFile);
 		
 		transformer3.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformer3.transform(new StreamSource(indexStylesheet), new StreamResult(tmpFile));
 
-		transformer2 = saxonFactory.newTransformer(new StreamSource(tmpFile));
-		//Xalan transformation not possible due to needed XSLT2 functions
-		//transformer2 = xalanFactory.newTransformer(new StreamSource(tmpFile));
+		for (int i = 0; i < procCount; i++)
+		{
+			
+			Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
+			transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+			transformer1.setParameter("number", i);
+			transformerStack1.push(transformer1);
+			
+			Transformer transformer2 = saxonFactory.newTransformer(new StreamSource(tmpFile));
+			//Xalan transformation not possible due to needed XSLT2 functions
+			//transformer2 = xalanFactory.newTransformer(new StreamSource(tmpFile));
+			transformer2.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+			transformer2.setParameter("SUPPORTED_MIMETYPES", mimetypes);
+			transformer2.setParameter("fulltext-directory", fulltextDir.replace("\\", "/"));
+			transformerStack2.push(transformer2);
+		}
+
+		File resumeFile = new File(resumeFilename);
+		char[] buffer = new char[2048];
+		if (resumeFile.exists())
+		{
+			FileReader reader = new FileReader(resumeFile);
+			int len = reader.read(buffer);
+			reader.close();
+			resumeDir = new String(buffer, 0, len);
+			logger.info("Resuming at directory " + resumeDir);
+		}
 		
-		transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
-		transformer2.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
-		transformer2.setParameter("SUPPORTED_MIMETYPES", mimetypes);
-		transformer2.setParameter("fulltext-directory", fulltextDir.replace("\\", "/"));
+	}
+
+	/**
+	 * 
+	 * If everything went fine, delete the file with the current directory.
+	 * 
+	 */
+	private void removeResumeFile() {
+		File resumeFile = new File(resumeFilename);
+		resumeFile.delete();
 	}
 	
+	public int getItemCount() {
+		return itemCount;
+	}
+
+	/**
+	 * Read the allowed mimetypes for fulltexts from a file.
+	 * 
+	 * @return A String holding the mimetype list that is given to the transformation as a parameter.
+	 * @throws Exception Any exception.
+	 */
 	private String readMimetypes() throws Exception
 	{
 		File file = new File("mimetypes.txt");
@@ -117,10 +296,13 @@ public class Indexer
 		return result.toString();
 	}
 
+	/**
+	 * Open lucene index for writing.
+	 */
 	public void prepareIndex()
 	{
 	    try {
-	    	System.out.println("Indexing to directory '" + indexPath + "'...");
+	    	logger.info("Indexing to directory '" + indexPath + "'...");
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:
@@ -163,37 +345,6 @@ public class Indexer
 	{
 		writer.close();
 	}
-	
-	public void indexDoc(InputStream inputStream) throws Exception
-	{
-
-	      try {
-
-	        // make a new, empty document
-	        Document doc = new Document();
-	        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-	        DefaultHandler dh = new IndexDocument(doc, fulltextDir);
-	        parser.parse(inputStream, dh);
-
-	        if (writer.getConfig().getOpenMode() == OpenMode.CREATE)
-	        {
-				// New index, so we just add the document (no old document can be there):
-				writer.addDocument(doc);
-	        }
-	        else
-	        {
-	        	// Existing index (an old copy of this document may have been indexed) so 
-	        	// we use updateDocument instead to replace the old one matching the exact 
-	        	// path, if present:
-	        	writer.updateDocument(new Term("PID", doc.get("PID")), doc);
-	        }
-	        
-	      }
-	      finally
-	      {
-	    	  inputStream.close();
-	      }
-	}
 
 	/**
 	 * Gather information from the FOXMLs and write them into the given file.
@@ -210,6 +361,13 @@ public class Indexer
 		fileOutputStream.close();
 	}
 	
+	/**
+	 * read the contents of a directory and write it to index db.
+	 * 
+	 * @param dir Current directory or file.
+	 * @param fileOutputStream The stream pointing to the index db.
+	 * @throws Exception Any exception.
+	 */
 	private void checkDir(File dir, FileOutputStream fileOutputStream) throws Exception
 	{
 		for (File file : dir.listFiles())
@@ -224,54 +382,82 @@ public class Indexer
 			}
 		}
 	}
-	
-	private void indexItems(File dir) throws Exception
+
+	/**
+	 * Initialize indexing process and wait until all processes are ready.
+	 * 
+	 * @param baseDir The base directory.
+	 * @throws Exception Any exception.
+	 */
+	private void indexItemsStart(File baseDir) throws Exception
 	{
-		Arrays.sort(dir.listFiles());
-		for (File file : dir.listFiles())
-		{
-			if (file.isDirectory())
-			{
-				System.out.println();
-				System.out.println("Indexing directory " + file);
-				indexItems(file);
-			}
-			else if (file.lastModified() >= mDateMillis)
-			{
-				System.out.println(file);
-				indexItem(file);
-			}
-		}
-	}
-	
-	private void indexItem(File file) throws Exception
-	{
-		File tmpFile1 = File.createTempFile("file", ".tmp");
-		File tmpFile2 = File.createTempFile("file", ".tmp");
-		System.out.println("FOXML2eSciDoc: " + tmpFile1);
 		try
 		{
-			transformer1.transform(new StreamSource(file), new StreamResult(tmpFile1));
-		}
-		catch (DynamicError de)
-		{
-			if ("noitem".equals(de.getErrorCodeLocalPart()))
+			
+			indexItems(baseDir);
+			
+			while (busyProcesses > 0)
 			{
-				return;
+				Thread.sleep(10);
+			}
+
+		}
+		catch (Exception e)
+		{
+			FileWriter writer = new FileWriter(new File(resumeFilename));
+			writer.write(currentDir);
+		}
+		
+	}
+	
+	/**
+	 * Index a directory.
+	 * 
+	 * @param dir The directory.
+	 * @throws Exception Any exception.
+	 */
+	private void indexItems(File dir) throws Exception
+	{
+		currentDir = dir.getAbsolutePath();
+		if (resumeDir == null || resumeDir.startsWith(currentDir) || currentDir.compareTo(resumeDir) > 0)
+		{
+			Arrays.sort(dir.listFiles());
+			for (File file : dir.listFiles())
+			{
+				if (file.isDirectory())
+				{
+					logger.info("Indexing directory " + file);
+					indexItems(file);
+				}
+				else if (file.lastModified() >= mDateMillis)
+				{
+					while (busyProcesses >= procCount)
+					{
+						System.out.print(".");
+						Thread.sleep(10);
+					}
+					new IndexThread(file).start();
+					busyProcesses++;
+				}
 			}
 		}
-		System.out.println("eSciDoc2IndexDoc: " + tmpFile2);
-		transformer2.transform(new StreamSource(tmpFile1), new StreamResult(tmpFile2));
-		indexDoc(new FileInputStream(tmpFile2));
+		else
+		{
+			logger.info("Omitting directory " + currentDir);
+		}
 	}
 
 	/**
-	 * @param args
+	 * Main method.
+	 * 
+	 * @param args Command line parameters.
 	 */
 	public static void main(String[] args) throws Exception
 	{
 
-		if (null == args || args.length != 9)
+		long start = new Date().getTime();
+		
+		if (null == args || args.length != 10)
 		{
 			System.out.println("Usage: java Indexer [parameters]");
 			System.out.println("Parameters:");
@@ -284,6 +470,7 @@ public class Indexer
 			System.out.println("7 - Index name");
 			System.out.println("8 - Modification date");
 			System.out.println("9 - Fulltext directory");
+			System.out.println("10 - Number of processors that should be used");
 			System.exit(0);
 		}
 		
@@ -299,8 +486,9 @@ public class Indexer
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String combinedDate = mDate + defaultDate.substring(mDate.length());
 		long mDateMillis = dateFormat.parse(combinedDate).getTime();
+		int procCount = Integer.parseInt(args[9]);
 		
-		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName, mDateMillis, fulltextDir);
+		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName, mDateMillis, fulltextDir, procCount);
 		
 		indexer.prepareIndex();
 		
@@ -309,10 +497,13 @@ public class Indexer
 			indexer.createDatabase();
 		}
 		
-		indexer.indexItems(baseDir);
+		indexer.indexItemsStart(baseDir);
 		indexer.finalizeIndex();
+		indexer.removeResumeFile();
 
-			
+		long end = new Date().getTime();
+		System.out.println("Time: " + (end - start));
+		System.out.println("Items: " + indexer.getItemCount());
 	}
 
 }

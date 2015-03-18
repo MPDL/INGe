@@ -62,7 +62,7 @@ public class ElementTypeHelper {
      *            term
      * @return boolean true or false.
      */
-    public static boolean isDateOrDecimal(final String term) {
+    public static synchronized boolean isDateOrDecimal(final String term) {
         if (term.length() > 40) {
             return false;
         }
