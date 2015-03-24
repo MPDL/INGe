@@ -72,10 +72,10 @@ public class TestFullTextSearch
 	private static Logger logger = Logger.getLogger(TestFullTextSearch.class);
 	
     private static String query_item_container_admin = 
-            "\"/properties/content-model/id\"=\"escidoc:2001\" AND \"/fulltext\"=XXX";
+            "\"/properties/content-model/id\"=\"YYY\" AND \"/fulltext\"=XXX";
     
     private static String query_escidoc_all = 
-            "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"escidoc:2001\" AND \"escidoc.fulltext\"=XXX";
+            "escidoc.objecttype=\"item\" AND escidoc.content-model.objid=\"YYY\" AND \"escidoc.fulltext\"=XXX";
     
     private static long sleepingTime = 5000;
     
@@ -216,9 +216,9 @@ public class TestFullTextSearch
      	assertTrue(result_escidoc_all_5.getVersionNumber() == 3);
     }
 
-	private String getQuery(String querySnippet, String s)
+	private String getQuery(String querySnippet, String s) throws IOException, URISyntaxException
 	{
-		return querySnippet.replaceAll("XXX", s);
+		return querySnippet.replaceAll("XXX", s).replaceAll("YYY", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 	}
 
 	private PubItemVO createAndSubmitItem() throws Exception
