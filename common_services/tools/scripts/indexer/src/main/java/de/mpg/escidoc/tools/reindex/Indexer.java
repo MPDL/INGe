@@ -6,6 +6,7 @@ package de.mpg.escidoc.tools.reindex;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +17,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Stack;
 
 import javax.xml.parsers.SAXParser;
@@ -51,9 +53,10 @@ public class Indexer
 
 	private static Logger logger = Logger.getLogger(Indexer.class);
 	
-	static String indexPath = null;
-	
+	static String indexPath = "";
 	static final String defaultDate = "0000-01-01 00:00:00";
+	private static final String propFileName = "indexer.properties";
+	private static Properties properties = new Properties();
 	
 	boolean create = true;
 	
@@ -83,120 +86,7 @@ public class Indexer
 
 	IndexWriter writer;
 	
-	/**
-	 * Subclass to enable parallelization.
-	 * 
-	 * @author franke
-	 *
-	 */
-	class IndexThread extends Thread
-	{
-		File file;
-		Transformer transformer1;
-		Transformer transformer2;
-		
-		/**
-		 * Constructor with the FOXML file.
-		 * 
-		 * @param file The FOXML file
-		 */
-		public IndexThread(File file)
-		{
-			this.file = file;
-			transformer1 = transformerStack1.pop();
-			transformer2 = transformerStack2.pop();
-		}
-		
-		public void run()
-		{
-			try
-			{
-				indexItem(file);
-			}
-			catch (Exception e)
-			{
-				cleanup();
-				throw new RuntimeException(e);
-			}
-			cleanup();
-		}
-		
-		void cleanup()
-		{
-			transformerStack1.push(transformer1);
-			transformerStack2.push(transformer2);
-			busyProcesses--;
-			System.out.println(transformer1.getParameter("number") + " done.");
-		}
-		
-		/**
-		 * Do all the necessary transformations and build the index document.
-		 * 
-		 * @param file The FOXML file.
-		 * @throws Exception Any exception.
-		 */
-		private void indexItem(File file) throws Exception
-		{
-			logger.info("Indexing file " + file);
-			//File tmpFile1 = File.createTempFile("file", ".tmp");
-			//File tmpFile2 = File.createTempFile("file", ".tmp");
-			StringWriter writer1 = new StringWriter();
-			StringWriter writer2 = new StringWriter();
-			//System.out.println("FOXML2eSciDoc: " + tmpFile1);
-			try
-			{
-				transformer1.transform(new StreamSource(file), new StreamResult(writer1));
-			}
-			catch (DynamicError de)
-			{
-				if ("noitem".equals(de.getErrorCodeLocalPart()))
-				{
-					return;
-				}
-			}
-			itemCount++;
-			//System.out.println("eSciDoc2IndexDoc: " + tmpFile2);
-			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
-			indexDoc(new StringReader(writer2.toString()));
-		}
-		
-		/**
-		 * Write the contents of the index document and the fulltext to the lucene index.
-		 * 
-		 * @param inputStream The index document.
-		 * @throws Exception Any exception.
-		 */
-		public void indexDoc(StringReader inputStream) throws Exception
-		{
 
-		      try {
-
-		        // make a new, empty document
-		        Document doc = new Document();
-		        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-		        DefaultHandler dh = new IndexDocument(doc, fulltextDir);
-		        parser.parse(new InputSource(inputStream), dh);
-
-		        if (writer.getConfig().getOpenMode() == OpenMode.CREATE)
-		        {
-					// New index, so we just add the document (no old document can be there):
-					writer.addDocument(doc);
-		        }
-		        else
-		        {
-		        	// Existing index (an old copy of this document may have been indexed) so 
-		        	// we use updateDocument instead to replace the old one matching the exact 
-		        	// path, if present:
-		        	writer.updateDocument(new Term("PID", doc.get("PID")), doc);
-		        }
-		        
-		      }
-		      finally
-		      {
-		    	  inputStream.close();
-		      }
-		}
-	}
 	
 	/**
 	 * Constructor with initial base directory, should be the fedora "objects" directory.
@@ -211,18 +101,38 @@ public class Indexer
 	 * @param procCount
 	 * @throws Exception
 	 */
-	public Indexer(File baseDir, File dbFile, File indexStylesheet, String indexName, String indexAttributesName, long mDateMillis, String fulltextDir, int procCount) throws Exception
+	public Indexer(File baseDir, String indexName) throws Exception
 	{
 		this.baseDir = baseDir;
-		this.dbFile = dbFile;
-		this.indexStylesheet = indexStylesheet;
-		this.indexName = indexName;
-		this.indexAttributesName = indexAttributesName;
-		this.fulltextDir = fulltextDir;
-		this.mDateMillis = mDateMillis;
-		this.mimetypes = readMimetypes();
-		this.procCount = procCount;
 		
+		InputStream s = getClass().getClassLoader().getResourceAsStream(propFileName);
+		
+		if (s != null)
+		{
+			properties.load(s);
+			logger.info(properties.toString());
+		}
+		else 
+		{
+			throw new FileNotFoundException("Not found " + propFileName);
+		}
+		
+		fulltextDir = properties.getProperty("index.fulltexts.path");
+		
+		this.dbFile = new File(properties.getProperty("index.db.file"));
+		
+		this.indexStylesheet = new File(properties.getProperty("index.stylesheet"));
+		this.indexName = properties.getProperty("index.name.built");;
+		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");;
+	
+		String mDate = properties.getProperty("index.modification.date", "0");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");					
+		String combinedDate = mDate + defaultDate.substring(mDate.length());
+		mDateMillis = dateFormat.parse(combinedDate).getTime();
+		this.mDateMillis = mDateMillis;
+		
+		this.mimetypes = readMimetypes();
+		this.procCount = Integer.parseInt(properties.getProperty("index.number.processors"));;
 		
 		// Create temp file for modified index stylesheet
 		File tmpFile = File.createTempFile("file", ".tmp");
@@ -336,7 +246,7 @@ public class Indexer
 	    	// writer.forceMerge(1);
 
 	    } catch (IOException e) {
-	    	System.out.println(" caught a " + e.getClass() +
+	    	logger.info(" caught a " + e.getClass() +
 	    	 "\n with message: " + e.getMessage());
 	    }
 	}
@@ -446,6 +356,130 @@ public class Indexer
 			logger.info("Omitting directory " + currentDir);
 		}
 	}
+	
+	/**
+	 * Subclass to enable parallelization.
+	 * 
+	 * @author franke
+	 *
+	 */
+	class IndexThread extends Thread
+	{
+		File file;
+		Transformer transformer1;
+		Transformer transformer2;
+		
+		/**
+		 * Constructor with the FOXML file.
+		 * 
+		 * @param file The FOXML file
+		 */
+		public IndexThread(File file)
+		{
+			this.file = file;
+			transformer1 = transformerStack1.pop();
+			transformer2 = transformerStack2.pop();
+		}
+		
+		public void run()
+		{
+			try
+			{
+				logger.info("Start indexItem <" + file.getName() + ">");
+				long start = System.currentTimeMillis();
+				indexItem(file);
+				long end = System.currentTimeMillis();
+				
+				logger.info("Time used for <" + file.getName() + "> "  + (end - start));
+				
+				
+			}
+			catch (Exception e)
+			{
+				cleanup();
+				throw new RuntimeException(e);
+			}
+			cleanup();
+		}
+		
+		void cleanup()
+		{
+			transformerStack1.push(transformer1);
+			transformerStack2.push(transformer2);
+			busyProcesses--;
+			logger.info(transformer1.getParameter("number") + " done.");
+		}
+		
+		/**
+		 * Do all the necessary transformations and build the index document.
+		 * 
+		 * @param file The FOXML file.
+		 * @throws Exception Any exception.
+		 */
+		private void indexItem(File file) throws Exception
+		{
+			logger.info("Indexing file " + file);
+			//File tmpFile1 = File.createTempFile("file", ".tmp");
+			//File tmpFile2 = File.createTempFile("file", ".tmp");
+			StringWriter writer1 = new StringWriter();
+			StringWriter writer2 = new StringWriter();
+			//logger.info("FOXML2eSciDoc: " + tmpFile1);
+			try
+			{
+				transformer1.transform(new StreamSource(file), new StreamResult(writer1));
+			}
+			catch (DynamicError de)
+			{
+				if ("noitem".equals(de.getErrorCodeLocalPart()))
+				{
+					return;
+				}
+			}
+			itemCount++;
+			//logger.info("eSciDoc2IndexDoc: " + tmpFile2);
+			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
+			indexDoc(new StringReader(writer2.toString()));
+		}
+		
+		/**
+		 * Write the contents of the index document and the fulltext to the lucene index.
+		 * 
+		 * @param inputStream The index document.
+		 * @throws Exception Any exception.
+		 */
+		public void indexDoc(StringReader inputStream) throws Exception
+		{
+
+		      try {
+
+		        // make a new, empty document
+		        Document doc = new Document();
+		        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+		        DefaultHandler dh = new IndexDocument(doc, fulltextDir);
+		        parser.parse(new InputSource(inputStream), dh);
+
+		        if (writer.getConfig().getOpenMode() == OpenMode.CREATE)
+		        {
+					// New index, so we just add the document (no old document can be there):
+					writer.addDocument(doc);
+		        }
+		        else
+		        {
+		        	// Existing index (an old copy of this document may have been indexed) so 
+		        	// we use updateDocument instead to replace the old one matching the exact 
+		        	// path, if present:
+		        	writer.updateDocument(new Term("PID", doc.get("PID")), doc);
+		        	
+		        	logger.info(doc.toString());
+		        }
+		        
+		      }
+		      finally
+		      {
+		    	  inputStream.close();
+		      }
+		}
+	}
 
 	/**
 	 * Main method.
@@ -457,25 +491,28 @@ public class Indexer
 
 		long start = new Date().getTime();
 		
-		if (null == args || args.length != 10)
+/*		if (null == args || args.length != 10)
 		{
-			System.out.println("Usage: java Indexer [parameters]");
-			System.out.println("Parameters:");
-			System.out.println("1 - Base directory");
-			System.out.println("2 - Index result directory");
-			System.out.println("3 - File for temporary foxml data");
-			System.out.println("4 - Generate temporary foxml data (true/false)");
-			System.out.println("5 - Index stylesheet");
-			System.out.println("6 - Index stylesheet attributes");
-			System.out.println("7 - Index name");
-			System.out.println("8 - Modification date");
-			System.out.println("9 - Fulltext directory");
-			System.out.println("10 - Number of processors that should be used");
+			logger.info("Usage: java Indexer [parameters]");
+			logger.info("Parameters:");
+			logger.info("1 - Base directory");
+			logger.info("2 - Index result directory");
+			logger.info("3 - File for temporary foxml data");
+			logger.info("4 - Generate temporary foxml data (true/false)");
+			logger.info("5 - Index stylesheet");
+			logger.info("6 - Index stylesheet attributes");
+			logger.info("7 - Index name");
+			logger.info("8 - Modification date");
+			logger.info("9 - Fulltext directory");
+			logger.info("10 - Number of processors that should be used");
 			System.exit(0);
-		}
+		}*/
 		
 		File baseDir = new File(args[0]);
-		indexPath = args[1];
+		
+		String indexName = args[1];
+		
+		/*indexPath = args[1];
 		File dbFile = new File(args[2]);
 		File indexStylesheet = new File(args[4]);
 		String indexAttributesName = args[5];
@@ -486,24 +523,24 @@ public class Indexer
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String combinedDate = mDate + defaultDate.substring(mDate.length());
 		long mDateMillis = dateFormat.parse(combinedDate).getTime();
-		int procCount = Integer.parseInt(args[9]);
+		int procCount = Integer.parseInt(args[9]);*/
 		
-		Indexer indexer = new Indexer(baseDir, dbFile, indexStylesheet, indexName, indexAttributesName, mDateMillis, fulltextDir, procCount);
+		Indexer indexer = new Indexer(baseDir, indexName);
 		
 		indexer.prepareIndex();
 		
-		if ("true".equals(args[3]))
+/*		if ("true".equals(args[2]))
 		{
 			indexer.createDatabase();
-		}
+		}*/
 		
 		indexer.indexItemsStart(baseDir);
 		indexer.finalizeIndex();
 		indexer.removeResumeFile();
 
 		long end = new Date().getTime();
-		System.out.println("Time: " + (end - start));
-		System.out.println("Items: " + indexer.getItemCount());
+		logger.info("Time: " + (end - start));
+		logger.info("Items: " + indexer.getItemCount());
 	}
 
 }

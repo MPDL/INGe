@@ -34,7 +34,7 @@ public class FullTextExtractor
 	
 	private static Logger logger = Logger.getLogger(FullTextExtractor.class);
 
-	private String fulltextPath = "";
+	private String fulltextDir = "";
 	private ExtractionStatistic statistic = new ExtractionStatistic();
 	private Properties properties = new Properties();
 	private String[] envp = new String[2]; 
@@ -53,11 +53,11 @@ public class FullTextExtractor
 			throw new FileNotFoundException("Not found " + propFileName);
 		}
 		
-		fulltextPath = properties.getProperty("fulltexts.path");
-		FileUtils.forceMkdir(new File(properties.getProperty("fulltexts.path")));
+		fulltextDir = properties.getProperty("index.fulltexts.path");
+		FileUtils.forceMkdir(new File(properties.getProperty("index.fulltexts.path")));
 		
-		envp[0] = "pdftotext.path=" + properties.getProperty("pdftotext.path");
-		envp[1] = "pdfbox-app-jar.path=" + properties.getProperty("pdfbox-app-jar.path");
+		envp[0] = "extract.pdftotext.path=" + properties.getProperty("extract.pdftotext.path");
+		envp[1] = "extract.pdfbox-app-jar.path=" + properties.getProperty("extract.pdfbox-app-jar.path");
 	}
 	
 	public void init(File baseDir)
@@ -67,7 +67,7 @@ public class FullTextExtractor
 	
 	public String getFulltextPath()
 	{
-		return this.fulltextPath;
+		return this.fulltextDir;
 	}
 	
 	public ExtractionStatistic getStatistic()
@@ -116,7 +116,7 @@ public class FullTextExtractor
 					// too much properties 
 					
 					chain.setProperties(properties, this.logger);
-					ExtractionResult ret = chain.doExtract(file.getAbsolutePath(), (new File(fulltextPath, file.getName())).getAbsolutePath().concat(".txt"));
+					ExtractionResult ret = chain.doExtract(file.getAbsolutePath(), (new File(fulltextDir, file.getName())).getAbsolutePath().concat(".txt"));
 					
 					if (ret == ExtractionResult.OK)
 					{
@@ -142,7 +142,7 @@ public class FullTextExtractor
 
 	void extractFulltext(File file) throws Exception
 	{   
-		if (!(new File(fulltextPath, file.getName()).exists()))
+		if (!(new File(fulltextDir, file.getName()).exists()))
 		{
 			logger.info("****************** Start extracting " + file.getName());
 		}
@@ -181,9 +181,9 @@ public class FullTextExtractor
 		
 		cmd[0] = "java";
 		cmd[1] = "-jar";
-		cmd[2] = properties.getProperty("extraction-chain.path");
+		cmd[2] = properties.getProperty("extract.extraction-chain.path");
 		cmd[3] = f.getAbsolutePath();
-		cmd[4] = (new File(fulltextPath, f.getName())).getAbsolutePath().concat(".txt");
+		cmd[4] = (new File(fulltextDir, f.getName())).getAbsolutePath().concat(".txt");
 		
 		logger.info("extract command <" + Arrays.toString(cmd) + ">");
 		return cmd;
@@ -223,7 +223,6 @@ public class FullTextExtractor
 	public static void main(String[] args) throws Exception
 	{
 		File baseDir = new File(args[0]);
-		
 		
 		long mDateMillis = 0;
 		
