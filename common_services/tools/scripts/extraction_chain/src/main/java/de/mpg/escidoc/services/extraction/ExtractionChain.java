@@ -61,35 +61,42 @@ public class ExtractionChain
     
     private static Logger logger = Logger.getLogger(ExtractionChain.class);
     
-    private String pdftotext = System.getenv("pdftotext.path");
-    private String pdfboxAppJar = System.getenv("pdfbox-app-jar.path");
+    private String pdftotext = System.getenv("extract.pdftotext.path");
+    private String pdfboxAppJar = System.getenv("extract.pdfbox-app-jar.path");
+    
+    public enum ExtractionResult 
+    {
+    	 OK, FAILURE; 
+    }
+    	
+   
     
     public ExtractionChain()
     { 
-         this.pdftotext = System.getenv("pdftotext.path");
-         this.pdfboxAppJar = System.getenv("pdfbox-app-jar.path");
+         this.pdftotext = System.getenv("extract.pdftotext.path");
+         this.pdfboxAppJar = System.getenv("extract.pdfbox-app-jar.path");
 
         return;
     }
     
-    // if called by Runtime.exec(cmd, envp) the following properties are got by the environment. 
+    // if called by Runtime.exec(cmd, envp) the following properties are got from the environment parameter. 
     // Otherwise the properties are expected to be set by the calling instance explicitly using this method.
     
     public void setProperties(Properties p, Logger logger)
     { 	
     	if (pdftotext == null) 
     	{
-    		pdftotext = p.getProperty("pdftotext.path");
+    		pdftotext = p.getProperty("extract.pdftotext.path");
     	}
     	if (pdfboxAppJar == null) 
     	{
-    		pdfboxAppJar= p.getProperty("pdfbox-app-jar.path");
+    		pdfboxAppJar= p.getProperty("extract.pdfbox-app-jar.path");
     	}
     	
     	this.logger = logger;
     }
     
-    public int doExtract(String infileName, String outfileName)
+    public ExtractionResult doExtract(String infileName, String outfileName)
     {
     	File outfile = new File(outfileName);
     	
@@ -124,7 +131,6 @@ public class ExtractionChain
             
             int exitCode = proc.waitFor();
             
-                    
             if (proc.exitValue() == 0)
             {
             	
@@ -142,7 +148,7 @@ public class ExtractionChain
                 logger.info(current + " -- finished successfully");
                 logger.info("Extraction took " + (current.getTime() - stepStart.getTime()));
                 
-                return 0;
+                return ExtractionResult.OK;
             }
         }
         catch (Exception e)
@@ -196,7 +202,7 @@ public class ExtractionChain
                 logger.info(current + " -- finished successfully");
                 logger.info("Extraction took " + (current.getTime() - stepStart.getTime()));
 
-                return 0;
+                return ExtractionResult.OK;
             }
         }
         catch (Exception e)
@@ -240,7 +246,7 @@ public class ExtractionChain
             logger.info(current + " -- finished successfully");
             logger.info("Extraction took " + (current.getTime() - stepStart.getTime()));
 
-            return 0;
+            return ExtractionResult.OK;
 
         }
         catch (Exception e)
@@ -249,12 +255,12 @@ public class ExtractionChain
         }
         
         current = new Date();
-        logger.info(current + " -- finished unsuccessfully");
+        logger.warn(current + " -- finished unsuccessfully");
         logger.info("Extraction attempt took " + (current.getTime() - stepStart.getTime()));
         
         logger.info("... giving up");
         
-        return 1;
+        return ExtractionResult.FAILURE;
     }
     
     
@@ -290,7 +296,7 @@ public class ExtractionChain
      */
     public static void main(String[] args)
     {
-    	int ret = 0;
+    	ExtractionResult ret = ExtractionResult.FAILURE;
     	
         if (args.length < 2)
         {
@@ -311,6 +317,6 @@ public class ExtractionChain
             System.out.println("ret in main " + ret);
         }
         
-        System.exit(ret);
+        System.exit(ret.ordinal());
     }
 }
