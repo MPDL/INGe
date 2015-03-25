@@ -1832,7 +1832,7 @@ Notes:
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH//*">
 				<element index="TOKENIZED">
-					<xsl:value-of select="$ITEM_METADATAPATH/@type"/>
+					<xsl:value-of select="./@type"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
