@@ -121,7 +121,7 @@ public abstract class ValueObject implements Serializable
     	{
 	    	if(String.class.isAssignableFrom(obj.getClass()))
 			{
-				empty = ((String)obj).isEmpty();
+				empty = ((String)obj).trim().isEmpty();
 				
 			}
 			else if (Collection.class.isAssignableFrom(obj.getClass()))
