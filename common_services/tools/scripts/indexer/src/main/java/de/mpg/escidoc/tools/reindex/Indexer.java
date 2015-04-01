@@ -5,18 +5,19 @@ package de.mpg.escidoc.tools.reindex;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.Stack;
 
@@ -29,9 +30,11 @@ import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.trans.DynamicError;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Fieldable;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -121,9 +124,15 @@ public class Indexer
 		
 		this.dbFile = new File(properties.getProperty("index.db.file"));
 		
+		this.indexPath = properties.getProperty("index.result.directory");
+		if (!(new File(indexPath)).exists())
+		{
+			FileUtils.forceMkdir(new File(indexPath));
+		}
+		
 		this.indexStylesheet = new File(properties.getProperty("index.stylesheet"));
 		this.indexName = properties.getProperty("index.name.built");;
-		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");;
+		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");
 	
 		String mDate = properties.getProperty("index.modification.date", "0");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");					
@@ -139,9 +148,12 @@ public class Indexer
 		
 		logger.info("transforming index stylesheet to " + tmpFile);
 		
+		long s3 = System.currentTimeMillis();
 		transformer3.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformer3.transform(new StreamSource(indexStylesheet), new StreamResult(tmpFile));
-
+		long e3 = System.currentTimeMillis();
+		logger.info("transforming index stylesheet used <" + (e3-s3) + "> ms");
+		
 		for (int i = 0; i < procCount; i++)
 		{
 			
@@ -166,8 +178,11 @@ public class Indexer
 			FileReader reader = new FileReader(resumeFile);
 			int len = reader.read(buffer);
 			reader.close();
+			if (len > 0)
+			{
 			resumeDir = new String(buffer, 0, len);
 			logger.info("Resuming at directory " + resumeDir);
+			}
 		}
 		
 	}
@@ -184,6 +199,12 @@ public class Indexer
 	
 	public int getItemCount() {
 		return itemCount;
+	}
+	
+	public String getIndexPath()
+	{
+		return this.indexPath;
+		
 	}
 
 	/**
@@ -299,7 +320,7 @@ public class Indexer
 	 * @param baseDir The base directory.
 	 * @throws Exception Any exception.
 	 */
-	private void indexItemsStart(File baseDir) throws Exception
+	public void indexItemsStart(File baseDir) throws Exception
 	{
 		try
 		{
@@ -314,6 +335,7 @@ public class Indexer
 		}
 		catch (Exception e)
 		{
+			logger.warn("Indexing interrupted at <" + currentDir + ">");
 			FileWriter writer = new FileWriter(new File(resumeFilename));
 			writer.write(currentDir);
 		}
@@ -385,14 +407,13 @@ public class Indexer
 		{
 			try
 			{
+				logger.info("------------------------------------------------------------------------------------------");
 				logger.info("Start indexItem <" + file.getName() + ">");
 				long start = System.currentTimeMillis();
 				indexItem(file);
 				long end = System.currentTimeMillis();
 				
-				logger.info("Time used for <" + file.getName() + "> "  + (end - start));
-				
-				
+				logger.info("Total time used for <" + file.getName() + "> <" + (end - start) + "> ms");	
 			}
 			catch (Exception e)
 			{
@@ -400,6 +421,7 @@ public class Indexer
 				throw new RuntimeException(e);
 			}
 			cleanup();
+			logger.info("------------------------------------------------------------------------------------------");
 		}
 		
 		void cleanup()
@@ -419,14 +441,25 @@ public class Indexer
 		private void indexItem(File file) throws Exception
 		{
 			logger.info("Indexing file " + file);
-			//File tmpFile1 = File.createTempFile("file", ".tmp");
-			//File tmpFile2 = File.createTempFile("file", ".tmp");
+			
+			File tmpFile1 = File.createTempFile(file.getName() + "_foxml2escidoc_", ".tmp");
+			File tmpFile2 = File.createTempFile(file.getName() + "_idx_", ".tmp");
+			
 			StringWriter writer1 = new StringWriter();
 			StringWriter writer2 = new StringWriter();
-			//logger.info("FOXML2eSciDoc: " + tmpFile1);
+			
+			logger.info("FOXML2eSciDoc: " + tmpFile1);
+			logger.info("eSciDoc2IndexDoc: " + tmpFile2);
+			
 			try
 			{
+				long s1 = System.currentTimeMillis();
 				transformer1.transform(new StreamSource(file), new StreamResult(writer1));
+				long e1 = System.currentTimeMillis();
+				logger.info("FOXML2eSciDoc used <" + (e1 - s1) + "> ms");
+				
+				FileUtils.writeStringToFile(tmpFile1, writer1.toString());
+						
 			}
 			catch (DynamicError de)
 			{
@@ -436,8 +469,14 @@ public class Indexer
 				}
 			}
 			itemCount++;
-			//logger.info("eSciDoc2IndexDoc: " + tmpFile2);
+			
+			long s2 = System.currentTimeMillis();
 			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
+			
+			FileUtils.writeStringToFile(tmpFile2, writer2.toString());
+			long e2 = System.currentTimeMillis();
+			logger.info("eSciDoc2IndexDoc used <" + (e2 - s2) + "> ms");
+			
 			indexDoc(new StringReader(writer2.toString()));
 		}
 		
@@ -462,6 +501,9 @@ public class Indexer
 		        {
 					// New index, so we just add the document (no old document can be there):
 					writer.addDocument(doc);
+					
+					if (logger.isInfoEnabled())
+						logIndexDocument(doc);
 		        }
 		        else
 		        {
@@ -479,6 +521,20 @@ public class Indexer
 		    	  inputStream.close();
 		      }
 		}
+
+		private void logIndexDocument(Document doc) throws IOException
+		{
+			Iterator<Fieldable> it = doc.getFields().iterator();
+			logger.debug(" --------------------------------- Start index document ");
+			
+			PrintWriter pw = new PrintWriter(new FileWriter(new File(doc.get("PID").replaceAll(":", "_").concat(".idx.txt"))));
+			while(it.hasNext())
+			{
+				Fieldable f = it.next();
+				pw.println(f.name() + " " + f.stringValue());
+			}
+			logger.debug(" --------------------------------- End index document ");
+		}
 	}
 
 	/**
@@ -488,7 +544,6 @@ public class Indexer
 	 */
 	public static void main(String[] args) throws Exception
 	{
-
 		long start = new Date().getTime();
 		
 /*		if (null == args || args.length != 10)
@@ -541,6 +596,12 @@ public class Indexer
 		long end = new Date().getTime();
 		logger.info("Time: " + (end - start));
 		logger.info("Items: " + indexer.getItemCount());
+	}
+
+	public void getIndexDirectory()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

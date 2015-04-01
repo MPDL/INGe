@@ -61,8 +61,8 @@ public class FullTextExtractor
 	}
 	
 	public void init(File baseDir)
-	{		
-		statistic.setFilesTotal(Util.countFilesInDirectory(baseDir));	
+	{				
+			statistic.setFilesTotal(Util.countFilesInDirectory(baseDir));
 	}
 	
 	public String getFulltextPath()
@@ -116,7 +116,7 @@ public class FullTextExtractor
 					// too much properties 
 					
 					chain.setProperties(properties, this.logger);
-					ExtractionResult ret = chain.doExtract(file.getAbsolutePath(), (new File(fulltextDir, file.getName())).getAbsolutePath().concat(".txt"));
+					ExtractionResult ret = chain.doExtract(file.getCanonicalPath(), (new File(fulltextDir, file.getName())).getAbsolutePath().concat(".txt"));
 					
 					if (ret == ExtractionResult.OK)
 					{
