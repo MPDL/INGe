@@ -106,7 +106,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         CREATION_DATE("sort.escidoc.property.creation-date", "/sort/properties/creation-date", OrderFilter.ORDER_ASCENDING),
         STATE("sort.escidoc.property.version.status", "/sort/properties/version/status", OrderFilter.ORDER_ASCENDING),
         OWNER("sort.escidoc.property.created-by.name", "/sort/properties/created-by/title", OrderFilter.ORDER_ASCENDING),
-        COLLECTION("sort.escidoc.context.name", "/sort/properties/context/title", OrderFilter.ORDER_ASCENDING);
+        COLLECTION("sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle", OrderFilter.ORDER_ASCENDING);
         
 
 
