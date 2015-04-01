@@ -843,7 +843,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getFullTitle()
     {
-        if (this.getMetadata() != null)
+        if (this.getMetadata()!=null && this.getMetadata().getTitle()!= null)
         {
             return getMetadata().getTitle().getValue();
         }
@@ -852,7 +852,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             return this.getYearbookMetadata().getTitle().getValue();
         }
         else {
-            return "";
+            return "#### NO TITLE!!! ####";
         }
     }
     
