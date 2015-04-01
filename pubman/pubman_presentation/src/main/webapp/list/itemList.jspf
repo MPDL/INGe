@@ -63,7 +63,8 @@
  		<h:outputLink  id="btPartListSize" styleClass="min_imgBtn skipToFirst"   title="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForFirstPage}"  >
 			<h:outputText value=" "/>
  		</h:outputLink>
- 		<h:outputLink  id="btList_lkPrevious" styleClass="backward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForPreviousPage}"  >
+ 		<ui:param name="backButtonMouseOverText" value="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}"/>
+ 		<h:outputLink  id="btList_lkPrevious" styleClass="backward" title="#{PubItemListSessionBean.currentPageNumber == 1 ? '' : backButtonMouseOverText}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForPreviousPage}"  >
 			<h:outputText value="#{lbl.List_lkPrevious}"/>
  		</h:outputLink>
  		<h:panelGroup styleClass="seperator" />
@@ -78,7 +79,8 @@
 	 			<h:panelGroup styleClass="seperator" />
  				</ui:fragment>
  		</ui:repeat>
- 		<h:outputLink  id="btList_lkNext" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
+ 		<ui:param name="nextButtonMouseOverText" value="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}"/>
+ 		<h:outputLink  id="btList_lkNext" styleClass="forward"   title="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize ? '' : nextButtonMouseOverText}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
 			<h:outputText value="#{lbl.List_lkNext}"/>
 		 </h:outputLink>
  		<h:outputLink  id="btLinkForLastPage" styleClass="min_imgBtn skipToLast"   title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForLastPage}"  >
@@ -247,9 +249,12 @@
  		<h:outputLink  id="btPartListSizeBottom" styleClass="min_imgBtn skipToFirst"   title="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForFirstPage}"  >
 			<h:outputText value=" "/>
  		</h:outputLink>
- 		<h:outputLink  id="btList_lkPreviousBottom" styleClass="backward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 -PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForPreviousPage}"  >
+ 		
+ 		<ui:param name="backButtonMouseOverText" value="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}"/>
+ 		<h:outputLink  id="btList_lkPreviousBottom" styleClass="backward" title="#{PubItemListSessionBean.currentPageNumber == 1 ? '' : backButtonMouseOverText}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForPreviousPage}"  >
 			<h:outputText value="#{lbl.List_lkPrevious}"/>
  		</h:outputLink>
+
  		<h:panelGroup styleClass="seperator" />
  		<ui:repeat id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" offset="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" varStatus="status">
  			<ui:fragment rendered="#{status.index lt PubItemListSessionBean.firstPaginatorPageNumber + 6}">
@@ -262,9 +267,10 @@
  			<h:panelGroup styleClass="seperator" />
  			</ui:fragment>
  		</ui:repeat>
- 		<h:outputLink  id="btList_lkNextBottom" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
+		<ui:param name="nextButtonMouseOverText" value="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}"/>
+ 		<h:outputLink  id="btList_lkNextBottom" styleClass="forward"   title="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize ? '' : nextButtonMouseOverText}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
 			<h:outputText value="#{lbl.List_lkNext}"/>
- 		</h:outputLink>
+		 </h:outputLink>
  		<h:outputLink  id="btLinkForLastPageBottom" styleClass="min_imgBtn skipToLast"   title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForLastPage}"  >
 			<h:outputText value=" "/>
 		 </h:outputLink>
