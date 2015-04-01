@@ -29,11 +29,31 @@
 */
 
 function addPaginatorFunctions() {
-	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
+	$('.gotoBox').find(':text').keypress(function(event){ 
+		
+		switch (event.keyCode) { 
+			case 13: {
+				event.preventDefault(); 
+				$(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click();
+				break;  
+			}
+			
+		}
+	}
+	);
 }
 
 function addPaginatorItemFunctions() {
-	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.pageChangeHiddenBtn').click(); break;   }});
+	$('.gotoBox').find(':text').keypress(function(event){
+		switch (event.keyCode) {
+			case 13: {
+				event.preventDefault(); 
+				$(this).parents('.gotoBox').find('.pageChangeHiddenBtn').click();
+				break;   
+			}
+		}
+	}
+	);
 }
 
 function installExtPaginator() {
