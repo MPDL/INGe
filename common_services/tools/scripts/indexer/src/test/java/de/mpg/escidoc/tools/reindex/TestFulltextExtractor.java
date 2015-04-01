@@ -42,7 +42,7 @@ public class TestFulltextExtractor
 	}
 
 	@Test
-	public void testFiles() throws Exception
+	public void testFilesOk() throws Exception
 	{	
 		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"));
@@ -67,7 +67,22 @@ public class TestFulltextExtractor
 	}
 
 	@Test
-	public void testDir() throws Exception
+	public void testFilesOk1() throws Exception
+	{	
+		extractor.init(new File("src/test/resources/20/escidoc_2110752+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/20/escidoc_2110752+content+content.0"));
+		
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_2110752+content+content.0.txt")).exists());
+		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
+		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
+		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
+	}
+
+	
+	@Test
+	public void testDirOk() throws Exception
 	{
 		
 		extractor.init(new File("src/test/resources/19"));
