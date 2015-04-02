@@ -69,8 +69,8 @@ public class TestFulltextExtractor
 	@Test
 	public void testFilesOk1() throws Exception
 	{	
-		extractor.init(new File("src/test/resources/20/escidoc_2110752+content+content.0"));
-		extractor.extractFulltexts(new File("src/test/resources/20/escidoc_2110752+content+content.0"));
+		extractor.init(new File("src/test/resources/19/escidoc_2110752+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2110752+content+content.0"));
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_2110752+content+content.0.txt")).exists());
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
@@ -90,10 +90,11 @@ public class TestFulltextExtractor
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
+		assertTrue((new File(extractor.getFulltextPath(), "escidoc_2110752+content+content.0.txt")).exists());
 		
-		assertTrue("Expected 2 Found " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 2);
+		assertTrue("Expected 3 Found " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 3);
 		assertTrue("Expected 0 Found " + extractor.getStatistic().getFilesErrorOccured(), extractor.getStatistic().getFilesErrorOccured() == 0);
-		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 2);
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 3);
 		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
 		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
 	}
