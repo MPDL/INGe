@@ -586,7 +586,7 @@
 		<layout-element name="source-abbTitle">
 			<elements>
 				<layout-element
-					ref="pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text()" />
+					ref="pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION'][1]/text()" />
 			</elements>
 		</layout-element>
 
@@ -601,7 +601,7 @@
 				<layout-element>
 					<parameters>
 						<valid-if><![CDATA[
-					not(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text())
+					not(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION'][1]/text())
 					]]></valid-if>
 					</parameters>
 					<elements>

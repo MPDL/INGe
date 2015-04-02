@@ -1605,7 +1605,7 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text())"/>
+                                                              select="func:escapeMarkupTags(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION'][1]/text())"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1632,7 +1632,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;not(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;not(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION'][1]/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
