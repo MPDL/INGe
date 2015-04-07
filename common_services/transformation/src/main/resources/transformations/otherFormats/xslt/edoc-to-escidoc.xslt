@@ -3911,8 +3911,8 @@
 											</xsl:otherwise>
 										</xsl:choose>
 									</xsl:when>
-									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS' or $import-name = 'MPIKOFO' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MPIIPP') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
-										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
+									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS' or $import-name = 'MPIKOFO' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MPIIPP' or $import-name = 'MPISF') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
+										<xsl:comment> Case for unknown user with external affiliation </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
 												<xsl:value-of select="./../../../docaff/docaff_external"/>
