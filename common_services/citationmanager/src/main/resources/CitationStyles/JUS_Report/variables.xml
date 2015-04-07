@@ -129,16 +129,16 @@
 			<![CDATA[
 			if ($sourceGenre=$l_journal) then 
 				if ($onlineIdType = 'DOI') 
-				then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text())
+				then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI'][1]/text())
 				
 				else if ($onlineIdType = 'URN') 
-				then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()
+				then pub:publication/dc:identifier[@xsi:type='eterms:URN'][1]/text()
 				
 				else if ($onlineIdType = 'URI') 
-				then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()
+				then pub:publication/dc:identifier[@xsi:type='eterms:URI'][1]/text()
 				
 				else if ($onlineIdType = 'source_URI') 
-				then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()
+				then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI'][1]/text()
 				
 				
 				else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
@@ -175,19 +175,19 @@
 			<![CDATA[
 			if ($genre = $l_paper) then 
 				if ($onlineIdTypePaper = 'SSRN') 
-				then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN']/text())
+				then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN'][1]/text())
 				
 				else if ($onlineIdTypePaper = 'URN') 
-				then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()
+				then pub:publication/dc:identifier[@xsi:type='eterms:URN'][1]/text()
 				
 				else if ($onlineIdTypePaper = 'URI') 
-				then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()
+				then pub:publication/dc:identifier[@xsi:type='eterms:URI'][1]/text()
 				
 				else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
 				then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url']/@xlink:href
 				
 				else if ($onlineIdTypePaper = 'source_SSRN') 
-				then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']/text()
+				then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN'][1]/text()
 				
 				
 				else ''
@@ -220,13 +220,13 @@
 			<![CDATA[
 			if ($sourceGenre=$l_journal) then 
 				if ($idType = 'CONE') 
-				then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']/text())
+				then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE'][1]/text())
 				
 				else if ($idType = 'ISSN') 
-				then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']/text()
+				then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN'][1]/text()
 				
 				else if ($idType = 'ZDB') 
-				then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']/text()
+				then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB'][1]/text()
 				
 				else ''
 				else '']]>

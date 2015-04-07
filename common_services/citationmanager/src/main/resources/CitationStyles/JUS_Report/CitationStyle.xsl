@@ -33,8 +33,7 @@
         </xsl:copy>
     </xsl:template>
     <xsl:template match="prop:content-model-specific">
-        <xsl:element name="{name(.)}">
-            <xsl:copy-of select="child::node()"/>
+        <xsl:element name="{name(.)}"><!--XXX - Template copy Of -XXX--><xsl:copy-of select="child::node()"/>
             <xsl:element name="dcterms:bibliographicCitation">
                 <xsl:variable name="citation">
                     <xsl:for-each select="../../mdr:md-records/mdr:md-record"><!--### Global Default Variables ###-->
@@ -262,19 +261,19 @@
                             <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:DOI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'DOI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdValue">
-                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdType = 'DOI') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'source_URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdType = 'DOI') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI'][1]/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'source_URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdTypePaper">
                             <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:SSRN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'SSRN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_SSRN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdValuePaper">
-                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdTypePaper = 'SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url']/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'source_SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($genre = $l_paper) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdTypePaper = 'SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN'][1]/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url']/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdTypePaper = 'source_SSRN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="idType">
                             <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'CONE'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ISSN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ZDB'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="idValue">
-                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($idType = 'CONE') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ISSN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ZDB') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
+                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($idType = 'CONE') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE'][1]/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ISSN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ZDB') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB'][1]/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;)"/>
                         </xsl:variable>
                         <xsl:variable name="volume-prefix">
                             <xsl:value-of select="func:escapeMarkupTags('Bd.')"/>
@@ -351,36 +350,36 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(pub:publication/source:source/e:creator[1]/person:person/e:given-name/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(pub:publication/source:source/e:creator[1]/person:person/e:family-name/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(pub:publication/source:source/e:creator[1]/organization:organization/dc:title/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Repeatable Layout Element ###-->
@@ -397,24 +396,24 @@
                                                                                     <le>
                                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(person:person/e:given-name/text())"/>
-                                                                                            <xsl:copy-of select="$var"/>
+                                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                         </xsl:variable>
-                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                     </le>
                                                                                     <le>
                                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(person:person/e:family-name/text())"/>
-                                                                                            <xsl:copy-of select="$var"/>
+                                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                         </xsl:variable>
-                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                     </le>
                                                                                     <le>
                                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                           select="func:escapeMarkupTags(organization:organization/dc:title/text())"/>
-                                                                                            <xsl:copy-of select="$var"/>
+                                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                         </xsl:variable>
-                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                     </le>
                                                                                 </xsl:with-param>
                                                                                 <xsl:with-param name="delimiter" select="' '"/>
@@ -425,12 +424,12 @@
                                                                 <xsl:with-param name="delimiter" select="', '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -449,20 +448,20 @@
                                                                                         <le>
                                                                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$etAll-postfix"/>
-                                                                                                <xsl:copy-of select="$var"/>
+                                                                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                             </xsl:variable>
-                                                                                            <xsl:copy-of select="$var"/>
+                                                                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                         </le>
                                                                                     </xsl:with-param>
                                                                                     <xsl:with-param name="delimiter" select="' '"/>
                                                                                 </xsl:call-template>
                                                                             </xsl:variable>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:if>
                                                                     </xsl:variable>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                             </le>
                                                             <le>
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -475,9 +474,9 @@
                                                                                         <le>
                                                                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$editor-postfix"/>
-                                                                                                <xsl:copy-of select="$var"/>
+                                                                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                             </xsl:variable>
-                                                                                            <xsl:copy-of select="$var"/>
+                                                                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                         </le>
                                                                                     </xsl:with-param>
                                                                                     <xsl:with-param name="delimiter" select="' '"/>
@@ -489,25 +488,25 @@
                                                                                 <xsl:if test="exists($var) and $var!=''">
                                                                                     <xsl:text>(</xsl:text>
                                                                                 </xsl:if>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                                 <xsl:if test="exists($var) and $var!=''">
                                                                                     <xsl:text>)</xsl:text>
                                                                                 </xsl:if>
                                                                             </xsl:variable>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:if>
                                                                     </xsl:variable>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                             </le>
                                                         </xsl:with-param>
                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                     </xsl:call-template>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
@@ -515,13 +514,12 @@
                             </xsl:variable>
                             <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="edition"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -542,24 +540,24 @@
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(func:substringBeforeEdition(pub:publication/e:publishing-info/e:edition/text()))"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(func:substringBeforeEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text()))"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$edition-postfix"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -571,24 +569,24 @@
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                                       select="func:escapeMarkupTags(func:substringAfterEdition(pub:publication/e:publishing-info/e:edition/text()))"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                                       select="func:escapeMarkupTags(func:substringAfterEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text()))"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$instalment-postfix"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                             </xsl:with-param>
                                                                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -600,22 +598,22 @@
                                                                                         <xsl:if test="exists($var) and $var!=''">
                                                                                             <xsl:text>, </xsl:text>
                                                                                         </xsl:if>
-                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                                     </xsl:variable>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -635,24 +633,24 @@
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                                       select="func:escapeMarkupTags(func:substringBeforeInstalment(pub:publication/e:publishing-info/e:edition/text()))"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                                       select="func:escapeMarkupTags(func:substringBeforeInstalment(pub:publication/source:source[1]/e:publishing-info/e:edition/text()))"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$instalment-postfix"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                             </xsl:with-param>
                                                                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -664,22 +662,22 @@
                                                                                         <xsl:if test="exists($var) and $var!=''">
                                                                                             <xsl:text>, </xsl:text>
                                                                                         </xsl:if>
-                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                                     </xsl:variable>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -693,35 +691,35 @@
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(pub:publication/e:publishing-info/e:edition/text())"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$edition-postfix"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="'. '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -733,12 +731,12 @@
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
-                                        <xsl:copy-of select="$var"/>
+                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="publisher-without-place"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -749,9 +747,9 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/e:publishing-info/dc:publisher/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
@@ -763,9 +761,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="publisher-place"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -776,17 +774,17 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/e:publishing-info/dc:publisher/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/e:publishing-info/e:place/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="', '"/>
@@ -798,9 +796,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-publisher-place"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -811,17 +809,17 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/source:source[1]/e:publishing-info/dc:publisher/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/source:source[1]/e:publishing-info/e:place/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="', '"/>
@@ -833,9 +831,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="publisher-place-since"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -846,9 +844,9 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/e:publishing-info/dc:publisher/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -862,35 +860,35 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(func:substringBeforeSince(pub:publication/e:publishing-info/e:place/text()))"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$since-prefix"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(func:substringAfterSince(pub:publication/e:publishing-info/e:place/text()))"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -904,20 +902,20 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(pub:publication/e:publishing-info/e:place/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="', '"/>
@@ -929,9 +927,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="pages"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -944,16 +942,16 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                       select="func:escapeMarkupTags(pub:publication/e:total-number-of-pages/text())"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$pages-postfix"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -965,12 +963,12 @@
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
-                                        <xsl:copy-of select="$var"/>
+                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="start-end-page"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -980,9 +978,9 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$sourceStartPage"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -995,20 +993,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$sourceEndPage"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' - '"/>
@@ -1020,9 +1018,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="volume-with-prefix"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1034,16 +1032,16 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-prefix"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceVolume"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -1055,12 +1053,12 @@
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
-                                        <xsl:copy-of select="$var"/>
+                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="volume-issue-journal"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1078,33 +1076,33 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceVolume"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceIssue"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="', '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="volume-issue-online-journal"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1124,36 +1122,36 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceVolume"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceIssue"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="'.'"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
                                         </xsl:call-template>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="year-default-and-online-journal"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1171,9 +1169,9 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
@@ -1185,17 +1183,17 @@
                                                             <xsl:if test="exists($var) and $var!=''">
                                                                 <xsl:text>(</xsl:text>
                                                             </xsl:if>
-                                                            <xsl:copy-of select="$var"/>
+                                                            <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             <xsl:if test="exists($var) and $var!=''">
                                                                 <xsl:text>)</xsl:text>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1208,26 +1206,26 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-title-volume"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1240,16 +1238,16 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                       select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceVolume"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="', '"/>
@@ -1261,15 +1259,15 @@
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>(</xsl:text>
                                         </xsl:if>
-                                        <xsl:copy-of select="$var"/>
+                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>)</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-title-volume-contr"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1280,9 +1278,9 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1294,17 +1292,17 @@
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                   select="func:escapeMarkupTags(pub:publication/source:source[2]/dc:title/text())"/>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                             </le>
                                                             <le>
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                   select="func:escapeMarkupTags(pub:publication/source:source[2]/e:volume/text())"/>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                             </le>
                                                         </xsl:with-param>
                                                         <xsl:with-param name="delimiter" select="', '"/>
@@ -1316,27 +1314,27 @@
                                                     <xsl:if test="exists($var) and $var!=''">
                                                         <xsl:text>(</xsl:text>
                                                     </xsl:if>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     <xsl:if test="exists($var) and $var!=''">
                                                         <xsl:text>)</xsl:text>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-with-prefix"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-title-volume-paper"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1357,16 +1355,16 @@
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceVolume"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="', '"/>
@@ -1378,17 +1376,17 @@
                                                                     <xsl:if test="exists($var) and $var!=''">
                                                                         <xsl:text>(</xsl:text>
                                                                     </xsl:if>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                     <xsl:if test="exists($var) and $var!=''">
                                                                         <xsl:text>), </xsl:text>
                                                                     </xsl:if>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1402,9 +1400,9 @@
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
@@ -1416,23 +1414,23 @@
                                                                     <xsl:if test="exists($var) and $var!=''">
                                                                         <xsl:text>, </xsl:text>
                                                                     </xsl:if>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
                                         </xsl:call-template>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="id-online-publication"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1452,27 +1450,27 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$doi-prefix"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$onlineIdValue"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -1484,15 +1482,15 @@
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
-                                        <xsl:copy-of select="$var"/>
+                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="id-online-publication-paper"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1504,9 +1502,9 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$onlineIdValuePaper"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1520,20 +1518,20 @@
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/e:published-online/text()))"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="', '"/>
@@ -1545,12 +1543,12 @@
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
-                                        <xsl:copy-of select="$var"/>
+                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="title"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1560,15 +1558,15 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-title"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1579,9 +1577,9 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
@@ -1593,9 +1591,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-abbTitle"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1606,15 +1604,15 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION'][1]/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-abbTitle-or-normalTitle"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1624,9 +1622,9 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1639,26 +1637,26 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="legal-case"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1668,9 +1666,9 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1684,9 +1682,9 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/e:court/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
@@ -1698,17 +1696,17 @@
                                                             <xsl:if test="exists($var) and $var!=''">
                                                                 <xsl:text>, </xsl:text>
                                                             </xsl:if>
-                                                            <xsl:copy-of select="$var"/>
+                                                            <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             <xsl:if test="exists($var) and $var!=''">
                                                                 <xsl:text>, </xsl:text>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1722,9 +1720,9 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                           select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/e:court/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
@@ -1732,26 +1730,25 @@
                                                         </xsl:variable>
                                                         <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                                            <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             <xsl:if test="exists($var) and $var!=''">
                                                                 <xsl:text>, </xsl:text>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/legalCase:legal-case/dcterms:issued/text()))"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1763,9 +1760,9 @@
                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                   select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/dc:identifier/text())"/>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                             </le>
                                                         </xsl:with-param>
                                                         <xsl:with-param name="delimiter" select="' '"/>
@@ -1777,25 +1774,25 @@
                                                     <xsl:if test="exists($var) and $var!=''">
                                                         <xsl:text> - </xsl:text>
                                                     </xsl:if>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="func:escapeMarkupTags(pub:publication/legalCase:legal-case/dc:title/text())"/>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="degree"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1813,20 +1810,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1839,20 +1836,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1865,20 +1862,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1891,20 +1888,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1917,20 +1914,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1943,20 +1940,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -1969,20 +1966,20 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:if>
                                                 </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
+                                                <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                             </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
+                                            <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                         </le>
                                     </xsl:with-param>
                                     <xsl:with-param name="delimiter" select="' '"/>
@@ -1994,9 +1991,9 @@
                                 <xsl:if test="exists($var) and $var!=''">
                                     <xsl:text>, </xsl:text>
                                 </xsl:if>
-                                <xsl:copy-of select="$var"/>
+                                <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="get-journal-citation-style"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -2014,9 +2011,9 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2029,9 +2026,9 @@
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                             </xsl:with-param>
                                                                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2043,55 +2040,55 @@
                                                                                         <xsl:if test="exists($var) and $var!=''">
                                                                                             <xsl:text>[</xsl:text>
                                                                                         </xsl:if>
-                                                                                        <xsl:copy-of select="$var"/>
+                                                                                        <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                                         <xsl:if test="exists($var) and $var!=''">
                                                                                             <xsl:text>]</xsl:text>
                                                                                         </xsl:if>
                                                                                     </xsl:variable>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:if>
                                                                             </xsl:variable>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-journal"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$year-default-and-online-journal"/>
-                                                                            <xsl:copy-of select="$var"/>
+                                                                            <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
+                                                                        <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
                                         </xsl:call-template>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:if>
                             </xsl:variable>
-                            <xsl:copy-of select="$var"/>
+                            <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <!--### End of Predefined Layout Elements ###-->
 	<!--### Citation Style Layout Definitions ###-->
@@ -2119,39 +2116,39 @@
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$reviewOf-prefix"/>
-                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
-                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                                                 </le>
                                                                                             </xsl:with-param>
                                                                                             <xsl:with-param name="delimiter" select="' '"/>
                                                                                         </xsl:call-template>
                                                                                     </xsl:variable>
                                                                                     <!--font-style--><xsl:variable name="var">
-                                                                                        <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                                                        <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<!--XXX - Font Style copy Of -XXX--><xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                                                     </xsl:variable>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(func:substringAfterReviewOf(pub:publication/dc:title/text()))"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2164,20 +2161,20 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2190,20 +2187,20 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$legal-case"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2216,56 +2213,56 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-online-journal"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$year-default-and-online-journal"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$id-online-publication"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                                                   select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/e:published-online/text()))"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2278,20 +2275,20 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$get-journal-citation-style"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2299,15 +2296,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$journal-article-and-similar"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$journal-article-and-similar"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-collect-ed or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-handbook or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-encyclopedia or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-festschrift or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-report and $sourceGenre = $l_proceedings)or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_monograph) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_meeting-abstract and $sourceGenre = $l_monograph) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_collected-edition) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_meeting-abstract and $sourceGenre = $l_collected-edition) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_proceedings) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_meeting-abstract and $sourceGenre = $l_proceedings)&#xA;&#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="contr-to-collected-edition"><!--### Plain Layout Element ###-->
@@ -2318,16 +2314,16 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$in-prefix"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2340,55 +2336,55 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-editors"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title-volume-contr"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$edition"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2396,15 +2392,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$contr-to-collected-edition"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$contr-to-collected-edition"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_monograph or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_commentary or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_collected-edition or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_handbook or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_festschrift or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_proceedings or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_issue&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="monograph"><!--### Plain Layout Element ###-->
@@ -2415,44 +2410,44 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title-volume"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$edition"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2460,15 +2455,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$monograph"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$monograph"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_opinion&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="opinion"><!--### Plain Layout Element ###-->
@@ -2479,23 +2473,23 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2503,15 +2497,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$opinion"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$opinion"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_newspaper-article&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="newspaperArticle"><!--### Plain Layout Element ###-->
@@ -2522,31 +2515,31 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle-or-normalTitle"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                                       select="func:escapeMarkupTags(func:get_reverse_date(pub:publication/dcterms:issued/text()))"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2554,15 +2547,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$newspaperArticle"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$newspaperArticle"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-commentary&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="contr-to-commanetary"><!--### Plain Layout Element ###-->
@@ -2573,65 +2565,65 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$in-prefix"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-editors"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle-or-normalTitle"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-with-prefix"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$edition"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2639,15 +2631,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$contr-to-commanetary"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$contr-to-commanetary"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_thesis&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="thesis"><!--### Plain Layout Element ###-->
@@ -2658,9 +2649,9 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2673,55 +2664,55 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title-volume"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$edition"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$degree"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-without-place"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2734,49 +2725,49 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$degree"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
                                         </xsl:call-template>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$thesis"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$thesis"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_series or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_journal&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="series"><!--### Plain Layout Element ###-->
@@ -2787,16 +2778,16 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place-since"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2804,15 +2795,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$series"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$series"/>
                             </xsl:when>
                             <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_paper&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="paper"><!--### Plain Layout Element ###-->
@@ -2823,30 +2813,30 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title-volume-paper"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2859,20 +2849,20 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2885,9 +2875,9 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
@@ -2899,14 +2889,14 @@
                                                                     <xsl:if test="exists($var) and $var!=''">
                                                                         <xsl:text>, </xsl:text>
                                                                     </xsl:if>
-                                                                    <xsl:copy-of select="$var"/>
+                                                                    <!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2919,16 +2909,16 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$id-online-publication-paper"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
@@ -2936,18 +2926,17 @@
                                                                 </xsl:variable>
                                                                 <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                                                    <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                                     <xsl:if test="exists($var) and $var!=''">
                                                                         <xsl:text>.</xsl:text>
                                                                     </xsl:if>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
@@ -2960,20 +2949,20 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
-                                                                                    <xsl:copy-of select="$var"/>
+                                                                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
+                                                                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                                             </le>
                                                                         </xsl:with-param>
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
+                                                                <!--XXX - Apply params Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                        <!--XXX - Apply params Copy Of 2 -XXX--><xsl:copy-of select="$var"/>
                                                     </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
+                                                    <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$var"/>
                                                 </le>
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
@@ -2981,15 +2970,14 @@
                                     </xsl:variable>
                                     <!--
 				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
+			--><xsl:variable name="var"><!--XXX - applyStartsWithEndsWith Copy Of 1 -XXX--><xsl:copy-of select="$var"/>
                                         <xsl:if test="exists($var) and $var!=''">
                                             <xsl:text>.</xsl:text>
                                         </xsl:if>
                                     </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
+                                    <!--XXX - Apply params Copy Of 3 -XXX--><xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$paper"/>
+                                <!--XXX -Create LE copy Of -XXX--><xsl:copy-of select="$paper"/>
                             </xsl:when>
                         </xsl:choose>
                         <!--### End of Citation Style Layout Definitions ###-->
