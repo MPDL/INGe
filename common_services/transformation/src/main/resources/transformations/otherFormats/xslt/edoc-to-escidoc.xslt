@@ -2619,6 +2619,11 @@
 					<xsl:value-of select="docaff_reasearchcontext"/>
 				</xsl:element>
 			</xsl:if>
+			<xsl:if test="$import-name = 'MPISF' and exists(../../rights/copyright)">
+				<xsl:element name="dcterms:abstract">
+					<xsl:value-of select="../../rights/copyright"/>
+				</xsl:element>
+			</xsl:if>
 			
 			<xsl:apply-templates select="abstract"/>
 			<xsl:call-template name="abstractMPIEMPIA"/>
@@ -3805,6 +3810,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIEM'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Experimental Medicine')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPISF'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Metabolism Research')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPISOC'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' escidoc:persistent22'))"/>
