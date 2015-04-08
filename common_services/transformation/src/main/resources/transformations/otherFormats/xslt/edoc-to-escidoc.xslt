@@ -4472,6 +4472,17 @@
 		</xsl:when>
 		 -->
 	</xsl:template>
+	
+	<xsl:template match="copyright">
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPISF'">
+				<xsl:element name="dcterms:abstract">
+					<xsl:value-of select="."/>
+				</xsl:element>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="authorcomment">
 		<xsl:choose>
 			<xsl:when test="$import-name = 'MPIBF'">
