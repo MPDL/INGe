@@ -1,10 +1,12 @@
 package de.mpg.escidoc.tools.reindex;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Fieldable;
@@ -19,7 +21,6 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestIndexer
@@ -78,24 +79,57 @@ public class TestIndexer
 				assertTrue("No reference document found for <" + document1.get("escidoc.objid") + ">", false);
 			}
 			
-			List<Fieldable> fields1 = document1.getFields();			
+			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
-			
+
 			assertTrue(fields1.size() == fields2.size());
 			
-			// todo
-						
-			for (Fieldable f : fields1)
-			{
-				f.name();
-				byte[] b = f.getBinaryValue();
-				IndexOptions o = f.getIndexOptions();
-			}
+			Map<String, Fieldable> m1 = getMap(fields1);
+			Map<String, Fieldable> m2 = getMap(fields2);
+			
+			compareFields(m1, m2);
+			compareFields(m2, m1);
 		}
 		
 	}
 
+	private void compareFields(Map<String, Fieldable> m1,
+			Map<String, Fieldable> m2)
+	{
+		for (String name : m1.keySet())
+		{
+			Fieldable f1 = m1.get(name);
+			Fieldable f2 = m2.get(name);
+			
+			assertTrue(f1 != null && f2 != null);
+			
+			IndexOptions o1 = f1.getIndexOptions();
+			IndexOptions o2 = f1.getIndexOptions();
+			
+			assertTrue(o1.equals(o2));
+			
+			assertTrue(f1.stringValue().equals(f2.stringValue()));
+			assertTrue(f1.isIndexed() == f2.isIndexed());
+			assertTrue(f1.isLazy() == f2.isLazy());
+			assertTrue(f1.isStored() == f2.isStored());
+			assertTrue(f1.isTermVectorStored() == f2.isTermVectorStored());
+			assertTrue(f1.isTokenized() == f2.isTokenized());
+		}
+	}
 
+	private Map<String, Fieldable> getMap(List<Fieldable> fields)
+	{
+		Map<String, Fieldable> map = new HashMap<String, Fieldable>();
+		
+		if (fields == null)
+			return map;
+		
+		for (Fieldable f : fields)
+		{
+			map.put(f.name(), f);
+		}
+		return map;
+	}
 
 	private Document getReferenceDocument(String field, String value, IndexSearcher searcher) throws IOException
 	{
