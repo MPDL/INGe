@@ -169,21 +169,31 @@ public class XsltHelper {
 	 * @param str
 	 * @return escaped string
 	 */
-	public static String escapeMarkupTags(String snippet) 
+	public static String[] escapeMarkupTags(String[] snippet) 
 	{
+		
+		
 		//logger.info("Escape Markup: " + snippet);
 		if (snippet == null)
 			return null;
 		
-		//escape ampersands
-		snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
+		for(int i=0; i<snippet.length; i++)
+		{
+			if(snippet[i] != null)
+			//escape ampersands
+				snippet[i] = Utils.replaceAllTotal(snippet[i], AMPS_ALONE, "&amp;");
+			
+			//escape tags except <style> and optionally <sub><sup>
+			snippet[i] =  Utils.replaceAllTotal(
+				snippet[i], 
+				isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, 
+				"&lt;"
+			);
+		}
+		return snippet;
 		
-		//escape tags except <style> and optionally <sub><sup>
-		return Utils.replaceAllTotal(
-			snippet, 
-			isBalanced(snippet) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, 
-			"&lt;"
-		);
+		
+		
 	}	
 	
 	
