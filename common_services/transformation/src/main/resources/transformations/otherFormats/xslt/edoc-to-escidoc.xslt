@@ -3830,6 +3830,9 @@
 						<xsl:when test="$import-name = 'MPIBF'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Human Development')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPISF'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Metabolism Research, Managing Director: Jens Brüning')"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
