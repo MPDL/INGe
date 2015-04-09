@@ -585,9 +585,9 @@ public class Indexer
 		indexer.prepareIndex();
 		
 /*		if ("true".equals(args[2]))
-		{
+		{*/
 			indexer.createDatabase();
-		}*/
+	//	}
 		
 		indexer.indexItemsStart(baseDir);
 		indexer.finalizeIndex();
