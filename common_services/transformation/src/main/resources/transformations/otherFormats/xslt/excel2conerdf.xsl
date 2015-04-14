@@ -84,15 +84,19 @@
 						</xsl:if>
 						<dc:title>
 							<xsl:value-of select="normalize-space($main/excel:Cell[1]/excel:Data)"/>
-							<xsl:text>, </xsl:text>
-							<xsl:value-of select="normalize-space($main/excel:Cell[2]/excel:Data)"/>
+							<xsl:if	test="$givenname != '#'"> <!-- Änderung Erndt -->	
+								<xsl:text>, </xsl:text>
+								<xsl:value-of select="normalize-space($main/excel:Cell[2]/excel:Data)"/>
+							</xsl:if>
 						</dc:title>
 						<foaf:family_name>
 							<xsl:value-of select="$familyname"/>
 						</foaf:family_name>
-						<foaf:givenname>
-							<xsl:value-of select="$givenname"/>
-						</foaf:givenname>
+						<xsl:if	test="$givenname != '#'"> <!-- Änderung Erndt -->
+							<foaf:givenname>
+								<xsl:value-of select="$givenname"/>
+							</foaf:givenname>
+						</xsl:if>
 						<xsl:call-template name="alternative-name">
 							<xsl:with-param name="pos" select="$pos"/>
 							<xsl:with-param name="main" select="$main"/>
