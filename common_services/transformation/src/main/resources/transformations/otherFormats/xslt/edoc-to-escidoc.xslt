@@ -3833,6 +3833,9 @@
 						<xsl:when test="$import-name = 'MPISF'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Metabolism Research, Managing Director: Jens Brüning')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPI EM'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Experimental Medicine"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
@@ -3930,6 +3933,27 @@
 											</xsl:element>
 											<dc:identifier>
 												<xsl:value-of select="$external-ou"/>
+											</dc:identifier>
+										</xsl:element>
+									</xsl:when>
+							<!-- Special case for MPI EM: affiliation = name of institute when @internextern = mpg (MPS-Haken), no CoNE hit and genre = Thesis -->		
+									<xsl:when test="$import-name = 'MPI EM' and @internextern='mpg' and ../../basic/genre = 'Thesis'">
+										<xsl:comment> Special Case MPI EM  </xsl:comment>
+										<xsl:element name="organization:organization">
+											<xsl:element name="dc:title">
+												<xsl:value-of select="'Max Planck Institute of Experimental Medicine'"/>
+											</xsl:element>
+											<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20of%20Experimental%20Medicine%22")' />
+											<xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
+											<dc:identifier>
+												<xsl:choose>
+													<xsl:when test="$organizational-search/search:searchRetrieveResponse/search:numberOfRecords = 1 and $organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') != ''">
+														<xsl:value-of select="$organizational-search/search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OrganizationalUnitNotFound' ), 'There is no or too many OU-ID(s) for -Max Planck Institute for Social Law and Social Policy-')"/>
+													</xsl:otherwise>
+												</xsl:choose>
 											</dc:identifier>
 										</xsl:element>
 									</xsl:when>
