@@ -27,6 +27,7 @@ public class IndexDocument extends DefaultHandler
 	Document document;
 	boolean inField = false;
 	boolean storeField = false;
+	boolean index = false;
 	String fieldName = null;
 	StringWriter content = null;
 	String fulltextPath = null;
@@ -58,6 +59,7 @@ public class IndexDocument extends DefaultHandler
 		{
 			fieldName = attributes.getValue("IFname");
 			storeField = "YES".equals(attributes.getValue("store"));
+			index = "UN_TOKENIZED".equals(attributes.getValue("index"));
 			content = new StringWriter();
 			fulltextPath = attributes.getValue("dsId");
 			if (fulltextPath != null)
@@ -104,7 +106,9 @@ public class IndexDocument extends DefaultHandler
 	{
 		 if ("IndexField".equals(qName))
 		{
-			Field field = new Field(fieldName, content.toString(), (storeField ? Field.Store.YES : Field.Store.NO), Index.ANALYZED);
+			Field field = new Field(fieldName, content.toString(), 
+					(storeField ? Field.Store.YES : Field.Store.NO), 
+					(index ? Index.NOT_ANALYZED : Index.ANALYZED));
 	        document.add(field);
 	        content = null;
 	        inField = false;

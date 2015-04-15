@@ -36,6 +36,13 @@
 			<xxsl:with-param name="ou-id" select="$objectId"/>
 		</xxsl:call-template>
 	</xsl:template>
+	
+	<xsl:template match="xsl:variable[@name='sortfields']">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:attribute name="as">node()*</xsl:attribute>
+		</xsl:copy>
+	</xsl:template>
 
 	<!-- <xsl:template match="IndexField[xsl:attribute/@name='dsId']">
 		<xsl:copy>

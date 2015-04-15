@@ -14,13 +14,13 @@ public class TestIndexerSmall extends TestBase
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
-		indexer = new Indexer(new File("../test-classes/20"), "escidoc_all");
+		indexer = new Indexer(new File("src/test/resources/20"), "escidoc_all");
 		indexer.createDatabase();
 		indexer.prepareIndex();
 		extractor = new FullTextExtractor();
 		
-		extractor.init(new File("../test-classes/19/escidoc_2110752+content+content.0"));
-		extractor.extractFulltexts(new File("../test-classes/19/escidoc_2110752+content+content.0"));
+		extractor.init(new File("src/test/resources/19/escidoc_2110752+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2110752+content+content.0"));
 		
 		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";
 		
@@ -32,7 +32,7 @@ public class TestIndexerSmall extends TestBase
 	// escidoc_2110119 with component escidoc_2110752
 	public void test() throws Exception
 	{
-		indexer.indexItemsStart(new File("../test-classes/20"));
+		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
 		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);

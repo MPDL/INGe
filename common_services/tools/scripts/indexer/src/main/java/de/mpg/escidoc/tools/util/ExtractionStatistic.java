@@ -81,6 +81,7 @@ public class ExtractionStatistic
         this.filesTotal.set(0);;       
         this.filesErrorOccured.set(0);
         this.filesExtractionDone.set(0);;
+        this.filesSkipped.set(0);;
 
         this.start = System.currentTimeMillis();
         this.errorList.clear();      

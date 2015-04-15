@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -46,6 +47,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
+import de.mpg.escidoc.tools.util.Util;
 
 /**
  * @author franke
@@ -58,6 +60,7 @@ public class Indexer
 	
 	static String indexPath = "";
 	static final String defaultDate = "0000-01-01 00:00:00";
+	
 	private static final String propFileName = "indexer.properties";
 	private static Properties properties = new Properties();
 	
@@ -65,7 +68,7 @@ public class Indexer
 	
 	private File baseDir;
 	private File dbFile;
-	private File indexStylesheet;
+	private String indexStylesheet;
 	private String indexName;
 	private String indexAttributesName;
 	private String fulltextDir;
@@ -85,7 +88,7 @@ public class Indexer
 	private TransformerFactory saxonFactory = new net.sf.saxon.TransformerFactoryImpl();
 	private TransformerFactory xalanFactory = new org.apache.xalan.processor.TransformerFactoryImpl();
 	
-	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("prepareStylesheet.xsl")));
+	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 
 	IndexWriter writer;
 	
@@ -107,6 +110,8 @@ public class Indexer
 	public Indexer(File baseDir, String indexName) throws Exception
 	{
 		this.baseDir = baseDir;
+		
+		logger.info("Found " + Util.countFilesInDirectory(baseDir) + " files to index in " + baseDir.getAbsolutePath());
 		
 		InputStream s = getClass().getClassLoader().getResourceAsStream(propFileName);
 		
@@ -130,7 +135,7 @@ public class Indexer
 			FileUtils.forceMkdir(new File(indexPath));
 		}
 		
-		this.indexStylesheet = new File(properties.getProperty("index.stylesheet"));
+		this.indexStylesheet = properties.getProperty("index.stylesheet");
 		this.indexName = properties.getProperty("index.name.built");;
 		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");
 	
@@ -149,15 +154,16 @@ public class Indexer
 		logger.info("transforming index stylesheet to " + tmpFile);
 		
 		long s3 = System.currentTimeMillis();
+		
 		transformer3.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
-		transformer3.transform(new StreamSource(indexStylesheet), new StreamResult(tmpFile));
+		transformer3.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
+		
 		long e3 = System.currentTimeMillis();
 		logger.info("transforming index stylesheet used <" + (e3-s3) + "> ms");
 		
 		for (int i = 0; i < procCount; i++)
-		{
-			
-			Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(new File("foxml2escidoc.xsl")));
+		{		
+			Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("foxml2escidoc.xsl")));
 			transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
 			transformer1.setParameter("number", i);
 			transformerStack1.push(transformer1);
@@ -215,10 +221,11 @@ public class Indexer
 	 */
 	private String readMimetypes() throws Exception
 	{
-		File file = new File("mimetypes.txt");
 		String line;
-		StringWriter result = new StringWriter();
-		BufferedReader reader = new BufferedReader(new FileReader(file));
+		StringWriter result = new StringWriter();		
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("mimetypes.txt")));
+		
 		while ((line = reader.readLine()) != null)
 		{
 			result.write(line);
@@ -237,7 +244,7 @@ public class Indexer
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:
-	    	Analyzer analyzer = new EscidocAnalyzer();
+	    	final Analyzer analyzer = new EscidocAnalyzer();
 	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
 
 	    	if (create) {
@@ -501,9 +508,6 @@ public class Indexer
 		        {
 					// New index, so we just add the document (no old document can be there):
 					writer.addDocument(doc);
-					
-					if (logger.isInfoEnabled())
-						logIndexDocument(doc);
 		        }
 		        else
 		        {
