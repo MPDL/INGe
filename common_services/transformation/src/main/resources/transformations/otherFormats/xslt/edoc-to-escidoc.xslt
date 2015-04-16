@@ -3934,7 +3934,7 @@
 										</xsl:element>
 									</xsl:when>
 							<!-- Special case for MPIEM: affiliation = name of institute when @internextern = mpg (MPS-Haken), no CoNE hit and genre = Thesis -->		
-									<xsl:when test="$import-name = 'MPIEM' and @internextern='mpg' and ../../basic/genre = 'Thesis'">
+									<xsl:when test="$import-name = 'MPIEM' and @internextern='mpg' and ../../basic/genre[text()='Thesis']">
 										<xsl:comment> Special Case MPIEM  </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
@@ -3997,7 +3997,7 @@
 								        	</dc:identifier>
 										</organization:organization>
 									</xsl:when>
-									<xsl:when test="$import-name = 'MPIEM' and (@internextern='mpg')">
+							<!-- auskommentiert,da doppelt (s. weiter oben)		<xsl:when test="$import-name = 'MPIEM' and (@internextern='mpg')">
 										<xsl:comment> Case MPIEM </xsl:comment>
 										<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20of%20Experimental%20Medicine%22")' />
 								        <xsl:variable name="organizational-search" select='document(concat($framework-url, $ou-search-path))'/>
@@ -4016,7 +4016,7 @@
 								                 </xsl:choose>
 								        	</dc:identifier>
 										</organization:organization>
-									</xsl:when>
+									</xsl:when> -->
 									<xsl:when test="$import-name = 'MPIPsykl' and (@internextern='mpg')">
 										<xsl:comment> Case MPIPsykl </xsl:comment>
 										<xsl:variable name="ou-search-path" select='string("/srw/search/escidocou_all?query=%22escidoc.title%22%3D%22Max%20Planck%20Institute%20of%20Psychiatry%22")' />
