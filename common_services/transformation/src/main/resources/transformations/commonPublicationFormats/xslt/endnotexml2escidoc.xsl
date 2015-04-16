@@ -252,6 +252,7 @@
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:variable name="sourceGenre" select="
+				if ( $Flavor = 'CAESAR' and B and $refType = 'Journal Article' ) and not(J) then $genre-ves/enum[.='journal']/@uri else
 				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript', 'Report') ) then $genre-ves/enum[.='series']/@uri else
 				if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else
 				if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
@@ -503,21 +504,57 @@
 			
 			
 			<!-- DATES -->
-			<xsl:variable name="dateCreated" select="
-				if (D and NUM_8) then escidocFunctions:normalizeDate(NUM_8)
-				else if (D) then escidocFunctions:normalizeDate(D)
-				else if (NUM_8) then escidocFunctions:normalizeDate(NUM_8)
-				else ''
-			"/>
+			<!-- date created -->
+			<!-- Änderung Erndt: Prüfung, ob Datumsangaben von %7 (NUM_7) Buchstaben enthält. Falls ja oder %7 nicht da, dann %D nehmen, falls da --> 
+			<xsl:variable name="alpha" select="'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+			<xsl:variable name="dateCreated">
+				<xsl:choose>
+					<!-- Wenn %7 und da kein Buchstabe drin ist, nimm %7 -->
+					<xsl:when test="NUM_7 and not(translate(NUM_7, translate(NUM_7, $alpha, ''), ''))">
+						<xsl:value-of select="NUM_7" />
+					</xsl:when>
+					<!-- Wenn zwar %7, aber da Buchstabe drin ist, nimm %D, wenn vorhanden -->
+					<xsl:when test="NUM_7 and translate(NUM_7, translate(NUM_7, $alpha, ''), '') and D">
+						<xsl:value-of select="D" />
+					</xsl:when>
+					<!-- Wenn kein %7, aber %D, nimm %D -->
+					<xsl:when test="not(NUM_7) and D">
+						<xsl:value-of select="D" />
+					</xsl:when>
+					<!-- Wenn kein %7 oder da Buchstabe drin ist und auch kein %D, dann keine Infos für creation date vorhanden -->
+					<xsl:otherwise>
+						<xsl:value-of select="''"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<!-- Ende Erndt -->
 			
 			<xsl:if test="$dateCreated!=''">
 				<dcterms:issued xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateCreated"/></dcterms:issued>				
 			</xsl:if>
 			
-			<xsl:variable name="datePublishedOnline" select="
-				if (NUM_7 and $refType = 'Journal Article') then escidocFunctions:normalizeDate(NUM_7)
-				else ''
-			"/>
+			
+			<!-- date published online -->
+			<!-- Änderung Erndt: Prüfung, ob Datumsangaben von %8 (NUM_8) Buchstaben enthält. Falls ja oder %8 nicht da, dann eben keine Angabe zu Online-Datum -->
+			<xsl:variable name="datePublishedOnline">
+				<xsl:choose>
+					<!-- Wenn %8 und da kein Buchstabe drin ist, nimm %8 -->
+					<xsl:when test="NUM_8 and not(translate(NUM_8, translate(NUM_8, $alpha, ''), ''))">
+						<xsl:value-of select="NUM_8" />
+					</xsl:when>
+					<!-- Wenn zwar %8, aber da Buchstabe drin ist, kein Online date -->
+					<xsl:when test="NUM_8 and translate(NUM_8, translate(NUM_8, $alpha, ''), '')">
+						<xsl:value-of select="''" />
+					</xsl:when>
+					<!-- Wenn kein %8, dann kein Online date -->
+					<xsl:otherwise>
+						<xsl:value-of select="''"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<!-- Ende Erndt -->
+			
+			
 			<xsl:if test="$datePublishedOnline!=''">
 				<eterms:published-online xsi:type="dcterms:W3CDTF"><xsl:value-of select="$datePublishedOnline"/></eterms:published-online>			
 			</xsl:if>
@@ -745,6 +782,13 @@
 				</xsl:element>
 			</xsl:if>
 			
+			<!-- caesar will %V-Angabe auch in Quelle Konferenzband haben -->
+			<xsl:if test="V and B and $refType = ('Conference Paper') and $Flavor = 'CAESAR'">
+				<xsl:element name="eterms:volume">
+					<xsl:value-of select="V"/>
+				</xsl:element>
+			</xsl:if>
+			
 			<xsl:if test="V and not(N) and B and $refType = 'Report'">
 				<xsl:element name="eterms:volume">
 					<xsl:value-of select="V"/>
@@ -764,19 +808,49 @@
 				</xsl:element>
 			</xsl:if>
 			
+			<!-- caesar will %N-Angabe (Issue) auch in Quelle Konferenzband haben -->
+			<xsl:if test="N and B and $refType = ('Conference Paper') and $Flavor = 'CAESAR'">
+				<xsl:element name="eterms:issue">
+					<xsl:value-of select="N"/>
+				</xsl:element>
+			</xsl:if>
+			
 			
 			<!-- SOURCE PAGES -->
 			<xsl:if test="P and $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Book Section', 'Conference Paper' )">
 				<xsl:variable name="pages" select="tokenize(normalize-space(P), '[-–]+')"/>
-				<xsl:if test="count($pages)>=1 and $pages[1]!=''">
-					<xsl:element name="eterms:start-page">
-						<xsl:value-of select="$pages[1]"/>								
-					</xsl:element>						
+				
+				<!-- Änderung Erndt für Seitenzahlen mit mehr als einem "-" (z. B. "631809-1-631809-10" bei caesar-Daten) -->
+				<xsl:if test="count($pages)=4 and $pages[4]!=''">
+							<xsl:element name="start-page">
+								<xsl:value-of select="normalize-space(concat($pages[1], '/', $pages[2]))"/>								
+							</xsl:element>
+							<xsl:element name="end-page">
+								<xsl:value-of select="normalize-space(concat($pages[3], '/', $pages[4]))"/>								
+							</xsl:element>
+				</xsl:if>
+						
+				<xsl:if test="count($pages)=3 and $pages[3]!=''">
+							<xsl:element name="start-page">
+								<xsl:value-of select="normalize-space(concat($pages[1], '/', $pages[2]))"/>								
+							</xsl:element>
+							<xsl:element name="end-page">
+								<xsl:value-of select="normalize-space($pages[3])"/>								
+							</xsl:element>
+				</xsl:if>
+				
+				<xsl:if test="count($pages)=1 and $pages[1]!=''">
+							<xsl:element name="start-page">
+								<xsl:value-of select="normalize-space($pages[1])"/>								
+							</xsl:element>						
 				</xsl:if>
 				<xsl:if test="count($pages)=2 and $pages[2]!=''">
-					<xsl:element name="eterms:end-page">
-						<xsl:value-of select="$pages[2]"/>								
-					</xsl:element>						
+							<xsl:element name="start-page">
+								<xsl:value-of select="normalize-space($pages[1])"/>								
+							</xsl:element>
+							<xsl:element name="end-page">
+								<xsl:value-of select="normalize-space($pages[2])"/>								
+							</xsl:element>						
 				</xsl:if>
 			</xsl:if>			
 			<xsl:if test="N and not(P) and $refType = 'Newspaper Article'">
