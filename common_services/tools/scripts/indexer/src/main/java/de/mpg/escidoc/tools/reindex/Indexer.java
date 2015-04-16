@@ -308,6 +308,12 @@ public class Indexer
 	 */
 	private void checkDir(File dir, FileOutputStream fileOutputStream) throws Exception
 	{
+		if (dir.isFile())
+		{
+			fileOutputStream.write(("<object name=\"" + dir.getName().replace("_", ":") + "\" path=\"" + dir.getAbsolutePath().replace("\\", "/") + "\"/>\n").getBytes("UTF-8"));
+			return;
+		}
+		
 		for (File file : dir.listFiles())
 		{
 			if (file.isDirectory())
@@ -360,6 +366,13 @@ public class Indexer
 		currentDir = dir.getAbsolutePath();
 		if (resumeDir == null || resumeDir.startsWith(currentDir) || currentDir.compareTo(resumeDir) > 0)
 		{
+			if (dir.isFile())
+			{
+				new IndexThread(dir).start();
+				busyProcesses++;
+				return;
+			}
+			
 			Arrays.sort(dir.listFiles());
 			for (File file : dir.listFiles())
 			{
