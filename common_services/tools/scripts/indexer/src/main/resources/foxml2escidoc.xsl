@@ -105,9 +105,17 @@
 			<escidocComponents:components xlink:type="simple" xlink:title="Components of Item {$PID}" xlink:href="/ir/item/{$PID}/components">
 				<xsl:for-each select="$RELS-EXT/srel:component">
 					<xsl:variable name="component-id" select="replace(@rdf:resource, 'info:fedora/', '')"/>
+					<!--  
+					<xsl:comment>das ist die component id <xsl:value-of select="$component-id"/></xsl:comment>
+					-->
 					<xsl:variable name="component-data" select="document($database/index/object[@name = $component-id]/@path)"/>
 					<xsl:variable name="component-metadata" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent"/>
 					<xsl:variable name="component-rels-ext" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description"/>
+					
+					 
+					<xsl:comment>das ist component-rels-ext <xsl:value-of select="$component-rels-ext"/></xsl:comment>
+				
+					
 					<xsl:variable name="component-content" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'content']/foxml:datastreamVersion[last()]"/>
 					<escidocComponents:component xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}">
 						<escidocComponents:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/properties">

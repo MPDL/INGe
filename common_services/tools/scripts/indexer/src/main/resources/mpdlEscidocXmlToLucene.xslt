@@ -23,11 +23,11 @@ Notes:
 
 -
  -->
-<xsl:stylesheet version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="xalan://de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="string-helper" xmlns:element-type-helper="element-type-helper" xmlns:sortfield-helper="sortfield-helper" xmlns:escidoc-core-accessor="escidoc-core-accessor">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="xalan://de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="xalan://de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="xalan://de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
 	<!-- Include stylesheet that writes important fields for gsearch -->
-	<xsl:include href="gsearchAttributes.xslt"/>
+	<xsl:include href="index/gsearchAttributes.xslt"/>
     
     <!-- Parameters that get passed while calling this stylesheet-transformation -->
 	<xsl:param name="LANGUAGE"/>
@@ -130,7 +130,6 @@ Notes:
 		<IndexDocument>
         <!-- Call this template immediately after opening IndexDocument-element! -->
 			<xsl:call-template name="processGsearchAttributes"/>
-
 			<xsl:call-template name="writeIndexField">
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 				<xsl:with-param name="fieldname">objecttype</xsl:with-param>
@@ -195,7 +194,7 @@ Notes:
 			</xsl:call-template>
             
             <!-- WRITE USERDEFINED SORT FIELDS -->
-			<xsl:for-each select="$sortfields/sortfield">
+			<xsl:for-each select="xalan:nodeset($sortfields)/sortfield">
 				<xsl:if test="./@type='item'">
 					<xsl:call-template name="writeSortField">
 						<xsl:with-param name="context" select="$CONTEXTNAME"/>
@@ -204,7 +203,7 @@ Notes:
 					</xsl:call-template>
 				</xsl:if>
 			</xsl:for-each>
-            
+			
             <!-- WRITE USER DEFINED INDEXES -->
 			<xsl:call-template name="writeUserdefinedIndexes" />
 		</IndexDocument>
@@ -220,9 +219,6 @@ Notes:
 			<xsl:attribute name="PID">
 				<xsl:value-of select="$PID"/>
 			</xsl:attribute>
-			
-			XXX<xsl:copy-of select="/"/>XXX
-			
 			<IndexField IFname="PID" index="UN_TOKENIZED" store="NO" termVector="NO">
 				<xsl:value-of select="$PID"/>
 			</IndexField>
@@ -283,7 +279,7 @@ Notes:
 			</xsl:for-each>
             
             <!-- WRITE USERDEFINED SORT FIELDS -->
-			<xsl:for-each select="$sortfields/sortfield">
+			<xsl:for-each select="xalan:nodeset($sortfields)/sortfield">
 				<xsl:if test="./@type='container'">
 					<xsl:call-template name="writeSortField">
 						<xsl:with-param name="context" select="$CONTEXTNAME"/>
@@ -292,7 +288,7 @@ Notes:
 					</xsl:call-template>
 				</xsl:if>
 			</xsl:for-each>
-
+			
             <!-- WRITE USER DEFINED INDEXES -->
 			<xsl:call-template name="writeUserdefinedIndexes" />
 		</IndexDocument>
@@ -311,29 +307,29 @@ Notes:
         <!-- can be 'path' or 'element' -->
         <!-- eg first-name or publication.creator.person.first-name -->
 		<xsl:param name="nametype"/>
-		<xsl:if test="normalize-space(.)!=''">
-			<xsl:call-template name="writeIndexField">
-				<xsl:with-param name="context" select="$context"/>
-				<xsl:with-param name="fieldname" select="$path"/>
-				<xsl:with-param name="fieldvalue" select="."/>
-				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-			</xsl:call-template>
-            <!-- ADDITIONALLY WRITE VALUE IN metadata-index -->
-			<xsl:call-template name="writeIndexField">
-				<xsl:with-param name="context" select="$CONTEXTNAME"/>
-				<xsl:with-param name="fieldname">metadata</xsl:with-param>
-				<xsl:with-param name="fieldvalue">
-					<xsl:call-template name="removeSubSupStr">
-						<xsl:with-param name="name" select="$path"/>
-						<xsl:with-param name="str" select="."/>
-					</xsl:call-template>
-				</xsl:with-param>
-<!--				<xsl:with-param name="fieldvalue" select="text()"/>-->
-				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-			</xsl:call-template>
-		</xsl:if>
+		<xsl:if test="string(text()) and normalize-space(text())!=''">
+				<xsl:call-template name="writeIndexField">
+					<xsl:with-param name="context" select="$context"/>
+					<xsl:with-param name="fieldname" select="$path"/>
+					<xsl:with-param name="fieldvalue" select="text()"/>
+					<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+					<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+				</xsl:call-template>
+	            <!-- ADDITIONALLY WRITE VALUE IN metadata-index -->
+				<xsl:call-template name="writeIndexField">
+					<xsl:with-param name="context" select="$CONTEXTNAME"/>
+					<xsl:with-param name="fieldname">metadata</xsl:with-param>
+					<xsl:with-param name="fieldvalue">
+						<xsl:call-template name="removeSubSupStr">
+							<xsl:with-param name="name" select="$path"/>
+							<xsl:with-param name="str" select="text()"/>
+						</xsl:call-template>
+					</xsl:with-param>
+	<!--				<xsl:with-param name="fieldvalue" select="text()"/>-->
+					<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+					<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+				</xsl:call-template>
+			</xsl:if>
 		<xsl:if test="$indexAttributes='yes'">
             <!-- ITERATE ALL ATTRIBUTES AND WRITE ELEMENT-NAME, ATTRIBUTE-NAME AND ATTRIBUTE-VALUE -->
 			<xsl:for-each select="@*">
@@ -452,8 +448,14 @@ Notes:
 		<xsl:variable name="mime-type">
 			<xsl:value-of select="$components[$num]/*[local-name()='properties']/*[local-name()='mime-type']"/>
 		</xsl:variable>
+		
+
+		
 		<xsl:choose>
-			<xsl:when test="string($mime-type) and contains($SUPPORTED_MIMETYPES,$mime-type) and string($component-type) and contains($NON_SUPPORTED_COMPONENT_TYPES,concat(' ',$component-type,' '))=./false and string($visibility) and contains($SUPPORTED_COMPONENT_VISIBILITIES,concat(' ',$visibility,' '))">
+			<xsl:when test="string($mime-type) and contains($SUPPORTED_MIMETYPES,$mime-type) and string($component-type) and contains($NON_SUPPORTED_COMPONENT_TYPES,concat(' ',$component-type,' '))=false and string($visibility) and contains($SUPPORTED_COMPONENT_VISIBILITIES,concat(' ',$visibility,' '))">
+               
+
+               
                 <!-- INDEX FULLTEXT -->
 				<IndexField index="TOKENIZED" store="YES" termVector="NO">
 					<xsl:attribute name="dsId">
@@ -520,10 +522,7 @@ Notes:
 		<xsl:param name="fieldvalue"/>
 		<xsl:param name="indextype"/>
 		<xsl:param name="store"/>
-		
-		<!--<xsl:value-of select="error(QName('error', 'error'), $fieldvalue)"/>-->
-		
-		<xsl:if test="$fieldvalue and normalize-space($fieldvalue)!=''">
+		<xsl:if test="string($fieldvalue) and normalize-space($fieldvalue)!=''">
 			<xsl:variable name="isDateOrDecimal" select="element-type-helper:isDateOrDecimal($fieldvalue)"/>
 			<IndexField termVector="NO">
 				<xsl:attribute name="index">
@@ -588,11 +587,12 @@ Notes:
         
     <!-- WRITE USERDEFINED INDEX -->
 	<xsl:template name="writeUserdefinedIndexes">
-		<xsl:for-each select="$userdefined-indexes/userdefined-index">
+		<xsl:for-each select="xalan:nodeset($userdefined-indexes)/userdefined-index">
 			<xsl:variable name="index-name" select="./@name"/>
 			<xsl:variable name="context" select="./@context"/>
 			<xsl:for-each select="./element">
 				<xsl:if test="string(.) and normalize-space(.)!=''">
+					<xsl:message><xsl:value-of select="concat($index-name,':',./@index)"/></xsl:message>
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$context"/>
 						<xsl:with-param name="fieldname" select="$index-name"/>
@@ -608,11 +608,6 @@ Notes:
 	<!-- REMOVE SUB AND SUP TAGS -->
 	<xsl:template name="removeSubSup">
 		<xsl:param name="elem" />
-		
-		<xsl:message terminate="no">
-			<xsl:copy-of select="$elem"/>
-		</xsl:message>
-		
 		<xsl:call-template name="removeSubSupStr">
 			<xsl:with-param name="name" select="local-name($elem)" />
 			<xsl:with-param name="str" select="$elem"/>
@@ -666,6 +661,22 @@ Notes:
 		</xsl:choose>
 	
 	</xsl:template>
+	
+	
+	<!-- Substring before delimeter. If no delimter found, return original string -->
+	<xsl:template name="substring-before">
+		<xsl:param name="str"/>
+		<xsl:param name="delimiter"/>
+		<xsl:choose>
+			<xsl:when test="contains($str, $delimiter)">
+				<xsl:value-of select="substring-before($str, $delimiter)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	
 	<!-- REPLACE STRING -->
 	<xsl:template name="replace-substring">
@@ -724,17 +735,17 @@ Notes:
 	
         
     <!-- SORTFIELDS -->
-	<xsl:variable name="sortfields" select="/"/>
-        <!-- sortfield type="item" name="most-recent-date">
+	<xsl:variable name="sortfields">
+        <sortfield type="item" name="most-recent-date">
                 <xsl:attribute name="path">
                     <xsl:value-of select="lastdate-helper:getLastDate($ITEM_METADATAPATH//*[local-name()='created'],$ITEM_METADATAPATH//*[local-name()='modified'],$ITEM_METADATAPATH//*[local-name()='dateSubmitted'],$ITEM_METADATAPATH//*[local-name()='dateAccepted'],$ITEM_METADATAPATH//*[local-name()='issued'],//*[local-name()='last-revision']/*[local-name()='date'])"/>
                 </xsl:attribute>
-        </sortfield>
+        </sortfield><!--
         <sortfield type="container" name="most-recent-date">
                 <xsl:attribute name="path">
                     <xsl:value-of select="lastdate-helper:getLastDate($CONTAINER_METADATAPATH//*[local-name()='created'],$CONTAINER_METADATAPATH//*[local-name()='modified'],$CONTAINER_METADATAPATH//*[local-name()='dateSubmitted'],$CONTAINER_METADATAPATH//*[local-name()='dateAccepted'],$CONTAINER_METADATAPATH//*[local-name()='issued'],//*[local-name()='last-revision']/*[local-name()='date'])"/>
                 </xsl:attribute>
-        </sortfield></xsl:variable>-->
+        </sortfield --></xsl:variable>
     
     <!-- USER DEFINED INDEX FIELDS -->
 	<xsl:variable name="userdefined-indexes">
@@ -1027,7 +1038,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='title']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='alternative']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:call-template name="removeSubSup">
@@ -1055,7 +1066,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='abstract']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='subject']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:call-template name="removeSubSup">
@@ -1133,42 +1144,42 @@ Notes:
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']">
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='created']"/>
+					<xsl:value-of select="./*[local-name()='issued']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='modified']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+					<xsl:value-of select="./*[local-name()='published-online']"/>
 				</element>
 				<element index="TOKENIZED">
 					<xsl:value-of select="./*[local-name()='dateAccepted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='issued']"/>
+					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='published-online']"/>
+					<xsl:value-of select="./*[local-name()='modified']"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='created']"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']">
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='created']"/>
+					<xsl:value-of select="./*[local-name()='issued']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='modified']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+					<xsl:value-of select="./*[local-name()='published-online']"/>
 				</element>
 				<element index="TOKENIZED">
 					<xsl:value-of select="./*[local-name()='dateAccepted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='issued']"/>
+					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='published-online']"/>
+					<xsl:value-of select="./*[local-name()='modified']"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='created']"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -1685,7 +1696,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
@@ -1698,7 +1709,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:call-template name="removeSubSup">
@@ -1724,7 +1735,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='abstract']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='subject']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
@@ -1739,7 +1750,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='abstract']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:call-template name="removeSubSup">
@@ -1815,6 +1826,7 @@ Notes:
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
+		
 		<userdefined-index name="any-genre">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1830,48 +1842,138 @@ Notes:
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
+		
+		<userdefined-index name="genre-without-uri">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_METADATAPATH/*[local-name()='publication']/@type,'/')"/>
+			</element>
+		</userdefined-index>
 		<userdefined-index name="any-dates">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH//*">
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='created']"/>
+					<xsl:value-of select="./*[local-name()='issued']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='modified']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+					<xsl:value-of select="./*[local-name()='published-online']"/>
 				</element>
 				<element index="TOKENIZED">
 					<xsl:value-of select="./*[local-name()='dateAccepted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='issued']"/>
+					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='published-online']"/>
+					<xsl:value-of select="./*[local-name()='modified']"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='created']"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='created']"/>
+					<xsl:value-of select="./*[local-name()='issued']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='modified']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
+					<xsl:value-of select="./*[local-name()='published-online']"/>
 				</element>
 				<element index="TOKENIZED">
 					<xsl:value-of select="./*[local-name()='dateAccepted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='issued']"/>
+					<xsl:value-of select="./*[local-name()='dateSubmitted']"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='published-online']"/>
+					<xsl:value-of select="./*[local-name()='modified']"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='created']"/>
+				</element>
+			</xsl:for-each>
+		</userdefined-index>
+		<userdefined-index name="any-dates-year-only">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<xsl:for-each select="$ITEM_METADATAPATH//*">
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='issued']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='modified']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='created']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+			</xsl:for-each>
+			<xsl:for-each select="$CONTAINER_METADATAPATH//*">
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='issued']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='published-online']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='dateAccepted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='dateSubmitted']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='modified']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:call-template name="substring-before">
+						<xsl:with-param name="str" select="./*[local-name()='created']"/>
+						<xsl:with-param name="delimiter" select="'-'"/>
+					</xsl:call-template>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -1887,7 +1989,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='event']/*[local-name()='alternative']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='event']/*[local-name()='place']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
@@ -1904,7 +2006,7 @@ Notes:
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='source']/*[local-name()='title']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='source']/*[local-name()='alternative']"/>
 			</xsl:variable>
-			<xsl:for-each select="$fields/*">
+			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
@@ -2028,130 +2130,59 @@ Notes:
 		</xsl:for-each>
 		
 		
-	<!-- Publication status drawn from dates -->
-	<userdefined-index name="publication-status">
-		<xsl:attribute name="context">
-			<xsl:value-of select="$CONTEXTNAME"/>
-		</xsl:attribute>
-		<element index="UN_TOKENIZED">
-			<xsl:choose>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='issued'] and $ITEM_METADATAPATH//*[local-name()='issued'] != ''">
-					<xsl:value-of select="'published-in-print'"/>
-				</xsl:when>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='published-online'] and $ITEM_METADATAPATH//*[local-name()='published-online'] != ''">
-					<xsl:value-of select="'published-online'"/>
-				</xsl:when>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateAccepted'] and $ITEM_METADATAPATH//*[local-name()='dateAccepted'] != ''">
-					<xsl:value-of select="'accepted'"/>
-				</xsl:when>
-				<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateSubmitted'] and $ITEM_METADATAPATH//*[local-name()='dateSubmitted'] != ''">
-					<xsl:value-of select="'submitted'"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="'not-specified'"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</element>
-	</userdefined-index>
+		<!-- Compound index for project information -->
+		<userdefined-index name="publication.compound.project-info">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="TOKENIZED">
+				<xsl:value-of select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='project-info']"/>
+			</element>
+		</userdefined-index>
+		
+		
+		
+		<!-- Create index field escidoc.internal-file.visibility to avoid finding locators when searching for public files -->
+		<xsl:for-each select="/*[local-name()='item']/*[local-name()='components']/*[local-name()='component' and *[local-name()='content']/@storage='internal-managed']">
+			<xsl:variable name="storage" select="*[local-name()='content']/@storage"/>
+			<userdefined-index name="component.internal-managed.visibility">
+				<xsl:attribute name="context">
+					<xsl:value-of select="$CONTEXTNAME"/>
+				</xsl:attribute>
+				<element index="TOKENIZED">
+					<xsl:value-of select="*[local-name()='properties']/*[local-name()='visibility']"/>
+				</element>
+			</userdefined-index>					
+		</xsl:for-each>
+		        
+				
+		<!-- Publication status drawn from dates -->
+		<userdefined-index name="publication-status">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<element index="UN_TOKENIZED">
+				<xsl:choose>
+					<xsl:when test="$ITEM_METADATAPATH//*[local-name()='issued'] and $ITEM_METADATAPATH//*[local-name()='issued'] != ''">
+						<xsl:value-of select="'published-in-print'"/>
+					</xsl:when>
+					<xsl:when test="$ITEM_METADATAPATH//*[local-name()='published-online'] and $ITEM_METADATAPATH//*[local-name()='published-online'] != ''">
+						<xsl:value-of select="'published-online'"/>
+					</xsl:when>
+					<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateAccepted'] and $ITEM_METADATAPATH//*[local-name()='dateAccepted'] != ''">
+						<xsl:value-of select="'accepted'"/>
+					</xsl:when>
+					<xsl:when test="$ITEM_METADATAPATH//*[local-name()='dateSubmitted'] and $ITEM_METADATAPATH//*[local-name()='dateSubmitted'] != ''">
+						<xsl:value-of select="'submitted'"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="'not-specified'"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</element>
+		</userdefined-index>
+	
 		
 	</xsl:variable>
 
-	<xsl:function name="string-helper:removeVersionIdentifier" as="xs:string">
-		<xsl:param name="string1"/>
-		<xsl:value-of select="concat(substring-before($string1, ':'), ':', substring-before(concat(substring-after($string1, ':'), ':'), ':'))"/>
-	</xsl:function>
-
-	<!--<xsl:function name="string-helper:removeVersionIdentifier">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-	</xsl:function>-->
-
-	<xsl:function name="string-helper:getSubstringAfterLast">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-		
-		<xsl:choose>
-			<xsl:when test="contains($string1, $string2)">
-				<xsl:value-of select="string-helper:getSubstringAfterLast(substring-after($string1, $string2), $string2)"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$string1"/>
-			</xsl:otherwise>
-		</xsl:choose>
-		
-	</xsl:function>
-
-	<xsl:function name="element-type-helper:isDateOrDecimal" as="xs:boolean">
-		<xsl:param name="string"/>
-		
-		<xsl:choose>
-			<xsl:when test="string-length($string) &gt; 40">
-				<xsl:copy-of select="false()"/>
-			</xsl:when>
-			<xsl:when test="matches($string, '[0-9]*?-[0-9]*?-[0-9]*?[0-9TtZz\\+\\:\\.\\-]')">
-				<xsl:copy-of select="true()"/>
-			</xsl:when>
-			<xsl:when test="matches($string, '[+-]?[0-9\\.]*')">
-				<xsl:copy-of select="true()"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:copy-of select="false()"/>
-			</xsl:otherwise>
-		</xsl:choose>
-		
-	</xsl:function>
-
-	<xsl:function name="sortfield-helper:checkSortField">
-		<xsl:param name="string"/>
-		<xsl:copy-of select="false()"/>
-	</xsl:function>
-
-	<xsl:function name="string-helper:getNormalizedString">
-		<xsl:param name="string"/>
-		<!--
-			Really implement this?
-			
-			String output = input.toLowerCase();
-			matcher.reset(output);
-			output = matcher.replaceAll("$1e");
-			output = output.replaceAll("\u00e4", "a");
-			output = output.replaceAll("\u00f6", "o");
-			output = output.replaceAll("\u00fc", "u");
-		-->
-		<xsl:value-of select="$string"/>
-	</xsl:function>
-
-	<xsl:function name="escidoc-core-accessor:getObjectAttribute">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-		<xsl:param name="string3"/>
-		<xsl:param name="string4"/>
-		<xsl:param name="string5"/>
-		<xsl:param name="string6"/>
-	</xsl:function>
-
-	<xsl:function name="lastdate-helper:getLastDate">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-		<xsl:param name="string3"/>
-		<xsl:param name="string4"/>
-		<xsl:param name="string5"/>
-		<xsl:param name="string6"/>
-	</xsl:function>
-
-	<xsl:function name="lastdate-helper:getLastDateElement">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-		<xsl:param name="string3"/>
-		<xsl:param name="string4"/>
-		<xsl:param name="string5"/>
-		<xsl:param name="string6"/>
-		<xsl:param name="string7"/>
-	</xsl:function>
-
-	<xsl:function name="escidoc-core-accessor:getContainerMemberCount">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-	</xsl:function>
-	
 </xsl:stylesheet>
