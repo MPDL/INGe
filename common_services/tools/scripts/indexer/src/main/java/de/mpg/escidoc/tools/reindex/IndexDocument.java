@@ -104,15 +104,21 @@ public class IndexDocument extends DefaultHandler
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{
-		 if ("IndexField".equals(qName))
+		if (content != null && content.toString().trim().length() == 0)
 		{
-			Field field = new Field(fieldName, content.toString(), 
+			return;
+		}
+			
+		if ("IndexField".equals(qName))
+		{
+			Field field = new Field(fieldName, content.toString().trim(), 
 					(storeField ? Field.Store.YES : Field.Store.NO), 
 					(index ? Index.NOT_ANALYZED : Index.ANALYZED));
 	        document.add(field);
 	        content = null;
 	        inField = false;
 	        storeField = false;
+	        index = false;
 		}
 	}
 
