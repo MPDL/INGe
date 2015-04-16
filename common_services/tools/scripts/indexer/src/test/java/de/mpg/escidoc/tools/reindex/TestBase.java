@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,6 +33,13 @@ public class TestBase
 	protected static String referenceIndexPath;
 	
 	protected static Logger logger = Logger.getLogger(TestBase.class);
+	
+	protected static String[] fieldNamesToSkip = {
+		"xml_representation", 
+		"xml_metadata", 
+		"escidoc.publication.creator.compound.organization-path-identifiers",
+		"escidoc.publication.creator.any.organization-path-identifiers",
+		"escidoc.any-organization-pids"};
 	
 	public TestBase()
 	{
@@ -70,18 +78,24 @@ public class TestBase
 			compareFields(m1, m2);
 //			compareFields(m2, m1);
 		}
-		
+		logger.info("Verify succeeded ");
 	}
 
 	private void compareFields(Map<String, Set<Fieldable>> m1, Map<String, Set<Fieldable>> m2)
 	{
 		for (String name : m1.keySet())
 		{
-			if (name.equals("xml_representation") || name.equals("xml_metadata"))
+			if (Arrays.asList(fieldNamesToSkip).contains(name))
 				continue;
 			
 			Set<Fieldable> sf1 = m1.get(name);
 			Set<Fieldable> sf2 = m2.get(name);
+			
+			if ("escidoc.any-organization-pids".equals(name))					
+			{
+				int i = 1;
+				i++;
+			}
 			
 			assertTrue("Nothing found for <" + name + ">", (sf1 != null && sf2 != null) || (sf1 == null && sf2 == null));
 			assertTrue(sf1.size() == sf2.size());
@@ -123,7 +137,7 @@ public class TestBase
 		
 		for (Fieldable f2 : sf2)
 		{
-			if (f1.stringValue().equals(f2.stringValue()))
+			if (shorten(f1.stringValue()).equals(shorten(f2.stringValue())))
 				return f2;
 		}
 		
