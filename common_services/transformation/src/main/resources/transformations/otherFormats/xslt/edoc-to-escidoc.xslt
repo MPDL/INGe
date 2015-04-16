@@ -3833,9 +3833,6 @@
 						<xsl:when test="$import-name = 'MPISF'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Metabolism Research, Managing Director: Jens Brüning')"/>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPI EM'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Experimental Medicine"/>
-						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
@@ -3936,9 +3933,9 @@
 											</dc:identifier>
 										</xsl:element>
 									</xsl:when>
-							<!-- Special case for MPI EM: affiliation = name of institute when @internextern = mpg (MPS-Haken), no CoNE hit and genre = Thesis -->		
-									<xsl:when test="$import-name = 'MPI EM' and @internextern='mpg' and ../../basic/genre = 'Thesis'">
-										<xsl:comment> Special Case MPI EM  </xsl:comment>
+							<!-- Special case for MPIEM: affiliation = name of institute when @internextern = mpg (MPS-Haken), no CoNE hit and genre = Thesis -->		
+									<xsl:when test="$import-name = 'MPIEM' and @internextern='mpg' and ../../basic/genre = 'Thesis'">
+										<xsl:comment> Special Case MPIEM  </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
 												<xsl:value-of select="'Max Planck Institute of Experimental Medicine'"/>
