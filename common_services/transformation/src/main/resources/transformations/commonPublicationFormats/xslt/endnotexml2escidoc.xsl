@@ -252,7 +252,7 @@
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:variable name="sourceGenre" select="
-				if ( $Flavor = 'CAESAR' and B and $refType = 'Journal Article' ) and not(J) then $genre-ves/enum[.='journal']/@uri else
+				if ( ($Flavor = 'CAESAR' and B and $refType = 'Journal Article' ) and not(J)) then $genre-ves/enum[.='journal']/@uri else
 				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript', 'Report') ) then $genre-ves/enum[.='series']/@uri else
 				if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else
 				if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
