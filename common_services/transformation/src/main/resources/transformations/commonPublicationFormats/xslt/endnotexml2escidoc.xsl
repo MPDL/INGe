@@ -1130,7 +1130,10 @@
 					<xsl:choose>
 						<xsl:when test="($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute of Molecular Plant Physiology')"/>
-						</xsl:when>				
+						</xsl:when>
+						<xsl:when test="($Flavor = 'CAESAR')"> 
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Center of Advanced European Studies and Research (caesar)')"/>
+						</xsl:when>
 						<xsl:when test="($Flavor = 'MPIO')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Ornithology')"/>
 						</xsl:when>				
