@@ -822,33 +822,33 @@
 				
 				<!-- Änderung Erndt für Seitenzahlen mit mehr als einem "-" (z. B. "631809-1-631809-10" bei caesar-Daten) -->
 				<xsl:if test="count($pages)=4 and $pages[4]!=''">
-							<xsl:element name="start-page">
+							<xsl:element name="eterms:start-page">
 								<xsl:value-of select="normalize-space(concat($pages[1], '/', $pages[2]))"/>								
 							</xsl:element>
-							<xsl:element name="end-page">
+							<xsl:element name="eterms:end-page">
 								<xsl:value-of select="normalize-space(concat($pages[3], '/', $pages[4]))"/>								
 							</xsl:element>
 				</xsl:if>
 						
 				<xsl:if test="count($pages)=3 and $pages[3]!=''">
-							<xsl:element name="start-page">
+							<xsl:element name="eterms:start-page">
 								<xsl:value-of select="normalize-space(concat($pages[1], '/', $pages[2]))"/>								
 							</xsl:element>
-							<xsl:element name="end-page">
+							<xsl:element name="eterms:end-page">
 								<xsl:value-of select="normalize-space($pages[3])"/>								
 							</xsl:element>
 				</xsl:if>
 				
 				<xsl:if test="count($pages)=1 and $pages[1]!=''">
-							<xsl:element name="start-page">
+							<xsl:element name="eterms:start-page">
 								<xsl:value-of select="normalize-space($pages[1])"/>								
 							</xsl:element>						
 				</xsl:if>
 				<xsl:if test="count($pages)=2 and $pages[2]!=''">
-							<xsl:element name="start-page">
+							<xsl:element name="eterms:start-page">
 								<xsl:value-of select="normalize-space($pages[1])"/>								
 							</xsl:element>
-							<xsl:element name="end-page">
+							<xsl:element name="eterms:end-page">
 								<xsl:value-of select="normalize-space($pages[2])"/>								
 							</xsl:element>						
 				</xsl:if>
