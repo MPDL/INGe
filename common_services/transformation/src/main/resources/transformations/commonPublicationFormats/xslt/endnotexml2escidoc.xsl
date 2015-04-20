@@ -1211,6 +1211,9 @@
 							</xsl:for-each>
 						</xsl:when>
 					</xsl:choose>
+					<dc:identifier xsi:type="CONE">
+						<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
+					</dc:identifier>
 				</person:person>
 				
 			</xsl:otherwise>
