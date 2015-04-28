@@ -1037,6 +1037,31 @@
 						</ec:component>
 					</xsl:for-each>
 				</xsl:if>
+				
+				<xsl:if test="$import-name = 'MPIPKS'">
+					<xsl:for-each select="../relations/relation[@type = 'url' and @reltype='hasreferences']">
+						<ec:component>		
+							<ec:properties>
+								<xsl:if test="exists(./comment) and not(empty(./comment))"><prop:description><xsl:value-of select="./comment"/></prop:description></xsl:if>
+								<prop:visibility>public</prop:visibility>
+								<prop:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+								</prop:content-category>
+								<prop:file-name><xsl:value-of select="./identifier"/></prop:file-name>
+							</ec:properties>
+							<ec:content xlink:href="{./identifier}" storage="external-url"/>
+							<mdr:md-records>
+								<mdr:md-record>
+									<file:file>
+										<dc:title><xsl:value-of select="./identifier"/></dc:title>
+										<xsl:if test="exists(./comment) and not(empty(./comment))"><dc:description><xsl:value-of select="./comment"/></dc:description></xsl:if>
+									</file:file>
+								</mdr:md-record>
+							</mdr:md-records>
+						</ec:component>
+					</xsl:for-each>
+				</xsl:if>
+				
 				<xsl:if test="$import-name = 'BPC'">
 					<xsl:if test="not(exists(basic/fturl)) and contains($bpc-files, ../@id)">
 						<xsl:comment>BPC IMPORT: Record has a File in BPC server. Create a Component for this file</xsl:comment>
@@ -2730,7 +2755,7 @@
 				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
 		</xsl:if>
-		<xsl:if test="$import-name = 'MPIEM' or $import-name = 'MPIEIS'">
+		<xsl:if test="$import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIPKS'">
 			<xsl:for-each select="../relations/relation[@type = 'doi' and @reltype='hasreferences']">
 				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
 			</xsl:for-each>
@@ -2954,11 +2979,24 @@
 			</xsl:call-template>
 		</xsl:for-each>
 		
-		<!-- ISBN -->
+		<!-- ISSN -->
 		<xsl:if test="$import-name = 'MPIBF'">
 			<xsl:if test="exists(../relations/relation)">
 				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'issn']">
 					<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="."/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:if>
+		
+		<xsl:if test="$import-name = 'MPIPKS'">
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'ispartof' and @type = 'issn']">
+					<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="./identifier"/></dc:identifier>
+				</xsl:for-each>
+			</xsl:if>
+			<xsl:if test="exists(../relations/relation)">
+				<xsl:for-each select="../relations/relation[@reltype = 'hasreferences' and @type = 'issn']">
+					<dc:identifier xsi:type="eterms:ISSN"><xsl:value-of select="./identifier"/></dc:identifier>
 				</xsl:for-each>
 			</xsl:if>
 		</xsl:if>
@@ -3832,6 +3870,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPISF'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Metabolism Research, Managing Director: Jens Brüning')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIPKS'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for the Physics of Complex Systems')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
