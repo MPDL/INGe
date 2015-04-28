@@ -54,7 +54,11 @@ public class FullTextExtractor
 		}
 		
 		fulltextDir = properties.getProperty("index.fulltexts.path");
-		FileUtils.forceMkdir(new File(properties.getProperty("index.fulltexts.path")));
+		
+		if (!new File(fulltextDir).exists())
+		{
+			FileUtils.forceMkdir(new File(properties.getProperty("index.fulltexts.path")));
+		}
 		
 		envp[0] = "extract.pdftotext.path=" + properties.getProperty("extract.pdftotext.path");
 		envp[1] = "extract.pdfbox-app-jar.path=" + properties.getProperty("extract.pdfbox-app-jar.path");

@@ -26,12 +26,15 @@ public class IndexDocument extends DefaultHandler
 	
 	Document document;
 	boolean inField = false;
-	boolean storeField = false;
+	Field.Store storeField = Field.Store.YES;
 	Field.Index index = Field.Index.ANALYZED;
+	Field.TermVector termVector = Field.TermVector.NO;
+	
 	String fieldName = null;
 	StringWriter content = null;
 	String fulltextPath = null;
 	String fulltextDir;
+	
 	
 	public IndexDocument(Document document, String fulltextDir)
 	{
@@ -58,8 +61,25 @@ public class IndexDocument extends DefaultHandler
 		else if ("IndexField".equals(qName))
 		{
 			fieldName = attributes.getValue("IFname");
-			storeField = "YES".equals(attributes.getValue("store"));
 			
+			if ("YES".equals(attributes.getValue("termVector")))
+			{
+				termVector = Field.TermVector.YES;
+			}
+			else if ("NO".equals(attributes.getValue("termVector")))
+			{
+				termVector = Field.TermVector.NO;
+			}
+			
+			if ("YES".equals(attributes.getValue("store")))
+			{
+				storeField = Field.Store.YES;
+			}
+			else if ("NO".equals(attributes.getValue("store")))
+			{
+				storeField = Field.Store.NO;
+			}
+
 			if("UN_TOKENIZED".equals(attributes.getValue("index")))
 			{
 				index = Field.Index.NOT_ANALYZED;
@@ -124,14 +144,16 @@ public class IndexDocument extends DefaultHandler
 			
 		if ("IndexField".equals(qName))
 		{
-			Field field = new Field(fieldName, content.toString().trim(), 
-					(storeField ? Field.Store.YES : Field.Store.NO), 
-					index);
+			Field field = new Field(fieldName, content.toString().trim(), storeField, index);
+					
 	        document.add(field);
-	        content = null;
-	        inField = false;
-	        storeField = false;
+	        
+	        content = null;     
+	        storeField = Field.Store.YES;
 	        index = Field.Index.ANALYZED;
+	        termVector = Field.TermVector.NO;
+	        
+	        inField = false;
 		}
 	}
 

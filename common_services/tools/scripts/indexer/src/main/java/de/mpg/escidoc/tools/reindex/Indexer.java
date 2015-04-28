@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -86,7 +88,6 @@ public class Indexer
 	Stack<Transformer> transformerStack2 = new Stack<Transformer>();
 	
 	private TransformerFactory saxonFactory = new net.sf.saxon.TransformerFactoryImpl();
-	private TransformerFactory xalanFactory = new org.apache.xalan.processor.TransformerFactoryImpl();
 	
 	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 
@@ -425,6 +426,14 @@ public class Indexer
 		
 		public void run()
 		{
+			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			URL[] urls = ((URLClassLoader)cl).getURLs();
+			
+			for (URL u : urls)
+			{
+				logger.info(u.getFile());
+			}
+			
 			try
 			{
 				logger.info("------------------------------------------------------------------------------------------");

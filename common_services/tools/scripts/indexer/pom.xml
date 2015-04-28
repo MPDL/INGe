@@ -98,6 +98,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+			          <additionalClasspathElements>
+			            <additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
+			            <additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
+			          </additionalClasspathElements>
+        		</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -156,11 +167,21 @@
 			<classifier>jar-with-dependencies</classifier>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.escidoc</groupId>
 			<artifactId>escidoc-analyzers</artifactId>
 			<version>1.3.5-SNAPSHOT</version>
 		</dependency>
+		 
+		<dependency>
+			<groupId>org.escidoc</groupId>
+			<artifactId>fedoragsearch</artifactId>
+			<version>1.3.44-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -172,11 +193,13 @@
 			<version>8.7</version>
 			<scope>compile</scope>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>xalan</groupId>
 			<artifactId>xalan</artifactId>
 			<version>2.7.1</version>
 			<scope>compile</scope>
 		</dependency>
+		-->
 	</dependencies>
 </project>
