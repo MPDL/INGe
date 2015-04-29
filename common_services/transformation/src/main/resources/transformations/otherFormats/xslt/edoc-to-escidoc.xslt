@@ -1039,7 +1039,7 @@
 				</xsl:if>
 				
 				<xsl:if test="$import-name = 'MPIPKS'">
-					<xsl:for-each select="../relations/relation[@type = 'url' and @reltype='hasreferences']">
+					<xsl:for-each select="relations/relation[@type = 'url' and @reltype='hasreferences']">
 						<ec:component>		
 							<ec:properties>
 								<xsl:if test="exists(./comment) and not(empty(./comment))"><prop:description><xsl:value-of select="./comment"/></prop:description></xsl:if>
