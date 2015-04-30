@@ -35,11 +35,11 @@ public class TestIndexerBig extends TestBase
 		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
 	}
 
-	// escidoc:2110490 item mit 2 components (escidoc:2110488 internal audience visibility, escidoc:2110489 external)
+	// escidoc:2110490 item mit 2 components (escidoc:2110488 internal managed, audience visibility, escidoc:2110489 external managed)
+	// ous used in the same subdirectory
 	@Test
 	public void test1() throws Exception
 	{
-		
 		indexer.indexItemsStart(new File("C:/Test/data/objects/2015/0310/09/37"));
 		indexer.finalizeIndex();
 		

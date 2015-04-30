@@ -23,7 +23,7 @@ Notes:
 
 -
  -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="xalan://de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="xalan://de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="xalan://de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="java:de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="java:de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="java:de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
 	<!-- Include stylesheet that writes important fields for gsearch -->
@@ -566,10 +566,12 @@ Notes:
 	</xsl:template>
         
     <!--  WRITE SORTFIELD -->
+ 
 	<xsl:template name="writeSortField">
 		<xsl:param name="context"/>
 		<xsl:param name="fieldname"/>
 		<xsl:param name="fieldvalue"/>
+		 
 		<xsl:if test="string($fieldvalue) and normalize-space($fieldvalue)!='' and sortfield-helper:checkSortField(concat($SORTCONTEXTPREFIX,'.',$context,'.',$fieldname)) = false()">
 			<IndexField termVector="NO" index="UN_TOKENIZED" store="NO">
 				<xsl:attribute name="IFname">
@@ -583,8 +585,9 @@ Notes:
 				</xsl:call-template>
 			</IndexField>
 		</xsl:if>
+		
 	</xsl:template>
-        
+       
     <!-- WRITE USERDEFINED INDEX -->
 	<xsl:template name="writeUserdefinedIndexes">
 		<xsl:for-each select="xalan:nodeset($userdefined-indexes)/userdefined-index">

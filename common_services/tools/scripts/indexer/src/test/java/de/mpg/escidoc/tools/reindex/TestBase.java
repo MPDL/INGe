@@ -37,6 +37,7 @@ public class TestBase
 	protected static String[] fieldNamesToSkip = {
 		"xml_representation", 
 		"xml_metadata", 
+		"stored_filename1",
 		"escidoc.publication.creator.compound.organization-path-identifiers",
 		"escidoc.publication.creator.any.organization-path-identifiers",
 		"escidoc.any-organization-pids"};
@@ -70,13 +71,15 @@ public class TestBase
 			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
 	
-			//assertTrue("Different amount of fields " + fields1.size() + " - " + fields2.size(), fields1.size() == fields2.size());
+//			assertTrue("Different amount of fields " + fields1.size() + " - " + fields2.size(), fields1.size() == fields2.size());
 			
 			Map<String, Set<Fieldable>> m1 = getMap(fields1);
 			Map<String, Set<Fieldable>> m2 = getMap(fields2);
 			
 			compareFields(m1, m2);
-//			compareFields(m2, m1);
+			
+			logger.info("comparing 2 - 1");
+			compareFields(m2, m1);
 		}
 		logger.info("Verify succeeded ");
 	}
@@ -91,7 +94,7 @@ public class TestBase
 			Set<Fieldable> sf1 = m1.get(name);
 			Set<Fieldable> sf2 = m2.get(name);
 			
-			if ("escidoc.any-organization-pids".equals(name))					
+			if ("stored_filename1".equals(name))					
 			{
 				int i = 1;
 				i++;

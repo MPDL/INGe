@@ -37,7 +37,7 @@ if information about LV or LR is written, additionally write:
         xmlns:xalan="http://xml.apache.org/xalan"
         xmlns:xsltxsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        extension-element-prefixes="string-helper">
     <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
     
     <!-- Parameters that get passed while calling this stylesheet-transformation -->
@@ -68,31 +68,5 @@ if information about LV or LR is written, additionally write:
             </IndexField>
         </xsl:if>
     </xsl:template>
-
-	<xsl:function name="string-helper:removeVersionIdentifier" as="xs:string">
-		<xsl:param name="string1"/>
-		<xsl:value-of select="concat(substring-before($string1, ':'), ':', substring-before(concat(substring-after($string1, ':'), ':'), ':'))"/>
-	</xsl:function>
-
-	<xsl:function name="string-helper:removeVersionIdentifier" as="xs:string">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-		<xsl:value-of select="concat(substring-before($string1, ':'), ':', substring-before(concat(substring-after($string1, ':'), $string2), $string2))"/>
-	</xsl:function>
-
-	<xsl:function name="string-helper:getSubstringAfterLast">
-		<xsl:param name="string1"/>
-		<xsl:param name="string2"/>
-		
-		<xsl:choose>
-			<xsl:when test="contains($string1, $string2)">
-				<xsl:value-of select="string-helper:getSubstringAfterLast(substring-after($string1, $string2), $string2)"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$string1"/>
-			</xsl:otherwise>
-		</xsl:choose>
-		
-	</xsl:function>
 
 </xsl:stylesheet>   

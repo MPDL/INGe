@@ -84,12 +84,12 @@ public class Indexer
 	private String mimetypes;
 	private int itemCount = 0;
 	
-	Stack<Transformer> transformerStack1 = new Stack<Transformer>();
-	Stack<Transformer> transformerStack2 = new Stack<Transformer>();
+	Stack<Transformer> transformerStackFoxml2Escidoc = new Stack<Transformer>();
+	Stack<Transformer> transformerStackEscidoc2Index = new Stack<Transformer>();
 	
 	private TransformerFactory saxonFactory = new net.sf.saxon.TransformerFactoryImpl();
 	
-	private Transformer transformer3 = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
+	private Transformer transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 
 	IndexWriter writer;
 	
@@ -150,32 +150,32 @@ public class Indexer
 		this.procCount = Integer.parseInt(properties.getProperty("index.number.processors"));;
 		
 		// Create temp file for modified index stylesheet
-		File tmpFile = File.createTempFile("file", ".tmp");
+		File tmpFile = File.createTempFile("stylesheet", ".tmp");
 		
 		logger.info("transforming index stylesheet to " + tmpFile);
 		
 		long s3 = System.currentTimeMillis();
 		
-		transformer3.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
-		transformer3.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
+		transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
+		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
 		
 		long e3 = System.currentTimeMillis();
 		logger.info("transforming index stylesheet used <" + (e3-s3) + "> ms");
 		
 		for (int i = 0; i < procCount; i++)
 		{		
-			Transformer transformer1 = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("foxml2escidoc.xsl")));
-			transformer1.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
-			transformer1.setParameter("number", i);
-			transformerStack1.push(transformer1);
+			Transformer transformerFoxml2escidoc = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("foxml2escidoc.xsl")));
+			transformerFoxml2escidoc.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+			transformerFoxml2escidoc.setParameter("number", i);
+			transformerStackFoxml2Escidoc.push(transformerFoxml2escidoc);
 			
-			Transformer transformer2 = saxonFactory.newTransformer(new StreamSource(tmpFile));
+			Transformer transformerEscidoc2Index = saxonFactory.newTransformer(new StreamSource(tmpFile));
 			//Xalan transformation not possible due to needed XSLT2 functions
 			//transformer2 = xalanFactory.newTransformer(new StreamSource(tmpFile));
-			transformer2.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
-			transformer2.setParameter("SUPPORTED_MIMETYPES", mimetypes);
-			transformer2.setParameter("fulltext-directory", fulltextDir.replace("\\", "/"));
-			transformerStack2.push(transformer2);
+			transformerEscidoc2Index.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+			transformerEscidoc2Index.setParameter("SUPPORTED_MIMETYPES", mimetypes);
+			transformerEscidoc2Index.setParameter("fulltext-directory", fulltextDir.replace("\\", "/"));
+			transformerStackEscidoc2Index.push(transformerEscidoc2Index);
 		}
 
 		File resumeFile = new File(resumeFilename);
@@ -420,18 +420,21 @@ public class Indexer
 		public IndexThread(File file)
 		{
 			this.file = file;
-			transformer1 = transformerStack1.pop();
-			transformer2 = transformerStack2.pop();
+			transformer1 = transformerStackFoxml2Escidoc.pop();
+			transformer2 = transformerStackEscidoc2Index.pop();
 		}
 		
 		public void run()
 		{
-			ClassLoader cl = Thread.currentThread().getContextClassLoader();
-			URL[] urls = ((URLClassLoader)cl).getURLs();
-			
-			for (URL u : urls)
+			if (logger.isDebugEnabled())
 			{
-				logger.info(u.getFile());
+				ClassLoader cl = Thread.currentThread().getContextClassLoader();
+				URL[] urls = ((URLClassLoader) cl).getURLs();
+
+				for (URL u : urls)
+				{
+					logger.debug(u.getFile());
+				}
 			}
 			
 			try
@@ -455,8 +458,8 @@ public class Indexer
 		
 		void cleanup()
 		{
-			transformerStack1.push(transformer1);
-			transformerStack2.push(transformer2);
+			transformerStackFoxml2Escidoc.push(transformer1);
+			transformerStackEscidoc2Index.push(transformer2);
 			busyProcesses--;
 			logger.info(transformer1.getParameter("number") + " done.");
 		}
@@ -476,9 +479,6 @@ public class Indexer
 			
 			StringWriter writer1 = new StringWriter();
 			StringWriter writer2 = new StringWriter();
-			
-			logger.info("FOXML2eSciDoc: " + tmpFile1);
-			logger.info("eSciDoc2IndexDoc: " + tmpFile2);
 			
 			try
 			{
