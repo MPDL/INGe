@@ -125,7 +125,8 @@ public class CreateGroupGrants
     private List<ItemVO> getList(String contextId, int maximumNumberOfElements) throws Exception
     {
 
-        String query = "escidoc.context.objid=\"" + contextId + "\" and escidoc.component.internal-managed.visibility=\"audience\" and escidoc.content-model.objid=\"escidoc:persistent4\"";
+        String query = "escidoc.context.objid=\"" + contextId + "\" and escidoc.component.internal-managed.visibility=\"audience\" and escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\"";
+//        String query = "escidoc.context.objid=\"" + contextId + "\" and escidoc.component.content.storage=\"internal-managed\" and escidoc.component.visibility=\"audience\" and escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\"";
 
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion("1.1");

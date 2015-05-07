@@ -37,9 +37,10 @@ public class XmlUtils {
 	
 	/**
 	 * parsing all persons from a rdf file
+	 * (get rdf sample: cone/persons/query?format=rdf&q="*Max Planck Institute for XY*"&m=full&n=0)
 	 * @return List<String completeName>
 	 */
-	public static List<String> getUsernameFromConeRdf () 
+	public static List<String> getUsernamesFromConeRdf () 
 	{
 		System.out.println("-------------------\nStarted parsing XML\n-------------------");
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -81,9 +82,15 @@ public class XmlUtils {
 			};
 			xPath.setNamespaceContext(namespaceContext);
 			NodeList nodeList = (NodeList) xPath.compile(ConfigUtil.XPATH_EXPRESSION_TITLE).evaluate(xmlDocument, XPathConstants.NODESET);
+			String currentName;
 			for (int i = 0; i < nodeList.getLength(); i++) 
 			{
-				nameList.add(nodeList.item(i).getNodeValue());
+				currentName = nodeList.item(i).getNodeValue();
+				// duplicates will not be added
+				if (!nameList.contains(currentName))
+				{
+					nameList.add(currentName);
+				}
 				if (ConfigUtil.VERBOSE) 
 	            {
 					System.out.println("Complete-name[" + i + "]: " + nodeList.item(i).getNodeValue());
@@ -94,7 +101,12 @@ public class XmlUtils {
 				nodeList = (NodeList) xPath.compile(ConfigUtil.XPATH_EXPRESSION_ALTERNATIVE_TITLE).evaluate(xmlDocument, XPathConstants.NODESET);
 				for (int i = 0; i < nodeList.getLength(); i++) 
 				{
-					nameList.add(nodeList.item(i).getNodeValue());
+					currentName = nodeList.item(i).getNodeValue();
+					// duplicates will not be added
+					if (!nameList.contains(currentName))
+					{
+						nameList.add(currentName);
+					}
 					if (ConfigUtil.VERBOSE) 
 		            {
 						System.out.println("Alternative-name[" + i + "]: " + nodeList.item(i).getNodeValue());

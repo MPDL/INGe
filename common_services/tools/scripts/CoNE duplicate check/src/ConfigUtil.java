@@ -26,7 +26,7 @@ public class ConfigUtil {
 	
 	// Set the file path to the cone-rdf-xml
 	// (only needed for RDF-Check)
-	public final static String RDF_FILE_PATH = "E:\\tmp\\result_cone_mpi_ds.xml";
+	public final static String RDF_FILE_PATH = "E:\\tmp\\import_cone_persons_mpi_sf.xml";
 	
 	// XPath-Expression for the title node
 	// (only needed for RDF-Check)

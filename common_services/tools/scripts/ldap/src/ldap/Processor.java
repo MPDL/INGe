@@ -23,6 +23,10 @@ public class Processor {
 	final static String[] POSTGRESQL_CONTEXTS_IDS_FOR_SETTING_RIGHTS = {"escidoc:733167", "escidoc:733168", "escidoc:733169"};
 	final static String[] POSTGRESQL_CONTEXTS_NAMES_FOR_SETTING_RIGHTS = {"General", "Institutsbibliography", "Preprints"};
 	
+	//eSciDoc Roles
+	final static String DEPOSITOR_ROLE = "escidoc:role-depositor";
+	final static String MODERATOR_ROLE = "escidoc:role-depositor";
+	
 	public static void main(String[] args) {
 
         insertPersonListIntoDatabase(getLdapUserList());
@@ -40,7 +44,8 @@ public class Processor {
 				postgreSql.insertUserAccount((POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + person.getUid() : person.getUid()), person.getGivenname() + " " + person.getSurname(), person.getMail(), person.getPassword());
 				xml.append(person.toXmlString());
 				for (int i = 0; i < POSTGRESQL_CONTEXTS_IDS_FOR_SETTING_RIGHTS.length; i++) {
-					postgreSql.addUserRole((POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + personCount + i : Integer.toString(personCount + i)), (POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + person.getUid() : person.getUid()), "escidoc:role-depositor", POSTGRESQL_CONTEXTS_IDS_FOR_SETTING_RIGHTS[i], POSTGRESQL_CONTEXTS_NAMES_FOR_SETTING_RIGHTS[i]);
+					postgreSql.addUserRole((POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + personCount + i : Integer.toString(personCount + i)), (POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + person.getUid() : person.getUid()), DEPOSITOR_ROLE, POSTGRESQL_CONTEXTS_IDS_FOR_SETTING_RIGHTS[i], POSTGRESQL_CONTEXTS_NAMES_FOR_SETTING_RIGHTS[i]);
+					postgreSql.addUserRole((POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + personCount + i : Integer.toString(personCount + i)), (POSTGRESQL_ID_PREFIX != null ? POSTGRESQL_ID_PREFIX + ":" + person.getUid() : person.getUid()), MODERATOR_ROLE, POSTGRESQL_CONTEXTS_IDS_FOR_SETTING_RIGHTS[i], POSTGRESQL_CONTEXTS_NAMES_FOR_SETTING_RIGHTS[i]);
 				}
 				
 			} else {

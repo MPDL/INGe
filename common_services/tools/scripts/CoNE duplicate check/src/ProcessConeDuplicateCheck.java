@@ -51,7 +51,7 @@ public class ProcessConeDuplicateCheck {
 	 */
 	private static void findRdfDuplicates()
 	{
-		List<String> nameList = XmlUtils.getUsernameFromConeRdf();
+		List<String> nameList = XmlUtils.getUsernamesFromConeRdf();
 		List<String> possibleDuplicates = new ArrayList<String>();
 		int nameListSize = nameList.size();
 		List<String> coneResponseList = new ArrayList<String>();
