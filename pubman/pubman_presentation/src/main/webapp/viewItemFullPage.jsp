@@ -139,6 +139,13 @@
 										<h:panelGroup styleClass="min_imgBtn remove"/>
 										<h:outputText value="#{lbl.ViewItemFull_lblSSRN}"/>
 									</h:commandLink>
+									
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
+									<h:commandLink id="lnkAddDoi" styleClass="free_area0" title="#{tip.ViewItemFull_lblAddDoi }" action="#{ViewItemFull.addDoi}" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" onclick="fullItemReloadAjax();">
+										<h:panelGroup styleClass="min_imgBtn add"/>
+										<h:outputText value="#{lbl.ViewItemFull_lblDoi}"/>
+									</h:commandLink>
+									
 
 
 								<!-- content menu lower line ends here -->

@@ -122,9 +122,11 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.DoiRestService;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.exceptions.PubManException;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -3395,7 +3397,52 @@ public class ViewItemFull extends FacesBean
     	
     	return null;
     }
-
+    
+    /**
+     * checks if the current item and user are cappable for creating a DOI
+     * (moderator, released and some needed Metadata)
+     * @return if a doi can be created for this item
+     */
+    public boolean isDoiCappable()
+    {
+    	return (isModerator && DoiRestService.isDoiReady(this.getPubItem()));
+    }
+    
+    /**
+     * Adds a DOI and releases the Item again
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String addDoi() 
+    {
+    	String returnValue = "";
+    	try {
+    		// get a new DOI including a consistency check
+			String doi = DoiRestService.getNewDoi(this.getPubItem());
+			
+			// update and release the current item with the new DOI
+			ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+	        this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
+	        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+            returnValue = icsb.saveAndSubmitCurrentPubItem(
+                    "Submission during adding DOI.", AcceptItem.LOAD_ACCEPTITEM);
+	        if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
+            {
+                info(getMessage("ViewItem_doiAddedSuccessfully"));
+            }
+	        
+	        // update Lists with current item version
+	        PubItemListSessionBean pubItemListSessionBean = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+	        if (pubItemListSessionBean != null)
+	        {
+	            pubItemListSessionBean.update();
+	        }
+	        
+		} catch (Exception e) {
+			logger.error("Error creating new DOI", e);
+			error(getMessage("ViewItem_doiAddingProblem"));
+		}
+    	return returnValue;
+    }
     
 
 
