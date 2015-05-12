@@ -100,18 +100,50 @@
     <xsl:template match="publication:publication">
         <xsl:if test="eterms:creator">
             <doi:creators>
-                <xsl:for-each select="eterms:creator">
-                    <doi:creator>
-                        <doi:creatorName>
-                            <xsl:value-of select="./person:person/eterms:family-name"/>, <xsl:value-of select="./person:person/eterms:given-name"/>
-                        </doi:creatorName>
-                        <xsl:for-each select="organization:organization">
-                            <doi:affiliation>
-                                <xsl:value-of select="./dc:title"/>
-                            </doi:affiliation>
-                        </xsl:for-each>
-                    </doi:creator>
-                </xsl:for-each>
+            	<xsl:choose>
+            		<xsl:when test="eterms:creator[@role = 'http://www.loc.gov/loc.terms/relators/AUT']">
+		                <xsl:for-each select="eterms:creator[@role = 'http://www.loc.gov/loc.terms/relators/AUT']/person:person">
+		                    <doi:creator>
+		                        <doi:creatorName>
+		                        	<xsl:value-of select="./eterms:family-name"/>, <xsl:value-of select="./eterms:given-name"/>
+		                        </doi:creatorName>
+		                        <xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
+		                            <doi:affiliation>
+		                                <xsl:value-of select="./dc:title"/>
+		                            </doi:affiliation>
+		                        </xsl:for-each>
+		                    </doi:creator>
+		                </xsl:for-each>
+		                <xsl:for-each select="eterms:creator[@role = 'http://www.loc.gov/loc.terms/relators/AUT']/organization:organization">
+		                    <doi:creator>
+		                        <doi:creatorName>
+		                        	<xsl:value-of select="./dc:title"/>
+		                        </doi:creatorName>
+		                    </doi:creator>
+		                </xsl:for-each>
+		            </xsl:when>
+		            <xsl:otherwise>
+		            	<xsl:for-each select="eterms:creator/person:person">
+		                    <doi:creator>
+		                        <doi:creatorName>
+		                        	<xsl:value-of select="./eterms:family-name"/>, <xsl:value-of select="./eterms:given-name"/>
+		                        </doi:creatorName>
+		                        <xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
+		                            <doi:affiliation>
+		                                <xsl:value-of select="./dc:title"/>
+		                            </doi:affiliation>
+		                        </xsl:for-each>
+		                    </doi:creator>
+		                </xsl:for-each>
+		                <xsl:for-each select="eterms:creator/organization:organization">
+		                    <doi:creator>
+		                        <doi:creatorName>
+		                        	<xsl:value-of select="./dc:title"/>
+		                        </doi:creatorName>
+		                    </doi:creator>
+		                </xsl:for-each>
+		            </xsl:otherwise>
+                </xsl:choose>
             </doi:creators>
         </xsl:if>
 	
@@ -175,10 +207,10 @@
         <doi:publisher>
             <xsl:choose>
                 <xsl:when test="eterms:publishing-info/dc:publisher">
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="eterms:publishing-info/dc:publisher"/>
                 </xsl:when>
                 <xsl:when test="source:source/eterms:publishing-info/dc:publisher">
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="source:source/eterms:publishing-info/dc:publisher"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>(:unas)</xsl:text>
@@ -256,13 +288,15 @@
             <doi:title>
                 <xsl:value-of select="."/>
             </doi:title>
+            <!-- 
             <xsl:for-each select="../dcterms:alternative">
                 <doi:title>
-                    <!-- <xsl:attribute name="titleType"><xsl:value-of select="./@xsi:type"/></xsl:attribute> -->
+                    <xsl:attribute name="titleType"><xsl:value-of select="./@xsi:type"/></xsl:attribute>
                     <xsl:attribute name="titleType">AlternativeTitle</xsl:attribute>
                     <xsl:value-of select="."/>
                 </doi:title>
             </xsl:for-each>
+             -->
         </doi:titles>
     </xsl:template>
 	
