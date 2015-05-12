@@ -71,7 +71,7 @@ public class TestBase
 			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
 	
-//			assertTrue("Different amount of fields " + fields1.size() + " - " + fields2.size(), fields1.size() == fields2.size());
+			assertTrue("Different amount of fields " + fields1.size() + " - " + fields2.size(), fields1.size() == fields2.size());
 			
 			Map<String, Set<Fieldable>> m1 = getMap(fields1);
 			Map<String, Set<Fieldable>> m2 = getMap(fields2);
@@ -127,7 +127,7 @@ public class TestBase
 				assertTrue("Difference in field(" + name + ") isTokenized " + f1.isTokenized() + " - " + f2.isTokenized(),
 						f1.isTokenized() == f2.isTokenized());
 				
-				logger.info("Field <" + name + "> ok");
+				logger.info("Field <" + name + "> ok " + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()));
 			
 			}
 		}

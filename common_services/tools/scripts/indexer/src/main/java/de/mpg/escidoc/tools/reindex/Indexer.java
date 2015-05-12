@@ -494,6 +494,7 @@ public class Indexer
 			{
 				if ("noitem".equals(de.getErrorCodeLocalPart()))
 				{
+					logger.info("No item in < " + file + ">");
 					return;
 				}
 			}
