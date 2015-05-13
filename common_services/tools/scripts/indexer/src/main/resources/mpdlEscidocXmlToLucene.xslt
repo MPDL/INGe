@@ -23,11 +23,11 @@ Notes:
 
 -
  -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="java:de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="java:de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="java:de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="java:de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="java:de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="java:de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="java:de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
 	<!-- Include stylesheet that writes important fields for gsearch -->
-	<xsl:include href="index/gsearchAttributes.xslt"/>
+	<xsl:include href="gsearchAttributes.xslt"/>
     
     <!-- Parameters that get passed while calling this stylesheet-transformation -->
 	<xsl:param name="LANGUAGE"/>
@@ -453,9 +453,10 @@ Notes:
 		
 		<xsl:choose>
 			<xsl:when test="string($mime-type) and contains($SUPPORTED_MIMETYPES,$mime-type) and string($component-type) and contains($NON_SUPPORTED_COMPONENT_TYPES,concat(' ',$component-type,' '))=false and string($visibility) and contains($SUPPORTED_COMPONENT_VISIBILITIES,concat(' ',$visibility,' '))">
-               
-
-               
+               <!--
+				<xsl:message>componentId <xsl:value-of select="$components[$num]/*[local-name()='content']/@xlink:href"/></xsl:message>
+				<xsl:message>component-type <xsl:value-of select="$components[$num]/*[local-name()='properties']/*[local-name()='content-category']"/></xsl:message>
+               -->
                 <!-- INDEX FULLTEXT -->
 				<IndexField index="TOKENIZED" store="YES" termVector="NO">
 					<xsl:attribute name="dsId">
@@ -595,7 +596,7 @@ Notes:
 			<xsl:variable name="context" select="./@context"/>
 			<xsl:for-each select="./element">
 				<xsl:if test="string(.) and normalize-space(.)!=''">
-					<xsl:message><xsl:value-of select="concat($index-name,':',./@index)"/></xsl:message>
+					<!--xsl:message><xsl:value-of select="concat($index-name,':',./@index)"/></xsl:message-->
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$context"/>
 						<xsl:with-param name="fieldname" select="$index-name"/>

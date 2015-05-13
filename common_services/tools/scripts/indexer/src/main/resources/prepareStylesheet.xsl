@@ -36,6 +36,12 @@
 		</xxsl:call-template>
 	</xsl:template>
 	
+	<xsl:template match="xsl:test[contains(@select, 'sortfield-helper:checkSortField')]">
+		<xxsl:call-template name="check-sort-field">
+			<xxsl:with-param name="field-name" select="concat($SORTCONTEXTPREFIX,'.',$context,'.',$fieldname)"/>
+		</xxsl:call-template>
+	</xsl:template>
+	
 	<xsl:template match="xsl:variable[@name='sortfields']">
 		<xsl:copy>
 			<xsl:copy-of select="@*"/>
