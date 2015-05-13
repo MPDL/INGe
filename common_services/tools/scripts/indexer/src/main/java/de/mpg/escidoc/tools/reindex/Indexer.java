@@ -49,6 +49,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
+import de.mpg.escidoc.tools.util.IndexingReport;
 import de.mpg.escidoc.tools.util.Util;
 
 /**
@@ -60,7 +61,7 @@ public class Indexer
 
 	private static Logger logger = Logger.getLogger(Indexer.class);
 	
-	static String indexPath = "";
+	protected String indexPath = "";
 	static final String defaultDate = "0000-01-01 00:00:00";
 	
 	private static final String propFileName = "indexer.properties";
@@ -93,19 +94,15 @@ public class Indexer
 
 	IndexWriter writer;
 	
+	private static IndexingReport indexingReport = new IndexingReport();
+	
 
 	
 	/**
 	 * Constructor with initial base directory, should be the fedora "objects" directory.
 	 * 
 	 * @param baseDir
-	 * @param dbFile
-	 * @param indexStylesheet
-	 * @param indexName
-	 * @param indexAttributesName
-	 * @param mDateMillis
-	 * @param fulltextDir
-	 * @param procCount
+	 * @param indexName 
 	 * @throws Exception
 	 */
 	public Indexer(File baseDir, String indexName) throws Exception
@@ -211,7 +208,11 @@ public class Indexer
 	public String getIndexPath()
 	{
 		return this.indexPath;
-		
+	}
+	
+	public IndexingReport getIndexingReport()
+	{
+		return this.indexingReport;
 	}
 
 	/**
@@ -392,6 +393,10 @@ public class Indexer
 					new IndexThread(file).start();
 					busyProcesses++;
 				}
+				else if (file.lastModified() < mDateMillis)
+				{
+					indexingReport.incrementFilesSkipped();
+				}
 			}
 		}
 		else
@@ -426,16 +431,6 @@ public class Indexer
 		
 		public void run()
 		{
-			if (logger.isDebugEnabled())
-			{
-				ClassLoader cl = Thread.currentThread().getContextClassLoader();
-				URL[] urls = ((URLClassLoader) cl).getURLs();
-
-				for (URL u : urls)
-				{
-					logger.debug(u.getFile());
-				}
-			}
 			
 			try
 			{
@@ -450,6 +445,8 @@ public class Indexer
 			catch (Exception e)
 			{
 				cleanup();
+				indexingReport.addToErrorList(file.getName());
+				indexingReport.incrementFilesErrorOccured();
 				throw new RuntimeException(e);
 			}
 			cleanup();
@@ -498,7 +495,8 @@ public class Indexer
 					return;
 				}
 			}
-			itemCount++;
+			itemCount++;			
+			
 			
 			long s2 = System.currentTimeMillis();
 			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
@@ -508,6 +506,7 @@ public class Indexer
 			logger.info("eSciDoc2IndexDoc used <" + (e2 - s2) + "> ms");
 			
 			indexDoc(new StringReader(writer2.toString()));
+			indexingReport.incrementFilesIndexingDone();
 		}
 		
 		/**

@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.extraction.ExtractionChain;
 import de.mpg.escidoc.services.extraction.ExtractionChain.ExtractionResult;
-import de.mpg.escidoc.tools.util.ExtractionStatistic;
+import de.mpg.escidoc.tools.util.ExtractionReport;
 import de.mpg.escidoc.tools.util.Util;
 
 /**
@@ -35,7 +35,7 @@ public class FullTextExtractor
 	private static Logger logger = Logger.getLogger(FullTextExtractor.class);
 
 	private String fulltextDir = "";
-	private ExtractionStatistic statistic = new ExtractionStatistic();
+	private ExtractionReport statistic = new ExtractionReport();
 	private Properties properties = new Properties();
 	private String[] envp = new String[2]; 
 	
@@ -74,7 +74,7 @@ public class FullTextExtractor
 		return this.fulltextDir;
 	}
 	
-	public ExtractionStatistic getStatistic()
+	public ExtractionReport getStatistic()
 	{
 		return this.statistic;
 	}
