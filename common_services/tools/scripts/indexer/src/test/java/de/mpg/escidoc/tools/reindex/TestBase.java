@@ -36,11 +36,8 @@ public class TestBase
 	
 	protected static String[] fieldNamesToSkip = {
 		"xml_representation", 
-		"xml_metadata", 
-		"stored_filename1",
-		"escidoc.publication.creator.compound.organization-path-identifiers",
-		"escidoc.publication.creator.any.organization-path-identifiers",
-		"escidoc.any-organization-pids"};
+		"xml_metadata"
+		};
 	
 	public TestBase()
 	{
@@ -127,7 +124,7 @@ public class TestBase
 				assertTrue("Difference in field(" + name + ") isTokenized " + f1.isTokenized() + " - " + f2.isTokenized(),
 						f1.isTokenized() == f2.isTokenized());
 				
-				logger.info("Field <" + name + "> ok " + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()));
+				logger.info("comparing field <" + name + "> ok <" + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()) + ">");
 			
 			}
 		}
