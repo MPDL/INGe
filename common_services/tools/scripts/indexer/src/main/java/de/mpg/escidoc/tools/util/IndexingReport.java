@@ -6,30 +6,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ExtractionStatistic
+public class IndexingReport
 {
-    private AtomicInteger filesTotal = new AtomicInteger(0);
     private AtomicInteger filesErrorOccured  = new AtomicInteger(0);
-    private AtomicInteger filesExtractionDone  = new AtomicInteger(0);
+    private AtomicInteger filesIndexingDone  = new AtomicInteger(0);
     private AtomicInteger filesSkipped  = new AtomicInteger(0);
   
     private long start = System.currentTimeMillis();
     private Collection<String> errorList = Collections.synchronizedList(new ArrayList<String>());
     
-    public int getFilesTotal()
-    {
-        return filesTotal.get();
-    }
-    
-    public void setFilesTotal(int t)
-    {
-        filesTotal.set(t);
-    }
-    
-    public void incrementFilesTotal()
-    {
-        this.filesTotal.incrementAndGet();
-    }
 
     public int getFilesErrorOccured()
     {
@@ -41,14 +26,14 @@ public class ExtractionStatistic
         this.filesErrorOccured.incrementAndGet();
     }
     
-    public int getFilesExtractionDone()
+    public int getFilesIndexingDone()
     {
-        return this.filesExtractionDone.get();
+        return this.filesIndexingDone.get();
     } 
     
-    public void incrementFilesExtractionDone()
+    public void incrementFilesIndexingDone()
     {
-        this.filesExtractionDone.incrementAndGet();
+        this.filesIndexingDone.incrementAndGet();
     }
     
     public int getFilesSkipped()
@@ -77,10 +62,9 @@ public class ExtractionStatistic
     }
     
     public void clear()
-    {
-        this.filesTotal.set(0);;       
+    {      
         this.filesErrorOccured.set(0);
-        this.filesExtractionDone.set(0);;
+        this.filesIndexingDone.set(0);;
         this.filesSkipped.set(0);;
 
         this.start = System.currentTimeMillis();
@@ -91,13 +75,14 @@ public class ExtractionStatistic
     {
     	long s = (System.currentTimeMillis() - start)/1000;
     	return 
-    			"\nfilesTotal\t\t<" + filesTotal.get() + "> \n"
-    			+ "filesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
+
+    			"filesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
     			+ "filesSkipped\t\t<" + filesSkipped.get() + "> \n"
-    			+ "filesExtractionDone\t<" + filesExtractionDone.get() + "> \n"
+    			+ "filesIndexingDone\t<" + filesIndexingDone.get() + "> \n"
     			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
     			+ "errorList\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }
      
+
 }
