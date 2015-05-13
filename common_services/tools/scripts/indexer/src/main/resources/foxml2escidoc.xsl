@@ -38,10 +38,8 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-			<!--  -->
-		<xsl:message>xxxxx <xsl:value-of select="$RELS-EXT"/></xsl:message>
+
 		<xsl:variable name="last-modification-date" select="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description/version:date"/>
-		<xsl:message>xxxxx <xsl:value-of select="$last-modification-date"/></xsl:message>
 		
 		<xsl:variable name="creation-date" select="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[1]/@CREATED"/>
 		<escidocItem:item xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="http://coreservice.mpdl.mpg.de" xlink:type="simple" xlink:title="{$first-dc-title}" xlink:href="/ir/item/{$PID}" last-modification-date="{$last-modification-date}">
