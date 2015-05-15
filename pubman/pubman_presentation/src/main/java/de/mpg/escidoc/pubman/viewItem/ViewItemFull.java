@@ -3423,8 +3423,8 @@ public class ViewItemFull extends FacesBean
 			ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
 	        this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
 	        icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
-            returnValue = icsb.saveAndSubmitCurrentPubItem(
-                    "Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
+	        icsb.saveAndSubmitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
+	        returnValue = icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
 	        if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue))
             {
                 info(getMessage("ViewItem_doiAddedSuccessfully"));

@@ -51,6 +51,41 @@
 				<meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}"/>
 				
 				<ui:include src="header/ui/StandardImports.jspf" />
+				
+				<script type="text/javascript">
+					var currentDialog;
+	
+					function showDialog(){
+						currentDialog = $("<p>Sind Sie sich absolut sicher, dass Sie wissen, was Sie tun?</p>").dialog(
+						{
+							dialogClass: "no-close",
+							modal:true, 
+							width: "auto",
+							resizable: false,
+							draggable:false,
+							buttons: [
+								{
+									text: "OK",
+									click: function() {
+										$(".hiddenLnkExecuteAddDoi").click();
+										$(this).dialog("close"); 
+									}
+								},
+								{
+									text: "Cancel",
+									click: function() {
+										$(this).dialog("close");
+									}
+								}
+							],
+							close: function(event, ui)
+							{ 
+		            			$(this).dialog("destroy");
+		        			} 
+	        			});
+					}
+				</script>
+				
 			</h:head>
 
 			<body lang="${InternationalizationHelper.locale}">
@@ -214,6 +249,15 @@
 												<h:panelGroup styleClass="min_imgBtn remove" />
 												<h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
 											</h:commandLink>
+											<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
+												<h:outputLink id="lnkAddDoi" styleClass="free_area0" value="#" title="#{tip.ViewItemFull_lblAddDoi}" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" onclick="showDialog();">
+												<h:panelGroup styleClass="min_imgBtn add"/>
+												<h:outputText value="#{lbl.ViewItemFull_lblDoi}"/>
+											</h:outputLink>
+									
+											<!-- hidden Button for executing the addDoi command, after the jquery dialog has been confirmed -->
+											<h:commandLink id="lnkExecuteAddDoi" styleClass="hiddenLnkExecuteAddDoi" style="display:none;" value="#" action="#{ViewItemFull.addDoi}"  onclick="fullItemReloadAjax();"/>
+											
 											
 										</h:panelGroup>
 										<!-- content menu lower line (actions) ends here -->

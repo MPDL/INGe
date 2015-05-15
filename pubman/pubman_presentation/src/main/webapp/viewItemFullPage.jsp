@@ -49,6 +49,43 @@
 				<meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}"/>
 				
 				<ui:include src="header/ui/StandardImports.jspf" />
+				
+				<h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
+				<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js"/>
+				
+				<script type="text/javascript">
+					var currentDialog;
+	
+					function showDialog(){
+						currentDialog = $("<p>Sind Sie sich absolut sicher, dass Sie wissen, was Sie tun?</p>").dialog(
+						{
+							dialogClass: "no-close",
+							modal:true, 
+							width: "auto",
+							resizable: false,
+							draggable:false,
+							buttons: [
+								{
+									text: "OK",
+									click: function() {
+										$(".hiddenLnkExecuteAddDoi").click();
+										$(this).dialog("close"); 
+									}
+								},
+								{
+									text: "Cancel",
+									click: function() {
+										$(this).dialog("close");
+									}
+								}
+							],
+							close: function(event, ui)
+							{ 
+		            			$(this).dialog("destroy");
+		        			} 
+	        			});
+					}
+				</script>
 
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
@@ -64,6 +101,7 @@
 				<h:form >
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+					
 					<div class="clear">
 						<div class="headerSection">
 							
@@ -141,11 +179,13 @@
 									</h:commandLink>
 									
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
-									<h:commandLink id="lnkAddDoi" styleClass="free_area0" title="#{tip.ViewItemFull_lblAddDoi }" action="#{ViewItemFull.addDoi}" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" onclick="fullItemReloadAjax();">
+									<h:outputLink id="lnkAddDoi" styleClass="free_area0" value="#" title="#{tip.ViewItemFull_lblAddDoi}" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" onclick="showDialog();">
 										<h:panelGroup styleClass="min_imgBtn add"/>
 										<h:outputText value="#{lbl.ViewItemFull_lblDoi}"/>
-									</h:commandLink>
+									</h:outputLink>
 									
+									<!-- hidden Button for executing the addDoi command, after the jquery dialog has been confirmed -->
+									<h:commandLink id="lnkExecuteAddDoi" styleClass="hiddenLnkExecuteAddDoi" style="display:none;" value="#" action="#{ViewItemFull.addDoi}"  onclick="fullItemReloadAjax();"/>
 
 
 								<!-- content menu lower line ends here -->
@@ -387,7 +427,6 @@
 				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
-			
 			
 			</body>
 		</html>
