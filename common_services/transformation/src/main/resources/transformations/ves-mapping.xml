@@ -167,6 +167,12 @@
 			
 			<map v2="http://www.loc.gov/loc.terms/relators/INV">author</map>
 			<map v2="http://www.loc.gov/loc.terms/relators/APP">contributor</map>
+			
+			<map v2="http://www.loc.gov/loc.terms/relators/DRT">author</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/PRO">publisher</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ACT">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/CNG">photographer</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/SDS">contributor</map>
 		</v2-to-v1>
 		<v2-to-edoc>
 			<map v2="http://www.loc.gov/loc.terms/relators/AUT">author</map>
