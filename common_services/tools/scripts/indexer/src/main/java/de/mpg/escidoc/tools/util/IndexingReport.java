@@ -76,7 +76,7 @@ public class IndexingReport
     	long s = (System.currentTimeMillis() - start)/1000;
     	return 
 
-    			"filesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
+    			"\nfilesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
     			+ "filesSkipped\t\t<" + filesSkipped.get() + "> \n"
     			+ "filesIndexingDone\t<" + filesIndexingDone.get() + "> \n"
     			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"

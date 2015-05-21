@@ -73,12 +73,32 @@ public class TestBase
 			Map<String, Set<Fieldable>> m1 = getMap(fields1);
 			Map<String, Set<Fieldable>> m2 = getMap(fields2);
 			
+			logger.debug("comparing 1 - 2");
 			compareFields(m1, m2);
 			
-			logger.info("comparing 2 - 1");
+			logger.debug("comparing 2 - 1");
 			compareFields(m2, m1);
 		}
 		logger.info("Verify succeeded ");
+	}
+	
+	public Map<String, Set<Fieldable>> getFieldsOfDocument() throws CorruptIndexException, IOException
+	{
+		Document document1 = null;
+		Map<String, Set<Fieldable>> m1 = null;
+		
+		IndexReader indexReader1 = IndexReader.open(FSDirectory.open(new File(indexer.getIndexPath())), true);
+		
+		for (int i = 0; i < indexReader1.maxDoc(); i++)
+		{			
+			document1 = indexReader1.document(i);			
+			
+			List<Fieldable> fields1 = document1.getFields();	
+		
+			m1 = getMap(fields1);
+			
+		}
+		return m1;
 	}
 
 	private void compareFields(Map<String, Set<Fieldable>> m1, Map<String, Set<Fieldable>> m2)
@@ -124,7 +144,7 @@ public class TestBase
 				assertTrue("Difference in field(" + name + ") isTokenized " + f1.isTokenized() + " - " + f2.isTokenized(),
 						f1.isTokenized() == f2.isTokenized());
 				
-				logger.info("comparing field <" + name + "> ok <" + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()) + ">");
+				logger.debug("comparing field <" + name + "> ok <" + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()) + ">");
 			
 			}
 		}

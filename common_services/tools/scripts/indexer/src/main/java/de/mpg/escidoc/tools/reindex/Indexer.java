@@ -94,7 +94,7 @@ public class Indexer
 
 	IndexWriter writer;
 	
-	private static IndexingReport indexingReport = new IndexingReport();
+	private IndexingReport indexingReport = new IndexingReport();
 	
 
 	
@@ -284,6 +284,7 @@ public class Indexer
 	public void finalizeIndex() throws Exception
 	{
 		writer.close();
+		logger.info(this.getIndexingReport().toString());
 	}
 
 	/**

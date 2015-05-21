@@ -16,6 +16,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.escidoc.sb.gsearch.xslt.SortFieldHelper;
+
 /**
  * @author franke
  *
@@ -165,7 +167,7 @@ public class IndexDocument extends DefaultHandler
 	@Override
 	public void endDocument() throws SAXException
 	{
-
+		SortFieldHelper.cleanUp();
 	}
 
 	
