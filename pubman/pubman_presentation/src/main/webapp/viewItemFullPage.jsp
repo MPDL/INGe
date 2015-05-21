@@ -53,13 +53,17 @@
 				<h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
 				<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js"/>
 				
+				<style type="text/css">
+					.dialogNoTitleBar .ui-dialog-titlebar {display:none;}
+				</style>
+				
 				<script type="text/javascript">
 					var currentDialog;
 	
 					function showDialog(){
 						currentDialog = $("<p>Sind Sie sich absolut sicher, dass Sie wissen, was Sie tun?</p>").dialog(
 						{
-							dialogClass: "no-close",
+							dialogClass: "dialogNoTitleBar",
 							modal:true, 
 							width: "auto",
 							resizable: false,
