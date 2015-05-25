@@ -494,6 +494,11 @@ public class Indexer
 				{
 					logger.info("No item in < " + file + ">");
 					return;
+				} 
+				else if ("wrongStatus".equals(de.getErrorCodeLocalPart()))
+				{
+					logger.info("Item in wrong public status < " + file + ">");
+					return;
 				}
 			}
 			itemCount++;			

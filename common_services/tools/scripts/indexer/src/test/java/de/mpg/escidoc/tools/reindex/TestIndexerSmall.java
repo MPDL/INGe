@@ -136,5 +136,24 @@ public class TestIndexerSmall extends TestBase
 		fields = fieldMap.get("stored_fulltext");
 		assertTrue(fields == null);
 	}
+	
+	// escidoc:2087580 item without component in status pending
+	// has no reference
+	@Test
+	public void testPendingItem() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2087580"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 0 Found " + indexer.getItemCount(), indexer.getItemCount() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		
+		assertTrue(fieldMap == null);
+	}
 
 }

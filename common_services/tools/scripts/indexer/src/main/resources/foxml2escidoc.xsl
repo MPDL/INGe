@@ -38,6 +38,10 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<xsl:message>MESSAGE-RELS-EXT<xsl:value-of select="$RELS-EXT"/></xsl:message>
+		<xsl:if test="$RELS-EXT = ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:wrongStatus'), 'Item in wrong public status') "/>
+		</xsl:if>
 
 		<xsl:variable name="last-modification-date" select="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description/version:date"/>
 		
