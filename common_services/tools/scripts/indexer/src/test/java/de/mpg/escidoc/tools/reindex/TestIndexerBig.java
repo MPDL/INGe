@@ -33,7 +33,7 @@ public class TestIndexerBig extends TestBase
 		
 		super.verify();
 		
-		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 	}
 
 	// escidoc:2110490 item mit 2 components (escidoc:2110488 internal managed, audience visibility, escidoc:2110489 external managed)

@@ -8,24 +8,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class IndexingReport
 {
-    private AtomicInteger filesErrorOccured  = new AtomicInteger(0);
+    
     private AtomicInteger filesIndexingDone  = new AtomicInteger(0);
-    private AtomicInteger filesSkipped  = new AtomicInteger(0);
+    private AtomicInteger filesErrorOccured  = new AtomicInteger(0);
+    private AtomicInteger filesSkippedBecauseOfTime  = new AtomicInteger(0);
+    private AtomicInteger filesSkippedBecauseOfStatusOrType  = new AtomicInteger(0);
   
     private long start = System.currentTimeMillis();
     private Collection<String> errorList = Collections.synchronizedList(new ArrayList<String>());
-    
 
-    public int getFilesErrorOccured()
-    {
-        return this.filesErrorOccured.get();
-    } 
-    
-    public void incrementFilesErrorOccured()
-    {
-        this.filesErrorOccured.incrementAndGet();
-    }
-    
     public int getFilesIndexingDone()
     {
         return this.filesIndexingDone.get();
@@ -36,16 +27,36 @@ public class IndexingReport
         this.filesIndexingDone.incrementAndGet();
     }
     
-    public int getFilesSkipped()
+    public int getFilesErrorOccured()
     {
-        return this.filesSkipped.get();
+        return this.filesErrorOccured.get();
     } 
     
-    public void incrementFilesSkipped()
+    public void incrementFilesErrorOccured()
     {
-        this.filesSkipped.incrementAndGet();
+        this.filesErrorOccured.incrementAndGet();
     }
 
+    public int getFilesSkippedBecauseOfTime()
+	{
+		return this.filesSkippedBecauseOfTime.get();
+	}
+
+	public void incrementFilesSkippedBecauseOfTime()
+	{
+		this.filesSkippedBecauseOfTime.incrementAndGet();
+	}
+
+	public int getFilesSkippedBecauseOfStatusOrType()
+	{
+		return this.filesSkippedBecauseOfStatusOrType.get();
+	}
+
+	public void incrementFilesSkippedBecauseOfStatusOrType()
+	{
+		this.filesSkippedBecauseOfStatusOrType.incrementAndGet();
+	}
+     
     public long getTimeUsed()
     {
         return (System.currentTimeMillis() - this.start)/1000;
@@ -64,8 +75,9 @@ public class IndexingReport
     public void clear()
     {      
         this.filesErrorOccured.set(0);
-        this.filesIndexingDone.set(0);;
-        this.filesSkipped.set(0);;
+        this.filesIndexingDone.set(0);
+        this.filesSkippedBecauseOfTime.set(0);
+        this.filesSkippedBecauseOfStatusOrType.set(0);
 
         this.start = System.currentTimeMillis();
         this.errorList.clear();      
@@ -77,12 +89,14 @@ public class IndexingReport
     	return 
 
     			"\nfilesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
-    			+ "filesSkipped\t\t<" + filesSkipped.get() + "> \n"
+    			+ "filesSkippedBecauseOfTime\t\t<" + filesSkippedBecauseOfTime.get() + "> \n"
+    			+ "filesSkippedBecauseOfStatusOrType\t\t<" + filesSkippedBecauseOfStatusOrType.get() + "> \n"
     			+ "filesIndexingDone\t<" + filesIndexingDone.get() + "> \n"
     			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
     			+ "errorList\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }
-     
+
+	
 
 }

@@ -146,12 +146,13 @@ public class IndexDocument extends DefaultHandler
 			
 		if ("IndexField".equals(qName))
 		{
-			Field field = new Field(fieldName, content.toString().trim(), storeField, index);
+			Field field = new Field(fieldName, content.toString().trim(), storeField, index, termVector);
 			
 			logger.debug("fieldName <" + fieldName + "> " 
 					+ "content <" + content.toString().trim() + "> "
 					+ "storeField <" + storeField.toString() + "> " 
-					+ "index <" + index.toString() + "> ");
+					+ "index <" + index.toString() + "> "
+					+ "termVector <" + termVector.toString() + "> ");
 					
 	        document.add(field);
 	        

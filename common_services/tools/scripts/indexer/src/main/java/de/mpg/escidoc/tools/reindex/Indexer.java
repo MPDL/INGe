@@ -12,15 +12,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.Stack;
 
@@ -37,7 +33,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Fieldable;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -83,7 +78,6 @@ public class Indexer
 	private String currentDir = null;
 	
 	private String mimetypes;
-	private int itemCount = 0;
 	
 	Stack<Transformer> transformerStackFoxml2Escidoc = new Stack<Transformer>();
 	Stack<Transformer> transformerStackEscidoc2Index = new Stack<Transformer>();
@@ -153,6 +147,8 @@ public class Indexer
 		
 		long s3 = System.currentTimeMillis();
 		
+		//Transformer transformerStylesheet = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("prepareStylesheet.xsl")));
+
 		transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
 		
@@ -163,6 +159,7 @@ public class Indexer
 		{		
 			Transformer transformerFoxml2escidoc = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("foxml2escidoc.xsl")));
 			transformerFoxml2escidoc.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
+			transformerFoxml2escidoc.setParameter("version", "escidoc_all".equals(this.indexName) ? "latest-release" : "latest-version");
 			transformerFoxml2escidoc.setParameter("number", i);
 			transformerStackFoxml2Escidoc.push(transformerFoxml2escidoc);
 			
@@ -187,8 +184,7 @@ public class Indexer
 			resumeDir = new String(buffer, 0, len);
 			logger.info("Resuming at directory " + resumeDir);
 			}
-		}
-		
+		}		
 	}
 
 	/**
@@ -199,10 +195,6 @@ public class Indexer
 	private void removeResumeFile() {
 		File resumeFile = new File(resumeFilename);
 		resumeFile.delete();
-	}
-	
-	public int getItemCount() {
-		return itemCount;
 	}
 	
 	public String getIndexPath()
@@ -396,7 +388,7 @@ public class Indexer
 				}
 				else if (file.lastModified() < mDateMillis)
 				{
-					indexingReport.incrementFilesSkipped();
+					indexingReport.incrementFilesSkippedBecauseOfTime();
 				}
 			}
 		}
@@ -472,8 +464,9 @@ public class Indexer
 		{
 			logger.info("Indexing file " + file);
 			
-			File tmpFile1 = File.createTempFile(file.getName() + "_foxml2escidoc_", ".tmp");
-			File tmpFile2 = File.createTempFile(file.getName() + "_idx_", ".tmp");
+			//kaputt
+			if ("escidoc_2110486".equals(file.getName()))
+					return;
 			
 			StringWriter writer1 = new StringWriter();
 			StringWriter writer2 = new StringWriter();
@@ -483,33 +476,40 @@ public class Indexer
 				long s1 = System.currentTimeMillis();
 				transformer1.transform(new StreamSource(file), new StreamResult(writer1));
 				long e1 = System.currentTimeMillis();
-				logger.info("FOXML2eSciDoc used <" + (e1 - s1) + "> ms");
+				logger.info("FOXML2eSciDoc transformation used <" + (e1 - s1) + "> ms");
 				
-				FileUtils.writeStringToFile(tmpFile1, writer1.toString());
-						
+				if (logger.isDebugEnabled())
+				{
+					File tmpFile1 = File.createTempFile(file.getName() + "_foxml2escidoc_", ".tmp");
+					FileUtils.writeStringToFile(tmpFile1, writer1.toString());
+				}
 			}
 			catch (DynamicError de)
 			{
 				if ("noitem".equals(de.getErrorCodeLocalPart()))
 				{
 					logger.info("No item in < " + file + ">");
+					indexingReport.incrementFilesSkippedBecauseOfStatusOrType();
 					return;
 				} 
 				else if ("wrongStatus".equals(de.getErrorCodeLocalPart()))
 				{
 					logger.info("Item in wrong public status < " + file + ">");
+					indexingReport.incrementFilesSkippedBecauseOfStatusOrType();
 					return;
 				}
-			}
-			itemCount++;			
-			
-			
+			}		
+						
 			long s2 = System.currentTimeMillis();
 			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
-			
-			FileUtils.writeStringToFile(tmpFile2, writer2.toString());
 			long e2 = System.currentTimeMillis();
-			logger.info("eSciDoc2IndexDoc used <" + (e2 - s2) + "> ms");
+			logger.info("eSciDoc2IndexDoc transformation used <" + (e2 - s2) + "> ms");
+			
+			if (logger.isDebugEnabled())
+			{
+				File tmpFile2 = File.createTempFile(file.getName() + "_idx_", ".tmp");			
+				FileUtils.writeStringToFile(tmpFile2, writer2.toString());
+			}
 			
 			indexDoc(new StringReader(writer2.toString()));
 			indexingReport.incrementFilesIndexingDone();
@@ -552,20 +552,6 @@ public class Indexer
 		      {
 		    	  inputStream.close();
 		      }
-		}
-
-		private void logIndexDocument(Document doc) throws IOException
-		{
-			Iterator<Fieldable> it = doc.getFields().iterator();
-			logger.debug(" --------------------------------- Start index document ");
-			
-			PrintWriter pw = new PrintWriter(new FileWriter(new File(doc.get("PID").replaceAll(":", "_").concat(".idx.txt"))));
-			while(it.hasNext())
-			{
-				Fieldable f = it.next();
-				pw.println(f.name() + " " + f.stringValue());
-			}
-			logger.debug(" --------------------------------- End index document ");
 		}
 	}
 
@@ -627,7 +613,7 @@ public class Indexer
 
 		long end = new Date().getTime();
 		logger.info("Time: " + (end - start));
-		logger.info("Items: " + indexer.getItemCount());
+		logger.info(indexer.getIndexingReport().toString());
 	}
 
 	public void getIndexDirectory()
