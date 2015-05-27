@@ -216,5 +216,26 @@ public class TestIndexerSmall extends TestBase
 		
 		
 	}
+	
+	// escidoc:2110495 released item (1 locator escidoc:2110494)
+	// has reference
+	@Test
+	public void testReleasedItem() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110495"));
+		indexer.finalizeIndex();
+		
+		super.verify();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		assertTrue(fieldMap != null);
+		
+		
+	}
 
 }

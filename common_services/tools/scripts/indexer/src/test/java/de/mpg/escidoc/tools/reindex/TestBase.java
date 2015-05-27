@@ -55,7 +55,7 @@ public class TestBase
 		
 		for (int i = 0; i < indexReader1.maxDoc(); i++)
 		{			
-			document1 = indexReader1.document(i);			
+			document1 = indexReader1.document(i);	
 			document2 = getReferenceDocument("escidoc.objid", document1.get("escidoc.objid"), indexSearcher2);
 			
 			if (document2 == null)
@@ -121,14 +121,14 @@ public class TestBase
 				i++;
 			}
 			
-			assertTrue("Nothing found for <" + name + ">", (sf1 != null && sf2 != null) || (sf1 == null && sf2 == null));
+			assertTrue("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", (sf1 != null && sf2 != null) || (sf1 == null && sf2 == null));
 			assertTrue(sf1.size() == sf2.size());
 			
 			for (Fieldable f1 : sf1)
 			{
 				Fieldable f2 = findFieldFor(f1, sf2);
 				
-				assertTrue("No corresponding field found for <" + name + ">", f2 != null);
+				assertTrue("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", f2 != null);
 			
 				IndexOptions o1 = f1.getIndexOptions();
 				IndexOptions o2 = f1.getIndexOptions();
@@ -165,6 +165,13 @@ public class TestBase
 				return f2;
 		}
 		
+		logger.info("Nothing found for <" +  f1.name() + "><" + f1.stringValue() + "> in " + sf2.iterator().next().stringValue());
+		
+		Iterator it = sf2.iterator();
+		while(it.hasNext())
+		{
+			logger.info(((Fieldable)it.next()).stringValue() + "\n");
+		}
 		return null;
 	}
 

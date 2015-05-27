@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Stack;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
@@ -41,6 +42,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
@@ -86,7 +88,7 @@ public class Indexer
 	
 	private Transformer transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 
-	IndexWriter writer;
+	IndexWriter indexWriter;
 	
 	private IndexingReport indexingReport = new IndexingReport();
 	
@@ -257,7 +259,7 @@ public class Indexer
 	    	//
 	    	iwc.setRAMBufferSizeMB(256.0);
 
-	    	writer = new IndexWriter(dir, iwc);
+	    	indexWriter = new IndexWriter(dir, iwc);
 
 	    	// NOTE: if you want to maximize search performance,
 	    	// you can optionally call forceMerge here.  This can be
@@ -275,7 +277,7 @@ public class Indexer
 	
 	public void finalizeIndex() throws Exception
 	{
-		writer.close();
+		indexWriter.close();
 		logger.info(this.getIndexingReport().toString());
 	}
 
@@ -464,8 +466,9 @@ public class Indexer
 		{
 			logger.info("Indexing file " + file);
 			
-			//kaputt
-			if ("escidoc_2110486".equals(file.getName()))
+			//kaputt or modified
+			// TODO
+			if ("escidoc_2110486".equals(file.getName()) || "escidoc_2110490".equals(file.getName()))
 					return;
 			
 			StringWriter writer1 = new StringWriter();
@@ -511,7 +514,15 @@ public class Indexer
 				FileUtils.writeStringToFile(tmpFile2, writer2.toString());
 			}
 			
-			indexDoc(new StringReader(writer2.toString()));
+			try
+			{
+				indexDoc(new StringReader(writer2.toString()));
+			} 
+			catch (IOException e)
+			{
+				indexWriter.close();
+				e.printStackTrace();
+			}
 			indexingReport.incrementFilesIndexingDone();
 		}
 		
@@ -519,9 +530,10 @@ public class Indexer
 		 * Write the contents of the index document and the fulltext to the lucene index.
 		 * 
 		 * @param inputStream The index document.
+		 * @throws ParserConfigurationException 
 		 * @throws Exception Any exception.
 		 */
-		public void indexDoc(StringReader inputStream) throws Exception
+		public void indexDoc(StringReader inputStream) throws IOException, SAXException, ParserConfigurationException
 		{
 
 		      try {
@@ -532,17 +544,17 @@ public class Indexer
 		        DefaultHandler dh = new IndexDocument(doc, fulltextDir);
 		        parser.parse(new InputSource(inputStream), dh);
 
-		        if (writer.getConfig().getOpenMode() == OpenMode.CREATE)
+		        if (indexWriter.getConfig().getOpenMode() == OpenMode.CREATE)
 		        {
 					// New index, so we just add the document (no old document can be there):
-					writer.addDocument(doc);
+					indexWriter.addDocument(doc);
 		        }
 		        else
 		        {
 		        	// Existing index (an old copy of this document may have been indexed) so 
 		        	// we use updateDocument instead to replace the old one matching the exact 
 		        	// path, if present:
-		        	writer.updateDocument(new Term("PID", doc.get("PID")), doc);
+		        	indexWriter.updateDocument(new Term("PID", doc.get("PID")), doc);
 		        	
 		        	logger.info(doc.toString());
 		        }
