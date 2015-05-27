@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.lucene.document.Fieldable;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestIndexerSmall extends TestBase
@@ -39,8 +40,6 @@ public class TestIndexerSmall extends TestBase
 		indexer.getIndexingReport().clear();
 	}
 
-	
-
 	@Test
 	// escidoc_2110119 with component escidoc_2110752
 	// escidoc:2110541 item mit 1 components (escidoc:2111415 internal, public visibility)
@@ -51,11 +50,12 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 5 Found " + indexer.getItemCount(), indexer.getItemCount() == 5);
+		assertTrue("Expected 5 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 5);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 5);
-		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
+				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 14);
 	}
 	
 	@Test
@@ -68,11 +68,11 @@ public class TestIndexerSmall extends TestBase
 		
 		super.verify();
 		
-		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
-		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 	}
 	
 	// escidoc:2110541 item with 1 components (escidoc:2111415 internal, public visibility)
@@ -85,11 +85,11 @@ public class TestIndexerSmall extends TestBase
 		
 		super.verify();
 		
-		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
-		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 	}
 	
 	// escidoc:2095302 item with 1 locator
@@ -100,18 +100,16 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2095302"));
 		indexer.finalizeIndex();
 				
-		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
-		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
-		assertTrue(fields.size() == 1);
-		fields = fieldMap.get("stored_filename1");
-		assertTrue(fields.iterator().next().stringValue().equals("/ir/item/escidoc:2095302/components/component/escidoc:2095301/content"));
-
+		assertTrue(fields == null);
+		assertTrue(fieldMap.get("stored_filename1") == null);
 		assertTrue(fieldMap.get("stored_fulltext1") == null);
 	}
 	
@@ -124,10 +122,10 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2146780"));
 		indexer.finalizeIndex();
 				
-		assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
-		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		
@@ -135,6 +133,25 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fields == null);
 		fields = fieldMap.get("stored_fulltext");
 		assertTrue(fields == null);
+	}
+
+	
+	// escidoc:2110484 import task item with 2 component (escidoc:211083 and escidoc:2110482)
+	// has no reference
+	@Test
+	public void testImportTaskItem() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110484"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		
+		assertTrue(fieldMap == null);
 	}
 	
 	// escidoc:2087580 item without component in status pending
@@ -146,14 +163,58 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2087580"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 0 Found " + indexer.getItemCount(), indexer.getItemCount() == 0);
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesSkipped() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		
 		assertTrue(fieldMap == null);
+	}
+	
+	// escidoc:2110486 released item with locator escidoc:2110485
+	// has no reference
+	@Test
+	@Ignore
+	public void testReleasedItemWithLocator() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110486"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		assertTrue(fieldMap != null);
+		
+		Set<Fieldable> fields = fieldMap.get("stored_filename1");
+		assertTrue(fields == null);
+		assertTrue(fieldMap.get("stored_filename1") == null);
+		assertTrue(fieldMap.get("stored_fulltext1") == null);
+	}
+	
+	// escidoc:2110474 released item (2 versions)
+	// has reference
+	@Test
+	public void testReleasedItemWithoutComponent() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110474"));
+		indexer.finalizeIndex();
+		
+		super.verify();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		assertTrue(fieldMap != null);
+		
+		
 	}
 
 }
