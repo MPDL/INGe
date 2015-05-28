@@ -3439,7 +3439,7 @@ public class ViewItemFull extends FacesBean
 	        
 		} catch (Exception e) {
 			logger.error("Error creating new DOI", e);
-			error(getMessage("ViewItem_doiAddingProblem"));
+			error(getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
 		}
     	return returnValue;
     }
