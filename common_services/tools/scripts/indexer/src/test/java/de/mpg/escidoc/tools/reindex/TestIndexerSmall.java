@@ -28,6 +28,9 @@ public class TestIndexerSmall extends TestBase
 		extractor.init(new File("src/test/resources/19/escidoc_2111415+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111415+content+content.0"));
 		
+		extractor.init(new File("src/test/resources/19/escidoc_2110507+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2110507+content+content.0"));
+		
 		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";	
 	}
 	
@@ -50,12 +53,12 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 5 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 5);
+		assertTrue("Expected 7 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 7);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 14);
+				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 19);
 	}
 	
 	@Test
@@ -220,7 +223,7 @@ public class TestIndexerSmall extends TestBase
 	// escidoc:2110495 released item (1 locator escidoc:2110494)
 	// has reference
 	@Test
-	public void testReleasedItem() throws Exception
+	public void testReleasedItem_2110495() throws Exception
 	{
 
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110495"));
@@ -236,6 +239,45 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap != null);
 		
 		
+	}
+	
+	// escidoc:2110508 released item (1 component escidoc:2110507)
+	// has reference
+	@Test
+	public void testReleasedItem_2110508() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110508"));
+		indexer.finalizeIndex();
+		
+		super.verify();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		assertTrue(fieldMap != null);
+			
+			
+		}
+	
+	// escidoc:2110529 released item without component, many authors
+	// has reference
+	@Test
+	public void testReleasedItem_2110529() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110529"));
+		indexer.finalizeIndex();
+		
+		super.verify();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		assertTrue(fieldMap != null);			
 	}
 
 }

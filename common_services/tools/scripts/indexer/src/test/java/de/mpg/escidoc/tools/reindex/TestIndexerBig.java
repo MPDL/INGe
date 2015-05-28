@@ -14,6 +14,11 @@ public class TestIndexerBig extends TestBase
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
+		extractor = new FullTextExtractor();
+		
+		extractor.init(new File("C:/Test/data/datastreams/2015"));
+		extractor.extractFulltexts(new File("C:/Test/data/datastreams/2015"));
+		
 		indexer = new Indexer(new File("C:/Test/data/objects/2015"), "escidoc_all");
 		indexer.createDatabase();
 		indexer.prepareIndex();
@@ -42,8 +47,6 @@ public class TestIndexerBig extends TestBase
 		indexer.finalizeIndex();
 		
 		super.verify();
-		
-		//assertTrue("Expected 1 Found " + indexer.getItemCount(), indexer.getItemCount() == 1);
 	}
 
 }

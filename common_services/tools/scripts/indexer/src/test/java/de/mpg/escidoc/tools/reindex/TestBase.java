@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,11 +24,11 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
-import org.junit.Test;
 
 public class TestBase
 {
 	protected static Indexer indexer;
+	protected static FullTextExtractor extractor;
 	protected static String referenceIndexPath;
 	
 	protected static Logger logger = Logger.getLogger(TestBase.class);
@@ -70,10 +69,10 @@ public class TestBase
 			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
 	
-			assertTrue("Different amount of fields " 
+			/*assertTrue("Different amount of fields " 
 								+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">",
 							fields1.size() == fields2.size());
-			
+			*/
 			Map<String, Set<Fieldable>> m1 = getMap(fields1);
 			Map<String, Set<Fieldable>> m2 = getMap(fields2);
 			
@@ -165,13 +164,13 @@ public class TestBase
 				return f2;
 		}
 		
-		logger.info("Nothing found for <" +  f1.name() + "><" + f1.stringValue() + "> in " + sf2.iterator().next().stringValue());
+		logger.info("Nothing found for <" +  f1.name() + "><" + f1.stringValue() + "> in <" + sf2.iterator().next().stringValue() + ">");
 		
-		Iterator it = sf2.iterator();
+		/*Iterator it = sf2.iterator();
 		while(it.hasNext())
 		{
 			logger.info(((Fieldable)it.next()).stringValue() + "\n");
-		}
+		}*/
 		return null;
 	}
 
