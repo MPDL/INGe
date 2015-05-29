@@ -154,7 +154,6 @@
 										<h:panelGroup styleClass="seperator"  />
 										
 										<h:outputLink id="lnkAddDoi" styleClass="free_area0" value="#" title="#{tip.ViewItemFull_lblAddDoi}" onclick="showDialog();">
-											<h:panelGroup styleClass="min_imgBtn add"/>
 											<h:outputText value="#{lbl.ViewItemFull_lblDoi}"/>
 										</h:outputLink>
 										
