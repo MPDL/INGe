@@ -907,7 +907,7 @@
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
 				
 				<!--  DOI service properties -->
-				<escidoc.doi.service.url>http://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
+				<escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
 				<escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
 				
 				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
