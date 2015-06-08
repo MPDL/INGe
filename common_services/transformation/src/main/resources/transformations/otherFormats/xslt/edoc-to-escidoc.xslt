@@ -4784,6 +4784,16 @@
 	
 	<!-- All fields mapped into FreeKeywords are here defined since Pubman mask allow only one dcterms:subject -->
 	<xsl:template name="dcTermsSubject">
+	
+		<!-- Mapping f. MPI PKS: Collection-Name wird zu MPIPKS-Klassifikation -->
+		<xsl:when test="$import-name = 'MPIPKS'">
+			<xsl:for-each select="../../docaff/collection">
+				<dc:subject xsi:type="eterms:MPIPKS">
+					<xsl:value-of select="normalize-space(.)"/>
+				</dc:subject>
+			</xsl:for-each>
+		</xsl:when>
+		
 		<xsl:variable name="freekeywords">
 			
 			<xsl:choose>
@@ -4846,6 +4856,7 @@
 				<xsl:value-of select="$freekeywords"/>
 			</xsl:element>
 		</xsl:if>
+		
 	</xsl:template>
 
 	<!-- FHI Templates -->
