@@ -50,7 +50,7 @@
 			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeSourceGenreEnum"
 			usage="optional" />
 
-		<structure name="title" ns="${xsd.metadata.dc}" field="title" />
+		<structure name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
 
 		<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
