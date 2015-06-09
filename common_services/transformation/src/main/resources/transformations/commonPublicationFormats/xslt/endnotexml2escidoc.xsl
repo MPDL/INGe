@@ -373,10 +373,10 @@
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type" select="
 						if (substring(., 1, 4) = 'ISI:') then 'eterms:ISI'
-						else if (substring(., 1, 4) = 'WOS:' and $Flavor = 'MPIO') then 'eterms:ISI'
+						else if (substring(., 1, 4) = 'WOS:' and ($Flavor = 'MPIO' or $Flavor = 'CAESAR')) then 'eterms:ISI'
 						else  'eterms:OTHER'
 					"/>
-					<xsl:value-of select="if (substring(., 1, 4) = 'WOS:' and $Flavor = 'MPIO') then substring-after(., ':') else ."/>
+					<xsl:value-of select="if (substring(., 1, 4) = 'WOS:' and ($Flavor = 'MPIO' or $Flavor = 'CAESAR')) then substring-after(., ':') else ."/>
 				</xsl:element>
 			</xsl:for-each>
 			<xsl:for-each select="R">
