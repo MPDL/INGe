@@ -576,6 +576,14 @@
 			</xsl:if>
           	<!-- end of DATES -->
 
+          	
+          		<!-- review-method / Expertenbegutachtung für MPI f. Gemeinschaftsgüter (MPIGEM) -->
+          		
+          		<xsl:when test="($Flavor = 'MPIGEM' and NUM_1 = 'peer-reviewed')">
+          			<eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+          		</xsl:when>
+          		
+          		
 
 			<!-- SOURCE -->
 			<xsl:if test="$sourceGenre!=''">
