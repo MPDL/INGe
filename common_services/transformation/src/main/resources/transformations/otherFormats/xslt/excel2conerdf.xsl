@@ -40,7 +40,7 @@
 
 	<xsl:param name="user" select="'administrator'"/>
 	
-	<xsl:param name="compare-query" select="'%22*MPI%20for%20Psycholinguistics*%22'"/>
+	<xsl:param name="compare-query" select="'%22*Max%20Planck%20Institute%20for%20Research%20on%20Collective%20Goods*%22'"/>
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/persons/all?format=rdf'))"/>
