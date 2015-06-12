@@ -579,9 +579,9 @@
           	
           		<!-- review-method / Expertenbegutachtung für MPI f. Gemeinschaftsgüter (MPIGEM) -->
           		
-          		<xsl:when test="($Flavor = 'MPIGEM' and NUM_1 = 'peer-reviewed')">
+          		<xsl:if test="($Flavor = 'MPIGEM' and NUM_1 = 'peer-reviewed')">
           			<eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
-          		</xsl:when>
+          		</xsl:if>
           		
           		
 
