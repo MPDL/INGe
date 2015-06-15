@@ -304,7 +304,7 @@ public class TestIndexerSmall extends TestBase
 		} catch (AssertionError e)
 		{
 			// TODO Auto-generated catch block
-			e.getMessage().startsWith("No corresponding field found for <escidoc.component.compound.properties");
+			assertTrue(e.getMessage().startsWith("No corresponding field found for <escidoc.component.compound.properties"));
 		}
 		
 		

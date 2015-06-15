@@ -155,6 +155,7 @@ public class TestBase
 				
 				assertTrue(o1.equals(o2));
 				
+				// if we compare time stamps keep in mind that the last position may be withdrawn by escidoc
 				if (dateMatcher.reset(f1.stringValue()).matches() && dateMatcher.reset(f2.stringValue()).matches())
 				{
 					int i1 = f1.stringValue().lastIndexOf('z');
@@ -267,9 +268,7 @@ public class TestBase
 			
 			map.put(f.name(), hset);
 		}
-		/*logger.info("MMMMMMMMMMMMMMMM"); 
-		logger.info("MMMMMMMMMMMMMMMM" + map);
-		logger.info("MMMMMMMMMMMMMMMM");*/
+
 		return map;
 	}
 	
