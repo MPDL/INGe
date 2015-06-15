@@ -48,6 +48,12 @@
 	<h:commandLink id="lnkHelp" styleClass="free_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
+	<!-- Guide -->
+	<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline" title="#{tip.mainMenu_lnkPubManGuide}" target="_blank" value="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf" >
+	<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
+	</h:outputLink>
+	<h:panelGroup styleClass="seperator"></h:panelGroup>
+
 	<!-- Policy -->	<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 

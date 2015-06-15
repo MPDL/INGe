@@ -177,6 +177,13 @@
 		            </ol>
 		            
 		            
+		            <h2><a name="PubManGuide">Download PubMan Wegweiser</a></h2>
+		            <p>
+			            Einen ausf&#252;hrlichen Wegweiser durch PubMan mit Erkl&#228;rung der verschiedenen Funktionalit&#228;ten finden Sie 
+			            <a href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf" title="PubMan Wegweiser">hier</a>.
+		            </p>
+		            
+		            
 		            <h2><span class="titlemark">1.</span><a name="HomePage">&#220;ber PubMan</a></h2>
 		            <p>
 			            PubMan unterst&#252;tzt Forschungsorganisationen im Management, der Verbreitung und der Nachnutzung von Publikationen und 

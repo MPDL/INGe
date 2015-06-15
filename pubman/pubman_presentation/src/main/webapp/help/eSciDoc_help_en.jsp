@@ -177,6 +177,13 @@
 					</ol>
 					
 					
+					<h2><a name="PubManGuide">Download PubMan Guide</a></h2>
+		            <p>
+		            	A detailed PubMan Guide containing explanations of all functionalities can be downloaded 
+			            <a href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf" title="PubMan Guide">here</a>. (Currently only available in German. An English version will follow soon.)
+		            </p>
+		            
+		            
 		            <h2><span class="titlemark">1.</span><a name="HomePage">About PubMan</a></h2>
 		            <p>
 			            PubMan supports research organizations in the management, dissemination

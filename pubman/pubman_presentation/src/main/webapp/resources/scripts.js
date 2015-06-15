@@ -124,7 +124,7 @@ function loadHelp(url, anchor)
 	}
 	url = url + anchor;
 	//open the new popup window with an absolute url
-	openCenteredWindow(url, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	openCenteredWindow(url, 1024, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
 
 
