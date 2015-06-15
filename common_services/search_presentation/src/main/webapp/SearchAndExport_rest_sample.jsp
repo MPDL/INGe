@@ -312,18 +312,25 @@
 										Indexes<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >here</a> all allowed indexes.
+										<a href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >List of allowed indexes</a>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										Sorting<span class="noDisplay">: </span>
 									</b>
+								
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
+									
+										<span class="xHuge_area0 endline">
+											<a href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Material/SortingKeys.xlsx" target="_blank">List of allowed sorting keys</a>
+										</span>
+										
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortKeys">Sorting Key</label>
 											<input class="double_txtInput" type="text" name="sortKeys" value="<%= sortKeys %>" />
 										</span>
+										
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortOrder">Sorting Order</label>
 											<select class="double_select" name="sortOrder">
