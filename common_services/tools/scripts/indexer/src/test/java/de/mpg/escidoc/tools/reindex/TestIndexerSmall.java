@@ -1,6 +1,8 @@
 package de.mpg.escidoc.tools.reindex;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.Map;
@@ -53,12 +55,12 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 7 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 7);
+		assertTrue("Expected 13 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 13);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 19);
+				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 38);
 	}
 	
 	@Test
@@ -179,8 +181,7 @@ public class TestIndexerSmall extends TestBase
 	// escidoc:2110486 released item with locator escidoc:2110485
 	// has no reference
 	@Test
-	@Ignore
-	public void testReleasedItemWithLocator() throws Exception
+	public void testReleased_2110486_locator() throws Exception
 	{
 
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110486"));
@@ -197,6 +198,8 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fields == null);
 		assertTrue(fieldMap.get("stored_filename1") == null);
 		assertTrue(fieldMap.get("stored_fulltext1") == null);
+		
+		super.verify();
 	}
 	
 	// escidoc:2110474 released item (2 versions)
@@ -229,8 +232,6 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110495"));
 		indexer.finalizeIndex();
 		
-		super.verify();
-		
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
@@ -238,7 +239,7 @@ public class TestIndexerSmall extends TestBase
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
-		
+		super.verify();	
 	}
 	
 	// escidoc:2110508 released item (1 component escidoc:2110507)
@@ -262,10 +263,10 @@ public class TestIndexerSmall extends TestBase
 			
 		}
 	
-	// escidoc:2110529 released item without component, many authors
+	// escidoc:2110529 released item with locator (escidoc:2110533), many authors
 	// has reference
 	@Test
-	public void testReleasedItem_2110529() throws Exception
+	public void testReleasedItem_2110529_locator() throws Exception
 	{
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110529"));
 		indexer.finalizeIndex();
@@ -278,6 +279,85 @@ public class TestIndexerSmall extends TestBase
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);			
+	}
+	
+	// escidoc:2110549 released item with locator (escidoc:2110548)
+	// has reference
+	@Test
+	public void testReleasedItem_2110549_locator() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110549"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		assertTrue(fieldMap != null);			
+		
+		try
+		{
+			super.verify();
+			fail("AssertionError excpected");
+			
+		} catch (AssertionError e)
+		{
+			// TODO Auto-generated catch block
+			e.getMessage().startsWith("No corresponding field found for <escidoc.component.compound.properties");
+		}
+		
+		
+		
+	}
+	
+	// escidoc:2110608 withdrawn item
+	// has no reference in escidoc_all index because of withdrawn status
+	@Test
+	public void testWithdrawnItem_2110608() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110608"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 0 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
+		
+	}
+	
+	// escidoc:2111614 released item without component
+	// has reference, but indexer errors
+	@Test
+	public void testReleasedItem_2111614() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2111614"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		//super.verify();
+		
+	}
+	
+	// escidoc:2111689 released item without 2 component; escidoc:2111688 locator and escidoc:2111689 component with pdf
+	// has reference
+	@Test
+	public void testReleasedItem_2111689() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2111689"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		super.verify();
+		
 	}
 
 }
