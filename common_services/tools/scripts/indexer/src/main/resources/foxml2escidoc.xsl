@@ -42,6 +42,15 @@
 		<xsl:if test="$RELS-EXT = ''">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:wrongStatus'), 'Item in wrong public status') "/>
 		</xsl:if>
+		
+                                       
+		<xsl:message>public-status <xsl:value-of select="$latest-version-rels-ext/prop:public-status"/></xsl:message>
+		
+		<xsl:variable name="status" select="$latest-version-rels-ext/prop:public-status" /> 
+	
+		<xsl:if test="$status = 'withdrawn'">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:wrongStatus'), 'Item status is withdrawn') "/>
+		</xsl:if>
 
 		<xsl:variable name="last-modification-date" select="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description/version:date"/>
 		
@@ -154,7 +163,7 @@
 									<xsl:when test="$component-rels-ext/prop:mime-type != ''">
 										<xsl:value-of select="$component-rels-ext/prop:mime-type"/>
 									</xsl:when>
-									<xsl:otherwise>application/octet-stream</xsl:otherwise>
+									<!--  xsl:otherwise>application/octet-stream</xsl:otherwise-->
 								</xsl:choose>
 							</prop:mime-type>
 							<prop:checksum>
