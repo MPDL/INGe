@@ -468,8 +468,8 @@ public class Indexer
 			
 			//kaputt or modified
 			// TODO
-			if ("escidoc_2110486".equals(file.getName()) || "escidoc_2110490".equals(file.getName()))
-					return;
+			/*if ("escidoc_2110486".equals(file.getName()) || "escidoc_2110490".equals(file.getName()))
+					return;*/
 			
 			StringWriter writer1 = new StringWriter();
 			StringWriter writer2 = new StringWriter();
