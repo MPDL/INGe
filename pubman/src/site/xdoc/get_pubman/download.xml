@@ -65,6 +65,12 @@
 				<li>Download the PubMan installer</li>
 				<li>Install PubMan following the installation guide in German ( <a href="http://pubman.mpdl.mpg.de/software/get_pubman/Installationsanleitung_PubMan_7.8.pdf">Installationsanleitung</a> ) or in English ( <a href="http://pubman.mpdl.mpg.de/software/get_pubman/Installation_Guidelines_PubMan_7.4.pdf">Installation instructions</a> ).</li>
 			</ul>
+			
+			<h3>PubMan User Guide</h3>
+			<ul>
+				<li>German: <a href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf">PubMan Wegweiser</a></li>
+				<li>English: Will be available soon.</li>
+			</ul>
 		
 		</section>
 		<section name="Nexus artifacts">
