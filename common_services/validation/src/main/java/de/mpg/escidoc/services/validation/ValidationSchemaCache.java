@@ -541,15 +541,19 @@ public final class ValidationSchemaCache
         }
         catch (SQLException sqle)
         {
-            try
-            {
-                connection.close();
-            }
-            catch (Exception ce)
-            {
-                LOGGER.error("Error trying to close the connection", ce);
-            }
+           
             throw new TechnicalException("Error getting schema from database", sqle);
+        }
+        finally
+        {
+        	 try
+             {
+                 connection.close();
+             }
+             catch (Exception ce)
+             {
+                 LOGGER.error("Error trying to close the connection", ce);
+             }
         }
     }
 
@@ -568,48 +572,53 @@ public final class ValidationSchemaCache
         PreparedStatement pstmt;
         Connection connection = getConnection();
 
-        // Delete old precompiled schemas
-        sql = "DELETE FROM escidoc_validation_schema_snippets WHERE id_context_ref = ? AND id_content_type_ref = ?";
-        pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, context);
-        pstmt.setString(2, contentType);
-        pstmt.executeUpdate();
+        try {
+			// Delete old precompiled schemas
+			sql = "DELETE FROM escidoc_validation_schema_snippets WHERE id_context_ref = ? AND id_content_type_ref = ?";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, context);
+			pstmt.setString(2, contentType);
+			pstmt.executeUpdate();
 
-        schema = insertConeContent(schema);
-        
-        // Get phases
-        StringWriter phaseList = XsltTransforming.transform(schema, getPhaseTemplate(), null);
-        String[] phases = phaseList.toString().split("\n");
+			schema = insertConeContent(schema);
+			
+			// Get phases
+			StringWriter phaseList = XsltTransforming.transform(schema, getPhaseTemplate(), null);
+			String[] phases = phaseList.toString().split("\n");
 
-        // Precompile phases and store back to database
-        for (int i = 0; i < phases.length; i++)
-        {
+			// Precompile phases and store back to database
+			for (int i = 0; i < phases.length; i++)
+			{
 
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("phase", phases[i].trim());
+			    Map<String, String> params = new HashMap<String, String>();
+			    params.put("phase", phases[i].trim());
 
-            StringWriter precompiled = XsltTransforming.transform(schema, getSchematronTemplate(), params);
+			    StringWriter precompiled = XsltTransforming.transform(schema, getSchematronTemplate(), params);
 
-            sql = "INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, "
-                    + "id_validation_point, id_metadata_version_ref, snippet_content) "
-                    + "VALUES (?, ?, ?, ?, ?)";
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, context);
-            pstmt.setString(2, contentType);
-            pstmt.setString(3, phases[i].trim());
-            pstmt.setString(4, metadataVersion);
-            pstmt.setString(5, precompiled.toString());
-            pstmt.executeUpdate();
+			    sql = "INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, "
+			            + "id_validation_point, id_metadata_version_ref, snippet_content) "
+			            + "VALUES (?, ?, ?, ?, ?)";
+			    pstmt = connection.prepareStatement(sql);
+			    pstmt.setString(1, context);
+			    pstmt.setString(2, contentType);
+			    pstmt.setString(3, phases[i].trim());
+			    pstmt.setString(4, metadataVersion);
+			    pstmt.setString(5, precompiled.toString());
+			    pstmt.executeUpdate();
 
-            // Remove existing transformers from the cache
-            CacheTriple triple = new CacheTriple(context, contentType, phases[i].trim());
-            if (xsltCache.containsKey(triple))
-            {
-                xsltCache.remove(triple);
-            }
+			    // Remove existing transformers from the cache
+			    CacheTriple triple = new CacheTriple(context, contentType, phases[i].trim());
+			    if (xsltCache.containsKey(triple))
+			    {
+			        xsltCache.remove(triple);
+			    }
 
+			}
         }
-        connection.close();
+        finally
+        {
+        	connection.close();
+        }
 
     }
 
@@ -725,20 +734,23 @@ public final class ValidationSchemaCache
                     throw new TechnicalException("Schema not found, but should have been found.", vsnfe);
                 }
             }
-            connection.close();
+           
 
         }
         catch (SQLException sqle)
         {
-            try
-            {
-                connection.close();
-            }
-            catch (Exception ce)
-            {
-                LOGGER.error("Error trying to close the connection", ce);
-            }
             throw new TechnicalException("Error getting schematron template from database", sqle);
+        }
+        finally
+        {
+        	 try
+             {
+                 connection.close();
+             }
+             catch (Exception ce)
+             {
+                 LOGGER.error("Error trying to close the connection", ce);
+             }
         }
     }
 
