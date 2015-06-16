@@ -223,7 +223,7 @@ public class ItemValidatingBean implements ItemValidating
         }
         catch (Exception e)
         {
-            throw new TechnicalException("Error getting validation schema", e);
+            throw new TechnicalException("Error during validation", e);
         }
     }
 
