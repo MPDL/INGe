@@ -428,7 +428,7 @@ public final class ValidationSchemaCache
      * @param lastRefresh refresh all contents that are older than this date.
      * @throws Exception Any unmanaged exception.
      */
-    public void refreshCache(Date lastRefresh) throws Exception
+    public synchronized void refreshCache(Date lastRefresh) throws Exception
     {
 
         Date actualDate = new Date();
