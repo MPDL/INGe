@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,6 +27,12 @@ public class TestIndexerBig extends TestBase
 		
 		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";
 		
+	}
+	
+	@AfterClass
+	public static void finish()
+	{
+		logger.info(indexer.getIndexingReport().toString());
 	}
 
 	@Test

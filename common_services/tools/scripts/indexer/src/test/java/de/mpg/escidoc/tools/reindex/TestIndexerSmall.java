@@ -1,6 +1,5 @@
 package de.mpg.escidoc.tools.reindex;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -9,9 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.lucene.document.Fieldable;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestIndexerSmall extends TestBase
@@ -78,6 +77,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110541 item with 1 components (escidoc:2111415 internal, public visibility)
@@ -95,6 +95,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2095302 item with 1 locator
@@ -216,6 +217,8 @@ public class TestIndexerSmall extends TestBase
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
@@ -240,6 +243,8 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap != null);
 		
 		super.verify();	
+		
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110508 released item (1 component escidoc:2110507)
@@ -256,6 +261,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
@@ -276,6 +282,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);			
@@ -294,20 +301,11 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
-		assertTrue(fieldMap != null);			
+		assertTrue(fieldMap != null);		
 		
-		try
-		{
-			super.verify();
-			fail("AssertionError excpected");
-			
-		} catch (AssertionError e)
-		{
-			// TODO Auto-generated catch block
-			assertTrue(e.getMessage().startsWith("No corresponding field found for <escidoc.component.compound.properties"));
-		}
+		super.verify();
 		
-		
+		assertTrue(indexer.getIndexingReport().getErrorList().iterator().next().startsWith("No corresponding field found for <escidoc.component.compound.properties"));
 		
 	}
 	
@@ -357,7 +355,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
 		super.verify();
-		
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 
 }

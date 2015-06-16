@@ -80,7 +80,13 @@ public class TestBase
 			}
 			if (document2 == null)
 			{
-				assertTrue("No reference document found for <" + document1.get("escidoc.objid") + ">", false);
+				try
+				{
+					assertTrue("No reference document found for <" + document1.get("escidoc.objid") + ">", false);
+				} catch (AssertionError e)
+				{
+					indexer.getIndexingReport().addToErrorList("No reference document found for <" + document1.get("escidoc.objid") + ">");
+				}
 				logger.info("No reference document found for <" + document1.get("escidoc.objid") + ">");
 				continue;
 			}
@@ -90,9 +96,16 @@ public class TestBase
 			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
 	
-			assertTrue("Different amount of fields " 
-								+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">",
-							fields1.size() == fields2.size());
+			try
+			{
+				assertTrue("Different amount of fields " 
+									+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">",
+								fields1.size() == fields2.size());
+			} catch (AssertionError e)
+			{
+				indexer.getIndexingReport().addToErrorList("Different amount of fields " 
+						+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">\n");
+			}
 			
 			Map<String, Set<Fieldable>> m1 = getMap(fields1);
 			Map<String, Set<Fieldable>> m2 = getMap(fields2);
@@ -141,46 +154,85 @@ public class TestBase
 				i++;
 			}
 			
-			assertTrue("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", (sf1 != null && sf2 != null) || (sf1 == null && sf2 == null));
-			assertTrue(sf1.size() == sf2.size());
+			try
+			{
+				assertTrue("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", (sf1 != null && sf2 != null) || (sf1 == null && sf2 == null));
+			} catch (AssertionError e)
+			{
+				indexer.getIndexingReport().addToErrorList("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
+				continue;
+			}
+			
+			try
+			{
+				assertTrue(sf1.size() == sf2.size());
+			} catch (AssertionError e)
+			{
+				indexer.getIndexingReport().addToErrorList("Different field sizes sf1 - sf2 <" + sf1.size() + "><" + sf2.size() + ">\n");
+			}
 			
 			for (Fieldable f1 : sf1)
 			{
 				Fieldable f2 = findFieldFor(f1, sf2);
 				
-				assertTrue("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", f2 != null);
+				try
+				{
+					assertTrue("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", f2 != null);
+				} catch (AssertionError e1)
+				{
+					indexer.getIndexingReport().addToErrorList("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
+					continue;
+				}
 			
 				IndexOptions o1 = f1.getIndexOptions();
 				IndexOptions o2 = f1.getIndexOptions();
 				
 				assertTrue(o1.equals(o2));
 				
-				// if we compare time stamps keep in mind that the last position may be withdrawn by escidoc
+				// if we compare time stamps keep in mind that the last position may be withdrawn by escidoc in case of an ending "0"
 				if (dateMatcher.reset(f1.stringValue()).matches() && dateMatcher.reset(f2.stringValue()).matches())
 				{
 					int i1 = f1.stringValue().lastIndexOf('z');
 					int i2 = f2.stringValue().lastIndexOf('z');
 					
 					int imin = Math.min(i1, i2);
-					assertTrue("Difference timestamp in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()), 
-						(f1.stringValue().substring(0, imin).equals(f2.stringValue().substring(0, imin))));
+					try
+					{
+						assertTrue("Difference timestamp in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()), 
+							(f1.stringValue().substring(0, imin).equals(f2.stringValue().substring(0, imin))));
+					} catch (AssertionError e)
+					{
+						indexer.getIndexingReport().addToErrorList("Difference timestamp in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()) + "\n");
+					}
 							
 				}
 				else
 				{
-					assertTrue("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()), 
-							shorten(f1.stringValue()).equals(shorten(f2.stringValue())));
+					try
+					{
+						assertTrue("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()), 
+								shorten(f1.stringValue()).equals(shorten(f2.stringValue())));
+					} catch (AssertionError e)
+					{
+						indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue())  + "\n");
+					}
 				}
-				assertTrue("Difference in field(" + name + ") isIndexed " + f1.isIndexed() + " - " + f2.isIndexed(),
-						f1.isIndexed() == f2.isIndexed());
-				assertTrue("Difference in field(" + name + ") isLazy " + f1.isLazy() + " - " + f2.isLazy(), 
-						f1.isLazy() == f2.isLazy());
-				assertTrue("Difference in field(" + name + ") isStored " + f1.isStored() + " - " + f2.isStored(),
-						f1.isStored() == f2.isStored());
-				assertTrue("Difference in field(" + name + ") isTermVectorStored " + f1.isTermVectorStored() + " - " + f2.isTermVectorStored(),
-						f1.isTermVectorStored() == f2.isTermVectorStored());
-				assertTrue("Difference in field(" + name + ") isTokenized " + f1.isTokenized() + " - " + f2.isTokenized(),
-						f1.isTokenized() == f2.isTokenized());
+				try
+				{
+					assertTrue("Difference in field(" + name + ") isIndexed " + f1.isIndexed() + " - " + f2.isIndexed(),
+							f1.isIndexed() == f2.isIndexed());
+					assertTrue("Difference in field(" + name + ") isLazy " + f1.isLazy() + " - " + f2.isLazy(), 
+							f1.isLazy() == f2.isLazy());
+					assertTrue("Difference in field(" + name + ") isStored " + f1.isStored() + " - " + f2.isStored(),
+							f1.isStored() == f2.isStored());
+					assertTrue("Difference in field(" + name + ") isTermVectorStored " + f1.isTermVectorStored() + " - " + f2.isTermVectorStored(),
+							f1.isTermVectorStored() == f2.isTermVectorStored());
+					assertTrue("Difference in field(" + name + ") isTokenized " + f1.isTokenized() + " - " + f2.isTokenized(),
+							f1.isTokenized() == f2.isTokenized());
+				} catch (AssertionError e)
+				{
+					indexer.getIndexingReport().addToErrorList("Difference in field attributes tokenized - lazy - stored - indexed (" + name + ")\n");
+				}
 				
 				logger.debug("comparing field <" + name + "> ok <" + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()) + ">");
 			
