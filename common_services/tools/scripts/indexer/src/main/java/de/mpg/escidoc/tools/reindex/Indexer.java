@@ -345,7 +345,7 @@ public class Indexer
 		}
 		catch (Exception e)
 		{
-			logger.warn("Indexing interrupted at <" + currentDir + ">");
+			logger.warn("Indexing interrupted at <" + currentDir + ">", e);
 			FileWriter writer = new FileWriter(new File(resumeFilename));
 			writer.write(currentDir);
 		}
