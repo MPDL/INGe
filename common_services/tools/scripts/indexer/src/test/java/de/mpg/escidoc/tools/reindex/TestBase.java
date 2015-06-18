@@ -80,14 +80,8 @@ public class TestBase
 			}
 			if (document2 == null)
 			{
-				try
-				{
-					assertTrue("No reference document found for <" + document1.get("escidoc.objid") + ">", false);
-				} catch (AssertionError e)
-				{
-					indexer.getIndexingReport().addToErrorList("No reference document found for <" + document1.get("escidoc.objid") + ">");
-				}
-				logger.info("No reference document found for <" + document1.get("escidoc.objid") + ">");
+				indexer.getIndexingReport().addToErrorList("No reference document found for <"
+						+ document1.get("escidoc.objid") + ">");	
 				continue;
 			}
 			
@@ -96,12 +90,7 @@ public class TestBase
 			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
 	
-			try
-			{
-				assertTrue("Different amount of fields " 
-									+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">",
-								fields1.size() == fields2.size());
-			} catch (AssertionError e)
+			if (fields1.size() != fields2.size())
 			{
 				indexer.getIndexingReport().addToErrorList("Different amount of fields " 
 						+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">\n");
@@ -116,7 +105,6 @@ public class TestBase
 			logger.info("comparing 2 - 1");
 			compareFields(m2, m1);
 		}
-		logger.info("Verify succeeded ");
 	}
 	
 	public Map<String, Set<Fieldable>> getFieldsOfDocument() throws CorruptIndexException, IOException
@@ -148,25 +136,19 @@ public class TestBase
 			Set<Fieldable> sf1 = m1.get(name);
 			Set<Fieldable> sf2 = m2.get(name);
 			
-			if ("escidoc.component.compound.properties".equals(name))					
+			if (("stored_fulltext".equals(name) || "stored_filename".equals(name)))					
 			{
 				int i = 1;
 				i++;
 			}
 			
-			try
-			{
-				assertTrue("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", (sf1 != null && sf2 != null) || (sf1 == null && sf2 == null));
-			} catch (AssertionError e)
+			if (!((sf1 != null && sf2 != null) || (sf1 == null && sf2 == null)))
 			{
 				indexer.getIndexingReport().addToErrorList("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
 				continue;
 			}
 			
-			try
-			{
-				assertTrue(sf1.size() == sf2.size());
-			} catch (AssertionError e)
+			if (sf1.size() != sf2.size())
 			{
 				indexer.getIndexingReport().addToErrorList("Different field sizes sf1 - sf2 <" + sf1.size() + "><" + sf2.size() + ">\n");
 			}
@@ -175,10 +157,7 @@ public class TestBase
 			{
 				Fieldable f2 = findFieldFor(f1, sf2);
 				
-				try
-				{
-					assertTrue("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">", f2 != null);
-				} catch (AssertionError e1)
+				if (f2 == null)
 				{
 					indexer.getIndexingReport().addToErrorList("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
 					continue;
@@ -187,51 +166,49 @@ public class TestBase
 				IndexOptions o1 = f1.getIndexOptions();
 				IndexOptions o2 = f1.getIndexOptions();
 				
-				assertTrue(o1.equals(o2));
+				if (!o1.equals(o2))
+				{
+					indexer.getIndexingReport().addToErrorList("Different index options for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
+				};
 				
 				// if we compare time stamps keep in mind that the last position may be withdrawn by escidoc in case of an ending "0"
-				if (dateMatcher.reset(f1.stringValue()).matches() && dateMatcher.reset(f2.stringValue()).matches())
+				/*if (dateMatcher.reset(f1.stringValue()).matches() && dateMatcher.reset(f2.stringValue()).matches())
 				{
 					int i1 = f1.stringValue().lastIndexOf('z');
 					int i2 = f2.stringValue().lastIndexOf('z');
 					
 					int imin = Math.min(i1, i2);
-					try
-					{
-						assertTrue("Difference timestamp in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()), 
-							(f1.stringValue().substring(0, imin).equals(f2.stringValue().substring(0, imin))));
-					} catch (AssertionError e)
+					
+					if (!(f1.stringValue().substring(0, imin).equals(f2.stringValue().substring(0, imin))))
 					{
 						indexer.getIndexingReport().addToErrorList("Difference timestamp in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()) + "\n");
 					}
 							
 				}
-				else
+				else */if (!shorten(f1.stringValue()).equals(shorten(f2.stringValue())))
 				{
-					try
-					{
-						assertTrue("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()), 
-								shorten(f1.stringValue()).equals(shorten(f2.stringValue())));
-					} catch (AssertionError e)
-					{
-						indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue())  + "\n");
-					}
+					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue())  + "\n");
 				}
-				try
+				
+				if (f1.isIndexed() != f2.isIndexed())
 				{
-					assertTrue("Difference in field(" + name + ") isIndexed " + f1.isIndexed() + " - " + f2.isIndexed(),
-							f1.isIndexed() == f2.isIndexed());
-					assertTrue("Difference in field(" + name + ") isLazy " + f1.isLazy() + " - " + f2.isLazy(), 
-							f1.isLazy() == f2.isLazy());
-					assertTrue("Difference in field(" + name + ") isStored " + f1.isStored() + " - " + f2.isStored(),
-							f1.isStored() == f2.isStored());
-					assertTrue("Difference in field(" + name + ") isTermVectorStored " + f1.isTermVectorStored() + " - " + f2.isTermVectorStored(),
-							f1.isTermVectorStored() == f2.isTermVectorStored());
-					assertTrue("Difference in field(" + name + ") isTokenized " + f1.isTokenized() + " - " + f2.isTokenized(),
-							f1.isTokenized() == f2.isTokenized());
-				} catch (AssertionError e)
+					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") isIndexed " + f1.isIndexed() + " - " + f2.isIndexed());
+				}
+				if (f1.isLazy() != f2.isLazy())
 				{
-					indexer.getIndexingReport().addToErrorList("Difference in field attributes tokenized - lazy - stored - indexed (" + name + ")\n");
+					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") isLazy" + f1.isLazy() + " - " + f2.isLazy());
+				}
+				if (f1.isStored() != f2.isStored())
+				{
+					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") isStored" + f1.isStored() + " - " + f2.isStored());
+				}
+				if (f1.isTermVectorStored() != f2.isTermVectorStored())
+				{
+					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") isTermVectorStored" + f1.isTermVectorStored() + " - " + f2.isTermVectorStored());
+				}
+				if (f1.isTokenized() != f2.isTokenized())
+				{
+					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") isTokenized" + f1.isTokenized() + " - " + f2.isTokenized());
 				}
 				
 				logger.debug("comparing field <" + name + "> ok <" + (f1.stringValue()) + " XXXXXXXXX " + (f2.stringValue()) + ">");
@@ -249,7 +226,7 @@ public class TestBase
 		{
 			int c;
 			
-			if ("escidoc.component.compound.properties".equals(f1.name()))					
+			if ("stored_fulltext".equals(f1.name()) || "stored_filename".equals(f1.name()))					
 			{
 				int i = 1;
 				i++;
@@ -257,7 +234,7 @@ public class TestBase
 			
 			if (shorten(f1.stringValue()).equals(shorten(f2.stringValue())))
 				return f2;
-			else 
+			/*else 
 			{
 				// escidoc removes some ending "0" at timestamps, e.g. 2015-11-11T09:09:99.990Z -> 2015-11-11T09:09:99.99Z 
 				
@@ -278,16 +255,11 @@ public class TestBase
 						logger.warn(f1.stringValue() + "CCCCCCCCC" + f2.stringValue());
 					}
 		        }
-			}
+			}*/
 		}
 		
 		logger.info("Nothing found for <" +  f1.name() + "><" + f1.stringValue() + "> in <" + sf2.iterator().next().stringValue() + ">");
-		
-		/*Iterator it = sf2.iterator();
-		while(it.hasNext())
-		{
-			logger.info(((Fieldable)it.next()).stringValue() + "\n");
-		}*/
+
 		return null;
 	}
 
@@ -300,9 +272,21 @@ public class TestBase
 		
 		for (Fieldable f : fields)
 		{
-			Set<Fieldable> hset = map.get(f.name());
+			String name = f.name();
 			
-			if ("escidoc.component.file.title".equals(f.name()))
+			// we put all values together in the same HashSet for the fields "stored_filename1",  "stored_filename1" ...
+			// because the ordering of the components may differ
+			if (name.contains("stored_filename"))
+			{
+				name = "stored_filename";
+			}
+			if (name.contains("stored_fulltext"))
+			{
+				name = "stored_fulltext";
+			}
+			Set<Fieldable> hset = map.get(name);
+			
+			if ("stored_fulltext".equals(name) || "stored_filename".equals(name))
 			{
 				int j = 0;
 				j++;
@@ -318,15 +302,16 @@ public class TestBase
 				hset.add(f);
 			}
 			
-			map.put(f.name(), hset);
+			map.put(name, hset);
 		}
 
 		return map;
 	}
 	
+	// the "0" is omitted because if we compare time stamps the last position may be withdrawn by escidoc in case of an ending "0"
 	private String shorten(String stringValue)
 	{
-		String s = stringValue.replaceAll("[^A-Za-z0-9]", "");
+		String s = stringValue.replaceAll("[^A-Za-z1-9]", "");
 		
 		return s;
 	}

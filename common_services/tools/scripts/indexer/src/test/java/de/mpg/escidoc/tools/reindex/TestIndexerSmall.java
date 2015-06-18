@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,6 +33,24 @@ public class TestIndexerSmall extends TestBase
 		extractor.init(new File("src/test/resources/19/escidoc_2110507+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2110507+content+content.0"));
 		
+		extractor.init(new File("src/test/resources/19/escidoc_2111497+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111497+content+content.0"));
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2111498+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111498+content+content.0"));
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2111499+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111499+content+content.0"));
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2111713+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111713+content+content.0"));
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2111687+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111687+content+content.0"));
+		
+/*		extractor.init(new File("src/test/resources/19/escidoc_2111714+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111714+content+content.0"));
+		*/
 		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";	
 	}
 	
@@ -54,12 +73,12 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 13 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 13);
+		assertTrue("Expected 15 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 15);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 38);
+				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 51);
 	}
 	
 	@Test
@@ -98,7 +117,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
-	// escidoc:2095302 item with 1 locator
+	// escidoc:2095302 item with 1 locator escidoc:2095301
 	// has no reference
 	@Test
 	public void testItemWithLocator() throws Exception
@@ -117,6 +136,9 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fields == null);
 		assertTrue(fieldMap.get("stored_filename1") == null);
 		assertTrue(fieldMap.get("stored_fulltext1") == null);
+		
+		assertTrue(fieldMap.get("stored_filename") == null);
+		assertTrue(fieldMap.get("stored_fulltext") == null);
 	}
 	
 	// escidoc:2146780 item with 1 component (escidoc:2147085 internal-managed, visibility private)
@@ -200,7 +222,13 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap.get("stored_filename1") == null);
 		assertTrue(fieldMap.get("stored_fulltext1") == null);
 		
+		assertTrue(fieldMap.get("stored_filename") == null);
+		assertTrue(fieldMap.get("stored_fulltext") == null);
+		
 		super.verify();
+		
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110474 released item (2 versions)
@@ -217,8 +245,8 @@ public class TestIndexerSmall extends TestBase
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
-		
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
@@ -242,9 +270,18 @@ public class TestIndexerSmall extends TestBase
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
+		Set<Fieldable> fields = fieldMap.get("stored_filename1");
+		assertTrue(fields == null);
+		assertTrue(fieldMap.get("stored_filename1") == null);
+		assertTrue(fieldMap.get("stored_fulltext1") == null);
+		
+		assertTrue(fieldMap.get("stored_filename") == null);
+		assertTrue(fieldMap.get("stored_fulltext") == null);
+		
 		super.verify();	
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110508 released item (1 component escidoc:2110507)
@@ -261,7 +298,8 @@ public class TestIndexerSmall extends TestBase
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
@@ -282,10 +320,12 @@ public class TestIndexerSmall extends TestBase
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 		
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
-		assertTrue(fieldMap != null);			
+		assertTrue(fieldMap != null);	
+		
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110549 released item with locator (escidoc:2110548)
@@ -303,10 +343,9 @@ public class TestIndexerSmall extends TestBase
 		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
 		assertTrue(fieldMap != null);		
 		
-		super.verify();
-		
-		assertTrue(indexer.getIndexingReport().getErrorList().iterator().next().startsWith("No corresponding field found for <escidoc.component.compound.properties"));
-		
+		super.verify();	
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110608 withdrawn item
@@ -341,7 +380,7 @@ public class TestIndexerSmall extends TestBase
 		
 	}
 	
-	// escidoc:2111689 released item without 2 component; escidoc:2111688 locator and escidoc:2111689 component with pdf
+	// escidoc:2111689 released item with 2 component; escidoc:2111688 locator and escidoc:2111687 component with pdf
 	// has reference
 	@Test
 	public void testReleasedItem_2111689() throws Exception
@@ -355,7 +394,53 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
 		super.verify();
-		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
+	}
+	
+	// escidoc:2111495 released item with 4 component; escidoc:2111493 locator and escidoc:2111497, 2111498, 2111499 components with pdf
+	// has reference
+	@Test
+	public void testReleasedItem_2111495() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2111495"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		super.verify();
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
+	}
+	
+	// escidoc:2111711 released item with 3 component; escidoc:2111710 locator and escidoc:2111713 pdf (audience), escidoc:2111714 htm (public)
+	// has reference
+	@Test
+	public void testReleasedItem_2111711() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2111711"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		
+		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
+		Set<Fieldable> fields = fieldMap.get("stored_filename");
+		assertTrue(fields == null);
+		assertTrue(fieldMap.get("stored_filename") == null);
+		assertTrue(fieldMap.get("stored_fulltext") == null);
+		
+		
+		super.verify();
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 
 }
