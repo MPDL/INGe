@@ -41,7 +41,14 @@ import java.io.OutputStreamWriter;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.sax.BodyContentHandler;
+import org.xml.sax.ContentHandler;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
@@ -254,6 +261,57 @@ public class ExtractionChain
             logger.warn("Error extracting PDF with iText:", e);
         }
         
+        // tika
+        
+        InputStream stream = null;
+        		
+        try
+        {
+            logger.info("Extracting with Tika");
+            stepStart = new Date();
+            
+            stream = TikaInputStream.get(new File(infileName));
+    		
+    		ContentHandler handler = new BodyContentHandler();
+    		
+    		new AutoDetectParser().parse(stream, handler, new Metadata(), new ParseContext());
+    		
+    		String content = handler.toString();
+    		
+    		FileUtils.writeStringToFile(outfile, content);
+    		
+    		stream.close();
+            
+            if (verbose)
+            {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(outfile), "UTF-8"));
+                String line;
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    logger.info(line);
+                }
+                bufferedReader.close();
+            }
+            
+            current = new Date();
+            logger.info(current + " -- finished successfully");
+            logger.info("Extraction took " + (current.getTime() - stepStart.getTime()));
+
+            return ExtractionResult.OK;
+
+        }
+        catch (Exception e)
+        {
+            logger.warn("Error extracting Tika:", e);
+            try
+			{
+				stream.close();
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
+        }
+    
         current = new Date();
         logger.warn(current + " -- finished unsuccessfully");
         logger.info("Extraction attempt took " + (current.getTime() - stepStart.getTime()));
