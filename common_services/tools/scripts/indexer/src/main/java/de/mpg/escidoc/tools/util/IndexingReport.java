@@ -13,9 +13,10 @@ public class IndexingReport
     private AtomicInteger filesErrorOccured  = new AtomicInteger(0);
     private AtomicInteger filesSkippedBecauseOfTime  = new AtomicInteger(0);
     private AtomicInteger filesSkippedBecauseOfStatusOrType  = new AtomicInteger(0);
+    private Collection<String> errorList = Collections.synchronizedList(new ArrayList<String>());
   
     private long start = System.currentTimeMillis();
-    private Collection<String> errorList = Collections.synchronizedList(new ArrayList<String>());
+    
 
     public int getFilesIndexingDone()
     {
@@ -62,9 +63,9 @@ public class IndexingReport
         return (System.currentTimeMillis() - this.start)/1000;
     }
     
-    public void addToErrorList(String escidocId)
+    public void addToErrorList(String message)
     {
-        this.errorList.add(escidocId);        
+        this.errorList.add(message);        
     }
     
     public Collection<String> getErrorList()
@@ -78,9 +79,10 @@ public class IndexingReport
         this.filesIndexingDone.set(0);
         this.filesSkippedBecauseOfTime.set(0);
         this.filesSkippedBecauseOfStatusOrType.set(0);
-
+        this.errorList.clear();    
+        
         this.start = System.currentTimeMillis();
-        this.errorList.clear();      
+          
     }
     
     public String toString()

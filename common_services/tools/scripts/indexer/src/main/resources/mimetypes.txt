@@ -1,5 +1,4 @@
 text/plain 
-text/html 
 application/pdf 
 application/msword 
 text/xml 

@@ -48,9 +48,9 @@ public class TestIndexerSmall extends TestBase
 		extractor.init(new File("src/test/resources/19/escidoc_2111687+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111687+content+content.0"));
 		
-/*		extractor.init(new File("src/test/resources/19/escidoc_2111714+content+content.0"));
-		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2111714+content+content.0"));
-		*/
+		extractor.init(new File("src/test/resources/19/escidoc_2120374+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2120374+content+content.0"));
+		
 		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";	
 	}
 	
@@ -436,6 +436,33 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fields == null);
 		assertTrue(fieldMap.get("stored_filename") == null);
 		assertTrue(fieldMap.get("stored_fulltext") == null);
+		
+		
+		super.verify();
+		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
+				indexer.getIndexingReport().getErrorList().size() == 0);
+	}
+	
+	// escidoc:2120373 released item with 1 component; escidoc:2120374 text/plain (public)
+	// has reference
+	@Test
+	public void testReleasedItem_2120373() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2120373"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		
+		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
+		Set<Fieldable> fields = fieldMap.get("stored_filename");
+		assertTrue(fields != null);
+		assertTrue(fieldMap.get("stored_filename") != null);
+		assertTrue(fieldMap.get("stored_fulltext") != null);
 		
 		
 		super.verify();
