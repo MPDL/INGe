@@ -50,10 +50,6 @@ public class TestBase
 		"escidoc:2116439"	
 	};
 	
-	private static Pattern datePattern = Pattern.compile(
-            "[0-9]{4}-[0-9]{2}-[0-9]{2}[Tt][0-9\\:\\.]*[zZ]");
-    private static Matcher dateMatcher = datePattern.matcher("");
-	
 	public TestBase()
 	{
 		super();
@@ -171,21 +167,7 @@ public class TestBase
 					indexer.getIndexingReport().addToErrorList("Different index options for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
 				};
 				
-				// if we compare time stamps keep in mind that the last position may be withdrawn by escidoc in case of an ending "0"
-				/*if (dateMatcher.reset(f1.stringValue()).matches() && dateMatcher.reset(f2.stringValue()).matches())
-				{
-					int i1 = f1.stringValue().lastIndexOf('z');
-					int i2 = f2.stringValue().lastIndexOf('z');
-					
-					int imin = Math.min(i1, i2);
-					
-					if (!(f1.stringValue().substring(0, imin).equals(f2.stringValue().substring(0, imin))))
-					{
-						indexer.getIndexingReport().addToErrorList("Difference timestamp in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue()) + "\n");
-					}
-							
-				}
-				else */if (!shorten(f1.stringValue()).equals(shorten(f2.stringValue())))
+			if (!shorten(f1.stringValue()).equals(shorten(f2.stringValue())))
 				{
 					indexer.getIndexingReport().addToErrorList("Difference in field(" + name + ") value " + (f1.stringValue()) + " XXXXXXXXXXXXXXXXX " + (f2.stringValue())  + "\n");
 				}
