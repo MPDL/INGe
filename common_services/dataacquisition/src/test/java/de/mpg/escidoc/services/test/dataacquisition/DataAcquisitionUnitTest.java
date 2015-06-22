@@ -29,21 +29,20 @@
 */ 
 
 package de.mpg.escidoc.services.test.dataacquisition;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
+
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.Util;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-
-import org.junit.*;
 
 /**
  * Test suite for unit test of dataAcquisition service.
@@ -91,6 +90,7 @@ public class DataAcquisitionUnitTest
     }
     
     @Test
+    @Ignore
     public void fetchBmc() throws Exception
     {
         byte[] test = this.datahandler.doFetch("BioMed Central", bmcId);
