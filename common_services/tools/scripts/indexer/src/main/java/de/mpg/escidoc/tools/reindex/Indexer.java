@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -58,7 +59,6 @@ public class Indexer
 
 	private static Logger logger = Logger.getLogger(Indexer.class);
 	
-	protected String indexPath = "";
 	static final String defaultDate = "0000-01-01 00:00:00";
 	
 	private static final String propFileName = "indexer.properties";
@@ -66,30 +66,52 @@ public class Indexer
 	
 	boolean create = true;
 	
+	// root node of those fedora objects (foxmls) in the file system  where to start the indexing operation from 
 	private File baseDir;
+	
+	// the location of the fedora objects to be indexed is stored here 
 	private File dbFile;
+	
+	// file name of the stylesheet to be used
 	private String indexStylesheet;
+	
+	// name of the index inside the index to be built
 	private String indexName;
 	private String indexAttributesName;
+	
+	// absolute name of the directory containing the extracted fulltexts
 	private String fulltextDir;
-	private long mDateMillis;
+	
+	// if the indexing operation is stopped, the name of the last successfully indexed file is found here
+	// to enable resuming the indexing operation
 	private String resumeFilename = "current-dir.txt";
-	private String resumeDir = null;
+	private String resumeDir = null;	
+	
+	// timestamp used to do indexing only for foxmls modified since mDateMillis
+	private long mDateMillis;
+	
+	// number of processor available (means number of parallel threads)
 	private int procCount;
 	int busyProcesses = 0;
+	
+	// points to the actual indexed directory. Used for resume operation.
 	private String currentDir = null;
 	
+	// mime-types where indexing of contents is to be done (should correspond the configuration in fedoragsearch.properties)
 	private String mimetypes;
 	
 	Stack<Transformer> transformerStackFoxml2Escidoc = new Stack<Transformer>();
 	Stack<Transformer> transformerStackEscidoc2Index = new Stack<Transformer>();
 	
 	private TransformerFactory saxonFactory = new net.sf.saxon.TransformerFactoryImpl();
-	
-	private Transformer transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
+	private Transformer transformerStylesheet = null;
 
+	// absolute path the index location 
+	protected String indexPath = "";
+	
 	IndexWriter indexWriter;
 	
+	// report for ...
 	private IndexingReport indexingReport = new IndexingReport();
 	
 
@@ -119,9 +141,22 @@ public class Indexer
 			throw new FileNotFoundException("Not found " + propFileName);
 		}
 		
-		fulltextDir = properties.getProperty("index.fulltexts.path");
+	}
+	
+	/*
+	 * generates the index db if property 'index.db.file.generate = true'
+	 * initializes the resume file
+	 * 
+	 */
+	public void init() throws Exception
+	{
+		this.fulltextDir = properties.getProperty("index.fulltexts.path");
 		
 		this.dbFile = new File(properties.getProperty("index.db.file"));
+		if ("true".equals("index.db.file.generate"))
+		{
+			this.createDatabase();
+		}
 		
 		this.indexPath = properties.getProperty("index.result.directory");
 		if (!(new File(indexPath)).exists())
@@ -132,12 +167,11 @@ public class Indexer
 		this.indexStylesheet = properties.getProperty("index.stylesheet");
 		this.indexName = properties.getProperty("index.name.built");;
 		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");
-	
+				
 		String mDate = properties.getProperty("index.modification.date", "0");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");					
 		String combinedDate = mDate + defaultDate.substring(mDate.length());
 		mDateMillis = dateFormat.parse(combinedDate).getTime();
-		this.mDateMillis = mDateMillis;
 		
 		this.mimetypes = readMimetypes();
 		this.procCount = Integer.parseInt(properties.getProperty("index.number.processors"));;
@@ -149,7 +183,7 @@ public class Indexer
 		
 		long s3 = System.currentTimeMillis();
 		
-		//Transformer transformerStylesheet = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("prepareStylesheet.xsl")));
+		transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 
 		transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
@@ -187,6 +221,7 @@ public class Indexer
 			logger.info("Resuming at directory " + resumeDir);
 			}
 		}		
+		
 	}
 
 	/**
@@ -285,6 +320,8 @@ public class Indexer
 	 * Gather information from the FOXMLs and write them into the given file.
 	 * 
 	 * @param file The file where to write the data to.
+	 * @throws IOException 
+	 * @throws UnsupportedEncodingException 
 	 */
 	public void createDatabase() throws Exception
 	{

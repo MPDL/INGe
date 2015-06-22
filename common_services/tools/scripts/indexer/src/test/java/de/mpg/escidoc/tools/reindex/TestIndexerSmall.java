@@ -58,7 +58,8 @@ public class TestIndexerSmall extends TestBase
 	public void setUp() throws Exception
 	{
 		indexer = new Indexer(new File("src/test/resources/20"), "escidoc_all");
-		indexer.createDatabase();
+		indexer.init();
+
 		indexer.prepareIndex();
 		indexer.getIndexingReport().clear();
 	}
@@ -73,12 +74,12 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 15 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 15);
+		assertTrue("Expected 16 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 16);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 51);
+				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 55);
 	}
 	
 	@Test
