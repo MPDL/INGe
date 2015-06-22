@@ -1,7 +1,6 @@
 package de.mpg.escidoc.tools.reindex;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.Arrays;
@@ -9,15 +8,16 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.lucene.document.Fieldable;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestIndexerSmall extends TestBase
+public class TestIndexerSmall
 {
+	protected static Indexer indexer;
 	protected static FullTextExtractor extractor;
-
+	protected static Validator validator;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
@@ -51,7 +51,7 @@ public class TestIndexerSmall extends TestBase
 		extractor.init(new File("src/test/resources/19/escidoc_2120374+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2120374+content+content.0"));
 		
-		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";	
+		
 	}
 	
 	@Before
@@ -62,6 +62,9 @@ public class TestIndexerSmall extends TestBase
 
 		indexer.prepareIndex();
 		indexer.getIndexingReport().clear();
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 	}
 
 	@Test
@@ -90,7 +93,7 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110501"));
 		indexer.finalizeIndex();
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		
 		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		
@@ -108,7 +111,7 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110541"));
 		indexer.finalizeIndex();
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		
 		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		
@@ -131,7 +134,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
 		assertTrue(fields == null);
@@ -156,7 +159,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
 		assertTrue(fields == null);
@@ -178,7 +181,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		assertTrue(fieldMap == null);
 	}
@@ -197,7 +200,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		assertTrue(fieldMap == null);
 	}
@@ -215,7 +218,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
@@ -226,7 +229,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap.get("stored_filename") == null);
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
@@ -241,7 +244,7 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110474"));
 		indexer.finalizeIndex();
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
@@ -249,7 +252,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
 		
@@ -268,7 +271,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
@@ -279,7 +282,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap.get("stored_filename") == null);
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
-		super.verify();	
+		validator.compareToReferenceIndex();	
 		
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
@@ -294,7 +297,7 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110508"));
 		indexer.finalizeIndex();
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
@@ -302,7 +305,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 			
 			
@@ -316,13 +319,13 @@ public class TestIndexerSmall extends TestBase
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110529"));
 		indexer.finalizeIndex();
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);	
 		
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -341,10 +344,10 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);		
 		
-		super.verify();	
+		validator.compareToReferenceIndex();	
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
@@ -394,7 +397,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
@@ -412,7 +415,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
@@ -430,7 +433,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
 		Set<Fieldable> fields = fieldMap.get("stored_filename");
@@ -439,7 +442,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
@@ -457,7 +460,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
-		Map<String, Set<Fieldable>> fieldMap = super.getFieldsOfDocument();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
 		Set<Fieldable> fields = fieldMap.get("stored_filename");
@@ -466,7 +469,7 @@ public class TestIndexerSmall extends TestBase
 		assertTrue(fieldMap.get("stored_fulltext") != null);
 		
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
 	}

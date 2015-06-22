@@ -1,8 +1,7 @@
 package de.mpg.escidoc.tools.reindex;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,8 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
@@ -27,13 +24,12 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
-public class TestBase
+public class Validator
 {
-	protected static Indexer indexer;
-	protected static FullTextExtractor extractor;
-	protected static String referenceIndexPath;
+	protected Indexer indexer;
+	protected String referenceIndexPath;
 	
-	protected static Logger logger = Logger.getLogger(TestBase.class);
+	protected static Logger logger = Logger.getLogger(Validator.class);
 	
 	protected static String[] fieldNamesToSkip = {
 		"xml_representation", 
@@ -50,18 +46,40 @@ public class TestBase
 		"escidoc:2116439"	
 	};
 	
-	public TestBase()
+	public Validator()
 	{
-		super();
 	}
+	
+	public Validator(Indexer indexer)
+	{
+		this.indexer = indexer;
+	}
+	
+	public Validator(Indexer indexer, String path) throws FileNotFoundException
+	{
+		this.indexer = indexer;
+		this.setReferencePath(path);
+	}
+	
+	public void setReferencePath(String path) throws FileNotFoundException
+	{
+		if (!new File(path).exists())
+		{
+			logger.warn("Invalid reference index path <" + path + ">");
+			throw new FileNotFoundException("Invalid reference index path <" + path + ">");
+		}
+		this.referenceIndexPath = path;
+	}
+	
+	
 
-	public void verify() throws CorruptIndexException, IOException
+	public void compareToReferenceIndex() throws CorruptIndexException, IOException
 	{
 		Document document1 = null;
 		Document document2 = null;
 		
 		IndexReader indexReader1 = IndexReader.open(FSDirectory.open(new File(indexer.getIndexPath())), true);
-		IndexReader indexReader2 = IndexReader.open(FSDirectory.open(new File(referenceIndexPath)), true);
+		IndexReader indexReader2 = IndexReader.open(FSDirectory.open(new File(this.referenceIndexPath)), true);
 		IndexSearcher indexSearcher2 = new IndexSearcher(indexReader2);
 		
 		for (int i = 0; i < indexReader1.maxDoc(); i++)
@@ -299,23 +317,24 @@ public class TestBase
 	}
 	
 	private Document getReferenceDocument(String field, String value, IndexSearcher searcher)
-			throws IOException
+            throws IOException
 	{
-		Document doc = null;
-		
-		Query query = new TermQuery(new Term(field, value));		
-		TopDocs topDocs = searcher.search(query, 1);
-		
-		ScoreDoc[] scoreDocs = topDocs.scoreDocs;
-		
-		for (int j = 0; j < scoreDocs.length; ++j)
-		{
-			int docId = scoreDocs[j].doc;
-			
-			doc = searcher.getIndexReader().document(docId);
-		}
-		
-		return doc;
+	     Document doc = null;
+	     
+	     Query query = new TermQuery(new Term(field, value));        
+	     TopDocs topDocs = searcher.search(query, 1);
+	     
+	     ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+	     
+	     for (int j = 0; j < scoreDocs.length; ++j)
+	     {
+	            int docId = scoreDocs[j].doc;
+	            
+	            doc = searcher.getIndexReader().document(docId);
+	     }
+	     
+	     return doc;
 	}
+
 
 }

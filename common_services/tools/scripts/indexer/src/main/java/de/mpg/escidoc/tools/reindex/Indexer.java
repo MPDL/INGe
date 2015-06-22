@@ -56,7 +56,6 @@ import de.mpg.escidoc.tools.util.Util;
  */
 public class Indexer
 {
-
 	private static Logger logger = Logger.getLogger(Indexer.class);
 	
 	static final String defaultDate = "0000-01-01 00:00:00";
@@ -165,7 +164,12 @@ public class Indexer
 		}
 		
 		this.indexStylesheet = properties.getProperty("index.stylesheet");
-		this.indexName = properties.getProperty("index.name.built");;
+		
+		// if not set by command line
+		if (this.indexName == null)
+		{
+			this.indexName = properties.getProperty("index.name.built");
+		}
 		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");
 				
 		String mDate = properties.getProperty("index.modification.date", "0");
@@ -317,7 +321,7 @@ public class Indexer
 	}
 
 	/**
-	 * Gather information from the FOXMLs and write them into the given file.
+	 * Gather information from the FOXMLs and write it into the given file.
 	 * 
 	 * @param file The file where to write the data to.
 	 * @throws IOException 
@@ -371,7 +375,6 @@ public class Indexer
 	{
 		try
 		{
-			
 			indexItems(baseDir);
 			
 			while (busyProcesses > 0)
@@ -611,64 +614,51 @@ public class Indexer
 	 */
 	public static void main(String[] args) throws Exception
 	{
-		long start = new Date().getTime();
+		String mode = args[0];
 		
-/*		if (null == args || args.length != 10)
+		if (mode == null || !mode.contains("index") || !mode.contains("validate"))		
 		{
-			logger.info("Usage: java Indexer [parameters]");
-			logger.info("Parameters:");
-			logger.info("1 - Base directory");
-			logger.info("2 - Index result directory");
-			logger.info("3 - File for temporary foxml data");
-			logger.info("4 - Generate temporary foxml data (true/false)");
-			logger.info("5 - Index stylesheet");
-			logger.info("6 - Index stylesheet attributes");
-			logger.info("7 - Index name");
-			logger.info("8 - Modification date");
-			logger.info("9 - Fulltext directory");
-			logger.info("10 - Number of processors that should be used");
-			System.exit(0);
-		}*/
+			printUsage("Invalid mode parameter");
+		}
 		
-		File baseDir = new File(args[0]);
+		File baseDir = new File(args[1]);
+		if (baseDir == null || !baseDir.exists())
+		{
+			printUsage("Invalid base directory parameter");
+		}
 		
-		String indexName = args[1];
+		// optional indexName
+		String indexName = args[2];
 		
-		/*indexPath = args[1];
-		File dbFile = new File(args[2]);
-		File indexStylesheet = new File(args[4]);
-		String indexAttributesName = args[5];
-		String indexName = args[6];
-		
-		String mDate = args[7];
-		String fulltextDir = args[8];
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String combinedDate = mDate + defaultDate.substring(mDate.length());
-		long mDateMillis = dateFormat.parse(combinedDate).getTime();
-		int procCount = Integer.parseInt(args[9]);*/
-		
-		Indexer indexer = new Indexer(baseDir, indexName);
-		
+		Indexer indexer = new Indexer(baseDir, indexName);		
+		indexer.init();
 		indexer.prepareIndex();
 		
-/*		if ("true".equals(args[2]))
-		{*/
-			indexer.createDatabase();
-	//	}
-		
-		indexer.indexItemsStart(baseDir);
+		indexer.indexItems(baseDir);
 		indexer.finalizeIndex();
 		indexer.removeResumeFile();
 
-		long end = new Date().getTime();
-		logger.info("Time: " + (end - start));
 		logger.info(indexer.getIndexingReport().toString());
+		
+		if (mode.contains("validate"))
+		{
+			Validator validator = new Validator(indexer);
+			
+			validator.compareToReferenceIndex();
+		}
 	}
 
-	public void getIndexDirectory()
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	static private void printUsage(String message)
+    {
+        System.out.print("***** " + message + " *****");
+        System.out.print("Usage: ");
+        System.out.println("java "  + " [-transform|-validate|-transformvalidate] rootDir");
+        System.out.println("  -transform\t\tTransform the foxmls");
+        System.out.println("  -validate\t\tValidate the (transformed) foxmls");
+        System.out.println("  -transformvalidate\t\tTransform and validate the (transformed) foxmls in a single step.");
+        System.out.println("  <rootDir>\tThe root directory to start pid migration from");
+
+        System.exit(-1);
+    }
 
 }

@@ -1,17 +1,19 @@
 package de.mpg.escidoc.tools.reindex;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class TestIndexerBig extends TestBase
+public class TestIndexerBig extends Validator
 {
-	/*
+	protected static Indexer indexer;
+	protected static FullTextExtractor extractor;
+	protected static Validator validator;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
@@ -25,7 +27,8 @@ public class TestIndexerBig extends TestBase
 		indexer.createDatabase();
 		indexer.prepareIndex();
 		
-		referenceIndexPath = "C:/tmp/jboss/server/default/data/index/lucene/escidoc_all";
+		validator = new Validator(indexer, 
+				"C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 	}
 	
@@ -41,8 +44,8 @@ public class TestIndexerBig extends TestBase
 		indexer.indexItemsStart(new File("C:/Test/data/objects/2015"));
 		indexer.finalizeIndex();
 		
-		super.verify();
+		validator.compareToReferenceIndex();
 		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
-*/
+
 }
