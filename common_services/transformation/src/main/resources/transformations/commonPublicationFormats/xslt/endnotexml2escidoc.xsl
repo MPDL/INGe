@@ -1364,7 +1364,14 @@
 							public
 						</prop:visibility>
 						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+							<xsl:choose>
+								<xsl:when test="$Flavor='MPIGEM' and contains(U, 'http://www.coll.mpg.de/pdf_dat')">
+									<xsl:value-of select="$contentCategory-ves/enum[.='preprint']/@uri"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+								</xsl:otherwise>
+							</xsl:choose>
 						</prop:content-category>
 						<prop:file-name>
 							<xsl:value-of select="normalize-space(.)"/>
