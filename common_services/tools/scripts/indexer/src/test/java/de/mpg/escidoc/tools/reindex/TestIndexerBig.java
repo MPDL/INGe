@@ -13,7 +13,7 @@ public class TestIndexerBig extends Validator
 	protected static Indexer indexer;
 	protected static FullTextExtractor extractor;
 	protected static Validator validator;
-
+/*
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
@@ -47,5 +47,5 @@ public class TestIndexerBig extends Validator
 		validator.compareToReferenceIndex();
 		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
-
+*/
 }

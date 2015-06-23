@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -468,6 +469,19 @@ public class TestIndexerSmall
 		assertTrue(fieldMap.get("stored_filename") != null);
 		assertTrue(fieldMap.get("stored_fulltext") != null);
 		
+		Iterator<Fieldable> it = fieldMap.get("stored_fulltext").iterator();
+		boolean found = false;
+		while (it.hasNext())
+		{
+			Fieldable f = (Fieldable)it.next();
+			
+			if (f.stringValue().contains("Book"))
+			{
+				found = true;
+				break;
+			}
+		}
+		assertTrue(found);
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
