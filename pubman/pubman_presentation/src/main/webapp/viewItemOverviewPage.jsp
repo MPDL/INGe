@@ -57,31 +57,35 @@
 				
 				<style type="text/css">
 					.dialogNoTitleBar .ui-dialog-titlebar {display:none;}
+					.ui-dialog {background:#eee}
 				</style>
 				
 				<script type="text/javascript">
 					var currentDialog;
-	
+					var text = '${msg.ViewItem_doiDialog}';
 					function showDialog(){
-						currentDialog = $("<p>Sind Sie sich absolut sicher, dass Sie wissen, was Sie tun?</p>").dialog(
+						currentDialog = $("<p>" + text + "</p>").dialog(
 						{
-							dialogClass: 'dialogNoTitleBar',
+							dialogClass: "dialogNoTitleBar",
 							modal:true, 
 							width: "auto",
 							resizable: false,
 							draggable:false,
+							width: 500,
+							
 							buttons: [
+								
 								{
-									text: "OK",
+									text: "#{lbl.cancel}",
 									click: function() {
-										$(".hiddenLnkExecuteAddDoi").click();
-										$(this).dialog("close"); 
+										$(this).dialog("close");
 									}
 								},
 								{
-									text: "Cancel",
+									text: "#{lbl.ViewItemFull_lblDoi}",
 									click: function() {
-										$(this).dialog("close");
+										$(".hiddenLnkExecuteAddDoi").click();
+										$(this).dialog("close"); 
 									}
 								}
 							],
