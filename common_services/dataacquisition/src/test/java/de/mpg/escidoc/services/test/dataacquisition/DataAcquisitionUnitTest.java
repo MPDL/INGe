@@ -90,7 +90,6 @@ public class DataAcquisitionUnitTest
     }
     
     @Test
-    @Ignore
     public void fetchBmc() throws Exception
     {
         byte[] test = this.datahandler.doFetch("BioMed Central", bmcId);
