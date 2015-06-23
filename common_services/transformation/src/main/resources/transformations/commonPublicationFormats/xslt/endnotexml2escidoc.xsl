@@ -1365,8 +1365,8 @@
 						</prop:visibility>
 						<prop:content-category>
 							<xsl:choose>
-								<xsl:when test="$Flavor='MPIGEM' and contains(U, 'http://www.coll.mpg.de/pdf_dat')">
-									<xsl:value-of select="$contentCategory-ves/enum[.='preprint']/@uri"/>
+								<xsl:when test="$Flavor='MPIGEM' and contains(., 'http://www.coll.mpg.de/pdf_dat')">
+									<xsl:value-of select="$contentCategory-ves/enum[.='pre-print']/@uri"/>
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
