@@ -218,6 +218,19 @@
 				<xsl:when test="($refType = 'Generic' or $refType = 'Conference Paper' or $refType = 'Report') and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')">
 					<xsl:value-of select="$genreMap/m[@key='Talk at Event']"/>
 				</xsl:when>
+				
+				<!-- Spezial-Genre-Mapping für MPI Gemeinschaftsgüter -->
+				<xsl:when test="($Flavor = 'MPIGEM' and $refType = 'Generic')">
+					<xsl:value-of select="paper"/>
+				</xsl:when>
+				<xsl:when test="($Flavor = 'MPIGEM' and $refType = 'Artwork')">
+					<xsl:value-of select="book-review"/>
+				</xsl:when>
+				<xsl:when test="($Flavor = 'MPIGEM' and $refType = 'Classical Work')">
+					<xsl:value-of select="other"/>
+				</xsl:when>
+				<!-- Ende Spezial-Mapping MPIGEM -->
+				
 				<xsl:otherwise>
 					<xsl:value-of select="$genreMap/m[@key=$refType]"/>
 				</xsl:otherwise>
@@ -514,11 +527,11 @@
 						<xsl:value-of select="NUM_7" />
 					</xsl:when>
 					<!-- Wenn zwar %7, aber da Buchstabe drin ist, nimm %D, wenn vorhanden -->
-					<xsl:when test="NUM_7 and translate(NUM_7, translate(NUM_7, $alpha, ''), '') and D">
+					<xsl:when test="NUM_7 and translate(NUM_7, translate(NUM_7, $alpha, ''), '') and D and normalize-space(D) != '9998'"> <!-- MPIGEM hat bei noch nicht veröffentlichten Publikationen '9998' stehen. Wird weiter unten umgewandelt in ein dateAccepted -->
 						<xsl:value-of select="D" />
 					</xsl:when>
 					<!-- Wenn kein %7, aber %D, nimm %D -->
-					<xsl:when test="not(NUM_7) and D">
+					<xsl:when test="not(NUM_7) and D and normalize-space(D) != '9998'"> <!-- MPIGEM hat bei noch nicht veröffentlichten Publikationen '9998' stehen. Wird weiter unten umgewandelt in ein dateAccepted -->
 						<xsl:value-of select="D" />
 					</xsl:when>
 					<!-- Wenn kein %7 oder da Buchstabe drin ist und auch kein %D, dann keine Infos für creation date vorhanden -->
@@ -567,13 +580,33 @@
 				<dcterms:modified xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateModified"/></dcterms:modified>
 			</xsl:if>
 			
+			<!-- dateAccepted mit MPIGEM-Besonderheit (angenommene Publikationen haben '9998' in %D. Soll zu 2015-01-02 werden -->
+			<xsl:choose>
+				<xsl:when test="$Flavor='MPIGEM' and normalize-space(D)='9998'">
+					<xsl:variable name="dateAccepted">2015-01-02</xsl:variable>
+					<xsl:if test="$dateAccepted != ''">
+						<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateAccepted"/></dcterms:dateAccepted>
+					</xsl:if>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="dateAccepted" select="
+						if ($dateCreated and $refType = 'Thesis') then $dateCreated
+						else ''
+					"/>
+					<xsl:if test="$dateAccepted != ''">
+						<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateAccepted"/></dcterms:dateAccepted>
+					</xsl:if>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+		<!-- früherer Abschnitt dateAccepted:	
 			<xsl:variable name="dateAccepted" select="
 				if ($dateCreated and $refType = 'Thesis') then $dateCreated
 				else ''
 			"/>
 			<xsl:if test="$dateAccepted != ''">
 				<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateAccepted"/></dcterms:dateAccepted>
-			</xsl:if>
+			</xsl:if> -->
           	<!-- end of DATES -->
 
           	
