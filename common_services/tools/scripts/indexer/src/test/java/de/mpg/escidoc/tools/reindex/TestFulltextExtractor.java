@@ -91,11 +91,11 @@ public class TestFulltextExtractor
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_2110752+content+content.0.txt")).exists());
 		
-		assertTrue("Expected 5 Found " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 5);
+		assertTrue("Expected 16 Found " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 16);
 		assertTrue("Expected 1 Found " + extractor.getStatistic().getFilesErrorOccured(), extractor.getStatistic().getFilesErrorOccured() == 1);
-		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 4);
-		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
-		assertTrue(extractor.getStatistic().getErrorList().size() == 1);
+		assertTrue("Is " + extractor.getStatistic().getFilesExtractionDone(), extractor.getStatistic().getFilesExtractionDone() == 15);
+		assertTrue("Is " + extractor.getStatistic().getFilesSkipped(), extractor.getStatistic().getFilesSkipped() == 0);
+		assertTrue("Is " + extractor.getStatistic().getErrorList().size(), extractor.getStatistic().getErrorList().size() == 1);
 	}
 	
 	@Test
@@ -107,11 +107,11 @@ public class TestFulltextExtractor
 		
 		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_1587192+content+content.0.txt")).exists());
 		
-		assertTrue(extractor.getStatistic().getFilesTotal() == 5);
-		assertTrue("expected <1> got <" + extractor.getStatistic().getFilesErrorOccured() + ">", extractor.getStatistic().getFilesErrorOccured() == 1) ;
-		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 0);
+		assertTrue("Is " + extractor.getStatistic().getFilesTotal(), extractor.getStatistic().getFilesTotal() == 16);
+		assertTrue("expected <0> got <" + extractor.getStatistic().getFilesErrorOccured() + ">", extractor.getStatistic().getFilesErrorOccured() == 0) ;
+		assertTrue(extractor.getStatistic().getFilesExtractionDone() == 1);
 		assertTrue(extractor.getStatistic().getFilesSkipped() == 0);
-		assertTrue(extractor.getStatistic().getErrorList().size() == 1);
+		assertTrue(extractor.getStatistic().getErrorList().size() == 0);
 	}
 	
 	@Test
