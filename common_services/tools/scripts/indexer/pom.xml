@@ -164,13 +164,13 @@
 		        <executions>
 		          <execution>
 		            <id>rename-file</id>
-		            <phase>prepare-package</phase>
+		            <phase>generate-sources</phase>
 		            <goals>
 		              <goal>rename</goal>
 		            </goals>
 		            <configuration>
-		              <sourceFile>${basedir}/target/classes/indexer.properties.${config.suffix.include}</sourceFile>
-		              <destinationFile>${basedir}/target/classes/indexer.properties</destinationFile>
+		              <sourceFile>${project.basedir}/src/main/resources/indexer.properties.${config.suffix.include}</sourceFile>
+		              <destinationFile>${project.basedir}/src/main/resources/indexer.properties</destinationFile>
 		            </configuration>
 		          </execution>
 		        </executions>
