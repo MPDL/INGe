@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Stack;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -91,7 +92,7 @@ public class Indexer
 	
 	// number of processor available (means number of parallel threads)
 	private int procCount;
-	int busyProcesses = 0;
+	AtomicInteger busyProcesses = new AtomicInteger(0);
 	
 	// points to the actual indexed directory. Used for resume operation.
 	private String currentDir = null;
@@ -152,7 +153,7 @@ public class Indexer
 		this.fulltextDir = properties.getProperty("index.fulltexts.path");
 		
 		this.dbFile = new File(properties.getProperty("index.db.file"));
-		if ("true".equals("index.db.file.generate"))
+		if ("true".equals(properties.getProperty("index.db.file.generate")))
 		{
 			this.createDatabase();
 		}
@@ -187,7 +188,8 @@ public class Indexer
 		
 		long s3 = System.currentTimeMillis();
 		
-		transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
+		// transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
+		transformerStylesheet = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("prepareStylesheet.xsl")));
 
 		transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
@@ -316,7 +318,14 @@ public class Indexer
 	
 	public void finalizeIndex() throws Exception
 	{
-		indexWriter.close();
+		if (busyProcesses.get() > 0)
+		{
+			logger.info(";");
+			Thread.sleep(10);
+		} else
+		{
+			indexWriter.close();
+		}
 		logger.info(this.getIndexingReport().toString());
 	}
 
@@ -329,13 +338,17 @@ public class Indexer
 	 */
 	public void createDatabase() throws Exception
 	{
+		logger.info("Starting create index database");
+		
 		FileOutputStream fileOutputStream = new FileOutputStream(dbFile);
 		fileOutputStream.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n".getBytes("UTF-8"));
 		fileOutputStream.write("<index>\n".getBytes("UTF-8"));
 		checkDir(baseDir, fileOutputStream);
 		fileOutputStream.write("</index>\n".getBytes("UTF-8"));
 		fileOutputStream.close();
-	}
+		
+		logger.info("Creating index database finished");
+		}
 	
 	/**
 	 * read the contents of a directory and write it to index db.
@@ -377,7 +390,7 @@ public class Indexer
 		{
 			indexItems(baseDir);
 			
-			while (busyProcesses > 0)
+			while (busyProcesses.get() > 0)
 			{
 				Thread.sleep(10);
 			}
@@ -406,7 +419,7 @@ public class Indexer
 			if (dir.isFile())
 			{
 				new IndexThread(dir).start();
-				busyProcesses++;
+				busyProcesses.getAndIncrement();
 				return;
 			}
 			
@@ -420,13 +433,13 @@ public class Indexer
 				}
 				else if (file.lastModified() >= mDateMillis)
 				{
-					while (busyProcesses >= procCount)
+					while (busyProcesses.get() >= procCount)
 					{
 						System.out.print(".");
 						Thread.sleep(10);
 					}
 					new IndexThread(file).start();
-					busyProcesses++;
+					busyProcesses.getAndIncrement();
 				}
 				else if (file.lastModified() < mDateMillis)
 				{
@@ -492,7 +505,7 @@ public class Indexer
 		{
 			transformerStackFoxml2Escidoc.push(transformer1);
 			transformerStackEscidoc2Index.push(transformer2);
-			busyProcesses--;
+			busyProcesses.getAndDecrement();
 			logger.info(transformer1.getParameter("number") + " done.");
 		}
 		
@@ -560,8 +573,9 @@ public class Indexer
 			} 
 			catch (IOException e)
 			{
-				indexWriter.close();
-				e.printStackTrace();
+			//	indexWriter.close();
+				logger.warn("IO Exception occured", e);
+				return;
 			}
 			indexingReport.incrementFilesIndexingDone();
 		}
@@ -616,7 +630,7 @@ public class Indexer
 	{
 		String mode = args[0];
 		
-		if (mode == null || !mode.contains("index") || !mode.contains("validate"))		
+		if (mode == null ||  (!mode.contains("index")) && !mode.contains("validate"))		
 		{
 			printUsage("Invalid mode parameter");
 		}
@@ -652,11 +666,11 @@ public class Indexer
     {
         System.out.print("***** " + message + " *****");
         System.out.print("Usage: ");
-        System.out.println("java "  + " [-transform|-validate|-transformvalidate] rootDir");
-        System.out.println("  -transform\t\tTransform the foxmls");
-        System.out.println("  -validate\t\tValidate the (transformed) foxmls");
-        System.out.println("  -transformvalidate\t\tTransform and validate the (transformed) foxmls in a single step.");
-        System.out.println("  <rootDir>\tThe root directory to start pid migration from");
+        System.out.println("java "  + " [-index|-validate|-indexvalidate] rootDir");
+        System.out.println("  -index\t\tIndex the foxmls");
+        System.out.println("  -validate\t\tValidate the the generated index");
+        System.out.println("  -indexvalidate\t\tIndex the foxmls and validate the generated index in a single step.");
+        System.out.println("  <rootDir>\tThe root directory of the foxmls to start indexing from");
 
         System.exit(-1);
     }

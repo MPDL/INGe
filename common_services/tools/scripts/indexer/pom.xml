@@ -1,5 +1,6 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.tools</groupId>
 	<artifactId>indexer</artifactId>
@@ -67,13 +68,14 @@
 		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/indexer/</url>
 	</scm>
 	<build>
-   <!-- For annotations and other Java5 stuff -->
+		<!-- For annotations and other Java5 stuff -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<excludes>
 					<exclude>**/*.dat</exclude>
+					<exclude>**/*.${config.suffix.exclude}</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -104,38 +106,77 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 				<configuration>
-			          <additionalClasspathElements>
-			            <additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
-			            <additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
-			          </additionalClasspathElements>
-        		</configuration>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
+						<additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
+					</additionalClasspathElements>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.2</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>de.mpg.escidoc.tools.reindex.Indexer</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
+				<version>2.4</version>
 				<executions>
 					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
+						<id>build-indexer</id>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>de.mpg.escidoc.tools.reindex.Indexer</mainClass>
+								</manifest>
+							</archive>
+							<finalName>${project.artifactId}</finalName>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>build-extractor</id>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>de.mpg.escidoc.tools.reindex.FullTextExtractor</mainClass>
+								</manifest>
+							</archive>
+							<finalName>${project.artifactId}-extractor</finalName>
+						</configuration>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+			<plugin>
+		        <groupId>com.coderplus.maven.plugins</groupId>
+		        <artifactId>copy-rename-maven-plugin</artifactId>
+		        <version>1.0</version>
+		        <executions>
+		          <execution>
+		            <id>rename-file</id>
+		            <phase>prepare-package</phase>
+		            <goals>
+		              <goal>rename</goal>
+		            </goals>
+		            <configuration>
+		              <sourceFile>${basedir}/target/classes/indexer.properties.${config.suffix.include}</sourceFile>
+		              <destinationFile>${basedir}/target/classes/indexer.properties</destinationFile>
+		            </configuration>
+		          </execution>
+		        </executions>
+      </plugin>			
+	</plugins>
+	
 	</build>
 	<dependencies>
 		<dependency>
@@ -167,13 +208,13 @@
 			<classifier>jar-with-dependencies</classifier>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.escidoc</groupId>
 			<artifactId>escidoc-analyzers</artifactId>
 			<version>1.3.5-SNAPSHOT</version>
 		</dependency>
-		 
+
 		<dependency>
 			<groupId>org.escidoc</groupId>
 			<artifactId>fedoragsearch</artifactId>
@@ -181,7 +222,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -192,20 +233,42 @@
 			<artifactId>axis</artifactId>
 			<version>1.4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--  
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-			<version>2.7.1</version>
-			<scope>compile</scope>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>xalan</groupId> <artifactId>xalan</artifactId> 
+			<version>2.7.1</version> <scope>compile</scope> </dependency> -->
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<config.suffix.include>windows</config.suffix.include>
+				<config.suffix.exclude>linux</config.suffix.exclude>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<config.suffix.include>linux</config.suffix.include>
+				<config.suffix.exclude>windows</config.suffix.exclude>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>
