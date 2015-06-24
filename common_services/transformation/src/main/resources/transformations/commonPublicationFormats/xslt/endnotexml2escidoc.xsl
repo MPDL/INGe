@@ -266,6 +266,7 @@
 		
 		<xsl:variable name="sourceGenre" select="
 				if ( ($Flavor = 'CAESAR' and B and $refType = 'Journal Article' ) and not(J)) then $genre-ves/enum[.='journal']/@uri else
+				if ( ($Flavor = 'MPIGEM' and B and $refType = 'Journal Article' ) and not(J)) then $genre-ves/enum[.='journal']/@uri else
 				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript', 'Report') ) then $genre-ves/enum[.='series']/@uri else
 				if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else
 				if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
@@ -480,10 +481,10 @@
 			<xsl:variable name="publisher" select="
 				if (I and B and J and S) then ''
 				else if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
-				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Thesis' )) then I
+				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Thesis', 'Classical Work' )) then I
 				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
 				else ''
-			"/>
+			"/> <!-- "Classical Work ergänzt für MPIGEM (Gemeinschaftsgüter) -->
 			<xsl:variable name="edition" select="
 				if (NUM_7 and B and J and S) then ''
 				else if (NUM_7 and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
@@ -497,9 +498,9 @@
 						<xsl:value-of select="$publisher"/>
 					</dc:publisher>
 					<xsl:variable name="place" select="
-						if (C and ($refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article') or ($refType = 'Generic' and (not(NUM_9) or (lower-case(normalize-space(NUM_9)) != 'talk'))))) then C
+						if (C and ($refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article', 'Classical Work') or ($refType = 'Generic' and (not(NUM_9) or (lower-case(normalize-space(NUM_9)) != 'talk'))))) then C
 						else ''
-					"/>
+					"/> <!-- "Classical Work ergänzt für MPIGEM (Gemeinschaftsgüter) -->
 					<xsl:if test="$place!=''">
 						<eterms:place>
 							<xsl:value-of select="$place"/>
@@ -1036,8 +1037,10 @@
 							'Newspaper Article',	 
 							'Manuscript', 
 							'Report', 
-							'Thesis'
-						)">
+							'Thesis',
+							'Artwork',
+							'Classical Work'
+						)"> <!-- Artwork und Classical Work sind MPIGEM-Sondertypes (MPI Gemeinschaftsgüter) -->
 						<xsl:variable name="currentAuthorPosition" select="position()"/>
 						<xsl:comment>--Author --</xsl:comment>
 						<xsl:call-template name="createCreator">
