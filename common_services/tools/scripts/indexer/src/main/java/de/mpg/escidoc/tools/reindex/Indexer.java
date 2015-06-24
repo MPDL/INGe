@@ -100,8 +100,9 @@ public class Indexer
 	// mime-types where indexing of contents is to be done (should correspond the configuration in fedoragsearch.properties)
 	private String mimetypes;
 	
-	Stack<Transformer> transformerStackFoxml2Escidoc = new Stack<Transformer>();
-	Stack<Transformer> transformerStackEscidoc2Index = new Stack<Transformer>();
+	private File stylesheetTmpFile = null;
+	private Stack<Transformer> transformerStackFoxml2Escidoc = new Stack<Transformer>();
+	private Stack<Transformer> transformerStackEscidoc2Index = new Stack<Transformer>();
 	
 	private TransformerFactory saxonFactory = new net.sf.saxon.TransformerFactoryImpl();
 	private Transformer transformerStylesheet = null;
@@ -182,17 +183,16 @@ public class Indexer
 		this.procCount = Integer.parseInt(properties.getProperty("index.number.processors"));;
 		
 		// Create temp file for modified index stylesheet
-		File tmpFile = File.createTempFile("stylesheet", ".tmp");
+		stylesheetTmpFile = File.createTempFile("stylesheet", ".tmp");
 		
-		logger.info("transforming index stylesheet to " + tmpFile);
-		
+		logger.info("transforming index stylesheet to " + stylesheetTmpFile);		
 		long s3 = System.currentTimeMillis();
 		
 		// transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 		transformerStylesheet = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("prepareStylesheet.xsl")));
 
 		transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
-		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(tmpFile));
+		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(stylesheetTmpFile));
 		
 		long e3 = System.currentTimeMillis();
 		logger.info("transforming index stylesheet used <" + (e3-s3) + "> ms");
@@ -205,7 +205,7 @@ public class Indexer
 			transformerFoxml2escidoc.setParameter("number", i);
 			transformerStackFoxml2Escidoc.push(transformerFoxml2escidoc);
 			
-			Transformer transformerEscidoc2Index = saxonFactory.newTransformer(new StreamSource(tmpFile));
+			Transformer transformerEscidoc2Index = saxonFactory.newTransformer(new StreamSource(stylesheetTmpFile));
 			//Xalan transformation not possible due to needed XSLT2 functions
 			//transformer2 = xalanFactory.newTransformer(new StreamSource(tmpFile));
 			transformerEscidoc2Index.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
@@ -318,15 +318,16 @@ public class Indexer
 	
 	public void finalizeIndex() throws Exception
 	{
-		if (busyProcesses.get() > 0)
+		while (busyProcesses.get() > 0)
 		{
 			logger.info(";");
 			Thread.sleep(10);
-		} else
-		{
-			indexWriter.close();
 		}
+
+		indexWriter.close();
 		logger.info(this.getIndexingReport().toString());
+		
+		stylesheetTmpFile.delete();
 	}
 
 	/**
