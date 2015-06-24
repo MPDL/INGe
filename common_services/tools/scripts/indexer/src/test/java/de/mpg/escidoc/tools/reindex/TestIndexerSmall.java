@@ -58,7 +58,7 @@ public class TestIndexerSmall
 	@Before
 	public void setUp() throws Exception
 	{
-		indexer = new Indexer(new File("src/test/resources/20"), "escidoc_all");
+		indexer = new Indexer(new File("src/test/resources/20"));
 		indexer.init();
 
 		indexer.prepareIndex();

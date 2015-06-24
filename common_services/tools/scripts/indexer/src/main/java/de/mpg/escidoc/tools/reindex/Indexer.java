@@ -17,7 +17,6 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Properties;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -124,7 +123,7 @@ public class Indexer
 	 * @param indexName 
 	 * @throws Exception
 	 */
-	public Indexer(File baseDir, String indexName) throws Exception
+	public Indexer(File baseDir) throws Exception
 	{
 		this.baseDir = baseDir;
 		
@@ -630,22 +629,53 @@ public class Indexer
 	public static void main(String[] args) throws Exception
 	{
 		String mode = args[0];
+		File baseDir = null;
+		File referenceIndexDir = null;
 		
 		if (mode == null ||  (!mode.contains("index")) && !mode.contains("validate"))		
 		{
 			printUsage("Invalid mode parameter");
 		}
 		
-		File baseDir = new File(args[1]);
-		if (baseDir == null || !baseDir.exists())
+		if (mode.contains("index"))
 		{
-			printUsage("Invalid base directory parameter");
+			baseDir = new File(args[1]);
+			if (baseDir == null || !baseDir.exists())
+			{
+				printUsage("Invalid base directory parameter");
+			}
 		}
 		
-		// optional indexName
-		String indexName = args[2];
+		if (mode.contains("validate"))
+		{
+			referenceIndexDir = new File(args[1]);
+			if (referenceIndexDir == null || !referenceIndexDir.exists())
+			{
+				printUsage("Invalid reference index directory parameter");
+			}
+		}
 		
-		Indexer indexer = new Indexer(baseDir, indexName);		
+		mode = args[2];
+		
+		if (mode.contains("index"))
+		{
+			baseDir = new File(args[1]);
+			if (baseDir == null || !baseDir.exists())
+			{
+				printUsage("Invalid base directory parameter");
+			}
+		}
+		
+		if (mode.contains("validate"))
+		{
+			referenceIndexDir = new File(args[3]);
+			if (referenceIndexDir == null || !referenceIndexDir.exists())
+			{
+				printUsage("Invalid reference index directory parameter");
+			}
+		}
+
+		Indexer indexer = new Indexer(baseDir);		
 		indexer.init();
 		indexer.prepareIndex();
 		
@@ -658,6 +688,7 @@ public class Indexer
 		if (mode.contains("validate"))
 		{
 			Validator validator = new Validator(indexer);
+			validator.setReferencePath(referenceIndexDir.getCanonicalPath());
 			
 			validator.compareToReferenceIndex();
 		}
@@ -667,11 +698,11 @@ public class Indexer
     {
         System.out.print("***** " + message + " *****");
         System.out.print("Usage: ");
-        System.out.println("java "  + " [-index|-validate|-indexvalidate] rootDir");
+        System.out.println("java "  + " [-index <rootDir> | -validate <pathToReferenceIndex>");
         System.out.println("  -index\t\tIndex the foxmls");
-        System.out.println("  -validate\t\tValidate the the generated index");
-        System.out.println("  -indexvalidate\t\tIndex the foxmls and validate the generated index in a single step.");
         System.out.println("  <rootDir>\tThe root directory of the foxmls to start indexing from");
+        System.out.println("  -validate\t\tValidate the the generated index");
+        System.out.println("  <pathToReferenceIndex>\tPath to the reference index");
 
         System.exit(-1);
     }

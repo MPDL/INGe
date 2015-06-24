@@ -65,8 +65,9 @@ public class FullTextExtractor
 	}
 	
 	public void init(File baseDir)
-	{				
-			statistic.setFilesTotal(Util.countFilesInDirectory(baseDir));
+	{	
+		logger.info("Found " + Util.countFilesInDirectory(baseDir) + " for extraction" );
+		statistic.setFilesTotal(Util.countFilesInDirectory(baseDir));
 	}
 	
 	public String getFulltextPath()

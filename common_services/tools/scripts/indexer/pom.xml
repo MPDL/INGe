@@ -76,6 +76,7 @@
 				<excludes>
 					<exclude>**/*.dat</exclude>
 					<exclude>**/*.${config.suffix.exclude}</exclude>
+					<exclude>**/*.${config.suffix.include}</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -163,10 +164,10 @@
 		        <version>1.0</version>
 		        <executions>
 		          <execution>
-		            <id>rename-file</id>
+		            <id>copy-rename-file</id>
 		            <phase>generate-sources</phase>
 		            <goals>
-		              <goal>rename</goal>
+		              <goal>copy</goal>
 		            </goals>
 		            <configuration>
 		              <sourceFile>${project.basedir}/src/main/resources/indexer.properties.${config.suffix.include}</sourceFile>

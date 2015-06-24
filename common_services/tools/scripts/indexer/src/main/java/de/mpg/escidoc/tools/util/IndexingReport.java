@@ -90,10 +90,10 @@ public class IndexingReport
     	long s = (System.currentTimeMillis() - start)/1000;
     	return 
 
-    			"\nfilesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
-    			+ "filesSkippedBecauseOfTime\t\t<" + filesSkippedBecauseOfTime.get() + "> \n"
-    			+ "filesSkippedBecauseOfStatusOrType\t\t<" + filesSkippedBecauseOfStatusOrType.get() + "> \n"
-    			+ "filesIndexingDone\t<" + filesIndexingDone.get() + "> \n"
+    			"\nfilesErrorOccured\t\t<" + filesErrorOccured.get() + "> \n"
+    			+ "filesSkippedBecauseOfTime\t<" + filesSkippedBecauseOfTime.get() + "> \n"
+    			+ "filesSkippedBecauseOfStatusOrType\t<" + filesSkippedBecauseOfStatusOrType.get() + "> \n"
+    			+ "filesIndexingDone\t\t<" + filesIndexingDone.get() + "> \n"
     			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
     			+ "errorList\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
