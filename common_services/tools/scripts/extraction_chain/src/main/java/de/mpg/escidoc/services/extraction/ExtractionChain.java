@@ -70,6 +70,8 @@ public class ExtractionChain
     
     private String pdftotext = System.getenv("extract.pdftotext.path");
     private String pdfboxAppJar = System.getenv("extract.pdfbox-app-jar.path");
+
+	private OutputStreamWriter outputStreamWriter;
     
     public enum ExtractionResult 
     {
@@ -232,7 +234,7 @@ public class ExtractionChain
             PdfReader reader = new PdfReader(infileName);
             int numberOfPages = reader.getNumberOfPages();
             
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(outfile), "UTF-8");
+            outputStreamWriter = new OutputStreamWriter(new FileOutputStream(outfile), "UTF-8");
             for (int i = 0; i < numberOfPages; i++)
             {
                 outputStreamWriter.write(PdfTextExtractor.getTextFromPage(reader, i+1));
