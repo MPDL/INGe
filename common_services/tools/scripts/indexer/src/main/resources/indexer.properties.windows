@@ -28,7 +28,7 @@ index.db.file = c:/Test/indexdb.xml
 #index.db.file = /home/siedersleben/indexdb.xml
 
 # generate temporary foxml data (true/false)
-index.db.file.generate = true
+index.db.file.generate = false
 
 # path of the directory to store the extracted fulltexts into
 index.fulltexts.path = C:/fulltexts
