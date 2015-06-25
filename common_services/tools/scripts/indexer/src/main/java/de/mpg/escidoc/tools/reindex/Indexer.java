@@ -632,77 +632,63 @@ public class Indexer
 		File baseDir = null;
 		File referenceIndexDir = null;
 		
-		if (mode == null ||  (!mode.contains("index")) && !mode.contains("validate"))		
+		if (mode == null ||  (!mode.contains("c") && !mode.contains("i")) && !mode.contains("v"))		
 		{
-			printUsage("Invalid mode parameter");
+			printUsage("Invalid parameter");
 		}
 		
-		if (mode.contains("index"))
+		baseDir = new File(args[1]);
+		if (baseDir == null || !baseDir.exists())
 		{
-			baseDir = new File(args[1]);
-			if (baseDir == null || !baseDir.exists())
-			{
-				printUsage("Invalid base directory parameter");
-			}
+			printUsage("Invalid base directory parameter");
+			System.exit(1);
 		}
 		
-		if (mode.contains("validate"))
+		if (mode.contains("v"))
 		{
-			referenceIndexDir = new File(args[1]);
+			referenceIndexDir = new File(args[2]);
 			if (referenceIndexDir == null || !referenceIndexDir.exists())
 			{
 				printUsage("Invalid reference index directory parameter");
-			}
-		}
-		
-		mode = args[2];
-		
-		if (mode.contains("index"))
-		{
-			baseDir = new File(args[1]);
-			if (baseDir == null || !baseDir.exists())
-			{
-				printUsage("Invalid base directory parameter");
-			}
-		}
-		
-		if (mode.contains("validate"))
-		{
-			referenceIndexDir = new File(args[3]);
-			if (referenceIndexDir == null || !referenceIndexDir.exists())
-			{
-				printUsage("Invalid reference index directory parameter");
+				System.exit(1);
 			}
 		}
 
 		Indexer indexer = new Indexer(baseDir);		
 		indexer.init();
-		indexer.prepareIndex();
 		
-		indexer.indexItems(baseDir);
-		indexer.finalizeIndex();
-		indexer.removeResumeFile();
+		if (mode.contains("i"))
+		{
+			indexer.prepareIndex();
+		
+			indexer.indexItems(baseDir);
+			
+			indexer.finalizeIndex();
+			indexer.removeResumeFile();
+		}
 
 		logger.info(indexer.getIndexingReport().toString());
 		
-		if (mode.contains("validate"))
+		if (referenceIndexDir != null)
 		{
 			Validator validator = new Validator(indexer);
 			validator.setReferencePath(referenceIndexDir.getCanonicalPath());
 			
 			validator.compareToReferenceIndex();
 		}
+
+		logger.info(indexer.getIndexingReport().toString());
 	}
 
 	static private void printUsage(String message)
     {
         System.out.print("***** " + message + " *****");
         System.out.print("Usage: ");
-        System.out.println("java "  + " [-index <rootDir> | -validate <pathToReferenceIndex>");
-        System.out.println("  -index\t\tIndex the foxmls");
-        System.out.println("  <rootDir>\tThe root directory of the foxmls to start indexing from");
-        System.out.println("  -validate\t\tValidate the the generated index");
-        System.out.println("  <pathToReferenceIndex>\tPath to the reference index");
+        System.out.println("java -jar indexer-jar-with-dependencies.jar {civ} <rootDir> <referenceIndexDir>");
+        System.out.println("  -c\t\tcreate the index database");
+        System.out.println("  -i\t\tIndex the foxmls recursively from root directory");
+        System.out.println("  -v\t\tValidate the the generated index");
+        System.out.println("  <rootDir>\tThe root directory of the foxmls to start operation (create database and index) from");
 
         System.exit(-1);
     }

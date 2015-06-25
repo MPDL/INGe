@@ -119,6 +119,8 @@ public class Validator
 			logger.info("comparing 2 - 1");
 			compareFields(m2, m1);
 		}
+		
+		logger.info("Validator result \n" + indexer.getIndexingReport().toString());
 	}
 	
 	public Map<String, Set<Fieldable>> getFieldsOfDocument() throws CorruptIndexException, IOException

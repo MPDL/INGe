@@ -21,18 +21,18 @@ extract.pdfbox-app-jar.path = /usr/share/jboss/server/default/conf/pdfbox-app-1.
 			
 # directory to write the result of the indexing process to 
 #index.result.directory = c:/Test/index/
-index.result.directory = /home/siedersleben/index
+index.result.directory = /X/index_test/indexer/index
 
 # file to keep the temporary foxml paths (absolute path)
 #index.db.file = c:/Test/indexdb.xml
-index.db.file = /home/siedersleben/indexdb.xml
+index.db.file = /X/index_test/indexer/indexdb.xml
 
 # generate temporary foxml data (true/false)
 index.db.file.generate = true
 
 # path of the directory to store the extracted fulltexts into
 #index.fulltexts.path = C:/fulltexts
-index.fulltexts.path = /home/siedersleben/fulltexts
+index.fulltexts.path = /X/index_test/indexer/fulltexts
 
 # path of indexing stylesheet to be used
 index.stylesheet = mpdlEscidocXmlToLucene.xslt
