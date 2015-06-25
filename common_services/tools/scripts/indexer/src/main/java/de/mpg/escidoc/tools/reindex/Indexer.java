@@ -519,11 +519,6 @@ public class Indexer
 		{
 			logger.info("Indexing file " + file);
 			
-			//kaputt or modified
-			// TODO
-			/*if ("escidoc_2110486".equals(file.getName()) || "escidoc_2110490".equals(file.getName()))
-					return;*/
-			
 			StringWriter writer1 = new StringWriter();
 			StringWriter writer2 = new StringWriter();
 			
@@ -656,6 +651,11 @@ public class Indexer
 
 		Indexer indexer = new Indexer(baseDir);		
 		indexer.init();
+		
+		if (mode.contains("c"))
+		{
+			indexer.createDatabase();
+		}
 		
 		if (mode.contains("i"))
 		{
