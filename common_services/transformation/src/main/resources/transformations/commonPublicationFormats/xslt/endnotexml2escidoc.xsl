@@ -269,7 +269,8 @@
 				if ( ($Flavor = 'MPIGEM' and B and $refType = 'Journal Article' ) and not(J)) then $genre-ves/enum[.='journal']/@uri else
 				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript', 'Report') ) then $genre-ves/enum[.='series']/@uri else
 				if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else
-				if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
+				if ( B and $refType = ('Electronic Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
+				if ( B and $refType = 'Newspaper Article' ) then $genre-ves/enum[.='newspaper']/@uri else
 				if ( B and $refType = 'Conference Paper' ) then $genre-ves/enum[.='proceedings']/@uri else
 				if ( J and $refType = 'Journal Article' ) then $genre-ves/enum[.='journal']/@uri else
 				if ( S and $refType = ('Book Section', 'Conference Proceedings') ) then $genre-ves/enum[.='series']/@uri else
@@ -1241,21 +1242,56 @@
 								</xsl:comment>
 								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
 								</xsl:comment>
+								
+								<!-- hier caesar-externe Besonderheit. Für Import externe Publikationen only! Deaktivieren nach Import d. externen Publikationen! -->
+								<xsl:choose>
+									<xsl:when test="$Flavor = 'CAESAR'">
+										<organization:organization>
+												<dc:title>
+													<xsl:text>External Organizations</xsl:text>
+												</dc:title>
+												<dc:identifier>
+													<xsl:text>escidoc:persistent22</xsl:text>
+												</dc:identifier>
+										</organization:organization>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
+											<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
+											<organization:organization>
+												<dc:title>
+														<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+												</dc:title>
+												<dc:identifier>
+														<xsl:value-of select="rdf:Description/dc:identifier"/>
+												</dc:identifier>
+											</organization:organization>
+											<!--  Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) --> 
+											<dc:identifier xsi:type="CONE">
+												<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
+											</dc:identifier>
+										</xsl:if>
+									</xsl:otherwise>
+								</xsl:choose>
+								
+								<!-- original-Abschnitt: Wieder aktivieren nach CAESAR-Import der externen Publikationen !
 								<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
-									<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
-									<organization:organization>
-										<dc:title>
-											<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
-										</dc:title>
-										<dc:identifier>
-											<xsl:value-of select="rdf:Description/dc:identifier"/>
-										</dc:identifier>
-									</organization:organization>
-									<!-- Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) --> 
-									<dc:identifier xsi:type="CONE">
-										<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
-									</dc:identifier>
-								</xsl:if>
+											<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
+											<organization:organization>
+												<dc:title>
+														<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+												</dc:title>
+												<dc:identifier>
+														<xsl:value-of select="rdf:Description/dc:identifier"/>
+												</dc:identifier>
+											</organization:organization>
+											***  Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) *** 
+											<dc:identifier xsi:type="CONE">
+												<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
+											</dc:identifier>
+										</xsl:if>
+								-->
+								
 							</xsl:for-each>
 						</xsl:when>
 					</xsl:choose>
