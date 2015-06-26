@@ -1204,7 +1204,19 @@
 					<eterms:given-name>
 						<xsl:value-of select="$givenname"/>
 					</eterms:given-name>
-					<!-- Affiliated Institution depends on publication-date) -->
+					<!-- Besonderheit für Import von externen caesar-Publikationen -->		
+					<xsl:if test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
+						<organization:organization>
+							<dc:title>
+								<xsl:text>External Organizations</xsl:text>
+							</dc:title>
+							<dc:identifier>
+								<xsl:text>escidoc:persistent22</xsl:text>
+							</dc:identifier>
+						</organization:organization>
+					</xsl:if>
+					
+					<!-- Affiliated Institution depends on publication-date)
 					<xsl:variable name="publication-date">
 						<xsl:choose>
 							<xsl:when test="./../D">
@@ -1243,38 +1255,7 @@
 								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
 								</xsl:comment>
 								
-								<!-- hier caesar-externe Besonderheit. Für Import externe Publikationen only! Deaktivieren nach Import d. externen Publikationen! -->
-								<xsl:choose>
-									<xsl:when test="$Flavor = 'CAESAR'">
-										<organization:organization>
-												<dc:title>
-													<xsl:text>External Organizations</xsl:text>
-												</dc:title>
-												<dc:identifier>
-													<xsl:text>escidoc:persistent22</xsl:text>
-												</dc:identifier>
-										</organization:organization>
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
-											<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
-											<organization:organization>
-												<dc:title>
-														<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
-												</dc:title>
-												<dc:identifier>
-														<xsl:value-of select="rdf:Description/dc:identifier"/>
-												</dc:identifier>
-											</organization:organization>
-											<!--  Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) --> 
-											<dc:identifier xsi:type="CONE">
-												<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
-											</dc:identifier>
-										</xsl:if>
-									</xsl:otherwise>
-								</xsl:choose>
 								
-								<!-- original-Abschnitt: Wieder aktivieren nach CAESAR-Import der externen Publikationen !
 								<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
 											<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
 											<organization:organization>
@@ -1289,12 +1270,12 @@
 											<dc:identifier xsi:type="CONE">
 												<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
 											</dc:identifier>
-										</xsl:if>
-								-->
+								</xsl:if>
 								
 							</xsl:for-each>
 						</xsl:when>
 					</xsl:choose>
+			-->
 				</person:person>
 				
 			</xsl:otherwise>
