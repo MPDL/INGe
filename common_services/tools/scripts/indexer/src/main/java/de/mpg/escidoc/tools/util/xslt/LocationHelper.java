@@ -1,0 +1,104 @@
+package de.mpg.escidoc.tools.util.xslt;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
+
+import org.apache.commons.io.FileUtils;
+
+public class LocationHelper
+{
+	private static Map<String, String> locations = null;
+	private static Properties properties = new Properties();
+	
+	private LocationHelper()
+	{
+	}
+	
+	public static LocationHelper getInstance()
+	{
+		return LocationHelperHolder.getLocationHolder();
+	}
+	
+	public static String getLocation(String objid)
+	{
+		if (locations == null)
+		{
+			locations = new HashMap<String, String>();
+			LocationHelper.getInstance();
+			return LocationHelper.locations.get(objid);
+		}
+		else 
+			return locations.get(objid);
+	}	
+	
+	private static class LocationHelperHolder
+	{
+		private static LocationHelper getLocationHolder() 
+		{
+			int numEntries = 0;
+			String indexdbFile = "";
+			
+			try
+			{
+				InputStream s = LocationHelper.class.getClassLoader().getResourceAsStream("indexer.properties");
+				properties.load(s);
+				indexdbFile = properties.getProperty("index.db.file");
+			} catch (FileNotFoundException e1)
+			{
+				indexdbFile = "target/classes/indexdb.xml";
+			} catch (IOException e1)
+			{
+				indexdbFile = "./indexdb.xml";
+			}
+
+			try
+			{
+				List<String> entries = FileUtils.readLines(new File(indexdbFile), "UTF-8");
+				
+				Iterator<String> it = entries.iterator();
+
+				StringBuilder objid = new StringBuilder(512);
+				StringBuilder location = new StringBuilder(1024);
+
+				while(it.hasNext())
+				{
+					String line = (String)it.next();
+					StringTokenizer tok = new StringTokenizer(line, "\"", false);
+					
+					while(tok.hasMoreElements())
+					{			
+						String element = tok.nextToken();
+						// murks
+						if (element.startsWith("escidoc"))
+						{
+							objid.append(element);
+						} else if (element.contains("/") && !element.contains(">"))
+						{
+							location.append(element);
+						}
+					}
+					locations.put(objid.toString(), location.toString());
+					numEntries++;
+					
+					objid.setLength(0);
+					location.setLength(0);
+				}
+				
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(numEntries + " entries put to map");
+			return new LocationHelper();
+		}
+	}
+}

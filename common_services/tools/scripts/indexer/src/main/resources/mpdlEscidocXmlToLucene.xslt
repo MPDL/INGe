@@ -23,7 +23,7 @@ Notes:
 
 -
  -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="java:de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="java:de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="java:de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="java:de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:location-helper="java:de.mpg.escidoc.tools.util.xslt.LocationHelper" xmlns:lastdate-helper="java:de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="java:de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="java:de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="java:de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="location-helper lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
 	<!-- Include stylesheet that writes important fields for gsearch -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xxsl="http://www.w3.org/1999/XSL/TransformAlias" xmlns:nsCR="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#" >
+<xsl:stylesheet version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xxsl="http://www.w3.org/1999/XSL/TransformAlias" xmlns:location-helper="java:de.mpg.escidoc.tools.util.xslt.LocationHelper" xmlns:nsCR="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#" extension-element-prefixes="location-helper">
 	
 	<xsl:namespace-alias stylesheet-prefix="xxsl" result-prefix="xsl"/>
 	
@@ -16,12 +16,13 @@
 	</xsl:template>
 
 	<xsl:template match="xsl:include">
-	
+	<!--  
 		<xxsl:param name="index-db"/>
+		-->
 		<xxsl:param name="fulltext-directory"/>
-	
+	<!--
 		<xxsl:variable name="database" select="document($index-db)"/>
-	
+	-->
 		<xsl:variable name="attributes-file-content" select="document($attributes-file)"/>
 	
 		<xsl:apply-templates select="$attributes-file-content">
@@ -69,8 +70,14 @@
 						
 						<xxsl:value-of select="$ou-id"/>
 						<xxsl:text><xsl:text> </xsl:text></xxsl:text>
+						<xxsl:variable name="ou-location" select="location-helper:getLocation($ou-id)"/>
+						<!--  
+						<xxsl:message>ou-location <xsl:value-of select="$ou-location"/></xxsl:message>
+						
 						<xxsl:variable name="ou-document" select="document($database/index/object[@name = $ou-id]/@path)"/>
-		
+						-->	
+						<xxsl:variable name="ou-document" select="document($ou-location)"/>
+						
 						<xxsl:variable name="parent-ou-ids" select="$ou-document/foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description/srel:parent"/>
 						<xxsl:for-each select="$parent-ou-ids">
 							<xxsl:call-template name="get-parent-ous">
