@@ -3,17 +3,15 @@
  */
 package de.mpg.escidoc.tools.reindex;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -35,9 +33,13 @@ public class FullTextExtractor
 	private static Logger logger = Logger.getLogger(FullTextExtractor.class);
 
 	private String fulltextDir = "";
-	private ExtractionReport statistic = new ExtractionReport();
+	private static ExtractionReport extractionReport = new ExtractionReport();
 	private Properties properties = new Properties();
 	private String[] envp = new String[2]; 
+	
+	// number of processor available (means number of parallel threads)
+	private int procCount;
+	AtomicInteger busyProcesses = new AtomicInteger(0);
 	
 	public FullTextExtractor() throws Exception
 	{		
@@ -67,7 +69,18 @@ public class FullTextExtractor
 	public void init(File baseDir)
 	{	
 		logger.info("Found " + Util.countFilesInDirectory(baseDir) + " for extraction" );
-		statistic.setFilesTotal(Util.countFilesInDirectory(baseDir));
+		extractionReport.setFilesTotal(Util.countFilesInDirectory(baseDir));
+		
+		this.procCount = Integer.parseInt(properties.getProperty("index.number.processors"));
+	}
+	
+	public void finalizeExtraction() throws Exception
+	{
+		while (busyProcesses.get() > 0)
+		{
+			logger.info(";");
+			Thread.sleep(10);
+		}
 	}
 	
 	public String getFulltextPath()
@@ -77,7 +90,7 @@ public class FullTextExtractor
 	
 	public ExtractionReport getStatistic()
 	{
-		return this.statistic;
+		return this.extractionReport;
 	}
 	
 	public void extractFulltexts(File dirOrFile) throws Exception
@@ -108,34 +121,28 @@ public class FullTextExtractor
 			}
 			else
 			{
+				
 				if (file.lastModified() < mDateMillis)
 				{
 					logger.info("Skipping " + file.getName() + " last modification date <" + new Date(file.lastModified()) + ">");
-					statistic.incrementFilesSkipped();
+					extractionReport.incrementFilesSkipped();
 					continue;
 				}
 				try
 				{
-					ExtractionChain chain = new ExtractionChain();
-					
-					// too much properties 
-					
-					chain.setProperties(properties, this.logger);
-					ExtractionResult ret = chain.doExtract(file.getCanonicalPath(), (new File(fulltextDir, file.getName())).getAbsolutePath().concat(".txt"));
-					
-					if (ret == ExtractionResult.OK)
+					while (busyProcesses.get() >= procCount)
 					{
-						statistic.incrementFilesExtractionDone();
+						System.out.print(".");
+						Thread.sleep(100);
 					}
-					else
-					{
-						statistic.incrementFilesErrorOccured();
-						statistic.addToErrorList(file.getName());
-					}
+					new ExtractorThread(file).start();
+					busyProcesses.getAndIncrement();
+					continue;
+					
 				} catch (Exception e)
 				{
-					statistic.incrementFilesErrorOccured();
-					statistic.addToErrorList(file.getName());
+					extractionReport.incrementFilesErrorOccured();
+					extractionReport.addToErrorList(file.getName());
 					e.printStackTrace();
 					
 					continue;
@@ -144,7 +151,7 @@ public class FullTextExtractor
 		}
 	}
 
-
+/*
 	void extractFulltext(File file) throws Exception
 	{   
 		if (!(new File(fulltextDir, file.getName()).exists()))
@@ -221,7 +228,72 @@ public class FullTextExtractor
 			}
         }
     }
-
+    
+    */
+	
+	/**
+	 * Subclass to enable parallelization.
+	 * 
+	 * @author franke
+	 *
+	 */
+	class ExtractorThread extends Thread
+	{
+		File file;
+		
+		/**
+		 * Constructor with the FOXML file.
+		 * 
+		 * @param file The FOXML file
+		 */
+		public ExtractorThread(File file)
+		{
+			this.file = file;
+		}
+		
+		public void run()
+		{
+			
+			try
+			{
+				logger.info("------------------------------------------------------------------------------------------");
+				logger.info("Start extraction <" + file.getName() + ">");
+				long start = System.currentTimeMillis();
+				ExtractionChain chain = new ExtractionChain();
+				
+				chain.setProperties(properties, logger);
+				ExtractionResult ret = chain.doExtract(file.getCanonicalPath(), (new File(fulltextDir, file.getName())).getAbsolutePath().concat(".txt"));
+				
+				if (ret == ExtractionResult.OK)
+				{
+					extractionReport.incrementFilesExtractionDone();
+				}
+				else
+				{
+					extractionReport.incrementFilesErrorOccured();
+					extractionReport.addToErrorList(file.getName());
+				}
+				long end = System.currentTimeMillis();
+				
+				logger.info("Total time used for extraction <" + file.getName() + "> <" + (end - start) + "> ms");	
+			}
+			catch (Exception e)
+			{
+				cleanup();
+				extractionReport.addToErrorList(file.getName());
+				extractionReport.incrementFilesErrorOccured();
+				throw new RuntimeException(e);
+			}
+			cleanup();
+			logger.info("------------------------------------------------------------------------------------------");
+		}
+		
+		void cleanup()
+		{			
+			busyProcesses.getAndDecrement();
+		}		
+	}
+	
 	/**
 	 * @param args
 	 */
@@ -247,6 +319,7 @@ public class FullTextExtractor
 		
 		extractor.init(baseDir);		
 		extractor.extractFulltexts(baseDir, mDateMillis);
+		extractor.finalizeExtraction();
 		
 		logger.info(extractor.getStatistic().toString());
 	}

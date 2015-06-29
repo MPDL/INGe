@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,11 +23,13 @@ public class TestFulltextExtractor
 		extractor = new FullTextExtractor();
 	}
 	
+	
 	@Before
 	public void setUp() throws IOException
 	{
 		extractor.getStatistic().clear();	
 		
+		// first clean fulltext directory
 		for (File f : new File(extractor.getFulltextPath()).listFiles())
 		{
 			try
@@ -44,6 +47,7 @@ public class TestFulltextExtractor
 	{	
 		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"));
+		extractor.finalizeExtraction();
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
@@ -55,6 +59,7 @@ public class TestFulltextExtractor
 		// only with iText successful 
 		extractor.init(new File("src/test/resources/19/escidoc_28177+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_28177+content+content.0"));
+		extractor.finalizeExtraction();
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
@@ -69,7 +74,8 @@ public class TestFulltextExtractor
 	{	
 		extractor.init(new File("src/test/resources/19/escidoc_2110752+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2110752+content+content.0"));
-		
+		extractor.finalizeExtraction();
+		Thread.sleep(200);
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_2110752+content+content.0.txt")).exists());
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
 		assertTrue(extractor.getStatistic().getFilesErrorOccured() == 0);
@@ -84,6 +90,7 @@ public class TestFulltextExtractor
 	{
 		extractor.init(new File("src/test/resources/19"));
 		extractor.extractFulltexts(new File("src/test/resources/19"));
+		extractor.finalizeExtraction();
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_28177+content+content.0.txt")).exists());
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
@@ -102,6 +109,7 @@ public class TestFulltextExtractor
 		
 		extractor.init(new File("src/test/resources/19"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_html+content+content.0"));
+		extractor.finalizeExtraction();
 		
 		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_1587192+content+content.0.txt")).exists());
 		
@@ -120,6 +128,7 @@ public class TestFulltextExtractor
 		// extract all modified since 2015-03-12. The testfiles have lastModificationDate 2015-03-14.
 		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"), f.parse("2015-03-12").getTime());
+		extractor.finalizeExtraction();
 		
 		assertTrue((new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
@@ -137,6 +146,7 @@ public class TestFulltextExtractor
 		
 		extractor.init(new File("src/test/resources/19/escidoc_20017+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_20017+content+content.0"), f.parse("2016-03-12").getTime());
+		extractor.finalizeExtraction();
 		
 		assertTrue(!(new File(extractor.getFulltextPath(), "escidoc_20017+content+content.0.txt")).exists());
 		assertTrue(extractor.getStatistic().getFilesTotal() == 1);
