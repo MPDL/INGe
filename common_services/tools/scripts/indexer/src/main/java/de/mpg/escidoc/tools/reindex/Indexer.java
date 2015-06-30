@@ -63,7 +63,8 @@ public class Indexer
 	private static final String propFileName = "indexer.properties";
 	private static Properties properties = new Properties();
 	
-	boolean create = true;
+	// create a new index or append to an existing one
+	private boolean createIndex = false;
 	
 	// root node of those fedora objects (foxmls) in the file system  where to start the indexing operation from 
 	private File baseDir;
@@ -158,6 +159,15 @@ public class Indexer
 			this.createDatabase();
 		}
 		
+		if ("true".equals(properties.getProperty("index.result.directory.create")))
+		{
+			createIndex = true;
+		}
+		else
+		{
+			createIndex = false;
+		}
+		
 		this.indexPath = properties.getProperty("index.result.directory");
 		if (!(new File(indexPath)).exists())
 		{
@@ -226,7 +236,6 @@ public class Indexer
 			logger.info("Resuming at directory " + resumeDir);
 			}
 		}		
-		
 	}
 
 	/**
@@ -247,6 +256,11 @@ public class Indexer
 	public IndexingReport getIndexingReport()
 	{
 		return this.indexingReport;
+	}
+	
+	public void setCreateIndex(boolean b)
+	{
+		this.createIndex = b;
 	}
 
 	/**
@@ -283,7 +297,7 @@ public class Indexer
 	    	final Analyzer analyzer = new EscidocAnalyzer();
 	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
 
-	    	if (create) {
+	    	if (createIndex) {
 	    	  // Create a new index in the directory, removing any
 	    	  // previously indexed documents:
 	    	  iwc.setOpenMode(OpenMode.CREATE);
