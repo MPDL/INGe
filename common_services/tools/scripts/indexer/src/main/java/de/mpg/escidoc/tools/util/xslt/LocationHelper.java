@@ -12,11 +12,14 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 
 public class LocationHelper
 {
 	private static Map<String, String> locations = null;
 	private static Properties properties = new Properties();
+	
+	private static Logger logger = Logger.getLogger(LocationHelper.class);
 	
 	private LocationHelper()
 	{
@@ -36,6 +39,7 @@ public class LocationHelper
 			return LocationHelper.locations.get(objid);
 		}
 		else 
+			logger.debug("Returning <" + objid + "><" + locations.get(objid) + ">");
 			return locations.get(objid);
 	}	
 	
@@ -97,7 +101,7 @@ public class LocationHelper
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(numEntries + " entries put to map");
+			logger.trace(numEntries + " entries put to map");
 			return new LocationHelper();
 		}
 	}
