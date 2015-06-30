@@ -29,22 +29,16 @@ public class Validator
 	protected Indexer indexer;
 	protected String referenceIndexPath;
 	
+	IndexReader indexReader1 = null;
+	IndexReader indexReader2 = null;
+	IndexSearcher indexSearcher2 = null;
+	
 	protected static Logger logger = Logger.getLogger(Validator.class);
 	
 	protected static String[] fieldNamesToSkip = {
 		"xml_representation", 
 		"xml_metadata"
 		};
-	
-	protected static String[] objidsToSkip = {
-		"escidoc:2111614",
-		"escidoc:2111636",
-		"escidoc:2111643",
-		"escidoc:2111653",
-		"escidoc:2111721",
-		"escidoc:2111712",
-		"escidoc:2116439"	
-	};
 	
 	public Validator()
 	{
@@ -55,13 +49,13 @@ public class Validator
 		this.indexer = indexer;
 	}
 	
-	public Validator(Indexer indexer, String path) throws FileNotFoundException
+	public Validator(Indexer indexer, String path) throws CorruptIndexException, IOException
 	{
-		this.indexer = indexer;
+		this(indexer);
 		this.setReferencePath(path);
 	}
 	
-	public void setReferencePath(String path) throws FileNotFoundException
+	public void setReferencePath(String path) throws CorruptIndexException, IOException
 	{
 		if (!new File(path).exists())
 		{
@@ -69,29 +63,23 @@ public class Validator
 			throw new FileNotFoundException("Invalid reference index path <" + path + ">");
 		}
 		this.referenceIndexPath = path;
+		
+		indexReader1 = IndexReader.open(FSDirectory.open(new File(indexer.getIndexPath())), true);
+		indexReader2 = IndexReader.open(FSDirectory.open(new File(this.referenceIndexPath)), true);
+		indexSearcher2 = new IndexSearcher(indexReader2);
+		
 	}
 	
-	
-
 	public void compareToReferenceIndex() throws CorruptIndexException, IOException
 	{
 		Document document1 = null;
 		Document document2 = null;
-		
-		IndexReader indexReader1 = IndexReader.open(FSDirectory.open(new File(indexer.getIndexPath())), true);
-		IndexReader indexReader2 = IndexReader.open(FSDirectory.open(new File(this.referenceIndexPath)), true);
-		IndexSearcher indexSearcher2 = new IndexSearcher(indexReader2);
 		
 		for (int i = 0; i < indexReader1.maxDoc(); i++)
 		{			
 			document1 = indexReader1.document(i);	
 			document2 = getReferenceDocument("escidoc.objid", document1.get("escidoc.objid"), indexSearcher2);
 			
-			if (Arrays.asList(objidsToSkip).contains(document1.get("escidoc.objid")))
-			{
-				logger.warn("Skipping verify for <" + document1.get("escidoc.objid") + ">");
-				continue;
-			}
 			if (document2 == null)
 			{
 				indexer.getIndexingReport().addToErrorList("No reference document found for <"
@@ -121,6 +109,10 @@ public class Validator
 		}
 		
 		logger.info("Validator result \n" + indexer.getIndexingReport().toString());
+		
+		indexSearcher2.close();
+		indexReader1.close();
+		indexReader2.close();
 	}
 	
 	public Map<String, Set<Fieldable>> getFieldsOfDocument() throws CorruptIndexException, IOException
@@ -168,6 +160,8 @@ public class Validator
 			{
 				indexer.getIndexingReport().addToErrorList("Different field sizes sf1 - sf2 <" + sf1.size() + "><" + sf2.size() + ">\n");
 			}
+			
+			logger.debug("<" + name + ">sf1.size  <" + sf1.size() + "> - sf2.size <" + sf2.size() + ">");
 			
 			for (Fieldable f1 : sf1)
 			{
@@ -234,30 +228,12 @@ public class Validator
 				i++;
 			}
 			
+			logger.trace("findFieldsFor compares <" + f1.stringValue() + "> with <" + f2.stringValue() + ">"); 
 			if (shorten(f1.stringValue()).equals(shorten(f2.stringValue())))
-				return f2;
-			/*else 
 			{
-				// escidoc removes some ending "0" at timestamps, e.g. 2015-11-11T09:09:99.990Z -> 2015-11-11T09:09:99.99Z 
-				
-				if (dateMatcher.reset(f1.stringValue()).matches() && dateMatcher.reset(f2.stringValue()).matches()) 
-				{
-		            int i1 = f1.stringValue().lastIndexOf("z");
-		            int i2 = f2.stringValue().lastIndexOf("z");
-		            
-		            try
-					{
-						if (i1 > 0 && i2 > 0) 
-						{
-							if( f1.stringValue().substring(0, i1-1).equals(f2.stringValue().substring(0, i1-1)))
-								return f2;
-						}
-					} catch (Exception e)
-					{
-						logger.warn(f1.stringValue() + "CCCCCCCCC" + f2.stringValue());
-					}
-		        }
-			}*/
+				logger.trace("Returning <" + f2.stringValue() +">" );
+				return f2;
+			}
 		}
 		
 		logger.info("Nothing found for <" +  f1.name() + "><" + f1.stringValue() + "> in <" + sf2.iterator().next().stringValue() + ">");
