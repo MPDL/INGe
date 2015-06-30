@@ -71,9 +71,10 @@
 						<xxsl:value-of select="$ou-id"/>
 						<xxsl:text><xsl:text> </xsl:text></xxsl:text>
 						<xxsl:variable name="ou-location" select="location-helper:getLocation($ou-id)"/>
-						<!--  
-						<xxsl:message>ou-location <xsl:value-of select="$ou-location"/></xxsl:message>
 						
+						<!--
+						<xxsl:message>ou-location <xsl:value-of select="$ou-location"/></xxsl:message>
+						  					
 						<xxsl:variable name="ou-document" select="document($database/index/object[@name = $ou-id]/@path)"/>
 						-->	
 						<xxsl:variable name="ou-document" select="document($ou-location)"/>

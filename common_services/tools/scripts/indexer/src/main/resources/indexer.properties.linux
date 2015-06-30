@@ -7,11 +7,9 @@
 #extract.extraction-chain.path = C:/Users/sieders.MUCAM/.m2/repository/de/mpg/escidoc/tools/extraction_chain/1.0-SNAPSHOT/extraction_chain-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 # path to pdftotext executable
-#extract.pdftotext.path = C:/xpdfbin-win-3.04/xpdfbin-win-3.04/bin64/pdftotext.exe
 extract.pdftotext.path = /usr/local/bin/pdftotext
 
 # location of pdfbox-app.jar
-#extract.pdfbox-app-jar.path = C:/Users/sieders.MUCAM/.m2/repository/org/apache/pdfbox/pdfbox-app/1.8.6/pdfbox-app-1.8.6.jar
 extract.pdfbox-app-jar.path = /usr/share/jboss/server/default/conf/pdfbox-app-1.8.6.jar
 
 #
@@ -20,18 +18,19 @@ extract.pdfbox-app-jar.path = /usr/share/jboss/server/default/conf/pdfbox-app-1.
 		
 			
 # directory to write the result of the indexing process to 
-#index.result.directory = c:/Test/index/
 index.result.directory = /X/index_test/indexer/index
 
+# create a new index directory (true/false)
+index.result.directory.create = false
+
 # file to keep the temporary foxml paths (absolute path)
-#index.db.file = c:/Test/indexdb.xml
 index.db.file = /X/index_test/indexer/indexdb.xml
 
 # generate temporary foxml data (true/false)
+# may also be triggered by -c flag in command line
 index.db.file.generate = false
 
 # path of the directory to store the extracted fulltexts into
-#index.fulltexts.path = C:/fulltexts
 index.fulltexts.path = /X/index_test/indexer/fulltexts
 
 # path of indexing stylesheet to be used
