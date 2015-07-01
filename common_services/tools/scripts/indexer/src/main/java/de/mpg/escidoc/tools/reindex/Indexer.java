@@ -35,6 +35,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -256,6 +257,12 @@ public class Indexer
 	public IndexingReport getIndexingReport()
 	{
 		return this.indexingReport;
+	}
+	
+	// only fpr JUnit purposes
+	IndexWriter getIndexWriter()
+	{
+		return this.indexWriter;
 	}
 	
 	public void setCreateIndex(boolean b)
@@ -706,5 +713,4 @@ public class Indexer
 
         System.exit(-1);
     }
-
 }

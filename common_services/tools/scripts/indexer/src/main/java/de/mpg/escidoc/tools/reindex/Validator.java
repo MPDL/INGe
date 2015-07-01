@@ -40,6 +40,16 @@ public class Validator
 		"xml_metadata"
 		};
 	
+	protected static String[] objidsToSkip = {
+		"escidoc:2111614",
+		"escidoc:2111636",
+		"escidoc:2111643",
+		"escidoc:2111653",
+		"escidoc:2111721",
+		"escidoc:2111712",
+		"escidoc:2116439"	
+	};
+	
 	public Validator()
 	{
 	}
@@ -79,6 +89,12 @@ public class Validator
 		{			
 			document1 = indexReader1.document(i);	
 			document2 = getReferenceDocument("escidoc.objid", document1.get("escidoc.objid"), indexSearcher2);
+			
+			if (Arrays.asList(objidsToSkip).contains(document1.get("escidoc.objid")))
+			{
+				logger.warn("Skipping verify for <" + document1.get("escidoc.objid") + ">");
+				continue;
+			}
 			
 			if (document2 == null)
 			{

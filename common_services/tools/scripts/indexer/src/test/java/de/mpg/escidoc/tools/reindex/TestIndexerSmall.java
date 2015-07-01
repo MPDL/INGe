@@ -3,12 +3,17 @@ package de.mpg.escidoc.tools.reindex;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.lucene.document.Fieldable;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.store.FSDirectory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -511,6 +516,53 @@ public class TestIndexerSmall
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
+	}
+	
+	// Tests index append mode
+	@Test
+	public void testIndexWriteMode() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2120373"));
+		indexer.finalizeIndex();
+		
+		Properties properties = new Properties();
+		InputStream s = getClass().getClassLoader().getResourceAsStream("indexer.properties");
+		
+		if (s != null)
+		{
+			properties.load(s);
+		}
+		else 
+		{
+			throw new FileNotFoundException("Properties not found ");
+		}
+	
+		assertTrue(indexer.getIndexWriter().maxDoc() == 1);
+
+		// add one index document more
+		indexer = new Indexer(new File("src/test/resources/20"));
+		indexer.init();
+		indexer.setCreateIndex(false);
+		indexer.prepareIndex();
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2111711"));
+		indexer.finalizeIndex();
+		assertTrue("Found " + indexer.getIndexWriter().maxDoc(), indexer.getIndexWriter().maxDoc() == 2);
+		
+		// and again
+		indexer = new Indexer(new File("src/test/resources/20"));
+		indexer.init();
+		indexer.setCreateIndex(false);
+		indexer.prepareIndex();
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110486"));
+		indexer.finalizeIndex();
+		assertTrue("Found " + indexer.getIndexWriter().maxDoc(), indexer.getIndexWriter().maxDoc() == 3);
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
