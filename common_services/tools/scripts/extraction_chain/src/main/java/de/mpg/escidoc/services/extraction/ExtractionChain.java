@@ -274,7 +274,7 @@ public class ExtractionChain
             
             stream = TikaInputStream.get(new File(infileName));
     		
-    		ContentHandler handler = new BodyContentHandler();
+    		ContentHandler handler = new BodyContentHandler(10*1024*1024);
     		
     		new AutoDetectParser().parse(stream, handler, new Metadata(), new ParseContext());
     		
