@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -103,7 +104,7 @@ public class BibtexProcessor extends FormatProcessor
         init = true;
         try
         {
-	        BufferedReader bufferedReader = new BufferedReader(new FileReader(getSourceFile()));
+	        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getSourceFile()), getEncoding()));
 	        String line = null;
 	        ArrayList<String> itemList = new ArrayList<String>();
 	        StringWriter stringWriter = new StringWriter();
