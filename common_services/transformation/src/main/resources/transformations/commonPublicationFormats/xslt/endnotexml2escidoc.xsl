@@ -651,7 +651,7 @@
 			
 			
 			<!-- EVENT -->
-			<xsl:if test="B and ($refType = ('Conference Paper', 'Conference Proceedings') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
+			<xsl:if test="B and $Flavor != 'IPP' and ($refType = ('Conference Paper', 'Conference Proceedings') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
 				<xsl:element name="event:event">
 					<xsl:element name="dc:title">
 						<xsl:value-of select="B"/>
@@ -668,6 +668,30 @@
 					</xsl:if>
 					<xsl:if test="D">
 						<eterms:start-date xsi:type="dcterms:W3CDTF">
+							<xsl:value-of select="D"/>
+						</eterms:start-date>
+					</xsl:if>
+				</xsl:element>
+			</xsl:if>
+			
+			<!-- Besonderheit für IPP -->
+			<xsl:if test="S and $Flavor = 'IPP' and ($refType = ('Conference Paper', 'Conference Proceedings') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
+				<xsl:element name="event:event">
+					<xsl:element name="dc:title">
+						<xsl:value-of select="B"/>
+					</xsl:element>
+					<xsl:if test="C">
+						<xsl:element name="eterms:place">
+							<xsl:value-of select="C"/>
+						</xsl:element>
+					</xsl:if>
+					<xsl:if test="NUM_1">
+						<eterms:start-date xsi:type="dcterms:W3CDTF">
+							<xsl:value-of select="D"/>
+						</eterms:start-date>
+					</xsl:if>
+					<xsl:if test="NUM_2">
+						<eterms:end-date xsi:type="dcterms:W3CDTF">
 							<xsl:value-of select="D"/>
 						</eterms:start-date>
 					</xsl:if>
@@ -826,7 +850,7 @@
 			</xsl:if>
 			
 			<!-- caesar will %V-Angabe auch in Quelle Konferenzband haben -->
-			<xsl:if test="V and B and $refType = ('Conference Paper') and $Flavor = 'CAESAR'">
+			<xsl:if test="V and B and $refType = ('Conference Paper') and ($Flavor = 'CAESAR' or $Flavor = 'IPP')">
 				<xsl:element name="eterms:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
@@ -931,7 +955,9 @@
 						<xsl:value-of select="$publisher"/>
 					</xsl:element>
 					<xsl:variable name="place" select="
-						if (C and $refType = ('Book Section', 'Newspaper Article')) then C else ''
+						if (C and $Flavor != 'IPP' and $refType = ('Book Section', 'Newspaper Article')) then C
+						else if ($Flavor = 'IPP' and NUM_3 and $refType = 'Journal Article') then NUM_3 
+						else ''
 					"/>
 					<xsl:if test="$place!=''">
 						<xsl:element name="eterms:place">
@@ -1179,6 +1205,9 @@
 						<xsl:when test="($Flavor = 'CAESAR')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Center of Advanced European Studies and Research (caesar)')"/>
 						</xsl:when>
+						<xsl:when test="($Flavor = 'IPP')"> 
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Plasma Physics')"/>
+						</xsl:when>
 						<xsl:when test="($Flavor = 'MPIO')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Ornithology')"/>
 						</xsl:when>				
@@ -1204,7 +1233,9 @@
 					<eterms:given-name>
 						<xsl:value-of select="$givenname"/>
 					</eterms:given-name>
-					<!-- Besonderheit für Import von externen caesar-Publikationen -->		
+					
+					
+					<!-- Besonderheit für Import von externen caesar-Publikationen		
 					<xsl:if test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
 						<organization:organization>
 							<dc:title>
@@ -1214,9 +1245,9 @@
 								<xsl:text>escidoc:persistent22</xsl:text>
 							</dc:identifier>
 						</organization:organization>
-					</xsl:if>
+					</xsl:if>    -->
 					
-					<!-- Affiliated Institution depends on publication-date)
+					<!-- Affiliated Institution depends on publication-date) -->
 					<xsl:variable name="publication-date">
 						<xsl:choose>
 							<xsl:when test="./../D">
@@ -1266,7 +1297,7 @@
 														<xsl:value-of select="rdf:Description/dc:identifier"/>
 												</dc:identifier>
 											</organization:organization>
-											***  Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) *** 
+											<!--  Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) --> 
 											<dc:identifier xsi:type="CONE">
 												<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/>
 											</dc:identifier>
@@ -1275,7 +1306,7 @@
 							</xsl:for-each>
 						</xsl:when>
 					</xsl:choose>
-			-->
+			
 				</person:person>
 				
 			</xsl:otherwise>
