@@ -38,9 +38,16 @@ public class LocationHelper
 			LocationHelper.getInstance();
 			return LocationHelper.locations.get(objid);
 		}
-		else 
-			logger.debug("Returning <" + objid + "><" + locations.get(objid) + ">");
-			return locations.get(objid);
+		else
+		{
+			String loc = locations.get(objid);
+			
+			if (loc == null)
+			{
+				logger.info("No location found for <" + objid + ">");
+			}
+			return loc;
+		}	
 	}	
 	
 	private static class LocationHelperHolder
@@ -101,7 +108,7 @@ public class LocationHelper
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			logger.trace(numEntries + " entries put to map");
+			logger.info(numEntries + " entries put to map");
 			return new LocationHelper();
 		}
 	}
