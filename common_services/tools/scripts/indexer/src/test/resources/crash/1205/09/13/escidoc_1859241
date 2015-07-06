@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:1859241"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Component escidoc:1859241"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-12-05T08:13:39.968Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-12-05T08:14:24.435Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2013-12-05T08:13:39.968Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T08:13:39.968Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T08:14:24.435Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2013-12-05T08:13:39.975Z" MIMETYPE="text/xml" SIZE="957">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1859241">
+<system:build>1.3.9</system:build>
+<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+<srel:created-by rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+<prop:visibility>public</prop:visibility>
+<prop:created-by-title>Angela Guenther</prop:created-by-title>
+<prop:valid-status>valid</prop:valid-status><rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"></rdf:type>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2013-12-05T08:14:24.435Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859241">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BED3-D</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+    <srel:created-by rdf:resource="info:fedora/escidoc:761610" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content" STATE="A" CONTROL_GROUP="R" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content.0" LABEL="" CREATED="2013-12-05T08:13:39.975Z" MIMETYPE="application/octet-stream">
+<foxml:contentDigest TYPE="MD5" DIGEST="24057cac2723ad1bd82d5de95309145d"/>
+<foxml:contentLocation TYPE="URL" REF="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC155878/"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2013-12-05T08:13:39.975Z" ALT_IDS="metadata unknown" MIMETYPE="text/xml" SIZE="321">
+<foxml:xmlContent>
+<file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC155878/</dc:title>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">OA</dc:description>
+          </file:file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2013-12-05T08:13:39.975Z" MIMETYPE="text/xml" SIZE="457">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>http://www.ncbi.nlm.nih.gov/pmc/articles/PMC155878/</dc:title>
+  <dc:description>OA</dc:description>
+  <dc:identifier>escidoc:1859241</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

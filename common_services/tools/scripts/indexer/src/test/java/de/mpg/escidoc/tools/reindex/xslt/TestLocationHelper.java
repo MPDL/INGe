@@ -34,6 +34,10 @@ public class TestLocationHelper
 		
 		assertTrue("Is " + LocationHelper.getLocation("escidoc:24022"), 
 				LocationHelper.getLocation("escidoc:24022").equals("C:/pubMan/projects/indexer/src/test/resources/20/ous/escidoc_24022"));
+		
+		assertTrue(LocationHelper.getLocation("escidoc:persistent22") != null);
+		assertTrue("Is " + LocationHelper.getLocation("escidoc:persistent22"), 
+				LocationHelper.getLocation("escidoc:persistent22").equals("C:/pubMan/projects/indexer/src/test/resources/20/ous/escidoc_persistent22"));
 	}
 
 }

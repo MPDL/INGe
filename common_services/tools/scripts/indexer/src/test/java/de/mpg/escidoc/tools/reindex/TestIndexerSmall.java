@@ -106,7 +106,8 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(/*"is " + indexer.getIndexingReport().getErrorList().iterator().next(),*/
+				indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	// escidoc:2110541 item with 1 components (escidoc:2111415 internal, public visibility)

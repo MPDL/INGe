@@ -35,9 +35,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.LogByteSizeMergePolicy;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
@@ -129,8 +129,11 @@ public class Indexer
 	{
 		this.baseDir = baseDir;
 		
-		logger.info("Found " + Util.countFilesInDirectory(baseDir) + " files to index in " + baseDir.getAbsolutePath());
-		
+		int numFilesInDirectory = Util.countFilesInDirectory(baseDir);
+		this.indexingReport.setFilesTotal(numFilesInDirectory);
+
+		logger.info("Found " + numFilesInDirectory + " files to index in " + baseDir.getAbsolutePath());
+
 		InputStream s = getClass().getClassLoader().getResourceAsStream(propFileName);
 		
 		if (s != null)
@@ -303,6 +306,7 @@ public class Indexer
 	    	// :Post-Release-Update-Version.LUCENE_XY:
 	    	final Analyzer analyzer = new EscidocAnalyzer();
 	    	IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_34, analyzer);
+	    	LogByteSizeMergePolicy logMergePolicy = new LogByteSizeMergePolicy();
 
 	    	if (createIndex) {
 	    	  // Create a new index in the directory, removing any
@@ -319,6 +323,9 @@ public class Indexer
 	    	// size to the JVM (eg add -Xmx512m or -Xmx1g):
 	    	//
 	    	iwc.setRAMBufferSizeMB(256.0);
+	    	
+	    	logMergePolicy.setMaxMergeDocs(5);	    	
+	    	iwc.setMergePolicy(logMergePolicy);
 
 	    	indexWriter = new IndexWriter(dir, iwc);
 
@@ -344,10 +351,11 @@ public class Indexer
 			Thread.sleep(10);
 		}
 
+		indexWriter.optimize();
 		indexWriter.close();
 		logger.info(this.getIndexingReport().toString());
 		
-		stylesheetTmpFile.delete();
+//		stylesheetTmpFile.delete();
 	}
 
 	/**
@@ -449,7 +457,7 @@ public class Indexer
 			{
 				if (file.isDirectory())
 				{
-					logger.info("Indexing directory " + file);
+					//logger.info("Indexing directory " + file);
 					indexItems(file);
 				}
 				else if (file.lastModified() >= mDateMillis)
@@ -503,7 +511,6 @@ public class Indexer
 			
 			try
 			{
-				logger.info("------------------------------------------------------------------------------------------");
 				logger.info("Start indexItem <" + file.getName() + ">");
 				long start = System.currentTimeMillis();
 				indexItem(file);
@@ -516,10 +523,11 @@ public class Indexer
 				cleanup();
 				indexingReport.addToErrorList(file.getName());
 				indexingReport.incrementFilesErrorOccured();
+				logger.warn("Error occured during indexing <" + file.getName() + ">");
+
 				throw new RuntimeException(e);
 			}
 			cleanup();
-			logger.info("------------------------------------------------------------------------------------------");
 		}
 		
 		void cleanup()
@@ -626,7 +634,11 @@ public class Indexer
 		        	// path, if present:
 		        	indexWriter.updateDocument(new Term("PID", doc.get("PID")), doc);
 		        	
-		        	logger.info(doc.toString());
+		        	if ((indexingReport.getFilesIndexingDone() % 1000) == 0)
+		        	{
+		        		indexWriter.optimize();
+		        		logger.info("IndexWriter optimize called");
+		        	}
 		        }
 		        
 		      }
