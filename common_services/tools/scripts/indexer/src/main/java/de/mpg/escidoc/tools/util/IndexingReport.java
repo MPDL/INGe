@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class IndexingReport
 {
-    
+    private AtomicInteger filesTotal = new AtomicInteger(0);
     private AtomicInteger filesIndexingDone  = new AtomicInteger(0);
     private AtomicInteger filesErrorOccured  = new AtomicInteger(0);
     private AtomicInteger filesSkippedBecauseOfTime  = new AtomicInteger(0);
@@ -18,6 +18,11 @@ public class IndexingReport
     private long start = System.currentTimeMillis();
     
 
+    public void setFilesTotal(int t)
+    {
+    	this.filesTotal.getAndSet(t);
+    }
+    
     public int getFilesIndexingDone()
     {
         return this.filesIndexingDone.get();
@@ -89,13 +94,13 @@ public class IndexingReport
     {
     	long s = (System.currentTimeMillis() - start)/1000;
     	return 
-
-    			"\nfilesErrorOccured\t\t\t\t\t<" + filesErrorOccured.get() + "> \n"
+    			"\nfilesTotal\t\t\t\t<" + filesTotal.get() + "> \n"
+    			+ "filesErrorOccured\t\t\t<" + filesErrorOccured.get() + "> \n"
     			+ "filesSkippedBecauseOfTime\t\t\t<" + filesSkippedBecauseOfTime.get() + "> \n"
     			+ "filesSkippedBecauseOfStatusOrType\t<" + filesSkippedBecauseOfStatusOrType.get() + "> \n"
-    			+ "filesIndexingDone\t\t\t\t\t<" + filesIndexingDone.get() + "> \n"
-    			+ "time used\t\t\t\t\t\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
-    			+ "errorList\t\t\t\t\t\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
+    			+ "filesIndexingDone\t\t\t<" + filesIndexingDone.get() + "> \n"
+    			+ "time used\t\t\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
+    			+ "errorList\t\t\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }
 
