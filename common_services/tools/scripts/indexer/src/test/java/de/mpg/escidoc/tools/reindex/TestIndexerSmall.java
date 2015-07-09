@@ -18,6 +18,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.mpg.escidoc.tools.util.xslt.LocationHelper;
+
 public class TestIndexerSmall
 {
 	protected static Indexer indexer;
@@ -68,6 +70,8 @@ public class TestIndexerSmall
 		indexer.setCreateIndex(true);
 		indexer.prepareIndex();
 		indexer.getIndexingReport().clear();
+		
+		LocationHelper.getLocation("escidoc_persistent22");
 		
 		validator = new Validator(indexer);
 		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");

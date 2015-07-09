@@ -6,6 +6,7 @@ import java.io.File;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestCrash
@@ -28,8 +29,9 @@ public class TestCrash
 		indexer.getIndexingReport().clear();
 	}
 
+	// produces the LastdateHelper exception
 	@Test
-	public void test1() throws Exception
+	public void test_1859279() throws Exception
 	{
 		indexer.indexItemsStart(new File("src/test/resources/crash/escidoc_1859279"));
 		indexer.finalizeIndex();
@@ -39,7 +41,17 @@ public class TestCrash
 	}
 	
 	@Test
-	public void test2() throws Exception
+	public void test_1859282() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/crash/2015/1205/10/55/escidoc_1859282"));
+		indexer.finalizeIndex();
+		
+		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
+	}
+	
+	@Test
+	public void test_1859278() throws Exception
 	{
 		indexer.indexItemsStart(new File("src/test/resources/crash/escidoc_1859278"));
 		indexer.finalizeIndex();
@@ -59,9 +71,25 @@ public class TestCrash
 	}
 	
 	@Test
-	public void testAll() throws Exception
+	public void testCrashAll() throws Exception
 	{
 		indexer.indexItemsStart(new File("src/test/resources/crash/1205"));
+		indexer.finalizeIndex();
+		
+		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
+	}
+	
+	@Test
+	@Ignore
+	public void testCrashAll_Loop() throws Exception
+	{
+		int i = 0;
+		do
+		{
+		indexer.indexItemsStart(new File("src/test/resources/crash/1205"));
+		
+		} while(i++ < 1000);
+		
 		indexer.finalizeIndex();
 		
 		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);

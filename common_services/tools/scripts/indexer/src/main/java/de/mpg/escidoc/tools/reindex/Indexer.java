@@ -48,8 +48,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
+import de.escidoc.sb.gsearch.xslt.SortFieldHelper;
 import de.mpg.escidoc.tools.util.IndexingReport;
 import de.mpg.escidoc.tools.util.Util;
+import de.mpg.escidoc.tools.util.xslt.LocationHelper;
 
 /**
  * @author franke
@@ -297,7 +299,7 @@ public class Indexer
 	/**
 	 * Open lucene index for writing.
 	 */
-	public void prepareIndex()
+	public boolean prepareIndex()
 	{
 	    try {
 	    	logger.info("Indexing to directory '" + indexPath + "'...");
@@ -336,10 +338,13 @@ public class Indexer
 	    	// you're done adding documents to it):
 	    	//
 	    	// writer.forceMerge(1);
+	    	
+	    	return true;
 
-	    } catch (IOException e) {
+	    } catch (Exception e) {
 	    	logger.info(" caught a " + e.getClass() +
 	    	 "\n with message: " + e.getMessage());
+	    	return false;
 	    }
 	}
 	
@@ -494,6 +499,8 @@ public class Indexer
 		Transformer transformer1;
 		Transformer transformer2;
 		
+		Logger threadLogger = Logger.getLogger(IndexThread.class);
+		
 		/**
 		 * Constructor with the FOXML file.
 		 * 
@@ -502,8 +509,8 @@ public class Indexer
 		public IndexThread(File file)
 		{
 			this.file = file;
-			transformer1 = transformerStackFoxml2Escidoc.pop();
-			transformer2 = transformerStackEscidoc2Index.pop();
+			this.transformer1 = transformerStackFoxml2Escidoc.pop();
+			this.transformer2 = transformerStackEscidoc2Index.pop();
 		}
 		
 		public void run()
@@ -511,31 +518,36 @@ public class Indexer
 			
 			try
 			{
-				logger.info("Start indexItem <" + file.getName() + ">");
+				threadLogger.info("Start indexItem <" + file.getName() + ">");
 				long start = System.currentTimeMillis();
 				indexItem(file);
 				long end = System.currentTimeMillis();
-				
-				logger.info("Total time used for <" + file.getName() + "> <" + (end - start) + "> ms");	
+				threadLogger.info("Total time used for <" + file.getName() + "> <" + (end - start) + "> ms");	
 			}
 			catch (Exception e)
 			{
 				cleanup();
 				indexingReport.addToErrorList(file.getName());
 				indexingReport.incrementFilesErrorOccured();
-				logger.warn("Error occured during indexing <" + file.getName() + ">");
-
-				throw new RuntimeException(e);
+				
+				// should be called only in case of error explicitly; usual its called in DocumentHandler
+				SortFieldHelper.cleanUp();
+				threadLogger.warn("Error occured during indexing <" + file.getName() + ">", e);
+				return;
+				//throw new RuntimeException(e);
 			}
 			cleanup();
 		}
 		
 		void cleanup()
 		{
+			((net.sf.saxon.Controller)transformer1).clearDocumentPool();
+			((net.sf.saxon.Controller)transformer2).clearDocumentPool();
+			
 			transformerStackFoxml2Escidoc.push(transformer1);
 			transformerStackEscidoc2Index.push(transformer2);
 			busyProcesses.getAndDecrement();
-			logger.info(transformer1.getParameter("number") + " done.");
+			threadLogger.info(transformer1.getParameter("number") + " done.");
 		}
 		
 		/**
@@ -546,7 +558,7 @@ public class Indexer
 		 */
 		private void indexItem(File file) throws Exception
 		{
-			logger.info("Indexing file " + file);
+			threadLogger.info("Indexing file " + file);
 			
 			StringWriter writer1 = new StringWriter();
 			StringWriter writer2 = new StringWriter();
@@ -556,9 +568,9 @@ public class Indexer
 				long s1 = System.currentTimeMillis();
 				transformer1.transform(new StreamSource(file), new StreamResult(writer1));
 				long e1 = System.currentTimeMillis();
-				logger.info("FOXML2eSciDoc transformation used <" + (e1 - s1) + "> ms");
+				threadLogger.info("FOXML2eSciDoc transformation used <" + (e1 - s1) + "> ms");
 				
-				if (logger.isDebugEnabled())
+				if (threadLogger.isDebugEnabled())
 				{
 					File tmpFile1 = File.createTempFile(file.getName() + "_foxml2escidoc_", ".tmp");
 					FileUtils.writeStringToFile(tmpFile1, writer1.toString());
@@ -568,24 +580,25 @@ public class Indexer
 			{
 				if ("noitem".equals(de.getErrorCodeLocalPart()))
 				{
-					logger.info("No item in < " + file + ">");
+					threadLogger.info("No item in < " + file + ">");
 					indexingReport.incrementFilesSkippedBecauseOfStatusOrType();
-					return;
+					
 				} 
 				else if ("wrongStatus".equals(de.getErrorCodeLocalPart()))
 				{
-					logger.info("Item in wrong public status < " + file + ">");
+					threadLogger.info("Item in wrong public status < " + file + ">");
 					indexingReport.incrementFilesSkippedBecauseOfStatusOrType();
-					return;
+					
 				}
+				return;
 			}		
 						
 			long s2 = System.currentTimeMillis();
 			transformer2.transform(new StreamSource(new StringReader(writer1.toString())), new StreamResult(writer2));
 			long e2 = System.currentTimeMillis();
-			logger.info("eSciDoc2IndexDoc transformation used <" + (e2 - s2) + "> ms");
+			threadLogger.info("eSciDoc2IndexDoc transformation used <" + (e2 - s2) + "> ms");
 			
-			if (logger.isDebugEnabled())
+			if (threadLogger.isDebugEnabled())
 			{
 				File tmpFile2 = File.createTempFile(file.getName() + "_idx_", ".tmp");			
 				FileUtils.writeStringToFile(tmpFile2, writer2.toString());
@@ -598,7 +611,7 @@ public class Indexer
 			catch (IOException e)
 			{
 			//	indexWriter.close();
-				logger.warn("IO Exception occured", e);
+				threadLogger.warn("IO Exception occured", e);
 				return;
 			}
 			indexingReport.incrementFilesIndexingDone();
@@ -633,14 +646,12 @@ public class Indexer
 		        	// we use updateDocument instead to replace the old one matching the exact 
 		        	// path, if present:
 		        	indexWriter.updateDocument(new Term("PID", doc.get("PID")), doc);
-		        	
-		        	if ((indexingReport.getFilesIndexingDone() % 1000) == 0)
-		        	{
-		        		indexWriter.optimize();
-		        		logger.info("IndexWriter optimize called");
-		        	}
 		        }
-		        
+		        if ((indexingReport.getFilesIndexingDone() % 5000) == 0)
+	        	{
+	        		indexWriter.optimize();
+	        		threadLogger.info("IndexWriter optimize called");
+	        	}		        
 		      }
 		      finally
 		      {
@@ -692,7 +703,11 @@ public class Indexer
 		
 		if (mode.contains("i"))
 		{
-			indexer.prepareIndex();
+			if (!indexer.prepareIndex())
+			{
+				logger.warn("Prepare index failed - stopping");
+				System.exit(-1);
+			}
 		
 			indexer.indexItems(baseDir);
 			

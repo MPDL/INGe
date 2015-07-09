@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" PID="escidoc:persistent34" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Department Genes and behavior"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-03-22T08:23:35.562Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2011-05-05T10:36:20.573Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T13:28:47.624Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T13:28:47.655Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T13:28:47.710Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T13:28:47.791Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T13:28:47.811Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T13:28:47.845Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:18:10.637Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:18:10.663Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:18:10.769Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:18:10.796Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:18:10.826Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:19:06.723Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:19:06.751Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:19:06.813Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:19:06.912Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:19:06.940Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:19:06.977Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:55:45.915Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:55:45.945Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:55:46.059Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:55:46.089Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:55:46.129Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-05T10:36:20.279Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-05T10:36:20.311Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-05T10:36:20.386Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-05T10:36:20.498Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC27">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-05T10:36:20.530Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC28">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-05T10:36:20.573Z</audit:date>
+<audit:justification/>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" SIZE="1157">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/escidoc:persistent34">
+<system:build xmlns:system="http://escidoc.de/core/01/system/">304</system:build>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"/>
+<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:created-by-title>
+<srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"/>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+<prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">opened</prop:public-status>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+<srel:parent xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent28"/>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2010-12-13T13:28:47.845Z" MIMETYPE="text/xml" SIZE="925">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent34">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2010-12-13T14:18:10.826Z" MIMETYPE="text/xml" SIZE="1009">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent34">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+    <srel:replacement rdf:resource="info:fedora/escidoc:578632"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="" CREATED="2010-12-13T14:19:06.977Z" MIMETYPE="text/xml" SIZE="1009">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent34">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+    <srel:replacement rdf:resource="info:fedora/escidoc:578632"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="" CREATED="2010-12-13T14:55:46.129Z" MIMETYPE="text/xml" SIZE="1009">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent34">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+    <srel:replacement rdf:resource="info:fedora/escidoc:578632"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="" CREATED="2011-05-05T10:36:20.573Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent34">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+    <srel:replacement rdf:resource="info:fedora/escidoc:578632"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="" CREATED="2008-02-11T16:24:39.998Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="1310">
+<foxml:xmlContent>
+<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and behavior</dc:title>
+            <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+            <eterms:organization-type xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">institute</eterms:organization-type>
+            <eterms:country xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">DE</eterms:country>
+            <eterms:city xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</eterms:city>
+            <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+            <eterms:start-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+            <eterms:end-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+          </organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="" CREATED="2010-12-13T13:28:47.624Z" ALT_IDS="metadata unknown unknown" MIMETYPE="deleted" SIZE="1200">
+<foxml:xmlContent>
+<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <eterms:organization-type xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">institute</eterms:organization-type>
+  <eterms:country xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">DE</eterms:country>
+  <eterms:city xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</eterms:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <eterms:start-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+  <eterms:end-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+</organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="" CREATED="2010-12-13T13:28:47.811Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="999">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.3" LABEL="" CREATED="2010-12-13T14:18:10.637Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="999">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.4" LABEL="" CREATED="2010-12-13T14:18:10.796Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="999">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.5" LABEL="" CREATED="2010-12-13T14:19:06.723Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="999">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.6" LABEL="" CREATED="2010-12-13T14:19:06.940Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="1002">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.7" LABEL="" CREATED="2010-12-13T14:55:45.915Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="1002">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.8" LABEL="" CREATED="2010-12-13T14:55:46.089Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="1003">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.9" LABEL="" CREATED="2011-05-05T10:36:20.279Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="1003">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.10" LABEL="" CREATED="2011-05-05T10:36:20.530Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="1138">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.
+
+Founded 2006. Head: Gregor Eichele</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:start-date xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">2006</mdpt:start-date>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Metadata" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" SIZE="560">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>Department Genes and behavior</dc:title>
+<dc:description>The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+<dc:identifier>escidoc:persistent34</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="Dublin Core Metadata" CREATED="2010-12-13T13:28:47.710Z" MIMETYPE="text/xml" SIZE="592">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Department Genes and Behavior</dc:title>
+  <dc:description>The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <dc:identifier/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.2" LABEL="Dublin Core Metadata" CREATED="2010-12-13T14:19:06.813Z" MIMETYPE="text/xml" SIZE="595">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Department of Genes and Behavior</dc:title>
+  <dc:description>The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+  <dc:identifier/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.3" LABEL="Dublin Core Metadata" CREATED="2011-05-05T10:36:20.386Z" MIMETYPE="text/xml" SIZE="631">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Department of Genes and Behavior</dc:title>
+  <dc:description>The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.
+
+Founded 2006. Head: Gregor Eichele</dc:description>
+  <dc:identifier/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

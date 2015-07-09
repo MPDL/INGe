@@ -96,7 +96,7 @@ public class IndexingReport
     	return 
     			"\nfilesTotal\t\t\t\t<" + filesTotal.get() + "> \n"
     			+ "filesErrorOccured\t\t\t<" + filesErrorOccured.get() + "> \n"
-    			+ "filesSkippedBecauseOfTime\t\t\t<" + filesSkippedBecauseOfTime.get() + "> \n"
+    			+ "filesSkippedBecauseOfTime\t\t<" + filesSkippedBecauseOfTime.get() + "> \n"
     			+ "filesSkippedBecauseOfStatusOrType\t<" + filesSkippedBecauseOfStatusOrType.get() + "> \n"
     			+ "filesIndexingDone\t\t\t<" + filesIndexingDone.get() + "> \n"
     			+ "time used\t\t\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
