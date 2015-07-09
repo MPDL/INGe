@@ -678,7 +678,7 @@
 			<xsl:if test="S and $Flavor = 'IPP' and ($refType = ('Conference Paper', 'Conference Proceedings') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
 				<xsl:element name="event:event">
 					<xsl:element name="dc:title">
-						<xsl:value-of select="B"/>
+						<xsl:value-of select="S"/>
 					</xsl:element>
 					<xsl:if test="C">
 						<xsl:element name="eterms:place">
@@ -687,13 +687,13 @@
 					</xsl:if>
 					<xsl:if test="NUM_1">
 						<eterms:start-date xsi:type="dcterms:W3CDTF">
-							<xsl:value-of select="D"/>
+							<xsl:value-of select="NUM_1"/>
 						</eterms:start-date>
 					</xsl:if>
 					<xsl:if test="NUM_2">
 						<eterms:end-date xsi:type="dcterms:W3CDTF">
-							<xsl:value-of select="D"/>
-						</eterms:start-date>
+							<xsl:value-of select="NUM_2"/>
+						</eterms:end-date>
 					</xsl:if>
 				</xsl:element>
 			</xsl:if>
@@ -838,7 +838,7 @@
 					<xsl:value-of select="V"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="V and B and $refType = ('Manuscript')">
+			<xsl:if test="V and B and ($refType = ('Manuscript') or $refType = ('Book Section'))">
 				<xsl:element name="eterms:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
