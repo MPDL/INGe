@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
@@ -39,7 +42,8 @@ public class FullTextExtractor
 	
 	// number of processor available (means number of parallel threads)
 	private int procCount;
-	AtomicInteger busyProcesses = new AtomicInteger(0);
+	//AtomicInteger busyProcesses = new AtomicInteger(0);
+	ExecutorService executor = null;
 	
 	public FullTextExtractor() throws Exception
 	{		
@@ -72,15 +76,19 @@ public class FullTextExtractor
 		extractionReport.setFilesTotal(Util.countFilesInDirectory(baseDir));
 		
 		this.procCount = Integer.parseInt(properties.getProperty("index.number.processors"));
+		
+		executor = Executors.newFixedThreadPool(procCount);
 	}
 	
 	public void finalizeExtraction() throws Exception
 	{
-		while (busyProcesses.get() > 0)
+		/*while (busyProcesses.get() > 0)
 		{
 			logger.info(";");
 			Thread.sleep(10);
-		}
+		}*/
+		executor.shutdown();
+		executor.awaitTermination(10, TimeUnit.SECONDS);
 	}
 	
 	public String getFulltextPath()
@@ -130,13 +138,14 @@ public class FullTextExtractor
 				}
 				try
 				{
-					while (busyProcesses.get() >= procCount)
+					/*while (busyProcesses.get() >= procCount)
 					{
 						System.out.print(".");
 						Thread.sleep(100);
-					}
-					new ExtractorThread(file).start();
-					busyProcesses.getAndIncrement();
+					}*/
+					Runnable task = new ExtractorThread(file);
+					executor.execute(task);
+					//busyProcesses.getAndIncrement();
 					continue;
 					
 				} catch (Exception e)
@@ -237,7 +246,7 @@ public class FullTextExtractor
 	 * @author franke
 	 *
 	 */
-	class ExtractorThread extends Thread
+	class ExtractorThread implements Runnable
 	{
 		File file;
 		
@@ -290,7 +299,7 @@ public class FullTextExtractor
 		
 		void cleanup()
 		{			
-			busyProcesses.getAndDecrement();
+			//busyProcesses.getAndDecrement();
 		}		
 	}
 	

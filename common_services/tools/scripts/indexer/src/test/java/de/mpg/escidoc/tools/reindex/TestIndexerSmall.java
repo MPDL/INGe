@@ -73,8 +73,6 @@ public class TestIndexerSmall
 		
 		LocationHelper.getLocation("escidoc_persistent22");
 		
-		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 	}
 
 	@Test
@@ -84,6 +82,7 @@ public class TestIndexerSmall
 	// some items have no reference
 	public void testDir() throws Exception
 	{
+
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
@@ -102,6 +101,9 @@ public class TestIndexerSmall
 	{
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110501"));
 		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();
 		
@@ -122,6 +124,9 @@ public class TestIndexerSmall
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110541"));
 		indexer.finalizeIndex();
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+	
 		validator.compareToReferenceIndex();
 		
 		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
@@ -139,12 +144,13 @@ public class TestIndexerSmall
 	{
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2095302"));
 		indexer.finalizeIndex();
-				
+		
 		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
+		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
@@ -217,17 +223,19 @@ public class TestIndexerSmall
 	}
 	
 	// escidoc:2110486 released item with locator escidoc:2110485
-	// has no reference
+	// has reference
 	@Test
 	public void testReleased_2110486_locator() throws Exception
 	{
-
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110486"));
 		indexer.finalizeIndex();
 		
 		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
@@ -254,6 +262,9 @@ public class TestIndexerSmall
 
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110474"));
 		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();
 		
@@ -293,6 +304,9 @@ public class TestIndexerSmall
 		assertTrue(fieldMap.get("stored_filename") == null);
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		
 		validator.compareToReferenceIndex();	
 		
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -307,6 +321,9 @@ public class TestIndexerSmall
 
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110508"));
 		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();
 		
@@ -329,6 +346,9 @@ public class TestIndexerSmall
 	{
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110529"));
 		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();
 		
@@ -355,8 +375,13 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);		
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();	
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -451,6 +476,9 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
@@ -477,6 +505,8 @@ public class TestIndexerSmall
 		assertTrue(fieldMap.get("stored_filename") == null);
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -517,6 +547,9 @@ public class TestIndexerSmall
 			}
 		}
 		assertTrue(found);
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -561,12 +594,6 @@ public class TestIndexerSmall
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110486"));
 		indexer.finalizeIndex();
 		assertTrue("Found " + indexer.getIndexWriter().maxDoc(), indexer.getIndexWriter().maxDoc() == 3);
-		
-		
-		
-		
-		
-		
 		
 	}
 

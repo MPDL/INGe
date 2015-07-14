@@ -21,7 +21,7 @@ extract.pdfbox-app-jar.path = C:/Users/sieders.MUCAM/.m2/repository/org/apache/p
 index.result.directory = c:/Test/index/
 
 # create a new index directory (true/false)
-index.result.directory.create = false
+index.result.directory.create = true
 
 # file to keep the temporary foxml paths (absolute path)
 index.db.file = c:/Test/indexdb.xml

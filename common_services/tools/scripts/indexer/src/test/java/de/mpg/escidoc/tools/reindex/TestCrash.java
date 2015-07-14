@@ -36,8 +36,9 @@ public class TestCrash
 		indexer.indexItemsStart(new File("src/test/resources/crash/escidoc_1859279"));
 		indexer.finalizeIndex();
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 	}
 	
 	@Test

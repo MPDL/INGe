@@ -19,7 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -37,8 +39,8 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.index.LogByteSizeMergePolicy;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.index.LogByteSizeMergePolicy;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -51,7 +53,6 @@ import de.escidoc.sb.common.lucene.analyzer.EscidocAnalyzer;
 import de.escidoc.sb.gsearch.xslt.SortFieldHelper;
 import de.mpg.escidoc.tools.util.IndexingReport;
 import de.mpg.escidoc.tools.util.Util;
-import de.mpg.escidoc.tools.util.xslt.LocationHelper;
 
 /**
  * @author franke
@@ -95,7 +96,7 @@ public class Indexer
 	
 	// number of processor available (means number of parallel threads)
 	private int procCount;
-	AtomicInteger busyProcesses = new AtomicInteger(0);
+	//AtomicInteger busyProcesses = new AtomicInteger(0);
 	
 	// points to the actual indexed directory. Used for resume operation.
 	private String currentDir = null;
@@ -117,6 +118,8 @@ public class Indexer
 	
 	// report for ...
 	private IndexingReport indexingReport = new IndexingReport();
+	
+	private ExecutorService executor = null;
 	
 
 	
@@ -212,7 +215,7 @@ public class Indexer
 		long e3 = System.currentTimeMillis();
 		logger.info("transforming index stylesheet used <" + (e3-s3) + "> ms");
 		
-		for (int i = 0; i < procCount; i++)
+		for (int i = 0; i <= procCount + 1; i++)
 		{		
 			Transformer transformerFoxml2escidoc = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("foxml2escidoc.xsl")));
 			transformerFoxml2escidoc.setParameter("index-db", dbFile.getAbsolutePath().replace("\\", "/"));
@@ -228,7 +231,13 @@ public class Indexer
 			transformerEscidoc2Index.setParameter("fulltext-directory", fulltextDir.replace("\\", "/"));
 			transformerStackEscidoc2Index.push(transformerEscidoc2Index);
 		}
-
+		
+		logger.info("init transformerStackFoxml2Escidoc size <" + transformerStackFoxml2Escidoc.size() + "> ");
+		logger.info("init transformerStackEscidoc2Index size <" + transformerStackEscidoc2Index.size() + "> ");
+		
+		// create executor corresponding the number of processors
+		executor = Executors.newFixedThreadPool(procCount);
+		
 		File resumeFile = new File(resumeFilename);
 		char[] buffer = new char[2048];
 		if (resumeFile.exists())
@@ -350,15 +359,18 @@ public class Indexer
 	
 	public void finalizeIndex() throws Exception
 	{
-		while (busyProcesses.get() > 0)
-		{
-			logger.info(";");
-			Thread.sleep(10);
-		}
+		executor.shutdown();
+		executor.awaitTermination(60, TimeUnit.SECONDS);		
 
+		while (!executor.isTerminated())
+		{
+			Thread.sleep(5*1000);
+			logger.info("Sleeping...");
+		}
+		logger.info(this.getIndexingReport().toString());
+		
 		indexWriter.optimize();
 		indexWriter.close();
-		logger.info(this.getIndexingReport().toString());
 		
 //		stylesheetTmpFile.delete();
 	}
@@ -424,11 +436,11 @@ public class Indexer
 		{
 			indexItems(baseDir);
 			
-			while (busyProcesses.get() > 0)
+			/*while (busyProcesses.get() > 0)
 			{
 				Thread.sleep(10);
 			}
-
+*/
 		}
 		catch (Exception e)
 		{
@@ -452,13 +464,16 @@ public class Indexer
 		{
 			if (dir.isFile())
 			{
-				new IndexThread(dir).start();
-				busyProcesses.getAndIncrement();
+				Runnable task = new IndexThread(dir);
+				executor.execute(task);
+				//busyProcesses.getAndIncrement();
 				return;
 			}
 			
-			Arrays.sort(dir.listFiles());
-			for (File file : dir.listFiles())
+			File[] files = dir.listFiles();
+			Arrays.sort(files);
+			
+			for (File file : files)
 			{
 				if (file.isDirectory())
 				{
@@ -467,13 +482,14 @@ public class Indexer
 				}
 				else if (file.lastModified() >= mDateMillis)
 				{
-					while (busyProcesses.get() >= procCount)
+					/*while (busyProcesses.get() >= procCount)
 					{
 						System.out.print(".");
 						Thread.sleep(10);
-					}
-					new IndexThread(file).start();
-					busyProcesses.getAndIncrement();
+					}*/
+					Runnable task = new IndexThread(file);
+					executor.execute(task);
+					//busyProcesses.getAndIncrement();
 				}
 				else if (file.lastModified() < mDateMillis)
 				{
@@ -493,7 +509,7 @@ public class Indexer
 	 * @author franke
 	 *
 	 */
-	class IndexThread extends Thread
+	class IndexThread implements Runnable
 	{
 		File file;
 		Transformer transformer1;
@@ -509,12 +525,12 @@ public class Indexer
 		public IndexThread(File file)
 		{
 			this.file = file;
-			this.transformer1 = transformerStackFoxml2Escidoc.pop();
-			this.transformer2 = transformerStackEscidoc2Index.pop();
 		}
 		
 		public void run()
 		{
+			this.transformer1 = transformerStackFoxml2Escidoc.pop();
+			this.transformer2 = transformerStackEscidoc2Index.pop();
 			
 			try
 			{
@@ -530,7 +546,7 @@ public class Indexer
 				indexingReport.addToErrorList(file.getName());
 				indexingReport.incrementFilesErrorOccured();
 				
-				// should be called only in case of error explicitly; usual its called in DocumentHandler
+				// should be called only in case of error explicitly; usual it's called in DocumentHandler
 				SortFieldHelper.cleanUp();
 				threadLogger.warn("Error occured during indexing <" + file.getName() + ">", e);
 				return;
@@ -541,15 +557,29 @@ public class Indexer
 		
 		void cleanup()
 		{
-			((net.sf.saxon.Controller)transformer1).clearDocumentPool();
-			((net.sf.saxon.Controller)transformer2).clearDocumentPool();
+			if (checkForCleanDocumentPool())
+			{
+				((net.sf.saxon.Controller)transformer1).clearDocumentPool();
+				((net.sf.saxon.Controller)transformer2).clearDocumentPool();
+				
+				logger.info("Document pool cleaned");
+			}	
 			
 			transformerStackFoxml2Escidoc.push(transformer1);
 			transformerStackEscidoc2Index.push(transformer2);
-			busyProcesses.getAndDecrement();
+			
 			threadLogger.info(transformer1.getParameter("number") + " done.");
 		}
 		
+		private boolean checkForCleanDocumentPool()
+		{
+			if((indexingReport.getFilesSkippedBecauseOfStatusOrType() % 100) == 0 || (indexingReport.getFilesIndexingDone() % 100) == 0)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		/**
 		 * Do all the necessary transformations and build the index document.
 		 * 
@@ -610,7 +640,6 @@ public class Indexer
 			} 
 			catch (IOException e)
 			{
-			//	indexWriter.close();
 				threadLogger.warn("IO Exception occured", e);
 				return;
 			}

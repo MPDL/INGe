@@ -742,7 +742,7 @@ Notes:
 	<xsl:variable name="sortfields">
         <sortfield type="item" name="most-recent-date">
                 <xsl:attribute name="path">
-                    <xsl:value-of select="lastdate-helper:getLastDate($ITEM_METADATAPATH//*[local-name()='created'],$ITEM_METADATAPATH//*[local-name()='modified'],$ITEM_METADATAPATH//*[local-name()='dateSubmitted'],$ITEM_METADATAPATH//*[local-name()='dateAccepted'],$ITEM_METADATAPATH//*[local-name()='issued'],//*[local-name()='last-revision']/*[local-name()='date'])"/>
+                    <xsl:value-of select="lastdate-helper:getLastDate($ITEM_METADATAPATH//*[local-name()='created'],$ITEM_METADATAPATH//*[local-name()='modified'],$ITEM_METADATAPATH//*[local-name()='dateSubmitted'],$ITEM_METADATAPATH//*[local-name()='dateAccepted'],$ITEM_METADATAPATH//*[local-name()='issued'][1],//*[local-name()='last-revision']/*[local-name()='date'])"/>
                 </xsl:attribute>
         </sortfield><!--
         <sortfield type="container" name="most-recent-date">
@@ -1194,10 +1194,10 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="lastdate-helper:getLastDate($ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='created'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='modified'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='dateSubmitted'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='dateAccepted'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='issued'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='published-online'])"/>
+				<xsl:value-of select="lastdate-helper:getLastDate($ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='created'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='modified'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='dateSubmitted'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='dateAccepted'],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='issued'][1],$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='published-online'])"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="lastdate-helper:getLastDate($CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='created'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='modified'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='dateSubmitted'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='dateAccepted'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='issued'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='published-online'])"/>
+				<xsl:value-of select="lastdate-helper:getLastDate($CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='created'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='modified'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='dateSubmitted'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='dateAccepted'],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='issued'][1],$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='published-online'])"/>
 			</element>
 		</userdefined-index>
 
@@ -1539,10 +1539,10 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="lastdate-helper:getLastDate($ITEM_METADATAPATH//*[local-name()='created'],$ITEM_METADATAPATH//*[local-name()='modified'],$ITEM_METADATAPATH//*[local-name()='dateSubmitted'],$ITEM_METADATAPATH//*[local-name()='dateAccepted'],$ITEM_METADATAPATH//*[local-name()='issued'],$ITEM_METADATAPATH//*[local-name()='published-online'])"/>
+				<xsl:value-of select="lastdate-helper:getLastDate(($ITEM_METADATAPATH//*[local-name()='created'])[1],($ITEM_METADATAPATH//*[local-name()='modified'])[1],($ITEM_METADATAPATH//*[local-name()='dateSubmitted'])[1],($ITEM_METADATAPATH//*[local-name()='dateAccepted'])[1],($ITEM_METADATAPATH//*[local-name()='issued'])[1],($ITEM_METADATAPATH//*[local-name()='published-online'])[1])"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="lastdate-helper:getLastDate($CONTAINER_METADATAPATH//*[local-name()='created'],$CONTAINER_METADATAPATH//*[local-name()='modified'],$CONTAINER_METADATAPATH//*[local-name()='dateSubmitted'],$CONTAINER_METADATAPATH//*[local-name()='dateAccepted'],$CONTAINER_METADATAPATH//*[local-name()='issued'],$CONTAINER_METADATAPATH//*[local-name()='published-online'])"/>
+				<xsl:value-of select="lastdate-helper:getLastDate(($CONTAINER_METADATAPATH//*[local-name()='created'])[1],($CONTAINER_METADATAPATH//*[local-name()='modified'])[1],($CONTAINER_METADATAPATH//*[local-name()='dateSubmitted'])[1],($CONTAINER_METADATAPATH//*[local-name()='dateAccepted'])[1],($CONTAINER_METADATAPATH//*[local-name()='issued'])[1],($CONTAINER_METADATAPATH//*[local-name()='published-online'])[1])"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="most-recent-date.status">
@@ -1550,10 +1550,10 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="lastdate-helper:getLastDateElement($CONTEXTNAME, $ITEM_METADATAPATH//*[local-name()='created'],$ITEM_METADATAPATH//*[local-name()='modified'],$ITEM_METADATAPATH//*[local-name()='dateSubmitted'],$ITEM_METADATAPATH//*[local-name()='dateAccepted'],$ITEM_METADATAPATH//*[local-name()='issued'],$ITEM_METADATAPATH//*[local-name()='published-online'])"/>
+				<xsl:value-of select="lastdate-helper:getLastDateElement($CONTEXTNAME, ($ITEM_METADATAPATH//*[local-name()='created'])[1],($ITEM_METADATAPATH//*[local-name()='modified'])[1],($ITEM_METADATAPATH//*[local-name()='dateSubmitted'])[1],($ITEM_METADATAPATH//*[local-name()='dateAccepted'])[1],($ITEM_METADATAPATH//*[local-name()='issued'])[1],($ITEM_METADATAPATH//*[local-name()='published-online'])[1])"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="lastdate-helper:getLastDateElement($CONTEXTNAME, $CONTAINER_METADATAPATH//*[local-name()='created'],$CONTAINER_METADATAPATH//*[local-name()='modified'],$CONTAINER_METADATAPATH//*[local-name()='dateSubmitted'],$CONTAINER_METADATAPATH//*[local-name()='dateAccepted'],$CONTAINER_METADATAPATH//*[local-name()='issued'],$CONTAINER_METADATAPATH//*[local-name()='published-online'])"/>
+				<xsl:value-of select="lastdate-helper:getLastDateElement($CONTEXTNAME, ($CONTAINER_METADATAPATH//*[local-name()='created'])[1],($CONTAINER_METADATAPATH//*[local-name()='modified'])[1],($CONTAINER_METADATAPATH//*[local-name()='dateSubmitted'])[1],($CONTAINER_METADATAPATH//*[local-name()='dateAccepted'])[1],($CONTAINER_METADATAPATH//*[local-name()='issued'])[1],($CONTAINER_METADATAPATH//*[local-name()='published-online'])[1])"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="creator.role">
