@@ -82,13 +82,10 @@ public class FullTextExtractor
 	
 	public void finalizeExtraction() throws Exception
 	{
-		/*while (busyProcesses.get() > 0)
-		{
-			logger.info(";");
-			Thread.sleep(10);
-		}*/
 		executor.shutdown();
-		executor.awaitTermination(10, TimeUnit.SECONDS);
+		executor.awaitTermination(1, TimeUnit.DAYS);
+		
+		logger.info(extractionReport.toString());
 	}
 	
 	public String getFulltextPath()
@@ -138,14 +135,8 @@ public class FullTextExtractor
 				}
 				try
 				{
-					/*while (busyProcesses.get() >= procCount)
-					{
-						System.out.print(".");
-						Thread.sleep(100);
-					}*/
 					Runnable task = new ExtractorThread(file);
 					executor.execute(task);
-					//busyProcesses.getAndIncrement();
 					continue;
 					
 				} catch (Exception e)
@@ -299,7 +290,6 @@ public class FullTextExtractor
 		
 		void cleanup()
 		{			
-			//busyProcesses.getAndDecrement();
 		}		
 	}
 	
@@ -329,8 +319,6 @@ public class FullTextExtractor
 		extractor.init(baseDir);		
 		extractor.extractFulltexts(baseDir, mDateMillis);
 		extractor.finalizeExtraction();
-		
-		logger.info(extractor.getStatistic().toString());
 	}
 
 }

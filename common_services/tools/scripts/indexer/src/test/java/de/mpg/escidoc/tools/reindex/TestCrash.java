@@ -9,6 +9,13 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+
+/**
+ * These tests conatin items with ambigous defined date fileds causing LastdateHelper exceptions.
+ * Has been solved now by taking the first date by modifying the index stylesheet.
+ * @author sieders
+ *
+ */
 public class TestCrash
 {
 	protected static Indexer indexer;
@@ -37,18 +44,17 @@ public class TestCrash
 		indexer.finalizeIndex();
 		
 		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 	}
 	
 	@Test
 	public void test_1859282() throws Exception
 	{
-		indexer.indexItemsStart(new File("src/test/resources/crash/2015/1205/10/55/escidoc_1859282"));
+		indexer.indexItemsStart(new File("src/test/resources/crash/1205/10/55/escidoc_1859282"));
 		indexer.finalizeIndex();
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
-		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 	}
 	
 	@Test
@@ -57,8 +63,8 @@ public class TestCrash
 		indexer.indexItemsStart(new File("src/test/resources/crash/escidoc_1859278"));
 		indexer.finalizeIndex();
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
-		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 	}
 	
 	@Test
@@ -67,8 +73,8 @@ public class TestCrash
 		indexer.indexItemsStart(new File("src/test/resources/crash/1205/10/07/escidoc_1859264"));
 		indexer.finalizeIndex();
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
-		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 	}
 	
 	@Test
@@ -77,7 +83,7 @@ public class TestCrash
 		indexer.indexItemsStart(new File("src/test/resources/crash/1205"));
 		indexer.finalizeIndex();
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 	
 	@Test
@@ -102,7 +108,7 @@ public class TestCrash
 		indexer.indexItemsStart(new File("src/test/resources/crash/1205/11"));
 		indexer.finalizeIndex();
 		
-		assertTrue(indexer.getIndexingReport().getErrorList().size() != 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
 	}
 
 }

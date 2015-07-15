@@ -96,7 +96,6 @@ public class Indexer
 	
 	// number of processor available (means number of parallel threads)
 	private int procCount;
-	//AtomicInteger busyProcesses = new AtomicInteger(0);
 	
 	// points to the actual indexed directory. Used for resume operation.
 	private String currentDir = null;
@@ -435,20 +434,13 @@ public class Indexer
 		try
 		{
 			indexItems(baseDir);
-			
-			/*while (busyProcesses.get() > 0)
-			{
-				Thread.sleep(10);
-			}
-*/
 		}
 		catch (Exception e)
 		{
 			logger.warn("Indexing interrupted at <" + currentDir + ">", e);
 			FileWriter writer = new FileWriter(new File(resumeFilename));
 			writer.write(currentDir);
-		}
-		
+		}		
 	}
 	
 	/**
@@ -466,7 +458,6 @@ public class Indexer
 			{
 				Runnable task = new IndexThread(dir);
 				executor.execute(task);
-				//busyProcesses.getAndIncrement();
 				return;
 			}
 			
@@ -482,14 +473,8 @@ public class Indexer
 				}
 				else if (file.lastModified() >= mDateMillis)
 				{
-					/*while (busyProcesses.get() >= procCount)
-					{
-						System.out.print(".");
-						Thread.sleep(10);
-					}*/
 					Runnable task = new IndexThread(file);
 					executor.execute(task);
-					//busyProcesses.getAndIncrement();
 				}
 				else if (file.lastModified() < mDateMillis)
 				{
@@ -743,8 +728,6 @@ public class Indexer
 			indexer.finalizeIndex();
 			indexer.removeResumeFile();
 		}
-
-		logger.info(indexer.getIndexingReport().toString());
 		
 		if (referenceIndexDir != null)
 		{
