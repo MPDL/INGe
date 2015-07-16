@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd" PID="escidoc:76991">
+	<foxml:objectProperties>
+		<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+		<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="component escidoc:76991"/>
+		<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2009-07-31T11:04:18.527Z"/>
+		<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2009-08-04T08:28:12.809Z"/>
+	</foxml:objectProperties>
+	<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+		<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2009-07-31T11:04:18.527Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+			<foxml:xmlContent>
+				<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+					<audit:record ID="AUDREC1">
+						<audit:process type="Fedora API-M"/>
+						<audit:action>ingest</audit:action>
+						<audit:componentID/>
+						<audit:responsibility>fedoraAdmin</audit:responsibility>
+						<audit:date>2009-07-31T11:04:18.527Z</audit:date>
+						<audit:justification>test</audit:justification>
+					</audit:record>
+					<audit:record ID="AUDREC2">
+						<audit:process type="Fedora API-M"/>
+						<audit:action>modifyDatastreamByValue</audit:action>
+						<audit:componentID>RELS-EXT</audit:componentID>
+						<audit:responsibility>fedoraAdmin</audit:responsibility>
+						<audit:date>2009-08-04T08:28:12.693Z</audit:date>
+						<audit:justification/>
+					</audit:record>
+					<audit:record ID="AUDREC3">
+						<audit:process type="Fedora API-M"/>
+						<audit:action>modifyDatastreamByValue</audit:action>
+						<audit:componentID>RELS-EXT</audit:componentID>
+						<audit:responsibility>fedoraAdmin</audit:responsibility>
+						<audit:date>2009-08-04T08:28:12.809Z</audit:date>
+						<audit:justification/>
+					</audit:record>
+				</audit:auditTrail>
+			</foxml:xmlContent>
+		</foxml:datastreamVersion>
+	</foxml:datastream>
+	<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+		<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2009-07-31T11:04:18.538Z" MIMETYPE="text/xml" SIZE="1032">
+			<foxml:xmlContent>
+				<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+					<rdf:Description rdf:about="info:fedora/escidoc:76991">
+						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:69273"/>
+						<prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+						<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Jordan, Fiona</prop:created-by-title>
+						<prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+						<prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+						<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+					</rdf:Description>
+				</rdf:RDF>
+			</foxml:xmlContent>
+		</foxml:datastreamVersion>
+		<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2009-08-04T08:28:12.693Z" MIMETYPE="text/xml" SIZE="1114">
+			<foxml:xmlContent>
+				<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+					<rdf:Description rdf:about="info:fedora/escidoc:76991">
+						<prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0013-36A4-E</prop:pid>
+						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:69273"/>
+						<prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+						<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Jordan, Fiona</prop:created-by-title>
+						<prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+						<prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+						<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+					</rdf:Description>
+				</rdf:RDF>
+			</foxml:xmlContent>
+		</foxml:datastreamVersion>
+		<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2009-08-04T08:28:12.809Z" MIMETYPE="text/xml">
+			<foxml:xmlContent>
+				<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+					<rdf:Description rdf:about="info:fedora/escidoc:76991">
+						<prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0013-36A4-E</prop:pid>
+						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:69273"/>
+						<prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+						<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Jordan, Fiona</prop:created-by-title>
+						<prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+						<prop:mime-type xmlns:prop="http://escidoc.de/core/01/properties/">application/pdf</prop:mime-type>
+						<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+					</rdf:Description>
+				</rdf:RDF>
+			</foxml:xmlContent>
+		</foxml:datastreamVersion>
+	</foxml:datastream>
+	<foxml:datastream ID="content" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+		<foxml:datastreamVersion ID="content.0" LABEL="" CREATED="2009-07-31T11:04:18.538Z" MIMETYPE="application/pdf">
+			<foxml:contentLocation TYPE="INTERNAL_ID" REF="escidoc:76991+content+content.0"/>
+		</foxml:datastreamVersion>
+	</foxml:datastream>
+	<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+		<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2009-07-31T11:04:18.538Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="590">
+			<foxml:xmlContent>
+				<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Thesis.pdf</dc:title>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+					<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf</dc:format>
+					<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">8935424</dcterms:extent>
+				</file>
+			</foxml:xmlContent>
+		</foxml:datastreamVersion>
+	</foxml:datastream>
+	<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+		<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2009-07-31T11:04:18.538Z" MIMETYPE="text/xml" SIZE="412">
+			<foxml:xmlContent>
+				<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+					<dc:title>Thesis.pdf</dc:title>
+					<dc:description/>
+					<dc:identifier>escidoc:76991</dc:identifier>
+				</oai_dc:dc>
+			</foxml:xmlContent>
+		</foxml:datastreamVersion>
+	</foxml:datastream>
+</foxml:digitalObject>

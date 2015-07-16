@@ -166,12 +166,15 @@
 									<!--  xsl:otherwise>application/octet-stream</xsl:otherwise-->
 								</xsl:choose>
 							</prop:mime-type>
-							<prop:checksum>
-								<xsl:value-of select="$component-content/foxml:contentDigest/@DIGEST"/>
-							</prop:checksum>
-							<prop:checksum-algorithm>
-								<xsl:value-of select="$component-content/foxml:contentDigest/@TYPE"/>
-							</prop:checksum-algorithm>
+							<xsl:variable name="component-checksum" select="$component-content/foxml:contentDigest/@DIGEST"/>
+							<xsl:if test="$component-checksum != ''">
+								<prop:checksum>
+									<xsl:value-of select="$component-content/foxml:contentDigest/@DIGEST"/>
+								</prop:checksum>
+								<prop:checksum-algorithm>
+									<xsl:value-of select="$component-content/foxml:contentDigest/@TYPE"/>
+								</prop:checksum-algorithm>
+							</xsl:if>
 						</escidocComponents:properties>
 						<escidocComponents:content xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/content">
 							<xsl:choose>

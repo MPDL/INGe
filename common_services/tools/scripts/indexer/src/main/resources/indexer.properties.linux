@@ -21,7 +21,7 @@ extract.pdfbox-app-jar.path = /usr/share/jboss/server/default/conf/pdfbox-app-1.
 index.result.directory = /X/index_test/indexer/index
 
 # create a new index directory (true/false)
-index.result.directory.create = true
+index.result.directory.create = false
 
 # file to keep the temporary foxml paths (absolute path)
 index.db.file = /X/index_test/indexer/indexdb.xml
