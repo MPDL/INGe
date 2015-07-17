@@ -231,12 +231,12 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 			<predicate name="Modified By"
-				value="http://purl.org/dc/terms/creator" multiple="false"
+				value="http://purl.org/dc/terms/contributor" multiple="false"
 				mandatory="true" localized="false" searchable="false"
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Created By"
-				value="http://purl.org/dc/terms/contributor" multiple="false"
+				value="http://purl.org/dc/terms/creator" multiple="false"
 				mandatory="true" localized="false" searchable="false"
 				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
