@@ -310,7 +310,7 @@ public class Indexer
 	public boolean prepareIndex()
 	{
 	    try {
-	    	logger.info("Indexing to directory '" + indexPath + "'...");
+	    	logger.info("Indexing to directory '" + indexPath);
 
 	    	Directory dir = FSDirectory.open(new File(indexPath));
 	    	// :Post-Release-Update-Version.LUCENE_XY:

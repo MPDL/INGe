@@ -23,7 +23,7 @@
 	<!--
 		<xxsl:variable name="database" select="document($index-db)"/>
 	-->
-		<xsl:variable name="attributes-file-content" select="document($attributes-file)"/>
+		<xsl:variable name="attributes-file-content" select="document(@href)"/>
 	
 		<xsl:apply-templates select="$attributes-file-content">
 			<xsl:with-param name="include" select="true()"/>

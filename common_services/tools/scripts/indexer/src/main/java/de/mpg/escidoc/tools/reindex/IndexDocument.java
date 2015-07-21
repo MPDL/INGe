@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
@@ -37,6 +39,7 @@ public class IndexDocument extends DefaultHandler
 	String fulltextPath = null;
 	String fulltextDir;
 	
+	private List<String> storedSortFieldNames = new ArrayList();
 	
 	public IndexDocument(Document document, String fulltextDir)
 	{
@@ -148,6 +151,14 @@ public class IndexDocument extends DefaultHandler
 		{
 			Field field = new Field(fieldName, content.toString().trim(), storeField, index, termVector);
 			
+			if (fieldName.startsWith("sort") && storedSortFieldNames.contains(fieldName))
+			{
+				logger.info("Already stored <" + fieldName +">");
+				return;
+			}
+			
+			storedSortFieldNames.add(fieldName);
+			
 			logger.debug("fieldName <" + fieldName + "> " 
 					+ "content <" + content.toString().trim() + "> "
 					+ "storeField <" + storeField.toString() + "> " 
@@ -168,7 +179,6 @@ public class IndexDocument extends DefaultHandler
 	@Override
 	public void endDocument() throws SAXException
 	{
-		SortFieldHelper.cleanUp();
 	}
 
 	

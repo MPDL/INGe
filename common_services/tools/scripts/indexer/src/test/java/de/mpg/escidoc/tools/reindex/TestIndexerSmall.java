@@ -176,6 +176,7 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
+		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		Set<Fieldable> fields = fieldMap.get("stored_filename1");
@@ -198,6 +199,7 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
+		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		assertTrue(fieldMap == null);
@@ -217,6 +219,7 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
+		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		assertTrue(fieldMap == null);
@@ -416,7 +419,8 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
-		
+
+		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		Set<Fieldable> fields = fieldMap.get("escidoc.publication.creator.compound.organization-path-identifiers");
