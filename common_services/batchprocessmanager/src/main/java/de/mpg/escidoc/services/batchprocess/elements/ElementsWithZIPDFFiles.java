@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.batchprocess.elements;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis.types.NonNegativeInteger;
@@ -44,6 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -90,9 +92,22 @@ public class ElementsWithZIPDFFiles extends Elements<ItemVO>
             searchRetrieveRequest.setQuery(SEARCH_QUERY);
             searchRetrieveRequest.setMaximumRecords(new NonNegativeInteger(maximumNumberOfElements + ""));
             searchRetrieveRequest.setRecordPacking("xml");
-            SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
+            SearchRetrieveResponseType searchResultXml = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
 
-            elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(searchResult));
+            List<ItemVO> resultElements = new ArrayList<ItemVO>();
+			resultElements.addAll(CoreServiceHelper
+					.transformSearchResultXmlToListOfItemVO(searchResultXml));
+			ItemHandler ih = ServiceLocator.getItemHandler(this.getUserHandle());
+			
+			// fetching each item again is needed, as content of files is null
+			// in lists. So no update would be possible on items with internal
+			// components 
+			for (ItemVO item : resultElements) {
+				XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+				elements.add(xmlTransforming.transformToItem(ih
+						.retrieve(item.getVersion().getObjectId())));
+			}
+			
             report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
             System.out.println(elements.size() + " items found");
             

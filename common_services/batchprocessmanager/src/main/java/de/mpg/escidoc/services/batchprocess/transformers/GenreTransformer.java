@@ -10,6 +10,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 
 /**
@@ -30,7 +31,6 @@ public class GenreTransformer extends Transformer<ItemVO>
         System.out.println("Number of items: " + list.size());
         for (ItemVO item : list)
         {
-        	
             item = replaceGenre(item);
             resultList.add((ItemVO) item);
         	this.getTransformed().add(item.getVersion().getObjectId());
@@ -55,10 +55,12 @@ public class GenreTransformer extends Transformer<ItemVO>
      * @return ItemVO with changed genre
      */
     private ItemVO replaceGenre(ItemVO item) {
+    	
     	PubItemVO pubItem = new PubItemVO(item);
     	MdsPublicationVO metaData = pubItem.getMetadata();
-    	if (metaData.getGenre().equals(Genre.BOOK))
+    	if (metaData.getGenre().equals(Genre.ARTICLE))
     	{
+    		/*
     		MdsPublicationVO.Genre genre = null;
     		for (CreatorVO creator : metaData.getCreators())
     		{
@@ -72,8 +74,9 @@ public class GenreTransformer extends Transformer<ItemVO>
     		{
     			genre = Genre.MONOGRAPH;
     		}
+    		*/
     		
-			metaData.setGenre(genre);
+			metaData.setGenre(MdsPublicationVO.Genre.BOOK_REVIEW);
     		// Remove superfluous MetaDate if existing
     		metaData = removeSuperfluousMD(metaData); 
     	}

@@ -58,13 +58,19 @@ public class Release extends Operation
                 {
                     try
                     {
-                    	// Prepare object PID
-                        String modificationDate = JiBXHelper.serializeDate(ivo.getModificationDate());
-                        PidTaskParamVO paramAssignation = new PidTaskParamVO(ivo.getVersion().getModificationDate(),
-                        		PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern").replace("$1", ivo.getVersion().getObjectId()));
-                        String paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
-                        // Assign object PID
-                        String result = ih.assignObjectPid(ivo.getVersion().getObjectId(), paramXml);
+                    	String modificationDate = JiBXHelper.serializeDate(ivo.getModificationDate());;
+                    	PidTaskParamVO paramAssignation = null;
+                    	String paramXml = "";
+                    	String result = "";
+                    	if (ivo.getPid() == null)
+                    	{
+                    		// Prepare object PID
+                            paramAssignation = new PidTaskParamVO(ivo.getVersion().getModificationDate(),
+                            		PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern").replace("$1", ivo.getVersion().getObjectId()));
+                            paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
+                            // Assign object PID
+                            result = ih.assignObjectPid(ivo.getVersion().getObjectId(), paramXml);
+                    	}
                         // Prepare component PID
                         String fileObjectId;
                         for (FileVO file : ivo.getFiles()) 
@@ -72,22 +78,41 @@ public class Release extends Operation
                         	if (FileVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && file.getPid() == null)
                         	{
                         		fileObjectId = file.getReference().getObjectId();
+                        		if (!"".equals(result))
+    	                        {
                         		modificationDate = JiBXHelper.serializeDate(xmlTransforming.transformToResult(result).getLastModificationDate());
                                 paramAssignation = new PidTaskParamVO( xmlTransforming.transformToResult(result).getLastModificationDate(),
                                 		PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.component.pattern").replace("$1", ivo.getVersion().getObjectId()).replace("$2", fileObjectId).replace("$3", file.getName()));
-                                paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
+    	                        }
+                        		else
+                        		{
+                        			paramAssignation = new PidTaskParamVO( ivo.getVersion().getModificationDate(),
+                        					PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.component.pattern").replace("$1", ivo.getVersion().getObjectId()).replace("$2", fileObjectId).replace("$3", file.getName()));
+                        		}
+                        		paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
                         		result = ih.assignContentPid(ivo.getVersion().getObjectId() , fileObjectId, paramXml);
                         	}
                         }
-                        // Prepare version PID
-                        modificationDate = JiBXHelper.serializeDate(xmlTransforming.transformToResult(result).getLastModificationDate());
-                        paramAssignation = new PidTaskParamVO( xmlTransforming.transformToResult(result).getLastModificationDate(),
-                        		PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern").replace("$1", ivo.getVersion().getObjectIdAndVersion()));
-                        paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
-                        // Assign version PID
-                        String resp = ih.assignVersionPid(ivo.getVersion().getObjectId(), paramXml);
-                        ResultVO rVO = xmlTransforming.transformToResult(resp);
-                        modificationDate = JiBXHelper.serializeDate(rVO.getLastModificationDate());
+                        if (ivo.getVersion().getPid() == null) 
+                        {
+	                        // Prepare version PID
+	                        if (!"".equals(result))
+	                        {
+	                        	modificationDate = JiBXHelper.serializeDate(xmlTransforming.transformToResult(result).getLastModificationDate());
+	                        	paramAssignation = new PidTaskParamVO( xmlTransforming.transformToResult(result).getLastModificationDate(),
+	                            		PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern").replace("$1", ivo.getVersion().getObjectIdAndVersion()));
+	                        }
+	                        else 
+	                        {
+	                        	paramAssignation = new PidTaskParamVO( ivo.getVersion().getModificationDate(),
+	                            		PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern").replace("$1", ivo.getVersion().getObjectIdAndVersion()));
+	                        }
+	                        paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
+	                        // Assign version PID
+	                        String resp = ih.assignVersionPid(ivo.getVersion().getObjectId(), paramXml);
+	                        ResultVO rVO = xmlTransforming.transformToResult(resp);
+	                        modificationDate = JiBXHelper.serializeDate(rVO.getLastModificationDate());
+                        }
                         // Release
                         ih.release(ivo.getVersion().getObjectId(), TASKPARAM.replace("XXX_DATE_XXX", modificationDate));
                         

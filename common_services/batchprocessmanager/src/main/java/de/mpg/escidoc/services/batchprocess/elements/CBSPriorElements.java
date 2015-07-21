@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.batchprocess.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.escidoc.www.services.om.ItemHandler;
@@ -39,6 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -87,10 +89,24 @@ public class CBSPriorElements extends Elements<ItemVO>
         try
         {
             ItemHandler ih = ServiceLocator.getItemHandler(this.getUserHandle());
-            String seachResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
+            String searchResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
                     "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"",
                     maximumNumberOfElements));
-            List<ItemVO> list = CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml);
+            
+            List<ItemVO> resultElements = new ArrayList<ItemVO>();
+			resultElements.addAll(CoreServiceHelper
+					.transformSearchResultXmlToListOfItemVO(searchResultXml));
+			
+			// fetching each item again is needed, as content of files is null
+			// in lists. So no update would be possible on items with internal
+			// components 
+			List<ItemVO> list = new ArrayList<ItemVO>();
+			for (ItemVO item : resultElements) {
+				XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+				list.add(xmlTransforming.transformToItem(ih
+						.retrieve(item.getVersion().getObjectId())));
+			}
+            
             for (ItemVO itemVO : list)
             {
                 boolean found = false;

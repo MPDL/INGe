@@ -30,10 +30,14 @@
 
 package de.mpg.escidoc.services.batchprocess.elements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.helper.CoreServiceHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -82,10 +86,21 @@ public class BPCImportElements extends Elements<ItemVO>
         try
         {
             ItemHandler ih = ServiceLocator.getItemHandler(this.getUserHandle());
-            String seachResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
+            String searchResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
                     "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"",
                     maximumNumberOfElements));
-            elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
+            List<ItemVO> resultElements = new ArrayList<ItemVO>();
+			resultElements.addAll(CoreServiceHelper
+					.transformSearchResultXmlToListOfItemVO(searchResultXml));
+			
+			// fetching each item again is needed, as content of files is null
+			// in lists. So no update would be possible on items with internal
+			// components 
+			for (ItemVO item : resultElements) {
+				XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+				elements.add(xmlTransforming.transformToItem(ih
+						.retrieve(item.getVersion().getObjectId())));
+			}
             report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
             System.out.println(elements.size() + " items found");
         }
