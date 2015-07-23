@@ -90,6 +90,7 @@ public class IndexingReport
           
     }
     
+    @Override
     public String toString()
     {
     	long s = (System.currentTimeMillis() - start)/1000;
@@ -99,7 +100,7 @@ public class IndexingReport
     			+ "filesSkippedBecauseOfTime\t\t<" + filesSkippedBecauseOfTime.get() + "> \n"
     			+ "filesSkippedBecauseOfStatusOrType\t<" + filesSkippedBecauseOfStatusOrType.get() + "> \n"
     			+ "filesIndexingDone\t\t\t<" + filesIndexingDone.get() + "> \n"
-    			+ "time used\t\t\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
+    			+ "time used\t\t\t\t<"	+  String.format("%d:%02d:%02d", s/3600, s%3600/60, s%60) + "> \n"
     			+ "errorList\t\t\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }

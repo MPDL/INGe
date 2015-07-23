@@ -78,15 +78,16 @@ public class ExtractionReport
     
     public void clear()
     {
-        this.filesTotal.set(0);;       
+        this.filesTotal.set(0);     
         this.filesErrorOccured.set(0);
-        this.filesExtractionDone.set(0);;
-        this.filesSkipped.set(0);;
+        this.filesExtractionDone.set(0);
+        this.filesSkipped.set(0);
 
         this.start = System.currentTimeMillis();
         this.errorList.clear();      
     }
     
+    @Override
     public String toString()
     {
     	long s = (System.currentTimeMillis() - start)/1000;
@@ -95,7 +96,7 @@ public class ExtractionReport
     			+ "filesErrorOccured\t<" + filesErrorOccured.get() + "> \n"
     			+ "filesSkipped\t\t<" + filesSkipped.get() + "> \n"
     			+ "filesExtractionDone\t<" + filesExtractionDone.get() + "> \n"
-    			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)) + "> \n"
+    			+ "time used\t\t<"	+  String.format("%d:%02d:%02d", s/3600, s%3600/60, s%60) + "> \n"
     			+ "errorList\t\t<" + Arrays.toString(errorList.toArray())  + "> \n";
     		
     }
