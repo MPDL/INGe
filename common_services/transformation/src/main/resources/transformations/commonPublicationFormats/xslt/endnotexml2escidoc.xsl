@@ -269,7 +269,7 @@
 				if ( ($Flavor = 'MPIGEM' and B and $refType = 'Journal Article' ) and not(J)) then $genre-ves/enum[.='journal']/@uri else
 				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript', 'Report') ) then $genre-ves/enum[.='series']/@uri else
 				if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else
-				if ( B and $refType = ('Electronic Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
+				if ( B and $refType = ('Electronic Article', 'Magazine Article', 'Journal Article') ) then $genre-ves/enum[.='journal']/@uri else
 				if ( B and $refType = 'Newspaper Article' ) then $genre-ves/enum[.='newspaper']/@uri else
 				if ( B and $refType = 'Conference Paper' ) then $genre-ves/enum[.='proceedings']/@uri else
 				if ( J and $refType = 'Journal Article' ) then $genre-ves/enum[.='journal']/@uri else
