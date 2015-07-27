@@ -14,7 +14,6 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -42,7 +41,8 @@ public class FullTextExtractor
 	
 	// number of processor available (means number of parallel threads)
 	private int procCount;
-	//AtomicInteger busyProcesses = new AtomicInteger(0);
+
+	// Thread pool for text extraction
 	ExecutorService executor = null;
 	
 	public FullTextExtractor() throws Exception
@@ -95,7 +95,7 @@ public class FullTextExtractor
 	
 	public ExtractionReport getStatistic()
 	{
-		return this.extractionReport;
+		return extractionReport;
 	}
 	
 	public void extractFulltexts(File dirOrFile) throws Exception
@@ -151,90 +151,9 @@ public class FullTextExtractor
 		}
 	}
 
-/*
-	void extractFulltext(File file) throws Exception
-	{   
-		if (!(new File(fulltextDir, file.getName()).exists()))
-		{
-			logger.info("****************** Start extracting " + file.getName());
-		}
-		else 
-		{
-			logger.info("****************** Skipping extraction " + file.getName());
-			return;
-		}
-        
-		String[] cmd = getCommand(file);
-		
-		Process proc = Runtime.getRuntime().exec(cmd, envp);
-		
-		StreamGobbler inputGobbler = new StreamGobbler(proc.getInputStream(), "Extractor in");
-        StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "Extractor err");
-        
-        inputGobbler.start();
-        errorGobbler.start();
-        
-        int exitCode = proc.waitFor();
-        
-        if (proc.exitValue() == 0)
-        {
-        	statistic.incrementFilesExtractionDone();
-        }
-        else
-        {
-        	statistic.incrementFilesErrorOccured();
-        	statistic.addToErrorList(file.getName());
-        }
-	}
 
-	private String[] getCommand(File f)
-	{
-		String[] cmd = new String[5];
-		
-		cmd[0] = "java";
-		cmd[1] = "-jar";
-		cmd[2] = properties.getProperty("extract.extraction-chain.path");
-		cmd[3] = f.getAbsolutePath();
-		cmd[4] = (new File(fulltextDir, f.getName())).getAbsolutePath().concat(".txt");
-		
-		logger.info("extract command <" + Arrays.toString(cmd) + ">");
-		return cmd;
-	}
-	
-    class StreamGobbler extends Thread
-    {
-        InputStream is;
-        String name;
-        
-        StreamGobbler(InputStream is, String name)
-        {
-            this.is = is;
-            this.name = name;
-        }
-        
-        public void run()
-        {
-			try
-			{
-				InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-				BufferedReader br = new BufferedReader(isr);
-				String line = null;
-
-				while ((line = br.readLine()) != null)
-					logger.info("[" + name + "] " + line);
-			} catch (IOException ioe)
-			{
-				ioe.printStackTrace();
-			}
-        }
-    }
-    
-    */
-	
 	/**
 	 * Subclass to enable parallelization.
-	 * 
-	 * @author franke
 	 *
 	 */
 	class ExtractorThread implements Runnable
@@ -250,6 +169,7 @@ public class FullTextExtractor
 		{
 			this.file = file;
 		}
+
 		
 		public void run()
 		{
