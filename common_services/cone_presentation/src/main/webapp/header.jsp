@@ -237,12 +237,12 @@
 				if (typeof cutId != 'undefined' && cutId)
 				{
 					//console.log("Bind suggest true: " + element + " cutId: " + cutId);
-					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
+					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=*&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
 					//console.log("Bind suggest false: " + element + " cutId: " + cutId);
-					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
+					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=*&format=json", {onSelect: fillId});
 				}
 			}
 			else
