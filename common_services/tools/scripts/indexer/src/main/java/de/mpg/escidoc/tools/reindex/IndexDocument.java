@@ -39,7 +39,7 @@ public class IndexDocument extends DefaultHandler
 	String fulltextPath = null;
 	String fulltextDir;
 	
-	private List<String> storedSortFieldNames = new ArrayList();
+	private List<String> storedSortFieldNames = new ArrayList<String>();
 	
 	public IndexDocument(Document document, String fulltextDir)
 	{

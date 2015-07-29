@@ -12,8 +12,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.lucene.document.Fieldable;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.store.FSDirectory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,6 +20,8 @@ import de.mpg.escidoc.tools.util.xslt.LocationHelper;
 
 public class TestIndexerSmall
 {
+	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/escidoc_all";
+	
 	protected static Indexer indexer;
 	protected static FullTextExtractor extractor;
 	protected static Validator validator;
@@ -103,7 +103,7 @@ public class TestIndexerSmall
 		indexer.finalizeIndex();
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		
@@ -125,7 +125,7 @@ public class TestIndexerSmall
 		indexer.finalizeIndex();
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 	
 		validator.compareToReferenceIndex();
 		
@@ -238,7 +238,7 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
@@ -267,7 +267,7 @@ public class TestIndexerSmall
 		indexer.finalizeIndex();
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		
@@ -296,6 +296,7 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
+		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
@@ -307,8 +308,9 @@ public class TestIndexerSmall
 		assertTrue(fieldMap.get("stored_filename") == null);
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
-		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		//assertTrue(fieldMap.get("escidoc.property.created-by.name").equals("Nadine Schröder"));
+
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();	
 		
@@ -326,7 +328,7 @@ public class TestIndexerSmall
 		indexer.finalizeIndex();
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		
@@ -351,7 +353,7 @@ public class TestIndexerSmall
 		indexer.finalizeIndex();
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		
@@ -379,12 +381,12 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);		
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();	
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -481,7 +483,7 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -510,7 +512,7 @@ public class TestIndexerSmall
 		assertTrue(fieldMap.get("stored_fulltext") == null);
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -553,7 +555,7 @@ public class TestIndexerSmall
 		assertTrue(found);
 		
 		validator = new Validator(indexer);
-		validator.setReferencePath("C:/tmp/jboss/server/default/data/index/lucene/escidoc_all");
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 

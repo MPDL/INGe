@@ -208,7 +208,7 @@ public class Indexer
 		// transformerStylesheet = saxonFactory.newTransformer(new StreamSource(new File("./target/classes/prepareStylesheet.xsl")));
 		transformerStylesheet = saxonFactory.newTransformer(new StreamSource(getClass().getClassLoader().getResourceAsStream("prepareStylesheet.xsl")));
 
-		transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
+		//transformerStylesheet.setParameter("attributes-file", indexAttributesName.replace("\\", "/"));
 		transformerStylesheet.transform(new StreamSource(getClass().getClassLoader().getResourceAsStream(indexStylesheet)), new StreamResult(stylesheetTmpFile));
 		
 		long e3 = System.currentTimeMillis();
@@ -532,7 +532,6 @@ public class Indexer
 				indexingReport.incrementFilesErrorOccured();
 				
 				// should be called only in case of error explicitly; usual it's called in DocumentHandler
-				SortFieldHelper.cleanUp();
 				threadLogger.warn("Error occured during indexing <" + file.getName() + ">", e);
 				return;
 				//throw new RuntimeException(e);
