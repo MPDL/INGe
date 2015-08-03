@@ -1085,7 +1085,8 @@
 				</xsl:choose>
 			</xsl:if>
 			
-			<xsl:if test="name(.)='E'">
+			<!-- Besonderheit MPI Gemeinschaftsgüter: Immer Editoren berücksichtigen, egal welches Genre! Erndt, 31.07.2015 -->
+			<xsl:if test="name(.)='E' and $Flavor != 'MPIGEM'">
 				<xsl:choose>
 					<xsl:when test="$refType='Generic'">
 						<xsl:call-template name="createCreator">
@@ -1101,6 +1102,17 @@
 					</xsl:when>
 				</xsl:choose>
 			</xsl:if>
+			
+			
+			<xsl:if test="name(.)='E' and $Flavor = 'MPIGEM'">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
+							<xsl:with-param name="gen" select="$gen"/>
+						</xsl:call-template>					
+			</xsl:if>
+			
+			
+			
 			<xsl:if test="name(.)='Y'">
 				<xsl:choose>
 					<xsl:when test="$refType='Generic' or ($refType='Conference Proceedings' and S)">
