@@ -28,22 +28,22 @@ index.db.file = c:/Test/indexdb.xml
 
 # generate temporary foxml data (true/false)
 # may also be triggered by -c flag in command line
-index.db.file.generate = false
+index.db.file.generate = true
 
 # path of the directory to store the extracted fulltexts into
 index.fulltexts.path = C:/fulltexts
 
 # path of indexing stylesheet to be used
-index.stylesheet = mpdlEscidocXmlToLucene.xslt
-#index.stylesheet = itemContainerAdminXmlToLucene.xslt
+#index.stylesheet = mpdlEscidocXmlToLucene.xslt
+index.stylesheet = itemContainerAdminXmlToLucene.xslt
 
 # path of stylesheet attributes
-index.stylesheet.attributes = ./gsearchAttributes.xslt
+#index.stylesheet.attributes = ./gsearchAttributes.xslt
 #index.stylesheet.attributes = permissions.xslt
 
 # index name to be built, may be also set by command line
-index.name.built = escidoc_all
-#index.name.built = item_container_admin
+#index.name.built = escidoc_all
+index.name.built = item_container_admin
 
 # index foxml files only with modification younger since the given date. Use the format yyyy-MM-dd hh:mm:ss.
 # if set to 0 all files are indexed.
@@ -52,6 +52,12 @@ index.modification.date = 0
 # number of processors to be used for indexing process
 index.number.processors = 1
 
-
+#
+# triplestore database access - used for context organizational unit relation
+#
+triplestore.datasource.url=jdbc:postgresql://srv02.mpdl.mpg.de:5432/riTriples
+triplestore.datasource.driverClassName=org.postgresql.Driver
+triplestore.datasource.username=postgres
+triplestore.datasource.password=postgres
 
 

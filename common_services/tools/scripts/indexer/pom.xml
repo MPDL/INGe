@@ -198,6 +198,8 @@
 		<groupId>org.codehaus.mojo</groupId>
 		<artifactId>sonar-maven-plugin</artifactId>
 	</plugin>
+	
+	
       		
 	</plugins>
 	
@@ -264,8 +266,22 @@
 			<version>8.7</version>
 			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- <dependency> <groupId>xalan</groupId> <artifactId>xalan</artifactId> 
-			<version>2.7.1</version> <scope>compile</scope> </dependency> -->
+			<version>2.7.1</version> <scope>compile</scope> </dependency> 
+			
+		<dependency>
+			<groupId>org.codehaus.sonar.plugins</groupId>
+			<artifactId>sonar-scm-svn-plugin</artifactId>
+			<version>5.0.1</version>
+		</dependency>	
+		-->
 	</dependencies>
 
 	<profiles>

@@ -49,6 +49,13 @@ index.modification.date = 0
 # number of processors to be used for indexing process
 index.number.processors = 4
 
+#
+# triplestore database access - used for context organizational unit relation
+#
+triplestore.datasource.url=jdbc:postgresql://localhost:5432/riTriples
+triplestore.datasource.driverClassName=org.postgresql.Driver
+triplestore.datasource.username=postgres
+triplestore.datasource.password=postgres
 
 
 
