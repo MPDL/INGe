@@ -233,7 +233,6 @@ organizational-unit:
                 <xsl:value-of select="string-helper:getSubstringAfterLast($PERMISSIONS_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
             </element>
         </userdefined-index>
-        
         <userdefined-index name="context.organizational-unit-id">
             <xsl:attribute name="context">
                 <xsl:value-of select="$PERMISSIONS_CONTEXTNAME"/>
@@ -243,8 +242,7 @@ organizational-unit:
                 <xsl:value-of select="escidoc-core-accessor:getObjectAttribute(
                     concat('/ir/context/',$contextId),'/context/properties/organizational-units/organizational-unit','href','http://www.w3.org/1999/xlink','false','true')"/>
             </element>
-        </userdefined-index>
-       
+        </userdefined-index> 
         <userdefined-index name="created-by">
             <xsl:attribute name="context">
                 <xsl:value-of select="$PERMISSIONS_CONTEXTNAME"/>
