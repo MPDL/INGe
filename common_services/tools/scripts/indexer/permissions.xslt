@@ -92,7 +92,7 @@ organizational-unit:
         xmlns:lastdate-helper="java:de.escidoc.sb.gsearch.xslt.LastdateHelper"
         xmlns:string-helper="java:de.escidoc.sb.gsearch.xslt.StringHelper"
         xmlns:sortfield-helper="java:de.escidoc.sb.gsearch.xslt.SortFieldHelper"
-        xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" 
+        xmlns:escidoc-core-accessor="java:de.mpg.escidoc.tools.util.xslt.TriplestoreHelper" 
         extension-element-prefixes="lastdate-helper string-helper sortfield-helper escidoc-core-accessor">
     <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
     
@@ -233,7 +233,7 @@ organizational-unit:
                 <xsl:value-of select="string-helper:getSubstringAfterLast($PERMISSIONS_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
             </element>
         </userdefined-index>
-        <!--
+        
         <userdefined-index name="context.organizational-unit-id">
             <xsl:attribute name="context">
                 <xsl:value-of select="$PERMISSIONS_CONTEXTNAME"/>
@@ -244,7 +244,7 @@ organizational-unit:
                     concat('/ir/context/',$contextId),'/context/properties/organizational-units/organizational-unit','href','http://www.w3.org/1999/xlink','false','true')"/>
             </element>
         </userdefined-index>
-        -->
+       
         <userdefined-index name="created-by">
             <xsl:attribute name="context">
                 <xsl:value-of select="$PERMISSIONS_CONTEXTNAME"/>

@@ -14,19 +14,19 @@ import org.apache.log4j.Logger;
 public class TriplestoreHelper
 {
 	private static final Logger logger = Logger.getLogger(TriplestoreHelper.class);
-    private Connection connection;
+    private static Connection connection;
     private static Properties properties = new Properties();
 
 
     
     // the database table containing the context - organizational unit mapping
-    private String context_ou_table;
+    private static String context_ou_table;
 
     
     //private static final String CONTEXT_OU_RELATION = "http://escidoc.de/core/01/structural-relations/organizational-unit";
     private static final String CONTEXT_OU_RELATION = "%organizational-unit%";
 
-	public TriplestoreHelper() 
+	private TriplestoreHelper() 
 	{
 		try
 		{
@@ -100,6 +100,10 @@ public class TriplestoreHelper
         return null;
 	}
 	
+	//
+	// public methods
+	//
+	
 	public static TriplestoreHelper getInstance()
 	{
 		return TriplestoreHelperHolder.instance;
@@ -110,7 +114,53 @@ public class TriplestoreHelper
 		return this.context_ou_table;
 	}
 	
-	public String getOrganizationFor(String context)
+	
+	/**
+     * Calls resource for given rest-uri to get object-xml. 
+     * Parses values of elements or attributes given with
+     * elementPath, attributeName and attributeNamespaceUri.
+     * If accessAsAnonymousUser = 'true', object is retrieved as anonymous user.
+     * If getObjidFromHref = 'true', and attributes are hrefs,
+     * the objId is parsed out of the href.
+     * 
+     * @param restUri restUri
+     * @param elementPath path to element
+     * @param attributeName path to attribute of element (may be empty)
+     * @param attributeNamespaceUri namespaceUri of attribute (May be empty)
+     * @param accessAsAnonymousUser 'true' or 'false' or empty (default is false) 
+     * @param getObjidFromHref 'true' or 'false' or empty (default is false) 
+     * 
+     * @return String found attributes whitespace-separated
+     */
+	public static synchronized String getObjectAttribute(final String restUri,
+			final String elementPath, final String attributeName,
+			final String attributeNamespaceUri,
+			final String accessAsAnonymousUser, final String getObjidFromHref)
+	{
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("executing TriplestoreHelper, getObjectAttribute "
+					+ " restUri <" + restUri + "> "
+					+ " elementPath <" + elementPath + "> "
+					+ " attributeName <" + attributeName + "> "
+					+ " attributeNamespaceUri <" + attributeNamespaceUri + "> "
+					+ " accessAsAnonymousUser <" + accessAsAnonymousUser + "> "
+					+ " getObjidFromHref <" + getObjidFromHref + ">");
+		}
+		
+		if (elementPath != null && elementPath.endsWith("organizational-unit"))
+		{
+			String contextId = restUri.substring(restUri.lastIndexOf("/") + 1);
+			
+			logger.debug("contextId <" + contextId + ">");
+			return TriplestoreHelper.getInstance().getOrganizationFor(contextId);
+		}
+		return getObjidFromHref;
+
+	}
+	
+	String getOrganizationFor(String context)
 	{
 		String sql = "SELECT o FROM " + context_ou_table + " WHERE s LIKE ?";
         logger.debug("SQL: " + sql);
@@ -153,9 +203,9 @@ public class TriplestoreHelper
                 logger.error("Error trying to close the connection", e);
             }
         }
-        
         return null;
 	}
+
 
 	private static class TriplestoreHelperHolder
 	{

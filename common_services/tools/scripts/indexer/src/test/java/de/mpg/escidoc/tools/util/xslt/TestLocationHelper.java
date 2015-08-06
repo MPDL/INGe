@@ -1,4 +1,4 @@
-package de.mpg.escidoc.tools.reindex.xslt;
+package de.mpg.escidoc.tools.util.xslt;
 
 import static org.junit.Assert.assertTrue;
 
