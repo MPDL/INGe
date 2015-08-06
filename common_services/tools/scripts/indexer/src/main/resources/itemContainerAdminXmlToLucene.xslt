@@ -40,7 +40,6 @@ Notes:
 -additional sortfields can be defined in variable sortfields
 -additional compound indexfields can be defined in variable userdefined-indexes
 
--
  -->
 <xsl:stylesheet version="1.0"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
