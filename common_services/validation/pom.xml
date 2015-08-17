@@ -61,6 +61,7 @@
 					<test>ValidationServiceTest</test>
 				</configuration>
 			</plugin>
+			<!-- 
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
@@ -86,6 +87,47 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			-->
+			
+			<plugin>
+			  <groupId>org.jibx</groupId>
+			  <artifactId>jibx-maven-plugin</artifactId>
+			  <version>1.2.6</version>
+			   <configuration>
+				    <schemaBindingDirectory>${basedir}/src/main/jibx</schemaBindingDirectory>
+				    <includeSchemaBindings>
+				    	<includeSchemaBinding>bindings_ValidationReportVO.xml</includeSchemaBinding>
+				    </includeSchemaBindings>
+			  </configuration>
+				<executions>
+				    <execution>
+				    	<phase>process-classes</phase>
+						<goals>
+							<goal>bind</goal>
+						</goals>
+				    </execution>
+				  </executions>
+				  <dependencies>
+	               <dependency>
+	                  <groupId>org.jibx</groupId>
+	                  <artifactId>jibx-bind</artifactId>
+	                  <version>1.2.6</version>
+	                  <exclusions>
+	                     <exclusion>
+	                        <artifactId>bcel</artifactId>
+	                        <groupId>bcel</groupId>
+	                     </exclusion>
+	                  </exclusions>
+	               </dependency>
+	               <dependency>
+	                  <groupId>org.apache.bcel</groupId>
+	                  <artifactId>bcel</artifactId>
+	                  <version>6.0-SNAPSHOT</version>
+	               </dependency>
+            </dependencies>
+			</plugin>
+			
 		</plugins>
 	</build>
 
