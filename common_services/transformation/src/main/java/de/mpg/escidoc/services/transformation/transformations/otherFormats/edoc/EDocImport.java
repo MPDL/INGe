@@ -49,9 +49,12 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import net.sf.saxon.trans.DynamicError;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -244,6 +247,11 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
             
             return result.toString().getBytes(trgFormat.getEncoding());
             
+        }
+        catch (TransformerException te)
+        {
+        	throw new RuntimeException("Error while transforming edoc xml: " + te.getLocationAsString() + "\n" + te.getLocator() , te);
+        	
         }
         catch (Exception e)
         {
