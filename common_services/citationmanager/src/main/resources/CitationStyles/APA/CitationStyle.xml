@@ -289,7 +289,7 @@
 		<parameters>
 			<valid-if><![CDATA[not($hasPublication)]]></valid-if>
 			<starts-with
-				value="## Citaion style layout is not defined for metadata record: " />
+				value="## Citation style layout is not defined for metadata record: " />
 		</parameters>
 		<elements>
 			<layout-element ref="$objid" />
