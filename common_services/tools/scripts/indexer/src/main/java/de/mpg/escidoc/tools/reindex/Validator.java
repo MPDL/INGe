@@ -37,7 +37,10 @@ public class Validator
 	
 	protected static String[] fieldNamesToSkip = {
 		"xml_representation", 
-		"xml_metadata"
+		"xml_metadata",
+		"aa_xml_representation", 
+		"aa_xml_metadata",
+		"/base"
 		};
 	
 	protected static String[] objidsToSkip = {
@@ -88,22 +91,22 @@ public class Validator
 		for (int i = 0; i < indexReader1.maxDoc(); i++)
 		{			
 			document1 = indexReader1.document(i);	
-			document2 = getReferenceDocument("escidoc.objid", document1.get("escidoc.objid"), indexSearcher2);
+			document2 = getReferenceDocument(getObjidFieldName(), document1.get(getObjidFieldName()), indexSearcher2);
 			
-			if (Arrays.asList(objidsToSkip).contains(document1.get("escidoc.objid")))
+			if (Arrays.asList(objidsToSkip).contains(document1.get(getObjidFieldName())))
 			{
-				logger.warn("Skipping verify for <" + document1.get("escidoc.objid") + ">");
+				logger.warn("Skipping verify for <" + document1.get(getObjidFieldName()) + ">");
 				continue;
 			}
 			
 			if (document2 == null)
 			{
 				indexer.getIndexingReport().addToErrorList("No reference document found for <"
-						+ document1.get("escidoc.objid") + ">");	
+						+ document1.get(getObjidFieldName()) + ">");	
 				continue;
 			}
 			
-			logger.info("Verify comparing index documents with <" + document1.get("escidoc.objid") + ">");
+			logger.info("Verify comparing index documents with <" + document1.get(getObjidFieldName()) + ">");
 			
 			List<Fieldable> fields1 = document1.getFields();	
 			List<Fieldable> fields2 = document2.getFields();
@@ -111,7 +114,7 @@ public class Validator
 			if (fields1.size() != fields2.size())
 			{
 				indexer.getIndexingReport().addToErrorList("Different amount of fields " 
-						+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get("escidoc.objid") + ">\n");
+						+ fields1.size() + " - " + fields2.size() + " for <" +  document1.get(getObjidFieldName()) + ">\n");
 			}
 			
 			Map<String, Set<Fieldable>> m1 = getMap(fields1);
@@ -130,6 +133,22 @@ public class Validator
 		indexReader1.close();
 		indexReader2.close();
 	}
+	
+	private String getObjidFieldName()
+	{
+		switch (indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			return "escidoc.objid";
+		case LATEST_VERSION:
+			return "/id";
+		default:
+			logger.warn("No valid indexMode");
+			
+		}
+		return null;
+	}
+	
 	
 	public Map<String, Set<Fieldable>> getFieldsOfDocument() throws CorruptIndexException, IOException
 	{
@@ -168,7 +187,7 @@ public class Validator
 			
 			if (!((sf1 != null && sf2 != null) || (sf1 == null && sf2 == null)))
 			{
-				indexer.getIndexingReport().addToErrorList("Nothing found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
+				indexer.getIndexingReport().addToErrorList("Nothing found for <" + name + ">" + " in <" +  m1.get(getObjidFieldName()) + ">\n");
 				continue;
 			}
 			
@@ -185,7 +204,7 @@ public class Validator
 				
 				if (f2 == null)
 				{
-					indexer.getIndexingReport().addToErrorList("No corresponding field found for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
+					indexer.getIndexingReport().addToErrorList("Different field values found for <" + name + ">" + " in <" +  m1.get(getObjidFieldName()) + ">\n");
 					continue;
 				}
 			
@@ -194,7 +213,7 @@ public class Validator
 				
 				if (!o1.equals(o2))
 				{
-					indexer.getIndexingReport().addToErrorList("Different index options for <" + name + ">" + " in <" +  m1.get("escidoc.objid") + ">\n");
+					indexer.getIndexingReport().addToErrorList("Different index options for <" + name + ">" + " in <" +  m1.get(getObjidFieldName()) + ">\n");
 				};
 				
 			if (!shorten(f1.stringValue()).equals(shorten(f2.stringValue())))

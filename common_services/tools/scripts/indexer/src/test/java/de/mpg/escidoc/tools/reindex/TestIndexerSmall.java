@@ -20,7 +20,8 @@ import de.mpg.escidoc.tools.util.xslt.LocationHelper;
 
 public class TestIndexerSmall
 {
-	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/escidoc_all";
+	//private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/escidoc_all";
+	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/tmp/jboss/server/default/data/index/lucene/item_container_admin";
 	
 	protected static Indexer indexer;
 	protected static FullTextExtractor extractor;
@@ -152,14 +153,19 @@ public class TestIndexerSmall
 		
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename1"));
 		
-		Set<Fieldable> fields = fieldMap.get("stored_filename1");
-		assertTrue(fields == null);
-		assertTrue(fieldMap.get("stored_filename1") == null);
-		assertTrue(fieldMap.get("stored_fulltext1") == null);
-		
-		assertTrue(fieldMap.get("stored_filename") == null);
-		assertTrue(fieldMap.get("stored_fulltext") == null);
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+		case LATEST_VERSION:
+			assertTrue(fields == null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_filename1")) == null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext1")) == null);
+			
+			assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) == null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) == null);
+		}
 	}
 	
 	// escidoc:2146780 item with 1 component (escidoc:2147085 internal-managed, visibility private)
@@ -179,9 +185,9 @@ public class TestIndexerSmall
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		Set<Fieldable> fields = fieldMap.get("stored_filename1");
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename1"));
 		assertTrue(fields == null);
-		fields = fieldMap.get("stored_fulltext");
+		fields = fieldMap.get(getFieldNameFor("stored_fulltext"));
 		assertTrue(fields == null);
 	}
 
@@ -195,14 +201,27 @@ public class TestIndexerSmall
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110484"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		assertTrue(fieldMap == null);
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+
+			assertTrue(fieldMap == null);			
+			break;
+			
+		case LATEST_VERSION:
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			
+			assertTrue(fieldMap != null);			
+			break;	
+		}
 	}
 	
 	// escidoc:2087580 item without component in status pending
@@ -213,16 +232,28 @@ public class TestIndexerSmall
 
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2087580"));
 		indexer.finalizeIndex();
-		
-		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		
+	
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		assertTrue(fieldMap == null);
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+
+			assertTrue(fieldMap == null);			
+			break;
+			
+		case LATEST_VERSION:
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			
+			assertTrue(fieldMap != null);			
+			break;	
+		}
 	}
 	
 	// escidoc:2110486 released item with locator escidoc:2110485
@@ -243,13 +274,13 @@ public class TestIndexerSmall
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
-		Set<Fieldable> fields = fieldMap.get("stored_filename1");
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename1"));
 		assertTrue(fields == null);
-		assertTrue(fieldMap.get("stored_filename1") == null);
-		assertTrue(fieldMap.get("stored_fulltext1") == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename1")) == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext1")) == null);
 		
-		assertTrue(fieldMap.get("stored_filename") == null);
-		assertTrue(fieldMap.get("stored_fulltext") == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) == null);
 		
 		validator.compareToReferenceIndex();
 		
@@ -300,13 +331,13 @@ public class TestIndexerSmall
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		assertTrue(fieldMap != null);
 		
-		Set<Fieldable> fields = fieldMap.get("stored_filename1");
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename1"));
 		assertTrue(fields == null);
-		assertTrue(fieldMap.get("stored_filename1") == null);
-		assertTrue(fieldMap.get("stored_fulltext1") == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename1")) == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext1")) == null);
 		
-		assertTrue(fieldMap.get("stored_filename") == null);
-		assertTrue(fieldMap.get("stored_fulltext") == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) == null);
 		
 		//assertTrue(fieldMap.get("escidoc.property.created-by.name").equals("Nadine Schröder"));
 
@@ -425,7 +456,16 @@ public class TestIndexerSmall
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		Set<Fieldable> fields = fieldMap.get("escidoc.publication.creator.compound.organization-path-identifiers");
+		Set<Fieldable> fields = null;
+		
+		switch(indexer.getCurrentIndexMode())
+		{
+			case LATEST_RELEASE:
+				fields = fieldMap.get("escidoc.publication.creator.compound.organization-path-identifiers");
+				break;
+			case LATEST_VERSION:
+				fields = fieldMap.get("/md-records/md-record/publication/creator/compound/organization-path-identifiers");
+		}
 		assertTrue(fields != null);
 		
 		Iterator<Fieldable> it = fields.iterator();
@@ -503,16 +543,16 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
+		
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
-		Set<Fieldable> fields = fieldMap.get("stored_filename");
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename"));
 		assertTrue(fields == null);
-		assertTrue(fieldMap.get("stored_filename") == null);
-		assertTrue(fieldMap.get("stored_fulltext") == null);
-		
-		validator = new Validator(indexer);
-		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) == null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) == null);
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -532,15 +572,18 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 		
+		validator = new Validator(indexer);
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
+		
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
-		Set<Fieldable> fields = fieldMap.get("stored_filename");
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename1"));
 		assertTrue(fields != null);
-		assertTrue(fieldMap.get("stored_filename") != null);
-		assertTrue(fieldMap.get("stored_fulltext") != null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename1")) != null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext1")) != null);
 		
-		Iterator<Fieldable> it = fieldMap.get("stored_fulltext").iterator();
+		Iterator<Fieldable> it = fieldMap.get(getFieldNameFor("stored_fulltext")).iterator();
 		boolean found = false;
 		while (it.hasNext())
 		{
@@ -553,9 +596,6 @@ public class TestIndexerSmall
 			}
 		}
 		assertTrue(found);
-		
-		validator = new Validator(indexer);
-		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
@@ -601,6 +641,21 @@ public class TestIndexerSmall
 		indexer.finalizeIndex();
 		assertTrue("Found " + indexer.getIndexWriter().maxDoc(), indexer.getIndexWriter().maxDoc() == 3);
 		
+	}
+	
+	private String getFieldNameFor(String name)
+	{
+		switch (indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			return name;
+		case LATEST_VERSION:
+			return "aa_" + name;
+		default:
+			System.out.println("No valid indexMode");
+
+		}
+		return null;
 	}
 
 }

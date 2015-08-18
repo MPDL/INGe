@@ -67,6 +67,11 @@ public class IndexDocument extends DefaultHandler
 		{
 			fieldName = attributes.getValue("IFname");
 			
+			if ("/title".equals(fieldName))
+			{
+				int i = 1;
+			}
+			
 			if ("YES".equals(attributes.getValue("termVector")))
 			{
 				termVector = Field.TermVector.YES;
@@ -133,7 +138,11 @@ public class IndexDocument extends DefaultHandler
 			throws SAXException
 	{
 		if (inField)
-		{
+		{			
+			if ("/title".equals(fieldName))
+			{
+			logger.debug("Writing to content <" + new String(ch) + "> start <" + start + "> length <" + length + ">");
+			}
 			content.write(ch, start, length);
 		}
 	}

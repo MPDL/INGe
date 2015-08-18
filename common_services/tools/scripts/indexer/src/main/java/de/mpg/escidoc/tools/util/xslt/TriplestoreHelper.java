@@ -156,7 +156,8 @@ public class TriplestoreHelper
 			logger.debug("contextId <" + contextId + ">");
 			return TriplestoreHelper.getInstance().getOrganizationFor(contextId);
 		}
-		return getObjidFromHref;
+		logger.debug("Nothing found");
+		return "";
 
 	}
 	
@@ -182,7 +183,7 @@ public class TriplestoreHelper
                 }
                 else
                 {
-                    //connection.close();
+                    logger.debug("Returning <" + result + ">");
                     return  result;
                 }
             }

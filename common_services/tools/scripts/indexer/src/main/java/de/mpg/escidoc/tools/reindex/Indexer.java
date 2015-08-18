@@ -103,6 +103,7 @@ public class Indexer
 	// mime-types where indexing of contents is to be done (should correspond the configuration in fedoragsearch.properties)
 	private String mimetypes;
 	
+	// the transformed indexing stylesheet (e.g. includes resolved, xalan -> saxon transformed..)
 	private File stylesheetTmpFile = null;
 	private Stack<Transformer> transformerStackFoxml2Escidoc = new Stack<Transformer>();
 	private Stack<Transformer> transformerStackEscidoc2Index = new Stack<Transformer>();
@@ -119,6 +120,10 @@ public class Indexer
 	private IndexingReport indexingReport = new IndexingReport();
 	
 	private ExecutorService executor = null;
+	
+	public enum IndexMode {LATEST_VERSION, LATEST_RELEASE};
+	
+	public IndexMode currentIndexMode = IndexMode.LATEST_VERSION;
 	
 
 	
@@ -189,6 +194,7 @@ public class Indexer
 		{
 			this.indexName = properties.getProperty("index.name.built");
 		}
+		this.currentIndexMode = ("escidoc_all".equals(this.indexName) ? IndexMode.LATEST_RELEASE : IndexMode.LATEST_VERSION);
 		this.indexAttributesName = properties.getProperty("index.stylesheet.attributes");
 				
 		String mDate = properties.getProperty("index.modification.date", "0");
@@ -272,7 +278,7 @@ public class Indexer
 		return this.indexingReport;
 	}
 	
-	// only fpr JUnit purposes
+	// only for JUnit purposes
 	IndexWriter getIndexWriter()
 	{
 		return this.indexWriter;
@@ -281,6 +287,11 @@ public class Indexer
 	public void setCreateIndex(boolean b)
 	{
 		this.createIndex = b;
+	}
+	
+	public IndexMode getCurrentIndexMode()
+	{
+		return this.currentIndexMode;
 	}
 
 	/**
