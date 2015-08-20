@@ -87,12 +87,25 @@ public class TestIndexerSmall
 		indexer.indexItemsStart(new File("src/test/resources/20"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 17 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 17);
-		
-		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-				indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 56);
+		switch (indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 17 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 17);
+			
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
+					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 56);
+			break;
+		case LATEST_VERSION:
+			assertTrue("Expected 20 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 20);
+			
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
+					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 53);
+			break;
+		}
 	}
 	
 	@Test
@@ -432,10 +445,19 @@ public class TestIndexerSmall
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110608"));
 		indexer.finalizeIndex();
 		
-		assertTrue("Expected 0 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		switch(indexer.currentIndexMode)
+		{
+			case LATEST_RELEASE:
+				assertTrue("Expected 0 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+				assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
+				break;
+			case LATEST_VERSION:
+				assertTrue("Expected 0 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+				assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+				break;
+		}	
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
 		
 	}
 	
@@ -550,10 +572,21 @@ public class TestIndexerSmall
 		
 		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
 		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename"));
-		assertTrue(fields == null);
-		assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) == null);
-		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) == null);
 		
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue(fields == null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) == null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) == null);
+			break;
+		
+		case LATEST_VERSION:
+			assertTrue(fields != null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) != null);
+			assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) != null);
+			break;
+		}
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
@@ -578,10 +611,10 @@ public class TestIndexerSmall
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		// one component has audience visibility, the other is of mime-type text/html (non supported for text extraction) 
-		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename1"));
+		Set<Fieldable> fields = fieldMap.get(getFieldNameFor("stored_filename"));
 		assertTrue(fields != null);
-		assertTrue(fieldMap.get(getFieldNameFor("stored_filename1")) != null);
-		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext1")) != null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_filename")) != null);
+		assertTrue(fieldMap.get(getFieldNameFor("stored_fulltext")) != null);
 		
 		Iterator<Fieldable> it = fieldMap.get(getFieldNameFor("stored_fulltext")).iterator();
 		boolean found = false;
@@ -651,8 +684,6 @@ public class TestIndexerSmall
 			return name;
 		case LATEST_VERSION:
 			return "aa_" + name;
-		default:
-			System.out.println("No valid indexMode");
 
 		}
 		return null;

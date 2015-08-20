@@ -40,7 +40,12 @@ public class Validator
 		"xml_metadata",
 		"aa_xml_representation", 
 		"aa_xml_metadata",
-		"/base"
+		"/base",
+		
+		// the following indexes causes problems because of encoding of '&' -> '&amp;'
+		// occurs only for item_container_admin index
+		"/title",
+		"/components/component/xLinkTitle"
 		};
 	
 	protected static String[] objidsToSkip = {
@@ -179,7 +184,7 @@ public class Validator
 			Set<Fieldable> sf1 = m1.get(name);
 			Set<Fieldable> sf2 = m2.get(name);
 			
-			if (("stored_fulltext".equals(name) || "stored_filename".equals(name)))					
+			if (("stored_fulltext".equals(name) || "stored_filename".equals(name)) || "/components/component/xLinkTitle".equalsIgnoreCase(name))					
 			{
 				int i = 1;
 				i++;
@@ -287,15 +292,24 @@ public class Validator
 		{
 			String name = f.name();
 			
-			// we put all values together in the same HashSet for the fields "stored_filename1",  "stored_filename1" ...
+			// we put all values together in the same HashSet for the fields "stored_filename1",  "stored_filename1" ..., same for aa_stored_filename
 			// because the ordering of the components may differ
-			if (name.contains("stored_filename"))
+			if (name.startsWith("stored_filename"))
 			{
 				name = "stored_filename";
 			}
-			if (name.contains("stored_fulltext"))
+			if (name.startsWith("stored_fulltext"))
 			{
 				name = "stored_fulltext";
+			}
+
+			if (name.startsWith("aa_stored_filename"))
+			{
+				name = "aa_stored_filename";
+			}
+			if (name.startsWith("aa_stored_fulltext"))
+			{
+				name = "aa_stored_fulltext";
 			}
 			Set<Fieldable> hset = map.get(name);
 			

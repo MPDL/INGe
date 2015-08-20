@@ -48,7 +48,7 @@
 		
 		<xsl:variable name="status" select="$latest-version-rels-ext/prop:public-status" /> 
 	
-		<xsl:if test="$status = 'withdrawn'">
+		<xsl:if test="$status = 'withdrawn' and $version = 'latest-release'">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:wrongStatus'), 'Item status is withdrawn') "/>
 		</xsl:if>
 
