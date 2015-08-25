@@ -618,7 +618,7 @@ OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 	</model>
 	
 	
-		<model>
+	<model>
 		<name>funding-programs</name>
 		<description>Funding programs and the correspondent OpenAire Identifiers</description>
 		<open>false</open>
@@ -640,6 +640,49 @@ OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: (
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}:)
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	
+	<model>
+		<name>citation-styles</name>
+		<description>Citation styles in CSL format</description>
+		<open>true</open>
+		<primary-identifier control="true" generate-cone-id="true"/>
+		<predicates>	
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true" />
+			<predicate name="Abbreviation" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="CSL" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="false" shouldBeUnique="false" type="xml"/>
+			<predicate name="Last Modification Date"
+				value="http://purl.org/dc/terms/modified" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				overwrite="true" event="onsave" modify="false" restricted="true" />
+			<predicate name="Creation Date"
+				value="http://purl.org/dc/terms/created" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				overwrite="false" event="onsave" modify="false" restricted="true" />
+			<predicate name="Modified By"
+				value="http://purl.org/dc/terms/contributor" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				overwrite="true" event="onsave" modify="false" restricted="true" />
+			<predicate name="Created By"
+				value="http://purl.org/dc/terms/creator" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				overwrite="false" event="onsave" modify="false" restricted="true" />
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}: (
+OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 				</result-pattern>
 			</result>
 		</results>

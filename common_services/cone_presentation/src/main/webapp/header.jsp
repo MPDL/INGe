@@ -344,6 +344,7 @@
 					$.getJSON(
 							instanceUrl + subject_prefix + subject + '?format=json'
 							, function(data) {
+								$('#cone_identifier').removeClass('errorMessageArea successMessageArea infoMessageArea endline');
 								if (data.id != null)
 								{
 									if (conf && confirm('This entry already exists!\nDo you want to edit the existing entry?'))
@@ -354,7 +355,7 @@
 									{
 										//xLarge_txtInput errorMessageArea endline
 										//document.getElementById('idImage').src = 'img/taken.png';
-										document.getElementById('cone_identifier').className = 'xLarge_txtInput errorMessageArea endline';
+										$('#cone_identifier').addClass('errorMessageArea endline');
 										document.getElementById('idInfo').style.visibility = 'visible';
 										document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
 										document.getElementById('idInfo').title = 'This entry already exists!';
@@ -366,7 +367,7 @@
 									//document.getElementById('idImage').src = 'img/new.png';
 									document.getElementById('idInfo').style.visibility = 'visible';
 									document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
-									document.getElementById('cone_identifier').className = 'xLarge_txtInput infoMessageArea endline';
+									$('#cone_identifier').addClass('infoMessageArea endline');
 									document.getElementById('idInfo').title = 'This content is unique';
 
 								}
@@ -377,7 +378,7 @@
 				{
 					//document.getElementById('idImage').src = 'img/empty.png';
 					document.getElementById('idInfo').style.visibility = 'hidden';
-					document.getElementById('cone_identifier').className = 'xLarge_txtInput';
+					//document.getElementById('cone_identifier').className = 'huge_txtInput';
 				}
 			}
 		}
@@ -436,7 +437,7 @@
 			}
 
 			//var image = $(element).parents('.inputField').find('.checkImage')[0];
-			var input = $(element).parents('.inputField').find('.xLarge_txtInput')[0];
+			var input = $(element).parents('.inputField').find('.huge_txtInput, .half_txtArea')[0];
 			var info = $(element).parents('.inputField').find('.inputInfoBox')[0];
 
 			if (object != '')
@@ -449,6 +450,7 @@
 						, function(data)
 						{
 
+							$(input).removeClass('errorMessageArea successMessageArea infoMessageArea endline');
 							if (data.length > 0)
 							{
 								var counter = 0;
@@ -464,12 +466,13 @@
 										// I found myself
 									}
 								}
+								
 								if (counter > 0 && shouldBeUnique)
 								{
 
 									
-
-									input.className = 'xLarge_txtInput errorMessageArea endline';
+									
+									$(input).addClass('errorMessageArea endline');
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
 								//	image.src = 'img/taken.png';
@@ -492,7 +495,7 @@
 								}
 								else if (counter > 0)
 								{
-									input.className = 'xLarge_txtInput successMessageArea endline';
+									$(input).addClass('successMessageArea endline');
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox successMessageArea';
 								//	image.src = 'img/hits.png';
@@ -511,7 +514,7 @@
 								}
 								else
 								{
-									input.className = 'xLarge_txtInput infoMessageArea endline';
+									$(input).addClass('infoMessageArea endline');
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
 									info.title = 'This content is unique';
@@ -543,7 +546,7 @@
 							}
 							else
 							{
-								input.className = 'xLarge_txtInput infoMessageArea endline';
+								$(input).addClass('infoMessageArea endline');
 								info.style.visibility = 'visible';
 								info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';			
 							//	image.src = 'img/new.png';
@@ -557,7 +560,7 @@
 			}
 			else
 			{
-				input.className ='xLarge_txtInput';
+				//input.className ='huge_txtInput';
 				info.style.visibility = 'hidden';
 			//	image.src = 'img/empty.png';
 			//	image.title = '';
@@ -610,6 +613,18 @@
 			$('*').attr('readonly', false);
 		    $(':input :file').attr('disabled', false);
 		}
+
+
+		function readFile (evt) {
+	           var files = evt.target.files;
+	           var file = files[0];           
+	           var reader = new FileReader();
+	           reader.onload = function() {
+	             $("[name='" + evt.data.txtArea + "']").val(this.result);            
+	    	             
+	           }
+	           reader.readAsText(file)
+	      }
 		
 	</script>
 	

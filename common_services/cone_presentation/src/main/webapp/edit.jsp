@@ -81,31 +81,28 @@
     
 	    for (Predicate predicate : predicates)
 	    {
-	        out.append("\n<span class=\"free_area0 endline itemLine noTopBorder\">");
-	        
+	    		//Display name of predicate and mandatory status
+	        	out.append("\n<span class=\"free_area0 endline itemLine noTopBorder\">");
 				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
-	        		if (predicate.isMandatory())
-	        		{
-	        	    	out.append("\n<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
-	        		}
-	        		out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
+        		if (predicate.isMandatory())
+        		{
+        	    	out.append("\n<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
+        		}
+	        	out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
 	        	out.append("</b>");
 	        	out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
 
+	        	
+	        	//If this predicate has the same identifier as the models primary identifier, display the primary identifier as value (or a message if no identifier is available yet for new entries)
 	        	if (model != null && predicate.getId().equals(model.getIdentifier()) && prefix.isEmpty())
 	        	{
-					if (results.get(predicate.getId()) != null)
+	        		
+	        		List<LocalizedTripleObject> resList = results.get(predicate.getId());
+	        		
+					if (results.get(predicate.getId()) != null && !resList.isEmpty())
 					{				
-						List<LocalizedTripleObject> resList = results.get(predicate.getId());
-						
-						if (resList.isEmpty())
-						{
-							out.append("Will be the same value as Cone-ID");
-						}
-						
 						for (LocalizedTripleObject object : resList) 
 						{
-							
 							out.append(object.toString());
 							
 							if (object instanceof TreeFragment)
@@ -128,8 +125,12 @@
 						out.append("Will be the same value as Cone-ID");
 					}
 	        	}
+	        	
+	        	//Otherwise (predicates that are not equal to the model's primary identifier)
 	        	else
 	        	{
+	        		
+	        		//If a value for this predicate already exists
 			        if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
 			        {
 	    		        int counter = 0;
@@ -137,49 +138,54 @@
 	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            		{
 			                out.append("\n<span class=\"xHuge_area0 endline inputField\" style=\"overflow: visible;\">");
+			                	
+			              		//Value for predicate exists and predicate is modifyable
 			                	if (predicate.isModify())
 			                	{
+			                		StringBuffer value = new StringBuffer();
 			                		
-			                		
-				                	out.append("\n<input type=\"");
-					                if (predicate.isGenerateObject())
-				    	            {
-		    		    	            out.append("hidden\" class=\"noDisplay");
-		        		    	    }
-		            		    	else
-			            		    {
-			                		    out.append("text\" class=\"xLarge_txtInput");
-			    	            	}
-			                					                
-									if (predicate.isResource())
+			                		if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
-										out.append(" " + prefix + predicate.getId().replaceAll("[/:.]", "_"));
-									}
-									out.append("\"");
-					                out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", false, " + predicate.isShouldBeUnique() + ")\"");
-									out.append(" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"");
-									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
-									{
-									    out.append(HtmlUtils.escapeHtml(predicate.getDefault(request)));
+									    value.append(HtmlUtils.escapeHtml(predicate.getDefault(request)));
 									}
 									else
 									{
 									    if (object instanceof TreeFragment)
 									    {
-									        out.append(HtmlUtils.escapeHtml(((TreeFragment) object).getSubject()));
+									    	value.append(HtmlUtils.escapeHtml(((TreeFragment) object).getSubject()));
 									    }
 									    else if (object instanceof LocalizedString)
 									    {
-									        out.append(HtmlUtils.escapeHtml(((LocalizedString) object).getValue()));
+									    	value.append(HtmlUtils.escapeHtml(((LocalizedString) object).getValue()));
 									    }
 									    else
 									    {
-									        out.append(HtmlUtils.escapeHtml(object.toString()));
+									    	value.append(HtmlUtils.escapeHtml(object.toString()));
 									    }
 									    
 									}
-									out.append("\" ");
-									out.append(" />");
+			                		
+			                		String name = prefix + predicate.getId().replaceAll("[/:.]", "_");
+			                		String onChangeSnippet = (" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", false, " + predicate.isShouldBeUnique() + ")\"");
+			                		String nameSnippet = (" name=\"" + name + "\"");
+					                String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:.]", "_")) : "";
+			                		
+					                if (predicate.isGenerateObject())
+				    	            {
+		    		    	            out.append("\n<input type=\"hidden\" class=\"noDisplay" + nameSnippet + " value=\"" + value.toString() + "\"/>");
+		        		    	    }
+		            		    	else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
+			            		    {
+		            		    		 out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
+		            		    		 out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet  + ">" + value.toString() + "</textarea>");
+		            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').bind('change', {txtArea: '" + name + "'}, readFile)});</script>");
+			    	            	}
+		            		    	else
+		            		    	{
+		            		    		 out.append("\n<input type=\"text\" class=\"huge_txtInput" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + " value=\"" + value.toString() + "\"/>");
+		            		    	}
+			                					                
+					
 
 									if (predicate.isResource())
 									{
@@ -222,6 +228,8 @@
 				        	        }
 				        	      //  out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 			                	}
+			              		
+			                	//Value for predicate exists and it is not modifyable
 			                	else
 			                	{
 			                	    if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
@@ -248,6 +256,8 @@
 									}
 			                	}
 	                
+			              		
+			              	//Predicate has child predicates	
 			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 			                {
 	        		            out.append("<br/>");
@@ -261,35 +271,41 @@
 	                		counter++;
 	            		}
 	            	}
+	        		
+	        		//A value for this predicate does not exist yet, it is modifyable
 			        else if (predicate.isModify() && !(predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE))
        				{
 	    		        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
 	        			{
-	            			out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
+	            				out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
+	            				
+	            			
+	            				String name = prefix + predicate.getId().replaceAll("[/:.]", "_");
+	            				String nameSnippet = " name=\"" + name + "\"";
+	            				String onChangeSnippet = " onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"";
+	            				String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:.]", "_")) : "";
 	            				
 	            				if (predicate.isGenerateObject())
 	                			{
-    		            		    out.append("<input type=\"hidden\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"/>");
+    		            		    out.append("<input type=\"hidden\"" + nameSnippet +  "value=\"\"/>");
         		        		}
-		        		        else 
+	            				else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
 		            		    {
-	    	            		    if (predicate.isResource())
-	    		            		{
-    	    		            		out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
-		    	    		        	out.append(" class=\"xLarge_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
-			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"/>");
-		    	        		    	out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
-		    	        		    	
-        	    	    			//    out.append("<span type='hidden' class='tiny_area0 tiny_marginRExcl infoMessageArea'>i</span>");
-	    	    	        		}
-	    	    	    	    	else
-    	    	    	    		{
-        	    	    			    out.append("<input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
-			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"/>");
-            	    				
-			        		    	  //  out.append("<span class='tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea'>i</span>");
-    	    	    	    		}
-			    	            }
+	            					 out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
+	            					 
+	            		    		 out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + ">" +  "</textarea>");
+	            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').bind('change', {txtArea: '" + name + "'}, readFile)});</script>");
+		    	            	}
+	            		    	else
+	            		    	{
+	            		    		 out.append("\n<input type=\"text\" class=\"huge_txtInput" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + " value=\"\"/>");
+	            		    	}
+			    	            
+	            				
+	            				if (predicate.isResource())
+    		            		{
+	    	        		    	out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+    	    	        		}
 
 	            				if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
 								{
@@ -340,12 +356,16 @@
 	           				out.append("</span>");
        					}
 	    		   	}
+	        		
+			        //A value for this predicate does not exist yet and is automatically generated on load of this page
 		            else if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD)
 					{
                	        String defaultValue = predicate.getDefault(request);
 					    out.append(predicate.getDefault(request));
 					    request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
 					}
+	        		
+			        //A value for this predicate does not exist yet and is automatically generated on save of this page
 			        else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
 			        {
 			        	//remove old session attributes which are not modifiable

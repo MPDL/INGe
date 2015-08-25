@@ -57,6 +57,12 @@ public class ModelList
         ONLOAD, ONSAVE
     }
     
+    
+    public enum Type
+    {
+        STRING, XML
+    }
+    
     private static ModelList instance = null;
     private static final Logger logger = Logger.getLogger(ModelList.class);
     private Set<Model> list = new HashSet<Model>();
@@ -278,7 +284,8 @@ public class ModelList
                         attributes.getValue("event"),
                         attributes.getValue("resourceModel"),
                         attributes.getValue("default"),
-                        attributes.getValue("suggest-url"));
+                        attributes.getValue("suggest-url"),
+                        attributes.getValue("type"));
                 this.predicateStack.peek().add(predicate);
                 this.predicateStack.push(predicate.getPredicates());
             }
@@ -778,6 +785,7 @@ public class ModelList
         private Event event;
         private String defaultValue;
         private String suggestUrl;
+        private Type type;
 
         /**
          * Constructor using all fields.
@@ -789,10 +797,19 @@ public class ModelList
          * @param name The label of this predicate.
          * @param generateObject Flag indicating that this predicate has sub-predicates that are not defined
          * by a certain identifier.
+         * @param includeResource If this predicate is a resource (link to another model), this flag indicates if the linked item should be included in the details view. Default: true
          * @param searchable Flag that indicates that this predicate shall be found when querying this model.
+         * @param restricted Flag that indicates whether the value of this predicate should be displayed only for logged-in users
+         * @param overwrite Flag indicating if the value of this predicate should be overwritten when modifying. Makes only  sense for event-driven predicates, e.g. modification date
+         * @param shouldBeUnique Flag indicating whether the value of this predicate must be unique within this model
+         * @param modify Flag indicating whether the value of this predicate can be modified in the edit mask. Default: true
+         * @param eventString Indicates the type of event on which the value of this predicate must be changed. See {@link Event}
          * @param resourceModel Flag indicating if the object is an identifier to a stand-alone resourceModel. If so,
          * this resourceModel won't be editable, but linked. Furthermore, it will not be deleted in case the
          * current subject is deleted.
+         * @param defaultValue The default value of this predicate when nothing is set in the edit mask
+         * @param suggestUrl A link to an url that provides autosuggest values for the field in the edit mask
+         * @param typeString A type indictator for the value of this predicate. See {@link Type}
          */
         public Predicate(
                 String id,
@@ -810,7 +827,8 @@ public class ModelList
                 String eventString,
                 String resourceModel,
                 String defaultValue,
-                String suggestUrl)
+                String suggestUrl,
+                String typeString)
         {
             this.id = id;
             
@@ -832,6 +850,11 @@ public class ModelList
             this.resourceModel = resourceModel;
             this.defaultValue = defaultValue;
             this.suggestUrl = suggestUrl;
+            
+            if (typeString != null && !"".equals(typeString))
+            {
+                this.setType(Type.valueOf(typeString.toUpperCase()));
+            }
         }
         
         public boolean isResource()
@@ -1049,6 +1072,14 @@ public class ModelList
 
 		public void setSuggestUrl(String suggestUrl) {
 			this.suggestUrl = suggestUrl;
+		}
+
+		public Type getType() {
+			return type;
+		}
+
+		public void setType(Type type) {
+			this.type = type;
 		}
         
 
