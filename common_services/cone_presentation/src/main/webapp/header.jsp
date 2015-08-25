@@ -338,13 +338,14 @@
 			
 			if (typeof predicate == 'undefined')
 			{
+				$('#cone_identifier').removeClass('errorMessageArea successMessageArea infoMessageArea endline');
 				if (subject != '')
 				{
 					var subject_prefix = document.editform["cone_subject_prefix"].value;
 					$.getJSON(
 							instanceUrl + subject_prefix + subject + '?format=json'
 							, function(data) {
-								$('#cone_identifier').removeClass('errorMessageArea successMessageArea infoMessageArea endline');
+								
 								if (data.id != null)
 								{
 									if (conf && confirm('This entry already exists!\nDo you want to edit the existing entry?'))
@@ -439,7 +440,8 @@
 			//var image = $(element).parents('.inputField').find('.checkImage')[0];
 			var input = $(element).parents('.inputField').find('.huge_txtInput, .half_txtArea')[0];
 			var info = $(element).parents('.inputField').find('.inputInfoBox')[0];
-
+			$(input).removeClass('errorMessageArea successMessageArea infoMessageArea endline');
+			
 			if (object != '')
 			{
 
@@ -450,7 +452,7 @@
 						, function(data)
 						{
 
-							$(input).removeClass('errorMessageArea successMessageArea infoMessageArea endline');
+							
 							if (data.length > 0)
 							{
 								var counter = 0;
@@ -615,16 +617,28 @@
 		}
 
 
-		function readFile (evt) {
+		function readCslFile (evt) {
 	           var files = evt.target.files;
 	           var file = files[0];           
 	           var reader = new FileReader();
 	           reader.onload = function() {
-	             $("[name='" + evt.data.txtArea + "']").val(this.result);            
-	    	             
+
+			         var xmlDoc = $.parseXML(this.result);
+
+			         var title = $(xmlDoc).xpath('/csl:style/csl:info/csl:title', xPathNamespace);
+			         var abbr = $(xmlDoc).xpath('/csl:style/csl:info/csl:title-short', xPathNamespace);
+
+		             $("[name='" + evt.data.txtArea + "']").val(this.result);   
+		             $("[name='http___purl_org_dc_elements_1_1_title']").val(title.text()).change();
+		             $("[name='http___purl_org_escidoc_metadata_terms_0_1_abbreviation']").val(abbr.text()).change();
 	           }
 	           reader.readAsText(file)
 	      }
+
+		function xPathNamespace(prefix) {
+       	 if (prefix == "csl")
+       	        return "http://purl.org/net/xbiblio/csl";
+	    }
 		
 	</script>
 	
@@ -672,5 +686,6 @@ function getMouseXY(e) {
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
+	<script type="text/javascript" src="/cone/js/jquery.xpath.min.js">;</script>
 	<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>
 </head>
