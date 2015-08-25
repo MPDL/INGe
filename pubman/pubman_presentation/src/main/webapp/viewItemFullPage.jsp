@@ -52,12 +52,13 @@
 				
 				<h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
 				<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js"/>
+				<script src="/cone/js/jquery.suggest.js"/>
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
 				
 				<style type="text/css">
 					.dialogNoTitleBar .ui-dialog-titlebar {display:none;}
 					.ui-dialog {background:#eee}
 				</style>
-				
 				
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
@@ -231,6 +232,11 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="free_area0 endline">
+										<h:inputText id="inputCidationStyleName" styleClass="double_txtInput citationStyleSuggest citationStyleName" value="Mein CSL" />
+										<h:inputText id="inputCidationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="" />
+									</h:panelGroup>
+									
 									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{ViewItemFull.exportDownload}"/>
 									<h:outputText styleClass="seperator" />
 									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{ViewItemFull.exportEmail}"/>
@@ -441,6 +447,10 @@
 				</h:form>
 			</div>
 			<ui:include src="footer/Footer.jspf" />
+			
+			<script type="text/javascript">
+				citationStyleSuggesttURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>funding-programs/query';
+			</script>
 			
 			</body>
 		</html>
