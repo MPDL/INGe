@@ -32,7 +32,7 @@
 	 
 
 	
-	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<f:loadBundle var="lbl" basename="Label"/>
 	<f:loadBundle var="msg" basename="Messages"/>
 	<f:loadBundle var="tip" basename="Tooltip"/>
@@ -233,7 +233,7 @@
 										</h:selectOneMenu>
 									</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="free_area0 endline">
-										<h:inputText id="inputCidationStyleName" styleClass="double_txtInput citationStyleSuggest citationStyleName" value="Mein CSL" />
+										<h:inputText id="inputCidationStyleName" styleClass="double_txtInput citationStyleSuggest citationStyleName" value="" pt:placeholder="Mein Apa ist der Beste"/>
 										<h:inputText id="inputCidationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="" />
 									</h:panelGroup>
 									
