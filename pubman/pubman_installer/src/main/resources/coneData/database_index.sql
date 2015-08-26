@@ -23,7 +23,9 @@ CREATE INDEX ix_model ON triples USING btree (model);
 -- Name: ix_object; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
-CREATE INDEX ix_object ON triples USING btree (object);
+--Only index the first 600 characters of an object, because Postgresql cannot handle more for BTree index.
+--Beware if using WHERE clauses with more than 600 characters, they will lead to wrong results
+CREATE INDEX ix_object ON triples USING btree (left(object, 600));
 
 
 --
@@ -59,7 +61,9 @@ CREATE UNIQUE INDEX pk ON results USING btree (id, value, lang);
 -- Name: pk_all; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
-CREATE UNIQUE INDEX pk_all ON triples USING btree (model, subject, predicate, object, lang);
+--Only index the first 600 characters of an object, because Postgresql cannot handle more for BTree index.
+--Beware if using WHERE clauses with more than 600 characters, they will lead to wrong results
+CREATE UNIQUE INDEX pk_all ON triples USING btree (model, subject, predicate, left(object, 600), lang);
 
 
 --
