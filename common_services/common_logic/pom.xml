@@ -155,6 +155,8 @@
 						</goals>
 				    </execution>
 				  </executions>
+				 <!-- Comment in for Java 1.8 -->
+				 <!-- 
 				  <dependencies>
 	               <dependency>
 	                  <groupId>org.jibx</groupId>
@@ -173,6 +175,7 @@
 	                  <version>6.0-SNAPSHOT</version>
 	               </dependency>
             </dependencies>
+            -->
 			</plugin>
 			
 
