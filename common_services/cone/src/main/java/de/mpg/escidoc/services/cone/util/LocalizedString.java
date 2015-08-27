@@ -210,7 +210,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject
      */
     public String toJson()
     {
-        return "\"" + getValue().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"";
+        return "\"" + getValue().replace("\"", "\\\"").replace("\r","\\r").replace("\n", "\\n").replace("\t", "\\t") + "\"";
     }
     
 }
