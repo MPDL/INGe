@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -182,7 +183,7 @@ public class ReportFHI {
     	String[] dd = getStartEndDateOfQuery(); 
     	return 	"(\"/properties/creation-date\">=\"" + dd[0] 
     	        + "\"" +
-    	        "%20and%20\"/properties/creation-date\"<=\"" + dd[1] 
+    	        " and \"/properties/creation-date\"<=\"" + dd[1] 
     	        + "U\")";
     }
     
@@ -196,13 +197,15 @@ public class ReportFHI {
         GetMethod method;
 		try {
 			method = new GetMethod(ServiceLocator.getFrameworkUrl() + "/ir/items");
-	        method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
-	        String query = "operation=searchRetrieve&maximumRecords=1000&query=" + rprops.getProperty("FHI.query") +
-                    "%20and%20" +
-                    getTimeRangeQuery() +
-                    rprops.getProperty("FHI.sort.by");
-	        logger.info("query " + query);
+		    method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
+	        String query = "operation=searchRetrieve&maximumRecords=1000&query=" + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8") +
+                   "%20and%20" +
+                   URLEncoder.encode(getTimeRangeQuery(), "UTF-8") +
+                   URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");
+	        logger.info("query <" + query + ">");
+	       
 	        method.setQueryString(query);
+	        logger.info("URI:" + method.getURI() );
 	        HttpClient client = new HttpClient();
 			ProxyHelper.executeMethod(client, method);
 			logger.info("URI:" + method.getURI()  + "\nStatus code:" + method.getStatusCode());
@@ -220,6 +223,7 @@ public class ReportFHI {
 	        }
 		} catch (Exception e) 
 		{
+			logger.warn("Exception occured ", e);
 			throw new RuntimeException("Cannot get item-list from framework:", e);
 		} 
         
