@@ -222,8 +222,9 @@
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
 		<!--  no installer for pure release 
-		<module>pubman_installer</module>
 		-->
+		<module>pubman_installer</module>
+		
 	</modules>
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman</connection>
