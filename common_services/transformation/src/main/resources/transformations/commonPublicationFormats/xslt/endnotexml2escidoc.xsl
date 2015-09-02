@@ -187,7 +187,7 @@
 				</mdr:md-record>
 			</mdr:md-records>
 			<xsl:element name="escidocComponents:components">
-				<xsl:if test="MORE and ($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt')">
+				<xsl:if test="MORE and ($Flavor = 'MPIMP' or $Flavor = 'MPIMPExt' or $Flavor = 'CAESAR')">
 					<xsl:variable name="oa" select="EQUAL = '1'"/>
 					<xsl:for-each select="MORE">
 						<xsl:call-template name="component">
@@ -1462,7 +1462,7 @@
 					<escidocComponents:properties xmlns:xlink="http://www.w3.org/1999/xlink">
 						<prop:visibility>
 							<xsl:choose>
-								<xsl:when test="$oa">
+								<xsl:when test="not($Flavor = 'CAESAR') and $oa">
 									public
 								</xsl:when>
 								<xsl:when test="not($oa) and $Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
@@ -1487,7 +1487,7 @@
 					<escidocComponents:content xlink:type="simple" xlink:title="{$filename}" xlink:href="{$fulltext-location}{$path}{$filename}" storage="internal-managed"/>
 					<mdr:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5">
 						<mdr:md-record name="escidoc">
-							<file:file xmlns:file="$http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							<file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 								<dc:title>
 									<xsl:value-of select="fn:replace($filename, '%20', ' ')"/>
 								</dc:title>
