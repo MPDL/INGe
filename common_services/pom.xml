@@ -240,7 +240,6 @@
 		<module>fledgeddata</module>
 		<module>fledgeddata_presentation</module>
 		<module>transformationLight</module>
-    <module>citation_style_language_manager</module>
   </modules>
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
