@@ -33,7 +33,7 @@
 	 
 
 	
-	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
@@ -45,6 +45,11 @@
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="${CartItemsRetrieverRequestBean.unapiURLview}"/>
 
 				<ui:include src="header/ui/StandardImports.jspf" />
+				
+				<h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
+				<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+				<script src="/cone/js/jquery.suggest.js" />
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
@@ -115,6 +120,13 @@
 										<h:selectOneMenu id="selFileFormat" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
+									</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
+										<h:inputText id="inputCidationStyleName"
+											styleClass="double_txtInput citationStyleSuggest citationStyleName"
+											value="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Mein Apa ist der Beste" />
+										<h:inputText id="inputCidationStyleIdentifier"
+											styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
 									</h:panelGroup>
 									
 									<h:commandLink id="btnExportDownload" title="#{tip.export_btDownload}" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}"/>
@@ -194,6 +206,8 @@
 			<ui:include src="footer/Footer.jspf" />
 			
 			<script type="text/javascript">
+				citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
+				citationStyleSuggestBaseURL = '$1?format=json';
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());
 				});

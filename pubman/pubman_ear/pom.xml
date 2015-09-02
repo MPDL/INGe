@@ -247,6 +247,13 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+			<version>${version.citation_style_language_manager}</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<version>${version.dataacquisition}</version>
 			<scope>compile</scope>

@@ -61,6 +61,7 @@ public class ExportItemsSessionBean extends FacesBean
     
     private boolean enableFileFormats = true;
     private boolean enableExport = true;
+    private boolean enableCslAutosuggest = false;
 
     //email properties
     private File attExportFile = null;
@@ -76,6 +77,7 @@ public class ExportItemsSessionBean extends FacesBean
     private String emailWithAuthProp = "";
     private String emailAuthUserProp = "";
     private String emailAuthPwdProp = "";
+    private String citationStyleName = "";
    
     public String exportDisplayData = "No export data available";
                 
@@ -185,12 +187,21 @@ public class ExportItemsSessionBean extends FacesBean
             curExportFormatVO.setFormatType(FormatType.LAYOUT);
             this.exportFormatType = FormatType.LAYOUT.toString();
             setEnableFileFormats(true);
+            setEnableCslAutosuggest(false);
+        }
+        else if ( "CSL".equalsIgnoreCase(exportFormatName) )
+        {
+        	curExportFormatVO.setFormatType(FormatType.LAYOUT_CSL);
+            this.exportFormatType = FormatType.LAYOUT_CSL.toString();
+            setEnableFileFormats(true);
+            setEnableCslAutosuggest(true);
         }
         else
         {
             curExportFormatVO.setFormatType(FormatType.STRUCTURED);
             this.exportFormatType = FormatType.STRUCTURED.toString();
             setEnableFileFormats(false);
+            setEnableCslAutosuggest(false);
         }
     }
     
@@ -247,6 +258,27 @@ public class ExportItemsSessionBean extends FacesBean
         return this.attExportFile;
     
     }
+    
+    public void setCitationStyleName(String citationStyleName) 
+    {
+    	this.citationStyleName = citationStyleName;
+    }
+    
+    public String getCitationStyleName() 
+    {
+    	return this.citationStyleName;
+    }
+    
+    public void setCitationStyleXml(String citationStyleXml) 
+    {
+    	this.curExportFormatVO.setCslXml(citationStyleXml);
+    }
+    
+    public String getCitationStyleXml() 
+    {
+    	return this.curExportFormatVO.getCslXml();
+    }
+    
     public void setAttExportFileName(String fileName){
         
         this.attExportFileName = fileName;
@@ -338,6 +370,22 @@ public class ExportItemsSessionBean extends FacesBean
         return this.emailAuthPwdProp;
     }
     
+    /**
+     * getter for the visibility of the citation style auto suggest text field
+     * @return visibility of the citation style auto suggest text field depending on the exportFormatName
+     */
+    public boolean getEnableCslAutosuggest() {
+    	return enableCslAutosuggest;
+    }
+    
+    /**
+     * setter for the visibility of the citation style auto suggest text field
+     * @param enableCslAutosuggest
+     */
+    public void setEnableCslAutosuggest(boolean enableCslAutosuggest) {
+    	this.enableCslAutosuggest = enableCslAutosuggest;
+    }
+    
     public void setExportDisplayData(String data){        
        //logger.debug("setExportDisplayData "+ data);    
        exportDisplayData = data;
@@ -357,8 +405,7 @@ public class ExportItemsSessionBean extends FacesBean
     public void setEnableFileFormats(boolean enableFileFormats) {
         this.enableFileFormats = enableFileFormats;
     }
-
-
+    
     public boolean getEnableExport() {
         return enableExport;
     }

@@ -644,26 +644,20 @@
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
 		
-		$.getJSON(citationStyleSuggesttURL.replace('$1', this.resultID).replace('$1', this.resultID), getCitationStyleDetails);
+		$.getJSON(citationStyleSuggestBaseURL.replace('$1', this.resultID), getCitationStyleDetails);
 		
 	}
 	
-	function getFundingProgramDetails(details)
+	function getCitationStyleDetails(details)
 	{
 		
 		var parent = $input.parents('.'+commonParentClass);
-		var programTitle = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
-		var programIdentifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_purl_org_dc_elements_1_1_identifier : null);
+		var citationTitle = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
+		var citationValue = (typeof details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value != 'undefined' ? details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value : null);
+	
 		
-		var organizationTitle = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_title != 'undefined' ? 
-				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_title : null);
-		
-		var organizationIdentifier = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? 
-				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier : null);
-
-		
-		fillField('citationStyleName', programTitle, parent);
-		fillField('citationStyleIdentifier', programIdentifier, parent);
+		fillField('citationStyleName', citationTitle, parent);
+		fillField('citationStyleIdentifier', citationValue, parent);
 	}
 	
 	
@@ -769,9 +763,9 @@
 			$('.fundingOrganizationSuggest').suggest(fundingOrganizationSuggestURL, { onSelect: fillFundingOrganizationFields });
 		}
 		
-		if(typeof citationStyleSuggesttURL != 'undefined')
+		if(typeof citationStyleSuggestURL != 'undefined')
 		{
-			$('.citationStyleSuggest').suggest(citationStyleSuggesttURL, { onSelect: fillCitationStyleFields });
+			$('.citationStyleSuggest').suggest(citationStyleSuggestURL, { onSelect: fillCitationStyleFields });
 		}
 	};
 	

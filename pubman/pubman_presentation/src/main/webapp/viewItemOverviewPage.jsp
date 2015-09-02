@@ -31,7 +31,7 @@
 	
 
 	
-	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 		<f:loadBundle var="lbl" basename="Label" />
 		<f:loadBundle var="msg" basename="Messages" />
 		<f:loadBundle var="tip" basename="Tooltip" />
@@ -54,6 +54,8 @@
 				
 				<h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css"/>
 				<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js"/>
+				<script src="/cone/js/jquery.suggest.js" />
+				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 				
 				<style type="text/css">
 					.dialogNoTitleBar .ui-dialog-titlebar {display:none;}
@@ -310,6 +312,13 @@
 													onchange="updateSelectionBox(this);">
 													<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 												</h:selectOneMenu>
+											</h:panelGroup>
+											<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
+												<h:inputText id="inputCidationStyleName"
+													styleClass="double_txtInput citationStyleSuggest citationStyleName"
+													value="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Mein Apa ist der Beste" />
+												<h:inputText id="inputCidationStyleIdentifier"
+													styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
 											</h:panelGroup>
 											<h:commandLink id="btnExportDownload" styleClass="free_area0"
 												value="#{lbl.export_btDownload}"
@@ -594,6 +603,8 @@
 				
 			
 			<script language="javascript" type="text/javascript">
+				citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
+				citationStyleSuggestBaseURL = '$1?format=json';
 				$(document).ready(function () {
 					startNanoScrollerWhenLoaded();
 					// enable overflow of links on mouseover

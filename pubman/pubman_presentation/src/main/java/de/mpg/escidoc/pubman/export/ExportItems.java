@@ -128,9 +128,6 @@ public class ExportItems extends FacesBean
     }    
     
     
-    
-
-    
     public SelectItem[] getEXPORTFORMAT_OPTIONS()
     {
         // constants for comboBoxes and HtmlSelectOneRadios
@@ -143,12 +140,14 @@ public class ExportItems extends FacesBean
         SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
         // JUS
         SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", getLabel("Export_ExportFormat_JUS"));
+        // CitationStyleEditor
+        SelectItem EXPORTFORMAT_CSL = new SelectItem("CSL", "CSL");
         // Test citation styles
 //        SelectItem EXPORTFORMAT_DEFAULT = new SelectItem("Default", getLabel("Export_ExportFormat_DEFAULT"));
 //        SelectItem EXPORTFORMAT_TEST = new SelectItem("Test", getLabel("Export_ExportFormat_TEST"));
         
 //        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
-        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
+        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
         return EXPORTFORMAT_OPTIONS;
     }
     
@@ -215,13 +214,13 @@ public class ExportItems extends FacesBean
 
         sb.setExportFormatName(selExportFormat);
         
-        if ( 
-                    "APA"        .equalsIgnoreCase(selExportFormat) 
-                ||    "AJP"        .equalsIgnoreCase(selExportFormat) 
-                ||    "JUS"        .equalsIgnoreCase(selExportFormat) 
-                ||    "DEFAULT"    .equalsIgnoreCase(selExportFormat) 
-                ||    "TEST"        .equalsIgnoreCase(selExportFormat)
-                ||    "APA(CJK)"        .equalsIgnoreCase(selExportFormat) 
+        if ( "APA".equalsIgnoreCase(selExportFormat) 
+                || "AJP".equalsIgnoreCase(selExportFormat) 
+                || "JUS".equalsIgnoreCase(selExportFormat) 
+                || "DEFAULT".equalsIgnoreCase(selExportFormat) 
+                || "TEST".equalsIgnoreCase(selExportFormat)
+                || "APA(CJK)".equalsIgnoreCase(selExportFormat) 
+                || "CSL".equalsIgnoreCase(selExportFormat)
         )
         {
             //set default fileFormat for APA or AJP to pdf 
