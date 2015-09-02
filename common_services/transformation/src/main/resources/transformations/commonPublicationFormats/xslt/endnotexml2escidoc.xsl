@@ -94,6 +94,9 @@
 		<xsl:if test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
 			<xsl:value-of select="'https://vm50.mpdl.mpg.de/upload/MPIMP/Pubman/'"/>
 		</xsl:if>
+		<xsl:if test="$Flavor = 'CAESAR'">
+			<xsl:value-of select="'http://ftp.mpdl.mpg.de/caesar/PDF/'"/>
+		</xsl:if>
 	</xsl:variable>
 
 	<xsl:variable name="genreMap">
@@ -1420,7 +1423,7 @@
 				<!-- PATH(-SUFFIX) BEFORE NAME -->
 				<xsl:variable name="path">
 					<xsl:choose>
-						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
+						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt' or $Flavor = 'CAESAR'">
 							<xsl:value-of select="fn:replace(concat(substring-before(., '/'), '/'), ' ', '%20')"/>
 						</xsl:when>
 						<xsl:otherwise>
@@ -1432,7 +1435,7 @@
 					<xsl:choose>
 						<xsl:when test="contains(., '.')">
 							<xsl:choose>
-								<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'"> 
+								<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt' or $Flavor = 'CAESAR'"> 
 									<xsl:value-of select="fn:replace(substring-after(., '/'), ' ', '%20')"/>
 								</xsl:when>
 								<xsl:otherwise>
@@ -1464,6 +1467,9 @@
 								</xsl:when>
 								<xsl:when test="not($oa) and $Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'">
 									audience
+								</xsl:when>
+								<xsl:when test="$Flavor = 'CAESAR'">
+									private
 								</xsl:when>
 								<xsl:otherwise>private</xsl:otherwise>
 							</xsl:choose>
