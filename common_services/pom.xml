@@ -19,8 +19,7 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>common_services</artifactId>
@@ -210,6 +209,7 @@
 		<module>framework_access</module>
 		<module>common_logic</module>
 		<module>common_presentation</module>
+		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
 		<module>citationmanager_ear</module>
 		<module>validation</module>
@@ -240,7 +240,8 @@
 		<module>fledgeddata</module>
 		<module>fledgeddata_presentation</module>
 		<module>transformationLight</module>
-	</modules>
+    <module>citation_style_language_manager</module>
+  </modules>
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
 		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
@@ -603,7 +604,7 @@
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
 		<!-- Seal-Number of this PubMan instance -->
-		<escidoc.pubman.instance.seal_number />
+		<escidoc.pubman.instance.seal_number/>
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
@@ -732,12 +733,12 @@
 		<!-- searchAndExport service -->
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
-		<escidoc.search.and.export.default.sort.keys />
+		<escidoc.search.and.export.default.sort.keys/>
 		<escidoc.search.and.export.default.sort.order>ascending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-		<escidoc.statistics.max_mind_geo_lite_city_db.location />
+		<escidoc.statistics.max_mind_geo_lite_city_db.location/>
 		<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
 		<xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
@@ -746,7 +747,7 @@
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
 		<!-- Dataaquisition - Apache FOP configuration file -->
-		<escidoc.dataaquisition.resources.fop.configuration />
+		<escidoc.dataaquisition.resources.fop.configuration/>
 		<!-- Transformation implementing classes-->
 		<escidoc.transformation.bibtex.class>de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<!-- Transformation stylesheets -->
@@ -762,14 +763,14 @@
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename />
-		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename />
-		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename />
-		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename />
-		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename />
-		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename />
-		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename />
-		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename />
+		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename/>
+		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename/>
+		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename/>
+		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename/>
+		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename/>
+		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename/>
+		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename/>
+		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename/>
 		
 		<!-- By Editura-->
 		<escidoc.transformation.bmc2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl</escidoc.transformation.bmc2escidoc.stylesheet.filename>
@@ -938,7 +939,7 @@
 			</activation>
 			<properties>
 				<!-- linux doesn't need the extra slash like windows does -->
-				<jboss.pathcorrection />
+				<jboss.pathcorrection/>
 			</properties>
 		</profile>
 		<profile>
@@ -971,7 +972,7 @@
 													</goals>
 												</pluginExecutionFilter>
 												<action>
-													<execute />
+													<execute/>
 												</action>
 											</pluginExecution>
 											<pluginExecution>
@@ -984,7 +985,7 @@
 													</goals>
 												</pluginExecutionFilter>
 												<action>
-													<ignore />
+													<ignore/>
 												</action>
 											</pluginExecution>
 											<pluginExecution>
@@ -997,7 +998,7 @@
 													</goals>
 												</pluginExecutionFilter>
 												<action>
-													<ignore />
+													<ignore/>
 												</action>
 											</pluginExecution>
 											<pluginExecution>
@@ -1010,7 +1011,7 @@
 													</goals>
 												</pluginExecutionFilter>
 												<action>
-													<execute />
+													<execute/>
 												</action>
 											</pluginExecution>
 											<pluginExecution>
@@ -1023,7 +1024,7 @@
 													</goals>
 												</pluginExecutionFilter>
 												<action>
-													<execute />
+													<execute/>
 												</action>
 											</pluginExecution>
 											<pluginExecution>
@@ -1036,7 +1037,7 @@
 													</goals>
 												</pluginExecutionFilter>
 												<action>
-													<execute />
+													<execute/>
 												</action>
 											</pluginExecution>
 										</pluginExecutions>

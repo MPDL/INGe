@@ -400,6 +400,7 @@ body .wrapper {
 }
 .contentMenu input {
 	color: #004465;
+	line-height: 1.36364em;
 }
 .contentMenu .sub span {
 /*	text-decoration:underline; */

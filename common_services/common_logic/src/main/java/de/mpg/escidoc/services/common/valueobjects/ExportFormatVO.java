@@ -57,9 +57,12 @@ public class ExportFormatVO extends ValueObject
     private String name;
     private java.util.List<String> creators;
     private String description;
+    private String cslXml;
     
    
-    /**
+    
+
+	/**
      * The id used for the transforming.
      */
     private java.lang.String id;
@@ -76,7 +79,7 @@ public class ExportFormatVO extends ValueObject
      */
     public enum FormatType
     {
-        LAYOUT, STRUCTURED, BIBTEX
+        LAYOUT_CSL, LAYOUT, STRUCTURED, BIBTEX
     }
 
     /**
@@ -192,6 +195,22 @@ public class ExportFormatVO extends ValueObject
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    /**
+     * returns the chosen csl in xml format
+     * @return csl (in xml format)
+     */
+    public String getCslXml() {
+		return cslXml;
+	}
+
+	/**
+	 * set the chosen csl in xml format
+	 * @param cslXml
+	 */
+	public void setCslXml(String cslXml) {
+		this.cslXml = cslXml;
+	}
     
     /**
      * Returns the String representation of this object.
