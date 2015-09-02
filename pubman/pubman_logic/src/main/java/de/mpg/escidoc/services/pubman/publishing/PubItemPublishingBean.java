@@ -225,7 +225,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                     PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
                         + PropertyReader
                             .getProperty("escidoc.pubman.component.pattern")
-                            .replaceAll("\\$1", pubItemRef.getObjectId())
+                            .replaceAll("\\$1", pubItemRef.getObjectIdAndVersion())
                             .replaceAll("\\$2", file.getReference().getObjectId())
                             .replaceAll("\\$3", CommonUtils.urlEncode(file.getName()));
 
@@ -243,7 +243,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                         result = itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
                                 file.getReference().getObjectId(), paramXml);
         
-                        LOGGER.debug("PID assigned: " + result);
+                        LOGGER.info("Component PID assigned: " + result);
                     }
                     catch (Exception e) {
                         
