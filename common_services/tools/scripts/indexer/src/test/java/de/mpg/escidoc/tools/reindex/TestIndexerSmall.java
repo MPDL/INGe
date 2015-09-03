@@ -138,17 +138,37 @@ public class TestIndexerSmall
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110541"));
 		indexer.finalizeIndex();
 		
-		validator = new Validator(indexer);
-		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
-	
-		validator.compareToReferenceIndex();
-		
 		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+		
+		validator = new Validator(indexer);
+		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
+	
+		validator.compareToReferenceIndex();
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		Set<Fieldable> fields = null;
+		switch(indexer.currentIndexMode)
+		{
+			case LATEST_RELEASE:
+				fields = fieldMap.get("xml_representation");				
+				break;
+			case LATEST_VERSION:
+				fields = fieldMap.get("aa_xml_representation");
+				break;
+		}	
+		
+		assertTrue(fields != null);
+		assertTrue(fields.size() == 1);
+		
+		Fieldable xml_representation = fields.iterator().next();
+		
+		// check if checksum element exists
+		assertTrue(xml_representation.stringValue().contains("checksum"));
 	}
 	
 	// escidoc:2095302 item with 1 locator escidoc:2095301
@@ -212,6 +232,37 @@ public class TestIndexerSmall
 	{
 
 		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2110484"));
+		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+
+			assertTrue(fieldMap == null);			
+			break;
+			
+		case LATEST_VERSION:
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			
+			assertTrue(fieldMap != null);			
+			break;	
+		}
+	}
+	
+	// escidoc:699472 import task item with 1 component (escidoc:699471)
+	// has no reference
+	@Test
+	public void testImportTaskItem_699472() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_699472"));
 		indexer.finalizeIndex();
 		
 		validator = new Validator(indexer);

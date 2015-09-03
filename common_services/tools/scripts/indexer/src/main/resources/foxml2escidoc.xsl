@@ -132,6 +132,8 @@
 				
 					--> 
 					<xsl:variable name="component-content" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'content']/foxml:datastreamVersion[last()]"/>
+					
+					
 					<escidocComponents:component xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}">
 						<escidocComponents:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/properties">
 							<prop:creation-date>
@@ -177,7 +179,12 @@
 							</xsl:if>
 						</escidocComponents:properties>
 						<escidocComponents:content xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/content">
+						
+							<xsl:message>content type <xsl:value-of select="$component-content/foxml:contentLocation/@TYPE"/></xsl:message>
+							<xsl:message>component-content-ID <xsl:value-of select="$component-content/@ID"/></xsl:message>
+							<xsl:message>component-content-MIMETYPE <xsl:value-of select="$component-content/@MIMETYPE"/></xsl:message>
 							<xsl:choose>
+							
 								<xsl:when test="$component-content/foxml:contentLocation/@TYPE = 'INTERNAL_ID'">
 									<xsl:attribute name="storage" select="'internal-managed'"/>
 								</xsl:when>

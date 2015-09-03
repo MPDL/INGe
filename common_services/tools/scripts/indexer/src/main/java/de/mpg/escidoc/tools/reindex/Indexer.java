@@ -703,7 +703,7 @@ public class Indexer
 		baseDir = new File(args[1]);
 		if (baseDir == null || !baseDir.exists())
 		{
-			printUsage("Invalid base directory parameter");
+			printUsage("Invalid base directory parameter <" + args[1] +">");
 			System.exit(1);
 		}
 		
@@ -712,7 +712,7 @@ public class Indexer
 			referenceIndexDir = new File(args[2]);
 			if (referenceIndexDir == null || !referenceIndexDir.exists())
 			{
-				printUsage("Invalid reference index directory parameter");
+				printUsage("Invalid reference index directory parameter <" + args[2] +">");
 				System.exit(1);
 			}
 		}
@@ -744,7 +744,6 @@ public class Indexer
 			Validator validator = new Validator(indexer);
 			validator.setReferencePath(referenceIndexDir.getCanonicalPath());
 			
-			validator.compareToReferenceIndex();
 		}
 
 		logger.info(indexer.getIndexingReport().toString());
