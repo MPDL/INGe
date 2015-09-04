@@ -4276,7 +4276,7 @@
 								</xsl:choose>
 							</dc:identifier>
 							
-							<!-- CBS OU depend on date (affiliatedInstitution depend on publication-date) -->
+							<!-- OU depend on date (affiliatedInstitution depend on publication-date) -->
 							<xsl:variable name="publication-date">
 								<xsl:choose>
 									<xsl:when test="exists(ancestor::record/metadata/basic/datepublished)">
@@ -4321,6 +4321,20 @@
 										</xsl:if>
 									</xsl:for-each>
 								</xsl:when>
+								
+								<!-- MPI Experimentelle Medizin (MPIEM) will Institut als Affiliation, falls Pub-Date nicht in einen CoNE-Zeitraum passt -->
+								<xsl:when test="($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description) and not($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] and ($import-name='MPIEM'))">			
+									<organization:organization>
+										<dc:title>
+											<xsl:text>Max Planck Institute of Experimental Medicine</xsl:text>
+										</dc:title>
+										<dc:identifier>
+											<xsl:text>escidoc:586201</xsl:text>
+										</dc:identifier>
+									</organization:organization>
+								</xsl:when>
+								
 								<xsl:otherwise>
 									<organization:organization>
 										<dc:title>External Organizations</dc:title>
