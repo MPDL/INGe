@@ -313,13 +313,6 @@
 													<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 												</h:selectOneMenu>
 											</h:panelGroup>
-											<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-												<h:inputText id="inputCidationStyleName"
-													styleClass="double_txtInput citationStyleSuggest citationStyleName"
-													value="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Mein Apa ist der Beste" />
-												<h:inputText id="inputCidationStyleIdentifier"
-													styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
-											</h:panelGroup>
 											<h:commandLink id="btnExportDownload" styleClass="free_area0"
 												value="#{lbl.export_btDownload}"
 												action="#{ViewItemFull.exportDownload}"/>
@@ -327,6 +320,14 @@
 											<h:commandLink id="btnExportEMail" styleClass="free_area0"
 												value="#{lbl.export_btEMail}"
 												action="#{ViewItemFull.exportEmail}"/>
+											<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
+												<h:inputText id="inputCidationStyleName"
+													styleClass="huge_txtInput citationStyleSuggest citationStyleName"
+													value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
+												<h:inputText id="inputCidationStyleIdentifier"
+													styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
+												<h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchEdit.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"/>
+											</h:panelGroup>
 										</h:panelGroup>
 										<!-- content menu lower line (export) starts here -->
 										
