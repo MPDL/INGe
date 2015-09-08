@@ -402,6 +402,11 @@ body .wrapper {
 	color: #004465;
 	line-height: 1.36364em;
 }
+.contentMenu .CSL {
+	clear: left;
+	margin-top: 0.252525em;
+	margin-bottom: 0.252525em;
+}
 .contentMenu .sub span {
 /*	text-decoration:underline; */
 }
