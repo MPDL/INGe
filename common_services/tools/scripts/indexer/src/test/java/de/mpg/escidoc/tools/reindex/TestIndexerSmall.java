@@ -243,22 +243,21 @@ public class TestIndexerSmall
 			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-
-			assertTrue(fieldMap == null);			
+	
 			break;
 			
 		case LATEST_VERSION:
-			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-			
-			assertTrue(fieldMap != null);			
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);	
+					
 			break;	
 		}
+		assertTrue(fieldMap == null);	
 	}
 	
 	// escidoc:699472 import task item with 1 component (escidoc:699471)
-	// has no reference
+	// has no reference, caused heap size exception
 	@Test
 	public void testImportTaskItem_699472() throws Exception
 	{
@@ -274,18 +273,47 @@ public class TestIndexerSmall
 			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-
-			assertTrue(fieldMap == null);			
+		
 			break;
 			
 		case LATEST_VERSION:
-			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);		
+				
+			break;		
+		}
+		assertTrue(fieldMap == null);		
+	}
+	
+	// escidoc:590478 import task item with 1 component (escidoc:946971)
+	// has no reference, caused heap size exception
+	@Test
+	public void testImportTaskItem_590478() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_590478"));
+		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		
+			break;
 			
-			assertTrue(fieldMap != null);			
-			break;	
+		case LATEST_VERSION:
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);		
+				
+			break;		
 		}
+		assertTrue(fieldMap == null);		
 	}
 	
 	// escidoc:2087580 item without component in status pending

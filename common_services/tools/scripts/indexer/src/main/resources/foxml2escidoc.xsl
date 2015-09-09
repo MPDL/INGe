@@ -21,6 +21,16 @@
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is no item') "/>
 		</xsl:if>
 		
+		<xsl:message>check import: <xsl:value-of select="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title"/></xsl:message>
+		 
+		<xsl:if test="starts-with(foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title, 'Import Task')">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an import item') "/>
+		</xsl:if>
+		
+		<xsl:if test="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/import-task != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an import item') "/>
+		</xsl:if>
+		
 		<xsl:variable name="PID" select="foxml:digitalObject/@PID"/>
 		<xsl:variable name="first-dc-title" select="(//dc:title)[1]"/>
 		<xsl:variable name="latest-version-rels-ext"><xsl:copy-of select="foxml:digitalObject/foxml:datastream[@ID='RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description/*"/></xsl:variable>
