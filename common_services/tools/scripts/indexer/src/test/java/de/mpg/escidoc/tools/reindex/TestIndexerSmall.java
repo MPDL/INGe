@@ -237,23 +237,12 @@ public class TestIndexerSmall
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		switch(indexer.getCurrentIndexMode())
-		{
-		case LATEST_RELEASE:
-			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-	
-			break;
-			
-		case LATEST_VERSION:
-			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);	
-					
-			break;	
-		}
-		assertTrue(fieldMap == null);	
+		// import imtems are skipped in all cases
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
+		assertTrue(fieldMap == null);		
 	}
 	
 	// escidoc:699472 import task item with 1 component (escidoc:699471)
@@ -267,22 +256,11 @@ public class TestIndexerSmall
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		switch(indexer.getCurrentIndexMode())
-		{
-		case LATEST_RELEASE:
-			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		
-			break;
-			
-		case LATEST_VERSION:
-			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);		
-				
-			break;		
-		}
+		// import imtems are skipped in all cases
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
 		assertTrue(fieldMap == null);		
 	}
 	
@@ -297,22 +275,11 @@ public class TestIndexerSmall
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
-		switch(indexer.getCurrentIndexMode())
-		{
-		case LATEST_RELEASE:
-			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		
-			break;
-			
-		case LATEST_VERSION:
-			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);		
-				
-			break;		
-		}
+		// import imtems are skipped in all cases
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
 		assertTrue(fieldMap == null);		
 	}
 	
