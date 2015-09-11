@@ -304,7 +304,6 @@
 
 .contentMenu .sub {
 	overflow: hidden;
-	height:1.6363em;
 	margin-top:0.0909em;
 	text-transform:uppercase;
 	clear: left;
@@ -315,8 +314,6 @@
 	clear: left;
 	padding: 0px;
 	margin: 0px;
-	height:1.6363em;
-	max-height:1.6363em;
 	padding-top:0.1818em;
 	display:inline;
 	white-space:nowrap;
