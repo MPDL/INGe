@@ -123,13 +123,17 @@
 										<h:outputText styleClass="seperator" />
 										<h:commandLink id="btnExportEMail" title="#{tip.export_btEMail}" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
 										<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-										<h:inputText id="inputCidationStyleName"
-											styleClass="huge_txtInput citationStyleSuggest citationStyleName"
-											value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
-										<h:inputText id="inputCidationStyleIdentifier"
-											styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
-										<h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchEdit.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"/>
-									</h:panelGroup>
+											<h:inputText id="inputCidationStyleName"
+												styleClass="huge_txtInput citationStyleSuggest citationStyleName"
+												value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
+											<h:inputText id="inputCidationStyleIdentifier"
+												styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
+											<h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchEdit.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"/>
+											<h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;"
+												onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
+												<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>
+											</h:commandButton>	
+										</h:panelGroup>
 									<!-- content menu lower line ends here -->
 									</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">

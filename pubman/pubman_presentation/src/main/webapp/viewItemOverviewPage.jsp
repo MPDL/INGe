@@ -327,6 +327,10 @@
 												<h:inputText id="inputCidationStyleIdentifier"
 													styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
 												<h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchEdit.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"/>
+												<h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;"
+													onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
+													<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>
+												</h:commandButton>	
 											</h:panelGroup>
 										</h:panelGroup>
 										<!-- content menu lower line (export) starts here -->

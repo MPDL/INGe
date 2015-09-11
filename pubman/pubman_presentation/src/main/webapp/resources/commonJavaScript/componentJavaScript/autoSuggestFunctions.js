@@ -658,6 +658,34 @@
 		
 		fillField('citationStyleName', citationTitle, parent);
 		fillField('citationStyleIdentifier', citationValue, parent);
+		
+		$(parent).find('.removeAutoSuggestCsl').css('display', 'inline');
+		$input.attr('readonly', 'readonly');
+	}
+	
+	// removes 'readonly' attributes and resets fields for autosuggest
+	function removeCslAutoSuggest(element)
+	{
+		var $input = $(element);
+		var parent = $input.parent();
+		var field = null;
+		if ($(parent).find('.citationStyleIdentifier').val() != '')
+		{
+			field = $(parent).find('.citationStyleIdentifier');
+			field.removeAttr('readonly');
+			fillField('citationStyleIdentifier', '', parent);
+		}
+		if ($(parent).find('.citationStyleName').val() != '')
+		{	
+			field = $(parent).find('.citationStyleName');
+			field.removeAttr('readonly');
+			fillField('citationStyleName', '', parent);
+		}
+		
+		//Hide remove button
+		$input.css('display', 'none');
+		
+		bindSuggests();
 	}
 	
 	
