@@ -483,6 +483,13 @@
 					<xsl:value-of select="."/>
 				</dc:identifier>
 			</xsl:for-each>
+			<xsl:for-each select="N[
+					$refType = 'Generic' and $Flavor = 'MPIGEM'
+				]">
+				<dc:identifier xsi:type="eterms:OTHER">
+					<xsl:value-of select="."/>
+				</dc:identifier>
+			</xsl:for-each>
 			<!-- END OF IDENTIFIERS -->
 			
 			<!-- PUBLISHING INFO -->
@@ -1420,7 +1427,44 @@
 						<xsl:otherwise>pdf</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
-				<!-- PATH(-SUFFIX) BEFORE NAME -->
+				
+				<!-- PATH(-SUFFIX) AND FILENAME uri-encoded-->
+				<xsl:variable name="path_encoded">
+					<xsl:choose>
+						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt' or $Flavor = 'CAESAR'">
+							<xsl:value-of select="fn:replace(concat(encode-for-uri(substring-before(., '/')), '/'), ' ', '%20')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="''"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<xsl:variable name="filename_encoded">
+					<xsl:choose>
+						<xsl:when test="contains(., '.')">
+							<xsl:choose>
+								<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt' or $Flavor = 'CAESAR'"> 
+									<xsl:value-of select="fn:replace(encode-for-uri(substring-after(., '/')), ' ', '%20')"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="encode-for-uri(fn:replace(., ' ', '%20'))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:choose>
+								<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt'"> 
+									<xsl:value-of select="fn:replace(substring-after(., '/'), ' ', '%20')"/>.<xsl:value-of select="$suffix"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="fn:replace(., ' ', '%20')"/>.<xsl:value-of select="$suffix"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				
+				<!-- PATH(-SUFFIX) AND FILENAME without uri-encoded for display-->
 				<xsl:variable name="path">
 					<xsl:choose>
 						<xsl:when test="$Flavor = 'MPIMP' or $Flavor = 'MPIMPExt' or $Flavor = 'CAESAR'">
