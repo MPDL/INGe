@@ -264,6 +264,44 @@ public class TestIndexerSmall
 		assertTrue(fieldMap == null);		
 	}
 	
+	// escidoc:2087435 yearbook item 
+	// has no reference, caused heap size exception
+	@Test
+	public void testYearBookItem_2087435() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2087435"));
+		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		// import imtems are skipped in all cases
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
+		assertTrue(fieldMap == null);		
+	}
+	
+	// escidoc:2096427 yearbook item 
+	// has no reference, caused heap size exception
+	@Test
+	public void testYearBookItem_2096427() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2096427"));
+		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		// import imtems are skipped in all cases
+		assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
+		assertTrue(fieldMap == null);		
+	}
+	
 	// escidoc:590478 import task item with 1 component (escidoc:946971)
 	// has no reference, caused heap size exception
 	@Test

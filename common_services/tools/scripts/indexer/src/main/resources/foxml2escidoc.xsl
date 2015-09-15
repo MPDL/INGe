@@ -6,7 +6,7 @@
 	- Only for escidoc publication items
 -->
 
-<xsl:stylesheet version="2.0" xmlns:nsCR="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+<xsl:stylesheet version="2.0" xmlns:nsCR="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook">
 
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
@@ -21,14 +21,19 @@
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is no item') "/>
 		</xsl:if>
 		
-		<xsl:message>check import: <xsl:value-of select="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title"/></xsl:message>
+		<xsl:message>check import: <xsl:value-of select="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title/text()"/></xsl:message>
 		 
 		<xsl:if test="starts-with(foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title, 'Import Task')">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an import item') "/>
 		</xsl:if>
-		
 		<xsl:if test="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/import-task != ''">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an import item') "/>
+		</xsl:if>
+		
+		<xsl:message>check yearbook: <xsl:value-of select="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title"/></xsl:message>
+		
+		<xsl:if test="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/yearbook:yearbook/dc:title != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an yearbook item') "/>
 		</xsl:if>
 		
 		<xsl:variable name="PID" select="foxml:digitalObject/@PID"/>
