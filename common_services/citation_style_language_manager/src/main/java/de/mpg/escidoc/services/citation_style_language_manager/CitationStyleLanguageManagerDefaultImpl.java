@@ -20,8 +20,8 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import de.undercouch.citeproc.CSL;
+import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
-
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 
 /**
@@ -51,10 +51,11 @@ public class CitationStyleLanguageManagerDefaultImpl implements
 			String itemList) {
 		StringBuilder result = new StringBuilder("");
 		try {
+			ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 			CSL citeproc = new CSL(
-					new MetadataProvider(),
+					itemDataProvider,
 					exportFormat.getCslXml());
-			citeproc.registerCitationItems("ID-1", "ID-2");
+			citeproc.registerCitationItems(itemDataProvider.getIds());
 			citeproc.setOutputFormat("html");
 			Bibliography bibl = citeproc.makeBibliography();
 			for (String citation : bibl.getEntries()) {
