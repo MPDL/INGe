@@ -41,6 +41,8 @@ import org.junit.Test;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 
 public class CitationStyleHandlerTest {
 
@@ -130,7 +132,7 @@ public class CitationStyleHandlerTest {
 	        		logger.info("Test Citation Style: " + cs);
 	    			
 	    	    	start = System.currentTimeMillis();
-	    	    	result = pcs.getOutput(cs, format, itemList); 
+	    	    	result = pcs.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, cs, format)); 
 	//    	    	result = pcs.getOutput(cs, itemList);
 	    	    	
 	//        		logger.info("ItemList\n: " + itemList);
@@ -161,7 +163,7 @@ public class CitationStyleHandlerTest {
     @Test(expected = CitationStyleManagerException.class) 
     @Ignore
     public final void testWrongStyleCitManOutput() throws Exception  {
-    	byte[] result = pcs.getOutput("XYZ", "pdf", itemList);
+    	byte[] result = pcs.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "XYZ", "pdf"));
 //    	byte[] result = pcs.getOutput("XYZ",  itemList);
     }
     
@@ -173,7 +175,7 @@ public class CitationStyleHandlerTest {
     @Test(expected = CitationStyleManagerException.class) 
     @Ignore
     public final void testWrongFormatCitManOutput() throws Exception {
-    	byte[] result = pcs.getOutput("APA", "xyz", itemList);
+    	byte[] result = pcs.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "APA", "xyz"));
 //    	byte[] result = pcs.getOutput("APA",  itemList);
     }
 
