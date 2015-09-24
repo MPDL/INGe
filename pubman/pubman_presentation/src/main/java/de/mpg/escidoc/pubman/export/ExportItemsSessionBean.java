@@ -191,8 +191,8 @@ public class ExportItemsSessionBean extends FacesBean
         }
         else if ( "CSL".equalsIgnoreCase(exportFormatName) )
         {
-        	curExportFormatVO.setFormatType(FormatType.LAYOUT_CSL);
-            this.exportFormatType = FormatType.LAYOUT_CSL.toString();
+        	curExportFormatVO.setFormatType(FormatType.LAYOUT);;
+            this.exportFormatType = FormatType.LAYOUT.toString();
             setEnableFileFormats(true);
             setEnableCslAutosuggest(true);
         }
@@ -269,14 +269,14 @@ public class ExportItemsSessionBean extends FacesBean
     	return this.citationStyleName;
     }
     
-    public void setCitationStyleXml(String citationStyleXml) 
+    public void setConeCitationStyleId(String citationStyleId) 
     {
-    	this.curExportFormatVO.setCslXml(citationStyleXml);
+    	this.curExportFormatVO.setId(citationStyleId);
     }
     
-    public String getCitationStyleXml() 
+    public String getConeCitationStyleXmId() 
     {
-    	return this.curExportFormatVO.getCslXml();
+    	return this.curExportFormatVO.getId();
     }
     
     public void setAttExportFileName(String fileName){

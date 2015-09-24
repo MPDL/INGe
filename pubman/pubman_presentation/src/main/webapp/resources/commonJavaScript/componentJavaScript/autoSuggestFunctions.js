@@ -653,11 +653,11 @@
 		
 		var parent = $input.parents('.'+commonParentClass);
 		var citationTitle = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
-		var citationValue = (typeof details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value != 'undefined' ? details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value : null);
+		//var citationValue = (typeof details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value != 'undefined' ? details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value : null);
 	
 		
 		fillField('citationStyleName', citationTitle, parent);
-		fillField('citationStyleIdentifier', citationValue, parent);
+		fillField('citationStyleIdentifier', $input.resultID, parent);
 		
 		$(parent).find('.removeAutoSuggestCsl').css('display', 'inline');
 		$input.attr('readonly', 'readonly');

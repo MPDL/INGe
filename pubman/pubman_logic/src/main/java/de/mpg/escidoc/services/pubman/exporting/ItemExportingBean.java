@@ -86,12 +86,6 @@ public class ItemExportingBean implements ItemExporting {
 	private CitationStyleHandler citationStyleHandler;
 
 	/**
-	 * A CitationStyleHandler instance.
-	 */
-	@EJB
-	private CitationStyleLanguageManagerInterface csl_manager;
-
-	/**
 	 * A EndnodeExportHandler instance.
 	 */
 	@EJB
@@ -135,15 +129,15 @@ public class ItemExportingBean implements ItemExporting {
 
 		byte[] exportData = null;
 		try {
+			/*
 			if (exportFormat.getFormatType() == FormatType.LAYOUT_CSL) {
 				if (logger.isDebugEnabled())
 					logger.debug(">>> start cslManager " + itemList);
 				exportData = csl_manager.getOutput(exportFormat, itemList);
 			} else {
-				exportData = getOutput(exportFormat.getName(),
-						exportFormat.getFormatType(), exportFormat
-								.getSelectedFileFormat().getName(), itemList);
-			}
+			*/
+				exportData = getOutput(itemList, exportFormat);
+			//}
 
 		} catch (Exception e) {
 			throw new TechnicalException(e);
@@ -177,8 +171,7 @@ public class ItemExportingBean implements ItemExporting {
 	 * @throws JRException
 	 * @throws CitationStyleManagerException
 	 */
-	private byte[] getOutput(String exportFormat, FormatType formatType,
-			String outputFormat, String itemList) throws TechnicalException,
+	private byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws TechnicalException,
 			StructuredExportXSLTNotFoundException,
 			StructuredExportManagerException, IOException, JRException,
 			CitationStyleManagerException {
@@ -186,19 +179,18 @@ public class ItemExportingBean implements ItemExporting {
 		byte[] exportData = null;
 
 		// structured export
-		if (formatType == FormatType.LAYOUT) {
+		if (exportFormat.getFormatType() == FormatType.LAYOUT) {
 			if (logger.isDebugEnabled())
 				logger.debug(">>> start citationStyleHandler " + itemList);
-			exportData = citationStyleHandler.getOutput(exportFormat,
-					outputFormat, itemList);
-		} else if (formatType == FormatType.STRUCTURED) {
+			
+			exportData = citationStyleHandler.getOutput(itemList, exportFormat);
+		} else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
 			if (logger.isDebugEnabled())
 				logger.debug(">>> start structuredExportHandler " + itemList);
-			exportData = structuredExportHandler.getOutput(itemList,
-					exportFormat);
+			exportData = structuredExportHandler.getOutput(itemList,exportFormat.getName());
 		} else
 			// no export format found!!!
-			throw new TechnicalException("format Type: " + formatType
+			throw new TechnicalException("format Type: " + exportFormat.getFormatType()
 					+ " is not supported");
 
 		return exportData;

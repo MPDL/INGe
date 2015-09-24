@@ -125,8 +125,8 @@
 										<h:inputText id="inputCidationStyleName"
 											styleClass="double_txtInput citationStyleSuggest citationStyleName"
 											value="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Mein Apa ist der Beste" />
-										<h:inputText id="inputCidationStyleIdentifier"
-											styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.citationStyleXml}" />
+										<h:inputText id="inputCitationStyleIdentifier"
+										styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
 									</h:panelGroup>
 									
 									<h:commandLink id="btnExportDownload" title="#{tip.export_btDownload}" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}"/>
