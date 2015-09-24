@@ -24,6 +24,8 @@ import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleManagerImpl;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -63,11 +65,14 @@ public class TestCitationManager {
     	
         for ( String cs: cse.getStyles() ) 
         {
-        	String itemList =  TestHelper.getCitationStyleTestXmlAsString(
-        			TestHelper.getTestProperties(cs).getProperty("plain.test.xml")   
-        	); 
-        	assertNotNull("Item list xml is not found", itemList);
-        	itemLists.put(cs, itemList);
+        	 if(!"CSL".equals(cs))
+        	 {
+	        	String itemList =  TestHelper.getCitationStyleTestXmlAsString(
+	        			TestHelper.getTestProperties(cs).getProperty("plain.test.xml")   
+	        	); 
+	        	assertNotNull("Item list xml is not found", itemList);
+	        	itemLists.put(cs, itemList);
+        	 }
         }
 
     }   
@@ -148,9 +153,12 @@ public class TestCitationManager {
     {
         for (String cs: cse.getStyles() )
         {
-	    	testValidation(cs);
-	    	testCompilation(cs);
-	    	testOutput(cs);
+        	 if(!"CSL".equals(cs))
+        	 {
+		    	testValidation(cs);
+		    	testCompilation(cs);
+		    	testOutput(cs);
+        	 }
         }
     }
     
@@ -162,6 +170,7 @@ public class TestCitationManager {
      {
     	 for ( String format: cse.getOutputFormats(cs) ) 
             {
+    		 if(!"CSL".equals(cs))
                 testOutput(cs, format);                
             }
             
@@ -259,7 +268,7 @@ public class TestCitationManager {
     	logger.info("Test Citation Style: " + cs);
 
     	start = System.currentTimeMillis();
-    	result = cse.getOutput(cs, ouf, il);
+    	result = cse.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
 
     	logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
     	assertTrue(ouf + " output should not be empty", result.length > 0);

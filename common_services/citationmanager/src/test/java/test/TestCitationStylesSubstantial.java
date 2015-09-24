@@ -59,6 +59,8 @@ import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -125,7 +127,11 @@ public class TestCitationStylesSubstantial {
 
 		 for ( String cs: cse.getStyles() ) 
 		 {
-			 testCitationStyleSnippetGeneration(cs);
+			 if(!"CSL".equals(cs))
+			 {
+				 testCitationStyleSnippetGeneration(cs);
+			 }
+			
 		 }
 	 }
 
@@ -178,7 +184,7 @@ public class TestCitationStylesSubstantial {
     			//generate text citation form the current item
     			//    			logger.info( "item:" + XmlHelper.outputString(doc));
 
-    			String snippet = new String(cse.getOutput(cs, "escidoc_snippet", XmlHelper.outputString(doc)));
+    			String snippet = new String(cse.getOutput(XmlHelper.outputString(doc), new ExportFormatVO(FormatType.LAYOUT, cs, "escidoc_snippet")));
     			logger.info( "snippet:" + snippet);
 
     			Node snippetNode = XmlHelper.xpathNode(SNIPPET_XPATH, snippet); 

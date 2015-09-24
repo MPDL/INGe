@@ -65,6 +65,8 @@ import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
@@ -381,6 +383,7 @@ public class SearchBean implements Search
 
         String outputFormat = query.getOutputFormat();
         String exportFormat = query.getExportFormat();
+        String cslConeId = query.getCslConeId();
 
         if (!checkValue(exportFormat))
         {
@@ -396,7 +399,7 @@ public class SearchBean implements Search
         // structured export
         if (structuredExportHandler.isStructuredFormat(exportFormat))
         {
-            exportData = getOutput(exportFormat, FormatType.STRUCTURED, null, itemListAsString);
+            exportData = getOutput(itemListAsString, new ExportFormatVO(FormatType.STRUCTURED, exportFormat, null));
             exportedResult.setExportedResults(exportData);
             return exportedResult;
         }
@@ -413,7 +416,7 @@ public class SearchBean implements Search
                 throw new TechnicalException("file output format: " + outputFormat + " for export format: "
                         + exportFormat + " is not supported");
             }
-            exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemListAsString);
+            exportData = getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat, cslConeId));
             exportedResult.setExportedResults(exportData);
             return exportedResult;
         } 
@@ -449,7 +452,7 @@ public class SearchBean implements Search
      * @throws CitationStyleManagerException
      *             if the citationstyle manager reports an error
      */
-    private byte[] getOutput(String exportFormat, FormatType formatType, String outputFormat, String itemList)
+    private byte[] getOutput(String itemList, ExportFormatVO exportFormat)
         throws TechnicalException, StructuredExportXSLTNotFoundException, StructuredExportManagerException,
         IOException, JRException, CitationStyleManagerException
     {
@@ -457,22 +460,23 @@ public class SearchBean implements Search
         byte[] exportData = null;
 
         // structured export
-        if (formatType == FormatType.LAYOUT)
+        if (exportFormat.getFormatType() == FormatType.LAYOUT)
         {
             logger.debug("Calling citationStyleHandler");
-            exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
+
+            exportData = citationStyleHandler.getOutput(itemList, exportFormat);
             logger.debug("Returning from citationStyleHandler");
         } 
-        else if (formatType == FormatType.STRUCTURED)
+        else if (exportFormat.getFormatType() == FormatType.STRUCTURED)
         {
             logger.debug("Calling structuredExportHandler");
-            exportData = structuredExportHandler.getOutput(itemList, exportFormat);
+            exportData = structuredExportHandler.getOutput(itemList, exportFormat.getName());
             logger.debug("Returning from structuredExportHandler");
         } 
         else
         {
             // no export format found!!!
-            throw new TechnicalException("format Type: " + formatType + " is not supported");
+            throw new TechnicalException("format Type: " + exportFormat.getFormatType() + " is not supported");
         }
 
         return exportData;

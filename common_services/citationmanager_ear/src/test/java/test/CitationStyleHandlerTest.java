@@ -116,36 +116,39 @@ public class CitationStyleHandlerTest {
 //    				new String[]{"APA","AJP"}
     	)
     	{
-    		long start;
-        	byte[] result;
-//    		for ( String format : pcs.getOutputFormats(cs) ) {
-    		for 
-    		( 
-    				String format :
-    					pcs.getOutputFormats(cs)
-//    					new String[]{"snippet"} 
-    		) {
-        		logger.info("Test Citation Style: " + cs);
-    			
-    	    	start = System.currentTimeMillis();
-    	    	result = pcs.getOutput(cs, format, itemList); 
-//    	    	result = pcs.getOutput(cs, itemList);
-    	    	
-//        		logger.info("ItemList\n: " + itemList);
-//        		logger.info("Result\n: " + new String(result));
-        		
-    	    	
-    	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
-    	    	assertTrue(format + " output should not be empty", result.length > 0);
-    	    	
-    	    	
-        		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
-    	        logger.info(format + " length: " + result.length);
-    	        logger.info(format + " is OK");
-    	        
-    			
-    		}
+    		 if(!"CSL".equals(cs))
+    		 {
+	    		long start;
+	        	byte[] result;
+	//    		for ( String format : pcs.getOutputFormats(cs) ) {
+	    		for 
+	    		( 
+	    				String format :
+	    					pcs.getOutputFormats(cs)
+	//    					new String[]{"snippet"} 
+	    		) {
+	        		logger.info("Test Citation Style: " + cs);
+	    			
+	    	    	start = System.currentTimeMillis();
+	    	    	result = pcs.getOutput(cs, format, itemList); 
+	//    	    	result = pcs.getOutput(cs, itemList);
+	    	    	
+	//        		logger.info("ItemList\n: " + itemList);
+	//        		logger.info("Result\n: " + new String(result));
+	        		
+	    	    	
+	    	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+	    	    	assertTrue(format + " output should not be empty", result.length > 0);
+	    	    	
+	    	    	
+	        		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
+	    	        logger.info(format + " length: " + result.length);
+	    	        logger.info(format + " is OK");
+	    	        
+	    			
+	    		}
     		
+    		 }
     	}
     }
 

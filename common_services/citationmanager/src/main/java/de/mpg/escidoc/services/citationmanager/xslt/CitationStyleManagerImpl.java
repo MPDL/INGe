@@ -46,12 +46,13 @@ import org.apache.log4j.Logger;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
-
 import de.mpg.escidoc.services.citationmanager.CitationStyleManager;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 
 /**
 *
@@ -226,7 +227,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager
         {
         	String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);  
         	System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
-        	byte[] result = cse.getOutput(cs, task, ResourceUtil.getResourceAsString(il));
+        	byte[] result = cse.getOutput(ResourceUtil.getResourceAsString(il), new ExportFormatVO(FormatType.LAYOUT, cs, task) );
         	FileOutputStream fos = new FileOutputStream(outFile);
         	fos.write(result);
         	fos.close();

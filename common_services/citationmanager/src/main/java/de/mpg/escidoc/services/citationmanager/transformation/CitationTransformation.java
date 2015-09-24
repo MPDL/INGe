@@ -39,6 +39,8 @@ import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandlerBean;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
@@ -106,7 +108,8 @@ public class CitationTransformation
                 itemList = new String(src, "UTF-8");
             }
 
-            citation = citeHandler.getOutput(trgFormat.getName().toUpperCase(),"snippet", itemList);     
+            
+            citation = citeHandler.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "snippet", trgFormat.getName().toUpperCase()));     
         }
         catch (CitationStyleManagerException e) {
             throw new TransformationNotSupportedException(e);

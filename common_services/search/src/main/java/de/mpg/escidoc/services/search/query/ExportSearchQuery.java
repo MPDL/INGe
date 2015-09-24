@@ -52,6 +52,10 @@ public class ExportSearchQuery extends SearchQuery
     private String exportFormat = null;
     /** Output format to use. */
     private String outputFormat = null;
+    /**
+     * If exportformat == CSL, then this field contains the CoNE CSL ID.
+     */
+    private String cslConeId;
     /** Index database selector. */
     private String indexSelector = null;
 
@@ -68,12 +72,13 @@ public class ExportSearchQuery extends SearchQuery
      * @param outputFormat
      *            the output format to use
      */
-    public ExportSearchQuery(String cqlQuery, String indexSelector, String exportFormat, String outputFormat)
+    public ExportSearchQuery(String cqlQuery, String indexSelector, String exportFormat, String outputFormat, String cslConeId)
     {
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
         this.cqlQuery = cqlQuery;
         this.indexSelector = indexSelector;
+        this.cslConeId = cslConeId;
     }
     
     /**
@@ -148,4 +153,12 @@ public class ExportSearchQuery extends SearchQuery
     {
         return (this.indexSelector != null);
     }
+
+	public String getCslConeId() {
+		return cslConeId;
+	}
+
+	public void setCslConeId(String cslConeId) {
+		this.cslConeId = cslConeId;
+	}
 }

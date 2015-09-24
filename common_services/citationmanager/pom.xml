@@ -149,12 +149,13 @@
 			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 		</dependency>
-
+		<!-- 
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>3.5.1</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
@@ -183,6 +184,11 @@
 	        <artifactId>JAXBNamespacePrefixMapper</artifactId>
 	        <version>2.2.4</version>
      	</dependency>
+     	<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	
 </project>

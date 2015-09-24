@@ -62,9 +62,11 @@ import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 
 import org.apache.log4j.Logger;
 import org.apache.tika.sax.XHTMLContentHandler;
+import org.docx4j.Docx4J;
 import org.docx4j.convert.in.xhtml.FormattingOption;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
+import org.docx4j.convert.out.FOSettings;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
@@ -72,11 +74,15 @@ import org.docx4j.wml.PPrBase.PStyle;
 import org.docx4j.wml.R;
 import org.w3c.dom.Document;
 
+import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
+import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageManagerInterface;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -97,14 +103,15 @@ public class CitationStyleExecutor implements CitationStyleHandler{
     private static final String SNIPPET_ELEMENT_NAME = "dcterms:bibliographicCitation";
     private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
 
-	
+	private CitationStyleLanguageManagerInterface citationStyleLanguageManager = new CitationStyleLanguageManagerDefaultImpl();
+    
     private static String pubManUrl = null;
     
 	private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class);	
 
 //	private static ProcessCitationStyles pcs = new ProcessCitationStyles();
 
-	
+
 	/* 
 	 * Explains citation styles and output types for them 
 	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#explainStyles()
@@ -133,46 +140,52 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 
 	
 	
-	public byte[] getOutput(String cs, String outputFormat,
-			String itemList) throws IOException, JRException,
+	public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws IOException, JRException,
 			CitationStyleManagerException  {
 
-		Utils.checkCondition( !Utils.checkVal(outputFormat), "Output format is not defined");
-		
-//		Utils.checkCondition( !"snippet".equals(ouputFormat), "The only snippet format is supported for the moment");
+		Utils.checkCondition( !Utils.checkVal(exportFormat.getSelectedFileFormat().getName()), "Output format is not defined");
 		
 		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
 		
 		
-		if ( ! XmlHelper.citationStyleHasOutputFormat(cs, outputFormat) )
-		{
-			throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported for Citation Style: " + cs );
-		}		
-
-		byte[] result;
+		
+		String outputFormat = exportFormat.getSelectedFileFormat().getName();
+		byte[] result = null;
 		String snippet;
-		long start; 
-		Transformer transformer;
+		
+		long start = System.currentTimeMillis();
 		try 
 		{
+			if ( ! XmlHelper.citationStyleHasOutputFormat(exportFormat.getName(), outputFormat) )
+			{
+				throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported for Citation Style: " + exportFormat.getName() );
+			}		
 			
-			start = System.currentTimeMillis();
+			if("CSL".equals(exportFormat.getName()))
+			{
+				snippet = new String(citationStyleLanguageManager.getOutput(exportFormat, itemList), "UTF-8");
+			}
+			else
+			{
+
+				StringWriter sw = new StringWriter();
+				String csXslPath = ResourceUtil.getPathToCitationStyleXSL(exportFormat.getName()); 
+				
+				/* get xslt from the templCache */
+				Transformer transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
+				
+				//set parameters
+				transformer.setParameter("pubman_instance", getPubManUrl());
+				
+				transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
+				
+				logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
+				
+				snippet = sw.toString(); 
+			}
 			
-			StringWriter sw = new StringWriter();
 			
-			String csXslPath = ResourceUtil.getPathToCitationStyleXSL(cs); 
 			
-			/* get xslt from the templCache */
-			transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
-			
-			//set parameters
-			transformer.setParameter("pubman_instance", getPubManUrl());
-			
-			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
-			
-			logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
-			
-			snippet = sw.toString(); 
 			
 			// new edoc md set
 			if ("escidoc_snippet".equals(outputFormat))
@@ -202,9 +215,10 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			{
 				result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
 			}
-			else if ("docx".equals(outputFormat))
+			else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat))
 			{
 				String htmlResult = generateHtmlOutput(snippet, "html_plain", "xhtml", false);
+				
 				WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 				XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
 				MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
@@ -231,119 +245,27 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 				//Set global space after each paragraph
 				mdp.getStyleDefinitionsPart().getStyleById("DocDefaults").getPPr().getSpacing().setAfter(BigInteger.valueOf(400));
 				
-				
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
 				
-				wordOutputDoc.save(bos);
+				if("docx".equals(outputFormat))
+				{
+					wordOutputDoc.save(bos);
+				}
+				else if ("pdf".equals(outputFormat))
+				{
+					FOSettings foSettings = Docx4J.createFOSettings();
+					foSettings.setWmlPackage(wordOutputDoc);
+					Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
+					
+				}
 				
 				bos.flush();
 				result = bos.toByteArray();
-			}
-			else
-			{
-
-				start = System.currentTimeMillis();
-
-				String jrds = generateJasperReportDataSource(cs, snippet);
 				
-				logger.info("Transformation snippet 2 JasperDS: " + (System.currentTimeMillis() - start));
-				
-				JasperReport jr = null;
-				String csj = null;
-				try 
-				{
-					start = System.currentTimeMillis();
-					
-					//get JasperReport from cache
-					jr = XmlHelper.tryJasperCache(cs);
-					
-//					JRXmlWriter.writeReport(jr, ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml", "UTF-8");
-					
-//					Document doc = JRXmlUtils.parse(new InputSource(new StringReader(jrds) ));
-					Document doc = XmlHelper.createDocument(jrds);
-//					Document doc = XmlHelper.createDocument(snippet);
-					
-					Map<String, Object> params = new HashMap<String, Object>();
-					params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, doc);
-					
-
-					JasperPrint jasperPrint= JasperFillManager.fillReport(
-							jr,
-							params,
-							new JRXmlDataSource(doc, jr.getQuery().getText())
-					);
-					
-					
-					logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
-					
-//					jasperPrint
-
-//					JRXmlExporter jrxe = new JRXmlExporter();
-//					
-//					jrxe.setParameter(JRXmlExporterParameter.JASPER_PRINT, jasperPrint);
-//					
-//					jrxe.setParameter(JRXmlExporterParameter.OUTPUT_FILE_NAME, "Report.jrpxml");
-//					
-//					jrxe.exportReport();
-					
-					
-					start = System.currentTimeMillis();
-
-					JRExporter exporter = null;    
-					
-					if ("pdf".equals(outputFormat))
-					{
-						exporter = new JRPdfExporter();
-					}
-					else if ("html_styled".equals(outputFormat))
-					{
-						exporter = new JRHtmlExporter();
-						/* Switch off pagination and null pixel alignment for JRHtmlExporter */
-				        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
-				        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-		                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);						
-					}
-					else if ("rtf".equals(outputFormat))
-					{
-						exporter = new JRRtfExporter();
-					}
-					else if ("odt".equals(outputFormat))
-					{
-						exporter = new JROdtExporter();
-					}
-					else if ("txt".equals(outputFormat))
-					{
-						exporter = new JRTextExporter();    
-				        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
-				        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
-				        exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
-					}
-					else 
-						throw new CitationStyleManagerException (
-								"Output format " + outputFormat + " is not supported");
-					
-					
-					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-					
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
-					
-					exporter.exportReport();
-					
-					result = baos.toByteArray();
-
-					logger.info("export to " + outputFormat + ": " + (System.currentTimeMillis() - start));					
-					
-					
-				} 
-				catch (Exception e) 
-				{
-					throw new RuntimeException("Cannot load JasperReport: " + csj, e);
-				}
 				
 				
 			}
-			
+
 			
 //			logger.info( "snippet: " + extractBibliographicCitation(snippet) );
 
@@ -359,11 +281,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	}
 	
 
-	public byte[] getOutput(String citationStyle, String itemList)
-			throws IOException, JRException, CitationStyleManagerException {
-
-		return getOutput(citationStyle, "snippet_esidoc", itemList);
-	}	
+	
 	
 	
 	/* (non-Javadoc)

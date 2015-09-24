@@ -31,6 +31,8 @@ package de.mpg.escidoc.services.citationmanager;
 
 import java.io.IOException;
 
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -105,7 +107,7 @@ public interface CitationStyleHandler {
      * Metadata record for each item in the item list should be specified in
      * accordance with escidoc_publication_profile.xsd
      */
-    byte[] getOutput(String citationStyle, String ouputFormat, String itemList)
+    byte[] getOutput(String itemList, ExportFormatVO exportFormat)
         throws IOException, JRException, CitationStyleManagerException;
     
 }

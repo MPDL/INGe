@@ -31,6 +31,7 @@ package de.mpg.escidoc.services.citationmanager;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -41,7 +42,10 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageManagerInterface;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 
 
 
@@ -59,6 +63,10 @@ import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class CitationStyleHandlerBean implements CitationStyleHandler
 { 
+	
+	
+	@EJB
+	private CitationStyleLanguageManagerInterface cslManager;
     /**
      * Logger for this class.
      */
@@ -79,11 +87,11 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
      /**
       * {@inheritDoc}
       */
-    public byte[] getOutput(String citationStyle, String outputFormat, String itemList)
+    public byte[] getOutput(String itemList, ExportFormatVO exportFormat)
         throws JRException, CitationStyleManagerException, IOException
     {
-        logger.debug("CitationStyleHandlerBean getOutput with citationStyle: " + citationStyle);
-        return cse.getOutput(citationStyle, outputFormat, itemList);
+        logger.debug("CitationStyleHandlerBean getOutput with citationStyle: " + exportFormat.getName());
+        return cse.getOutput(itemList, exportFormat);
     }
 
     /**

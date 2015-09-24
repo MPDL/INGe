@@ -57,10 +57,7 @@ public class ExportFormatVO extends ValueObject
     private String name;
     private java.util.List<String> creators;
     private String description;
-    private String cslXml;
-    
-   
-    
+
 
 	/**
      * The id used for the transforming.
@@ -79,9 +76,35 @@ public class ExportFormatVO extends ValueObject
      */
     public enum FormatType
     {
-        LAYOUT_CSL, LAYOUT, STRUCTURED, BIBTEX
+        LAYOUT, STRUCTURED, BIBTEX
     }
-
+    
+    
+    
+    public ExportFormatVO()
+    {
+    	
+    }
+    
+    public ExportFormatVO(FormatType formatType, String name, String selectedFileFormat)
+    {
+    	this.formatType = formatType;
+    	this.name = name;
+    	this.selectedFileFormat = new FileFormatVO();
+    	this.selectedFileFormat.setName(selectedFileFormat);
+    	this.selectedFileFormat.setMimeType(FileFormatVO.getMimeTypeByName(selectedFileFormat));
+    }
+    
+    public ExportFormatVO(FormatType formatType, String name, String selectedFileFormat, String cslConeId)
+    {
+    	this.formatType = formatType;
+    	this.name = name;
+    	this.selectedFileFormat = new FileFormatVO();
+    	this.selectedFileFormat.setName(selectedFileFormat);
+    	this.selectedFileFormat.setMimeType(FileFormatVO.getMimeTypeByName(selectedFileFormat));
+    	this.id = cslConeId;
+    }
+    
     /**
      * Delivers the name of this export format.
      */
@@ -196,22 +219,7 @@ public class ExportFormatVO extends ValueObject
         this.description = description;
     }
     
-    /**
-     * returns the chosen csl in xml format
-     * @return csl (in xml format)
-     */
-    public String getCslXml() {
-		return cslXml;
-	}
-
-	/**
-	 * set the chosen csl in xml format
-	 * @param cslXml
-	 */
-	public void setCslXml(String cslXml) {
-		this.cslXml = cslXml;
-	}
-    
+   
     /**
      * Returns the String representation of this object.
      */

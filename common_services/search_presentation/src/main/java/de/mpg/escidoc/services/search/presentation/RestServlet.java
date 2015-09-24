@@ -113,6 +113,7 @@ public class RestServlet extends HttpServlet
         String language = null;
         String exportFormat = null;
         String outputFormat = null;
+        String cslConeId = null;
         boolean isCitationStyle = false;
         try
         {
@@ -179,6 +180,7 @@ public class RestServlet extends HttpServlet
                             + " is not supported for the export format: " + exportFormat);
                     return;
                 }
+                cslConeId = req.getParameter("cslConeId");
             }
 
             //check the max number of the concurrent searches
@@ -198,7 +200,7 @@ public class RestServlet extends HttpServlet
             String index = "escidoc_all";
 
             // create the query
-            ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat, outputFormat);
+            ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat, outputFormat, cslConeId);
 
             // check if sortKeys is set
             if (checkVal(req.getParameter("sortKeys")))
