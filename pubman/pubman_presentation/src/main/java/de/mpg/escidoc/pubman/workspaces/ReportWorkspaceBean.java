@@ -28,6 +28,8 @@ import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
@@ -283,7 +285,7 @@ public class ReportWorkspaceBean extends FacesBean {
 	private byte[] doCitationStyle(String itemListAsString) {
 		byte[] exportData = null;
 		try {
-			exportData = citationStyleHandler.getOutput(csExportFormat, csOutputFormat, itemListAsString);
+			exportData = citationStyleHandler.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT, csExportFormat, csOutputFormat));
 		} catch (Exception e) {
 			logger.error("Error when trying to find citation service.", e);
 			error("Did not find Citation service");
