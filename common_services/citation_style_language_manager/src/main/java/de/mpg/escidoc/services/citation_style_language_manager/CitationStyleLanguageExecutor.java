@@ -22,13 +22,14 @@ public class CitationStyleLanguageExecutor {
 	private static ExportFormatVO createExportFormat(String name, String fileFormatName) 
 	{
 		ExportFormatVO exportFormat = new ExportFormatVO();
-		exportFormat.setName(name);
-		exportFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT_CSL);
+		exportFormat.setName("CSL");
+		exportFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
 		FileFormatVO fileFormat = new FileFormatVO();
 		fileFormat.setName(fileFormatName);
 		fileFormat.setMimeType(FileFormatVO.getMimeTypeByName(fileFormatName));
 		exportFormat.setSelectedFileFormat(fileFormat);
-		exportFormat.setCslXml(CitationStyleLanguageUtils.loadStyleFromUrl("https://raw.githubusercontent.com/citation-style-language/styles/master/ieee-with-url.csl"));;
+		// TODO set ID
+		exportFormat.setId("xxx");;
 		return exportFormat;
 	}
 	

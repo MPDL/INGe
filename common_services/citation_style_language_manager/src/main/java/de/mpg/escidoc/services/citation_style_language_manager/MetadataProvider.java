@@ -31,6 +31,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -104,6 +105,8 @@ public class MetadataProvider implements ItemDataProvider {
 		MdsPublicationVO metadata = currentItem.getMetadata();
 		CSLName personName = new CSLName();
 		CSLItemDataBuilder cslItem = new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
+		
+		String[] dateFormats = { "YYYY-MM-DD" , "YYYY-MM", "YYYY" };
 		
 		// Genre
 		cslItem.type(this.getCslGenre(metadata.getGenre()));
@@ -214,8 +217,7 @@ public class MetadataProvider implements ItemDataProvider {
 		}
 		
 		// Date
-		String[] dateFormats = { "YYYY-MM-DD" , "YYYY-MM", "YYYY" };
-		if (metadata.getDateSubmitted() != null)
+		if (metadata.getDateSubmitted() != null) // Submitted
 		{
 			for (String formatString : dateFormats)
 			{
@@ -228,12 +230,12 @@ public class MetadataProvider implements ItemDataProvider {
 				}
 				catch (ParseException e)
 				{
-					logger.error("Error parsing date submitted");
+					logger.error("Error parsing date submitted. Trying other dateformat");
 				}
 			}
 			
 		}
-		else if (metadata.getDatePublishedInPrint() != null)
+		if (metadata.getDatePublishedInPrint() != null) // Published in Print
 		{
 			for (String formatString : dateFormats)
 			{
@@ -242,11 +244,46 @@ public class MetadataProvider implements ItemDataProvider {
 					Date date = new SimpleDateFormat(formatString).parse(metadata.getDatePublishedInPrint());
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(date);
-					cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+					cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 				}
 				catch (ParseException e)
 				{
-					logger.error("Error parsing date issued");
+					logger.error("Error parsing date issued. Trying other dateformat");
+				}
+			}
+		}
+		else if (metadata.getDatePublishedOnline() != null) // Published online
+		{
+			for (String formatString : dateFormats)
+			{
+				try
+				{
+					Date date = new SimpleDateFormat(formatString).parse(metadata.getDatePublishedOnline());
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(date);
+					cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+				}
+				catch (ParseException e)
+				{
+					logger.error("Error parsing date issued (published in print). Trying other dateformat");
+				}
+			}
+		}
+		else if (metadata.getDateAccepted() != null
+				&& Genre.THESIS.equals(metadata.getGenre())) // Published online
+		{
+			for (String formatString : dateFormats)
+			{
+				try
+				{
+					Date date = new SimpleDateFormat(formatString).parse(metadata.getDateAccepted());
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(date);
+					cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+				}
+				catch (ParseException e)
+				{
+					logger.error("Error parsing date issued (accepted). Trying other dateformat");
 				}
 			}
 		}
@@ -305,27 +342,194 @@ public class MetadataProvider implements ItemDataProvider {
 			}
 		}
 		
+		// Keywords
+		if (metadata.getFreeKeywords() != null 
+				&& metadata.getFreeKeywords().getValue() != null)
+		{
+			cslItem.keyword(metadata.getFreeKeywords().getValue());
+		}
+		
+		// Abstract
+		if (metadata.getAbstracts() != null 
+				&& !metadata.getAbstracts().isEmpty()) 
+		{
+			cslItem.abstrct(metadata.getAbstracts().get(0).getValue());
+		}
+		
+		// Publisher / Publisher place / Edition
+		if (metadata.getPublishingInfo() != null)
+		{
+			if (metadata.getPublishingInfo().getPublisher() != null)
+			{
+				cslItem.publisher(metadata.getPublishingInfo().getPublisher());
+			}
+			if (metadata.getPublishingInfo().getPlace() != null)
+			{
+				cslItem.publisher(metadata.getPublishingInfo().getPlace());
+			}
+			if (metadata.getPublishingInfo().getEdition() != null)
+			{
+				cslItem.publisher(metadata.getPublishingInfo().getEdition());
+			}
+		}
+		
+		// Number of pages
+		if (metadata.getTotalNumberOfPages() != null)
+		{
+			cslItem.publisher(metadata.getTotalNumberOfPages());
+		}
+		
 		// Source
-		if (metadata.getSources().get(0) != null)
+		if (metadata.getSources() != null
+				&& !metadata.getSources().isEmpty())
 		{
 			SourceVO source = metadata.getSources().get(0);
 			// Genre dependent choice
 			if (SourceVO.Genre.SERIES.equals(source.getGenre()))
 			{
+				// Source title
 				cslItem.collectionTitle(source.getTitle().getValue());
+
 				// Source creators
+				List<CSLName> collectionEditorList = new ArrayList<CSLName>();
 				for (CreatorVO sourceCreator : source.getCreators())
 				{
-					cslItem.collectionEditor(sourceCreator.getPerson().getGivenName(), sourceCreator.getPerson().getFamilyName());
+					if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
+							|| CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole()))
+					{
+						collectionEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());
+					}
+				}
+				if (collectionEditorList.size() > 0)
+				{
+					CSLName[] collectionEditorrArray = new CSLName[collectionEditorList.size()];
+					collectionEditorrArray = illustratorList.toArray(collectionEditorrArray);
+					cslItem.collectionEditor(collectionEditorrArray);
 				}
 			}
 			else
 			{
+				// Source title
 				cslItem.containerTitle(source.getTitle().getValue());
+				
 				// Source creators
+				List<CSLName> containerAuthorList = new ArrayList<CSLName>();
 				for (CreatorVO sourceCreator : source.getCreators())
 				{
-					cslItem.containerAuthor(sourceCreator.getPerson().getGivenName(), sourceCreator.getPerson().getFamilyName());
+					if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
+							|| CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole()))
+					{
+						containerAuthorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());
+					}
+				}
+				if (containerAuthorList.size() > 0)
+				{
+					CSLName[] containerAuthorArray = new CSLName[containerAuthorList.size()];
+					containerAuthorArray = illustratorList.toArray(containerAuthorArray);
+					cslItem.containerAuthor(containerAuthorArray);
+				}
+			}
+			
+			// Short title
+			for (TextVO sourceAlternativeTitle : source.getAlternativeTitles())
+			{
+				if (SourceVO.AlternativeTitleType.ABBREVIATION.equals(sourceAlternativeTitle.getType())
+						|| SourceVO.AlternativeTitleType.SUBTITLE.equals(sourceAlternativeTitle.getType())
+						|| SourceVO.AlternativeTitleType.OTHER.equals(sourceAlternativeTitle.getType()))
+				{
+					cslItem.containerTitleShort(sourceAlternativeTitle.getValue());
+					break;
+				}
+			}
+			
+			// Publisher / Publisher place / Edition (all from source)
+			if((metadata.getPublishingInfo() == null
+					|| metadata.getPublishingInfo().getPublisher() == null)
+					&& (source.getPublishingInfo() != null 
+					&& source.getPublishingInfo().getPublisher() != null))
+			{
+				cslItem.publisher(source.getPublishingInfo().getPublisher());
+			}
+			if((metadata.getPublishingInfo() == null
+					|| metadata.getPublishingInfo().getPlace() == null)
+					&& (source.getPublishingInfo() != null 
+					&& source.getPublishingInfo().getPlace() != null))
+			{
+				cslItem.publisher(source.getPublishingInfo().getPlace());
+			}
+			if((metadata.getPublishingInfo() == null
+					|| metadata.getPublishingInfo().getEdition() == null)
+					&& (source.getPublishingInfo() != null 
+					&& source.getPublishingInfo().getEdition() != null))
+			{
+				cslItem.publisher(source.getPublishingInfo().getEdition());
+			}
+			
+			// Number of pages (from source)
+			if (metadata.getTotalNumberOfPages() == null
+					&& source.getTotalNumberOfPages() != null)
+			{
+				cslItem.publisher(source.getTotalNumberOfPages());
+			}
+			
+			// Volume
+			if (source.getVolume() != null) 
+			{
+				cslItem.volume(source.getVolume());
+			}
+			
+			// Issue
+			if (source.getIssue() != null)
+			{
+				cslItem.issue(source.getIssue());
+			}
+			
+			// Startpage
+			if (source.getStartPage() != null)
+			{
+				cslItem.pageFirst(source.getStartPage());
+				// Combined Startpage - Endpage
+				if (source.getEndPage() != null)
+				{
+					cslItem.page(source.getStartPage() + source.getEndPage());
+				}
+			}
+			
+			// Sequencenumber --> Locator
+			if (source.getSequenceNumber() != null)
+			{
+				cslItem.page(source.getSequenceNumber());
+			}
+		}
+		
+		// Event
+		if (metadata.getEvent() != null)
+		{
+			EventVO event = metadata.getEvent();
+			// Event title
+			if (event.getTitle() != null)
+			{
+				cslItem.event(event.getTitle().getValue());
+			}
+			if (event.getPlace() != null)
+			{
+				cslItem.eventplace(event.getPlace().getValue());
+			}
+			if (event.getStartDate() != null)
+			{
+				for (String formatString : dateFormats)
+				{
+					try
+					{
+						Date date = new SimpleDateFormat(formatString).parse(event.getStartDate());
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(date);
+						cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+					}
+					catch (ParseException e)
+					{
+						logger.error("Error parsing date submitted");
+					}
 				}
 			}
 		}
