@@ -1,0 +1,122 @@
+# Number of Scientific Articles per Country        
+        
+date of publication: 2015-03-28          
+data source: Web of Science Tagged Data for SCI, SSCI, AHCI file creation 2015-01-09          
+        
+## data source:        
+        
+  last delivery of Thomson Reuters as "Web of Science Tagged Data" files      
+  incrementally added to our base data starting with publishing year 1980      
+  only recent versions of corrected records used      
+        
+### last delivery      
+
+```        
+  |file name   |creation|prod week        |product
+  |------------|--------|-----------------|----------------------------------------------------------------------
+  |IF3N1503    |20150109|IP201503-IP201503|Science Citation Index Expanded , SciSearch
+  |IF3N1503    |20150109|IP201503-IP201503|Arts & Humanities Citation Index, Arts & Humanities Search
+  |IF3N1503    |20150109|IP201503-IP201503|Social Sciences Citation Index , Social SciSearch (see ‘J’ before 1995)
+  |IG3N1503.GAP|20150109|IP201503-IP201503|Science Citation Index Expanded , SciSearch
+  |IG3N1503.GAP|20150109|IP201503-IP201503|Arts & Humanities Citation Index, Arts & Humanities Search
+  |IG3N1503.GAP|20150109|IP201503-IP201503|Social Sciences Citation Index , Social SciSearch (see ‘J’ before 1995)
+  |IC3N1503.COR|20150109|IP201503-IP201503|Science Citation Index Expanded , SciSearch
+  |IC3N1503.COR|20150109|IP201503-IP201503|Arts & Humanities Citation Index, Arts & Humanities Search|
+  |IC3N1503.COR|20150109|IP201503-IP201503|Social Sciences Citation Index , Social SciSearch (see ‘J’ before 1995)
+```
+
+  Copyright (c) 2015 Institute for Scientific Information      
+        
+        
+### WoS tagged data        
+RP  corresponding affiliation  WoS Reprint Address (Sub-record of Source Item Record. Not required, max occurrence 1)    
+NU  country  subfield NU = country    
+        
+### raw data processing        
+country normalization    WoS country entries (original field NU, currently 256 unique variants) were semi-manually normalized    
+    to ISO 3166-1 alpha-2 codes (212 unique variants)    
+
+## basic sql statement 
+
+```
+select woad.nu, wois.py, 
+       count(distinct woad.fk_source_item_records) nrec_tot,
+       count(distinct case when woad.type = 'RP' then woad.fk_source_item_records else null end) nrec_rp
+from wos_research_reprint_addresses woad
+join wos_source_item_records woit
+ on fk_source_item_records = pk_source_item_records
+join wos_source_issue_records wois
+ on fk_source_issue_records = pk_source_issue_records
+where dt in ('@ Article', 'R Review')
+group by woad.nu, wois.py;
+```
+ 
+note: the sql given summarizes the direct logic based on a pure relational transformation of the tagged data  
+data actually were queried after various in-house transformation and normalization steps
+    
+## data files
+
+### table "01_global"
+
+```
+subset        
+  01 articles total                     ... total number of Web of Science items with document types (dt) "article" and "review"     
+  02 articles with affiliation entries  ... subset of 01 with affiliations attached to the article    
+  03 sum of articles per country        ... total number of articles split by affiliation country (multiple countries per article) 
+                                            based on 02    
+  04 corresponding affiliation articles ... subset of 02 with articles that have a corresponding affiliation marked
+
+breakdown by publishing year        
+  a2004 ... a2013                       ... numbers per year the articles where published    
+```
+
+#### table "02_countries"
+```
+code                                    ... ISO 3166-1 alpha-2 code for country    
+country                                 ... name of country    
+
+breakdown by publishing year        
+     t2004 … t2013                     ... total number of articles and reviews in Web of Science    
+     c2004 … c2013                     ... number of articles and reviews with corresponding affiliation in given country    
+     s2004 … s2013                     ... share of corresponding author articles [%]    
+```
+
+## stastistical analysis
+
+```
+sesam_readcsv_case('md', 'mpdl_rio_wosartbyco_country.tsv');
+
+# increase of total number of articles [%]
+
+summary(md$t2013[md$t2004>0]/md$t2004[md$t2004>0]*100-100);
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+ -100.00    68.22   120.10   355.40   200.00 33040.00 
+summary(md$t2013[md$t2009>0]/md$t2009[md$t2009>0]*100-100);
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -83.33   18.39   39.04   61.09   67.63 1400.00 
+
+# share of corresp. to total articles [%]
+
+summary(md$s2004);
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   0.00   31.00   55.50   50.97   72.00  100.00      16 
+summary(md$s2009);
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   0.00   30.00   51.50   49.89   69.00  100.00      14 
+summary(md$s2013);
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   0.00   25.00   41.00   42.43   60.50  100.00       5 
+
+# third degree polynomial
+
+mdx = md[md$t2013 > 10,]; # for countries with a minimum of 10 articles in 2013 
+
+lm(formula = mdx$s2013 ~ poly(log10(mdx$t2013), 3))
+
+Coefficients:
+               (Intercept)  poly(log10(mdx$t2013), 3)1  poly(log10(mdx$t2013), 3)2  poly(log10(mdx$t2013), 3)3  
+                     45.54                      242.92                      -19.02                      -21.81 
+```
+
+
+

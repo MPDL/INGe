@@ -21,7 +21,8 @@ import de.mpg.escidoc.tools.util.xslt.LocationHelper;
 public class TestIndexerSmall
 {
 	//private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/escidoc_all";
-	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/tmp/jboss/server/default/data/index/lucene/item_container_admin";
+	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/item_container_admin";
+	//private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/tmp/jboss/server/default/data/index/lucene/item_container_admin";
 	
 	protected static Indexer indexer;
 	protected static FullTextExtractor extractor;
@@ -59,6 +60,24 @@ public class TestIndexerSmall
 		
 		extractor.init(new File("src/test/resources/19/escidoc_2120374+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2120374+content+content.0"));	
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2165635+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2165635+content+content.0"));	
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2149144+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2149144+content+content.0"));	
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2149275+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2149275+content+content.0"));	
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2149276+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2149276+content+content.0"));	
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2149277+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2149277+content+content.0"));	
+		
+		extractor.init(new File("src/test/resources/19/escidoc_2149278+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2149278+content+content.0"));	
 		
 	}
 	
@@ -103,7 +122,7 @@ public class TestIndexerSmall
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 			assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 53);
+					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 62);
 			break;
 		}
 	}
@@ -348,7 +367,82 @@ public class TestIndexerSmall
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 			
-			assertTrue(fieldMap != null);			
+			assertTrue(fieldMap != null);	
+			
+			assertTrue(fieldMap.get("/properties/latest-release/id") == null);
+			assertTrue(fieldMap.get("sort/properties/latest-release/id") == null);
+			break;	
+		}
+	}
+	
+	// escidoc:2165636 item with component escidoc:2165635 in status pending
+	// has no reference
+	@Test
+	public void testPendingItemWithComponent() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2165636"));
+		indexer.finalizeIndex();
+	
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+
+			assertTrue(fieldMap == null);			
+			break;
+			
+		case LATEST_VERSION:
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			
+			assertTrue(fieldMap != null);	
+			
+			assertTrue(fieldMap.get("/properties/latest-release/id") == null);
+			assertTrue(fieldMap.get("sort/properties/latest-release/id") == null);
+			assertTrue(fieldMap.get("/components/component/properties/creation-date").iterator().next().stringValue().equals("2015-07-14T07:38:14.725Z"));
+			break;	
+		}
+	}
+	
+	// escidoc:2148921 released item with components escidoc:2149144, 2149275, 2149276, 2149277, 2149278
+	// has no reference
+	@Test
+	public void testReleasedItemWithManyComponents() throws Exception
+	{
+
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2148921"));
+		indexer.finalizeIndex();
+	
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		switch(indexer.getCurrentIndexMode())
+		{
+		case LATEST_RELEASE:
+			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+
+			assertTrue(fieldMap == null);			
+			break;
+			
+		case LATEST_VERSION:
+			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+			
+			assertTrue(fieldMap != null);	
+			
+			assertTrue(fieldMap.get("/properties/latest-release/id") != null);
+			assertTrue(fieldMap.get("sort/properties/latest-release/id") == null);
+			assertTrue(fieldMap.get("/components/component/properties/creation-date").iterator().next().stringValue().startsWith("2015"));
 			break;	
 		}
 	}

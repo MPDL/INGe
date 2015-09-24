@@ -166,9 +166,10 @@ public class IndexDocument extends DefaultHandler
 				logger.info("Already stored <" + fieldName +">");
 				return;
 			}
-			
-			storedSortFieldNames.add(fieldName);
-			
+			else
+			{
+				storedSortFieldNames.add(fieldName);
+			}
 			logger.debug("fieldName <" + fieldName + "> " 
 					+ "content <" + content.toString().trim() + "> "
 					+ "storeField <" + storeField.toString() + "> " 
@@ -189,23 +190,6 @@ public class IndexDocument extends DefaultHandler
 	@Override
 	public void endDocument() throws SAXException
 	{
+		storedSortFieldNames.clear();
 	}
-
-	/**
-     * Returns an XML-escaped String that can be used for writing an XML.
-     * 
-     * @param input A string
-     * @return The XML-escaped string 
-     */
-    private String escape(String input)
-    {
-        if (input != null)
-        {
-            input = input.replace("&", "&amp;");
-            input = input.replace("<", "&lt;");
-            input = input.replace("\"", "&quot;");
-        }
-        return input;
-    }
-
 }

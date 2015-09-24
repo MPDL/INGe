@@ -388,7 +388,6 @@ public class Indexer
 	/**
 	 * Gather information from the FOXMLs and write it into the given file.
 	 * 
-	 * @param file The file where to write the data to.
 	 * @throws IOException 
 	 * @throws UnsupportedEncodingException 
 	 */
@@ -404,7 +403,7 @@ public class Indexer
 		fileOutputStream.close();
 		
 		logger.info("Creating index database finished");
-		}
+	}
 	
 	/**
 	 * read the contents of a directory and write it to index db.
