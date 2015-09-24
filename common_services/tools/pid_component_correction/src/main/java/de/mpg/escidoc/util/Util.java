@@ -52,57 +52,6 @@ public class Util
 
 	private static Properties properties = null;
 
-	public static String getProperty(final String key)
-	{
-		if (properties == null)
-		{
-			loadProperties();
-		}
-		if (System.getProperty(key) != null)
-		{
-			properties.put(key, System.getProperty(key));
-		}
-
-		return properties.getProperty(key);
-	}
-
-	public static void loadProperties()
-	{
-		ClassLoader loader = null;
-		InputStream in = null;
-		try
-		{
-			if (loader == null)
-			{
-				loader = Util.class.getClassLoader();
-			}
-			InputStream is = loader.getResourceAsStream(PROPERTIES_FILE);
-			if (is != null)
-			{
-				properties = new Properties();
-				properties.load(is);
-			}
-		}
-		catch (Exception e)
-		{
-			properties = null;
-		}
-		finally
-		{
-			if (in != null)
-			{
-				try
-				{
-					in.close();
-				}
-				catch (Throwable ignore)
-				{
-					ignore.printStackTrace();
-				}
-			}
-		}
-	}
-
 	// transforms an InputString into a String
 	public static String inputStreamToString(InputStream in)
 	{
@@ -132,23 +81,6 @@ public class Util
 		return httpClient;
 	}
 	
-	public static String getValueFromXml(String key, char endChar, String xml)
-    {
-        String result = "";
-        String searchString = key;
-        int index = xml.indexOf(searchString);
-        if (index > 0)
-        {
-            xml = xml.substring(index + searchString.length());
-            index = xml.indexOf(endChar);
-            if (index > 0)
-            {
-                result = xml.substring(0, index);
-            }
-        }
-        return result;
-    } 
-	
 	  /**
 	   * Count files in a directory (including files in all subdirectories)
 	   * @param directory the directory to start in
@@ -170,5 +102,14 @@ public class Util
         }
         return count;
     }
+    
+    public static String getPureComponentId(String componentId)
+	{
+		if (componentId == null || "".equals(componentId))
+		{
+			return "";
+		}
+		return componentId.substring(componentId.lastIndexOf("/") + 1);
+	}
 
 }

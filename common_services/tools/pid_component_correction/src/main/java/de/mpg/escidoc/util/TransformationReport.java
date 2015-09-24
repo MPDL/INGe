@@ -2,17 +2,15 @@ package de.mpg.escidoc.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class TransformationReport
 {
     private int filesTotal = 0;
-    private int filesMigratedNotItemOrComponent = 0;
-    private int filesMigratedNotReleased = 0;
-    private int filesMigratedNotUpdated = 0;
+    private int filesNotItem = 0;
+    private int filesNotReleased = 0;
     private int filesErrorOccured = 0;
-    private int filesMigrationDone = 0;
-    private int totalNumberOfPidsRequested = 0;
+    private int filesUpdateDone = 0;
+    private int totalNumberOfPidsUpdated = 0;
     private long start = System.currentTimeMillis();
     private Collection<String> errorList = new  ArrayList<String>();
     
@@ -24,31 +22,22 @@ public class TransformationReport
     {
         this.filesTotal++;
     }
-    public int getFilesMigratedNotItemOrComponent()
+    public int getFilesNotItem()
     {
-        return filesMigratedNotItemOrComponent;
+        return filesNotItem;
     }
-    public void incrementFilesMigratedNotItemOrComponent()
+    public void incrementFilesNotItem()
     {
-        this.filesMigratedNotItemOrComponent++;
+        this.filesNotItem++;
     }
-    public int getFilesMigratedNotReleased()
+    public int getFilesNotReleased()
     {
-        return filesMigratedNotReleased;
+        return filesNotReleased;
     }
-    public void incrementFilesMigratedNotReleased()
+    public void incrementFilesNotReleased()
     {
-        this.filesMigratedNotReleased++;
+        this.filesNotReleased++;
     }
-    public int getFilesMigratedNotUpdated()
-    {
-        return filesMigratedNotUpdated;
-    }
-    public void incrementFilesMigratedNotUpdated()
-    {
-        this.filesMigratedNotUpdated++;
-    } 
-    
     public int getFilesErrorOccured()
     {
         return this.filesErrorOccured;
@@ -59,19 +48,19 @@ public class TransformationReport
     }
     public int getFilesMigrationDone()
     {
-        return this.filesMigrationDone;
+        return this.filesUpdateDone;
     }   
     public void incrementFilesMigrationDone()
     {
-        this.filesMigrationDone++;
+        this.filesUpdateDone++;
     }
-    public void setPidsRequested(int n)
+    public void setPidsUpdated(int n)
     {
-        this.totalNumberOfPidsRequested = n;        
+        this.totalNumberOfPidsUpdated = n;        
     }
-    public int  getTotalNumberOfPidsRequested()
+    public int  getTotalNumberOfPidsUpdated()
     {
-        return this.totalNumberOfPidsRequested;        
+        return this.totalNumberOfPidsUpdated;        
     }
     public long getTimeUsed()
     {
@@ -88,12 +77,11 @@ public class TransformationReport
     public void clear()
     {
         this.filesTotal = 0;
-        this.filesMigratedNotItemOrComponent = 0;
-        this.filesMigratedNotReleased = 0;
-        this.filesMigratedNotUpdated = 0;
+        this.filesNotItem = 0;
+        this.filesNotReleased = 0;
         this.filesErrorOccured = 0;
-        this.filesMigrationDone = 0;
-        this.totalNumberOfPidsRequested = 0;
+        this.filesUpdateDone = 0;
+        this.totalNumberOfPidsUpdated = 0;
         this.start = System.currentTimeMillis();
         this.errorList.clear();      
     }

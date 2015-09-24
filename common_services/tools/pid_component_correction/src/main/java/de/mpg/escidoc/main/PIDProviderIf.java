@@ -1,15 +1,16 @@
 package de.mpg.escidoc.main;
 
+import java.io.IOException;
+
 import javax.naming.NamingException;
 
 import de.mpg.escidoc.handler.PIDProviderException;
-import de.mpg.escidoc.handler.PreHandler.Type;
 
 public interface PIDProviderIf
 {
-    public void init() throws NamingException;
+    public void init() throws NamingException, IOException;
 
-    public String getPid(String escidocId, Type objectType, String title) throws PIDProviderException;
+    public String updateComponentPid(String escidocId, String versionNumber, String componentId, String pid, String fileName) throws PIDProviderException;
 
     public int getTotalNumberOfPidsRequested();
 
