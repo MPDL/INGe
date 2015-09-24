@@ -67,6 +67,8 @@ import org.w3c.dom.traversal.NodeIterator;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -300,7 +302,7 @@ public class Export implements ExportHandler {
 		} else if (exportFormatType == ExportFormatTypes.LAYOUT) {
 			
 			try {
-				ba = getCitationStyleHandler().getOutput(exportFormat, outputFormat, itemList);
+				ba = getCitationStyleHandler().getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat));
 			} catch (Exception e) {
 				throw new ExportManagerException("Cannot export citation", e);
 			}
