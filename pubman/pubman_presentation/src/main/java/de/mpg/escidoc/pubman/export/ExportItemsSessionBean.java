@@ -274,7 +274,7 @@ public class ExportItemsSessionBean extends FacesBean
     	this.curExportFormatVO.setId(citationStyleId);
     }
     
-    public String getConeCitationStyleXmId() 
+    public String getConeCitationStyleId() 
     {
     	return this.curExportFormatVO.getId();
     }
