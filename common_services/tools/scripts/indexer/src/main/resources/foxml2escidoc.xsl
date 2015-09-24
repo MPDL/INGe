@@ -21,16 +21,12 @@
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is no item') "/>
 		</xsl:if>
 		
-		<xsl:message>check import: <xsl:value-of select="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title/text()"/></xsl:message>
-		 
 		<xsl:if test="starts-with(foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title, 'Import Task')">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an import item') "/>
 		</xsl:if>
 		<xsl:if test="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/import-task != ''">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an import item') "/>
 		</xsl:if>
-		
-		<xsl:message>check yearbook: <xsl:value-of select="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/dc:title"/></xsl:message>
 		
 		<xsl:if test="foxml:digitalObject/foxml:datastream[@ID='escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent/yearbook:yearbook/dc:title != ''">
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:noitem'), 'This is an yearbook item') "/>
@@ -58,9 +54,9 @@
 			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:wrongStatus'), 'Item in wrong public status') "/>
 		</xsl:if>
 		
-                                       
+        <!--                                 
 		<xsl:message>public-status <xsl:value-of select="$latest-version-rels-ext/prop:public-status"/></xsl:message>
-		
+		-->
 		<xsl:variable name="status" select="$latest-version-rels-ext/prop:public-status" /> 
 	
 		<xsl:if test="$status = 'withdrawn' and $version = 'latest-release'">
@@ -102,9 +98,15 @@
 					<version:comment>
 						<xsl:value-of select="$RELS-EXT/version:comment"/>
 					</version:comment>
-					<version:pid>
-						<xsl:value-of select="$RELS-EXT/version:pid"/>
-					</version:pid>
+					
+					<xsl:variable name="version-pid" select="$RELS-EXT/version:pid" /> 
+					
+					<xsl:if test="$version-pid != ''">
+						<version:pid>
+							<xsl:value-of select="$RELS-EXT/version:pid"/>
+						</version:pid>
+					</xsl:if>
+					
 				</prop:version>
 				<prop:latest-version xlink:type="simple" xlink:title="Latest Version" xlink:href="/ir/item/{$PID}:{$latest-version-rels-ext/version:number}">
 					<version:number>
@@ -114,17 +116,23 @@
 						<xsl:value-of select="$latest-version-rels-ext/version:date"/>
 					</version:date>
 				</prop:latest-version>
-				<prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/{$PID}:{$RELS-EXT/release:number}">
-					<release:number>
-						<xsl:value-of select="$RELS-EXT/release:number"/>
-					</release:number>
-					<release:date>
-						<xsl:value-of select="$RELS-EXT/release:date"/>
-					</release:date>
-					<release:pid>
-						<xsl:value-of select="$RELS-EXT/release:pid"/>
-					</release:pid>
-				</prop:latest-release>
+				
+				<xsl:variable name="release-number" select="$RELS-EXT/release:number" /> 
+	
+				<xsl:if test="$release-number != ''">
+					<prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/{$PID}:{$RELS-EXT/release:number}">
+						<release:number>
+							<xsl:value-of select="$RELS-EXT/release:number"/>
+						</release:number>
+						<release:date>
+							<xsl:value-of select="$RELS-EXT/release:date"/>
+						</release:date>
+						<release:pid>
+							<xsl:value-of select="$RELS-EXT/release:pid"/>
+						</release:pid>
+					</prop:latest-release>
+				</xsl:if>
+				
 				<xsl:copy-of select="foxml:digitalObject/foxml:datastream[@ID='content-model-specific']/foxml:datastreamVersion[last()]/foxml:xmlContent/*"/>
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Item {$PID}" xlink:href="/ir/item/{$PID}/md-records">
@@ -135,9 +143,7 @@
 			<escidocComponents:components xlink:type="simple" xlink:title="Components of Item {$PID}" xlink:href="/ir/item/{$PID}/components">
 				<xsl:for-each select="$RELS-EXT/srel:component">
 					<xsl:variable name="component-id" select="replace(@rdf:resource, 'info:fedora/', '')"/>
-					<!--  
-					<xsl:comment>das ist die component id <xsl:value-of select="$component-id"/></xsl:comment>
-					-->
+					
 					<xsl:variable name="component-data" select="document($database/index/object[@name = $component-id]/@path)"/>
 					<xsl:variable name="component-metadata" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent"/>
 					<xsl:variable name="component-rels-ext" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description"/>
@@ -198,6 +204,7 @@
 							<xsl:message>content type <xsl:value-of select="$component-content/foxml:contentLocation/@TYPE"/></xsl:message>
 							<xsl:message>component-content-ID <xsl:value-of select="$component-content/@ID"/></xsl:message>
 							<xsl:message>component-content-MIMETYPE <xsl:value-of select="$component-content/@MIMETYPE"/></xsl:message>
+							
 							<xsl:choose>
 							
 								<xsl:when test="$component-content/foxml:contentLocation/@TYPE = 'INTERNAL_ID'">
