@@ -49,7 +49,7 @@ Notes:
         xmlns:string-helper="java:de.escidoc.sb.gsearch.xslt.StringHelper"
         xmlns:escidoc-core-accessor="java:de.mpg.escidoc.tools.util.xslt.TriplestoreHelper" 
         xmlns:element-type-helper="java:de.escidoc.sb.gsearch.xslt.ElementTypeHelper"
-        extension-element-prefixes="lastdate-helper string-helper escidoc-core-accessor">
+        extension-element-prefixes="location-helper lastdate-helper string-helper escidoc-core-accessor element-type-helper">
     <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
     
     <!-- Include stylesheet that writes important fields for gsearch -->
