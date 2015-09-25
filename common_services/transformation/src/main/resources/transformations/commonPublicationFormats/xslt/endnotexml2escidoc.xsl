@@ -1085,7 +1085,8 @@
 							'Report', 
 							'Thesis',
 							'Artwork',  
-							'Classical Work'
+							'Classical Work',
+							'Courseware'
 						)"> <!-- Artwork und Classical Work sind Endnote-Sondertypen des MPIGEM (Gemeinschaftsgüter -->
 						<xsl:variable name="currentAuthorPosition" select="position()"/>
 						<xsl:comment>--Author --</xsl:comment>
