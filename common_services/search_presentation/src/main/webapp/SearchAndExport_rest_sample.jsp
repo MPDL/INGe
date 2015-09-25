@@ -58,7 +58,19 @@
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
 		
 		<link rel="SHORTCUT ICON" href="/pubman/resources/favicon.ico"/>
-
+		<link href="/cone/js/jquery.suggest.css" type="text/css" rel="stylesheet"/>
+		<script src="/cone/js/jquery-1.11.1.min.js"></script>
+		<script src="/cone/js/jquery.suggest.js" ></script>
+		<script src="/pubman/resources/commonJavaScript/componentJavaScript/autoSuggestFunctions.js"></script>
+		<script>		
+			citationStyleSuggestURL = '/cone/citation-styles/query';
+			citationStyleSuggestBaseURL = '$1?format=json';
+			$(function(){
+				bindSuggests();
+				checkOutputFormat();
+			});
+		</script>
+		
 		<script language="JavaScript" type="text/javascript">
 			  function applyCookieStyle() {
 					var cookieValue = ""
@@ -149,15 +161,31 @@
 		<link id="rss_2.0_link" rel="alternate" type="application/rss+xml" />
 		<link id="atom_0.3_link" rel="alternate" type="application/rss+xml" />
 		<link id="atom_1.0_link" rel="alternate" type="application/rss+xml" />
+
 		<script type="text/javascript" id="script">
 
 			// This function is called to send the request.
 			function submitItem()
 			{
+
+				
+				var exportFormat = $('#exportFormat').val();
+
+				if(exportFormat=='CSL' && $('#inputCitationStyleIdentifier').val() == '')
+				{
+					alert('Please choose a citation style');
+					return;
+				}
+				
+				
 				var queryString =  '?cqlQuery=' + document.form.cqlQuery.value;
 				
 				queryString += '&exportFormat=' + document.form.exportFormat.options[document.form.exportFormat.selectedIndex].value;
 				queryString += '&outputFormat=' + document.form.outputFormat.options[document.form.outputFormat.selectedIndex].value;
+				if(exportFormat=='CSL')
+				{
+					queryString += '&cslConeId=' + document.form.citationStyleIdentifier.value;
+				}
 				queryString += '&sortKeys=' + document.form.sortKeys.value;
 				queryString += '&sortOrder=' + document.form.sortOrder.options[document.form.sortOrder.selectedIndex].value;
 				queryString += '&startRecord=' + document.form.startRecord.value;
@@ -198,7 +226,17 @@
 			function checkOutputFormat()
 			{
 				var efv = document.form.exportFormat.value;
-				document.form.outputFormat.disabled =  ! (efv == "APA" ||  efv == "APA(CJK)" ||  efv == "AJP" || efv == "JUS" || efv == "Default" || efv == "Test"); 
+				document.form.outputFormat.disabled =  ! (efv == "APA" ||  efv == "APA(CJK)" ||  efv == "AJP" || efv == "JUS" || efv == "Default" || efv == "Test");
+
+				if(efv=="CSL")
+				{
+					$('#cslInput').show();
+					
+				}
+				else
+				{
+					$('#cslInput').hide();
+				} 
 			}
 							
 			function setFeedAnchor(type)
@@ -362,7 +400,7 @@
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="exportFormat">Export Format</label>
-											<select class="double_select" name="exportFormat" onchange="checkOutputFormat()">
+											<select id="exportFormat" class="double_select" name="exportFormat" onchange="checkOutputFormat()">
 												<option value="ENDNOTE">EndNote</option>
 												<option value="BIBTEX">BibTeX</option>
 												<option value="MARCXML">MarcXML</option>
@@ -373,25 +411,37 @@
 							                    <option value="APA(CJK)">APA(CJK)</option>
 												<option value="AJP">AJP</option>
 												<option value="JUS">JUS</option>
+												<option value="CSL">CSL</option>
 							                </select>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="outputFormat">Output Format</label>
-											<select class="double_select" disabled="disabled"  name="outputFormat">
+											<select id="outputFormat" class="double_select" disabled="disabled"  name="outputFormat">
 							                    <option value="pdf">pdf</option>
 							                    <option value="docx">docx</option>
 							                    <option value="html_plain">html (plain)</option>
 												<option value="html_linked">html (linked)</option>
 												<option value="escidoc_snippet">snippet</option>
-												<option value="odt">odt (DEPRECATED!)</option>
-												<option value="rtf">rtf (DEPRECATED!)</option>
-												<option value="html_styled">html (styled) (DEPRECATED!)</option>
 												<!-- <option value="snippet">snippet v5.x</option>
 												<option value="escidoc_snippet">snippet v6.x</option>  -->
 												
 							                </select>
 										</span>
+										
+
+									
+									
+									<span id="cslInput" class="free_area0 suggestAnchor endline CSL" style="display:none;">
+										<input type="text" id="inputCitationStyleName"
+											class="huge_txtInput citationStyleSuggest citationStyleName" name="citationStyleName" placeholder="Choose citation style" />
+										<input id="inputCitationStyleIdentifier" class="noDisplay citationStyleIdentifier" name="citationStyleIdentifier" value="" />
+										<a class="fa fa-list-ul" href="/cone/citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"></a>
+										<input type="button" id="btnRemoveCslAutoSuggest" value=" "class="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;"
+											onclick="removeCslAutoSuggest($(this))" title="Remove CSL Value"/>
 									</span>
+									
+									</span>
+										
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
