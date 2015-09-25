@@ -184,7 +184,7 @@
 				queryString += '&outputFormat=' + document.form.outputFormat.options[document.form.outputFormat.selectedIndex].value;
 				if(exportFormat=='CSL')
 				{
-					queryString += '&cslConeId=' + document.form.citationStyleIdentifier.value;
+					queryString += '&cslConeId=' + encodeURIComponent(document.form.citationStyleIdentifier.value);
 				}
 				queryString += '&sortKeys=' + document.form.sortKeys.value;
 				queryString += '&sortOrder=' + document.form.sortOrder.options[document.form.sortOrder.selectedIndex].value;
