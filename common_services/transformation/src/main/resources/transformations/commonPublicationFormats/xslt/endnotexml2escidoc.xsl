@@ -118,6 +118,7 @@
 			<m key="Thesis">thesis</m>
 			<m key="Generic">other</m>
 			<m key="GenericMPIGEM">paper</m>
+			<m key="Courseware">courseware-lecture</m>
 	</xsl:variable>
 	
 	
@@ -689,7 +690,7 @@
 			</xsl:if>
 			
 			<!-- Besonderheit für IPP -->
-			<xsl:if test="S and $Flavor = 'IPP' and ($refType = ('Conference Paper', 'Conference Proceedings') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
+			<xsl:if test="S and $Flavor = 'IPP' and ($refType = ('Conference Paper', 'Conference Proceedings', 'Courseware') or ($refType = 'Generic' and NUM_9 and (lower-case(normalize-space(NUM_9)) = 'talk')))">
 				<xsl:element name="event:event">
 					<xsl:element name="dc:title">
 						<xsl:value-of select="S"/>
@@ -1303,7 +1304,7 @@
 					</eterms:given-name>
 					
 			<!-- Besonderheit für Import von externen caesar-Publikationen	
-					<xsl:if test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
+					<!--<xsl:if test="exists($cone-creator/cone/rdf:RDF/rdf:Description) and $Flavor = 'CAESAR'">
 						<organization:organization>
 							<dc:title>
 								<xsl:text>External Organizations</xsl:text>
@@ -1315,6 +1316,7 @@
 					</xsl:if> -->
 					
 					<!-- Affiliated Institution depends on publication-date) -->
+				<!-- <xsl:if test="$Flavor != 'CAESAR'">  --> <xsl:if test="$Flavor != ''">
 					<xsl:variable name="publication-date">
 						<xsl:choose>
 							<xsl:when test="./../D">
@@ -1404,6 +1406,7 @@
 						</xsl:when>
 						
 					</xsl:choose>
+				</xsl:if>
 			
 				</person:person>
 				
