@@ -117,12 +117,12 @@ public class TestIndexerSmall
 					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 56);
 			break;
 		case LATEST_VERSION:
-			assertTrue("Expected 20 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 20);
+			assertTrue("Expected 22 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 22);
 			
 			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 			assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 62);
+					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 66);
 			break;
 		}
 	}
@@ -139,6 +139,37 @@ public class TestIndexerSmall
 		validator.setReferencePath(JBOSS_SERVER_LUCENE_ESCIDOC_ALL);
 		
 		validator.compareToReferenceIndex();
+		
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(/*"is " + indexer.getIndexingReport().getErrorList().iterator().next(),*/
+				indexer.getIndexingReport().getErrorList().size() == 0);
+	}
+	
+	@Test
+	// escidoc_2028454 without component, many authors
+	// has no reference
+	public void testItemMultipleAuthors() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2028454"));
+		indexer.finalizeIndex();
+		
+		validator = new Validator(indexer);
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument(); 
+		assertTrue(fieldMap != null);
+		
+		switch(indexer.currentIndexMode)
+		{
+			case LATEST_RELEASE:
+				fieldMap.get("escidoc.publication.compound.publication-creator-names").iterator().next().equals("sykora");		
+				break;
+			case LATEST_VERSION:
+				fieldMap.get("/md-records/md-record/publication/creator/person/family-name").iterator().next().equals("sykora");
+				break;
+		}	
 		
 		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		

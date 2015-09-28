@@ -26,6 +26,10 @@ import de.escidoc.sb.gsearch.xslt.SortFieldHelper;
  */
 public class IndexDocument extends DefaultHandler
 {
+	private static final String SORT_LATEST_RELEASE_PREFIX = "sort";
+
+	private static final String SORT_LATEST_VERSION_PREFIX = "/sort";
+
 	private static Logger logger = Logger.getLogger(IndexDocument.class);
 	
 	Document document;
@@ -161,15 +165,19 @@ public class IndexDocument extends DefaultHandler
 		{
 			Field field = new Field(fieldName, content.toString().trim(), storeField, index, termVector);
 			
-			if (fieldName.startsWith("sort") && storedSortFieldNames.contains(fieldName))
+			if (fieldName.startsWith(SORT_LATEST_VERSION_PREFIX) || fieldName.startsWith(SORT_LATEST_RELEASE_PREFIX))
 			{
-				logger.info("Already stored <" + fieldName +">");
-				return;
+				if (storedSortFieldNames.contains(fieldName))
+				{
+					logger.info("Already stored <" + fieldName +">");
+					return;
+				}
+				else
+				{
+					storedSortFieldNames.add(fieldName);
+				}
 			}
-			else
-			{
-				storedSortFieldNames.add(fieldName);
-			}
+			
 			logger.debug("fieldName <" + fieldName + "> " 
 					+ "content <" + content.toString().trim() + "> "
 					+ "storeField <" + storeField.toString() + "> " 
