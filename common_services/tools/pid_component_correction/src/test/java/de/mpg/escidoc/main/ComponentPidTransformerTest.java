@@ -45,7 +45,7 @@ public class ComponentPidTransformerTest
 		pidMigr.storeLocation(new File("src/test/resources"));		
 		assertTrue(new File("./locationFile.xml").exists());
 		
-		pidMigr.transform(new File("src/test/resources"));
+		pidMigr.transform(new File("src/test/resources/item"));
 	}
 
 }

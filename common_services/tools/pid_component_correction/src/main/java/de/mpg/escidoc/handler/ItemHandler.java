@@ -362,6 +362,9 @@ public class ItemHandler extends DefaultHandler
         return Type.UNKNOWN;
     }
     
+    // store in if version:status = released
+    // if there exists an internal managed component
+    // if the previous:version status has been != released
     private boolean isToStore()
 	{
     	if (tmpElementMap.size() == 0)

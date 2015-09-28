@@ -54,6 +54,7 @@ public class ItemHandlerTest
 	}
      
     @Test
+    // escidoc:2110508 one component escidoc:2110507 internal-managed
     public void testItemOneComponent() throws Exception
     {
         
@@ -77,7 +78,30 @@ public class ItemHandlerTest
         assertTrue(m.get("srel:component").contains("info:fedora/escidoc:2110507"));
     }
     
-
+    @Test
+    // escidoc:2110518 no component
+    public void testItemNoComponent() throws Exception
+    {
+        
+        File file = new File("src/test/resources/item/escidoc_2110518");
+        
+        parser.parse(file, itemHandler);
+        
+        assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
+        assertTrue(itemHandler.getPublicStatus().equals(""));
+        assertTrue(itemHandler.getVersionStatus().equals(""));
+        
+        assertTrue(itemHandler.getReleaseNumber().equals(""));
+        assertTrue(itemHandler.getVersionNumber().equals(""));
+        assertTrue(itemHandler.getEscidocId().equals("escidoc:2110518"));
+       
+        Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.11");
+        assertTrue(m == null);
+        
+        m = itemHandler.getElementMapFor("RELS-EXT.12");
+        
+        assertTrue(m == null);
+    }
     
     // escidoc:2111689 released item with 2 component; escidoc:2111688 locator and escidoc:2111687 component with pdf
  	@Test
@@ -100,6 +124,30 @@ public class ItemHandlerTest
        
  		
  	}
+ 	
+ 	// escidoc:2169637 released item with totally 3 components; 
+ 	// escidoc:2169636 component of version 1 
+ 	// escidoc:2170639 component of version 2
+ 	// escidoc:2170641 component of version 3
+  	@Test
+  	public void testReleasedItemWithModifiedComponents() throws Exception
+  	{
+  		File file = new File("src/test/resources/item/escidoc_2169637");
+         
+         parser.parse(file, itemHandler);
+         
+         assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
+         assertTrue(itemHandler.getPublicStatus().equals("released"));
+         assertTrue(itemHandler.getVersionStatus().equals("released"));
+         
+         assertTrue(itemHandler.getReleaseNumber().equals("3"));
+         assertTrue(itemHandler.getVersionNumber().equals("3"));
+         assertTrue(itemHandler.getEscidocId().equals("escidoc:2169637"));
+         
+         assertTrue(itemHandler.getSrelComponent().contains("info:fedora/escidoc:2170641")); 
+         
+         assertTrue(itemHandler.getGlobalElementMap().size() == 2);
+  	}
     
  
 }
