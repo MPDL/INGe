@@ -181,39 +181,27 @@ public class MetadataProvider implements ItemDataProvider {
 		}
 		if (authorList.size() > 0)
 		{
-			CSLName[] authorArray = new CSLName[authorList.size()];
-			authorArray = authorList.toArray(authorArray);
-			cslItem.author(authorArray);
+			cslItem.author(getCSLNameArrayFromList(authorList));
 		}
 		if (editorList.size() > 0)
 		{
-			CSLName[] editorArray = new CSLName[editorList.size()];
-			editorArray = editorList.toArray(editorArray);
-			cslItem.editor(editorArray);
+			cslItem.editor(getCSLNameArrayFromList(editorList));
 		}
 		if (directorList.size() > 0)
 		{
-			CSLName[] directorArray = new CSLName[directorList.size()];
-			directorArray = directorList.toArray(directorArray);
-			cslItem.director(directorArray);
+			cslItem.director(getCSLNameArrayFromList(directorList));
 		}
 		if (illustratorList.size() > 0)
 		{
-			CSLName[] illustratorArray = new CSLName[illustratorList.size()];
-			illustratorArray = illustratorList.toArray(illustratorArray);
-			cslItem.illustrator(illustratorArray);
+			cslItem.illustrator(getCSLNameArrayFromList(illustratorList));
 		}
 		if (translatorList.size() > 0)
 		{
-			CSLName[] translatorArray = new CSLName[translatorList.size()];
-			translatorArray = translatorList.toArray(translatorArray);
-			cslItem.translator(translatorArray);
+			cslItem.translator(getCSLNameArrayFromList(translatorList));
 		}
 		if (composerList.size() > 0)
 		{
-			CSLName[] composerArray = new CSLName[composerList.size()];
-			composerArray = composerList.toArray(composerArray);
-			cslItem.composer(composerArray);
+			cslItem.composer(getCSLNameArrayFromList(composerList));
 		}
 		
 		// Date
@@ -402,9 +390,7 @@ public class MetadataProvider implements ItemDataProvider {
 				}
 				if (collectionEditorList.size() > 0)
 				{
-					CSLName[] collectionEditorrArray = new CSLName[collectionEditorList.size()];
-					collectionEditorrArray = illustratorList.toArray(collectionEditorrArray);
-					cslItem.collectionEditor(collectionEditorrArray);
+					cslItem.collectionEditor(getCSLNameArrayFromList(collectionEditorList));
 				}
 			}
 			else
@@ -424,9 +410,7 @@ public class MetadataProvider implements ItemDataProvider {
 				}
 				if (containerAuthorList.size() > 0)
 				{
-					CSLName[] containerAuthorArray = new CSLName[containerAuthorList.size()];
-					containerAuthorArray = illustratorList.toArray(containerAuthorArray);
-					cslItem.containerAuthor(containerAuthorArray);
+					cslItem.containerAuthor(getCSLNameArrayFromList(containerAuthorList));
 				}
 			}
 			
@@ -624,6 +608,13 @@ public class MetadataProvider implements ItemDataProvider {
 			cslGenre = CSLType.LEGAL_CASE;
 		}
 		return cslGenre;
+	}
+	
+	private static CSLName[] getCSLNameArrayFromList(List<CSLName> collectionEditorList)
+	{
+		CSLName[] creatorArray = new CSLName[collectionEditorList.size()];
+		creatorArray = collectionEditorList.toArray(creatorArray);
+		return creatorArray;
 	}
 	
 	/**
