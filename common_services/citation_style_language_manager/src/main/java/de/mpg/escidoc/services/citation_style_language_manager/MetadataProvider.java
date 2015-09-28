@@ -4,23 +4,15 @@
 package de.mpg.escidoc.services.citation_style_language_manager;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -46,18 +38,18 @@ import de.undercouch.citeproc.csl.CSLNameBuilder;
 import de.undercouch.citeproc.csl.CSLType;
 
 /**
+ * MetadataProvider provides csl item data for a given escidoc item-List
  * @author walter
  * 
  */
-//@Stateless
 public class MetadataProvider implements ItemDataProvider {
 	
 	private final static Logger logger = Logger
 			.getLogger(CitationStyleLanguageManagerDefaultImpl.class);
 	
-//	@EJB
+	private final static String[] dateFormats = { "YYYY-MM-DD" , "YYYY-MM", "YYYY" };
+	
 	private XmlTransforming xmlTransformer;
-	private String itemList;
 	private List<PubItemVO> pubItemList;
 	private List<String> ids = new ArrayList<String>();
 	
@@ -75,12 +67,6 @@ public class MetadataProvider implements ItemDataProvider {
 		} catch (NamingException e) {
 			logger.error("Unable to find XmlTransforming service",e);
 		}
-	}
-	
-	@PostConstruct
-	private void init() 
-	{
-		
 	}
 	
 	/*
@@ -103,10 +89,11 @@ public class MetadataProvider implements ItemDataProvider {
 	public CSLItemData retrieveItem(String id) {
 		PubItemVO currentItem = pubItemList.get(ids.indexOf(id));
 		MdsPublicationVO metadata = currentItem.getMetadata();
-		CSLName personName = new CSLName();
 		CSLItemDataBuilder cslItem = new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
 		
-		String[] dateFormats = { "YYYY-MM-DD" , "YYYY-MM", "YYYY" };
+		// helper variables;
+		boolean publicationIsbnExists = false;
+		boolean publicationIssnExists = false;
 		
 		// Genre
 		cslItem.type(this.getCslGenre(metadata.getGenre()));
@@ -204,7 +191,7 @@ public class MetadataProvider implements ItemDataProvider {
 			cslItem.composer(getCSLNameArrayFromList(composerList));
 		}
 		
-		// Date
+		// Dates
 		if (metadata.getDateSubmitted() != null) // Submitted
 		{
 			for (String formatString : dateFormats)
@@ -321,12 +308,40 @@ public class MetadataProvider implements ItemDataProvider {
 			}
 		}
 		
-		// Identifier
+		// Identifiers
 		for (IdentifierVO identifier : metadata.getIdentifiers())
 		{
 			if (IdentifierVO.IdType.DOI.equals(identifier.getType()))
 			{
 				cslItem.DOI(identifier.getId());
+			}
+			else if (IdentifierVO.IdType.ISBN.equals(identifier.getType()))
+			{
+				cslItem.ISBN(identifier.getId());
+				publicationIsbnExists = true;
+			}
+			else if (IdentifierVO.IdType.ISSN.equals(identifier.getType()))
+			{
+				cslItem.ISSN(identifier.getId());
+				publicationIssnExists = true;
+			}
+			else if (IdentifierVO.IdType.PMC.equals(identifier.getType()))
+			{
+				cslItem.PMCID(identifier.getId());
+			}
+			else if (IdentifierVO.IdType.PMID.equals(identifier.getType()))
+			{
+				cslItem.PMID(identifier.getId());
+			}
+		}
+		if (metadata.getIdentifiers() != null 
+				&& !metadata.getIdentifiers().isEmpty())
+		{
+			List<IdentifierVO> identifierList = metadata.getIdentifiers();
+			Collections.sort(identifierList, new IdentfierPriorityComparator());
+			if (identifierList.get(0) != null)
+			{
+				cslItem.number(identifierList.get(0).getTypeString() + ": " + identifierList.get(0).getId());
 			}
 		}
 		
@@ -414,7 +429,7 @@ public class MetadataProvider implements ItemDataProvider {
 				}
 			}
 			
-			// Short title
+			// Source short title
 			for (TextVO sourceAlternativeTitle : source.getAlternativeTitles())
 			{
 				if (SourceVO.AlternativeTitleType.ABBREVIATION.equals(sourceAlternativeTitle.getType())
@@ -426,7 +441,7 @@ public class MetadataProvider implements ItemDataProvider {
 				}
 			}
 			
-			// Publisher / Publisher place / Edition (all from source)
+			// Source publisher / Source publisher place / Source edition (all from source)
 			if((metadata.getPublishingInfo() == null
 					|| metadata.getPublishingInfo().getPublisher() == null)
 					&& (source.getPublishingInfo() != null 
@@ -449,40 +464,55 @@ public class MetadataProvider implements ItemDataProvider {
 				cslItem.publisher(source.getPublishingInfo().getEdition());
 			}
 			
-			// Number of pages (from source)
+			// Source number of pages
 			if (metadata.getTotalNumberOfPages() == null
 					&& source.getTotalNumberOfPages() != null)
 			{
 				cslItem.publisher(source.getTotalNumberOfPages());
 			}
 			
-			// Volume
+			// Soource volume
 			if (source.getVolume() != null) 
 			{
 				cslItem.volume(source.getVolume());
 			}
 			
-			// Issue
+			// Source issue
 			if (source.getIssue() != null)
 			{
 				cslItem.issue(source.getIssue());
 			}
 			
-			// Startpage
+			// Source startpage
 			if (source.getStartPage() != null)
 			{
 				cslItem.pageFirst(source.getStartPage());
-				// Combined Startpage - Endpage
+				// Source combined Startpage - Endpage
 				if (source.getEndPage() != null)
 				{
-					cslItem.page(source.getStartPage() + source.getEndPage());
+					cslItem.page(source.getStartPage() + "-" + source.getEndPage());
 				}
 			}
 			
-			// Sequencenumber --> Locator
+			// Source sequence number --> Locator
 			if (source.getSequenceNumber() != null)
 			{
 				cslItem.page(source.getSequenceNumber());
+			}
+			
+			// Source identifiers
+			for (IdentifierVO identifier : source.getIdentifiers())
+			{
+				if (IdentifierVO.IdType.ISBN.equals(identifier.getType())
+						&& !publicationIsbnExists)
+				{
+					cslItem.ISBN(identifier.getId());
+				}
+				else if (IdentifierVO.IdType.ISSN.equals(identifier.getType())
+						&& !publicationIssnExists)
+				{
+					cslItem.ISSN(identifier.getId());
+				}
 			}
 		}
 		
@@ -618,7 +648,7 @@ public class MetadataProvider implements ItemDataProvider {
 	}
 	
 	/**
-	 * Comparator Implementation to sort Files for CSL-Output
+	 * Comparator Implementation to sort FileVOs for CSL-Output
 	 * @author walter
 	 *
 	 */
@@ -713,6 +743,137 @@ public class MetadataProvider implements ItemDataProvider {
 					return 1;
 				}
 				
+			}
+			
+		}
+		
+	}
+	
+	/**
+	 * Comparator Implementation to sort IdentifierVOs for CSL-Output
+	 * @author walter
+	 *
+	 */
+	private class IdentfierPriorityComparator implements Comparator<IdentifierVO>, Serializable {
+		
+		private static final long serialVersionUID = 5445404622505912156L;
+
+		@Override
+		public int compare(IdentifierVO id1, IdentifierVO id2) {
+			if (id1.getType().equals(id2.getType()))
+			{
+				return 0;
+			}
+			else {
+				if (IdentifierVO.IdType.PATENT_NR.equals(id1.getType()))
+				{
+					return -1;
+				}
+				else if (IdentifierVO.IdType.PATENT_NR.equals(id2.getType()))
+				{
+					return 1;
+				}
+				else {
+					if (IdentifierVO.IdType.PATENT_PUBLICATION_NR.equals(id1.getType()))
+					{
+						return -1;
+					}
+					else if (IdentifierVO.IdType.PATENT_PUBLICATION_NR.equals(id2.getType()))
+					{
+						return 1;
+					}
+					else {
+						if (IdentifierVO.IdType.PATENT_APPLICATION_NR.equals(id1.getType()))
+						{
+							return -1;
+						}
+						else if (IdentifierVO.IdType.PATENT_APPLICATION_NR.equals(id2.getType()))
+						{
+							return 1;
+						}
+						else {
+							if (IdentifierVO.IdType.REPORT_NR.equals(id1.getType()))
+							{
+								return -1;
+							}
+							else if (IdentifierVO.IdType.REPORT_NR.equals(id2.getType()))
+							{
+								return 1;
+							}
+							else {
+								if (IdentifierVO.IdType.ISI.equals(id1.getType()))
+								{
+									return -1;
+								}
+								else if (IdentifierVO.IdType.ISI.equals(id2.getType()))
+								{
+									return 1;
+								}
+								else {
+									if (IdentifierVO.IdType.PII.equals(id1.getType()))
+									{
+										return -1;
+									}
+									else if (IdentifierVO.IdType.PII.equals(id2.getType()))
+									{
+										return 1;
+									}
+									else {
+										if (IdentifierVO.IdType.SSRN.equals(id1.getType()))
+										{
+											return -1;
+										}
+										else if (IdentifierVO.IdType.SSRN.equals(id2.getType()))
+										{
+											return 1;
+										}
+										else {
+											if (IdentifierVO.IdType.ARXIV.equals(id1.getType()))
+											{
+												return -1;
+											}
+											else if (IdentifierVO.IdType.ARXIV.equals(id2.getType()))
+											{
+												return 1;
+											}
+											else {
+												if (IdentifierVO.IdType.BMC.equals(id1.getType()))
+												{
+													return -1;
+												}
+												else if (IdentifierVO.IdType.BMC.equals(id2.getType()))
+												{
+													return 1;
+												}
+												else {
+													if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(id1.getType()))
+													{
+														return -1;
+													}
+													else if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(id2.getType()))
+													{
+														return 1;
+													}
+													else {
+														if (IdentifierVO.IdType.OTHER.equals(id1.getType()))
+														{
+															return -1;
+														}
+														else if (IdentifierVO.IdType.OTHER.equals(id2.getType()))
+														{
+															return 1;
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				return 1;
 			}
 			
 		}
