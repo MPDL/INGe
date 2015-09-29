@@ -6,7 +6,25 @@
 	- Only for escidoc publication items
 -->
 
-<xsl:stylesheet version="2.0" xmlns:nsCR="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook">
+<xsl:stylesheet version="2.0" 
+	xmlns:nsCR="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" 
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+	xmlns:prop="http://escidoc.de/core/01/properties/" 
+	xmlns:version="http://escidoc.de/core/01/properties/version/" 
+	xmlns:release="http://escidoc.de/core/01/properties/release/" 
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
+	xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/"
+	xmlns:system="http://escidoc.de/core/01/system/" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:foxml="info:fedora/fedora-system:def/foxml#" 
+	xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook" 
+	>
 
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
@@ -144,16 +162,21 @@
 				<xsl:for-each select="$RELS-EXT/srel:component">
 					<xsl:variable name="component-id" select="replace(@rdf:resource, 'info:fedora/', '')"/>
 					
+					<xsl:choose>
+			            <xsl:when test="document($database/index/object[@name = $component-id]/@path)">
+			                <xsl:message>Component file exists!</xsl:message>
+			            </xsl:when>
+			            <xsl:otherwise>
+			                <xsl:value-of select="error(QName('http://www.escidoc.de', 'err:nocomponent'), 'No component data available') "/>
+			            </xsl:otherwise>
+			        </xsl:choose>
+					
+					
 					<xsl:variable name="component-data" select="document($database/index/object[@name = $component-id]/@path)"/>
 					<xsl:variable name="component-metadata" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'escidoc']/foxml:datastreamVersion[last()]/foxml:xmlContent"/>
 					<xsl:variable name="component-rels-ext" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'RELS-EXT']/foxml:datastreamVersion[last()]/foxml:xmlContent/rdf:RDF/rdf:Description"/>
-					
-					<!--  
-					<xsl:comment>das ist component-rels-ext <xsl:value-of select="$component-rels-ext"/></xsl:comment>
-				
-					--> 
+
 					<xsl:variable name="component-content" select="$component-data/foxml:digitalObject/foxml:datastream[@ID = 'content']/foxml:datastreamVersion[last()]"/>
-					
 					
 					<escidocComponents:component xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}">
 						<escidocComponents:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/properties">

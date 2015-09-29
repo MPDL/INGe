@@ -667,7 +667,6 @@ public class TestIndexerSmall
 		}	
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		
 	}
 	
 	// escidoc:2149549 released item, no component, no locator
@@ -842,6 +841,25 @@ public class TestIndexerSmall
 		validator.compareToReferenceIndex();
 		assertTrue(Arrays.toString(indexer.getIndexingReport().getErrorList().toArray()), 
 				indexer.getIndexingReport().getErrorList().size() == 0);
+	}
+	
+	// escidoc:21636403 released item with 1 component; escidoc:2163639 pdf (public), component file is missing in fulltexts directory
+	@Test
+	public void testItemComponentMissing_2163640() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2163640"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 0 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		validator = new Validator(indexer);
+		
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		assertTrue(fieldMap == null);
 	}
 	
 	// Tests index append mode

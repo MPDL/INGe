@@ -614,6 +614,12 @@ public class Indexer
 					indexingReport.incrementFilesSkippedBecauseOfStatusOrType();
 					
 				}
+				else if ("nocomponent".equals(de.getErrorCodeLocalPart()))
+				{
+					threadLogger.info("Component file missing for < " + file + ">");
+					indexingReport.addToErrorList(file.getName());
+					indexingReport.incrementFilesErrorOccured();
+				}
 				return;
 			}		
 						
