@@ -362,6 +362,12 @@
         	<type>ejb</type>
         </dependency>
         <dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+        <dependency>
         	<groupId>jasperreports</groupId>
         	<artifactId>jasperreports</artifactId>
         	<version>3.5.1</version>
