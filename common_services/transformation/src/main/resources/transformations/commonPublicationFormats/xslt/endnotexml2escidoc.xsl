@@ -1276,7 +1276,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Plasma Physics')"/>
 						</xsl:when>
 						<xsl:when test="($Flavor = 'MPIO')"> 
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institute for Ornithology')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Institut für Ornithologie')"/>
 						</xsl:when>				
 						<xsl:when test="($Flavor = 'MPFI')"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'Max Planck Florida Institute for Neuroscience')"/>
@@ -1304,7 +1304,7 @@
 						<xsl:value-of select="$givenname"/>
 					</eterms:given-name>
 					
-			<!-- Besonderheit für Import von externen caesar-Publikationen	
+			<!-- Besonderheit für Import von externen caesar-Publikationen	-->
 					<!--<xsl:if test="exists($cone-creator/cone/rdf:RDF/rdf:Description) and $Flavor = 'CAESAR'">
 						<organization:organization>
 							<dc:title>
