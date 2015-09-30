@@ -13,10 +13,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -30,6 +26,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.csl.CSLItemData;
 import de.undercouch.citeproc.csl.CSLItemDataBuilder;
@@ -47,16 +44,19 @@ public class MetadataProvider implements ItemDataProvider {
 	private final static Logger logger = Logger
 			.getLogger(CitationStyleLanguageManagerDefaultImpl.class);
 	
-	private final static String[] dateFormats = { "YYYY-MM-DD" , "YYYY-MM", "YYYY" };
+	private final static String[] dateFormats = { "yyyy-MM-dd" , "yyyy-MM", "yyyy" };
 	
 	private XmlTransforming xmlTransformer;
 	private List<PubItemVO> pubItemList;
 	private List<String> ids = new ArrayList<String>();
 	
-	MetadataProvider (String itemList) {
+	public MetadataProvider (String itemList) {
 		try {
-			Context context = new InitialContext();
-			xmlTransformer= (XmlTransforming) context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+			
+			// initialization with new as we try to get rid of the EJBs
+			xmlTransformer= new XmlTransformingBean();
+//			Context context = new InitialContext();
+//			xmlTransformer= (XmlTransforming) context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 			pubItemList = xmlTransformer.transformToPubItemList(itemList);
 			for (PubItemVO pubItem : pubItemList) 
 			{
@@ -64,8 +64,6 @@ public class MetadataProvider implements ItemDataProvider {
 			}
 		} catch (TechnicalException e) {
 			logger.error("Unable to transform itemList", e);
-		} catch (NamingException e) {
-			logger.error("Unable to find XmlTransforming service",e);
 		}
 	}
 	
