@@ -163,7 +163,12 @@
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
-		
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
@@ -271,6 +276,11 @@
 			<artifactId>transformation</artifactId>
 			<version>1.0.78-SNAPSHOT</version>
 			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>xmlbeans</groupId>-->
