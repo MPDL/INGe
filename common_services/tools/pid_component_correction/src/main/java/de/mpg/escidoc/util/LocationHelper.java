@@ -31,7 +31,7 @@ public class LocationHelper
 		
 		try
 		{
-			InputStream s = LocationHelper.class.getClassLoader().getResourceAsStream(ComponentPidTransformer.propFileName);
+			InputStream s = LocationHelper.class.getClassLoader().getResourceAsStream(ComponentPidTransformer.PROPERTY_FILE_NAME);
 			properties.load(s);
 			indexdbFile = properties.getProperty("transformer.locationFile");
 		} catch (FileNotFoundException e1)

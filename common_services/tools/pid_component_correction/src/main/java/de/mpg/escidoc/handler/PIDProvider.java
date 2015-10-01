@@ -9,8 +9,13 @@ import java.util.Properties;
 import javax.naming.NamingException;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.main.ComponentPidTransformer;
 import de.mpg.escidoc.main.PIDProviderIf;
 import de.mpg.escidoc.util.Util;
 
@@ -21,9 +26,13 @@ public class PIDProvider implements PIDProviderIf
     private Properties properties = new Properties();
     private HttpClient httpClient;
     
-    private static int totalNumberofPidsRequested = 0;
-    private static String propFileName = "pidProvider.properties";
+    private String location;
+    private String user;
+    private String password;
+    private String server;
     
+    private static int totalNumberofPidsUpdated = 0;
+       
     public PIDProvider() throws NamingException, IOException
     {
         this.init();
@@ -33,7 +42,7 @@ public class PIDProvider implements PIDProviderIf
     {
         logger.debug("init starting");
         
-        InputStream s = getClass().getClassLoader().getResourceAsStream(propFileName);
+        InputStream s = getClass().getClassLoader().getResourceAsStream(ComponentPidTransformer.PROPERTY_FILE_NAME);
 		
 		if (s != null)
 		{
@@ -42,9 +51,15 @@ public class PIDProvider implements PIDProviderIf
 		}
 		else 
 		{
-			throw new FileNotFoundException("Not found " + propFileName);
+			throw new FileNotFoundException("Property file not found " + ComponentPidTransformer.PROPERTY_FILE_NAME);
 		}
+		
+		location = properties.getProperty("escidoc.pidcache.service.url");
+		user = properties.getProperty("escidoc.pidcache.user.name");
+		password = properties.getProperty("escidoc.pidcache.user.password");
 
+		server = properties.getProperty("escidoc.pidcache.server");
+	        
         httpClient = Util.getHttpClient();
         httpClient.getParams().setAuthenticationPreemptive(true);
         
@@ -53,14 +68,68 @@ public class PIDProvider implements PIDProviderIf
     
     public int getTotalNumberOfPidsRequested()
     {
-        return totalNumberofPidsRequested;
+        return totalNumberofPidsUpdated;
     }
 
 	@Override
 	public String updateComponentPid(String escidocId, String versionNumber, String componentId, String pid,
 			String fileName) throws PIDProviderException
 	{
-		// TODO Auto-generated method stub
-		return null;
+	       logger.debug("getPid starting");
+	        
+	        int code = HttpStatus.SC_OK;
+	        String newUrl = "";
+	        String pidCacheUrl = location + "/write/modify";
+	        
+	        PostMethod method = new PostMethod(pidCacheUrl.concat("?pid=").concat(pid));
+	        
+	        try
+	        {
+	                newUrl = getRegisterUrlForComponent(escidocId, versionNumber, componentId, fileName);
+	        }
+	        catch (Exception e)
+	        {
+	            logger.warn("Error occured when registering Url for <" + escidocId + ">" 
+	                                    + ">"  + " and fileName <" + fileName + ">" );
+	            throw new PIDProviderException(e.getMessage(), escidocId);
+	        }
+	        
+	        method.setParameter("url", newUrl);
+	        
+	        long start = System.currentTimeMillis();
+	        try
+	        {
+	            httpClient.getState().setCredentials(new AuthScope(server, 8090),
+	                    new UsernamePasswordCredentials(user, password));
+	            
+	            code = httpClient.executeMethod(method);
+	            
+	            totalNumberofPidsUpdated++;
+	            logger.info("pid create returning " + method.getResponseBodyAsString());
+	        }
+	        catch (Exception e)
+	        {
+	            throw new PIDProviderException(e.getMessage(), escidocId);
+	        }
+	        long end = System.currentTimeMillis();
+	        
+	        logger.info("Time used for getting pid <" + (end - start) + ">ms");
+	       
+	        return pid;
 	}
+	
+	private String getRegisterUrlForComponent(String itemId, String versionNumber, String componentId, String fileName) throws Exception
+    {        
+        String registerUrl =  properties.getProperty("escidoc.pubman.instance.url") +
+        		properties.getProperty("escidoc.pubman.instance.context.path") +
+                properties.getProperty("escidoc.pubman.component.pattern")
+                        .replaceAll("\\$1", itemId)
+                        .replaceAll("\\$2", versionNumber)
+                        .replaceAll("\\$3", componentId)
+                        .replaceAll("\\$4", fileName);
+
+        logger.debug("URL given to PID resolver: " + registerUrl);
+        
+        return registerUrl;
+    }
 }
