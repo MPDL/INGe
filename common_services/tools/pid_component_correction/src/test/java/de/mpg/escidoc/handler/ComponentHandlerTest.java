@@ -40,6 +40,7 @@ public class ComponentHandlerTest
         assertTrue(componentHandler.getComponentMap() != null);
         assertTrue(componentHandler.getFilename().equals("RJMP22_9.pdf"));
         assertTrue(componentHandler.getPid().equals("hdl:11858/00-001M-0000-0025-0ADE-6"));
+        assertTrue(componentHandler.getContentLocation().equals("INTERNAL_ID"));
 	}
     
     @Test
@@ -53,6 +54,7 @@ public class ComponentHandlerTest
         assertTrue(componentHandler.getComponentMap() != null);
         assertTrue(componentHandler.getFilename().equals("Hafer_et_al_2015.pdf"));
         assertTrue(componentHandler.getPid().equals("hdl:11858/00-001M-0000-0025-7377-9"));
+        assertTrue(componentHandler.getContentLocation().equals("INTERNAL_ID"));
 	}
     
     @Test
@@ -66,6 +68,7 @@ public class ComponentHandlerTest
         assertTrue(componentHandler.getComponentMap() != null);
         assertTrue(componentHandler.getFilename().equals("http://onlinelibrary.wiley.com/doi/10.1111/evo.12612/abstract"));
         assertTrue(componentHandler.getPid() == null);
+        assertTrue(componentHandler.getContentLocation().equals("URL"));
 	}
 
 }

@@ -61,13 +61,20 @@ import de.mpg.escidoc.util.Util;
  */
 public class ItemHandler extends DefaultHandler
 {
-    private static Logger logger = Logger.getLogger(ItemHandler.class);
+	public static final String SREL_COMPONENT_KEY = "srel:component";
+	public static final String VERSION_NUMBER_KEY = "version:number";
+    public static final String RELEASE_NUMBER_KEY = "release:number";
+    public static final String VERSION_STATUS_KEY = "version:status";
+    public static final String PROP_PUBLIC_STATUS_KEY = "prop:public-status";
+
+	private static Logger logger = Logger.getLogger(ItemHandler.class);
     
     private Type objectType = Type.UNKNOWN;
     
     private String actualRelsExtId = "";
-    private String lastCreatedRelsExtId = "";
     private String PID = "";
+    private String oldVersionStatus = "";
+    private String actualVersionStatus = "";
     private boolean inRelsExt = false;
     private boolean inRelsExtAndPublicStatus = false;
     private boolean inRelsExtAndVersionStatus = false;
@@ -75,10 +82,11 @@ public class ItemHandler extends DefaultHandler
     private boolean inRelsExtAndVersionNumber = false;
     
     
+    
     // Map to hold the elements of a single RELS_EXT rdf:Description element
     private Map<String, Set<String>> tmpElementMap = new HashMap<String, Set<String>>();
     
-    // Map to hold the elements of a all RELS_EXT rdf:Descriptions elements
+    // Map to hold the elements of a all RELS_EXT rdf:Descriptions elements which concern the component pid update
     // key: RELS_EX_ID, value: the elementMap from above, these are the elements from this special RELS_EXT rdf:Description 
     private Map<String, Map<String, Set<String>>> globalElementMap = new TreeMap<String, Map<String, Set<String>>>();
    
@@ -108,40 +116,44 @@ public class ItemHandler extends DefaultHandler
             if (actualRelsExtId != null)
             {
             	Map<String, Set<String>> h = new HashMap<String, Set<String>>();
+            	if (tmpElementMap.get(VERSION_STATUS_KEY) != null && tmpElementMap.get(VERSION_STATUS_KEY).iterator().next().length() > 1)
+            	{
+            		oldVersionStatus = tmpElementMap.get(VERSION_STATUS_KEY).iterator().next();
+            	}
             	tmpElementMap = h;
   
             }
         }
-        else if ("prop:public-status".equals(qName) && inRelsExt)
+        else if (PROP_PUBLIC_STATUS_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndPublicStatus = true;
         }
-        else if ("version:status".equals(qName) && inRelsExt)
+        else if (VERSION_STATUS_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndVersionStatus = true;
         }
-        else if ("release:number".equals(qName) && inRelsExt)
+        else if (RELEASE_NUMBER_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndReleaseNumber = true;
         }
-        else if ("version:number".equals(qName) && inRelsExt)
+        else if (VERSION_NUMBER_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndVersionNumber = true;
         }
-        else if ("srel:component".equals(qName) && inRelsExt)
+        else if (SREL_COMPONENT_KEY.equals(qName) && inRelsExt)
         {          
             String componentId = attributes.getValue("rdf:resource"); 
             logger.debug("srelComponent =<" + componentId + ">");
             
-            if (tmpElementMap.get("srel:component") != null)
+            if (tmpElementMap.get(SREL_COMPONENT_KEY) != null)
             {
-            	tmpElementMap.get("srel:component").add(componentId);
+            	tmpElementMap.get(SREL_COMPONENT_KEY).add(componentId);
             }
             else
             {
             	Set<String> s = new HashSet<String>();
             	s.add(componentId);
-            	tmpElementMap.put("srel:component", s);
+            	tmpElementMap.put(SREL_COMPONENT_KEY, s);
             }
             
             // parse corresponding component foxml file
@@ -154,8 +166,7 @@ public class ItemHandler extends DefaultHandler
 				parser.parse(getComponentFile(componentId), componentHandler);
 			} catch (Exception e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("Sax parser exception occured", e);
 			}
 			
 			componentMap.put(componentId, componentHandler.getComponentMap());            
@@ -188,24 +199,23 @@ public class ItemHandler extends DefaultHandler
         	{
         		globalElementMap.put(actualRelsExtId, tmpElementMap);
         	}           
-            lastCreatedRelsExtId = actualRelsExtId;
         } else if ("foxml:datastream".equals(qName) && inRelsExt)
         {
             inRelsExt = false;
         } 
-        else if ("prop:public-status".equals(qName))
+        else if (PROP_PUBLIC_STATUS_KEY.equals(qName))
         {
             inRelsExtAndPublicStatus = false;
         }
-        else if ("version:status".equals(qName))
+        else if (VERSION_STATUS_KEY.equals(qName))
         {
             inRelsExtAndVersionStatus = false;
         }
-        else if ("release:number".equals(qName))
+        else if (RELEASE_NUMBER_KEY.equals(qName))
         {
             inRelsExtAndReleaseNumber = false;
         }
-        else if ("version:number".equals(qName))
+        else if (VERSION_NUMBER_KEY.equals(qName))
         {
             inRelsExtAndVersionNumber = false;
         }
@@ -226,22 +236,23 @@ public class ItemHandler extends DefaultHandler
         
         if (inRelsExtAndPublicStatus)
         {
-            tmpElementMap.put("prop:public-status", s);
+            tmpElementMap.put(PROP_PUBLIC_STATUS_KEY, s);
             logger.debug("publicStatus =<" + currentContent.toString() + ">");
         }  
         else if (inRelsExtAndVersionStatus)
         {
-            tmpElementMap.put("version:status", s);
+            tmpElementMap.put(VERSION_STATUS_KEY, s);
+            actualVersionStatus = currentContent.toString();
             logger.debug("versionStatus =<" + currentContent.toString() + ">");
         }    
         else if (inRelsExtAndReleaseNumber)
         {
-            tmpElementMap.put("release:number", s);
+            tmpElementMap.put(RELEASE_NUMBER_KEY, s);
             logger.debug("releaseNumber =<" + currentContent.toString() + ">");
         }  
         else if (inRelsExtAndVersionNumber)
         {
-            tmpElementMap.put("version:number", s);
+            tmpElementMap.put(VERSION_NUMBER_KEY, s);
             logger.debug("versionNumber =<" + currentContent.toString() + ">");
         }   
     }
@@ -252,62 +263,37 @@ public class ItemHandler extends DefaultHandler
         return objectType;
     }
     
-    public String getPublicStatus()
-    {
-        return getPublicStatus(lastCreatedRelsExtId);
-    }
-    
-    public String getVersionStatus()
-    {
-        return getVersionStatus(lastCreatedRelsExtId);
-    }
-    
     public String getPublicStatus(String relsExtId)
     {
-        String status = (globalElementMap.get(relsExtId) != null ? globalElementMap.get(relsExtId).get("prop:public-status").iterator().next() : "");
+        String status = (globalElementMap.get(relsExtId) != null ? globalElementMap.get(relsExtId).get(PROP_PUBLIC_STATUS_KEY).iterator().next() : "");
                 
         return status;
     }
     
     public String getVersionStatus(String relsExtId)
     {
-        String status = (String) (globalElementMap.get(relsExtId) != null ? globalElementMap.get(relsExtId).get("version:status").iterator().next() : "");
+        String status = (String) (globalElementMap.get(relsExtId) != null ? globalElementMap.get(relsExtId).get(VERSION_STATUS_KEY).iterator().next() : "");
                 
         return status;
     }
     
-    public String getReleaseNumber()
-    {
-        return getReleaseNumber(lastCreatedRelsExtId);
-    }
-    
+ 
     public String getReleaseNumber(String relsExtId)
     {
-        return (String) (globalElementMap.get(relsExtId) != null ? globalElementMap.get(relsExtId).get("release:number").iterator().next() : "");
+        return (String) (globalElementMap.get(relsExtId) != null ? globalElementMap.get(relsExtId).get(RELEASE_NUMBER_KEY).iterator().next() : "");
                 
-    }
-    
-    public String getVersionNumber()
-    {
-        return getVersionNumber(lastCreatedRelsExtId);
     }
     
     public String getVersionNumber(String relsExtId)
     {
         return (String) (globalElementMap.get(relsExtId) != null
-                ? globalElementMap.get(relsExtId).get("version:number").iterator().next() : "");
+                ? globalElementMap.get(relsExtId).get(VERSION_NUMBER_KEY).iterator().next() : "");
     }
     
-    public String getSrelComponent(String relsExtId)
+    public Set<String> getSrelComponent(String relsExtId)
     {
-        return (String) (globalElementMap.get(relsExtId) != null
-                ? globalElementMap.get(relsExtId).get("srel:component").toArray().toString() : "");
-    }
-    
-    public Set<String> getSrelComponent()
-    {
-        return (globalElementMap.get(lastCreatedRelsExtId) != null
-                ? globalElementMap.get(lastCreatedRelsExtId).get("srel:component") : new HashSet<String>());
+        return (globalElementMap.get(relsExtId) != null
+                ? globalElementMap.get(relsExtId).get(SREL_COMPONENT_KEY) : new HashSet<String>());
     }
    
     public String getEscidocId()
@@ -370,17 +356,19 @@ public class ItemHandler extends DefaultHandler
     	if (tmpElementMap.size() == 0)
     		return false;
     	
-    	Set<String> versionStatus = tmpElementMap.get("version:status");
-    	String s = versionStatus.iterator().next();
-		if (s == null || !"released".equals(s))
+		if (actualVersionStatus == null || !"released".equals(actualVersionStatus))
 			return false;
 		
-		Set<String> srelComponent = tmpElementMap.get("srel:component");
+		Set<String> srelComponent = tmpElementMap.get(SREL_COMPONENT_KEY);
 		if (srelComponent == null || srelComponent.isEmpty())
 			return false;
-		// check internal external managed
-		// TODO
-		return true;
+		// TO DO check internal external managed
+		
+		
+		if ("released".equals(actualVersionStatus) && !"released".equals(oldVersionStatus))
+			return true;
+		
+		return false;
 	}
     
     private InputStream getComponentFile(String componentId)

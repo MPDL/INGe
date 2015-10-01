@@ -24,14 +24,21 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 
 public class ComponentHandler extends DefaultHandler
-{
+{	
+	public static final String DC_TITLE_KEY = "dc:title";
+	public static final String PROP_PID_KEY = "prop:pid";
+	public static final String FOXML_CONTENT_LOCATION_KEY = "foxml:contentLocation";
+
 	private static Logger logger = Logger.getLogger(ComponentHandler.class);
 	
 	private boolean inRelsExt = false;
 	private boolean inFile = false;
+	private boolean inContent = false;
 	
 	private boolean inRelsExtAndPropPid = false;
     private boolean inFileAndDcTitle = false;
+    
+    private String contentLocation = "";
     
 	private StringBuffer currentContent;   
 	
@@ -47,18 +54,28 @@ public class ComponentHandler extends DefaultHandler
             inRelsExt = true;
             logger.debug(" startElement inRelsExt= " + inRelsExt);
         }
-        else if ("prop:pid".equals(qName) && inRelsExt)
+        else if (PROP_PID_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndPropPid = true;
         }
         
+        if ("foxml:datastream".equals(qName) && "content".equals(attributes.getValue("ID")))
+        { 
+            inContent = true;
+            logger.debug(" startElement inContent= " + inContent);
+        } 
+        else if (FOXML_CONTENT_LOCATION_KEY.equals(qName) && inContent)
+        {
+        	contentLocation = attributes.getValue("TYPE");
+        	s.put(FOXML_CONTENT_LOCATION_KEY, contentLocation);
+        }
         
         if ("foxml:datastream".equals(qName) && "escidoc".equals(attributes.getValue("ID")))
         { 
             inFile = true;
             logger.debug(" startElement inFile= " + inFile);
         }
-        else if ("dc:title".equals(qName) && inFile)
+        else if (DC_TITLE_KEY.equals(qName) && inFile)
         {
         	inFileAndDcTitle = true;
         }
@@ -78,17 +95,23 @@ public class ComponentHandler extends DefaultHandler
             inRelsExt = false;
             logger.debug(" endElement inRelsExt= " + inRelsExt);
         }
-        else if ("prop:pid".equals(qName) && inRelsExt)
+        else if (PROP_PID_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndPropPid = false;
+        }
+        
+        if ("foxml:datastream".equals(qName) && inContent)
+        { 
+            inContent = false;
+            logger.debug(" endElement inContent= " + inContent);
         }
         
         if ("foxml:datastream".equals(qName) && inFile)
         { 
             inFile = false;
-            logger.debug(" startElement inFile= " + inFile);
+            logger.debug(" endElement inFile= " + inFile);
         }
-        else if ("dc:title".equals(qName) && inFile)
+        else if (DC_TITLE_KEY.equals(qName) && inFile)
         {
         	inFileAndDcTitle = false;
         }
@@ -106,25 +129,31 @@ public class ComponentHandler extends DefaultHandler
         
         if (inRelsExtAndPropPid)
         {
-            s.put("prop:pid", currentContent.toString());
+            s.put(PROP_PID_KEY, currentContent.toString());
             logger.debug("prop:pid =<" + currentContent.toString() + ">");
         }  
         else if (inFileAndDcTitle)
         {
-        	s.put("dc:title", currentContent.toString());
+        	s.put(DC_TITLE_KEY, currentContent.toString());
             logger.debug("dc:title =<" + currentContent.toString() + ">");
         }    
     }
     
     public final String getPid()
     {
-    	return s.get("prop:pid");
+    	return s.get(PROP_PID_KEY);
     }
     
     public final String getFilename()
     {
-    	return s.get("dc:title");
+    	return s.get(DC_TITLE_KEY);
     }
+    
+    public final String getContentLocation()
+    {
+    	return s.get(FOXML_CONTENT_LOCATION_KEY);
+    }
+    
     
     public final Map<String, String> getComponentMap()
     {

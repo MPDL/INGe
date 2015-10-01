@@ -12,11 +12,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.handler.ComponentHandler;
 import de.mpg.escidoc.handler.ItemHandler;
 import de.mpg.escidoc.handler.ItemHandler.Type;
 import de.mpg.escidoc.handler.PIDProviderException;
@@ -26,36 +29,39 @@ import de.mpg.escidoc.util.Util;
 
 public class ComponentPidTransformer
 {
-    private static Logger logger = Logger.getLogger(ComponentPidTransformer.class);   
+    public static final String LOCATION_FILE_XML = "./locationFile.xml";
+	public static final String SUCCESS_FILE_LOG = "./successFile.log";
+	public static String PROPERTY_FILE_NAME = "componentPidTransformer.properties";
+
+	private static Logger logger = Logger.getLogger(ComponentPidTransformer.class);   
     
     private static TransformationReport report = new TransformationReport();
     
     private PIDProviderIf pidProvider;
     private Properties properties = new Properties();
     
-    private String actualFileName = "";
+    private String actualFileName = ""; 
+    private File successFile = null;
+    String locationFile = null;
     
-    private String locationFile = null;
     
-    public static String propFileName = "pidProvider.properties";
     
     public ComponentPidTransformer() 
     {
     	try
 		{
 			init();
-		} catch (IOException e)
+		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("Init failed ", e);
 		}
     }
     
-    public void init() throws IOException
+    private void init() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NamingException
     {
     	logger.debug("init starting");
         
-        InputStream s = getClass().getClassLoader().getResourceAsStream(propFileName);
+        InputStream s = getClass().getClassLoader().getResourceAsStream(PROPERTY_FILE_NAME);
 		
 		if (s != null)
 		{
@@ -64,10 +70,18 @@ public class ComponentPidTransformer
 		}
 		else 
 		{
-			throw new FileNotFoundException("Not found " + propFileName);
+			throw new FileNotFoundException("Not found " + PROPERTY_FILE_NAME);
 		}
 		
-		locationFile = properties.getProperty("transformer.locationFile");
+		locationFile = properties.getProperty("transformer.locationFile") != null ?
+				 properties.getProperty("transformer.locationFile") : LOCATION_FILE_XML;	
+		
+		successFile = new File(SUCCESS_FILE_LOG);
+		
+		Class<?> pidProviderClass = Class.forName(properties.getProperty("pidprovider.class"));
+        
+        pidProvider = (PIDProviderIf)pidProviderClass.newInstance();                
+        pidProvider.init();
     	
     }
     
@@ -85,7 +99,7 @@ public class ComponentPidTransformer
         
         for (File file : files)
         {
-            if (file.getName().endsWith(".svn"))
+            if (!file.getName().startsWith("escidoc_"))
                 continue;
             
             if (file.isDirectory() && !file.getName().startsWith(".svn"))
@@ -107,7 +121,7 @@ public class ComponentPidTransformer
 	 * @throws IOException 
 	 * @throws UnsupportedEncodingException 
 	 */
-	public void storeLocation(File dir) throws Exception
+	public void createLocationFile(File dir) throws Exception
 	{
 		logger.info("Starting create location file");
 		
@@ -184,24 +198,45 @@ public class ComponentPidTransformer
             report.incrementFilesNotItem();
             return;
         }
-        
-        Class<?> pidProviderClass = Class.forName(properties.getProperty("pidprovider.class"));
-        
-        pidProvider = (PIDProviderIf)pidProviderClass.newInstance();                
-        pidProvider.init();
       
         for (String relsExtId : itemHandler.getGlobalElementMap().keySet())
     	{
         	Map<String, Set<String>>elementMapForRELSEXT = itemHandler.getGlobalElementMap().get(relsExtId);
 
         	String itemId = itemHandler.getEscidocId();
-        	Set<String> componentIds = elementMapForRELSEXT.get("srel:component");
-        	Set<String> versionNumber = elementMapForRELSEXT.get("version:number");
+        	Set<String> componentIds = elementMapForRELSEXT.get(ItemHandler.SREL_COMPONENT_KEY);
+        	Set<String> versionNumber = elementMapForRELSEXT.get(ItemHandler.VERSION_NUMBER_KEY);
         	
-        	for (String cid : componentIds)
+        	for (String componentId : componentIds)
         	{
-        		Map<String, String> componentMap = itemHandler.getComponentMap(cid);
-        		pidProvider.updateComponentPid(itemId, versionNumber.iterator().next(), cid, componentMap.get("prop:pid"), componentMap.get("dc:title"));
+        		Map<String, String> componentMap = itemHandler.getComponentMap(componentId);
+        	      		
+        		String contentLocation = componentMap.get(ComponentHandler.FOXML_CONTENT_LOCATION_KEY);
+        		
+        		if ("URL".equals(contentLocation))
+        		{
+        			logger.debug("External url <" + componentId + "> nothing to do ... ");
+        			continue;
+        		} 
+        		
+        		String componentPid = componentMap.get(ComponentHandler.PROP_PID_KEY);
+				if (FileUtils.readFileToString(file).contains(itemId + " " + componentPid))
+        		{
+        			logger.info("Already updated " + itemId + " " + componentPid);
+        			continue;
+        		}
+        		try
+				{
+					pidProvider.updateComponentPid(itemId, versionNumber.iterator().next(), componentId, 
+							componentPid, componentMap.get(ComponentHandler.DC_TITLE_KEY));
+				} catch (PIDProviderException e)
+				{
+					report.addToErrorList(itemId + " " + componentPid);
+					report.incrementFilesErrorOccured();
+					continue;
+				}
+        		report.incrementFilesMigrationDone();
+        		FileUtils.writeStringToFile(successFile, itemId + " " + componentPid + "\n", true);
         	}
         	
     	}

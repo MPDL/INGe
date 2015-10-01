@@ -36,22 +36,37 @@ public class ItemHandlerTest
     
     @Test
 	// escidoc_2110501 without component
-	public void testItemWithoutComponent() throws Exception
+	public void testItemWithoutComponent1() throws Exception
 	{
     	File file = new File("src/test/resources/item/escidoc_2110501");
         
         parser.parse(file, itemHandler);
         
-        assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
-        assertTrue(itemHandler.getPublicStatus().equals(""));
-        assertTrue(itemHandler.getVersionStatus().equals(""));
-        
+        assertTrue(itemHandler.getObjectType().equals(Type.ITEM));  
         assertTrue(itemHandler.getEscidocId().equals("escidoc:2110501"));
        
         Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.11");
         
         assertTrue(m == null);
 	}
+    
+    @Test
+    // escidoc:2110518 no component
+    public void testItemWithoutComponent2() throws Exception
+    {
+        
+        File file = new File("src/test/resources/item/escidoc_2110518");
+        
+        parser.parse(file, itemHandler);
+        
+        assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
+        assertTrue(itemHandler.getEscidocId().equals("escidoc:2110518"));
+       
+        Map<String, Map<String, Set<String>>> globalElementMap = itemHandler.getGlobalElementMap();
+        
+        assertTrue(globalElementMap != null);
+        assertTrue(globalElementMap.size() == 0);
+    }
      
     @Test
     // escidoc:2110508 one component escidoc:2110507 internal-managed
@@ -63,14 +78,14 @@ public class ItemHandlerTest
         parser.parse(file, itemHandler);
         
         assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
-        assertTrue(itemHandler.getPublicStatus().equals("released"));
-        assertTrue(itemHandler.getVersionStatus().equals("released"));
-        
-        assertTrue(itemHandler.getReleaseNumber().equals("1"));
-        assertTrue(itemHandler.getVersionNumber().equals("1"));
         assertTrue(itemHandler.getEscidocId().equals("escidoc:2110508"));
+        
+        Map<String, Map<String, Set<String>>> globalElementMap = itemHandler.getGlobalElementMap();
+        
+        assertTrue(globalElementMap != null);
+        assertTrue(globalElementMap.size() == 1);
        
-        Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.11");
+        Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.10");
         
         assertTrue(m.get("version:number").iterator().next().equals("1"));
         assertTrue(m.get("prop:public-status").iterator().next().equals("released"));
@@ -78,30 +93,7 @@ public class ItemHandlerTest
         assertTrue(m.get("srel:component").contains("info:fedora/escidoc:2110507"));
     }
     
-    @Test
-    // escidoc:2110518 no component
-    public void testItemNoComponent() throws Exception
-    {
-        
-        File file = new File("src/test/resources/item/escidoc_2110518");
-        
-        parser.parse(file, itemHandler);
-        
-        assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
-        assertTrue(itemHandler.getPublicStatus().equals(""));
-        assertTrue(itemHandler.getVersionStatus().equals(""));
-        
-        assertTrue(itemHandler.getReleaseNumber().equals(""));
-        assertTrue(itemHandler.getVersionNumber().equals(""));
-        assertTrue(itemHandler.getEscidocId().equals("escidoc:2110518"));
-       
-        Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.11");
-        assertTrue(m == null);
-        
-        m = itemHandler.getElementMapFor("RELS-EXT.12");
-        
-        assertTrue(m == null);
-    }
+    
     
     // escidoc:2111689 released item with 2 component; escidoc:2111688 locator and escidoc:2111687 component with pdf
  	@Test
@@ -112,22 +104,27 @@ public class ItemHandlerTest
         parser.parse(file, itemHandler);
         
         assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
-        assertTrue(itemHandler.getPublicStatus().equals("released"));
-        assertTrue(itemHandler.getVersionStatus().equals("released"));
-        
-        assertTrue(itemHandler.getReleaseNumber().equals("1"));
-        assertTrue(itemHandler.getVersionNumber().equals("1"));
         assertTrue(itemHandler.getEscidocId().equals("escidoc:2111689"));
         
-        assertTrue(itemHandler.getSrelComponent().contains("info:fedora/escidoc:2111687")
-        		&& itemHandler.getSrelComponent().contains("info:fedora/escidoc:2111688"));
+        Map<String, Map<String, Set<String>>> globalElementMap = itemHandler.getGlobalElementMap();
+        
+        assertTrue(globalElementMap != null);
+        assertTrue(globalElementMap.size() == 1);
+       
+        Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.10");
+        assertTrue(m.get("version:number").iterator().next().equals("1"));
+        assertTrue(m.get("prop:public-status").iterator().next().equals("released"));
+        assertTrue(m.get("version:status").iterator().next().equals("released"));
+        
+        assertTrue(itemHandler.getSrelComponent("RELS-EXT.10").contains("info:fedora/escidoc:2111687")
+        		&& itemHandler.getSrelComponent("RELS-EXT.10").contains("info:fedora/escidoc:2111688"));
        
  		
  	}
  	
  	// escidoc:2169637 released item with totally 3 components; 
  	// escidoc:2169636 component of version 1 
- 	// escidoc:2170639 component of version 2
+ 	// escidoc:2170639 component of version 2 (not released)
  	// escidoc:2170641 component of version 3
   	@Test
   	public void testReleasedItemWithModifiedComponents() throws Exception
@@ -137,16 +134,25 @@ public class ItemHandlerTest
          parser.parse(file, itemHandler);
          
          assertTrue(itemHandler.getObjectType().equals(Type.ITEM));
-         assertTrue(itemHandler.getPublicStatus().equals("released"));
-         assertTrue(itemHandler.getVersionStatus().equals("released"));
-         
-         assertTrue(itemHandler.getReleaseNumber().equals("3"));
-         assertTrue(itemHandler.getVersionNumber().equals("3"));
          assertTrue(itemHandler.getEscidocId().equals("escidoc:2169637"));
          
-         assertTrue(itemHandler.getSrelComponent().contains("info:fedora/escidoc:2170641")); 
+         Map<String, Map<String, Set<String>>> globalElementMap = itemHandler.getGlobalElementMap();
          
-         assertTrue(itemHandler.getGlobalElementMap().size() == 2);
+         assertTrue(globalElementMap != null);
+         assertTrue(globalElementMap.size() == 2);
+        
+         Map<String, Set<String>> m = itemHandler.getElementMapFor("RELS-EXT.10");
+         assertTrue(m.get("version:number").iterator().next().equals("1"));
+         assertTrue(m.get("prop:public-status").iterator().next().equals("released"));
+         assertTrue(m.get("version:status").iterator().next().equals("released"));         
+         assertTrue(itemHandler.getSrelComponent("RELS-EXT.10").contains("info:fedora/escidoc:2169636")); 
+         
+         m = itemHandler.getElementMapFor("RELS-EXT.22");
+         assertTrue(m.get("version:number").iterator().next().equals("3"));
+         assertTrue(m.get("prop:public-status").iterator().next().equals("released"));
+         assertTrue(m.get("version:status").iterator().next().equals("released"));         
+         assertTrue(itemHandler.getSrelComponent("RELS-EXT.22").contains("info:fedora/escidoc:2170641")); 
+
   	}
     
  
