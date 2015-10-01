@@ -105,7 +105,7 @@
 				<archive>
 					<manifest>
 						<addClasspath>true</addClasspath>
-						<mainClass>de.mpg.escidoc.main.XXXXXX</mainClass>
+						<mainClass>de.mpg.escidoc.main.ComponentPidTransformer</mainClass>
 					</manifest>
 				</archive>
 			</configuration>
