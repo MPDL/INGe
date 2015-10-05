@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -51,6 +53,7 @@ public class CitationStyleLanguageManagerDefaultImpl implements
 			.getLogger(CitationStyleLanguageManagerDefaultImpl.class);
 	
 	private final static String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
+	private final static String CITATION_EXTRACTION_PATTERN = "<div[^>]*>[^\\[](.*?)</div>";
 
 	/*
 	 * (non-Javadoc)
@@ -75,15 +78,45 @@ public class CitationStyleLanguageManagerDefaultImpl implements
 			Bibliography bibl = citeproc.makeBibliography();
 			TransformerFactory factory = new TransformerFactoryImpl();
 			Transformer transformer = factory.newTransformer(new StreamSource(this.getClass().getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
+			
+
+	        // Create a Pattern object
+	        Pattern pattern = Pattern.compile(CITATION_EXTRACTION_PATTERN);
+
+	        // Now create matcher object.
+	        Matcher matcher = pattern.matcher("");
 			for (String citation : bibl.getEntries()) {
-				citation = citation.trim();
-				citation = citation.substring(23, citation.indexOf("</div>"));
-				System.out.println(citation);
+//				matcher.reset(citation);
+//				if (matcher.find())
+//				{
+//					citation = matcher.group(0);
+//				}
+				if (citation.contains("<div class=\"csl-right-inline\">"))
+				{
+					citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
+					citation = citation.substring(0, citation.indexOf("</div>"));
+				}
+				else if (citation.contains("<div class=\"csl-entry\">"))
+				{
+					citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
+					citation = citation.substring(0, citation.indexOf("</div>"));
+				}
+				else 
+				{
+					citation = citation.trim();
+				}
+				if (logger.isDebugEnabled()) 
+				{
+					logger.debug("Citation: " + citation);
+				}
 				citationList.add(citation);
 			}
 			transformer.setParameter("citations", citationList);
 			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(snippet));
-			System.out.println(snippet);
+			if (logger.isDebugEnabled()) 
+			{
+				logger.debug("eSciDoc-Snippet including Ciation: " + snippet);
+			}
 			result = snippet.toString().getBytes("UTF-8");
 
 		} catch (IOException e) {
