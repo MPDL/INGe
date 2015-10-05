@@ -155,7 +155,7 @@
 
 		</pack>
 		<pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
-			<description>WildFly Application Runtime 8.1.0</description>
+			<description>WildFly Application Runtime 8.2.0</description>
 		
 			<file src="wildfly/wildfly-8.2.0.Final.zip" targetdir="$INSTALL_PATH" unpack="true"/>
 
