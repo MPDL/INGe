@@ -69,9 +69,9 @@ public class CitationStyleLanguageUtils {
 				if ("http_www_w3_org_1999_02_22_rdf_syntax_ns_value".equals(fieldname)) {
 
 				  // current token is "name",
-			              // move to next, which is "name"'s value
+			      // move to next, which is "name"'s value
 				  jParser.nextToken();
-				  xml = jParser.getText(); // display mkyong
+				  xml = jParser.getText();
 				  break;
 				}
 			}
@@ -81,7 +81,10 @@ public class CitationStyleLanguageUtils {
 		} catch (IOException e) {
 			logger.error("Error getting json from URL (" + url + ")", e);
 		}
-		if (logger.isDebugEnabled()) logger.debug("Successfully parsed CSL-XML from URL (" + url + ")\n--------------------\n" + xml +"\n--------------------\n");
+		if (logger.isDebugEnabled()) 
+		{
+			logger.debug("Successfully parsed CSL-XML from URL (" + url + ")\n--------------------\n" + xml +"\n--------------------\n");
+		}
 		return xml;
 	}
 }
