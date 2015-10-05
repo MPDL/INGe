@@ -149,15 +149,15 @@
 			<file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			<file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 			-->
-			<file src="pubman_ear-pure.ear" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/standalone/deployments"/>
-			<file src="wildfly/module.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/modules/pubman/main"/>
-			<file src="wildfly/ips.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/modules/pubman/main"/>
+			<file src="pubman_ear-pure.ear" targetdir="$INSTALL_PATH/wildfly-8.2.0.Final/standalone/deployments"/>
+			<file src="wildfly/module.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.2.0.Final/modules/pubman/main"/>
+			<file src="wildfly/ips.xml" override="true" targetdir="$INSTALL_PATH/wildfly-8.2.0.Final/modules/pubman/main"/>
 
 		</pack>
 		<pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
 			<description>WildFly Application Runtime 8.1.0</description>
 		
-			<file src="wildfly/wildfly-8.1.0.Final.zip" targetdir="$INSTALL_PATH" unpack="true"/>
+			<file src="wildfly/wildfly-8.2.0.Final.zip" targetdir="$INSTALL_PATH" unpack="true"/>
 
 			<!-- 
 			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/wildfly/"/>
@@ -166,8 +166,8 @@
 		<pack name="Application Server additional config" parent="PubMan" required="no" id="pack_jboss_config" hidden="true" condition="jboss_selected">
 			<description>WildFly Application Runtime 8.1.0 Config Files</description>
 
-			<file src="wildfly/standalone.xml" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/standalone/configuration" override="true"/>
-			<file src="wildfly/standalone.conf" targetdir="$INSTALL_PATH/wildfly-8.1.0.Final/bin" override="true"/>
+			<file src="wildfly/standalone.xml" targetdir="$INSTALL_PATH/wildfly-8.2.0.Final/standalone/configuration" override="true"/>
+			<file src="wildfly/standalone.conf" targetdir="$INSTALL_PATH/wildfly-8.2.0.Final/bin" override="true"/>
 			<!-- 
 			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/wildfly/"/>
 			-->
