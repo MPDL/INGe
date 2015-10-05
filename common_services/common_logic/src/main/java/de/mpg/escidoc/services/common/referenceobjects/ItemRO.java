@@ -364,12 +364,9 @@ public class ItemRO extends ReferenceObject implements Cloneable
         this.setObjectId(href);      
     }
     
+    // just a dummy, as href is needed for jibx-input only
     public String getHref()
     {
-        if (this.getObjectId() != null)
-        {
-            return this.PATH_FOR_XLINK_HREF + this.getObjectId();
-        }
         return null;
     }
     
