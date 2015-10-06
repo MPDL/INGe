@@ -212,6 +212,7 @@ public class MetadataProvider implements ItemDataProvider {
 					{
 						cslItem.submitted(calendar.get(Calendar.YEAR), 0, 0);
 					}
+					break;
 				}
 				catch (ParseException e)
 				{
@@ -241,6 +242,7 @@ public class MetadataProvider implements ItemDataProvider {
 					{
 						cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
 					}
+					break;
 				}
 				catch (ParseException e)
 				{
@@ -269,6 +271,7 @@ public class MetadataProvider implements ItemDataProvider {
 					{
 						cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
 					}
+					break;
 				}
 				catch (ParseException e)
 				{
@@ -298,6 +301,7 @@ public class MetadataProvider implements ItemDataProvider {
 					{
 						cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
 					}
+					break;
 				}
 				catch (ParseException e)
 				{
@@ -607,6 +611,7 @@ public class MetadataProvider implements ItemDataProvider {
 						{
 							cslItem.submitted(calendar.get(Calendar.YEAR), 0, 0);
 						}
+						break;
 					}
 					catch (ParseException e)
 					{
