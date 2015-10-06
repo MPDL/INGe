@@ -4,6 +4,7 @@
 package de.mpg.escidoc.services.citation_style_language_manager;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -199,11 +200,22 @@ public class MetadataProvider implements ItemDataProvider {
 					Date date = new SimpleDateFormat(formatString).parse(metadata.getDateSubmitted());
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(date);
-					cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+					if (dateFormats[0].equals(formatString))
+					{
+						cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+					}
+					else if (dateFormats[1].equals(formatString))
+					{
+						cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+					}
+					else if (dateFormats[2].equals(formatString))
+					{
+						cslItem.submitted(calendar.get(Calendar.YEAR), 0, 0);
+					}
 				}
 				catch (ParseException e)
 				{
-					logger.error("Error parsing date submitted. Trying other dateformat");
+					if(logger.isDebugEnabled()) logger.debug("Error parsing date submitted. Trying other dateformat");
 				}
 			}
 			
@@ -217,11 +229,22 @@ public class MetadataProvider implements ItemDataProvider {
 					Date date = new SimpleDateFormat(formatString).parse(metadata.getDatePublishedInPrint());
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(date);
-					cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+					if (dateFormats[0].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+					}
+					else if (dateFormats[1].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+					}
+					else if (dateFormats[2].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
+					}
 				}
 				catch (ParseException e)
 				{
-					logger.error("Error parsing date issued. Trying other dateformat");
+					if(logger.isDebugEnabled()) logger.debug("Error parsing date issued. Trying other dateformat");
 				}
 			}
 		}
@@ -234,11 +257,22 @@ public class MetadataProvider implements ItemDataProvider {
 					Date date = new SimpleDateFormat(formatString).parse(metadata.getDatePublishedOnline());
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(date);
-					cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+					if (dateFormats[0].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+					}
+					else if (dateFormats[1].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+					}
+					else if (dateFormats[2].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
+					}
 				}
 				catch (ParseException e)
 				{
-					logger.error("Error parsing date issued (published in print). Trying other dateformat");
+					if(logger.isDebugEnabled()) logger.debug("Error parsing date issued (published in print). Trying other dateformat");
 				}
 			}
 		}
@@ -252,11 +286,22 @@ public class MetadataProvider implements ItemDataProvider {
 					Date date = new SimpleDateFormat(formatString).parse(metadata.getDateAccepted());
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(date);
-					cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+					if (dateFormats[0].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+					}
+					else if (dateFormats[1].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+					}
+					else if (dateFormats[2].equals(formatString))
+					{
+						cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
+					}
 				}
 				catch (ParseException e)
 				{
-					logger.error("Error parsing date issued (accepted). Trying other dateformat");
+					if(logger.isDebugEnabled()) logger.debug("Error parsing date issued (accepted). Trying other dateformat");
 				}
 			}
 		}
@@ -398,7 +443,14 @@ public class MetadataProvider implements ItemDataProvider {
 					if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
 							|| CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole()))
 					{
-						collectionEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());
+						if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType()))
+						{
+							collectionEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());
+						}
+						else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType()))
+						{
+							collectionEditorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName().getValue()).build());
+						}
 					}
 				}
 				if (collectionEditorList.size() > 0)
@@ -418,7 +470,14 @@ public class MetadataProvider implements ItemDataProvider {
 					if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
 							|| CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole()))
 					{
-						containerAuthorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());
+						if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType()))
+						{
+							containerAuthorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());
+						}
+						else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType()))
+						{
+							containerAuthorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName().getValue()).build());
+						}
 					}
 				}
 				if (containerAuthorList.size() > 0)
@@ -536,11 +595,22 @@ public class MetadataProvider implements ItemDataProvider {
 						Date date = new SimpleDateFormat(formatString).parse(event.getStartDate());
 						Calendar calendar = Calendar.getInstance();
 						calendar.setTime(date);
-						cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+						if (dateFormats[0].equals(formatString))
+						{
+							cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+						}
+						else if (dateFormats[1].equals(formatString))
+						{
+							cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+						}
+						else if (dateFormats[2].equals(formatString))
+						{
+							cslItem.submitted(calendar.get(Calendar.YEAR), 0, 0);
+						}
 					}
 					catch (ParseException e)
 					{
-						logger.error("Error parsing date submitted");
+						if(logger.isDebugEnabled()) logger.debug("Error parsing date submitted");
 					}
 				}
 			}
@@ -555,6 +625,12 @@ public class MetadataProvider implements ItemDataProvider {
 		CSLType cslGenre = null;
 		if (Genre.ARTICLE.equals(genre)
 				|| Genre.EDITORIAL.equals(genre)
+				|| Genre.PAPER.equals(genre)
+				|| Genre.OTHER.equals(genre)) 
+		{
+			cslGenre = CSLType.ARTICLE_JOURNAL;
+		}
+		else if (Genre.EDITORIAL.equals(genre)
 				|| Genre.PAPER.equals(genre)
 				|| Genre.OTHER.equals(genre)) 
 		{
