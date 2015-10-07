@@ -11,7 +11,7 @@ public class ConfigUtil {
 	public static final String CONE_URL = "http://pubman.mpdl.mpg.de/cone/";
 	
 	// Set to "true" for logging information
-	public final static boolean VERBOSE = false;
+	public final static boolean VERBOSE = true;
 	
 	// Set to "true" if you want to check only complete-names without alternatives, 
 	// or "shortened" complete-names 
@@ -26,7 +26,7 @@ public class ConfigUtil {
 	
 	// Set the file path to the cone-rdf-xml
 	// (only needed for RDF-Check)
-	public final static String RDF_FILE_PATH = "E:\\tmp\\import_cone_persons_mpi_sf.xml";
+	public final static String RDF_FILE_PATH = "E:\\tmp\\result_migration_cone_mpi_rcg.xml";
 	
 	// XPath-Expression for the title node
 	// (only needed for RDF-Check)
