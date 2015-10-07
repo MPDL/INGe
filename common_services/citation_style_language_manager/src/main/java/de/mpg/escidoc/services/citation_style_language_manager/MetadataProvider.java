@@ -103,9 +103,9 @@ public class MetadataProvider implements ItemDataProvider {
 		// Alternative title
 		for (TextVO title : metadata.getAlternativeTitles())
 		{
-			if (!SourceVO.AlternativeTitleType.HTML.equals(title.getType())
-					&& !SourceVO.AlternativeTitleType.LATEX.equals(title.getType())
-					&& !SourceVO.AlternativeTitleType.MATHML.equals(title.getType()))
+			if (!SourceVO.AlternativeTitleType.HTML.toString().equals(title.getType())
+					&& !SourceVO.AlternativeTitleType.LATEX.toString().equals(title.getType())
+					&& !SourceVO.AlternativeTitleType.MATHML.toString().equals(title.getType()))
 			{
 				cslItem.titleShort(title.getValue());
 				break;
