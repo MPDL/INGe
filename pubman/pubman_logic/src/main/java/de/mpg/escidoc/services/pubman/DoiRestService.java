@@ -77,7 +77,8 @@ public class DoiRestService {
 			RequestEntity xmlEntity = new StringRequestEntity(doiMetadataXml,
 					"text/xml", "UTF-8");
 			String queryParams = "?url="
-					+ PropertyReader.getProperty("escidoc.pubman.instance.url")
+//					+ PropertyReader.getProperty("escidoc.pubman.instance.url")
+					+ PropertyReader.getProperty("escidoc.framework_access.framework.url")
 					+ PropertyReader.getProperty("escidoc.pubman.instance.context.path")
 					+ (PropertyReader.getProperty("escidoc.pubman.item.pattern")).replace("$1", pubItem.getVersion().getObjectId())
 					+ "&suffix="
