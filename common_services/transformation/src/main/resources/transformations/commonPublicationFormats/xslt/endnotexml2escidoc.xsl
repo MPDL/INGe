@@ -1030,7 +1030,7 @@
 						<xsl:value-of select="S"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSeriesTitle' ), concat('There is more than one CoNE entry matching -', $ssgen))"/>
+						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSeriesTitle' ), concat('There is no series title -', $ssgen))"/>
 						</xsl:otherwise>
 				</xsl:choose>
 			</dc:title>

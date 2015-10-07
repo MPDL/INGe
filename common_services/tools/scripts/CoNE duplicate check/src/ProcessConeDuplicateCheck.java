@@ -68,7 +68,10 @@ public class ProcessConeDuplicateCheck {
 			}
 			
 		}
-		System.out.println("\n--------------------\nPossible Duplicates\n--------------------\n");
+		if (ConfigUtil.VERBOSE) 
+		{
+			System.out.println("\n--------------------\nPossible Duplicates\n--------------------\n");
+		}
 		File file = new File(ConfigUtil.OUTPUT_FILE_PATH);
 		try 
 		{
@@ -88,6 +91,7 @@ public class ProcessConeDuplicateCheck {
 			System.out.println("Error writing to File [" + ProcessConeDuplicateCheck.class.getEnclosingMethod() + "]");
 			e.printStackTrace();
 		}
+		System.out.println("Duplicates written to File [" + ConfigUtil.OUTPUT_FILE_PATH + "]" );
 	}
 	
 	/**
