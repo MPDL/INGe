@@ -801,7 +801,57 @@ public class MetadataProvider implements ItemDataProvider {
 					}
 					else if (FileVO.Storage.EXTERNAL_URL.equals(file1.getStorage()))
 					{
-						return -1;
+						if (file1.getContentCategory().equals(file2.getContentCategory()))
+						{
+							return 0;
+						}
+						else 
+						{
+							if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
+									.equals(file1.getContentCategoryString()))
+							{
+								return -1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
+									.equals(file2.getContentCategory()))
+							{
+								return 1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print"
+									.equals(file1.getContentCategory()))
+							{
+								return -1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print"
+									.equals(file2.getContentCategory()))
+							{
+								return 1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
+									.equals(file1.getContentCategory()))
+							{
+								return -1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
+									.equals(file2.getContentCategory()))
+							{
+								return 1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
+									.equals(file1.getContentCategory()))
+							{
+								return -1;
+							}
+							else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
+									.equals(file2.getContentCategory()))
+							{
+								return 1;
+							}
+							else 
+							{
+								return 1;
+							}
+						}
 					}
 					else 
 					{
@@ -813,7 +863,7 @@ public class MetadataProvider implements ItemDataProvider {
 					return -1;
 				}
 				else if (FileVO.Visibility.AUDIENCE.equals(file1.getVisibility())
-						&& FileVO.Visibility.PRIVATE.equals(file1.getVisibility()))
+						&& FileVO.Visibility.PRIVATE.equals(file2.getVisibility()))
 				{
 					return -1;
 				}
