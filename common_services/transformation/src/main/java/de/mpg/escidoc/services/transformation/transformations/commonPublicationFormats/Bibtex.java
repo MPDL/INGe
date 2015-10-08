@@ -34,7 +34,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,10 +45,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import bibtex.dom.BibtexEntry;
 import bibtex.dom.BibtexFile;
@@ -727,74 +723,6 @@ public class Bibtex implements BibtexInterface
                                             }
                                         }
                                     }
-                                    /* Case for MPI-Microstructure Physics
-                                     * with affiliation identifier in brackets
-                                     * and affiliations to adopt from CoNE for each author (also in brackets)
-                                     */
-                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("affiliation id in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors"))) && (author.getTags().get("identifier") != null))
-                                    {
-                                    	String identifier = author.getTags().get("identifier");
-                                    	String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
-                                        if (!("abteilung9".equals(identifier)))
-                                        {
-                                            Node coneEntries = null;
-                                            coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
-                                            Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                                            if (coneNode != null)
-                                            {
-                                                Node currentNode = coneNode.getFirstChild();
-                                                boolean first = true;
-                                                while (currentNode != null)
-                                                {
-                                                    if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
-                                                    {
-                                                        first = false;
-                                                        noConeAuthorFound = false;
-                                                        Node coneEntry = currentNode;
-                                                        String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                                                        personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
-                                                        
-                                                        if (identifier != null && !("".equals(identifier)))
-                                                        {
-                                                        	if (!("MPIfR".equals(identifier)))
-                                                        	{
-                                                        		try
-	                                                    		{
-                                                        			String ouSubTitle = identifier.substring(0, identifier.indexOf(","));
-	                                                    			Document document = Util.queryFramework("/oum/organizational-units?query=" + URLEncoder.encode("\"/title\"=" + ouSubTitle, "UTF-8"));
-	                                                    			NodeList titleList = document.getElementsByTagNameNS("http://www.escidoc.de/schemas/organizationalunit/0.8", "organizational-unit");
-	                                                            	String href = ((Element) titleList.item(0)).getAttribute("xlink:href");
-	                                                            	String ouId = href.substring(href.lastIndexOf("/") + 1);
-	                                                            	OrganizationVO org = new OrganizationVO();
-	                                                                org.setName(new TextVO(identifier));
-	                                                                org.setIdentifier(ouId);
-	                                                                personVO.getOrganizations().add(org);
-	                                                    		}
-	                                                        	catch (Exception e) 
-	                                                        	{
-	                                                        		logger.error("Error getting OUs", e);
-	                                                        		throw new RuntimeException("Error getting Organizational Unit for " + identifier);
-	                                                         	}
-                                                        	}
-                                                        	else 
-                                                        	{
-                                                        		
-                                                        	}
-                                                        }
-                                                    }
-                                                    else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
-                                                    {
-                                                        throw new RuntimeException("Ambigous CoNE entries for " + query);
-                                                    }
-                                                    currentNode = currentNode.getNextSibling();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                throw new RuntimeException("Missing CoNE entry for " + query);
-                                            } 
-                                        }
-                                    }
                                     else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("empty brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")) && (author.getTags().get("brackets") != null)))
                                     {
                                         String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
@@ -1153,70 +1081,6 @@ public class Bibtex implements BibtexInterface
                                                     throw new RuntimeException("Missing CoNE entry for " + query);
                                                 } 
                                             }
-                                        }
-                                    }
-                                    /* Case for MPI-Microstructure Physics
-                                     * with affiliation identifier in brackets
-                                     * and affiliations to adopt from CoNE for each author (also in brackets)
-                                     */
-                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("affiliation id in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors"))) && (editor.getTags().get("identifier") != null))
-                                    {
-                                    	String identifier = editor.getTags().get("identifier");
-                                    	String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
-                                        if (!("abteilung9".equals(identifier)))
-                                        {
-                                            Node coneEntries = null;
-                                            coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
-                                            Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                                            if (coneNode != null)
-                                            {
-                                                Node currentNode = coneNode.getFirstChild();
-                                                boolean first = true;
-                                                while (currentNode != null)
-                                                {
-                                                    if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
-                                                    {
-                                                        first = false;
-                                                        noConeAuthorFound = false;
-                                                        Node coneEntry = currentNode;
-                                                        String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                                                        personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
-                                                        
-                                                        if (identifier != null && !("".equals(identifier)))
-                                                        {
-                                                        	// Mapping MPI-Microstructure Physics
-                                                        	String name = "";
-                                                        	switch (identifier) {
-                                                        		case "abteilung1": name = "Experimental Department 1";
-                                                        			break;
-                                                        		case "abteilung2": name = "Cognitive and Spintronic Technologies";
-                                                        			break;
-                                                        		case "abteilung3": name = "Theory Department";
-                                                        			break;
-                                                        		case "abteilung5": name = "Max Planck Fellow-Group (I. Mertig)";
-                                                        			break;
-                                                        		case "abteilung21": name = "Max-Planck Fellow-Group (W. Widdra)";
-                                                        			break;
-                                                        	}
-                                                        	if (!("".equals(name)))
-                                                        	{
-                                                        		OrganizationVO org = new OrganizationVO();
-                                                                org.setName(new TextVO(name));
-                                                                personVO.getOrganizations().add(org);
-                                                        	}
-                                                        }
-                                                    }
-                                                    else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
-                                                    {
-                                                        throw new RuntimeException("Ambigous CoNE entries for " + query);
-                                                    }
-                                                    currentNode = currentNode.getNextSibling();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                throw new RuntimeException("Missing CoNE entry for " + query);
-                                            } 
                                         }
                                     }
                                     else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("empty brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")) && (editor.getTags().get("brackets") != null)))
