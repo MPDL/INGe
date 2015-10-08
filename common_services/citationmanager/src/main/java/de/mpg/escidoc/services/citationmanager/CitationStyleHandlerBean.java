@@ -65,8 +65,6 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
 { 
 	
 	
-	@EJB
-	private CitationStyleLanguageManagerInterface cslManager;
     /**
      * Logger for this class.
      */
