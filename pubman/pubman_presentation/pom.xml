@@ -29,6 +29,7 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+		<relativePath>../../pom.xml</relativePath>
 		<version>7.9.5-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
