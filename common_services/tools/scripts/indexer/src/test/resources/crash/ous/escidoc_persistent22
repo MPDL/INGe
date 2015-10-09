@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:persistent22"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="External Organizations"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-03-22T08:23:35.562Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-06-26T09:08:55.488Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-10T13:05:29.772Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-10T13:05:29.840Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-10T13:05:29.893Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-10T13:05:29.987Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-10T13:05:30.009Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-10T13:05:30.040Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:29.307Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:29.347Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:29.494Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:29.518Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:29.555Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:36.653Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:36.679Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:36.814Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:36.840Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:07:36.876Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:09:37.027Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:09:37.056Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:09:37.118Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:09:37.220Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:09:37.248Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:09:37.286Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:10:17.375Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:10:17.405Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:10:17.470Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:10:17.579Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC27">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:10:17.609Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC28">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:10:17.658Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC29">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:11:32.189Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC30">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:11:32.221Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC31">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:11:32.288Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC32">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:11:32.395Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC33">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:11:32.426Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC34">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:11:32.469Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC35">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:20:58.764Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC36">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:20:58.800Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC37">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:20:58.895Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC38">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:20:59.035Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC39">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:20:59.084Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC40">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-22T09:20:59.142Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC41">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-24T17:20:53.227Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC42">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-24T17:20:53.277Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC43">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-24T17:20:53.356Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC44">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-24T17:20:53.505Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC45">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-24T17:20:53.540Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC46">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-02-24T17:20:53.592Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC47">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-06-26T09:08:55.301Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC48">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-06-26T09:08:55.433Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC49">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-06-26T09:08:55.488Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" SIZE="1032">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+<system:build xmlns:system="http://escidoc.de/core/01/system/">304</system:build>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:created-by-title>
+<srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+<prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">opened</prop:public-status>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2011-02-10T13:05:30.040Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2011-02-22T09:07:29.555Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="" CREATED="2011-02-22T09:07:36.876Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="" CREATED="2011-02-22T09:09:37.286Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="" CREATED="2011-02-22T09:10:17.658Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="" CREATED="2011-02-22T09:11:32.469Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="" CREATED="2011-02-22T09:20:59.142Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="" CREATED="2011-02-24T17:20:53.592Z" MIMETYPE="text/xml" SIZE="845">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"></rdf:type>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"></srel:created-by>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"></srel:modified-by>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="" CREATED="2013-06-26T09:08:55.488Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent22">
+    <system:build>1.3.9</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="" CREATED="2008-02-11T16:24:39.998Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="1188">
+<foxml:xmlContent>
+<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+            <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">Ext</dcterms:alternative>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+            <eterms:organization-type xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">institute</eterms:organization-type>
+            <eterms:country xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:country>
+            <eterms:city xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:city>
+            <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+            <eterms:start-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-date>
+            <eterms:end-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-date>
+          </organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="" CREATED="2011-02-10T13:05:29.772Z" ALT_IDS="metadata unknown unknown" MIMETYPE="deleted" SIZE="1078">
+<foxml:xmlContent>
+<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">Ext</dcterms:alternative>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <eterms:organization-type xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">institute</eterms:organization-type>
+  <eterms:country xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:country>
+  <eterms:city xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <eterms:start-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-date>
+  <eterms:end-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-date>
+</organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="" CREATED="2011-02-10T13:05:30.009Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.3" LABEL="" CREATED="2011-02-22T09:07:29.307Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.4" LABEL="" CREATED="2011-02-22T09:07:29.518Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="709">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations x</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.5" LABEL="" CREATED="2011-02-22T09:07:36.653Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="709">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations x</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.6" LABEL="" CREATED="2011-02-22T09:07:36.840Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.7" LABEL="" CREATED="2011-02-22T09:09:37.027Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.8" LABEL="" CREATED="2011-02-22T09:09:37.248Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="708">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Others</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.9" LABEL="" CREATED="2011-02-22T09:10:17.375Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="708">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Others</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.10" LABEL="" CREATED="2011-02-22T09:10:17.609Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Othrs</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.11" LABEL="" CREATED="2011-02-22T09:11:32.189Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Othrs</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.12" LABEL="" CREATED="2011-02-22T09:11:32.426Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.13" LABEL="" CREATED="2011-02-22T09:20:58.764Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="707">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Other</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.14" LABEL="" CREATED="2011-02-22T09:20:59.084Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="724">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organisations</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.15" LABEL="" CREATED="2011-02-24T17:20:53.227Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="724">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organisations</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.16" LABEL="" CREATED="2011-02-24T17:20:53.540Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="724">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">External Organizations</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.17" LABEL="" CREATED="2013-06-26T09:08:55.433Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="730">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">Non-MPS Organizational Units</dcterms:alternative>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Top level for external OUs</dc:description>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">institute</mdpt:organization-type>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Metadata" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" SIZE="493">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>External Organizations</dc:title>
+<dc:description>top level for external OUs</dc:description>
+<dc:identifier>escidoc:persistent22</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="Dublin Core Metadata" CREATED="2011-02-10T13:05:29.893Z" MIMETYPE="text/xml" SIZE="462">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Other</dc:title>
+  <dc:description>top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.2" LABEL="Dublin Core Metadata" CREATED="2011-02-22T09:09:37.118Z" MIMETYPE="text/xml" SIZE="463">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Others</dc:title>
+  <dc:description>top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.3" LABEL="Dublin Core Metadata" CREATED="2011-02-22T09:10:17.470Z" MIMETYPE="text/xml" SIZE="462">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Othrs</dc:title>
+  <dc:description>top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.4" LABEL="Dublin Core Metadata" CREATED="2011-02-22T09:11:32.288Z" MIMETYPE="text/xml" SIZE="462">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Other</dc:title>
+  <dc:description>top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.5" LABEL="Dublin Core Metadata" CREATED="2011-02-22T09:20:58.895Z" MIMETYPE="text/xml" SIZE="479">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>External Organisations</dc:title>
+  <dc:description>top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.6" LABEL="Dublin Core Metadata" CREATED="2011-02-24T17:20:53.356Z" MIMETYPE="text/xml" SIZE="479">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>External Organizations</dc:title>
+  <dc:description>top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.7" LABEL="Dublin Core Metadata" CREATED="2013-06-26T09:08:55.301Z" MIMETYPE="text/xml" SIZE="479">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>External Organizations</dc:title>
+  <dc:description>Top level for external OUs</dc:description>
+  <dc:identifier></dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

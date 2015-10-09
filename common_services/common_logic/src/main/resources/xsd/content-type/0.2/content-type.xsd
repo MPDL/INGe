@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:content-type="http://www.escidoc.de/schema/contenttype/0.2" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.2" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://www.escidoc.de/schema/contenttype/0.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.2" schemaLocation="http://www.escidoc.org/schemas/common/0.2/common-types.xsd"/>
+	<xs:element name="content-type">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="content-type:properties"/>
+				<xs:choice>
+					<xs:element ref="content-type:aggregation"/>
+					<xs:element ref="content-type:composition"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="properties">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="content-type:nonEmptyString"/>
+				<xs:element name="versioning-info" type="content-type:VersioningInfoEnum"/>
+				<xs:element name="category">
+					<!-- really need this? decided by aggregation/composition -->
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+							<xs:enumeration value="item"/>
+							<xs:enumeration value="container"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!-- assumed that each content-type will have one primary metadata profile. Note: we also assume there is no need to define explicitly
+					the basic-dc profile which is in any case created for each FedoraObject. -->
+				<xs:element name="metadata-profile">
+					<xs:complexType>
+						<xs:attributeGroup ref="common-types:eSciDocResourceLinkAttributes"/>
+						<xs:attribute name="name" type="xs:token"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- The mapping instructions may be associated with the metadata schema. 
+					E.g. a matadata modeler may now wich xslt pertains to a xml-schema.
+				-->
+				<xs:element name="metadata-profile-dc-mapping" minOccurs="0">
+					<xs:complexType>
+						<xs:attributeGroup ref="common-types:eSciDocResourceLinkAttributes"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- define how much metadata streams -->
+				<xs:element ref="content-type:md-records" minOccurs="0"/>
+				<!-- define how much contentstreams -->
+				<xs:element ref="content-type:content-streams" minOccurs="0"/>
+				<!-- define which properties are in content-model-specific -->
+				<xs:element ref="content-type:model-specific-properties" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="md-records">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="content-type:md-record" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="md-record"/>
+	<xs:element name="content-streams">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="content-type:content-stream" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="content-stream"/>
+	<xs:element name="model-specific-properties">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="content-type:model-specific-property" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- ObjectPropertyType defines element for specification of type-specific-properties that are to be "appended" for each object of that type -->
+	<xs:element name="model-specific-property">
+		<xs:complexType>
+			<xs:attribute name="name" type="content-type:nonEmptyString" use="required"/>
+			<xs:attribute name="property-datatype" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="xs:string"/>
+						<!-- 
+							<xs:enumeration value="xs:integer" />
+							<xs:enumeration value="xs:boolean" />
+							<xs:enumeration value="xs:dateTime" />
+							<xs:enumeration value="xs:float" />
+							the schema namespace should always have prefix xs in the instance file .. do not know how to do it otherwise
+						-->
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="xs:occurs"/>
+		</xs:complexType>
+	</xs:element>
+	<!--AggregateType defines the "aggregation pattern" in case of container type-->
+	<xs:element name="aggregation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="member-type" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="common-types:eSciDocResourceLinkAttributes"/>
+						<xs:attributeGroup ref="xs:occurs"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="cascade" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						The value of cascade can be one of SUBMIT,
+						RELEASE, WITHDRAW, LOCK, UNLOCK or a comma
+						separated list of combinations of these values
+						or simply ALL. Additionaly the value RELAXED can
+						be set to state that cascading is allowed to
+						fail. An implementation MUST accept the values
+						in lower case.
+
+						The value of cascade states if members of an
+						aggregation MUST, SHOULD or MUST NOT be affected
+						by state change or lock.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="unique-parent" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:annotation>
+							<xs:documentation>
+								The attribute 'unique-parent' states if
+								the container described by this
+								content-type is the only parent of its
+								members or not, or if there is no other
+								parent of its members with the same
+								content-type.
+
+								unique-parent="false" The members of the
+								container described by this content-type
+								may have other parents.
+
+								unique-parent="true" The members of the
+								container described by this content-type
+								are not allowed to have other parents.
+
+								unique-parent="typed" The members of the
+								container described by this content-type
+								may have other parents but not of the
+								same content-type as the described
+								container.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:enumeration value="false"/>
+						<xs:enumeration value="true"/>
+						<xs:enumeration value="typed"/>
+						<!-- 	whether member must have a unique parent or not 
+							OR no more parents of "this" container type are allowed  -->
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ordered" type="xs:boolean" use="required"/>
+			<!-- specify usage of 'ordered'-->
+			<!-- replaced with attribute "cascade"
+				<xs:attribute name="release-rule" use="required">
+				<xs:simpleType>
+				<xs:restriction base="xs:string">
+				<xs:enumeration value="required" />
+				<xs:enumeration value="tried" />
+				<xs:enumeration value="none" />
+				<!- if a container is released, then the release of the members is required, tried or not done ->
+				</xs:restriction>
+				</xs:simpleType>
+				</xs:attribute>
+			-->
+			<!-- proposal to have the attribute "unique-parent" set on aggregation level. It is referring to the typed uniqueness. The container of this type is either single
+				container  for all members of any other type declared i.e. a member can only be part of a single collection of this type; a member can be part of many
+				bundles of  this type. 
+			-->
+		</xs:complexType>
+	</xs:element>
+	<!-- definition of the components element. -->
+	<xs:element name="composition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="component-type" type="content-type:ComponentType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- definition of the component-type container. If formats are specified, then at least one <mime-type> must be defined.
+		if formats is not specified - any format is allowed for content component 
+	-->
+	<xs:complexType name="ComponentType">
+		<xs:sequence>
+			<xs:element name="formats" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="mime-type" maxOccurs="unbounded">
+							<xs:complexType mixed="true">
+								<xs:attribute name="uri"/>
+								<!-- 
+									pronom- uri OR uid
+									http://www.nationalarchives.gov.uk/aboutapps/pronom/pdf/pronom_unique_identifier_scheme.pdf
+									<xs:attribute name="pronom-uid" type="xs:string"/>
+								-->
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="label" type="content-type:nonEmptyString" default="file"/>
+		<xs:attributeGroup ref="xs:occurs"/>
+		<!-- to used for ... -->
+	</xs:complexType>
+	<!-- simple restriction of the versioning info values that are associated to the versioning-info attribute of the content type -->
+	<xs:simpleType name="VersioningInfoEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="WOV"/>
+			<xs:enumeration value="none"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="nonEmptyString">
+		<xs:restriction base="xs:token">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

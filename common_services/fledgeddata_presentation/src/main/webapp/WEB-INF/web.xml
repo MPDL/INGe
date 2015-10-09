@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>eSciDoc Fledged Data WebService</display-name>
+
+	<servlet>
+		<servlet-name>oaiServlet</servlet-name>
+		<display-name>OAI Servlet</display-name>
+		<servlet-class>de.mpg.escidoc.services.fledgeddata.webservice.oaiServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>SitemapServlet</servlet-name>
+		<display-name>Sitemap Servlet</display-name>
+		<servlet-class>de.mpg.escidoc.services.fledgeddata.webservice.SitemapServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>oaiServlet</servlet-name>
+		<url-pattern>/oai/*</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+        <!-- Default to 5 minute session timeouts -->
+		<session-timeout>5</session-timeout>
+	</session-config>
+
+	<welcome-file-list id="WelcomeFileList">
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+</web-app>

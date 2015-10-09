@@ -1,0 +1,1169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tei:TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xml:lang="de-DE">
+	<text xml:id="RIKE">
+		<front xml:id="d3e387">
+			<pb facs="escidoc_8011/E29_001_1914_0001" n="pbbinding_recto" xml:id="E29_001_1914_pbbinding_recto_0001"/>
+			<pb facs="escidoc_8011/E29_001_1914_0002" n="pbinterleaf" xml:id="E29_001_1914_pbinterleaf_0001"/>
+			<pb facs="escidoc_8011/E29_001_1914_0003" n="pbinterleaf" xml:id="E29_001_1914_pbinterleaf_0002"/>
+			<pb facs="escidoc_8011/E29_001_1914_0004" n="pbinterleaf" xml:id="E29_001_1914_pbinterleaf_0003"/>
+			<pb facs="escidoc_8011/E29_001_1914_0005" n="pbinterleaf" xml:id="E29_001_1914_pbinterleaf_0004"/>
+			<pb facs="escidoc_8011/E29_001_1914_0006" n="pbinterleaf" xml:id="E29_001_1914_pbinterleaf_0005"/>
+
+			<pb facs="escidoc_8011/E29_001_1914_0007" n="pbinterleaf" xml:id="E29_001_1914_pbinterleaf_0006"/>
+			<pb facs="escidoc_8011/E29_001_1914_0008" n="Frontispiz" xml:id="E29_001_1914_pb0001_0001"/>
+			<div xml:id="d3e408">
+				<head rendition="#c">SS. Anna et Maria.</head>
+				<pb facs="escidoc_8011/E29_001_1914_0009" n="interleaf" xml:id="E29_001_1914_pbinterleaf_0007"/>
+				<pb facs="escidoc_8011/E29_001_1914_0010" n="interleaf" xml:id="E29_001_1914_pbinterleaf_0008"/>
+			</div>
+			<pb facs="escidoc_8011/E29_001_1914_0011" n="[3]" xml:id="E29_001_1914_pb0004_0001"/>
+
+			<titlePage xml:id="d3e432">
+				<docTitle>
+					<titlePart type="main">Die Christliche Mutter.</titlePart>
+					<titlePart type="sub">Erbauungs- und Gebetbuch 
+				von 
+					Dr. Augustin Egger, 
+						
+                  Bischof von St. Gallen.</titlePart>
+				</docTitle>
+				<titlePart type="sub">65. bis 70. Tausend.</titlePart>
+			</titlePage>
+
+			<pb facs="escidoc_8011/E29_001_1914_0012" n="4" xml:id="E29_001_1914_pb0004_0002"/>
+			<div xml:id="d3e475" type="imprimatur"/>
+			<pb facs="escidoc_8011/E29_001_1914_0013" n="5" xml:id="E29_001_1914_pb0005_0001"/>
+			<div xml:id="d3e510" type="preface">
+				<head rendition="#c">Jesus, Marie, Joseph</head>
+				<head rendition="#c">Vorbemerkung.</head>
+				<pb facs="escidoc_8011/E29_001_1914_0014" n="6" xml:id="E29_001_1914_pb0006_0001"/>
+			</div>
+
+		</front>
+		<body xml:id="d3e612">
+			<pb facs="escidoc_8011/E29_001_1914_0015" n="7" xml:id="E29_001_1914_pb0007_0001"/>
+			<div xml:id="d3e616">
+				<head rendition="#c">I. Selbsterkenntnis und Selbsterziehung.</head>
+				<pb facs="escidoc_8011/E29_001_1914_0016" n="8" xml:id="E29_001_1914_pb0008_0001"/>
+				<pb facs="escidoc_8011/E29_001_1914_0017" n="9" xml:id="E29_001_1914_pb0009_0001"/>
+				<div xml:id="d3e659">
+
+					<head rendition="#c">Im Namen des Vaters &amp; des Sohnes &amp; des hl. Geistes. A.</head>
+					<head rendition="#c">1. Die christliche Mutter.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0018" n="10" xml:id="E29_001_1914_pb0010_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0019" n="11" xml:id="E29_001_1914_pb0011_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0020" n="12" xml:id="E29_001_1914_pb0012_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0021" n="13" xml:id="E29_001_1914_pb0013_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0022" n="14" xml:id="E29_001_1914_pb0014_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0023" n="15" xml:id="E29_001_1914_pb0015_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0024" n="16" xml:id="E29_001_1914_pb0016_0001"/>
+				</div>
+				<div xml:id="d3e1084">
+					<head rendition="#c">2. Das Frauenherz.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0025" n="17" xml:id="E29_001_1914_pb0017_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0026" n="18" xml:id="E29_001_1914_pb0018_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0027" n="19" xml:id="E29_001_1914_pb0019_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0028" n="20" xml:id="E29_001_1914_pb0020_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0029" n="21" xml:id="E29_001_1914_pb0021_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0030" n="22" xml:id="E29_001_1914_pb0022_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0031" n="23" xml:id="E29_001_1914_pb0023_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0032" n="24" xml:id="E29_001_1914_pb0024_0001"/>
+				</div>
+				<div xml:id="d3e1507">
+					<head rendition="#c">3. Das Mutterherz.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0033" n="25" xml:id="E29_001_1914_pb0025_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0034" n="26" xml:id="E29_001_1914_pb0026_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0035" n="27" xml:id="E29_001_1914_pb0027_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0036" n="28" xml:id="E29_001_1914_pb0028_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0037" n="29" xml:id="E29_001_1914_pb0029_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0038" n="30" xml:id="E29_001_1914_pb0030_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0039" n="31" xml:id="E29_001_1914_pb0031_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0040" n="32" xml:id="E29_001_1914_pb0032_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0041" n="33" xml:id="E29_001_1914_pb0033_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0042" n="34" xml:id="E29_001_1914_pb0034_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0043" n="35" xml:id="E29_001_1914_pb0035_0001"/>
+				</div>
+				<div xml:id="d3e2143">
+					<head rendition="#c">4. Die Tochter Evas.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0044" n="36" xml:id="E29_001_1914_pb0036_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0045" n="37" xml:id="E29_001_1914_pb0037_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0046" n="38" xml:id="E29_001_1914_pb0038_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0047" n="39" xml:id="E29_001_1914_pb0039_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0048" n="40" xml:id="E29_001_1914_pb0040_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0049" n="41" xml:id="E29_001_1914_pb0041_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0050" n="42" xml:id="E29_001_1914_pb0042_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0051" n="43" xml:id="E29_001_1914_pb0043_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0052" n="44" xml:id="E29_001_1914_pb0044_0001"/>
+				</div>
+				<div xml:id="d3e2614">
+					<head rendition="#c">5. Das schone Geschlecht.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0053" n="45" xml:id="E29_001_1914_pb0045_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0054" n="46" xml:id="E29_001_1914_pb0046_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0055" n="47" xml:id="E29_001_1914_pb0047_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0056" n="48" xml:id="E29_001_1914_pb0048_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0057" n="49" xml:id="E29_001_1914_pb0049_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0058" n="50" xml:id="E29_001_1914_pb0050_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0059" n="51" xml:id="E29_001_1914_pb0051_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0060" n="52" xml:id="E29_001_1914_pb0052_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0061" n="53" xml:id="E29_001_1914_pb0053_0001"/>
+
+				</div>
+				<div xml:id="d3e3118">
+					<head rendition="#c">6. Das schone Geschlecht.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0062" n="54" xml:id="E29_001_1914_pb0054_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0063" n="55" xml:id="E29_001_1914_pb0055_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0064" n="56" xml:id="E29_001_1914_pb0056_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0065" n="57" xml:id="E29_001_1914_pb0057_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0066" n="58" xml:id="E29_001_1914_pb0058_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0067" n="59" xml:id="E29_001_1914_pb0059_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0068" n="60" xml:id="E29_001_1914_pb0060_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0069" n="61" xml:id="E29_001_1914_pb0061_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0070" n="62" xml:id="E29_001_1914_pb0062_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0071" n="63" xml:id="E29_001_1914_pb0063_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0072" n="64" xml:id="E29_001_1914_pb0064_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0073" n="65" xml:id="E29_001_1914_pb0065_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0074" n="66" xml:id="E29_001_1914_pb0066_0001"/>
+				</div>
+
+				<pb facs="escidoc_8011/E29_001_1914_0075" n="67" xml:id="E29_001_1914_pb0067_0001"/>
+				<div xml:id="d3e3859">
+					<head rendition="#c">7. Das schwache Geschlecht.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0076" n="68" xml:id="E29_001_1914_pb0068_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0077" n="69" xml:id="E29_001_1914_pb0069_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0078" n="70" xml:id="E29_001_1914_pb0070_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0079" n="71" xml:id="E29_001_1914_pb0071_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0080" n="72" xml:id="E29_001_1914_pb0072_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0081" n="73" xml:id="E29_001_1914_pb0073_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0082" n="74" xml:id="E29_001_1914_pb0074_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0083" n="75" xml:id="E29_001_1914_pb0075_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0084" n="76" xml:id="E29_001_1914_pb0076_0001"/>
+				</div>
+				<div xml:id="d3e4381">
+					<head rendition="#c">8. Das schwache Geschlecht.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0085" n="77" xml:id="E29_001_1914_pb0077_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0086" n="78" xml:id="E29_001_1914_pb0078_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0087" n="79" xml:id="E29_001_1914_pb0079_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0088" n="80" xml:id="E29_001_1914_pb0080_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0089" n="81" xml:id="E29_001_1914_pb0081_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0090" n="82" xml:id="E29_001_1914_pb0082_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0091" n="83" xml:id="E29_001_1914_pb0083_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0092" n="84" xml:id="E29_001_1914_pb0084_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0093" n="85" xml:id="E29_001_1914_pb0085_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0094" n="86" xml:id="E29_001_1914_pb0086_0001"/>
+
+				</div>
+				<div xml:id="d3e4969">
+					<head rendition="#c">9. Das fromme Geschlecht.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0095" n="87" xml:id="E29_001_1914_pb0087_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0096" n="88" xml:id="E29_001_1914_pb0088_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0097" n="89" xml:id="E29_001_1914_pb0089_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0098" n="90" xml:id="E29_001_1914_pb0090_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0099" n="91" xml:id="E29_001_1914_pb0091_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0100" n="92" xml:id="E29_001_1914_pb0092_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0101" n="93" xml:id="E29_001_1914_pb0093_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0102" n="94" xml:id="E29_001_1914_pb0094_0001"/>
+				</div>
+				<div xml:id="d3e5381">
+					<head rendition="#c">10. Das fromme Geschlecht.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0103" n="95" xml:id="E29_001_1914_pb0095_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0104" n="96" xml:id="E29_001_1914_pb0096_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0105" n="97" xml:id="E29_001_1914_pb0097_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0106" n="98" xml:id="E29_001_1914_pb0098_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0107" n="99" xml:id="E29_001_1914_pb0099_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0108" n="100" xml:id="E29_001_1914_pb0100_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0109" n="101" xml:id="E29_001_1914_pb0101_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0110" n="102" xml:id="E29_001_1914_pb0102_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0111" n="103" xml:id="E29_001_1914_pb0103_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0112" n="104" xml:id="E29_001_1914_pb0104_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0113" n="105" xml:id="E29_001_1914_pb0105_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0114" n="106" xml:id="E29_001_1914_pb0106_0001"/>
+				</div>
+				<div xml:id="d3e6082">
+					<head rendition="#c">11. Das Weib und die Welt.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0115" n="107" xml:id="E29_001_1914_pb0107_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0116" n="108" xml:id="E29_001_1914_pb0108_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0117" n="109" xml:id="E29_001_1914_pb0109_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0118" n="110" xml:id="E29_001_1914_pb0110_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0119" n="111" xml:id="E29_001_1914_pb0111_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0120" n="112" xml:id="E29_001_1914_pb0112_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0121" n="113" xml:id="E29_001_1914_pb0113_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0122" n="114" xml:id="E29_001_1914_pb0114_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0123" n="115" xml:id="E29_001_1914_pb0115_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0124" n="116" xml:id="E29_001_1914_pb0116_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0125" n="117" xml:id="E29_001_1914_pb0117_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0126" n="118" xml:id="E29_001_1914_pb0118_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0127" n="119" xml:id="E29_001_1914_pb0119_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0128" n="120" xml:id="E29_001_1914_pb0120_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0129" n="121" xml:id="E29_001_1914_pb0121_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0130" n="122" xml:id="E29_001_1914_pb0122_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0131" n="123" xml:id="E29_001_1914_pb0123_0001"/>
+				</div>
+				<div xml:id="d3e7028">
+					<head rendition="#c">12. Der Glaube.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0132" n="124" xml:id="E29_001_1914_pb0124_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0133" n="125" xml:id="E29_001_1914_pb0125_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0134" n="126" xml:id="E29_001_1914_pb0126_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0135" n="127" xml:id="E29_001_1914_pb0127_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0136" n="128" xml:id="E29_001_1914_pb0128_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0137" n="129" xml:id="E29_001_1914_pb0129_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0138" n="130" xml:id="E29_001_1914_pb0130_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0139" n="131" xml:id="E29_001_1914_pb0131_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0140" n="132" xml:id="E29_001_1914_pb0132_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0141" n="133" xml:id="E29_001_1914_pb0133_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0142" n="134" xml:id="E29_001_1914_pb0134_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0143" n="135" xml:id="E29_001_1914_pb0135_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0144" n="136" xml:id="E29_001_1914_pb0136_0001"/>
+				</div>
+				<div xml:id="d3e7772">
+					<head rendition="#c">13. Die christliche Hoffnung.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0145" n="137" xml:id="E29_001_1914_pb0137_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0146" n="138" xml:id="E29_001_1914_pb0138_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0147" n="139" xml:id="E29_001_1914_pb0139_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0148" n="140" xml:id="E29_001_1914_pb0140_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0149" n="141" xml:id="E29_001_1914_pb0141_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0150" n="142" xml:id="E29_001_1914_pb0142_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0151" n="143" xml:id="E29_001_1914_pb0143_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0152" n="144" xml:id="E29_001_1914_pb0144_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0153" n="145" xml:id="E29_001_1914_pb0145_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0154" n="146" xml:id="E29_001_1914_pb0146_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0155" n="147" xml:id="E29_001_1914_pb0147_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0156" n="148" xml:id="E29_001_1914_pb0148_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0157" n="149" xml:id="E29_001_1914_pb0149_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0158" n="150" xml:id="E29_001_1914_pb0150_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0159" n="151" xml:id="E29_001_1914_pb0151_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0160" n="152" xml:id="E29_001_1914_pb0152_0001"/>
+				</div>
+				<div xml:id="d3e8676">
+					<head rendition="#c">14. Die Liebe Gottes.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0161" n="153" xml:id="E29_001_1914_pb0153_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0162" n="154" xml:id="E29_001_1914_pb0154_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0163" n="155" xml:id="E29_001_1914_pb0155_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0164" n="156" xml:id="E29_001_1914_pb0156_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0165" n="157" xml:id="E29_001_1914_pb0157_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0166" n="158" xml:id="E29_001_1914_pb0158_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0167" n="159" xml:id="E29_001_1914_pb0159_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0168" n="160" xml:id="E29_001_1914_pb0160_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0169" n="161" xml:id="E29_001_1914_pb0161_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0170" n="162" xml:id="E29_001_1914_pb0162_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0171" n="163" xml:id="E29_001_1914_pb0163_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0172" n="164" xml:id="E29_001_1914_pb0164_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0173" n="165" xml:id="E29_001_1914_pb0165_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0174" n="166" xml:id="E29_001_1914_pb0166_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0175" n="167" xml:id="E29_001_1914_pb0167_0001"/>
+				</div>
+				<div xml:id="d3e9554">
+					<head rendition="#c">15. Das heiligste Herz Jesu.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0176" n="168" xml:id="E29_001_1914_pb0168_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0177" n="169" xml:id="E29_001_1914_pb0169_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0178" n="170" xml:id="E29_001_1914_pb0170_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0179" n="171" xml:id="E29_001_1914_pb0171_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0180" n="172" xml:id="E29_001_1914_pb0172_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0181" n="173" xml:id="E29_001_1914_pb0173_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0182" n="174" xml:id="E29_001_1914_pb0174_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0183" n="175" xml:id="E29_001_1914_pb0175_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0184" n="176" xml:id="E29_001_1914_pb0176_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0185" n="177" xml:id="E29_001_1914_pb0177_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0186" n="178" xml:id="E29_001_1914_pb0178_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0187" n="179" xml:id="E29_001_1914_pb0179_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0188" n="180" xml:id="E29_001_1914_pb0180_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0189" n="181" xml:id="E29_001_1914_pb0181_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0190" n="182" xml:id="E29_001_1914_pb0182_0001"/>
+				</div>
+			</div>
+			<pb facs="escidoc_8011/E29_001_1914_0191" n="183" xml:id="E29_001_1914_pb0183_0001"/>
+
+			<div xml:id="d3e10418">
+				<head rendition="#c">II. Die Pflichten der christlichen Mutter.</head>
+				<pb facs="escidoc_8011/E29_001_1914_0192" n="184" xml:id="E29_001_1914_pb0184_0001"/>
+				<pb facs="escidoc_8011/E29_001_1914_0193" n="185" xml:id="E29_001_1914_pb0185_0001"/>
+				<div xml:id="d3e10460">
+					<head rendition="#c">Die tagliche Nachfolge der hl. Familie, ist ein bestandiger Gottesdienst</head>
+					<head rendition="#c">16. Ein neuer Stand, ein neues Leben.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0194" n="186" xml:id="E29_001_1914_pb0186_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0195" n="187" xml:id="E29_001_1914_pb0187_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0196" n="188" xml:id="E29_001_1914_pb0188_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0197" n="189" xml:id="E29_001_1914_pb0189_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0198" n="190" xml:id="E29_001_1914_pb0190_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0199" n="191" xml:id="E29_001_1914_pb0191_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0200" n="192" xml:id="E29_001_1914_pb0192_0001"/>
+				</div>
+				<div xml:id="d3e10884">
+
+					<head rendition="#c">17. Gatte und Gattin; Vater und Mutter.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0201" n="193" xml:id="E29_001_1914_pb0193_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0202" n="194" xml:id="E29_001_1914_pb0194_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0203" n="195" xml:id="E29_001_1914_pb0195_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0204" n="196" xml:id="E29_001_1914_pb0196_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0205" n="197" xml:id="E29_001_1914_pb0197_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0206" n="198" xml:id="E29_001_1914_pb0198_0001"/>
+
+				<div xml:id="d3e11187">
+					<head rendition="#c">18. Gatte und Gattin; Vater und Mutter.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0207" n="199" xml:id="E29_001_1914_pb0199_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0208" n="200" xml:id="E29_001_1914_pb0200_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0209" n="201" xml:id="E29_001_1914_pb0201_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0210" n="202" xml:id="E29_001_1914_pb0202_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0211" n="203" xml:id="E29_001_1914_pb0203_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0212" n="204" xml:id="E29_001_1914_pb0204_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0213" n="205" xml:id="E29_001_1914_pb0205_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0214" n="206" xml:id="E29_001_1914_pb0206_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0215" n="207" xml:id="E29_001_1914_pb0207_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0216" n="208" xml:id="E29_001_1914_pb0208_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0217" n="209" xml:id="E29_001_1914_pb0209_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0218" n="210" xml:id="E29_001_1914_pb0210_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0219" n="211" xml:id="E29_001_1914_pb0211_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0220" n="212" xml:id="E29_001_1914_pb0212_0001"/>
+
+				<div xml:id="d3e11965">
+					<head rendition="#c">19. Die Hausfrau und Hausmutter.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0221" n="213" xml:id="E29_001_1914_pb0213_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0222" n="214" xml:id="E29_001_1914_pb0214_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0223" n="215" xml:id="E29_001_1914_pb0215_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0224" n="216" xml:id="E29_001_1914_pb0216_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0225" n="217" xml:id="E29_001_1914_pb0217_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0226" n="218" xml:id="E29_001_1914_pb0218_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0227" n="219" xml:id="E29_001_1914_pb0219_0001"/>
+				</div>
+				<div xml:id="d3e12402">
+					<head rendition="#c">20. Die Adventzeit.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0228" n="220" xml:id="E29_001_1914_pb0220_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0229" n="221" xml:id="E29_001_1914_pb0221_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0230" n="222" xml:id="E29_001_1914_pb0222_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0231" n="223" xml:id="E29_001_1914_pb0223_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0232" n="224" xml:id="E29_001_1914_pb0224_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0233" n="225" xml:id="E29_001_1914_pb0225_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0234" n="226" xml:id="E29_001_1914_pb0226_0001"/>
+				</div>
+				<div xml:id="d3e12809">
+					<head rendition="#c">21. Geburt und Wiedergeburt.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0235" n="227" xml:id="E29_001_1914_pb0227_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0236" n="228" xml:id="E29_001_1914_pb0228_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0237" n="229" xml:id="E29_001_1914_pb0229_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0238" n="230" xml:id="E29_001_1914_pb0230_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0239" n="231" xml:id="E29_001_1914_pb0231_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0240" n="232" xml:id="E29_001_1914_pb0232_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0241" n="233" xml:id="E29_001_1914_pb0233_0001"/>
+				</div>
+				<div xml:id="d3e13158">
+					<head rendition="#c">22. Der Anfang.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0242" n="234" xml:id="E29_001_1914_pb0234_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0243" n="235" xml:id="E29_001_1914_pb0235_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0244" n="236" xml:id="E29_001_1914_pb0236_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0245" n="237" xml:id="E29_001_1914_pb0237_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0246" n="238" xml:id="E29_001_1914_pb0238_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0247" n="239" xml:id="E29_001_1914_pb0239_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0248" n="240" xml:id="E29_001_1914_pb0240_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0249" n="241" xml:id="E29_001_1914_pb0241_0001"/>
+				</div>
+
+				<div xml:id="d3e13636">
+					<head rendition="#c">23. Einige Missgriffe.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0250" n="242" xml:id="E29_001_1914_pb0242_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0251" n="243" xml:id="E29_001_1914_pb0243_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0252" n="244" xml:id="E29_001_1914_pb0244_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0253" n="245" xml:id="E29_001_1914_pb0245_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0254" n="246" xml:id="E29_001_1914_pb0246_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0255" n="247" xml:id="E29_001_1914_pb0247_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0256" n="248" xml:id="E29_001_1914_pb0248_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0257" n="249" xml:id="E29_001_1914_pb0249_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0258" n="250" xml:id="E29_001_1914_pb0250_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0259" n="251" xml:id="E29_001_1914_pb0251_0001"/>
+				</div>
+				<div xml:id="d3e14188">
+					<head rendition="#c">24. Das betende Kind.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0260" n="252" xml:id="E29_001_1914_pb0252_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0261" n="253" xml:id="E29_001_1914_pb0253_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0262" n="254" xml:id="E29_001_1914_pb0254_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0263" n="255" xml:id="E29_001_1914_pb0255_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0264" n="256" xml:id="E29_001_1914_pb0256_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0265" n="257" xml:id="E29_001_1914_pb0257_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0266" n="258" xml:id="E29_001_1914_pb0258_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0267" n="259" xml:id="E29_001_1914_pb0259_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0268" n="260" xml:id="E29_001_1914_pb0260_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0269" n="261" xml:id="E29_001_1914_pb0261_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0270" n="262" xml:id="E29_001_1914_pb0262_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0271" n="263" xml:id="E29_001_1914_pb0263_0001"/>
+				</div>
+				<div xml:id="d3e14854">
+					<head rendition="#c">25. Das Schulkind.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0272" n="264" xml:id="E29_001_1914_pb0264_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0273" n="265" xml:id="E29_001_1914_pb0265_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0274" n="266" xml:id="E29_001_1914_pb0266_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0275" n="267" xml:id="E29_001_1914_pb0267_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0276" n="268" xml:id="E29_001_1914_pb0268_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0277" n="269" xml:id="E29_001_1914_pb0269_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0278" n="270" xml:id="E29_001_1914_pb0270_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0279" n="271" xml:id="E29_001_1914_pb0271_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0280" n="272" xml:id="E29_001_1914_pb0272_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0281" n="273" xml:id="E29_001_1914_pb0273_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0282" n="274" xml:id="E29_001_1914_pb0274_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0283" n="275" xml:id="E29_001_1914_pb0275_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0284" n="276" xml:id="E29_001_1914_pb0276_0001"/>
+				</div>
+				<div xml:id="d3e15564">
+					<head rendition="#c">26. Das spielende Kind.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0285" n="277" xml:id="E29_001_1914_pb0277_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0286" n="278" xml:id="E29_001_1914_pb0278_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0287" n="279" xml:id="E29_001_1914_pb0279_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0288" n="280" xml:id="E29_001_1914_pb0280_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0289" n="281" xml:id="E29_001_1914_pb0281_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0290" n="282" xml:id="E29_001_1914_pb0282_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0291" n="283" xml:id="E29_001_1914_pb0283_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0292" n="284" xml:id="E29_001_1914_pb0284_0001"/>
+				<div xml:id="d3e15982">
+					<head rendition="#c">27. Ein gesunder Geist in einem gesunden Korper.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0293" n="285" xml:id="E29_001_1914_pb0285_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0294" n="286" xml:id="E29_001_1914_pb0286_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0295" n="287" xml:id="E29_001_1914_pb0287_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0296" n="288" xml:id="E29_001_1914_pb0288_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0297" n="289" xml:id="E29_001_1914_pb0289_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0298" n="290" xml:id="E29_001_1914_pb0290_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0299" n="291" xml:id="E29_001_1914_pb0291_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0300" n="292" xml:id="E29_001_1914_pb0292_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0301" n="293" xml:id="E29_001_1914_pb0293_0001"/>
+				</div>
+
+				<div xml:id="d3e16507">
+					<head rendition="#c">28. Die Mutter und die Welt.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0302" n="294" xml:id="E29_001_1914_pb0294_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0303" n="295" xml:id="E29_001_1914_pb0295_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0304" n="296" xml:id="E29_001_1914_pb0296_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0305" n="297" xml:id="E29_001_1914_pb0297_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0306" n="298" xml:id="E29_001_1914_pb0298_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0307" n="299" xml:id="E29_001_1914_pb0299_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0308" n="300" xml:id="E29_001_1914_pb0300_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0309" n="301" xml:id="E29_001_1914_pb0301_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0310" n="302" xml:id="E29_001_1914_pb0302_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0311" n="303" xml:id="E29_001_1914_pb0303_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0312" n="304" xml:id="E29_001_1914_pb0304_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0313" n="305" xml:id="E29_001_1914_pb0305_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0314" n="306" xml:id="E29_001_1914_pb0306_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0315" n="307" xml:id="E29_001_1914_pb0307_0001"/>
+
+				<div xml:id="d3e17245">
+					<head rendition="#c">29. Die reifere Jugend.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0316" n="308" xml:id="E29_001_1914_pb0308_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0317" n="309" xml:id="E29_001_1914_pb0309_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0318" n="310" xml:id="E29_001_1914_pb0310_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0319" n="311" xml:id="E29_001_1914_pb0311_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0320" n="312" xml:id="E29_001_1914_pb0312_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0321" n="313" xml:id="E29_001_1914_pb0313_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0322" n="314" xml:id="E29_001_1914_pb0314_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0323" n="315" xml:id="E29_001_1914_pb0315_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0324" n="316" xml:id="E29_001_1914_pb0316_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0325" n="317" xml:id="E29_001_1914_pb0317_0001"/>
+				</div>
+				<div xml:id="d3e17832">
+					<head rendition="#c">30. Das mutterliche Ansehen.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0326" n="318" xml:id="E29_001_1914_pb0318_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0327" n="319" xml:id="E29_001_1914_pb0319_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0328" n="320" xml:id="E29_001_1914_pb0320_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0329" n="321" xml:id="E29_001_1914_pb0321_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0330" n="322" xml:id="E29_001_1914_pb0322_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0331" n="323" xml:id="E29_001_1914_pb0323_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0332" n="324" xml:id="E29_001_1914_pb0324_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0333" n="325" xml:id="E29_001_1914_pb0325_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0334" n="326" xml:id="E29_001_1914_pb0326_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0335" n="327" xml:id="E29_001_1914_pb0327_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0336" n="328" xml:id="E29_001_1914_pb0328_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0337" n="329" xml:id="E29_001_1914_pb0329_0001"/>
+				<div xml:id="d3e18456">
+					<head rendition="#c">31. Am letzten Tage wird sie lachen.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0338" n="330" xml:id="E29_001_1914_pb0330_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0339" n="331" xml:id="E29_001_1914_pb0331_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0340" n="332" xml:id="E29_001_1914_pb0332_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0341" n="333" xml:id="E29_001_1914_pb0333_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0342" n="334" xml:id="E29_001_1914_pb0334_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0343" n="335" xml:id="E29_001_1914_pb0335_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0344" n="336" xml:id="E29_001_1914_pb0336_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0345" n="337" xml:id="E29_001_1914_pb0337_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0346" n="338" xml:id="E29_001_1914_pb0338_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0347" n="339" xml:id="E29_001_1914_pb0339_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0348" n="340" xml:id="E29_001_1914_pb0340_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0349" n="341" xml:id="E29_001_1914_pb0341_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0350" n="342" xml:id="E29_001_1914_pb0342_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0351" n="343" xml:id="E29_001_1914_pb0343_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0352" n="344" xml:id="E29_001_1914_pb0344_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0353" n="345" xml:id="E29_001_1914_pb0345_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0354" n="346" xml:id="E29_001_1914_pb0346_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0355" n="347" xml:id="E29_001_1914_pb0347_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0356" n="348" xml:id="E29_001_1914_pb0348_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0357" n="349" xml:id="E29_001_1914_pb0349_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0358" n="350" xml:id="E29_001_1914_pb0350_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0359" n="351" xml:id="E29_001_1914_pb0351_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0360" n="352" xml:id="E29_001_1914_pb0352_0001"/>
+				</div>
+				<div xml:id="d3e19752">
+					<head rendition="#c">32. Tochter Evas werde ein Kind Mariens.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0361" n="353" xml:id="E29_001_1914_pb0353_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0362" n="354" xml:id="E29_001_1914_pb0354_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0363" n="355" xml:id="E29_001_1914_pb0355_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0364" n="356" xml:id="E29_001_1914_pb0356_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0365" n="357" xml:id="E29_001_1914_pb0357_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0366" n="358" xml:id="E29_001_1914_pb0358_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0367" n="359" xml:id="E29_001_1914_pb0359_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0368" n="360" xml:id="E29_001_1914_pb0360_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0369" n="361" xml:id="E29_001_1914_pb0361_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0370" n="362" xml:id="E29_001_1914_pb0362_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0371" n="363" xml:id="E29_001_1914_pb0363_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0372" n="364" xml:id="E29_001_1914_pb0364_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0373" n="365" xml:id="E29_001_1914_pb0365_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0374" n="366" xml:id="E29_001_1914_pb0366_0001"/>
+				</div>
+			</div>
+			<pb facs="escidoc_8011/E29_001_1914_0375" n="367" xml:id="E29_001_1914_pb0367_0001"/>
+			<div xml:id="d3e20537">
+				<head rendition="#c">III. Andachtsubungen</head>
+				<pb facs="escidoc_8011/E29_001_1914_0376" n="368" xml:id="E29_001_1914_pb0368_0001"/>
+
+				<pb facs="escidoc_8011/E29_001_1914_0377" n="369" xml:id="E29_001_1914_pb0369_0001"/>
+				<div xml:id="d3e20575">
+					<head rendition="#c">Ehre sei Gott in der Hohe</head>
+					<head rendition="#c">Die taglichen Gebete</head>
+					<div xml:id="d3e20591">
+						<head rendition="#c">Morgengebet.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0378" n="370" xml:id="E29_001_1914_pb0370_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0379" n="371" xml:id="E29_001_1914_pb0371_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0380" n="372" xml:id="E29_001_1914_pb0372_0001"/>
+					</div>
+					<pb facs="escidoc_8011/E29_001_1914_0381" n="373" xml:id="E29_001_1914_pb0373_0001"/>
+					<div xml:id="d3e20806">
+						<head rendition="#c">Abendgebet.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0382" n="374" xml:id="E29_001_1914_pb0374_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0383" n="375" xml:id="E29_001_1914_pb0375_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0384" n="376" xml:id="E29_001_1914_pb0376_0001"/>
+					</div>
+					<div xml:id="d3e20978">
+						<head rendition="#c">Tagliches Gebet des Vereins der christlichen Familie.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0385" n="377" xml:id="E29_001_1914_pb0377_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0386" n="378" xml:id="E29_001_1914_pb0378_0001"/>
+					</div>
+				</div>
+
+				<pb facs="escidoc_8011/E29_001_1914_0387" n="379" xml:id="E29_001_1914_pb0379_0001"/>
+				<div xml:id="d3e21152">
+					<head rendition="#c">Messandachten.</head>
+					<div xml:id="d3e21165">
+						<head rendition="#c">Erste Messandacht,</head>
+						<pb facs="escidoc_8011/E29_001_1914_0388" n="380" xml:id="E29_001_1914_pb0380_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0389" n="381" xml:id="E29_001_1914_pb0381_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0390" n="382" xml:id="E29_001_1914_pb0382_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0391" n="383" xml:id="E29_001_1914_pb0383_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0392" n="384" xml:id="E29_001_1914_pb0384_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0393" n="385" xml:id="E29_001_1914_pb0385_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0394" n="386" xml:id="E29_001_1914_pb0386_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0395" n="387" xml:id="E29_001_1914_pb0387_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0396" n="388" xml:id="E29_001_1914_pb0388_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0397" n="389" xml:id="E29_001_1914_pb0389_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0398" n="390" xml:id="E29_001_1914_pb0390_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0399" n="391" xml:id="E29_001_1914_pb0391_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0400" n="392" xml:id="E29_001_1914_pb0392_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0401" n="393" xml:id="E29_001_1914_pb0393_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0402" n="394" xml:id="E29_001_1914_pb0394_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0403" n="395" xml:id="E29_001_1914_pb0395_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0404" n="396" xml:id="E29_001_1914_pb0396_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0405" n="397" xml:id="E29_001_1914_pb0397_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0406" n="398" xml:id="E29_001_1914_pb0398_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0407" n="399" xml:id="E29_001_1914_pb0399_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0408" n="400" xml:id="E29_001_1914_pb0400_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0409" n="401" xml:id="E29_001_1914_pb0401_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0410" n="402" xml:id="E29_001_1914_pb0402_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0411" n="403" xml:id="E29_001_1914_pb0403_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0412" n="404" xml:id="E29_001_1914_pb0404_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0413" n="405" xml:id="E29_001_1914_pb0405_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0414" n="406" xml:id="E29_001_1914_pb0406_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0415" n="407" xml:id="E29_001_1914_pb0407_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0416" n="408" xml:id="E29_001_1914_pb0408_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0417" n="409" xml:id="E29_001_1914_pb0409_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0418" n="410" xml:id="E29_001_1914_pb0410_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0419" n="411" xml:id="E29_001_1914_pb0411_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0420" n="412" xml:id="E29_001_1914_pb0412_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0421" n="413" xml:id="E29_001_1914_pb0413_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0422" n="414" xml:id="E29_001_1914_pb0414_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0423" n="415" xml:id="E29_001_1914_pb0415_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0424" n="416" xml:id="E29_001_1914_pb0416_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0425" n="417" xml:id="E29_001_1914_pb0417_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0426" n="418" xml:id="E29_001_1914_pb0418_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0427" n="419" xml:id="E29_001_1914_pb0419_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0428" n="420" xml:id="E29_001_1914_pb0420_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0429" n="421" xml:id="E29_001_1914_pb0421_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0430" n="422" xml:id="E29_001_1914_pb0422_0001"/>
+					</div>
+					<pb facs="escidoc_8011/E29_001_1914_0431" n="423" xml:id="E29_001_1914_pb0423_0001"/>
+					<div xml:id="d3e25905">
+						<head rendition="#c">Zweite Messandacht.</head>
+
+						<pb facs="escidoc_8011/E29_001_1914_0432" n="424" xml:id="E29_001_1914_pb0424_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0433" n="425" xml:id="E29_001_1914_pb0425_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0434" n="426" xml:id="E29_001_1914_pb0426_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0435" n="427" xml:id="E29_001_1914_pb0427_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0436" n="428" xml:id="E29_001_1914_pb0428_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0437" n="429" xml:id="E29_001_1914_pb0429_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0438" n="430" xml:id="E29_001_1914_pb0430_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0439" n="431" xml:id="E29_001_1914_pb0431_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0440" n="432" xml:id="E29_001_1914_pb0432_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0441" n="433" xml:id="E29_001_1914_pb0433_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0442" n="434" xml:id="E29_001_1914_pb0434_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0443" n="435" xml:id="E29_001_1914_pb0435_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0444" n="436" xml:id="E29_001_1914_pb0436_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0445" n="437" xml:id="E29_001_1914_pb0437_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0446" n="438" xml:id="E29_001_1914_pb0438_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0447" n="439" xml:id="E29_001_1914_pb0439_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0448" n="440" xml:id="E29_001_1914_pb0440_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0449" n="441" xml:id="E29_001_1914_pb0441_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0450" n="442" xml:id="E29_001_1914_pb0442_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0451" n="443" xml:id="E29_001_1914_pb0443_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0452" n="444" xml:id="E29_001_1914_pb0444_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0453" n="445" xml:id="E29_001_1914_pb0445_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0454" n="446" xml:id="E29_001_1914_pb0446_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0455" n="447" xml:id="E29_001_1914_pb0447_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0456" n="448" xml:id="E29_001_1914_pb0448_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0457" n="449" xml:id="E29_001_1914_pb0449_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0458" n="450" xml:id="E29_001_1914_pb0450_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0459" n="451" xml:id="E29_001_1914_pb0451_0001"/>
+					</div>
+					<pb facs="escidoc_8011/E29_001_1914_0460" n="452" xml:id="E29_001_1914_pb0452_0001"/>
+					<div xml:id="d3e27755">
+						<head rendition="#c">Dritte Messandacht.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0461" n="453" xml:id="E29_001_1914_pb0453_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0462" n="454" xml:id="E29_001_1914_pb0454_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0463" n="455" xml:id="E29_001_1914_pb0455_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0464" n="456" xml:id="E29_001_1914_pb0456_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0465" n="457" xml:id="E29_001_1914_pb0457_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0466" n="458" xml:id="E29_001_1914_pb0458_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0467" n="459" xml:id="E29_001_1914_pb0459_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0468" n="460" xml:id="E29_001_1914_pb0460_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0469" n="461" xml:id="E29_001_1914_pb0461_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0470" n="462" xml:id="E29_001_1914_pb0462_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0471" n="463" xml:id="E29_001_1914_pb0463_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0472" n="464" xml:id="E29_001_1914_pb0464_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0473" n="465" xml:id="E29_001_1914_pb0465_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0474" n="466" xml:id="E29_001_1914_pb0466_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0475" n="467" xml:id="E29_001_1914_pb0467_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0476" n="468" xml:id="E29_001_1914_pb0468_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0477" n="469" xml:id="E29_001_1914_pb0469_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0478" n="470" xml:id="E29_001_1914_pb0470_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0479" n="471" xml:id="E29_001_1914_pb0471_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0480" n="472" xml:id="E29_001_1914_pb0472_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0481" n="473" xml:id="E29_001_1914_pb0473_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0482" n="474" xml:id="E29_001_1914_pb0474_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0483" n="475" xml:id="E29_001_1914_pb0475_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0484" n="476" xml:id="E29_001_1914_pb0476_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0485" n="477" xml:id="E29_001_1914_pb0477_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0486" n="478" xml:id="E29_001_1914_pb0478_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0487" n="479" xml:id="E29_001_1914_pb0479_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0488" n="480" xml:id="E29_001_1914_pb0480_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0489" n="481" xml:id="E29_001_1914_pb0481_0001"/>
+					</div>
+
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0490" n="482" xml:id="E29_001_1914_pb0482_0001"/>
+				<div xml:id="d3e29626">
+					<head rendition="#c">Bussandacht.</head>
+					<div xml:id="d3e29639">
+						<head rendition="#c">1. Vorbereitungsgebet.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0491" n="483" xml:id="E29_001_1914_pb0483_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0492" n="484" xml:id="E29_001_1914_pb0484_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0493" n="485" xml:id="E29_001_1914_pb0485_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0494" n="486" xml:id="E29_001_1914_pb0486_0001"/>
+					</div>
+					<div xml:id="d3e29877">
+						<head rendition="#c">2. Gewissenserforschung.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0495" n="487" xml:id="E29_001_1914_pb0487_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0496" n="488" xml:id="E29_001_1914_pb0488_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0497" n="489" xml:id="E29_001_1914_pb0489_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0498" n="490" xml:id="E29_001_1914_pb0490_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0499" n="491" xml:id="E29_001_1914_pb0491_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0500" n="492" xml:id="E29_001_1914_pb0492_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0501" n="493" xml:id="E29_001_1914_pb0493_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0502" n="494" xml:id="E29_001_1914_pb0494_0001"/>
+					</div>
+					<div xml:id="d3e30532">
+						<head rendition="#c">3. Reue und Leid.</head>
+
+						<pb facs="escidoc_8011/E29_001_1914_0503" n="495" xml:id="E29_001_1914_pb0495_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0504" n="496" xml:id="E29_001_1914_pb0496_0001"/>
+					</div>
+					<div xml:id="d3e30671">
+						<head rendition="#c">4. Nach der Beicht.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0505" n="497" xml:id="E29_001_1914_pb0497_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0506" n="498" xml:id="E29_001_1914_pb0498_0001"/>
+					</div>
+
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0507" n="499" xml:id="E29_001_1914_pb0499_0001"/>
+				<div xml:id="d3e30814">
+					<head rendition="#c">Kommunionandacht.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0508" n="500" xml:id="E29_001_1914_pb0500_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0509" n="501" xml:id="E29_001_1914_pb0501_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0510" n="502" xml:id="E29_001_1914_pb0502_0001"/>
+					<div xml:id="d3e31063">
+
+						<head rendition="#c">Vor der heiligen Kommunion.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0511" n="503" xml:id="E29_001_1914_pb0503_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0512" n="504" xml:id="E29_001_1914_pb0504_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0513" n="505" xml:id="E29_001_1914_pb0505_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0514" n="506" xml:id="E29_001_1914_pb0506_0001"/>
+					</div>
+					<div xml:id="d3e31388">
+						<head rendition="#c">Bei der heiligen Kommunion.</head>
+
+						<pb facs="escidoc_8011/E29_001_1914_0515" n="507" xml:id="E29_001_1914_pb0507_0001"/>
+					</div>
+					<div xml:id="d3e31465">
+						<head rendition="#c">Nach der heiligen Kommunion.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0516" n="508" xml:id="E29_001_1914_pb0508_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0517" n="509" xml:id="E29_001_1914_pb0509_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0518" n="510" xml:id="E29_001_1914_pb0510_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0519" n="511" xml:id="E29_001_1914_pb0511_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0520" n="512" xml:id="E29_001_1914_pb0512_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0521" n="513" xml:id="E29_001_1914_pb0513_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0522" n="514" xml:id="E29_001_1914_pb0514_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0523" n="515" xml:id="E29_001_1914_pb0515_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0524" n="516" xml:id="E29_001_1914_pb0516_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0525" n="517" xml:id="E29_001_1914_pb0517_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0526" n="518" xml:id="E29_001_1914_pb0518_0001"/>
+					</div>
+				</div>
+
+				<pb facs="escidoc_8011/E29_001_1914_0527" n="519" xml:id="E29_001_1914_pb0519_0001"/>
+				<div xml:id="d3e32164">
+					<head rendition="#c">Das Land des Segens gab Ich dir. Und du? gibst mir das Kreuz dafur!</head>
+					<head rendition="#c">Verschiedene Andachten.</head>
+					<div xml:id="d3e32180">
+						<head rendition="#c">Zur heiligen Fastenzeit.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0528" n="520" xml:id="E29_001_1914_pb0520_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0529" n="521" xml:id="E29_001_1914_pb0521_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0530" n="522" xml:id="E29_001_1914_pb0522_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0531" n="523" xml:id="E29_001_1914_pb0523_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0532" n="524" xml:id="E29_001_1914_pb0524_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0533" n="525" xml:id="E29_001_1914_pb0525_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0534" n="526" xml:id="E29_001_1914_pb0526_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0535" n="527" xml:id="E29_001_1914_pb0527_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0536" n="528" xml:id="E29_001_1914_pb0528_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0537" n="529" xml:id="E29_001_1914_pb0529_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0538" n="530" xml:id="E29_001_1914_pb0530_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0539" n="531" xml:id="E29_001_1914_pb0531_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0540" n="532" xml:id="E29_001_1914_pb0532_0001"/>
+					</div>
+					<div xml:id="d3e33162">
+						<head rendition="#c">Auslegung des Vater unser und des englischen Grusses.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0541" n="533" xml:id="E29_001_1914_pb0533_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0542" n="534" xml:id="E29_001_1914_pb0534_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0543" n="535" xml:id="E29_001_1914_pb0535_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0544" n="536" xml:id="E29_001_1914_pb0536_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0545" n="537" xml:id="E29_001_1914_pb0537_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0546" n="538" xml:id="E29_001_1914_pb0538_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0547" n="539" xml:id="E29_001_1914_pb0539_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0548" n="540" xml:id="E29_001_1914_pb0540_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0549" n="541" xml:id="E29_001_1914_pb0541_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0550" n="542" xml:id="E29_001_1914_pb0542_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0551" n="543" xml:id="E29_001_1914_pb0543_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0552" n="544" xml:id="E29_001_1914_pb0544_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0553" n="545" xml:id="E29_001_1914_pb0545_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0554" n="546" xml:id="E29_001_1914_pb0546_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0555" n="547" xml:id="E29_001_1914_pb0547_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0556" n="548" xml:id="E29_001_1914_pb0548_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0557" n="549" xml:id="E29_001_1914_pb0549_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0558" n="550" xml:id="E29_001_1914_pb0550_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0559" n="551" xml:id="E29_001_1914_pb0551_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0560" n="552" xml:id="E29_001_1914_pb0552_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0561" n="553" xml:id="E29_001_1914_pb0553_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0562" n="554" xml:id="E29_001_1914_pb0554_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0563" n="555" xml:id="E29_001_1914_pb0555_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0564" n="556" xml:id="E29_001_1914_pb0556_0001"/>
+					</div>
+					<div xml:id="d3e34634">
+						<head rendition="#c">Zwei Besuchungen des allerheilig- sten Altarssakramentes.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0565" n="557" xml:id="E29_001_1914_pb0557_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0566" n="558" xml:id="E29_001_1914_pb0558_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0567" n="559" xml:id="E29_001_1914_pb0559_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0568" n="560" xml:id="E29_001_1914_pb0560_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0569" n="561" xml:id="E29_001_1914_pb0561_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0570" n="562" xml:id="E29_001_1914_pb0562_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0571" n="563" xml:id="E29_001_1914_pb0563_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0572" n="564" xml:id="E29_001_1914_pb0564_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0573" n="565" xml:id="E29_001_1914_pb0565_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0574" n="566" xml:id="E29_001_1914_pb0566_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0575" n="567" xml:id="E29_001_1914_pb0567_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0576" n="568" xml:id="E29_001_1914_pb0568_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0577" n="569" xml:id="E29_001_1914_pb0569_0001"/>
+					</div>
+					<div xml:id="d3e35395">
+						<head rendition="#c">Litanei vom heiligsten Namen Jesu.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0578" n="570" xml:id="E29_001_1914_pb0570_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0579" n="571" xml:id="E29_001_1914_pb0571_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0580" n="572" xml:id="E29_001_1914_pb0572_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0581" n="573" xml:id="E29_001_1914_pb0573_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0582" n="574" xml:id="E29_001_1914_pb0574_0001"/>
+					</div>
+					<div xml:id="d3e35744">
+						<head rendition="#c">Weihegebet, 
+                     durch welches die christlichen Familien sich der heiligen Familie weihen.
+                  </head>
+						<pb facs="escidoc_8011/E29_001_1914_0583" n="575" xml:id="E29_001_1914_pb0575_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0584" n="576" xml:id="E29_001_1914_pb0576_0001"/>
+
+					</div>
+					<div xml:id="d3e35845">
+						<head rendition="#c">Andacht zu der heiligen Familie.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0585" n="577" xml:id="E29_001_1914_pb0577_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0586" n="578" xml:id="E29_001_1914_pb0578_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0587" n="579" xml:id="E29_001_1914_pb0579_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0588" n="580" xml:id="E29_001_1914_pb0580_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0589" n="581" xml:id="E29_001_1914_pb0581_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0590" n="582" xml:id="E29_001_1914_pb0582_0001"/>
+					</div>
+					<div xml:id="d3e36234">
+						<head rendition="#c">Gebet um Erneuerung der Standes- gnade.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0591" n="583" xml:id="E29_001_1914_pb0583_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0592" n="584" xml:id="E29_001_1914_pb0584_0001"/>
+					</div>
+					<pb facs="escidoc_8011/E29_001_1914_0593" n="585" xml:id="E29_001_1914_pb0585_0001"/>
+
+					<div xml:id="d3e36375">
+						<head rendition="#c">Das Vater unser der christlichen Mutter.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0594" n="586" xml:id="E29_001_1914_pb0586_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0595" n="587" xml:id="E29_001_1914_pb0587_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0596" n="588" xml:id="E29_001_1914_pb0588_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0597" n="589" xml:id="E29_001_1914_pb0589_0001"/>
+					</div>
+				</div>
+
+				<div xml:id="d3e36663">
+					<head rendition="#c">Die Festzeiten des Kirchenjahres.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0598" n="590" xml:id="E29_001_1914_pb0590_0001"/>
+					<div xml:id="d3e36753">
+						<head rendition="#c">Kurze Adventandacht.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0599" n="591" xml:id="E29_001_1914_pb0591_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0600" n="592" xml:id="E29_001_1914_pb0592_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0601" n="593" xml:id="E29_001_1914_pb0593_0001"/>
+
+					</div>
+					<div xml:id="d3e36896">
+						<head rendition="#c">Andacht an Weihnachten.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0602" n="594" xml:id="E29_001_1914_pb0594_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0603" n="595" xml:id="E29_001_1914_pb0595_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0604" n="596" xml:id="E29_001_1914_pb0596_0001"/>
+					</div>
+					<div xml:id="d3e37079">
+
+						<head rendition="#c">Andacht fur die heilige Fastenzeit</head>
+						<pb facs="escidoc_8011/E29_001_1914_0605" n="597" xml:id="E29_001_1914_pb0597_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0606" n="598" xml:id="E29_001_1914_pb0598_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0607" n="599" xml:id="E29_001_1914_pb0599_0001"/>
+					</div>
+					<pb facs="escidoc_8011/E29_001_1914_0608" n="600" xml:id="E29_001_1914_pb0600_0001"/>
+					<div xml:id="d3e37286">
+						<head rendition="#c">Andacht fur die osterliche Zeit</head>
+
+						<pb facs="escidoc_8011/E29_001_1914_0609" n="601" xml:id="E29_001_1914_pb0601_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0610" n="602" xml:id="E29_001_1914_pb0602_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0611" n="603" xml:id="E29_001_1914_pb0603_0001"/>
+					</div>
+					<div xml:id="d3e37475">
+						<head rendition="#c">Andacht zu Ehren des hl. Geistes.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0612" n="604" xml:id="E29_001_1914_pb0604_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0613" n="605" xml:id="E29_001_1914_pb0605_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0614" n="606" xml:id="E29_001_1914_pb0606_0001"/>
+					</div>
+				</div>
+				<div xml:id="d3e37644">
+					<head rendition="#c">Andacht zu Ehren der seligsten Jung- frau Maria.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0615" n="607" xml:id="E29_001_1914_pb0607_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0616" n="608" xml:id="E29_001_1914_pb0608_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0617" n="609" xml:id="E29_001_1914_pb0609_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0618" n="610" xml:id="E29_001_1914_pb0610_0001"/>
+					<div xml:id="d3e37857">
+						<pb facs="escidoc_8011/E29_001_1914_0619" n="611" xml:id="E29_001_1914_pb0611_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0620" n="612" xml:id="E29_001_1914_pb0612_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0621" n="613" xml:id="E29_001_1914_pb0613_0001"/>
+					</div>
+					<div xml:id="d3e38045">
+						<head rendition="#c">Andacht zu der schmerzhaften Mutter.</head>
+
+						<pb facs="escidoc_8011/E29_001_1914_0622" n="614" xml:id="E29_001_1914_pb0614_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0623" n="615" xml:id="E29_001_1914_pb0615_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0624" n="616" xml:id="E29_001_1914_pb0616_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0625" n="617" xml:id="E29_001_1914_pb0617_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0626" n="618" xml:id="E29_001_1914_pb0618_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0627" n="619" xml:id="E29_001_1914_pb0619_0001"/>
+					</div>
+					<div xml:id="d3e38388">
+						<head rendition="#c">Zu Ehren der Aufnahme Mariens in den Himmel.</head>
+
+						<pb facs="escidoc_8011/E29_001_1914_0628" n="620" xml:id="E29_001_1914_pb0620_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0629" n="621" xml:id="E29_001_1914_pb0621_0001"/>
+					</div>
+					<div xml:id="d3e38522">
+						<head rendition="#c">Die lauretanische Litanei.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0630" n="622" xml:id="E29_001_1914_pb0622_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0631" n="623" xml:id="E29_001_1914_pb0623_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0632" n="624" xml:id="E29_001_1914_pb0624_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0633" n="625" xml:id="E29_001_1914_pb0625_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0634" n="626" xml:id="E29_001_1914_pb0626_0001"/>
+					</div>
+					<div xml:id="d3e38876">
+						<head rendition="#c">Das andachtige Beten des heiligen Rosenkranzes.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0635" n="627" xml:id="E29_001_1914_pb0627_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0636" n="628" xml:id="E29_001_1914_pb0628_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0637" n="629" xml:id="E29_001_1914_pb0629_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0638" n="630" xml:id="E29_001_1914_pb0630_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0639" n="631" xml:id="E29_001_1914_pb0631_0001"/>
+					</div>
+				</div>
+				<div xml:id="d3e39258">
+					<head rendition="#c">Der Rosenkranz der christlichen Mutter.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0640" n="632" xml:id="E29_001_1914_pb0632_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0641" n="633" xml:id="E29_001_1914_pb0633_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0642" n="634" xml:id="E29_001_1914_pb0634_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0643" n="635" xml:id="E29_001_1914_pb0635_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0644" n="636" xml:id="E29_001_1914_pb0636_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0645" n="637" xml:id="E29_001_1914_pb0637_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0646" n="638" xml:id="E29_001_1914_pb0638_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0647" n="639" xml:id="E29_001_1914_pb0639_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0648" n="640" xml:id="E29_001_1914_pb0640_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0649" n="641" xml:id="E29_001_1914_pb0641_0001"/>
+
+				<div xml:id="d3e39801">
+					<head rendition="#c">Zu den heiligen Schutzengeln.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0650" n="642" xml:id="E29_001_1914_pb0642_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0651" n="643" xml:id="E29_001_1914_pb0643_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0652" n="644" xml:id="E29_001_1914_pb0644_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0653" n="645" xml:id="E29_001_1914_pb0645_0001"/>
+				</div>
+				<div xml:id="d3e40035">
+
+					<head rendition="#c">Gebete zu den Heiligen Gottes.</head>
+					<div xml:id="d3e40040">
+						<head rendition="#c">Zum heiligen Joseph.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0654" n="646" xml:id="E29_001_1914_pb0646_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0655" n="647" xml:id="E29_001_1914_pb0647_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0656" n="648" xml:id="E29_001_1914_pb0648_0001"/>
+					</div>
+				</div>
+
+				<div xml:id="d3e40232">
+					<head rendition="#c">Andachten zu den heiligen Muttern.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0657" n="649" xml:id="E29_001_1914_pb0649_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0658" n="650" xml:id="E29_001_1914_pb0650_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0659" n="651" xml:id="E29_001_1914_pb0651_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0660" n="652" xml:id="E29_001_1914_pb0652_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0661" n="653" xml:id="E29_001_1914_pb0653_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0662" n="654" xml:id="E29_001_1914_pb0654_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0663" n="655" xml:id="E29_001_1914_pb0655_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0664" n="656" xml:id="E29_001_1914_pb0656_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0665" n="657" xml:id="E29_001_1914_pb0657_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0666" n="658" xml:id="E29_001_1914_pb0658_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0667" n="659" xml:id="E29_001_1914_pb0659_0001"/>
+				</div>
+				<pb facs="escidoc_8011/E29_001_1914_0668" n="660" xml:id="E29_001_1914_pb0660_0001"/>
+				<div xml:id="d3e40894">
+					<head rendition="#c">Der Glaube an die Vorsehung.</head>
+
+					<pb facs="escidoc_8011/E29_001_1914_0669" n="661" xml:id="E29_001_1914_pb0661_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0670" n="662" xml:id="E29_001_1914_pb0662_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0671" n="663" xml:id="E29_001_1914_pb0663_0001"/>
+					<div xml:id="d3e41100">
+						<head rendition="#c">Gebet um Gottes Schutz und Gnade in gesunden und tranken Tagen.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0672" n="664" xml:id="E29_001_1914_pb0664_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0673" n="665" xml:id="E29_001_1914_pb0665_0001"/>
+					</div>
+
+				</div>
+				<div xml:id="d3e41201">
+					<head rendition="#c">Vor und bei den Versuchungen.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0674" n="666" xml:id="E29_001_1914_pb0666_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0675" n="667" xml:id="E29_001_1914_pb0667_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0676" n="668" xml:id="E29_001_1914_pb0668_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0677" n="669" xml:id="E29_001_1914_pb0669_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0678" n="670" xml:id="E29_001_1914_pb0670_0001"/>
+
+				</div>
+				<div xml:id="d3e41570">
+					<head rendition="#c">Die Vorbereitung auf den Tod.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0679" n="671" xml:id="E29_001_1914_pb0671_0001"/>
+					<div xml:id="d3e41614">
+						<head rendition="#c">1. Betrachtung uber den Tod.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0680" n="672" xml:id="E29_001_1914_pb0672_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0681" n="673" xml:id="E29_001_1914_pb0673_0001"/>
+
+						<pb facs="escidoc_8011/E29_001_1914_0682" n="674" xml:id="E29_001_1914_pb0674_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0683" n="675" xml:id="E29_001_1914_pb0675_0001"/>
+					</div>
+					<div xml:id="d3e41860">
+						<head rendition="#c">2. Geistliches Testament.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0684" n="676" xml:id="E29_001_1914_pb0676_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0685" n="677" xml:id="E29_001_1914_pb0677_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0686" n="678" xml:id="E29_001_1914_pb0678_0001"/>
+
+					</div>
+					<div xml:id="d3e42015">
+						<head rendition="#c">3. Gebet um eine gluckselige Sterbestunde.</head>
+						<pb facs="escidoc_8011/E29_001_1914_0687" n="679" xml:id="E29_001_1914_pb0679_0001"/>
+						<pb facs="escidoc_8011/E29_001_1914_0688" n="680" xml:id="E29_001_1914_pb0680_0001"/>
+					</div>
+				</div>
+				<div xml:id="d3e42135">
+
+					<head rendition="#c">Die armen Seelen im Fegefeuer.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0689" n="681" xml:id="E29_001_1914_pb0681_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0690" n="682" xml:id="E29_001_1914_pb0682_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0691" n="683" xml:id="E29_001_1914_pb0683_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0692" n="684" xml:id="E29_001_1914_pb0684_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0693" n="685" xml:id="E29_001_1914_pb0685_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0694" n="686" xml:id="E29_001_1914_pb0686_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0695" n="687" xml:id="E29_001_1914_pb0687_0001"/>
+
+					<pb facs="escidoc_8011/E29_001_1914_0696" n="688" xml:id="E29_001_1914_pb0688_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0697" n="689" xml:id="E29_001_1914_pb0689_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0698" n="690" xml:id="E29_001_1914_pb0690_0001"/>
+				</div>
+			</div>
+			<pb facs="escidoc_8011/E29_001_1914_0699" n="691" xml:id="E29_001_1914_pb0691_0001"/>
+			<div xml:id="d3e42829">
+				<head rendition="#c">Anhang. Fromme Spruche fur die Kleinen.</head>
+
+				<pb facs="escidoc_8011/E29_001_1914_0700" n="692" xml:id="E29_001_1914_pb0692_0001"/>
+				<div xml:id="d3e42916" type="verse">
+					<head rendition="#c">Von dem lieben Gott.</head>
+				</div>
+				<div xml:id="d3e42968" type="verse">
+					<head rendition="#c">Heilige Naturbetrachtung.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0701" n="693" xml:id="E29_001_1914_pb0693_0001"/>
+				</div>
+
+				<pb facs="escidoc_8011/E29_001_1914_0702" n="694" xml:id="E29_001_1914_pb0694_0001"/>
+				<div xml:id="d3e43091" type="verse">
+					<head rendition="#c">Von den heiligen Engeln.</head>
+				</div>
+				<div xml:id="d3e43168" type="verse">
+					<head rendition="#c">Von Jesus und Maria.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0703" n="695" xml:id="E29_001_1914_pb0695_0001"/>
+					<pb facs="escidoc_8011/E29_001_1914_0704" n="696" xml:id="E29_001_1914_pb0696_0001"/>
+
+				</div>
+				<div xml:id="d3e43305" type="verse">
+					<head rendition="#c">Von dem Himmel</head>
+				</div>
+				<div xml:id="d3e43376" type="verse">
+					<head rendition="#c">Von der Unschuld und dem Gewissen.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0705" n="697" xml:id="E29_001_1914_pb0697_0001"/>
+				</div>
+
+				<pb facs="escidoc_8011/E29_001_1914_0706" n="698" xml:id="E29_001_1914_pb0698_0001"/>
+				<div xml:id="d3e43506" type="verse">
+					<head rendition="#c">Von dem Gehorsam.</head>
+				</div>
+				<div xml:id="d3e43546" type="verse">
+					<head rendition="#c">Vom Beten.</head>
+				</div>
+				<div xml:id="d3e43610" type="verse">
+
+					<head rendition="#c">Morgengebet.</head>
+					<pb facs="escidoc_8011/E29_001_1914_0707" n="699" xml:id="E29_001_1914_pb0699_0001"/>
+				</div>
+				<div xml:id="d3e43665" type="verse">
+					<head rendition="#c">Abendgebet.</head>
+				</div>
+			</div>
+		</body>
+
+		<back xml:id="d3e43720">
+			<pb facs="escidoc_8011/E29_001_1914_0708" n="700" xml:id="E29_001_1914_pb0700_0001"/>
+			<div xml:id="d3e43724" type="contents">
+				<head rendition="#c">Inhalts-Verzeichnis.</head>
+				<pb facs="escidoc_8011/E29_001_1914_0709" n="701" xml:id="E29_001_1914_pb0701_0001"/>
+				<pb facs="escidoc_8011/E29_001_1914_0710" n="702" xml:id="E29_001_1914_pb0702_0001"/>
+				<pb facs="escidoc_8011/E29_001_1914_0711" n="703" xml:id="E29_001_1914_pb0703_0001"/>
+			</div>
+
+			<pb facs="escidoc_8011/E29_001_1914_0712" n="ad" xml:id="E29_001_1914_pbad_0001"/>
+			<pb facs="escidoc_8011/E29_001_1914_0713" n="interleaf" xml:id="E29_001_1914_pbinterleaf_0009"/>
+			<pb facs="escidoc_8011/E29_001_1914_0714" n="interleaf" xml:id="E29_001_1914_pbinterleaf_0010"/>
+			<pb facs="escidoc_8011/E29_001_1914_0715" n="interleaf" xml:id="E29_001_1914_pbinterleaf_0011"/>
+			<pb facs="escidoc_8011/E29_001_1914_0716" n="binding_verso" xml:id="E29_001_1914_pbbinding_verso_0001"/>
+		</back>
+	</text>
+</tei:TEI>

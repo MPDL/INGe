@@ -1,0 +1,30 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3"
+	xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.3"
+	xmlns:aggregation-definition-list="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/aggregationdefinition/0.3"
+		schemaLocation="http://www.escidoc.org/schemas/rest/aggregation-definition/0.3/aggregation-definition.xsd" />
+	<xs:element name="aggregation-definition-list">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					List of aggregation-definitions.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="aggregation-definition:aggregation-definition" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<para>
+								Aggregation-definition in aggregation-definition-schema.
+							</para>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

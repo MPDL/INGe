@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.9" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.9" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.9" xmlns:container="http://www.escidoc.de/schemas/container/0.8" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.8" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+  <escidocItem:item objid="escidoc:521963" last-modification-date="2010-09-30T00:40:59.307Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-09-10T08:59:14.130Z</prop:creation-date>
+      <srel:created-by objid="escidoc:36086"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>Slide 8 coorected</prop:public-status-comment>
+      <srel:context objid="escidoc:28207"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:someHandle/test/escidoc:521963</prop:pid>
+      <prop:version objid="escidoc:521963:4">
+        <version:number>4</version:number>
+        <version:date>2010-09-30T00:40:59.307Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:36086"/>
+        <version:comment>Slide 8 coorected</version:comment>
+        <version:pid>hdl:someHandle/test/escidoc:521963:4</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:521963:4">
+        <version:number>4</version:number>
+        <version:date>2010-09-30T00:40:59.307Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:521963:4">
+        <release:number>4</release:number>
+        <release:date>2010-09-30T00:40:59.307Z</release:date>
+        <release:pid>hdl:someHandle/test/escidoc:521963:4</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>轟</eterms:family-name>
+              <eterms:given-name>眞市</eterms:given-name>
+              <organization:organization>
+                <dc:title>物質・材料研究機構 光材料センター</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:24034</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons1008</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <dc:title>与えよ、さらば求められん: セルフアーカイビングによる成果発信非局在化のすすめ</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">jpn</dc:language>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2010-09-17</dcterms:issued>
+          <eterms:review-method>http://purl.org/escidoc/metadata/ves/review-methods/no-review</eterms:review-method>
+          <event:event>
+            <dc:title>ランダム系フォトエレクトロニクス研究会研究懇談会</dc:title>
+            <eterms:start-date xsi:type="dcterms:W3CDTF">2010-09-17</eterms:start-date>
+            <eterms:end-date xsi:type="dcterms:W3CDTF">2010-09-17</eterms:end-date>
+            <eterms:place>雲仙市</eterms:place>
+            <eterms:invitation-status>invited</eterms:invitation-status>
+          </event:event>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract>筆者の原著論文へのアクセスが、関連素材(ビデオや和訳など)のセルフアーカイビングによって増加したことを示し、その具体的な方法を概観する。インターネットの高度な発達によって学術情報流通のあり方が変質してきている現在、研究成果を分かり易くプレゼンテーションする技術が益々重要になってきている。</dcterms:abstract>
+          <dcterms:subject>Self-archiving, Open access, Presentation</dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+      <escidocComponents:component objid="escidoc:529038">
+        <escidocComponents:properties>
+          <prop:creation-date>2010-09-30T00:40:43.447Z</prop:creation-date>
+          <prop:description>handout</prop:description>
+          <prop:valid-status>valid</prop:valid-status>
+          <prop:visibility>public</prop:visibility>
+          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</prop:content-category>
+          <prop:file-name>rpe_slfa+sem4.pdf</prop:file-name>
+          <prop:mime-type>application/pdf</prop:mime-type>
+          <prop:checksum>d874d33167d398b050a486d019a21540</prop:checksum>
+          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="rpe_slfa+sem4.pdf" xlink:href="/ir/item/escidoc:521963/components/component/escidoc:529038/content" storage="internal-managed"/>
+        <escidocMetadataRecords:md-records>
+          <escidocMetadataRecords:md-record name="escidoc">
+            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+              <dc:title>rpe_slfa+sem4.pdf</dc:title>
+              <dc:description>handout</dc:description>
+              <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+              <dcterms:extent>1494398</dcterms:extent>
+              <dcterms:dateCopyrighted/>
+              <dc:rights/>
+              <dcterms:license/>
+            </file:file>
+          </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+    </escidocComponents:components>
+  </escidocItem:item>
+</escidocItemList:item-list>

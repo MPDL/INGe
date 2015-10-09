@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">On divide-and-conquer strategies for parsimony analysis
+                    of large data sets: Rec-I-DCM3 vs. TNT</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Mr.</roleName>
+                                <forename type="first">Pablo</forename>
+                                <forename type="middle">A.</forename>
+                                <surname>Goloboff</surname>
+                            </persName>
+                            <email>pablogolo@csnat.unt.edu.ar</email>
+                            <affiliation>
+                                <orgName type="institution">INSUE-CONICET</orgName>
+                                <note type="phone">+54-381-4232965</note>
+                                <address><addrLine>Miguel Lillo 205</addrLine><settlement>San M. de Tucuman</settlement><country key="AR">Argentina</country><postCode>4000</postCode></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Diego</forename>
+                                <surname>Pol</surname>
+                            </persName>
+                            <email>dpol@mef.org.ar</email>
+                            <email>dpol@amnh.org</email>
+                            <affiliation>
+                                <orgName type="institution">CONICET - Museo Paleontológico Egidio
+                                    Feruglio</orgName>
+                                <address><settlement>Trelew</settlement><region>Chubut</region><country key="AR">Argentina</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">On divide-and-conquer strategies for parsimony
+                            analysis of large data sets: Rec-I-DCM3 vs. TNT</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Systematic Biology</title>
+                        <idno type="pISSN">10635157</idno>
+                        <idno type="eISSN">1076836X</idno>
+                        <imprint>
+                            <publisher>Systematic Biology</publisher>
+                            <biblScope type="vol">56</biblScope>
+                            <biblScope type="issue">3</biblScope>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">USYB-2006-170</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Roshan et al. recently described a "divide-and-conquer" technique for parsimony
+                    analysis of large data sets, Rec-I-DCM3, and stated that it compares very
+                    favorably to results using the program TNT. Their technique is based on
+                    selecting subsets of taxa to create reduced data sets or subproblems, finding
+                    most parsimonious trees for each reduced data set, recombining all parts
+                    together, and then performing global TBR swapping on the combined tree. Here, we
+                    contrast this approach to sectorial searches, a divide-and-conquer algorithm
+                    implemented in TNT. This algorithm also uses a guide tree to create subproblems,
+                    with the first-pass state sets of the nodes that join the selected sectors with
+                    the rest of the topology; this allows exact length calculations for the entire
+                    topology (that is, any solution N steps shorter than the original, for the
+                    reduced subproblem, must also be N steps shorter for the entire topology). We
+                    show here that, for sectors of similar size analyzed with the same search
+                    algorithms, subdividing data sets with sectorial searches produces better
+                    results than subdividing with Rec-I-DCM3. Roshan et al.'s claim that Rec-I-DCM3
+                    outperforms the techniques in TNT was caused by a poor experimental design and
+                    algorithmic settings used for the runs in TNT. In particular, for finding trees
+                    at or very close to the minimum known length of the analyzed datasets, TNT
+                    clearly outperforms Rec-I-DCM3. Finally, we show that the performance of
+                    Rec-I-DCM3 is bound by the efficiency of TBR implementation for the complete
+                    dataset, as this method behaves (after some number of iterations) as a technique
+                    for cyclic perturbations and improvements more than as a divide-and-conquer
+                    strategy. &#xD; </p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:590478"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:590478"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-05-13T14:21:18.423Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-05-13T14:21:18.680Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2013-05-13T14:21:18.423Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-05-13T14:21:18.423Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-05-13T14:21:18.614Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-05-13T14:21:18.680Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2013-05-13T14:21:18.450Z" MIMETYPE="text/xml" SIZE="112">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2013-05-13T14:21:18.451Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="23730">
+<foxml:xmlContent>
+<import-task status="FINISHED" error-level="FINE" created-by="escidoc:587151">
+	<name>test_%7</name>
+	<context>escidoc:585346</context>
+	<start-date>2013-05-13 16:21</start-date>
+	<end-date>2013-05-13 16:21</end-date>
+	<format>endnote</format>
+	<items>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_started</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_initialize</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_validate</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_inputstream_available</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_format_available</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_format_valid</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_start_import</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_import_item</message>
+			<escidoc-id>escidoc:590476</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_source_data_found</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>%0 Book Section
+				%A Allwood, J. W.
+				%A De Vos, R. C.H.
+				%A Moing, A.
+				%A Deborde, C.
+				%A Erban, A.
+				%A Kopka, J.
+				%A Goodacre, R.
+				%A Hall, R. D.
+				%D 2011
+				%T Plant metabolomics and its potential for systems biology research: background concepts, technology and methodology
+				%E Jameson D, Verma M, Westerhoff HV
+				%B Methods in Enzymology
+				%C Amsterdam, NED
+				%I Elsevier - Academic Press
+				%V 500
+				%P 299-336
+				%Y Abelson JN, Simon MI
+				%! Plant metabolomics and its potential for systems biology research: background concepts, technology and methodology
+				%@ 0076-6879
+				%R 10.1016/B978-0-12-385118-5.00016-5
+				%2 0
+				%3 1
+				%4 1
+				%# 0
+				%$ 3
+				%# 0
+				%= 0
+				%G English</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_start_transformation</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+				&lt;ei:item xmlns:ei=&quot;http://www.escidoc.de/schemas/item/0.10&quot;&gt;
+				   &lt;ei:properties&gt;
+				      &lt;srel:context xmlns:oaipmh=&quot;http://www.openarchives.org/OAI/2.0/&quot;
+				                    xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;
+				                    xmlns:mdr=&quot;http://www.escidoc.de/schemas/metadatarecords/0.5&quot;
+				                    xmlns:srel=&quot;http://escidoc.de/core/01/structural-relations/&quot;
+				                    xmlns:AuthorDecoder=&quot;java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder&quot;
+				                    xmlns:prop=&quot;http://escidoc.de/core/01/properties/&quot;
+				                    xmlns:escidoc=&quot;urn:escidoc:functions&quot;
+				                    xmlns:eterms=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                    xmlns:file=&quot;http://purl.org/escidoc/metadata/profiles/0.1/file&quot;
+				                    xmlns:esc=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                    xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
+				                    xmlns:person=&quot;http://purl.org/escidoc/metadata/profiles/0.1/person&quot;
+				                    xmlns:eprints=&quot;http://purl.org/eprint/terms/&quot;
+				                    xmlns:event=&quot;http://purl.org/escidoc/metadata/profiles/0.1/event&quot;
+				                    xmlns:Util=&quot;java:de.mpg.escidoc.services.transformation.Util&quot;
+				                    xmlns:source=&quot;http://purl.org/escidoc/metadata/profiles/0.1/source&quot;
+				                    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				                    xmlns:pub=&quot;http://purl.org/escidoc/metadata/profiles/0.1/publication&quot;
+				                    xmlns:organization=&quot;http://purl.org/escidoc/metadata/profiles/0.1/organization&quot;
+				                    xmlns:ec=&quot;http://www.escidoc.de/schemas/components/0.9&quot;
+				                    xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot;
+				                    xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+				                    xmlns:itemlist=&quot;http://www.escidoc.de/schemas/itemlist/0.10&quot;
+				                    xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+				                    xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot;
+				                    objid=&quot;dummy:context&quot;/&gt;
+				      &lt;srel:content-model xmlns:oaipmh=&quot;http://www.openarchives.org/OAI/2.0/&quot;
+				                          xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;
+				                          xmlns:mdr=&quot;http://www.escidoc.de/schemas/metadatarecords/0.5&quot;
+				                          xmlns:srel=&quot;http://escidoc.de/core/01/structural-relations/&quot;
+				                          xmlns:AuthorDecoder=&quot;java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder&quot;
+				                          xmlns:prop=&quot;http://escidoc.de/core/01/properties/&quot;
+				                          xmlns:escidoc=&quot;urn:escidoc:functions&quot;
+				                          xmlns:eterms=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                          xmlns:file=&quot;http://purl.org/escidoc/metadata/profiles/0.1/file&quot;
+				                          xmlns:esc=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                          xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
+				                          xmlns:person=&quot;http://purl.org/escidoc/metadata/profiles/0.1/person&quot;
+				                          xmlns:eprints=&quot;http://purl.org/eprint/terms/&quot;
+				                          xmlns:event=&quot;http://purl.org/escidoc/metadata/profiles/0.1/event&quot;
+				                          xmlns:Util=&quot;java:de.mpg.escidoc.services.transformation.Util&quot;
+				                          xmlns:source=&quot;http://purl.org/escidoc/metadata/profiles/0.1/source&quot;
+				                          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				                          xmlns:pub=&quot;http://purl.org/escidoc/metadata/profiles/0.1/publication&quot;
+				                          xmlns:organization=&quot;http://purl.org/escidoc/metadata/profiles/0.1/organization&quot;   				
+                       xmlns:ec=&quot;http://www.escidoc.de/schemas/components/0.9&quot;
+				                          xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot;
+				                          xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+				                          xmlns:itemlist=&quot;http://www.escidoc.de/schemas/itemlist/0.10&quot;
+				                          xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+				                          xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot;
+				                          objid=&quot;escidoc:persistent4&quot;/&gt;
+				      &lt;prop:content-model-specific xmlns:oaipmh=&quot;http://www.openarchives.org/OAI/2.0/&quot;
+				                                   xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;
+				                                   xmlns:mdr=&quot;http://www.escidoc.de/schemas/metadatarecords/0.5&quot;
+				                                   xmlns:srel=&quot;http://escidoc.de/core/01/structural-relations/&quot;
+				                                   xmlns:AuthorDecoder=&quot;java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder&quot;
+				                                   xmlns:prop=&quot;http://escidoc.de/core/01/properties/&quot;
+				                                   xmlns:escidoc=&quot;urn:escidoc:functions&quot;
+				                                   xmlns:eterms=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                                   xmlns:file=&quot;http://purl.org/escidoc/metadata/profiles/0.1/file&quot;
+				                                   xmlns:esc=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                                   xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
+				                                   xmlns:person=&quot;http://purl.org/escidoc/metadata/profiles/0.1/person&quot;
+				                                   xmlns:eprints=&quot;http://purl.org/eprint/terms/&quot;
+				                                   xmlns:event=&quot;http://purl.org/escidoc/metadata/profiles/0.1/event&quot;
+				                                   xmlns:Util=&quot;java:de.mpg.escidoc.services.transformation.Util&quot;
+				                                   xmlns:source=&quot;http://purl.org/escidoc/metadata/profiles/0.1/source&quot;
+				                                   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				                                   xmlns:pub=&quot;http://purl.org/escidoc/metadata/profiles/0.1/publication&quot;
+				                                   xmlns:organization=&quot;http://purl.org/escidoc/metadata/profiles/0.1/organization&quot;
+				                                   xmlns:ec=&quot;http://www.escidoc.de/schemas/components/0.9&quot;
+				                                   xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot;
+				                                   xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+				                                   xmlns:itemlist=&quot;http://www.escidoc.de/schemas/itemlist/0.10&quot;
+				                                   xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+				                                   xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+				         &lt;local-tags&gt;
+				            &lt;local-tag&gt; 
+														MPIMP
+													&lt;/local-tag&gt;
+				         &lt;/local-tags&gt;
+				      &lt;/prop:content-model-specific&gt;
+				   &lt;/ei:properties&gt;
+				   &lt;mdr:md-records xmlns:mdr=&quot;http://www.escidoc.de/schemas/metadatarecords/0.5&quot;&gt;
+				      &lt;mdr:md-record xmlns:oaipmh=&quot;http://www.openarchives.org/OAI/2.0/&quot;
+				                     xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;
+				                     xmlns:srel=&quot;http://escidoc.de/core/01/structural-relations/&quot;
+				                     xmlns:AuthorDecoder=&quot;java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder&quot;
+				                     xmlns:prop=&quot;http://escidoc.de/core/01/properties/&quot;    				
+                 xmlns:escidoc=&quot;urn:escidoc:functions&quot;
+				                     xmlns:eterms=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                     xmlns:file=&quot;http://purl.org/escidoc/metadata/profiles/0.1/file&quot;
+				                     xmlns:esc=&quot;http://purl.org/escidoc/metadata/terms/0.1/&quot;
+				                     xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
+				                     xmlns:person=&quot;http://purl.org/escidoc/metadata/profiles/0.1/person&quot;
+				                     xmlns:eprints=&quot;http://purl.org/eprint/terms/&quot;
+				                     xmlns:event=&quot;http://purl.org/escidoc/metadata/profiles/0.1/event&quot;
+				                     xmlns:Util=&quot;java:de.mpg.escidoc.services.transformation.Util&quot;
+				                     xmlns:source=&quot;http://purl.org/escidoc/metadata/profiles/0.1/source&quot;
+				                     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				                     xmlns:pub=&quot;http://purl.org/escidoc/metadata/profiles/0.1/publication&quot;
+				                     xmlns:organization=&quot;http://purl.org/escidoc/metadata/profiles/0.1/organization&quot;
+				                     xmlns:ec=&quot;http://www.escidoc.de/schemas/components/0.9&quot;
+				                     xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot;
+				                     xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+				                     xmlns:itemlist=&quot;http://www.escidoc.de/schemas/itemlist/0.10&quot;
+				                     xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+				                     xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot;
+				                     name=&quot;escidoc&quot;&gt;
+				         &lt;pub:publication type=&quot;http://purl.org/eprint/type/BookItem&quot;&gt;&lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Allwood&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;J. W.&lt;/eterms:given-name&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Vos&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;De&lt;/eterms:given-name&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Moing&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;A.&lt;/eterms:given-name&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Deborde&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;C.&lt;/eterms:given-name&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Erban&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;A.&lt;/eterms:given-name&gt;
+				                  &lt;organization:organization&gt;
+				                     &lt;dc:title&gt;Applied Metabolome Analysis, Department Willmitzer, Max Planck Institute of Molecular Plant Physiology, Max Planck Society&lt;/dc:title&gt;
+				                     &lt;dc:identifier&gt;escidoc:586155&lt;/dc:identifier&gt;
+				                  &lt;/organization:organization&gt;
+				                  &lt;dc:identifier xsi:type=&quot;CONE&quot;&gt;http://migration-pubman.mpdl.mpg.de/cone/persons/resource/persons205815&lt;/dc:identifier&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Kopka&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;J.&lt;/eterms:given-name&gt;
+				                  &lt;organization:organization&gt;
+				                     &lt;dc:title&gt;Applied Metabolome Analysis, Department Willmitzer, Max Planck Institute of Molecular Plant Physiology, Max Planck Society&lt;/dc:title&gt;
+				                     &lt;dc:identifier&gt;escidoc:586155&lt;/dc:identifier&gt;
+				                  &lt;/organization:organization&gt;
+				                  &lt;dc:identifier xsi:type=&quot;CONE&quot;&gt;http://migration-pubman.mpdl.mpg.de/cone/persons/resource/persons205913&lt;/dc:identifier&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Goodacre&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;R.&lt;/eterms:given-name&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;!--- -Author - - --&gt;&lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/AUT&quot;&gt;
+				               &lt;person:person&gt;
+				                  &lt;eterms:family-name&gt;Hall&lt;/eterms:family-name&gt;
+				                  &lt;eterms:given-name&gt;R. D.&lt;/eterms:given-name&gt;
+				               &lt;/person:person&gt;
+				            &lt;/eterms:creator&gt;
+				            &lt;dc:title&gt;Plant metabolomics and its potential for systems biology research: background concepts, technology and methodology&lt;/dc:title&gt;
+				            &lt;dc:identifier xsi:type=&quot;eterms:DOI&quot;&gt;10.1016/B978-0-12-385118-5.00016-5&lt;/dc:identifier&gt;
+				            &lt;dcterms:issued xsi:type=&quot;dcterms:W3CDTF&quot;&gt;2011&lt;/dcterms:issued&gt;
+				            &lt;source:source type=&quot;http://purl.org/eprint/type/Book&quot;&gt;
+				               &lt;dc:title&gt;Methods in Enzymology&lt;/dc:title&gt;
+				               &lt;eterms:creator role=&quot;http://www.loc.gov/loc.terms/relators/EDT&quot;&gt;
+				                  &lt;person:person&gt;
+				                     &lt;eterms:family-name&gt;D&lt;/eterms:family-name&gt;
+				                     &lt;eterms:given-name&gt;Jameson&lt;/eterms:given-name&gt;
+				                  &lt;/person:person&gt;
+				               &lt;/eterms:creator&gt;
+				               &lt;eterms:start-page&gt;299&lt;/eterms:start-page&gt;
+				               &lt;eterms:end-page&gt;336&lt;/eterms:end-page&gt;
+				               &lt;eterms:publishing-info&gt;
+				                  &lt;dc:publisher&gt;Elsevier - Academic Press&lt;/dc:publisher&gt;
+				                  &lt;eterms:place&gt;Amsterdam, NED&lt;/eterms:place&gt;
+				               &lt;/eterms:publishing-info&gt;
+				               &lt;dc:identifier xsi:type=&quot;eterms:ISBN&quot;&gt;0076-6879&lt;/dc:identifier&gt;
+				            &lt;/source:source&gt;
+				         &lt;/pub:publication&gt;
+				      &lt;/mdr:md-record&gt;
+				   &lt;/mdr:md-records&gt;
+				&lt;/ei:item&gt;</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_transformation_done</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>		
+		</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_default_validation</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_default_validation_successful</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_release_validation</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_release_validation_successful</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_generate_item</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_save_item</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_item_imported</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_preparation_finished</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_no_more_items</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_finished</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_import_finished</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+			</items>
+		</import-item>
+		<import-item status="FINISHED" error-level="FINE">
+			<message>import_process_archive_log</message>
+			<escidoc-id>null</escidoc-id>
+			<start-date>2013-05-13 16:21</start-date>
+			<end-date>2013-05-13 16:21</end-date>
+			<items>
+				<import-item status="FINISHED" error-level="FINE">
+					<message>import_process_build_task_item</message>
+					<escidoc-id>null</escidoc-id>
+					<start-date>2013-05-13 16:21</start-date>
+					<items>
+					</items>
+				</import-item>
+			</items>
+		</import-item>
+	</items>
+</import-task>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2013-05-13T14:21:18.452Z" MIMETYPE="text/xml" SIZE="1760">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:590478">
+<system:build>1.3.6</system:build>
+<prop:context-title>eDoc Migration Context MPI of Molecular Plant Physiology</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Import User MPI MP</prop:modified-by-title>
+<prop:created-by-title>Import User MPI MP</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:importtask1"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:importtask1"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:587151"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:587151"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:585346"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date><version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+<srel:component rdf:resource="info:fedora/escidoc:590477"></srel:component>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2013-05-13T14:21:18.680Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/"
+  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/"
+  xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:590478">
+    <system:build>1.3.6</system:build>
+    <prop:context-title>eDoc Migration Context MPI of Molecular Plant Physiology</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Import User MPI MP</prop:modified-by-title>
+    <prop:created-by-title>Import User MPI MP</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:importtask1"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:importtask1" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:587151"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:587151"/>
+    <srel:context rdf:resource="info:fedora/escidoc:585346"/>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2013-05-13T14:21:18.452Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <srel:component rdf:resource="info:fedora/escidoc:590477"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2013-05-13T14:21:18.423Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="386">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Item escidoc:590478</dc:title>
+  <dc:identifier>escidoc:590478</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.0" LABEL="whole object versioning datastream" CREATED="2013-05-13T14:21:18.614Z" MIMETYPE="text/xml" SIZE="2009">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:590478:1" timestamp="2013-05-13T14:21:18.452Z" xlink:href="/ir/item/escidoc:590478:1" xlink:title="Item escidoc:590478" xlink:type="simple">
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-05-13T14:21:18.452Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>pending</escidocVersions:version-status>
+    <escidocVersions:comment>Object created.</escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1368454878526">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:590478/resources/version-history#v1e1368454878526</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2013-05-13T14:21:18.452Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:587151" xlink:title="Import User MPI MP" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:587151</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:590478</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

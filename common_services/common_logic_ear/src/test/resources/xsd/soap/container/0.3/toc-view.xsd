@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/tocview/0.3"
+	xmlns:tocview="http://www.escidoc.de/schemas/tocview/0.3"
+	xmlns:member-ref-list="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/toc-view-member-ref-list.xsd" />
+	<xs:element name="toc">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="description" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element ref="member-ref-list:member-ref-list" />
+			</xs:sequence>
+			<xs:attribute name="name" use="optional" />
+			<xs:attribute name="pid" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/workflowtaskresume/0.3"
+	xmlns:workflow-task-resume="http://www.escidoc.de/schemas/workflowtaskresume/0.3"
+	xmlns:workflow-configuration="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
+		schemaLocation="../../../soap/workflow-definition/0.3/workflow-configuration.xsd" />
+	<xs:element name="workflow-task-resume">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					A workflow-task-resume defines the id of the workflow-task-instance to resume
+					and additional parameters for the workflow-task.
+				</para>
+				<para>
+					The xml-record consists of the id of the workflow-task-instance,
+					the leaving transition 
+					and a list of parameter-elements that have a mandatory attribute
+					‘name’. Child of the parameter-element can be one of
+					&lt;datevalue&gt;(type xsd:date),
+					&lt;stringvalue&gt;(type xsd:string) or
+					&lt;decimalvalue&gt;(type xsd:decimal). This
+					structure gives maximum flexibility, because all
+					kinds of information can be written.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="workflow-task"
+					type="common-types:linkRequired">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								objid of the workflow-task-instance.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="leaving-transition"
+					type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								name of the leaving transition to take.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element
+					ref="workflow-configuration:workflow-configuration" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<para>
+								Holds information about the
+								configuration for this workflow
+								instance.
+							</para>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

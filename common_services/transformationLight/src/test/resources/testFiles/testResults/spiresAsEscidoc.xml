@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
+   <ei:properties>
+      <srel:context xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                    xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                    xmlns:prop="http://escidoc.de/core/01/properties/"
+                    xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                    xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                    xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                    xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                    xmlns:escidoc="urn:escidoc:functions"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                    xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                    xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                    xmlns:eterms="${xsd.metadata.terms}"
+                    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:dcterms="http://purl.org/dc/terms/"
+                    objid="escidoc:persistent3"/>
+      <srel:content-model xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                          xmlns:prop="http://escidoc.de/core/01/properties/"
+                          xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                          xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                          xmlns:escidoc="urn:escidoc:functions"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                          xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:eterms="${xsd.metadata.terms}"
+                          xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+                          xmlns:dc="http://purl.org/dc/elements/1.1/"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          objid="escidoc:persistent4"/>
+      <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4">
+      <mdr:md-record xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                     xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:eterms="${xsd.metadata.terms}"
+                     xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     name="escidoc">
+         <pub:publication type="conference-paper">
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:family-name>Bern, Z.</eterms:family-name>
+                  <organization:organization>
+                     <dc:title>UCLA</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:family-name>Dixon, Lance J.</eterms:family-name>
+                  <organization:organization>
+                     <dc:title>SLAC</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:family-name>Kosower, D.A.</eterms:family-name>
+                  <organization:organization>
+                     <dc:title>Saclay</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>A Two loop four gluon helicity amplitude in QCD</dc:title>
+            <dc:identifier xsi:type="eterms:DOI"/>
+            <dc:identifier xsi:type="eterms:URI">hep-ph/0001001</dc:identifier>
+            <dc:identifier xsi:type="eterms:OTHER">spires:4286294</dc:identifier>
+            <eterms:published-online>2000-01</eterms:published-online>
+            <eterms:total-number-of-pages>27</eterms:total-number-of-pages>
+            <source:source type="journal">
+               <dc:title>JHEP</dc:title>
+               <eterms:volume>0001</eterms:volume>
+               <eterms:start-page>027</eterms:start-page>
+            </source:source>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.8"/>
+</ei:item>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	- December, 2008
+	- Version 0.1 created
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	xmlns:preferences="http://www.escidoc.de/schemas/preferences/0.1"
+	targetNamespace="http://www.escidoc.de/schemas/preferences/0.1">
+
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
+
+	<xs:element name="preferences">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="preferences:preference" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+			<xs:attribute name="user-objid" type="common-types:objid" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="preference">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="name" use="required"
+						type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+								<create>required</create>
+								<update>required</update>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attributeGroup
+						ref="common-types:eSciDocRootElementAttributes" />
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

@@ -1,0 +1,62 @@
+<scanResponse xmlns="http://www.loc.gov/zing/srw/">
+	<version>1.1</version>
+	<terms xmlns:ns1="http://www.loc.gov/zing/srw/">
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c37b-d</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c37d-9</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c37f-5</value>
+			<numberOfRecords>2</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c382-c</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c384-8</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c386-4</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c397-d</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c399-9</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c39b-5</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+		<term>
+			<value>hdl:11858/00-001z-0000-000c-c39e-0</value>
+			<numberOfRecords>1</numberOfRecords>
+		</term>
+	</terms>
+	<echoedScanRequest xmlns:ns2="http://www.loc.gov/zing/srw/">
+		<version>1.1</version>
+		<scanClause>escidoc.property.latest-release.pid&gt;''</scanClause>
+		<xScanClause>
+			<ns3:index xmlns:ns3="http://www.loc.gov/zing/cql/xcql/">escidoc.property.latest-release.pid</ns3:index>
+			<ns4:relation xmlns:ns4="http://www.loc.gov/zing/cql/xcql/">
+				<ns4:value>&gt;</ns4:value>
+			</ns4:relation>
+			<ns5:term xmlns:ns5="http://www.loc.gov/zing/cql/xcql/">''</ns5:term>
+		</xScanClause>
+		<maximumTerms>10</maximumTerms>
+	</echoedScanRequest>
+	<extraResponseData xmlns:ns6="http://www.loc.gov/zing/srw/">
+		<ns7:extraData xmlns="http://oclc.org/srw/extraData" xmlns:ns7="http://oclc.org/srw/extraData">
+			<ns7:databaseTitle>escidoc_all</ns7:databaseTitle>
+		</ns7:extraData>
+	</extraResponseData>
+</scanResponse>

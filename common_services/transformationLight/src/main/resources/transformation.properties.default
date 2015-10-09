@@ -1,0 +1,28 @@
+
+# The path to the transformation module in the webserver (Please use slash instead of backslash) e.g.:
+transformation.initializer.path= jboss.install.dir/tmp/deploy/
+# The name of the project were the transformation module is part of  (only necessary for ear, leaf empty otherwise)
+transformation.initializer.project= 
+
+# eSciDoc-ObjId of the external Organisation
+escidoc.pubman.external.organisation.id=escidoc:persistent22
+escidoc.pubman.root.organisation.id=escidoc:persistent13
+escidoc.framework_access.content-model.id.publication=escidoc:2001
+
+# CoNE service URL
+escidoc.cone.service.url=
+
+# Transformation stylesheets
+escidoc.transformation.edoc.stylesheet.filename=transformations/otherFormats/xslt/edoc-to-escidoc.xslt
+escidoc.transformation.endnote.ice.stylesheet.filename=transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl
+escidoc.transformation.endnote.stylesheet.filename=transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl
+escidoc.transformation.zfn.stylesheet.filename=${escidoc.transformation.zfn.stylesheet.filename}
+escidoc.transformation.endnote.configuration.filename=transformations/commonPublicationFormats/conf/endnote.properties
+escidoc.transformation.mab.stylesheet.filename=transformations/otherFormats/xslt/mabxml2escidoc.xsl
+escidoc.transformation.edoc.configuration.filename=transformations/otherFormats/conf/edoc.properties
+escidoc.transformation.report.sortorder.filename=transformations/reports/conf/reportSortOrder.xml
+escidoc.transformation.marc.stylesheet.filename=transformations/standardFormats/xslt/marc.xsl
+escidoc.transformation.marc.configuration.filename=transformations/standardFormats/conf/marc.properties
+
+# InDesign namespace
+escidoc.report.indesign.namespace=http://ns.adobe.com/AdobeInDesign/4.0/

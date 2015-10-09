@@ -1,0 +1,73 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/scope/0.3"
+	xmlns:scope="http://www.escidoc.de/schemas/scope/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+	schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd" />
+	<xs:element name="scope">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Scope for Statistics.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Name of the scope.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="type" type="scope:scope-types">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Type of the scope.
+								Two types are possible:
+								-normal
+								-admin
+								Scopes of type admin may access other scopes.
+								Especially important for aggregation of data:
+								Aggregation-definitions that belong to an admin-scope may aggregate data from all other scopes.
+								Report-definitions that belong to an admin-scope may access all aggregation-tables.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+      		<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+		</xs:complexType>
+	</xs:element>
+
+	<!--*******************************
+    Scope-types
+    ********************************-->
+	<xs:simpleType name="scope-types">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="normal"/>
+			<xs:enumeration value="admin"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

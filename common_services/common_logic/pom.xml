@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.org/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+ CDDL HEADER END
+ Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>common_services</artifactId>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<version>1.0.90-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
+	<artifactId>common_logic</artifactId>
+	<packaging>ejb</packaging>
+	<name>common_logic</name>
+	<version>1.1.90-SNAPSHOT</version>
+	<scm>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_logic</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_logic</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+	</scm>
+	<build>
+		<plugins>
+			
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<inherited>true</inherited>
+						<configuration>
+							<tasks>
+								<taskdef classname="org.jibx.binding.ant.CompileTask" name="bind">
+									<classpath refid="maven.compile.classpath" />
+								</taskdef>
+								<bind load="true" verbose="true">
+									<bindingfileset dir="${project.build.outputDirectory}/jibx">
+										<include name="bindings_AccountUserVO.xml" />
+										<include name="bindings_AffiliationVO_input.xml" />
+										<include name="bindings_AffiliationVO_output.xml" />
+										<include name="bindings_PubItemVO_PubCollectionVO_input.xml" />
+										<include name="bindings_PubItemVO_PubCollectionVO_output.xml" />
+										<include name="bindings_ContainerVO_input.xml" />
+										<include name="bindings_ContainerVO_output.xml" />
+										<include name="bindings_TaskParamVO.xml" />
+										<include name="bindings_PidTaskParamVO.xml" />
+										<include name="bindings_FilterTaskParamVO.xml" />
+										<include name="bindings_FileURL.xml" />
+										<include name="bindings_ExportFormat.xml" />
+										<include name="bindings_Grant.xml" />
+										<include name="bindings_StatisticReportVO.xml" />
+										<include name="bindings_StatisticRecordVO.xml" />
+										<include name="bindings_TocItemVO_input.xml" />
+										<include name="bindings_TocItemVO_output.xml" />
+										<include name="bindings_SearchResultVO_input.xml" />
+										<include name="bindings_StatisticAggregationVO.xml" />
+									</bindingfileset>
+									<bindingfileset dir="${project.build.outputDirectory}/jibx/jibx_generated">
+										<include name="binding.xml" />
+									</bindingfileset>
+									<classpathset dir="${project.build.outputDirectory}" />
+								</bind>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<!-- 
+				<dependencies>
+	               <dependency>
+	                  <groupId>org.jibx</groupId>
+	                  <artifactId>jibx-bind</artifactId>
+	                  <version>1.2.6</version>
+	                  <exclusions>
+	                     <exclusion>
+	                        <artifactId>bcel</artifactId>
+	                        <groupId>bcel</groupId>
+	                     </exclusion>
+	                  </exclusions>
+	               </dependency>
+	               <dependency>
+	               <groupId>org.jibx</groupId>
+	                  <artifactId>jibx-run</artifactId>
+	                  <version>1.2.6</version>
+	                  <exclusions>
+	                     <exclusion>
+	                        <artifactId>bcel</artifactId>
+	                        <groupId>bcel</groupId>
+	                     </exclusion>
+	                  </exclusions>
+	               </dependency>
+	               <dependency>
+	                  <groupId>org.apache.bcel</groupId>
+	                  <artifactId>bcel</artifactId>
+	                  <version>6.0-SNAPSHOT</version>
+	               </dependency>
+            </dependencies>
+            -->
+			</plugin>
+			
+			
+			<!-- 
+			<plugin>
+			  <groupId>org.jibx</groupId>
+			  <artifactId>jibx-maven-plugin</artifactId>
+			  <version>1.2.6</version>
+			   <configuration>
+				    <schemaBindingDirectory>${project.build.outputDirectory}/jibx</schemaBindingDirectory>
+				    <includeSchemaBindings>
+				    	<includeSchemaBinding>bindings_AccountUserVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_AffiliationVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_AffiliationVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PubItemVO_PubCollectionVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PubItemVO_PubCollectionVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_ContainerVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_ContainerVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PidTaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_FilterTaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_FileURL.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_ExportFormat.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_Grant.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_StatisticReportVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_StatisticRecordVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TocItemVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TocItemVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_SearchResultVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_StatisticAggregationVO.xml</includeSchemaBinding>
+				      	<includeSchemaBinding>jibx_generated/binding.xml</includeSchemaBinding>
+				    </includeSchemaBindings>
+			  </configuration>
+				<executions>
+				    <execution>
+				    	<phase>process-classes</phase>
+						<goals>
+							<goal>bind</goal>
+						</goals>
+				    </execution>
+				  </executions>
+				 
+				  <dependencies>
+	               <dependency>
+	                  <groupId>org.jibx</groupId>
+	                  <artifactId>jibx-bind</artifactId>
+	                  <version>1.2.6</version>
+	                  <exclusions>
+	                     <exclusion>
+	                        <artifactId>bcel</artifactId>
+	                        <groupId>bcel</groupId>
+	                     </exclusion>
+	                  </exclusions>
+	               </dependency>
+	               <dependency>
+	                  <groupId>org.apache.bcel</groupId>
+	                  <artifactId>bcel</artifactId>
+	                  <version>6.0-SNAPSHOT</version>
+	               </dependency>
+            </dependencies>
+            
+			</plugin>
+			-->
+			
+
+
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<test>TestCommonLogic</test>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>framework_access</artifactId>
+			<version>1.3.35-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlsec</groupId>
+			<artifactId>xmlsec</artifactId>
+			<version>1.3.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-extras</artifactId>
+			<version>1.2.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-bind</artifactId>
+			<version>1.2.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-run</artifactId>
+			<version>1.2.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>bcel</groupId>
+			<artifactId>bcel</artifactId>
+			<version>5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax</artifactId>
+			<version>1.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javabib</groupId>
+			<artifactId>javabib</artifactId>
+			<version>20040801</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
+			<version>8.7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<version>8.7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.maxmind.geoip</groupId>
+			<artifactId>geoip</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+</project>

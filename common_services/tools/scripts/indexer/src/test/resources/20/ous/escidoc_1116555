@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" PID="escidoc:1116555" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Socio-Cultural Diversity"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-09-16T08:05:08.348Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2011-09-16T08:05:12.022Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2011-09-16T08:05:08.348Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-09-16T08:05:08.348Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-09-16T08:05:12.022Z</audit:date>
+<audit:justification/>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2011-09-16T08:05:08.375Z" MIMETYPE="text/xml" SIZE="881">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1116555">
+<system:build>1.2</system:build>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+<prop:public-status>created</prop:public-status>
+<srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+<prop:created-by-title>roland</prop:created-by-title>
+<srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+<prop:modified-by-title>roland</prop:modified-by-title>
+<srel:parent rdf:resource="info:fedora/escidoc:1110545"/>
+
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2011-09-16T08:05:12.022Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:1116555">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:1110545"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2011-09-16T08:05:08.375Z" MIMETYPE="text/xml" SIZE="462">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Socio-Cultural Diversity</dc:title>
+  <dc:description/>
+  <dc:identifier/>
+  <dc:identifier>escidoc:1116555</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2011-09-16T08:05:08.375Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="798">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+                <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Socio-Cultural Diversity</dc:title>
+<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+<mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+<mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Hermann-Föge-Weg 11, 37073 Göttingen</mdpt:city>
+<mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
