@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <parent>
-    <artifactId>common_services</artifactId>
-    <groupId>de.mpg.escidoc.services.wildfly</groupId>
-    <version>1.0.44-SNAPSHOT</version>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<artifactId>pubman</artifactId>
+		<version>7.9.5-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services.wildfly</groupId>
