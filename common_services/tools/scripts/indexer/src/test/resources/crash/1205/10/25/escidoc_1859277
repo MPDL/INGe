@@ -1,0 +1,1831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:1859277"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:1859277"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-12-05T09:25:22.350Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-05-20T09:51:01.339Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2013-12-05T09:25:22.350Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:25:22.350Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:25:22.431Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:25:22.465Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:05.885Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:05.944Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:05.968Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:07.712Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:07.749Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:07.776Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:09.753Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:09.798Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:09.842Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.273Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.367Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.423Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.468Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.513Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.874Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.903Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:26:11.944Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:40.978Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:41.077Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:41.216Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:41.250Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:41.308Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:47.437Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC27">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:47.471Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC28">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:38:47.515Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC29">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:39:42.212Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC30">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:39:42.247Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC31">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:39:42.289Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC32">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:39:48.655Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC33">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:39:48.705Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC34">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-02-10T11:39:48.760Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC35">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:39.190Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC36">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:39.259Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC37">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:39.515Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC38">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:39.560Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC39">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:39.605Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC40">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:39.649Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC41">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:43.743Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC42">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:43.791Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC43">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:43.855Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC44">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:55.709Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC45">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:55.757Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC46">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:50:55.811Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC47">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:00.429Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC48">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:00.571Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC49">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:00.650Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC50">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:00.701Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC51">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:00.756Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC52">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:01.233Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC53">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:01.283Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC54">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-05-20T09:51:01.339Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2013-12-05T09:25:22.358Z" MIMETYPE="text/xml" SIZE="149">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags></local-tags>
+    </prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true"><foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2013-12-05T09:25:22.359Z" MIMETYPE="text/xml" SIZE="3036" >
+<foxml:xmlContent><oai_dc:dc xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:xsiDummy="http://www.w3.org/2001/XMLSchema-instance" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:javaUtil="java:de.mpg.escidoc.services.foxml.foxml_transformation_service.transformation.XslUtil" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xsiDummy:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"><dc:type>info:eu-repo/semantics/article</dc:type><dc:creator>Godazgar, H.</dc:creator><dc:creator>Godazgar, M.</dc:creator><dc:creator>Nicolai, H.</dc:creator><dc:title>The embedding tensor of Scherk-Schwarz flux compactifications from eleven dimensions</dc:title><dc:identifier>escidoc:1859277</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0014-BF1B-3</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0019-804D-6</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0014-BF1D-0</dc:identifier><dc:date>2014</dc:date><dc:format>application/pdf</dc:format><dc:relation>info:eu-repo/grantAgreement///</dc:relation><dc:relation>info:eu-repo/semantics/altIdentifier/arxiv/1312.1061</dc:relation><dc:relation>info:eu-repo/semantics/altIdentifier/doi/10.1103/PhysRevD.89.045009</dc:relation><dc:description>We study the Scherk-Schwarz reduction of D=11 supergravity with background fluxes in the context of a recently developed framework pertaining to D=11 supergravity. We derive the embedding tensor of the associated four-dimensional maximal gauged theories directly from eleven dimensions by exploiting the generalised vielbein postulates, and by analysing the couplings of the full set of 56 electric and magnetic gauge fields to the generalised vielbeine. The treatment presented here will apply more generally to other reductions of $D=11$ supergravity to maximal gauged theories in four dimensions.</dc:description><dc:rights>info:eu-repo/semantics/openAccess</dc:rights></oai_dc:dc>
+</foxml:xmlContent></foxml:datastreamVersion></foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2013-12-05T09:25:22.359Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="5520">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/paper">
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Godazgar</eterms:family-name>
+            <eterms:given-name>Hadi</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons96552</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Godazgar</eterms:family-name>
+            <eterms:given-name>Mahdi</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons96554</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Nicolai</eterms:family-name>
+            <eterms:given-name>Hermann</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons20713</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The embedding tensor of Scherk-Schwarz flux compactifications from
+  eleven dimensions</dc:title>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:ARXIV">1312.1061</dc:identifier>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:URI">http://arxiv.org/abs/1312.1061</dc:identifier>
+        <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013-12-04</dcterms:created>
+        <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">27 pages</eterms:total-number-of-pages>
+        <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">  We study the Scherk-Schwarz reduction of D=11 supergravity with background
+fluxes in the context of a recently developed framework pertaining to D=11
+supergravity. We derive the embedding tensor of the associated four-dimensional
+maximal gauged theories directly from eleven dimensions by exploiting the
+generalised vielbein postulates, and by analysing the couplings of the full set
+of 56 electric and magnetic gauge fields to the generalised vielbeine. The
+treatment presented here will apply more generally to other reductions of
+$D=11$ supergravity to maximal gauged theories in four dimensions.
+</dcterms:abstract>
+        <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">High Energy Physics - Theory, hep-th</dcterms:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+        <eterms:location xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:location>
+      </publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2014-02-10T11:38:41.077Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="7328">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Godazgar</eterms:family-name>
+      <eterms:given-name>Hadi</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons96552</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Godazgar</eterms:family-name>
+      <eterms:given-name>Mahdi</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons96554</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Nicolai</eterms:family-name>
+      <eterms:given-name>Hermann</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons20713</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The embedding tensor of Scherk-Schwarz flux compactifications from
+  eleven dimensions</dc:title>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ARXIV">1312.1061</dc:identifier>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:URI">http://arxiv.org/abs/1312.1061</dc:identifier>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013-12-04</dcterms:created>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2014</dcterms:dateAccepted>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Physical Review D</dc:title>
+    <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">Phys. Rev. D.</dcterms:alternative>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">American Physical Society</dc:publisher>
+      <eterms:place>Lancaster, Pa.</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISSN">0556-2821</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/111088197762258</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">27 pages</eterms:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">  We study the Scherk-Schwarz reduction of D=11 supergravity with background
+fluxes in the context of a recently developed framework pertaining to D=11
+supergravity. We derive the embedding tensor of the associated four-dimensional
+maximal gauged theories directly from eleven dimensions by exploiting the
+generalised vielbein postulates, and by analysing the couplings of the full set
+of 56 electric and magnetic gauge fields to the generalised vielbeine. The
+treatment presented here will apply more generally to other reductions of
+$D=11$ supergravity to maximal gauged theories in four dimensions.
+</dcterms:abstract>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">High Energy Physics - Theory, hep-th</dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+  <eterms:location xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:location>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="md-record" CREATED="2014-05-20T09:50:39.259Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="7494">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Godazgar</eterms:family-name>
+      <eterms:given-name>Hadi</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons96552</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Godazgar</eterms:family-name>
+      <eterms:given-name>Mahdi</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons96554</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Nicolai</eterms:family-name>
+      <eterms:given-name>Hermann</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24014</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons20713</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The embedding tensor of Scherk-Schwarz flux compactifications from
+  eleven dimensions</dc:title>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ARXIV">1312.1061</dc:identifier>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:DOI">10.1103/PhysRevD.89.045009</dc:identifier>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013-12-04</dcterms:created>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2014</dcterms:dateAccepted>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2014</dcterms:issued>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Physical Review D</dc:title>
+    <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">Phys. Rev. D.</dcterms:alternative>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">89</eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">045009</eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">American Physical Society</dc:publisher>
+      <eterms:place>Lancaster, Pa.</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISSN">0556-2821</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/111088197762258</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">27 pages</eterms:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">  We study the Scherk-Schwarz reduction of D=11 supergravity with background
+fluxes in the context of a recently developed framework pertaining to D=11
+supergravity. We derive the embedding tensor of the associated four-dimensional
+maximal gauged theories directly from eleven dimensions by exploiting the
+generalised vielbein postulates, and by analysing the couplings of the full set
+of 56 electric and magnetic gauge fields to the generalised vielbeine. The
+treatment presented here will apply more generally to other reductions of
+$D=11$ supergravity to maximal gauged theories in four dimensions.
+</dcterms:abstract>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">High Energy Physics - Theory, hep-th</dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+  <eterms:location xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:location>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2013-12-05T09:25:22.359Z" MIMETYPE="text/xml" SIZE="1742">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1859277">
+<system:build>1.3.9</system:build>
+<prop:context-title>Publications of the MPI for Gravitational Physics</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Anja Lehmann</prop:modified-by-title>
+<prop:created-by-title>Anja Lehmann</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:23042"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date><version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+<srel:component rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:25:22.465Z" MIMETYPE="text/xml" SIZE="1840">
+<foxml:xmlContent>
+<rdf:RDF xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <system:build>1.3.9</system:build>
+    <prop:context-title>Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title>Anja Lehmann</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2013-12-05T09:25:22.359Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:05.885Z" MIMETYPE="text/xml" SIZE="2316">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:25:22.359Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:05.968Z" MIMETYPE="text/xml" SIZE="2316">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:05.885Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:07.712Z" MIMETYPE="text/xml" SIZE="2427">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:05.885Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:07.776Z" MIMETYPE="text/xml" SIZE="2427">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:07.712Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:09.753Z" MIMETYPE="text/xml" SIZE="2555">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF1C-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:07.712Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:09.842Z" MIMETYPE="text/xml" SIZE="2555">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF1C-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:09.753Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:11.423Z" MIMETYPE="text/xml" SIZE="2555">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF1C-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:09.753Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:11.513Z" MIMETYPE="text/xml" SIZE="2555">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF1C-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:11.423Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:11.874Z" MIMETYPE="text/xml" SIZE="2881">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF1C-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:11.423Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">---</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:26:11.944Z" MIMETYPE="text/xml" SIZE="2902">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF1C-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:11.874Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:38:41.216Z" MIMETYPE="text/xml" SIZE="2793">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:26:11.874Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:38:41.308Z" MIMETYPE="text/xml" SIZE="2793">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:38:41.216Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.14" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:38:47.437Z" MIMETYPE="text/xml" SIZE="2814">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:38:41.216Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.15" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:38:47.515Z" MIMETYPE="text/xml" SIZE="2814">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:38:47.437Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.16" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:39:42.212Z" MIMETYPE="text/xml" SIZE="2942">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-1D5C-5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:38:47.437Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.17" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:39:42.289Z" MIMETYPE="text/xml" SIZE="2942">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-1D5C-5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF1C-1</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:39:42.212Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.18" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:39:48.655Z" MIMETYPE="text/xml" SIZE="2902">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-1D5C-5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:39:42.212Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:26:11.874Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.19" LABEL="RELS_EXT DATASTREAM" CREATED="2014-02-10T11:39:48.760Z" MIMETYPE="text/xml" SIZE="2902">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-1D5C-5</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:39:48.655Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.20" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:50:39.560Z" MIMETYPE="text/xml" SIZE="2935">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-02-10T11:39:48.655Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.21" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:50:39.649Z" MIMETYPE="text/xml" SIZE="2935">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:50:39.560Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.22" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:50:43.743Z" MIMETYPE="text/xml" SIZE="2956">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:50:39.560Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.23" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:50:43.855Z" MIMETYPE="text/xml" SIZE="2956">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:50:43.743Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.24" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:50:55.709Z" MIMETYPE="text/xml" SIZE="3084">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0019-804B-A</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:50:43.743Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.25" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:50:55.811Z" MIMETYPE="text/xml" SIZE="3084">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0019-804B-A</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:50:55.709Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.26" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:51:00.650Z" MIMETYPE="text/xml" SIZE="3084">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0019-804B-A</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:50:55.709Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.27" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:51:00.756Z" MIMETYPE="text/xml" SIZE="3084">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0019-804B-A</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-1D5C-5</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:51:00.650Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.28" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:51:01.233Z" MIMETYPE="text/xml" SIZE="3044">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0019-804B-A</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2028499"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0019-804B-A</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:144932"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23042"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:51:00.650Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859276"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-02-10T11:39:48.655Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.29" LABEL="RELS_EXT DATASTREAM" CREATED="2014-05-20T09:51:01.339Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859277">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0019-804B-A</version:pid>
+    <srel:component rdf:resource="info:fedora/escidoc:2028499" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0019-804B-A</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF1B-3</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Gravitational Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"/>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Anja Lehmann</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:persistent4" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:144932" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:144932" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:context rdf:resource="info:fedora/escidoc:23042" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"/>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-05-20T09:51:01.233Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <srel:component rdf:resource="info:fedora/escidoc:1859276" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-05-20T09:51:01.233Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.14" LABEL="whole object versioning datastream" CREATED="2014-05-20T09:51:01.283Z" MIMETYPE="text/xml" SIZE="18614">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859277:3" timestamp="2014-05-20T09:50:39.560Z" xlink:href="/ir/item/escidoc:1859277:3" xlink:title="Version 3" xlink:type="simple">
+    <escidocVersions:pid timestamp="2014-05-20T09:50:43.855Z" user="escidoc:144932">hdl:11858/00-001M-0000-0019-804B-A</escidocVersions:pid>
+    <escidocVersions:version-number>3</escidocVersions:version-number>
+    <escidocVersions:timestamp>2014-05-20T09:51:01.233Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1400579461147">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v3e1400579461147</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2014-05-20T09:51:01.233Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1400579455629">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v3e1400579455629</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2014-05-20T09:50:43.855Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1400579443654">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v3e1400579443654</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2014-05-20T09:50:43.743Z</premis:eventDateTime>
+        <premis:eventDetail>Submission during saving released item.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1400579439496">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v3e1400579439496</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2014-05-20T09:50:39.560Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859277:2" timestamp="2014-02-10T11:38:41.216Z" xlink:href="/ir/item/escidoc:1859277:2" xlink:title="Version 2" xlink:type="simple">
+    <escidocVersions:pid timestamp="2014-02-10T11:38:47.515Z" user="escidoc:144932">hdl:11858/00-001M-0000-0015-1D5C-5</escidocVersions:pid>
+    <escidocVersions:version-number>2</escidocVersions:version-number>
+    <escidocVersions:timestamp>2014-02-10T11:39:48.655Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1392032388568">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v2e1392032388568</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2014-02-10T11:39:48.655Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1392032382150">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v2e1392032382150</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2014-02-10T11:38:47.515Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1392032327360">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v2e1392032327360</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2014-02-10T11:38:47.437Z</premis:eventDateTime>
+        <premis:eventDetail>Submission during saving released item.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1392032321195">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v2e1392032321195</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2014-02-10T11:38:41.216Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859277:1" timestamp="2013-12-05T09:25:22.359Z" xlink:href="/ir/item/escidoc:1859277:1" xlink:title="Item escidoc:1859277" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-12-05T09:26:07.776Z" user="escidoc:144932">hdl:11858/00-001M-0000-0014-BF1C-1</escidocVersions:pid>
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-12-05T09:26:11.874Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235571823">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v1e1386235571823</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:26:11.874Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235569701">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v1e1386235569701</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:26:07.776Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235567674">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v1e1386235567674</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignObjectPid</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:26:05.968Z</premis:eventDateTime>
+        <premis:eventDetail>objectPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235565835">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v1e1386235565835</premis:eventIdentifierValue> 
+       </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:26:05.885Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235522417">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859277/resources/version-history#v1e1386235522417</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:25:22.359Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:144932" xlink:title="Anja Lehmann" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:144932</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859277</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

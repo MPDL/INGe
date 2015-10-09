@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.org/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>common_services</artifactId>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<version>1.0.90-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.services.wildfly</groupId>
+	<artifactId>validation_ear</artifactId>
+	<packaging>ear</packaging>
+	<name>validation_ear</name>
+	<version>1.0.97-SNAPSHOT</version>
+	<scm>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/validation_ear</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/common_services/validation_ear</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<displayName>validation</displayName>
+					<description>validation integration testing ear</description>
+					<version>6</version>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+					<modules>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>common_logic</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>validation</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>validation_presentation</artifactId>
+							<contextRoot>/validation</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- wait 30 seconds before starting integration tests. Workaround for cargo-maven2-plugin until wildfly has finished deploying -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>wait-for-deployment</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo message="Sleeping for 30 seconds to wait for wildfly deployment" />
+								<sleep seconds="30" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<test>ValidationServiceTest</test>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enables the process test resources feature in the ear -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		
+		<profile>
+			<id>integration-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>start-container</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-container</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<container>
+								<containerId>wildfly8x</containerId>
+								<zipUrlInstaller>
+									<url>${cargo.jboss.url}</url>
+									<downloadDir>${cargo.install.dir}</downloadDir>
+									<extractDir>${cargo.install.dir}</extractDir>
+								</zipUrlInstaller>
+							</container>
+							<!-- 
+							
+							
+							<configuration>
+					          <properties>
+					            <cargo.datasource.datasource.validation>
+					                cargo.datasource.driver=org.h2.Driver|
+					                cargo.datasource.url=jdbc:h2:mem:pubman_db|
+					                cargo.datasource.jndi=java:jboss/datasources/Validation|
+					                cargo.datasource.username=sa
+					            </cargo.datasource.datasource.validation>
+					          </properties>
+					        </configuration>
+							-->
+							<!-- 
+							<configuration>
+								<type>existing</type>
+								<home>${project.build.directory}/jboss/server</home>
+								<properties>
+									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.logging>${cargo.log}</cargo.logging>
+									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
+									<cargo.jboss.configuration>default</cargo.jboss.configuration>
+								</properties>
+							</configuration>
+							-->
+						</configuration>
+						
+					</plugin>
+					<!-- 
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jboss-maven-plugin</artifactId>
+						<configuration>
+							<jbossHome>${jboss.install.dir}</jbossHome>
+							<hostName>${jboss.deploy.host}</hostName>
+							<port>${jboss.deploy.port}</port>
+						</configuration>
+					</plugin>
+					-->
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete dir="${cargo.jboss.install.dir}/modules/pubman" />
+										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/solution.properties" todir="${cargo.jboss.install.dir}/modules/pubman/main" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>framework_access</artifactId>
+			<version>1.3.35-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>validation</artifactId>
+			<version>1.0.97-SNAPSHOT</version>
+			<type>ejb</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>validation_presentation</artifactId>
+			<version>1.0.97-SNAPSHOT</version>
+			<type>war</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>common_logic</artifactId>
+			<version>1.1.90-SNAPSHOT</version>
+			<type>ejb</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- client communications with the server use XNIO -->
+       <dependency>
+           <groupId>org.jboss.xnio</groupId>
+           <artifactId>xnio-api</artifactId>
+           <scope>test</scope>
+       </dependency>
+
+       <dependency>
+           <groupId>org.jboss.xnio</groupId>
+           <artifactId>xnio-nio</artifactId>
+           <scope>test</scope>
+       </dependency>
+
+       <!-- JBoss EJB client API jar.  -->
+      	<dependency>
+            <groupId>org.jboss</groupId>
+            <artifactId>jboss-ejb-client</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- The client needs JBoss remoting to access the server -->
+		 <dependency>
+            <groupId>org.jboss.remoting</groupId>
+            <artifactId>jboss-remoting</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Remote EJB accesses can be secured -->
+        <dependency>
+            <groupId>org.jboss.sasl</groupId>
+            <artifactId>jboss-sasl</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- data serialization for invoking remote EJBs -->
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-river</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<version>8.7</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javabib</groupId>
+			<artifactId>javabib</artifactId>
+			<version>20040801</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

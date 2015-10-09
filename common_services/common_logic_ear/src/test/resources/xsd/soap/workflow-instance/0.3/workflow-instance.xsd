@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/workflowinstance/0.3"
+	xmlns:workflow-instance="http://www.escidoc.de/schemas/workflowinstance/0.3"
+	xmlns:workflow-configuration="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
+		schemaLocation="../../../soap/workflow-definition/0.3/workflow-configuration.xsd" />
+	<xs:element name="workflow-instance">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					A workflow-instance defines the id of the workflow-definition to execute
+					and additional parameters for the workflow-instance.
+				</para>
+				<para>
+					The xml-record consists of the id of the workflow-definition 
+					and a list of parameter-elements that have a mandatory attribute
+					‘name’. Child of the parameter-element can be one of
+					&lt;datevalue&gt;(type xsd:date),
+					&lt;stringvalue&gt;(type xsd:string) or
+					&lt;decimalvalue&gt;(type xsd:decimal). This
+					structure gives maximum flexibility, because all
+					kinds of information can be written.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="workflow-definition"
+					type="common-types:linkRequired">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								objid of the workflow-template.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element
+					ref="workflow-configuration:workflow-configuration" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<para>
+								Holds information about the
+								configuration for this workflow
+								instance.
+							</para>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

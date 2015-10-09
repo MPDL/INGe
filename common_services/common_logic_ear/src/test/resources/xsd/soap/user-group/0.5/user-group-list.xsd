@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:usergroup="http://www.escidoc.de/schemas/usergroup/0.5"
+	targetNamespace="http://www.escidoc.de/schemas/usergrouplist/0.5"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/usergroup/0.5"
+		schemaLocation="http://www.escidoc.org/schemas/soap/user-group/0.5/user-group.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
+
+	<xs:element name="user-group-list">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="usergroup:user-group" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

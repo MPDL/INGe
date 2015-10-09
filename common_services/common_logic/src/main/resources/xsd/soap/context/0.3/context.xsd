@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/context/0.3"
+	xmlns:context="http://www.escidoc.de/schemas/context/0.3"
+	xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/admin-descriptor.xsd" />
+	<!-- This xsd is used in the API of Context; SOAP interface -->
+	<xs:element name="context">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Following you will find information which elements
+					and attributes are "required", "optional",
+					"not-allowed" or will be "discarded" in the input
+					XML-stream when creating or updating such an object.
+				</para>
+				<para>
+					In "create" the rule for creating a new object is
+					defined.
+				</para>
+				<para>
+					In "update" the rule for updating an object is
+					defined.
+				</para>
+				<para>
+					Possible values are: required | optional |
+					not-allowed | discarded
+				</para>
+				<para>
+					required: this element or attribute has to be
+					delivered
+				</para>
+				<para>
+					optional: this element or attribute can be delivered
+					and will be kept
+				</para>
+				<para>
+					not-allowed: this element or attribute is not
+					allowed in delivery and will cause an exception
+				</para>
+				<para>
+					discarded: this element or attribute can be
+					delivered but will not be used
+				</para>
+			</xs:documentation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="context:properties" />
+				<xs:element ref="admin-descriptor:admin-descriptor">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIndentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="statusTypes">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="created" />
+			<xs:enumeration value="opened" />
+			<xs:enumeration value="closed" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="properties">
+		<xs:annotation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="creation-date" type="xs:dateTime"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="created-by"
+					type="common-types:readOnlyLink" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="modified-by"
+					type="common-types:readOnlyLink" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="public-status"
+					type="context:statusTypes" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="name" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="description" type="xs:string"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="type" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="organizational-units">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="organizational-unit">
+								<xs:annotation>
+									<xs:documentation>
+										<create>required</create>
+										<update>required</update>
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="objid">
+										<xs:annotation>
+											<xs:documentation>
+												<create>
+													required
+												</create>
+												<update>
+													required
+												</update>
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="last-modification-date"
+					type="xs:dateTime" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="last-modification-date"
+		type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>required</update>
+		</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

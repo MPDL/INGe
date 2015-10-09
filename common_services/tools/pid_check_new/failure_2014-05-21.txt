@@ -1,0 +1,274 @@
+escidoc:383182 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Zhang.Ning.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:383267 | http://repository.unimelb.edu.au/10187/1997=java.net.ConnectException: Connection refused: connect
+escidoc:384998 | http://www.uni-koeln.de/phil-fak/ifl/hvs/forschung/ap/SebAP.pdf | http code 404
+escidoc:400285 | http://iils.org/publications.html | http code 404
+escidoc:400312 | http://www.ccunix.ccu.edu.tw/~lngjhc/publishes/The%20Syntax%20of%20Event%20Structure%20in%20Chinese.pdf | http code 404
+escidoc:400332 | http://www.humnet.ucla.edu/humnet/aflang/Bole/bole_papers.html | http code 404
+escidoc:400337 | http://wings.buffalo.edu/linguistics/rrg/rrg/vanvalin_papers/HJohnson.zip | http code 404
+escidoc:400419 | http://www.latrobe.edu.au/rclt/Tariana/language/tariana-dictionary- | http code 404
+escidoc:400501 | http://www.ling.helsinki.fi/~matmies/dissabstr.pdf | http code 404
+escidoc:400523 | http://web.mac.com/kearsy/iWeb/Site/Dissertation_files/Cormierdiss.pdf=java.net.UnknownHostException: web.mac.com
+escidoc:400540 | http://linguistics.buffalo.edu/people/faculty/dryer/dryer/dryer1980.pdf | http code 404
+escidoc:400551 | http://dspace.lib.utexas.edu/bitstream/2152/181/1/coelhogm036.pdf | http code 404
+escidoc:401065 | http://www.sil.org/silepubs/Pubs/48757/48757_Stanley%20ref%20Manage%20in%20Olo.pdf=org.apache.commons.httpclient.InvalidRedirectLocationException: Invalid redirect location: http://www-01.sil.org/silepubs/Pubs/48757/48757_Stanley ref Manage in Olo.pdf
+escidoc:401150 | http://print.google.com/print?id=vXhEGl6k4cEC | http code 404
+escidoc:401174 | http://dspace.mit.edu/bitstream/1 | http code 404
+escidoc:401313 | http://www.isw.unibe.ch/lenya/isw/live/forschung/dissertation/aw_diss.pdf | http code 404
+escidoc:401367 | http://www.linguistics.ucla.edu/general/dissertations/MacbrideAlexPhD2 | http code 404
+escidoc:401405 | http://www.etnolinguistica.org/tese:fileti-2004 | http code 404
+escidoc:401422 | http://mit.edu/kaitire/www/Docs/tese-reis-silva.pdf | http code 404
+escidoc:401476 | http://linguistics.buffalo.edu/people/students/ma_theses/wright/fwrightmathesis.pdf | http code 404
+escidoc:401506 | http://papuaweb.anu.edu.au/dlib/bk1/kitlv/index.html#stap-1966=java.net.ConnectException: Connection timed out: connect
+escidoc:401511 | http://www-personal.arts.usyd.edu.au/jansimps/haan/ | http code 404
+escidoc:401761 | http://mit.edu/kaitire/www/files/tese.pdf | http code 404
+escidoc:401785 | http://hdl.handle.net/2027/spo.bbv9808.0 | http code 404
+escidoc:401795 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Migge1 | http code 404
+escidoc:401818 | http://linguistics.osu.edu/research/publications/dissertations/files/mielke2004.pdf | http code 404
+escidoc:401825 | http://iils.org/pdf/KashmiriLinguistics.pdf | http code 404
+escidoc:401934 | http://www.sil.org/silepubs/Pubs/47753/47753_Hagberg%20L_Autoseg%20Theory.pdf=org.apache.commons.httpclient.InvalidRedirectLocationException: Invalid redirect location: http://www-01.sil.org/silepubs/pubs/47753/47753_hagberg l_autoseg theory.pdf
+escidoc:401937 | http://www.sil.org/silepubs/Pubs/47751/47751_Black%20A_Constraint%20ranked%20derivation.pdf=org.apache.commons.httpclient.InvalidRedirectLocationException: Invalid redirect location: http://www-01.sil.org/silepubs/Pubs/47751/47751_Black A_Constraint ranked derivation.pdf
+escidoc:401965 | http://www.student.uit.no/~devos/=java.net.UnknownHostException: www.student.uit.no
+escidoc:401968 | http://elib.ub.uni-osnabrueck.de/publications/diss/E-Diss401_thesis.pdf=java.net.UnknownHostException: elib.ub.uni-osnabrueck.de
+escidoc:401979 | http://www.ohiolink.edu/etd/view.cgi?acc_num=osu1116356201 | http code 404
+escidoc:402020 | http://deposit.ddb.de/cgi-bin/dokserv?idn=965219240 | http code 404
+escidoc:402028 | http://www.cavi.univ-paris3.fr/ilpga/ED/student/stmz/ED268-PagePersoMZ_fichiers/stmz/page8.htm | http code 404
+escidoc:402046 | http://www.bibliothek.uni-erfurt.de/target/assiduelink.html | http code 404
+escidoc:402067 | https://repository.libis.kuleuven.ac.be/dspace/bitstream/1979/51/2/Entire+document+--+archive+version.pdf=java.net.ConnectException: Connection timed out: connect
+escidoc:402085 | http://www.ohiolink.edu/etd/send-pdf.cgi?osu1086046888 | http code 404
+escidoc:402106 | http://deposit.ddb.de/cgi-bin/dokserv?idn=97211100X | http code 404
+escidoc:402149 | http://www.ohiolink.edu/etd/view.cgi?osu1116617297 | http code 404
+escidoc:402152 | http://www.ohiolink.edu/etd/view.cgi?osu1116616037 | http code 404
+escidoc:402155 | http://demeter.univ-lyon2.fr:8080/sdx/theses/these/lyon2/2000/nishio_s/pdfAmont/nishio_sumikazu.pdf=java.net.ConnectException: Connection refused: connect
+escidoc:402158 | http://www.ohiolink.edu/etd/view.cgi?osu1116609758 | http code 404
+escidoc:402161 | http://www.ohiolink.edu/etd/view.cgi?osu1116614186 | http code 404
+escidoc:402179 | http://www.humnet.ucla.edu/humnet/aflang/Yobe/Papers/karekare_Vsystem.pdf | http code 404
+escidoc:402185 | http://iils.org/pdf/TheKashmiriLanguage.pdf | http code 404
+escidoc:402190 | http://www.southasiabibliography.de/Bibliography/Austroasiatic/Munda/Kharia/index.htm | http code 404
+escidoc:402203 | http://www.institutkurde.org/en/library/online/grammar_of_the_kurmanji/ | http code 404
+escidoc:402241 | http://www.ohiolink.edu/etd/send-pdf.cgi?osu1123170540 | http code 404
+escidoc:402277 | http://www.cnr.berkeley.edu/~alyons/chichewa/ | http code 403
+escidoc:402330 | http://www.institutkurde.org/en/biblioth/livres/grammku.php | http code 404
+escidoc:402377 | http://www.ohiolink.edu/etd/view.cgi?osu1116863002 | http code 404
+escidoc:402392 | http://ethesys.lib.pu.edu.tw/ETD-db/ETD-search/view_etd?URN=etd-0719104-175815=java.net.UnknownHostException: ethesys.lib.pu.edu.tw
+escidoc:402409 | http://www.ohiolink.edu/etd/send-pdf.cgi?acc_num=osu1092425886 | http code 404
+escidoc:402418 | http://www-personal.une.edu.au/%7Ebbaker2/ | http code 404
+escidoc:402444 | http://demeter.univ-lyon2.fr:8080/sdx/theses/notice.xsp?id=lyon2.2=java.net.ConnectException: Connection refused: connect
+escidoc:402531 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue%20Congo%20West/Igboid/IGBO%20Dictionary.pdf | http code 404
+escidoc:402651 | http://xserveg5.eva-mpg.de/~info/bignambas_fox1979_o.html=java.net.UnknownHostException: xserveg5.eva-mpg.de
+escidoc:402682 | http://deposit.ddb.de/cgi-bin/dokserv?idn=963296035&dok_var=d1&dok_ext=pdf&filename=963296035.pdf | http code 404
+escidoc:402710 | http://courses.nus.edu.sg/course/ellmd/Skou/ | http code 401
+escidoc:402737 | http://www.ohiolink.edu/etd/send-pdf.cgi?acc_num=osu1152548149 | http code 404
+escidoc:402763 | https://drum.umd.edu/dspace/bitstream/1903/3485/1/umi-umd-3=java.net.ConnectException: Connection timed out: connect
+escidoc:402842 | http://linguistics.buffalo.edu/people/students/dissertations/Abrams.pdf | http code 404
+escidoc:402882 | http://www.sil.org/pacific/png/abstract.asp?id=20 | http code 500
+escidoc:403050 | http://www.ai.mit.edu/projects/dm/theses/roberts00.pdf+ | http code 404
+escidoc:403130 | http://irs.ub.rug.nl/ppn/296790036 | http code 403
+escidoc:403815 | http://oi.uchicago.edu/OI/DEPT/PUB/SRC/SAOC/38/SAOC38.pdf | http code 404
+escidoc:403821 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue%20Congo%20West/Igboid/Echie%20Dictionary.pdf | http code 404
+escidoc:403824 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue%20Congo%20West/Igboid/Ekpeye%20dictionary.pdf | http code 404
+escidoc:403830 | http://www.diva-portal.org/diva/getDocument?urn_nbn_se_su_diva-806-2__fulltext.pdf | http code 301
+escidoc:403836 | http://users.ugent.be/~gdvogela/ | http code 404
+escidoc:403844 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue%20Congo%20West/Nupoid/Gbari%20%20dictionary.pdf | http code 404
+escidoc:403859 | http://www.georgetown.edu/users/cmv2/Dissertation.htm | http code 404
+escidoc:403867 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue-Congo/Plateau/Jili%20dictionary.pdf | http code 404
+escidoc:403876 | http://homepage.ntlworld.com/roger_blench/Language%20data/KIRIKE%20dictionary.pdf | http code 404
+escidoc:403888 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue-Congo/Plateau/Plateau%20page.htm | http code 404
+escidoc:403891 | http://openaccess.leiden.univ.nl/dspace/handle/1887/4271 | http code 404
+escidoc:403922 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue%20Congo%20West/Igboid/Ogba%20Dictionary.pdf | http code 404
+escidoc:403928 | http://desposit.ddb.de/cgi-bin/dokserv?idn=972192972&dok_var=d1&dok_ext=pdf&filename=972192972.pdf=java.net.UnknownHostException: desposit.ddb.de
+escidoc:403956 | http://www.collectionscanada.gc.ca/obj/s4/f2/dsk2/tape15/PQDD_0012/NQ36 | http code 404
+escidoc:403986 | http://www.arts.chula.ac.th/%7Eling/thesis/Wipharuk2544.pdf | http code 404
+escidoc:404003 | http://homepage.ntlworld.com/roger_blench/Language%20data/Urhobo%20dictionary%20web.pdf | http code 404
+escidoc:404006 | http://www.margaret-dunham.com/Includes/documents/TheseDunham.pdf | http code 404
+escidoc:404023 | http://ling.cornell.edu/docs/przezdziecki2 | http code 404
+escidoc:404067 | http://deposit.d-nb.de/cgi-bin/dokserv?idn=961113065&dok_var=d1&dok_ext=pdf&filename=961113065.pdf | http code 404
+escidoc:404131 | http://schuchardt.uni-graz.at/cgi-bin/print.cgi?action=show&type=pdf&id=318 | http code 404
+escidoc:404232 | http://www.keene.edu/library/OrangAsli/DentanBaer.pdf | http code 410
+escidoc:404234 | http://lengamer.org/admin/language_folders/seri/user_uploaded_files/links/File/DiccionarioSeri2005.pdf65 | http code 404
+escidoc:404237 | http://library.uws.edu.au/adt-NUWS/public/adt-NUWS20040707.092709/ | http code 404
+escidoc:404416 | http://dspace.lib.utexas.edu/bitstream/2152/677/1/maestaseg032.pdf | http code 404
+escidoc:404479 | http://books.google.com/books?vid=OCLC20216751 | http code 404
+escidoc:404922 | http://www.collectionscanada.gc.ca/obj/s4/f2/dsk2/tape15/PQDD_0002/NQ34 | http code 404
+escidoc:404992 | http://www.linguistics.ucsb.edu/research/papers_vol14.html | http code 404
+escidoc:404995 | http://www.linguistics.ucsb.edu/research/papers_vol15.html | http code 404
+escidoc:404998 | http://www.linguistics.ucsb.edu/research/papers_vol16.html | http code 404
+escidoc:405004 | http://www.linguistics.ucsb.edu/research/papers_vol18.htm | http code 404
+escidoc:405064 | http://zathras.reed.edu/aiic/linguistics/Chol/JJesus/JJesusTesis.htm | http code 404
+escidoc:405067 | http://demeter.univ-lyon2.fr:8080/sdx/theses/these/lyon2/2000/choi_ej/xhtml/sdx/choi_ej.xhtml=java.net.ConnectException: Connection refused: connect
+escidoc:405098 | https://dspace.mit.edu/bitstream/1=javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+escidoc:405104 | http://users.telenet.be/zorex/linguistics/dissertatie.pdf | http code 404
+escidoc:405109 | http://www.rogerblench.info/Language%20data/Niger-Congo/Benue-Congo/Plateau/Eggon%20Dictionary%20full.pdf | http code 404
+escidoc:405126 | http://www.ling.ed.ac.uk/~annarp/files/Thesis_master_ED.pdf | http code 404
+escidoc:405151 | http://www.acnet.ge/ike_dictionaries/georgian_abkhazian_grammar.pdf=java.net.UnknownHostException: www.acnet.ge
+escidoc:405162 | http://www.linguistic.jussieu.fr/recherche/theses/data/04-12-2003_10:54:20theseYoo.pdf=java.net.UnknownHostException: www.linguistic.jussieu.fr
+escidoc:405202 | http://www.cybertesis.edu.pe/sisbib/2005/huamancayo_ce/pdf/huamancayo_ce.pdf=java.net.UnknownHostException: www.cybertesis.edu.pe
+escidoc:405205 | http://staff.washington.edu/~stiv/StevenMoranThesis.pdf | http code 404
+escidoc:405224 | http://www.sasnet.lu.se/kalashalanguage.pdf | http code 404
+escidoc:405227 | http://ccat.sas.upenn.edu/plc/salrc/accesslanguage.php?language=Kannada | http code 404
+escidoc:405264 | http://linguistics.buffalo.edu/people/students/dissertations/park/KSPdiss.pdf | http code 404
+escidoc:405306 | http://digital-library.canterbury.ac.nz/data/collection3/etd/adt-NZCU20060 | http code 404
+escidoc:405320 | https://repository.libis.kuleuven.be/dspace/bitstream/1979/233/5/description+of+eton.pdf=java.net.UnknownHostException: repository.libis.kuleuven.be
+escidoc:405350 | http://208.145.80.1/pacific/png/pubs/0000422/Namia%20dictionary.pdf=java.net.ConnectException: Connection timed out: connect
+escidoc:405366 | http://rogerblench.info/Language%20data/Africa/Nigeria/Atlas%20of%20Nigerian%20Languages-%20ed.%20III.pdf | http code 404
+escidoc:405386 | http://www.doaks.org/OlmecArt.pdf | http code 404
+escidoc:405401 | http://ling.ucsd.edu/~bateman/Qualifying_Paper_Nicoleta_Bateman.pdf | http code 404
+escidoc:405421 | http://www.ling.lu.se/education/essays/MagnusKusoffsky_C.pdf | http code 404
+escidoc:405466 | http://deposit.d-nb.de/cgi-bin/dokserv?idn=981624952 | http code 404
+escidoc:405483 | http://deposit.d-nb.de/cgi-bin/dokserv?idn=96268595x | http code 404
+escidoc:405496 | http://www.ohiolink.edu/etd/send-pdf.cgi?acc_num=osu1070433081 | http code 404
+escidoc:405511 | http://www.linguistics.ucla.edu/people/sportich/papers/isat.pdf | http code 404
+escidoc:405519 | http://lingweb.eva.mpg.de/fieldtools/pdf/Farr-TBGRammarNotes.pdf | http code 404
+escidoc:405543 | http://www.cybertesis.edu.pe/sisbib/2003/huaman_ca/pdf/huaman_ca.pdf=java.net.UnknownHostException: www.cybertesis.edu.pe
+escidoc:405552 | http://www.lateinamerika-studien.at/tesis/papp.pdf | http code 404
+escidoc:405572 | http://etd.rau.ac.za/theses/available/etd-03152004-092747/=java.net.UnknownHostException: etd.rau.ac.za
+escidoc:405581 | http://www.linguistics.boun.edu.tr/ercan_balci_phdthesis.pdf#search=%22A%20Government%20 | http code 404
+escidoc:405590 | http://www.linguistics.boun.edu.tr/gorgulu_ma_thesis.pdf#search=%22Emrah%20G%C3%B6rg%C3%BCl%C3%BC%3A%20Variable%20Wh-words%20in%20Turkish%22 | http code 404
+escidoc:405593 | http://www.linguistics.boun.edu.tr/meral.ma.thesis.pdf#search=%22HASAN%20MESUD%20MERAL%3A%20R | http code 404
+escidoc:405626 | http://www.ohiolink.edu/etd/send-pdf.cgi/Dodsworth%2C%20Robin%20M.pdf?acc_num=osu1123115802 | http code 404
+escidoc:405635 | http://www.ling.upenn.edu/~johnson4/ | http code 404
+escidoc:405652 | http://www.acnet.ge/ike_dictionaries/georgian_abkhazian_grammar.pdf=java.net.UnknownHostException: www.acnet.ge
+escidoc:405703 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Dai1 | http code 404
+escidoc:405706 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Gao2 | http code 404
+escidoc:405709 | http://www.ohiolink.edu/etd/send-pdf.cgi/Huang%2C%20Tsan%20.pdf?osu1092856661 | http code 404
+escidoc:405712 | http://www.ohiolink.edu/etd/send-pdf.cgi/Lu%2C%20Xiaofei%20.pdf?acc_num=osu1154631880 | http code 404
+escidoc:405762 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Chae1 | http code 404
+escidoc:405767 | http://www.ohiolink.edu/etd/send-pdf.cgi?acc_num=osu1017343683 | http code 404
+escidoc:405770 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Goh2 | http code 404
+escidoc:405773 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Golde1 | http code 404
+escidoc:405776 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Herman1 | http code 404
+escidoc:405779 | http://www.tulips.tsukuba.ac.jp/pub/dl/e_thesis/gen/konno2004.pdf | http code 404
+escidoc:405782 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/McGory1 | http code 404
+escidoc:405795 | http://www.ohiolink.edu/etd/view.cgi?acc_num=osu1074614793 | http code 404
+escidoc:405800 | http://hdl.handle.net/2027/spo.bbv9808.0 | http code 404
+escidoc:405803 | http://hdl.handle.net/2027/spo.bbv9808.0 | http code 404
+escidoc:405806 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Peng1 | http code 404
+escidoc:405871 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Vasishth2 | http code 404
+escidoc:405874 | http://www.reninc.org/PDFS/HmongBk.pdf | http code 404
+escidoc:405914 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Chung1 | http code 404
+escidoc:405917 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Jun1 | http code 404
+escidoc:405920 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Kang1 | http code 404
+escidoc:405926 | http://www.ohiolink.edu/etd/send-pdf.cgi/Lee%2C%20Sun-Hee%20.pdf?acc_num=osu1086106196 | http code 404
+escidoc:405929 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Yoon1 | http code 404
+escidoc:405932 | http://www.ohiolink.edu/etd/send-pdf.cgi/Yoon%2C%20Kyuchul%20.pdf?acc_num=osu1119010941 | http code 404
+escidoc:405946 | http://www.maestriaenlinguistica.uson.mx/work/resources/LocalContent/55125/10/Tesis%20Manuel%20P..pdf | http code 404
+escidoc:405956 | http://www.ohiolink.edu/etd/send-pdf.cgi?osu1023679306 | http code 404
+escidoc:405964 | http://www.ii.metu.edu.tr/~temurcu/docs/TemurcuPhD-TAM.pdf | http code 404
+escidoc:405969 | http://www.ohiolink.edu/etd/send-pdf.cgi/Blodgett%2C%20Allison%20Ruth.pdf?acc_num=osu1085953482 | http code 404
+escidoc:405984 | http://hum.uchicago.edu/~jriggle/riggle04_2.pdf | http code 404
+escidoc:405989 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Godjevac2 | http code 404
+escidoc:406002 | http://ogea.org/Linguistics/Colburn2000.pdf=java.net.UnknownHostException: ogea.org
+escidoc:406005 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/DImperio2 | http code 404
+escidoc:406008 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Fon2 | http code 404
+escidoc:406022 | http://www.mit.edu/~savova/pdf/Dissertation.pdf | http code 404
+escidoc:406025 | http://www.ohiolink.edu/etd/send-pdf.cgi/Feldman%2C%20Anna%20.pdf?acc_num=osu1153344391 | http code 404
+escidoc:406028 | http://edoc.bib.ucl.ac.be:81/ETD-db/collection/available/BelnUcetd-=java.net.ConnectException: Connection refused: connect
+escidoc:406036 | http://www.ling.ucsd.edu/~fukuda/haddad_y_diss.pdf | http code 404
+escidoc:406042 | http://wwwhomes.uni-bielefeld.de/gjaeger/publications/gjDiss.pdf | http code 404
+escidoc:406061 | http://alpha-leonis.lids.mit.edu/chomsky/ | http code 404
+escidoc:406067 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Parkinson | http code 404
+escidoc:406073 | http://www.ling.udel.edu/heinz/diss/heinz-2007-UCLA-diss.pdf | http code 404
+escidoc:406076 | http://www.ohiolink.edu/etd/send-pdf.cgi/Winters%2C%20Stephen%20James.pdf?acc_num=osu1054756426 | http code 404
+escidoc:406079 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Welker1 | http code 404
+escidoc:406082 | http://deposit.ddb.de/cgi-bin/dokserv?idn=96032304X | http code 404
+escidoc:406089 | http://aris.ss.uci.edu/ling/people/lecturers/kural/folder/Kural_96.pdf | http code 404
+escidoc:406098 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Vannest2 | http code 404
+escidoc:406101 | http://linguistics.osu.edu/research/publications/dissertations/details.cfm?id=6 | http code 404
+escidoc:406106 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Yoo1 | http code 404
+escidoc:406119 | http://www.uni-bielefeld.de/lili/personen/cebert/papers/phdthesis.pdf | http code 404
+escidoc:406157 | http://roa.rutgers.edu/view.php3?id=1255 | http code 404
+escidoc:406170 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Rosen2007.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:406184 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Lee1 | http code 404
+escidoc:406187 | http://parles.upf.es/glif/pub/elena/elena/tesi.pdf | http code 404
+escidoc:406200 | http://w3.ub.uni-konstanz.de/v13/volltexte/2006/1872//pdf/Schiering_2=java.net.UnknownHostException: w3.ub.uni-konstanz.de
+escidoc:406203 | http://www.sil.org/silepubs/Pubs/48756/48756_Blackburn%20P_Code%20model%20of%20communication.pdf=org.apache.commons.httpclient.InvalidRedirectLocationException: Invalid redirect location: http://www-01.sil.org/silepubs/Pubs/48756/48756_Blackburn P_Code model of communication.pdf
+escidoc:406209 | http://www.nebrija.es/~jaguado/archivos/Aguado-Orea_2000.pdf | http code 404
+escidoc:406225 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Muller2 | http code 404
+escidoc:406239 | http://www.ohiolink.edu/etd/send-pdf.cgi?osu1104430793 | http code 404
+escidoc:406242 | http://scholarship.rice.edu/bitstream/handle/1911/20683/3257 | http code 404
+escidoc:406245 | http://www2.sfs.uni-tuebingen.de/Alumni/Habilitationen/vikner/viknhabi.pdf | http code 404
+escidoc:406248 | http://www.ruf.rice.edu/~hilpert/diss.pdf | http code 404
+escidoc:406280 | http://www.isv.cbs.dk/~mbk/thesis/ | http code 404
+escidoc:406293 | http://www.ling.ohio-state.edu/publications/dissertations/pdf/Jannedy2 | http code 404
+escidoc:406309 | http://www.ohiolink.edu/etd/send-pdf.cgi/Daniels%2C%20Michael%20W..pdf?acc_num=osu1118867950 | http code 404
+escidoc:406312 | http://www.ims.uni-stuttgart.de/~agnes/fej.pdf | http code 404
+escidoc:406315 | http://faculty.ksu.edu.sa/almansour/Publications/Adjective%20Incorporation.pdf | http code 404
+escidoc:406318 | http://www.ohiolink.edu/etd/send-pdf.cgi?osu1061209163 | http code 404
+escidoc:406327 | http://www2.sfs.uni-tuebingen.de/Alumni/Dissertationen/beck.pdf=java.net.ConnectException: Connection timed out: connect
+escidoc:406336 | http://www.ucm.es/BUCM/tesis/fll/ucm-t28 | http code 404
+escidoc:406366 | http://www2.sfs.uni-tuebingen.de/Alumni/ | http code 404
+escidoc:406394 | http://www.ateneodemadrid.com/biblioteca_digital/folletos/Folletos-0 | http code 404
+escidoc:406407 | http://www.stanford.edu/%7Eandrewkg/akg-diss-1up.pdf | http code 404
+escidoc:406447 | http://repository.unimelb.edu.au/10187/2044=java.net.ConnectException: Connection refused: connect
+escidoc:406453 | http://www.cipedya.com/doc/101761=java.net.SocketException: Connection reset
+escidoc:406473 | http://www.cipedya.com/doc/172195=java.net.SocketException: Connection reset
+escidoc:406503 | http://www.teses.usp.br/teses/disponiveis/8/8142/tde-30112007-153 | http code 404
+escidoc:406512 | http://www.teses.usp.br/teses/disponiveis/8/8139/tde-13022008-102 | http code 404
+escidoc:406515 | http://www.ling.upenn.edu/~creswell/diss.pdf | http code 404
+escidoc:406538 | http://dntelith.bol.ucla.edu/dissertation.html | http code 403
+escidoc:406541 | http://web.mit.edu/kaitire/www/Docs/tesis-andres.pdf | http code 404
+escidoc:406544 | https://netfiles.uiuc.edu/kiel/www/KTC%20DISSERTATION.pdf=java.net.ConnectException: Connection timed out: connect
+escidoc:406550 | http://www.ling.ed.ac.uk/~s0340638/docs/DediuPhDThesis2007.pdf | http code 404
+escidoc:406593 | http://www.nebrija.es/~jaguado/archivos/JavierThesis_2004.pdf | http code 404
+escidoc:406625 | http://www.univie.ac.at/linguistics/tagungen/phon96/phonologica1 | http code 404
+escidoc:406634 | http://www.cogsci.jhu.edu/pdf/Davidson_dissertation_single.pdf | http code 404
+escidoc:406642 | http://www.ohiolink.edu/etd/send-pdf.cgi?osu1101755688 | http code 404
+escidoc:406651 | http://www.cybertesis.edu.pe/sisbib/2005/sullon_ak/pdf/sullon_ak.pdf=java.net.UnknownHostException: www.cybertesis.edu.pe
+escidoc:406657 | http://www.cipedya.com/doc/171443=java.net.SocketException: Connection reset
+escidoc:406714 | http://philo.ucdavis.edu/home/tbradley/research/bradley2001_diss.pdf=java.net.ConnectException: Connection timed out: connect
+escidoc:406744 | http://demeter.univ-lyon2.fr:8080/sdx/theses/these/lyon2/2001/folorunso_ak/xhtml/sdx/folorunso_ak.xhtml=java.net.ConnectException: Connection refused: connect
+escidoc:406829 | http://ling.uni-konstanz.de/pages/home/altmann/papers/Altmann-dissertation.pdf | http code 404
+escidoc:406857 | http://www.cipedya.com/doc/175607=java.net.SocketException: Connection reset
+escidoc:406863 | http://www.teses.usp.br/teses/disponiveis/8/8139/tde-11032008-121 | http code 404
+escidoc:406909 | http://www.ards.com.au/language/B.Lowe_Web_Dict.pdf | http code 404
+escidoc:406912 | http://www.geocities.com/sisauri/language/dictionary/index.html | http code 410
+escidoc:406998 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Koskinen.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:407001 | http://langues-gabonaises.refer.ga/IMG/pdf/CLASSIFICATION_REVISITEE_DES_LANGUES_BANTOUES_DU_GABON-2.pdf | http code 404
+escidoc:407007 | http://etd.uj.ac.za/theses/available/etd-09122005-112156/=java.net.ConnectException: Connection timed out: connect
+escidoc:407019 | http://www.letras.ufrj.br/poslinguistica/teses_dout_2007/Tese_Nataniel.pdf | http code 404
+escidoc:407025 | http://www.letras.ufrj.br/poslinguistica/teses_dout_2007/Gelsama_Mara_Ferreira_-_Doutorado.pdf | http code 404
+escidoc:407031 | http://www.collectionscanada.gc.ca/obj/s4/f2/dsk2/tape15/PQDD_0001/NQ35 | http code 404
+escidoc:407040 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Ghomeshi.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:407111 | http://www.letras.ufrj.br/poslinguistica/teses_dout_2007/Rosana_Costa_de_Oliveira_-_Doutorado.pdf | http code 404
+escidoc:407117 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Hamilton.Philip-James.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:407135 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Zhang.Xi.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:407141 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Zhou.Hong.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:407162 | http://ethesys.lib.pu.edu.tw/ETD-db/ETD-search/view_etd?URN=etd-0905103-135942=java.net.UnknownHostException: ethesys.lib.pu.edu.tw
+escidoc:407165 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=094CCU00462004 | http code 404
+escidoc:407168 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=094CCU00462007 | http code 404
+escidoc:407192 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=095CCU05462023 | http code 404
+escidoc:407198 | http://r1.chass.utoronto.ca/twpl/pdfs/dissertations/Gold.Elaine.pdf=org.apache.commons.httpclient.RedirectException: Maximum redirects (100) exceeded
+escidoc:407226 | http://repository.unimelb.edu.au/10187/1603=java.net.ConnectException: Connection refused: connect
+escidoc:407250 | http://repository.unimelb.edu.au/10187/343=java.net.ConnectException: Connection refused: connect
+escidoc:407256 | http://repository.unimelb.edu.au/10187/1949=java.net.ConnectException: Connection refused: connect
+escidoc:407259 | http://www.teses.usp.br/teses/disponiveis/8/8139/tde-16042007-162 | http code 404
+escidoc:407268 | http://thesis.anu.edu.au/public/adt-ANU20060426.142352/ | http code 404
+escidoc:407271 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=095PU005238017 | http code 404
+escidoc:407274 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=095NTHU5462001 | http code 404
+escidoc:407286 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=095NTHU5462003 | http code 404
+escidoc:407302 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=094NTU05462003 | http code 404
+escidoc:407307 | http://ethesys.lib.pu.edu.tw/ETD-db/ETD-search/view_etd?URN=etd-0721106-143120=java.net.UnknownHostException: ethesys.lib.pu.edu.tw
+escidoc:407310 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=094NTHU5462006 | http code 404
+escidoc:407325 | http://eprints.ouls.ox.ac.uk/archive/00001098/=java.net.UnknownHostException: eprints.ouls.ox.ac.uk
+escidoc:407331 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=095NTHU5462005 | http code 404
+escidoc:407334 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=095NTHU5462008 | http code 404
+escidoc:407337 | http://hdl.handle.net/10019/684 | http code 404
+escidoc:407345 | http://www.bdtd.ufpe.br/tedeSimplificado//tde_busca/arquivo.php?codArquivo=1757 | http code 404
+escidoc:407348 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=092NTNU0238004 | http code 404
+escidoc:407351 | http://etds.ncl.edu.tw/theabs/english_site/say_en.jsp?FT=Y&id=092NTU00462001 | http code 404
+escidoc:407357 | http://lev.d.michael.googlepages.com/ldm08_ut_thesis.pdf | http code 404
+escidoc:407360 | http://lev.d.michael.googlepages.com/LDM_MA_2001.pdf | http code 404
+escidoc:407366 | http://www.teses.usp.br/teses/disponiveis/8/8139/tde-24032008-132 | http code 404
+escidoc:407549 | http://home.uchicago.edu/~liufang/FangLiu_Dissertation3.pdf | http code 404
+escidoc:407555 | http://demeter.univ-lyon2.fr/sdx/theses/notice.xsp?id=lyon2.2 | http code 404
+escidoc:407599 | http://www.teses.usp.br/teses/disponiveis/8/8139/tde-08072008-152 | http code 404
+escidoc:407604 | http://www.teses.usp.br/teses/disponiveis/8/8139/tde-08072008-143 | http code 404
+escidoc:407666 | http://print.google.com/print?id=iUQle0R4Y3sC | http code 404
+escidoc:407791 | http://www.linguistics.uwa.edu.au/staff/alan_dench/martuthunira | http code 403
+escidoc:407872 | http://print.google.com/print?id=gbpNAhsb3BQC | http code 404
+escidoc:408164 | http://bibliotheek.eldoc.ub.rug.nl/root/RuGbreed/RauDHW-Atayal/ | http code 403
+escidoc:408172 | http://monolith.eva.mpg.de/~haspelmt/AwaPit.pdf=java.net.UnknownHostException: monolith.eva.mpg.de
+escidoc:408222 | http://www.ling.su.se/staff/parkvall/Nedladdning/Avhandling/1-prelims.pdf | http code 404
+escidoc:408241 | http://www.sil.org/americas/colombia/pubs/abstract.asp?id=51395 | http code 500
+escidoc:513186 | http://www.people.fas.harvard.edu/~jcoon/site/Home_files/Coon%20(2010)%20-%20Complementation%20in%20Chol.pdf | http code 404
+escidoc:547683 | http://users.isi.it/~animeshm/Thesis.pdf | http code 404
+escidoc:860966 | http://mspace.lib.umanitoba.ca/bitstream/1993/2839/1/DISSERTATION.pdf | http code 404

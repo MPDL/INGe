@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
+   <ei:properties>
+      <srel:context xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                    xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                    xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                    xmlns:prop="http://escidoc.de/core/01/properties/"
+                    xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                    xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                    xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                    xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                    xmlns:escidoc="urn:escidoc:functions"
+                    xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                    xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                    xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:dcterms="http://purl.org/dc/terms/"
+                    objid="escidoc:persistent3"/>
+      <srel:content-model xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                          xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                          xmlns:prop="http://escidoc.de/core/01/properties/"
+                          xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                          xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                          xmlns:escidoc="urn:escidoc:functions"
+                          xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                          xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+                          xmlns:dc="http://purl.org/dc/elements/1.1/"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          objid="escidoc:persistent4"/>
+      <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4">
+      <mdr:md-record xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                     xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                     xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     name="escidoc">
+         <pub:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Fattash</eterms:family-name>
+                  <eterms:given-name>Isam</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Faculty of Biology, Institute of Biology II, Plant Biotechnology, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Voß</eterms:family-name>
+                  <eterms:given-name>Björn</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Faculty of Biology, Institute of Biology II, Experimental Bioinformatics, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Reski</eterms:family-name>
+                  <eterms:given-name>Ralf</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Faculty of Biology, Institute of Biology II, Plant Biotechnology, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Hess</eterms:family-name>
+                  <eterms:given-name>Wolfgang R</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Faculty of Biology, Institute of Biology II, Experimental Bioinformatics, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Frank</eterms:family-name>
+                  <eterms:given-name>Wolfgang</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>Faculty of Biology, Institute of Biology II, Plant Biotechnology, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</dc:title>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Evidence for the rapid expansion of microRNA-mediated regulation in early land plant evolution</dc:title>
+            <dc:identifier xsi:type="eterms:PMC">1838911</dc:identifier>
+            <dc:identifier xsi:type="eterms:OTHER">publisher-id1471-2229-7-13</dc:identifier>
+            <dc:identifier xsi:type="eterms:PMID">17359535</dc:identifier>
+            <dc:identifier xsi:type="eterms:DOI">10.1186/1471-2229-7-13</dc:identifier>
+            <eterms:published-online>2007-03-14</eterms:published-online>
+            <dcterms:abstract>
+        
+          Background
+
+          MicroRNAs (miRNAs) are regulatory RNA molecules that are specified by their mode of action, the structure of primary transcripts, and their typical size of 20–24 nucleotides. Frequently, not only single miRNAs but whole families of closely related miRNAs have been found in animals and plants. Some families are widely conserved among different plant taxa. Hence, it is evident that these conserved miRNAs are of ancient origin and indicate essential functions that have been preserved over long evolutionary time scales. In contrast, other miRNAs seem to be species-specific and consequently must possess very distinct functions. Thus, the analysis of an early-branching species provides a window into the early evolution of fundamental regulatory processes in plants.
+        
+        
+          Results
+          Based on a combined experimental-computational approach, we report on the identification of 48 novel miRNAs and their putative targets in the moss Physcomitrella patens. From these, 18 miRNAs and two targets were verified in independent experiments. As a result of our study, the number of known miRNAs in Physcomitrella has been raised to 78. Functional assignments to mRNAs targeted by these miRNAs revealed a bias towards genes that are involved in regulation, cell wall biosynthesis and defense. Eight miRNAs were detected with different expression in protonema and gametophore tissue. The miRNAs 1–50 and 2–51 are located on a shared precursor that are separated by only one nucleotide and become processed in a tissue-specific way.
+
+        
+        
+          Conclusion
+          Our data provide evidence for a surprisingly diverse and complex miRNA population in Physcomitrella. Thus, the number and function of miRNAs must have significantly expanded during the evolution of early land plants. As we have described here within, the coupled maturation of two miRNAs from a shared precursor has not been previously identified in plants.
+        
+      </dcterms:abstract>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>BMC Plant Biology</dc:title>
+               <eterms:volume>7</eterms:volume>
+               <eterms:issue/>
+               <eterms:start-page>13</eterms:start-page>
+               <eterms:end-page>13</eterms:end-page>
+               <eterms:publishing-info>
+                  <dc:publisher>BioMed Central</dc:publisher>s
+			<eterms:place>London</eterms:place>
+               </eterms:publishing-info>
+               <dc:identifier xsi:type="eterms:OTHER">BMC Plant Biol</dc:identifier>
+               <dc:identifier xsi:type="eterms:ISSN">1471-2229</dc:identifier>
+            </source:source>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.8"/>
+</ei:item>

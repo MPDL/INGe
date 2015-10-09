@@ -1,0 +1,165 @@
+TY  - THES
+ID  - 2324
+T1  - Die Entwicklung und Verwendung eines zellfreien Systems aus Weizenkeimen zur Translation viraler RNA
+A1  - Bowman,Benjamin F.
+Y1  - 1979/02/08/
+KW  - RNA
+KW  - Translation
+KW  - Weizen
+RP  - NOT IN FILE
+SP  - 127
+CY  - Martinsried
+PB  - MPI fr Biochemie
+N2  - Vollstndiger Abdruck der vom Fachbereich Chemie, Biologie und Geowissenschaften der Technischen Universitt Mnchen zur Erlangung des akademischen Grades eines Doktors der Naturwissenschaften (Dr.rer.nat.) genehmigten Dissertation.
+N1  - [Aufnahme durch Autopsie in Reference Manager, RIS-Export -Martin]
+AV  - Mon-Fri, T-21
+Y2  - 2008/12/22/
+M1  - PhD
+AD  - Am Klopferspitz 18, 82152 Martinsried
+ER  - 
+
+TY  - VIDEO
+ID  - 2322
+T1  - Musik-Grusskarte von Praxedis & Sylvia
+A1  - Leitner,Praxedis
+A1  - Elliger,Sylvia
+Y1  - 2008/12/22/
+N1  - empfangen via Minerva Liest BM
+N1  - [Aufnahme durch Autopsie in Reference Manager, RIS-Export -Martin]
+RP  - NOT IN FILE
+PB  - Grusskartenfreunde.de
+Y2  - 2008/12/22/
+M1  - Image, sound, text
+M2  - ca. 0:30 (loop)
+M3  - Multimedia
+AD  - MPI MolGen, Berlin
+UR  - http://www.grusskartenfreunde.de/karte_abholen-6xDLIDQFnLFc02eIZudo.html
+ER  - 
+
+TY  - PAMP
+ID  - 2323
+T1  - Erste Hilfe. Erkennen, Beurteilen, Handeln
+A1  - Malteser
+Y1  - 2007///
+N1  - ersetzt die vorhergehende Auflage
+N1  - [Aufnahme durch Autopsie in Reference Manager, RIS-Export -Martin]
+KW  - emergency
+KW  - first aid
+RP  - NOT IN FILE
+VL  - 6th ed.
+CY  - Kln
+PB  - Malteser Hilfsdienst e.V.
+N2  - Sofortiges Handeln rettet Leben ... in jeder Notfallsituation.
+AV  - Mon-Fri, T-21
+M1  - 07 220007
+AD  - Malteser Hilfsdienst e.V., Generalsekretariat, Kalker Hauptstraáe 22-24, 51104 Kln
+L3  - http://www.h-dg.de
+ER  - 
+
+TY  - JOUR
+ID  - 2325
+T1  - The Cuts of Language: The East/West of North/South
+A1  - Brennan,Timothy
+Y1  - 2001///
+KW  - geography (cultural)
+KW  - Geopolitics
+KW  - language
+RP  - NOT IN FILE
+SP  - 39
+EP  - 63
+JF  - Public Culture
+VL  - 13
+IS  - 1
+CY  - Durham, NC
+PB  - Duke University Press
+N2  - The oddity of the locution "East/West" is that it refers both to the Cold War and
+to an imperial divide of race and civilizational conquest.
+N1  - [Aufnahme durch Autopsie in Reference Manager, RIS-Export -Martin]
+AD  - Department of English, University of Minnesota, Twin Cities, MN, USA
+L2  - brennan2001language.pdf
+ER  - 
+
+TY  - BOOK 
+ID  - L_MPNPF000016111 
+SN  - 0-521-09397-X 
+A1  - Schrödinger, Erwin 
+TI  - What is life?The physical aspect of the living cell 
+PB  - Cambridge Univ. Press 
+M1  - 178 S. 
+N1  - [1. combined ed. 1967] ; [Enth. außerd.: Schrödinger, Erwin: Mind and matter] 
+PY  - 1974 
+CY  - Cambridge 
+VL  - 2. repr. 
+N1  - by E. Schrödinger
+N1  - [Datensatz aus MPI-CBS-OPAC via vLib, RIS-Export -Martin]
+ID  - MPI Cogn & Brain Sci, Leipzig 
+ER  -
+
+TY  - CONF
+AU  - Withers, C. W. J.
+PY  - 2004
+TI  - Working with old maps: Charting the reception and legacy of Blaeu's 1654 Atlas Novus
+CY  - Edinburgh, SCOTLAND
+PB  - Royal Scottish Geograph Soc
+SP  - 297-310
+N1  - Sep
+N1  - Natl Lib Scotlan, Royal Scottish Geograph Soc Scottish Maps Forum
+N1  - Working with old maps: Charting the reception and legacy of Blaeu's 1654 Atlas Novus
+N1  - English
+AN  - ISI:000237154600007
+KW  - book history
+cartographic legacy
+reception studies
+N2  - The paper examines the reception and the legacy of Joan Blaeu's Atlas Novus (1654). Drawing upon work in book history, attention is paid to issues of reception and readership, including Sir John Scot's amendments of Blaeu's work, and to the enduring cartographic legacy of Blaeu's mapped outline of Scotland in the work of several later map makers and Scottish historians.
+N1  - ISI Document Delivery No.: 037NV
+Times Cited: 3
+Cited Reference Count: 38
+N1  - [Datensatz aus Web of Science, Direct Export nach EndNote, RIS-Export -Martin]
+UR  - <Go to ISI>://000237154600007
+ID  - 1566
+ER  - 
+
+TY  - JOUR
+AU  - Jochum, U.
+PY  - 2008
+TI  - Science ranking
+SP  - 346-349
+N1  - Apr
+JF  - Merkur-Deutsche Zeitschrift fur Europaisches Denken
+JO  - Merkur-Deut. Z. Eur. Denk
+VL  - 62
+IS  - 4
+SN  - 0026-0096
+N1  - Editorial Material
+N1  - Science ranking
+AN  - 2008-294TS-0009
+PM  - PMCID
+N1  - German
+Klett-Cotta Verlag, Rotebuhlstrasse 77, D-7004 9 Stuttgart 1, Germany
+N1  - German
+N1  - [Datensatz aus Current Contents (Ovid), Direct Export nach EndNote, RIS-Export -Martin]
+KW  - General in Current Contents(R)/Arts & Humanities
+AD  - uwe.jochum@uni-konstanz.de
+ID  - 1573
+ER  - 
+
+TY  - BOOK
+ID  - 17022
+T1  - The Evolution of Tolkien's Mythology: A Study of the History of Middle-Earth
+T3  - Critical Explorations in Science Fiction and Fantasy, 7
+CY  - Jefferson, NC
+A1  - Whittingham,Elizabeth A
+PB  - McFarland
+PY  - 2008///
+N1  - [Datensatz aus MLA (CSA), Import mit Zotero, RIS-Export -Martin]
+KW  - 1900
+KW  - english literature
+KW  - europe
+KW  - Fiction
+KW  - folk literature
+KW  - folk narrative
+KW  - middle earth
+KW  - myth
+KW  - tolkien j r r
+SN  - 9780786432813
+ER  - 

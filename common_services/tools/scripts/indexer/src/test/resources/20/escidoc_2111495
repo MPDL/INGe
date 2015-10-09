@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:2111495"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:2111495"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2015-03-12T13:00:07.790Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2015-03-12T13:03:04.411Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2015-03-12T13:00:07.790Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:00:07.790Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:00:07.848Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:00:07.886Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:25.534Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:26.199Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:26.232Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:26.262Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:26.293Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:54.940Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:54.970Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:02:55.003Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:00.672Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:00.710Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:00.749Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:01.744Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:01.774Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:01.813Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:02.316Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:02.539Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:02.595Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:02.625Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:02.662Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:02.860Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.053Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.108Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.141Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC27">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.178Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC28">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.378Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC29">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.569Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC30">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.629Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC31">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.663Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC32">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:03.704Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC33">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:04.329Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC34">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:04.368Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC35">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-03-12T13:03:04.411Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2015-03-12T13:00:07.799Z" MIMETYPE="text/xml" SIZE="149">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags></local-tags>
+    </prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2015-03-12T13:00:07.799Z" MIMETYPE="text/xml" SIZE="2988">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>A digital atlas of ion channel expression patterns in the two-week-old rat brain.</dc:title>
+  <dc:creator>Shcherbatyy, V.</dc:creator>
+  <dc:creator>Carson, J.</dc:creator>
+  <dc:creator>Yaylaoglu, M.</dc:creator>
+  <dc:creator>Jäckle, K.</dc:creator>
+  <dc:creator>Grabbe, F.</dc:creator>
+  <dc:creator>Brockmeyer, M.</dc:creator>
+  <dc:creator>Yavuz, H.</dc:creator>
+  <dc:creator>Eichele, G.</dc:creator>
+  <dc:description>The approximately 350 ion channels encoded by the mammalian genome are a main pillar of the nervous system. We have determined the expression pattern of 320 channels in the two-week-old (P14) rat brain by means of non-radioactive robotic in situ hybridization. Optimized methods were developed and implemented to generate stringently coronal brain sections. The use of standardized methods permits a direct comparison of expression patterns across the entire ion channel expression pattern data set and facilitates recognizing ion channel co-expression. All expression data are made publically available at the Genepaint.org database. Inwardly rectifying potassium channels (Kir, encoded by the Kcnj genes) regulate a broad spectrum of physiological processes. Kcnj channel expression patterns generated in the present study were fitted with a deformable subdivision mesh atlas produced for the P14 rat brain. This co-registration, when combined with numerical quantification of expression strengths, allowed for semi-quantitative automated annotation of expression patterns as well as comparisons among and between Kcnj subfamilies. The expression patterns of Kcnj channel were also cross validated against previously published expression patterns of Kcnj channel genes.</dc:description>
+  <dc:contributor>Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:contributor>
+  <dc:contributor>Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:contributor>
+  <dc:contributor>Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:contributor>
+  <dc:contributor>Department of Neurobiology, MPI for Biophysical Chemistry, Max Planck Society</dc:contributor>
+  <dc:contributor>Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:contributor>
+  <dc:date>2015-01-01</dc:date>
+  <dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
+  <dc:type>Text</dc:type>
+  <dc:format>111-125</dc:format>
+  <dc:identifier>escidoc:2111495</dc:identifier>
+  <dc:identifier>eterms:DOI: 10.1007/s12021-014-9247-0</dc:identifier>
+  <dc:source>Neuroinformatics 13 1</dc:source>
+  <dc:language>eng</dc:language>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2015-03-12T13:00:07.799Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="10678">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Shcherbatyy</eterms:family-name>
+            <eterms:given-name>V.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent34</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons15828</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Carson</eterms:family-name>
+            <eterms:given-name>J.</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Yaylaoglu</eterms:family-name>
+            <eterms:given-name>M.</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Jäckle</eterms:family-name>
+            <eterms:given-name>K.</eterms:given-name>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Grabbe</eterms:family-name>
+            <eterms:given-name>F.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent34</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons32700</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Brockmeyer</eterms:family-name>
+            <eterms:given-name>M.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent34</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons31788</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Yavuz</eterms:family-name>
+            <eterms:given-name>H.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Neurobiology, MPI for Biophysical Chemistry, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:578595</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons132892</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Eichele</eterms:family-name>
+            <eterms:given-name>G.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Genes and Behavior, MPI for biophysical chemistry, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent34</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons15030</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A digital atlas of ion channel expression patterns in the two-week-old rat brain.</dc:title>
+        <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:ISO639-3">eng</dc:language>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:DOI">10.1007/s12021-014-9247-0</dc:identifier>
+        <eterms:published-online xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">2015-01-01</eterms:published-online>
+        <eterms:review-method xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+        <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Neuroinformatics</dc:title>
+          <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">13</eterms:volume>
+          <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">1</eterms:issue>
+          <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">111</eterms:start-page>
+          <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">125</eterms:end-page>
+          <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+          <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+        </source:source>
+        <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+        <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="">The approximately 350 ion channels encoded by the mammalian genome are a main pillar of the nervous system. We have determined the expression pattern of 320 channels in the two-week-old (P14) rat brain by means of non-radioactive robotic in situ hybridization. Optimized methods were developed and implemented to generate stringently coronal brain sections. The use of standardized methods permits a direct comparison of expression patterns across the entire ion channel expression pattern data set and facilitates recognizing ion channel co-expression. All expression data are made publically available at the Genepaint.org database. Inwardly rectifying potassium channels (Kir, encoded by the Kcnj genes) regulate a broad spectrum of physiological processes. Kcnj channel expression patterns generated in the present study were fitted with a deformable subdivision mesh atlas produced for the P14 rat brain. This co-registration, when combined with numerical quantification of expression strengths, allowed for semi-quantitative automated annotation of expression patterns as well as comparisons among and between Kcnj subfamilies. The expression patterns of Kcnj channel were also cross validated against previously published expression patterns of Kcnj channel genes.</dcterms:abstract>
+        <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">Ion channels; Gene expression analysis; In situ hybridization; Genepaint.org database; Rat brain; Digital atlas; Subdivision mesh</dcterms:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+      </publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2015-03-12T13:00:07.800Z" MIMETYPE="text/xml" SIZE="1759">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:2111495">
+<system:build>1.3.10-SNAPSHOT</system:build>
+<prop:context-title>Publications of the MPI for Biophysical Chemistry</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Andrea Piepkorn</prop:modified-by-title>
+<prop:created-by-title>Andrea Piepkorn</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:582611"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date><version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+<srel:component rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:00:07.886Z" MIMETYPE="text/xml" SIZE="1857">
+<foxml:xmlContent>
+<rdf:RDF xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <system:build>1.3.10-SNAPSHOT</system:build>
+    <prop:context-title>Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title>Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2015-03-12T13:00:07.800Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:02:26.232Z" MIMETYPE="text/xml" SIZE="2790">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">pending</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Object created.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:00:07.800Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:02:26.293Z" MIMETYPE="text/xml" SIZE="2790">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">pending</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Object created.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:02:26.232Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:02:54.940Z" MIMETYPE="text/xml" SIZE="2759">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:02:26.232Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:02:55.003Z" MIMETYPE="text/xml" SIZE="2759">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:02:54.940Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:00.672Z" MIMETYPE="text/xml" SIZE="2870">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:02:54.940Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:00.749Z" MIMETYPE="text/xml" SIZE="2870">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:00.672Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:01.744Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:00.672Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:01.813Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:01.744Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:02.595Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:01.744Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:02.662Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:02.595Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:03.108Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:02.595Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:03.178Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:03.108Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.14" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:03.629Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:03.108Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.15" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:03.704Z" MIMETYPE="text/xml" SIZE="2998">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:03.629Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.16" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:04.329Z" MIMETYPE="text/xml" SIZE="3324">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0025-6C94-B</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111499"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111498"></srel:component>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111497"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:604559"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:582611"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:03.629Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:2111493"></srel:component>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">---</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.17" LABEL="RELS_EXT DATASTREAM" CREATED="2015-03-12T13:03:04.411Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:2111495">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0025-6C94-B</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0025-6C94-B</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0025-6C93-D</prop:pid>
+    <srel:component rdf:resource="info:fedora/escidoc:2111499" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:component rdf:resource="info:fedora/escidoc:2111498" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:component rdf:resource="info:fedora/escidoc:2111497" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.10-SNAPSHOT</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Biophysical Chemistry</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"/>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Andrea Piepkorn</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:persistent4" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:604559" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:604559" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:context rdf:resource="info:fedora/escidoc:582611" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"/>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2015-03-12T13:03:04.329Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <srel:component rdf:resource="info:fedora/escidoc:2111493" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2015-03-12T13:03:04.329Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.8" LABEL="whole object versioning datastream" CREATED="2015-03-12T13:03:04.368Z" MIMETYPE="text/xml" SIZE="8993">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:2111495:2" timestamp="2015-03-12T13:02:26.232Z" xlink:href="/ir/item/escidoc:2111495:2" xlink:title="Version 2" xlink:type="simple">
+    <escidocVersions:pid timestamp="2015-03-12T13:03:00.749Z" user="escidoc:604559">hdl:11858/00-001M-0000-0025-6C94-B</escidocVersions:pid>
+    <escidocVersions:version-number>2</escidocVersions:version-number>
+    <escidocVersions:timestamp>2015-03-12T13:03:04.329Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1426165384166">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:2111495/resources/version-history#v2e1426165384166</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2015-03-12T13:03:04.329Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:604559" xlink:title="Andrea Piepkorn" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:604559</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:2111495</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1426165381531">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:2111495/resources/version-history#v2e1426165381531</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2015-03-12T13:03:00.749Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:604559" xlink:title="Andrea Piepkorn" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:604559</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:2111495</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1426165380505">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:2111495/resources/version-history#v2e1426165380505</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignObjectPid</premis:eventType>
+        <premis:eventDateTime>2015-03-12T13:02:55.003Z</premis:eventDateTime>
+        <premis:eventDetail>objectPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:604559" xlink:title="Andrea Piepkorn" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:604559</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:2111495</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1426165374757">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:2111495/resources/version-history#v2e1426165374757</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2015-03-12T13:02:54.940Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:604559" xlink:title="Andrea Piepkorn" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:604559</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:2111495</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1426165346180">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:2111495/resources/version-history#v2e1426165346180</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2015-03-12T13:02:26.232Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:604559" xlink:title="Andrea Piepkorn" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:604559</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:2111495</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:2111495:1" timestamp="2015-03-12T13:00:07.800Z" xlink:href="/ir/item/escidoc:2111495:1" xlink:title="Item escidoc:2111495" xlink:type="simple">
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2015-03-12T13:00:07.800Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>pending</escidocVersions:version-status>
+    <escidocVersions:comment>Object created.</escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1426165207833">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:2111495/resources/version-history#v1e1426165207833</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2015-03-12T13:00:07.800Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:604559" xlink:title="Andrea Piepkorn" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:604559</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:2111495</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

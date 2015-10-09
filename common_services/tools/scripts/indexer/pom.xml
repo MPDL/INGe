@@ -1,0 +1,314 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.tools</groupId>
+	<artifactId>indexer</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>indexer</name>
+	<url>http://www.mpdl.mpg.de</url>
+	<description>reindex in high speed performance</description>
+	<licenses>
+		<license>
+			<name>Common Development And Distribution License</name>
+			<url>http://www.sun.com/cddl/cddl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Managed Releases</name>
+			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Managed Snapshots</name>
+			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<developers>
+		<developer>
+			<id>franke</id>
+			<name>Michael Franke</name>
+			<email>franke@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>siedersleben</id>
+			<name>Gudrun Siedersleben</name>
+			<email>siedersleben@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+	</developers>
+	<ciManagement>
+		<system>Continuum</system>
+		<url>http://continuum.mpdl.mpg.de/continuum</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>walter@mpdl.mpg.de</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+	<scm>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/indexer</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/indexer/</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/indexer/</url>
+	</scm>
+	<build>
+		<!-- For annotations and other Java5 stuff -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.dat</exclude>
+					<exclude>**/*.${config.suffix.exclude}</exclude>
+					<exclude>**/*.${config.suffix.include}</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.dat</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/jibx</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
+						<additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
+					</additionalClasspathElements>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>build-indexer</id>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>de.mpg.escidoc.tools.reindex.Indexer</mainClass>
+								</manifest>
+							</archive>
+							<finalName>${project.artifactId}</finalName>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>build-extractor</id>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>de.mpg.escidoc.tools.reindex.FullTextExtractor</mainClass>
+								</manifest>
+							</archive>
+							<finalName>${project.artifactId}-extractor</finalName>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+		        <groupId>com.coderplus.maven.plugins</groupId>
+		        <artifactId>copy-rename-maven-plugin</artifactId>
+		        <version>1.0</version>
+		        <executions>
+		          <execution>
+		            <id>copy-rename-file</id>
+		            <phase>generate-sources</phase>
+		            <goals>
+		              <goal>copy</goal>
+		            </goals>
+		            <configuration>
+		              <sourceFile>${project.basedir}/src/main/resources/indexer.properties.${config.suffix.include}</sourceFile>
+		              <destinationFile>${project.basedir}/src/main/resources/indexer.properties</destinationFile>
+		            </configuration>
+		          </execution>
+		        </executions>
+      </plugin>
+	<plugin>
+		<groupId>org.jacoco</groupId>
+		<artifactId>jacoco-maven-plugin</artifactId>
+		<version>0.6.0.201210061924</version>
+		<configuration>
+			<destFile>${sonar.jacoco.reportPath}</destFile>
+			<append>true</append>
+		</configuration>
+		<executions>
+			<execution>
+				<id>agent</id>
+				<goals>
+					<goal>prepare-agent</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+
+	<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>sonar-maven-plugin</artifactId>
+	</plugin>
+	
+	
+      		
+	</plugins>
+	
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.tools</groupId>
+			<artifactId>extraction_chain</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<classifier>jar-with-dependencies</classifier>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.escidoc</groupId>
+			<artifactId>escidoc-analyzers</artifactId>
+			<version>1.3.5-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.escidoc</groupId>
+			<artifactId>fedoragsearch</artifactId>
+			<version>1.3.44-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<version>8.7</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- <dependency> <groupId>xalan</groupId> <artifactId>xalan</artifactId> 
+			<version>2.7.1</version> <scope>compile</scope> </dependency> 
+			
+		<dependency>
+			<groupId>org.codehaus.sonar.plugins</groupId>
+			<artifactId>sonar-scm-svn-plugin</artifactId>
+			<version>5.0.1</version>
+		</dependency>	
+		-->
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<config.suffix.include>windows</config.suffix.include>
+				<config.suffix.exclude>linux</config.suffix.exclude>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<config.suffix.include>linux</config.suffix.include>
+				<config.suffix.exclude>windows</config.suffix.exclude>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>

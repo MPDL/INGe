@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes applied to this schema (since Version 0.3, Februar, 2008):
+	- schema version and namespace changed to 0.4
+	- list consists of context in version 0.4
+	
+	- April, 2008
+	- changed to version 0.5
+	
+	- changed namespace of refered schema:
+	from http://www.escidoc.de/schemas/context/0.4
+	to http://www.escidoc.de/schemas/context/0.5
+	
+	- May, 2008
+	- changed version to 0.6
+	- references context 0.6
+	
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/contextlist/0.6"
+	xmlns:context="http://www.escidoc.de/schemas/context/0.6"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xlink.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xml.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/context/0.6"
+		schemaLocation="http://www.escidoc.org/schemas/rest/context/0.6/context.xsd" />
+
+	<xs:element name="context-list">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="context:context" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute ref="xlink:title" use="required" />
+			<xs:attribute ref="xlink:href" use="prohibited" />
+			<xs:attribute ref="xlink:type" use="required" />
+			<xs:attribute ref="xml:base" use="required" />
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

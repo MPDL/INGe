@@ -1,0 +1,2143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:1859271"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:1859271"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-12-05T09:17:00.705Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-01-30T12:12:54.329Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2013-12-05T09:17:00.705Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:00.705Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:00.765Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:00.799Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:04.672Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:04.736Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:04.763Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:05.547Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:05.570Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:05.604Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:06.303Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:06.335Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:06.375Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:07.037Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:07.065Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T09:17:07.096Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:11.563Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:11.713Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:11.766Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:11.796Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:11.840Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:12.875Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:12.906Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:12.945Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:17.837Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:17.915Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:17.953Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC27">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:19.135Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC28">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:19.174Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC29">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-11T17:25:19.218Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC30">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:01.397Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC31">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:01.462Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC32">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:01.552Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC33">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:01.593Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC34">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:01.636Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC35">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:02.757Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC36">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:02.813Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC37">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:02.860Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC38">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:08.267Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC39">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:08.313Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC40">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:08.368Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC41">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:09.751Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC42">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:09.796Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC43">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-27T16:06:09.861Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC44">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:31.737Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC45">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:31.874Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC46">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:32.060Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC47">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:32.112Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC48">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:32.171Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC49">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:32.229Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC50">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:35.563Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC51">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:35.612Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC52">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:35.670Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC53">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:49.546Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC54">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:49.741Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC55">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:49.828Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC56">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:53.267Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC57">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:53.389Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC58">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:53.491Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC59">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:53.551Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC60">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:53.639Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC61">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:54.211Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC62">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:54.265Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC63">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-01-30T12:12:54.329Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2013-12-05T09:17:00.713Z" MIMETYPE="text/xml" SIZE="149">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags></local-tags>
+    </prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true"><foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2013-12-05T09:17:00.713Z" MIMETYPE="text/xml" SIZE="2134" >
+<foxml:xmlContent><oai_dc:dc xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:xsiDummy="http://www.w3.org/2001/XMLSchema-instance" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:javaUtil="java:de.mpg.escidoc.services.foxml.foxml_transformation_service.transformation.XslUtil" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xsiDummy:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"><dc:type>info:eu-repo/semantics/article</dc:type><dc:creator>Badgaa, A.</dc:creator><dc:creator>Boland, W.</dc:creator><dc:title>Chlorophyll catabolites in the frass of the small Tortoiseshell caterpillars (Aglais urticae L.)</dc:title><dc:identifier>escidoc:1859271</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0014-BF11-8</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0015-169F-9</dc:identifier><dc:date>2013</dc:date><dc:format>application/pdf</dc:format><dc:relation>info:eu-repo/grantAgreement///</dc:relation><dc:relation/><dc:rights>info:eu-repo/semantics/openAccess</dc:rights></oai_dc:dc>
+</foxml:xmlContent></foxml:datastreamVersion></foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2013-12-05T09:17:00.713Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="5625">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Badgaa</eterms:family-name>
+            <eterms:given-name>Amarsanaa</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+            </organization:organization>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">IMPRS on Ecological Interactions, MPI for Chemical Ecology, Max Planck Society</dc:title>
+              <eterms:address>Jena, DE</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:421900</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons59469</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Boland</eterms:family-name>
+            <eterms:given-name>Wilhelm</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons3812</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Chlorophyll catabolites in the frass of the Small Tortoiseshell caterpillars (Aglais urticae L.)</dc:title>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:OTHER">BOL587</dc:identifier>
+        <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013</dcterms:dateAccepted>
+        <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Mongolian Journal of Chemistry</dc:title>
+          <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+          <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+          <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+          <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+          <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+          <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+          <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">The institute of Chemistry &amp; Chemical Technology, Mongolian Academy o Sciences</dc:publisher>
+            <eterms:place></eterms:place>
+          </eterms:publishing-info>
+          <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:OTHER">2226-6739</dc:identifier>
+          <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/2226-6739</dc:identifier>
+        </source:source>
+        <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+        <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+      </publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2013-12-11T17:25:11.713Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="5291">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Badgaa</eterms:family-name>
+      <eterms:given-name>Amarsanaa</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">IMPRS on Ecological Interactions, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address>Jena, DE</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:421900</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons59469</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Boland</eterms:family-name>
+      <eterms:given-name>Wilhelm</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons3812</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Chlorophyll catabolites in the frass of the Small Tortoiseshell caterpillars (Aglais urticae L.)</dc:title>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">BOL587</dc:identifier>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013</dcterms:dateAccepted>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Mongolian Journal of Chemistry</dc:title>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">The Mongolian Academy of Sciences</dc:publisher>
+      <eterms:place>Ulaanbaatar, Mongolia</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">2226-6739</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/2226-6739</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="md-record" CREATED="2013-12-27T16:06:01.462Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="5291">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Badgaa</eterms:family-name>
+      <eterms:given-name>Amarsanaa</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">IMPRS on Ecological Interactions, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address>Jena, DE</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:421900</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons59469</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Boland</eterms:family-name>
+      <eterms:given-name>Wilhelm</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons3812</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Chlorophyll catabolites in the frass of the small Tortoiseshell caterpillars (Aglais urticae L.)</dc:title>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">BOL587</dc:identifier>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013</dcterms:dateAccepted>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Mongolian Journal of Chemistry</dc:title>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">The Mongolian Academy of Sciences</dc:publisher>
+      <eterms:place>Ulaanbaatar, Mongolia</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">2226-6739</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/2226-6739</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.3" LABEL="md-record" CREATED="2014-01-30T12:12:31.874Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="5706">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Badgaa</eterms:family-name>
+      <eterms:given-name>Amarsanaa</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">IMPRS on Ecological Interactions, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address>Jena, DE</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:421900</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons59469</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Boland</eterms:family-name>
+      <eterms:given-name>Wilhelm</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Bioorganic Chemistry, Prof. Dr. W. Boland, MPI for Chemical Ecology, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:24028</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons3812</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Chlorophyll catabolites in the frass of the small Tortoiseshell caterpillars (Aglais urticae L.)</dc:title>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">BOL587</dc:identifier>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013-12-09</dcterms:dateAccepted>
+  <eterms:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013</eterms:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013</dcterms:issued>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Mongolian Journal of Chemistry</dc:title>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">14</eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">40</eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">46</eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">50</eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">The Mongolian Academy of Sciences</dc:publisher>
+      <eterms:place>Ulaanbaatar, Mongolia</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:OTHER">2226-6739</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/2226-6739</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2013-12-05T09:17:00.713Z" MIMETYPE="text/xml" SIZE="1666">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1859271">
+<system:build>1.3.9</system:build>
+<prop:context-title>Publications of the MPI for Chemical Ecology</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Angela Guenther</prop:modified-by-title>
+<prop:created-by-title>Angela Guenther</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:23051"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date><version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:00.799Z" MIMETYPE="text/xml" SIZE="1760">
+<foxml:xmlContent>
+<rdf:RDF xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <system:build>1.3.9</system:build>
+    <prop:context-title>Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title>Angela Guenther</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2013-12-05T09:17:00.713Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:04.672Z" MIMETYPE="text/xml" SIZE="2175">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:00.713Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:04.763Z" MIMETYPE="text/xml" SIZE="2175">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:04.672Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:05.547Z" MIMETYPE="text/xml" SIZE="2286">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:04.672Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:05.604Z" MIMETYPE="text/xml" SIZE="2286">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:05.547Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:06.303Z" MIMETYPE="text/xml" SIZE="2414">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF12-6</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:05.547Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:06.375Z" MIMETYPE="text/xml" SIZE="2414">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF12-6</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:06.303Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:07.037Z" MIMETYPE="text/xml" SIZE="2740">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF12-6</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:06.303Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">---</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T09:17:07.096Z" MIMETYPE="text/xml" SIZE="2761">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF12-6</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:07.037Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:11.766Z" MIMETYPE="text/xml" SIZE="2652">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T09:17:07.037Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:11.840Z" MIMETYPE="text/xml" SIZE="2652">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:11.766Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:12.875Z" MIMETYPE="text/xml" SIZE="2673">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:11.766Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:12.945Z" MIMETYPE="text/xml" SIZE="2673">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:12.875Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.14" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:17.837Z" MIMETYPE="text/xml" SIZE="2801">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-C331-C</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:12.875Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.15" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:17.953Z" MIMETYPE="text/xml" SIZE="2801">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-C331-C</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF12-6</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:17.837Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">1</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.16" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:19.135Z" MIMETYPE="text/xml" SIZE="2761">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-C331-C</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:17.837Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T09:17:07.037Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.17" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-11T17:25:19.218Z" MIMETYPE="text/xml" SIZE="2761">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-C331-C</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:19.135Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.18" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:01.552Z" MIMETYPE="text/xml" SIZE="2652">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-11T17:25:19.135Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.19" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:01.636Z" MIMETYPE="text/xml" SIZE="2652">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:01.552Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.20" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:02.757Z" MIMETYPE="text/xml" SIZE="2673">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:01.552Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.21" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:02.860Z" MIMETYPE="text/xml" SIZE="2673">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:02.757Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.22" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:08.267Z" MIMETYPE="text/xml" SIZE="2801">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-CD62-3</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:02.757Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.23" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:08.368Z" MIMETYPE="text/xml" SIZE="2801">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-CD62-3</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-C331-C</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:08.267Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.24" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:09.751Z" MIMETYPE="text/xml" SIZE="2761">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-CD62-3</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:08.267Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-11T17:25:19.135Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.25" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-27T16:06:09.861Z" MIMETYPE="text/xml" SIZE="2761">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-CD62-3</version:pid>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:09.751Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">3</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.26" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:32.112Z" MIMETYPE="text/xml" SIZE="2794">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-27T16:06:09.751Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.27" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:32.229Z" MIMETYPE="text/xml" SIZE="2794">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">pending</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:32.112Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.28" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:35.563Z" MIMETYPE="text/xml" SIZE="2815">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:32.112Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.29" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:35.670Z" MIMETYPE="text/xml" SIZE="2815">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:35.563Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.30" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:49.546Z" MIMETYPE="text/xml" SIZE="2943">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-169E-B</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:35.563Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.31" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:49.828Z" MIMETYPE="text/xml" SIZE="2943">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-169E-B</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:49.546Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.32" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:53.491Z" MIMETYPE="text/xml" SIZE="2943">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-169E-B</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:49.546Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.33" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:53.639Z" MIMETYPE="text/xml" SIZE="2943">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-169E-B</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-CD62-3</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Submission during saving released item.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:53.491Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">3</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.34" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:54.211Z" MIMETYPE="text/xml" SIZE="2903">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-169E-B</version:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1913662"></srel:component>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-169E-B</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:761610"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:23051"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:53.491Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-27T16:06:09.751Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.35" LABEL="RELS_EXT DATASTREAM" CREATED="2014-01-30T12:12:54.329Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859271">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0015-169E-B</version:pid>
+    <srel:component rdf:resource="info:fedora/escidoc:1913662" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0015-169E-B</release:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF11-8</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Chemical Ecology</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"/>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Angela Guenther</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:persistent4" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:761610" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:761610" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:context rdf:resource="info:fedora/escidoc:23051" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"/>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2014-01-30T12:12:54.211Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">4</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">4</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2014-01-30T12:12:54.211Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.17" LABEL="whole object versioning datastream" CREATED="2014-01-30T12:12:54.265Z" MIMETYPE="text/xml" SIZE="24414">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859271:4" timestamp="2014-01-30T12:12:32.112Z" xlink:href="/ir/item/escidoc:1859271:4" xlink:title="Version 4" xlink:type="simple">
+    <escidocVersions:pid timestamp="2014-01-30T12:12:35.670Z" user="escidoc:761610">hdl:11858/00-001M-0000-0015-169E-B</escidocVersions:pid>
+    <escidocVersions:version-number>4</escidocVersions:version-number>
+    <escidocVersions:timestamp>2014-01-30T12:12:54.211Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1391083974147">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v4e1391083974147</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2014-01-30T12:12:54.211Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1391083969462">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v4e1391083969462</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2014-01-30T12:12:35.670Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1391083955473">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v4e1391083955473</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2014-01-30T12:12:35.563Z</premis:eventDateTime>
+        <premis:eventDetail>Submission during saving released item.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v4e1391083952053">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v4e1391083952053</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2014-01-30T12:12:32.112Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859271:3" timestamp="2013-12-27T16:06:01.552Z" xlink:href="/ir/item/escidoc:1859271:3" xlink:title="Version 3" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-12-27T16:06:02.860Z" user="escidoc:761610">hdl:11858/00-001M-0000-0014-CD62-3</escidocVersions:pid>
+    <escidocVersions:version-number>3</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-12-27T16:06:09.751Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1388160369722">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v3e1388160369722</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-12-27T16:06:09.751Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1388160368247">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v3e1388160368247</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-12-27T16:06:02.860Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1388160362737">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v3e1388160362737</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-12-27T16:06:02.757Z</premis:eventDateTime>
+        <premis:eventDetail>Submission during saving released item.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1388160361544">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v3e1388160361544</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2013-12-27T16:06:01.552Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859271:2" timestamp="2013-12-11T17:25:11.766Z" xlink:href="/ir/item/escidoc:1859271:2" xlink:title="Version 2" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-12-11T17:25:12.945Z" user="escidoc:761610">hdl:11858/00-001M-0000-0014-C331-C</escidocVersions:pid>
+    <escidocVersions:version-number>2</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-12-11T17:25:19.135Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386782719109">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v2e1386782719109</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-12-11T17:25:19.135Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386782717813">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v2e1386782717813</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-12-11T17:25:12.945Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386782712849">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v2e1386782712849</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-12-11T17:25:12.875Z</premis:eventDateTime>
+        <premis:eventDetail>Submission during saving released item.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386782711758">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v2e1386782711758</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>  
+      <premis:eventDateTime>2013-12-11T17:25:11.766Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859271:1" timestamp="2013-12-05T09:17:00.713Z" xlink:href="/ir/item/escidoc:1859271:1" xlink:title="Item escidoc:1859271" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-12-05T09:17:05.604Z" user="escidoc:761610">hdl:11858/00-001M-0000-0014-BF12-6</escidocVersions:pid>
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-12-05T09:17:07.037Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235027019">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v1e1386235027019</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:17:07.037Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235026286">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v1e1386235026286</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:17:05.604Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235025541">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v1e1386235025541</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignObjectPid</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:17:04.763Z</premis:eventDateTime>
+        <premis:eventDetail>objectPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235024660">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v1e1386235024660</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:17:04.672Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386235020747">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859271/resources/version-history#v1e1386235020747</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2013-12-05T09:17:00.713Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:761610" xlink:title="Angela Guenther" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:761610</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859271</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

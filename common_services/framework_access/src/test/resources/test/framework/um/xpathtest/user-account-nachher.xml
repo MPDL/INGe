@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user-account:user-account xmlns:user-account="http://www.escidoc.de/schemas/useraccount/0.2" 
+                           xmlns:xlink="http://www.w3.org/1999/xlink" 
+                           xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                           xml:base="http://localhost:8080" 
+                           xsi:schemaLocation="http://localhost:8080/xsd/role/0.2/role.xsd" 
+                           xlink:type="simple" xlink:title="roland" 
+                           xlink:href="/um/user-account/escidoc:user42" 
+                           objid="escidoc:user42" 
+                           last-modification-date="2007-07-04T12:35:49.562Z">
+ <user-account:properties>
+        <user-account:email>roland@roland</user-account:email>
+        <user-account:name>roland</user-account:name>
+    <user-account:login-name>roland</user-account:login-name>
+        <user-account:active>false</user-account:active>
+        <user-account:creation-date>2007-07-04T12:35:49.562Z</user-account:creation-date>    <user-account:creator xlink:type="simple" xlink:title="roland" xlink:href="/um/user-account/escidoc:user42" objid="escidoc:user42" />    <user-account:modified-by xlink:type="simple" xlink:title="roland" xlink:href="/um/user-account/escidoc:user42" objid="escidoc:user42" />        <user-account:organizational-units>
+            <user-account:organizational-unit xlink:type="simple" xlink:title="MPI fÃ¼r Wissenschaftsgeschichte" xlink:href="/oum/organizational-unit/escidoc:persistent1" objid="escidoc:persistent1" primary="true" />
+            </user-account:organizational-units>
+     </user-account:properties>
+    <user-account:resources xlink:type="simple" xlink:href="/um/user-account/escidoc:user42/resources" xlink:title="Virtual Resources">
+<user-account:current-grants xlink:type="simple" xlink:title="Current Grants" xlink:href="/um/user-account/escidoc:user42/resources/resource/current-grants" />
+</user-account:resources>    
+</user-account:user-account>

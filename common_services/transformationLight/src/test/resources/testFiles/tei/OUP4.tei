@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Molecular Evolution and Functional Diversification of
+                    Fatty Acid Desaturases after Recurrent Gene Duplications in Drosophila</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Shu</forename>
+                                <surname>Fang</surname>
+                            </persName>
+                            <email>zofang@sinica.edu.tw</email>
+                            <note>&#xD; Fang, Shu, zofang@gate.sinica.edu.tw merged with this
+                                user on 19-Feb-2008 by Raffaele, Elizabeth</note>
+                            <affiliation>
+                                <orgName type="institution">Academia Sinica</orgName>
+                                <orgName type="department">Biodiversity Research Center</orgName>
+                                <address><settlement>Taipei</settlement><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Chau-Ti</forename>
+                                <surname>Ting</surname>
+                            </persName>
+                            <email>ctting@ntu.edu.tw</email>
+                            <note>Jan 20 2003 - Added using 'Add Reviewer on the fly' by Prof.
+                                Pierre Capy&#xD; Ting, Chau-Ti, ctting@life.nthu.edu.tw [Last
+                                in: 11-Mar-2007 12:32] merged with this user on 21-Feb-2008 by
+                                Raffaele, Elizabeth</note>
+                            <affiliation>
+                                <orgName type="institution">National Taiwan University</orgName>
+                                <orgName type="department">Department of Life Science, Institute of
+                                    Ecology &amp; Evolutionary Biology, and Institute of
+                                    Zoology</orgName>
+                                <address><settlement>Taipei</settlement><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                            <affiliation>
+                                <orgName type="department"> </orgName>
+                                <address><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Mr.</roleName>
+                                <forename type="first">Cheng-Ruei</forename>
+                                <surname>Lee</surname>
+                            </persName>
+                            <email>qqsmallfrog@yahoo.com.tw</email>
+                            <affiliation>
+                                <orgName type="institution">Academia Sinica</orgName>
+                                <orgName type="department">Biodiversity Research Center</orgName>
+                                <address><settlement>Taipei</settlement><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Mr.</roleName>
+                                <forename type="first">Kuang-Hsi</forename>
+                                <surname>Chu</surname>
+                            </persName>
+                            <email>wester830007@yahoo.com.tw</email>
+                            <affiliation>
+                                <orgName type="institution">National Taiwan University</orgName>
+                                <orgName type="department">Institute of Zoology</orgName>
+                                <address><settlement>Taipei</settlement><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                        </author>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Shun-Chern</forename>
+                                <surname>Tsaur</surname>
+                            </persName>
+                            <email>sctsaur@sinica.edu.tw</email>
+                            <affiliation>
+                                <orgName type="institution">Academia Sinica</orgName>
+                                <orgName type="department">Biodiversity Research Center</orgName>
+                                <address><settlement>Taipei</settlement><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Chuan-Chan</forename>
+                                <surname>Wang</surname>
+                            </persName>
+                            <email>gwennywang@ntu.edu.tw</email>
+                            <affiliation>
+                                <orgName type="institution">Academia Sinica</orgName>
+                                <orgName type="department">Biodiversity Research Center</orgName>
+                                <address><settlement>Taipei</settlement><country key="NO_CODE">Taiwan, Province of China</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Molecular Evolution and Functional
+                            Diversification of Fatty Acid Desaturases after Recurrent Gene
+                            Duplications in Drosophila</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Molecular Biology and Evolution</title>
+                        <idno type="eISSN">N</idno>
+                        <imprint>
+                            <publisher>Molecular Biology and Evolution</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">MBE-08-0839</idno>
+                    <idno type="manuscript">MBE-08-0839.R1</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en"/>
+            </langUsage>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Frequent gene duplications in the genome incessantly supply new genetic materials
+                    for functional innovation presumably driven by positive Darwinian selection.
+                    This mechanism in desaturase gene family has been proposed to be important in
+                    triggering the pheromonal diversification in insects. With the recent completion
+                    of a dozen &lt;i&gt;Drosophila&lt;/i&gt; genomes, it provides a
+                    genome-wide perspective on the evolutionary patterns of desaturase genes. In
+                    this study, we first identified homologs of desaturase genes in 12
+                    &lt;i&gt;Drosophila&lt;/i&gt; species and noted that while gene
+                    duplication events are relatively frequent, gene losses are not scarce,
+                    especially in the &lt;i&gt;desat1-desat2-desatF&lt;/i&gt; clade.
+                    By reconciling the gene tree with species phylogeny and the chromosomal synteny
+                    of the sequenced &lt;i&gt;Drosophila&lt;/i&gt; genomes, at least
+                    1 gene loss in &lt;i&gt;desat2&lt;/i&gt; and a minimum of 6 gene
+                    gains (resulting in 7 &lt;i&gt;desatF&lt;/i&gt; homologs,
+                    &lt;i&gt;α-η&lt;/i&gt;), 3 gene losses plus 1 relocation in
+                    &lt;i&gt;desatF&lt;/i&gt; were inferred. Upon branching off the
+                    ancestral &lt;i&gt;desat1&lt;/i&gt; lineage, both
+                    &lt;i&gt;desat2&lt;/i&gt; and
+                    &lt;i&gt;desatF&lt;/i&gt; gained novel functions through
+                    accelerating protein evolution. The amino acid residues under positive selection
+                    located nearby the catalytic sites and the C-terminal region might be
+                    responsible for altered substrate selectivity between closely related species.
+                    Moreover, the association between the expression pattern of
+                    &lt;i&gt;desatF-α&lt;/i&gt; and the chemical composition of
+                    cuticular hydrocarbons implies that the ancestral function of
+                    &lt;i&gt;desatF-α&lt;/i&gt; is the second desaturation at the 4
+                    carbons after the first double bond in diene synthesis, and the shift from
+                    bisexual to female-specific expression in
+                    &lt;i&gt;desatF-α&lt;/i&gt; occurred in the ancestral lineage of
+                    &lt;i&gt;D. melanogaster&lt;/i&gt; subgroup. A relationship
+                    between the number of expressed &lt;i&gt;desatF&lt;/i&gt;
+                    homologs and the diene diversification has also been observed. These results
+                    suggest that the molecular diversification of fatty acid desaturases after
+                    recurrent gene duplications plays an important role in pheromonal diversity.</p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" 
+ xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Coumestans from the Roots of Pueraria mirifica</title>
+			</titleStmt>
+			<publicationStmt>
+				<date type="published" when="1988" />
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">John</forename>
+								<forename type="middle">L</forename>
+								<surname>Ingham</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department" key="dep1">Department of Food Science</orgName>
+								<orgName type="department" key="dep2">Food Studies Building</orgName>
+								<orgName type="institution">University of Reading</orgName>
+								<address>
+									<addrLine>Whiteknights</addrLine>
+									<postBox>P.O. Box 226</postBox>
+									<postCode>RG6 2AP</postCode>
+									<settlement>Reading</settlement>
+									<country>England</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Satoshi</forename>
+								<surname>Tahara</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department" key="dep1">Department of Food Science</orgName>
+								<orgName type="department" key="dep2">Food Studies Building</orgName>
+								<orgName type="institution">University of Reading</orgName>
+								<address>
+									<addrLine>Whiteknights</addrLine>
+									<postBox>P.O. Box 226</postBox>
+									<postCode>RG6 2AP</postCode>
+									<settlement>Reading</settlement>
+									<country>England</country>
+								</address>
+							</affiliation>
+							<affiliation>
+								<orgName type="department" key="dep1">Department of Agricultural Chemistry</orgName>
+								<orgName type="department" key="dep2">Faculty of Agriculture</orgName>
+								<orgName type="institution">Hokkaido University</orgName>
+								<address>
+									<addrLine>Kita-ku</addrLine>
+									<postCode>060</postCode>
+									<settlement>Sapporo</settlement>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Stanley</forename>
+								<forename type="middle">Z</forename>
+								<surname>Dziedzic</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department" key="dep1">Department of Food Science</orgName>
+								<orgName type="department" key="dep2">Food Studies Building</orgName>
+								<orgName type="institution">University of Reading</orgName>
+								<address>
+									<addrLine>Whiteknights</addrLine>
+									<postBox>P.O. Box 226</postBox>
+									<postCode>RG6 2AP</postCode>
+									<settlement>Reading</settlement>
+									<country>England</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Coumestans from the Roots of Pueraria mirifica</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Z. Naturforsch</title>
+						<imprint>
+							<biblScope type="vol">43</biblScope>
+							<biblScope type="fpage">5</biblScope>
+							<biblScope type="lpage">10</biblScope>
+							<date type="published" when="1988" />
+						</imprint>
+					</monogr>
+					<note type="submission">received September 7, 1987</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<list>
+						<item>
+							<term>Leguminosae</term>
+						</item>
+						<item>
+							<term>Pueraria</term>
+						</item>
+						<item>
+							<term>Isoflavonoids</term>
+						</item>
+						<item>
+							<term>Coumestans</term>
+						</item>
+						<item>
+							<term>Coumestrol</term>
+						</item>
+					</list>
+				</keywords>
+			</textClass>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+<p>Three isoflavonoids obtained from a methanolic extract of Pueraria mirifica roots have been identified as 3,9-dihydroxy-8-methoxy-7-(3,3-dimethylallyl)-coumestan (mirificoumestan), 3,9-di-hydroxy-8-methoxy-7-(3-hydroxy-3-methylbutyl)-coumestan (mirificoumestan hydrate), and 3,9-dihydroxy-8-methoxy-7-(2,3-dihydroxy-3-methylbutyl)-coumestan (mirificoumestan glycol). These new coumestans co-occur with coumestrol (3,9-dihydroxycoumestan), a compound already found in P. mirifica roots.</p>
+			</div>
+		</front>
+	</text>
+</TEI>
+

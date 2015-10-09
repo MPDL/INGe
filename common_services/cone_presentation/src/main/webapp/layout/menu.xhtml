@@ -1,0 +1,39 @@
+<h:form xmlns:h="http://java.sun.com/jsf/html">
+<rich:toolBar 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:rich="http://richfaces.org/rich"
+    style="left: 140px; top: 50px; height: 30px; width: 860px; position: absolute">
+    <rich:toolBarGroup>
+        <h:outputText value="#{projectName}:"/>
+        <h:commandLink binding="#{navigation.lnkHome}" id="lnkHome" immediate="true"
+        	value="HOME" action="#{navigation.loadHome}" styleClass="" />
+        <rich:dropDownMenu id="journalMenu">
+        	<f:facet name="label">
+        	<h:commandLink binding="#{navigation.lnkJournalNames}" id="lnkJournalNames" immediate="true"
+        	value="JOURNALS" action="#{navigation.loadJournalNames}" styleClass="" />
+        	</f:facet>
+        	<rich:menuItem action="#{navigation.loadJournalSearch}">
+        	<h:commandLink id="lnkJournalSearch" immediate="true"
+        	value="search" styleClass="" />
+        	</rich:menuItem>
+        	<rich:menuItem action="#{navigation.loadJournalAdd}" rendered="#{identity.loggedIn}">
+        	<h:commandLink id="lnkJournalAdd" immediate="true"
+        	value="add" styleClass="" />
+        	</rich:menuItem>
+        </rich:dropDownMenu>
+        <h:commandLink binding="#{navigation.lnkPersonNames}" id="lnkPersonNames" immediate="true"
+        	value="PERSONS" action="#{navigation.loadPersonNames}" styleClass="" />
+        <h:commandLink binding="#{navigation.lnkOrgUnitNames}" id="lnkOrgUnitNames" immediate="true"
+        	value="ORG-UNITS" action="#{navigation.loadOrgUnitNames}" styleClass="" />
+    </rich:toolBarGroup>
+    <!-- @newMenuItem@ -->
+    <rich:toolBarGroup location="right">
+        <h:outputText value="logged on as: #{identity.username}" rendered="#{identity.loggedIn}"/>
+        <h:commandLink value="Login" action="loadLogin" rendered="#{not identity.loggedIn}"/>
+        <h:commandLink action="#{identity.logout}" value="Logout" rendered="#{identity.loggedIn}"/>
+    </rich:toolBarGroup>
+</rich:toolBar>
+</h:form>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:usergroup="http://www.escidoc.de/schemas/usergroup/0.5"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="param">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="last-modification-date" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

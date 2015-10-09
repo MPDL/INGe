@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://qa-coreservice.mpdl.mpg.de/xsl/Resource2Html.xsl"?>
+<escidocComponents:components xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="http://qa-coreservice.mpdl.mpg.de" xlink:type="simple" xlink:title="Components of Item escidoc:2055292" xlink:href="/ir/item/escidoc:2055292/components" last-modification-date="2014-09-02T10:12:53.236Z">
+	
+	<escidocComponents:component xlink:type="simple" xlink:title="Rest_api_doc_AA_PolicyDecisionPoint.1.3.8.pdf" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055300">
+		<escidocComponents:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055300/properties">
+	
+			<prop:creation-date>2014-08-28T09:54:25.112Z</prop:creation-date>
+			<srel:created-by xlink:type="simple" xlink:title="Gudrun Siedersleben" xlink:href="/aa/user-account/escidoc:1505823" />
+	
+	
+			<prop:valid-status>valid</prop:valid-status>
+			<prop:visibility>public</prop:visibility>
+			<prop:pid>hdl:11858/00-001Z-0000-0023-D8A7-9</prop:pid>
+			<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/abstract</prop:content-category>
+			<prop:file-name>Rest_api_doc_AA_PolicyDecisionPoint.1.3.8.pdf</prop:file-name>
+			<prop:mime-type>application/pdf</prop:mime-type>
+			<prop:checksum>ebdd08dc647876930544215fb163d796</prop:checksum>
+			<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+		</escidocComponents:properties>
+		<escidocComponents:content xlink:type="simple" xlink:title="Rest_api_doc_AA_PolicyDecisionPoint.1.3.8.pdf" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055300/content" storage="internal-managed"/>
+		<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Component escidoc:2055300" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055300/md-records">
+			<escidocMetadataRecords:md-record name="escidoc" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055300/md-records/md-record/escidoc">
+				<file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Rest_api_doc_AA_PolicyDecisionPoint.1.3.8.pdf</dc:title>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
+					<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf</dc:format>
+					<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">250923</dcterms:extent>
+					<dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:dateCopyrighted>
+					<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:rights>
+					<dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:license>
+				</file:file>
+			</escidocMetadataRecords:md-record>
+
+		</escidocMetadataRecords:md-records>
+	</escidocComponents:component>
+	<escidocComponents:component xlink:type="simple" xlink:title="http://google.de" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055291">
+		<escidocComponents:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055291/properties">
+	
+			<prop:creation-date>2014-08-28T08:59:50.771Z</prop:creation-date>
+			<srel:created-by xlink:type="simple" xlink:title="Gudrun Siedersleben" xlink:href="/aa/user-account/escidoc:1505823" />
+	
+	
+			<prop:valid-status>valid</prop:valid-status>
+			<prop:visibility>public</prop:visibility>
+	
+			<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</prop:content-category>
+			<prop:file-name>http://google.de</prop:file-name>
+			<prop:mime-type>application/octet-stream</prop:mime-type>
+			<prop:checksum>8f998ac0d5933b5669f8f7a46aa51c35</prop:checksum>
+			<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+		</escidocComponents:properties>
+		<escidocComponents:content xlink:type="simple" xlink:title="http://google.de" xlink:href="http://google.de" storage="external-url"/>
+		<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Component escidoc:2055291" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055291/md-records">
+			<escidocMetadataRecords:md-record name="escidoc" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:2055292/components/component/escidoc:2055291/md-records/md-record/escidoc">
+				<file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">http://google.de</dc:title>
+					<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">11</dcterms:extent>
+				</file:file>
+			</escidocMetadataRecords:md-record>
+
+		</escidocMetadataRecords:md-records>
+	</escidocComponents:component>
+	
+</escidocComponents:components>
+
+

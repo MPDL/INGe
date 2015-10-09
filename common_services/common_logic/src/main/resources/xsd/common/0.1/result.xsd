@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		Return value of all task oriented methods. Changes applied to this
+		schema: - initial version
+	-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/result/0.1"
+	xmlns:result="http://www.escidoc.de/schemas/result/0.1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="result">
+		<xs:annotation>
+			<xs:documentation>
+				Return value of task methods.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any maxOccurs="unbounded" minOccurs="0" processContents="skip" />
+			</xs:sequence>
+			<xs:attribute name="last-modification-date" type="xs:dateTime"
+				use="optional" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

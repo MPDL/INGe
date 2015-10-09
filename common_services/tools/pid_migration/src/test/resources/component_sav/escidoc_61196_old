@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd" PID="escidoc:61196">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="component escidoc:61196"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2009-04-02T08:19:33.434Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2009-08-31T14:33:38.577Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2009-04-02T08:19:33.434Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:19:33.434Z</audit:date>
+<audit:justification>test</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>content</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:20:24.376Z</audit:date>
+<audit:justification>Modified by reference.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:20:24.516Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:20:24.643Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>content</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:36:53.258Z</audit:date>
+<audit:justification>Modified by reference.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:36:53.437Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:36:53.590Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:41:03.163Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:41:03.281Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>content</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:52:57.224Z</audit:date>
+<audit:justification>Modified by reference.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:52:57.389Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-04-02T08:52:57.523Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>content</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:26:17.809Z</audit:date>
+<audit:justification>Modified by reference.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:26:17.983Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:26:18.124Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:26:19.510Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:26:19.644Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>content</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:27:13.861Z</audit:date>
+<audit:justification>Modified by reference.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>content</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2009-08-31T14:33:38.577Z</audit:date>
+<audit:justification>Modified by reference.</audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2009-04-02T08:19:33.446Z" MIMETYPE="text/xml" SIZE="969">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+					<rdf:Description rdf:about="info:fedora/escidoc:61196">
+						<system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+						<prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+						<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+						<prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+						<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael </prop:created-by-title>
+												<prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+												
+												<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+					</rdf:Description>
+				</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2009-04-02T08:20:24.516Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2009-04-02T08:20:24.643Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="" CREATED="2009-04-02T08:36:53.437Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="" CREATED="2009-04-02T08:36:53.590Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="" CREATED="2009-04-02T08:41:03.163Z" MIMETYPE="text/xml" SIZE="1007">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:61195</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="" CREATED="2009-04-02T08:41:03.281Z" MIMETYPE="text/xml" SIZE="1007">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:someHandle/test/escidoc:61195</prop:pid>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="" CREATED="2009-04-02T08:52:57.389Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="" CREATED="2009-04-02T08:52:57.523Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.0</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="" CREATED="2009-08-31T14:26:19.510Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.1</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="" CREATED="2009-08-31T14:26:19.644Z" MIMETYPE="text/xml" SIZE="919">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:61196">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.1</system:build>
+    <prop:content-category xmlns:prop="http://escidoc.de/core/01/properties/">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:53371"/>
+    <prop:visibility xmlns:prop="http://escidoc.de/core/01/properties/">public</prop:visibility>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dunn, Michael</prop:created-by-title>
+    <prop:valid-status xmlns:prop="http://escidoc.de/core/01/properties/">valid</prop:valid-status>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Component"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content" STATE="A" CONTROL_GROUP="R" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content.0" LABEL="" CREATED="2009-04-02T08:19:33.446Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content.1" LABEL="" CREATED="2009-04-02T08:20:24.376Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content.2" LABEL="" CREATED="2009-04-02T08:36:53.258Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content.3" LABEL="" CREATED="2009-04-02T08:52:57.224Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content.4" LABEL="" CREATED="2009-08-31T14:26:17.809Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content.5" LABEL="" CREATED="2009-08-31T14:27:13.861Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="content.6" LABEL="" CREATED="2009-08-31T14:33:38.577Z" MIMETYPE="application/octet-stream">
+<foxml:contentLocation TYPE="URL" REF="http://dx.doi.org/10.1016/j.lingua.2007.10.026"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2009-04-02T08:19:33.446Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="317">
+<foxml:xmlContent>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">http://dx.doi.org/10.1016/j.lingua.2007.10.026</dc:title>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+          </file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2009-08-31T14:26:18.124Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="533">
+<foxml:xmlContent>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">http://dx.doi.org/10.1016/j.lingua.2007.10.026</dc:title>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"/>
+</file>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2009-04-02T08:19:33.446Z" MIMETYPE="text/xml" SIZE="448">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>http://dx.doi.org/10.1016/j.lingua.2007.10.026</dc:title>
+<dc:description/>
+<dc:identifier>escidoc:61196</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="" CREATED="2009-08-31T14:26:17.983Z" MIMETYPE="text/xml" SIZE="509">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>http://dx.doi.org/10.1016/j.lingua.2007.10.026</dc:title>
+<dc:description/>
+<dc:identifier>escidoc:61196</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

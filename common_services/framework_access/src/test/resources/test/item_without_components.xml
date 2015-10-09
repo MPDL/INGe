@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+    xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:components="http://www.escidoc.de/schemas/components/0.3"
+    xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../common_logic/misc/xsd/soap/item/0.3/item.xsd">
+    <item:properties>
+        <item:context objid="escidoc:persistent3" />
+        <item:content-model objid="escidoc:persistent4" />
+        <item:content-model-specific>
+            <anything />
+        </item:content-model-specific>
+    </item:properties>
+    <md-records:md-records>
+        <md-records:md-record name="escidoc">
+            <md-profile-escidoc:publication xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+                <publication:creator role="artist">
+                    <escidoc:organization>
+                        <escidoc:organization-name xml:lang="fr">Department of Physics, University of Californiay</escidoc:organization-name>
+                        <escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
+                        <escidoc:identifier xsi:type="eidt:ESCIDOC">P4711</escidoc:identifier>
+                    </escidoc:organization>
+                </publication:creator>
+                <dc:title xml:lang="fr">Observation of inertial energy cascade in interplanetary space plasma</dc:title>
+                <dc:language xml:lang="fr">German</dc:language>
+                <dcterms:alternative xml:lang="jp">Direct evidence for the presence of an inertial energy cascade</dcterms:alternative>
+                <dc:identifier xsi:type="eidt:ISSN">0361-526X</dc:identifier>
+                <publication:publishing-info>
+                    <dc:publisher xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+                    <escidoc:place>Universita della Calabria</escidoc:place>
+                    <escidoc:edition>2.</escidoc:edition>
+                </publication:publishing-info>
+                <dcterms:created>2007-07-17</dcterms:created>
+                <dcterms:modified>2008-08-17</dcterms:modified>
+                <dcterms:dateSubmitted>2009-09-17</dcterms:dateSubmitted>
+                <dcterms:issued>2010-10-17</dcterms:issued>
+                <publication:review-method>peer</publication:review-method>
+                <publication:source>
+                    <dc:title xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+                    <dcterms:alternative xml:lang="fr">Relevant issue for spacecrafts and communication satellites operations</dcterms:alternative>
+                    <escidoc:creator role="transcriber">
+                        <escidoc:person>
+                            <escidoc:complete-name xml:lang="fr">Miklos Csuros</escidoc:complete-name>
+                            <escidoc:family-name xml:lang="fr">Csuros</escidoc:family-name>
+                            <escidoc:given-name xml:lang="jp">Miklos</escidoc:given-name>
+                            <escidoc:alternative-name xml:lang="jp">Mike</escidoc:alternative-name>
+                            <escidoc:alternative-name xml:lang="fr">Csu</escidoc:alternative-name>
+                            <escidoc:person-title xml:lang="fr">Earl</escidoc:person-title>
+                            <escidoc:person-title xml:lang="fr">Majesty</escidoc:person-title>
+                            <escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
+                            <escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+                            <escidoc:organization>
+                                <escidoc:organization-name xml:lang="fr">Facultad de Ciencias</escidoc:organization-name>
+                                <escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
+                                <escidoc:identifier xsi:type="eidt:ESCIDOC">ASG 2233-3</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name xml:lang="it">Instituta Geometra y Topologa</escidoc:organization-name>
+                                <escidoc:address>Placo Dominico, Madrid</escidoc:address>
+                                <escidoc:identifier xsi:type="eidt:ESCIDOC">IOP 998</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:identifier xsi:type="eidt:PND">HJKS 1-23-24434</escidoc:identifier>
+                        </escidoc:person>
+                    </escidoc:creator>
+                    <escidoc:volume>2.</escidoc:volume>
+                    <escidoc:issue>9.</escidoc:issue>
+                    <escidoc:start-page>302</escidoc:start-page>
+                    <escidoc:end-page>678</escidoc:end-page>
+                    <escidoc:sequence-number>444</escidoc:sequence-number>
+                    <escidoc:publishing-info>
+                        <dc:publisher xml:lang="de">University of Pittsburgh</dc:publisher>
+                        <escidoc:place>Pittsburgh</escidoc:place>
+                        <escidoc:edition>1.</escidoc:edition>
+                    </escidoc:publishing-info>
+                    <dc:identifier xsi:type="eidt:DOI">2387928 233</dc:identifier>
+                </publication:source>
+                <publication:event>
+                    <dc:title xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+                    <dcterms:alternative xml:lang="fr">text</dcterms:alternative>
+                    <escidoc:start-date>2001-12-17</escidoc:start-date>
+                    <escidoc:end-date>2001-12-17</escidoc:end-date>
+                    <escidoc:place>String</escidoc:place>
+                    <escidoc:invitation-status>invited</escidoc:invitation-status>
+                </publication:event>
+                <publication:total-number-of-pages>899</publication:total-number-of-pages>
+                <publication:degree>diploma</publication:degree>
+                <dcterms:abstract xml:lang="fr">
+                    We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the category of unbounded complexes of quasi-coherent sheaves over the projective line.
+                    Concretely we will define a locally projective model structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects are the dg-locally projective
+                    complexes. We also describe the fibrations of this model structure and show that the model structure is monoidal. We point out that this model structure is necessarily different from others model structures known until
+                    now, like the injective model structure and the locally free model structure.
+                </dcterms:abstract>
+                <dc:subject xml:lang="fr">Estimators for local non-Gaussianities</dc:subject>
+                <dcterms:tableOfContents xml:lang="fr">
+                    Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis (Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000)
+                    and apozygoty (Khokhlov, 1967) are also used to designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al., 2004). There are classifications for
+                    ways of reproduction considering the cytoembryological origin of cell entering embryogenesis (Gustafsson, 1946, 1947). The genetic classification considering the cell genome transformation before entering embryogenesis
+                    was suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic agamospermy are distinguished.
+                </dcterms:tableOfContents>
+                <publication:location xml:lang="fr">Novosibirsk, Russia</publication:location>
+            </md-profile-escidoc:publication>
+        </md-records:md-record>
+    </md-records:md-records>
+</item:item>

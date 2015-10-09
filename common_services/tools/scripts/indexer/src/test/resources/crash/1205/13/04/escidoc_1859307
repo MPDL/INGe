@@ -1,0 +1,1470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:1859307"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Item escidoc:1859307"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-12-05T12:04:54.442Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-12-05T12:50:51.235Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2013-12-05T12:04:54.442Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:04:54.442Z</audit:date>
+<audit:justification>eSciDoc object created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:04:54.534Z</audit:date>
+<audit:justification>created</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:04:54.578Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:05:20.146Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:05:20.179Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:05:20.318Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:40.328Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:40.398Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:42.632Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:42.735Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:42.833Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:42.908Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:47.980Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:48.016Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:48.155Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:49.262Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:49.350Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:49.409Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:50.183Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID></audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:50.413Z</audit:date>
+<audit:justification>touched</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:50.489Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:50.605Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:50.650Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:51.139Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>version-history</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:51.178Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC26">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2013-12-05T12:50:51.235Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content-model-specific" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content-model-specific.0" LABEL="" CREATED="2013-12-05T12:04:54.466Z" MIMETYPE="text/xml" SIZE="149">
+<foxml:xmlContent>
+<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags></local-tags>
+    </prop:content-model-specific>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true"><foxml:datastreamVersion ID="DC.0" LABEL="" CREATED="2013-12-05T12:04:54.468Z" MIMETYPE="text/xml" SIZE="3795" >
+<foxml:xmlContent><oai_dc:dc xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:xsiDummy="http://www.w3.org/2001/XMLSchema-instance" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:javaUtil="java:de.mpg.escidoc.services.foxml.foxml_transformation_service.transformation.XslUtil" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xsiDummy:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"><dc:type>info:eu-repo/semantics/article</dc:type><dc:creator>Kreim, S.</dc:creator><dc:creator>Atanasov, D.</dc:creator><dc:creator>Beck, D.</dc:creator><dc:creator>Blaum, K.</dc:creator><dc:creator>Böhm, C.</dc:creator><dc:creator>Borgmann, C.</dc:creator><dc:creator>Breitenfeldt, M.</dc:creator><dc:creator>Cocolios, T.</dc:creator><dc:creator>Fink, D.</dc:creator><dc:creator>George, S.</dc:creator><dc:creator>Herlert, A.</dc:creator><dc:creator>Kellerbauer, A.</dc:creator><dc:creator>Köster, U.</dc:creator><dc:creator>Kowalska, M.</dc:creator><dc:creator>Lunney, D.</dc:creator><dc:creator>Manea, V.</dc:creator><dc:creator>Ramirez, E.</dc:creator><dc:creator>Naimi, S.</dc:creator><dc:creator>Neidherr, D.</dc:creator><dc:creator>Nicol, T.</dc:creator><dc:creator>Rossel, R.</dc:creator><dc:creator>Rosenbusch, M.</dc:creator><dc:creator>Schweikhard, L.</dc:creator><dc:creator>Stanja, J.</dc:creator><dc:creator>Wienholtz, F.</dc:creator><dc:creator>Wolf, R.</dc:creator><dc:creator>Zuber, K.</dc:creator><dc:title>Recent exploits of the ISOLTRAP mass spectrometer</dc:title><dc:language>eng</dc:language><dc:identifier>escidoc:1859307</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0014-BF8E-3</dc:identifier><dc:identifier>http://hdl.handle.net/11858/00-001M-0000-0014-BF90-C</dc:identifier><dc:date>2013-12-15</dc:date><dc:relation>info:eu-repo/grantAgreement///</dc:relation><dc:relation>info:eu-repo/semantics/altIdentifier/doi/10.1016/j.nimb.2013.07.072</dc:relation><dc:description>The Penning-trap mass spectrometer ISOLTRAP, located at the isotope-separator facility ISOLDE (CERN), is presented in its current form taking into account technical developments since 2007. Three areas of developments are presented. The reference ion sources have been modified to guarantee a sufficient supply of reference ions for mass measurements and systematic studies. Different excitation schemes have been investigated for manipulation of the ion motion in the Penning trap, to enhance either the purification or measurement process. A multi-reflection time-of-flight mass separator has been implemented and can now be routinely used for purification and as a versatile tool for beam analysis.</dc:description><dc:rights>info:eu-repo/semantics/openAccess</dc:rights></oai_dc:dc>
+</foxml:xmlContent></foxml:datastreamVersion></foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="md-record" CREATED="2013-12-05T12:04:54.468Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="30575">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Kreim</eterms:family-name>
+            <eterms:given-name>Susanne Waltraud</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CERN</dc:title>
+              <eterms:address>CH-1211 Geneva, Switzerland</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30722</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Atanasov</eterms:family-name>
+            <eterms:given-name>Dinko</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons104736</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Beck</eterms:family-name>
+            <eterms:given-name>D.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GSI Helmholtzzentrum für Schwerionenforschung GmbH</dc:title>
+              <eterms:address>64291 Darmstadt, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Blaum</eterms:family-name>
+            <eterms:given-name>Klaus</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30312</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Böhm</eterms:family-name>
+            <eterms:given-name>Christine</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30319</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Borgmann</eterms:family-name>
+            <eterms:given-name>Christopher</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30324</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Breitenfeldt</eterms:family-name>
+            <eterms:given-name>M.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">KU Leuven</dc:title>
+              <eterms:address>3001 Leuven, Belgium</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Cocolios</eterms:family-name>
+            <eterms:given-name>T.E.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CERN</dc:title>
+              <eterms:address>CH-1211 Geneva, Switzerland</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">University of Manchester</dc:title>
+              <eterms:address>Manchester M13 9PL, United Kingdom</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Fink</eterms:family-name>
+            <eterms:given-name>Daniel</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Fakultät für Physik und Astronomie, Ruprecht-Karls-Universität,</dc:title>
+              <eterms:address>69120 Heidelberg, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30467</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>George</eterms:family-name>
+            <eterms:given-name>Sebastian</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30508</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Herlert</eterms:family-name>
+            <eterms:given-name>A.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">FAIR GmbH</dc:title>      
+        <eterms:address>64291 Darmstadt, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Kellerbauer</eterms:family-name>
+            <eterms:given-name>Alban</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Alban Kellerbauer - Emmy Noether Junior Research Group, Junior Research Groups, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:907551</dc:identifier>
+            </organization:organization>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30661</dc:identifier>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Köster</eterms:family-name>
+            <eterms:given-name>U.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut Laue Langevin</dc:title>
+              <eterms:address>38042 Grenoble, France</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Kowalska</eterms:family-name>
+            <eterms:given-name>M.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CERN</dc:title>
+              <eterms:address>CH-1211 Geneva, Switzerland</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Lunney</eterms:family-name>
+            <eterms:given-name>D.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CSNSM-IN2P3-CNRS, Université Paris-Sud</dc:title>
+              <eterms:address>91406 Orsay, France</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Manea</eterms:family-name>
+            <eterms:given-name>V.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CSNSM-IN2P3-CNRS, Université Paris-Sud</dc:title>
+              <eterms:address>91406 Orsay, France</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Ramirez</eterms:family-name>
+            <eterms:given-name>E. Minaya</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GSI Helmholtzzentrum für Schwerionenforschung GmbH</dc:title>
+              <eterms:address>64291 Darmstadt, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Helmholtz-Institut Mainz</dc:title>
+              <eterms:address>55099 Mainz, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Naimi</eterms:family-name>
+            <eterms:given-name>S.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+              <eterms:address></eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Neidherr</eterms:family-name>
+            <eterms:given-name>D.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GSI Helmholtzzentrum für Schwerionenforschung GmbH</dc:title>
+              <eterms:address>64291 Darmstadt, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Nicol</eterms:family-name>
+            <eterms:given-name>T.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">ENSICAEN</dc:title>
+              <eterms:address>14 14000 Caen, France000 Caen, France</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Rossel</eterms:family-name>
+            <eterms:given-name>R.E.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Johannes Gutenberg-Universität</dc:title>
+              <eterms:address> Mainz, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Hochschule RheinMain, Fachbereich Design Informatik Medien</dc:title>
+              <eterms:address>D-65197 Wiesbaden, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Rosenbusch</eterms:family-name>
+            <eterms:given-name>M.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+              <eterms:address>17487 Greifswald, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Schweikhard</eterms:family-name>
+            <eterms:given-name>L.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+              <eterms:address>17487 Greifswald, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Stanja</eterms:family-name>
+            <eterms:given-name>J.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Technische Universität Dresden</dc:title>
+              <eterms:address>01069 Dresden, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Wienholtz</eterms:family-name>
+            <eterms:given-name>F.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+              <eterms:address>17487 Greifswald, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Wolf</eterms:family-name>
+            <eterms:given-name>R.N.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+              <eterms:address>17487 Greifswald, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <eterms:family-name>Zuber</eterms:family-name>
+            <eterms:given-name>K.</eterms:given-name>
+            <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+              <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Technische Universität Dresden</dc:title>
+              <eterms:address>01069 Dresden, Germany</eterms:address>
+              <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </eterms:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Recent exploits of the ISOLTRAP mass spectrometer</dc:title>
+        <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:ISO639-3">eng</dc:language>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:DOI">10.1016/j.nimb.2013.07.072</dc:identifier>
+        <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013-12-15</dcterms:issued>
+        <eterms:review-method xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+        <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms</dc:title>
+          <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:volume>
+          <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">317</eterms:issue>
+          <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">492</eterms:start-page>
+          <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">500</eterms:end-page>
+          <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+          <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+          <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">North-Holland</dc:publisher>
+            <eterms:place>Amsterdam</eterms:place>
+          </eterms:publishing-info>
+          <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:ISSN">0168-583X</dc:identifier>
+          <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/954925484704</dc:identifier>
+        </source:source>
+        <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">9</eterms:total-number-of-pages>
+        <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+      </publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="md-record" CREATED="2013-12-05T12:50:40.398Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="29240">
+<foxml:xmlContent>
+<publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Kreim</eterms:family-name>
+      <eterms:given-name>Susanne Waltraud</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CERN</dc:title>
+        <eterms:address>CH-1211 Geneva, Switzerland</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30722</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Atanasov</eterms:family-name>
+      <eterms:given-name>Dinko</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons104736</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Beck</eterms:family-name>
+      <eterms:given-name>D.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GSI Helmholtzzentrum für Schwerionenforschung GmbH</dc:title>
+        <eterms:address>64291 Darmstadt, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Blaum</eterms:family-name>
+      <eterms:given-name>Klaus</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30312</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Böhm</eterms:family-name>
+      <eterms:given-name>Christine</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30319</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Borgmann</eterms:family-name>
+      <eterms:given-name>Christopher</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30324</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Breitenfeldt</eterms:family-name>
+      <eterms:given-name>M.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">KU Leuven</dc:title>
+        <eterms:address>3001 Leuven, Belgium</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Cocolios</eterms:family-name>
+      <eterms:given-name>T.E.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CERN</dc:title>
+        <eterms:address>CH-1211 Geneva, Switzerland</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">University of Manchester</dc:title>
+        <eterms:address>Manchester M13 9PL, United Kingdom</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Fink</eterms:family-name>
+      <eterms:given-name>Daniel</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Fakultät für Physik und Astronomie, Ruprecht-Karls-Universität,</dc:title>
+        <eterms:address>69120 Heidelberg, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30467</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>George</eterms:family-name>
+      <eterms:given-name>Sebastian</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30508</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Herlert</eterms:family-name>
+      <eterms:given-name>A.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">FAIR GmbH</dc:title>
+        <eterms:address>64291 Darmstadt, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Kellerbauer</eterms:family-name>
+      <eterms:given-name>Alban</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Alban Kellerbauer - Emmy Noether Junior Research Group, Junior Research Groups, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:907551</dc:identifier>
+      </organization:organization>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons30661</dc:identifier>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Köster</eterms:family-name>
+      <eterms:given-name>U.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut Laue Langevin</dc:title>
+        <eterms:address>38042 Grenoble, France</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Kowalska</eterms:family-name>
+      <eterms:given-name>M.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CERN</dc:title>
+        <eterms:address>CH-1211 Geneva, Switzerland</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Lunney</eterms:family-name>
+      <eterms:given-name>D.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CSNSM-IN2P3-CNRS, Université Paris-Sud</dc:title>
+        <eterms:address>91406 Orsay, France</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Manea</eterms:family-name>
+      <eterms:given-name>V.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">CSNSM-IN2P3-CNRS, Université Paris-Sud</dc:title>
+        <eterms:address>91406 Orsay, France</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Ramirez</eterms:family-name>
+      <eterms:given-name>E. Minaya</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GSI Helmholtzzentrum für Schwerionenforschung GmbH</dc:title>
+        <eterms:address>64291 Darmstadt, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Helmholtz-Institut Mainz</dc:title>
+        <eterms:address>55099 Mainz, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Naimi</eterms:family-name>
+      <eterms:given-name>S.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Division Prof. Dr. Klaus Blaum, MPI for Nuclear Physics, Max Planck Society</dc:title>
+        <eterms:address></eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:904548</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Neidherr</eterms:family-name>
+      <eterms:given-name>D.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GSI Helmholtzzentrum für Schwerionenforschung GmbH</dc:title>
+        <eterms:address>64291 Darmstadt, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Nicol</eterms:family-name>
+      <eterms:given-name>T.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">ENSICAEN</dc:title>
+        <eterms:address>14 14000 Caen, France000 Caen, France</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Rossel</eterms:family-name>
+      <eterms:given-name>R.E.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Johannes Gutenberg-Universität</dc:title>
+        <eterms:address> Mainz, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Hochschule RheinMain, Fachbereich Design Informatik Medien</dc:title>
+        <eterms:address>D-65197 Wiesbaden, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Rosenbusch</eterms:family-name>
+      <eterms:given-name>M.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+        <eterms:address>17487 Greifswald, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Schweikhard</eterms:family-name>
+      <eterms:given-name>L.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+        <eterms:address>17487 Greifswald, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Stanja</eterms:family-name>
+      <eterms:given-name>J.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Technische Universität Dresden</dc:title>
+        <eterms:address>01069 Dresden, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Wienholtz</eterms:family-name>
+      <eterms:given-name>F.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+        <eterms:address>17487 Greifswald, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Wolf</eterms:family-name>
+      <eterms:given-name>R.N.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Institut für Physik, Ernst-Moritz-Arndt-Universität</dc:title>
+        <eterms:address>17487 Greifswald, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+    <person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+      <eterms:family-name>Zuber</eterms:family-name>
+      <eterms:given-name>K.</eterms:given-name>
+      <organization:organization xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Technische Universität Dresden</dc:title>
+        <eterms:address>01069 Dresden, Germany</eterms:address>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22</dc:identifier>
+      </organization:organization>
+    </person:person>
+  </eterms:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Recent exploits of the ISOLTRAP mass spectrometer</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:ISO639-3">eng</dc:language>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:DOI">10.1016/j.nimb.2013.07.072</dc:identifier>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2013-12-15</dcterms:issued>
+  <eterms:review-method xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+  <source:source xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms</dc:title>
+    <eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">317</eterms:volume>
+    <eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Part B</eterms:issue>
+    <eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">492</eterms:start-page>
+    <eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">500</eterms:end-page>
+    <eterms:sequence-number xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+    <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+    <eterms:publishing-info xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">North-Holland</dc:publisher>
+      <eterms:place>Amsterdam</eterms:place>
+    </eterms:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISSN">0168-583X</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/954925484704</dc:identifier>
+  </source:source>
+  <eterms:total-number-of-pages xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">9</eterms:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">The Penning-trap mass spectrometer ISOLTRAP, located at the isotope-separator facility ISOLDE (CERN), is presented in its current form taking into account technical developments since 2007. Three areas of developments are presented. The reference ion sources have been modified to guarantee a sufficient supply of reference ions for mass measurements and systematic studies. Different excitation schemes have been investigated for manipulation of the ion motion in the Penning trap, to enhance either the purification or measurement process. A multi-reflection time-of-flight mass separator has been implemented and can now be routinely used for purification and as a versatile tool for beam analysis.</dcterms:abstract>
+  <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</publication:publication>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2013-12-05T12:04:54.468Z" MIMETYPE="text/xml" SIZE="1670">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:system="http://escidoc.de/core/01/system/">
+<rdf:Description rdf:about="info:fedora/escidoc:1859307">
+<system:build>1.3.9</system:build>
+<prop:context-title>Publications of the MPI for Nuclear Physics</prop:context-title>
+<prop:public-status>pending</prop:public-status>
+<prop:public-status-comment>Object created.</prop:public-status-comment>
+<prop:content-model-title>ct</prop:content-model-title>
+<prop:modified-by-title>Dücker, Gertraud</prop:modified-by-title>
+<prop:created-by-title>Dücker, Gertraud</prop:created-by-title>
+<srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+<fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+<srel:created-by rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+<srel:modified-by rdf:resource="info:fedora/escidoc:931600"></srel:modified-by>
+<srel:context rdf:resource="info:fedora/escidoc:924563"></srel:context>
+<version:comment>Object created.</version:comment>
+<version:status>pending</version:status>
+<version:date>---</version:date><version:number>1</version:number>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:04:54.578Z" MIMETYPE="text/xml" SIZE="1764">
+<foxml:xmlContent>
+<rdf:RDF xmlns:origin="http://escidoc.de/core/01/structural-relations/origin/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <system:build>1.3.9</system:build>
+    <prop:context-title>Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status>pending</prop:public-status>
+    <prop:public-status-comment>Object created.</prop:public-status-comment>
+    <prop:content-model-title>ct</prop:content-model-title>
+    <prop:modified-by-title>Dücker, Gertraud</prop:modified-by-title>
+    <prop:created-by-title>Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:931600"></srel:modified-by>
+    <srel:context rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment>Object created.</version:comment>
+    <version:status>pending</version:status>
+    <version:date>2013-12-05T12:04:54.468Z</version:date>
+    <version:number>1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:05:20.146Z" MIMETYPE="text/xml" SIZE="2317">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:04:54.468Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:05:20.318Z" MIMETYPE="text/xml" SIZE="2317">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:05:20.146Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">1</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:42.735Z" MIMETYPE="text/xml" SIZE="2405">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:05:20.146Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:42.908Z" MIMETYPE="text/xml" SIZE="2405">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:42.735Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:47.980Z" MIMETYPE="text/xml" SIZE="2516">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:42.735Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:48.155Z" MIMETYPE="text/xml" SIZE="2516">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:47.980Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:49.262Z" MIMETYPE="text/xml" SIZE="2644">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF8F-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:47.980Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:49.409Z" MIMETYPE="text/xml" SIZE="2644">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF8F-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:49.262Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:50.489Z" MIMETYPE="text/xml" SIZE="2644">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF8F-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:49.262Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:50.650Z" MIMETYPE="text/xml" SIZE="2644">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF8F-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">submitted</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/">Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/">ItemHandler.update()</version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">submitted</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:50.489Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:51.139Z" MIMETYPE="text/xml" SIZE="2881">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF8F-1</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF8F-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:1859316"></srel:component>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"></prop:public-status-comment>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent4"></srel:content-model>
+    <fs:hasModel xmlns:fs="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/escidoc:persistent4"></fs:hasModel>
+    <srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931600"></srel:created-by>
+    <srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:931580"></srel:modified-by>
+    <srel:context xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:924563"></srel:context>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"></version:comment>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:50.489Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"></rdf:type>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">---</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="RELS_EXT DATASTREAM" CREATED="2013-12-05T12:50:51.235Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/escidoc:1859307">
+    <release:pid xmlns:release="http://escidoc.de/core/01/properties/release/">hdl:11858/00-001M-0000-0014-BF8F-1</release:pid>
+    <version:pid xmlns:version="http://escidoc.de/core/01/properties/version/">hdl:11858/00-001M-0000-0014-BF8F-1</version:pid>
+    <prop:pid xmlns:prop="http://escidoc.de/core/01/properties/">hdl:11858/00-001M-0000-0014-BF8E-3</prop:pid>
+    <srel:component rdf:resource="info:fedora/escidoc:1859316" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <system:build xmlns:system="http://escidoc.de/core/01/system/">1.3.9</system:build>
+    <prop:context-title xmlns:prop="http://escidoc.de/core/01/properties/">Publications of the MPI for Nuclear Physics</prop:context-title>
+    <prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">released</prop:public-status>
+    <prop:public-status-comment xmlns:prop="http://escidoc.de/core/01/properties/"/>
+    <prop:content-model-title xmlns:prop="http://escidoc.de/core/01/properties/">ct</prop:content-model-title>
+    <prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Vogt, Gernot</prop:modified-by-title>
+    <prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">Dücker, Gertraud</prop:created-by-title>
+    <srel:content-model rdf:resource="info:fedora/escidoc:persistent4" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <fs:hasModel rdf:resource="info:fedora/escidoc:persistent4" xmlns:fs="info:fedora/fedora-system:def/model#"/>
+    <srel:created-by rdf:resource="info:fedora/escidoc:931600" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:931580" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <srel:context rdf:resource="info:fedora/escidoc:924563" xmlns:srel="http://escidoc.de/core/01/structural-relations/"/>
+    <version:comment xmlns:version="http://escidoc.de/core/01/properties/version/"/>
+    <version:status xmlns:version="http://escidoc.de/core/01/properties/version/">released</version:status>
+    <version:date xmlns:version="http://escidoc.de/core/01/properties/version/">2013-12-05T12:50:51.139Z</version:date>
+    <version:number xmlns:version="http://escidoc.de/core/01/properties/version/">2</version:number>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Item"/>
+    <release:number xmlns:release="http://escidoc.de/core/01/properties/release/">2</release:number>
+    <release:date xmlns:release="http://escidoc.de/core/01/properties/release/">2013-12-05T12:50:51.139Z</release:date>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="version-history" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="version-history.6" LABEL="whole object versioning datastream" CREATED="2013-12-05T12:50:51.178Z" MIMETYPE="text/xml" SIZE="9110">
+<foxml:xmlContent>
+<escidocVersions:version-history xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859307:2" timestamp="2013-12-05T12:50:42.735Z" xlink:href="/ir/item/escidoc:1859307:2" xlink:title="Version 2" xlink:type="simple">
+    <escidocVersions:pid timestamp="2013-12-05T12:50:48.155Z" user="escidoc:931580">hdl:11858/00-001M-0000-0014-BF8F-1</escidocVersions:pid>
+    <escidocVersions:version-number>2</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-12-05T12:50:51.139Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>released</escidocVersions:version-status>
+    <escidocVersions:comment></escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386247851085">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859307/resources/version-history#v2e1386247851085</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>released</premis:eventType>
+        <premis:eventDateTime>2013-12-05T12:50:51.139Z</premis:eventDateTime>
+        <premis:eventDetail></premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:931580" xlink:title="Vogt, Gernot" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:931580</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859307</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386247849196">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859307/resources/version-history#v2e1386247849196</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignVersionPid</premis:eventType>
+        <premis:eventDateTime>2013-12-05T12:50:48.155Z</premis:eventDateTime>
+        <premis:eventDetail>versionPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:931580" xlink:title="Vogt, Gernot" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:931580</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859307</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386247847940">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859307/resources/version-history#v2e1386247847940</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>assignObjectPid</premis:eventType>
+        <premis:eventDateTime>2013-12-05T12:50:42.908Z</premis:eventDateTime>
+        <premis:eventDetail>objectPid assigned</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:931580" xlink:title="Vogt, Gernot" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>        
+  <premis:linkingAgentIdentifierValue>escidoc:931580</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859307</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1386247842628">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859307/resources/version-history#v2e1386247842628</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>update</premis:eventType>
+        <premis:eventDateTime>2013-12-05T12:50:42.735Z</premis:eventDateTime>
+        <premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:931580" xlink:title="Vogt, Gernot" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:931580</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859307</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+  <escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1859307:1" timestamp="2013-12-05T12:04:54.468Z" xlink:href="/ir/item/escidoc:1859307:1" xlink:title="Item escidoc:1859307" xlink:type="simple">
+    <escidocVersions:version-number>1</escidocVersions:version-number>
+    <escidocVersions:timestamp>2013-12-05T12:05:20.146Z</escidocVersions:timestamp>
+    <escidocVersions:version-status>submitted</escidocVersions:version-status>
+    <escidocVersions:comment>Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</escidocVersions:comment>
+    <escidocVersions:events>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386245120132">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859307/resources/version-history#v1e1386245120132</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>submitted</premis:eventType>
+        <premis:eventDateTime>2013-12-05T12:05:20.146Z</premis:eventDateTime>
+        <premis:eventDetail>Sarah Naimi wurde noch nicht als Abteilungsmitglied aufgenommen. G.D.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:931600" xlink:title="Dücker, Gertraud" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:931600</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859307</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+      <premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1386245094519">
+        <premis:eventIdentifier>
+          <premis:eventIdentifierType>URL</premis:eventIdentifierType>
+          <premis:eventIdentifierValue>/ir/item/escidoc:1859307/resources/version-history#v1e1386245094519</premis:eventIdentifierValue>
+        </premis:eventIdentifier>
+        <premis:eventType>create</premis:eventType>
+        <premis:eventDateTime>2013-12-05T12:04:54.468Z</premis:eventDateTime>
+        <premis:eventDetail>Object created.</premis:eventDetail>
+        <premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:931600" xlink:title="Dücker, Gertraud" xlink:type="simple">
+          <premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+          <premis:linkingAgentIdentifierValue>escidoc:931600</premis:linkingAgentIdentifierValue>
+        </premis:linkingAgentIdentifier>
+        <premis:linkingObjectIdentifier>
+          <premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+          <premis:linkingObjectIdentifierValue>escidoc:1859307</premis:linkingObjectIdentifierValue>
+        </premis:linkingObjectIdentifier>
+      </premis:event>
+    </escidocVersions:events>
+  </escidocVersions:version>
+</escidocVersions:version-history>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

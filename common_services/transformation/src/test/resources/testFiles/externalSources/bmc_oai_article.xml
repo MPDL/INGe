@@ -1,0 +1,3911 @@
+<?xml version="1.0" encoding="UTF-8" ?><OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2010-03-03T14:39:22Z</responseDate><request identifier="oai:biomedcentral.com:1472-6890-9-1" metadataPrefix="bmc_article" verb="GetRecord">http://www.biomedcentral.com/oai/2.0/</request><GetRecord><record><header><identifier>oai:biomedcentral.com:1472-6890-9-1</identifier><datestamp>2009-03-24</datestamp><setSpec>all</setSpec><setSpec>articletype:research</setSpec><setSpec>journalgroup:bmc</setSpec><setSpec>journalgroup:bmcmedicine</setSpec><setSpec>journal:2031</setSpec></header><metadata><art xmlns="http://www.biomedcentral.com/xml/schemas/oai/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.biomedcentral.com/xml/schemas/oai/2.0/ http://www.biomedcentral.com/xml/schemas/oai/2.0/article.xsd" >
+   <ui>1472-6890-9-1</ui>
+   <ji>1472-6890</ji>
+   <fm>
+
+      <dochead>Research article</dochead>
+      <bibl>
+         <title>
+            <p>Molecular analysis of <it>Mycobacterium </it>isolates from extrapulmonary specimens obtained from patients in Mexico</p>
+         </title>
+         <aug>
+            <au ca="yes" id="A1">
+
+               <snm>Alvarado-Esquivel</snm>
+               <fnm>Cosme</fnm>
+               <insr iid="I1"/>
+               <email>alvaradocosme@yahoo.com</email>
+            </au>
+            <au id="A2">
+               <snm>Garc&#237;a-Corral</snm>
+
+               <fnm>Nora</fnm>
+               <insr iid="I2"/>
+               <email>dranoragarcia@hotmail.com</email>
+            </au>
+            <au id="A3">
+               <snm>Carrero-Dominguez</snm>
+               <fnm>David</fnm>
+
+               <insr iid="I3"/>
+               <email>dcarrero355@hotmail.com</email>
+            </au>
+            <au id="A4">
+               <snm>Enciso-Moreno</snm>
+               <mnm>Antonio</mnm>
+               <fnm>Jos&#233;</fnm>
+
+               <insr iid="I4"/>
+               <email>enciso_2000@yahoo.com</email>
+            </au>
+            <au id="A5">
+               <snm>Gurrola-Morales</snm>
+               <fnm>Teodoro</fnm>
+               <insr iid="I5"/>
+
+               <email>teodoro_gurrola@hotmail.com</email>
+            </au>
+            <au id="A6">
+               <snm>Portillo-G&#243;mez</snm>
+               <fnm>Leopoldo</fnm>
+               <insr iid="I6"/>
+               <email>lpgegsi@prodigy.net.mx</email>
+
+            </au>
+            <au id="A7">
+               <snm>Rossau</snm>
+               <fnm>Rudi</fnm>
+               <insr iid="I7"/>
+               <email>Rudi_Rossau@innogenetics.com</email>
+            </au>
+
+            <au id="A8">
+               <snm>Mijs</snm>
+               <fnm>Wouter</fnm>
+               <insr iid="I7"/>
+               <email>Wouter_Mijs@innogenetics.com</email>
+            </au>
+         </aug>
+
+         <insg>
+            <ins id="I1">
+               <p>Department of Microbiology, Faculty of Medicine, Ju&#225;rez University of Durango State, Durango, Mexico</p>
+            </ins>
+            <ins id="I2">
+               <p>Department of Pharmacology, Faculty of Medicine, Ju&#225;rez University of Durango State, Durango, Mexico</p>
+            </ins>
+
+            <ins id="I3">
+               <p>Regional Laboratory of Epidemiological Reference, Mexican Social Security Institute, Guadalajara, Mexico</p>
+            </ins>
+            <ins id="I4">
+               <p>Medical Research Unit, Mexican Social Security Institute, Zacatecas, M&#233;xico</p>
+            </ins>
+            <ins id="I5">
+
+               <p>Department of Pathology, Faculty of Medicine, Ju&#225;rez University of Durango State, Durango, Mexico</p>
+            </ins>
+            <ins id="I6">
+               <p>Department of Microbiology and Parasitology, University Center of Health Sciences, University of Guadalajara, Guadalajara, Mexico</p>
+            </ins>
+            <ins id="I7">
+               <p>R&amp;D Diagnostics, Innogenetics NV, Gent, Belgium</p>
+
+            </ins>
+         </insg>
+         <source>BMC Clinical Pathology</source>
+         <issn>1472-6890</issn>
+         <pubdate>2009</pubdate>
+         <volume>9</volume>
+         <issue>1</issue>
+
+         <fpage>1</fpage>
+         <url>http://www.biomedcentral.com/1472-6890/9/1</url>
+         <xrefbib>
+            <pubidlist>
+               <pubid idtype="pmpid">19272158</pubid>
+               <pubid idtype="doi">10.1186/1472-6890-9-1</pubid>
+            </pubidlist>
+
+         </xrefbib>
+      </bibl>
+      <history>
+         <rec>
+            <date>
+               <day>13</day>
+               <month>7</month>
+               <year>2008</year>
+
+            </date>
+         </rec>
+         <acc>
+            <date>
+               <day>09</day>
+               <month>3</month>
+               <year>2009</year>
+
+            </date>
+         </acc>
+         <pub>
+            <date>
+               <day>09</day>
+               <month>3</month>
+               <year>2009</year>
+
+            </date>
+         </pub>
+      </history>
+      <cpyrt>
+         <year>2009</year>
+         <collab>Alvarado-Esquivel et al; licensee BioMed Central Ltd.</collab>
+         <note>This is an Open Access article distributed under the terms of the Creative Commons Attribution License (<url>http://creativecommons.org/licenses/by/2.0</url>), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</note>
+
+      </cpyrt>
+      <abs>
+         <sec>
+            <st>
+               <p>Abstract</p>
+            </st>
+            <sec>
+               <st>
+
+                  <p>Background</p>
+               </st>
+               <p>Little information is available on the molecular epidemiology in Mexico of <it>Mycobacterium </it>species infecting extrapulmonary sites in humans. This study used molecular methods to determine the <it>Mycobacterium </it>species present in tissues and body fluids in specimens obtained from patients in Mexico with extrapulmonary disease.</p>
+            </sec>
+            <sec>
+               <st>
+
+                  <p>Methods</p>
+               </st>
+               <p>Bacterial or tissue specimens from patients with clinical or histological diagnosis of extrapulmonary tuberculosis were studied. DNA extracts from 30 bacterial cultures grown in L&#246;wenstein Jensen medium and 42 paraffin-embedded tissues were prepared. Bacteria were cultured from urine, cerebrospinal fluid, pericardial fluid, gastric aspirate, or synovial fluid samples. Tissues samples were from lymph nodes, skin, brain, vagina, and peritoneum. The DNA extracts were analyzed by PCR and by line probe assay (INNO-LiPA MYCOBACTERIA v2. Innogenetics NV, Gent, Belgium) in order to identify the <it>Mycobacterium </it>species present. DNA samples positive for <it>M. tuberculosis </it>complex were further analyzed by PCR and line probe assay (INNO-LiPA Rif.TB, Innogenetics NV, Gent, Belgium) to detect mutations in the <it>rpo</it>B gene associated with rifampicin resistance.</p>
+            </sec>
+
+            <sec>
+               <st>
+                  <p>Results</p>
+               </st>
+               <p>Of the 72 DNA extracts, 26 (36.1%) and 23 (31.9%) tested positive for <it>Mycobacterium species </it>by PCR or line probe assay, respectively. In tissues, <it>M. tuberculosis </it>complex and <it>M. genus </it>were found in lymph nodes, and <it>M. genus </it>was found in brain and vagina specimens. In body fluids, <it>M. tuberculosis </it>complex was found in synovial fluid. <it>M. gordonae</it>, <it>M. smegmatis</it>, <it>M. kansasii</it>, <it>M. genus</it>, <it>M. fortuitum/M. peregrinum </it>complex and <it>M. tuberculosis </it>complex were found in urine. <it>M. chelonae/M. abscessus </it>was found in pericardial fluid and <it>M. kansasii </it>was found in gastric aspirate. Two of <it>M. tuberculosis </it>complex isolates were also PCR and LiPA positive for the <it>rpo</it>B gene. These two isolates were from lymph nodes and were sensitive to rifampicin.</p>
+
+            </sec>
+            <sec>
+               <st>
+                  <p>Conclusion</p>
+               </st>
+               <p>1) We describe the <it>Mycobacterium </it>species diversity in specimens derived from extrapulmonary sites in symptomatic patients in Mexico; 2) Nontuberculous mycobacteria were found in a considerable number of patients; 3) Genotypic rifampicin resistance in <it>M. tuberculosis </it>complex infections in lymph nodes was not found.</p>
+
+            </sec>
+         </sec>
+      </abs>
+   </fm>
+   <bdy>
+      <sec>
+         <st>
+            <p>Background</p>
+
+         </st>
+         <p>The genus <it>Mycobacterium </it>has been classified into many species <abbrgrp><abbr bid="B1">1</abbr></abbrgrp>. A group of <it>Mycobacterium </it>species called <it>M. tuberculosis </it>complex that comprise <it>M. tuberculosis</it>, <it>M. bovis</it>, <it>M. microti</it>, and <it>M. africanum </it>is of utmost clinical importance since it causes tuberculosis in humans worldwide <abbrgrp><abbr bid="B2">2</abbr><abbr bid="B3">3</abbr><abbr bid="B4">4</abbr></abbrgrp>. <it>Mycobacterium </it>species other than those of the tuberculosis complex, also called nontuberculous mycobacteria, are widely distributed in the environment and may colonize and occasionally cause infections in humans <abbrgrp><abbr bid="B5">5</abbr><abbr bid="B6">6</abbr><abbr bid="B7">7</abbr></abbrgrp>. Mycobacteria of the <it>M. tuberculosis </it>complex and nontuberculous mycobacteria have been found to cause infections in immunocompetent and immunocompromised subjects and cause pathology in pulmonary and extrapulmonary sites <abbrgrp><abbr bid="B8">8</abbr><abbr bid="B9">9</abbr><abbr bid="B10">10</abbr><abbr bid="B11">11</abbr></abbrgrp>. Most epidemiological studies on mycobacteria have been focused on pulmonary infections, while extrapulmonary infections have been poorly explored. Extrapulmonary tuberculosis accounts for about 10% to 20% of tuberculosis cases in immunocompetent subjects but this frequency increases markedly in immunocompromised subjects <abbrgrp><abbr bid="B12">12</abbr></abbrgrp>. Extrapulmonary sites are affected in up to 60% of patients suffering from acquired immunodeficiency syndrome and tuberculosis <abbrgrp><abbr bid="B12">12</abbr></abbrgrp>. Molecular diagnosis of mycobacterial infections has enabled rapid detection of species in clinical specimens, detection of drug resistance, and typing for epidemiological studies <abbrgrp><abbr bid="B4">4</abbr><abbr bid="B6">6</abbr><abbr bid="B9">9</abbr><abbr bid="B13">13</abbr></abbrgrp>. Little is known on the worldwide molecular epidemiology of <it>Mycobacterium </it>species infecting extrapulmonary sites. In addition, genotypic resistance to drugs in <it>M. tuberculosis </it>isolates from extrapulmonary sites has been poorly studied. There is scarce information on the molecular epidemiology in Mexico of <it>Mycobacterium </it>species infecting extrapulmonary sites. Therefore, in this study on samples obtained from such patients, we used molecular methods to identify the <it>Mycobacterium </it>species in tissue samples and body fluids. In addition, we analyzed the gene encoding for the &#946;-subunit of the RNA polymerase (<it>rpo</it>B) for identification of mutations associated with rifampicin resistance in DNA extracts positive for <it>M. tuberculosis </it>complex.</p>
+
+      </sec>
+      <sec>
+         <st>
+            <p>Methods</p>
+         </st>
+         <sec>
+            <st>
+               <p>Patients and specimens</p>
+
+            </st>
+            <p>Seventy-two patients with clinical or histological findings compatible with extrapulmonary tuberculosis were studied. Patients attended four public hospitals in the Mexican cities of Durango, Zacatecas and Guadalajara. Durango City is located in north central Mexico, while Zacatecas and Guadalajara Cities are located in central Mexico. Specimens from the patients were prepared as either paraffin-embedded tissue or cultures of body fluids. For paraffin-embedded tissues, we studied recent and stored specimens obtained from the pathology departments of two hospitals from 2002 to 2008. In total, tissues of 42 patients were studied: twelve of them were obtained in Durango City and 30 in Zacatecas City. For body fluids, we studied recent and stored cultures in L&#246;wenstein Jensen medium from urine, pericardial fluid, gastric aspirate, synovial fluid and cerebrospinal fluid obtained from 30 patients. These specimens were obtained in two hospitals in Guadalajara City from 2007 to 2008. The studied specimens were obtained only from the participating hospitals and are not representative of specimens from all hospitals in these cities. DNA was extracted from all specimens using a commercially available kit (QIAamp DNA Mini Kit, QIAGEN. Germany) following the instructions of the manufacturer. Prior to extraction, paraffin-embedded tissues were treated with xylene and alcohol to remove the paraffin, and bacterial cultures were heated at 95&#176;C for 10 minutes.</p>
+         </sec>
+         <sec>
+            <st>
+               <p>Molecular analysis of <it>Mycobacterium </it>species</p>
+
+            </st>
+            <p>DNA extracted from the 72 specimens was amplified by PCR using the INNO-LiPA MYCOBACTERIA v2 Amp. (Innogenetics NV, Gent, Belgium) kit according to the manufacturers' instructions. PCR parameters were: denaturation at 95&#176;C for 1 min followed by 40 cycles of denaturation at 95&#176;C for 30 sec, annealing at 62&#176;C for 30 sec, and extension at 72&#176;C for 30 sec. Electrophoresis of amplified products was performed in a 2% agarose gel. The gel was then stained with ethidium bromide and visualized by ultraviolet transillumination. In addition, amplified products were analyzed by line probe assay (INNO-LiPA MYCOBACTERIA v2. Innogenetics NV, Gent, Belgium) following the manufacturers' instructions. This DNA probe test targets the 16S&#8211;23S ribosomal RNA spacer region and detects and identifies the genus <it>Mycobacterium </it>and 16 different mycobacterial species. As a quality control for amplifications, we included water samples as negative controls, and <it>M. tuberculosis </it>complex DNA as positive controls in each run.</p>
+         </sec>
+         <sec>
+
+            <st>
+               <p>Analysis of rifampicin resistance of <it>M. tuberculosis</it></p>
+            </st>
+            <p>Amplification of the rifampicin resistance region of the gene encoding for the &#946;-subunit of the RNA polymerase (<it>rpo</it>B) in DNA samples positive for <it>M. tuberculosis </it>complex by INNO-LiPA MYCOBACTERIA v2 was performed using the INNO-LiPA Rif.TB Amplification kit (Innogenetics NV, Gent, Belgium). The PCR parameters were denaturation at 95&#176;C for 5 min followed by 30 cycles of denaturation at 95&#176;C for 1 min, annealing at 55&#176;C for 1 min, extension at 72&#176;C for 1 min, and an elongation at 72&#176;C for 10 min. After electrophoresis of the amplified products in 2% agarose gel, the gel was stained with ethidium bromide and visualized by ultraviolet transillumination. In addition, amplification products were analyzed by line probe assay (INNO-LiPA Rif.TB. Innogenetics NV, Gent, Belgium) for detection of rifampicin resistance. This assay was performed following the manufacturers' instructions. As a quality control for amplifications, we included water samples as negative controls, and <it>M. tuberculosis </it>complex DNA as positive controls in each run.</p>
+
+         </sec>
+      </sec>
+      <sec>
+         <st>
+            <p>Results and discussion</p>
+         </st>
+         <sec>
+            <st>
+
+               <p>Rate of positive PCR and LiPA samples</p>
+            </st>
+            <p>As shown in Tables <tblr tid="T1">1</tblr> and <tblr tid="T2">2</tblr>, only 26 (36.1%) and 23 (31.9%) of the 72 DNA extracts were PCR positive for the 16S&#8211;23S ribosomal RNA spacer region of <it>Mycobacterium </it>species and LiPA hybridization, respectively. The low rate of positive samples could be explained by: 1) No <it>Mycobacterium </it>species were present in the samples: pathology diagnosis is not conclusive of tuberculosis; 2) DNA of <it>Mycobacterium </it>was present in the tissues but at levels that were undetectable by a single-round PCR assay; 3) DNA preservation in some samples was sub-optimal; and 4) the presence of PCR inhibitors. Most samples tested were archival and a comparable rate of positive PCR results in archival tissue samples was reported in a previous study <abbrgrp><abbr bid="B14">14</abbr></abbrgrp>. Moreover, our study was based in a single determination and it is possible that repeating assays could increase the rate of positive samples.</p>
+
+            <tbl id="T1">
+               <title>
+                  <p>Table 1</p>
+               </title>
+               <caption>
+                  <p>Clinical and histological data of paraffin embedded tissues from the study population.</p>
+               </caption>
+               <tblbdy cols="10">
+
+                  <r>
+                     <c ca="left">
+                        <p>Case No.</p>
+                     </c>
+                     <c ca="center">
+                        <p>Age</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Gender</p>
+                     </c>
+                     <c ca="center">
+                        <p>Place of origin</p>
+                     </c>
+                     <c ca="center">
+                        <p>Clinical diagnosis</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Specimen</p>
+                     </c>
+                     <c ca="center">
+                        <p>Pathology diagnosis</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ZN staining</p>
+                     </c>
+                     <c ca="center">
+                        <p>PCR</p>
+                     </c>
+                     <c ca="left">
+                        <p>Mycobacteria</p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c cspan="10">
+                        <hr/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>T1</p>
+                     </c>
+                     <c ca="center">
+                        <p>39</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Brain</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+                        </p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T2</p>
+                     </c>
+                     <c ca="center">
+                        <p>34</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Tumour</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+
+                        <p><it>M. tuberculosis </it>complex</p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T3</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>42</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymphadenitis</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T4</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>45</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Tumour</p>
+                     </c>
+                     <c ca="center">
+                        <p>Vagina</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+                        </p>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>T5</p>
+                     </c>
+                     <c ca="center">
+                        <p>45</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphadenitis</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+
+                        </p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T6</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>18</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Tumour</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T7</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>40</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>T8</p>
+                     </c>
+                     <c ca="center">
+                        <p>13</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Acute abdomen</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Epiplon</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>T10</p>
+                     </c>
+                     <c ca="center">
+                        <p>21</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphadenitis</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T11</p>
+                     </c>
+                     <c ca="center">
+                        <p>29</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphadenitis</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T12</p>
+                     </c>
+                     <c ca="center">
+                        <p>16</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Acute abdomen</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Peritoneum</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T14</p>
+                     </c>
+                     <c ca="center">
+                        <p>20</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Dgo</p>
+                     </c>
+                     <c ca="center">
+                        <p>Epidermic cyst</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Skin</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T41</p>
+                     </c>
+                     <c ca="center">
+                        <p>9</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p><it>M. tuberculosis </it>complex</p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T42</p>
+                     </c>
+                     <c ca="center">
+                        <p>57</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T43</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>31</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+
+                     </c>
+                     <c ca="left">
+                        <p><it>M. tuberculosis </it>complex</p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T44</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>56</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+                        </p>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>T45</p>
+                     </c>
+                     <c ca="center">
+                        <p>1</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+
+                        </p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T46</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>39</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T47</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>39</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>T48</p>
+                     </c>
+                     <c ca="center">
+                        <p>1</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>T49</p>
+                     </c>
+                     <c ca="center">
+                        <p>53</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T50</p>
+                     </c>
+                     <c ca="center">
+                        <p>1</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T51</p>
+                     </c>
+                     <c ca="center">
+                        <p>1</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T52</p>
+                     </c>
+                     <c ca="center">
+                        <p>62</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Hyperplasia</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>Hyperplasia</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T53</p>
+                     </c>
+                     <c ca="center">
+                        <p>19</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T54</p>
+                     </c>
+                     <c ca="center">
+                        <p>67</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="left">
+                        <p><it>M. tuberculosis </it>complex</p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T55</p>
+                     </c>
+                     <c ca="center">
+                        <p>37</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Hyperplasia</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>Hyperplasia</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="left">
+
+                        <p><it>M. tuberculosis </it>complex</p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T56</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>4</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Lymphoma</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T57</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>44</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>T58</p>
+                     </c>
+                     <c ca="center">
+                        <p>32</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>T59</p>
+                     </c>
+                     <c ca="center">
+                        <p>32</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T60</p>
+                     </c>
+                     <c ca="center">
+                        <p>74</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T61</p>
+                     </c>
+                     <c ca="center">
+                        <p>38</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T62</p>
+                     </c>
+                     <c ca="center">
+                        <p>9</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T63</p>
+                     </c>
+                     <c ca="center">
+                        <p>0.4</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T64</p>
+                     </c>
+                     <c ca="center">
+                        <p>53</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T65</p>
+                     </c>
+                     <c ca="center">
+                        <p>45</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T66</p>
+                     </c>
+                     <c ca="center">
+                        <p>1</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T67</p>
+                     </c>
+                     <c ca="center">
+                        <p>3</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T68</p>
+                     </c>
+                     <c ca="center">
+                        <p>54</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T69</p>
+                     </c>
+                     <c ca="center">
+                        <p>72</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>Lymphoma</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>T70</p>
+                     </c>
+                     <c ca="center">
+                        <p>28</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>Zac</p>
+                     </c>
+                     <c ca="center">
+                        <p>Granuloma</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Lymph node</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+               </tblbdy>
+               <tblfn>
+                  <p>ND: Not done. Dgo: Durango. Zac: Zacatecas.</p>
+               </tblfn>
+            </tbl>
+            <tbl id="T2">
+               <title>
+
+                  <p>Table 2</p>
+               </title>
+               <caption>
+                  <p>Clinical data of patients with L&#246;wenstein Jensen cultures strains.</p>
+               </caption>
+               <tblbdy cols="8">
+                  <r>
+
+                     <c ca="left">
+                        <p>Case No.</p>
+                     </c>
+                     <c ca="center">
+                        <p>Age</p>
+                     </c>
+                     <c ca="center">
+                        <p>Gender</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Clinical diagnosis</p>
+                     </c>
+                     <c ca="center">
+                        <p>Specimen</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ZN staining</p>
+                     </c>
+                     <c ca="center">
+                        <p>PCR</p>
+                     </c>
+                     <c ca="left">
+                        <p>Mycobacteria</p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c cspan="8">
+                        <hr/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C1</p>
+                     </c>
+                     <c ca="center">
+                        <p>65</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C2</p>
+                     </c>
+                     <c ca="center">
+                        <p>10</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C3</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>39</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. gordonae</it>
+                        </p>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>C4</p>
+                     </c>
+                     <c ca="center">
+                        <p>29</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C5</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>48</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C6</p>
+                     </c>
+                     <c ca="center">
+                        <p>29</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C7</p>
+                     </c>
+                     <c ca="center">
+                        <p>12</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C8</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>23</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C9</p>
+                     </c>
+                     <c ca="center">
+                        <p>79</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C10</p>
+                     </c>
+                     <c ca="center">
+                        <p>23</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C11</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>20</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Pericardial fluid</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p><it>M. chelonae </it>complex group III. <it>M. abscessus</it></p>
+                     </c>
+                  </r>
+                  <r>
+
+                     <c ca="left">
+                        <p>C12</p>
+                     </c>
+                     <c ca="center">
+                        <p>29</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p><it>M. tuberculosis </it>complex</p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C13</p>
+                     </c>
+                     <c ca="center">
+                        <p>38</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. smegmatis</it>
+                        </p>
+                     </c>
+                  </r>
+                  <r>
+
+                     <c ca="left">
+                        <p>C14</p>
+                     </c>
+                     <c ca="center">
+                        <p>53</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. smegmatis</it>
+
+                        </p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C15</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>63</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. smegmatis</it>
+                        </p>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>C16</p>
+                     </c>
+                     <c ca="center">
+                        <p>13</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+
+                        <p><it>M. kansasii </it>group II</p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C17</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>3</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+                        </p>
+                     </c>
+                  </r>
+
+                  <r>
+                     <c ca="left">
+                        <p>C18</p>
+                     </c>
+                     <c ca="center">
+                        <p>35</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Gastric aspirate</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+
+                        <p><it>M. kansasii </it>group I</p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C19</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>9</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C20</p>
+                     </c>
+                     <c ca="center">
+                        <p>13</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p><it>M. fortuitum-M. peregrinum </it>complex</p>
+
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C21</p>
+                     </c>
+                     <c ca="center">
+                        <p>48</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. smegmatis</it>
+                        </p>
+                     </c>
+                  </r>
+                  <r>
+
+                     <c ca="left">
+                        <p>C22</p>
+                     </c>
+                     <c ca="center">
+                        <p>34</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+                        <p>
+                           <it>M. genus</it>
+
+                        </p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C23</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>23</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C24</p>
+                     </c>
+                     <c ca="center">
+                        <p>29</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C25</p>
+                     </c>
+                     <c ca="center">
+                        <p>35</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>ND</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C26</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>10</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C27</p>
+                     </c>
+                     <c ca="center">
+                        <p>1</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>CSF</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C28</p>
+                     </c>
+                     <c ca="center">
+                        <p>30</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>F</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Synovial fluid</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c ca="left">
+
+                        <p><it>M. tuberculosis </it>complex</p>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+                        <p>C29</p>
+                     </c>
+
+                     <c ca="center">
+                        <p>45</p>
+                     </c>
+                     <c ca="center">
+                        <p>M</p>
+                     </c>
+                     <c ca="center">
+                        <p>TB</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>CSF</p>
+                     </c>
+                     <c ca="center">
+                        <p>-</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>-</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+                  </r>
+                  <r>
+                     <c ca="left">
+
+                        <p>C30</p>
+                     </c>
+                     <c ca="center">
+                        <p>56</p>
+                     </c>
+                     <c ca="center">
+                        <p>F</p>
+
+                     </c>
+                     <c ca="center">
+                        <p>RTB</p>
+                     </c>
+                     <c ca="center">
+                        <p>Urine</p>
+                     </c>
+                     <c ca="center">
+
+                        <p>+</p>
+                     </c>
+                     <c ca="center">
+                        <p>+</p>
+                     </c>
+                     <c>
+                        <p/>
+                     </c>
+
+                  </r>
+               </tblbdy>
+               <tblfn>
+                  <p>CSF: Cerebrospinal fluid</p>
+                  <p>RTB: Renal tuberculosis</p>
+               </tblfn>
+            </tbl>
+         </sec>
+
+         <sec>
+            <st>
+               <p><it>Mycobacterium </it>species</p>
+            </st>
+            <p>Table <tblr tid="T1">1</tblr> shows the <it>Mycobacterium </it>species identified in paraffin-embedded tissues, and Table <tblr tid="T2">2</tblr> shows results obtained for body fluids. In paraffin-embedded tissues, <it>M. tuberculosis </it>complex and <it>M. genus </it>were found in 5 and 3 lymph nodes, respectively. The predominant <it>M. tuberculosis </it>complex infection in lymph nodes found in our patients is consistent with results in patients with lymphadenitis reported by other researchers <abbrgrp><abbr bid="B4">4</abbr><abbr bid="B15">15</abbr><abbr bid="B16">16</abbr></abbrgrp>. With respect to other tissues, <it>M. genus </it>was found in specimens of brain and vagina. Hybridization with <it>M. genus </it>probes indicates that amplified DNA belongs to mycobacteria but it is not one of the 16 <it>Mycobacterium </it>species included in the kit. In body fluids, <it>M. tuberculosis </it>complex and nontuberculous mycobacteria were found in 1 (10%) and 9 (90%) of urine samples with positive hybridization, respectively. The frequency of <it>M. tuberculosis </it>complex infection in these patients is lower than that reported in a study performed in Turkey, where 12 (70.5%) of 17 strains isolated from urine cultures of patients with suspected urinary tuberculosis were identified as <it>M. tuberculosis </it>complex <abbrgrp><abbr bid="B17">17</abbr></abbrgrp>. The finding of a high frequency of nontuberculous mycobacteria in urine may indicate contamination by mycobacteria in the environment. Nevertheless, all urine samples were obtained from symptomatic subjects with clinical diagnosis of renal tuberculosis and had obtained clinical improvement after anti-tuberculosis therapy. Many nontuberculous mycobacteria have recently been recognized as pathogenic <abbrgrp><abbr bid="B18">18</abbr></abbrgrp>. The species of nontuberculous mycobacteria found in the urine of our patients have been found in symptomatic patients in several studies: 1) <it>M. fortuitum </it>was found in 2 of 5 renal transplant recipients with urinary symptoms <abbrgrp><abbr bid="B19">19</abbr></abbrgrp>; 2) a case report of a woman suffering from urinary complaints describes that <it>M. tuberculosis </it>and other pathogens were not detected, but that <it>M. gordonae </it>was repeatedly isolated from urine. The patient responded to a standard anti-tuberculosis regimen <abbrgrp><abbr bid="B20">20</abbr></abbrgrp>; and 3) positive urine culture for <it>M. kansasii </it>in patients with persistent fever who were suffering from hairy cell leukemia and disseminated atypical mycobacterial infection <abbrgrp><abbr bid="B21">21</abbr></abbrgrp>. On the other hand, <it>M. smegmatis </it>has been isolated from skin and soft tissue infections <abbrgrp><abbr bid="B22">22</abbr></abbrgrp>, but to the best of our knowledge there is not any report of its isolation in urine from patients with urinary disease. The finding of nontuberculous mycobacteria in any specimen should always be correlated with clinical data of the patients to make appropriated therapeutic decisions. Since most <it>Mycobacteriu</it>m species found in extrapulmonary specimens in our symptomatic patients did not belong to the <it>M. tuberculosis </it>complex, our results emphasize the importance of performing identification of mycobacterial species. Discrimination of infecting <it>Mycobacterium </it>species is important since treatment differs <abbrgrp><abbr bid="B23">23</abbr></abbrgrp>. PCR and LiPA technology has been successfully used in identifying both <it>Mycobacterium </it>species and rifampicin resistance in <it>M. tuberculosis </it>isolates in either <it>Mycobacterium </it>grown in culture or directly in some clinical samples <abbrgrp><abbr bid="B24">24</abbr><abbr bid="B25">25</abbr><abbr bid="B26">26</abbr><abbr bid="B27">27</abbr></abbrgrp>. However, this study is the first to identify and classify <it>Mycobacterium </it>species and to detect genotypic rifampicin resistance from paraffin-embedded tissues by using LiPA technology. In addition, this is the first report of <it>Mycobacterium </it>species diversity detected by molecular methods in symptomatic patients in Mexico suffering from extrapulmonary disease. Our results indicate that LiPA can be used successfully in analyzing DNA extracts of paraffin-embedded tissues.</p>
+
+         </sec>
+         <sec>
+            <st>
+               <p>Rifampicin resistance</p>
+            </st>
+            <p>Two of the seven <it>M. tuberculosis </it>complex samples were positive for amplification of the <it>rpo</it>B gene and showed hybridization patterns compatible with wild type <it>M. tuberculosis</it>. Samples negative for LiPA were not further analyzed. The two positive samples were obtained from lymph nodes and were considered sensitive to rifampicin. These results further provide molecular characterization of the <it>M. tuberculosis </it>complex isolates. Patients suffering from extrapulmonary tuberculosis have a delay in diagnosis <abbrgrp><abbr bid="B28">28</abbr></abbrgrp>. Therefore, fast molecular analysis of <it>Mycobacterium </it>using LiPA technology provides an aid for rapid diagnosis and the opportunity to take optimal preventive and treatment measures.</p>
+
+         </sec>
+      </sec>
+      <sec>
+         <st>
+            <p>Conclusion</p>
+         </st>
+         <p>1) We describe the <it>Mycobacterium </it>species diversity in specimens derived from extrapulmonary sites in symptomatic patients in Mexico; 2) Nontuberculous mycobacteria were found in a considerable number of patients; 3) genotypic rifampicin resistance in <it>M. tuberculosis </it>complex infections in lymph nodes was not found.</p>
+
+      </sec>
+      <sec>
+         <st>
+            <p>Competing interests</p>
+         </st>
+         <p>The authors declare that they have no competing interests.</p>
+      </sec>
+      <sec>
+
+         <st>
+            <p>Authors' contributions</p>
+         </st>
+         <p>CAE conceived and designed the study protocol, participated in the coordination and management of the study, performed laboratory tests and data analysis, and wrote the manuscript. NGC performed the laboratory tests and data analysis. LPG and DCD performed <it>Mycobacteria </it>cultures and data analysis. TGM performed the histological evaluation of paraffin-embedded tissues. JAEM prepared DNA extracts from tissues and performed data analysis. RR and WM performed data analysis and wrote the manuscript.</p>
+      </sec>
+   </bdy>
+   <bm>
+
+      <ack>
+         <sec>
+            <st>
+               <p>Acknowledgements</p>
+            </st>
+            <p>The authors would like to thank Anne Farmer for English reviewing of the manuscript.</p>
+         </sec>
+      </ack>
+
+      <refgrp>
+         <bibl id="B1">
+            <title>
+               <p>The new mycobacteria: an update</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Tortoli</snm>
+
+                  <fnm>E</fnm>
+               </au>
+            </aug>
+            <source>FEMS Immunol Med Microbiol</source>
+            <pubdate>2006</pubdate>
+            <volume>48</volume>
+            <fpage>159</fpage>
+
+            <lpage>178</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1111/j.1574-695X.2006.00123.x</pubid>
+                  <pubid idtype="pmpid" link="fulltext">17064273</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B2">
+            <title>
+               <p>Central nervous system tuberculosis: pathogenesis and clinical aspects</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Rock</snm>
+
+                  <fnm>RB</fnm>
+               </au>
+               <au>
+                  <snm>Olin</snm>
+                  <fnm>M</fnm>
+               </au>
+               <au>
+
+                  <snm>Baker</snm>
+                  <fnm>CA</fnm>
+               </au>
+               <au>
+                  <snm>Molitor</snm>
+                  <fnm>TW</fnm>
+               </au>
+
+               <au>
+                  <snm>Peterson</snm>
+                  <fnm>PK</fnm>
+               </au>
+            </aug>
+            <source>Clin Microbiol Rev</source>
+            <pubdate>2008</pubdate>
+
+            <volume>21</volume>
+            <fpage>243</fpage>
+            <lpage>261</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1128/CMR.00042-07</pubid>
+                  <pubid idtype="pmpid" link="fulltext">18400795</pubid>
+
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B3">
+            <title>
+               <p>Tuberculosis in children</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Marais</snm>
+                  <fnm>BJ</fnm>
+               </au>
+            </aug>
+            <source>Pediatr Pulmonol</source>
+            <pubdate>2008</pubdate>
+
+            <volume>43</volume>
+            <fpage>322</fpage>
+            <lpage>329</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1002/ppul.20787</pubid>
+                  <pubid idtype="pmpid" link="fulltext">18306338</pubid>
+
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B4">
+            <title>
+               <p>Identification of the causative organism of tuberculous lymphadenitis in Ethiopia by PCR</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Kidane</snm>
+                  <fnm>D</fnm>
+               </au>
+               <au>
+                  <snm>Olobo</snm>
+                  <fnm>JO</fnm>
+
+               </au>
+               <au>
+                  <snm>Habte</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+                  <snm>Negesse</snm>
+
+                  <fnm>Y</fnm>
+               </au>
+               <au>
+                  <snm>Aseffa</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+
+                  <snm>Abate</snm>
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Yassin</snm>
+                  <fnm>MA</fnm>
+               </au>
+
+               <au>
+                  <snm>Bereda</snm>
+                  <fnm>K</fnm>
+               </au>
+               <au>
+                  <snm>Harboe</snm>
+                  <fnm>M</fnm>
+
+               </au>
+            </aug>
+            <source>J Clin Microbiol</source>
+            <pubdate>2002</pubdate>
+            <volume>40</volume>
+            <fpage>4230</fpage>
+            <lpage>4234</lpage>
+
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="pmcid">139683</pubid>
+                  <pubid idtype="pmpid" link="fulltext">12409403</pubid>
+                  <pubid idtype="doi">10.1128/JCM.40.11.4230-4234.2002</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B5">
+            <title>
+               <p>Prevalence of mycobacteriosis and tuberculosis in a reference hospital, Cordoba province</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Barnes</snm>
+
+                  <fnm>AI</fnm>
+               </au>
+               <au>
+                  <snm>Rojo</snm>
+                  <fnm>S</fnm>
+               </au>
+               <au>
+
+                  <snm>Moretto</snm>
+                  <fnm>H</fnm>
+               </au>
+            </aug>
+            <source>Rev Argent Microbiol</source>
+            <pubdate>2004</pubdate>
+            <volume>36</volume>
+
+            <fpage>170</fpage>
+            <lpage>173</lpage>
+            <xrefbib>
+               <pubid idtype="pmpid">15786869</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B6">
+
+            <title>
+               <p>Molecular identification of non-tuberculous mycobacteria</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Castro</snm>
+                  <fnm>CM</fnm>
+
+               </au>
+               <au>
+                  <snm>Puerto</snm>
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Garc&#237;a</snm>
+
+                  <fnm>LM</fnm>
+               </au>
+               <au>
+                  <snm>Orjuela</snm>
+                  <fnm>DL</fnm>
+               </au>
+               <au>
+
+                  <snm>Polo</snm>
+                  <fnm>CL</fnm>
+               </au>
+               <au>
+                  <snm>Garz&#243;n</snm>
+                  <fnm>MC</fnm>
+
+               </au>
+               <au>
+                  <snm>Rib&#243;n</snm>
+                  <fnm>W</fnm>
+               </au>
+            </aug>
+            <source>Biomedica</source>
+
+            <pubdate>2007</pubdate>
+            <volume>27</volume>
+            <fpage>439</fpage>
+            <lpage>446</lpage>
+            <xrefbib>
+               <pubid idtype="pmpid" link="fulltext">18320109</pubid>
+
+            </xrefbib>
+         </bibl>
+         <bibl id="B7">
+            <title>
+               <p>Non tuberculous mycobacterial diseases</p>
+            </title>
+            <aug>
+               <au>
+
+                  <snm>Adle-Biassette</snm>
+                  <fnm>H</fnm>
+               </au>
+               <au>
+                  <snm>Huerre</snm>
+                  <fnm>M</fnm>
+               </au>
+
+               <au>
+                  <snm>Breton</snm>
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Ruimy</snm>
+                  <fnm>R</fnm>
+
+               </au>
+               <au>
+                  <snm>Carbonnelle</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+                  <snm>Trophilme</snm>
+
+                  <fnm>D</fnm>
+               </au>
+               <au>
+                  <snm>Yacoub</snm>
+                  <fnm>M</fnm>
+               </au>
+               <au>
+
+                  <snm>R&#233;gnier</snm>
+                  <fnm>B</fnm>
+               </au>
+               <au>
+                  <snm>Y&#233;ni</snm>
+                  <fnm>P</fnm>
+
+               </au>
+               <au>
+                  <snm>Vild&#233;</snm>
+                  <fnm>JL</fnm>
+               </au>
+               <au>
+                  <snm>H&#233;nin</snm>
+
+                  <fnm>D</fnm>
+               </au>
+            </aug>
+            <source>Ann Pathol</source>
+            <pubdate>2003</pubdate>
+            <volume>23</volume>
+            <fpage>216</fpage>
+
+            <lpage>235</lpage>
+            <xrefbib>
+               <pubid idtype="pmpid" link="fulltext">12909825</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B8">
+            <title>
+               <p>Characterisation &amp; drug susceptibility patterns of extrapulmonary mycobacterial isolates</p>
+
+            </title>
+            <aug>
+               <au>
+                  <snm>Sachdeva</snm>
+                  <fnm>R</fnm>
+               </au>
+               <au>
+                  <snm>Gadre</snm>
+
+                  <fnm>DV</fnm>
+               </au>
+               <au>
+                  <snm>Talwar</snm>
+                  <fnm>V</fnm>
+               </au>
+            </aug>
+
+            <source>Indian J Med Res</source>
+            <pubdate>2002</pubdate>
+            <volume>115</volume>
+            <fpage>102</fpage>
+            <lpage>117</lpage>
+            <xrefbib>
+
+               <pubid idtype="pmpid">12201173</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B9">
+            <title>
+               <p>Direct identification of mycobacteria from MB/BacT alert 3D bottles: comparative evaluation of two commercial probe assays</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Scarparo</snm>
+                  <fnm>C</fnm>
+               </au>
+               <au>
+                  <snm>Piccoli</snm>
+                  <fnm>P</fnm>
+
+               </au>
+               <au>
+                  <snm>Rigon</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+                  <snm>Ruggiero</snm>
+
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Nista</snm>
+                  <fnm>D</fnm>
+               </au>
+               <au>
+
+                  <snm>Piersimoni</snm>
+                  <fnm>C</fnm>
+               </au>
+            </aug>
+            <source>J Clin Microbiol</source>
+            <pubdate>2001</pubdate>
+            <volume>39</volume>
+
+            <fpage>3222</fpage>
+            <lpage>3227</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="pmcid">88322</pubid>
+                  <pubid idtype="pmpid" link="fulltext">11526154</pubid>
+                  <pubid idtype="doi">10.1128/JCM.39.9.3222-3227.2001</pubid>
+
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B10">
+            <title>
+               <p>Evaluation and management of patients with pulmonary nontuberculous mycobacterial infections</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Stout</snm>
+                  <fnm>JE</fnm>
+               </au>
+            </aug>
+            <source>Expert Rev Anti Infect Ther</source>
+            <pubdate>2006</pubdate>
+
+            <volume>4</volume>
+            <fpage>981</fpage>
+            <lpage>993</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1586/14787210.4.6.981</pubid>
+                  <pubid idtype="pmpid" link="fulltext">17181415</pubid>
+
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B11">
+            <title>
+               <p>Pulmonary disease due to nontuberculous mycobacteria</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Glassroth</snm>
+                  <fnm>J</fnm>
+               </au>
+            </aug>
+            <source>Chest</source>
+            <pubdate>2008</pubdate>
+
+            <volume>133</volume>
+            <fpage>243</fpage>
+            <lpage>251</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1378/chest.07-0358</pubid>
+                  <pubid idtype="pmpid" link="fulltext">18187749</pubid>
+
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B12">
+            <title>
+               <p>Extrapulmonary tuberculosis</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Fanlo</snm>
+                  <fnm>P</fnm>
+               </au>
+               <au>
+                  <snm>Tiberio</snm>
+                  <fnm>G</fnm>
+
+               </au>
+            </aug>
+            <source>An Sist Sanit Navar</source>
+            <pubdate>2007</pubdate>
+            <volume>30</volume>
+            <issue>Suppl 2</issue>
+            <fpage>143</fpage>
+
+            <lpage>162</lpage>
+            <xrefbib>
+               <pubid idtype="pmpid" link="fulltext">17898834</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B13">
+            <title>
+               <p>Molecular diagnostics in tuberculosis</p>
+
+            </title>
+            <aug>
+               <au>
+                  <snm>Cheng</snm>
+                  <fnm>VC</fnm>
+               </au>
+               <au>
+                  <snm>Yew</snm>
+
+                  <fnm>WW</fnm>
+               </au>
+               <au>
+                  <snm>Yuen</snm>
+                  <fnm>KY</fnm>
+               </au>
+            </aug>
+
+            <source>Eur J Clin Microbiol Infect Dis</source>
+            <pubdate>2005</pubdate>
+            <volume>24</volume>
+            <fpage>711</fpage>
+            <lpage>720</lpage>
+            <xrefbib>
+
+               <pubidlist>
+                  <pubid idtype="doi">10.1007/s10096-005-0039-1</pubid>
+                  <pubid idtype="pmpid" link="fulltext">16283213</pubid>
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B14">
+            <title>
+
+               <p>Molecular strain identification of the Mycobacterium tuberculosis complex in archival tissue samples</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Zink</snm>
+                  <fnm>AR</fnm>
+               </au>
+
+               <au>
+                  <snm>Nerlich</snm>
+                  <fnm>AG</fnm>
+               </au>
+            </aug>
+            <source>J Clin Pathol</source>
+            <pubdate>2004</pubdate>
+
+            <volume>57</volume>
+            <fpage>1185</fpage>
+            <lpage>1192</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="pmcid">1770489</pubid>
+                  <pubid idtype="pmpid" link="fulltext">15509681</pubid>
+
+                  <pubid idtype="doi">10.1136/jcp.2003.015719</pubid>
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B15">
+            <title>
+               <p>Tuberculous lymphadenitis in Manitoba: incidence, clinical characteristics and treatment</p>
+            </title>
+
+            <aug>
+               <au>
+                  <snm>Cook</snm>
+                  <fnm>VJ</fnm>
+               </au>
+               <au>
+                  <snm>Manfreda</snm>
+
+                  <fnm>J</fnm>
+               </au>
+               <au>
+                  <snm>Hershfield</snm>
+                  <fnm>ES</fnm>
+               </au>
+            </aug>
+
+            <source>Can Respir J</source>
+            <pubdate>2004</pubdate>
+            <volume>11</volume>
+            <fpage>279</fpage>
+            <lpage>286</lpage>
+            <xrefbib>
+
+               <pubid idtype="pmpid">15254609</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B16">
+            <title>
+               <p>Tuberculous lymphadenitis as a cause of persistent cervical lymphadenopathy in children from a tuberculosis-endemic area</p>
+            </title>
+            <aug>
+
+               <au>
+                  <snm>Marais</snm>
+                  <fnm>BJ</fnm>
+               </au>
+               <au>
+                  <snm>Wright</snm>
+                  <fnm>CA</fnm>
+
+               </au>
+               <au>
+                  <snm>Schaaf</snm>
+                  <fnm>HS</fnm>
+               </au>
+               <au>
+                  <snm>Gie</snm>
+
+                  <fnm>RP</fnm>
+               </au>
+               <au>
+                  <snm>Hesseling</snm>
+                  <fnm>AC</fnm>
+               </au>
+               <au>
+
+                  <snm>Enarson</snm>
+                  <fnm>DA</fnm>
+               </au>
+               <au>
+                  <snm>Beyers</snm>
+                  <fnm>N</fnm>
+               </au>
+
+            </aug>
+            <source>Pediatr Infect Dis J</source>
+            <pubdate>2006</pubdate>
+            <volume>25</volume>
+            <fpage>142</fpage>
+            <lpage>146</lpage>
+
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1097/01.inf.0000199259.04970.d1</pubid>
+                  <pubid idtype="pmpid" link="fulltext">16462291</pubid>
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B17">
+
+            <title>
+               <p>Isolation and identification of Mycobacterium tuberculosis from the urine samples by conventional and molecular methods</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Aslan</snm>
+                  <fnm>G</fnm>
+
+               </au>
+               <au>
+                  <snm>Doruk</snm>
+                  <fnm>E</fnm>
+               </au>
+               <au>
+                  <snm>Emekda&#351;</snm>
+
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Serin</snm>
+                  <fnm>MS</fnm>
+               </au>
+               <au>
+
+                  <snm>Direkel</snm>
+                  <fnm>S</fnm>
+               </au>
+               <au>
+                  <snm>Bayram</snm>
+                  <fnm>G</fnm>
+               </au>
+
+               <au>
+                  <snm>Durmaz</snm>
+                  <fnm>R</fnm>
+               </au>
+            </aug>
+            <source>Mikrobiyol Bul</source>
+            <pubdate>2007</pubdate>
+
+            <volume>41</volume>
+            <fpage>185</fpage>
+            <lpage>192</lpage>
+            <xrefbib>
+               <pubid idtype="pmpid">17682704</pubid>
+            </xrefbib>
+         </bibl>
+
+         <bibl id="B18">
+            <title>
+               <p>Nontuberculous mycobacterial infections</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Jarzembowski</snm>
+                  <fnm>JA</fnm>
+
+               </au>
+               <au>
+                  <snm>Young</snm>
+                  <fnm>MB</fnm>
+               </au>
+            </aug>
+            <source>Arch Pathol Lab Med</source>
+
+            <pubdate>2008</pubdate>
+            <volume>132</volume>
+            <fpage>1333</fpage>
+            <lpage>1341</lpage>
+            <xrefbib>
+               <pubid idtype="pmpid" link="fulltext">18684037</pubid>
+
+            </xrefbib>
+         </bibl>
+         <bibl id="B19">
+            <title>
+               <p>Mycobacterial infection in a series of 1261 renal transplant recipients</p>
+            </title>
+            <aug>
+               <au>
+
+                  <snm>Queipo</snm>
+                  <fnm>JA</fnm>
+               </au>
+               <au>
+                  <snm>Broseta</snm>
+                  <fnm>E</fnm>
+               </au>
+
+               <au>
+                  <snm>Santos</snm>
+                  <fnm>M</fnm>
+               </au>
+               <au>
+                  <snm>S&#225;nchez-Plumed</snm>
+                  <fnm>J</fnm>
+
+               </au>
+               <au>
+                  <snm>Bud&#237;a</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+                  <snm>Jim&#233;nez-Cruz</snm>
+
+                  <fnm>F</fnm>
+               </au>
+            </aug>
+            <source>Clin Microbiol Infect</source>
+            <pubdate>2003</pubdate>
+            <volume>9</volume>
+            <fpage>518</fpage>
+
+            <lpage>525</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1046/j.1469-0691.2003.00532.x</pubid>
+                  <pubid idtype="pmpid" link="fulltext">12848727</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B20">
+            <title>
+               <p>Mycobacterium gordonae genitourinary disease</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Jarikre</snm>
+
+                  <fnm>LN</fnm>
+               </au>
+            </aug>
+            <source>Genitourin Med</source>
+            <pubdate>1992</pubdate>
+            <volume>68</volume>
+            <fpage>45</fpage>
+
+            <lpage>46</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="pmcid">1194798</pubid>
+                  <pubid idtype="pmpid">1548012</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B21">
+            <title>
+               <p>Hairy cell leukemia: association with disseminated atypical mycobacterial infection</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Weinstein</snm>
+
+                  <fnm>RA</fnm>
+               </au>
+               <au>
+                  <snm>Golomb</snm>
+                  <fnm>HM</fnm>
+               </au>
+               <au>
+
+                  <snm>Grumet</snm>
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Gelmann</snm>
+                  <fnm>E</fnm>
+               </au>
+
+               <au>
+                  <snm>Schechter</snm>
+                  <fnm>GP</fnm>
+               </au>
+            </aug>
+            <source>Cancer</source>
+            <pubdate>1981</pubdate>
+
+            <volume>48</volume>
+            <fpage>380</fpage>
+            <lpage>383</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1002/1097-0142(19810715)48:2&lt;380::AID-CNCR2820480226>3.0.CO;2-N</pubid>
+
+                  <pubid idtype="pmpid">7237406</pubid>
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B22">
+            <title>
+               <p>Human disease due to Mycobacterium smegmatis</p>
+            </title>
+
+            <aug>
+               <au>
+                  <snm>Wallace</snm>
+                  <fnm>RJ</fnm>
+                  <suf>Jr</suf>
+               </au>
+               <au>
+
+                  <snm>Nash</snm>
+                  <fnm>DR</fnm>
+               </au>
+               <au>
+                  <snm>Tsukamura</snm>
+                  <fnm>M</fnm>
+               </au>
+
+               <au>
+                  <snm>Blacklock</snm>
+                  <fnm>ZM</fnm>
+               </au>
+               <au>
+                  <snm>Silcox</snm>
+                  <fnm>VA</fnm>
+
+               </au>
+            </aug>
+            <source>J Infect Dis</source>
+            <pubdate>1988</pubdate>
+            <volume>158</volume>
+            <fpage>52</fpage>
+            <lpage>59</lpage>
+
+            <xrefbib>
+               <pubid idtype="pmpid">3392420</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B23">
+            <title>
+               <p>Mycobacterial infections of the head and neck</p>
+            </title>
+
+            <aug>
+               <au>
+                  <snm>Munck</snm>
+                  <fnm>K</fnm>
+               </au>
+               <au>
+                  <snm>Mandpe</snm>
+
+                  <fnm>AH</fnm>
+               </au>
+            </aug>
+            <source>Otolaryngol Clin North Am</source>
+            <pubdate>2003</pubdate>
+            <volume>36</volume>
+            <fpage>569</fpage>
+
+            <lpage>576</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1016/S0030-6665(03)00032-X</pubid>
+                  <pubid idtype="pmpid">14567053</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B24">
+            <title>
+               <p>Species spectrum of nontuberculous mycobacteria isolated from clinical specimens in Kuwait</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Mokaddas</snm>
+
+                  <fnm>E</fnm>
+               </au>
+               <au>
+                  <snm>Ahmad</snm>
+                  <fnm>S</fnm>
+               </au>
+            </aug>
+
+            <source>Curr Microbiol</source>
+            <pubdate>2008</pubdate>
+            <volume>56</volume>
+            <fpage>413</fpage>
+            <lpage>417</lpage>
+            <xrefbib>
+
+               <pubidlist>
+                  <pubid idtype="doi">10.1007/s00284-008-9102-3</pubid>
+                  <pubid idtype="pmpid" link="fulltext">18231831</pubid>
+               </pubidlist>
+            </xrefbib>
+         </bibl>
+         <bibl id="B25">
+            <title>
+
+               <p>Identification of atypical mycobacteria isolated from clinical specimens by line probe assay (LIPA)</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Bi&#231;men</snm>
+                  <fnm>C</fnm>
+               </au>
+
+               <au>
+                  <snm>Co&#351;kun</snm>
+                  <fnm>M</fnm>
+               </au>
+               <au>
+                  <snm>G&#252;nd&#252;z</snm>
+
+                  <fnm>AT</fnm>
+               </au>
+               <au>
+                  <snm>Senol</snm>
+                  <fnm>G</fnm>
+               </au>
+               <au>
+
+                  <snm>Cirak</snm>
+                  <fnm>AK</fnm>
+               </au>
+               <au>
+                  <snm>Tibet</snm>
+                  <fnm>G</fnm>
+               </au>
+
+            </aug>
+            <source>Mikrobiyol Bul</source>
+            <pubdate>2007</pubdate>
+            <volume>41</volume>
+            <fpage>503</fpage>
+            <lpage>510</lpage>
+
+            <xrefbib>
+               <pubid idtype="pmpid">18173068</pubid>
+            </xrefbib>
+         </bibl>
+         <bibl id="B26">
+            <title>
+               <p>Characterization of Tunisian Mycobacterium tuberculosis rifampin-resistant clinical isolates</p>
+            </title>
+
+            <aug>
+               <au>
+                  <snm>Soudani</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+                  <snm>Hadjfredj</snm>
+
+                  <fnm>S</fnm>
+               </au>
+               <au>
+                  <snm>Zribi</snm>
+                  <fnm>M</fnm>
+               </au>
+               <au>
+
+                  <snm>Masmoudi</snm>
+                  <fnm>A</fnm>
+               </au>
+               <au>
+                  <snm>Messaoud</snm>
+                  <fnm>T</fnm>
+               </au>
+
+               <au>
+                  <snm>Tiouri</snm>
+                  <fnm>H</fnm>
+               </au>
+               <au>
+                  <snm>Fendri</snm>
+                  <fnm>C</fnm>
+
+               </au>
+            </aug>
+            <source>J Clin Microbiol</source>
+            <pubdate>2007</pubdate>
+            <volume>45</volume>
+            <fpage>3095</fpage>
+            <lpage>3097</lpage>
+
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="pmcid">2045245</pubid>
+                  <pubid idtype="pmpid" link="fulltext">17652484</pubid>
+                  <pubid idtype="doi">10.1128/JCM.00643-07</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B27">
+            <title>
+               <p>Rapid detection of rifampicin resistance in sputum and biopsy specimens from tuberculosis patients by PCR and line probe assay</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>De Beenhouwer</snm>
+
+                  <fnm>H</fnm>
+               </au>
+               <au>
+                  <snm>Lhiang</snm>
+                  <fnm>Z</fnm>
+               </au>
+               <au>
+
+                  <snm>Jannes</snm>
+                  <fnm>G</fnm>
+               </au>
+               <au>
+                  <snm>Mijs</snm>
+                  <fnm>W</fnm>
+               </au>
+
+               <au>
+                  <snm>Machtelinckx</snm>
+                  <fnm>L</fnm>
+               </au>
+               <au>
+                  <snm>Rossau</snm>
+                  <fnm>R</fnm>
+
+               </au>
+               <au>
+                  <snm>Traore</snm>
+                  <fnm>H</fnm>
+               </au>
+               <au>
+                  <snm>Portaels</snm>
+
+                  <fnm>F</fnm>
+               </au>
+            </aug>
+            <source>Tuber Lung Dis</source>
+            <pubdate>1995</pubdate>
+            <volume>76</volume>
+            <fpage>425</fpage>
+
+            <lpage>430</lpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="doi">10.1016/0962-8479(95)90009-8</pubid>
+                  <pubid idtype="pmpid">7496004</pubid>
+               </pubidlist>
+            </xrefbib>
+
+         </bibl>
+         <bibl id="B28">
+            <title>
+               <p>A systematic review of delay in the diagnosis and treatment of tuberculosis</p>
+            </title>
+            <aug>
+               <au>
+                  <snm>Storla</snm>
+
+                  <fnm>DG</fnm>
+               </au>
+               <au>
+                  <snm>Yimer</snm>
+                  <fnm>S</fnm>
+               </au>
+               <au>
+
+                  <snm>Bjune</snm>
+                  <fnm>GA</fnm>
+               </au>
+            </aug>
+            <source>BMC Public Health</source>
+            <pubdate>2008</pubdate>
+            <volume>8</volume>
+
+            <fpage>15</fpage>
+            <xrefbib>
+               <pubidlist>
+                  <pubid idtype="pmcid">2265684</pubid>
+                  <pubid idtype="pmpid" link="fulltext">18194573</pubid>
+                  <pubid idtype="doi">10.1186/1471-2458-8-15</pubid>
+               </pubidlist>
+
+            </xrefbib>
+         </bibl>
+      </refgrp>
+      <sec>
+         <st>
+            <p>Pre-publication history</p>
+         </st>
+         <p>The pre-publication history for this paper can be accessed here:</p>
+
+         <p>
+            <url>http://www.biomedcentral.com/1472-6890/9/1/prepub</url>
+         </p>
+      </sec>
+   </bm>
+</art>
+</metadata><about><rights xmlns="http://www.biomedcentral.com/xml/schemas/oai/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.biomedcentral.com/xml/schemas/oai/2.0/ http://www.biomedcentral.com/xml/schemas/oai/2.0/article.xsd" >The metadata made available via this interface is made freely available for commercial or non-commercial use. For details of distribution rights of the articles themselves, see: http://www.biomedcentral.com/info/about/copyright</rights></about></record></GetRecord></OAI-PMH>

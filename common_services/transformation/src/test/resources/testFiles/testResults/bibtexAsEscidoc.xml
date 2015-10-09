@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.6" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.8" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.8" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.8" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+  <escidocItem:properties>
+    <srel:content-model objid="escidoc:persistent4"/>
+    <prop:version>
+      <version:number>1</version:number>
+      <version:date>2009-12-10T12:55:38.765Z</version:date>
+      <version:status>pending</version:status>
+      <srel:modified-by/>
+      <version:comment/>
+    </prop:version>
+    <prop:latest-version>
+      <version:number>1</version:number>
+      <version:date>2009-12-10T12:55:38.843Z</version:date>
+    </prop:latest-version>
+    <prop:latest-release>
+      <release:number>1</release:number>
+      <release:date>2009-12-10T12:55:38.843Z</release:date>
+    </prop:latest-release>
+    <prop:content-model-specific>
+      <local-tags/>
+    </prop:content-model-specific>
+  </escidocItem:properties>
+  <escidocMetadataRecords:md-records>
+    <escidocMetadataRecords:md-record name="escidoc">
+      <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/eprint/type/ConferencePaper">
+        <escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person>
+            <escidoc:family-name>Jones</escidoc:family-name>
+            <escidoc:given-name>S. L. Peyton</escidoc:given-name>
+            <organization:organization>
+              <dc:title>External Organizations</dc:title>
+              <dc:identifier>escidoc:persistent22</dc:identifier>
+            </organization:organization>
+          </person:person>
+        </escidoc:creator>
+        <escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person>
+            <escidoc:family-name>Gordon</escidoc:family-name>
+            <escidoc:given-name>A.</escidoc:given-name>
+          </person:person>
+        </escidoc:creator>
+        <escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+          <person:person>
+            <escidoc:family-name>Finne</escidoc:family-name>
+            <escidoc:given-name>S.</escidoc:given-name>
+          </person:person>
+        </escidoc:creator>
+        <dc:title>Concurrent Haskell</dc:title>
+        <escidoc:publishing-info>
+          <escidoc:place>St Petersburg Beach, Florida</escidoc:place>
+        </escidoc:publishing-info>
+        <dcterms:issued xsi:type="dcterms:W3CDTF">1996-01</dcterms:issued>
+        <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
+          <dc:title>23rd ACM Symposium on Principles of Programming Languages</dc:title>
+          <escidoc:start-page>295</escidoc:start-page>
+          <escidoc:end-page>308</escidoc:end-page>
+        </source:source>
+      </publication:publication>
+    </escidocMetadataRecords:md-record>
+  </escidocMetadataRecords:md-records>
+  <escidocComponents:components>
+    <escidocComponents:component>
+      <escidocComponents:properties>
+        <prop:valid-status>valid</prop:valid-status>
+        <prop:visibility>public</prop:visibility>
+        <prop:content-category>any-fulltext</prop:content-category>
+        <prop:file-name>Link</prop:file-name>
+      </escidocComponents:properties>
+      <escidocComponents:content xlink:type="simple" xlink:title="Link" xlink:href="\urlhttp://www.research.microsoft.com/users/simonpj/Papers/papers.htmlmonads" storage="external-url"/>
+      <escidocMetadataRecords:md-records>
+        <escidocMetadataRecords:md-record name="escidoc">
+          <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+            <dc:title>Link</dc:title>
+            <file:content-category>any-fulltext</file:content-category>
+          </file:file>
+        </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+    </escidocComponents:component>
+  </escidocComponents:components>
+</escidocItem:item>

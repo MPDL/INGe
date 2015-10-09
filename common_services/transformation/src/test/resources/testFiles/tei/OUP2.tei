@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">For publication&#xD; Letter to Editor&#xD;
+                    Comment on: Heterogeneity in meta-analysis should be expected and appropriately
+                    quantified by Higgins</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Michael</forename>
+                                <forename type="middle">David</forename>
+                                <surname>Coory</surname>
+                                <roleName type="degree">PhD</roleName>
+                            </persName>
+                            <email>m.coory@uq.edu.au</email>
+                            <affiliation>
+                                <orgName type="institution">Univertsity of Queensland</orgName>
+                                <orgName type="department">School of Population Health</orgName>
+                                <note type="phone">61 0409 578 577</note>
+                                <note type="fax">61 7 32341529</note>
+                                <address><addrLine>Public Helath Bldg</addrLine><addrLine>Mayne Medical School</addrLine><settlement>Brisbane</settlement><region>Queensland</region><country key="AU">Australia</country><postCode>4006</postCode></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">For publication&#xD; Letter to
+                            Editor&#xD; Comment on: Heterogeneity in meta-analysis should be
+                            expected and appropriately quantified by Higgins</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">International Journal of Epidemiology</title>
+                        <title level="j" type="abbrev"/>
+                        <idno type="eISSN">N</idno>
+                        <imprint>
+                            <publisher>International Journal of Epidemiology</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">IJE-2009-01-0026</idno>
+                    <idno type="manuscript">IJE-2009-01-0026</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en"/>
+            </langUsage>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>not applicable (letter to editor)</p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>
