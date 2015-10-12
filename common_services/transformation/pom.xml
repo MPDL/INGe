@@ -42,8 +42,8 @@
 	<version>1.0.78-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformation</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformation</developerConnection>
+	  <connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/transformation</connection>
+    <developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/transformation</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/transformation</url>
   </scm>
 	<build>

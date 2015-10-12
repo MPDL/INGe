@@ -57,9 +57,9 @@
 	</ciManagement>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/pid_check_new/</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/pid_check_new/</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/tools/pid_check_new/</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/tools/pid_check_new/</developerConnection>
+		<url>https://github.com/MPDL-Collections/PubMan/</url>
 	</scm>
 	
 	<build>

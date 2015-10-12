@@ -41,8 +41,8 @@
 	<name>dataacquisition_ear</name>
 	<version>1.0.86-SNAPSHOT</version>
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
+	  <connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/dataacquisition_ear</connection>
+    <developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/dataacquisition_ear</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/dataacquisition_ear</url>
   </scm>
 	<build>

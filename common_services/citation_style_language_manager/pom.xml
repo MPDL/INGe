@@ -16,9 +16,9 @@
 	<url>http://maven.apache.org</url>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citation_style_language_manager</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citation_style_language_manager</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citation_style_language_manager</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citation_style_language_manager</developerConnection>
+		<url>https://github.com/MPDL-Collections/PubMan/</url>
 	</scm>
 
 	<properties>

@@ -42,9 +42,9 @@
 	<version>1.0.95-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citationmanager</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/citationmanager</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citationmanager</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citationmanager</developerConnection>
+		<url>https://github.com/MPDL-Collections/PubMan/</url>
 	</scm>
 
 	<build>

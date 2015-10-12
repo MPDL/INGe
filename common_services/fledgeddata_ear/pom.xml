@@ -41,8 +41,8 @@
 	<name>fledgeddata_ear</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_ear</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_ear</developerConnection>
+	  <connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/fledgeddata_ear</connection>
+    <developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/fledgeddata_ear</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata_ear</url>
   </scm>
 	<build>
