@@ -268,8 +268,8 @@
 	</ciManagement>
 	
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/PubMan</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan</developerConnection>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan.git</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan.git</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan</url>
 	</scm>
 	
@@ -595,9 +595,9 @@
 		<!-- this path is used as root for all jboss installations -->
 		<cargo.install.dir>${user.home}/wildfly</cargo.install.dir>
 		<!-- fetch the jboss from this url -->
-		<cargo.jboss.url>http://download.jboss.org/wildfly/8.0.0.Final/wildfly-8.0.0.Final.zip</cargo.jboss.url>
+		<cargo.jboss.url>http://download.jboss.org/wildfly/8.2.0.Final/wildfly-8.2.0.Final.zip</cargo.jboss.url>
 		<!-- local intallation of the jboss for integration-tests -->
-		<cargo.jboss.install.dir>${user.home}/wildfly/wildfly-8.0.0.Final/wildfly-8.0.0.Final</cargo.jboss.install.dir>
+		<cargo.jboss.install.dir>${user.home}/wildfly/wildfly-8.2.0.Final/wildfly-8.2.0.Final</cargo.jboss.install.dir>
 		<!-- the ears are deployed to this server using jboss:harddeploy -->
 		<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 		<jboss.install.node>default</jboss.install.node>
