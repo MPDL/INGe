@@ -41,9 +41,9 @@
 	<version>1.0.79-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/common_presentation</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/common_presentation</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/common_presentation</developerConnection>
+		<url>https://github.com/MPDL-Collections/PubMan/</url>
 	</scm>
 	
 	<build>

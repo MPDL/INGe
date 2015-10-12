@@ -67,8 +67,8 @@
 	</ciManagement>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/extraction_chain</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/extraction_chain/</developerConnection>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/tools/scripts/extraction_chain</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/tools/scripts/extraction_chain/</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/tools/scripts/extraction_chain/</url>
 	</scm>
 	

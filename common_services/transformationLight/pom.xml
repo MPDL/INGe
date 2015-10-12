@@ -42,8 +42,8 @@
 	<version>1.0.28-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformationLight</developerConnection>
+	  <connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/transformationLight</connection>
+    <developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/transformationLight</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/transformationLight</url>
   </scm>
 	<build>

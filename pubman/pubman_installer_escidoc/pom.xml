@@ -31,9 +31,9 @@
 	<description>Installer of a complete PubMan System including Postgres, Fedora and eSciDoc</description>
 
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_escidoc</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/trunk/pubman/pubman_installer_escidoc</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/pubman/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/pubman/pubman_installer_escidoc</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/pubman/pubman_installer_escidoc</developerConnection>
+		<url>https://github.com/MPDL-Collections/PubMan/</url>
 	</scm>
 
 	<properties>
