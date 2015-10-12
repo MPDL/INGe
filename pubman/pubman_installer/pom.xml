@@ -216,6 +216,7 @@
 							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
 					</execution>
+					
 					<execution>
 						<id>unpack-pubman_ear</id>
 						<phase>generate-resources</phase>
@@ -226,6 +227,8 @@
 							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 							<includeArtifactIds>pubman_ear</includeArtifactIds>
 							<includeClassifiers>sources</includeClassifiers>
+							<excludeTransitive>true</excludeTransitive>
+							
 							<type>jar</type>
 							<includes>**/pubman.properties, **/conf.xml, **/auth.properties, */pubman.properties, **/conf.xml, **/solution.properties, **/apache-fop-config.xml</includes>
 							<outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
@@ -235,7 +238,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Remove password placeholders from pubman.properties, before they're filled -->
 			<plugin>
 	           <groupId>com.google.code.maven-replacer-plugin</groupId>
@@ -391,15 +394,23 @@
 		</profile>
 	</profiles>
 	<dependencies>
-	<!-- 
+	
+	
+	
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
 			<version>7.9.4</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 			<classifier>sources</classifier>
+			 <exclusions>
+		        <exclusion>
+		            <groupId>*</groupId>
+		            <artifactId>*</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
-		-->
+	
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_ear</artifactId>
