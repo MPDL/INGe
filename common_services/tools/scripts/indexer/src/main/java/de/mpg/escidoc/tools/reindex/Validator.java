@@ -24,6 +24,11 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+
 public class Validator
 {
 	protected Indexer indexer;
@@ -130,6 +135,9 @@ public class Validator
 			
 			logger.info("comparing 2 - 1");
 			compareFields(m2, m1);
+			
+			logger.info("comparing skipped fields 1 - 2");
+			compareSkippedFields(m1, m2);
 		}
 		
 		logger.info("Validator result \n" + indexer.getIndexingReport().toString());
@@ -292,7 +300,7 @@ public class Validator
 		{
 			String name = f.name();
 			
-			// we put all values together in the same HashSet for the fields "stored_filename1",  "stored_filename1" ..., same for aa_stored_filename
+			// we put all values together in the same HashSet for the fields "stored_filename1",  "stored_filename2" ..., same for aa_stored_filename
 			// because the ordering of the components may differ
 			if (name.startsWith("stored_filename"))
 			{
@@ -334,6 +342,35 @@ public class Validator
 
 		return map;
 	}
+	
+	private void compareSkippedFields(Map<String, Set<Fieldable>> m1,
+			Map<String, Set<Fieldable>> m2)
+	{
+		String xml_representation1 = m1.get("xml_representation").iterator().next().stringValue();
+		String xml_representation2 = m2.get("xml_representation").iterator().next().stringValue();
+		
+		PubItemVO pubItem1 = null;
+		PubItemVO pubItem2 = null;
+		
+		XmlTransforming xmlTransforming = new XmlTransformingBean();
+		
+		try
+		{
+			pubItem1 = xmlTransforming.transformToPubItem(xml_representation1);
+			pubItem2 = xmlTransforming.transformToPubItem(xml_representation2);
+		} catch (TechnicalException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (!pubItem1.equals(pubItem2))
+		{
+			indexer.getIndexingReport().addToErrorList("Difference when comparing <" + pubItem1.getPid() + "> with <" + pubItem2.getPid() + ">");					
+		}
+		
+	}
+
 	
 	// the "0" is omitted because if we compare time stamps the last position may be withdrawn by escidoc in case of an ending "0"
 	private String shorten(String stringValue)

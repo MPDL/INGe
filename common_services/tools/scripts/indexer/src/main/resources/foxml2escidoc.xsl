@@ -222,25 +222,25 @@
 								</prop:checksum-algorithm>
 							</xsl:if>
 						</escidocComponents:properties>
-						<escidocComponents:content xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/content">
 						
-							<xsl:message>content type <xsl:value-of select="$component-content/foxml:contentLocation/@TYPE"/></xsl:message>
-							<xsl:message>component-content-ID <xsl:value-of select="$component-content/@ID"/></xsl:message>
-							<xsl:message>component-content-MIMETYPE <xsl:value-of select="$component-content/@MIMETYPE"/></xsl:message>
+						<xsl:variable name="storage-type" select="$component-content/foxml:contentLocation/@TYPE"/>
+						
+						<xsl:message>content type <xsl:value-of select="$storage-type"/></xsl:message>
+						<xsl:message>component-content-ID <xsl:value-of select="$component-content/@ID"/></xsl:message>
+						<xsl:message>component-content-MIMETYPE <xsl:value-of select="$component-content/@MIMETYPE"/></xsl:message>
 							
-							<xsl:choose>
-							
-								<xsl:when test="$component-content/foxml:contentLocation/@TYPE = 'INTERNAL_ID'">
-									<xsl:attribute name="storage" select="'internal-managed'"/>
-								</xsl:when>
-								<xsl:when test="$component-content/foxml:contentLocation/@TYPE = 'URL'">
-									<xsl:attribute name="storage" select="'external-url'"/>
-								</xsl:when>
-								<xsl:otherwise>
-									ERROR!
-								</xsl:otherwise>
-							</xsl:choose>
+						<xsl:if test="$storage-type = 'INTERNAL_ID'">
+						<escidocComponents:content xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/content">							
+							<xsl:attribute name="storage" select="'internal-managed'"/>								
 						</escidocComponents:content>
+						</xsl:if>
+						
+						<xsl:if test="$storage-type = 'URL'">
+							<escidocComponents:content xlink:type="simple" xlink:title="{$component-metadata/file:file/dc:title}" xlink:href="{$component-metadata/file:file/dc:title}">
+							<xsl:attribute name="storage" select="'external-url'"/>							
+						</escidocComponents:content>
+						</xsl:if>
+						
 						<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Component {$component-id}" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/md-records">
 							<escidocMetadataRecords:md-record name="escidoc" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/{$PID}/components/component/{$component-id}/md-records/md-record/escidoc">
 								<xsl:copy-of select="$component-metadata/file:file"/>
