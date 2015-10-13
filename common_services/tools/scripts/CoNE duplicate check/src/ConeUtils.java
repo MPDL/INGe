@@ -1,29 +1,17 @@
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-
-import com.sun.imageio.plugins.common.InputStreamAdapter;
 
 
 /**
@@ -53,8 +41,6 @@ public class ConeUtils {
         
         try
         {
-            DocumentBuilder documentBuilder;
-            documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
             String queryUrl = ConfigUtil.CONE_URL + ConfigUtil.PERSON_MODEL + "/query?format=jquery&dc:title=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&n=0";
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet(queryUrl);

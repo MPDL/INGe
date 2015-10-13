@@ -36,7 +36,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,18 +48,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-// Only for DOM Debugging
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
@@ -76,6 +71,7 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
@@ -84,13 +80,14 @@ import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+// Only for DOM Debugging
 
 /**
  * Helper methods for the transformation service.
  *
  * @author kleinfe1 (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: MWalter $ (last modification)
+ * @version $Revision: 5445 $ $LastChangedDate: 2015-02-19 14:13:07 +0100 (Thu, 19 Feb 2015) $
  *
  */
 public class Util
@@ -466,6 +463,60 @@ public class Util
             return null;
             //throw new RuntimeException(e);
         }
+    }
+    
+    /**
+     * queries the framework with the given request
+     * @param request
+     * @return XML document returned by the framework
+     * @throws Exception
+     */
+    public static Document queryFramework(String request) throws Exception
+    {
+    	final String FRAMEWORK_PROPERTY = "escidoc.framework_access.framework.url";
+    	DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl.newInstance();
+    	DocumentBuilder documentBuilder;
+        String url = null;
+        String frameworkUrl = null;
+        Document document = null;
+		try {
+			frameworkUrl = PropertyReader.getProperty(FRAMEWORK_PROPERTY);
+			url = frameworkUrl + request;
+			
+			if (logger.isDebugEnabled()) logger.debug("queryFramework: (" + url.toString() + ")");
+			
+			documentBuilderFactory.setNamespaceAware(true);
+			documentBuilder = documentBuilderFactory.newDocumentBuilder();
+			document = documentBuilder.newDocument();
+			
+			HttpClient client = new HttpClient();
+			GetMethod getMethod = new GetMethod(url);
+			int statusCode = client.executeMethod(getMethod);
+			if (statusCode == 200)
+			{
+				InputStream input = getMethod.getResponseBodyAsStream();
+				document  = documentBuilder.parse(input);
+			}
+			else 
+			{
+				throw new RuntimeException("Error requesting <" + url + ">");
+			}
+		} catch (IOException e) {
+			logger.error("IOException when getting Property <" + FRAMEWORK_PROPERTY + ">\n"
+					+ "Or reading document from URL <" + url, e);
+			throw e;
+		} catch (URISyntaxException e) {
+			logger.error("Invalid URL when getting Property: <" + FRAMEWORK_PROPERTY + ">", e);
+			throw e;
+		} catch (ParserConfigurationException e) {
+			logger.error("Parser configuration error", e);
+			throw e;
+		} catch (SAXException e) {
+			logger.error("Could not parse returned XML", e);
+			throw e;
+		}
+		
+		return document;
     }
 
     public static String getConeSession() throws Exception
