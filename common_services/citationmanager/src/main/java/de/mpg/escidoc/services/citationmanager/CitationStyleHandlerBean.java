@@ -31,8 +31,6 @@ package de.mpg.escidoc.services.citationmanager;
 
 import java.io.IOException;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -42,10 +40,8 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageManagerInterface;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 
 
 
@@ -54,8 +50,8 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
  * It can be considered as a wrapper of the external package.
  * 
  * @author Galina Stancheva (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: MWalter $ (last modification)
+ * @version $Revision: 5728 $ $LastChangedDate: 2015-10-08 16:26:04 +0200 (Thu, 08 Oct 2015) $
  * Revised by StG: 24.08.2007
  */
 @Stateless
