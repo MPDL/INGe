@@ -321,7 +321,7 @@ public class ItemValidatingBean implements ItemValidating
     /**
      * {@inheritDoc}
      */
-    public final void refreshValidationSchemaCache() throws TechnicalException
+    public void refreshValidationSchemaCache() throws TechnicalException
     {
             ValidationSchemaCache.getInstance().refreshCache();
     }
