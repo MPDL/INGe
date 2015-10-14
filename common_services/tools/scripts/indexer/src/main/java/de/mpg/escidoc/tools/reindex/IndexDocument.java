@@ -169,7 +169,7 @@ public class IndexDocument extends DefaultHandler
 			{
 				if (storedSortFieldNames.contains(fieldName))
 				{
-					logger.info("Already stored <" + fieldName +">");
+					logger.debug("Already stored <" + fieldName +">");
 					return;
 				}
 				else

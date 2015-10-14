@@ -20,8 +20,8 @@ import de.mpg.escidoc.tools.util.xslt.LocationHelper;
 
 public class TestIndexerSmall
 {
-	//private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/escidoc_all";
-	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/item_container_admin";
+	private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/escidoc_all";
+	//private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/Test/tmp/item_container_admin";
 	//private static final String JBOSS_SERVER_LUCENE_ESCIDOC_ALL = "C:/tmp/jboss/server/default/data/index/lucene/item_container_admin";
 	
 	protected static Indexer indexer;
@@ -79,6 +79,9 @@ public class TestIndexerSmall
 		extractor.init(new File("src/test/resources/19/escidoc_2149278+content+content.0"));
 		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2149278+content+content.0"));	
 		
+		extractor.init(new File("src/test/resources/19/escidoc_2086800+content+content.0"));
+		extractor.extractFulltexts(new File("src/test/resources/19/escidoc_2086800+content+content.0"));	
+		
 	}
 	
 	@Before
@@ -109,20 +112,20 @@ public class TestIndexerSmall
 		switch (indexer.getCurrentIndexMode())
 		{
 		case LATEST_RELEASE:
-			assertTrue("Expected 17 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 17);
+			assertTrue("Expected 19 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 19);
 			
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 2);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 			assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 56);
+					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 71);
 			break;
 		case LATEST_VERSION:
 			assertTrue("Expected 22 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 22);
 			
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 2);
 			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
 			assertTrue("Is "+ indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType(), 
-					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 66);
+					indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 68);
 			break;
 		}
 	}
@@ -145,8 +148,8 @@ public class TestIndexerSmall
 		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
 		assertTrue(indexer.getIndexingReport().getFilesIndexingDone() == 1);
 		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-		assertTrue(/*"is " + indexer.getIndexingReport().getErrorList().iterator().next(),*/
-				indexer.getIndexingReport().getErrorList().size() == 0);
+		assertTrue(indexer.getIndexingReport().getErrorList().size() == 0);
+				
 	}
 	
 	@Test
@@ -454,22 +457,19 @@ public class TestIndexerSmall
 		validator = new Validator(indexer);
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
+		assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+
+		assertTrue(fieldMap != null);			
+		
 		switch(indexer.getCurrentIndexMode())
 		{
 		case LATEST_RELEASE:
-			assertTrue("Expected 0 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-
-			assertTrue(fieldMap == null);			
+			
 			break;
 			
 		case LATEST_VERSION:
-			assertTrue("Expected 1 Found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
-			assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
-			assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
-			
-			assertTrue(fieldMap != null);	
 			
 			assertTrue(fieldMap.get("/properties/latest-release/id") != null);
 			assertTrue(fieldMap.get("sort/properties/latest-release/id") == null);
@@ -661,7 +661,7 @@ public class TestIndexerSmall
 				assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 1);
 				break;
 			case LATEST_VERSION:
-				assertTrue("Expected 0 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+				assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
 				assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
 				break;
 		}	
@@ -860,6 +860,25 @@ public class TestIndexerSmall
 		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
 		
 		assertTrue(fieldMap == null);
+	}
+	
+	// escidoc:2086801 released item with 1 component; escidoc:2086800 pdf (public)
+	@Test
+	public void testItemWithRevision_2086801() throws Exception
+	{
+		indexer.indexItemsStart(new File("src/test/resources/20/escidoc_2086801"));
+		indexer.finalizeIndex();
+		
+		assertTrue("Expected 1 found " + indexer.getIndexingReport().getFilesIndexingDone(), indexer.getIndexingReport().getFilesIndexingDone() == 1);
+		assertTrue(indexer.getIndexingReport().getFilesErrorOccured() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfTime() == 0);
+		assertTrue(indexer.getIndexingReport().getFilesSkippedBecauseOfStatusOrType() == 0);
+		
+		validator = new Validator(indexer);
+		
+		Map<String, Set<Fieldable>> fieldMap = validator.getFieldsOfDocument();
+		
+		assertTrue(fieldMap != null);
 	}
 	
 	// Tests index append mode
