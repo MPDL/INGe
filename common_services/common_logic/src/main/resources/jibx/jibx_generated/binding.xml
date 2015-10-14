@@ -1,4 +1,4 @@
-<binding xmlns:ns0="${xsd.soap.common.commontypes}" name="binding" package="de.mpg.escidoc.services.common.valueobjects.intelligent">
+<binding xmlns:ns0="${xsd.soap.common.commontypes}" name="binding">
   <namespace uri="${xsd.soap.common.commontypes}" prefix="ns0"/>
   <namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
   <namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
