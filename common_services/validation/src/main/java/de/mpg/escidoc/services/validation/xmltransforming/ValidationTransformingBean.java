@@ -77,7 +77,7 @@ public class ValidationTransformingBean implements ValidationTransforming
     /**
      * {@inheritDoc}
      */
-    public final ValidationReportVO transformToValidationReport(final String report)
+    public ValidationReportVO transformToValidationReport(final String report)
         throws TransformingException
     {
         if (LOGGER.isDebugEnabled())

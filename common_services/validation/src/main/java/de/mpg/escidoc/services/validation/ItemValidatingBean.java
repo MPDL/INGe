@@ -230,7 +230,7 @@ public class ItemValidatingBean implements ItemValidating
     /**
      * {@inheritDoc}
      */
-    public final ValidationReportVO validateItemObject(final ItemVO itemVO) throws
+    public  ValidationReportVO validateItemObject(final ItemVO itemVO) throws
             ValidationSchemaNotFoundException,
             TechnicalException
     {
@@ -248,7 +248,7 @@ public class ItemValidatingBean implements ItemValidating
     /**
      * {@inheritDoc}
      */
-    public final ValidationReportVO validateItemObject(
+    public ValidationReportVO validateItemObject(
             final ItemVO itemVO,
             final String validationPoint) throws
             ValidationSchemaNotFoundException,
@@ -272,7 +272,7 @@ public class ItemValidatingBean implements ItemValidating
     /**
      * {@inheritDoc}
      */
-    public final ValidationReportVO validateItemObjectBySchema(
+    public ValidationReportVO validateItemObjectBySchema(
             final ItemVO itemVO,
             final String validationPoint,
             final String validationSchema) throws
