@@ -56,7 +56,7 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
      * java.lang.String, java.lang.String)
      */
     @Override
-    public byte[] getOutput(ExportFormatVO exportFormat, String itemList)
+    public byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws Exception
     {
         List<String> citationList = new ArrayList<String>();
         StringWriter snippet = new StringWriter();
@@ -72,8 +72,6 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
             TransformerFactory factory = new TransformerFactoryImpl();
             Transformer transformer = factory.newTransformer(new StreamSource(
                     this.getClass().getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
-            // Create a Pattern object
-            Pattern pattern = Pattern.compile(CITATION_EXTRACTION_PATTERN);
             // Now create matcher object.
             for (String citation : bibl.getEntries())
             {
@@ -108,14 +106,22 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
         catch (IOException e)
         {
             logger.error("Error creating CSL processor", e);
+            throw new Exception(e);
         }
         catch (TransformerConfigurationException e)
         {
-            logger.error("Eror preparing transformation itemList to snippet", e);
+            logger.error("Error preparing transformation itemList to snippet", e);
+            throw new Exception(e);
         }
         catch (TransformerException e)
         {
-            logger.error("Eror transforming itemList to snippet", e);
+            logger.error("Error transforming itemList to snippet", e);
+            throw new Exception(e);
+        }
+        catch (Exception e)
+        {
+            logger.error("Error getting output", e);
+            throw new Exception(e);
         }
         return result;
     }
@@ -130,7 +136,7 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
         return false;
     }
 
-    public List<String> getListOfStyles()
+    public List<String> getListOfStyles() throws Exception
     {
         List<String> styleList = new ArrayList<String>();
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -165,6 +171,7 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
         catch (Exception e)
         {
             logger.error("Error getting list of citation styles available", e);
+            throw new Exception(e);
         }
         finally
         {
@@ -175,6 +182,7 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
             catch (IOException e)
             {
                 logger.error("error getting ");
+                throw new Exception(e);
             }
         }
         return styleList;

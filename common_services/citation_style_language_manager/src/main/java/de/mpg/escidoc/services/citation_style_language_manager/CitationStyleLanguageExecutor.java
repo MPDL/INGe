@@ -14,7 +14,7 @@ public class CitationStyleLanguageExecutor {
 
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		CitationStyleLanguageManagerInterface cslManager = new CitationStyleLanguageManagerDefaultImpl();
 		cslManager.getOutput(createExportFormat("Name", "html") , "escidoc:1234");
 	}
