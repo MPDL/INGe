@@ -25,6 +25,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -310,6 +311,35 @@ public class MetadataProvider implements ItemDataProvider {
 			}
 		}
 		
+		// Degree
+		if (metadata.getDegree() != null)
+		{
+		    switch (metadata.getDegree()) 
+		    {
+		        case BACHELOR:
+		            cslItem.genre("Bachelor's Thesis");
+		            break;
+                case DIPLOMA:
+                    cslItem.genre("Diploma Thesis");
+                    break;
+                case HABILITATION:
+                    cslItem.genre("Habilitation Thesis");
+                    break;
+                case MAGISTER:
+                    cslItem.genre("Magister Thesis");
+                    break;
+                case MASTER:
+                    cslItem.genre("Master's Thesis");
+                    break;
+                case PHD:
+                    cslItem.genre("PHD Thesis");
+                    break;
+                case STAATSEXAMEN:
+                    cslItem.genre("Staatsexamen Thesis");
+                    break;
+		    }
+		}
+		
 		// URL / Files
 		if (currentItem.getFiles() != null 
 				&& !currentItem.getFiles().isEmpty())
@@ -318,42 +348,40 @@ public class MetadataProvider implements ItemDataProvider {
 			Collections.sort(fileList, new FileUrlPriorityComparator());
 			if (fileList.get(0) != null)
 			{
-				if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility()))
+				if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
+				        && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".
+                                equals(fileList.get(0).getContentCategory())
+                        || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".
+                                equals(fileList.get(0).getContentCategory())
+                        || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".
+                                equals(fileList.get(0).getContentCategory())
+                        || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".
+                                equals(fileList.get(0).getContentCategory())))
 				{
-					if (("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".
-									equals(fileList.get(0).getContentCategory())
-							|| "http://purl.org/escidoc/metadata/ves/content-categories/post-print".
-									equals(fileList.get(0).getContentCategory())
-							|| "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".
-									equals(fileList.get(0).getContentCategory())
-							|| "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".
-									equals(fileList.get(0).getContentCategory())))
+					if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage()))
 					{
-						if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage()))
-						{
-							cslItem.URL(fileList.get(0).getContent());
-						}
-						else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage()))
-						{
-							cslItem.URL(fileList.get(0).getPid());
-						}
+						cslItem.URL(fileList.get(0).getContent());
 					}
-					
+					else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage()))
+					{
+						cslItem.URL(fileList.get(0).getPid());
+					}
 				}
+				else
+		        {
+		            for (IdentifierVO identifier : metadata.getIdentifiers())
+		            {
+		                if (IdentifierVO.IdType.URI.equals(identifier.getType())
+		                        || IdentifierVO.IdType.URN.equals(identifier.getType()))
+		                {
+		                    cslItem.URL(identifier.getId());
+		                    break;
+		                }
+		            }
+		        }
 			}
 		}
-		else
-		{
-			for (IdentifierVO identifier : metadata.getIdentifiers())
-			{
-				if (IdentifierVO.IdType.URI.equals(identifier.getType())
-						|| IdentifierVO.IdType.URN.equals(identifier.getType()))
-				{
-					cslItem.URL(identifier.getId());
-					break;
-				}
-			}
-		}
+		
 		
 		// Identifiers
 		for (IdentifierVO identifier : metadata.getIdentifiers())
@@ -515,21 +543,21 @@ public class MetadataProvider implements ItemDataProvider {
 					&& (source.getPublishingInfo() != null 
 					&& source.getPublishingInfo().getPlace() != null))
 			{
-				cslItem.publisher(source.getPublishingInfo().getPlace());
+				cslItem.publisherPlace(source.getPublishingInfo().getPlace());
 			}
 			if((metadata.getPublishingInfo() == null
 					|| metadata.getPublishingInfo().getEdition() == null)
 					&& (source.getPublishingInfo() != null 
 					&& source.getPublishingInfo().getEdition() != null))
 			{
-				cslItem.publisher(source.getPublishingInfo().getEdition());
+				cslItem.edition(source.getPublishingInfo().getEdition());
 			}
 			
 			// Source number of pages
 			if (metadata.getTotalNumberOfPages() == null
 					&& source.getTotalNumberOfPages() != null)
 			{
-				cslItem.publisher(source.getTotalNumberOfPages());
+				cslItem.numberOfPages(source.getTotalNumberOfPages());
 			}
 			
 			// Soource volume
@@ -1006,6 +1034,5 @@ public class MetadataProvider implements ItemDataProvider {
 			}
 			
 		}
-		
 	}
 }
