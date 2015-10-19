@@ -31,8 +31,9 @@ public class CitationStyleLanguageUtils {
 	 * @param url
 	 * @return csl style xml as String or null if no style could be found or
 	 *         read
+	 * @throws Exception 
 	 */
-	protected static String loadStyleFromUrl(String url) {
+	protected static String loadStyleFromUrl(String url) throws Exception {
 		String style = null;
 		try {
 			style = CSLUtils.readURLToString(new URL(url), "UTF-8");
@@ -40,8 +41,10 @@ public class CitationStyleLanguageUtils {
 			logger.error(
 					"URL seems to be malformed, when trying to retrieve the csl style",
 					e);
+			throw new Exception(e);
 		} catch (IOException e) {
 			logger.error("IO-Problem, when trying to retrieve the csl style", e);
+			throw new Exception(e);
 		}
 		return style;
 	}
@@ -52,8 +55,9 @@ public class CitationStyleLanguageUtils {
 	 * @param url
 	 * @return csl style xml as String or null if no style could be found or
 	 *         read
+	 * @throws Exception 
 	 */
-	protected static String loadStyleFromJsonUrl(String url)
+	protected static String loadStyleFromJsonUrl(String url) throws Exception
 	{
 		String xml = null;
 
@@ -78,8 +82,10 @@ public class CitationStyleLanguageUtils {
 			jParser.close();
 		} catch (JsonParseException e) {
 			logger.error("Error parsing json from URL (" + url + ")", e);
+			throw new Exception(e);
 		} catch (IOException e) {
 			logger.error("Error getting json from URL (" + url + ")", e);
+			throw new Exception(e);
 		}
 		if (logger.isDebugEnabled()) 
 		{
