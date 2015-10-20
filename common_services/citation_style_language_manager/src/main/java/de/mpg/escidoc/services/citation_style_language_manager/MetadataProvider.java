@@ -339,7 +339,7 @@ public class MetadataProvider implements ItemDataProvider {
 	                    cslItem.genre("Master's Thesis");
 	                    break;
 	                case PHD:
-	                    cslItem.genre("PHD Thesis");
+	                    cslItem.genre("PhD Thesis");
 	                    break;
 	                case STAATSEXAMEN:
 	                    cslItem.genre("Staatsexamen Thesis");
