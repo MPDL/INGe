@@ -122,7 +122,7 @@
 										</h:selectOneMenu>
 									</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-										<h:inputText id="inputCidationStyleName"
+										<h:inputText id="inputCitationStyleName"
 											styleClass="double_txtInput citationStyleSuggest citationStyleName"
 											value="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Mein Apa ist der Beste" />
 										<h:inputText id="inputCitationStyleIdentifier"
@@ -214,7 +214,12 @@
 				$(document).ready(function () {
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+					checkUpdateCslUi(); 
 				});
+				
+				function checkUpdateCslUi() {
+					(typeof updateCslUi == 'function') ?	updateCslUi() :	setTimeout("checkUpdateCslUi()", 30);
+				}
 			</script>
 			</body>
 		</html>

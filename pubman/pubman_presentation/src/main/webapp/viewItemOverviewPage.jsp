@@ -321,7 +321,7 @@
 												value="#{lbl.export_btEMail}"
 												action="#{ViewItemFull.exportEmail}"/>
 											<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-												<h:inputText id="inputCidationStyleName"
+												<h:inputText id="inputCitationStyleName"
 													styleClass="huge_txtInput citationStyleSuggest citationStyleName"
 													value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
 												<h:inputText id="inputCitationStyleIdentifier"
@@ -622,6 +622,8 @@
 					});
 					// Try to replace standard author images with CoNE-images
 					replaceAuthorImage();
+					
+					checkUpdateCslUi(); 
 				});
 				// NanoScroller
 				var counter = 0;
@@ -667,6 +669,12 @@
 						}
 					});
 				}
+				
+				ipt type="text/javascript">
+				function checkUpdateCslUi() {
+					(typeof updateCslUi == 'function') ?	updateCslUi() :	setTimeout("checkUpdateCslUi()", 30);
+				}
+				
 			</script>
 			</body>
 		</html>
