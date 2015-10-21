@@ -450,11 +450,11 @@ public class MetadataProvider implements ItemDataProvider {
 	            }
 	            if (metadata.getPublishingInfo().getPlace() != null)
 	            {
-	                cslItem.publisher(metadata.getPublishingInfo().getPlace());
+	                cslItem.publisherPlace(metadata.getPublishingInfo().getPlace());
 	            }
 	            if (metadata.getPublishingInfo().getEdition() != null)
 	            {
-	                cslItem.publisher(metadata.getPublishingInfo().getEdition());
+	                cslItem.edition(metadata.getPublishingInfo().getEdition());
 	            }
 	        }
 	        
