@@ -722,6 +722,14 @@
 	<ui:include src="footer/Footer.jspf" />
 
 	<script type="text/javascript">
+		function checkUpdateCslUi() {
+			(typeof updateCslUi == 'function') ?	updateCslUi() :	setTimeout("checkUpdateCslUi()", 30);
+		}
+		
+		$(document).ready(function () {
+			checkUpdateCslUi(); 
+		});
+	
 		citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
 		citationStyleSuggestBaseURL = '$1?format=json';
 	</script>

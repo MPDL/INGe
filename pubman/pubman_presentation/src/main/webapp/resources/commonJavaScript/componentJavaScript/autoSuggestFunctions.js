@@ -688,8 +688,16 @@
 		bindSuggests();
 	}
 	
-	
-	
+	function updateCslUi()
+	{
+		var cslIdentifier = $('.citationStyleIdentifier');
+		// maintain attributes for autosuggest filled persons
+		if(cslIdentifier && cslIdentifier.val())
+		{
+			$('.citationStyleName').attr('readonly', 'readonly');
+			$('.removeAutoSuggestCsl').css('display', 'inline');
+		}
+	}
 	
 	function bindJournalSuggest()
 	{
