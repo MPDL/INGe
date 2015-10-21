@@ -461,7 +461,7 @@ public class MetadataProvider implements ItemDataProvider {
 	        // Number of pages
 	        if (metadata.getTotalNumberOfPages() != null)
 	        {
-	            cslItem.publisher(metadata.getTotalNumberOfPages());
+	            cslItem.numberOfPages(metadata.getTotalNumberOfPages());
 	        }
 	        
 	        // Source
