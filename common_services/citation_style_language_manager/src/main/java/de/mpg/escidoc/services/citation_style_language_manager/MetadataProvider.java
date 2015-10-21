@@ -636,15 +636,15 @@ public class MetadataProvider implements ItemDataProvider {
 	                        calendar.setTime(date);
 	                        if (dateFormats[0].equals(formatString))
 	                        {
-	                            cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+	                            cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
 	                        }
 	                        else if (dateFormats[1].equals(formatString))
 	                        {
-	                            cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+	                            cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
 	                        }
 	                        else if (dateFormats[2].equals(formatString))
 	                        {
-	                            cslItem.submitted(calendar.get(Calendar.YEAR), 0, 0);
+	                            cslItem.eventDate(calendar.get(Calendar.YEAR), 0, 0);
 	                        }
 	                        break;
 	                    }
