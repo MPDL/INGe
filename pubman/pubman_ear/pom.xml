@@ -118,11 +118,13 @@
 							<artifactId>dataacquisition_presentation</artifactId>
 							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
+						<!--  
 						<webModule>
 							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>sword_presentation</artifactId>
 							<contextRoot>/sword-app</contextRoot>
 						</webModule>
+						-->
 						<webModule>
 							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>pid_cache_presentation</artifactId>
@@ -217,8 +219,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
@@ -229,112 +229,80 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>${version.common_logic}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>${version.citationmanager}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<version>${version.citation_style_language_manager}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>${version.dataacquisition}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>${version.structuredexportmanager}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
-			<version>${version.validation}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>${version.validation_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>${version.cone_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>cone</artifactId>
-			<version>${version.cone}</version>
-			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-	 	<version>${version.dataacquisition_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>${version.transformation}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>aa_presentation</artifactId>
-			<version>${version.aa_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search</artifactId>
-			<version>${version.search}</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search_presentation</artifactId>
-			<version>${version.search_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>syndication_presentation</artifactId>
-			<version>${version.syndication_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
@@ -352,38 +320,29 @@
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>sword_presentation</artifactId>
-			<version>${version.sword_presentation}</version>
+			<version>1.0.68-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
-			<version>${version.pid_cache_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_presentation</artifactId>
-			<version>${version.common_presentation}</version>
 			<type>war</type>
-			<scope>compile</scope>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.3.2</version>
-		</dependency>
-		-->
+
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
 		</dependency>
 
 		<dependency>

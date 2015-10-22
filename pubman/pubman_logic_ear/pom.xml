@@ -241,62 +241,53 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>${version.framework_access}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>${version.common_logic}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>${version.citationmanager}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<version>${version.citation_style_language_manager}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>${version.dataacquisition}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>${version.structuredexportmanager}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
-			<version>${version.validation}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>${version.validation_presentation}</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>${version.transformation}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -304,110 +295,31 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search</artifactId>
-			<version>${version.search}</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search_presentation</artifactId>
-			<version>${version.search_presentation}</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>syndication_presentation</artifactId>
-			<version>${version.syndication_presentation}</version>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
+		
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_logic</artifactId>
 			<version>7.9.5-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>1.0</version>
-			<scope>test</scope>
-		</dependency>
-		-->
-		<!-- 
-		<dependency>
-			<groupId>jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>3.5.1</version>
-			<scope>compile</scope>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans</artifactId>
-			<version>2.3.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>xbean</artifactId>
-			<version>2.2.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>xbean_xpath</artifactId>
-			<version>2.1.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mulgara</groupId>
-			<artifactId>itql</artifactId>
-			<version>2.0-beta</version>
-			<scope>compile</scope>
-		</dependency>
-		 
-		
-		
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-toc</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>mods_3.2</artifactId>
-			<version>3.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>mets_1.7</artifactId>
-			<version>1.7</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-container</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-item</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		-->
-		
+
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
 		</dependency>
 		
 	</dependencies>

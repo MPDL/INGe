@@ -66,8 +66,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
@@ -78,8 +76,6 @@
 		<dependency>
 	    	<groupId>log4j</groupId>
 	    	<artifactId>log4j</artifactId>
-	    	<version>1.2.14</version>
-	    	<scope>provided</scope>
 	    </dependency>
 		<!-- -->
 		<dependency>
@@ -95,18 +91,15 @@
 		<dependency>
 	    	<groupId>commons-io</groupId>
 	    	<artifactId>commons-io</artifactId>
-	    	<version>2.4</version>
 	    </dependency>
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	    	<artifactId>cone</artifactId>
-	    	<version>1.2.50-SNAPSHOT</version>
 	    	<scope>provided</scope>
 	    </dependency>
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	    	<artifactId>common_logic</artifactId>
-	    	<version>1.1.90-SNAPSHOT</version>
 	    	<type>ejb</type>
 	    	<scope>provided</scope>
 	    </dependency>

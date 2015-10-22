@@ -55,43 +55,36 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>${version.citationmanager}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<version>${version.citation_style_language_manager}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>${version.structuredexportmanager}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
-			<version>${version.validation}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>${version.common_logic}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>${version.dataacquisition}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>${version.transformation}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -103,14 +96,11 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>search</artifactId>
-			<version>${version.search}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>jfree</groupId>
