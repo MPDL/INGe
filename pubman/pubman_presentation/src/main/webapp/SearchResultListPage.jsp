@@ -123,7 +123,7 @@
 										<h:outputText styleClass="seperator" />
 										<h:commandLink id="btnExportEMail" title="#{tip.export_btEMail}" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
 										<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-											<h:inputText id="inputCidationStyleName"
+											<h:inputText id="inputCitationStyleName"
 												styleClass="huge_txtInput citationStyleSuggest citationStyleName"
 												value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
 											<h:inputText id="inputCitationStyleIdentifier"
@@ -253,7 +253,12 @@
 				$(document).ready(function () {
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+					checkUpdateCslUi(); 
 				});
+				
+				function checkUpdateCslUi() {
+					(typeof updateCslUi == 'function') ?	updateCslUi() :	setTimeout("checkUpdateCslUi()", 30);
+				}
 			</script>
 			</body>
 		</html>
