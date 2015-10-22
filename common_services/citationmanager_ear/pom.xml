@@ -148,40 +148,29 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.3.35-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.95-SNAPSHOT</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.90-SNAPSHOT</version>
-			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
-			<version>1.0</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
@@ -239,8 +228,6 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.7.0</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>xalan</groupId>
@@ -268,33 +255,17 @@
 		<dependency>
 			<groupId>commons-digester</groupId>
 			<artifactId>commons-digester</artifactId>
-			<version>1.7</version>
 			<type>jar</type>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.78-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>xmlbeans</groupId>-->
-<!--			<artifactId>escidoc_profiles</artifactId>-->
-<!--			<version>0.1.1</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--      		<groupId>xmlbeans</groupId>-->
-<!--      		<artifactId>transformation</artifactId>-->
-<!--      		<version>1.0.0</version>-->
-<!--      		<scope>compile</scope>-->
-<!--    	</dependency>-->
-	
 	</dependencies>
 	
 	<profiles>
@@ -303,8 +274,7 @@
 			<id>integration-tests</id>
 			<build>
 				<plugins>
-					
-				
+			
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>

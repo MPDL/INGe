@@ -56,7 +56,6 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.97-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

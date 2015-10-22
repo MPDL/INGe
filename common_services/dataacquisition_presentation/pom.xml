@@ -56,7 +56,6 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.86-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

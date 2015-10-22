@@ -78,7 +78,6 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.0.4</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -95,20 +94,16 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
-			<version>1.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>saxon</groupId>
@@ -118,14 +113,12 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.90-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.93-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
       	<dependency>
@@ -164,14 +157,6 @@
 			<version>2.3.0</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>external</groupId>
-			<artifactId>scannotation</artifactId>
-			<version>1.0.2</version>
-      		<scope>compile</scope>
-		</dependency>
-		-->
 		<dependency>
          <groupId>org.reflections</groupId>
          <artifactId>reflections</artifactId>
@@ -199,6 +184,7 @@
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>3.5.1</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.lowagie</groupId>
