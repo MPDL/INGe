@@ -149,6 +149,49 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citationmanager</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>structuredexportmanager</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>validation</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>common_logic</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>dataacquisition</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>transformation</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>search</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
 
 	</dependencies>
 	
