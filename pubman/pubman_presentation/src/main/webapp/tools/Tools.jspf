@@ -91,6 +91,34 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
+				<h:outputLink id="lnkCslEditor" value="#{ApplicationBean.cslEditorInstanceUrl}"  target="_blank">
+					<h:outputText value="#{lbl.Tools_lblCslEditorInstance}"/>
+				</h:outputLink>
+			</b>
+		</span>
+	</div>
+	<div class="full_area0 itemBlock noTopBorder">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			&#160;
+		</h3>
+		<div class="free_area0 itemBlockContent endline">		
+			<div class="free_area0 endline itemLine firstLine">
+				<span class="quad_area0_p8 noPaddingTopBottom endline">
+				<h:outputText value="#{lbl.Tools_lblCslEditorInstanceText}" />
+					<br /><br />
+				</span>
+			</div>
+		</div>
+	</div>
+</h:panelGroup>
+<h:panelGroup>
+	<div class="full_area0 itemHeader">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
 				<h:outputLink id="lnkUnAPI" value="#{ApplicationBean.pubmanInstanceUrl}/dataacquisition/"  target="_blank">
 					<h:outputText value="#{lbl.Tools_lblUnAPIHead}"/>
 				</h:outputLink>
@@ -167,5 +195,5 @@
 		</div>
 	</div>
 </h:panelGroup>
-</ui:composition>							
+</ui:composition>			
 							
