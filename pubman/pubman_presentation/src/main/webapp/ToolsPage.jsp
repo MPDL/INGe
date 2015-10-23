@@ -90,6 +90,10 @@
 										<h:outputText value="#{lbl.Tools_lblValidationService}"/>
 									</h:outputLink>
 									<h:outputText styleClass="seperator void" />
+									<h:outputLink id="lnkMenuCslEditor" styleClass="free_area0" value="#{ApplicationBean.cslEditorInstanceUrl}" target="_blank">
+										<h:outputText value="#{lbl.Tools_lblCslEditorInstance}"/>
+									</h:outputLink>
+									<h:outputText styleClass="seperator void" />
 								</div>
 								<!-- content menu upper line ends here -->
 							</div>
