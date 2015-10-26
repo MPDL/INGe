@@ -773,6 +773,7 @@
 				<!-- http://www.kclee.de/clemens/java/javancss/ -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
+				<version>2.1</version>
 				<configuration>
 					<forceEncoding>utf-8</forceEncoding>
 					<excludes>
@@ -786,6 +787,7 @@
 					  design quality metrics http://clarkware.com/software/JDepend.html -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
+				<version>2.0</version>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -1258,6 +1260,7 @@
 					<plugin>
 						<groupId>org.zeroturnaround</groupId>
 						<artifactId>jrebel-maven-plugin</artifactId>
+						<version>1.1.5</version>
 						<configuration>
 						<name>${project.artifactId}-development</name>
 						<version>${project.version}-${maven.build.timestamp}</version>
