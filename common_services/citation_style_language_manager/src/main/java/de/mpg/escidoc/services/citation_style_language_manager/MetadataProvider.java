@@ -528,9 +528,9 @@ public class MetadataProvider implements ItemDataProvider {
 	            // Source short title
 	            for (TextVO sourceAlternativeTitle : source.getAlternativeTitles())
 	            {
-	                if (SourceVO.AlternativeTitleType.ABBREVIATION.equals(sourceAlternativeTitle.getType())
-	                        || SourceVO.AlternativeTitleType.SUBTITLE.equals(sourceAlternativeTitle.getType())
-	                        || SourceVO.AlternativeTitleType.OTHER.equals(sourceAlternativeTitle.getType()))
+	                if (SourceVO.AlternativeTitleType.ABBREVIATION.toString().equals(sourceAlternativeTitle.getType())
+	                        || SourceVO.AlternativeTitleType.SUBTITLE.toString().equals(sourceAlternativeTitle.getType())
+	                        || SourceVO.AlternativeTitleType.OTHER.toString().equals(sourceAlternativeTitle.getType()))
 	                {
 	                    cslItem.containerTitleShort(sourceAlternativeTitle.getValue());
 	                    break;

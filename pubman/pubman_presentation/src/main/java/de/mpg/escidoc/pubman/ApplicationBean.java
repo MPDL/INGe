@@ -118,6 +118,7 @@ public class ApplicationBean extends FacesBean
 	private String additionalLogoCss;
 	private boolean handlesActivated;
 	private String shortVersion;
+    private String cslEditorInstanceUrl;
     
 
     /**
@@ -251,7 +252,7 @@ public class ApplicationBean extends FacesBean
 			}
 			
 	
-			
+			this.cslEditorInstanceUrl = PropertyReader.getProperty("escidoc.pubman.csl_editor.instance");
 			
 			
 		} catch (Exception e) {
@@ -653,6 +654,16 @@ public class ApplicationBean extends FacesBean
 	public void setFooterSnippet(String footerSnippet) {
 		this.footerSnippet = footerSnippet;
 	}
+	
+	public String getCslEditorInstanceUrl()
+    {
+        return cslEditorInstanceUrl;
+    }
 
+    public void setCslEditorInstanceUrl(String cslEditorInstanceUrl)
+    {
+        this.cslEditorInstanceUrl = cslEditorInstanceUrl;
+    }
+	
 	
 }

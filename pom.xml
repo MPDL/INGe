@@ -870,6 +870,8 @@
 		<escidoc.aa.client.start.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
 		<escidoc.aa.client.finish.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
 		<escidoc.aa.client.logout.class>de.mpg.escidoc.services.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
+		<!-- Instance of the CSL-Editor -->
+		<escidoc.pubman.csl_editor.instance>http://editor.citationstyles.org</escidoc.pubman.csl_editor.instance>
 		<!-- Seal-Number of this PubMan instance -->
 		<escidoc.pubman.instance.seal_number/>
 		<!-- Yearbook properties -->
@@ -1165,7 +1167,8 @@
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
-
+				<!-- Instance of the CSL-Editor -->
+				<escidoc.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</escidoc.pubman.csl_editor.instance>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
 				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
 				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck Society</escidoc.pubman_presentation.overview_page.authors_ou> 
