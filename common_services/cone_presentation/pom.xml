@@ -52,6 +52,7 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
+						<version>1.5.0</version>
 						<configuration>
 							<jbossHome>${jboss.install.dir}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
