@@ -297,11 +297,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
-			<id>ecs-marep</id>
-	        <name>ecs-marep-releases</name>
-	        <url>https://dev.fiz-karlsruhe.de/artifactory/anonymous-repo</url>
-		</pluginRepository>
 	</pluginRepositories>
 	
 	<distributionManagement>
