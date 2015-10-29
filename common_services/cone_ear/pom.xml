@@ -129,7 +129,8 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
-<!--							<test>RetrieveTest</test>-->
+							<test>RetrieveTest</test>								
+							<argLine>${jacoco.arguments.it}</argLine>
 						</configuration>
 					</execution>
 				</executions>

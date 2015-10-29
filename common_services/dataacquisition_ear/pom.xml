@@ -126,6 +126,8 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
+							<skip>true</skip>
+							<argLine>${jacoco.arguments.it}</argLine>
 							<test>UnapiTest</test>
 						</configuration>
 					</execution>

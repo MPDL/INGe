@@ -51,6 +51,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<argLine>${jacoco.arguments.ut}</argLine>
 					<test>SyndicationTest</test>
 				</configuration>
 			</plugin>

@@ -65,6 +65,8 @@
 						<include>**/DataAcquisitionUnitTest.java</include>
 						<include>**/DataSourceHandlerTest.java</include>
 					</includes>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -52,6 +52,8 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.ut}</argLine>
 					<test>ExportTest</test>
 				</configuration>
 			</plugin>

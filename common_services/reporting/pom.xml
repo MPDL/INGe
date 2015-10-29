@@ -76,6 +76,8 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.ut}</argLine>
 					<test>ReportingTest</test>
 					<systemPropertyVariables>
 						<java.awt.headless>true</java.awt.headless>
