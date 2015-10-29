@@ -623,7 +623,7 @@ public class MetadataProvider implements ItemDataProvider {
 	            }
 	            if (event.getPlace() != null)
 	            {
-	                cslItem.eventplace(event.getPlace().getValue());
+	                cslItem.eventPlace(event.getPlace().getValue());
 	            }
 	            if (event.getStartDate() != null)
 	            {
