@@ -1324,7 +1324,7 @@
 			    
 			    <!-- command line arguments when starting test for test coverage analysis -->
 			    <jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.ut.arg}</jacoco.arguments.ut>
-			    <jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.ut.arg}</jacoco.arguments.it>			        
+			    <jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.it.arg}</jacoco.arguments.it>			        
 		    </properties>
 		    
 		    <build>
