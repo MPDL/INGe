@@ -307,7 +307,8 @@
 			<xsl:variable name="subfield-g" as="xs:string?">
 				<xsl:variable name="volume-issue-formatted" as="xs:string?" select="misc:format-volume-issue(eterms:volume, eterms:issue)"/>
 				<xsl:variable name="pages" as="xs:string?" select="local:pages(.)"/>
-				<xsl:sequence select="concat(            $volume-issue-formatted,            if ($volume-issue-formatted and $pages) then ', ' else (),            if ($pages) then concat($local:pages-marker, ' ') else (),            $pages           )"/>
+				<xsl:variable name="sequence-number" as="xs:string?" select="eterms:sequence-number"/>
+				<xsl:sequence select="concat($volume-issue-formatted, if ($volume-issue-formatted and $pages) then ', ' else (), if ($pages) then concat($local:pages-marker, ' ') else (), $pages, if($sequence-number) then (if($volume-issue-formatted or $pages) then concat(', art. ', $sequence-number) else concat('art. ', $sequence-number) ) else ()) "/>
 			</xsl:variable>
 			<xsl:if test="$subfield-g">
 				<xsl:sequence select="local:subfield('g', $subfield-g)"/>
@@ -329,6 +330,7 @@
 				<xsl:sequence select="local:subfield('z', normalize-space(.))"/>
 			</xsl:for-each>
 			<xsl:sequence select="local:subfield('7', concat('nn', misc-marc:pubman_publication-type-to-marc_type-of-record(@type), local:bibliographic-level(.) ) )"/>
+			
 		</xsl:variable>
 		<xsl:sequence select="local:datafield($target-data-field, '0', '8', $subfields)"/>
 		<xsl:if test="$misc:run-in-testmode">
