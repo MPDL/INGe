@@ -679,11 +679,6 @@
 					<artifactId>izpack-maven-plugin</artifactId>
 					<version>1.0-alpha-5</version>
 				</plugin>				
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>${jacoco.version}</version>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 		
@@ -712,54 +707,7 @@
 				</configuration>
 			</plugin>
 			
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<executions>
-				
-					<!--  Prepares a variable, jacoco.agent.ut.arg, that contains the info to be passed to the JVM hosting the code being tested. --> 
-					<execution>
-						<id>prepare-ut-agent</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${sonar.jacoco.reportPath}</destFile>
-							<propertyName>jacoco.agent.ut.arg</propertyName>
-							<append>true</append>
-						</configuration>
-					</execution>
-					
-					<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info to be passed to the JVM hosting the code being tested. -->
-					
-					<execution>
-						<id>prepare-it-agent</id>
-						<!--  moved to package phase to be sure all pre-integration test have it already set to bring up environments with jacoco agent as JVM params --> 
-						
-						<phase>package</phase>
-						<goals>
-							<goal>prepare-agent-integration</goal>
-						</goals>
-						<configuration>
-							<destFile>${sonar.jacoco.itReportPath}</destFile>
-							<propertyName>jacoco.agent.it.arg</propertyName>
-							<append>true</append>
-						</configuration>
-					</execution>
-					
-					<execution>
-		                <id>jacoco-site</id>
-		                <phase>verify</phase>
-		                <goals>
-		                  <goal>report</goal>
-		                </goals>
-		                <configuration>
-		                	<dataFile>${sonar.jacoco.itReportPath}</dataFile>
-		                </configuration>
-		              </execution>
-				</executions>
-			</plugin>
+			
 			
 		</plugins>
 		
@@ -1144,17 +1092,6 @@
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
 		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
 		
-		<!-- Sonar -->
-	    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-	    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-	
-		<jacoco.version>0.7.1.201405082137</jacoco.version>
-	    <jacoco.outputDir>${project.basedir}/../../jacoco</jacoco.outputDir>
-	    <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
-	    <jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
-	    <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
-	    <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>	
-		
 	</properties>
 	
 	<profiles>
@@ -1357,10 +1294,9 @@
 		<profile>
 		    <id>sonar</id>
 		    <activation>
-		        <activeByDefault>true</activeByDefault>
+		        <activeByDefault>false</activeByDefault>
 		    </activation>
 		    <properties>
-
 		        <sonar.jdbc.url>
 		          jdbc:postgresql://localhost:5432/sonar
 		        </sonar.jdbc.url>
@@ -1375,9 +1311,86 @@
 		           http://localhost:9000
 		           -->  
 		        </sonar.host.url>
-		        
-		        
+		     
+			    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+			    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+			
+				<jacoco.version>0.7.1.201405082137</jacoco.version>
+			    <jacoco.outputDir>${project.basedir}/../../jacoco</jacoco.outputDir>
+			    <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
+			    <jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
+			    <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
+			    <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
+			    
+			    <!-- command line arguments when starting test for test coverage analysis -->
+			    <jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.ut.arg}</jacoco.arguments.ut>
+			    <jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.ut.arg}</jacoco.arguments.it>			        
 		    </properties>
+		    
+		    <build>
+			    <pluginManagement>
+			    	<plugins>
+					    <plugin>
+							<groupId>org.jacoco</groupId>
+							<artifactId>jacoco-maven-plugin</artifactId>
+							<version>${jacoco.version}</version>
+						</plugin>
+			    	</plugins>
+			    </pluginManagement>
+			    
+			    <plugins>
+			    	<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+						
+							<!--  Prepares a variable, jacoco.agent.ut.arg, that contains the info to be passed to the JVM hosting the code being tested. --> 
+							<execution>
+								<id>prepare-ut-agent</id>
+								<phase>process-test-classes</phase>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<destFile>${sonar.jacoco.reportPath}</destFile>
+									<propertyName>jacoco.agent.ut.arg</propertyName>
+									<append>true</append>
+								</configuration>
+							</execution>
+							
+							<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info to be passed to the JVM hosting the code being tested. -->
+							
+							<execution>
+								<id>prepare-it-agent</id>
+								<!--  moved to package phase to be sure all pre-integration test have it already set to bring up environments with jacoco agent as JVM params --> 
+								
+								<phase>package</phase>
+								<goals>
+									<goal>prepare-agent-integration</goal>
+								</goals>
+								<configuration>
+									<destFile>${sonar.jacoco.itReportPath}</destFile>
+									<propertyName>jacoco.agent.it.arg</propertyName>
+									<append>true</append>
+								</configuration>
+							</execution>
+							
+							<execution>
+				                <id>jacoco-site</id>
+				                <phase>verify</phase>
+				                <goals>
+				                  <goal>report</goal>
+				                </goals>
+				                <configuration>
+				                	<dataFile>${sonar.jacoco.itReportPath}</dataFile>
+				                </configuration>
+				              </execution>
+						</executions>
+					</plugin>
+			    
+			    </plugins>
+		    
+		    </build>
 		</profile>
 		
 		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->

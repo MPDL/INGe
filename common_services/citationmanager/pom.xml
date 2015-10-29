@@ -56,8 +56,8 @@
 					<skip>false</skip>
 					<includes>
 						<include>**/TestCitationManager.java</include>
-<!--						<include>**/TestCitationStylesSubstantial.java</include>-->
 					</includes>
+					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 			<!-- the plugin creates executable jar with all deps in it -->
