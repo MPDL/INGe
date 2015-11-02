@@ -15,7 +15,7 @@ public class StatisticSessionBean extends FacesBean
     public static String BEAN_NAME = "StatisticSessionBean";
     private String uuid;
     
-    private Logger logger = Logger.getLogger(StatisticSessionBean.class);
+    //private static Logger logger = Logger.getLogger(StatisticSessionBean.class);
     
     
     public StatisticSessionBean()
