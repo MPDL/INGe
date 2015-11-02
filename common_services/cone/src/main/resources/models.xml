@@ -472,6 +472,31 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 		</results>
 	</model>
 	
+	
+	<model>
+		<name>jel</name>
+		<aliases>
+			<alias>jel</alias>
+		</aliases>
+		<description>Journal of Economic Literature (JEL) classification</description>
+		<open>true</open>
+		<primary-identifier control="false" subject-prefix="jel/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Code" value="http://purl.org/dc/elements/1.1/identifier" localized="false" mandatory="true" multiple="false" modify="true" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+			<predicate name="Title" value="http://purl.org/dc/elements/1.1/title" localized="false" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" includeResource="false" localized="false" mandatory="false" multiple="false" modify="true" resourceModel="jel" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
 		<!-- 
 	<model>
 		<name>imago</name>

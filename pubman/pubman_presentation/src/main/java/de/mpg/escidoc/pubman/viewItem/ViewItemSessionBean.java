@@ -60,22 +60,6 @@ public class ViewItemSessionBean extends FacesBean
     
 
     
-    // the action links
-    private HtmlCommandLink lnkEdit = new HtmlCommandLink();
-    private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
-    private HtmlCommandLink lnkRelease = new HtmlCommandLink();
-    private HtmlCommandLink lnkDelete = new HtmlCommandLink();
-    private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
-    private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
-    private HtmlCommandLink lnkModify = new HtmlCommandLink();
-    private HtmlCommandLink lnkCreateNewRevision = new HtmlCommandLink(); 
-    private HtmlCommandLink lnkCreateItemFromTemplate = new HtmlCommandLink(); 
-    
-    //the basic links
-    private HtmlCommandLink lnkViewReleaseHistory = new HtmlCommandLink();
-    private HtmlCommandLink lnkViewRevisions = new HtmlCommandLink();
-    private HtmlCommandLink lnkViewStatistics = new HtmlCommandLink();
-    private HtmlCommandLink lnkViewLog = new HtmlCommandLink();
     
     // Flag if view item has already been redirected
     private boolean hasBeenRedirected = false;
@@ -195,56 +179,7 @@ public class ViewItemSessionBean extends FacesBean
         this.itemIdViaURLParam = itemIdViaURLParam;
     }
 
-    public HtmlCommandLink getLnkDelete()
-    {
-        return lnkDelete;
-    }
-
-    public void setLnkDelete(HtmlCommandLink lnkDelete)
-    {
-        this.lnkDelete = lnkDelete;
-    }
-
-    public HtmlCommandLink getLnkEdit()
-    {
-        return lnkEdit;
-    }
-
-    public void setLnkEdit(HtmlCommandLink lnkEdit)
-    {
-        this.lnkEdit = lnkEdit;
-    }
-
-    public HtmlCommandLink getLnkNewSubmission()
-    {
-        return lnkNewSubmission;
-    }
-
-    public void setLnkNewSubmission(HtmlCommandLink lnkNewSubmission)
-    {
-        this.lnkNewSubmission = lnkNewSubmission;
-    }
-
-    public HtmlCommandLink getLnkSubmit()
-    {
-        return lnkSubmit;
-    }
-
-    public void setLnkSubmit(HtmlCommandLink lnkSubmit)
-    {
-        this.lnkSubmit = lnkSubmit;
-    }
-
-    public HtmlCommandLink getLnkWithdraw()
-    {
-        return lnkWithdraw;
-    }
-
-    public void setLnkWithdraw(HtmlCommandLink lnkWithdraw)
-    {
-        this.lnkWithdraw = lnkWithdraw;
-    }
-
+    
     public boolean isHasBeenRedirected()
     {
         return hasBeenRedirected;
@@ -254,85 +189,7 @@ public class ViewItemSessionBean extends FacesBean
     {
         this.hasBeenRedirected = hasBeenRedirected;
     }
-
-    public HtmlCommandLink getLnkModify()
-    {
-        return lnkModify;
-    }
-
-    public void setLnkModify(HtmlCommandLink lnkModify)
-    {
-        this.lnkModify = lnkModify;
-    }
-
-    public HtmlCommandLink getLnkCreateNewRevision()
-    {
-        return lnkCreateNewRevision;
-    }
-
-    public void setLnkCreateNewRevision(HtmlCommandLink lnkCreateNewRevision)
-    {
-        this.lnkCreateNewRevision = lnkCreateNewRevision;
-    }
-
-    public HtmlCommandLink getLnkCreateItemFromTemplate() {
-        return lnkCreateItemFromTemplate;
-    }
-
-    public void setLnkCreateItemFromTemplate(
-            HtmlCommandLink lnkCreateItemFromTemplate) {
-        this.lnkCreateItemFromTemplate = lnkCreateItemFromTemplate;
-    }
-
-    public HtmlCommandLink getLnkViewReleaseHistory()
-    {
-        return lnkViewReleaseHistory;
-    }
-
-    public void setLnkViewReleaseHistory(HtmlCommandLink lnkViewReleaseHistory)
-    {
-        this.lnkViewReleaseHistory = lnkViewReleaseHistory;
-    }
-
-    public HtmlCommandLink getLnkViewRevisions()
-    {
-        return lnkViewRevisions;
-    }
-
-    public void setLnkViewRevisions(HtmlCommandLink lnkViewRevisions)
-    {
-        this.lnkViewRevisions = lnkViewRevisions;
-    }
-
-    public HtmlCommandLink getLnkViewStatistics()
-    {
-        return lnkViewStatistics;
-    }
-
-    public void setLnkViewStatistics(HtmlCommandLink lnkViewStatistics)
-    {
-        this.lnkViewStatistics = lnkViewStatistics;
-    }
-
-    public HtmlCommandLink getLnkViewLog()
-    {
-        return lnkViewLog;
-    }
-
-    public void setLnkViewLog(HtmlCommandLink lnkViewLog)
-    {
-        this.lnkViewLog = lnkViewLog;
-    }
-
-    public HtmlCommandLink getLnkRelease()
-    {
-        return lnkRelease;
-    }
-
-    public void setLnkRelease(HtmlCommandLink lnkRelease)
-    {
-        this.lnkRelease = lnkRelease;
-    }
+   
 
     public void setSubMenu(String subMenu)
     {
