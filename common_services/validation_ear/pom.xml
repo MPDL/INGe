@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.5</version>
+		<version>7.9.6-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,12 +39,12 @@
 	<artifactId>validation_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>validation_ear</name>
-	<version>1.0.97</version>
+	<version>1.0.98-SNAPSHOT</version>
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/validation_ear</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/validation_ear</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan/</url>
-	  <tag>pubman-7.9.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<build>
 		<plugins>
