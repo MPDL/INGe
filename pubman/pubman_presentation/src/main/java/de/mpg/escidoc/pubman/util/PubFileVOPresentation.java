@@ -78,7 +78,6 @@ public class PubFileVOPresentation extends FacesBean
     private static Properties properties;
     private int index;
     private FileVO file;
-    private HtmlCommandButton removeButton = new HtmlCommandButton();
     private boolean isLocator = false;
     private String fileType;
     private PubItemSimpleStatistics pubItemStatistics;
@@ -119,7 +118,7 @@ public class PubFileVOPresentation extends FacesBean
     {
         this.index = fileIndex; 
         this.file = file;
-        this.removeButton.setTitle("btnRemove_" + fileIndex);
+       
         init();
     }
 
@@ -127,7 +126,7 @@ public class PubFileVOPresentation extends FacesBean
     {
         this.index = fileIndex; 
         this.file = file;
-        this.removeButton.setTitle("btnRemove_" + fileIndex);
+      
         this.isLocator = isLocator;
         init();
     }
@@ -250,15 +249,7 @@ public class PubFileVOPresentation extends FacesBean
         this.file = file;
     }
 
-    public HtmlCommandButton getRemoveButton()
-    {
-        return removeButton;
-    }
-
-    public void setRemoveButton(HtmlCommandButton removeButton)
-    {
-        this.removeButton = removeButton;
-    }
+    
     
     public boolean getIsLocator()
     {

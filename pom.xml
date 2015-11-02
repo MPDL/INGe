@@ -939,7 +939,7 @@
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
 		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
-		<escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
+		<escidoc.cone.subjectVocab>ddc;iso639-3;jel</escidoc.cone.subjectVocab>
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
@@ -1156,7 +1156,7 @@
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 				<escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
 				<escidoc.pubman.blog.news>http://blog.pure.mpg.de/feed/</escidoc.pubman.blog.news>
-				<escidoc.cone.subjectVocab>ddc;iso639-3;mpipks;mpis-groups;mpis-projects;mpinp;mpirg</escidoc.cone.subjectVocab>
+				<escidoc.cone.subjectVocab>ddc;iso639-3;jel;mpipks;mpis-groups;mpis-projects;mpinp;mpirg</escidoc.cone.subjectVocab>
 			</properties>
 			<distributionManagement>
 				<site>

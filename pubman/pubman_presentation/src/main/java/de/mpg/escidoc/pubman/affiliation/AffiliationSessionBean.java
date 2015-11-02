@@ -61,7 +61,7 @@ public class AffiliationSessionBean extends FacesBean
     //flag to control the dynamic creation of the tree from outside
     private boolean wasInit = false;
     private List<AffiliationVOPresentation> currentAffiliationList = new ArrayList<AffiliationVOPresentation>();
-    protected HtmlPanelGrid organizationPanDynamicParentPanel = new HtmlPanelGrid();
+  
     
     //NiH: list of OrganizationVO's selected in EditItem page
     protected List<OrganizationVO> organizationParentVO = new ArrayList<OrganizationVO>();
@@ -108,15 +108,7 @@ public class AffiliationSessionBean extends FacesBean
         this.browseByAffiliation = browseByAffiliation;
     }
 
-    public HtmlPanelGrid getOrganizationPanDynamicParentPanel()
-    {
-        return organizationPanDynamicParentPanel;
-    }
-
-    public void setOrganizationPanDynamicParentPanel(HtmlPanelGrid panDynamicParentPanel)
-    {
-        this.organizationPanDynamicParentPanel = panDynamicParentPanel;
-    }
+    
 
     /**
      * NiH: returns the list of OrganizationVO's selected in EditItem page

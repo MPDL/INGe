@@ -67,8 +67,7 @@ public class Login extends FacesBean
     private String displayUserName = "";
     private boolean loggedIn = false;
     private static Logger logger = Logger.getLogger(Login.class);
-    private HtmlInputText txtLogin = new HtmlInputText();
-    private HtmlInputText txtPassword = new HtmlInputText();
+
 
     /**
      * public constructor
@@ -267,25 +266,7 @@ public class Login extends FacesBean
         this.displayUserName = displayUserName;
     }
 
-    public HtmlInputText getTxtLogin()
-    {
-        return txtLogin;
-    }
-
-    public void setTxtLogin(HtmlInputText txtLogin)
-    {
-        this.txtLogin = txtLogin;
-    }
-
-    public HtmlInputText getTxtPassword()
-    {
-        return txtPassword;
-    }
-
-    public void setTxtPassword(HtmlInputText txtPassword)
-    {
-        this.txtPassword = txtPassword;
-    }
+    
 
     private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException, ServiceException
     {
