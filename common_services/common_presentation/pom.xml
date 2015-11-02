@@ -31,21 +31,20 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.6-SNAPSHOT</version>
+		<version>7.9.5-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>common_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>common_presentation</name>
-	<version>1.0.80-SNAPSHOT</version>
+	<version>1.0.79-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/common_presentation</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/common_presentation</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan/</url>
-	  <tag>HEAD</tag>
-  </scm>
+	</scm>
 	
 	<build>
 		<plugins>
