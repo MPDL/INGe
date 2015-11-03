@@ -178,7 +178,7 @@
 				<executions>
 					<execution>
 						<id>standard-installer</id>
-						<phase>process-resources</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
@@ -191,7 +191,7 @@
 					</execution>
 					<execution>
 						<id>pubman_ear-installer</id>
-						<phase>process-resources</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
@@ -203,7 +203,7 @@
 					</execution>
 					<execution>
 						<id>unpack-validation</id>
-						<phase>process-resources</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>unpack-dependencies</goal>
 						</goals>
