@@ -32,20 +32,19 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.5</version>
+		<version>7.9.5-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>transformation</artifactId>
 	<name>transformation</name>
-	<version>1.0.78</version>
+	<version>1.0.78-SNAPSHOT</version>
 	
 	<scm>
 	  <connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/transformation</connection>
     <developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/transformation</developerConnection>
     <url>https://subversion.mpdl.mpg.de/repos/common/transformation</url>
-    <tag>pubman-7.9.5</tag>
   </scm>
 	<build>
 		<plugins>
