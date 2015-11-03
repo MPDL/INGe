@@ -48,7 +48,6 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
 {
     private final static Logger logger = Logger.getLogger(CitationStyleLanguageManagerDefaultImpl.class);
     private final static String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
-    private final static String CITATION_EXTRACTION_PATTERN = "<div[^>]*>[^\\[](.*?)</div>";
 
     /*
      * (non-Javadoc)
@@ -64,8 +63,17 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
         try
         {
             ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
-            CSL citeproc = new CSL(itemDataProvider,
-                    CitationStyleLanguageUtils.loadStyleFromJsonUrl(exportFormat.getId()));
+            String citationStyle = CitationStyleLanguageUtils.loadStyleFromJsonUrl(exportFormat.getId());
+            String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
+            CSL citeproc = null;
+            if (defaultLocale != null)
+            {
+                citeproc = new CSL(itemDataProvider, citationStyle, defaultLocale);
+            }
+            else
+            {
+                citeproc = new CSL(itemDataProvider, citationStyle);
+            }
             citeproc.registerCitationItems(itemDataProvider.getIds());
             citeproc.setOutputFormat("html");
             Bibliography bibl = citeproc.makeBibliography();
