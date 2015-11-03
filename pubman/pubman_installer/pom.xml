@@ -184,6 +184,7 @@
 						</goals>
 						<configuration>
 							<stripVersion>true</stripVersion>
+							<type>jar</type>
 							<excludeGroupIds>org.codehaus.izpack</excludeGroupIds> <!-- dont want standalone compiler -->
 							<outputDirectory>${staging.dir}/dependency</outputDirectory>
 						</configuration>
