@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.5</version>
+		<version>7.9.6-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,13 +39,13 @@
 	<artifactId>exportmanager</artifactId>
     <name>exportmanager</name>
 	<packaging>ejb</packaging>
-	<version>1.0.89</version>
+	<version>1.0.90-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/exportmanager</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/exportmanager</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan/</url>
-	  <tag>pubman-7.9.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<build>
