@@ -25,7 +25,7 @@
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>7.9.5</version>
+	<version>7.9.6-SNAPSHOT</version>
 	<name>Complete PubMan with Common Services</name>
 	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
@@ -273,7 +273,7 @@
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan.git</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan.git</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan</url>
-	  <tag>pubman-7.9.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 	
 	<repositories>
@@ -320,72 +320,72 @@
 				<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>0.2.28</version>
+				<version>0.2.29-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>0.2.28</version>
+				<version>0.2.29-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
  
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>1.0.95</version>
+				<version>1.0.96-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>1.0.95</version>
+				<version>1.0.96-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>0.0.1</version>
+				<version>0.0.2-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>0.0.1</version>
+				<version>0.0.2-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>common_logic</artifactId>
-				<version>1.1.90</version>
+				<version>1.1.91-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>common_logic</artifactId>
-				<version>1.1.90</version>
+				<version>1.1.91-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>common_presentation</artifactId>
-				<version>1.0.79</version>
+				<version>1.0.80-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>cone</artifactId>
-				<version>1.2.50</version>
+				<version>1.2.51-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>1.2.50</version>
+				<version>1.2.51-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			
@@ -393,102 +393,102 @@
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>1.0.86</version>
+				<version>1.0.87-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>1.0.86</version>
+				<version>1.0.87-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 				<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>dataacquisition_presentation</artifactId>
-		 		<version>1.0.86</version>
+		 		<version>1.0.87-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>framework_access</artifactId>
-				<version>1.3.35</version>
+				<version>1.3.36-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>pid_cache_presentation</artifactId>
-				<version>0.1.53</version>
+				<version>0.1.54-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>search</artifactId>
-				<version>1.1.24</version>
+				<version>1.1.25-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>search</artifactId>
-				<version>1.1.24</version>
+				<version>1.1.25-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>search_presentation</artifactId>
-				<version>1.1.24</version>
+				<version>1.1.25-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>structuredexportmanager</artifactId>
-				<version>1.0.93</version>
+				<version>1.0.94-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>structuredexportmanager</artifactId>
-				<version>1.0.93</version>
+				<version>1.0.94-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>syndication_presentation</artifactId>
-				<version>1.0.74</version>
+				<version>1.0.75-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>transformation</artifactId>
-				<version>1.0.78</version>
+				<version>1.0.79-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>transformation</artifactId>
-				<version>1.0.78</version>
+				<version>1.0.79-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>validation</artifactId>
-				<version>1.0.97</version>
+				<version>1.0.98-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>validation</artifactId>
-				<version>1.0.97</version>
+				<version>1.0.98-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>validation_presentation</artifactId>
-				<version>1.0.97</version>
+				<version>1.0.98-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			
