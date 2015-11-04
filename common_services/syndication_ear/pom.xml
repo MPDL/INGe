@@ -32,12 +32,12 @@
     <parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.6-SNAPSHOT</version>
+		<version>7.9.5-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
     </parent>
     <groupId>de.mpg.escidoc.services.wildfly</groupId>
     <artifactId>syndication_ear</artifactId>
-    <version>1.0.75-SNAPSHOT</version>
+    <version>1.0.74-SNAPSHOT</version>
     <name>syndication_ear</name>
     <packaging>ear</packaging>
 
@@ -45,7 +45,6 @@
         <connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/syndication_ear</connection>
         <developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/syndication_ear</developerConnection>
         <url>https://github.com/MPDL-Collections/PubMan/</url>
-    <tag>HEAD</tag>
   </scm>
 
     <build>
