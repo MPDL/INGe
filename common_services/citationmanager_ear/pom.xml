@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.6-SNAPSHOT</version>
+		<version>7.9.7-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,7 +39,7 @@
 	<artifactId>citationmanager_ear</artifactId>
 	<name>citationmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.96-SNAPSHOT</version>
+	<version>1.0.97-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citationmanager_ear</connection>
