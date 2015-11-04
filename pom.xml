@@ -653,7 +653,7 @@
 			    <plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
 			        <artifactId>maven-javadoc-plugin</artifactId>
-			        <version>2.10.3</version>
+			        <version>2.9.1</version>
 			    </plugin>
 			    <plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
@@ -720,7 +720,24 @@
 				</configuration>
 			</plugin>
 			
-			
+			<plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-javadoc-plugin</artifactId>
+	          <executions>
+			        <execution>
+			            <id>attach-javadocs</id>
+			            <goals>
+			                <goal>test-javadoc</goal>
+			            </goals>
+			            <configuration>
+			                <additionalparam>-Xdoclint:none</additionalparam>
+			                <minmemory>128m</minmemory>
+							<maxmemory>1g</maxmemory>
+							<failOnError>false</failOnError>
+			            </configuration>
+			        </execution>
+			    </executions>
+		    </plugin>
 			
 		</plugins>
 		
@@ -750,14 +767,13 @@
 	
 	<reporting>
 		<plugins>
+		<!-- 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
-				<configuration>
-					<minmemory>128m</minmemory>
-					<maxmemory>1g</maxmemory>
-				</configuration>
 			</plugin>
+			 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
@@ -776,13 +792,18 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>2.7.1</version>
+				<version>3.5</version>
 				<configuration>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
 					<targetJdk>${jdk.version}</targetJdk>
 				</configuration>
 			</plugin>
+			<plugin>
+			      <groupId>org.apache.maven.plugins</groupId>
+			      <artifactId>maven-project-info-reports-plugin</artifactId>
+			      <version>2.8.1</version>
+		    </plugin>
 			<plugin>
 				<!-- JavaNCSS - A Source Measurement Suite for Java-->
 				<!-- http://www.kclee.de/clemens/java/javancss/ -->
