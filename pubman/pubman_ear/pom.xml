@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.5</version>
+		<version>7.9.6-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,12 +39,12 @@
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
-	<version>7.9.5</version>
+	<version>7.9.6-SNAPSHOT</version>
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/pubman/pubman_ear</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/pubman/pubman_ear</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan/</url>
-	  <tag>pubman-7.9.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<build>
 		<plugins>
@@ -309,14 +309,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>7.9.5</version>
+			<version>7.9.6-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>7.9.5</version>
+			<version>7.9.6-SNAPSHOT</version>
 			<classifier>${escidoc.pubman.build.mode}</classifier>
 			<scope>compile</scope>
 			<type>war</type>
