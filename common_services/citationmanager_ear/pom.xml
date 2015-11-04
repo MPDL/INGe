@@ -111,6 +111,7 @@
 			</plugin>
 			
 			<!-- disables the unittests, enables the integration tests -->
+			<!--  
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -129,8 +130,27 @@
 						</configuration>
 					</execution>
 				</executions>
-				
 			</plugin>
+			-->
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-failsafe-plugin</artifactId>
+		        <configuration>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.it}</argLine>
+					<test>CitationStyleHandlerTest</test>
+				</configuration>
+		        <version>2.19</version>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>integration-test</goal>
+		              <goal>verify</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+		      </plugin>
+      
 			<!-- enables the process test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
