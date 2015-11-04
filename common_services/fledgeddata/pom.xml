@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.9.5-SNAPSHOT</version>
+		<version>7.9.6-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -30,13 +30,14 @@
 	<artifactId>fledgeddata</artifactId>
 	<name>fledged data service</name>
 	<packaging>ejb</packaging>
-	<version>1.0.32-SNAPSHOT</version>
+	<version>1.0.33-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/fledgeddata</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/fledgeddata</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/fledgeddata</url>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 
 	<build>
 		<plugins>
