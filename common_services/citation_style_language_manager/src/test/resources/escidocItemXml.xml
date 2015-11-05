@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.10" xmlns:container="http://www.escidoc.de/schemas/container/0.9" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.9" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+  <escidocItem:item objid="escidoc:891233" last-modification-date="2015-10-28T15:13:46.534Z">
+    <escidocItem:properties>
+      <prop:creation-date>2015-10-28T15:13:46.534Z</prop:creation-date>
+      <srel:created-by objid="escidoc:392002"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:1002"/>
+      <srel:content-model objid="escidoc:2001"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:version objid="escidoc:891233:1">
+        <version:number>1</version:number>
+        <version:date>2015-10-28T15:13:46.534Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:392002"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:891233:1">
+        <version:number>1</version:number>
+        <version:date>2015-10-28T15:13:46.534Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2015-11-04T14:27:12.076Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags/>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Walter</eterms:family-name>
+              <eterms:given-name>Matthias</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max Planck Digital Library, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:215002</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons42752</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Haarländer</eterms:family-name>
+              <eterms:given-name>Markus</eterms:given-name>
+              <organization:organization>
+                <dc:title>Collections, Max Planck Digital Library, Max Planck Gesellschaft</dc:title>
+                <dc:identifier>escidoc:215004</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://localhost:8081/cone/persons/resource/persons48446</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>S.</eterms:family-name>
+              <eterms:given-name>Franky</eterms:given-name>
+              <organization:organization>
+                <dc:title>External Organizations</dc:title>
+                <dc:identifier>escidoc:persistent1</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Testmann</eterms:family-name>
+              <eterms:given-name>-</eterms:given-name>
+              <organization:organization>
+                <dc:title>Collections, Max Planck Digital Library, Max Planck Gesellschaft</dc:title>
+                <dc:identifier>escidoc:215004</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons48771</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Hoyden-Siedersleben</eterms:family-name>
+              <eterms:given-name>G.</eterms:given-name>
+              <organization:organization>
+                <dc:title>External Organizations</dc:title>
+                <dc:identifier>escidoc:persistent1</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons41755</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Alonso</eterms:family-name>
+              <eterms:given-name>J. C.</eterms:given-name>
+              <organization:organization>
+                <dc:title>External Organizations</dc:title>
+                <dc:identifier>escidoc:persistent1</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons32119</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:family-name>Demmig</eterms:family-name>
+              <eterms:given-name>Frank</eterms:given-name>
+              <organization:organization>
+                <dc:title>Laser Interferometry &amp; Gravitational Wave Astronomy, AEI-Hannover, MPI for Gravitational Physics, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:24010</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons40439</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:family-name>ABE</eterms:family-name>
+              <eterms:given-name>Hideki</eterms:given-name>
+              <organization:organization>
+                <dc:title>Advanced Device materials Group, Advanced Electronic Materials Center, National Institute for Materials Science</dc:title>
+                <dc:identifier>escidoc:9019</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons2607</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:family-name>Stenzel</eterms:family-name>
+              <eterms:given-name>Udo</eterms:given-name>
+              <organization:organization>
+                <dc:title>Department of Evolutionary Genetics, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:392898</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons47994</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:family-name>Lu</eterms:family-name>
+              <eterms:given-name>Shan</eterms:given-name>
+              <organization:organization>
+                <dc:title>Department of Biochemistry, Prof. J. Gershenzon, MPI for Chemical Ecology, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:421893</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons4031</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:family-name>Alic</eterms:family-name>
+              <eterms:given-name>Daniela</eterms:given-name>
+              <organization:organization>
+                <dc:title>Astrophysical Relativity, AEI-Golm, MPI for Gravitational Physics, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:24013</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons2709</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:family-name>Wäldchen</eterms:family-name>
+              <eterms:given-name>Jana</eterms:given-name>
+              <organization:organization>
+                <dc:title>Department Biogeochemical Processes, Prof. E.-D. Schulze, Max Planck Institute for Biogeochemistry, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:331182</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://localhost:8081/cone/persons/resource/persons42714</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/DRT">
+            <person:person>
+              <eterms:family-name>Franke</eterms:family-name>
+              <eterms:given-name>Michael</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max Planck Society, Max Planck Digital Library, Collections</dc:title>
+                <dc:identifier>escidoc:376897</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons48060</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://purl.org/escidoc/metadata/ves/creator-roles/painter">
+            <person:person>
+              <eterms:family-name>Juliane</eterms:family-name>
+              <eterms:given-name>Schönfeldt</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max Planck Society, Max Planck Digital Library</dc:title>
+                <dc:identifier>escidoc:853904</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://localhost:8081/cone/persons/resource/persons46852</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/TRC">
+            <person:person>
+              <eterms:family-name>Boosen</eterms:family-name>
+              <eterms:given-name>Martin</eterms:given-name>
+              <organization:organization>
+                <dc:title>Department Research and Development, Max Planck Digital Library, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:persistent1</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons34088</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/SDS">
+            <person:person>
+              <eterms:family-name>Frank</eterms:family-name>
+              <eterms:given-name>Wilhelm</eterms:given-name>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <organization:organization>
+              <dc:title>Collections, Max Planck Digital Library, Max Planck Gesellschaft</dc:title>
+              <dc:identifier>escidoc:215004</dc:identifier>
+            </organization:organization>
+          </eterms:creator>
+          <dc:title>CSL Test - Vortrag - Do not Change!</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">fcs</dc:language>
+          <dcterms:alternative xsi:type="eterms:HTML">&lt;b>Raum der Zeit&lt;/b></dcterms:alternative>
+          <dcterms:alternative xsi:type="eterms:ABBREVIATION">Raum der Zeit 1</dcterms:alternative>
+          <dc:identifier xsi:type="eterms:URI">http://www.einekleinekeine.uri</dc:identifier>
+          <dc:identifier xsi:type="eterms:ARXIV">arXivID</dc:identifier>
+          <dc:identifier xsi:type="eterms:OTHER">OtherID</dc:identifier>
+          <eterms:published-online xsi:type="dcterms:W3CDTF">2015</eterms:published-online>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+            <dc:title>International Zoo Yearbook</dc:title>
+            <dcterms:alternative xsi:type="eterms:OTHER">AndererAlternativerTitel</dcterms:alternative>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/CNG">
+              <person:person>
+                <eterms:family-name>Boosen</eterms:family-name>
+                <eterms:given-name>M.</eterms:given-name>
+                <organization:organization>
+                  <dc:title>Department Research and Development, Max Planck Digital Library, Max Planck Society</dc:title>
+                  <dc:identifier>escidoc:persistent1</dc:identifier>
+                </organization:organization>
+                <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons34088</dc:identifier>
+              </person:person>
+            </eterms:creator>
+            <eterms:sequence-number>Artikelnummer</eterms:sequence-number>
+            <eterms:total-number-of-pages>noch viele mehr</eterms:total-number-of-pages>
+            <eterms:publishing-info>
+              <dc:publisher>Zoological Society of London.</dc:publisher>
+              <eterms:place>London</eterms:place>
+            </eterms:publishing-info>
+            <dc:identifier xsi:type="eterms:ISSN">0074-9664</dc:identifier>
+            <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978977973308</dc:identifier>
+          </source:source>
+          <event:event>
+            <dc:title>EventTitel</dc:title>
+            <eterms:start-date xsi:type="dcterms:W3CDTF">2015-01-01</eterms:start-date>
+            <eterms:end-date xsi:type="dcterms:W3CDTF">2015-01-02</eterms:end-date>
+            <eterms:place>EventOrt</eterms:place>
+          </event:event>
+          <eterms:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation</eterms:degree>
+          <dcterms:subject>dumbdidum</dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC">Natural landscapes - 719</dc:subject>
+          <project:project-info>
+            <dc:title>Das ist das Haus vom Nikolaus</dc:title>
+            <dc:identifier xsi:type="eterms:GRANT_ID"></dc:identifier>
+            <project:funding-info>
+              <project:funding-organization>
+                <dc:title>European Commission</dc:title>
+                <dc:identifier xsi:type="eterms:OPEN_AIRE">EC</dc:identifier>
+              </project:funding-organization>
+              <project:funding-program>
+                <dc:title>Horizon 2020</dc:title>
+                <dc:identifier xsi:type="eterms:OPEN_AIRE">H2020</dc:identifier>
+              </project:funding-program>
+            </project:funding-info>
+          </project:project-info>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-pubman.mpdl.mpg.de"/>
+  </escidocItem:item>
+</escidocItemList:item-list>

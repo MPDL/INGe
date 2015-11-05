@@ -119,7 +119,7 @@ public class CitationStyleLanguageUtils
         {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(IOUtils.toInputStream(style));
+            Document doc = builder.parse(IOUtils.toInputStream(style, "UTF-8"));
             NodeList styleTagList = doc.getElementsByTagName("style");
             if (styleTagList != null && styleTagList.getLength() != 0)
             {
@@ -144,9 +144,59 @@ public class CitationStyleLanguageUtils
         catch (Exception e)
         {
             // this is just the case when there is no attribute 'default-locale'
-            if(logger.isDebugEnabled()) logger.debug("Error getting default-locale attribute", e);
+            if (logger.isDebugEnabled())
+                logger.debug("Error getting default-locale attribute", e);
             return null;
         }
         return defaultLocale;
+    }
+
+    /**
+     * parses a tag out of an xml
+     * 
+     * @param xml
+     * @param tagName
+     * @return
+     */
+    public static String parseTagFromXml(String xml, String tagName, String namespaceUrl)
+    {
+        String tag = null;
+        try
+        {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(IOUtils.toInputStream(xml, "UTF-8"));
+            NodeList tagList = doc.getElementsByTagNameNS(namespaceUrl, tagName);
+            if (tagList != null && tagList.getLength() != 0)
+            {
+                tag = tagList.item(0).getFirstChild().getNodeValue();
+                if (logger.isDebugEnabled())
+                    logger.debug("successfully parsed tag <" + tagList.item(0).getNodeName() + ">");
+            }
+        }
+        catch (ParserConfigurationException e)
+        {
+            logger.error("Wrong parser configuration", e);
+            return null;
+        }
+        catch (SAXException e)
+        {
+            logger.error("Problem creating XML", e);
+            return null;
+        }
+        catch (IOException e)
+        {
+            logger.error("Problem transforming String to InputStream", e);
+            return null;
+        }
+        catch (Exception e)
+        {
+            // this is just the case when there is no attribute 'default-locale'
+            if (logger.isDebugEnabled())
+                logger.debug("Error getting value for <" + tagName + ">", e);
+            return null;
+        }
+        return tag;
     }
 }

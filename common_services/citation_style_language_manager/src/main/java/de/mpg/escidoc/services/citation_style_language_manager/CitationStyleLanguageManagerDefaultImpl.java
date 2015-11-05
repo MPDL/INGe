@@ -48,7 +48,28 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
 {
     private final static Logger logger = Logger.getLogger(CitationStyleLanguageManagerDefaultImpl.class);
     private final static String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
+    private final static String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
+    private String citationStyle = null;
+    
+    /**
+     * default constructor 
+     */
+    public CitationStyleLanguageManagerDefaultImpl ()
+    {
+    }
+    
+    /**
+     * constructor for setting an citation style explicit
+     * (not needed if you have a running CoNE instance and use the autosuggest)
+     * 
+     * @param citationStyleXml
+     */
+    public CitationStyleLanguageManagerDefaultImpl (String citationStyleXml)
+    {
+        this.citationStyle = citationStyleXml;
+    }
+    
     /*
      * (non-Javadoc)
      * @see org.citation_style_language_manager.CitationStyleLanguageManagerInterface #getOutput(java.lang.String,
@@ -63,7 +84,10 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
         try
         {
             ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
-            String citationStyle = CitationStyleLanguageUtils.loadStyleFromJsonUrl(exportFormat.getId());
+            if(this.citationStyle == null) 
+            {    
+                this.citationStyle = CitationStyleLanguageUtils.loadStyleFromJsonUrl(exportFormat.getId());
+            }
             String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
             CSL citeproc = null;
             if (defaultLocale != null)
@@ -75,12 +99,9 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
                 citeproc = new CSL(itemDataProvider, citationStyle);
             }
             citeproc.registerCitationItems(itemDataProvider.getIds());
-            citeproc.setOutputFormat("html");
+            citeproc.setOutputFormat(CITATION_PROCESSOR_OUTPUT_FORMAT);
             Bibliography bibl = citeproc.makeBibliography();
-            TransformerFactory factory = new TransformerFactoryImpl();
-            Transformer transformer = factory.newTransformer(new StreamSource(
-                    this.getClass().getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
-            // Now create matcher object.
+            // remove surrounding <div>-tags
             for (String citation : bibl.getEntries())
             {
                 if (citation.contains("<div class=\"csl-right-inline\">"))
@@ -103,6 +124,10 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
                 }
                 citationList.add(citation);
             }
+            // create snippet format
+            TransformerFactory factory = new TransformerFactoryImpl();
+            Transformer transformer = factory.newTransformer(new StreamSource(
+                    this.getClass().getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
             transformer.setParameter("citations", citationList);
             transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(snippet));
             if (logger.isDebugEnabled())
