@@ -504,10 +504,10 @@ public class MetadataProvider implements ItemDataProvider {
 	                
 	                // Source creators
 	                List<CSLName> containerAuthorList = new ArrayList<CSLName>();
+	                List<CSLName> sourceEditorList = new ArrayList<CSLName>();
 	                for (CreatorVO sourceCreator : source.getCreators())
 	                {
-	                    if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
-	                            || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole()))
+	                    if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole()))
 	                    {
 	                        if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType()))
 	                        {
@@ -518,10 +518,25 @@ public class MetadataProvider implements ItemDataProvider {
 	                            containerAuthorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName().getValue()).build());
 	                        }
 	                    }
+	                    if (CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole()))
+                        {
+	                        if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType()))
+                            {
+	                            sourceEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName()).family(sourceCreator.getPerson().getFamilyName()).build());;
+                            }
+                            else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType()))
+                            {
+                                sourceEditorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName().getValue()).build());
+                            }
+                        }
 	                }
 	                if (containerAuthorList.size() > 0)
 	                {
 	                    cslItem.containerAuthor(getCSLNameArrayFromList(containerAuthorList));
+	                }
+	                if (sourceEditorList.size() > 0 && editorList.size() == 0 )
+	                {
+	                    cslItem.editor(getCSLNameArrayFromList(sourceEditorList));
 	                }
 	            }
 	            
