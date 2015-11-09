@@ -67,7 +67,7 @@ public class CitationStyleLanguageUtils
      * @return csl style xml as String or null if no style could be found or read
      * @throws Exception
      */
-    protected static String loadStyleFromJsonUrl(String url) throws Exception
+    protected static String loadStyleFromConeJsonUrl(String url) throws Exception
     {
         String xml = null;
         try
@@ -152,7 +152,7 @@ public class CitationStyleLanguageUtils
     }
 
     /**
-     * parses a tag out of an xml
+     * parses a tag value out of an xml
      * 
      * @param xml
      * @param tagName

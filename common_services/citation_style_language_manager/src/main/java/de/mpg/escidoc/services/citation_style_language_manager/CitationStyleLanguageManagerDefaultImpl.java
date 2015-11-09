@@ -86,7 +86,7 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
             ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
             if(this.citationStyle == null) 
             {    
-                this.citationStyle = CitationStyleLanguageUtils.loadStyleFromJsonUrl(exportFormat.getId());
+                this.citationStyle = CitationStyleLanguageUtils.loadStyleFromConeJsonUrl(exportFormat.getId());
             }
             String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
             CSL citeproc = null;
