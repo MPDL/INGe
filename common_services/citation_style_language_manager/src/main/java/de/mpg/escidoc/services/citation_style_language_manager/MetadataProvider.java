@@ -543,9 +543,9 @@ public class MetadataProvider implements ItemDataProvider {
 	            // Source short title
 	            for (TextVO sourceAlternativeTitle : source.getAlternativeTitles())
 	            {
-	                if (SourceVO.AlternativeTitleType.ABBREVIATION.toString().equals(sourceAlternativeTitle.getType())
-	                        || SourceVO.AlternativeTitleType.SUBTITLE.toString().equals(sourceAlternativeTitle.getType())
-	                        || SourceVO.AlternativeTitleType.OTHER.toString().equals(sourceAlternativeTitle.getType()))
+	                if (!SourceVO.AlternativeTitleType.HTML.toString().equals(sourceAlternativeTitle.getType())
+	                        && !SourceVO.AlternativeTitleType.LATEX.toString().equals(sourceAlternativeTitle.getType())
+	                        && !SourceVO.AlternativeTitleType.MATHML.toString().equals(sourceAlternativeTitle.getType()))
 	                {
 	                    // TODO mapping to journalAbbreviation is just a workaround for a little bug in citeproc-js, 
 	                    // which is fixed in the next version
@@ -585,7 +585,7 @@ public class MetadataProvider implements ItemDataProvider {
 	                cslItem.numberOfPages(source.getTotalNumberOfPages());
 	            }
 	            
-	            // Soource volume
+	            // Source volume
 	            if (source.getVolume() != null) 
 	            {
 	                cslItem.volume(source.getVolume());
@@ -597,11 +597,11 @@ public class MetadataProvider implements ItemDataProvider {
 	                cslItem.issue(source.getIssue());
 	            }
 	            
-	            // Source startpage
+	            // Source start page
 	            if (source.getStartPage() != null)
 	            {
 	                cslItem.pageFirst(source.getStartPage());
-	                // Source combined Startpage - Endpage
+	                // Source combined "start page - end page"
 	                if (source.getEndPage() != null)
 	                {
 	                    cslItem.page(source.getStartPage() + "-" + source.getEndPage());
