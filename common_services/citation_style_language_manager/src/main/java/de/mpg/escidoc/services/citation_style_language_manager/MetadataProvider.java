@@ -547,6 +547,9 @@ public class MetadataProvider implements ItemDataProvider {
 	                        || SourceVO.AlternativeTitleType.SUBTITLE.toString().equals(sourceAlternativeTitle.getType())
 	                        || SourceVO.AlternativeTitleType.OTHER.toString().equals(sourceAlternativeTitle.getType()))
 	                {
+	                    // TODO mapping to journalAbbreviation is just a workaround for a little bug in citeproc-js, 
+	                    // which is fixed in the next version
+	                    cslItem.journalAbbreviation(sourceAlternativeTitle.getValue());
 	                    cslItem.containerTitleShort(sourceAlternativeTitle.getValue());
 	                    break;
 	                }
