@@ -48,7 +48,7 @@
 				<configuration>
 					<skip>false</skip>
 					<includes>
-						<include>**/TestCitationManager.java</include>
+						<include>**/TestCitationStyleLanguageManager.java</include>
 					</includes>
 					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
