@@ -257,8 +257,8 @@
 	</issueManagement>
 	
 	<ciManagement>
-		<system>Continuum</system>
-		<url>http://continuum.mpdl.mpg.de/continuum</url>
+		<system>Jenkins</system>
+		<url>http://jenkins.mpdl.mpg.de/jenkins/job/PubMan/</url>
 		<notifiers>
 			<notifier>
 				<type>mail</type>
