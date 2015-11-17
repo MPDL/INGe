@@ -7,7 +7,9 @@
 	<deployment>
 		<!-- Required for docx4j, which is used in citationmanager -->
 		<dependencies>
+			<module name="pubman" export="true" />
 			<module name="com.sun.xml.bind" />
+
 		</dependencies>
 	
 	</deployment>
