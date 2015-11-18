@@ -845,9 +845,10 @@
 		<!-- local intallation of the jboss for integration-tests -->
 		<cargo.jboss.install.dir>${user.home}/wildfly/wildfly-8.2.0.Final/wildfly-8.2.0.Final</cargo.jboss.install.dir>
 		<!-- the ears are deployed to this server using jboss:harddeploy -->
+		<!--  
 		<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 		<jboss.install.node>default</jboss.install.node>
-		
+		-->
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
@@ -1235,8 +1236,12 @@
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
+				<!--  
 				<jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir>
-
+				-->
+				<jboss.install.dir>/usr/share/escidoc/wildfly</jboss.install.dir>
+				<jboss.user.scp>jboss@dev-pubman.mpdl.mpg.de</jboss.user.scp>
+				
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 
