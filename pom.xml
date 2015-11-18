@@ -1348,7 +1348,7 @@
 		           -->  
 		        </sonar.host.url>
 		        
-		        <sonar.sources>src/main/java,target/generated-sources</sonar.sources>
+		        <!-- sonar.sources>src/main/java,target/generated-sources</sonar.sources-->
 		        <sonar.binaries>target/classes,target/test-classes</sonar.binaries>
 		        
 		        <!--  path to test source directories (optional) --> 
