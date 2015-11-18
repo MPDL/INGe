@@ -99,7 +99,7 @@ public class StructuredExport implements StructuredExportHandler {
 	public StructuredExport()
 	{
 //		 Use Saxon for XPath2.0 support
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+        //System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 	}
 	
 
