@@ -205,10 +205,6 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<properties>
-				<jboss.install.dir>/usr/share/escidoc/wildfly</jboss.install.dir>
-				<jboss.user.scp>jboss@dev-pubman.mpdl.mpg.de</jboss.user.scp>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
