@@ -1352,7 +1352,7 @@
 		        <sonar.binaries>target/classes,target/test-classes</sonar.binaries>
 		        
 		        <!--  path to test source directories (optional) --> 
-				<sonar.tests>src/test/java</sonar.tests>
+				<!--  sonar.tests>src/test/java</sonar.tests-->
 		     
 			    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 			
