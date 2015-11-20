@@ -173,6 +173,22 @@
 					</modules>
 					
 				</configuration>
+				
+				<executions>
+				<!-- This ear is used to run in a WildFly Server without eSciDoc. It lacks the jboss-all.xml file which is
+				required for correct deployment order with escidoc-core-ear -->
+					<execution>
+						<id>standalone-ear</id>
+						<goals>
+							<goal>ear</goal>
+						</goals>
+						<configuration>
+							<classifier>${escidoc.pubman.build.mode}-standalone</classifier>
+							<packagingExcludes>./*.properties,**/jboss-all.xml</packagingExcludes>
+							<workDirectory>${project.build.directory}/${project.build.finalName}-standalone</workDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 	
 			<plugin>
@@ -405,7 +421,7 @@
 								<configuration>
 									<tasks>
 									
-										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}-standalone.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										
@@ -514,25 +530,5 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
-		<!-- For PubMan instance which runs on its own in wildfly, without escidoc-core -->
-			<id>standalone</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources</directory>
-						<excludes>
-							<exclude>**/jboss-all.xml</exclude>
-						</excludes>
-					</resource>
-				</resources>
-			
-			</build>
-			
-		</profile>
-		
 		</profiles>
 </project>
