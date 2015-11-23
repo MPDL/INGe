@@ -371,7 +371,7 @@ public class MetadataProvider implements ItemDataProvider {
 	                    }
 	                    else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage()))
 	                    {
-	                        cslItem.URL(fileList.get(0).getPid());
+	                        cslItem.URL(fileList.get(0).getPid().replace("hdl:", "http://hdl.handle.net/"));
 	                    }
 	                }
 	                else
