@@ -243,8 +243,8 @@
 			<ui:include src="footer/Footer.jspf" />
 			
 			<script type="text/javascript">
-				citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
-				citationStyleSuggestBaseURL = '$1?format=json';
+				var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
+				var citationStyleSuggestBaseURL = '$1?format=json';
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());
 				});

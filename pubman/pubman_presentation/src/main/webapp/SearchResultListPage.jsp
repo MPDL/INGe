@@ -127,7 +127,7 @@
 												styleClass="huge_txtInput citationStyleSuggest citationStyleName"
 												value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
 											<h:inputText id="inputCitationStyleIdentifier"
-										styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
+												styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
 											<h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchEdit.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"/>
 											<h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;"
 												onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
@@ -245,8 +245,8 @@
 			<ui:include src="footer/Footer.jspf" />
 			
 			<script type="text/javascript">
-				citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
-				citationStyleSuggestBaseURL = '$1?format=json';
+				var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
+				var citationStyleSuggestBaseURL = '$1?format=json';
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());
 				});

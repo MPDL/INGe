@@ -121,17 +121,23 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-										<h:inputText id="inputCitationStyleName"
-											styleClass="double_txtInput citationStyleSuggest citationStyleName"
-											value="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Mein Apa ist der Beste" />
-										<h:inputText id="inputCitationStyleIdentifier"
-										styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-									</h:panelGroup>
 									
 									<h:commandLink id="btnExportDownload" title="#{tip.export_btDownload}" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}"/>
 									<h:outputText styleClass="seperator" />
 									<h:commandLink id="btnExportEMail" title="#{tip.export_btEMail}" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportAllEmail}"/>
+									
+									<h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
+										<h:inputText id="inputCitationStyleName"
+											styleClass="huge_txtInput citationStyleSuggest citationStyleName"
+											value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
+										<h:inputText id="inputCitationStyleIdentifier"
+											styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
+										<h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchEdit.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank"/>
+										<h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;"
+											onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
+											<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form"/>
+										</h:commandButton>	
+									</h:panelGroup>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW' and PubItemListSessionBean.totalNumberOfElements>0}">
@@ -206,8 +212,8 @@
 			<ui:include src="footer/Footer.jspf" />
 			
 			<script type="text/javascript">
-				citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
-				citationStyleSuggestBaseURL = '$1?format=json';
+				var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
+				var citationStyleSuggestBaseURL = '$1?format=json';
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());
 				});
