@@ -31,19 +31,19 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.10.0</version>
+		<version>7.10.1-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>framework_access</artifactId>
 	<name>framework_access</name>
-	<version>1.3.37</version>
+	<version>1.3.38-SNAPSHOT</version>
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/framework_access</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/framework_access</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan/</url>
-	  <tag>pubman-7.10.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<build>
 		<plugins>
