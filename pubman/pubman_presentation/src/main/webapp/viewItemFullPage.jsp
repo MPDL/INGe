@@ -67,7 +67,6 @@
 	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
 	<script src="/cone/js/jquery.suggest.js" />
 	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
-
 	<style type="text/css">
 .dialogNoTitleBar .ui-dialog-titlebar {
 	display: none;
@@ -722,6 +721,9 @@
 	<ui:include src="footer/Footer.jspf" />
 
 	<script type="text/javascript">
+		var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
+		var citationStyleSuggestBaseURL = '$1?format=json';
+	
 		function checkUpdateCslUi() {
 			(typeof updateCslUi == 'function') ?	updateCslUi() :	setTimeout("checkUpdateCslUi()", 30);
 		}
@@ -729,9 +731,6 @@
 		$(document).ready(function () {
 			checkUpdateCslUi(); 
 		});
-	
-		citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>citation-styles/query';
-		citationStyleSuggestBaseURL = '$1?format=json';
 	</script>
 
 </body>
