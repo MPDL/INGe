@@ -221,7 +221,7 @@ public class ComponentPidTransformer
         		} 
         		
         		String componentPid = componentMap.get(ComponentHandler.PROP_PID_KEY);
-				if (FileUtils.readFileToString(file).contains(itemId + " " + componentPid))
+				if (FileUtils.readFileToString(new File(SUCCESS_FILE_LOG)).contains(itemId + " " + componentPid))
         		{
         			logger.info("Already updated " + itemId + " " + componentPid);
         			continue;
@@ -236,7 +236,7 @@ public class ComponentPidTransformer
 					report.incrementFilesErrorOccured();
 					continue;
 				}
-        		report.incrementFilesMigrationDone();
+        		report.incrementComponentsUpdateDone();
         		FileUtils.writeStringToFile(successFile, itemId + " " + componentPid + "\n", true);
         	}
         	
@@ -259,8 +259,7 @@ public class ComponentPidTransformer
         logger.info("FilesMigratedNotReleased        " + report.getFilesNotReleased());
         logger.info("FilesMigratedNotItemOrComponent " + report.getFilesNotItem());
         logger.info("FilesErrorOccured               " + report.getFilesErrorOccured());
-        logger.info("FilesMigrationDone              " + report.getFilesMigrationDone());
-        logger.info("TotalNumberOfPidsRequested      " + report.getTotalNumberOfPidsUpdated());
+        logger.info("FilesMigrationDone              " + report.getComponentsUpdateDone());
         
         long s = report.getTimeUsed();
         logger.info("TimeUsed                        " + String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60)));
@@ -311,8 +310,7 @@ public class ComponentPidTransformer
             logger.info("FilesMigratedNotReleased        " + report.getFilesNotReleased());
             logger.info("FilesMigratedNotItemOrComponent " + report.getFilesNotItem());      
             logger.info("FilesErrorOccured               " + report.getFilesErrorOccured());
-            logger.info("FilesMigrationDone              " + report.getFilesMigrationDone());
-            logger.info("TotalNumberOfPidsRequested      " + report.getTotalNumberOfPidsUpdated());
+            logger.info("FilesMigrationDone              " + report.getComponentsUpdateDone());
             
             long s = report.getTimeUsed();
             

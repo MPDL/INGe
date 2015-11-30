@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" PID="escidoc:persistent35" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Research Group Solid State NMR"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-03-22T08:23:35.562Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2011-05-04T13:51:27.060Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:06.229Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:06.253Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:06.306Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:06.387Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:06.407Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:06.430Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:38.855Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:38.882Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:38.939Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:39.023Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:39.049Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-12-13T14:56:39.084Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-04T13:51:26.757Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-04T13:51:26.820Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-04T13:51:26.891Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>setDatastreamState</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-04T13:51:26.994Z</audit:date>
+<audit:justification>ds state is changed.</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>escidoc</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-04T13:51:27.022Z</audit:date>
+<audit:justification/>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2011-05-04T13:51:27.060Z</audit:date>
+<audit:justification/>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" SIZE="1157">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/escidoc:persistent35">
+<system:build xmlns:system="http://escidoc.de/core/01/system/">304</system:build>
+<rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+<srel:created-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"/>
+<prop:created-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:created-by-title>
+<srel:modified-by xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:user42"/>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+<prop:public-status xmlns:prop="http://escidoc.de/core/01/properties/">opened</prop:public-status>
+<prop:modified-by-title xmlns:prop="http://escidoc.de/core/01/properties/">roland</prop:modified-by-title>
+<srel:parent xmlns:srel="http://escidoc.de/core/01/structural-relations/" rdf:resource="info:fedora/escidoc:persistent28"/>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2010-12-13T14:56:06.430Z" MIMETYPE="text/xml" SIZE="925">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent35">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="" CREATED="2010-12-13T14:56:39.084Z" MIMETYPE="text/xml" SIZE="925">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent35">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="" CREATED="2011-05-04T13:51:27.060Z" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:system="http://escidoc.de/core/01/system/">
+  <rdf:Description rdf:about="info:fedora/escidoc:persistent35">
+    <system:build>1.2</system:build>
+    <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+    <prop:public-status>opened</prop:public-status>
+    <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:created-by-title>roland</prop:created-by-title>
+    <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+    <prop:modified-by-title>roland</prop:modified-by-title>
+    <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="escidoc" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="escidoc.0" LABEL="" CREATED="2008-02-11T16:24:39.998Z" ALT_IDS="metadata unknown unknown" MIMETYPE="text/xml" SIZE="1406">
+<foxml:xmlContent>
+<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group Solid State NMR</dc:title>
+            <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+            <eterms:organization-type xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">institute</eterms:organization-type>
+            <eterms:country xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">DE</eterms:country>
+            <eterms:city xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</eterms:city>
+            <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+            <eterms:start-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+            <eterms:end-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+          </organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.1" LABEL="" CREATED="2010-12-13T14:56:06.229Z" ALT_IDS="metadata unknown unknown" MIMETYPE="deleted" SIZE="1296">
+<foxml:xmlContent>
+<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group Solid State NMR</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <eterms:organization-type xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">institute</eterms:organization-type>
+  <eterms:country xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">DE</eterms:country>
+  <eterms:city xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</eterms:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <eterms:start-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+  <eterms:end-date xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"/>
+</organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.2" LABEL="" CREATED="2010-12-13T14:56:06.407Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="1099">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research of Group Solid-State NMR</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.3" LABEL="" CREATED="2010-12-13T14:56:38.855Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="1099">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research of Group Solid-State NMR</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.4" LABEL="" CREATED="2010-12-13T14:56:39.049Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="1099">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group of Solid-State NMR</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.5" LABEL="" CREATED="2011-05-04T13:51:26.757Z" ALT_IDS="metadata null unknown" MIMETYPE="deleted" SIZE="1099">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group of Solid-State NMR</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="escidoc.6" LABEL="" CREATED="2011-05-04T13:51:27.022Z" ALT_IDS="metadata null unknown" MIMETYPE="text/xml" SIZE="1231">
+<foxml:xmlContent>
+<mdou:organizational-unit xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group of Solid-State NMR</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"/>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+  <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.
+
+Founded 2009. Head: Adam Lange
+</dc:description>
+  <mdpt:organization-type xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">department</mdpt:organization-type>
+  <mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Göttingen</mdpt:city>
+  <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+  <mdpt:start-date xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">2009</mdpt:start-date>
+  <mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+</mdou:organizational-unit>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Metadata" CREATED="2007-03-22T08:23:35.562Z" MIMETYPE="text/xml" SIZE="656">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>Research Group Solid State NMR</dc:title>
+<dc:description>We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+<dc:identifier>escidoc:persistent35</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="Dublin Core Metadata" CREATED="2010-12-13T14:56:06.306Z" MIMETYPE="text/xml" SIZE="691">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Research of Group Solid-State NMR</dc:title>
+  <dc:description>We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <dc:identifier/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.2" LABEL="Dublin Core Metadata" CREATED="2010-12-13T14:56:38.939Z" MIMETYPE="text/xml" SIZE="691">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Research Group of Solid-State NMR</dc:title>
+  <dc:description>We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+  <dc:identifier/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.3" LABEL="Dublin Core Metadata" CREATED="2011-05-04T13:51:26.891Z" MIMETYPE="text/xml" SIZE="724">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Research Group of Solid-State NMR</dc:title>
+  <dc:description>We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.
+
+Founded 2009. Head: Adam Lange
+</dc:description>
+  <dc:identifier/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

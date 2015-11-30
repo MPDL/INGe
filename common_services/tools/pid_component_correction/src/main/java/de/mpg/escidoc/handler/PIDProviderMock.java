@@ -45,8 +45,6 @@ public class PIDProviderMock implements PIDProviderIf
 				+ Util.getPureComponentId(componentId) + "> pid <" + pid
 				+ "< fileName < " + fileName + ">");
 
-		count++;
-
 		String registerUrl = properties.getProperty("pubman.instance.url")
 				
 				+ properties.getProperty("pubman.instance.context.path")
@@ -56,8 +54,9 @@ public class PIDProviderMock implements PIDProviderIf
 						.replaceAll("\\$2", versionNumber)
 						.replaceAll("\\$3", Util.getPureComponentId(componentId))		
 						.replaceAll("\\$4", fileName);
+		count++;
 
-		logger.info("URL given to PID resolver: " + registerUrl);
+		logger.info("URL given to PID resolver: <" + registerUrl + ">");
 
 		return "";
 								

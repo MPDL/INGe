@@ -128,7 +128,7 @@ public class PIDProvider implements PIDProviderIf
                         .replaceAll("\\$3", componentId)
                         .replaceAll("\\$4", fileName);
 
-        logger.debug("URL given to PID resolver: " + registerUrl);
+        logger.info("URL given to PID resolver: <" + registerUrl + ">");
         
         return registerUrl;
     }
