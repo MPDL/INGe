@@ -6,12 +6,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TransformationReport
 {
+	// total number of files met during recursiv run
     private AtomicInteger filesTotal = new AtomicInteger(0);
+    
+    // number of files met of type other than ITEM (may be e.g. organizational unit...)
     private AtomicInteger filesNotItem = new AtomicInteger(0);
+    
+    // number of files met of version status other than RELEASED (may be e.g. PENDING...)
     private AtomicInteger filesNotReleased = new AtomicInteger(0);
+    
     private AtomicInteger filesErrorOccured = new AtomicInteger(0);
-    private AtomicInteger filesUpdateDone = new AtomicInteger(0);
-    private AtomicInteger totalNumberOfPidsUpdated = new AtomicInteger(0);
+    
+    // number of component pids where an update has done successfully
+    private AtomicInteger componentsUpdateDone = new AtomicInteger(0);
+    
     private long start = System.currentTimeMillis();
     private Collection<String> errorList = new  ArrayList<String>();
     
@@ -47,21 +55,13 @@ public class TransformationReport
     {
         this.filesErrorOccured.getAndIncrement();
     }
-    public int getFilesMigrationDone()
+    public int getComponentsUpdateDone()
     {
-        return filesUpdateDone.get();
+        return componentsUpdateDone.get();
     }   
-    public void incrementFilesMigrationDone()
+    public void incrementComponentsUpdateDone()
     {
-        this.filesUpdateDone.getAndIncrement();
-    }
-    public void setPidsUpdated(int n)
-    {
-        totalNumberOfPidsUpdated.getAndSet(n);        
-    }
-    public int getTotalNumberOfPidsUpdated()
-    {
-        return totalNumberOfPidsUpdated.get();        
+        this.componentsUpdateDone.getAndIncrement();
     }
     public long getTimeUsed()
     {
@@ -81,8 +81,7 @@ public class TransformationReport
         filesNotItem.getAndSet(0);
         filesNotReleased.getAndSet(0);
         filesErrorOccured.getAndSet(0);
-        filesUpdateDone.getAndSet(0);
-        totalNumberOfPidsUpdated.getAndSet(0);
+        componentsUpdateDone.getAndSet(0);
         start = System.currentTimeMillis();
         errorList.clear();      
     }
