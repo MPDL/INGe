@@ -175,6 +175,7 @@ public class ComponentPidTransformer
         logger.info("****************** Start transforming " + file.getName());
         
         report.incrementFilesTotal();
+        logger.info("files total <" + report.getFilesTotal() + ">");
         
         if ((report.getFilesTotal() % 1000) == 0 )
         {
