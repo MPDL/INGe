@@ -34,11 +34,13 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 
 
@@ -58,7 +60,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject
+public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject
 {
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.# ";
     private static final Pattern NAMESPACE_PATTERN = Pattern.compile("([\\S]+)(([/#])| )([^/# ]+)");
