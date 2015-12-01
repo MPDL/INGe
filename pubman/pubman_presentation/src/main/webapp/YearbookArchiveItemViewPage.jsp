@@ -176,7 +176,7 @@
 										</h:selectOneMenu>
 									</h:panelGroup>
 									
-									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_lblExport}" action="#{YearbookArchiveRetrieverRequestBean.exportSelectedDownload}" onclick="fullItemReloadAjax();"/>
+									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_lblExport}" action="#{YearbookArchiveRetrieverRequestBean.exportSelectedDownload}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 							<!-- content menu ends here -->
