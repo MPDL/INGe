@@ -768,7 +768,7 @@ public class DataHandlerBean implements DataHandler
     		     SortedMap map = (new org.apache.fop.tools.fontlist.FontListGenerator()).listFonts(fopFactory, MimeConstants.MIME_PDF, new org.apache.fop.fonts.FontEventAdapter(new org.apache.fop.events.DefaultEventBroadcaster()));
     
     		     // Step 4: Setup JAXP using identity transformer
-    		     TransformerFactory factory = TransformerFactory.newInstance();
+    		     TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
     		     Transformer xmlTransformer = factory.newTransformer(); // identity transformer
     
     		     // Step 5: Setup input and output for XSLT transformation

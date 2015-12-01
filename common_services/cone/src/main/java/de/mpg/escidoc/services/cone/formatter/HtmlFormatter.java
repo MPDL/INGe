@@ -98,7 +98,7 @@ public class HtmlFormatter extends Formatter
         
         try
         {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
+            Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
             transformer.transform(new StreamSource(source), new StreamResult(response.getWriter()));
         }

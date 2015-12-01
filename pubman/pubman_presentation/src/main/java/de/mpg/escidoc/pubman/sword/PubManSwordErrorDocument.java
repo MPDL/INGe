@@ -110,7 +110,7 @@ public class PubManSwordErrorDocument
         document.appendChild(error);
 
         //Transform to xml
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         StreamResult result = new StreamResult(new StringWriter());
         DOMSource source = new DOMSource(document);
