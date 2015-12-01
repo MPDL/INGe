@@ -101,7 +101,7 @@ public class JsonFormatter extends Formatter
         
         try
         {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
+            Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
             transformer.transform(new StreamSource(source), new StreamResult(response.getWriter()));
         }
@@ -126,7 +126,7 @@ public class JsonFormatter extends Formatter
         
         try
         {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
+            Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
             transformer.transform(new StreamSource(new StringReader(source)), new StreamResult(result));
         }
         catch (Exception e)

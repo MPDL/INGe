@@ -52,7 +52,7 @@ import javax.xml.transform.stream.StreamSource;
 public class TestFileTransformer
 {
     public static final String STYLESHEET = "C:/repository/common_services/common_logic/src/test/resources/transformTestFiles.xsl";
-    private static TransformerFactory factory = TransformerFactory.newInstance();
+    private static TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
     /**
      * @param args
      */

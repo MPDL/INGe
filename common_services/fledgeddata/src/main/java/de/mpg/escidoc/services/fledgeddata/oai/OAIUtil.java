@@ -258,7 +258,7 @@ public class OAIUtil
 		        try
 		        {
 		           //Set up the output transformer
-		          TransformerFactory transfac = TransformerFactory.newInstance();
+		          TransformerFactory transfac = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
 		          Transformer trans = transfac.newTransformer();
 		          trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		          trans.setOutputProperty(OutputKeys.INDENT, "yes");

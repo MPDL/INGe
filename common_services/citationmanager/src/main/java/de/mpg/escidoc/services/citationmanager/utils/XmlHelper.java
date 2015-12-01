@@ -250,7 +250,7 @@ public class XmlHelper {
     public static void outputBase(Document doc, StreamResult streamResult) throws IOException
     {
         DOMSource domSource = new DOMSource(doc);
-    	TransformerFactory tf = TransformerFactory.newInstance();
+    	TransformerFactory tf = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
         try
         {
             Transformer serializer = tf.newTransformer();

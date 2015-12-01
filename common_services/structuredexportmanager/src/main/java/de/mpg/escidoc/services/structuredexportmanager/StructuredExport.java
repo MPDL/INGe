@@ -179,7 +179,7 @@ public class StructuredExport implements StructuredExportHandler {
 
 			// create an instance of TransformerFactory
 			javax.xml.transform.TransformerFactory transFact =
-				javax.xml.transform.TransformerFactory.newInstance(  );
+				javax.xml.transform.TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
 
 			//set URIResolver for xsl:include or xsl:import
 			transFact.setURIResolver(
