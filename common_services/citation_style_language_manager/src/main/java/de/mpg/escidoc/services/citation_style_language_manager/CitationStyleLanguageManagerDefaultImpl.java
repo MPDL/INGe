@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,27 +102,39 @@ public class CitationStyleLanguageManagerDefaultImpl implements CitationStyleLan
             citeproc.registerCitationItems(itemDataProvider.getIds());
             citeproc.setOutputFormat(CITATION_PROCESSOR_OUTPUT_FORMAT);
             Bibliography bibl = citeproc.makeBibliography();
+            
+            List<String> biblIds = Arrays.asList(bibl.getEntryIds());
+            
             // remove surrounding <div>-tags
-            for (String citation : bibl.getEntries())
+            for (String id : itemDataProvider.getIds())
             {
-                if (citation.contains("<div class=\"csl-right-inline\">"))
-                {
-                    citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
-                    citation = citation.substring(0, citation.indexOf("</div>"));
-                }
-                else if (citation.contains("<div class=\"csl-entry\">"))
-                {
-                    citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
-                    citation = citation.substring(0, citation.indexOf("</div>"));
-                }
-                else
-                {
-                    citation = citation.trim();
-                }
-                if (logger.isDebugEnabled())
-                {
-                    logger.debug("Citation: " + citation);
-                }
+            	String citation = "";
+            	
+            	int citationPosition = biblIds.indexOf(id);
+            	if(citationPosition!=-1)
+            	{
+	            	citation = bibl.getEntries()[citationPosition];
+	            	
+	            	
+	                if (citation.contains("<div class=\"csl-right-inline\">"))
+	                {
+	                    citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
+	                    citation = citation.substring(0, citation.indexOf("</div>"));
+	                }
+	                else if (citation.contains("<div class=\"csl-entry\">"))
+	                {
+	                    citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
+	                    citation = citation.substring(0, citation.indexOf("</div>"));
+	                }
+	                else
+	                {
+	                    citation = citation.trim();
+	                }
+	                if (logger.isDebugEnabled())
+	                {
+	                    logger.debug("Citation: " + citation);
+	                }
+            	}
                 citationList.add(citation);
             }
             // create snippet format
