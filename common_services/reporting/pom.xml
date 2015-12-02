@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
 		<artifactId>pubman</artifactId>
-		<version>7.10.2-SNAPSHOT</version>
+		<version>7.10.2</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,13 +39,13 @@
 	<artifactId>reporting</artifactId>
 	<name>reporting</name>
 	<packaging>jar</packaging>
-	<version>0.38-SNAPSHOT</version>
+	<version>0.38</version>
 	
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/reporting</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/reporting</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan/</url>
-	  <tag>HEAD</tag>
+	  <tag>pubman-7.10.2</tag>
   </scm>
 	
 	<build>
