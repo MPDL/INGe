@@ -30,19 +30,34 @@
 
 
 <h:panelGroup>
-    <script src="http://www.google.com/jsapi" type="text/javascript">&#160;</script> 
-    <script type="text/javascript">
-    google.load("feeds", "1");
+	<h:outputScript name="commonJavaScript/jquery/jquery.rss.min.js"/>
+	<h:outputScript name="commonJavaScript/jquery/jquery-dateFormat.min.js"/>
+	<h:outputStylesheet name="commonJavaScript/jquery/css/gfc.css"/>
     
-    function initialize() 
-    {    	
-      var feedControl = new google.feeds.FeedControl();
-      feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>', "");
-      feedControl.setNumEntries(4);
-      feedControl.setLinkTarget(google.feeds.LINK_TARGET_BLANK); 
-      feedControl.draw(document.getElementById("feedControl"));
-    }
-    google.setOnLoadCallback(initialize);
+    <script type="text/javascript">
+    var pubmanBlogUrl = '<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>';
+//    <![CDATA[
+    
+	    jQuery(function($) {
+	        $("#feedControl").rss(
+	    		pubmanBlogUrl,
+	    		{
+					limit: 4,
+					dateFormatFunction: function(date){
+						return $.format.date(date, 'yyyy-MM-dd');
+					},
+					
+					layoutTemplate: "<div class='gfc-control'><div class='gfc-resultsbox-visible'><div class='gfc-resultsRoot'><div class='gfc-results'>{entries}</div></div></div></div>",
+					entryTemplate:  "<div class='gfc-result'><div class='gf-result'>" +
+										"<div class='gf-title'><a class='gf-title' href='{url}' target='_blank'>{title}</a></div>" +
+										"<div class='gf-author'>{author}</div><div class='gf-spacer'>-</div><div class='gf-relativePublishedDate'>{date}</div>" +
+										"<div class='gf-snippet'>{shortBodyPlain}...</div>" +
+									"</div></div>",
+
+		    	}
+	    	);
+	      })
+// ]]>
     </script>
 
 	<h2>
