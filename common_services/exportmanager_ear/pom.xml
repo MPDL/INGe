@@ -60,7 +60,7 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-							<groupId>saxon</groupId>
+							<groupId>net.sf.saxon</groupId>
 							<artifactId>saxon-dom</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
@@ -276,40 +276,35 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.48-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>exportmanager</artifactId>
+			<version>1.0.94-SNAPSHOT</version>
 			<scope>compile</scope>
-			<version>1.0.45-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<scope>compile</scope>
-			<version>1.0.48-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>citationmanager</artifactId>
 			<scope>compile</scope>
-			<version>1.0.50-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
        <dependency>
             <groupId>de.mpg.escidoc.services.wildfly</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.33-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>	
@@ -329,7 +324,6 @@
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>common_logic</artifactId>
 			<scope>compile</scope>
-			<version>1.1.45-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
@@ -368,7 +362,7 @@
 			<version>8.7</version>
 		</dependency>
 		<dependency>
-			<groupId>saxon</groupId>
+			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 		</dependency>

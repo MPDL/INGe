@@ -67,7 +67,7 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>saxon</groupId>
+			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 		</dependency>
