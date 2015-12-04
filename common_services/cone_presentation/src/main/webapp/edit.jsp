@@ -418,7 +418,7 @@
 	            {
 	                String paramValue = paramValues[i];
 	                
-	                System.out.println("working on paramValue:" + paramValue + "(paramName is:" + paramName + ", predicate is" + predicate+ ")");
+	                //System.out.println("working on paramValue:" + paramValue + "(paramName is:" + paramName + ", predicate is" + predicate+ ")");
 	                if (predicate.getDefaultValue() != null && predicate.isOverwrite() && predicate.getEvent() == Event.ONSAVE)
 	                {
 	                    paramValue = predicate.getDefault(request);
