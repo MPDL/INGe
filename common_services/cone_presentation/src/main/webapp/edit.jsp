@@ -172,7 +172,7 @@
 			                		
 					                if (predicate.isGenerateObject())
 				    	            {
-		    		    	            out.append("\n<input type=\"hidden\" class=\"noDisplay" + nameSnippet + " value=\"" + value.toString() + "\"/>");
+		    		    	            out.append("\n<input type=\"hidden\" class=\"noDisplay\"" + nameSnippet + " value=\"" + value.toString() + "\"/>");
 		        		    	    }
 		            		    	else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
 			            		    {
@@ -417,7 +417,8 @@
 	            for (int i = 0; i < paramValues.length; i++)
 	            {
 	                String paramValue = paramValues[i];
-	                //System.out.println("workoing on paramValue:" + paramValue);
+	                
+	                System.out.println("working on paramValue:" + paramValue + "(paramName is:" + paramName + ", predicate is" + predicate+ ")");
 	                if (predicate.getDefaultValue() != null && predicate.isOverwrite() && predicate.getEvent() == Event.ONSAVE)
 	                {
 	                    paramValue = predicate.getDefault(request);
