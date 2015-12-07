@@ -115,7 +115,7 @@ public class PIDProvider implements PIDProviderIf
 	        
 	        logger.info("Time used for getting pid <" + (end - start) + ">ms");
 	       
-	        return pid;
+	        return newUrl;
 	}
 	
 	private String getRegisterUrlForComponent(String itemId, String versionNumber, String componentId, String fileName) throws Exception

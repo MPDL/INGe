@@ -58,7 +58,7 @@ public class PIDProviderMock implements PIDProviderIf
 
 		logger.info("URL given to PID resolver: <" + registerUrl + ">");
 
-		return "";
+		return registerUrl;
 								
 	}
 
