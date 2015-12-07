@@ -18,6 +18,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.handler.ComponentHandler;
 import de.mpg.escidoc.handler.ItemHandler;
@@ -99,8 +100,11 @@ public class ComponentPidTransformer
         
         for (File file : files)
         {
-            if (!file.getName().startsWith("escidoc_"))
+            if (file.isFile() && !file.getName().startsWith("escidoc_"))
+            {
+            	logger.info("Omitting file name <" + file.getName() + ">");
                 continue;
+            }
             
             if (file.isDirectory() && !file.getName().startsWith(".svn"))
             {
@@ -132,7 +136,7 @@ public class ComponentPidTransformer
 		fileOutputStream.write("</index>\n".getBytes("UTF-8"));
 		fileOutputStream.close();
 		
-		logger.info("Creating index database finished");
+		logger.info("Creating location file finished");
 	}
 	
 
@@ -189,7 +193,26 @@ public class ComponentPidTransformer
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         ItemHandler itemHandler = new ItemHandler();
         
-        parser.parse(file, itemHandler);
+        try
+		{
+			parser.parse(file, itemHandler);
+		} catch (SAXException se)
+		{
+			se.printStackTrace();
+			logger.warn("SaxException occured ", se);
+			report.incrementFilesErrorOccured();
+			report.addToErrorList(file.getName());
+			return;
+		}
+        catch (IOException ioe)
+        {
+
+			ioe.printStackTrace();
+			logger.warn("SaxException occured ", ioe);
+			report.incrementFilesErrorOccured();
+			report.addToErrorList(file.getName());
+			return;
+		}
         
         // loop over items - component data are fetched 
         if ((itemHandler.getObjectType()== null) || !itemHandler.getObjectType().equals(Type.ITEM))
@@ -220,15 +243,17 @@ public class ComponentPidTransformer
         			continue;
         		} 
         		
-        		String componentPid = componentMap.get(ComponentHandler.PROP_PID_KEY);
-				if (FileUtils.readFileToString(new File(SUCCESS_FILE_LOG)).contains(itemId + " " + componentPid))
+        		String componentPid = componentMap.get(ComponentHandler.PROP_PID_KEY); 
+				if (successFile.exists() && FileUtils.readFileToString(successFile).contains(itemId + " " + componentPid))
         		{
         			logger.info("Already updated " + itemId + " " + componentPid);
         			continue;
         		}
+				
+				String registerURL = "";
         		try
 				{
-					pidProvider.updateComponentPid(itemId, versionNumber.iterator().next(), componentId, 
+        			registerURL = pidProvider.updateComponentPid(itemId, versionNumber.iterator().next(), componentId, 
 							componentPid, componentMap.get(ComponentHandler.DC_TITLE_KEY));
 				} catch (PIDProviderException e)
 				{
@@ -237,7 +262,7 @@ public class ComponentPidTransformer
 					continue;
 				}
         		report.incrementComponentsUpdateDone();
-        		FileUtils.writeStringToFile(successFile, itemId + " " + componentPid + "\n", true);
+        		FileUtils.writeStringToFile(successFile, itemId + " " + componentPid + " " + registerURL  + "\n", true);
         	}
         	
     	}
@@ -297,12 +322,16 @@ public class ComponentPidTransformer
         
         int totalNumberOfFiles = Util.countFilesInDirectory(rootDir);
         logger.info("Total number of files to migrate <" + totalNumberOfFiles + "> for directory <"  + rootDir.getName() + ">");
+        ComponentPidTransformer pidMigr = new ComponentPidTransformer();
         
-        TransformationReport report = new TransformationReport(); 
-        
-        if (mode.contains("transform"))
+        if (mode.contains("storeLocation"))
         {
-            ComponentPidTransformer pidMigr = new ComponentPidTransformer();
+        	pidMigr.createLocationFile(rootDir);
+        }
+        
+        if (mode.contains("update"))
+        {
+            
             pidMigr.transform(rootDir);
             
             report = pidMigr.getReport();

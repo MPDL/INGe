@@ -373,15 +373,15 @@ public class ItemHandler extends DefaultHandler
     
     private InputStream getComponentFile(String componentId)
 	{
-    	String l = LocationHelper.getLocation(Util.getPureComponentId(componentId));
-    	try
+		try
 		{
 			return new FileInputStream(new File(LocationHelper.getLocation(Util.getPureComponentId(componentId))));
-		} catch (FileNotFoundException e)
+					
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	return null;
+		return null;
 	}
 }
