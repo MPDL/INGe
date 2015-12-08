@@ -19,7 +19,13 @@ import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 
 /**
+ * 
  * Processor for Transforming CSL-XML-Files to one CoNE-RDF-XML
+ *
+ * @author walter (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
 public class CslConeTransformationProcessor
 {

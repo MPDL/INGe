@@ -5,6 +5,15 @@ import java.util.Iterator;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
+/**
+ * 
+ * NamespaceContext for CSL XML files
+ *
+ * @author walter (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class NamespaceContextImpl implements NamespaceContext
 {
     @Override
