@@ -206,13 +206,21 @@ public class ComponentPidTransformer
 		}
         catch (IOException ioe)
         {
-
 			ioe.printStackTrace();
 			logger.warn("SaxException occured ", ioe);
 			report.incrementFilesErrorOccured();
 			report.addToErrorList(file.getName());
 			return;
 		}
+        catch (IllegalArgumentException iae)
+        {
+        	iae.printStackTrace();
+			logger.warn("SaxException occured ", iae);
+			report.incrementFilesErrorOccured();
+			report.addToErrorList(file.getName());
+			return;
+        	
+        }
         
         // loop over items - component data are fetched 
         if ((itemHandler.getObjectType()== null) || !itemHandler.getObjectType().equals(Type.ITEM))
@@ -223,7 +231,7 @@ public class ComponentPidTransformer
             return;
         }
       
-        for (String relsExtId : itemHandler.getGlobalElementMap().keySet())
+        for (Integer relsExtId : itemHandler.getGlobalElementMap().keySet())
     	{
         	Map<String, Set<String>>elementMapForRELSEXT = itemHandler.getGlobalElementMap().get(relsExtId);
 

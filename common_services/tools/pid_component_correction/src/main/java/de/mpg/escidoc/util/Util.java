@@ -111,5 +111,14 @@ public class Util
 		}
 		return componentId.substring(componentId.lastIndexOf("/") + 1);
 	}
+    
+    // get the number of the RELS-EXT identifier
+ 	public static Integer getRelsExtAsInteger(String relsExtId)
+ 	{
+ 		if (relsExtId == null || relsExtId.isEmpty() || !relsExtId.startsWith("RELS-EXT"))
+ 			return 0;
+ 		
+ 		return Integer.parseInt(relsExtId.substring(relsExtId.indexOf(".") + 1));
+ 	}
 
 }

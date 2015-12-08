@@ -258,6 +258,27 @@ public class ComponentPidTransformerTest
 	
 	@Test
 	//
+	// escidoc:656742 released item with 2 component; escidoc:656741 locator and escidoc:656740 component with html
+	public void testItemMultipleReleases_656742() throws Exception
+	{
+		assertTrue(new File(ComponentPidTransformer.LOCATION_FILE_XML).exists());
+		pidMigr.transform(new File("src/test/resources/item/escidoc_656742"));
+		
+		assertTrue(pidMigr.getReport().getErrorList().size() == 0);
+		assertTrue("Expected 1 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 1);
+		assertTrue("Expected 1 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 1);
+		
+		Iterator<String> it = FileUtils.readLines(new File(ComponentPidTransformer.SUCCESS_FILE_LOG), "UTF-8").iterator(); 
+		while(it.hasNext())
+		{
+			String line = it.next();
+			logger.info(line);
+			assertTrue(line.contains("escidoc:656742"));	
+		}
+	}
+	
+	@Test
+	//
 	// testing object types unequal ITEM, e.g. organizational units, content-models
 
 	public void testUpdatePid_Other() throws Exception
@@ -265,8 +286,8 @@ public class ComponentPidTransformerTest
 		assertTrue(new File(ComponentPidTransformer.LOCATION_FILE_XML).exists());
 		pidMigr.transform(new File("src/test/resources/other"));
 		
-		assertTrue(pidMigr.getReport().getErrorList().size() == 0);
-		assertTrue("Expected 5 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 5);
+		assertTrue(pidMigr.getReport().getErrorList().size() == 2);
+		assertTrue("Expected 7 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 7);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 0);
 		assertTrue("Expected 5 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 5);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotReleased(), pidMigr.getReport().getFilesNotReleased() == 0);
@@ -289,8 +310,8 @@ public class ComponentPidTransformerTest
 		pidMigr.transform(new File("src/test/resources/item"));
 		
 		assertTrue(pidMigr.getReport().getErrorList().size() == 0);
-		assertTrue("Expected 8 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 8);
-		assertTrue("Expected 5 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 5);
+		assertTrue("Expected 10 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 10);
+		assertTrue("Expected 6 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 6);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 0);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotReleased(), pidMigr.getReport().getFilesNotReleased() == 0);
 		
@@ -299,7 +320,8 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6")
+			assertTrue(line.contains("escidoc:656742 hdl:11858/00-001Z-0000-0023-5323-D")
+					|| line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6")
 					|| line.contains("escidoc:2111689 hdl:11858/00-001M-0000-0025-7377-9")
 					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-515F-2")
 					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-5162-7")
@@ -316,8 +338,8 @@ public class ComponentPidTransformerTest
 		pidMigr.transform(new File("src/test/resources/item"));
 		
 		assertTrue(pidMigr.getReport().getErrorList().size() == 0);
-		assertTrue("Expected 8 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 8);
-		assertTrue("Expected 5 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 5);
+		assertTrue("Expected 10 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 10);
+		assertTrue("Expected 6 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 6);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 0);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotReleased(), pidMigr.getReport().getFilesNotReleased() == 0);
 		
@@ -326,7 +348,8 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6")
+			assertTrue(line.contains("escidoc:656742 hdl:11858/00-001Z-0000-0023-5323-D")
+					|| line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6")
 					|| line.contains("escidoc:2111689 hdl:11858/00-001M-0000-0025-7377-9")
 					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-515F-2")
 					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-5162-7")
@@ -338,7 +361,7 @@ public class ComponentPidTransformerTest
 		pidMigr.transform(new File("src/test/resources/item"));
 		
 		assertTrue(pidMigr.getReport().getErrorList().size() == 0);
-		assertTrue("Expected 8 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 8);
+		assertTrue("Expected 10 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 10);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 0);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 0);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotReleased(), pidMigr.getReport().getFilesNotReleased() == 0);
@@ -349,10 +372,21 @@ public class ComponentPidTransformerTest
 	public void testEmptyFile() throws Exception
 	{
 		pidMigr.getReport().clear();
-		pidMigr.transform(new File("src/test/resources/other/empty"));
+		pidMigr.transform(new File("src/test/resources/other/escidoc_xxx"));
 		
 		assertTrue(pidMigr.getReport().getErrorList().size() == 1);
-		assertTrue(pidMigr.getReport().getErrorList().iterator().next().contains("empty"));	
+		assertTrue(pidMigr.getReport().getErrorList().iterator().next().contains("escidoc_xxx"));	
+	}
+	
+	// Test to parse a file with missing component file
+	// item escidoc:898020 component escidoc:898019 missing
+	@Test
+	public void testMissingLocationOfComponentFile() throws Exception
+	{
+		pidMigr.createLocationFile(new File("src/test/resources/other"));
+		pidMigr.transform(new File("src/test/resources/other"));
+		
+		assertTrue(pidMigr.getReport().getErrorList().size() == 2);
 	}
 	
 	
