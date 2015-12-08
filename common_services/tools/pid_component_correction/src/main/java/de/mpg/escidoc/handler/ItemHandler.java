@@ -88,7 +88,7 @@ public class ItemHandler extends DefaultHandler
     
     // Map to hold the elements of a all RELS_EXT rdf:Descriptions elements which concern the component pid update
     // key: RELS_EX_ID, value: the elementMap from above, these are the elements from this special RELS_EXT rdf:Description 
-    private Map<String, Map<String, Set<String>>> globalElementMap = new TreeMap<String, Map<String, Set<String>>>();
+    private Map<Integer, Map<String, Set<String>>> globalElementMap = new TreeMap<Integer, Map<String, Set<String>>>();
    
     // Map to hold the complete component data as component pid and file name for one single item
     private Map<String, Map<String, String>> componentMap = new HashMap<String, Map<String, String>>();
@@ -160,13 +160,20 @@ public class ItemHandler extends DefaultHandler
             SAXParser parser = null;
             componentHandler = new ComponentHandler();
             
+            InputStream componentFile = getComponentFile(componentId);
+            if (componentFile == null)
+            {
+            	throw new SAXException();
+            }
+            
 			try
 			{
-				parser = SAXParserFactory.newInstance().newSAXParser();
-				parser.parse(getComponentFile(componentId), componentHandler);
+				parser = SAXParserFactory.newInstance().newSAXParser();				
+				parser.parse(componentFile, componentHandler);
 			} catch (Exception e)
 			{
 				logger.warn("Sax parser exception occured", e);
+				return;
 			}
 			
 			componentMap.put(componentId, componentHandler.getComponentMap());            
@@ -197,8 +204,12 @@ public class ItemHandler extends DefaultHandler
         {
         	if (isToStore())
         	{
-        		globalElementMap.put(actualRelsExtId, tmpElementMap);
-        	}           
+        		globalElementMap.put(Util.getRelsExtAsInteger(actualRelsExtId), tmpElementMap);
+        	}     
+        	if (isToClear())
+        	{
+        		globalElementMap.clear();
+        	}     
         } else if ("foxml:datastream".equals(qName) && inRelsExt)
         {
             inRelsExt = false;
@@ -292,8 +303,8 @@ public class ItemHandler extends DefaultHandler
     
     public Set<String> getSrelComponent(String relsExtId)
     {
-        return (globalElementMap.get(relsExtId) != null
-                ? globalElementMap.get(relsExtId).get(SREL_COMPONENT_KEY) : new HashSet<String>());
+        return (globalElementMap.get(Util.getRelsExtAsInteger(relsExtId)) != null
+                ? globalElementMap.get(Util.getRelsExtAsInteger(relsExtId)).get(SREL_COMPONENT_KEY) : new HashSet<String>());
     }
    
     public String getEscidocId()
@@ -307,12 +318,12 @@ public class ItemHandler extends DefaultHandler
                 && globalElementMap.get(actRelsExtId).get("propPidExists").equals("false")); 
     }
     
-    public Map<String, Set<String>> getElementMapFor(String relsExtId)
+    public Map<String, Set<String>> getElementMapFor(Integer relsExtId)
     {
         return this.globalElementMap.get(relsExtId);
     }
     
-    public Map<String, Map<String, Set<String>>> getGlobalElementMap()
+    public Map<Integer, Map<String, Set<String>>> getGlobalElementMap()
     {
     	return this.globalElementMap;
     }
@@ -367,6 +378,20 @@ public class ItemHandler extends DefaultHandler
 		
 		if ("released".equals(actualVersionStatus) && !"released".equals(oldVersionStatus))
 			return true;
+		
+		return false;
+	}
+    
+    // clear all information if item is withdrawn. We do not update pids of withdrawn items.
+    private boolean isToClear()
+	{
+    	if (tmpElementMap.get(PROP_PUBLIC_STATUS_KEY) == null)
+    		return false;
+    	
+		if (tmpElementMap.get(PROP_PUBLIC_STATUS_KEY).contains("withdrawn"))
+		{
+			return true;
+		}
 		
 		return false;
 	}
