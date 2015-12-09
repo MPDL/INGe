@@ -32,6 +32,8 @@ public class PIDProvider implements PIDProviderIf
     private String server;
     
     private static int totalNumberofPidsUpdated = 0;
+    
+    final static private int port = 80;
        
     public PIDProvider() throws NamingException, IOException
     {
@@ -54,11 +56,11 @@ public class PIDProvider implements PIDProviderIf
 			throw new FileNotFoundException("Property file not found " + ComponentPidTransformer.PROPERTY_FILE_NAME);
 		}
 		
-		location = properties.getProperty("escidoc.pidcache.service.url");
-		user = properties.getProperty("escidoc.pidcache.user.name");
-		password = properties.getProperty("escidoc.pidcache.user.password");
+		location = properties.getProperty("pidcache.service.url");
+		user = properties.getProperty("pidcache.user.name");
+		password = properties.getProperty("pidcache.user.password");
 
-		server = properties.getProperty("escidoc.pidcache.server");
+		server = properties.getProperty("pidcache.server");
 	        
         httpClient = Util.getHttpClient();
         httpClient.getParams().setAuthenticationPreemptive(true);
@@ -99,13 +101,16 @@ public class PIDProvider implements PIDProviderIf
 	        long start = System.currentTimeMillis();
 	        try
 	        {
-	            httpClient.getState().setCredentials(new AuthScope(server, 8090),
+	            httpClient.getState().setCredentials(new AuthScope(server, port),
 	                    new UsernamePasswordCredentials(user, password));
 	            
 	            code = httpClient.executeMethod(method);
 	            
-	            totalNumberofPidsUpdated++;
-	            logger.info("pid create returning " + method.getResponseBodyAsString());
+	            if (code == 200)
+	            {
+	            	totalNumberofPidsUpdated++;
+	            }
+	            logger.info("pid modify returning " + method.getResponseBodyAsString());
 	        }
 	        catch (Exception e)
 	        {
@@ -120,12 +125,12 @@ public class PIDProvider implements PIDProviderIf
 	
 	private String getRegisterUrlForComponent(String itemId, String versionNumber, String componentId, String fileName) throws Exception
     {        
-        String registerUrl =  properties.getProperty("escidoc.pubman.instance.url") +
-        		properties.getProperty("escidoc.pubman.instance.context.path") +
-                properties.getProperty("escidoc.pubman.component.pattern")
+        String registerUrl =  properties.getProperty("pubman.instance.url") +
+        		properties.getProperty("pubman.instance.context.path") +
+                properties.getProperty("pubman.component.pattern")
                         .replaceAll("\\$1", itemId)
                         .replaceAll("\\$2", versionNumber)
-                        .replaceAll("\\$3", componentId)
+                        .replaceAll("\\$3", Util.getPureComponentId(componentId))
                         .replaceAll("\\$4", fileName);
 
         logger.info("URL given to PID resolver: <" + registerUrl + ">");
