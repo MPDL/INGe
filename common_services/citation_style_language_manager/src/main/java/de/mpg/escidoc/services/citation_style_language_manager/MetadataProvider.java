@@ -421,7 +421,21 @@ public class MetadataProvider implements ItemDataProvider {
 	        {
 	            List<IdentifierVO> identifierList = metadata.getIdentifiers();
 	            Collections.sort(identifierList, new IdentfierPriorityComparator());
-	            if (identifierList.get(0) != null)
+	            IdentifierVO identifier = identifierList.get(0);
+	            if (identifier != null 
+	                    && !IdentifierVO.IdType.DOI.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.ISBN.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.URI.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.URN.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.CONE.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.EDOC.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.PMC.equals(identifier.getType())
+                        && !IdentifierVO.IdType.PMID.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.PND.equals(identifier.getType())
+	                    && !IdentifierVO.IdType.ZDB.equals(identifier.getType())
+	                    )
 	            {
 	                cslItem.number(identifierList.get(0).getTypeString() + ": " + identifierList.get(0).getId());
 	            }
