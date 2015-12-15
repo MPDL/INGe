@@ -3,17 +3,13 @@ package de.mpg.escidoc.main;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import de.mpg.escidoc.util.TransformationReport;
 
 public class ComponentPidTransformerTest
 {
@@ -63,7 +59,7 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:2111689 hdl:11858/00-001M-0000-0025-7377-9"));	
+			assertTrue(line.contains("escidoc:2111689 11858/00-001M-0000-0025-7377-9"));	
 		} 
 	}
 	
@@ -107,8 +103,8 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-5162-7")
-					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-515F-2"));	
+			assertTrue(line.contains("escidoc:2169637 11858/00-001Z-0000-0026-5162-7")
+					|| line.contains("escidoc:2169637 11858/00-001Z-0000-0026-515F-2"));	
 		}
 	}
 
@@ -150,7 +146,7 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6"));	
+			assertTrue(line.contains("escidoc:2110508 11858/00-001M-0000-0025-0ADE-6"));	
 		}
 	}
 	
@@ -171,7 +167,7 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6"));	
+			assertTrue(line.contains("escidoc:2110508 11858/00-001M-0000-0025-0ADE-6"));	
 		}
 		
 		// transform again - nothing should be done
@@ -228,7 +224,7 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue("is <" + line + ">", line.contains("escidoc:2228639 hdl:11858/00-001Z-0000-0026-51C0-4"));
+			assertTrue("is <" + line + ">", line.contains("escidoc:2228639 11858/00-001Z-0000-0026-51C0-4"));
 		}
 		
 	}
@@ -320,12 +316,12 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:656742 hdl:11858/00-001Z-0000-0023-5323-D")
-					|| line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6")
-					|| line.contains("escidoc:2111689 hdl:11858/00-001M-0000-0025-7377-9")
-					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-515F-2")
-					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-5162-7")
-					|| line.contains("escidoc:2228639 hdl:11858/00-001Z-0000-0026-51C0-4"));	
+			assertTrue(line.contains("escidoc:656742 11858/00-001Z-0000-0023-5323-D")
+					|| line.contains("escidoc:2110508 11858/00-001M-0000-0025-0ADE-6")
+					|| line.contains("escidoc:2111689 11858/00-001M-0000-0025-7377-9")
+					|| line.contains("escidoc:2169637 11858/00-001Z-0000-0026-515F-2")
+					|| line.contains("escidoc:2169637 11858/00-001Z-0000-0026-5162-7")
+					|| line.contains("escidoc:2228639 11858/00-001Z-0000-0026-51C0-4"));	
 		}
 	}
 	
@@ -348,12 +344,12 @@ public class ComponentPidTransformerTest
 		{
 			String line = it.next();
 			logger.info(line);
-			assertTrue(line.contains("escidoc:656742 hdl:11858/00-001Z-0000-0023-5323-D")
-					|| line.contains("escidoc:2110508 hdl:11858/00-001M-0000-0025-0ADE-6")
-					|| line.contains("escidoc:2111689 hdl:11858/00-001M-0000-0025-7377-9")
-					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-515F-2")
-					|| line.contains("escidoc:2169637 hdl:11858/00-001Z-0000-0026-5162-7")
-					|| line.contains("escidoc:2228639 hdl:11858/00-001Z-0000-0026-51C0-4"));	
+			assertTrue(line.contains("escidoc:656742 11858/00-001Z-0000-0023-5323-D")
+					|| line.contains("escidoc:2110508 11858/00-001M-0000-0025-0ADE-6")
+					|| line.contains("escidoc:2111689 11858/00-001M-0000-0025-7377-9")
+					|| line.contains("escidoc:2169637 11858/00-001Z-0000-0026-515F-2")
+					|| line.contains("escidoc:2169637 11858/00-001Z-0000-0026-5162-7")
+					|| line.contains("escidoc:2228639 11858/00-001Z-0000-0026-51C0-4"));	
 		}
 		
 		// transform again - nothing should be done

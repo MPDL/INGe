@@ -10,7 +10,7 @@ public interface PIDProviderIf
 {
     public void init() throws NamingException, IOException;
 
-    public String updateComponentPid(String escidocId, String versionNumber, String componentId, String pid, String fileName) throws PIDProviderException;
+    public String updateComponentPid(String escidocId, String versionNumber, String componentId, String pid, String fileName) throws PIDProviderException, IOException;
 
     public int getTotalNumberOfPidsRequested();
 

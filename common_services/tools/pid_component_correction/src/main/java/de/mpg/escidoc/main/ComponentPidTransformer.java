@@ -252,6 +252,18 @@ public class ComponentPidTransformer
         		} 
         		
         		String componentPid = componentMap.get(ComponentHandler.PROP_PID_KEY); 
+        		
+        		if (componentPid == null || "".equals(componentPid))
+    			{
+        			logger.warn("Component pid not set for <" + itemId + ">");
+        			continue;
+    			}
+        			
+        		
+        		if (componentPid.startsWith("hdl:"))
+        		{
+        			componentPid = componentPid.substring(4);
+        		}
 				if (successFile.exists() && FileUtils.readFileToString(successFile).contains(itemId + " " + componentPid))
         		{
         			logger.info("Already updated " + itemId + " " + componentPid);

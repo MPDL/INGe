@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.naming.NamingException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class PIDProviderTest
@@ -13,7 +14,8 @@ public class PIDProviderTest
 	PIDProvider p = null;
 
 	@Test
-	public void test() throws Exception
+	@Ignore
+	public void test1() throws Exception
 	{
 		p = new PIDProvider();
 		
@@ -25,5 +27,19 @@ public class PIDProviderTest
 		
 		
 	}
-
+	
+	
+	@Test
+	public void test2() throws Exception
+	{
+		p = new PIDProvider();
+		
+		String s = p.updateComponentPid("escidoc:760634", 
+				"4", 
+				"escidoc:762001", 
+				"11858/00-001Z-0000-0024-44F6-E", 
+				"BGC2144.pdf");
+		
+		
+	}
 }

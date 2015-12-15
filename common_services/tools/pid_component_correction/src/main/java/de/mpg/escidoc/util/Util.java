@@ -35,9 +35,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-
 
 /**
  * The Util-class offers some static functions that are often needed
@@ -73,14 +70,6 @@ public class Util
 		return stringBuilder.toString();
 	}
 
-	// delivers an Instance of HttpClient
-	public static HttpClient getHttpClient()
-	{
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-		return httpClient;
-	}
-	
 	  /**
 	   * Count files in a directory (including files in all subdirectories)
 	   * @param directory the directory to start in
@@ -103,6 +92,8 @@ public class Util
         return count;
     }
     
+    
+    // extract the component id from info:fedora/escidoc:1234
     public static String getPureComponentId(String componentId)
 	{
 		if (componentId == null || "".equals(componentId))
