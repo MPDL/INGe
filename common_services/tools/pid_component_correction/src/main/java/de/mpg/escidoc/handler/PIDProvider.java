@@ -83,9 +83,9 @@ public class PIDProvider implements PIDProviderIf
 		logger.debug("getPid starting");
 	        
         String newUrl = "";
-        String pidCacheUrl = location + "/write/modify";
+        String gwdgPidUpdateUrl = location + "/write/modify";
         
-        HttpPost  method = new HttpPost (pidCacheUrl.concat("?pid=").concat(pid));
+        HttpPost  method = new HttpPost (gwdgPidUpdateUrl.concat("?pid=").concat(pid));
         
         try
         {
