@@ -264,6 +264,13 @@ public class ComponentPidTransformer
         		{
         			componentPid = componentPid.substring(4);
         		}
+        		
+        		// older versions have not been migrated during pid migration
+        		if (componentPid.startsWith("someHandle"))
+        		{
+        			logger.info("Dummy component pid " + itemId + " " + componentPid);
+        			continue;
+        		}
 				if (successFile.exists() && FileUtils.readFileToString(successFile).contains(itemId + " " + componentPid))
         		{
         			logger.info("Already updated " + itemId + " " + componentPid);
