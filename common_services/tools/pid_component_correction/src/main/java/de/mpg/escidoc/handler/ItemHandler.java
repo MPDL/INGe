@@ -124,6 +124,11 @@ public class ItemHandler extends DefaultHandler
   
             }
         }
+        else if ("import-task".equals(qName))
+        {
+        	// stop parsing 
+        	throw new SAXException("importtask item - no parsing necessary");
+        }
         else if (PROP_PUBLIC_STATUS_KEY.equals(qName) && inRelsExt)
         {
             inRelsExtAndPublicStatus = true;

@@ -3,6 +3,7 @@ package de.mpg.escidoc.handler;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,7 +12,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.handler.ItemHandler.Type;
 import de.mpg.escidoc.main.ComponentPidTransformer;
@@ -233,5 +237,19 @@ public class ItemHandlerTest
         
         assertTrue(globalElementMap != null);
         assertTrue("Excpected 0, found <" + globalElementMap.size() + ">", globalElementMap.size() == 0);
+  	}
+  	
+  	@Rule
+  	public ExpectedException expectedEx = ExpectedException.none();
+
+  	@Test
+  	public void testImportItem() throws SAXException, IOException
+  	{
+  		File file = new File("src/test/resources/other/escidoc_147973");
+  		expectedEx.expect(SAXException.class);
+  	    expectedEx.expectMessage("importtask item - no parsing necessary");
+  	    
+		parser.parse(file, itemHandler);
+		
   	}
 }

@@ -11,6 +11,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
+/**
+ * Test with various escidoc foxml's. 
+ * Attention: Really updating pids at the GWDG using the PIDProvider instead of PIDProviderMock may cause some HTTP_Forbidden (403) return code, 
+ * concerning of the GWDG user configured (001M or 001Z). The example pids are taken generated as well by user 001M as user 001Z.
+ * 
+ * @author sieders
+ *
+ */
 public class ComponentPidTransformerTest
 {
 	private static ComponentPidTransformer pidMigr = null;
@@ -282,10 +291,10 @@ public class ComponentPidTransformerTest
 		assertTrue(new File(ComponentPidTransformer.LOCATION_FILE_XML).exists());
 		pidMigr.transform(new File("src/test/resources/other"));
 		
-		assertTrue(pidMigr.getReport().getErrorList().size() == 2);
-		assertTrue("Expected 7 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 7);
+		assertTrue(pidMigr.getReport().getErrorList().size() == 3);
+		assertTrue("Expected 7 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 9);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 0);
-		assertTrue("Expected 5 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 5);
+		assertTrue("Expected 5 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 6);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getFilesNotReleased(), pidMigr.getReport().getFilesNotReleased() == 0);
 		
 		Iterator<String> it = FileUtils.readLines(new File(ComponentPidTransformer.SUCCESS_FILE_LOG), "UTF-8").iterator(); 
@@ -380,9 +389,9 @@ public class ComponentPidTransformerTest
 	public void testMissingLocationOfComponentFile() throws Exception
 	{
 		pidMigr.createLocationFile(new File("src/test/resources/other"));
-		pidMigr.transform(new File("src/test/resources/other"));
+		pidMigr.transform(new File("src/test/resources/other/escidoc_898020"));
 		
-		assertTrue(pidMigr.getReport().getErrorList().size() == 2);
+		assertTrue(pidMigr.getReport().getErrorList().size() == 1);
 	}
 	
 	

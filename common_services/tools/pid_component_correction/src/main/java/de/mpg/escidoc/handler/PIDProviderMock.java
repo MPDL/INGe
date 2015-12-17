@@ -3,6 +3,8 @@ package de.mpg.escidoc.handler;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -38,12 +40,12 @@ public class PIDProviderMock implements PIDProviderIf
 
 	@Override
 	public String updateComponentPid(String itemId, String versionNumber, String componentId,
-			String pid, String fileName) throws PIDProviderException
+			String pid, String fileName) throws PIDProviderException, UnsupportedEncodingException
 	{
 		logger.info("UpdateComponentPid itemId <" + itemId
 				+ "> versionNumber <" + versionNumber + "> componentId <"
 				+ Util.getPureComponentId(componentId) + "> pid <" + pid
-				+ "< fileName < " + fileName + ">");
+				+ "> fileName <" + fileName + ">");
 
 		String registerUrl = properties.getProperty("pubman.instance.url")
 				
@@ -53,7 +55,7 @@ public class PIDProviderMock implements PIDProviderIf
 						.replaceAll("\\$1", itemId)
 						.replaceAll("\\$2", versionNumber)
 						.replaceAll("\\$3", Util.getPureComponentId(componentId))		
-						.replaceAll("\\$4", fileName);
+						.replaceAll("\\$4", URLEncoder.encode(fileName, "UTF-8").replace("+", "%20"));
 		count++;
 
 		logger.info("URL given to PID resolver: <" + registerUrl + ">");

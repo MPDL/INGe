@@ -16,6 +16,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -84,6 +85,7 @@ public class PIDProvider implements PIDProviderIf
 	        
         String newUrl = "";
         String gwdgPidUpdateUrl = location + "/write/modify";
+        int timeout = 100;
         
         HttpPost  method = new HttpPost (gwdgPidUpdateUrl.concat("?pid=").concat(pid));
         
@@ -109,13 +111,19 @@ public class PIDProvider implements PIDProviderIf
                 new AuthScope(AuthScope.ANY),
                 new UsernamePasswordCredentials(user, password));
         
+		RequestConfig config = RequestConfig.custom()
+        		  .setConnectTimeout(timeout  * 1000)
+        		  .setConnectionRequestTimeout(timeout * 1000)
+        		  .setSocketTimeout(timeout * 1000).build();
+        
         httpClient = HttpClients.custom()
                 .setDefaultCredentialsProvider(credsProvider)
+                .setDefaultRequestConfig(config)
                 .build();
         try
         {	            
         	CloseableHttpResponse response = httpClient.execute(method);
-            logger.info("pid update returning " + response.getStatusLine());
+            logger.info("pid <" + pid + "> update returning " + response.getStatusLine());
             
             if (response.getStatusLine().getStatusCode() == 200)
             {
@@ -129,7 +137,7 @@ public class PIDProvider implements PIDProviderIf
 
         long end = System.currentTimeMillis();
         
-        logger.info("Time used for getting pid <" + (end - start) + ">ms");
+        logger.info("Time used for updating pid <" + (end - start) + ">ms");
        
         return newUrl;
 	}
