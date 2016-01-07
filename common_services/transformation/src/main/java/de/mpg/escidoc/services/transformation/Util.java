@@ -335,7 +335,7 @@ public class Util
         String queryUrl = null;
         try
         {
-            System.out.println("queryCone: " + model);
+            logger.info("queryCone: " + model + " query: " + query);
             
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
         
@@ -417,7 +417,7 @@ public class Util
         String queryUrl = null;
         try
         {
-            System.out.println("queryCone: " + model);
+        	logger.info("queryCone: " + model + " query: " + query);
             
             queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                  + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
@@ -576,7 +576,7 @@ public class Util
 
         try
         {
-            System.out.println("queryConeExact: " + model);
+        	logger.info("queryConeExact: " + model + " name: " + name + " ou: " + ou);
             
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
         
@@ -683,7 +683,7 @@ public class Util
         
         try
         {
-            System.out.println("queryConeExact: " + model);
+        	logger.info("queryConeExactWithIdentifier: " + model + " identifier: " + identifier + " ou: " + ou);
             
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
             
@@ -753,7 +753,7 @@ public class Util
         catch (Exception e)
         {
             logger.error("Error querying CoNE service. This is normal during unit tests. " +
-                    "Otherwise it should be clarified if any measures have to be taken.");
+                    "Otherwise it should be clarified if any measures have to be taken.", e);
             return null;
             //throw new RuntimeException(e);
         }
@@ -789,19 +789,18 @@ public class Util
 				childIds.add(s);
 			}
 		}
+		
+		logger.info("queryReportPersonCone: " + model + " query: " + query);
+		logger.info("childIds " + Arrays.toString(childIds.toArray()));
 
 		try {
+			
 			documentBuilder = DocumentBuilderFactoryImpl.newInstance()
 					.newDocumentBuilder();
 
 			Document document = documentBuilder.newDocument();
 			Element element = document.createElement("cone");
 			document.appendChild(element);
-
-			queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-					+ model
-					+ "/query?format=jquery&escidoc:position/dc:identifier=\""
-					+ query + "\"&n=0";
 
 			HttpClient client = new HttpClient();
 			if (childIds.size() > 0) {
@@ -815,14 +814,19 @@ public class Util
 				}
 			} else {
 				// there are no child ous, methid is called once
+				queryUrl = PropertyReader.getProperty("escidoc.cone.service.url") 
+						+ model
+						+ "/query?format=jquery&" + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "="
+						+ URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
 				executeGetMethod(client, queryUrl, documentBuilder, document, element);
 			}
 
 			return document;
 		} catch (Exception e) {
-			logger
-					.error("Error querying CoNE service. This is normal during unit tests. "
-							+ "Otherwise it should be clarified if any measures have to be taken.");
+			logger.error("Error querying CoNE service. This is normal during unit tests. "
+					+ "Otherwise it should be clarified if any measures have to be taken.", e);
+					
+			
 			return null;
 		}
 	}
@@ -840,10 +844,10 @@ public class Util
 			DocumentBuilder documentBuilder, Document document, Element element) {
 		String previousUrl = null;
 		try {
+			logger.info("queryURL from executeGetMethod  " + queryUrl);
 			GetMethod method = new GetMethod(queryUrl);
 			ProxyHelper.executeMethod(client, method);
-			logger.info("queryURL from executeGetMethod  " + queryUrl);
-
+			
 			if (method.getStatusCode() == 200) {
 				String[] results = method.getResponseBodyAsString().split("\n");
 				for (String result : results) {
@@ -854,11 +858,15 @@ public class Util
 							GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
 							previousUrl = detailsUrl;
 						
-							logger.info(detailMethod.getPath());
-							logger.info(detailMethod.getQueryString());
+							if (logger.isDebugEnabled())
+							{
+								logger.info(detailMethod.getPath());
+								logger.info(detailMethod.getQueryString());
+							}
                         
 							ProxyHelper.setProxy(client, detailsUrl);
 							client.executeMethod(detailMethod);
+							
 							if (detailMethod.getStatusCode() == 200)
 							{
 								Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -867,7 +875,9 @@ public class Util
 							else
 							{
 								logger.error("Error querying CoNE: Status "
-										+ detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+										+ detailMethod.getStatusCode() + "\n" 
+										+ detailMethod.getPath() + "\n"
+										+ detailMethod.getResponseBodyAsString());
 							}
 						}
 					}
@@ -879,15 +889,18 @@ public class Util
 						+ method.getResponseBodyAsString());
 			}
 		} catch (Exception e) {
-			logger
-					.error("Error querying CoNE service. This is normal during unit tests. "
-							+ "Otherwise it should be clarified if any measures have to be taken.");
+			logger.error("Error querying CoNE service. This is normal during unit tests. "
+					+ "Otherwise it should be clarified if any measures have to be taken.", e);
+					
 		}
 	}
     
 	public static Node querySSRNId(String conePersonUrl){
 		DocumentBuilder documentBuilder;
 		HttpClient client = new HttpClient();
+		
+		logger.info("querySSRNId: " + conePersonUrl);
+		
 		try {
 			documentBuilder = DocumentBuilderFactoryImpl.newInstance()
 			.newDocumentBuilder();
@@ -914,7 +927,7 @@ public class Util
 		}catch (Exception e) {
 			logger
 			.error("Error querying CoNE service. This is normal during unit tests. "
-					+ "Otherwise it should be clarified if any measures have to be taken.");
+					+ "Otherwise it should be clarified if any measures have to be taken.", e);
 			return null;
 		}
 		
