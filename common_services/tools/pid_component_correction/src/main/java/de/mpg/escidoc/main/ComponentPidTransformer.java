@@ -176,7 +176,7 @@ public class ComponentPidTransformer
 
     private void transformFile(File file) throws Exception
     {   
-        logger.info("****************** Start transforming " + file.getName());
+        logger.info("****************** Start transforming " + file.getAbsolutePath());
         
         report.incrementFilesTotal();
         logger.info("files total <" + report.getFilesTotal() + ">");
@@ -200,8 +200,12 @@ public class ComponentPidTransformer
 		{
 			se.printStackTrace();
 			logger.warn("SaxException occured ", se);
-			report.incrementFilesErrorOccured();
-			report.addToErrorList(file.getName());
+			
+			if ((se.getMessage() != null && !"".endsWith(se.getMessage()) && !se.getMessage().contains("importtask")))
+			{
+				report.incrementFilesErrorOccured();
+				report.addToErrorList(file.getName());
+			}
 			return;
 		}
         catch (IOException ioe)

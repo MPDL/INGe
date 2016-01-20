@@ -81,7 +81,7 @@ public class PIDProvider implements PIDProviderIf
 	public String updateComponentPid(String escidocId, String versionNumber, String componentId, String pid,
 			String fileName) throws PIDProviderException, IOException
 	{
-		logger.debug("getPid starting");
+		logger.debug("updateComponentPid starting");
 	        
         String newUrl = "";
         String gwdgPidUpdateUrl = location + "/write/modify";
@@ -132,6 +132,7 @@ public class PIDProvider implements PIDProviderIf
         }
         catch (Exception e)
         {
+        	logger.warn("Exception caught when updating pid", e);
             throw new PIDProviderException(e.getMessage(), escidocId);
         }
 

@@ -168,7 +168,7 @@ public class ItemHandler extends DefaultHandler
             InputStream componentFile = getComponentFile(componentId);
             if (componentFile == null)
             {
-            	throw new SAXException();
+            	throw new SAXException("Component file missing");
             }
             
 			try

@@ -291,7 +291,7 @@ public class ComponentPidTransformerTest
 		assertTrue(new File(ComponentPidTransformer.LOCATION_FILE_XML).exists());
 		pidMigr.transform(new File("src/test/resources/other"));
 		
-		assertTrue(pidMigr.getReport().getErrorList().size() == 3);
+		assertTrue(pidMigr.getReport().getErrorList().size() == 2);
 		assertTrue("Expected 7 returned " +  pidMigr.getReport().getFilesTotal(), pidMigr.getReport().getFilesTotal() == 9);
 		assertTrue("Expected 0 returned " +  pidMigr.getReport().getComponentsUpdateDone(), pidMigr.getReport().getComponentsUpdateDone() == 0);
 		assertTrue("Expected 5 returned " +  pidMigr.getReport().getFilesNotItem(), pidMigr.getReport().getFilesNotItem() == 6);
