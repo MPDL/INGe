@@ -30,8 +30,6 @@
 
 package de.mpg.escidoc.pubman.util;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,8 +38,6 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-
-import com.googlecode.mp4parser.authoring.builder.smoothstreaming.IsmvBuilder;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
