@@ -9,32 +9,28 @@ import javax.faces.convert.Converter;
 
 import de.mpg.escidoc.services.common.util.HtmlUtils;
 
-public class HTMLSubSupConverter implements Converter{
-    public static final String CONVERTER_ID = "HTMLSubSupConverter";
-    
-	public HTMLSubSupConverter()
-	{
-		
-	}
+public class HTMLSubSupConverter implements Converter {
+  public static final String CONVERTER_ID = "HTMLSubSupConverter";
 
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) 
-	{
-		return null;
-	}
-	
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object object) 
-	{
-        String snippet = (String) object;
-        List<String> tags = new ArrayList<String>();
-        tags.add("sup");
-        tags.add("sub");
-        tags.add("SUB");
-        tags.add("SUP");
-		return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
-	}
-	
-	
+  public HTMLSubSupConverter() {
+
+  }
+
+  public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) {
+    return null;
+  }
+
+  public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
+    String snippet = (String) object;
+    List<String> tags = new ArrayList<String>();
+    tags.add("sup");
+    tags.add("sub");
+    tags.add("SUB");
+    tags.add("SUP");
+    return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(),
+        tags);
+  }
+
 
 
 }
- 

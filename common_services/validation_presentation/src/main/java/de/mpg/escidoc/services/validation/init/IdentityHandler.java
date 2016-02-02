@@ -10,147 +10,128 @@ import org.xml.sax.helpers.DefaultHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
- * SAXParser handler to retrieve the identity process instruction out of the validation schema files.
- *
+ * SAXParser handler to retrieve the identity process instruction out of the validation schema
+ * files.
+ * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ *
  */
-public class IdentityHandler extends DefaultHandler
-{
-    /**
-     * Logger for this class.
-     */
-    private static final Logger LOGGER = Logger.getLogger(IdentityHandler.class);
+public class IdentityHandler extends DefaultHandler {
+  /**
+   * Logger for this class.
+   */
+  private static final Logger LOGGER = Logger.getLogger(IdentityHandler.class);
 
-    private String contentModel = null;
-    private String context = null;
-    private String contextName = null;
-    private String metadataVersion = null;
-    private String version = null;
+  private String contentModel = null;
+  private String context = null;
+  private String contextName = null;
+  private String metadataVersion = null;
+  private String version = null;
 
-    private boolean identified = false;
+  private boolean identified = false;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void processingInstruction(final String target, final String content) throws SAXException
-    {
-        LOGGER.debug("target: " + target);
-        LOGGER.debug("content: " + content);
-        if ("identification".equals(target))
-        {
-            // Context-Name
-            Pattern pattern = Pattern.compile("context-name=\"([^\"]*)\"");
-            Matcher matcher = pattern.matcher(content);
-            if (matcher.find())
-            {
-                contextName = matcher.group(1);
-            }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public final void processingInstruction(final String target, final String content)
+      throws SAXException {
+    LOGGER.debug("target: " + target);
+    LOGGER.debug("content: " + content);
+    if ("identification".equals(target)) {
+      // Context-Name
+      Pattern pattern = Pattern.compile("context-name=\"([^\"]*)\"");
+      Matcher matcher = pattern.matcher(content);
+      if (matcher.find()) {
+        contextName = matcher.group(1);
+      }
 
-            // Content-Model
-            pattern = Pattern.compile("content-model=\"([^\"]*)\"");
-            matcher = pattern.matcher(content);
-            if (matcher.find())
-            {
-                contentModel = matcher.group(1);
-                try
-                {
-                    contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-                }
-                catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                
-            }
-
-            // Context
-            pattern = Pattern.compile("context=\"([^\"]*)\"");
-            matcher = pattern.matcher(content);
-            if (matcher.find())
-            {
-                context = matcher.group(1);
-            }
-
-            // Metadata-Version
-            pattern = Pattern.compile("metadata-version=\"([^\"]*)\"");
-            matcher = pattern.matcher(content);
-            if (matcher.find())
-            {
-                metadataVersion = matcher.group(1);
-            }
-
-            // Version
-            pattern = Pattern.compile("version=\"([^\"]*)\"");
-            matcher = pattern.matcher(content);
-            if (matcher.find())
-            {
-                version = matcher.group(1);
-            }
-
-            identified = true;
+      // Content-Model
+      pattern = Pattern.compile("content-model=\"([^\"]*)\"");
+      matcher = pattern.matcher(content);
+      if (matcher.find()) {
+        contentModel = matcher.group(1);
+        try {
+          contentModel =
+              PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        } catch (Exception e) {
+          throw new RuntimeException(e);
         }
-    }
 
-    public final String getContentModel()
-    {
-        return contentModel;
-    }
+      }
 
-    public final void setContentModel(final String contentModel)
-    {
-        this.contentModel = contentModel;
-    }
+      // Context
+      pattern = Pattern.compile("context=\"([^\"]*)\"");
+      matcher = pattern.matcher(content);
+      if (matcher.find()) {
+        context = matcher.group(1);
+      }
 
-    public final String getContext()
-    {
-        return context;
-    }
+      // Metadata-Version
+      pattern = Pattern.compile("metadata-version=\"([^\"]*)\"");
+      matcher = pattern.matcher(content);
+      if (matcher.find()) {
+        metadataVersion = matcher.group(1);
+      }
 
-    public final void setContext(final String context)
-    {
-        this.context = context;
-    }
+      // Version
+      pattern = Pattern.compile("version=\"([^\"]*)\"");
+      matcher = pattern.matcher(content);
+      if (matcher.find()) {
+        version = matcher.group(1);
+      }
 
-    public final String getMetadataVersion()
-    {
-        return metadataVersion;
+      identified = true;
     }
+  }
 
-    public final void setMetadataVersion(final String metadataVersion)
-    {
-        this.metadataVersion = metadataVersion;
-    }
+  public final String getContentModel() {
+    return contentModel;
+  }
 
-    public final String getVersion()
-    {
-        return version;
-    }
+  public final void setContentModel(final String contentModel) {
+    this.contentModel = contentModel;
+  }
 
-    public final void setVersion(final String version)
-    {
-        this.version = version;
-    }
+  public final String getContext() {
+    return context;
+  }
 
-    public final boolean isIdentified()
-    {
-        return identified;
-    }
+  public final void setContext(final String context) {
+    this.context = context;
+  }
 
-    public final void setIdentified(final boolean identified)
-    {
-        this.identified = identified;
-    }
+  public final String getMetadataVersion() {
+    return metadataVersion;
+  }
 
-    public final String getContextName()
-    {
-        return contextName;
-    }
+  public final void setMetadataVersion(final String metadataVersion) {
+    this.metadataVersion = metadataVersion;
+  }
 
-    public final void setContextName(final String contextName)
-    {
-        this.contextName = contextName;
-    }
+  public final String getVersion() {
+    return version;
+  }
+
+  public final void setVersion(final String version) {
+    this.version = version;
+  }
+
+  public final boolean isIdentified() {
+    return identified;
+  }
+
+  public final void setIdentified(final boolean identified) {
+    this.identified = identified;
+  }
+
+  public final String getContextName() {
+    return contextName;
+  }
+
+  public final void setContextName(final String contextName) {
+    this.contextName = contextName;
+  }
 
 }

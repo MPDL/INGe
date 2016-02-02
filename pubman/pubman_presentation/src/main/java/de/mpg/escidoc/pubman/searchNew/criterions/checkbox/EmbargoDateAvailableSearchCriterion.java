@@ -1,85 +1,79 @@
 /*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.org/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
+ * 
+ * CDDL HEADER START
+ * 
+ * The contents of this file are subject to the terms of the Common Development and Distribution
+ * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
+ * the License.
+ * 
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
+ * http://www.escidoc.org/license. See the License for the specific language governing permissions
+ * and limitations under the License.
+ * 
+ * When distributing Covered Code, include this CDDL HEADER in each file and include the License
+ * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
+ * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
+ * Copyright [yyyy] [name of copyright owner]
+ * 
+ * CDDL HEADER END
+ */
 
 /*
-* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/ 
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
+ * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
+ * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
+ */
 package de.mpg.escidoc.pubman.searchNew.criterions.checkbox;
 
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 
 public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
-	private boolean withEmbargoDate = false;
-	
-	@Override
-	public String toCqlString(Index indexName) {
-		if(withEmbargoDate)
-		{
-			switch(indexName)
-			{
-				case ESCIDOC_ALL : return "escidoc.component.file.available>\"''\"";
-				case ITEM_CONTAINER_ADMIN : return "\"/components/component/md-records/md-record/file/available\">\"''\"";
-			}
-		}
-		
-		return null;
-	}
+  private boolean withEmbargoDate = false;
 
-	@Override
-	public String toQueryString() {
-		return getSearchCriterion() + "=\"" + withEmbargoDate + "\"";
-	}
+  @Override
+  public String toCqlString(Index indexName) {
+    if (withEmbargoDate) {
+      switch (indexName) {
+        case ESCIDOC_ALL:
+          return "escidoc.component.file.available>\"''\"";
+        case ITEM_CONTAINER_ADMIN:
+          return "\"/components/component/md-records/md-record/file/available\">\"''\"";
+      }
+    }
 
-	@Override
-	public void parseQueryStringContent(String content) {
-		this.withEmbargoDate = Boolean.parseBoolean(content);
-		
-	}
+    return null;
+  }
 
-	@Override
-	public boolean isEmpty(QueryType queryType) {
-		return !withEmbargoDate;
-	}
+  @Override
+  public String toQueryString() {
+    return getSearchCriterion() + "=\"" + withEmbargoDate + "\"";
+  }
 
-	public boolean isWithEmbargoDate() {
-		return withEmbargoDate;
-	}
+  @Override
+  public void parseQueryStringContent(String content) {
+    this.withEmbargoDate = Boolean.parseBoolean(content);
 
-	public void setWithEmbargoDate(boolean withEmbargoDate) {
-		this.withEmbargoDate = withEmbargoDate;
-	}
+  }
 
-	/*
-	@Override
-	public SearchCriterion getSearchCriterion() {
-		return SearchCriterion.EMBARGO_DATE_AVAILABLE;
-	}
-	*/
-	
-	
+  @Override
+  public boolean isEmpty(QueryType queryType) {
+    return !withEmbargoDate;
+  }
+
+  public boolean isWithEmbargoDate() {
+    return withEmbargoDate;
+  }
+
+  public void setWithEmbargoDate(boolean withEmbargoDate) {
+    this.withEmbargoDate = withEmbargoDate;
+  }
+
+  /*
+   * @Override public SearchCriterion getSearchCriterion() { return
+   * SearchCriterion.EMBARGO_DATE_AVAILABLE; }
+   */
+
+
 
 }

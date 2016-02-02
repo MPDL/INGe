@@ -1,32 +1,28 @@
 /*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.org/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
+ * 
+ * CDDL HEADER START
+ * 
+ * The contents of this file are subject to the terms of the Common Development and Distribution
+ * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
+ * the License.
+ * 
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
+ * http://www.escidoc.org/license. See the License for the specific language governing permissions
+ * and limitations under the License.
+ * 
+ * When distributing Covered Code, include this CDDL HEADER in each file and include the License
+ * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
+ * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
+ * Copyright [yyyy] [name of copyright owner]
+ * 
+ * CDDL HEADER END
+ */
 
 /*
-* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
+ * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
+ * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
+ */
 
 package test.common.xmltransforming.integration;
 
@@ -63,120 +59,117 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 20.09.2007
  */
-public class TransformSchindlMayrIntegrationTest extends TestBase
-{
-    private static XmlTransforming xmlTransforming;
+public class TransformSchindlMayrIntegrationTest extends TestBase {
+  private static XmlTransforming xmlTransforming;
 
-    private Logger logger = Logger.getLogger(getClass());
-    
-    /**
-     * Get an XmlTransforming instance once for all tests.
-     * 
-     * @throws Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception
-    {
-        xmlTransforming = (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!" + XmlTransforming.class.getName());
+  private Logger logger = Logger.getLogger(getClass());
+
+  /**
+   * Get an XmlTransforming instance once for all tests.
+   * 
+   * @throws Exception
+   */
+  @BeforeClass
+  public static void setUpBeforeClass() throws Exception {
+    xmlTransforming =
+        (XmlTransforming) getService("ejb:common_logic_ear/common_logic/XmlTransformingBean!"
+            + XmlTransforming.class.getName());
+  }
+
+  /**
+   * Tests the correct transforming of an item[XML] with a file in conjunction with creating it in
+   * the framework.
+   * 
+   * @throws Exception
+   */
+  @Ignore("Not implemented yet")
+  public void testCreateItemWithFileAndTransformToPubItem() throws Exception {
+    PubItemVO pubItem = xmlTransforming.transformToPubItem(createItemWithFile(loginScientist()));
+    List<FileVO> files = pubItem.getFiles();
+    logger.debug("#" + files.size() + " files");
+    for (FileVO file : files) {
+      StringBuffer sb = new StringBuffer();
+      sb.append("Name=" + file.getName() + "\n");
+      // sb.append("Size=" + file.getSize()+"\n");
+      sb.append("Content=" + file.getContent() + "\n");
+      // sb.append("Locator=" + file.getLocator()+"\n");
+      logger.debug(sb.toString());
+    }
+    // TODO MuJ: expand test.
+  }
+
+  /**
+   * Tests the correct transforming of an item[XML] with a file in conjunction with creating and
+   * updating it in the framework.
+   * 
+   * @throws Exception
+   */
+  @Test
+  public void testCreateAndUpdateItemWithFileAndTransformToPubItem() throws Exception {
+    String userHandle = loginScientist();
+    // Create the item
+    String item = createItemWithFile(userHandle);
+    logger.debug("create=" + item);
+    PubItemVO pubItem = xmlTransforming.transformToPubItem(item);
+    List<FileVO> files = pubItem.getFiles();
+    logger.debug("#" + files.size() + " files");
+    for (FileVO file : files) {
+      StringBuffer sb = new StringBuffer();
+      sb.append("Name=" + file.getName() + "\n");
+      // sb.append("Size=" + file.getSize()+"\n");
+      sb.append("Content=" + file.getContent() + "\n");
+      // sb.append("Locator=" + file.getLocator()+"\n");
+      logger.debug(sb.toString());
     }
 
-    /**
-     * Tests the correct transforming of an item[XML] with a file in conjunction with creating it in the framework. 
-     * 
-     * @throws Exception
-     */
-    @Ignore("Not implemented yet")
-    public void testCreateItemWithFileAndTransformToPubItem() throws Exception
-    {
-        PubItemVO pubItem = xmlTransforming.transformToPubItem(createItemWithFile(loginScientist()));
-        List<FileVO> files = pubItem.getFiles();
-        logger.debug("#" + files.size() + " files");
-        for (FileVO file : files)
-        {
-            StringBuffer sb = new StringBuffer();
-            sb.append("Name=" + file.getName()+"\n");
-            //sb.append("Size=" + file.getSize()+"\n");
-            sb.append("Content=" + file.getContent()+"\n");
-            //sb.append("Locator=" + file.getLocator()+"\n");
-            logger.debug(sb.toString());            
-        }
-        // TODO MuJ: expand test.
-    }
-    
-    /**
-     * Tests the correct transforming of an item[XML] with a file in conjunction with creating and updating it in the framework. 
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testCreateAndUpdateItemWithFileAndTransformToPubItem() throws Exception
-    {
-        String userHandle = loginScientist();
-        // Create the item
-        String item = createItemWithFile(userHandle);
-        logger.debug("create=" + item);
-        PubItemVO pubItem = xmlTransforming.transformToPubItem(item);
-        List<FileVO> files = pubItem.getFiles();
-        logger.debug("#" + files.size() + " files");
-        for (FileVO file : files)
-        {
-            StringBuffer sb = new StringBuffer();
-            sb.append("Name=" + file.getName()+"\n");
-            //sb.append("Size=" + file.getSize()+"\n");
-            sb.append("Content=" + file.getContent()+"\n");
-            //sb.append("Locator=" + file.getLocator()+"\n");
-            logger.debug(sb.toString());  
-        }
-        
-        // Update the item
-        item = xmlTransforming.transformToItem(pubItem);
-        logger.debug("transform=" + item);
-        item = ServiceLocator.getItemHandler(userHandle).update(pubItem.getVersion().getObjectId(),item);
-        logger.debug("update=" + item);
-        pubItem = xmlTransforming.transformToPubItem(item);
-        
-        // Download files
-        files = pubItem.getFiles();
-        logger.debug("#" + files.size() + " files");
-        for (FileVO file : files)
-        {
-            logger.debug("Name=" + file.getName());
-            //logger.debug("Size=" + file.getSize());
-            logger.debug("Content=" + file.getContent());
-            //logger.debug("Locator=" + file.getLocator());
+    // Update the item
+    item = xmlTransforming.transformToItem(pubItem);
+    logger.debug("transform=" + item);
+    item =
+        ServiceLocator.getItemHandler(userHandle).update(pubItem.getVersion().getObjectId(), item);
+    logger.debug("update=" + item);
+    pubItem = xmlTransforming.transformToPubItem(item);
 
-            String urlSuffix = file.getContent().toString();
-            String url = ServiceLocator.getFrameworkUrl() + urlSuffix;
-            GetMethod method = new GetMethod(url);
-            
-            method.setFollowRedirects(false);
-            method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);            
-    
-            // Execute the method with HttpClient.
-            HttpClient client = new HttpClient();
-            ProxyHelper.executeMethod(client, method);
-            logger.debug("Status=" + method.getStatusCode());
-            assertEquals(HttpServletResponse.SC_OK,method.getStatusCode());
-            
-            Header contentTypeHeader = method.getResponseHeader("Content-Type");
-            assertEquals(MIME_TYPE,contentTypeHeader.getValue());
-            
-            InputStream input = method.getResponseBodyAsStream();
-            File tempFile = File.createTempFile("download", ".pdf");
-            logger.debug("Write content to "+tempFile.getName());
-            FileOutputStream output = new FileOutputStream(tempFile);
-            byte buffer[] = new byte[1];
-            long count = 0;         
-            while (input.read(buffer) > 0)
-            {
-                output.write(buffer);
-                ++count;
-            }
-    
-            output.close();
-            logger.debug("File length=" + count);
-            // FileSize no longer supported
-            //assertEquals(file.getSize(),count);
-        }
+    // Download files
+    files = pubItem.getFiles();
+    logger.debug("#" + files.size() + " files");
+    for (FileVO file : files) {
+      logger.debug("Name=" + file.getName());
+      // logger.debug("Size=" + file.getSize());
+      logger.debug("Content=" + file.getContent());
+      // logger.debug("Locator=" + file.getLocator());
+
+      String urlSuffix = file.getContent().toString();
+      String url = ServiceLocator.getFrameworkUrl() + urlSuffix;
+      GetMethod method = new GetMethod(url);
+
+      method.setFollowRedirects(false);
+      method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+
+      // Execute the method with HttpClient.
+      HttpClient client = new HttpClient();
+      ProxyHelper.executeMethod(client, method);
+      logger.debug("Status=" + method.getStatusCode());
+      assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
+
+      Header contentTypeHeader = method.getResponseHeader("Content-Type");
+      assertEquals(MIME_TYPE, contentTypeHeader.getValue());
+
+      InputStream input = method.getResponseBodyAsStream();
+      File tempFile = File.createTempFile("download", ".pdf");
+      logger.debug("Write content to " + tempFile.getName());
+      FileOutputStream output = new FileOutputStream(tempFile);
+      byte buffer[] = new byte[1];
+      long count = 0;
+      while (input.read(buffer) > 0) {
+        output.write(buffer);
+        ++count;
+      }
+
+      output.close();
+      logger.debug("File length=" + count);
+      // FileSize no longer supported
+      // assertEquals(file.getSize(),count);
     }
+  }
 }

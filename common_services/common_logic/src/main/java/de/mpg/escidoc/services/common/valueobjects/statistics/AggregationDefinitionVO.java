@@ -11,54 +11,54 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  */
 public class AggregationDefinitionVO extends ValueObject {
 
-	
-	private String objectId;
-	
-	private String scopeId;
-	
-	private String name;
-	
-	private List<AggregationTableVO> aggregationTables;
-	
-	private String statisticDataXPath;
 
-	public String getObjectId() {
-		return objectId;
-	}
+  private String objectId;
 
-	public void setObjectId(String objectId) {
-		this.objectId = objectId;
-	}
+  private String scopeId;
 
-	public String getScopeId() {
-		return scopeId;
-	}
+  private String name;
 
-	public void setScopeId(String scopeId) {
-		this.scopeId = scopeId;
-	}
+  private List<AggregationTableVO> aggregationTables;
 
-	public String getName() {
-		return name;
-	}
+  private String statisticDataXPath;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getObjectId() {
+    return objectId;
+  }
 
-	public List<AggregationTableVO> getAggregationTables() {
-		return aggregationTables;
-	}
+  public void setObjectId(String objectId) {
+    this.objectId = objectId;
+  }
 
-	public void setAggregationTables(List<AggregationTableVO> aggregationTables) {
-		this.aggregationTables = aggregationTables;
-	}
+  public String getScopeId() {
+    return scopeId;
+  }
 
-	public String getStatisticDataXPath() {
-		return statisticDataXPath;
-	}
+  public void setScopeId(String scopeId) {
+    this.scopeId = scopeId;
+  }
 
-	public void setStatisticDataXPath(String statisticDataXPath) {
-		this.statisticDataXPath = statisticDataXPath;
-	}
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public List<AggregationTableVO> getAggregationTables() {
+    return aggregationTables;
+  }
+
+  public void setAggregationTables(List<AggregationTableVO> aggregationTables) {
+    this.aggregationTables = aggregationTables;
+  }
+
+  public String getStatisticDataXPath() {
+    return statisticDataXPath;
+  }
+
+  public void setStatisticDataXPath(String statisticDataXPath) {
+    this.statisticDataXPath = statisticDataXPath;
+  }
 }

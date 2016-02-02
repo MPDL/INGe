@@ -739,6 +739,29 @@
 			        </execution>
 			    </executions>
 		    </plugin>
+
+      	<plugin>
+			<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+			<artifactId>maven-java-formatter-plugin</artifactId>
+			<version>0.4</version>
+			<configuration>
+				<compilerSource>1.8</compilerSource>
+				<compilerCompliance>1.8</compilerCompliance>
+				<compilerTargetPlatform>1.8</compilerTargetPlatform>
+				<lineEnding>CRLF</lineEnding>
+				<encoding>UTF-8</encoding>
+				<configFile>${project.parent.basedir}/java-google-style.xml</configFile>
+			</configuration>
+			<executions>
+				<execution>
+					<phase>process-sources</phase>
+					<goals>
+						<goal>format</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>		    
+		    
 			
 		</plugins>
 		

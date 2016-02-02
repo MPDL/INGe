@@ -10,47 +10,43 @@ import javax.faces.convert.Converter;
 import de.mpg.escidoc.services.common.util.HtmlUtils;
 
 /**
- * This converter shortens a string, escapes all html tags except sup/sub and balances the shortened string
+ * This converter shortens a string, escapes all html tags except sup/sub and balances the shortened
+ * string
+ * 
  * @author haarlae1
- *
+ * 
  */
-public class HTMLSubSupShortTitleConverter implements Converter{
-    
-    private static int LENGTH = 80;
-    
-	public HTMLSubSupShortTitleConverter()
-	{
-		
-	}
+public class HTMLSubSupShortTitleConverter implements Converter {
 
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) 
-	{
-		return null;
-	}
-	
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object object) 
-	{
-        String snippet = (String) object;
-        List<String> tags = new ArrayList<String>();
-        tags.add("sup");
-        tags.add("sub");
-        tags.add("SUB");
-        tags.add("SUP");
-        
-        if(snippet.length()>LENGTH)
-        {
-        	return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, LENGTH, tags) + "...";
-        }
-        else
-        {
-        	return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
-        }
-        
-		
-	}
-	
-	
+  private static int LENGTH = 80;
+
+  public HTMLSubSupShortTitleConverter() {
+
+  }
+
+  public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) {
+    return null;
+  }
+
+  public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
+    String snippet = (String) object;
+    List<String> tags = new ArrayList<String>();
+    tags.add("sup");
+    tags.add("sub");
+    tags.add("SUB");
+    tags.add("SUP");
+
+    if (snippet.length() > LENGTH) {
+      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, LENGTH, tags)
+          + "...";
+    } else {
+      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet,
+          snippet.length(), tags);
+    }
+
+
+  }
+
 
 
 }
- 

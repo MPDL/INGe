@@ -25,98 +25,90 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 
-public class YearbookCandidatesSessionBean extends FacesBean
-{
-	public static final String BEAN_NAME = "YearbookCandidatesSessionBean";
-	private static final Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
+public class YearbookCandidatesSessionBean extends FacesBean {
+  public static final String BEAN_NAME = "YearbookCandidatesSessionBean";
+  private static final Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
 
 
 
-	private String selectedOrgUnit;
+  private String selectedOrgUnit;
 
 
 
-	/**
-	 * A list with the menu entries for the org units filter menu.
-	 */
-	private List<SelectItem> orgUnitSelectItems;
+  /**
+   * A list with the menu entries for the org units filter menu.
+   */
+  private List<SelectItem> orgUnitSelectItems;
 
-	private final YearbookItemSessionBean yisb;
+  private final YearbookItemSessionBean yisb;
 
-	private final PubItemListSessionBean pilsb;
-	
-	@EJB
-	private XmlTransforming xmlTransforming;
+  private final PubItemListSessionBean pilsb;
 
-
-	public YearbookCandidatesSessionBean()
-	{
-		yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-		pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-		pilsb.setSelectedSortBy(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.name());
-        pilsb.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
-	}
+  @EJB
+  private XmlTransforming xmlTransforming;
 
 
-	public String getSelectedOrgUnit() {
-		return selectedOrgUnit;
-	}
-
-	public void setSelectedOrgUnit(String selectedOrgUnit) {
-		this.selectedOrgUnit = selectedOrgUnit;
-	}
-
-	public List<SelectItem> getOrgUnitSelectItems()
-	{
-		if(orgUnitSelectItems == null || orgUnitSelectItems.size()==0)
-		{
-			try
-			{
-				orgUnitSelectItems = new ArrayList<SelectItem>();
-				orgUnitSelectItems = new ArrayList<SelectItem>();
-	            orgUnitSelectItems.add(new SelectItem("all", "-"));
-				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-				String topLevelOU = ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization().getIdentifier());
-				AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
-				List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
-				affList.add(new AffiliationVOPresentation(affVO));
-				addChildAffiliationsToMenu(affList, orgUnitSelectItems, 0);
-			}
-			catch (Exception e)
-			{
-				logger.error("Error retrieving org units", e);
-			}
+  public YearbookCandidatesSessionBean() {
+    yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    pilsb.setSelectedSortBy(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.name());
+    pilsb.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
+  }
 
 
-		}
-		return orgUnitSelectItems;
-	}
+  public String getSelectedOrgUnit() {
+    return selectedOrgUnit;
+  }
 
-	public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems)
-	{
-		this.orgUnitSelectItems = orgUnitSelectItems;
-	}
+  public void setSelectedOrgUnit(String selectedOrgUnit) {
+    this.selectedOrgUnit = selectedOrgUnit;
+  }
 
-	private static void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
-	{
-		if (affs==null)
-		{
-			return;
-		}
-		String prefix = "";
-		for (int i = 0; i < level; i++)
-		{
-			//2 save blanks
-			prefix += '\u00A0';
-			prefix += '\u00A0';
-			prefix += '\u00A0';
-		}
-		//1 right angle
-		prefix += '\u2514';
-		for (AffiliationVOPresentation aff : affs)
-		{
-			affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
-			addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
-		}
-	}
+  public List<SelectItem> getOrgUnitSelectItems() {
+    if (orgUnitSelectItems == null || orgUnitSelectItems.size() == 0) {
+      try {
+        orgUnitSelectItems = new ArrayList<SelectItem>();
+        orgUnitSelectItems = new ArrayList<SelectItem>();
+        orgUnitSelectItems.add(new SelectItem("all", "-"));
+        OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
+        String topLevelOU =
+            ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0)
+                .getOrganization().getIdentifier());
+        AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
+        List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
+        affList.add(new AffiliationVOPresentation(affVO));
+        addChildAffiliationsToMenu(affList, orgUnitSelectItems, 0);
+      } catch (Exception e) {
+        logger.error("Error retrieving org units", e);
+      }
+
+
+    }
+    return orgUnitSelectItems;
+  }
+
+  public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems) {
+    this.orgUnitSelectItems = orgUnitSelectItems;
+  }
+
+  private static void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs,
+      List<SelectItem> affSelectItems, int level) throws Exception {
+    if (affs == null) {
+      return;
+    }
+    String prefix = "";
+    for (int i = 0; i < level; i++) {
+      // 2 save blanks
+      prefix += '\u00A0';
+      prefix += '\u00A0';
+      prefix += '\u00A0';
+    }
+    // 1 right angle
+    prefix += '\u2514';
+    for (AffiliationVOPresentation aff : affs) {
+      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
+          + aff.getName()));
+      addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
+    }
+  }
 }

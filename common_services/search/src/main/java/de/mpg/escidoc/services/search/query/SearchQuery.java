@@ -20,164 +20,138 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  * @author endres
  * 
  */
-public abstract class SearchQuery implements Serializable
-{   
-    /** Sorting Definition. */
-    public enum SortingOrder 
-    {
-        /** Ascending order. */
-        ASCENDING,
-        /** Descending order */
-        DESCENDING
-    };
-    /** Serial version identifier. */
-    private static final long serialVersionUID = 1L;
-    /** Defines where the offset for the search result will be. */
-    private PositiveInteger startRecord = null;
-    /** Defines how many results shall be retrieved. */
-    private NonNegativeInteger maximumRecords = null;
-    /** Sorting keys. */
-    private String sortKeys = null;
-    /** Sorting order */
-    private SortingOrder sortingOrder = null;
-    /** Maximum number of results. */
-    // changed to 1000 due to java heap space problems
-    private static final int DEFAULT_MAXIMUM_RECORDS = 5000;
-    /** Cql definition for a descending order of the search result */
-    private static final String CQL_DESCENDING_DEFINITION = ",,0";
+public abstract class SearchQuery implements Serializable {
+  /** Sorting Definition. */
+  public enum SortingOrder {
+    /** Ascending order. */
+    ASCENDING,
+    /** Descending order */
+    DESCENDING
+  };
 
-    /**
-     *  Default constructor. 
-     */
-    public SearchQuery()
-    {
-        this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS + "");
-    }
+  /** Serial version identifier. */
+  private static final long serialVersionUID = 1L;
+  /** Defines where the offset for the search result will be. */
+  private PositiveInteger startRecord = null;
+  /** Defines how many results shall be retrieved. */
+  private NonNegativeInteger maximumRecords = null;
+  /** Sorting keys. */
+  private String sortKeys = null;
+  /** Sorting order */
+  private SortingOrder sortingOrder = null;
+  /** Maximum number of results. */
+  // changed to 1000 due to java heap space problems
+  private static final int DEFAULT_MAXIMUM_RECORDS = 5000;
+  /** Cql definition for a descending order of the search result */
+  private static final String CQL_DESCENDING_DEFINITION = ",,0";
 
-    /**
-     * Get the Cql query of a standard search query.
-     * 
-     * @return cql query
-     * @throws CQLParseException
-     *             a parse error occur, when building up the node tree
-     * @throws IOException
-     *             an io error occurs
-     * @throws TechnicalException
-     *             an internal error occurs
-     * @throws ParseException
-     *             a parse error occur, when parsing the search terms in the
-     *             criteria
-     */
-    public abstract String getCqlQuery() throws CQLParseException, IOException, TechnicalException, ParseException;
+  /**
+   * Default constructor.
+   */
+  public SearchQuery() {
+    this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS + "");
+  }
 
-    public PositiveInteger getStartRecord()
-    {
-        return startRecord;
-    }
+  /**
+   * Get the Cql query of a standard search query.
+   * 
+   * @return cql query
+   * @throws CQLParseException a parse error occur, when building up the node tree
+   * @throws IOException an io error occurs
+   * @throws TechnicalException an internal error occurs
+   * @throws ParseException a parse error occur, when parsing the search terms in the criteria
+   */
+  public abstract String getCqlQuery() throws CQLParseException, IOException, TechnicalException,
+      ParseException;
 
-    public void setStartRecord(PositiveInteger startRecord)
-    {
-        this.startRecord = startRecord;
-    }
+  public PositiveInteger getStartRecord() {
+    return startRecord;
+  }
 
-    public void setStartRecord(String startRecord)
-    {
-        try
-        {
-            PositiveInteger i = new PositiveInteger(startRecord);
-            this.startRecord = i;
-        } 
-        catch (Exception e)
-        {
-            // trying to set an invalid value, restoring to default
-        }
-    }
+  public void setStartRecord(PositiveInteger startRecord) {
+    this.startRecord = startRecord;
+  }
 
-    public NonNegativeInteger getMaximumRecords()
-    {
-        return maximumRecords;
+  public void setStartRecord(String startRecord) {
+    try {
+      PositiveInteger i = new PositiveInteger(startRecord);
+      this.startRecord = i;
+    } catch (Exception e) {
+      // trying to set an invalid value, restoring to default
     }
+  }
 
-    public void setMaximumRecords(NonNegativeInteger maximumRecords)
-    {
-        if (maximumRecords.compareTo(this.maximumRecords) < 0)
-        {
-            this.maximumRecords = maximumRecords;
-        }
-    }
+  public NonNegativeInteger getMaximumRecords() {
+    return maximumRecords;
+  }
 
-    public void setMaximumRecords(String maximumRecords)
-    {
-        NonNegativeInteger i = new NonNegativeInteger(maximumRecords);
-        setMaximumRecords(i);
+  public void setMaximumRecords(NonNegativeInteger maximumRecords) {
+    if (maximumRecords.compareTo(this.maximumRecords) < 0) {
+      this.maximumRecords = maximumRecords;
     }
-    
-    /**
-     * Returns the Cql query for the sorting of the search result.  
-     * @return cql query defintion 
-     */
-    public String getCqlSortingQuery() 
-    {
-        if(this.sortKeys == null || this.sortingOrder == null  || this.sortKeys.contains(CQL_DESCENDING_DEFINITION))
-        {
-            return this.sortKeys;
-        }
-        else
-        {
-            if(this.sortingOrder == SortingOrder.ASCENDING)
-            {
-                return this.sortKeys;
-            }
-            else
-            {
-                // if several sorting keys are given, append the sort order to each one
-                if(this.sortKeys != null) 
-                {
-                    StringTokenizer t = new StringTokenizer(this.sortKeys);
-                    StringBuffer sortResult = new StringBuffer();
-                    while (t.hasMoreTokens())
-                    {
-                        String singleSortKey = t.nextToken();
-                        sortResult.append(singleSortKey);
-                        sortResult.append(CQL_DESCENDING_DEFINITION);
-                        sortResult.append(" ");
-                    }
-                    return sortResult.toString();
-                }
-                else return null;
-            }
-        }
-    }
+  }
 
-    /**
-     * Setter for the sort keys.
-     * 
-     * @param keys the sorting key
-     */
-    public void setSortKeys(String keys)
-    {
-        this.sortKeys = keys;
+  public void setMaximumRecords(String maximumRecords) {
+    NonNegativeInteger i = new NonNegativeInteger(maximumRecords);
+    setMaximumRecords(i);
+  }
+
+  /**
+   * Returns the Cql query for the sorting of the search result.
+   * 
+   * @return cql query defintion
+   */
+  public String getCqlSortingQuery() {
+    if (this.sortKeys == null || this.sortingOrder == null
+        || this.sortKeys.contains(CQL_DESCENDING_DEFINITION)) {
+      return this.sortKeys;
+    } else {
+      if (this.sortingOrder == SortingOrder.ASCENDING) {
+        return this.sortKeys;
+      } else {
+        // if several sorting keys are given, append the sort order to each one
+        if (this.sortKeys != null) {
+          StringTokenizer t = new StringTokenizer(this.sortKeys);
+          StringBuffer sortResult = new StringBuffer();
+          while (t.hasMoreTokens()) {
+            String singleSortKey = t.nextToken();
+            sortResult.append(singleSortKey);
+            sortResult.append(CQL_DESCENDING_DEFINITION);
+            sortResult.append(" ");
+          }
+          return sortResult.toString();
+        } else
+          return null;
+      }
     }
-    
-    /**
-     * Set the sortKeys and the order.
-     * 
-     * @param keys the sorting key
-     * @param order the sorting order
-     */
-    public void setSortKeysAndOrder(String keys, SortingOrder order)
-    {
-        this.sortKeys = keys;
-        this.sortingOrder = order;
-    }
-    
-    /**
-     * Set the sort order.
-     *
-     * @param order the sorting order
-     */
-    public void setSortOrder(SortingOrder order)
-    {
-        this.sortingOrder = order;
-    }
+  }
+
+  /**
+   * Setter for the sort keys.
+   * 
+   * @param keys the sorting key
+   */
+  public void setSortKeys(String keys) {
+    this.sortKeys = keys;
+  }
+
+  /**
+   * Set the sortKeys and the order.
+   * 
+   * @param keys the sorting key
+   * @param order the sorting order
+   */
+  public void setSortKeysAndOrder(String keys, SortingOrder order) {
+    this.sortKeys = keys;
+    this.sortingOrder = order;
+  }
+
+  /**
+   * Set the sort order.
+   * 
+   * @param order the sorting order
+   */
+  public void setSortOrder(SortingOrder order) {
+    this.sortingOrder = order;
+  }
 }

@@ -26,102 +26,90 @@ import de.mpg.escidoc.services.framework.ProxyHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class SyndicationServiceTest 
-{
-    private Logger logger = Logger.getLogger(getClass());
-	
-    
-    @Test
-    public void checkGetFeed() throws Exception
-    {
+public class SyndicationServiceTest {
+  private Logger logger = Logger.getLogger(getClass());
 
-    	String uri;
-    	long start;
-    	String result;
-    	
-    	
-    	String syndication_url = PropertyReader.getProperty("escidoc.syndication.service.url");
 
-    	uri = syndication_url + "/feed/rss_2.0/releases";
-    	start = System.currentTimeMillis();
-    	result =  performGetFeed( uri ); 
-    	assertTrue( result!= null );
-    	logger.info("Processing time: " + (System.currentTimeMillis() - start) );
-    	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
-//    	Utils.writeToFile("result_rss_093.xml", result);    	
-    	
-    	uri = syndication_url + "/feed/atom_1.0/publications/organization/escidoc:persistent22";
-    	start = System.currentTimeMillis();
-    	result =  performGetFeed( uri );
-    	assertTrue( result!= null );
-		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
-    	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
-//    	Utils.writeToFile("result_atom_10.xml", result);
-    	
-    	
-    }    
-    
-    
-    /**
-     * Call Syndication Cervice via HTTP request  
-     * 
-     * @param url
-     * @return
-     * @throws Exception
-     */
-    private String performGetFeed(String url) throws Exception 
-	{
-    	
-		logger.info("Search URL:" + url);
-		Object content;
-		URLConnection uconn;
-			uconn = ProxyHelper.openConnection(new URL(url));
-			if ( !(uconn instanceof HttpURLConnection) )
-	            throw new IllegalArgumentException(
-	                "URL protocol must be HTTP." 
-	            );
-			HttpURLConnection conn = (HttpURLConnection)uconn;
-	
-			InputStream stream =  conn.getErrorStream( );
-	        if ( stream != null )
-	        {
-	        	conn.disconnect();
-	        	logger.error(getInputStreamAsString( stream ));
-	        	return null;
-	        }
-	        else if ( 
-	        		(content = conn.getContent( )) != null && content instanceof InputStream 
-	        )
-	            content = getInputStreamAsString( (InputStream)content );
-	        else
-	        {
-	        	conn.disconnect();	
-	        	logger.error("Cannot retrieve content from the HTTP response");
-	        	return null;
-	        }
-	        conn.disconnect();
-	        
-			return (String)content;
-	}
-    
-    /**
-     * Get an InputStream as String.
-     *
-     * @param fileName The path and name of the file relative from the working directory.
-     * @return The resource as String.
-     * @throws IOException Thrown if the resource cannot be located.
-     */
-    public static String getInputStreamAsString(InputStream is) throws IOException
-    {
-    	BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-    	String line = null;
-    	StringBuffer result = new StringBuffer();
-    	while ((line = br.readLine()) != null)
-    	{
-    		result.append(line).append("\n");
-    	}
-    	return result.toString();
-    }  
-    
-    
+  @Test
+  public void checkGetFeed() throws Exception {
+
+    String uri;
+    long start;
+    String result;
+
+
+    String syndication_url = PropertyReader.getProperty("escidoc.syndication.service.url");
+
+    uri = syndication_url + "/feed/rss_2.0/releases";
+    start = System.currentTimeMillis();
+    result = performGetFeed(uri);
+    assertTrue(result != null);
+    logger.info("Processing time: " + (System.currentTimeMillis() - start));
+    logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result);
+    // Utils.writeToFile("result_rss_093.xml", result);
+
+    uri = syndication_url + "/feed/atom_1.0/publications/organization/escidoc:persistent22";
+    start = System.currentTimeMillis();
+    result = performGetFeed(uri);
+    assertTrue(result != null);
+    logger.info("Processing time: " + (System.currentTimeMillis() - start));
+    logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result);
+    // Utils.writeToFile("result_atom_10.xml", result);
+
+
+  }
+
+
+  /**
+   * Call Syndication Cervice via HTTP request
+   * 
+   * @param url
+   * @return
+   * @throws Exception
+   */
+  private String performGetFeed(String url) throws Exception {
+
+    logger.info("Search URL:" + url);
+    Object content;
+    URLConnection uconn;
+    uconn = ProxyHelper.openConnection(new URL(url));
+    if (!(uconn instanceof HttpURLConnection))
+      throw new IllegalArgumentException("URL protocol must be HTTP.");
+    HttpURLConnection conn = (HttpURLConnection) uconn;
+
+    InputStream stream = conn.getErrorStream();
+    if (stream != null) {
+      conn.disconnect();
+      logger.error(getInputStreamAsString(stream));
+      return null;
+    } else if ((content = conn.getContent()) != null && content instanceof InputStream)
+      content = getInputStreamAsString((InputStream) content);
+    else {
+      conn.disconnect();
+      logger.error("Cannot retrieve content from the HTTP response");
+      return null;
+    }
+    conn.disconnect();
+
+    return (String) content;
+  }
+
+  /**
+   * Get an InputStream as String.
+   * 
+   * @param fileName The path and name of the file relative from the working directory.
+   * @return The resource as String.
+   * @throws IOException Thrown if the resource cannot be located.
+   */
+  public static String getInputStreamAsString(InputStream is) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+    String line = null;
+    StringBuffer result = new StringBuffer();
+    while ((line = br.readLine()) != null) {
+      result.append(line).append("\n");
+    }
+    return result.toString();
+  }
+
+
 }

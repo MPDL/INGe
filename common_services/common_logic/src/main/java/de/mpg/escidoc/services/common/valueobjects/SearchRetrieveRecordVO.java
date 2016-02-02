@@ -3,49 +3,41 @@ package de.mpg.escidoc.services.common.valueobjects;
 
 public class SearchRetrieveRecordVO extends ValueObject {
 
-	private String schema;
-	private String packing;
-	private int position;
-	
-	private ValueObject data;
+  private String schema;
+  private String packing;
+  private int position;
 
-	public String getSchema() 
-	{
-		return schema;
-	}
+  private ValueObject data;
 
-	public void setSchema(String schema) 
-	{
-		this.schema = schema;
-	}
+  public String getSchema() {
+    return schema;
+  }
 
-	public String getPacking() 
-	{
-		return packing;
-	}
+  public void setSchema(String schema) {
+    this.schema = schema;
+  }
 
-	public void setPacking(String packing) 
-	{
-		this.packing = packing;
-	}
+  public String getPacking() {
+    return packing;
+  }
 
-	public int getPosition() 
-	{
-		return position;
-	}
+  public void setPacking(String packing) {
+    this.packing = packing;
+  }
 
-	public void setPosition(int position) 
-	{
-		this.position = position;
-	}
+  public int getPosition() {
+    return position;
+  }
 
-	public ValueObject getData() 
-	{
-		return data;
-	}
+  public void setPosition(int position) {
+    this.position = position;
+  }
 
-	public void setData(ValueObject data) 
-	{
-		this.data = data;
-	}
+  public ValueObject getData() {
+    return data;
+  }
+
+  public void setData(ValueObject data) {
+    this.data = data;
+  }
 }

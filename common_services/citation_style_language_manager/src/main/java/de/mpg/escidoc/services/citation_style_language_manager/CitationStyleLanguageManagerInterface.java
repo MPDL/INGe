@@ -7,14 +7,14 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
  * 
  * @author walter
  */
-public interface CitationStyleLanguageManagerInterface
-{
-    /**
-     * The name to obtain this service.
-     */
-    String SERVICE_NAME = "ejb/de/mpg/escidoc/services/citation_style_language_manager/CitationStyleLanguageManagerInterface";
+public interface CitationStyleLanguageManagerInterface {
+  /**
+   * The name to obtain this service.
+   */
+  String SERVICE_NAME =
+      "ejb/de/mpg/escidoc/services/citation_style_language_manager/CitationStyleLanguageManagerInterface";
 
-    byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws Exception;
+  byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws Exception;
 
-    boolean isCitationStyle(String cs);
+  boolean isCitationStyle(String cs);
 }

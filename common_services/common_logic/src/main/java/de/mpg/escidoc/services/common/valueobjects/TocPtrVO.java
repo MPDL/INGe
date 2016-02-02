@@ -1,116 +1,97 @@
 /*
  * CDDL HEADER START
- *
- * The contents of this file are subject to the terms of the
- * Common Development and Distribution License, Version 1.0 only
- * (the "License"). You may not use this file except in compliance
- * with the License.
- *
- * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.org/license.
- * See the License for the specific language governing permissions
+ * 
+ * The contents of this file are subject to the terms of the Common Development and Distribution
+ * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
+ * the License.
+ * 
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
+ * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- *
- * When distributing Covered Code, include this CDDL HEADER in each
- * file and include the License file at license/ESCIDOC.LICENSE.
- * If applicable, add the following below this CDDL HEADER, with the
- * fields enclosed by brackets "[]" replaced with your own identifying
- * information: Portions Copyright [yyyy] [name of copyright owner]
- *
+ * 
+ * When distributing Covered Code, include this CDDL HEADER in each file and include the License
+ * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
+ * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
+ * Copyright [yyyy] [name of copyright owner]
+ * 
  * CDDL HEADER END
  */
 /*
- * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- * für wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur Förderung der Wissenschaft e.V.
- * All rights reserved. Use is subject to license terms.
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
+ * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
+ * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 package de.mpg.escidoc.services.common.valueobjects;
 
-public class TocPtrVO extends ValueObject
-{
-    
-    private String id;
-    
-    private String loctype = "URL";
-    
-    private String use;
-    
-    private String mimetype;
-    
-    private String linkType;
-    
-    public String getId()
-    {
-        return id;
-    }
+public class TocPtrVO extends ValueObject {
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+  private String id;
 
-    public String getLoctype()
-    {
-        return loctype;
-    }
+  private String loctype = "URL";
 
-    public void setLoctype(String loctype)
-    {
-        this.loctype = loctype;
-    }
+  private String use;
 
-    public String getUse()
-    {
-        return use;
-    }
+  private String mimetype;
 
-    public void setUse(String use)
-    {
-        this.use = use;
-    }
+  private String linkType;
 
-    public String getMimetype()
-    {
-        return mimetype;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setMimetype(String mimetype)
-    {
-        this.mimetype = mimetype;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getLinkType()
-    {
-        return linkType;
-    }
+  public String getLoctype() {
+    return loctype;
+  }
 
-    public void setLinkType(String linkType)
-    {
-        this.linkType = linkType;
-    }
+  public void setLoctype(String loctype) {
+    this.loctype = loctype;
+  }
 
-    public String getLinkRef()
-    {
-        return linkRef;
-    }
+  public String getUse() {
+    return use;
+  }
 
-    public void setLinkRef(String linkRef)
-    {
-        this.linkRef = linkRef;
-    }
+  public void setUse(String use) {
+    this.use = use;
+  }
 
-    public String getLinkTitle()
-    {
-        return linkTitle;
-    }
+  public String getMimetype() {
+    return mimetype;
+  }
 
-    public void setLinkTitle(String linkTitle)
-    {
-        this.linkTitle = linkTitle;
-    }
+  public void setMimetype(String mimetype) {
+    this.mimetype = mimetype;
+  }
 
-    private String linkRef;
-    
-    private String linkTitle;
+  public String getLinkType() {
+    return linkType;
+  }
+
+  public void setLinkType(String linkType) {
+    this.linkType = linkType;
+  }
+
+  public String getLinkRef() {
+    return linkRef;
+  }
+
+  public void setLinkRef(String linkRef) {
+    this.linkRef = linkRef;
+  }
+
+  public String getLinkTitle() {
+    return linkTitle;
+  }
+
+  public void setLinkTitle(String linkTitle) {
+    this.linkTitle = linkTitle;
+  }
+
+  private String linkRef;
+
+  private String linkTitle;
 }

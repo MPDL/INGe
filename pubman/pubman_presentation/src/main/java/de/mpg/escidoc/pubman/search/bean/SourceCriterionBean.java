@@ -8,53 +8,47 @@ import de.mpg.escidoc.pubman.search.bean.criterion.SourceCriterion;
  * 
  * @author Mario Wagner
  */
-public class SourceCriterionBean extends CriterionBean
-{
-    public static final String BEAN_NAME = "SourceCriterionBean";
-    
-    private SourceCriterion sourceCriterionVO;
-    
-    // collapsed by default
-    protected boolean collapsed = true;
-    
-    public SourceCriterionBean()
-    {
-        // ensure the parentVO is never null;
-        this(new SourceCriterion());
-    }
+public class SourceCriterionBean extends CriterionBean {
+  public static final String BEAN_NAME = "SourceCriterionBean";
 
-    public SourceCriterionBean(SourceCriterion sourceCriterionVO)
-    {
-        setSourceCriterionVO(sourceCriterionVO);
-    }
+  private SourceCriterion sourceCriterionVO;
 
-    @Override
-    public Criterion getCriterionVO()
-    {
-        return sourceCriterionVO;
-    }
+  // collapsed by default
+  protected boolean collapsed = true;
 
-    public SourceCriterion getSourceCriterionVO()
-    {
-        return sourceCriterionVO;
-    }
+  public SourceCriterionBean() {
+    // ensure the parentVO is never null;
+    this(new SourceCriterion());
+  }
 
-    public void setSourceCriterionVO(SourceCriterion sourceCriterionVO)
-    {
-        this.sourceCriterionVO = sourceCriterionVO;
-    }
-    
-    
-    /**
-     * Action navigation call to clear the current part of the form
-     * @return null
-     */
-    public String clearCriterion()
-    {
-        sourceCriterionVO.setSearchString("");
-        
-        // navigation refresh
-        return null;
-    }
+  public SourceCriterionBean(SourceCriterion sourceCriterionVO) {
+    setSourceCriterionVO(sourceCriterionVO);
+  }
+
+  @Override
+  public Criterion getCriterionVO() {
+    return sourceCriterionVO;
+  }
+
+  public SourceCriterion getSourceCriterionVO() {
+    return sourceCriterionVO;
+  }
+
+  public void setSourceCriterionVO(SourceCriterion sourceCriterionVO) {
+    this.sourceCriterionVO = sourceCriterionVO;
+  }
+
+
+  /**
+   * Action navigation call to clear the current part of the form
+   * 
+   * @return null
+   */
+  public String clearCriterion() {
+    sourceCriterionVO.setSearchString("");
+
+    // navigation refresh
+    return null;
+  }
 
 }

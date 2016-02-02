@@ -8,24 +8,20 @@ import de.mpg.escidoc.services.common.util.HtmlUtils;
 
 /**
  * Removes all sub and sup tags from a string, used for browser title
- *
+ * 
  */
-public class HTMLTitleSubSupConverter implements Converter{
-    public static final String CONVERTER_ID = "HTMLTitleSubSupConverter";
-	public HTMLTitleSubSupConverter()
-	{
-	}
+public class HTMLTitleSubSupConverter implements Converter {
+  public static final String CONVERTER_ID = "HTMLTitleSubSupConverter";
 
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) 
-	{
-		return null;
-	}
+  public HTMLTitleSubSupConverter() {}
 
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object object) 
-	{
-        String snippet = (String) object;
-		return HtmlUtils.removeSubSupIfBalanced(snippet);
-	}
+  public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) {
+    return null;
+  }
+
+  public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
+    String snippet = (String) object;
+    return HtmlUtils.removeSubSupIfBalanced(snippet);
+  }
 
 }
-

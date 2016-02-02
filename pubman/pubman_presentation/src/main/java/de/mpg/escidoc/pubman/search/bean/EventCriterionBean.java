@@ -9,51 +9,44 @@ import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion.DateType;
  * 
  * @author Mario Wagner
  */
-public class EventCriterionBean extends CriterionBean
-{
-    public static final String BEAN_NAME = "EventCriterionBean";
-    private EventCriterion eventCriterionVO;
-    // collapsed by default
-    protected boolean collapsed = true;
+public class EventCriterionBean extends CriterionBean {
+  public static final String BEAN_NAME = "EventCriterionBean";
+  private EventCriterion eventCriterionVO;
+  // collapsed by default
+  protected boolean collapsed = true;
 
-    public EventCriterionBean()
-    {
-        // ensure the parentVO is never null;
-        this(new EventCriterion());
-    }
+  public EventCriterionBean() {
+    // ensure the parentVO is never null;
+    this(new EventCriterion());
+  }
 
-    public EventCriterionBean(EventCriterion eventCriterionVO)
-    {
-        setEventCriterionVO(eventCriterionVO);
-    }
+  public EventCriterionBean(EventCriterion eventCriterionVO) {
+    setEventCriterionVO(eventCriterionVO);
+  }
 
-    @Override
-    public Criterion getCriterionVO()
-    {
-        return eventCriterionVO;
-    }
+  @Override
+  public Criterion getCriterionVO() {
+    return eventCriterionVO;
+  }
 
-    public EventCriterion getEventCriterionVO()
-    {
-        return eventCriterionVO;
-    }
+  public EventCriterion getEventCriterionVO() {
+    return eventCriterionVO;
+  }
 
-    public void setEventCriterionVO(EventCriterion eventCriterionVO)
-    {
-        this.eventCriterionVO = eventCriterionVO;
-    }
+  public void setEventCriterionVO(EventCriterion eventCriterionVO) {
+    this.eventCriterionVO = eventCriterionVO;
+  }
 
 
-    /**
-     * Action navigation call to clear the current part of the form
-     * 
-     * @return null
-     */
-    public String clearCriterion()
-    {
-        eventCriterionVO.setSearchString("");
-        eventCriterionVO.setInvitationStatus(false);
-        // navigation refresh
-        return null;
-    }
+  /**
+   * Action navigation call to clear the current part of the form
+   * 
+   * @return null
+   */
+  public String clearCriterion() {
+    eventCriterionVO.setSearchString("");
+    eventCriterionVO.setInvitationStatus(false);
+    // navigation refresh
+    return null;
+  }
 }

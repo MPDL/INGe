@@ -6,25 +6,25 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 public class AggregationIndexVO extends ValueObject {
 
-	private String name;
-	
-	private List<String> fields;
+  private String name;
 
-	public String getName() {
-		return name;
-	}
+  private List<String> fields;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public List<String> getFields() {
-		return fields;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setFields(List<String> fields) {
-		this.fields = fields;
-	}
+  public List<String> getFields() {
+    return fields;
+  }
 
-	
+  public void setFields(List<String> fields) {
+    this.fields = fields;
+  }
+
+
 }

@@ -7,98 +7,81 @@ import java.net.URL;
  * 
  * @author kleinfe1
  */
-public class MetadataVO
-{
-    private String mdDesc;
-    private URL mdUrl;
-    private String mdFormat;
-    private String mdLabel;
-    private boolean mdDefault;
-    private String name;
-    private String encoding;
+public class MetadataVO {
+  private String mdDesc;
+  private URL mdUrl;
+  private String mdFormat;
+  private String mdLabel;
+  private boolean mdDefault;
+  private String name;
+  private String encoding;
 
-    public MetadataVO(String mdDesc, URL mdUrl, String mdFormat, String mdLabel, boolean mdDefault, 
-            String name, String encoding)
-    {
-        this.mdDesc = mdDesc;
-        this.mdUrl = mdUrl;
-        this.mdFormat = mdFormat;
-        this.mdLabel = mdLabel;
-        this.mdDefault = mdDefault;
-        this.name = name;
-        this.encoding = encoding;
-    }
-    
-    public MetadataVO()
-    { } 
-    
-    public String getName()
-    {
-        return this.name;
-    }
+  public MetadataVO(String mdDesc, URL mdUrl, String mdFormat, String mdLabel, boolean mdDefault,
+      String name, String encoding) {
+    this.mdDesc = mdDesc;
+    this.mdUrl = mdUrl;
+    this.mdFormat = mdFormat;
+    this.mdLabel = mdLabel;
+    this.mdDefault = mdDefault;
+    this.name = name;
+    this.encoding = encoding;
+  }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+  public MetadataVO() {}
 
-    public String getEncoding()
-    {
-        return this.encoding;
-    }
+  public String getName() {
+    return this.name;
+  }
 
-    public void setEncoding(String encoding)
-    {
-        this.encoding = encoding;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getMdDesc()
-    {
-        return this.mdDesc;
-    }
+  public String getEncoding() {
+    return this.encoding;
+  }
 
-    public void setMdDesc(String mdDesc)
-    {
-        this.mdDesc = mdDesc;
-    }
+  public void setEncoding(String encoding) {
+    this.encoding = encoding;
+  }
 
-    public URL getMdUrl()
-    {
-        return this.mdUrl;
-    }
+  public String getMdDesc() {
+    return this.mdDesc;
+  }
 
-    public void setMdUrl(URL mdUrl)
-    {
-        this.mdUrl = mdUrl;
-    }
+  public void setMdDesc(String mdDesc) {
+    this.mdDesc = mdDesc;
+  }
 
-    public String getMdFormat()
-    {
-        return this.mdFormat;
-    }
+  public URL getMdUrl() {
+    return this.mdUrl;
+  }
 
-    public void setMdFormat(String mdFormat)
-    {
-        this.mdFormat = mdFormat;
-    }
+  public void setMdUrl(URL mdUrl) {
+    this.mdUrl = mdUrl;
+  }
 
-    public String getMdLabel()
-    {
-        return this.mdLabel;
-    }
+  public String getMdFormat() {
+    return this.mdFormat;
+  }
 
-    public void setMdLabel(String mdLabel)
-    {
-        this.mdLabel = mdLabel;
-    }
+  public void setMdFormat(String mdFormat) {
+    this.mdFormat = mdFormat;
+  }
 
-    public boolean isMdDefault()
-    {
-        return this.mdDefault;
-    }
+  public String getMdLabel() {
+    return this.mdLabel;
+  }
 
-    public void setMdDefault(boolean mdDefault)
-    {
-        this.mdDefault = mdDefault;
-    }
+  public void setMdLabel(String mdLabel) {
+    this.mdLabel = mdLabel;
+  }
+
+  public boolean isMdDefault() {
+    return this.mdDefault;
+  }
+
+  public void setMdDefault(boolean mdDefault) {
+    this.mdDefault = mdDefault;
+  }
 }

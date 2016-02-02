@@ -4,39 +4,38 @@ import java.util.Date;
 
 public class EventLogEntryVO extends ValueObject {
 
-    public enum EventType
-    {
-        CREATE, UPDATE, SUBMIT, RELEASE, WITHDRAW, IN_REVISION, ASSIGN_VERSION_PID
-    }
-    
-    private EventType type;
-    
-    private Date date;
-    
-    private String comment;
+  public enum EventType {
+    CREATE, UPDATE, SUBMIT, RELEASE, WITHDRAW, IN_REVISION, ASSIGN_VERSION_PID
+  }
 
-    public EventType getType() {
-        return type;
-    }
+  private EventType type;
 
-    public void setType(EventType type) {
-        this.type = type;
-    }
+  private Date date;
 
-    public Date getDate() {
-        return date;
-    }
+  private String comment;
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public EventType getType() {
+    return type;
+  }
 
-    public String getComment() {
-        return comment;
-    }
+  public void setType(EventType type) {
+    this.type = type;
+  }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-    
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
 }

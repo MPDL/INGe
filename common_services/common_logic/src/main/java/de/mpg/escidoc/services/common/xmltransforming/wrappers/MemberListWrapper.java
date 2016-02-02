@@ -5,22 +5,19 @@ import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
-public class MemberListWrapper implements Serializable
-{
-    private static final long serialVersionUID = 1L;
-    
-    protected List<? extends ValueObject> memberList;
-    
+public class MemberListWrapper implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-    public List<? extends ValueObject> getMemberList()
-    {
-        return memberList;
-    }
+  protected List<? extends ValueObject> memberList;
 
-    public void setMemberList(List<? extends ValueObject> memberList)
-    {
-        this.memberList = memberList;
-    }
+
+  public List<? extends ValueObject> getMemberList() {
+    return memberList;
+  }
+
+  public void setMemberList(List<? extends ValueObject> memberList) {
+    this.memberList = memberList;
+  }
 
 
 }

@@ -12,72 +12,65 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
  * 
  * @author Mario Wagner
  */
-public class OrganizationCriterionBean extends CriterionBean
-{
-    public static final String BEAN_NAME = "OrganizationCriterionBean";
-    
-    private OrganizationCriterion organizationCriterionVO;
-    
-    
-    public OrganizationCriterionBean()
-    {
-        // ensure the parentVO is never null;
-        this(new OrganizationCriterion());
+public class OrganizationCriterionBean extends CriterionBean {
+  public static final String BEAN_NAME = "OrganizationCriterionBean";
+
+  private OrganizationCriterion organizationCriterionVO;
+
+
+  public OrganizationCriterionBean() {
+    // ensure the parentVO is never null;
+    this(new OrganizationCriterion());
+  }
+
+  public OrganizationCriterionBean(OrganizationCriterion organizationCriterionVO) {
+    setOrganizationCriterionVO(organizationCriterionVO);
+  }
+
+  @Override
+  public Criterion getCriterionVO() {
+    return organizationCriterionVO;
+  }
+
+  public OrganizationCriterion getOrganizationCriterionVO() {
+    return organizationCriterionVO;
+  }
+
+  public void setOrganizationCriterionVO(OrganizationCriterion organizationCriterionVO) {
+    this.organizationCriterionVO = organizationCriterionVO;
+  }
+
+
+  /**
+   * Action navigation call to clear the current part of the form
+   * 
+   * @return null
+   */
+  public String clearCriterion() {
+    organizationCriterionVO.setSearchString("");
+    AffiliationVO affiliationVO = new AffiliationVO();
+    affiliationVO.setReference(new AffiliationRO());
+    organizationCriterionVO.setAffiliation(new AffiliationVOPresentation(affiliationVO));
+
+    // navigation refresh
+    return null;
+  }
+
+  /**
+   * Action navigation call to select the creator organisation
+   * 
+   * @return
+   */
+  public String selectOrganisation() {
+    if (organizationCriterionVO.getSearchString() == null) {
+      organizationCriterionVO.setSearchString("");
     }
 
-    public OrganizationCriterionBean(OrganizationCriterion organizationCriterionVO)
-    {
-        setOrganizationCriterionVO(organizationCriterionVO);
-    }
+    // Set this value to let the affiliation tree know where to jump after selection.
+    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("AdvancedSearch");
+    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setCache(organizationCriterionVO);
 
-    @Override
-    public Criterion getCriterionVO()
-    {
-        return organizationCriterionVO;
-    }
-
-    public OrganizationCriterion getOrganizationCriterionVO()
-    {
-        return organizationCriterionVO;
-    }
-
-    public void setOrganizationCriterionVO(OrganizationCriterion organizationCriterionVO)
-    {
-        this.organizationCriterionVO = organizationCriterionVO;
-    }
-    
-    
-    /**
-     * Action navigation call to clear the current part of the form
-     * @return null
-     */
-    public String clearCriterion()
-    {
-        organizationCriterionVO.setSearchString("");
-        AffiliationVO affiliationVO = new AffiliationVO();
-        affiliationVO.setReference(new AffiliationRO());
-        organizationCriterionVO.setAffiliation(new AffiliationVOPresentation(affiliationVO));
-        
-        // navigation refresh
-        return null;
-    }
-    
-    /**
-     * Action navigation call to select the creator organisation
-     * @return
-     */
-    public String selectOrganisation()
-    {
-        if (organizationCriterionVO.getSearchString() == null)
-        {
-            organizationCriterionVO.setSearchString("");
-        }
-
-        // Set this value to let the affiliation tree know where to jump after selection.
-        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("AdvancedSearch");
-        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(organizationCriterionVO);
-        
-        return "loadAffiliationTree";
-    }
+    return "loadAffiliationTree";
+  }
 
 }

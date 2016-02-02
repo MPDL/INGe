@@ -12,28 +12,28 @@ import de.mpg.escidoc.services.aa.Config;
 /**
  * 
  * @author haarlaender
- *
+ * 
  */
 public class EscidocAaLogoutClient extends LogoutClient {
-	
-	private static final Logger logger = Logger.getLogger(EscidocAaLogoutClient.class);
-	
-	@Override
-	protected String getLogoutUrl(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		
-		
-		String originalTarget = request.getParameter("target");
-		
-		
-		String redirectUrl =  Config.getProperty("escidoc.framework_access.login.url")
-                + "/aa/logout"
-                + "?target=" + URLEncoder.encode(originalTarget, "UTF-8");
-		
-		return redirectUrl;
-		
 
-	}
+  private static final Logger logger = Logger.getLogger(EscidocAaLogoutClient.class);
+
+  @Override
+  protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response)
+      throws Exception {
+
+
+    String originalTarget = request.getParameter("target");
+
+
+    String redirectUrl =
+        Config.getProperty("escidoc.framework_access.login.url") + "/aa/logout" + "?target="
+            + URLEncoder.encode(originalTarget, "UTF-8");
+
+    return redirectUrl;
+
+
+  }
 
 
 }

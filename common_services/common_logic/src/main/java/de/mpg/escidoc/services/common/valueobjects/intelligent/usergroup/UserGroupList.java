@@ -1,4 +1,3 @@
-
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
 import java.io.StringWriter;
@@ -35,8 +34,9 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-/** 
+/**
  * Schema fragment(s) for this class:
+ * 
  * <pre>
  * &lt;xs:element xmlns:ns="http://www.escidoc.de/schemas/usergroup/0.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="user-group-list">
  *   &lt;xs:complexType>
@@ -47,130 +47,122 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * &lt;/xs:element>
  * </pre>
  */
-public class UserGroupList extends IntelligentVO
-{
-    private List<UserGroup> userGroupListList = new ArrayList<UserGroup>();
+public class UserGroupList extends IntelligentVO {
+  private List<UserGroup> userGroupListList = new ArrayList<UserGroup>();
 
+  /**
+   * Retrieves a list of User Groups.
+   * 
+   * @param filter The filter for the user group list.
+   * @param userHandle A user handle for authentication in the coreservice.
+   * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+   */
+  public UserGroupList(HashMap<String, String[]> filter, String userHandle) throws RuntimeException {
+    UserGroupList ugl = Factory.retrieveUserGroups(filter, userHandle);
+    copyInFields(ugl);
+  }
+
+  public UserGroupList() {
+
+  }
+
+  /**
+   * Get the list of 'user-group' element items.
+   * 
+   * @return list
+   */
+  public List<UserGroup> getUserGroupLists() {
+    return userGroupListList;
+  }
+
+  /**
+   * Set the list of 'user-group' element items.
+   * 
+   * @param list
+   */
+  public void setUserGroupLists(List<UserGroup> list) {
+    userGroupListList = list;
+  }
+
+
+
+  /**
+   * Inner factory class for communicating with coreservice and marshalling/unmarshalling this VO.
+   * 
+   * @author Markus Haarlaender (initial creation)
+   * @author $Author$ (last modification)
+   * @version $Revision$ $LastChangedDate$
+   * 
+   */
+  public static class Factory {
     /**
      * Retrieves a list of User Groups.
+     * 
      * @param filter The filter for the user group list.
      * @param userHandle A user handle for authentication in the coreservice.
+     * @return The list of User Groups.
      * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
      */
-    public UserGroupList(HashMap<String, String[]> filter, String userHandle) throws RuntimeException
-    {
-        UserGroupList ugl = Factory.retrieveUserGroups(filter, userHandle);
-        copyInFields(ugl);
-    }
-    
-    public UserGroupList()
-    {
-        
-    }
-    
-    /** 
-     * Get the list of 'user-group' element items.
-     * 
-     * @return list
-     */
-    public List<UserGroup> getUserGroupLists() {
-        return userGroupListList;
+    private static UserGroupList retrieveUserGroups(HashMap<String, String[]> filter,
+        String userHandle) throws RuntimeException {
+      UserGroupList ugld;
+      try {
+        UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+        String uglXml = ugh.retrieveUserGroups(filter);
+        SearchRetrieveResponseVO resp =
+            (SearchRetrieveResponseVO) IntelligentVO.unmarshal(uglXml,
+                SearchRetrieveResponseVO.class);
+
+        List<SearchRetrieveRecordVO> results = resp.getRecords();
+        List<UserGroup> userGroupList = new ArrayList<UserGroup>();
+        ugld = new UserGroupList();
+        ugld.setUserGroupLists(userGroupList);
+        if (results != null) {
+          for (SearchRetrieveRecordVO rec : results) {
+            UserGroup userGroupVO = (UserGroup) rec.getData();
+            userGroupList.add(userGroupVO);
+          }
+        }
+
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+
+
+      return ugld;
     }
 
-    /** 
-     * Set the list of 'user-group' element items.
-     * 
-     * @param list
-     */
-    public void setUserGroupLists(List<UserGroup> list) {
-        userGroupListList = list;
-    }
-    
-    
-    
     /**
-     * Inner factory class for communicating with coreservice and marshalling/unmarshalling this VO.
-     *
-     * @author Markus Haarlaender (initial creation)
-     * @author $Author$ (last modification)
-     * @version $Revision$ $LastChangedDate$
-     *
+     * Retrieves all active user groups.
+     * 
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @return The list of User Groups.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
      */
-    public static class Factory
-    {      
-        /**
-         * Retrieves a list of User Groups.
-         * @param filter The filter for the user group list.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @return The list of User Groups.
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        private static UserGroupList retrieveUserGroups(HashMap<String, String[]> filter, String userHandle) throws RuntimeException
-        {
-            UserGroupList ugld;
-            try
-            {
-                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                String uglXml = ugh.retrieveUserGroups(filter);
-                SearchRetrieveResponseVO resp = (SearchRetrieveResponseVO)IntelligentVO.unmarshal(uglXml, SearchRetrieveResponseVO.class);
-                
-                List<SearchRetrieveRecordVO> results = resp.getRecords(); 
-                List<UserGroup> userGroupList = new ArrayList<UserGroup>();
-                ugld = new UserGroupList();
-                ugld.setUserGroupLists(userGroupList);
-                if(results!=null)
-                {
-                	 for(SearchRetrieveRecordVO rec : results)
-                     { 
-                     	UserGroup userGroupVO = (UserGroup)rec.getData();
-                     	userGroupList.add(userGroupVO);
-                     }
-                }
-               
-            }
-            catch (Exception e)
-            {
-               throw new RuntimeException(e);
-            }
-            
-            
-            return ugld;
-        }
-        
-        /**
-         * Retrieves all active user groups.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @return The list of User Groups.
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        public static UserGroupList retrieveActiveUserGroups(String userHandle) throws RuntimeException
-        {
-            try
-            {
-                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+    public static UserGroupList retrieveActiveUserGroups(String userHandle) throws RuntimeException {
+      try {
+        UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
 
-                HashMap<String, String[]> filter = new HashMap<String, String[]>();
-                filter.put("operation", new String[]{"searchRetrieve"});
-                filter.put("version", new String[]{"1.1"});
-             
-                String uglXml = ugh.retrieveUserGroups(filter);
-                System.out.println(uglXml);
-               
-                SearchRetrieveResponseVO res = new XmlTransformingBean().transformToSearchRetrieveResponseUserGroup(uglXml);
-                UserGroupList userGroupList = new UserGroupList();
-                List<UserGroup> userGroupArray = new ArrayList<UserGroup>();
-                for (int index = 0; index < res.getNumberOfRecords(); index++)
-                {
-                	userGroupArray.add((UserGroup) res.getRecords().get(index).getData());
-                }
-                userGroupList.setUserGroupLists(userGroupArray);
-                
-                return userGroupList;
-            }
-            catch (Exception e)
-            {
-               throw new RuntimeException(e);
-            }
+        HashMap<String, String[]> filter = new HashMap<String, String[]>();
+        filter.put("operation", new String[] {"searchRetrieve"});
+        filter.put("version", new String[] {"1.1"});
+
+        String uglXml = ugh.retrieveUserGroups(filter);
+        System.out.println(uglXml);
+
+        SearchRetrieveResponseVO res =
+            new XmlTransformingBean().transformToSearchRetrieveResponseUserGroup(uglXml);
+        UserGroupList userGroupList = new UserGroupList();
+        List<UserGroup> userGroupArray = new ArrayList<UserGroup>();
+        for (int index = 0; index < res.getNumberOfRecords(); index++) {
+          userGroupArray.add((UserGroup) res.getRecords().get(index).getData());
         }
+        userGroupList.setUserGroupLists(userGroupArray);
+
+        return userGroupList;
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
     }
+  }
 }

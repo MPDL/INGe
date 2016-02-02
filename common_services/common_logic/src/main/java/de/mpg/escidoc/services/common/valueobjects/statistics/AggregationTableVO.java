@@ -6,34 +6,34 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 public class AggregationTableVO extends ValueObject {
 
-	
-	private String name;
-	
-	private List<AggregationFieldVO> aggregationFields;
-	
-	private List<AggregationIndexVO> aggregationIndexes;
 
-	public String getName() {
-		return name;
-	}
+  private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  private List<AggregationFieldVO> aggregationFields;
 
-	public List<AggregationFieldVO> getAggregationFields() {
-		return aggregationFields;
-	}
+  private List<AggregationIndexVO> aggregationIndexes;
 
-	public void setAggregationFields(List<AggregationFieldVO> aggregationFields) {
-		this.aggregationFields = aggregationFields;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public List<AggregationIndexVO> getAggregationIndexes() {
-		return aggregationIndexes;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setAggregationIndexes(List<AggregationIndexVO> aggregationIndexes) {
-		this.aggregationIndexes = aggregationIndexes;
-	}
+  public List<AggregationFieldVO> getAggregationFields() {
+    return aggregationFields;
+  }
+
+  public void setAggregationFields(List<AggregationFieldVO> aggregationFields) {
+    this.aggregationFields = aggregationFields;
+  }
+
+  public List<AggregationIndexVO> getAggregationIndexes() {
+    return aggregationIndexes;
+  }
+
+  public void setAggregationIndexes(List<AggregationIndexVO> aggregationIndexes) {
+    this.aggregationIndexes = aggregationIndexes;
+  }
 }
