@@ -26,7 +26,7 @@
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
 	<version>7.10.3-SNAPSHOT</version>
-	<name>Complete PubMan with Common Services</name>
+	<name>INGe</name>
 	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
 		PubMan supports scientists and institutes in the management and
