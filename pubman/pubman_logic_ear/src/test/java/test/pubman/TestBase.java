@@ -40,9 +40,10 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -88,7 +89,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -126,7 +126,7 @@ public class TestBase {
     System.setProperty("com.sun.xml.namespace.QName.useCompatibleSerialVersionUID", "1.0");
   }
 
-  protected static List<String> objectsToDelete;
+  protected static Set<String> objectsToDelete;
 
   /**
    * 
@@ -139,7 +139,7 @@ public class TestBase {
     PUBMAN_TEST_COLLECTION_NAME =
         PropertyReader.getProperty("escidoc.framework_access.context.name.test");
 
-    objectsToDelete = new ArrayList<String>();
+    objectsToDelete = new HashSet<String>();
   }
 
   /**
@@ -199,7 +199,9 @@ public class TestBase {
         while ((line = dis.readLine()) != null) {
           fileBuffer.append(line + "\n");
         }
+        dis.close();
         in.close();
+
         fileString = fileBuffer.toString();
       } catch (IOException e) {
         return null;
