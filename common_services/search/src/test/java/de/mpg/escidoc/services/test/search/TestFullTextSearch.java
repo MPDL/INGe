@@ -1,10 +1,6 @@
 package de.mpg.escidoc.services.test.search;
 
 import static org.junit.Assert.assertTrue;
-import gov.loc.www.zing.srw.SearchRetrieveRequestType;
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
-import gov.loc.www.zing.srw.service.SRWPort;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,7 +8,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 
 import org.apache.axis.message.MessageElement;
 import org.apache.commons.httpclient.HttpClient;
@@ -53,9 +49,13 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
+import gov.loc.www.zing.srw.SearchRetrieveRequestType;
+import gov.loc.www.zing.srw.SearchRetrieveResponseType;
+import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+import gov.loc.www.zing.srw.service.SRWPort;
 
 
 public class TestFullTextSearch {
@@ -66,7 +66,7 @@ public class TestFullTextSearch {
   private static SRWPort searchHandler_escidoc_all;
   private static XmlTransforming xmlTransforming;
 
-  private static List<String> itemIdsForPurging;
+  private static HashSet<String> itemIdsForPurging;
 
   private static Logger logger = Logger.getLogger(TestFullTextSearch.class);
 
@@ -91,14 +91,14 @@ public class TestFullTextSearch {
     adminHandler = ServiceLocator.getAdminHandler(userHandle);
     searchHandler_item_container_admin =
         ServiceLocator.getSearchHandler("item_container_admin",
-            new URL(ServiceLocator.getFrameworkUrl()), userHandle);
+            new URL(PropertyReader.getFrameworkUrl()), userHandle);
     searchHandler_escidoc_all =
-        ServiceLocator.getSearchHandler("escidoc_all", new URL(ServiceLocator.getFrameworkUrl()),
+        ServiceLocator.getSearchHandler("escidoc_all", new URL(PropertyReader.getFrameworkUrl()),
             userHandle);
 
     xmlTransforming = new XmlTransformingBean();
 
-    itemIdsForPurging = new ArrayList<String>();
+    itemIdsForPurging = new HashSet<String>();
   }
 
   @AfterClass
@@ -739,7 +739,7 @@ public class TestFullTextSearch {
 
   protected URL uploadFile(String filename, String mimetype, String userHandle) throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
 
     method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));
