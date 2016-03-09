@@ -69,7 +69,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.aa.Aa;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.Querier;
@@ -80,7 +79,8 @@ import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.Rdfs;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.cone.util.UrlHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * Servlet to answer calls from various calls.

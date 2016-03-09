@@ -47,7 +47,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.ValidationSchemaCache;
 

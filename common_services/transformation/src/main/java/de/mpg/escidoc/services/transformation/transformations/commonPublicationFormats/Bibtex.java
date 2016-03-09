@@ -71,10 +71,10 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.util.creators.Author;
 import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Implementation of BibTex transformation.

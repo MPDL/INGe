@@ -50,7 +50,7 @@ public class Login
     protected String login(String userid, String password) throws HttpException, IOException, ServiceException,
             URISyntaxException
     {
-        String frameworkUrl = ServiceLocator.getFrameworkUrl();
+        String frameworkUrl = PropertyReader.getFrameworkUrl();
         StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
         if (tokens.countTokens() != NUMBER_OF_URL_TOKENS)
         {

@@ -34,8 +34,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
+import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.pubman.multipleimport.ImportLogItem;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * TODO Description

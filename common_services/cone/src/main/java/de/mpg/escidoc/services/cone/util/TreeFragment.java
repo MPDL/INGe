@@ -42,7 +42,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.ModelList.Predicate;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * A representation of a tree-like structure built of s-p-o triples.

@@ -39,7 +39,6 @@ import org.w3c.dom.Node;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -48,6 +47,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * Checks the behaviour of the item.@xml:base attribute during creation and update of items.
@@ -162,7 +163,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase {
         ServiceLocator.getItemHandler(scientistUserHandle).create(pubItemXMLPreCreate);
     assertNotNull(pubItemXMLPostCreate);
     logger.info("item(XML) created in the framework. Framework URL: "
-        + ServiceLocator.getFrameworkUrl());
+        + PropertyReader.getFrameworkUrl());
     String objid = getObjid(pubItemXMLPostCreate);
     logger.info("Objid: " + objid);
     logger.debug("Response from framework =" + pubItemXMLPostCreate);

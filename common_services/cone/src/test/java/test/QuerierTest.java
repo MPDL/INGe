@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Test class to check Querier implementation

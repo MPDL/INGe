@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.Util;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Test suite for unit test of dataAcquisition service.

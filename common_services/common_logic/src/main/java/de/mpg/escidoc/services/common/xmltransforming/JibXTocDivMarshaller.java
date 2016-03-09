@@ -16,7 +16,7 @@ import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
 import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
 
 public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasable // ,
-                                                                                    // IUnmarshaller
+// IUnmarshaller
 {
   private static Logger logger = Logger.getLogger(JibXTocDivMarshaller.class);
 

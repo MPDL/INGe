@@ -27,7 +27,7 @@
 package de.mpg.escidoc.pubman.desktop;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Fragment class for the corresponding Header-JSP.

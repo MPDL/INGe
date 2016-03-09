@@ -36,8 +36,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.TransformerFactoryImpl;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * TODO Description

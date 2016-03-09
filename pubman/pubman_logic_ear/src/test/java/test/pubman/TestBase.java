@@ -89,9 +89,9 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 
 /**
@@ -119,8 +119,6 @@ public class TestBase {
           + "responsible affiliation for this collection. Please contact\n"
           + "u.tschida@zim.mpg.de for any questions.";
   protected static final String MPG_TEST_AFFILIATION = "escidoc:persistent13";
-
-  private static final int NUMBER_OF_URL_TOKENS = 2;
 
   static {
     System.setProperty("com.sun.xml.namespace.QName.useCompatibleSerialVersionUID", "1.0");
@@ -238,7 +236,7 @@ public class TestBase {
    */
   protected static String loginUser(String userid, String password) throws HttpException,
       IOException, ServiceException, URISyntaxException {
-    String frameworkUrl = ServiceLocator.getFrameworkUrl();
+    String frameworkUrl = PropertyReader.getFrameworkUrl();
     int delim1 = frameworkUrl.indexOf("//");
     int delim2 = frameworkUrl.indexOf(":", delim1);
 
@@ -707,7 +705,7 @@ public class TestBase {
         (XmlTransforming) getService("ejb:pubman_logic_ear/common_logic/XmlTransformingBean!"
             + XmlTransforming.class.getName());
     // Prepare the HttpMethod.
-    String fwUrl = ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
 
     method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));

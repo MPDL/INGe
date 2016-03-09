@@ -47,9 +47,9 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Helper class for all test classes.

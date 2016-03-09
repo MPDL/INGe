@@ -38,8 +38,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.framework.ProxyHelper;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * This class handle URIs in XSLT stylesheets such as xsl:import. In a jar the stylesheet can only

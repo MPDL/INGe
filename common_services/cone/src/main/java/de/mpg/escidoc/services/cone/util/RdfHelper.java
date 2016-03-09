@@ -32,7 +32,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Static Helper class for RDF formatting.

@@ -97,9 +97,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
@@ -107,6 +104,8 @@ import de.mpg.escidoc.services.pubman.exceptions.PubManException;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -282,7 +281,7 @@ public class SwordUtil extends FacesBean {
   @Deprecated
   public String loginUser(String userid, String password) throws HttpException, IOException,
       ServiceException, URISyntaxException {
-    String frameworkUrl = ServiceLocator.getFrameworkUrl();
+    String frameworkUrl = PropertyReader.getFrameworkUrl();
     StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
     if (tokens.countTokens() != NUMBER_OF_URL_TOKENS) {
       throw new IOException(
@@ -350,7 +349,7 @@ public class SwordUtil extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
 
     fc.getExternalContext().redirect(
-        ServiceLocator.getFrameworkUrl()
+        PropertyReader.getFrameworkUrl()
             + LOGOUT_URL
             + "?target="
             + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
@@ -858,7 +857,7 @@ public class SwordUtil extends FacesBean {
   protected URL uploadFile(InputStream in, String mimetype, String userHandle, ZipEntry zipEntry)
       throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);

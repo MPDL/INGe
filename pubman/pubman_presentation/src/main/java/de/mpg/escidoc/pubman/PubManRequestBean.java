@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 public class PubManRequestBean extends FacesBean {
   public static final String BEAN_NAME = "PubManRequestBean";

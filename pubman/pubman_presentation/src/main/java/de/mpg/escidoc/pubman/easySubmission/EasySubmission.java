@@ -48,8 +48,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -107,10 +105,10 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognise
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -917,7 +915,7 @@ public class EasySubmission extends FacesBean {
   protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle)
       throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     /*
      * if(uploadedFile.isTempFile()) {
@@ -951,7 +949,7 @@ public class EasySubmission extends FacesBean {
    */
   protected URL uploadFile(InputStream in, String mimetype, String userHandle) throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in));
     method.setRequestHeader("Content-Type", mimetype);

@@ -33,11 +33,11 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import test.common.TestBase;
 
 /**
  * Test class for {@link XmlTransforming#transformToFilterTaskParam(FilterTaskParamVO)}.
@@ -62,7 +62,7 @@ public class TransformFileUrlTest extends TestBase {
         readFile("xmltransforming/component/transformFileUrlTest/staging-file_sample1.xml");
 
     URL expectedURL =
-        new URL(ServiceLocator.getFrameworkUrl()
+        new URL(PropertyReader.getFrameworkUrl()
             + "/st/staging-file/escidoctoken:2a1082d0-d6c8-11db-8655-af79371c28f2");
 
     URL url = xmlTransforming.transformUploadResponseToFileURL(uploadResponseXML);

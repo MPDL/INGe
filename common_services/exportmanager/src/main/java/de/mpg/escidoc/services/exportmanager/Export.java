@@ -65,12 +65,11 @@ import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 /**
  * Structured Export Manager. Converts PubMan item-list to one of the structured formats.
@@ -735,7 +734,7 @@ public class Export implements ExportHandler {
       // get file via URI
       String url;
       try {
-        url = ServiceLocator.getFrameworkUrl() + href;
+        url = PropertyReader.getFrameworkUrl() + href;
       } catch (Exception e) {
         throw new ExportManagerException("Cannot get framework url", e);
       }

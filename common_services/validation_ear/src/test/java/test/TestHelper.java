@@ -41,7 +41,7 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
 /**

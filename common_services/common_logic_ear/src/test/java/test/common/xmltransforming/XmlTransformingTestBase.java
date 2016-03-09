@@ -34,8 +34,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
-
+import de.mpg.escidoc.services.util.PropertyReader;
 import test.common.TestBase;
 
 /**

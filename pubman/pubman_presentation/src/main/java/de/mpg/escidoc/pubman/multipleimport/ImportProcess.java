@@ -25,11 +25,9 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -66,14 +64,11 @@ import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.ZfNProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.search.Search;
@@ -86,6 +81,9 @@ import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.escidoc.services.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -497,7 +495,7 @@ public class ImportProcess extends Thread {
   private String createTaskItemXml() {
     try {
 
-      String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+      String fwUrl = PropertyReader.getFrameworkUrl();
       HttpClient client = new HttpClient();
       ProxyHelper.setProxy(client, fwUrl);
 

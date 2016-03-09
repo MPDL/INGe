@@ -43,13 +43,13 @@ import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
 
 import de.mpg.escidoc.services.common.StatisticLogger;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * TODO Description

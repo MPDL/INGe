@@ -93,7 +93,6 @@ import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
@@ -115,10 +114,11 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * Base Class for tests in common_logic.
@@ -1425,7 +1425,7 @@ public class TestBase {
   protected URL uploadFile(String fileName, String mimetype, final String userHandle)
       throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     logger.info("Framework: " + fwUrl);
     File file = ResourceUtil.getResourceAsFile(fileName, TestBase.class.getClassLoader());
@@ -1450,7 +1450,7 @@ public class TestBase {
    */
   protected String createItemWithFile(String userHandle) throws Exception {
     // Prepare the HttpMethod.
-    PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "/st/staging-file");
+    PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
     method.setRequestHeader("Content-Type", MIME_TYPE);
     method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -1472,7 +1472,7 @@ public class TestBase {
     assertNotNull(href);
     // Create an item with the href in the component.
     String item = readFile(ITEM_FILE);
-    item = item.replaceFirst("XXX_CONTENT_REF_XXX", ServiceLocator.getFrameworkUrl() + href);
+    item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + href);
     logger.debug("Item=" + item);
     item = ServiceLocator.getItemHandler(userHandle).create(item);
     assertNotNull(item);

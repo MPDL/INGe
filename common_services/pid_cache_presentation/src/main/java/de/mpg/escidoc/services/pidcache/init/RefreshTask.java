@@ -28,9 +28,9 @@ package de.mpg.escidoc.services.pidcache.init;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.process.CacheProcess;
 import de.mpg.escidoc.services.pidcache.process.QueueProcess;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Thread running continuously in background. Calls {@link QueueProcess} and {@link CacheProcess}

@@ -26,20 +26,20 @@
 
 package test.pubman;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import test.pubman.depositing.PubItemDepositingTest;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import test.pubman.depositing.PubItemDepositingTest;
 
 /**
  * Tests the retrieval of Affiliations.
@@ -64,7 +64,7 @@ public class RetrieveAffiliationsTest {
 
   @Test
   public void testRetrieveAllTopLevelAffiliations() throws Exception {
-    logger.info("Using framework: " + ServiceLocator.getFrameworkUrl());
+    logger.info("Using framework: " + PropertyReader.getFrameworkUrl());
 
     FilterTaskParamVO filter = new FilterTaskParamVO();
     List<Filter> filterList = filter.getFilterList();
@@ -80,7 +80,7 @@ public class RetrieveAffiliationsTest {
 
     List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(ousXml);
     logger.info("There are " + affiliations.size() + " top-level affiliations on "
-        + ServiceLocator.getFrameworkUrl() + ": ");
+        + PropertyReader.getFrameworkUrl() + ": ");
     for (AffiliationVO affiliation : affiliations) {
       logger.info("MD: " + affiliation.getMetadataSets());
     }

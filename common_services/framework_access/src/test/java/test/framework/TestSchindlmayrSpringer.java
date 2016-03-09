@@ -54,8 +54,6 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import test.framework.om.TestItemBase;
-
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
 import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
 import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
@@ -64,13 +62,13 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
-
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
-
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import test.framework.om.TestItemBase;
 
 /**
  * Test cases for the schindlmayr-springer item.
@@ -92,7 +90,7 @@ public class TestSchindlmayrSpringer extends TestItemBase {
   private String upload() throws ServiceException, HttpException, IOException,
       ParserConfigurationException, SAXException, TransformerException, Exception {
     // Upload the file.
-    PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "/st/staging-file");
+    PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
     method.setRequestHeader("Content-Type", MIME_TYPE);
     method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -129,7 +127,7 @@ public class TestSchindlmayrSpringer extends TestItemBase {
             document,
             "//*[local-name() = 'content' and namespace-uri() = 'http://www.escidoc.de/schemas/components/0.3']/@*[local-name() = 'href' and namespace-uri() = 'http://www.w3.org/1999/xlink']");
     assertNotNull(href);
-    String url = ServiceLocator.getFrameworkUrl() + href;
+    String url = PropertyReader.getFrameworkUrl() + href;
     logger.debug("url=" + url);
     GetMethod method = new GetMethod(url);
     method.setFollowRedirects(false);
@@ -161,7 +159,7 @@ public class TestSchindlmayrSpringer extends TestItemBase {
       ParserConfigurationException, SAXException, TransformerException, Exception {
     String item = readFile(ITEM_FILE);
     String fileid = upload();
-    item = item.replaceFirst("XXX_CONTENT_REF_XXX", ServiceLocator.getFrameworkUrl() + fileid);
+    item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + fileid);
     item = ServiceLocator.getItemHandler(userHandle).create(item);
     logger.debug("Item created=\n" + toString(getDocument(item, false), false));
     return item;

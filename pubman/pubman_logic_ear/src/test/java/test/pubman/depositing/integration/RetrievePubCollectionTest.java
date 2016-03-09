@@ -49,9 +49,9 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilt
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.exceptions.ExceptionHandler;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Test for retrieving PubCollection in different ways.

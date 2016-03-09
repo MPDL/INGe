@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * TODO Description

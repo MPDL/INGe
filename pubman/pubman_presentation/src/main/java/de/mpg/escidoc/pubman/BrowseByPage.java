@@ -41,8 +41,8 @@ import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean;
 import de.mpg.escidoc.pubman.util.LinkVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Backing Bean for Browse By

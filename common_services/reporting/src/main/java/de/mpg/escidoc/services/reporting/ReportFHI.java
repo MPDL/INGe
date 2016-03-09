@@ -72,10 +72,10 @@ import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.emailhandling.EmailHandlingBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 /**
  * Monthly report for FHI
@@ -181,7 +181,7 @@ public class ReportFHI {
     String itemList = null;
     GetMethod method;
     try {
-      method = new GetMethod(ServiceLocator.getFrameworkUrl() + "/ir/items");
+      method = new GetMethod(PropertyReader.getFrameworkUrl() + "/ir/items");
       method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
       String query =
           "operation=searchRetrieve&maximumRecords=1000&query="

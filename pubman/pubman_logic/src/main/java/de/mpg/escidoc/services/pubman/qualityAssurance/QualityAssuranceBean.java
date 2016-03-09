@@ -64,7 +64,6 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkCo
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.exceptions.ExceptionHandler;
@@ -72,6 +71,7 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * EJB implementation of the QualityAssurance interface

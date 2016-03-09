@@ -51,9 +51,9 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.syndication.feed.Feed;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 public class Syndication implements SyndicationHandler {
 

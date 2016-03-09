@@ -37,7 +37,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.framework.ProxyHelper;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 /**
  * TODO Description

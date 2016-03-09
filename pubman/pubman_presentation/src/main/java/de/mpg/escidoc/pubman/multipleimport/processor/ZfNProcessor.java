@@ -58,6 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * This class handles the multiple import for the zfn format
@@ -215,7 +216,7 @@ public class ZfNProcessor extends FormatProcessor {
    */
   private URL uploadFile(InputStream in, String mimetype, String userHandle) throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+    String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);

@@ -3,7 +3,7 @@ package de.mpg.escidoc.services.common.valueobjects.publication;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 
 public class PubItemVO extends ItemVO {

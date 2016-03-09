@@ -40,8 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * TODO Description
@@ -100,7 +99,7 @@ public class SessionTimeoutFilter implements Filter {
             && httpServletRequest.getParameter("logout") == null
             && !httpServletRequest.isRequestedSessionIdValid()) {
           // Deactivated because of import tool.
-          httpServletResponse.sendRedirect(ServiceLocator.getLoginUrl() + LOGOUT_URL + "?target="
+          httpServletResponse.sendRedirect(PropertyReader.getLoginUrl() + LOGOUT_URL + "?target="
               + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
           // httpServletResponse.sendRedirect(homePage + "?expired=true");
           return;

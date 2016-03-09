@@ -1,7 +1,7 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Login class for escidoc log ins.

@@ -10,13 +10,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 public class EndNoteImportTest {
 

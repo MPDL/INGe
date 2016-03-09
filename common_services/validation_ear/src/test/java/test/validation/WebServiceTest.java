@@ -33,8 +33,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.util.ResourceUtil;
 import test.TestHelper;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 
 /**
  * Test class for the SOAP andc REST interface.

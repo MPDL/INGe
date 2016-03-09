@@ -31,9 +31,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Handle cache management method

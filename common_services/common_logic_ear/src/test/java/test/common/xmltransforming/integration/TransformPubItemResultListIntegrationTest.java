@@ -61,8 +61,8 @@ import de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Test of {@link PubManTransforming} methods for transforming and integration with common_logic and

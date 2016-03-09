@@ -30,8 +30,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import test.framework.TestBase;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Testcases for the basic service UserAccountHandler.

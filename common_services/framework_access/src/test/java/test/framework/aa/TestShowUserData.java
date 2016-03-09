@@ -33,9 +33,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import test.framework.TestBase;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Shows all stored users.
@@ -94,7 +93,7 @@ public class TestShowUserData extends TestBase {
   @Test
   public void showUsers() throws Exception {
     // TODO REMOVE MuJ
-    logger.info("Framework-URL: " + ServiceLocator.getFrameworkUrl());
+    logger.info("Framework-URL: " + PropertyReader.getFrameworkUrl());
     // REMOVE END
 
     String loginnames[] =

@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
@@ -17,6 +16,7 @@ import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 public class MABImportTester {
 

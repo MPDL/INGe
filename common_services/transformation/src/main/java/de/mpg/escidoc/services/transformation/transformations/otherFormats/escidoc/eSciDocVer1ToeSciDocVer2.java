@@ -38,12 +38,12 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * Transformation from the eSciDoc metadata profile v1 to v2

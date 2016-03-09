@@ -36,10 +36,10 @@ import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * This class provides METS transformation for a escidoc objects.
@@ -420,7 +420,7 @@ public class METSTransformation {
 
       String tocHref =
           itemTocDoc.getItem().getComponents().getComponentArray(0).getContent().getHref();
-      URL tocUrl = new URL(ServiceLocator.getFrameworkUrl() + tocHref);
+      URL tocUrl = new URL(PropertyReader.getFrameworkUrl() + tocHref);
       TocDocument toc = null;
 
       // workaroound due to framework bug: login as sysadmin. Currently only logged-in users can

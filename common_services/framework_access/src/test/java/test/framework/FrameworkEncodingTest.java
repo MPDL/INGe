@@ -39,8 +39,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 /**
  * Test cases for Framework Encodings.
@@ -76,7 +77,7 @@ public class FrameworkEncodingTest {
     // theoretisch angeleitete Wissenschaftsgeschichte."
     //
     GetMethod getMethod =
-        new GetMethod(ServiceLocator.getFrameworkUrl()
+        new GetMethod(PropertyReader.getFrameworkUrl()
             + "/oum/organizational-unit/escidoc:persistent1");
     HttpClient client = new HttpClient();
     ProxyHelper.executeMethod(client, getMethod);

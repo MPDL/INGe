@@ -34,12 +34,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.marc.Marc21ToMarcXMLTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /*
  * @author Stefan Krause, Editura GmbH & Co. KG (initial creation)

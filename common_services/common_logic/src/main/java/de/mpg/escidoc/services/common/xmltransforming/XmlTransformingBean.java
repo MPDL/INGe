@@ -120,7 +120,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWr
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.SuccessorROListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.UserAttributesWrapper;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * EJB implementation of interface {@link XmlTransforming}.
@@ -931,9 +931,9 @@ public class XmlTransformingBean implements XmlTransforming {
       urlWrapper = (URLWrapper) uctx.unmarshalDocument(sr, null);
       // extract the string from the wrapper and transform it to a URL
 
-      logger.debug("URL: " + ServiceLocator.getFrameworkUrl() + ":" + urlWrapper.getUrlString());
+      logger.debug("URL: " + PropertyReader.getFrameworkUrl() + ":" + urlWrapper.getUrlString());
 
-      url = new URL(ServiceLocator.getFrameworkUrl() + urlWrapper.getUrlString());
+      url = new URL(PropertyReader.getFrameworkUrl() + urlWrapper.getUrlString());
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
       logger.error(e, e.getRootCause());

@@ -29,7 +29,7 @@ package de.mpg.escidoc.pubman;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Handels all rights of the current user and handels disabled features described in the

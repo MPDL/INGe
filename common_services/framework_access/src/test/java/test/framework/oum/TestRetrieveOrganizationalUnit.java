@@ -32,8 +32,8 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Test cases for the basic service OrganizationalUnitHandler.
@@ -68,7 +68,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase {
    */
   @Test
   public void retrieveOrganizationalUnit() throws Exception {
-    logger.info("Framework: " + ServiceLocator.getFrameworkUrl());
+    logger.info("Framework: " + PropertyReader.getFrameworkUrl());
     String id = PropertyReader.getProperty("framework.organizational_unit.id");
     long zeit = -System.currentTimeMillis();
     String unit = ServiceLocator.getOrganizationalUnitHandler().retrieve(id);

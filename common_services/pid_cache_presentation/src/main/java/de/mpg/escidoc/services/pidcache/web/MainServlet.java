@@ -36,9 +36,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.PidCacheService;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * TODO Description

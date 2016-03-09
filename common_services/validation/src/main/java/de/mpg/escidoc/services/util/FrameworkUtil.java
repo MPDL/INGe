@@ -28,8 +28,6 @@ package de.mpg.escidoc.services.util;
 import java.util.HashMap;
 
 import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**

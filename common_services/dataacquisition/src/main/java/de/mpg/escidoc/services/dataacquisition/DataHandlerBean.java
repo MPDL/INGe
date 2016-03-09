@@ -79,12 +79,12 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 /**
  * This class provides the ejb implementation of the {@link DataHandler} interface.
@@ -785,7 +785,7 @@ public class DataHandlerBean implements DataHandler {
   private String fetchEjbRecord(MetadataVO md, String identifier)
       throws IdentifierNotRecognisedException, RuntimeException, ServiceException,
       URISyntaxException, MalformedURLException {
-    String defaultUrl = ServiceLocator.getFrameworkUrl();
+    String defaultUrl = PropertyReader.getFrameworkUrl();
 
     try {
       if (this.currentSource.getName().equalsIgnoreCase("escidoc")) {
@@ -835,7 +835,7 @@ public class DataHandlerBean implements DataHandler {
     try {
       if (this.currentSource.getName().equalsIgnoreCase("escidoc")) {
         itemXML = ServiceLocator.getItemHandler().retrieve(identifier);
-        coreservice = ServiceLocator.getFrameworkUrl();
+        coreservice = PropertyReader.getFrameworkUrl();
       }
       if (this.currentSource.getName().equalsIgnoreCase("escidocdev")
           || this.currentSource.getName().equalsIgnoreCase("escidocqa")
@@ -963,7 +963,7 @@ public class DataHandlerBean implements DataHandler {
 
     if (sourceName.equalsIgnoreCase("escidoc")) {
       try {
-        coreservice = ServiceLocator.getFrameworkUrl();
+        coreservice = PropertyReader.getFrameworkUrl();
       } catch (Exception e) {
         this.logger.error("Framework Access threw an exception.", e);
         return null;

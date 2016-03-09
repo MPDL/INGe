@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Fragment class for editing the audience grants of files. This class provides all functionality

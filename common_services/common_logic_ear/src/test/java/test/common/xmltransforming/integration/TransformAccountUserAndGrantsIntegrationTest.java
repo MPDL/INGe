@@ -35,7 +35,6 @@ import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpException;
@@ -45,15 +44,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.common.TestBase;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import test.common.TestBase;
 
 /**
  * Test cases for the transformToAccountUser method of the XmlTransforming interface.
@@ -168,7 +167,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase {
   @Test
   public void transformTestDepScientistGrants() throws Exception {
     logger.info("### transformTestDepScientistGrants ###");
-    logger.info("Framework-URL: " + ServiceLocator.getFrameworkUrl());
+    logger.info("Framework-URL: " + PropertyReader.getFrameworkUrl());
 
     // retrieve account user and transform
     UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);

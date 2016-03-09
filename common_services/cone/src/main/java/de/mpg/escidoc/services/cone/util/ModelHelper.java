@@ -44,10 +44,10 @@ import org.jrdf.graph.PredicateNode;
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.ModelList.Predicate;
+import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.services.cone.ModelList.ModelResult;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Helper class for result pattern.

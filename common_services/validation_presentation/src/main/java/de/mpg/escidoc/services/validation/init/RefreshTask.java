@@ -31,7 +31,7 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
 
 /**

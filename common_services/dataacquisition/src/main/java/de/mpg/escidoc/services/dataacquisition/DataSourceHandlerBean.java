@@ -16,12 +16,12 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesDocum
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsType;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ResourceUtil;
 
 /**
  * This class handles the import function from external sources.

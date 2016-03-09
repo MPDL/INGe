@@ -43,12 +43,13 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import test.common.TestBase;
 
 
 /**
@@ -140,7 +141,7 @@ public class TransformSchindlMayrIntegrationTest extends TestBase {
       // logger.debug("Locator=" + file.getLocator());
 
       String urlSuffix = file.getContent().toString();
-      String url = ServiceLocator.getFrameworkUrl() + urlSuffix;
+      String url = PropertyReader.getFrameworkUrl() + urlSuffix;
       GetMethod method = new GetMethod(url);
 
       method.setFollowRedirects(false);

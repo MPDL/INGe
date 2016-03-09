@@ -57,7 +57,6 @@ import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
 import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
@@ -66,6 +65,7 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * This class provides the ejb implementation of the {@link PubItemPublishing} interface.

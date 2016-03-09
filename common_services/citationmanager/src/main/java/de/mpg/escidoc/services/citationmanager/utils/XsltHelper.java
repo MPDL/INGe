@@ -50,8 +50,8 @@ import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.data.FontStyle;
 import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
 import de.mpg.escidoc.services.citationmanager.data.Pair;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ProxyHelper;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
 
 /**
  * Function extensions for the citationmanager XSLTs

@@ -55,7 +55,7 @@ public abstract class AbstractConsistencyCheckManager
                     PropertyReader.getProperty("framework.admin.username"),
                     PropertyReader.getProperty("framework.admin.password"));
             
-            searchHandler = ServiceLocator.getSearchHandler(searchIndex, new URL(ServiceLocator.getFrameworkUrl()), userHandle);
+            searchHandler = ServiceLocator.getSearchHandler(searchIndex, new URL(PropertyReader.getFrameworkUrl()), userHandle);
             
             itemHandler = ServiceLocator.getItemHandler(userHandle);
         }

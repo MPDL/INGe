@@ -40,9 +40,10 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import test.framework.om.TestItemBase;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import test.framework.om.TestItemBase;
 
 /**
  * Testcases for simple search queries.
@@ -347,7 +348,7 @@ public class TestSimpleSearch extends TestItemBase {
   private String createReleasedItemWithFile() throws Exception {
     String userHandle = loginScientist();
     // Prepare the HttpMethod.
-    PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "/st/staging-file");
+    PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(
         "src/test/resourcestest/testsimplesearch/Der_kleine_Prinz_Auszug.pdf")));
     method.setRequestHeader("Content-Type", "application/pdf");
@@ -374,7 +375,7 @@ public class TestSimpleSearch extends TestItemBase {
 
     // Create an item with the href in the component.
     String item = readFile("src/test/resources/test/testsimplesearch/item1.xml");
-    item = item.replaceFirst("XXX_CONTENT_REF_XXX", ServiceLocator.getFrameworkUrl() + href);
+    item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + href);
     logger.debug("Item=" + item);
     item = ServiceLocator.getItemHandler(userHandle).create(item);
     assertNotNull(item);

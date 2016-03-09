@@ -31,7 +31,7 @@ public class SingleItem extends Elements<ItemVO>
         escidocId = CommandHelper.getArgument("-id", args, true);
         try
         {
-            logger.info("Logging in " + ServiceLocator.getFrameworkUrl());
+            logger.info("Logging in " + PropertyReader.getFrameworkUrl());
         	setUserHandle(AdminHelper.loginUser(PropertyReader.getProperty("escidoc.user.name"), PropertyReader.getProperty("escidoc.user.password")));
         }
         catch (Exception e)
@@ -52,7 +52,7 @@ public class SingleItem extends Elements<ItemVO>
         try
         {
             ItemHandler ih = ServiceLocator.getItemHandler(this.getUserHandle());
-            logger.info("Retrieving item " + escidocId + " from " + ServiceLocator.getFrameworkUrl());
+            logger.info("Retrieving item " + escidocId + " from " + PropertyReader.getFrameworkUrl());
             String itemXml = ih.retrieve(escidocId);
             XmlTransformingBean xmlTransforming = new XmlTransformingBean();
             ItemVO item = xmlTransforming.transformToItem(itemXml);

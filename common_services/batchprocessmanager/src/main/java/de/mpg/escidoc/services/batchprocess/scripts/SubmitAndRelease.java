@@ -116,7 +116,7 @@ public class SubmitAndRelease
         String modificationDate = JiBXHelper.serializeDate(itemVO.getModificationDate());
 
         PidTaskParamVO paramAssignation = new PidTaskParamVO(itemVO.getVersion().getModificationDate(),
-                ServiceLocator.getFrameworkUrl() + "/ir/item/" + itemVO.getVersion().getObjectIdAndVersion());
+                PropertyReader.getFrameworkUrl() + "/ir/item/" + itemVO.getVersion().getObjectIdAndVersion());
         String paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
         try
         {

@@ -76,6 +76,7 @@ import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
 import de.escidoc.www.services.tme.JhoveHandler;
 import de.escidoc.www.services.tme.JhoveHandlerServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>
@@ -142,35 +143,6 @@ public class ServiceLocator {
       ExtContextHandlerServiceLocatorHolder.serviceLocator;
   private static volatile ItemHandlerServiceLocator extAuthorizedItemHandlerServiceLocator =
       ExtItemHandlerServiceLocatorHolder.serviceLocator;
-
-
-
-  /**
-   * Get the configured URL of the running framework instance.
-   * 
-   * @return The url as a String.
-   * @throws ServiceException
-   * @throws URISyntaxException
-   */
-  public static String getFrameworkUrl() throws ServiceException, URISyntaxException {
-    String url;
-    try {
-      url = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-    } catch (IOException e) {
-      throw new ServiceException(e);
-    }
-    return url;
-  }
-
-  public static String getLoginUrl() throws ServiceException, URISyntaxException {
-    String url;
-    try {
-      url = PropertyReader.getProperty("escidoc.framework_access.login.url");
-    } catch (IOException e) {
-      throw new ServiceException(e);
-    }
-    return url;
-  }
 
   /**
    * Gets the UserManagementWrapper service for an authenticated user.
@@ -779,7 +751,7 @@ public class ServiceLocator {
   public static SRWPort getSearchHandler(String databaseIdentifier) throws ServiceException,
       URISyntaxException {
     try {
-      return getSearchHandler(databaseIdentifier, new URL(getFrameworkUrl()));
+      return getSearchHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()));
     } catch (MalformedURLException e) {
       throw new ServiceException(e);
     }
@@ -788,7 +760,8 @@ public class ServiceLocator {
   public static SRWPort getSearchHandler(String databaseIdentifier, String userHandle)
       throws ServiceException, URISyntaxException {
     try {
-      return getSearchHandler(databaseIdentifier, new URL(getFrameworkUrl()), userHandle);
+      return getSearchHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()),
+          userHandle);
     } catch (MalformedURLException e) {
       throw new ServiceException(e);
     }
@@ -841,7 +814,7 @@ public class ServiceLocator {
   public static ExplainPort getExplainHandler(String databaseIdentifier) throws ServiceException,
       URISyntaxException {
     try {
-      return getExplainHandler(databaseIdentifier, new URL(getFrameworkUrl()));
+      return getExplainHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()));
     } catch (MalformedURLException e) {
       throw new ServiceException(e);
     }
@@ -894,7 +867,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getUserManagementWrapperServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -927,7 +900,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getUserAccountHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -960,7 +933,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getUserGroupHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -993,7 +966,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getOrganizationalUnitHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1027,7 +1000,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getContentModelHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1060,7 +1033,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getContextHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1093,7 +1066,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getItemHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1126,7 +1099,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getContainerHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1159,7 +1132,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getSemanticStoreHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1192,7 +1165,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getScopeHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1227,7 +1200,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getAggregationDefinitionHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1261,7 +1234,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getStatisticDataHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1294,7 +1267,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getReportDefinitionHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1328,7 +1301,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getReportHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1361,7 +1334,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getIngestHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1394,7 +1367,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getAdminHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1427,7 +1400,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getRoleHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(
@@ -1460,7 +1433,7 @@ public class ServiceLocator {
 
       try {
         url =
-            ServiceLocator.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
                 + serviceLocator.getJhoveHandlerServiceWSDDServiceName();
       } catch (Exception e) {
         Logger.getLogger(ServiceLocator.class).warn(

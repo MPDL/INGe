@@ -46,9 +46,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import test.framework.TestBase;
-import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import test.framework.TestBase;
 
 /**
  * Testcases for the staging area of the basic service ItemHandler.
@@ -69,7 +70,7 @@ public class TestFile extends TestBase {
 
   private String createItemWithFile(String handle) throws Exception {
     // Prepare the HttpMethod.
-    PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "/st/staging-file");
+    PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
     method.setRequestHeader("Content-Type", MIME_TYPE);
     method.setRequestHeader("Cookie", "escidocCookie=" + handle);
@@ -91,7 +92,7 @@ public class TestFile extends TestBase {
     assertNotNull(href);
     // Create an item with the href in the component.
     String item = readFile(ITEM_FILE);
-    item = item.replaceFirst("XXX_CONTENT_REF_XXX", ServiceLocator.getFrameworkUrl() + href);
+    item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + href);
     logger.debug("Item (before create)=" + item);
     item = ServiceLocator.getItemHandler(handle).create(item);
     assertNotNull(item);
@@ -128,7 +129,7 @@ public class TestFile extends TestBase {
             "//*[local-name() = 'content' and namespace-uri() = 'http://www.escidoc.de/schemas/components/0.4']/@*[local-name() = 'href' and namespace-uri() = 'http://www.w3.org/1999/xlink']");
     assertNotNull(href);
     logger.debug("href=" + href);
-    String url = ServiceLocator.getFrameworkUrl() + href;
+    String url = PropertyReader.getFrameworkUrl() + href;
     logger.debug("url=" + url);
     GetMethod method = new GetMethod(url);
     method.setFollowRedirects(false);

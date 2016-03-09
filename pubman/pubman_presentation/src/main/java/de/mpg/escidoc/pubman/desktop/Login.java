@@ -30,23 +30,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.aa.UserManagementWrapper;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Class for providing login / logout functionality and coresponds to the Login.jspf.
@@ -140,7 +136,7 @@ public class Login extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     // Deactivated because of import tool
     fc.getExternalContext().redirect(
-        ServiceLocator.getLoginUrl()
+        PropertyReader.getLoginUrl()
             + LOGOUT_URL
             + "?target="
             + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
@@ -173,7 +169,7 @@ public class Login extends FacesBean {
       // }
       // }
       fc.getExternalContext().redirect(
-          ServiceLocator.getLoginUrl() + LOGIN_URL + "?target="
+          PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
               + request.getRequestURL().toString());
 
       // fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
@@ -200,7 +196,7 @@ public class Login extends FacesBean {
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
       fc.getExternalContext().redirect(
-          ServiceLocator.getLoginUrl() + LOGIN_URL + "?target="
+          PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
               + URLEncoder.encode(targetUrl, "UTF-8"));
       // fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
     } catch (Exception e) {
@@ -257,7 +253,7 @@ public class Login extends FacesBean {
     // Use double URL encoding here because the login mechanism gives back the decoded URL
     // parameters.
     String url =
-        ServiceLocator.getLoginUrl()
+        PropertyReader.getLoginUrl()
             + LOGIN_URL
             + "?target="
             + pubmanUrl

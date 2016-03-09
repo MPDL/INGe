@@ -41,7 +41,7 @@ import test.common.TestBase;
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * Test class for {@link de.mpg.escidoc.services.common.emailhandling.EmailHandlingBean}
