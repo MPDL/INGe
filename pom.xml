@@ -1460,7 +1460,7 @@
 		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
 		<profile>
 			<id>only-eclipse</id>
-			<activation>
+			<activation>				
 				<property>
 					<name>m2e.version</name>
 				</property>
@@ -1603,6 +1603,34 @@
 											<versionRange>[1.5.3,)</versionRange>
 											<goals>
 												<goal>replace</goal>
+											</goals>
+										</pluginExecutionFilter>
+										<action>
+											<ignore />
+										</action>
+									</pluginExecution>
+									<pluginExecution>
+										<pluginExecutionFilter>
+											<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+											<artifactId>maven-java-formatter-plugin</artifactId>
+											<versionRange>[0.4,)</versionRange>
+											<goals>
+												<goal>format</goal>
+												<goal>default</goal>
+											</goals>
+										</pluginExecutionFilter>
+										<action>
+											<ignore />
+										</action>
+									</pluginExecution>
+									<pluginExecution>
+										<pluginExecutionFilter>
+											<groupId>org.jacoco</groupId>
+											<artifactId>jacoco-maven-plugin</artifactId>
+											<versionRange>[0.7.1.201405082137,)</versionRange>
+											<goals>
+												<goal>prepare-agent</goal>
+												<goal>prepare-ut-agent</goal>
 											</goals>
 										</pluginExecutionFilter>
 										<action>
