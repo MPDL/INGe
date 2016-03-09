@@ -123,6 +123,11 @@
 			<artifactId>structuredexportmanager</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>pubman_util</artifactId>
+			<scope>compile</scope>
+		</dependency>
       	<dependency>
       		<groupId>xmlbeans</groupId>
       		<artifactId>transformation</artifactId>

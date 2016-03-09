@@ -246,7 +246,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>framework_access</artifactId>
+			<artifactId>pubman_util</artifactId>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

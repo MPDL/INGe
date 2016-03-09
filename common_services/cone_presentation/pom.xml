@@ -100,9 +100,7 @@
 	    </dependency>
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services.wildfly</groupId>
-	    	<artifactId>common_logic</artifactId>
-	    	<type>ejb</type>
-	    	<scope>provided</scope>
+	    	<artifactId>pubman_util</artifactId>
 	    </dependency>
 	    <dependency>
 		    <groupId>javax.servlet</groupId>

@@ -39,6 +39,7 @@
 	</description>
 	
 	<modules>
+		<module>common_services/pubman_util</module>
 		<module>common_services/framework_access</module>
 		<module>common_services/common_logic</module>
 		<module>common_services/common_presentation</module>
@@ -314,6 +315,12 @@
 
 	<dependencyManagement>
 			<dependencies>
+			<dependency>
+				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<artifactId>pubman_util</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>jar</type>
+			</dependency>
 				<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>aa_logic</artifactId>
