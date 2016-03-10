@@ -45,34 +45,52 @@
 		<module>common_services/common_presentation</module>
 		<module>common_services/citation_style_language_manager</module>
 		<module>common_services/citationmanager</module>
+		<!--  
 		<module>common_services/citationmanager_ear</module>
-		<module>common_services/validation</module>
+		-->
+		<module>common_services/validation</module>		
+		<!--
 		<module>common_services/validation_ear</module>
 		<module>common_services/common_logic_ear</module>
+		-->
 		<module>common_services/validation_presentation</module>
-		<module>common_services/structuredexportmanager</module>
+		<module>common_services/structuredexportmanager</module>		
+		<!--
 		<module>common_services/structuredexportmanager_ear</module>
+		-->
 		<module>common_services/search</module>
 		<module>common_services/search_presentation</module>
+		<!-- 
 		<module>common_services/search_ear</module>
+		 -->
 		<module>common_services/cone</module>
 		<module>common_services/cone_presentation</module>
+		<!--  
 		<module>common_services/cone_ear</module>
+		-->
 		<module>common_services/dataacquisition</module>
 		<module>common_services/dataacquisition_presentation</module>
+		<!--  
 		<module>common_services/dataacquisition_ear</module>
+		-->
 		<module>common_services/exportmanager</module>
 		<module>common_services/transformation</module>
+		<!--  
 		<module>common_services/syndication_ear</module>
+		-->
 		<module>common_services/syndication_presentation</module>
 		<module>common_services/reporting</module>
 		<module>common_services/pid_cache_presentation</module>
+		<!--  
 		<module>common_services/pid_cache_ear</module>
+		-->
 		<module>common_services/aa_logic</module>
 		<module>common_services/aa_presentation</module>
 		
 		<module>pubman/pubman_logic</module>
+		<!--  
 		<module>pubman/pubman_logic_ear</module>
+		-->
 		<module>pubman/pubman_presentation</module>
 		<module>pubman/pubman_ear</module>
 		<!-- 
