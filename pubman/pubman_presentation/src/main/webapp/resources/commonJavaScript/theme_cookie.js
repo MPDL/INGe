@@ -492,32 +492,32 @@ function checkForPublicHolidays() {
 			break;
 		case 'greenthursday':
 			if (days_left < 3) {
-//				appendStylesheet('http://localhost/common/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
+//				appendStylesheet('http://localhost/pubman/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
 			}
 			break;
 		case 'karfreyday':
 			if (days_left < 4) {
-//				appendStylesheet('http://localhost/common/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
+//				appendStylesheet('http://localhost/pubman/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
 			}
 			break;
 		case 'karsaturday':
 			if (days_left < 5) {
-//				appendStylesheet('http://localhost/common/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
+//				appendStylesheet('http://localhost/pubman/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
 			}
 			break;
 		case 'eastersaturday':
 			if (days_left < 6) {
-//				appendStylesheet('http://localhost/common/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
+//				appendStylesheet('http://localhost/pubman/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
 			}
 			break;
 		case 'eastersunday':
 			if (days_left < 7) {
-//				appendStylesheet('http://localhost/common/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
+//				appendStylesheet('http://localhost/pubman/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
 			}
 			break;
 		case 'eastermonday':
 			if (days_left < 8) {
-//				appendStylesheet('http://localhost/common/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
+//				appendStylesheet('http://localhost/pubman/resources/cssFramework/themes/skin_darkGrey/styles/easter.css');
 			}
 			break;
 		case 'motherday':

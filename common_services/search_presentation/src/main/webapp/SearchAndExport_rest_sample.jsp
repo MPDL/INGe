@@ -50,7 +50,7 @@
 	<head>
 		<title>eSciDoc SearchAndExport Service</title>
 		
-		<link href="<%= PropertyReader.getProperty("escidoc.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 		
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>

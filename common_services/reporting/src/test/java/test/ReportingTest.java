@@ -35,10 +35,12 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.reporting.ReportFHI;
 
+@Ignore
 public class ReportingTest {
 
   @SuppressWarnings("unused")

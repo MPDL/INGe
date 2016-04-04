@@ -80,7 +80,7 @@ public class Configuration
     
     // URL for stylesheets in common-presentation
     public static final String KEY_PUBMAN_PRESENTATION_URL = "escidoc.pubman.common.presentation.url";
-    public static final String KEY_COMMON_PRESENTATION_URL = "escidoc.common.presentation.url";
+    public static final String KEY_COMMON_PRESENTATION_URL = "escidoc.pubman.presentation.url";
     
     public static final String KEY_CORESERVICE_URL = "escidoc.framework_access.framework.url";
     public static final String KEY_CORESERVICE_LOGIN_URL = "escidoc.framework_access.login.url";
