@@ -42,7 +42,7 @@
 		<module>common_services/pubman_util</module>
 		<module>common_services/framework_access</module>
 		<module>common_services/common_logic</module>
-		<module>common_services/common_presentation</module>
+		<!--  module>common_services/common_presentation</module-->
 		<module>common_services/citation_style_language_manager</module>
 		<module>common_services/citationmanager</module>
 
