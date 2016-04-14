@@ -30,9 +30,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<artifactId>pubman</artifactId>
+		<artifactId>INGe</artifactId>
 		<version>7.10.3-SNAPSHOT</version>
-		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
@@ -42,9 +41,9 @@
 	<packaging>war</packaging>
 	
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/pid_cache_presentation</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/pid_cache_presentation</developerConnection>
-		<url>https://github.com/MPDL-Collections/PubMan/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe/pid_cache_presentation</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/pid_cache_presentation</developerConnection>
+		<url>https://github.com/MPDL-Collections/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 	

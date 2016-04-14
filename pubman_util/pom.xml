@@ -4,9 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<artifactId>pubman</artifactId>
+		<artifactId>INGe</artifactId>
 		<version>7.10.3-SNAPSHOT</version>
-		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 

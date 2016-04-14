@@ -3,9 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<artifactId>pubman</artifactId>
+		<artifactId>INGe</artifactId>
 		<version>7.10.3-SNAPSHOT</version>
-		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>citation_style_language_manager</artifactId>
@@ -14,9 +13,9 @@
 	<url>http://maven.apache.org</url>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citation_style_language_manager</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan/common_services/citation_style_language_manager</developerConnection>
-		<url>https://github.com/MPDL-Collections/PubMan/</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe/citation_style_language_manager</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/citation_style_language_manager</developerConnection>
+		<url>https://github.com/MPDL-Collections/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
 
