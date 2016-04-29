@@ -23,7 +23,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
-	<artifactId>pubman</artifactId>
+	<artifactId>INGe</artifactId>
 	<packaging>pom</packaging>
 	<version>7.10.3-SNAPSHOT</version>
 	<name>INGe</name>
@@ -39,40 +39,30 @@
 	</description>
 	
 	<modules>
-		<module>common_services/pubman_util</module>
-		<module>common_services/framework_access</module>
-		<module>common_services/common_logic</module>
-		<module>common_services/common_presentation</module>
-		<module>common_services/citation_style_language_manager</module>
-		<module>common_services/citationmanager</module>
-
-		<module>common_services/validation</module>		
-
-		<module>common_services/validation_presentation</module>
-		<module>common_services/structuredexportmanager</module>		
-
-		<module>common_services/search</module>
-		<module>common_services/search_presentation</module>
-
-		<module>common_services/cone</module>
-
-		<module>common_services/dataacquisition</module>
-		<module>common_services/dataacquisition_presentation</module>
-
-		<module>common_services/exportmanager</module>
-		<module>common_services/transformation</module>
-
-		<module>common_services/syndication_presentation</module>
-		<module>common_services/reporting</module>
-		<module>common_services/pid_cache_presentation</module>
-
-		<module>common_services/aa_logic</module>
-		<module>common_services/aa_presentation</module>
+		<module>pubman_util</module>
+		<module>framework_access</module>
+		<module>common_logic</module>
+		<module>citation_style_language_manager</module>
+		<module>citationmanager</module>
+		<module>validation</module>		
+		<module>validation_presentation</module>
+		<module>structuredexportmanager</module>		
+		<module>search</module>
+		<module>search_presentation</module>
+		<module>cone</module>
+		<module>dataacquisition</module>
+		<module>dataacquisition_presentation</module>
+		<module>exportmanager</module>
+		<module>transformation</module>
+		<module>syndication_presentation</module>
+		<module>reporting</module>
+		<module>pid_cache_presentation</module>
+		<module>aa_logic</module>
+		<module>aa_presentation</module>
 		
-		<module>pubman/pubman_logic</module>
-
-		<module>pubman/pubman_presentation</module>
-		<module>pubman/pubman_ear</module>
+		<module>pubman_logic</module>
+		<module>pubman_presentation</module>
+		<module>pubman_ear</module>
 		<!-- 
 		<module>pubman/pubman_installer</module>
 		 -->

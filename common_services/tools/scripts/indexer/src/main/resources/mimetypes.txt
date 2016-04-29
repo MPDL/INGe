@@ -1,5 +1,0 @@
-text/plain 
-application/pdf 
-application/msword 
-text/xml 
-application/xml

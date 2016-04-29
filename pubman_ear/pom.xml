@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.org/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<artifactId>INGe</artifactId>
+		<version>7.10.3-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+	<artifactId>pubman_ear</artifactId>
+	<name>pubman_ear</name>
+	<packaging>ear</packaging>
+	<version>7.10.3-SNAPSHOT</version>
+	<scm>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_ear</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_ear</developerConnection>
+		<url>https://github.com/MPDL-Collections/INGe/</url>
+	  <tag>HEAD</tag>
+  </scm>
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<applicationName>pubman_ear</applicationName>
+					<classifier>${escidoc.pubman.build.mode}</classifier>
+					<displayName>pubman</displayName>
+					<description>Pubman</description>
+					
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
+					<packagingExcludes>./*.properties</packagingExcludes>
+					<packagingExcludes>${additionalEarExcludes}</packagingExcludes>
+					<version>6</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<!-- 
+					<jboss>
+						<data-sources>
+							<data-source>validation-ds.xml</data-source>
+							<data-source>pid-cache-ds.xml</data-source>
+						
+						</data-sources>
+					
+					</jboss>
+					-->
+					<modules>
+						<!-- Make hsqldb jar a module in main ear directory, in order to use it as driver -->
+						<!-- 
+						<jarModule>
+							<groupId>org.hsqldb</groupId>
+							<artifactId>hsqldb</artifactId>
+							<bundleDir>.</bundleDir>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						-->
+						
+						<webModule>
+						
+							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+							<artifactId>pubman_presentation</artifactId>
+							<contextRoot>/pubman</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>cone_presentation</artifactId>
+							<contextRoot>/cone</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>aa_presentation</artifactId>
+							<contextRoot>/auth</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>search_presentation</artifactId>
+							<contextRoot>/search</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>syndication_presentation</artifactId>
+							<contextRoot>/syndication</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>validation_presentation</artifactId>
+							<contextRoot>/validation</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>dataacquisition_presentation</artifactId>
+							<contextRoot>/dataacquisition</contextRoot>
+						</webModule>
+						<!--  
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>sword_presentation</artifactId>
+							<contextRoot>/sword-app</contextRoot>
+						</webModule>
+						-->
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>pid_cache_presentation</artifactId>
+							<contextRoot>/pidcache</contextRoot>
+							<excluded>${exclude.module}</excluded>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>common_presentation</artifactId>
+							<contextRoot>/common</contextRoot>
+						</webModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>common_logic</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>search</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>dataacquisition</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+							<artifactId>pubman_logic</artifactId>
+							<moduleId>pubman_logic</moduleId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>citationmanager</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>structuredexportmanager</artifactId>                          
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>validation</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<artifactId>transformation</artifactId>
+						</ejbModule>
+					</modules>
+					
+				</configuration>
+				
+				
+			</plugin>
+	
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+					<items>
+						<item>timestamp</item>
+					</items>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+      			<artifactId>maven-resources-plugin</artifactId>
+      			<configuration>
+	       			<encoding>UTF-8</encoding>
+	        		<nonFilteredFileExtensions>
+	          			<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+	        		</nonFilteredFileExtensions>
+				</configuration>
+    		</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+	
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>common_logic</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citationmanager</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>dataacquisition</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>structuredexportmanager</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>validation</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>validation_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>cone_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>cone</artifactId>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>dataacquisition_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>transformation</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>aa_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>search</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>search_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>syndication_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<artifactId>pubman_logic</artifactId>
+			<version>7.10.3-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<artifactId>pubman_presentation</artifactId>
+			<version>7.10.3-SNAPSHOT</version>
+			<classifier>${escidoc.pubman.build.mode}</classifier>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<!--  
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>sword_presentation</artifactId>
+			<version>1.0.68-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>pid_cache_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>common_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+		<dependency>
+  			<!-- Override managed version for Jsoup -->
+  			<groupId>org.jsoup</groupId>
+  			<artifactId>jsoup</artifactId>
+  			<version>1.7.3</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<profiles>
+	
+		<profile>
+			<id>env-pure</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>			
+		</profile>
+		
+		<profile>
+			<id>env-opensource</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>	
+			<properties>
+				<escidoc.pubman.build.mode />
+				<escidoc.pubman.build.hyphen />
+				<exclude.module>true</exclude.module>	
+			</properties>	
+		</profile>
+
+		<profile>
+			<id>env-nims</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>			
+			<properties>
+				<exclude.module>true</exclude.module>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>deploy-artifacts</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>					 
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+									
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
+										<!-- configuration for the deploy jboss server -->
+										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
+										<!-- copy over the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/modules/pubman/main" />
+										
+										<copy overwrite="true" file="${project.build.directory}/classes/solution.properties" todir="${jboss.install.dir}/modules/pubman/main" />
+										<!-- copy over the aa configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/modules/pubman/main/cone.properties" />
+										<!-- copy over the aa configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/modules/pubman/main" />
+										<!-- copy over the aa configuration xml -->
+										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										<!-- copy over the validation datasource descriptor -->
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
+										<!-- copy over the apache FOP configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										<!-- configuration for the runtime server jboss server -->
+										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" /> <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml"> 
+											</copy> -->
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-trax</artifactId>
+								<version>1.6.5</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	
+		<profile>
+			<id>env-testing-continuum</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
+				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
+			</properties>
+			<build>
+				<plugins>					 
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+									
+										<scp file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}" todir="${jboss.user.scp}:${jboss.install.dir}/standalone/deployments" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- configuration for the deploy jboss server -->
+										<scp file="${project.build.directory}/classes/module.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
+										<!-- copy over the configuration file -->
+										<scp file="${project.build.directory}/classes/pubman.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										
+										<scp file="${project.build.directory}/classes/solution.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- copy over the aa configuration file -->
+										<scp file="${project.build.directory}/classes/auth.properties" remoteTofile="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main/cone.properties" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- copy over the aa configuration file -->
+										<scp file="${project.build.directory}/classes/auth.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- copy over the aa configuration xml -->
+										<scp file="${project.build.directory}/classes/conf.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- copy over the validation datasource descriptor -->
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" />-->
+										<!-- copy over the apache FOP configuration file -->
+										<scp file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- configuration for the runtime server jboss server -->
+										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" /> <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml"> 
+											</copy> -->
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-trax</artifactId>
+								<version>1.6.5</version>
+							</dependency> 
+							<dependency>
+								<groupId>org.apache.ant</groupId>
+								<artifactId>ant-jsch</artifactId>
+								<version>1.9.6</version>
+							</dependency>
+							<dependency>
+								<groupId>com.jcraft</groupId>
+								<artifactId>jsch</artifactId>
+								<version>0.1.53</version>
+							</dependency>
+					
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+		<!-- For PubMan instance which runs on its own in wildfly, without escidoc-core -->
+			<id>standalone</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<additionalEarExcludes>**/jboss-all.xml</additionalEarExcludes>
+			</properties>
+			
+		</profile>
+		</profiles>
+</project>
