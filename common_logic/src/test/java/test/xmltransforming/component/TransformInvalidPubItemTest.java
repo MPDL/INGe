@@ -31,18 +31,18 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import test.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test cases for the method transformToPubItem of the interface XmlTransforming. The main purpose
@@ -166,7 +166,6 @@ public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
 
       if (pubItem.getMetadata().getEvent() == null) {
         EventVO eventVO = new EventVO();
-        eventVO.setTitle(new TextVO());
         pubItem.getMetadata().setEvent(eventVO);
       }
 
@@ -177,7 +176,7 @@ public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
 
       // add Abstract if needed to be able to bind uiComponents to it
       if (pubItem.getMetadata().getAbstracts().size() == 0) {
-        pubItem.getMetadata().getAbstracts().add(new TextVO());
+        pubItem.getMetadata().getAbstracts().add(new AbstractVO());
       }
     }
   }

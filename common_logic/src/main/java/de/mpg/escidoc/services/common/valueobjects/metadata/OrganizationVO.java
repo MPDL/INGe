@@ -46,7 +46,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
   private static final long serialVersionUID = 1L;
   private String address;
   private String identifier;
-  private TextVO name;
+  private String name;
 
   /**
    * Delivers the address of the organization as used in the item.
@@ -66,7 +66,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    * Delivers the name of the organization as used in the item.
    */
 
-  public TextVO getName() {
+  public String getName() {
     return name;
   }
 
@@ -84,7 +84,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    * 
    * @param newVal
    */
-  public void setName(TextVO newVal) {
+  public void setName(String newVal) {
     name = newVal;
   }
 
@@ -101,7 +101,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
       clone.setIdentifier(getIdentifier());
     }
     if (getName() != null) {
-      clone.setName((TextVO) getName().clone());
+      clone.setName(getName());
     }
     return clone;
   }

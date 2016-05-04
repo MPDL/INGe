@@ -58,7 +58,8 @@
 	<include path="PublishingInfoVO_binding.xml" />
 	<include path="../ReferenceObject_binding.xml" />
 	<include path="SourceVO_binding_abstract.xml" />	
-	<include path="TextVO_binding.xml" />
+	<include path="AbstractVO_binding.xml" />
+	<include path="AlternativeTitleVO_binding.xml" />
 	<include path="ProjectInfoVO_binding.xml" />
 
 	<mapping name="publication" ns="${xsd.metadata.publication}"
@@ -88,7 +89,7 @@
 
 
 		<!-- Node: item.md-records.md-record.publication.title -->
-		<!-- Field: PubItemVO.metadata.title [TextVO] (inherited from superclass MetadataSetVO)-->
+		<!-- Field: PubItemVO.metadata.title [String] (inherited from superclass MetadataSetVO)-->
 		<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" />
 
 
@@ -109,12 +110,12 @@
 
 
 		<!-- Node: item.md-records.md-record.publication.alternative(*) -->
-		<!-- Field: PubItemVO.metadata.alternativeTitles [List<TextVO>]-->
+		<!-- Field: PubItemVO.metadata.alternativeTitles [List<AlternativeTitleVO>]-->
 		<!-- 
 		<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
-				type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+				type="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 					usage="optional" />
 				<value style="text" field="value" usage="optional" />
@@ -122,9 +123,9 @@
 		</collection>
 		 -->
 		<collection field="alternativeTitles"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO" />
+				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO" />
 		</collection>
 
 
@@ -222,18 +223,14 @@
 
 			<!-- Field: PubItemVO.metadata.event.title -->
 			<!-- Node: item.md-records.md-record.publication.event.title -->
-			<structure name="title" ns="${xsd.metadata.dc}" field="title">
-				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
-					usage="optional" />
-				<value style="text" field="value" usage="optional" />
-			</structure>
+			<value name="title" ns="${xsd.metadata.dc}" field="title"  usage="optional" />
 
 			<!-- Node: item.md-records.md-record.publication.event.alternative(*) -->
 			<!-- Field: PubItemVO.metadata.event.alternativeTitles -->
 			<collection field="alternativeTitles"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 				<structure name="alternative" ns="${xsd.metadata.dcterms}"
-					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+					type="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO">
 					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 						usage="optional" />
 					<value style="text" field="value" usage="optional" />
@@ -261,8 +258,8 @@
 			</structure>
 
 			<!-- Node: item.md-records.md-record.publication.event.place -->
-			<!-- Field: PubItemVO.metadata.event.place [TextVO] -->
-			<structure name="place" ns="${xsd.metadata.escidocprofile.types}" field="place" usage="optional"/>
+			<!-- Field: PubItemVO.metadata.event.place [String] -->
+			<value style="element" name="place" ns="${xsd.metadata.escidocprofile.types}" field="place" usage="optional" />
 
 			<!-- Node: item.md-records.md-record.publication.event.invitation-status -->
 			<!-- Field: PubItemVO.metadata.event.invitationStatus -->
@@ -320,11 +317,11 @@
 
 
 		<!-- Node: item.md-records.md-record.publication.abstract(*) -->
-		<!-- Field: PubItemVO.metadata.abstracts [List<TextVO>] -->
+		<!-- Field: PubItemVO.metadata.abstracts [List<AbstractVO>] -->
 		<collection field="abstracts"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.abstractVOListFactory" usage="optional">
 			<structure name="abstract" ns="${xsd.metadata.dcterms}"
-				type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+				type="de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 					usage="optional" />
 				<value style="text" field="value" usage="optional" />
@@ -333,20 +330,20 @@
 
 
 		<!-- Node: item.md-records.md-record.publication.subject -->
-		<!-- Field: PubItemVO.metadata.subject [TextVO] -->
-        <structure name="subject" ns="${xsd.metadata.dcterms}" field="freeKeywords" usage="optional"/>
+		<!-- Field: PubItemVO.metadata.subject [String] -->
+        <value style="element" name="subject" ns="${xsd.metadata.dcterms}" field="freeKeywords" usage="optional"/>
 
         <!-- Node: item.md-records.md-record.publication.DDC -->
 		<!-- Field: PubItemVO.metadata.subjects -->
 		<collection field="subjects"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.subjectVOListFactory" usage="optional">
 			<structure name="subject" ns="${xsd.metadata.dc}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO"/>
+				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO" />
 		</collection>
 		
 		<!-- Node: item.md-records.md-record.publication.tableOfContents -->
-		<!-- Field: PubItemVO.metadata.tableOfContents [TextVO] -->
-        <structure name="tableOfContents" ns="${xsd.metadata.dcterms}" field="tableOfContents" usage="optional"/>
+		<!-- Field: PubItemVO.metadata.tableOfContents [String] -->
+        <value style="element" name="tableOfContents" ns="${xsd.metadata.dcterms}" field="tableOfContents" usage="optional"/>
 		
 
 		<!-- Node: item.md-records.md-record.publication.location -->

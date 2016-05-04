@@ -56,7 +56,6 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.util.PropertyReader;
 
@@ -174,7 +173,7 @@ public class ZfNProcessor extends FormatProcessor {
       fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileVO.Visibility.PUBLIC);
       fileVO.setDefaultMetadata(mdSet);
-      fileVO.getDefaultMetadata().setTitle(new TextVO(this.getCurrentFile()));
+      fileVO.getDefaultMetadata().setTitle(this.getCurrentFile());
       fileVO.setMimeType(mimeType);
       fileVO.setName(this.getCurrentFile());
       fileVO.setContent(fileURL.toString());

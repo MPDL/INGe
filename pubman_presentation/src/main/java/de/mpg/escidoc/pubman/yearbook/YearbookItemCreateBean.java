@@ -17,11 +17,9 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
-import de.mpg.escidoc.pubman.itemList.ItemList;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
@@ -31,7 +29,6 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
@@ -42,14 +39,10 @@ import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selecto
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.util.PropertyReader;
 
 public class YearbookItemCreateBean extends FacesBean {
@@ -239,11 +232,11 @@ public class YearbookItemCreateBean extends FacesBean {
       MdsYearbookVO mds = new MdsYearbookVO();
       pubItem.getMetadataSets().add(mds);
       // Metadata set title
-      mds.setTitle(new TextVO(getTitle()));
+      mds.setTitle(getTitle());
       // Metadata set creators
       CreatorVO creatorVO = new CreatorVO();
       OrganizationVO orgUnit = new OrganizationVO();
-      orgUnit.setName(new TextVO(getAffiliation().getDefaultMetadata().getName()));
+      orgUnit.setName(getAffiliation().getDefaultMetadata().getName());
       orgUnit.setIdentifier(getAffiliation().getReference().getObjectId());
       creatorVO.setOrganization(orgUnit);
       mds.getCreators().add(creatorVO);

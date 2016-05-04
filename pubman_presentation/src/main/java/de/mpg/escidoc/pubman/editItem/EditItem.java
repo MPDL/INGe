@@ -64,13 +64,9 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
-import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
-import de.mpg.escidoc.pubman.editItem.bean.ContentSubjectCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
-import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
-import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
@@ -95,6 +91,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -104,7 +101,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
@@ -163,12 +159,8 @@ public class EditItem extends FacesBean {
   /** pub context name. */
   private String contextName = null;
   // FIXME delegated internal collections
-  private TitleCollection titleCollection;
   private String hiddenAlternativeTitlesField;
 
-  private TitleCollection eventTitleCollection;
-  private ContentAbstractCollection contentAbstractCollection;
-  private ContentSubjectCollection contentSubjectCollection;
   private IdentifierCollection identifierCollection;
   private List<ListItem> languages = null;
   // private UploadedFile uploadedFile;
@@ -246,12 +238,6 @@ public class EditItem extends FacesBean {
     // this.getContentSubjectCollection().getContentSubjectManager().getObjectDM().getRowCount();
 
     // FIXME provide access to parts of my VO to specialized POJO's
-    this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
-    this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
-    this.contentAbstractCollection =
-        new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
-    this.contentSubjectCollection =
-        new ContentSubjectCollection(this.getPubItem().getMetadata().getSubjects());
     this.identifierCollection =
         new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
     if (logger.isDebugEnabled()) {
@@ -345,13 +331,13 @@ public class EditItem extends FacesBean {
               && creatorVO.getPerson().getOrganizations() != null) {
             for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations()) {
               if (organizationVO.getName() == null) {
-                organizationVO.setName(new TextVO());
+                organizationVO.setName("");
               }
             }
           } else if (creatorVO.getType() == CreatorType.ORGANIZATION
               && creatorVO.getOrganization() != null
               && creatorVO.getOrganization().getName() == null) {
-            creatorVO.getOrganization().setName(new TextVO());
+            creatorVO.getOrganization().setName("");
           }
         }
       }
@@ -377,13 +363,13 @@ public class EditItem extends FacesBean {
                 && creatorVO.getPerson().getOrganizations() != null) {
               for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations()) {
                 if (organizationVO.getName() == null) {
-                  organizationVO.setName(new TextVO());
+                  organizationVO.setName("");
                 }
               }
             } else if (creatorVO.getType() == CreatorType.ORGANIZATION
                 && creatorVO.getOrganization() != null
                 && creatorVO.getOrganization().getName() == null) {
-              creatorVO.getOrganization().setName(new TextVO());
+              creatorVO.getOrganization().setName("");
             }
           }
         }
@@ -429,8 +415,7 @@ public class EditItem extends FacesBean {
             && locatorpres.getFile().getName() != null) {
           locatorpres.setLocator(locatorpres.getFile().getName().trim());
           locatorpres.getFile().getMetadataSets().add(new MdsFileVO());
-          locatorpres.getFile().getDefaultMetadata()
-              .setTitle(new TextVO(locatorpres.getFile().getName()));
+          locatorpres.getFile().getDefaultMetadata().setTitle(locatorpres.getFile().getName());
         }
         // And here it ends
         locators.add(locatorpres);
@@ -508,9 +493,9 @@ public class EditItem extends FacesBean {
         for (PubFileVOPresentation loc : locators) {
           // add name from content if not available
           MdsFileVO defaultMetadata = loc.getFile().getDefaultMetadata();
-          TextVO title = defaultMetadata.getTitle();
-          if (title == null || title.getValue() == null || title.getValue().trim().equals("")) {
-            defaultMetadata.setTitle(new TextVO(loc.getFile().getContent()));
+          String title = defaultMetadata.getTitle();
+          if (title == null || title.trim().equals("")) {
+            defaultMetadata.setTitle(loc.getFile().getContent());
           }
           /*
            * if (defaultMetadata.getDescription() == null ||
@@ -1120,10 +1105,6 @@ public class EditItem extends FacesBean {
    */
   private void cleanEditItem() {
     this.item = null;
-    this.titleCollection = null;
-    this.eventTitleCollection = null;
-    this.contentAbstractCollection = null;
-    this.contentSubjectCollection = null;
     this.identifierCollection = null;
     this.languages = null;
     // this.uploadedFile = null;
@@ -1295,7 +1276,7 @@ public class EditItem extends FacesBean {
                     false));
         fileVO.getDefaultMetadata().setSize((int) file.getSize());
         fileVO.setName(fixedFileName);
-        fileVO.getDefaultMetadata().setTitle(new TextVO(fixedFileName));
+        fileVO.getDefaultMetadata().setTitle(fixedFileName);
 
 
 
@@ -1444,15 +1425,15 @@ public class EditItem extends FacesBean {
       if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile()
           .getDefaultMetadata().getTitle() == null
           || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile()
-              .getDefaultMetadata().getTitle().getValue().trim().equals("")) {
+              .getDefaultMetadata().getTitle().trim().equals("")) {
         this.getEditItemSessionBean()
             .getLocators()
             .get(indexUpload)
             .getFile()
             .getDefaultMetadata()
             .setTitle(
-                new TextVO(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile()
-                    .getContent().trim()));
+                this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent()
+                    .trim());
       }
       List<PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
       PubFileVOPresentation pubFile = list.get(indexUpload);
@@ -1840,36 +1821,28 @@ public class EditItem extends FacesBean {
     this.lnkSaveAndSubmit = lnkSaveAndSubmit;
   }
 
-  public TitleCollection getEventTitleCollection() {
-    return this.eventTitleCollection;
+  // public TitleCollection getEventTitleCollection() {
+  // return this.eventTitleCollection;
+  // }
+
+  public String getEventTitle() {
+    if (this.getPubItem().getMetadata().getEvent() != null
+        && this.getPubItem().getMetadata().getEvent().getTitle() != null) {
+      return this.getPubItem().getMetadata().getEvent().getTitle();
+    } else {
+      return "";
+    }
   }
 
-  public void setEventTitleCollection(TitleCollection eventTitleCollection) {
-    this.eventTitleCollection = eventTitleCollection;
-  }
+  // public void setEventTitleCollection(TitleCollection eventTitleCollection) {
+  // this.eventTitleCollection = eventTitleCollection;
+  // }
 
-  public TitleCollection getTitleCollection() {
-    return this.titleCollection;
-  }
-
-  public void setTitleCollection(TitleCollection titleCollection) {
-    this.titleCollection = titleCollection;
-  }
-
-  public ContentAbstractCollection getContentAbstractCollection() {
-    return this.contentAbstractCollection;
-  }
-
-  public void setContentAbstractCollection(ContentAbstractCollection contentAbstractCollection) {
-    this.contentAbstractCollection = contentAbstractCollection;
-  }
-
-  public ContentSubjectCollection getContentSubjectCollection() {
-    return contentSubjectCollection;
-  }
-
-  public void setContentSubjectCollection(ContentSubjectCollection contentSubjectCollection) {
-    this.contentSubjectCollection = contentSubjectCollection;
+  public void setEventTitle(String title) {
+    if (this.getPubItem().getMetadata().getEvent() != null
+        && this.getPubItem().getMetadata().getEvent().getTitle() != null) {
+      this.getPubItem().getMetadata().getEvent().setTitle(title);
+    }
   }
 
   public IdentifierCollection getIdentifierCollection() {
@@ -2216,31 +2189,30 @@ public class EditItem extends FacesBean {
    */
   public String parseAndSetAlternativeTitles() {
     // clear old alternative titles
-    AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
-    altTitleManager.getObjectList().clear();
+    List<AlternativeTitleVO> altTitleList = this.getPubItem().getMetadata().getAlternativeTitles();
+    altTitleList.clear();
 
     // clear old identifiers
     IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
     idManager.getObjectList().clear();
 
     if (!getHiddenAlternativeTitlesField().trim().equals("")) {
-      altTitleManager.getObjectList().addAll(
-          parseAlternativeTitles(getHiddenAlternativeTitlesField()));
+      altTitleList.addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
     }
     return "";
   }
 
-  public static List<TextVO> parseAlternativeTitles(String titleList) {
-    List<TextVO> list = new ArrayList<TextVO>();
+  public static List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
+    List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
     String[] alternativeTitles = titleList.split(HIDDEN_DELIMITER);
     for (int i = 0; i < alternativeTitles.length; i++) {
       String[] parts = alternativeTitles[i].trim().split(AUTOPASTE_INNER_DELIMITER);
       String alternativeTitleType = parts[0].trim();
       String alternativeTitle = parts[1].trim();
       if (!alternativeTitle.equals("")) {
-        TextVO textVO = new TextVO(alternativeTitle);
-        textVO.setType(alternativeTitleType);
-        list.add(textVO);
+        AlternativeTitleVO alternativeTitleVO = new AlternativeTitleVO(alternativeTitle);
+        alternativeTitleVO.setType(alternativeTitleType);
+        list.add(alternativeTitleVO);
       }
     }
     return list;

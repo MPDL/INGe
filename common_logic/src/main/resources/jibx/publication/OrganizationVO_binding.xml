@@ -36,8 +36,8 @@
             type="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO"-->
 
         <!-- Node: item.md-records.md-record.publication.creator(*).organization.organization-name -->
-        <!-- Field: PubItemVO.metadata.creators(*).organization.name [TextVO] -->
-        <structure name="title" ns="${xsd.metadata.dc}" field="name" usage="optional" />
+        <!-- Field: PubItemVO.metadata.creators(*).organization.name [String] -->
+        <value style="element" name="title" ns="${xsd.metadata.dc}" field="name" usage="optional" />
         <value style="element" name="address" ns="${xsd.metadata.escidocprofile.types}" field="address" usage="optional" />
         <value style="element" name="identifier" ns="${xsd.metadata.dc}" field="identifier" usage="optional" />
 

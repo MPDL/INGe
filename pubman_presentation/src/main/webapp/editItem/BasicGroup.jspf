@@ -92,14 +92,11 @@ All rights reserved. Use is subject to license terms.
 				<span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
+				<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.title}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
 			<h:panelGroup rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' and genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' and genre.item_basic_item_title_alternative_form_id == 'all')}">
 				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
-						<f:ajax  render="basic" execute="@form"/>
-					</h:commandButton>
-					<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
+					<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.pubItem.addAlternativeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
 						<f:ajax  render="basic" execute="@form"/>
 					</h:commandButton>
 				</span>
@@ -120,7 +117,7 @@ All rights reserved. Use is subject to license terms.
 				</h:panelGroup>
 
 <!-- Alternative title -->
-		<ui:repeat id="iterAlternativeTitle" var="altTitle" varStatus="status" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' and genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' and genre.item_basic_item_title_alternative_form_id == 'all')}">
+		<ui:repeat id="iterAlternativeTitle" var="altTitle" varStatus="status" value="#{EditItem.pubItem.metadata.alternativeTitles}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' and genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' and genre.item_basic_item_title_alternative_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -140,7 +137,7 @@ All rights reserved. Use is subject to license terms.
 										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 									</h:panelGroup>
 									<h:selectOneMenu id="selSelectAlternativeTitleType" styleClass="replace" value="#{altTitle.type}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
-										<f:selectItems value="#{EditItem.titleCollection.alternativeTitleManager.alternativeTitleTypes}" />
+										<f:selectItems value="#{EditItem.pubItem.alternativeTitleTypes}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
 							<!--
@@ -154,10 +151,10 @@ All rights reserved. Use is subject to license terms.
 							</h:panelGroup>
 						</span>
 				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnAddAlternativeTitle" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObjectAtIndex(status.index)}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
+					<h:commandButton id="btnAddAlternativeTitle" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAltTitle}" action="#{EditItem.pubItem.addAlternativeTitleAtIndex(status.index)}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
 						<f:ajax render="form1:basic" execute="@form"/>
 					</h:commandButton>
-					<h:commandButton id="btnRemoveAlternativeTitle" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObjectAtIndex(status.index)}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
+					<h:commandButton id="btnRemoveAlternativeTitle" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAltTitle}" action="#{EditItem.pubItem.removeAlternativeTitleAtIndex(status.index)}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}">
 						<f:ajax render="form1:basic" execute="@form"/>
 					</h:commandButton>
 				</span>

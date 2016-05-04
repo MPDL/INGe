@@ -73,7 +73,7 @@ public class MdsYearbookVO extends MetadataSetVO implements Cloneable {
    * @param other The instance to copy.
    */
   public MdsYearbookVO(MdsYearbookVO other) {
-    super(other);
+    super(other.getTitle());
     for (CreatorVO creator : other.getCreators()) {
       getCreators().add((CreatorVO) creator.clone());
     }

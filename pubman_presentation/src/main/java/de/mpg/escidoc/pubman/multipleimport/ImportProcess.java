@@ -725,13 +725,13 @@ public class ImportProcess extends Thread {
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
                 log.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected");
                 log.addDetail(ErrorLevel.PROBLEM, duplicatePubItemVO.getVersion().getObjectId()
-                    + " \"" + duplicatePubItemVO.getMetadata().getTitle().getValue() + "\"",
+                    + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
                     duplicatePubItemVO.getVersion().getObjectId());
                 return true;
               } else {
                 log.addDetail(ErrorLevel.WARNING, "import_process_duplicate_detected");
                 log.addDetail(ErrorLevel.WARNING, duplicatePubItemVO.getVersion().getObjectId()
-                    + " \"" + duplicatePubItemVO.getMetadata().getTitle().getValue() + "\"",
+                    + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
                     duplicatePubItemVO.getVersion().getObjectId());
               }
             } else {

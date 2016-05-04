@@ -18,7 +18,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorTyp
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.transformation.util.creators.Author;
 import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
 
@@ -80,7 +79,7 @@ public class EditItemBean extends FacesBean {
             if (!organizationPresentation.isEmpty()) {
               organizationPresentation.setBean(this);
               if (organizationPresentation.getName() == null) {
-                organizationPresentation.setName(new TextVO());
+                organizationPresentation.setName("");
               }
               creatorOrganizations.add(organizationPresentation);
               counter++;
@@ -190,10 +189,8 @@ public class EditItemBean extends FacesBean {
       if (CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
         creatorVO =
             new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
-        if (creatorVO.getOrganization() != null
-            && creatorVO.getOrganization().getName() != null
-            && (creatorVO.getOrganization().getName().getValue() == null || "".equals(creatorVO
-                .getOrganization().getName().getValue()))) {
+        if (creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() != null
+            || "".equals(creatorVO.getOrganization().getName())) {
           creatorVO.getOrganization().setName(null);
         }
       } else {
@@ -309,8 +306,8 @@ public class EditItemBean extends FacesBean {
           && "".equals(creatorVO.getPerson().getFamilyName())
           && "".equals(creatorVO.getPerson().getGivenName())
           && (creatorVO.getPerson().getOrganizations().isEmpty()
-              || creatorVO.getPerson().getOrganizations().get(0).getName().getValue() == null || ""
-                .equals(creatorVO.getPerson().getOrganizations().get(0).getName().getValue()))) {
+              || creatorVO.getPerson().getOrganizations().get(0).getName() == null || ""
+                .equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
         getCreators().remove(creatorVO);
       }
       // creator is an organisation

@@ -60,7 +60,7 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
       if (itemVO.getMetadata().getSources().size() > 0) {
         source = itemVO.getMetadata().getSources().get(0);
       }
-      logger.debug((source != null ? source.getTitle().getValue() : "null") + " ("
+      logger.debug((source != null ? source.getTitle() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"1", "1", "2", "3", "4"};
@@ -80,7 +80,7 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
       if (itemVO.getMetadata().getSources().size() > 0) {
         source = itemVO.getMetadata().getSources().get(0);
       }
-      logger.debug((source != null ? source.getTitle().getValue() : "null") + " ("
+      logger.debug((source != null ? source.getTitle() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "3", "2", "1", "1"};

@@ -95,7 +95,7 @@ public class AcceptItem extends FacesBean {
         }
       } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION) {
         if (creator.getOrganization().getName() != null) {
-          creators.append(creator.getOrganization().getName().getValue());
+          creators.append(creator.getOrganization().getName());
         }
       }
     }

@@ -36,7 +36,6 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -230,11 +229,9 @@ public class PubItemVOComparator implements Comparator<PubItemVO> {
     if (source2 == null) {
       return LESS;
     }
-    TextVO title1 = source1.getTitle();
-    TextVO title2 = source2.getTitle();
-    String value1 = title1.getValue();
-    String value2 = title2.getValue();
-    return value1.compareToIgnoreCase(value2);
+    String title1 = source1.getTitle();
+    String title2 = source2.getTitle();
+    return title1.compareToIgnoreCase(title2);
   }
 
   /**
@@ -279,8 +276,8 @@ public class PubItemVOComparator implements Comparator<PubItemVO> {
    *         otherwise.
    */
   private int compareTitle(PubItemVO pubItem1, PubItemVO pubItem2) {
-    String title1 = pubItem1.getMetadata().getTitle().getValue();
-    String title2 = pubItem2.getMetadata().getTitle().getValue();
+    String title1 = pubItem1.getMetadata().getTitle();
+    String title2 = pubItem2.getMetadata().getTitle();
     return title1.compareToIgnoreCase(title2);
   }
 
@@ -334,14 +331,14 @@ public class PubItemVOComparator implements Comparator<PubItemVO> {
       value1 = creator1.getPerson().getFamilyName();
     } else if (creator1.getOrganization() != null) {
       if (creator1.getOrganization().getName() != null) {
-        value1 = creator1.getOrganization().getName().getValue();
+        value1 = creator1.getOrganization().getName();
       }
     }
     if (creator2.getPerson() != null) {
       value2 = creator2.getPerson().getFamilyName();
     } else if (creator2.getOrganization() != null) {
       if (creator2.getOrganization().getName() != null) {
-        value2 = creator2.getOrganization().getName().getValue();
+        value2 = creator2.getOrganization().getName();
       }
     }
     if (value1 == null && value2 == null) {
@@ -419,11 +416,9 @@ public class PubItemVOComparator implements Comparator<PubItemVO> {
     if (event2 == null) {
       return LESS;
     }
-    TextVO title1 = event1.getTitle();
-    TextVO title2 = event2.getTitle();
-    String value1 = title1.getValue();
-    String value2 = title2.getValue();
-    return value1.compareToIgnoreCase(value2);
+    String title1 = event1.getTitle();
+    String title2 = event2.getTitle();
+    return title1.compareToIgnoreCase(title2);
 
   }
 
@@ -468,8 +463,7 @@ public class PubItemVOComparator implements Comparator<PubItemVO> {
     {
       assert creator.getOrganization() != null : "Invalid pubItem: Neither person nor organization is set in creator object.";
       creatorname =
-          creator.getOrganization().getName() == null ? null : creator.getOrganization().getName()
-              .getValue();
+          creator.getOrganization().getName() == null ? null : creator.getOrganization().getName();
     }
     return creatorname;
   }

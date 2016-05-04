@@ -53,8 +53,8 @@ public class TitleComparatorTest extends ComparatorTestBase {
     ArrayList<PubItemVO> list = getPubItemList();
     Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.TITLE));
     for (PubItemVO itemVO : list) {
-      logger.debug(itemVO.getMetadata().getTitle().getValue() + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger
+          .debug(itemVO.getMetadata().getTitle() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"3", "2", "1", "1", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -69,8 +69,8 @@ public class TitleComparatorTest extends ComparatorTestBase {
     Collections.sort(list,
         Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.TITLE)));
     for (PubItemVO itemVO : list) {
-      logger.debug(itemVO.getMetadata().getTitle().getValue() + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger
+          .debug(itemVO.getMetadata().getTitle() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "1", "1", "2", "3"};
     assertObjectIdOrder(list, expectedIdOrder);

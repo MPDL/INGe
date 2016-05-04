@@ -301,16 +301,15 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea id="inpEventTitle" styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3" />
+						<h:inputTextarea id="inpEventTitle" styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.event.title}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<h:commandButton id="btnAddTitle" title="#{tip.easy_submission_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" rendered="#{genre.events_event_title_repeatable != 'false'}"/>
-						<h:commandButton id="btnRemoveTitle" title="#{tip.easy_submission_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EasySubmission.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EasySubmission.eventTitleCollection.removeTitle}" rendered="#{genre.events_event_title_repeatable != 'false'}"/>
+						<h:commandButton id="btnAddTitle" title="#{tip.easy_submission_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.item.addEventAlternativeTitleVO}" rendered="#{genre.events_event_title_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 		
 		<!-- Alternative event title -->
-				<ui:repeat var="altTitle" value="#{EasySubmission.eventTitleCollection.alternativeTitleManager.objectDM}">
+				<ui:repeat var="altTitle" value="#{EasySubmission.item.metadata.event.alternativeTitles}" varStatus="status">
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.events_event_title_alternative_display == 'false' and genre.events_event_title_alternative_form_id == 'easy-submission' || genre.events_event_title_alternative_display == 'false' and genre.events_event_title_alternative_form_id == 'all')}">
 						<b class="xLarge_area0_p8 endline labelLine clear">
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -336,7 +335,7 @@
 								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true'}" />
 								<h:outputText value="#{genre.events_event_place_label}"  converter="GenreLabelConverter"/>
 							</h:panelGroup>
-							<h:inputText styleClass="large_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
+							<h:inputText styleClass="large_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place}" />
 						</h:panelGroup>
 						<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_start_date_display == 'false' and genre.events_event_start_date_form_id == 'easy-submission' || genre.events_event_start_date_display == 'false' and genre.events_event_start_date_form_id == 'all')}">
 							<h:panelGroup styleClass="large_area0">

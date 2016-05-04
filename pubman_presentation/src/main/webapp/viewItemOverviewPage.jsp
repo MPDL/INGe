@@ -40,7 +40,7 @@
 			<h:head>
 				<title>
 					<h:outputText
-					value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}"
+					value="#{ViewItemFull.pubItem.metadata.title} :: #{ApplicationBean.appTitle}"
 					converter="HTMLTitleSubSupConverter" />
 				</title>
 				<link rel="unapi-server" type="application/xml" title="unAPI"

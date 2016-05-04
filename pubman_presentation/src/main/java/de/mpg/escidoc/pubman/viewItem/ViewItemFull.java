@@ -109,12 +109,13 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.pubman.DoiRestService;
@@ -1229,7 +1230,7 @@ public class ViewItemFull extends FacesBean {
       for (int k = 0; k < sortOrganizationList.size(); k++) {
         String name =
             sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName()
-                .getValue() : "";
+                : "";
         formattedOrganization =
             "<p>" + (k + 1) + ": " + name + "</p>" + "<p>"
                 + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
@@ -1253,18 +1254,17 @@ public class ViewItemFull extends FacesBean {
     ViewItemOrganization viewOrganization = new ViewItemOrganization();
     // set the organization view object to values from the current temp organization
     if (tempOrganizationListInstance.getName() != null) {
-      viewOrganization.setOrganizationName(tempOrganizationListInstance.getName().getValue());
+      viewOrganization.setOrganizationName(tempOrganizationListInstance.getName());
       // }
       viewOrganization.setOrganizationAddress(tempOrganizationListInstance.getAddress());
       viewOrganization.setOrganizationIdentifier(tempOrganizationListInstance.getIdentifier());
       viewOrganization.setPosition(new Integer(affiliationPosition).toString());
       // if(tempOrganizationList.get(j).getName() != null)
       // {
-      viewOrganization.setOrganizationInfoPage(tempOrganizationListInstance.getName().getValue(),
+      viewOrganization.setOrganizationInfoPage(tempOrganizationListInstance.getName(),
           tempOrganizationListInstance.getAddress());
 
-      viewOrganization.setOrganizationDescription(
-          tempOrganizationListInstance.getName().getValue(),
+      viewOrganization.setOrganizationDescription(tempOrganizationListInstance.getName(),
           tempOrganizationListInstance.getAddress(), tempOrganizationListInstance.getIdentifier());
 
     }
@@ -1413,9 +1413,8 @@ public class ViewItemFull extends FacesBean {
           || (this.pubItem.getMetadata().getTotalNumberOfPages() != null && !this.pubItem
               .getMetadata().getTotalNumberOfPages().trim().equals(""))
           || (this.pubItem.getMetadata().getPublishingInfo() != null)
-          || (this.pubItem.getMetadata().getTableOfContents() != null
-              && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem
-              .getMetadata().getTableOfContents().getValue().trim().equals(""))
+          || (this.pubItem.getMetadata().getTableOfContents() != null && !this.pubItem
+              .getMetadata().getTableOfContents().trim().equals(""))
           || (this.pubItem.getMetadata().getReviewMethod() != null)
           || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata()
               .getIdentifiers().size() > 0)
@@ -2008,13 +2007,11 @@ public class ViewItemFull extends FacesBean {
     this.pubItem = pubItem;
   }
 
-  public ArrayList<TextVO> getAbstracts() {
-    ArrayList<TextVO> abstracts = new ArrayList<TextVO>();
+  public ArrayList<AbstractVO> getAbstracts() {
+    ArrayList<AbstractVO> abstracts = new ArrayList<AbstractVO>();
     if (this.pubItem.getMetadata().getAbstracts() != null) {
       for (int i = 0; i < this.pubItem.getMetadata().getAbstracts().size(); i++) {
-        // abstracts.add(new
-        // TextVO(CommonUtils.htmlEscape(this.pubItem.getMetadata().getAbstracts().get(i).getValue())));
-        abstracts.add(new TextVO(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
+        abstracts.add(new AbstractVO(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
       }
     }
     return abstracts;
@@ -2027,8 +2024,8 @@ public class ViewItemFull extends FacesBean {
 
   public boolean getHasSubjects() {
     boolean hasNotEmptySubjects = false;
-    for (TextVO subject : this.pubItem.getMetadata().getSubjects()) {
-      if (subject.getValue() != null && subject.getValue().length() > 0) {
+    for (SubjectVO subject : this.pubItem.getMetadata().getSubjects()) {
+      if (subject != null && subject.getValue() != null && !("").equals(subject.getValue().trim())) {
         hasNotEmptySubjects = true;
         return hasNotEmptySubjects;
       }
@@ -2038,8 +2035,7 @@ public class ViewItemFull extends FacesBean {
 
   public boolean getHasFreeKeywords() {
     return this.pubItem.getMetadata().getFreeKeywords() != null
-        && this.pubItem.getMetadata().getFreeKeywords().getValue() != null
-        && this.pubItem.getMetadata().getFreeKeywords().getValue().length() > 0;
+        && this.pubItem.getMetadata().getFreeKeywords().length() > 0;
   }
 
   public boolean getHasContentGroup() {

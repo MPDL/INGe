@@ -9,10 +9,8 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hslf.record.ParentAwareRecord;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -24,15 +22,11 @@ import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.util.AdminHelper;
 import de.mpg.escidoc.services.util.PropertyReader;
 
 public class AffiliationBean extends FacesBean {
@@ -117,7 +111,7 @@ public class AffiliationBean extends FacesBean {
     if (cache != null && cache instanceof OrganizationVO)
 
     {
-      ((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
+      ((OrganizationVO) cache).setName(selectedAffiliation.getNamePath());
       ((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
       String address = "";
       if (selectedAffiliation.getDefaultMetadata().getCity() != null) {

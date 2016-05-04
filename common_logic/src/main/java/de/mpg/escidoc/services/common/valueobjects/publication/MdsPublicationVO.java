@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -38,7 +39,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 
 /**
  * The metadata of a Publication.
@@ -47,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:48:44
  */
-public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleIF {
+public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -201,7 +202,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
   /**
    * Alternative titles of the publication, e.g. translations of original title or sub-titles.
    */
-  private java.util.List<TextVO> alternativeTitles = new java.util.ArrayList<TextVO>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles =
+      new java.util.ArrayList<AlternativeTitleVO>();
   /**
    * Persons and organizations who essentially participated in creating the content with a specific
    * task, e.g. author, translator, editor.
@@ -262,11 +264,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
   /**
    * Free keywords.
    */
-  private TextVO freeKeywords;
+  private String freeKeywords;
 
-  private List<TextVO> subjects = new ArrayList<TextVO>();
+  private List<SubjectVO> subjects = new ArrayList<SubjectVO>();
 
-  private TextVO tableOfContents;
+  private String tableOfContents;
   /**
    * The number of pages of the described item. Note: The pages of an item published in a bundle is
    * part of the source container.
@@ -275,7 +277,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
   /**
    * Abstracts or short descriptions of the item.
    */
-  private java.util.List<TextVO> abstracts = new java.util.ArrayList<TextVO>();
+  private java.util.List<AbstractVO> abstracts = new java.util.ArrayList<AbstractVO>();
 
   /**
    * Information about project and funding
@@ -295,9 +297,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
    * @param other The instance to copy.
    */
   public MdsPublicationVO(MdsPublicationVO other) {
-    super(other);
-    for (TextVO altTitle : other.getAlternativeTitles()) {
-      getAlternativeTitles().add((TextVO) altTitle.clone());
+    super(other.getTitle());
+    for (AlternativeTitleVO altTitle : other.getAlternativeTitles()) {
+      getAlternativeTitles().add((AlternativeTitleVO) altTitle.clone());
     }
     for (CreatorVO creator : other.getCreators()) {
       getCreators().add((CreatorVO) creator.clone());
@@ -345,18 +347,18 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     if (other.getFreeKeywords() != null) {
-      setFreeKeywords((TextVO) other.getFreeKeywords().clone());
+      setFreeKeywords(other.getFreeKeywords());
     }
 
-    for (TextVO subject : other.getSubjects()) {
-      getSubjects().add((TextVO) subject.clone());
+    for (SubjectVO subject : other.getSubjects()) {
+      getSubjects().add(subject);
     }
 
-    for (TextVO summary : other.getAbstracts()) {
-      getAbstracts().add((TextVO) summary.clone());
+    for (AbstractVO summary : other.getAbstracts()) {
+      getAbstracts().add((AbstractVO) summary.clone());
     }
     if (other.getTableOfContents() != null) {
-      setTableOfContents((TextVO) other.getTableOfContents().clone());
+      setTableOfContents(other.getTableOfContents());
     }
 
     setTotalNumberOfPages(other.getTotalNumberOfPages());
@@ -370,7 +372,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
    * Delivers the list of alternative titles of the item, e.g. translations of original title or
    * sub-titles.
    */
-  public java.util.List<TextVO> getAlternativeTitles() {
+  public java.util.List<AlternativeTitleVO> getAlternativeTitles() {
     return alternativeTitles;
   }
 
@@ -458,14 +460,14 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
   /**
    * DDC keywords.
    */
-  public List<TextVO> getSubjects() {
+  public List<SubjectVO> getSubjects() {
     return subjects;
   }
 
   /**
    * Delivers the table of contents of the item.
    */
-  public TextVO getTableOfContents() {
+  public String getTableOfContents() {
     return tableOfContents;
   }
 
@@ -551,7 +553,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
    * 
    * @param newVal
    */
-  public void setTableOfContents(TextVO newVal) {
+  public void setTableOfContents(String newVal) {
     tableOfContents = newVal;
   }
 
@@ -725,15 +727,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
   /**
    * Delivers the list of abstracts or short descriptions of the item.
    */
-  public java.util.List<TextVO> getAbstracts() {
+  public java.util.List<AbstractVO> getAbstracts() {
     return abstracts;
   }
 
-  public TextVO getFreeKeywords() {
+  public String getFreeKeywords() {
     return freeKeywords;
   }
 
-  public void setFreeKeywords(TextVO freeKeywords) {
+  public void setFreeKeywords(String freeKeywords) {
     this.freeKeywords = freeKeywords;
   }
 

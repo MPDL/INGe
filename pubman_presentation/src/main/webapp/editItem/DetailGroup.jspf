@@ -132,7 +132,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" for="txtaTableOfContent" id="lblTableOfContent" value="#{genre.details_item_toc_item_table_of_contents_label}" converter="GenreLabelConverter"/>
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="txtaTableOfContent" value="#{EditItem.pubItem.metadata.tableOfContents.value}" cols="15" rows="3" />
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="txtaTableOfContent" value="#{EditItem.pubItem.metadata.tableOfContents}" cols="15" rows="3" />
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>

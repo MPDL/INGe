@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -73,8 +72,9 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -568,27 +568,25 @@ public class PubItemDepositingBean implements PubItemDepositing {
     }
     // Copy the title.
     if (originalPubItem.getMetadata().getTitle() != null) {
-      copiedPubItem.getMetadata().setTitle(
-          (TextVO) originalPubItem.getMetadata().getTitle().clone());
+      copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
     }
     // Copy the languages.
     for (String language : originalPubItem.getMetadata().getLanguages()) {
       copiedPubItem.getMetadata().getLanguages().add(language);
     }
     // Copy the alternative titles.
-    for (TextVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
-      copiedPubItem.getMetadata().getAlternativeTitles().add((TextVO) title.clone());
+    for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
+      copiedPubItem.getMetadata().getAlternativeTitles().add((AlternativeTitleVO) title.clone());
     }
     // Copy free keywords.
     if (originalPubItem.getMetadata().getFreeKeywords() != null) {
-      copiedPubItem.getMetadata().setFreeKeywords(
-          (TextVO) originalPubItem.getMetadata().getFreeKeywords().clone());
+      copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
     }
 
     // copy subjects
     if (originalPubItem.getMetadata().getSubjects() != null) {
-      for (TextVO subject : originalPubItem.getMetadata().getSubjects()) {
-        copiedPubItem.getMetadata().getSubjects().add((TextVO) subject.clone());
+      for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
+        copiedPubItem.getMetadata().getSubjects().add(subject);
       }
 
     }

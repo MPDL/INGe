@@ -92,7 +92,6 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
@@ -776,7 +775,7 @@ public class SwordUtil extends FacesBean {
       fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileVO.Visibility.PUBLIC);
       fileVO.setDefaultMetadata(mdSet);
-      fileVO.getDefaultMetadata().setTitle(new TextVO(name));
+      fileVO.getDefaultMetadata().setTitle(name);
       fileVO.setMimeType(mimeType);
       fileVO.setName(name);
 
@@ -878,7 +877,7 @@ public class SwordUtil extends FacesBean {
     // This info can only be filled if item was successfully created
     if (item != null) {
       Title title = new Title();
-      title.setContent(item.getMetadata().getTitle().getValue());
+      title.setContent(item.getMetadata().getTitle());
       se.setTitle(title);
 
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

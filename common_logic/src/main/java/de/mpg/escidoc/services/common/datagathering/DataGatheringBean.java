@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -58,7 +57,6 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -246,9 +244,7 @@ public class DataGatheringBean implements DataGathering {
             orgName.append(details.getName());
           }
         }
-        TextVO name = new TextVO();
-        name.setValue(orgName.toString());
-        newOrg.setName(name);
+        newOrg.setName(orgName.toString());
 
         // add the new OrganizationVO to the result list
         organizationList.add(newOrg);

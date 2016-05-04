@@ -40,7 +40,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
@@ -84,10 +83,7 @@ public class ComparatorTestBase {
     item.setVersion(ref);
     // Metadata
     MdsPublicationVO mds = new MdsPublicationVO();
-    TextVO title = new TextVO();
-    title.setLanguage("en");
-    title.setValue("The first of all.");
-    mds.setTitle(title);
+    mds.setTitle("The first of all.");
     mds.setGenre(Genre.BOOK);
     mds.setDateCreated("2005-2-1");
     mds.setDatePublishedInPrint("2006-2-1");
@@ -111,12 +107,11 @@ public class ComparatorTestBase {
     // Source
     SourceVO source = new SourceVO();
     source.getCreators().add(creator);
-    source.setTitle(new TextVO("jaas verstehen."));
+    source.setTitle("jaas verstehen.");
     mds.getSources().add(source);
     // Event
     EventVO event = new EventVO();
-    event.setTitle(new TextVO("Another amazing conference"));
-    event.getTitle().setLanguage("en");
+    event.setTitle("Another amazing conference");
     mds.setEvent(event);
     return item;
   }
@@ -136,10 +131,7 @@ public class ComparatorTestBase {
     item.setVersion(ref);
     // Metadata
     MdsPublicationVO mds = new MdsPublicationVO();
-    TextVO title = new TextVO();
-    title.setLanguage("de");
-    title.setValue("Der Zweite.");
-    mds.setTitle(title);
+    mds.setTitle("Der Zweite.");
     mds.setGenre(Genre.ARTICLE);
     mds.setDateCreated("2006-5-19");
     mds.setDatePublishedInPrint("2007-1-14");
@@ -150,10 +142,7 @@ public class ComparatorTestBase {
     CreatorVO creator = new CreatorVO();
     creator.setRole(CreatorRole.EDITOR);
     OrganizationVO org = new OrganizationVO();
-    TextVO name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("Max Planck Society");
-    org.setName(name);
+    org.setName("Max Planck Society");
     creator.setOrganization(org);
     mds.getCreators().add(creator);
     item.setMetadata(mds);
@@ -164,12 +153,11 @@ public class ComparatorTestBase {
     // Source
     SourceVO source = new SourceVO();
     source.getCreators().add(creator);
-    source.setTitle(new TextVO("Java und XML"));
+    source.setTitle("Java und XML");
     mds.getSources().add(source);
     // Event
     EventVO event = new EventVO();
-    event.setTitle(new TextVO("amazing conference"));
-    event.getTitle().setLanguage("en");
+    event.setTitle("amazing conference");
     mds.setEvent(event);
     return item;
   }
@@ -189,10 +177,7 @@ public class ComparatorTestBase {
     item.setVersion(ref);
     // Metadata
     MdsPublicationVO mds = new MdsPublicationVO();
-    TextVO title = new TextVO();
-    title.setLanguage("de");
-    title.setValue("der dritte");
-    mds.setTitle(title);
+    mds.setTitle("der dritte");
     mds.setGenre(Genre.BOOK_ITEM);
     mds.setDateCreated("2001-3-11");
     mds.setDatePublishedInPrint("2007-1-13");
@@ -210,10 +195,7 @@ public class ComparatorTestBase {
     CreatorVO creator2 = new CreatorVO();
     creator2.setRole(CreatorRole.EDITOR);
     OrganizationVO org = new OrganizationVO();
-    TextVO name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("MPDL");
-    org.setName(name);
+    org.setName("MPDL");
     creator2.setOrganization(org);
     mds.getCreators().add(creator2);
     item.setMetadata(mds);
@@ -225,12 +207,11 @@ public class ComparatorTestBase {
     SourceVO source = new SourceVO();
     source.getCreators().add(creator);
     source.getCreators().add(creator2);
-    source.setTitle(new TextVO("Javamagazin xxx"));
+    source.setTitle("Javamagazin xxx");
     mds.getSources().add(source);
     // Event
     EventVO event = new EventVO();
-    event.setTitle(new TextVO("W-Jax München 2006"));
-    event.getTitle().setLanguage("de");
+    event.setTitle("W-Jax München 2006");
     mds.setEvent(event);
     return item;
   }
@@ -252,18 +233,12 @@ public class ComparatorTestBase {
     item.setVersion(ref);
     // Metadata
     MdsPublicationVO mds = new MdsPublicationVO();
-    TextVO title = new TextVO();
-    title.setLanguage("de");
-    title.setValue("Und noch ein armseliges Ding");
-    mds.setTitle(title);
+    mds.setTitle("Und noch ein armseliges Ding");
     mds.setGenre(Genre.OTHER);
     CreatorVO creator = new CreatorVO();
     creator.setRole(CreatorRole.EDITOR);
     OrganizationVO org = new OrganizationVO();
-    TextVO name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("MPDL");
-    org.setName(name);
+    org.setName("MPDL");
     creator.setOrganization(org);
     mds.getCreators().add(creator);
     item.setMetadata(mds);

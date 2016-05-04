@@ -39,12 +39,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.util.XmlComparator;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -52,12 +49,12 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.util.ResourceUtil;
+import test.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test of {@link XmlTransforming} methods for transforming PubItemVOs to XML and back.
@@ -99,7 +96,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     IdentifierVO ident = new IdentifierVO(IdType.CONE, "123");
     pubItemVO.getMetadata().getCreators().get(0).getPerson().setIdentifier(ident);
 
-    pubItemVO.getMetadata().setTitle(new TextVO("<blink>organisation</blink>"));
+    pubItemVO.getMetadata().setTitle("<blink>organisation</blink>");
 
     // add file to PubItemVO
     FileVO fileVO = getFile();
@@ -473,10 +470,10 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // compare metadata as a whole
     oc = null;
     try {
-      String s1 = expectedPubItem.getMetadata().getFreeKeywords().getValue();
+      String s1 = expectedPubItem.getMetadata().getFreeKeywords();
       logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length
           + " bytes, \u00FC = " + (s1.contains("\u00FC")));
-      String s2 = savedItem.getMetadata().getFreeKeywords().getValue();
+      String s2 = savedItem.getMetadata().getFreeKeywords();
       logger.debug("s2: " + s2.length() + " chars, " + s2.getBytes("UTF-8").length
           + " bytes, \u00FC = " + (s2.contains("\u00FC")));
       oc = new ObjectComparator(expectedPubItem.getMetadata(), savedItem.getMetadata());
@@ -597,8 +594,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     String itemXml = xmlTransforming.transformToItem(pubItem);
     logger.info("Transformed item(XML):\n" + itemXml);
 
-    pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).getName()
-        .setValue("");
+    pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).setName("");
     pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).setAddress("");
     pubItem.getMetadata().cleanup();
 

@@ -32,7 +32,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
@@ -68,10 +67,8 @@ public class ItemList extends FacesBean {
   private PubItemVOWrapper createTestItem(String titleValue) {
     PubItemVOWrapper pubItemVOWrapper = new PubItemVOWrapper();
     PubItemVO pubItemVO = new PubItemVO();
-    TextVO textVO = new TextVO();
-    textVO.setValue(titleValue);
     MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
-    mdsPublicationVO.setTitle(textVO);
+    mdsPublicationVO.setTitle(titleValue);
     mdsPublicationVO.setGenre(MdsPublicationVO.Genre.BOOK);
     mdsPublicationVO.setDatePublishedInPrint("2007-12-21");
     mdsPublicationVO.setDatePublishedOnline("2007-12-22");

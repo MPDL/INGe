@@ -67,7 +67,6 @@ import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
-import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.GenreSpecificItemManager;
@@ -82,6 +81,7 @@ import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -93,7 +93,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -187,7 +187,6 @@ public class EasySubmission extends FacesBean {
   private String suggestConeUrl = null;
   private String hiddenAlternativeTitlesField;
   private String hiddenIdsField;
-  private TitleCollection eventTitleCollection;
   // private HtmlAjaxRepeat identifierIterator;
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
   /** pub context name. */
@@ -252,7 +251,6 @@ public class EasySubmission extends FacesBean {
         newLocator.setContentCategory(contentCategory);
         newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         newLocator.setDefaultMetadata(new MdsFileVO());
-        newLocator.getDefaultMetadata().setTitle(new TextVO());
         this.getEasySubmissionSessionBean().getLocators()
             .add(new PubFileVOPresentation(0, newLocator, true));
 
@@ -293,7 +291,6 @@ public class EasySubmission extends FacesBean {
         newLocator.setContentCategory(contentCategory);
         newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         newLocator.setDefaultMetadata(new MdsFileVO());
-        newLocator.getDefaultMetadata().setTitle(new TextVO());
         this.getEasySubmissionSessionBean().getLocators()
             .add(new PubFileVOPresentation(0, newLocator, true));
       }
@@ -309,18 +306,6 @@ public class EasySubmission extends FacesBean {
               && creatorVO.getOrganization() == null) {
             creatorVO.setOrganization(new OrganizationVO());
           }
-          if (creatorVO.getType() == CreatorType.PERSON
-              && creatorVO.getPerson().getOrganizations() != null) {
-            for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations()) {
-              if (organizationVO.getName() == null) {
-                organizationVO.setName(new TextVO());
-              }
-            }
-          } else if (creatorVO.getType() == CreatorType.ORGANIZATION
-              && creatorVO.getOrganization() != null
-              && creatorVO.getOrganization().getName() == null) {
-            creatorVO.getOrganization().setName(new TextVO());
-          }
         }
       }
       if (essb.getCreators().size() == 0) {
@@ -334,7 +319,7 @@ public class EasySubmission extends FacesBean {
         .equals(EasySubmissionSessionBean.ES_STEP5)) {
       this.identifierCollection =
           new IdentifierCollection(this.getItem().getMetadata().getIdentifiers());
-      this.eventTitleCollection = new TitleCollection(this.getItem().getMetadata().getEvent());
+      // this.eventTitleCollection = new TitleCollection(this.getItem().getMetadata().getEvent());
     }
     // Get informations about import sources if submission method = fetching import
     if ((this.getEasySubmissionSessionBean().getCurrentSubmissionStep()
@@ -487,7 +472,6 @@ public class EasySubmission extends FacesBean {
       newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
       newFile.setVisibility(FileVO.Visibility.PUBLIC);
       newFile.setDefaultMetadata(new MdsFileVO());
-      newFile.getDefaultMetadata().setTitle(new TextVO());
       this.getEasySubmissionSessionBean()
           .getFiles()
           .add(
@@ -532,7 +516,6 @@ public class EasySubmission extends FacesBean {
       newLocator.getFile().setContentCategory(contentCategory);
       newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
       newLocator.getFile().setDefaultMetadata(new MdsFileVO());
-      newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
       this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     }
     return "loadNewEasySubmission";
@@ -575,16 +558,11 @@ public class EasySubmission extends FacesBean {
     // set the name if it is not filled
     logger.info("this.getLocators().size():" + this.getLocators().size());
     if (this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata()
-        .getTitle().getValue() == null
+        .getTitle() == null
         || this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata()
-            .getTitle().getValue().trim().equals("")) {
-      this.getLocators()
-          .get(this.getLocators().size() - 1)
-          .getFile()
-          .getDefaultMetadata()
-          .setTitle(
-              new TextVO(this.getLocators().get(this.getLocators().size() - 1).getFile()
-                  .getContent()));
+            .getTitle().trim().equals("")) {
+      this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata()
+          .setTitle(this.getLocators().get(this.getLocators().size() - 1).getFile().getContent());
     }
     // set a dummy file size for rendering purposes
     if (this.getLocators().get(this.getLocators().size() - 1).getFile().getContent() != null
@@ -802,14 +780,13 @@ public class EasySubmission extends FacesBean {
           newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
           newFile.setVisibility(FileVO.Visibility.PUBLIC);
           newFile.setDefaultMetadata(new MdsFileVO());
-          newFile.getDefaultMetadata().setTitle(new TextVO());
           this.getEasySubmissionSessionBean()
               .getFiles()
               .add(
                   new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(),
                       newFile, false));
 
-          newFile.getDefaultMetadata().setTitle(new TextVO(fixedFileName));
+          newFile.getDefaultMetadata().setTitle(fixedFileName);
           newFile.setName(fixedFileName);
           newFile.getDefaultMetadata().setSize((int) file.getSize());
           // set the file name automatically if it is not filled by the user
@@ -1093,10 +1070,8 @@ public class EasySubmission extends FacesBean {
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(dataHandler.getVisibility());
             fileVO.setDefaultMetadata(fileMd);
-            fileVO.getDefaultMetadata()
-                .setTitle(
-                    new TextVO(this.replaceSlashes(getServiceID().trim()
-                        + dataHandler.getFileEnding())));
+            fileVO.getDefaultMetadata().setTitle(
+                this.replaceSlashes(getServiceID().trim() + dataHandler.getFileEnding()));
             fileVO.setMimeType(dataHandler.getContentType());
             fileVO
                 .setName(this.replaceSlashes(getServiceID().trim() + dataHandler.getFileEnding()));
@@ -1173,8 +1148,7 @@ public class EasySubmission extends FacesBean {
                     newFile.setVisibility(file.getVisibility());
                     newFile.setDefaultMetadata(new MdsFileVO());
                     newFile.getDefaultMetadata().setTitle(
-                        new TextVO(this.replaceSlashes(file.getDefaultMetadata().getTitle()
-                            .getValue())));
+                        this.replaceSlashes(file.getDefaultMetadata().getTitle()));
                     newFile.setMimeType(file.getMimeType());
                     newFile.setName(this.replaceSlashes(file.getName()));
                     FormatVO formatVO = new FormatVO();
@@ -1340,7 +1314,6 @@ public class EasySubmission extends FacesBean {
         newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         newFile.setVisibility(FileVO.Visibility.PUBLIC);
         newFile.setDefaultMetadata(new MdsFileVO());
-        newFile.getDefaultMetadata().setTitle(new TextVO());
         this.getEasySubmissionSessionBean()
             .getFiles()
             .add(
@@ -1372,7 +1345,6 @@ public class EasySubmission extends FacesBean {
         newLocator.getFile().setContentCategory(contentCategory);
         newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
         newLocator.getFile().setDefaultMetadata(new MdsFileVO());
-        newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
         this.getEasySubmissionSessionBean().getLocators().add(newLocator);
       }
     }
@@ -1940,7 +1912,7 @@ public class EasySubmission extends FacesBean {
     if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts() == null
         || this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts()
             .size() < 1) {
-      TextVO newAbstract = new TextVO();
+      AbstractVO newAbstract = new AbstractVO();
       this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts()
           .add(newAbstract);
     }
@@ -1949,7 +1921,7 @@ public class EasySubmission extends FacesBean {
   }
 
   public void setAbstract(String publicationAbstract) {
-    TextVO newAbstract = new TextVO();
+    AbstractVO newAbstract = new AbstractVO();
     newAbstract.setValue(publicationAbstract);
     this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().clear();
     this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts()
@@ -1959,23 +1931,21 @@ public class EasySubmission extends FacesBean {
   /**
    * returns the value of the first subject of the publication
    * 
-   * @return TextVO the value of the first subject of the publication
+   * @return String the value of the first subject of the publication
    */
-  public TextVO getSubject() {
+  public String getSubject() {
     if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects() == null
         || this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects()
             .size() < 1) {
-      TextVO newSubject = new TextVO();
       this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects()
-          .add(newSubject);
+          .add(new SubjectVO());
     }
     return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects()
-        .get(0);
+        .get(0).getValue();
   }
 
   public void setSubject(String publicationSubject) {
-    TextVO newSubject = new TextVO();
-    newSubject.setValue(publicationSubject);
+    SubjectVO newSubject = new SubjectVO(publicationSubject);
     this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().clear();
     this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects()
         .add(newSubject);
@@ -1983,20 +1953,16 @@ public class EasySubmission extends FacesBean {
 
   public String getFreeKeywords() {
     if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords() == null) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setFreeKeywords(new TextVO());
+      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setFreeKeywords("");
     }
-    return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords()
-        .getValue();
+    return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords();
   }
 
   public void setFreeKeywords(String publicationSubject) {
     if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords() == null) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setFreeKeywords(new TextVO());
+      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setFreeKeywords("");
     }
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords()
-        .setValue(publicationSubject);
+    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords();
   }
 
   /**
@@ -2078,13 +2044,13 @@ public class EasySubmission extends FacesBean {
     // return the title value oif the first source
     sourceTitle =
         this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0)
-            .getTitle().getValue();
+            .getTitle();
     return sourceTitle;
   }
 
   public void setSourceTitle(String title) {
     this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0)
-        .getTitle().setValue(title);
+        .setTitle(title);
   }
 
   public String getSourcePublisher() {
@@ -2469,14 +2435,6 @@ public class EasySubmission extends FacesBean {
       logger.debug("Invitationstatus in VO has been set to: '"
           + this.getItem().getMetadata().getEvent().getInvitationStatus() + "'");
     }
-  }
-
-  public void setEventTitleCollection(TitleCollection eventTitleCollection) {
-    this.eventTitleCollection = eventTitleCollection;
-  }
-
-  public TitleCollection getEventTitleCollection() {
-    return eventTitleCollection;
   }
 
   /*

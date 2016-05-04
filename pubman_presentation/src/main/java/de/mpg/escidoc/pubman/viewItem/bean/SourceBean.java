@@ -220,7 +220,7 @@ public class SourceBean extends FacesBean {
       for (int k = 0; k < sortOrganizationList.size(); k++) {
         String name =
             sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName()
-                .getValue() : "";
+                : "";
         formattedOrganization =
             "<p>" + (k + 1) + ": " + name + "</p>" + "<p>"
                 + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"

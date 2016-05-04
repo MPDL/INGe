@@ -214,7 +214,7 @@
 					</h:selectOneMenu>	-->
 					
 					<h:inputText id="inpcreator_organization_name_optional" styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl"
-						value="#{creator.organization.name.value}" title="#{creator.organization.name.value}"
+						value="#{creator.organization.name}" title="#{creator.organization.name}"
 						rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' and genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' and genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}" />
 					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}" title="#{creator.organization.identifier}" />
 					<h:commandButton id="btnRemoveOrganizationAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
@@ -258,8 +258,8 @@
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 				<h:outputText styleClass="xTiny_area0 xTiny_marginRExcl labelLine" value="#{organization.number}" />
-				<h:inputTextarea id="inporganizations_organization_name" styleClass="huge_txtArea organizationSuggest organizationName" title="#{organization.name.value}" 
-					value="#{organization.name.value}" />
+				<h:inputTextarea id="inporganizations_organization_name" styleClass="huge_txtArea organizationSuggest organizationName" title="#{organization.name}" 
+					value="#{organization.name}" />
 				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" title="#{organization.identifier}" 
 					value="#{organization.identifier}" />
 				<h:inputTextarea id="inporganizations_organization_address" styleClass="xLarge_txtArea organizationAddress" title="#{organization.address}" 

@@ -73,8 +73,8 @@ import com.sun.syndication.io.FeedException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.HtmlUtils;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -639,26 +639,26 @@ public class Feed extends SyndFeedImpl {
        * itemXml = replaceXmlHeader(xt.transformToItem( pi ));
        * 
        * scont.setValue( itemXml ); if ( "atom_0.3".equals(getFeedType()) )
-       * scont.setMode(Content.XML); } catch (TechnicalException e) { throw new
-       * RuntimeException("Cannot transform to XML: ", e); };
+       * scont.setMode(Content.XML); } catch (TechnicalException e) { throw new RuntimeException(
+       * "Cannot transform to XML: ", e); };
        * 
        * se.setContents(Arrays.asList(scont));
        */
       //
-      se.setTitle(HtmlUtils.removeSubSupIfBalanced(md.getTitle().getValue()));
+      se.setTitle(HtmlUtils.removeSubSupIfBalanced(md.getTitle()));
 
       // Description ??? optional
       List abs = md.getAbstracts();
       SyndContent sc = new SyndContentImpl();
-      sc.setValue(Utils.checkList(abs) ? ((TextVO) abs.get(0)).getValue() : null);
+      sc.setValue(Utils.checkList(abs) ? ((AbstractVO) abs.get(0)).getValue() : null);
       se.setDescription(sc);
 
       // Category
-      TextVO subj = md.getFreeKeywords();
-      if (subj != null && Utils.checkVal(subj.getValue())) {
+      String subj = md.getFreeKeywords();
+      if (subj != null && Utils.checkVal(subj)) {
         List<SyndCategory> categories = new ArrayList<SyndCategory>();
         SyndCategory scat = new SyndCategoryImpl();
-        scat.setName(subj.getValue());
+        scat.setName(subj);
         categories.add(scat);
         se.setCategories(categories);
       }
@@ -674,7 +674,7 @@ public class Feed extends SyndFeedImpl {
           String crs =
               creator.getPerson() != null ? Utils.join(Arrays.asList(creator.getPerson()
                   .getFamilyName(), creator.getPerson().getGivenName()), ", ") : creator
-                  .getOrganization().getName().getValue();
+                  .getOrganization().getName();
 
           sp = new SyndPersonImpl();
           sp.setName(crs);

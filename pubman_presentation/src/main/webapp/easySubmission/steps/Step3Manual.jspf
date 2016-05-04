@@ -150,7 +150,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea id="inpItemMetadataTitle" styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" ></h:inputTextarea>
+						<h:inputTextarea id="inpItemMetadataTitle" styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title}" cols="15" rows="3" ></h:inputTextarea>
 					</span>
 				</h:panelGroup>
 			</div>

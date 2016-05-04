@@ -26,9 +26,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FilmAcquisitionDeviceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * This metadata set describes all kind of motion pictures like documentation, art, movies and
@@ -62,7 +62,7 @@ public class MdsFilmVO extends MetadataSetVO {
   /**
    * Alternative title of the film, e.g. translations of original title or sub-titles.
    */
-  private TextVO alternativeTitle;
+  private AlternativeTitleVO alternativeTitle;
   private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
   /**
    * Information about the technology used in the process of producing the film.
@@ -83,7 +83,7 @@ public class MdsFilmVO extends MetadataSetVO {
   /**
    * Delivers the alternative title of the film, e.g. translation of original title or sub-title.
    */
-  public TextVO getAlternativeTitle() {
+  public AlternativeTitleVO getAlternativeTitle() {
     return alternativeTitle;
   }
 
@@ -137,7 +137,7 @@ public class MdsFilmVO extends MetadataSetVO {
    * 
    * @param newVal newVal
    */
-  public void setAlternativeTitle(TextVO newVal) {
+  public void setAlternativeTitle(AlternativeTitleVO newVal) {
     alternativeTitle = newVal;
   }
 

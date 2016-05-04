@@ -120,8 +120,8 @@
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblTOC}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}" converter="HTMLEscapeConverter" escape="false"/>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.tableOfContents.value == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents}" converter="HTMLEscapeConverter" escape="false"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents == ''}"/>
 			</span>
 		</div>
 

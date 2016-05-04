@@ -41,7 +41,6 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
@@ -223,7 +222,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
         fileVO = new FileVO();
         fileVO.getMetadataSets().add(new MdsFileVO());
         fileVO.getDefaultMetadata().setSize(this.getSize());
-        fileVO.getDefaultMetadata().setTitle(new TextVO(this.getFileName(this.getLocator())));
+        fileVO.getDefaultMetadata().setTitle(this.getFileName(this.getLocator()));
         fileVO.setMimeType(this.getType());
         fileVO.setName(this.getFileName(this.getLocator()));
 

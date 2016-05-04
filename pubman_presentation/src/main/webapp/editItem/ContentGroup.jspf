@@ -44,15 +44,15 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea id="inputFreeKeywords" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.freeKeywords.value}" cols="15" rows="3" />
+				<h:inputTextarea id="inputFreeKeywords" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.freeKeywords}" cols="15" rows="3" />
 			</span>
 		</h:panelGroup>
 
 <!-- Classified Subject (List) -->		
-		<ui:repeat id="iterContentGroupDDCSubjectList" var="subject" varStatus="status" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{EditItem.hasSubjectClassification and !(genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'all')}">
+		<ui:repeat id="iterContentGroupDDCSubjectList" var="subject" varStatus="status" value="#{EditItem.pubItem.metadata.subjects}" rendered="#{EditItem.hasSubjectClassification and !(genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' and genre.content_item_subject_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}" rendered="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM.rowIndex == 0}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}" rendered="#{status.index == 0}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline subjectArea">
 					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_type_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_type_form_id == 'all')}">
@@ -79,10 +79,10 @@
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnAddSubject" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObjectAtIndex(status.index)}" rendered="#{genre.content_item_subject_repeatable != 'false'}">
+					<h:commandButton id="btnAddSubject" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addSubject}" action="#{EditItem.pubItem.addSubjectAtIndex(status.index)}" rendered="#{genre.content_item_subject_repeatable != 'false'}">
 						<f:ajax render="form1:editContent" execute="@form"/>
 					</h:commandButton>
-					<h:commandButton id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObjectAtIndex(status.index)}" rendered="#{genre.content_item_subject_repeatable != 'false'}">
+					<h:commandButton id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeSubject}" disabled="#{EditItem.pubItem.metadata.subjects.size() == 1}" action="#{EditItem.pubItem.removeSubjectAtIndex(status.index)}" rendered="#{genre.content_item_subject_repeatable != 'false'}">
 						<f:ajax render="form1:editContent" execute="@form"/>
 					</h:commandButton>
 				</span>
@@ -90,7 +90,7 @@
 		</ui:repeat>
 
 <!-- Abstract -->		
-		<ui:repeat id="iterContentGroupAbstract" var="abstract" varStatus="status" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' and genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' and genre.content_item_abstract_form_id == 'all')}">
+		<ui:repeat id="iterContentGroupAbstract" var="abstract" varStatus="status" value="#{EditItem.pubItem.metadata.abstracts}" rendered="#{!(genre.content_item_abstract_display == 'false' and genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' and genre.content_item_abstract_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;
@@ -118,10 +118,10 @@
 						-->
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<h:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObjectAtIndex(status.index)}" rendered="#{genre.content_item_abstract_repeatable != 'false'}">
+						<h:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAbstract}" action="#{EditItem.pubItem.addAbstractAtIndex(status.index)}" rendered="#{genre.content_item_abstract_repeatable != 'false'}">
 							<f:ajax render="form1:editContent" execute="@form"/>
 						</h:commandButton>
-						<h:commandButton id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObjectAtIndex(status.index)}" rendered="#{genre.content_item_abstract_repeatable != 'false'}">
+						<h:commandButton id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.pubItem.metadata.abstracts.size() == 1}" action="#{EditItem.pubItem.removeAbstractAtIndex(status.index)}" rendered="#{genre.content_item_abstract_repeatable != 'false'}">
 							<f:ajax render="form1:editContent" execute="@form"/>
 						</h:commandButton>
 					</span>

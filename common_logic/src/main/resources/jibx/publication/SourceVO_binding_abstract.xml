@@ -50,12 +50,12 @@
 			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeSourceGenreEnum"
 			usage="optional" />
 
-		<structure name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
+		<value name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
 
 		<collection field="alternativeTitles"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO" />
+				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO" />
 		</collection>
 
 		<collection field="creators"

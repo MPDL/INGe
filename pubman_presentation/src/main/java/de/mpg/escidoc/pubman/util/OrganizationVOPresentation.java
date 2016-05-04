@@ -32,7 +32,6 @@ import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Presentation wrapper for OrganizationVO.
@@ -47,7 +46,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
 
   public OrganizationVOPresentation() {
     super();
-    setName(new TextVO());
+    setName("");
   }
 
   public OrganizationVOPresentation(OrganizationVO organizationVO) {
@@ -143,7 +142,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
 
   public void nameListener(ValueChangeEvent event) {
     if (event.getNewValue() != event.getOldValue()) {
-      this.setName(new TextVO(event.getNewValue().toString()));
+      this.setName(event.getNewValue().toString());
     }
   }
 
@@ -154,8 +153,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
   public boolean isEmpty() {
     if (this.getAddress() != null && !"".equals(this.getAddress())) {
       return false;
-    } else if (this.getName() != null && this.getName().getValue() != null
-        && !"".equals(this.getName().getValue())) {
+    } else if (this.getName() != null && !"".equals(this.getName())) {
       return false;
     } else {
       return true;

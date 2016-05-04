@@ -116,8 +116,7 @@ public class CoinsTransformation {
           rftGenre = RFT_GENRE_PREFIX + pubitemVO.getMetadata().getGenre().name();
         }
         if (pubitemVO.getMetadata().getTitle() != null) {
-          rftAtitle =
-              RFT_ATIITLE_PREFIX + this.htmlEscape(pubitemVO.getMetadata().getTitle().getValue());
+          rftAtitle = RFT_ATIITLE_PREFIX + this.htmlEscape(pubitemVO.getMetadata().getTitle());
           rftAtitle = rftAtitle != null ? rftAtitle.replace(" ", "+") : "";
         }
 
@@ -127,8 +126,7 @@ public class CoinsTransformation {
             if (pubitemVO.getMetadata().getSources().get(0).getTitle() != null) {
               rftTitle =
                   RFT_TITLE_PREFIX
-                      + this.htmlEscape(pubitemVO.getMetadata().getSources().get(0).getTitle()
-                          .getValue());
+                      + this.htmlEscape(pubitemVO.getMetadata().getSources().get(0).getTitle());
               rftTitle = rftTitle != null ? rftTitle.replace(" ", "+") : "";
             }
           }
@@ -239,7 +237,7 @@ public class CoinsTransformation {
         } else if (pubitemVO.getMetadata().getCreators().get(i).getOrganization() != null
             && pubitemVO.getMetadata().getCreators().get(i).getOrganization().getName() != null) {
           completeNames.append(pubitemVO.getMetadata().getCreators().get(i).getOrganization()
-              .getName().getValue());
+              .getName());
         }
       }
     }

@@ -28,14 +28,13 @@ package de.mpg.escidoc.services.common.valueobjects.metadata;
 
 import de.mpg.escidoc.services.common.valueobjects.IgnoreForCleanup;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 
 /**
  * @revised by MuJ: 29.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 22-Okt-2007 15:26:37
  */
-public class EventVO extends ValueObject implements TitleIF, Cloneable {
+public class EventVO extends ValueObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -56,21 +55,22 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
     INVITED
   }
 
-  private java.util.List<TextVO> alternativeTitles = new java.util.ArrayList<TextVO>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles =
+      new java.util.ArrayList<AlternativeTitleVO>();
   private String endDate;
 
   @IgnoreForCleanup
   private InvitationStatus invitationStatus;
 
-  private TextVO place;
+  private String place;
   private String startDate;
-  private TextVO title;
+  private String title;
 
   /**
    * Get the alternativeTitles. The event may have one or several alternative forms of the title
    * (e.g. an abbreviated title).
    */
-  public java.util.List<TextVO> getAlternativeTitles() {
+  public java.util.List<AlternativeTitleVO> getAlternativeTitles() {
     return alternativeTitles;
   }
 
@@ -92,7 +92,7 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
   /**
    * Delivers the place of the event.
    */
-  public TextVO getPlace() {
+  public String getPlace() {
     return place;
   }
 
@@ -106,7 +106,7 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
   /**
    * Delivers the title of the event.
    */
-  public TextVO getTitle() {
+  public String getTitle() {
     return title;
   }
 
@@ -125,7 +125,7 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
    * 
    * @param newVal newVal
    */
-  public void setPlace(TextVO newVal) {
+  public void setPlace(String newVal) {
     place = newVal;
   }
 
@@ -134,7 +134,7 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
    * 
    * @param newVal newVal
    */
-  public void setTitle(TextVO newVal) {
+  public void setTitle(String newVal) {
     title = newVal;
   }
 
@@ -147,10 +147,10 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
   public Object clone() {
     EventVO clone = new EventVO();
     if (getTitle() != null) {
-      clone.setTitle((TextVO) getTitle().clone());
+      clone.setTitle(getTitle());
     }
-    for (TextVO altTitle : getAlternativeTitles()) {
-      clone.getAlternativeTitles().add((TextVO) altTitle.clone());
+    for (AlternativeTitleVO altTitle : getAlternativeTitles()) {
+      clone.getAlternativeTitles().add((AlternativeTitleVO) altTitle.clone());
     }
     if (getEndDate() != null) {
       clone.setEndDate(getEndDate());
@@ -160,7 +160,7 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable {
     }
     clone.setInvitationStatus(getInvitationStatus());
     if (getPlace() != null) {
-      clone.setPlace((TextVO) getPlace().clone());
+      clone.setPlace(getPlace());
     }
     return clone;
   }

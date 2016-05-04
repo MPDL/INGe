@@ -45,7 +45,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Presentation wrapper for CreatorVO
@@ -86,7 +85,7 @@ public class CreatorVOPresentation extends CreatorVO {
       this.setType(creatorVO.getType());
 
       if (this.getOrganization() != null && this.getOrganization().getName() == null) {
-        this.getOrganization().setName(new TextVO());
+        this.getOrganization().setName("");
       }
 
       if (this.getPerson() != null && this.getPerson().getIdentifier() == null) {
@@ -217,7 +216,7 @@ public class CreatorVOPresentation extends CreatorVO {
       String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
       List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
       OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
-      newOrg.setName(new TextVO(values[1]));
+      newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);
       newOrg.setBean(this.bean);
       creatorOrganizations.add(newOrg);
@@ -301,7 +300,7 @@ public class CreatorVOPresentation extends CreatorVO {
       setType(CreatorType.ORGANIZATION);
       // setRole(CreatorRole.EDITOR);
       setOrganization(new OrganizationVO());
-      getOrganization().setName(new TextVO());
+      getOrganization().setName("");
     }
   }
 

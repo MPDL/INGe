@@ -29,7 +29,6 @@ package de.mpg.escidoc.services.common.valueobjects.metadata;
 import java.util.Date;
 
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 
 /**
  * Some items are published as part of a bundle, e.g. a journal, a book, a series or a database. The
@@ -39,7 +38,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 22-Okt-2007 14:35:53
  */
-public class SourceVO extends ValueObject implements TitleIF, Cloneable {
+public class SourceVO extends ValueObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -50,8 +49,9 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
    * @author Johannes Mueller
    */
   private static final long serialVersionUID = 1L;
-  private TextVO title;
-  private java.util.List<TextVO> alternativeTitles = new java.util.ArrayList<TextVO>();
+  private String title;
+  private java.util.List<AlternativeTitleVO> alternativeTitles =
+      new java.util.ArrayList<AlternativeTitleVO>();
   private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
   private String volume;
   private String issue;
@@ -129,7 +129,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
    * 
    * @param title
    */
-  public SourceVO(TextVO title) {
+  public SourceVO(String title) {
     super();
     this.title = title;
   }
@@ -137,7 +137,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
   /**
    * Delivers the title of the source, e.g. the title of the journal or the book.
    */
-  public TextVO getTitle() {
+  public String getTitle() {
     return title;
   }
 
@@ -146,7 +146,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
    * 
    * @param newVal
    */
-  public void setTitle(TextVO newVal) {
+  public void setTitle(String newVal) {
     title = newVal;
   }
 
@@ -154,7 +154,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
    * Delivers the list of alternative titles of the source. The source may have one or several other
    * forms of the title.
    */
-  public java.util.List<TextVO> getAlternativeTitles() {
+  public java.util.List<AlternativeTitleVO> getAlternativeTitles() {
     return alternativeTitles;
   }
 
@@ -313,7 +313,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
   public Object clone() {
     SourceVO vo = new SourceVO();
     if (getTitle() != null) {
-      vo.setTitle((TextVO) getTitle().clone());
+      vo.setTitle(getTitle());
     }
     vo.setVolume(getVolume());
     vo.setIssue(getIssue());
@@ -324,8 +324,8 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable {
     vo.setTotalNumberOfPages(getTotalNumberOfPages());
     vo.setStartPage(getStartPage());
     vo.setEndPage(getEndPage());
-    for (TextVO title : getAlternativeTitles()) {
-      vo.getAlternativeTitles().add((TextVO) title.clone());
+    for (AlternativeTitleVO title : getAlternativeTitles()) {
+      vo.getAlternativeTitles().add((AlternativeTitleVO) title.clone());
     }
     for (CreatorVO creator : getCreators()) {
       vo.getCreators().add((CreatorVO) creator.clone());

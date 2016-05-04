@@ -48,7 +48,7 @@
 <h:head>
 
 	<title><h:outputText
-			value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}"
+			value="#{ViewItemFull.pubItem.metadata.title} :: #{ApplicationBean.appTitle}"
 			converter="HTMLTitleSubSupConverter" /></title>
 	<link rel="unapi-server" type="application/xml" title="unAPI"
 		href="${ViewItemFull.unapiURLview}" />
@@ -636,7 +636,7 @@
 							<h:panelGroup styleClass="seperator" />
 							<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
 								<b><h:outputText
-										value="#{ViewItemFull.pubItem.metadata.title.value}"
+										value="#{ViewItemFull.pubItem.metadata.title}"
 										converter="HTMLSubSupConverter" escape="false" /></b>
 								<h:outputText value="#{ViewItemFull.citationHtml}"
 									escape="false" />

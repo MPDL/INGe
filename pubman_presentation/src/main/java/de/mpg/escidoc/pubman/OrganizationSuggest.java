@@ -39,7 +39,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
@@ -119,7 +118,7 @@ public class OrganizationSuggest extends EditItemBean {
             name = name + affVO.getDefaultMetadata().getName();
 
           }
-          organizationVOPresentation.setName(new TextVO(name));
+          organizationVOPresentation.setName(name);
           organizationVOPresentation.setBean(this);
 
           getCreatorOrganizations().add(organizationVOPresentation);

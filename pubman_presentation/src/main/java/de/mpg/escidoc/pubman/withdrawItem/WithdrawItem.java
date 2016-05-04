@@ -93,8 +93,7 @@ public class WithdrawItem extends FacesBean {
         }
       } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION) {
         String name =
-            creator.getOrganization().getName() != null ? creator.getOrganization().getName()
-                .getValue() : "";
+            creator.getOrganization().getName() != null ? creator.getOrganization().getName() : "";
         creators.append(name);
       }
     }

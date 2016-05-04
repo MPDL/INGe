@@ -35,7 +35,6 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Class to handle the file upload of locators.
@@ -62,7 +61,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       FileVO fileVO = new FileVO();
       fileVO.getMetadataSets().add(new MdsFileVO());
       fileVO.getDefaultMetadata().setSize(this.getSize());
-      fileVO.getDefaultMetadata().setTitle(new TextVO(super.getFileName(this.getLocator())));
+      fileVO.getDefaultMetadata().setTitle(super.getFileName(this.getLocator()));
       fileVO.setMimeType(this.getType());
       fileVO.setName(super.getFileName(this.getLocator()));
 

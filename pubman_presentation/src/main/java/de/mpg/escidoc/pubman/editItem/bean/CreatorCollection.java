@@ -35,7 +35,6 @@ import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Bean to handle the CreatorCollection on a single jsp. A CreatorCollection is represented by a
@@ -74,7 +73,7 @@ public class CreatorCollection {
       // create a new Organization for this person
       OrganizationVO newPersonOrganization = new OrganizationVO();
 
-      newPersonOrganization.setName(new TextVO());
+      newPersonOrganization.setName("");
       newVO.getPerson().getOrganizations().add(newPersonOrganization);
 
       CreatorBean creatorBean = new CreatorBean(newVO);

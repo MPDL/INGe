@@ -1,50 +1,25 @@
 package de.mpg.escidoc.pubman.yearbook;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.aa.UserGroupHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
-import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector.Type;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;

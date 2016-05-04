@@ -39,6 +39,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
@@ -52,10 +53,13 @@ import de.mpg.escidoc.services.common.util.HtmlUtils;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -304,6 +308,145 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     this.shortView = !mediumView;
   }
 
+  /**
+   * Adds an empty abstract after the current one
+   */
+  public String addAbstractAtIndex(int index) {
+    if (this.getMetadata().getAbstracts() != null && !this.getMetadata().getAbstracts().isEmpty()) {
+      this.getMetadata().getAbstracts().add((index + 1), new AbstractVO());
+    }
+    return null;
+  }
+
+  /**
+   * Removes an abstract title from the current position
+   */
+  public String removeAbstractAtIndex(int index) {
+    if (this.getMetadata().getAbstracts() != null && !this.getMetadata().getAbstracts().isEmpty()) {
+      this.getMetadata().getAbstracts().remove(index);
+    }
+    return null;
+  }
+
+  /**
+   * Adds the first alternative title with no content
+   */
+  public String addAlternativeTitle() {
+    if (this.getMetadata().getAlternativeTitles() == null
+        || this.getMetadata().getAlternativeTitles().isEmpty()) {
+      this.getMetadata().getAlternativeTitles().add(new AlternativeTitleVO());
+    }
+    return null;
+  }
+
+  /**
+   * Adds an empty alternative title after the current one
+   */
+  public String addAlternativeTitleAtIndex(int index) {
+    if (this.getMetadata().getAlternativeTitles() != null
+        && !this.getMetadata().getAlternativeTitles().isEmpty()) {
+      this.getMetadata().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
+    }
+    return null;
+  }
+
+  /**
+   * Removes an alternative title form the current position
+   */
+  public String removeAlternativeTitleAtIndex(int index) {
+    if (this.getMetadata().getAlternativeTitles() != null
+        && !this.getMetadata().getAlternativeTitles().isEmpty()) {
+      this.getMetadata().getAlternativeTitles().remove(index);
+    }
+    return null;
+  }
+
+  /**
+   * localized creation of SelectItems for the identifier types available
+   * 
+   * @return SelectItem[] with Strings representing identifier types
+   */
+  public SelectItem[] getAlternativeTitleTypes() {
+    InternationalizationHelper i18nHelper =
+        (InternationalizationHelper) FacesContext
+            .getCurrentInstance()
+            .getApplication()
+            .getVariableResolver()
+            .resolveVariable(FacesContext.getCurrentInstance(),
+                InternationalizationHelper.BEAN_NAME);
+    ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
+
+    ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
+
+    // constants for comboBoxes
+    selectItemList.add(new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET")));
+
+    for (SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values()) {
+      selectItemList.add(new SelectItem(type.toString(), labelBundle
+          .getString("ENUM_ALTERNATIVETITLETYPE_" + type.toString())));
+    }
+    return selectItemList.toArray(new SelectItem[] {});
+  }
+
+  /**
+   * Adds the first alternative title for the event with no content
+   */
+  public String addEventAlternativeTitle() {
+    if (this.getMetadata().getEvent() != null) {
+      if (this.getMetadata().getEvent().getAlternativeTitles() == null
+          || this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
+        this.getMetadata().getEvent().getAlternativeTitles().add(new AlternativeTitleVO("F"));
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Adds an empty alternative title for the event after the current one
+   */
+  public String addEventAlternativeTitleAtIndex(int index) {
+    if (this.getMetadata().getEvent() != null
+        && this.getMetadata().getEvent().getAlternativeTitles() != null
+        && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
+      this.getMetadata().getEvent().getAlternativeTitles()
+          .add((index + 1), new AlternativeTitleVO());
+    }
+    return null;
+  }
+
+  /**
+   * Removes an alternative title from the current position of the event
+   */
+  public String removeEventAlternativeTitleAtIndex(int index) {
+    if (this.getMetadata().getEvent() != null
+        && this.getMetadata().getEvent().getAlternativeTitles() != null
+        && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
+      this.getMetadata().getEvent().getAlternativeTitles().remove(index);
+    }
+    return null;
+  }
+
+
+  /**
+   * Adds an empty subject after the current one
+   */
+  public String addSubjectAtIndex(int index) {
+    if (this.getMetadata().getSubjects() != null && !this.getMetadata().getSubjects().isEmpty()) {
+      this.getMetadata().getSubjects().add((index + 1), new SubjectVO());
+    }
+    return null;
+  }
+
+  /**
+   * Removes an alternative title from the current position
+   */
+  public String removeSubjectAtIndex(int index) {
+    if (this.getMetadata().getSubjects() != null && !this.getMetadata().getSubjects().isEmpty()) {
+      this.getMetadata().getSubjects().remove(index);
+    }
+    return null;
+  }
+
 
   /**
    * Distinguish between Persons and organization as creators and returns them formatted as string.
@@ -341,8 +484,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             }
           }
         } else if (getMetadata().getCreators().get(i).getOrganization() != null) {
-          creators
-              .append(getMetadata().getCreators().get(i).getOrganization().getName().getValue());
+          creators.append(getMetadata().getCreators().get(i).getOrganization().getName());
         }
       } else if (this.getYearbookMetadata() != null) {
         if (getYearbookMetadata().getCreators().get(i).getPerson() != null) {
@@ -355,8 +497,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             }
           }
         } else if (getYearbookMetadata().getCreators().get(i).getOrganization() != null) {
-          creators.append(getYearbookMetadata().getCreators().get(i).getOrganization().getName()
-              .getValue());
+          creators.append(getYearbookMetadata().getCreators().get(i).getOrganization().getName());
         }
       }
 
@@ -698,12 +839,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
   public String getEventTitle() {
     String eventTitle = "";
     if (getMetadata().getEvent() != null && getMetadata().getEvent().getTitle() != null
-        && getMetadata().getEvent().getTitle().getValue() != null
-        && !getMetadata().getEvent().getTitle().getValue().trim().equals("")) {
-      if (getMetadata().getEvent().getTitle().getValue().length() > 50) {
-        eventTitle = getMetadata().getEvent().getTitle().getValue().substring(0, 49) + "...";
+        && !getMetadata().getEvent().getTitle().trim().equals("")) {
+      if (getMetadata().getEvent().getTitle().length() > 50) {
+        eventTitle = getMetadata().getEvent().getTitle().substring(0, 49) + "...";
       } else {
-        eventTitle = getMetadata().getEvent().getTitle().getValue();
+        eventTitle = getMetadata().getEvent().getTitle();
       }
     }
     return eventTitle;
@@ -716,12 +856,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return String the title
    */
   public String getShortTitle() {
-    if (getMetadata().getTitle() != null && getMetadata().getTitle().getValue() != null
-        && !getMetadata().getTitle().getValue().trim().equals("")) {
-      if (getMetadata().getTitle().getValue().length() > 80) {
-        return getMetadata().getTitle().getValue().substring(0, 79) + "...";
+    if (getMetadata().getTitle() != null && !getMetadata().getTitle().trim().equals("")) {
+      if (getMetadata().getTitle().length() > 80) {
+        return getMetadata().getTitle().substring(0, 79) + "...";
       } else {
-        return getMetadata().getTitle().getValue();
+        return getMetadata().getTitle();
       }
     } else {
       return null;
@@ -751,9 +890,9 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    */
   public String getFullTitle() {
     if (this.getMetadata() != null && this.getMetadata().getTitle() != null) {
-      return getMetadata().getTitle().getValue();
+      return getMetadata().getTitle();
     } else if (this.getYearbookMetadata() != null) {
-      return this.getYearbookMetadata().getTitle().getValue();
+      return this.getYearbookMetadata().getTitle();
     } else {
       return "#### NO TITLE!!! ####";
     }
@@ -768,12 +907,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
   public String getSourceTitle() {
     String sourceTitle = "";
     if (this.firstSource != null && this.firstSource.getTitle() != null
-        && this.firstSource.getTitle().getValue() != null
-        && !this.firstSource.getTitle().getValue().trim().equals("")) {
-      if (this.firstSource.getTitle().getValue().length() > 50) {
-        sourceTitle = this.firstSource.getTitle().getValue().substring(0, 49) + "...";
+        && !this.firstSource.getTitle().trim().equals("")) {
+      if (this.firstSource.getTitle().length() > 50) {
+        sourceTitle = this.firstSource.getTitle().substring(0, 49) + "...";
       } else {
-        sourceTitle = this.firstSource.getTitle().getValue();
+        sourceTitle = this.firstSource.getTitle();
       }
     }
     return sourceTitle;
@@ -1438,15 +1576,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
       }
     }
     // add keywords
-    if (getMetadata().getFreeKeywords() != null
-        && getMetadata().getFreeKeywords().getValue() != null
-        && getMetadata().getFreeKeywords().getValue() != "")
-      descriptionMetaTag += "; Keywords: " + getMetadata().getFreeKeywords().getValue();
+    if (getMetadata().getFreeKeywords() != null && getMetadata().getFreeKeywords() != "")
+      descriptionMetaTag += "; Keywords: " + getMetadata().getFreeKeywords();
     // add title at the end of description meta tag
-    if (getMetadata().getTitle() != null && getMetadata().getTitle().getValue() != null
-        && getMetadata().getTitle().getValue() != "") {
+    if (getMetadata().getTitle() != null && getMetadata().getTitle() != "") {
       descriptionMetaTag +=
-          "; " + getLabel("ViewItemFull_lblTitle") + ": " + getMetadata().getTitle().getValue();
+          "; " + getLabel("ViewItemFull_lblTitle") + ": " + getMetadata().getTitle();
     }
 
     descriptionMetaTag = HtmlUtils.removeSubSupIfBalanced(descriptionMetaTag);

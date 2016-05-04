@@ -32,8 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
@@ -70,27 +68,27 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingInfoVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FundingOrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FundingProgramVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.FundingInfoVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.FundingOrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -714,7 +712,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Title
     if (newPubItem.getMetadata().getTitle() == null) {
-      newPubItem.getMetadata().setTitle(new TextVO());
+      newPubItem.getMetadata().setTitle("");
     }
 
     // Genre
@@ -764,12 +762,12 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Abstracts
     if (newPubItem.getMetadata().getAbstracts().size() == 0) {
-      newPubItem.getMetadata().getAbstracts().add(new TextVO());
+      newPubItem.getMetadata().getAbstracts().add(new AbstractVO());
     }
 
     // Subjects
     if (newPubItem.getMetadata().getSubjects().size() == 0) {
-      newPubItem.getMetadata().getSubjects().add(new TextVO());
+      newPubItem.getMetadata().getSubjects().add(new SubjectVO());
     }
 
     // Language
@@ -784,8 +782,7 @@ public class ItemControllerSessionBean extends FacesBean {
     for (SourceVO source : newPubItem.getMetadata().getSources()) {
 
       if (source.getTitle() == null) {
-        TextVO newSourceTitle = new TextVO();
-        source.setTitle(newSourceTitle);
+        source.setTitle("");
       }
       if (source.getPublishingInfo() == null) {
         PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO();
@@ -797,7 +794,7 @@ public class ItemControllerSessionBean extends FacesBean {
         PersonVO newPerson = new PersonVO();
         newPerson.setIdentifier(new IdentifierVO());
         OrganizationVO newPersonOrganization = new OrganizationVO();
-        newPersonOrganization.setName(new TextVO());
+        newPersonOrganization.setName("");
         newPerson.getOrganizations().add(newPersonOrganization);
 
         newSourceCreator.setOrganization(null);
@@ -816,10 +813,10 @@ public class ItemControllerSessionBean extends FacesBean {
       newPubItem.getMetadata().setEvent(eventVO);
     }
     if (newPubItem.getMetadata().getEvent().getTitle() == null) {
-      newPubItem.getMetadata().getEvent().setTitle(new TextVO());
+      newPubItem.getMetadata().getEvent().setTitle("");
     }
     if (newPubItem.getMetadata().getEvent().getPlace() == null) {
-      newPubItem.getMetadata().getEvent().setPlace(new TextVO());
+      newPubItem.getMetadata().getEvent().setPlace("");
     }
 
     // LegalCase
@@ -831,11 +828,11 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // add subject if needed to be able to bind uiComponents to it
     if (newPubItem.getMetadata().getFreeKeywords() == null) {
-      newPubItem.getMetadata().setFreeKeywords(new TextVO());
+      newPubItem.getMetadata().setFreeKeywords("");
     }
     // add TOC if needed to be able to bind uiComponents to it
     if (newPubItem.getMetadata().getTableOfContents() == null) {
-      newPubItem.getMetadata().setTableOfContents(new TextVO());
+      newPubItem.getMetadata().setTableOfContents("");
     }
 
     if (newPubItem.getMetadata().getProjectInfo() == null) {
@@ -1269,8 +1266,8 @@ public class ItemControllerSessionBean extends FacesBean {
       for (int j = (creator.getPerson().getOrganizations().size() - 1); j >= 0; j--) {
         if (creator.getPerson() != null
             && (creator.getPerson().getOrganizations().get(j).getName() == null
-                || creator.getPerson().getOrganizations().get(j).getName().getValue() == null || creator
-                .getPerson().getOrganizations().get(j).getName().getValue().length() == 0)) {
+                || creator.getPerson().getOrganizations().get(j).getName() == null || creator
+                .getPerson().getOrganizations().get(j).getName().length() == 0)) {
           creator.getPerson().getOrganizations().remove(j);
         }
       }

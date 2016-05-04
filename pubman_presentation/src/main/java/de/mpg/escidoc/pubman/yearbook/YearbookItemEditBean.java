@@ -16,13 +16,6 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.application.violated.AlreadyPublishedException;
-import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.aa.UserGroupHandler;
@@ -40,15 +33,12 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector.Type;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector.Type;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -116,7 +106,7 @@ public class YearbookItemEditBean extends FacesBean {
   public void initYearbookMetadata() {
     this.yearbookMetadata = this.yearbookItemSessionBean.getYearbookItem().getYearbookMetadata();
     if (this.yearbookMetadata != null) {
-      this.title = this.yearbookMetadata.getTitle().getValue();
+      this.title = this.yearbookMetadata.getTitle();
       this.creators = this.yearbookMetadata.getCreators();
       this.organization = this.creators.get(0).getOrganization();
       this.year = this.yearbookMetadata.getYear();
@@ -183,7 +173,7 @@ public class YearbookItemEditBean extends FacesBean {
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
     filterParams.put("query", new String[] {"\"/properties/name\"=\"" + this.year
-        + " - Yearbook User Group for " + getOrganization().getName().getValue() + " ("
+        + " - Yearbook User Group for " + getOrganization().getName() + " ("
         + getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
     String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
     SearchRetrieveResponseVO userGroupSearchRetrieveResponse =
@@ -312,7 +302,7 @@ public class YearbookItemEditBean extends FacesBean {
     this.year = year.trim();
     this.setStartDate(this.year + "-01-01");
     this.setEndDate(this.year + "-12-31");
-    this.setTitle(year + " - Yearbook of " + this.organization.getName().getValue());
+    this.setTitle(year + " - Yearbook of " + this.organization.getName());
   }
 
   /**
@@ -499,7 +489,7 @@ public class YearbookItemEditBean extends FacesBean {
       MdsYearbookVO mds = new MdsYearbookVO();
 
       // Metadata set title
-      mds.setTitle(new TextVO(getTitle()));
+      mds.setTitle(getTitle());
       // Metadata set creators
       CreatorVO creatorVO = new CreatorVO();
       creatorVO.setOrganization(this.getOrganization());

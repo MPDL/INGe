@@ -54,7 +54,7 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceTitle}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{source.source.title.value}" converter="HTMLSubSupConverter" escape="false"/>
+					<h:outputText value="#{source.source.title}" converter="HTMLSubSupConverter" escape="false"/>
 				</span>
 			</div>
 

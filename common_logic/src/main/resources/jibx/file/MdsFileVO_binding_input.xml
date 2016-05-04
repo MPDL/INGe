@@ -46,7 +46,7 @@
 <!--		<structure ordered="false" allow-repeats="true" usage="optional">-->
 
 			<!-- Node: file.title -->
-			<!-- Field: MdsFileVO.title [TextVO] (inherited from superclass MetadataSetVO)-->
+			<!-- Field: MdsFileVO.title [String] (inherited from superclass MetadataSetVO)-->
 			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" />
 
 			<!-- Node: file.description -->

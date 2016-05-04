@@ -113,7 +113,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.locators_component_name_display == 'false' and genre.locators_component_name_form_id == 'full-submission' || genre.locators_component_name_display == 'false' and genre.locators_component_name_form_id == 'all')}">
 						<label class="xDouble_label"><span class="mandatory" title="#{msg.mandatoryField}"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}" /></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText id="inpLocatorName" styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}" />
+						<h:inputText id="inpLocatorName" styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title}" />
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>

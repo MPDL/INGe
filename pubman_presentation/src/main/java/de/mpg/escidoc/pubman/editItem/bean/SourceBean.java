@@ -39,10 +39,9 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
-import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.pubman.util.SourceVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -51,7 +50,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * POJO bean to deal with one source.
@@ -65,7 +63,6 @@ public class SourceBean extends EditItemBean {
   private SourceVO source;
   private CreatorCollection creatorCollection;
   private IdentifierCollection identifierCollection;
-  private TitleCollection titleCollection;
   private boolean autosuggestJournals = false;
   // private CoreCommandButton btnChooseCollection = new CoreCommandButton();
   private String hiddenAlternativeTitlesField;
@@ -103,7 +100,6 @@ public class SourceBean extends EditItemBean {
       bindCreatorsToBean(source.getCreators());
     }
     identifierCollection = new IdentifierCollection(source.getIdentifiers());
-    titleCollection = new TitleCollection(source);
     if (source.getPublishingInfo() == null) {
       source.setPublishingInfo(new PublishingInfoVO());
     }
@@ -121,6 +117,41 @@ public class SourceBean extends EditItemBean {
         this.autosuggestJournals = true;
       }
     }
+  }
+
+  /**
+   * Adds the first alternative title for the source with no content
+   */
+  public String addSourceAlternativeTitle() {
+    if (this.getSource() != null) {
+      if (this.getSource().getAlternativeTitles() == null
+          || this.getSource().getAlternativeTitles().isEmpty()) {
+        this.getSource().getAlternativeTitles().add(new AlternativeTitleVO());
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Adds an empty alternative title for the source after the current one
+   */
+  public String addSourceAlternativeTitleAtIndex(int index) {
+    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null
+        && !this.getSource().getAlternativeTitles().isEmpty()) {
+      this.getSource().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
+    }
+    return null;
+  }
+
+  /**
+   * Removes an alternative title from the current position of the source
+   */
+  public String removeEventAlternativeTitleAtIndex(int index) {
+    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null
+        && !this.getSource().getAlternativeTitles().isEmpty()) {
+      this.getSource().getAlternativeTitles().remove(index);
+    }
+    return null;
   }
 
   /**
@@ -149,14 +180,6 @@ public class SourceBean extends EditItemBean {
 
   public void setIdentifierCollection(IdentifierCollection identifierCollection) {
     this.identifierCollection = identifierCollection;
-  }
-
-  public TitleCollection getTitleCollection() {
-    return titleCollection;
-  }
-
-  public void setTitleCollection(TitleCollection titleCollection) {
-    this.titleCollection = titleCollection;
   }
 
   /**
@@ -222,16 +245,15 @@ public class SourceBean extends EditItemBean {
    */
   public String parseAndSetAlternativeTitlesAndIds() {
     // clear old alternative titles
-    AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
-    altTitleManager.getObjectList().clear();
+    List<AlternativeTitleVO> altTitleList = this.getSource().getAlternativeTitles();
+    altTitleList.clear();
 
     // clear old identifiers
     IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
     idManager.getObjectList().clear();
 
     if (!getHiddenAlternativeTitlesField().trim().equals("")) {
-      altTitleManager.getObjectList().addAll(
-          parseAlternativeTitles(getHiddenAlternativeTitlesField()));
+      altTitleList.addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
     }
     if (!getHiddenIdsField().trim().equals("")) {
       // idManager.getDataListFromVO().clear();
@@ -240,15 +262,15 @@ public class SourceBean extends EditItemBean {
     return "";
   }
 
-  public static List<TextVO> parseAlternativeTitles(String titleList) {
-    List<TextVO> list = new ArrayList<TextVO>();
+  public static List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
+    List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
     String[] alternativeTitles = titleList.split(HIDDEN_DELIMITER);
     for (int i = 0; i < alternativeTitles.length; i++) {
       String[] parts = alternativeTitles[i].trim().split(HIDDEN_INNER_DELIMITER);
       String alternativeTitleType = parts[0].trim();
       String alternativeTitle = parts[1].trim();
       if (!alternativeTitle.equals("")) {
-        TextVO textVO = new TextVO(alternativeTitle);
+        AlternativeTitleVO textVO = new AlternativeTitleVO(alternativeTitle);
         textVO.setType(alternativeTitleType);
         list.add(textVO);
       }
@@ -308,7 +330,7 @@ public class SourceBean extends EditItemBean {
     newSourceCreator.getPerson().setIdentifier(new IdentifierVO());
     newSourceCreator.getPerson().setOrganizations(new ArrayList<OrganizationVO>());
     OrganizationVO newCreatorOrganization = new OrganizationVO();
-    newCreatorOrganization.setName(new TextVO());
+    newCreatorOrganization.setName("");
     newSourceCreator.getPerson().getOrganizations().add(newCreatorOrganization);
     newSourceBean.getCreators().add(newSourceCreator);
     list.add(getPosition() + 1, newSourceBean);

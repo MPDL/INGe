@@ -27,7 +27,6 @@
 package de.mpg.escidoc.services.common.valueobjects;
 
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * The super class for the different metadata sets for the different types of items (Publication,
@@ -51,7 +50,7 @@ public class MetadataSetVO extends ValueObject {
   /**
    * The title of the item.
    */
-  private TextVO title;
+  private String title;
 
 
 
@@ -63,19 +62,19 @@ public class MetadataSetVO extends ValueObject {
   }
 
   /**
-   * Copy constructor.
+   * Title constructor.
    * 
    * @param other
    */
-  public MetadataSetVO(MetadataSetVO other) {
+  public MetadataSetVO(String title) {
     super();
-    setTitle(other.getTitle());
+    setTitle(title);
   }
 
   /**
    * Delivers the title.
    */
-  public TextVO getTitle() {
+  public String getTitle() {
     return title;
   }
 
@@ -84,13 +83,13 @@ public class MetadataSetVO extends ValueObject {
    * 
    * @param newVal newVal
    */
-  public void setTitle(TextVO newVal) {
+  public void setTitle(String newVal) {
     title = newVal;
   }
 
   @Override
   protected MetadataSetVO clone() {
-    return new MetadataSetVO(this);
+    return new MetadataSetVO(this.getTitle());
   }
 
   @Override

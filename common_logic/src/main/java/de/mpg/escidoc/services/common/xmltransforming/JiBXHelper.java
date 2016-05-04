@@ -71,6 +71,8 @@ import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
@@ -79,7 +81,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
@@ -444,13 +446,23 @@ public class JiBXHelper {
   }
 
   /**
-   * Factory method to create a <code>java.util.ArrayList&lt;TextVO></code> as the implementation of
-   * a <code>java.util.List</code>.
+   * Factory method to create a <code>java.util.ArrayList&lt;AlternativeTitleVO></code> as the
+   * implementation of a <code>java.util.List</code>.
    * 
-   * @return A new <code>java.util.ArrayList&lt;TextVO></code>
+   * @return A new <code>java.util.ArrayList&lt;AlternativeTitleVO></code>
    */
-  public static List<TextVO> textVOListFactory() {
-    return new ArrayList<TextVO>();
+  public static List<AlternativeTitleVO> alternativeTitleVOListFactory() {
+    return new ArrayList<AlternativeTitleVO>();
+  }
+
+  /**
+   * Factory method to create a <code>java.util.ArrayList&lt;AbstractVO></code> as the
+   * implementation of a <code>java.util.List</code>.
+   * 
+   * @return A new <code>java.util.ArrayList&lt;AlternativeTitleVO></code>
+   */
+  public static List<AbstractVO> abstractVOListFactory() {
+    return new ArrayList<AbstractVO>();
   }
 
 
@@ -484,6 +496,15 @@ public class JiBXHelper {
     return new ArrayList<StatisticReportDefinitionVO>();
   }
 
+  /**
+   * Factory method to create a <code>java.util.ArrayList&lt;SubjectVO></code> as the implementation
+   * of a <code>java.util.List</code>.
+   * 
+   * @return A new <code>java.util.ArrayList&lt;SubjectVO></code>
+   */
+  public static List<SubjectVO> subjectVOListFactory() {
+    return new ArrayList<SubjectVO>();
+  }
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;TocDivVO></code> as the implementation
@@ -946,8 +967,8 @@ public class JiBXHelper {
   }
 
   /**
-   * Deserializes a String containing a <code>xsi:type</code> attribute of TextVO elements
-   * (referencing to the types defined in escidoctypes.xsd) to the corresponding String.
+   * Deserializes a String containing a <code>xsi:type</code> attribute of AlternativeTitleVO
+   * elements (referencing to the types defined in escidoctypes.xsd) to the corresponding String.
    * 
    * @param value The String to deserialize
    * @return String The corresponding string
@@ -980,10 +1001,10 @@ public class JiBXHelper {
   }
 
   /**
-   * Serializes an <code>TextVO.Type</code> Enum to a String that corresponds to the types defined
-   * in escidoctypes.xsd.
+   * Serializes an <code>AlternativeTitleVO.Type</code> Enum to a String that corresponds to the
+   * types defined in escidoctypes.xsd.
    * 
-   * @param type The <code>TextVO.Type</code> to serialize
+   * @param type The <code>AlternativeTitleVO.Type</code> to serialize
    * @return The corresponding 'xsi:type' String (cf. escidocidtypes.xsd and
    *         http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd)
    */

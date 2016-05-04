@@ -132,11 +132,6 @@
 							<contextRoot>/pidcache</contextRoot>
 							<excluded>${exclude.module}</excluded>
 						</webModule>
-						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
-							<artifactId>common_presentation</artifactId>
-							<contextRoot>/common</contextRoot>
-						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services.wildfly</groupId>
 							<artifactId>common_logic</artifactId>
@@ -335,11 +330,6 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>common_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 

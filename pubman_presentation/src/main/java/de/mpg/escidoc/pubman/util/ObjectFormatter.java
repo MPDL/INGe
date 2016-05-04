@@ -66,7 +66,7 @@ public class ObjectFormatter extends InternationalizedImpl {
     }
     if (creatorObject.getOrganization() != null
         && creatorObject.getOrganization().getName() != null) {
-      creator.append(creatorObject.getOrganization().getName().getValue());
+      creator.append(creatorObject.getOrganization().getName());
     }
     return creator.toString();
   }
@@ -93,7 +93,7 @@ public class ObjectFormatter extends InternationalizedImpl {
     }
     if (creatorObject.getOrganization() != null
         && creatorObject.getOrganization().getName() != null) {
-      creator.append(creatorObject.getOrganization().getName().getValue());
+      creator.append(creatorObject.getOrganization().getName());
     }
     /*
      * Code below commented, as the language switching in jsp is problematic with already derived

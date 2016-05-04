@@ -70,7 +70,7 @@
 		</h:panelGroup>
 		<!-- Publication title -->
 		<h4 class="tile_publication_title">
-			<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.title}" converter="HTMLSubSupConverter" escape="false"/>
 		</h4>
 	</h:panelGroup>
 </h:panelGroup>

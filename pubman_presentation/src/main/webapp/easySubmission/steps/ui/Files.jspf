@@ -98,7 +98,7 @@
 								</span>
 								<h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/>
 							</label>
-							<h:inputText id="inpComponentFileDefaultMetadataTitle" styleClass="quad_txtInput" value="#{fileComponent.file.defaultMetadata.title.value}" />
+							<h:inputText id="inpComponentFileDefaultMetadataTitle" styleClass="quad_txtInput" value="#{fileComponent.file.defaultMetadata.title}" />
 						</span>
 					</h:panelGroup>
 				</span>

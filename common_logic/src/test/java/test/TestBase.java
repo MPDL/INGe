@@ -87,6 +87,8 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -101,7 +103,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
@@ -280,8 +281,7 @@ public class TestBase {
     // item metadata
     MdsPublicationVO mds = new MdsPublicationVO();
     // title
-    TextVO title = new TextVO("PubMan: The first of all.", "en");
-    mds.setTitle(title);
+    mds.setTitle("PubMan: The first of all.");
     // genre
     mds.setGenre(Genre.BOOK);
     // creator(s)
@@ -293,8 +293,7 @@ public class TestBase {
     person.setFamilyName("Meier");
     person.setCompleteName("Hans Meier");
     OrganizationVO organizationVO = new OrganizationVO();
-    TextVO name = new TextVO("Test Organization", "en");
-    organizationVO.setName(name);
+    organizationVO.setName("Test Organization");
     organizationVO.setAddress("Max-Planck-Str. 1");
     person.getOrganizations().add(organizationVO);
     creator.setPerson(person);
@@ -306,27 +305,22 @@ public class TestBase {
     mds.setDatePublishedOnline("2007-03-04");
     // source(s)
     SourceVO source = new SourceVO();
-    source.setTitle(new TextVO("The title of the source", "en"));
+    source.setTitle("The title of the source");
     source.setGenre(SourceVO.Genre.JOURNAL);
     // event
     EventVO event = new EventVO();
     event.setStartDate("2007-10-31");
     event.setEndDate("2007-12-31");
     event.setInvitationStatus(InvitationStatus.INVITED);
-    event.setPlace(new TextVO("Füssen (nicht Füßen) im schwäbischen Landkreis Ostallgäu.", "jp"));
-    event.setTitle(new TextVO("Un bôn vín fràn\uc3a7ais", "fr"));
+    event.setPlace("Füssen (nicht Füßen) im schwäbischen Landkreis Ostallgäu.");
+    event.setTitle("Un bôn vín fràn\uc3a7ais");
     // subject
-    TextVO subject =
-        new TextVO("This is the subject. Betreffs fußen auf Gerüchten für Äonen.", "de");
-    String s1 = subject.getValue();
+    String s1 = "This is the subject. Betreffs fußen auf Gerüchten für Äonen.";
     logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = "
         + (s1.contains("ü")));
-    mds.setFreeKeywords(subject);
+    mds.setFreeKeywords(s1);
     // table of contents
-    TextVO toc =
-        new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.",
-            "it");
-    mds.setTableOfContents(toc);
+    mds.setTableOfContents("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.");
 
     ProjectInfoVO projectInfo = new ProjectInfoVO();
     projectInfo.setTitle("Test Project Name");
@@ -372,10 +366,7 @@ public class TestBase {
     // item metadata
     MdsPublicationVO mds = new MdsPublicationVO();
     // title
-    TextVO title = new TextVO();
-    title.setLanguage("en");
-    title.setValue("PubMan: The first of all.");
-    mds.setTitle(title);
+    mds.setTitle("PubMan: The first of all.");
     // genre
     mds.setGenre(Genre.BOOK);
     // creator(s)
@@ -387,10 +378,7 @@ public class TestBase {
     person.setFamilyName("Meier");
     person.setCompleteName("Hans Meier");
     OrganizationVO organizationVO = new OrganizationVO();
-    TextVO name = new TextVO();
-    title.setLanguage("en");
-    title.setValue("Test Organization");
-    organizationVO.setName(name);
+    organizationVO.setName("Test Organization");
     organizationVO.setAddress("Max-Planck-Str. 1");
     person.getOrganizations().add(organizationVO);
     creator.setPerson(person);
@@ -402,7 +390,7 @@ public class TestBase {
     mds.setDatePublishedOnline("2007-03-04");
     // source(s)
     SourceVO source = new SourceVO();
-    source.setTitle(new TextVO("The title of the source", "en"));
+    source.setTitle("The title of the source");
     source.setGenre(SourceVO.Genre.JOURNAL);
     itemResult.getMetadataSets().add(mds);
 
@@ -466,7 +454,7 @@ public class TestBase {
     mds.getCreators().add(creator);
 
     // Title
-    mds.setTitle(new TextVO("Über den Wölken. The first of all. Das Maß aller Dinge.", "en"));
+    mds.setTitle("Über den Wölken. The first of all. Das Maß aller Dinge.");
 
     // Language
     mds.getLanguages().add("de");
@@ -474,8 +462,8 @@ public class TestBase {
     mds.getLanguages().add("fr");
 
     // Alternative Title
-    mds.getAlternativeTitles().add(new TextVO("Die Erste von allen.", "de"));
-    mds.getAlternativeTitles().add(new TextVO("Wulewu", "fr"));
+    mds.getAlternativeTitles().add(new AlternativeTitleVO("Die Erste von allen.", "de"));
+    mds.getAlternativeTitles().add(new AlternativeTitleVO("Wulewu", "fr"));
 
     // Identifier
     mds.getIdentifiers().add(new IdentifierVO(IdType.ISI, "0815"));
@@ -514,20 +502,15 @@ public class TestBase {
     mds.setDegree(DegreeType.MASTER);
 
     // Abstracts
-    mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
-    mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
+    mds.getAbstracts().add(
+        new AbstractVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
+    mds.getAbstracts().add(new AbstractVO("This is the summary of the publication.", "en"));
 
     // Subject
-    TextVO subject = new TextVO();
-    subject.setLanguage("de");
-    subject.setValue("wichtig,wissenschaftlich,spannend");
-    mds.setFreeKeywords(subject);
+    mds.setFreeKeywords("wichtig,wissenschaftlich,spannend");
 
     // Table of Contents
-    TextVO tableOfContents = new TextVO();
-    tableOfContents.setLanguage("de");
-    tableOfContents.setValue("1.Einleitung 2.Inhalt");
-    mds.setTableOfContents(tableOfContents);
+    mds.setTableOfContents("1.Einleitung 2.Inhalt");
 
     // Location
     mds.setLocation("IPP, Garching");
@@ -541,18 +524,15 @@ public class TestBase {
   private EventVO createEvent() {
     EventVO event = new EventVO();
     // Event.Title
-    event.setTitle(new TextVO("Weekly progress meeting", "en"));
+    event.setTitle("Weekly progress meeting");
     // Event.AlternativeTitle
-    event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
+    event.getAlternativeTitles().add(
+        new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
     // Event.StartDate
     event.setStartDate("2004-11-11");
     // Event.EndDate
     event.setEndDate("2005-02-19");
     // Event.Place
-    TextVO place = new TextVO();
-    place.setLanguage("de");
-    place.setValue("Köln");
-    event.setPlace(place);
     // Event.InvitationStatus
     event.setInvitationStatus(InvitationStatus.INVITED);
     return event;
@@ -564,28 +544,27 @@ public class TestBase {
   private SourceVO createSource() {
     CreatorVO creator;
     OrganizationVO organization;
-    TextVO name;
     PublishingInfoVO pubInfo;
     SourceVO source = new SourceVO();
     // Source.Title
-    source.setTitle(new TextVO("Dies ist die Wurzel allen Übels.", "jp"));
+    source.setTitle("Dies ist die Wurzel allen Übels.");
     // Source.Genre
     // source.setGenre(SourceVO.Genre.SERIES);
     // Source.AlternativeTitle
-    source.getAlternativeTitles().add(new TextVO("This is the root of all ???.", "en"));
-    source.getAlternativeTitles()
-        .add(
-            new TextVO("< and & are illegal characters in XML and therefore have to be escaped.",
-                "en"));
+    source.getAlternativeTitles().add(new AlternativeTitleVO("This is the root of all ???.", "en"));
     source.getAlternativeTitles().add(
-        new TextVO(
+        new AlternativeTitleVO(
+            "< and & are illegal characters in XML and therefore have to be escaped.", "en"));
+    source.getAlternativeTitles().add(
+        new AlternativeTitleVO(
             "> and ' and ? are problematic characters in XML and therefore should be escaped.",
             "en"));
     source.getAlternativeTitles().add(
-        new TextVO("What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the"
-            + " \\, -, the _, the\n" + "~, the @ and the #)?", "en"));
+        new AlternativeTitleVO(
+            "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the"
+                + " \\, -, the _, the\n" + "~, the @ and the #)?", "en"));
     source.getAlternativeTitles().add(
-        new TextVO("By the way, the Euro sign looks like this: €", "en"));
+        new AlternativeTitleVO("By the way, the Euro sign looks like this: €", "en"));
     // Source.Creator
     creator = new CreatorVO();
     // Source.Creator.Role
@@ -593,10 +572,7 @@ public class TestBase {
     // Source.Creator.Organization
     organization = new OrganizationVO();
     // Source.Creator.Organization.Name
-    name = new TextVO();
-    name.setLanguage("de");
-    name.setValue("murrrmurr");
-    organization.setName(name);
+    organization.setName("murrrmurr");
     // Source.Creator.Organization.Address
     organization.setAddress("Ümläüte ßind ßchön. à bientôt!");
     // Source.Creator.Organization.Identifier
@@ -625,12 +601,9 @@ public class TestBase {
     // Source.Identifier
     source.getIdentifiers().add(new IdentifierVO(IdType.ISBN, "XY-347H-112"));
     // Source.Source
-    source.getSources().add(new SourceVO(new TextVO("The source of the source.", "en")));
+    source.getSources().add(new SourceVO("The source of the source."));
     CreatorVO sourceSourceCreator = new CreatorVO(new OrganizationVO(), CreatorRole.ARTIST);
-    name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("Creator of the Source of the source");
-    sourceSourceCreator.getOrganization().setName(name);
+    sourceSourceCreator.getOrganization().setName("Creator of the Source of the source");
     sourceSourceCreator.getOrganization().setIdentifier("ID-4711-0815");
     source.getSources().get(0).getCreators().add(sourceSourceCreator);
     return source;
@@ -642,17 +615,13 @@ public class TestBase {
   private CreatorVO createCreator2() {
     CreatorVO creator;
     OrganizationVO organization;
-    TextVO name;
     creator = new CreatorVO();
     // Creator.Role
     creator.setRole(CreatorRole.CONTRIBUTOR);
     // Source.Creator.Organization
     organization = new OrganizationVO();
     // Creator.Organization.Name
-    name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("MPDL");
-    organization.setName(name);
+    organization.setName("MPDL");
     // Creator.Organization.Address
     organization.setAddress("Amalienstraße");
     // Creator.Organization.Identifier
@@ -693,10 +662,7 @@ public class TestBase {
     OrganizationVO organization;
     organization = new OrganizationVO();
     // Creator.Person.Organization.Name
-    TextVO name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("Vinzenzmurr");
-    organization.setName(name);
+    organization.setName("Vinzenzmurr");
     // Creator.Person.Organization.Address
     organization.setAddress("<a ref=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
     // Creator.Person.Organization.Identifier
@@ -718,10 +684,7 @@ public class TestBase {
     MdsPublicationVO mds = new MdsPublicationVO();
 
     // Title
-    TextVO title = new TextVO();
-    title.setLanguage("en");
-    title.setValue("The title");
-    mds.setTitle(title);
+    mds.setTitle("The title");
 
     // Genre
     mds.setGenre(Genre.BOOK);
@@ -764,10 +727,10 @@ public class TestBase {
 
     // build one SourceVO instance...
     SourceVO sourceVO = new SourceVO();
-    sourceVO.setTitle(title);
-    List<TextVO> alternativeTitleList = sourceVO.getAlternativeTitles();
+    sourceVO.setTitle("The title");
+    List<AlternativeTitleVO> alternativeTitleList = sourceVO.getAlternativeTitles();
     for (int i = 0; i < 2; i++) {
-      alternativeTitleList.add(title);
+      alternativeTitleList.add(new AlternativeTitleVO("The title", "en"));
     }
     List<CreatorVO> creatorList = sourceVO.getCreators();
     for (int i = 0; i < 2; i++) {
@@ -786,10 +749,10 @@ public class TestBase {
 
     // build another SourceVO instance...
     SourceVO sourceVO2 = new SourceVO();
-    sourceVO2.setTitle(title);
-    List<TextVO> alternativeTitleList2 = sourceVO2.getAlternativeTitles();
+    sourceVO2.setTitle("The title");
+    List<AlternativeTitleVO> alternativeTitleList2 = sourceVO2.getAlternativeTitles();
     for (int i = 0; i < 2; i++) {
-      alternativeTitleList2.add(title);
+      alternativeTitleList2.add(new AlternativeTitleVO("The title", "en"));
     }
     List<CreatorVO> creatorList2 = sourceVO2.getCreators();
     for (int i = 0; i < 2; i++) {
@@ -820,19 +783,16 @@ public class TestBase {
     // Event
     EventVO event = new EventVO();
     // Event.Title
-    event.setTitle(new TextVO("Länderübergreifende Änderungsüberlegungen", "jp"));
+    event.setTitle("Länderübergreifende Änderungsüberlegungen");
     // Event.AlternativeTitle
     event.getAlternativeTitles().add(
-        new TextVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
+        new AlternativeTitleVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
     // Event.StartDate
     event.setStartDate("2000-02-29");
     // Event.EndDate
     event.setEndDate("2001-02-28");
     // Event.Place
-    TextVO place = new TextVO();
-    title.setLanguage("de");
-    title.setValue("Grevenbröich");
-    event.setPlace(place);
+    event.setPlace("Grevenbröich");
     // Event.InvitationStatus
     event.setInvitationStatus(InvitationStatus.INVITED);
     mds.setEvent(event);
@@ -854,9 +814,7 @@ public class TestBase {
     metaDataYearBook.getCreators().add(creator);
 
     // Add Title
-    TextVO title = new TextVO();
-    title.setValue("YearbookAutomatedTestItem");
-    metaDataYearBook.setTitle(title);
+    metaDataYearBook.setTitle("YearbookAutomatedTestItem");
 
     // Add Year
     metaDataYearBook.setYear("2012");

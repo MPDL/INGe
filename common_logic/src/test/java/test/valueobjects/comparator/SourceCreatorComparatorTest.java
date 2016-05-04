@@ -58,7 +58,7 @@ public class SourceCreatorComparatorTest extends ComparatorTestBase {
       // if(creator.getOrganization() != null)
       {
         if (creator.getOrganization().getName() != null) {
-          creatorname = creator.getOrganization().getName().getValue();
+          creatorname = creator.getOrganization().getName();
         }
       }
     }

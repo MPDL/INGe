@@ -378,7 +378,7 @@ public class YearbookItemSessionBean extends FacesBean {
         boolean valid = validateItem(pubItem);
         if (!valid) {
           error(getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
-              "\"" + pubItem.getMetadata().getTitle().getValue() + "\""));
+              "\"" + pubItem.getMetadata().getTitle() + "\""));
           allValid = false;
         }
       }

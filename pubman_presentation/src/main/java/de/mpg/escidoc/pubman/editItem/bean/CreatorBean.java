@@ -47,7 +47,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation. Only for
@@ -92,18 +91,18 @@ public class CreatorBean extends FacesBean {
       if (creator.getPerson().getOrganizations().size() == 0) {
         // create a new Organization for this person
         OrganizationVO newPersonOrganization = new OrganizationVO();
-        newPersonOrganization.setName(new TextVO());
+        newPersonOrganization.setName("");
         creator.getPerson().getOrganizations().add(newPersonOrganization);
       }
     } else if (CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType())) {
       if (creator.getOrganization() == null) {
         OrganizationVO newOrga = new OrganizationVO();
-        newOrga.setName(new TextVO());
+        newOrga.setName("");
 
         creator.setOrganization(newOrga);
       }
       if (creator.getOrganization() != null && creator.getOrganization().getName() == null) {
-        creator.getOrganization().setName(new TextVO());
+        creator.getOrganization().setName("");
       }
     }
     this.creator = creator;
@@ -233,7 +232,7 @@ public class CreatorBean extends FacesBean {
     public OrganizationVO createNewObject() {
       OrganizationVO newOrga = new OrganizationVO();
 
-      newOrga.setName(new TextVO());
+      newOrga.setName("");
       return newOrga;
     }
 
@@ -247,7 +246,7 @@ public class CreatorBean extends FacesBean {
       this.parentVO = parentVO;
       for (OrganizationVO orgaVO : parentVO.getOrganizations()) {
         if (orgaVO.getName() == null) {
-          orgaVO.setName(new TextVO());
+          orgaVO.setName("");
         }
       }
       setObjectList(parentVO.getOrganizations());
@@ -374,7 +373,7 @@ public class CreatorBean extends FacesBean {
       List<OrganizationVOPresentation> creatorOrganizations =
           editItemSessionBean.getCreatorOrganizations();
       OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
-      newOrg.setName(new TextVO(values[1]));
+      newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);
       newOrg.setBean(editItemSessionBean);
       creatorOrganizations.add(newOrg);

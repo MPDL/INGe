@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -31,6 +30,8 @@ import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -42,7 +43,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
@@ -276,7 +276,7 @@ public class TestFullTextSearch {
 
     MdsFileVO mdsFile = new MdsFileVO();
     mdsFile.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/abstract");
-    mdsFile.setTitle(new TextVO(fileName));
+    mdsFile.setTitle(fileName);
 
     initPubFile.getMetadataSets().add(mdsFile);
 
@@ -528,10 +528,7 @@ public class TestFullTextSearch {
     // Creator.Person.Organization
     organization = new OrganizationVO();
     // Creator.Person.Organization.Name
-    TextVO name = new TextVO();
-    name.setValue("Vinzenzmurr");
-    name.setLanguage("de");
-    organization.setName(name);
+    organization.setName("Vinzenzmurr");
     // Creator.Person.Organization.Address
     organization.setAddress("<a href=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
     // Creator.Person.Organization.Identifier
@@ -555,9 +552,7 @@ public class TestFullTextSearch {
     // Source.Creator.Organization
     organization = new OrganizationVO();
     // Creator.Organization.Name
-    name.setValue("MPDL");
-    name.setLanguage("en");
-    organization.setName(name);
+    organization.setName("MPDL");
     // Creator.Organization.Address
     organization.setAddress("Amalienstraße");
     // Creator.Organization.Identifier
@@ -574,7 +569,7 @@ public class TestFullTextSearch {
     mds.getCreators().add(creator);
 
     // Title
-    mds.setTitle(new TextVO("Über den Wölken. The first of all. Das Maß aller Dinge.", "en"));
+    mds.setTitle("Über den Wölken. The first of all. Das Maß aller Dinge.");
 
     // Language
     mds.getLanguages().add("deu");
@@ -582,8 +577,8 @@ public class TestFullTextSearch {
     mds.getLanguages().add("fra");
 
     // Alternative Title
-    mds.getAlternativeTitles().add(new TextVO("Die Erste von allen.", "de"));
-    mds.getAlternativeTitles().add(new TextVO("Wulewu", "fr"));
+    mds.getAlternativeTitles().add(new AlternativeTitleVO("Die Erste von allen.", "de"));
+    mds.getAlternativeTitles().add(new AlternativeTitleVO("Wulewu", "fr"));
 
     // Identifier
     mds.getIdentifiers().add(new IdentifierVO(IdType.ISI, "0815"));
@@ -610,25 +605,24 @@ public class TestFullTextSearch {
     SourceVO source = new SourceVO();
     // Source.Title
     source.setGenre(SourceVO.Genre.BOOK);
-    source.setTitle(new TextVO("Dies ist die Wurzel allen Übels.", "jp"));
+    source.setTitle("Dies ist die Wurzel allen Übels.");
     // Source.AlternativeTitle
-    source.getAlternativeTitles().add(new TextVO("This is the root of all ???.", "en"));
-    source.getAlternativeTitles()
-        .add(
-            new TextVO("< and & are illegal characters in XML and therefore have to be escaped.",
-                "en"));
+    source.getAlternativeTitles().add(new AlternativeTitleVO("This is the root of all ???.", "en"));
     source.getAlternativeTitles().add(
-        new TextVO(
+        new AlternativeTitleVO(
+            "< and & are illegal characters in XML and therefore have to be escaped.", "en"));
+    source.getAlternativeTitles().add(
+        new AlternativeTitleVO(
             "> and ' and ? are problematic characters in XML and therefore should be escaped.",
             "en"));
     source
         .getAlternativeTitles()
         .add(
-            new TextVO(
+            new AlternativeTitleVO(
                 "What about `, $, §, \", @ and the good old % (not to forget the /, the !, -, the _, the ~, the @ and the #)?",
                 "en"));
     source.getAlternativeTitles().add(
-        new TextVO("By the way, the Euro sign looks like this: €", "en"));
+        new AlternativeTitleVO("By the way, the Euro sign looks like this: €", "en"));
     // Source.Creator
     creator = new CreatorVO();
     // Source.Creator.Role
@@ -636,9 +630,7 @@ public class TestFullTextSearch {
     // Source.Creator.Organization
     organization = new OrganizationVO();
     // Source.Creator.Organization.Name
-    name.setValue("murrrmurr");
-    name.setLanguage("de");
-    organization.setName(name);
+    organization.setName("murrrmurr");
     // Source.Creator.Organization.Address
     organization.setAddress("Ümläüte ßind schön. à bientôt!");
     // Source.Creator.Organization.Identifier
@@ -675,11 +667,9 @@ public class TestFullTextSearch {
     // Source.Identifier
     source.getIdentifiers().add(new IdentifierVO(IdType.ISBN, "XY-347H-112"));
     // Source.Source
-    source.getSources().add(new SourceVO(new TextVO("The source of the source.", "en")));
+    source.getSources().add(new SourceVO("The source of the source."));
     CreatorVO sourceSourceCreator = new CreatorVO(new OrganizationVO(), CreatorRole.ARTIST);
-    name.setValue("Creator of the Source of the source");
-    name.setLanguage("en");
-    sourceSourceCreator.getOrganization().setName(name);
+    sourceSourceCreator.getOrganization().setName("Creator of the Source of the source");
     try {
       sourceSourceCreator.getOrganization().setIdentifier(
           PropertyReader.getProperty("framework.organizational_unit.id"));
@@ -696,17 +686,16 @@ public class TestFullTextSearch {
     // Event
     EventVO event = new EventVO();
     // Event.Title
-    event.setTitle(new TextVO("Weekly progress meeting", "en"));
+    event.setTitle("Weekly progress meeting");
     // Event.AlternativeTitle
-    event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
+    event.getAlternativeTitles().add(
+        new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
     // Event.StartDate
     event.setStartDate("2004-11-11");
     // Event.EndDate
     event.setEndDate("2005-02-19");
     // Event.Place
-    name.setValue("Köln");
-    name.setLanguage("de");
-    event.setPlace(name);
+    event.setPlace("Köln");
     // Event.InvitationStatus
     event.setInvitationStatus(InvitationStatus.INVITED);
     mds.setEvent(event);
@@ -718,18 +707,15 @@ public class TestFullTextSearch {
     mds.setDegree(DegreeType.MASTER);
 
     // Abstract
-    mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
-    mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
+    mds.getAbstracts().add(
+        new AbstractVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
+    mds.getAbstracts().add(new AbstractVO("This is the summary of the publication.", "en"));
 
     // Subject
-    name.setValue("wichtig,wissenschaftlich,spannend");
-    name.setLanguage("de");
-    mds.setFreeKeywords(name);
+    mds.setFreeKeywords("wichtig,wissenschaftlich,spannend");
 
     // Table of Contents
-    name.setValue("1.Einleitung 2.Inhalt");
-    name.setLanguage("de");
-    mds.setTableOfContents(name);
+    mds.setTableOfContents("1.Einleitung 2.Inhalt");
 
     // Location
     mds.setLocation("IPP, Garching");

@@ -35,15 +35,15 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import test.TestBase;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import test.TestBase;
 
 /**
  * Test cases for the equals methods of value objects.
@@ -90,7 +90,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentTitles() {
-    mds1.getTitle().setValue(mds1.getTitle().getValue() + "X");
+    mds1.setTitle(mds1.getTitle() + "X");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
@@ -100,7 +100,8 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentAlternativeTitles() {
-    TextVO altTitle = mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
+    AlternativeTitleVO altTitle =
+        mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
     altTitle.setValue(altTitle.getValue() + "X");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
@@ -111,7 +112,8 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentAlternativeTitleCount() {
-    TextVO altTitle = mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
+    AlternativeTitleVO altTitle =
+        mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
     mds1.getAlternativeTitles().add(altTitle);
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
@@ -194,10 +196,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentCreatorPersonOrganizationName() {
-    TextVO name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("Another org.");
-    mds1.getCreators().get(0).getPerson().getOrganizations().get(0).setName(name);
+    mds1.getCreators().get(0).getPerson().getOrganizations().get(0).setName("Another org.");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
@@ -223,10 +222,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentCreatorOrganizationName() {
-    TextVO name = new TextVO();
-    name.setLanguage("en");
-    name.setValue("Another org name.");
-    mds1.getCreators().get(1).getOrganization().setName(name);
+    mds1.getCreators().get(1).getOrganization().setName("Another org name.");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
 
@@ -399,20 +395,11 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentSourceSourceTitle() {
-    mds1.getSources().get(0).getSources().get(0).getTitle().setValue("Another source title now.");
+    mds1.getSources().get(0).getSources().get(0).setTitle("Another source title now.");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
 
-  /**
-   * Tests the two MdsPublicationVOs with different Source Title Languages for equality.
-   */
-  @Test
-  public void equalsMdsPublicationVOWithDifferentSourceSourceTitleLanguage() {
-    mds1.getSources().get(0).getSources().get(0).getTitle().setLanguage("ch");
-    assertFalse(mds1.equals(mds2));
-    assertFalse(mds2.equals(mds1));
-  }
 
   /**
    * Tests the two SourceVOs for equality.
@@ -486,19 +473,7 @@ public class ValueObjectEqualsTest extends TestBase {
   public void equalsEventVOWithDifferentTitle() {
     EventVO event1 = mds1.getEvent();
     EventVO event2 = mds2.getEvent();
-    event1.getTitle().setValue("Another event title now.");
-    assertFalse(event1.equals(event2));
-    assertFalse(event2.equals(event1));
-  }
-
-  /**
-   * Tests the two EventVOs with different Title Languages for equality.
-   */
-  @Test
-  public void equalsEventVOWithDifferentTitleLanguage() {
-    EventVO event1 = mds1.getEvent();
-    EventVO event2 = mds2.getEvent();
-    event1.getTitle().setValue("ch");
+    event1.setTitle("Another event title now.");
     assertFalse(event1.equals(event2));
     assertFalse(event2.equals(event1));
   }

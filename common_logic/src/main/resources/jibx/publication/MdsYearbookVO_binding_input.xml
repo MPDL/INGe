@@ -59,7 +59,7 @@
 			</collection>
 
 			<!-- Node: item.md-records.md-record.yearbook.title -->
-			<!-- Field: PubItemVO.metadata.title [TextVO] (inherited from superclass 
+			<!-- Field: PubItemVO.metadata.title [String] (inherited from superclass 
 				MetadataSetVO) -->
 			<structure
 				map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"

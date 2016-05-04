@@ -4,7 +4,6 @@
 package de.mpg.escidoc.services.citation_style_language_manager;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,13 +18,12 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -102,10 +100,10 @@ public class MetadataProvider implements ItemDataProvider {
       cslItem.type(this.getCslGenre(metadata.getGenre()));
 
       // Title
-      cslItem.title(metadata.getTitle().getValue());
+      cslItem.title(metadata.getTitle());
 
       // Alternative title
-      for (TextVO title : metadata.getAlternativeTitles()) {
+      for (AlternativeTitleVO title : metadata.getAlternativeTitles()) {
         if (!SourceVO.AlternativeTitleType.HTML.toString().equals(title.getType())
             && !SourceVO.AlternativeTitleType.LATEX.toString().equals(title.getType())
             && !SourceVO.AlternativeTitleType.MATHML.toString().equals(title.getType())) {
@@ -155,9 +153,10 @@ public class MetadataProvider implements ItemDataProvider {
                 .family(creator.getPerson().getFamilyName()).build());
           }
         } else if (CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType())) {
-          editorList.add(new CSLNameBuilder().given("")
-              .family(creator.getOrganization().getName().getValue()).build()); // empty String
-                                                                                // needed
+          editorList.add(new CSLNameBuilder().given("").family(creator.getOrganization().getName())
+              .build()); // empty
+                         // String
+                         // needed
         }
       }
       if (authorList.size() > 0) {
@@ -371,8 +370,8 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // Keywords
-      if (metadata.getFreeKeywords() != null && metadata.getFreeKeywords().getValue() != null) {
-        cslItem.keyword(metadata.getFreeKeywords().getValue());
+      if (metadata.getFreeKeywords() != null) {
+        cslItem.keyword(metadata.getFreeKeywords());
       }
 
       // Abstract
@@ -404,7 +403,7 @@ public class MetadataProvider implements ItemDataProvider {
         // Genre dependent choice
         if (SourceVO.Genre.SERIES.equals(source.getGenre())) {
           // Source title
-          cslItem.collectionTitle(source.getTitle().getValue());
+          cslItem.collectionTitle(source.getTitle());
 
           // Source creators
           List<CSLName> collectionEditorList = new ArrayList<CSLName>();
@@ -417,7 +416,7 @@ public class MetadataProvider implements ItemDataProvider {
                     .family(sourceCreator.getPerson().getFamilyName()).build());
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
                 collectionEditorList.add(new CSLNameBuilder().given("")
-                    .family(sourceCreator.getOrganization().getName().getValue()).build());
+                    .family(sourceCreator.getOrganization().getName()).build());
               }
             }
           }
@@ -426,7 +425,7 @@ public class MetadataProvider implements ItemDataProvider {
           }
         } else {
           // Source title
-          cslItem.containerTitle(source.getTitle().getValue());
+          cslItem.containerTitle(source.getTitle());
 
           // Source creators
           List<CSLName> containerAuthorList = new ArrayList<CSLName>();
@@ -439,7 +438,7 @@ public class MetadataProvider implements ItemDataProvider {
                     .family(sourceCreator.getPerson().getFamilyName()).build());
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
                 containerAuthorList.add(new CSLNameBuilder().given("")
-                    .family(sourceCreator.getOrganization().getName().getValue()).build());
+                    .family(sourceCreator.getOrganization().getName()).build());
               }
             }
             if (CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
@@ -449,7 +448,7 @@ public class MetadataProvider implements ItemDataProvider {
                     .family(sourceCreator.getPerson().getFamilyName()).build());;
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
                 sourceEditorList.add(new CSLNameBuilder().given("")
-                    .family(sourceCreator.getOrganization().getName().getValue()).build());
+                    .family(sourceCreator.getOrganization().getName()).build());
               }
             }
           }
@@ -462,7 +461,7 @@ public class MetadataProvider implements ItemDataProvider {
         }
 
         // Source short title
-        for (TextVO sourceAlternativeTitle : source.getAlternativeTitles()) {
+        for (AlternativeTitleVO sourceAlternativeTitle : source.getAlternativeTitles()) {
           if (!SourceVO.AlternativeTitleType.HTML.toString().equals(
               sourceAlternativeTitle.getType())
               && !SourceVO.AlternativeTitleType.LATEX.toString().equals(
@@ -537,10 +536,10 @@ public class MetadataProvider implements ItemDataProvider {
         EventVO event = metadata.getEvent();
         // Event title
         if (event.getTitle() != null) {
-          cslItem.event(event.getTitle().getValue());
+          cslItem.event(event.getTitle());
         }
         if (event.getPlace() != null) {
-          cslItem.eventPlace(event.getPlace().getValue());
+          cslItem.eventPlace(event.getPlace());
         }
         if (event.getStartDate() != null) {
           for (String formatString : dateFormats) {

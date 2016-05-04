@@ -411,7 +411,7 @@ public class FileBean extends FacesBean {
   public String getFileName() {
     String fileName = "";
     if (file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null) {
-      fileName = file.getDefaultMetadata().getTitle().getValue();
+      fileName = file.getDefaultMetadata().getTitle();
     }
     return fileName;
   }
@@ -438,7 +438,7 @@ public class FileBean extends FacesBean {
   public String getLocator() {
     String locator = "";
     if (file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null) {
-      locator = file.getDefaultMetadata().getTitle().getValue();
+      locator = file.getDefaultMetadata().getTitle();
     }
     return locator;
   }

@@ -61,7 +61,7 @@ public class EventTitleComparatorTest extends ComparatorTestBase {
         event = itemVO.getMetadata().getEvent();
       }
 
-      logger.debug((event != null ? event.getTitle().getValue() : "null") + " ("
+      logger.debug((event != null ? event.getTitle() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"2", "1", "1", "3", "4"};
@@ -83,7 +83,7 @@ public class EventTitleComparatorTest extends ComparatorTestBase {
         event = itemVO.getMetadata().getEvent();
       }
 
-      logger.debug((event != null ? event.getTitle().getValue() : "null") + " ("
+      logger.debug((event != null ? event.getTitle() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "3", "1", "1", "2"};

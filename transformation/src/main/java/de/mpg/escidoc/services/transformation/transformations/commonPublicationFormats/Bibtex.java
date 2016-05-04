@@ -55,6 +55,8 @@ import bibtex.parser.BibtexParser;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -65,7 +67,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
@@ -148,33 +150,33 @@ public class Bibtex implements BibtexInterface {
         }
         MdsPublicationVO.Genre itemGenre = BibTexUtil.getGenreMapping().get(bibGenre);
         mds.setGenre(itemGenre);
-        SourceVO sourceVO = new SourceVO(new TextVO());
-        SourceVO secondSourceVO = new SourceVO(new TextVO());
+        SourceVO sourceVO = new SourceVO();
+        SourceVO secondSourceVO = new SourceVO();
         Map fields = entry.getFields();
         // Mapping of BibTeX Standard Entries
         // title
         if (fields.get("title") != null) {
           if (fields.get("chapter") != null) {
-            mds.setTitle(new TextVO(BibTexUtil.stripBraces(
+            mds.setTitle(BibTexUtil.stripBraces(
                 BibTexUtil.bibtexDecode(fields.get("chapter").toString()), false)
                 + " - "
                 + BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("title").toString()),
-                    false)));
+                    false));
           } else {
-            mds.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("title").toString()), false)));
+            mds.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("title").toString()), false));
           }
         }
         // booktitle
         if (fields.get("booktitle") != null) {
           if (bibGenre == BibTexUtil.Genre.book) {
-            mds.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false)));
+            mds.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false));
           } else if (bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.inbook
               || bibGenre == BibTexUtil.Genre.incollection
               || bibGenre == BibTexUtil.Genre.inproceedings) {
-            sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false)));
+            sourceVO.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false));
             if (bibGenre == BibTexUtil.Genre.conference
                 || bibGenre == BibTexUtil.Genre.inproceedings) {
               sourceVO.setGenre(Genre.PROCEEDINGS);
@@ -188,12 +190,12 @@ public class Bibtex implements BibtexInterface {
         if (fields.get("fjournal") != null) {
           if (bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.misc
               || bibGenre == BibTexUtil.Genre.unpublished) {
-            sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("fjournal").toString()), false)));
+            sourceVO.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("fjournal").toString()), false));
             sourceVO.setGenre(SourceVO.Genre.JOURNAL);
             if (fields.get("journal") != null) {
               sourceVO.getAlternativeTitles().add(
-                  new TextVO(BibTexUtil.stripBraces(
+                  new AlternativeTitleVO(BibTexUtil.stripBraces(
                       BibTexUtil.bibtexDecode(fields.get("journal").toString()), false)));
             }
           }
@@ -201,8 +203,8 @@ public class Bibtex implements BibtexInterface {
           if (bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.misc
               || bibGenre == BibTexUtil.Genre.unpublished
               || bibGenre == BibTexUtil.Genre.inproceedings) {
-            sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("journal").toString()), false)));
+            sourceVO.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("journal").toString()), false));
             sourceVO.setGenre(SourceVO.Genre.JOURNAL);
           }
         }
@@ -228,8 +230,7 @@ public class Bibtex implements BibtexInterface {
             if (bibGenre == BibTexUtil.Genre.inproceedings
                 && (fields.get("booktitle") == null || fields.get("booktitle").toString() == "")
                 && (fields.get("event_name") != null && fields.get("event_name").toString() != "")) {
-              sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(fields.get("event_name")
-                  .toString(), false)));
+              sourceVO.setTitle(BibTexUtil.stripBraces(fields.get("event_name").toString(), false));
               sourceVO.setGenre(Genre.PROCEEDINGS);
             }
           }
@@ -242,7 +243,7 @@ public class Bibtex implements BibtexInterface {
           if (!(bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook
               || bibGenre == BibTexUtil.Genre.inproceedings
               || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-              && (sourceVO.getTitle() == null || sourceVO.getTitle().getValue() == null)) {
+              && (sourceVO.getTitle() == null || sourceVO.getTitle() == null)) {
             publishingInfoVO.setPlace(BibTexUtil.stripBraces(
                 BibTexUtil.bibtexDecode(fields.get("address").toString()), false));
           } else {
@@ -264,7 +265,7 @@ public class Bibtex implements BibtexInterface {
         if (!(bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook
             || bibGenre == BibTexUtil.Genre.inproceedings
             || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-            && (sourceVO.getTitle() == null || sourceVO.getTitle().getValue() == null)) {
+            && (sourceVO.getTitle() == null || sourceVO.getTitle() == null)) {
           if (fields.get("publisher") != null) {
             publishingInfoVO.setPublisher(BibTexUtil.stripBraces(
                 BibTexUtil.bibtexDecode(fields.get("publisher").toString()), false));
@@ -308,15 +309,15 @@ public class Bibtex implements BibtexInterface {
         if (fields.get("series") != null) {
           if (bibGenre == BibTexUtil.Genre.book || bibGenre == BibTexUtil.Genre.misc
               || bibGenre == BibTexUtil.Genre.techreport) {
-            sourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
+            sourceVO.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("series").toString()), false));
             sourceVO.setGenre(SourceVO.Genre.SERIES);
           } else if (bibGenre == BibTexUtil.Genre.inbook
               || bibGenre == BibTexUtil.Genre.incollection
               || bibGenre == BibTexUtil.Genre.inproceedings
               || bibGenre == BibTexUtil.Genre.conference) {
-            secondSourceVO.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("series").toString()), false)));
+            secondSourceVO.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("series").toString()), false));
             secondSourceVO.setGenre(SourceVO.Genre.SERIES);
           }
         }
@@ -384,26 +385,26 @@ public class Bibtex implements BibtexInterface {
           boolean eventNotEmpty = false;
           // event location
           if (fields.get("location") != null) {
-            event.setPlace(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("location").toString()), false)));
+            event.setPlace(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("location").toString()), false));
             eventNotEmpty = true;
           }
           // event place
           else if (fields.get("event_place") != null) {
-            event.setPlace(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("event_place").toString()), false)));
+            event.setPlace(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("event_place").toString()), false));
             eventNotEmpty = true;
           }
           // event name/title
           if (fields.get("event_name") != null) {
-            event.setTitle(new TextVO(BibTexUtil.stripBraces(
-                BibTexUtil.bibtexDecode(fields.get("event_name").toString()), false)));
+            event.setTitle(BibTexUtil.stripBraces(
+                BibTexUtil.bibtexDecode(fields.get("event_name").toString()), false));
             eventNotEmpty = true;
           }
           // event will be set only it's not empty
           if (eventNotEmpty == true) {
             if (event.getTitle() == null) {
-              event.setTitle(new TextVO());
+              event.setTitle("");
             }
             mds.setEvent(event);
           }
@@ -478,7 +479,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   // set matchedGroup as Organisation Author
                   OrganizationVO team = new OrganizationVO();
-                  team.setName(new TextVO(matchedGroup.trim()));
+                  team.setName(matchedGroup.trim());
                   CreatorVO creatorVO = new CreatorVO(team, CreatorVO.CreatorRole.AUTHOR);
                   teams.add(creatorVO);
                 }
@@ -572,7 +573,7 @@ public class Bibtex implements BibtexInterface {
                                   }
                                   if (smaller(from, dateString) && smaller(dateString, until)) {
                                     OrganizationVO org = new OrganizationVO();
-                                    org.setName(new TextVO(name));
+                                    org.setName(name);
                                     org.setIdentifier(id);
                                     personVO.getOrganizations().add(org);
                                   }
@@ -636,7 +637,7 @@ public class Bibtex implements BibtexInterface {
                                 String href = ou.getAttribute("xlink:href");
                                 String ouId = href.substring(href.lastIndexOf("/") + 1);
                                 OrganizationVO org = new OrganizationVO();
-                                org.setName(new TextVO(identifier));
+                                org.setName(identifier);
                                 org.setIdentifier(ouId);
                                 personVO.getOrganizations().add(org);
                               } catch (Exception e) {
@@ -699,7 +700,7 @@ public class Bibtex implements BibtexInterface {
                               }
                               if (smaller(from, dateString) && smaller(dateString, until)) {
                                 OrganizationVO org = new OrganizationVO();
-                                org.setName(new TextVO(name));
+                                org.setName(name);
                                 org.setIdentifier(id);
                                 personVO.getOrganizations().add(org);
                               }
@@ -756,7 +757,7 @@ public class Bibtex implements BibtexInterface {
                               }
                               if (smaller(from, dateString) && smaller(dateString, until)) {
                                 OrganizationVO org = new OrganizationVO();
-                                org.setName(new TextVO(name));
+                                org.setName(name);
                                 org.setIdentifier(id);
                                 personVO.getOrganizations().add(org);
                               }
@@ -773,7 +774,7 @@ public class Bibtex implements BibtexInterface {
                     OrganizationVO organization = new OrganizationVO();
                     organization.setIdentifier(PropertyReader
                         .getProperty("escidoc.pubman.external.organisation.id"));
-                    organization.setName(new TextVO(affiliation));
+                    organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
                   }
@@ -832,7 +833,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   // set matchedGroup as Organisation Author
                   OrganizationVO team = new OrganizationVO();
-                  team.setName(new TextVO(matchedGroup.trim()));
+                  team.setName(matchedGroup.trim());
                   CreatorVO creatorVO = new CreatorVO(team, CreatorVO.CreatorRole.EDITOR);
                   teams.add(creatorVO);
                 }
@@ -926,7 +927,7 @@ public class Bibtex implements BibtexInterface {
                                   }
                                   if (smaller(from, dateString) && smaller(dateString, until)) {
                                     OrganizationVO org = new OrganizationVO();
-                                    org.setName(new TextVO(name));
+                                    org.setName(name);
                                     org.setIdentifier(id);
                                     personVO.getOrganizations().add(org);
                                   }
@@ -990,7 +991,7 @@ public class Bibtex implements BibtexInterface {
                                 String href = ou.getAttribute("xlink:href");
                                 String ouId = href.substring(href.lastIndexOf("/") + 1);
                                 OrganizationVO org = new OrganizationVO();
-                                org.setName(new TextVO(identifier));
+                                org.setName(identifier);
                                 org.setIdentifier(ouId);
                                 personVO.getOrganizations().add(org);
                               } catch (Exception e) {
@@ -1053,7 +1054,7 @@ public class Bibtex implements BibtexInterface {
                               }
                               if (smaller(from, dateString) && smaller(dateString, until)) {
                                 OrganizationVO org = new OrganizationVO();
-                                org.setName(new TextVO(name));
+                                org.setName(name);
                                 org.setIdentifier(id);
                                 personVO.getOrganizations().add(org);
                               }
@@ -1110,7 +1111,7 @@ public class Bibtex implements BibtexInterface {
                               }
                               if (smaller(from, dateString) && smaller(dateString, until)) {
                                 OrganizationVO org = new OrganizationVO();
-                                org.setName(new TextVO(name));
+                                org.setName(name);
                                 org.setIdentifier(id);
                                 personVO.getOrganizations().add(org);
                               }
@@ -1127,7 +1128,7 @@ public class Bibtex implements BibtexInterface {
                     OrganizationVO organization = new OrganizationVO();
                     organization.setIdentifier(PropertyReader
                         .getProperty("escidoc.pubman.external.organisation.id"));
-                    organization.setName(new TextVO(affiliation));
+                    organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
                   }
@@ -1135,7 +1136,7 @@ public class Bibtex implements BibtexInterface {
                   if ((bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook
                       || bibGenre == BibTexUtil.Genre.inproceedings
                       || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-                      && (sourceVO.getTitle() != null || sourceVO.getTitle().getValue() == null)) {
+                      && (sourceVO.getTitle() != null || sourceVO.getTitle() == null)) {
                     sourceVO.getCreators().add(creatorVO);
                   } else {
                     mds.getCreators().add(creatorVO);
@@ -1170,7 +1171,7 @@ public class Bibtex implements BibtexInterface {
         }
         if (!affiliationFound && mds.getCreators().size() > 0) {
           OrganizationVO externalOrganization = new OrganizationVO();
-          externalOrganization.setName(new TextVO("External Organizations"));
+          externalOrganization.setName("External Organizations");
           try {
             externalOrganization.setIdentifier(PropertyReader
                 .getProperty("escidoc.pubman.external.organisation.id"));
@@ -1186,13 +1187,13 @@ public class Bibtex implements BibtexInterface {
         // abstract
         if (fields.get("abstract") != null) {
           mds.getAbstracts().add(
-              new TextVO(BibTexUtil.stripBraces(
+              new AbstractVO(BibTexUtil.stripBraces(
                   BibTexUtil.bibtexDecode(fields.get("abstract").toString()), false)));
         }
         // contents
         if (fields.get("contents") != null) {
-          mds.setTableOfContents(new TextVO(BibTexUtil.stripBraces(
-              BibTexUtil.bibtexDecode(fields.get("contents").toString()), false)));
+          mds.setTableOfContents(BibTexUtil.stripBraces(
+              BibTexUtil.bibtexDecode(fields.get("contents").toString()), false));
         }
         // isbn
         if (fields.get("isbn") != null) {
@@ -1238,8 +1239,8 @@ public class Bibtex implements BibtexInterface {
         }
         // keywords
         if (fields.get("keywords") != null) {
-          mds.setFreeKeywords(new TextVO(BibTexUtil.stripBraces(
-              BibTexUtil.bibtexDecode(fields.get("keywords").toString()), false)));
+          mds.setFreeKeywords(BibTexUtil.stripBraces(
+              BibTexUtil.bibtexDecode(fields.get("keywords").toString()), false));
         }
         // language
         /*
@@ -1250,7 +1251,7 @@ public class Bibtex implements BibtexInterface {
         // subtitle
         if (fields.get("subtitle") != null) {
           mds.getAlternativeTitles().add(
-              new TextVO(BibTexUtil.stripBraces(
+              new AlternativeTitleVO(BibTexUtil.stripBraces(
                   BibTexUtil.bibtexDecode(fields.get("subtitle").toString()), false)));
         }
         // url is now mapped to locator
@@ -1270,7 +1271,7 @@ public class Bibtex implements BibtexInterface {
           MdsFileVO metadata = new MdsFileVO();
           metadata
               .setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
-          metadata.setTitle(new TextVO("Link"));
+          metadata.setTitle("Link");
           locator.getMetadataSets().add(metadata);
           itemVO.getFiles().add(locator);
         }
@@ -1281,28 +1282,28 @@ public class Bibtex implements BibtexInterface {
                   BibTexUtil.bibtexDecode(fields.get("web_url").toString()), false)));
         }
         // Prevent the creation of an empty source
-        if (sourceVO.getTitle() != null && sourceVO.getTitle().getValue() != null
-            && sourceVO.getTitle().getValue() != "" && sourceVO.getGenre() != null) {
+        if (sourceVO.getTitle() != null && sourceVO.getTitle() != null && sourceVO.getTitle() != ""
+            && sourceVO.getGenre() != null) {
           mds.getSources().add(sourceVO);
           // Prevent the creation of an empty second
           if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty()
               && sourceVO.getSources().get(0) != null
               && sourceVO.getSources().get(0).getTitle() != null
-              && sourceVO.getSources().get(0).getTitle().getValue() != null
-              && sourceVO.getSources().get(0).getTitle().getValue() != "") {
+              && sourceVO.getSources().get(0).getTitle() != null
+              && sourceVO.getSources().get(0).getTitle() != "") {
             mds.getSources().add(sourceVO.getSources().get(0));
           }
         }
         // Prevent the creation of an empty second source
-        if (secondSourceVO.getTitle() != null && secondSourceVO.getTitle().getValue() != null
-            && secondSourceVO.getTitle().getValue() != "" && secondSourceVO.getGenre() != null) {
+        if (secondSourceVO.getTitle() != null && secondSourceVO.getTitle() != null
+            && secondSourceVO.getTitle() != "" && secondSourceVO.getGenre() != null) {
           mds.getSources().add(secondSourceVO);
           // Prevent the creation of an empty second
           if (secondSourceVO.getSources() != null && !secondSourceVO.getSources().isEmpty()
               && secondSourceVO.getSources().get(0) != null
               && secondSourceVO.getSources().get(0).getTitle() != null
-              && secondSourceVO.getSources().get(0).getTitle().getValue() != null
-              && secondSourceVO.getSources().get(0).getTitle().getValue() != "") {
+              && secondSourceVO.getSources().get(0).getTitle() != null
+              && secondSourceVO.getSources().get(0).getTitle() != "") {
             mds.getSources().add(secondSourceVO.getSources().get(0));
           }
         }
@@ -1360,7 +1361,7 @@ public class Bibtex implements BibtexInterface {
                 throw new RuntimeException("Group '" + group + "' not found.");
               }
               mds.getSubjects().add(
-                  new TextVO(group, null, SubjectClassification.MPIS_GROUPS.toString()));
+                  new SubjectVO(group, null, SubjectClassification.MPIS_GROUPS.toString()));
             }
           }
         }
@@ -1383,7 +1384,7 @@ public class Bibtex implements BibtexInterface {
                 throw new RuntimeException("Project '" + project + "' not found.");
               }
               mds.getSubjects().add(
-                  new TextVO(project, null, SubjectClassification.MPIS_PROJECTS.toString()));
+                  new SubjectVO(project, null, SubjectClassification.MPIS_PROJECTS.toString()));
             }
           }
         }
@@ -1432,7 +1433,7 @@ public class Bibtex implements BibtexInterface {
     }
     if (affiliation != null || affiliationAddress != null) {
       OrganizationVO organization = new OrganizationVO();
-      organization.setName(new TextVO(affiliation));
+      organization.setName(affiliation);
       organization.setAddress(affiliationAddress);
       try {
         organization.setIdentifier(PropertyReader

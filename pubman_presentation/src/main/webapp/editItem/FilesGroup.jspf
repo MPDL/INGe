@@ -96,7 +96,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.files_component_name_display == 'false' and genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' and genre.files_component_name_form_id == 'all')}">
 						<label class="quad_label"><span class="mandatory" title="#{msg.mandatoryField}"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText id="inpFilename" styleClass="quad_txtInput" value="#{fileVar.file.defaultMetadata.title.value}"/>
+						<h:inputText id="inpFilename" styleClass="quad_txtInput" value="#{fileVar.file.defaultMetadata.title}"/>
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>

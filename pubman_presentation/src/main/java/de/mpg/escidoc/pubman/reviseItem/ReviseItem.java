@@ -95,7 +95,7 @@ public class ReviseItem extends FacesBean {
         }
       } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION
           && creator.getOrganization().getName() != null) {
-        creators.append(creator.getOrganization().getName().getValue());
+        creators.append(creator.getOrganization().getName());
       }
     }
     this.creators = creators.toString();

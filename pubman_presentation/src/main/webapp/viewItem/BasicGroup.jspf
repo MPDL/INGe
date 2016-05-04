@@ -71,7 +71,7 @@
 					<h:graphicImage id="imgSocialBookmarkingMendeley" title="#{lbl.ViewItemFull_lblSocialBookmarking_Mendeley}" url="http://www.mendeley.com/graphics/mendeley.png" width="16" onclick="mendeleyLink();" />
 				</h:panelGroup>
 				<script type="text/javascript">
-				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>';
+				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title}"/>';
 				/* <![CDATA[ */
 					function mendeleyLink() {
 						window.open('http://www.mendeley.com/import/?url='+encodeURIComponent('#{ViewItemFull.citationURL}')+'&title='+encodeURIComponent(title),'mendeley','toolbar=no,width=1024,height=755,scrollbars,resizable');
@@ -85,7 +85,7 @@
 					<h:graphicImage id="imgSocialBookmarkingBibsonomy" title="#{lbl.ViewItemFull_lblSocialBookmarking_BibSonomy}" url="http://www.bibsonomy.org/favicon.ico" width="16" onclick="bibsonomyLink();" />
 				</h:panelGroup>
 				<script type="text/javascript">
-				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>';
+				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title}"/>';
 				/* <![CDATA[ */
 					function bibsonomyLink() {
 						window.open('http://www.bibsonomy.org/ShowBookmarkEntry?url='+encodeURIComponent('#{ViewItemFull.citationURL}')+'&description='+encodeURIComponent(title),'bibsonomy','toolbar=no,width=1024,height=755,scrollbars,resizable');
@@ -98,7 +98,7 @@
 					<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" url="http://www.citeulike.org/favicon.ico" height="16" width="16" onclick="citeULikeLink();"/>
 				</h:panelGroup>
 				<script type="text/javascript">
-				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>';
+				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title}"/>';
 				/* <![CDATA[ */
 					function citeULikeLink() {
 						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('#{ViewItemFull.citationURL}')+'&title='+encodeURIComponent(title),'citeulike','toolbar=no,width=1024,height=700,scrollbars,resizable');
@@ -114,7 +114,7 @@
 				</h:panelGroup>
 				<script type="text/javascript">
 					function diggLink() {
-						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'digg','toolbar=no,width=1024,height=755,scrollbars,resizable');
+						window.open('http://digg.com/submit?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title}"/>'),'digg','toolbar=no,width=1024,height=755,scrollbars,resizable');
 					}
 				</script>
 				-->
@@ -124,7 +124,7 @@
 					<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" value="../resources/images/delicious_icon_16x16.png" onclick="deliciousLink();"/>
 				</h:panelGroup>
 				<script type="text/javascript">
-				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>';
+				var title = '<h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title}"/>';
 					/* <![CDATA[ */
 					function deliciousLink() {
 						window.open('http://delicious.com/save?v=5&provider=MPG.PuRe&noui&jump=close&url='+encodeURIComponent('#{ViewItemFull.citationURL}')+'&title='+encodeURIComponent(title), 'delicious','toolbar=no,width=550,height=600');
