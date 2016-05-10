@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- CDDL HEADER START
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.org/license.
- See the License for the specific language governing permissions
- and limitations under the License.
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
- CDDL HEADER END
- Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<!-- CDDL HEADER START The contents of this file are subject to the terms 
+	of the Common Development and Distribution License, Version 1.0 only (the 
+	"License"). You may not use this file except in compliance with the License. 
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
+	See the License for the specific language governing permissions and limitations 
+	under the License. When distributing Covered Code, include this CDDL HEADER 
+	in each file and include the License file at license/ESCIDOC.LICENSE. If 
+	applicable, add the following below this CDDL HEADER, with the fields enclosed 
+	by brackets "[]" replaced with your own identifying information: Portions 
+	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2010 
+	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
+	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
+	e.V. All rights reserved. Use is subject to license terms. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>INGe</artifactId>
@@ -37,16 +30,16 @@
 		Max-Planck-Institutes, customization and configuration options
 		throughout the solution features are of major importance.
 	</description>
-	
+
 	<modules>
 		<module>pubman_util</module>
 		<module>framework_access</module>
 		<module>common_logic</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
-		<module>validation</module>		
+		<module>validation</module>
 		<module>validation_presentation</module>
-		<module>structuredexportmanager</module>		
+		<module>structuredexportmanager</module>
 		<module>search</module>
 		<module>search_presentation</module>
 		<module>cone</module>
@@ -62,11 +55,10 @@
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-		<!-- 
-		<module>pubman/pubman_installer</module>
-		 -->
+		<!-- <module>pubman/pubman_installer</module> -->
+		<module>inge_connector</module>
 	</modules>
-	
+
 	<licenses>
 		<license>
 			<name>Common Development And Distribution License</name>
@@ -74,12 +66,12 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<organization>
 		<name>Max Planck Digital Library</name>
 		<url>http://www.mpdl.mpg.de/</url>
 	</organization>
-	
+
 	<developers>
 		<developer>
 			<id>mdreyer</id>
@@ -225,7 +217,7 @@
 			<timezone>+2</timezone>
 		</developer>
 	</developers>
-	
+
 	<mailingLists>
 		<mailingList>
 			<name>PubMan Development Mailing List</name>
@@ -235,12 +227,12 @@
 			<archive>https://listserv.gwdg.de/mailman/private/pubman-dev/</archive>
 		</mailingList>
 	</mailingLists>
-		
+
 	<issueManagement>
 		<system>Jira</system>
 		<url>http://jira.mpdl.mpg.de/</url>
 	</issueManagement>
-	
+
 	<ciManagement>
 		<system>Jenkins</system>
 		<url>http://jenkins.mpdl.mpg.de/jenkins/job/PubMan/</url>
@@ -253,14 +245,14 @@
 			</notifier>
 		</notifiers>
 	</ciManagement>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/PubMan.git</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan.git</developerConnection>
 		<url>https://github.com/MPDL-Collections/PubMan</url>
-	  <tag>HEAD</tag>
-  </scm>
-	
+		<tag>HEAD</tag>
+	</scm>
+
 	<repositories>
 		<repository>
 			<id>nexus</id>
@@ -273,9 +265,9 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<pluginRepositories>
- 		<pluginRepository>
+		<pluginRepository>
 			<id>nexus</id>
 			<url>http://rd.mpdl.mpg.de/nexus/content/groups/public</url>
 			<releases>
@@ -286,7 +278,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -301,14 +293,14 @@
 	</distributionManagement>
 
 	<dependencyManagement>
-			<dependencies>
+		<dependencies>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>pubman_util</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
-				<dependency>
+			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>aa_logic</artifactId>
 				<version>0.2.33-SNAPSHOT</version>
@@ -320,7 +312,7 @@
 				<version>0.2.33-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
- 
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>citationmanager</artifactId>
@@ -333,7 +325,7 @@
 				<version>1.0.100-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
@@ -346,7 +338,7 @@
 				<version>0.0.6-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>common_logic</artifactId>
@@ -359,14 +351,14 @@
 				<version>1.1.95-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>common_presentation</artifactId>
 				<version>1.0.84-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>cone</artifactId>
@@ -379,8 +371,8 @@
 				<version>1.2.55-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-			
-			
+
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>dataacquisition</artifactId>
@@ -393,20 +385,20 @@
 				<version>1.0.91-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
-				<dependency>
+			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>dataacquisition_presentation</artifactId>
-		 		<version>1.0.91-SNAPSHOT</version>
+				<version>1.0.91-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>framework_access</artifactId>
 				<version>1.3.40-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>pid_cache_presentation</artifactId>
@@ -419,7 +411,7 @@
 				<artifactId>search</artifactId>
 				<version>1.1.29-SNAPSHOT</version>
 				<type>jar</type>
-			</dependency>			
+			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>search</artifactId>
@@ -432,7 +424,7 @@
 				<version>1.1.29-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>structuredexportmanager</artifactId>
@@ -445,14 +437,14 @@
 				<version>1.0.98-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>syndication_presentation</artifactId>
 				<version>1.0.79-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>transformation</artifactId>
@@ -464,7 +456,7 @@
 				<version>1.0.83-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>validation</artifactId>
@@ -482,7 +474,13 @@
 				<version>1.0.102-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-			
+			<dependency>
+				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<artifactId>inge_connector</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>jar</type>
+			</dependency>
+
 			<dependency>
 				<groupId>org.wildfly</groupId>
 				<artifactId>wildfly-ejb-client-bom</artifactId>
@@ -490,7 +488,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -503,14 +501,14 @@
 				<version>1.0</version>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.14</version>
 				<scope>provided</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
@@ -520,7 +518,7 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.9</version>
-			</dependency>			
+			</dependency>
 			<dependency>
 				<groupId>commons-digester</groupId>
 				<artifactId>commons-digester</artifactId>
@@ -532,14 +530,14 @@
 				<version>2.4</version>
 			</dependency>
 			<dependency>
-			  	<groupId>org.apache.commons</groupId>
-	  			<artifactId>commons-lang3</artifactId>
-	  			<version>3.3.1</version>
-	  		</dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.3.1</version>
+			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
-				<version>1.1.1</version>			
+				<version>1.1.1</version>
 			</dependency>
 
 			<dependency>
@@ -547,16 +545,16 @@
 				<artifactId>postgresql</artifactId>
 				<version>9.0-801.jdbc4</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>net.sf.saxon</groupId>
 				<artifactId>saxon</artifactId>
 				<version>8.7</version>
 			</dependency>
-			
+
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<resources>
 			<resource>
@@ -584,7 +582,7 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
-		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -615,16 +613,16 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.7.2</version>
 					<configuration>
-						<!--  if there are no tests, don't bail out -->
+						<!-- if there are no tests, don't bail out -->
 						<failIfNoTests>false</failIfNoTests>
-						<!-- avoid the outofmemory exception thrown in some test scenarios-->
+						<!-- avoid the outofmemory exception thrown in some test scenarios -->
 						<argLine>-Xmx1200M</argLine>
 					</configuration>
 				</plugin>
 				<plugin>
-				       <groupId>org.apache.maven.plugins</groupId>
-				       <artifactId>maven-assembly-plugin</artifactId>
-				       <version>2.4.1</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.4.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -638,25 +636,25 @@
 					<version>1.7</version>
 				</plugin>
 				<plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-source-plugin</artifactId>
-			        <version>2.4</version>
-			    </plugin>
-			    <plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-javadoc-plugin</artifactId>
-			        <version>2.9.1</version>
-			    </plugin>
-			    <plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-deploy-plugin</artifactId>
-			        <version>2.8.2</version>
-			    </plugin>
-			    <plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-dependency-plugin</artifactId>
-			        <version>2.10</version>
-			    </plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.10</version>
+				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -692,18 +690,18 @@
 					<groupId>org.codehaus.izpack</groupId>
 					<artifactId>izpack-maven-plugin</artifactId>
 					<version>1.0-alpha-5</version>
-				</plugin>				
+				</plugin>
 			</plugins>
 		</pluginManagement>
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.3</version>
 				<configuration>
-		          <preparationGoals>clean verify</preparationGoals>
-		        </configuration>
+					<preparationGoals>clean verify</preparationGoals>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -714,51 +712,51 @@
 					<outputEncoding>UTF-8</outputEncoding>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
-	          <groupId>org.apache.maven.plugins</groupId>
-	          <artifactId>maven-javadoc-plugin</artifactId>
-	          <executions>
-			        <execution>
-			            <id>attach-javadocs</id>
-			            <goals>
-			                <goal>test-javadoc</goal>
-			            </goals>
-			            <configuration>
-			                <additionalparam>-Xdoclint:none</additionalparam>
-			                <minmemory>128m</minmemory>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>test-javadoc</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+							<minmemory>128m</minmemory>
 							<maxmemory>1g</maxmemory>
 							<failOnError>false</failOnError>
-			            </configuration>
-			        </execution>
-			    </executions>
-		    </plugin>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-      	<plugin>
-			<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-			<artifactId>maven-java-formatter-plugin</artifactId>
-			<version>0.4</version>
-			<configuration>
-				<compilerSource>1.8</compilerSource>
-				<compilerCompliance>1.8</compilerCompliance>
-				<compilerTargetPlatform>1.8</compilerTargetPlatform>
-				<lineEnding>CRLF</lineEnding>
-				<encoding>UTF-8</encoding>
-				<configFile>${project.parent.basedir}/java-google-style.xml</configFile>
-			</configuration>
-			<executions>
-				<execution>
-					<phase>process-sources</phase>
-					<goals>
-						<goal>format</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>		    
-		    
-			
+			<plugin>
+				<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+				<artifactId>maven-java-formatter-plugin</artifactId>
+				<version>0.4</version>
+				<configuration>
+					<compilerSource>1.8</compilerSource>
+					<compilerCompliance>1.8</compilerCompliance>
+					<compilerTargetPlatform>1.8</compilerTargetPlatform>
+					<lineEnding>CRLF</lineEnding>
+					<encoding>UTF-8</encoding>
+					<configFile>${project.parent.basedir}/java-google-style.xml</configFile>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
 		</plugins>
-		
+
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -782,16 +780,11 @@
 			</extension>
 		</extensions>
 	</build>
-	
+
 	<reporting>
 		<plugins>
-		<!-- 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-			</plugin>
-			 -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+				<version>2.9.1</version> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
@@ -818,15 +811,15 @@
 				</configuration>
 			</plugin>
 			<plugin>
-			      <groupId>org.apache.maven.plugins</groupId>
-			      <artifactId>maven-project-info-reports-plugin</artifactId>
-			      <version>2.8.1</version>
-			      <configuration>
-			      		<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-			      </configuration>
-		    </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+				</configuration>
+			</plugin>
 			<plugin>
-				<!-- JavaNCSS - A Source Measurement Suite for Java-->
+				<!-- JavaNCSS - A Source Measurement Suite for Java -->
 				<!-- http://www.kclee.de/clemens/java/javancss/ -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
@@ -840,36 +833,39 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<!-- A Java package dependency analyzer that generates
-					  design quality metrics http://clarkware.com/software/JDepend.html -->
+				<!-- A Java package dependency analyzer that generates design quality 
+					metrics http://clarkware.com/software/JDepend.html -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
 				<version>2.0</version>
 			</plugin>
 		</plugins>
 	</reporting>
-	
+
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
+		<!-- used by the cargo plugin to run a jboss server for integration-testing 
+			/goal: cargo:start -->
 		<cargo.port>8080</cargo.port>
 		<cargo.rmi.port>1099</cargo.rmi.port>
 		<cargo.log>low</cargo.log>
-		<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
+		<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0
+			-Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 		<!-- this path is used as root for all jboss installations -->
 		<cargo.install.dir>${user.home}/wildfly</cargo.install.dir>
 		<!-- fetch the jboss from this url -->
 		<cargo.jboss.url>http://download.jboss.org/wildfly/8.2.0.Final/wildfly-8.2.0.Final.zip</cargo.jboss.url>
 		<!-- local intallation of the jboss for integration-tests -->
 		<cargo.jboss.install.dir>${user.home}/wildfly/wildfly-8.2.0.Final/wildfly-8.2.0.Final</cargo.jboss.install.dir>
-		
+
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
-		<!-- Identifier of the content type "publication" in the actual framework instance -->
+		<!-- Identifier of the content type "publication" in the actual framework 
+			instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
 		<escidoc.pubman.external.organisation.id>escidoc:9019</escidoc.pubman.external.organisation.id>
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
@@ -917,40 +913,40 @@
 		<!-- Links from PubMan -->
 		<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</escidoc.pubman.policy.url>
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
-		<!-- Properties for PubMan standard theme-->
+		<!-- Properties for PubMan standard theme -->
 		<escidoc.pubman.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
 		<escidoc.pubman.stylesheet.standard.type>alternate stylesheet</escidoc.pubman.stylesheet.standard.type>
 		<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
-		<!-- Properties for PubMan contrast theme-->
+		<!-- Properties for PubMan contrast theme -->
 		<escidoc.pubman.stylesheet.contrast.url>/pubman/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
 		<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
 		<escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
-		<!-- Properties for PubMan classic theme-->
+		<!-- Properties for PubMan classic theme -->
 		<escidoc.pubman.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
 		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
-		<!-- Properties for PubMan special theme-->
+		<!-- Properties for PubMan special theme -->
 		<escidoc.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.special.url>
 		<escidoc.pubman.stylesheet.special.type>stylesheet</escidoc.pubman.stylesheet.special.type>
 		<escidoc.pubman.stylesheet.special.apply>true</escidoc.pubman.stylesheet.special.apply>
 		<!--Common presentation -->
-		<!-- Properties for common standard theme-->
+		<!-- Properties for common standard theme -->
 		<escidoc.common.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
 		<escidoc.common.stylesheet.standard.type>alternate stylesheet</escidoc.common.stylesheet.standard.type>
 		<escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
-		<!-- Properties for common contrast theme-->
+		<!-- Properties for common contrast theme -->
 		<escidoc.common.stylesheet.contrast.url>/pubman/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.common.stylesheet.contrast.url>
 		<escidoc.common.stylesheet.contrast.type>alternate stylesheet</escidoc.common.stylesheet.contrast.type>
 		<escidoc.common.stylesheet.contrast.apply>true</escidoc.common.stylesheet.contrast.apply>
-		<!-- Properties for common classic theme-->
+		<!-- Properties for common classic theme -->
 		<escidoc.common.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.common.stylesheet.classic.url>
 		<escidoc.common.stylesheet.classic.type>alternate stylesheet</escidoc.common.stylesheet.classic.type>
 		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
-		<!-- Properties for common special theme-->
+		<!-- Properties for common special theme -->
 		<escidoc.common.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.common.stylesheet.special.url>
 		<escidoc.common.stylesheet.special.type>stylesheet</escidoc.common.stylesheet.special.type>
 		<escidoc.common.stylesheet.special.apply>true</escidoc.common.stylesheet.special.apply>
-		<!-- Properties of the favicon-->
+		<!-- Properties of the favicon -->
 		<escidoc.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</escidoc.pubman.favicon.url>
 		<escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
 		<!-- Externalisation of home page content -->
@@ -962,7 +958,8 @@
 		<escidoc.pubman.survey.title />
 		<escidoc.pubman.survey.text />
 		<escidoc.pubman.survey.styles />
-		<!-- version of the pubman cookie (has to be changed if style information is changed)-->
+		<!-- version of the pubman cookie (has to be changed if style information 
+			is changed) -->
 		<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
 		<!-- Sitemaps -->
 		<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
@@ -973,8 +970,10 @@
 		<escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
 		<escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
 		<!-- RE Pattern for retrieving determinators from item xml -->
-		<escidoc.content.model.pattern>:content-model +(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
-		<escidoc.context.pattern>:context +(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
+		<escidoc.content.model.pattern>:content-model
+			+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+		<escidoc.context.pattern>:context
+			+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 		<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 		<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
@@ -983,13 +982,15 @@
 		<escidoc.pubman.statistics.nims.link />
 		<escidoc.pubman.statistics.nims.context.ids />
 		<!-- searchAndExport service -->
-		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:2001</escidoc.search.and.export.default.sql.query>
+		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and
+			escidoc.content-model.objid=escidoc:2001</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
 		<escidoc.search.and.export.default.sort.keys>_relevance_</escidoc.search.and.export.default.sort.keys>
 		<escidoc.search.and.export.default.sort.order>descending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
-		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
+		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is 
+			; -->
 		<escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<!-- import-source -->
@@ -1007,7 +1008,8 @@
 		<!-- Dataaquisition - Apache FOP configuration file -->
 		<escidoc.dataaquisition.resources.fop.configuration />
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
+		<!-- Number of creator displayed on load of the view full item page, the 
+			rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<!-- Blog integration -->
 		<escidoc.pubman.blog.baseUrl />
@@ -1024,7 +1026,7 @@
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
 		<!-- Dataaquisition - Apache FOP configuration file -->
 		<escidoc.dataaquisition.resources.fop.configuration />
-		<!-- Transformation implementing classes-->
+		<!-- Transformation implementing classes -->
 		<escidoc.transformation.bibtex.class>de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		<!-- Transformation stylesheets -->
@@ -1056,7 +1058,7 @@
 		<escidoc.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</escidoc.transformation.marcxml2escidoc.stylesheet.filename>
 		<escidoc.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</escidoc.transformation.marcxml2escidoc.configuration.filename>
 		<escidoc.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</escidoc.transformation.escidoc2marcxml.stylesheet.filename>
-		
+
 
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
@@ -1125,8 +1127,9 @@
 		<escidoc.framework_access.context.id.test>escidoc:171002</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
-		
-		<!-- User data used in JUnit tests; these users are assumed to have the Depositor and the Moderator role for the defined contexts -->
+
+		<!-- User data used in JUnit tests; these users are assumed to have the 
+			Depositor and the Moderator role for the defined contexts -->
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
@@ -1143,24 +1146,25 @@
 		<framework.editor.id>escidoc:3003</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
 		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
-		
+
 	</properties>
-	
+
 	<profiles>
 		<!-- activate this profile for an opensource build -->
-		<profile>			
+		<profile>
 			<id>env-opensource</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				
+
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
-				
-				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
-				<escidoc.pubman_presentation.overview_page.authors_ou /> 
+
+				<!-- Name of the organization its (sub-)authors are shown in the overview 
+					page -->
+				<escidoc.pubman_presentation.overview_page.authors_ou />
 				<escidoc.pubman.build.mode />
 				<escidoc.pubman.build.hyphen />
 				<exclude.module>false</exclude.module>
@@ -1172,8 +1176,8 @@
 				</site>
 			</distributionManagement>
 		</profile>
-	
-	
+
+
 		<!-- activate this profile for an pure build -->
 		<profile>
 			<id>env-pure</id>
@@ -1181,28 +1185,30 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				
+
 				<!-- Pid cache properties -->
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
-				<escidoc.pidcache.refresh.interval>1</escidoc.pidcache.refresh.interval>		
+				<escidoc.pidcache.refresh.interval>1</escidoc.pidcache.refresh.interval>
 				<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
-				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>		
+				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
 				<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
 				<escidoc.pid.service.view.path>/read/view</escidoc.pid.service.view.path>
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
 				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
-		
+
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<!-- Instance of the CSL-Editor -->
 				<escidoc.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</escidoc.pubman.csl_editor.instance>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
-				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
-				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck Society</escidoc.pubman_presentation.overview_page.authors_ou> 
+				<!-- Name of the organization its (sub-)authors are shown in the overview 
+					page -->
+				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck
+					Society</escidoc.pubman_presentation.overview_page.authors_ou>
 				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 				<escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
@@ -1216,7 +1222,7 @@
 				</site>
 			</distributionManagement>
 		</profile>
-		
+
 		<!-- profile for the daily build on continuum -->
 		<profile>
 			<id>env-testing-continuum</id>
@@ -1228,7 +1234,7 @@
 
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 
-		
+
 				<!-- Pid cache properties -->
 				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
@@ -1241,23 +1247,21 @@
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
 				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
-				
-				<!--  DOI service properties -->
+
+				<!-- DOI service properties -->
 				<escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
 				<escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
-				
+
 				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
 				<escidoc.systemtype>dev</escidoc.systemtype>
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
-				<!--  
-				<jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir>
-				-->
+				<!-- <jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir> -->
 				<jboss.install.dir>/usr/share/escidoc/wildfly</jboss.install.dir>
 				<jboss.user.scp>jboss@dev-pubman.mpdl.mpg.de</jboss.user.scp>
-				
+
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 
@@ -1272,10 +1276,10 @@
 				</site>
 			</distributionManagement>
 		</profile>
-		
-		
+
+
 		<!-- activate this profile for a nims build -->
-		<profile>			
+		<profile>
 			<id>env-nims</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -1285,10 +1289,10 @@
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 			</properties>
 		</profile>
-		
-		
+
+
 		<!-- activate this profile for instrumenting code by JRebel -->
-		<profile>			
+		<profile>
 			<id>env-jrebel-build</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -1300,11 +1304,11 @@
 						<artifactId>jrebel-maven-plugin</artifactId>
 						<version>1.1.5</version>
 						<configuration>
-						<name>${project.artifactId}-development</name>
-						<version>${project.version}-${maven.build.timestamp}</version>
-						<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-						<skip>${escidoc.common.release.build}</skip>
-					</configuration>
+							<name>${project.artifactId}-development</name>
+							<version>${project.version}-${maven.build.timestamp}</version>
+							<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+							<skip>${escidoc.common.release.build}</skip>
+						</configuration>
 						<executions>
 							<execution>
 								<id>generate-rebel-xml</id>
@@ -1318,18 +1322,18 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<!-- activate this profile for a release build, suppresses critical tests -->
 		<profile>
 			<id>env-release-build</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<properties>				
+			<properties>
 				<escidoc.common.release.build>true</escidoc.common.release.build>
 			</properties>
 		</profile>
-		
+
 		<!-- enabled to perfom the integration tests -->
 		<profile>
 			<id>integration-tests</id>
@@ -1337,7 +1341,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
-		
+
 		<!-- activate this profile to deploy the artifacts -->
 		<profile>
 			<id>deploy-artifacts</id>
@@ -1345,57 +1349,62 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
-		
-				
+
+
 		<profile>
-		    <id>sonar</id>
-		    <activation>
-		        <activeByDefault>false</activeByDefault>
-		    </activation>
-		    <properties>
-		        <sonar.jdbc.url>jdbc:postgresql://localhost:5432/sonar</sonar.jdbc.url>
-		        <sonar.jdbc.username>${sonar.jdbc.username}</sonar.jdbc.username>
-		        <sonar.jdbc.password>${sonar.jdbc.password}</sonar.jdbc.password>	
-		        <sonar.host.url>${sonar.host.url}</sonar.host.url>
-		        
-		        <!-- sonar.sources>src/main/java,target/generated-sources</sonar.sources-->
-		        <!--  sonar.binaries>target/classes,target/test-classes</sonar.binaries-->
-		        
-		        <!--  path to test source directories (optional) --> 
-				<!--  sonar.tests>src/test/java</sonar.tests-->
-		     
-			    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-			
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<sonar.jdbc.url>jdbc:postgresql://localhost:5432/sonar</sonar.jdbc.url>
+				<sonar.jdbc.username>${sonar.jdbc.username}</sonar.jdbc.username>
+				<sonar.jdbc.password>${sonar.jdbc.password}</sonar.jdbc.password>
+				<sonar.host.url>${sonar.host.url}</sonar.host.url>
+
+				<!-- sonar.sources>src/main/java,target/generated-sources</sonar.sources -->
+				<!-- sonar.binaries>target/classes,target/test-classes</sonar.binaries -->
+
+				<!-- path to test source directories (optional) -->
+				<!-- sonar.tests>src/test/java</sonar.tests -->
+
+				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+
 				<jacoco.version>0.7.1.201405082137</jacoco.version>
-			    <jacoco.outputDir>${project.basedir}/../../jacoco</jacoco.outputDir>
-			    <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
-			    <jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
-			    <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
-			    <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
-			    
-			    <!-- command line arguments when starting test for test coverage analysis -->
-			    <jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.ut.arg}</jacoco.arguments.ut>
-			    <jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled ${jacoco.agent.it.arg}</jacoco.arguments.it>			        
-		    </properties>
-		    
-		    <build>
-			    <pluginManagement>
-			    	<plugins>
-					    <plugin>
+				<jacoco.outputDir>${project.basedir}/../../jacoco</jacoco.outputDir>
+				<jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
+				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
+				<sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
+				<sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
+
+				<!-- command line arguments when starting test for test coverage analysis -->
+				<jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m
+					-XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
+					${jacoco.agent.ut.arg}</jacoco.arguments.ut>
+				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
+					-XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
+					${jacoco.agent.it.arg}</jacoco.arguments.it>
+			</properties>
+
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
 							<groupId>org.jacoco</groupId>
 							<artifactId>jacoco-maven-plugin</artifactId>
 							<version>${jacoco.version}</version>
 						</plugin>
-			    	</plugins>
-			    </pluginManagement>
-			    
-			    <plugins>
-			    	<plugin>
+					</plugins>
+				</pluginManagement>
+
+				<plugins>
+					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<executions>
-						
-							<!--  Prepares a variable, jacoco.agent.ut.arg, that contains the info to be passed to the JVM hosting the code being tested. --> 
+
+							<!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info 
+								to be passed to the JVM hosting the code being tested. -->
 							<execution>
 								<id>prepare-ut-agent</id>
 								<phase>process-test-classes</phase>
@@ -1408,13 +1417,15 @@
 									<append>true</append>
 								</configuration>
 							</execution>
-							
-							<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info to be passed to the JVM hosting the code being tested. -->
-							
+
+							<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info 
+								to be passed to the JVM hosting the code being tested. -->
+
 							<execution>
 								<id>prepare-it-agent</id>
-								<!--  moved to package phase to be sure all pre-integration test have it already set to bring up environments with jacoco agent as JVM params --> 
-								
+								<!-- moved to package phase to be sure all pre-integration test have 
+									it already set to bring up environments with jacoco agent as JVM params -->
+
 								<phase>package</phase>
 								<goals>
 									<goal>prepare-agent-integration</goal>
@@ -1425,216 +1436,217 @@
 									<append>true</append>
 								</configuration>
 							</execution>
-							
+
 							<execution>
-				                <id>jacoco-site</id>
-				                <phase>verify</phase>
-				                <goals>
-				                  <goal>report</goal>
-				                </goals>
-				                <configuration>
-				                	<dataFile>${sonar.jacoco.itReportPath}</dataFile>
-				                </configuration>
-				              </execution>
+								<id>jacoco-site</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<dataFile>${sonar.jacoco.itReportPath}</dataFile>
+								</configuration>
+							</execution>
 						</executions>
 					</plugin>
-			    
-			    </plugins>
-		    
-		    </build>
+
+				</plugins>
+
+			</build>
 		</profile>
-		
-		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
+
+		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse 
+			warning messages for certain plugins -->
 		<profile>
 			<id>only-eclipse</id>
-			<activation>				
+			<activation>
 				<property>
 					<name>m2e.version</name>
 				</property>
 			</activation>
-			  <build>
-			    <pluginManagement>
-			      <plugins>
-					<plugin>
-						<groupId>org.eclipse.m2e</groupId>
-						<artifactId>lifecycle-mapping</artifactId>
-						<version>1.0.0</version>
-						<configuration>
-							<lifecycleMappingMetadata>
-								<pluginExecutions>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>org.codehaus.mojo</groupId>
-											<artifactId>
-												axistools-maven-plugin
-											</artifactId>
-											<versionRange>[1.3,)</versionRange>
-											<goals>
-												<goal>wsdl2java</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>
-												org.apache.maven.plugins
-											</groupId>
-											<artifactId>
-												maven-antrun-plugin
-											</artifactId>
-											<versionRange>
-												[1.1,)
-											</versionRange>
-											<goals>
-												<goal>run</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>
-												org.apache.maven.plugins
-											</groupId>
-											<artifactId>
-												maven-ear-plugin
-											</artifactId>
-											<versionRange>
-												[2.4.2,)
-											</versionRange>
-											<goals>
-												<goal>
-													generate-application-xml
-												</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>
-												org.codehaus.mojo
-											</groupId>
-											<artifactId>
-												xmlbeans-maven-plugin
-											</artifactId>
-											<versionRange>
-												[2.3.3,)
-											</versionRange>
-											<goals>
-												<goal>xmlbeans</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>
-												org.codehaus.mojo
-											</groupId>
-											<artifactId>
-												javacc-maven-plugin
-											</artifactId>
-											<versionRange>
-												[2.6,)
-											</versionRange>
-											<goals>
-												<goal>javacc</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>org.zeroturnaround</groupId>
-											<artifactId>jrebel-maven-plugin</artifactId>
-											<versionRange>[1.1.3,)</versionRange>
-											<goals>
-												<goal>generate</goal>
-												<goal>generate-liverebel-xml</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>org.apache.maven.plugins</groupId>
-											<artifactId>maven-dependency-plugin</artifactId>
-											<versionRange>[1.0.0,)</versionRange>
-											<goals>
-												<goal>copy-dependencies</goal>
-												<goal>unpack-dependencies</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>com.google.code.maven-replacer-plugin</groupId>
-											<artifactId>replacer</artifactId>
-											<versionRange>[1.5.3,)</versionRange>
-											<goals>
-												<goal>replace</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-											<artifactId>maven-java-formatter-plugin</artifactId>
-											<versionRange>[0.4,)</versionRange>
-											<goals>
-												<goal>format</goal>
-												<goal>default</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>org.jacoco</groupId>
-											<artifactId>jacoco-maven-plugin</artifactId>
-											<versionRange>[0.7.1.201405082137,)</versionRange>
-											<goals>
-												<goal>prepare-agent</goal>
-												<goal>prepare-ut-agent</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore />
-										</action>
-									</pluginExecution>
-								</pluginExecutions>
-							</lifecycleMappingMetadata>
-						</configuration>
-					</plugin>
-			      </plugins>
-			    </pluginManagement>
-			    
-			  </build>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.codehaus.mojo</groupId>
+												<artifactId>
+													axistools-maven-plugin
+												</artifactId>
+												<versionRange>[1.3,)</versionRange>
+												<goals>
+													<goal>wsdl2java</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													org.apache.maven.plugins
+												</groupId>
+												<artifactId>
+													maven-antrun-plugin
+												</artifactId>
+												<versionRange>
+													[1.1,)
+												</versionRange>
+												<goals>
+													<goal>run</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													org.apache.maven.plugins
+												</groupId>
+												<artifactId>
+													maven-ear-plugin
+												</artifactId>
+												<versionRange>
+													[2.4.2,)
+												</versionRange>
+												<goals>
+													<goal>
+														generate-application-xml
+													</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													org.codehaus.mojo
+												</groupId>
+												<artifactId>
+													xmlbeans-maven-plugin
+												</artifactId>
+												<versionRange>
+													[2.3.3,)
+												</versionRange>
+												<goals>
+													<goal>xmlbeans</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													org.codehaus.mojo
+												</groupId>
+												<artifactId>
+													javacc-maven-plugin
+												</artifactId>
+												<versionRange>
+													[2.6,)
+												</versionRange>
+												<goals>
+													<goal>javacc</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.zeroturnaround</groupId>
+												<artifactId>jrebel-maven-plugin</artifactId>
+												<versionRange>[1.1.3,)</versionRange>
+												<goals>
+													<goal>generate</goal>
+													<goal>generate-liverebel-xml</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.apache.maven.plugins</groupId>
+												<artifactId>maven-dependency-plugin</artifactId>
+												<versionRange>[1.0.0,)</versionRange>
+												<goals>
+													<goal>copy-dependencies</goal>
+													<goal>unpack-dependencies</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>com.google.code.maven-replacer-plugin</groupId>
+												<artifactId>replacer</artifactId>
+												<versionRange>[1.5.3,)</versionRange>
+												<goals>
+													<goal>replace</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+												<artifactId>maven-java-formatter-plugin</artifactId>
+												<versionRange>[0.4,)</versionRange>
+												<goals>
+													<goal>format</goal>
+													<goal>default</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.jacoco</groupId>
+												<artifactId>jacoco-maven-plugin</artifactId>
+												<versionRange>[0.7.1.201405082137,)</versionRange>
+												<goals>
+													<goal>prepare-agent</goal>
+													<goal>prepare-ut-agent</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+
+			</build>
 		</profile>
-		
+
 	</profiles>
 
-	
+
 </project>
