@@ -28,8 +28,12 @@ import java.util.Date;
 
 import org.dom4j.Element;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
+@JsonInclude(value = Include.NON_NULL)
 public class MdsJHoveVO extends MetadataSetVO {
 
   // Attributes

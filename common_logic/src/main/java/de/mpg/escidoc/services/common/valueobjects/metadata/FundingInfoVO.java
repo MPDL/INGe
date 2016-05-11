@@ -1,9 +1,12 @@
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 
-
+@JsonInclude(value = Include.NON_NULL)
 public class FundingInfoVO extends ValueObject {
 
 

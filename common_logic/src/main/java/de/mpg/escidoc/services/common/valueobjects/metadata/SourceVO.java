@@ -28,6 +28,9 @@ package de.mpg.escidoc.services.common.valueobjects.metadata;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -38,6 +41,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 22-Okt-2007 14:35:53
  */
+@JsonInclude(value = Include.NON_NULL)
 public class SourceVO extends ValueObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

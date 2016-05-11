@@ -29,6 +29,8 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -252,6 +254,7 @@ public class FileVO extends ValueObject implements Cloneable {
   /**
    * remove "hdl:" if possible (needed for URLs including a handle-resolver)
    */
+  @JsonIgnore
   public String getPidWithoutPrefix() {
     if (pid.startsWith("hdl:")) {
       return pid.substring(4);
@@ -460,6 +463,7 @@ public class FileVO extends ValueObject implements Cloneable {
     }
   }
 
+  @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
     return metadataSets;
   }

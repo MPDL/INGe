@@ -26,6 +26,9 @@
 
 package de.mpg.escidoc.services.common.referenceobjects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The class for PubFile references.
  * 
@@ -34,6 +37,7 @@ package de.mpg.escidoc.services.common.referenceobjects;
  * @version 1.0
  * @updated 04-Sep-2007 11:43:19
  */
+@JsonInclude(value = Include.NON_NULL)
 public class FileRO extends ReferenceObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

@@ -3,9 +3,13 @@ package de.mpg.escidoc.services.common.valueobjects.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
+@JsonInclude(value = Include.NON_NULL)
 public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
 
   private String city;

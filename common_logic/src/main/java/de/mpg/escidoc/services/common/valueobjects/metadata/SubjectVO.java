@@ -26,6 +26,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.IgnoreForCleanup;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
@@ -37,6 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@JsonInclude(value = Include.NON_NULL)
 public class SubjectVO extends ValueObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

@@ -26,6 +26,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
@@ -33,6 +36,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
  * 
  * @updated 18-Okt-2007 15:42:32
  */
+@JsonInclude(value = Include.NON_NULL)
 public class RelationVO extends ValueObject {
 
   /**

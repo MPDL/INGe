@@ -28,6 +28,10 @@ package de.mpg.escidoc.services.common.referenceobjects;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 
@@ -38,6 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
  * @version 1.0
  * @updated 21-Nov-2007 12:37:07
  */
+@JsonInclude(value = Include.NON_NULL)
 public class ItemRO extends ReferenceObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -147,6 +152,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * 
    * @param idString A String in the form objid:versionNumber e.g. "escidoc:345:2"
    */
+  @JsonIgnore
   public void setObjectIdAndVersion(String idString) {
     int ix = idString.lastIndexOf(":");
     if (ix == -1) {
@@ -221,6 +227,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   // remove "hdl:" if possible (needed for URLs including a handle-resolver)
+  @JsonIgnore
   public String getPidWithoutPrefix() {
     if (pid.startsWith("hdl:")) {
       return pid.substring(4);

@@ -3,8 +3,12 @@ package de.mpg.escidoc.services.common.valueobjects.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
+@JsonInclude(value = Include.NON_NULL)
 public class FundingProgramVO extends ValueObject {
   private String title;
   private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();

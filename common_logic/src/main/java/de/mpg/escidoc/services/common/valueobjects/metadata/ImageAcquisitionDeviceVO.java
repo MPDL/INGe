@@ -26,6 +26,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -35,6 +38,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:48:56
  */
+@JsonInclude(value = Include.NON_NULL)
 public class ImageAcquisitionDeviceVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

@@ -92,19 +92,6 @@ public interface OrganizationInterface {
 
 
   /**
-   * Retrieves an organization for a given organization ID
-   * 
-   * @param organizationId The Id of the organization to get
-   * @throws TechnicalException
-   * @throws NotFoundException
-   * @throws SecurityException
-   * @return user account with the given userAccountId
-   */
-  public OrganizationVO getOrganization(String organizationId) throws TechnicalException,
-      NotFoundException, SecurityException;
-
-
-  /**
    * Returns a list of organizations satisfying the requirements of the searchQuery
    * 
    * @param searchQuery The search query

@@ -487,6 +487,18 @@
 				<version>8.1.0.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
+				<exclusions>
+					<exclusion>
+						<artifactId>lucene-core</artifactId>
+            			<groupId>org.apache.lucene</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			
+			<dependency>
+				<artifactId>lucene-core</artifactId>
+            	<groupId>org.apache.lucene</groupId>
+            	<version>5.5.0</version>
 			</dependency>
 
 			<dependency>

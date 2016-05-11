@@ -26,6 +26,10 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -38,6 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
  */
+@JsonInclude(value = Include.NON_NULL)
 public class ItemVO extends ValueObject implements Searchable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -237,6 +242,7 @@ public class ItemVO extends ValueObject implements Searchable {
   /**
    * Delivers the metadata sets of the item.
    */
+  @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
     return metadataSets;
   }

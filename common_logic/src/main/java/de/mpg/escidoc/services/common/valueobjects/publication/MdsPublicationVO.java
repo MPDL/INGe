@@ -29,6 +29,9 @@ package de.mpg.escidoc.services.common.valueobjects.publication;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
@@ -48,6 +51,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:48:44
  */
+@JsonInclude(value = Include.NON_NULL)
 public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
