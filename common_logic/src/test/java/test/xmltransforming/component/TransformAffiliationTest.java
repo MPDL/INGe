@@ -207,17 +207,17 @@ public class TransformAffiliationTest extends TestBase {
     // transform the xml directly into a AffiliationVO
     AffiliationVO affiliationVO = xmlTransforming.transformToAffiliation(restAffiliationXML);
 
-    assertEquals("ObjectId not transformed correctly", "escidoc:830552", affiliationVO
-        .getReference().getObjectId());
-    assertEquals("Creator (created-by) not transformed correctly", "escidoc:user42", affiliationVO
-        .getCreator().getObjectId());
-    assertEquals("Modifier (modified-by) not transformed correctly", "escidoc:user42",
-        affiliationVO.getModifiedBy().getObjectId());
+    assertEquals("ObjectId not transformed correctly", "/oum/organizational-unit/escidoc:830552",
+        affiliationVO.getReference().getObjectId());
+    assertEquals("Creator (created-by) not transformed correctly",
+        "/aa/user-account/escidoc:user42", affiliationVO.getCreator().getObjectId());
+    assertEquals("Modifier (modified-by) not transformed correctly",
+        "/aa/user-account/escidoc:user42", affiliationVO.getModifiedBy().getObjectId());
 
     List<AffiliationRO> l = affiliationVO.getParentAffiliations();
 
     for (AffiliationRO a : l) {
-      assertTrue(a.getObjectId().equals("escidoc:830550"));
+      assertTrue(a.getObjectId().equals("/oum/organizational-unit/escidoc:830550"));
     }
   }
 
@@ -227,6 +227,8 @@ public class TransformAffiliationTest extends TestBase {
         && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       details = (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
     }
+
+    System.out.println("REFERENCE MPIWG: " + affiliation + " / " + affiliation.getReference());
 
     assertEquals("escidoc:persistent1", affiliation.getReference().getObjectId());
     assertEquals("opened", affiliation.getPublicStatus());

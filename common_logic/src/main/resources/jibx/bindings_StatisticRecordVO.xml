@@ -29,6 +29,8 @@
 
 <binding name="StatisticRecord">
 
+	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
+
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
 

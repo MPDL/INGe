@@ -51,7 +51,7 @@
 		<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedByRO"
 			type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
 
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 
 		</structure>

@@ -37,7 +37,7 @@
 		<!-- Node: context.@objid -->
 		<!-- Field: ContextVO.reference [ContextRO] -->
 		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
 		<!-- Node: context.properties -->
@@ -47,7 +47,7 @@
 			<!-- Field: ContextVO.creator [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 
 			<!-- Node: context.properties.public-status -->
@@ -78,7 +78,7 @@
 				<structure name="organizational-unit" ns="${xsd.soap.common.srel}"
 					type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
 
-					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 
 				</structure>
 

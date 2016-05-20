@@ -30,9 +30,9 @@
 <binding name="StatisticAggregation">
 	
 	<namespace prefix="aggregation-definition" uri="${xsd.soap.statistic.aggregation-definition}" default="none" />
-	<namespace prefix="zs" uri="${xsd.soap.searchRetrieveResponse}" default="none" />
 	<namespace prefix="search-result" uri="${xsd.soap.searchresult.searchresult}" default="none"/>
-	
+	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
+	<namespace prefix="zs" uri="${xsd.soap.searchRetrieveResponse}" default="none" />
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />

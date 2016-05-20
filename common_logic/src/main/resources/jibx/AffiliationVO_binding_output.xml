@@ -39,7 +39,7 @@
 		<!-- Field: AffiliationVO.reference [AffiliationRO] -->
 		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
 			usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			<value style="attribute" name="href" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
@@ -64,7 +64,7 @@
 
 				<!-- Node: organizational-unit.properties.created-by.@objid -->
 				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 
 			</structure>
 			
@@ -97,7 +97,7 @@
 				type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
 
 				<!-- Node: organizational-unit.parents.parent.@objid -->
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 
 			</structure>
 

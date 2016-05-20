@@ -28,16 +28,13 @@
 -->
 
 <binding name="StatisticReport">
-
-
-
-	
 	<namespace prefix="report" uri="${xsd.soap.statistic.report}" default="none" />
 	<namespace prefix="report-parameters" uri="${xsd.soap.statistic.reportparameters}" default="none" />
 	<namespace prefix="report-definition-list" uri="${xsd.soap.statistic.reportdefinitionlist}" default="none" />
 	<namespace prefix="report-definition" uri="${xsd.soap.statistic.reportdefinition}" default="none" />
-	<namespace prefix="zs" uri="${xsd.soap.searchRetrieveResponse}" default="none" />
 	<namespace prefix="search-result" uri="${xsd.soap.searchresult.searchresult}" default="none"/>
+	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
+	<namespace prefix="zs" uri="${xsd.soap.searchRetrieveResponse}" default="none" />
 	
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"

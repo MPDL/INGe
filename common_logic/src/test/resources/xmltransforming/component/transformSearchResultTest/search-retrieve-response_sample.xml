@@ -9,11 +9,11 @@
 			<recordData>
 				<search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
 					<search-result:score>2.2626607</search-result:score>
-					<context:context last-modification-date="2011-08-17T12:37:59.071Z" objid="escidoc:2001" xmlns:context="http://www.escidoc.de/schemas/context/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<context:context last-modification-date="2011-08-17T12:37:59.071Z" xlink:href="escidoc:2001" xmlns:context="http://www.escidoc.de/schemas/context/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink">
 						<context:properties>
 							<prop:creation-date>2011-08-17T12:37:58.613Z</prop:creation-date>
-							<srel:created-by objid="escidoc:exuser1"/>
-							<srel:modified-by objid="escidoc:exuser1"/>
+							<srel:created-by xlink:href="escidoc:exuser1"/>
+							<srel:modified-by xlink:href="escidoc:exuser1"/>
 							<prop:public-status>opened</prop:public-status>
 							<prop:public-status-comment>Context escidoc:2001 opened.</prop:public-status-comment>
 							<prop:name>PubMan Default Context</prop:name>
@@ -30,7 +30,7 @@
             Note: Please do not modify the type of the context (PubMan), as otherwise PubMan solution will not function properly out of the box.</prop:description>
 							<prop:type>PubMan</prop:type>
 							<prop:organizational-units>
-								<srel:organizational-unit objid="escidoc:2"/>
+								<srel:organizational-unit xlink:href="escidoc:2"/>
 							</prop:organizational-units>
 						</context:properties>
 

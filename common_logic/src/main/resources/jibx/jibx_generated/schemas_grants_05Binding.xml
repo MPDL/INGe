@@ -16,27 +16,27 @@
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="${xsd.soap.useraccount.grants}">
     <structure name="properties" ns="${xsd.soap.useraccount.grants}">
       <structure name="granted-to" ns="${xsd.soap.common.srel}" usage="optional">
-      	<value style="attribute" name="objid" get-method="getGrantedTo" set-method="setGrantedTo" usage="optional"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getGrantedTo" set-method="setGrantedTo" usage="optional"/>
       	<value style="attribute" name="resource" get-method="getGrantType" set-method="setGrantType" usage="optional" />
       </structure>
       <value style="element" name="creation-date" ns="${xsd.soap.common.prop}" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
       <structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional">
-      	<value style="attribute" name="objid" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
       </structure>
       <value style="element" name="revocation-date" ns="${xsd.soap.common.prop}" get-method="getRevocationDate" set-method="setRevocationDate" usage="optional"/>
       <structure name="revoked-by" ns="${xsd.soap.common.srel}" usage="optional">
-      	<value style="attribute" name="objid" get-method="getRevokedBy" set-method="setRevokedBy" usage="optional"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getRevokedBy" set-method="setRevokedBy" usage="optional"/>
       </structure>
       <value style="element" name="grant-remark" ns="${xsd.soap.common.prop}" get-method="getGrantRemark" set-method="setGrantRemark" usage="optional"/>
       <value style="element" name="revocation-remark" ns="${xsd.soap.common.prop}" get-method="getRevocationRemark" set-method="setRevocationRemark" usage="optional"/>
      <structure name="role" ns="${xsd.soap.common.srel}">
-      	<value style="attribute" name="objid" get-method="getRole" set-method="setRole"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getRole" set-method="setRole"/>
       </structure>
       <structure name="assigned-on" ns="${xsd.soap.common.srel}" usage="optional">
-      	<value style="attribute" name="objid" get-method="getAssignedOn" set-method="setAssignedOn" usage="optional"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getAssignedOn" set-method="setAssignedOn" usage="optional"/>
       </structure>
     </structure>
-    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+    <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjid" set-method="setObjid" usage="optional"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
 </binding>

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><organizational-unit-list:organizational-unit-list xmlns:organizational-unit-list="${xsd.soap.ou.oulist}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:ou-details="${xsd.metadata.organization}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:md-records="${xsd.soap.common.mdrecords}">
-	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+<?xml version="1.0" encoding="UTF-8"?><organizational-unit-list:organizational-unit-list xmlns:organizational-unit-list="${xsd.soap.ou.oulist}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:ou-details="${xsd.metadata.organization}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}"  xlink:href="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 			<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
-			<srel:created-by objid="escidoc:user42"/>
+			<srel:created-by  xlink:href="escidoc:user42"/>
 			<prop:public-status>opened</prop:public-status>
 			<prop:has-children>true</prop:has-children>
 		</organizational-unit:properties>
@@ -21,10 +21,10 @@
 			</md-records:md-record>
 		</md-records:md-records>
 	</organizational-unit:organizational-unit>
-	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}"  xlink:href="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 			<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
-			<srel:created-by objid="escidoc:user42"/>
+			<srel:created-by  xlink:href="escidoc:user42"/>
 			<prop:public-status>opened</prop:public-status>
 			<prop:has-children>true</prop:has-children>
 		</organizational-unit:properties>

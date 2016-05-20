@@ -6,10 +6,10 @@
     <structure name="properties" ns="${xsd.soap.usergroup.usergroup}">
       <value style="element" name="creation-date" ns="${xsd.soap.common.prop}" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
       <structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional">
-      	<value style="attribute" name="objid" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
       </structure>
       <structure name="modified-by" ns="${xsd.soap.common.srel}" usage="optional">
-      	<value style="attribute" name="objid" get-method="getModifiedBy" set-method="setModifiedBy" usage="optional"/>
+      	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getModifiedBy" set-method="setModifiedBy" usage="optional"/>
       </structure>
       <value style="element" name="email" ns="${xsd.soap.common.prop}" get-method="getEmail" set-method="setEmail" usage="optional"/>
       <value style="element" name="name" ns="${xsd.soap.common.prop}" get-method="getName" set-method="setName"/>
@@ -20,7 +20,7 @@
     </structure>
     <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" get-method="getSelectors" set-method="setSelectors" usage="optional"/>
     <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" get-method="getResources" set-method="setResources" usage="optional"/>
-    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+    <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjid" set-method="setObjid" usage="optional"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" name="resources" ns="${xsd.soap.usergroup.usergroup}">
@@ -35,6 +35,6 @@
     <value style="text" get-method="getString" set-method="setString"/>
     <value style="attribute" name="name" get-method="getName" set-method="setName" usage="optional"/>
     <value style="attribute" name="type" get-method="getType" set-method="setType" usage="optional" deserializer="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector$Type.convert"/>
-    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+    <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjid" set-method="setObjid" usage="optional"/>
   </mapping>
 </binding>

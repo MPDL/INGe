@@ -34,7 +34,7 @@
 	<mapping name="report-parameters" ns="${xsd.soap.statistic.reportparameters}" class="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO" ordered="false" allow-repeats="true">
 	
 		<structure name="report-definition" ns="${xsd.soap.statistic.reportparameters}" >
-			<value style="attribute" name="objid" field="reportDefinitionId"/>
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="reportDefinitionId"/>
 		</structure>
 		
 			<collection field="paramList"  factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportRecordParamVOListFactory" usage="optional">

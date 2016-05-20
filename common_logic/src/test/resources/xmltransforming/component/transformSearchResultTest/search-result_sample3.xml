@@ -31,10 +31,10 @@
 			</search-result:text-fragment>
 		</search-result:search-hit>
 	</search-result:highlight>
-	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:ou-details="${xsd.metadata.organization}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:kml="http://www.opengis.net/kml/2.2" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:ou-details="${xsd.metadata.organization}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:kml="http://www.opengis.net/kml/2.2" xlink:href="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 			<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
-			<srel:created-by objid="escidoc:user42"/>
+			<srel:created-by xlink:href="escidoc:user42"/>
 			<prop:public-status>opened</prop:public-status>
 			<prop:has-children>true</prop:has-children>
 		</organizational-unit:properties>

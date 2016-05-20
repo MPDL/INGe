@@ -39,7 +39,7 @@
 
 			<!-- Node: @objid -->
 			<!-- Field: PubItemVersionVO.reference.objectId [String] -->
-			<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" usage="optional" />
 
 			<!-- Node: pid ignored -->
 			<structure name="pid" ns="${xsd.soap.common.versionhistory}" usage="optional"/>

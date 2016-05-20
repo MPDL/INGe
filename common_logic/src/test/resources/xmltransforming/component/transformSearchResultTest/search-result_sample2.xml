@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><search-result:search-result-record xmlns:search-result="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:container="${xsd.soap.container.container}" xml:base="http://www.escidoc.de/">
 	<search-result:highlight>
-		<search-result:search-hit type="fulltext" objid="escidoc:442">
+		<search-result:search-hit type="fulltext" xlink:href="escidoc:442">
 			<search-result:text-fragment>
 				<search-result:text-fragment-data>„Schönen guten Tag“, antwortete der kleine Prinz, der sich umdrehte, aber nichts sah.</search-result:text-fragment-data>
 				<search-result:hit-word>
@@ -62,32 +62,32 @@ Facultad de Ciencias</search-result:text-fragment-data>
 			</search-result:text-fragment>
 		</search-result:search-hit>
 	</search-result:highlight>
-	<container:container xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
+	<container:container xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xlink:href="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
 		<container:properties>
 			<prop:creation-date>2008-03-19T16:47:36.29Z</prop:creation-date>
-			<srel:created-by objid="escidoc:1047"/>
+			<srel:created-by xlink:href="escidoc:1047"/>
 			<prop:public-status>released</prop:public-status>
 			<prop:name>"Vom Jahr 1663 bis 1752</prop:name>
 			<prop:description/>
-			<srel:context objid="escidoc:1036"/>
-			<srel:content-model objid="escidoc:virrcm2"/>
+			<srel:context xlink:href="escidoc:1036"/>
+			<srel:content-model xlink:href="escidoc:virrcm2"/>
 			<prop:lock-status>unlocked</prop:lock-status>
 			<prop:pid>hdl:someHandle/test/escidoc:1787</prop:pid>
-			<prop:version objid="escidoc:1787:2">
+			<prop:version xlink:href="escidoc:1787:2">
 				<version:number>2</version:number>
 				<version:date>2008-03-20T11:25:43.930Z</version:date>
 				<version:status>released</version:status>
 				<version:valid-status>valid</version:valid-status>
-				<srel:modified-by objid="escidoc:1047"/>
+				<srel:modified-by xlink:href="escidoc:1047"/>
 				<version:comment>ContainerHandler.release()</version:comment>
 				<version:pid>hdl:someHandle/test/escidoc:1787</version:pid>
 			</prop:version>
-			<prop:latest-version objid="escidoc:1787:2">
+			<prop:latest-version xlink:href="escidoc:1787:2">
 				<version:number>2</version:number>
 				<version:date>2008-03-20T11:25:43.930Z</version:date>
 			</prop:latest-version>
 		
-			<prop:latest-release objid="escidoc:1787:2">
+			<prop:latest-release xlink:href="escidoc:1787:2">
 				<release:number>2</release:number>
 				<release:date>2008-03-20T14:13:25.874Z</release:date>
 			</prop:latest-release>
@@ -163,110 +163,110 @@ Facultad de Ciencias</search-result:text-fragment-data>
 			</escidocMetadataRecords:md-record>
 		</escidocMetadataRecords:md-records>
 		<struct-map:struct-map>
-			<srel:item objid="escidoc:1790"/>
-			<srel:item objid="escidoc:1796"/>
-			<srel:item objid="escidoc:1802"/>
-			<srel:item objid="escidoc:1808"/>
-			<srel:item objid="escidoc:1814"/>
-			<srel:item objid="escidoc:1820"/>
-			<srel:item objid="escidoc:1826"/>
-			<srel:item objid="escidoc:1832"/>
-			<srel:item objid="escidoc:1838"/>
-			<srel:item objid="escidoc:1844"/>
-			<srel:item objid="escidoc:1850"/>
-			<srel:item objid="escidoc:1856"/>
-			<srel:item objid="escidoc:1862"/>
-			<srel:item objid="escidoc:1868"/>
-			<srel:item objid="escidoc:1874"/>
-			<srel:item objid="escidoc:1880"/>
-			<srel:item objid="escidoc:1886"/>
-			<srel:item objid="escidoc:1892"/>
-			<srel:item objid="escidoc:1898"/>
-			<srel:item objid="escidoc:1904"/>
-			<srel:item objid="escidoc:1910"/>
-			<srel:item objid="escidoc:1916"/>
-			<srel:item objid="escidoc:1922"/>
-			<srel:item objid="escidoc:1928"/>
-			<srel:item objid="escidoc:1934"/>
-			<srel:item objid="escidoc:1940"/>
-			<srel:item objid="escidoc:1946"/>
-			<srel:item objid="escidoc:1952"/>
-			<srel:item objid="escidoc:1958"/>
-			<srel:item objid="escidoc:1964"/>
-			<srel:item objid="escidoc:1970"/>
-			<srel:item objid="escidoc:1976"/>
-			<srel:item objid="escidoc:1982"/>
-			<srel:item objid="escidoc:1988"/>
-			<srel:item objid="escidoc:1994"/>
-			<srel:item objid="escidoc:2000"/>
-			<srel:item objid="escidoc:2006"/>
-			<srel:item objid="escidoc:2012"/>
-			<srel:item objid="escidoc:2018"/>
-			<srel:item objid="escidoc:2024"/>
-			<srel:item objid="escidoc:2030"/>
-			<srel:item objid="escidoc:2036"/>
-			<srel:item objid="escidoc:2042"/>
-			<srel:item objid="escidoc:2048"/>
-			<srel:item objid="escidoc:2054"/>
-			<srel:item objid="escidoc:2060"/>
-			<srel:item objid="escidoc:2066"/>
-			<srel:item objid="escidoc:2072"/>
-			<srel:item objid="escidoc:2078"/>
-			<srel:item objid="escidoc:2084"/>
-			<srel:item objid="escidoc:2090"/>
-			<srel:item objid="escidoc:2096"/>
-			<srel:item objid="escidoc:2102"/>
-			<srel:item objid="escidoc:2108"/>
-			<srel:item objid="escidoc:2114"/>
-			<srel:item objid="escidoc:2120"/>
-			<srel:item objid="escidoc:2126"/>
-			<srel:item objid="escidoc:2132"/>
-			<srel:item objid="escidoc:2138"/>
-			<srel:item objid="escidoc:2144"/>
-			<srel:item objid="escidoc:2150"/>
-			<srel:item objid="escidoc:2156"/>
-			<srel:item objid="escidoc:2162"/>
-			<srel:item objid="escidoc:2168"/>
-			<srel:item objid="escidoc:2174"/>
-			<srel:item objid="escidoc:2180"/>
-			<srel:item objid="escidoc:2186"/>
-			<srel:item objid="escidoc:2192"/>
-			<srel:item objid="escidoc:2198"/>
-			<srel:item objid="escidoc:2204"/>
-			<srel:item objid="escidoc:2210"/>
-			<srel:item objid="escidoc:2216"/>
-			<srel:item objid="escidoc:2222"/>
-			<srel:item objid="escidoc:2228"/>
-			<srel:item objid="escidoc:2234"/>
-			<srel:item objid="escidoc:2240"/>
-			<srel:item objid="escidoc:2246"/>
-			<srel:item objid="escidoc:2252"/>
-			<srel:item objid="escidoc:2258"/>
-			<srel:item objid="escidoc:2264"/>
-			<srel:item objid="escidoc:2270"/>
-			<srel:item objid="escidoc:2276"/>
-			<srel:item objid="escidoc:2282"/>
-			<srel:item objid="escidoc:2288"/>
-			<srel:item objid="escidoc:2294"/>
-			<srel:item objid="escidoc:2300"/>
-			<srel:item objid="escidoc:2306"/>
-			<srel:item objid="escidoc:2312"/>
-			<srel:item objid="escidoc:2318"/>
-			<srel:item objid="escidoc:2324"/>
-			<srel:item objid="escidoc:2330"/>
-			<srel:item objid="escidoc:2336"/>
-			<srel:item objid="escidoc:2342"/>
-			<srel:item objid="escidoc:2348"/>
-			<srel:item objid="escidoc:2354"/>
-			<srel:item objid="escidoc:2360"/>
-			<srel:item objid="escidoc:2366"/>
-			<srel:item objid="escidoc:2372"/>
-			<srel:item objid="escidoc:2378"/>
-			<srel:item objid="escidoc:2384"/>
-			<srel:item objid="escidoc:2390"/>
-			<srel:item objid="escidoc:2396"/>
-			<srel:item objid="escidoc:2402"/>
-			<srel:item objid="escidoc:2408"/>
+			<srel:item xlink:href="escidoc:1790"/>
+			<srel:item xlink:href="escidoc:1796"/>
+			<srel:item xlink:href="escidoc:1802"/>
+			<srel:item xlink:href="escidoc:1808"/>
+			<srel:item xlink:href="escidoc:1814"/>
+			<srel:item xlink:href="escidoc:1820"/>
+			<srel:item xlink:href="escidoc:1826"/>
+			<srel:item xlink:href="escidoc:1832"/>
+			<srel:item xlink:href="escidoc:1838"/>
+			<srel:item xlink:href="escidoc:1844"/>
+			<srel:item xlink:href="escidoc:1850"/>
+			<srel:item xlink:href="escidoc:1856"/>
+			<srel:item xlink:href="escidoc:1862"/>
+			<srel:item xlink:href="escidoc:1868"/>
+			<srel:item xlink:href="escidoc:1874"/>
+			<srel:item xlink:href="escidoc:1880"/>
+			<srel:item xlink:href="escidoc:1886"/>
+			<srel:item xlink:href="escidoc:1892"/>
+			<srel:item xlink:href="escidoc:1898"/>
+			<srel:item xlink:href="escidoc:1904"/>
+			<srel:item xlink:href="escidoc:1910"/>
+			<srel:item xlink:href="escidoc:1916"/>
+			<srel:item xlink:href="escidoc:1922"/>
+			<srel:item xlink:href="escidoc:1928"/>
+			<srel:item xlink:href="escidoc:1934"/>
+			<srel:item xlink:href="escidoc:1940"/>
+			<srel:item xlink:href="escidoc:1946"/>
+			<srel:item xlink:href="escidoc:1952"/>
+			<srel:item xlink:href="escidoc:1958"/>
+			<srel:item xlink:href="escidoc:1964"/>
+			<srel:item xlink:href="escidoc:1970"/>
+			<srel:item xlink:href="escidoc:1976"/>
+			<srel:item xlink:href="escidoc:1982"/>
+			<srel:item xlink:href="escidoc:1988"/>
+			<srel:item xlink:href="escidoc:1994"/>
+			<srel:item xlink:href="escidoc:2000"/>
+			<srel:item xlink:href="escidoc:2006"/>
+			<srel:item xlink:href="escidoc:2012"/>
+			<srel:item xlink:href="escidoc:2018"/>
+			<srel:item xlink:href="escidoc:2024"/>
+			<srel:item xlink:href="escidoc:2030"/>
+			<srel:item xlink:href="escidoc:2036"/>
+			<srel:item xlink:href="escidoc:2042"/>
+			<srel:item xlink:href="escidoc:2048"/>
+			<srel:item xlink:href="escidoc:2054"/>
+			<srel:item xlink:href="escidoc:2060"/>
+			<srel:item xlink:href="escidoc:2066"/>
+			<srel:item xlink:href="escidoc:2072"/>
+			<srel:item xlink:href="escidoc:2078"/>
+			<srel:item xlink:href="escidoc:2084"/>
+			<srel:item xlink:href="escidoc:2090"/>
+			<srel:item xlink:href="escidoc:2096"/>
+			<srel:item xlink:href="escidoc:2102"/>
+			<srel:item xlink:href="escidoc:2108"/>
+			<srel:item xlink:href="escidoc:2114"/>
+			<srel:item xlink:href="escidoc:2120"/>
+			<srel:item xlink:href="escidoc:2126"/>
+			<srel:item xlink:href="escidoc:2132"/>
+			<srel:item xlink:href="escidoc:2138"/>
+			<srel:item xlink:href="escidoc:2144"/>
+			<srel:item xlink:href="escidoc:2150"/>
+			<srel:item xlink:href="escidoc:2156"/>
+			<srel:item xlink:href="escidoc:2162"/>
+			<srel:item xlink:href="escidoc:2168"/>
+			<srel:item xlink:href="escidoc:2174"/>
+			<srel:item xlink:href="escidoc:2180"/>
+			<srel:item xlink:href="escidoc:2186"/>
+			<srel:item xlink:href="escidoc:2192"/>
+			<srel:item xlink:href="escidoc:2198"/>
+			<srel:item xlink:href="escidoc:2204"/>
+			<srel:item xlink:href="escidoc:2210"/>
+			<srel:item xlink:href="escidoc:2216"/>
+			<srel:item xlink:href="escidoc:2222"/>
+			<srel:item xlink:href="escidoc:2228"/>
+			<srel:item xlink:href="escidoc:2234"/>
+			<srel:item xlink:href="escidoc:2240"/>
+			<srel:item xlink:href="escidoc:2246"/>
+			<srel:item xlink:href="escidoc:2252"/>
+			<srel:item xlink:href="escidoc:2258"/>
+			<srel:item xlink:href="escidoc:2264"/>
+			<srel:item xlink:href="escidoc:2270"/>
+			<srel:item xlink:href="escidoc:2276"/>
+			<srel:item xlink:href="escidoc:2282"/>
+			<srel:item xlink:href="escidoc:2288"/>
+			<srel:item xlink:href="escidoc:2294"/>
+			<srel:item xlink:href="escidoc:2300"/>
+			<srel:item xlink:href="escidoc:2306"/>
+			<srel:item xlink:href="escidoc:2312"/>
+			<srel:item xlink:href="escidoc:2318"/>
+			<srel:item xlink:href="escidoc:2324"/>
+			<srel:item xlink:href="escidoc:2330"/>
+			<srel:item xlink:href="escidoc:2336"/>
+			<srel:item xlink:href="escidoc:2342"/>
+			<srel:item xlink:href="escidoc:2348"/>
+			<srel:item xlink:href="escidoc:2354"/>
+			<srel:item xlink:href="escidoc:2360"/>
+			<srel:item xlink:href="escidoc:2366"/>
+			<srel:item xlink:href="escidoc:2372"/>
+			<srel:item xlink:href="escidoc:2378"/>
+			<srel:item xlink:href="escidoc:2384"/>
+			<srel:item xlink:href="escidoc:2390"/>
+			<srel:item xlink:href="escidoc:2396"/>
+			<srel:item xlink:href="escidoc:2402"/>
+			<srel:item xlink:href="escidoc:2408"/>
 		</struct-map:struct-map>
 	</container:container>
 </search-result:search-result-record>

@@ -36,18 +36,18 @@
 		<!-- Node: container.@objid -->
 		<!-- Field: ContainerVO.version [ContainerRO] -->
 		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 		
 		<!-- Field: ContainerVO.latestVersion [ContainerRO] -->
 		<structure field="latestVersion" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework"
 			usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 		<!-- Field: ContainerVO.latestRelease [ContainerRO] -->
 		<structure field="latestRelease" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework"
 			usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
 		<structure name="properties" ns="${xsd.soap.container.container}" ordered="false" flexible="true" allow-repeats="true">
@@ -61,7 +61,7 @@
 			<!-- Field: ContainerVO.owner [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
-				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" usage="optional" />
 			</structure>
 			
 			<!-- Node: properties.public-status -->
@@ -79,7 +79,7 @@
 			<!-- Field: ContainerVO.contextRO [ContextRO] -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
 				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" test-method="alreadyExistsInFramework" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 
 			<!-- Node: properties.content-model -->
@@ -87,7 +87,7 @@
 			<structure name="content-model" ns="${xsd.soap.common.srel}">
 				<!-- Node: properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
-				<value style="attribute" name="objid" field="contentModel" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="contentModel" usage="optional" />
 			</structure>
 
 			<!-- Node: properties.lock-status -->
@@ -174,11 +174,11 @@
 			
 			<structure name="item" ns="${xsd.soap.common.srel}"
 				type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 			<structure name="container" ns="${xsd.soap.common.srel}"
 				type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 		</collection>
 

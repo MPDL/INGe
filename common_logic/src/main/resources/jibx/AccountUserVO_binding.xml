@@ -36,7 +36,7 @@
 		<value style="attribute" name="last-modification-date" set-method="setLastModificationDate" get-method="getLastModificationDate" usage="optional" />
 
 		<structure field="reference" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
 		<structure name="properties" ns="${xsd.soap.useraccount.useraccount}" ordered="false" flexible="true">
@@ -58,7 +58,7 @@
 				<collection field="affiliations" item-type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
 					factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory" usage="optional">			
 					<structure name="organizational-unit" ns="${xsd.soap.common.srel}" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
-						<value style="attribute" name="objid" get-method="getObjectId"
+						<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId"
 						set-method="setObjectId" usage="optional" />
 					</structure>			
 				</collection>

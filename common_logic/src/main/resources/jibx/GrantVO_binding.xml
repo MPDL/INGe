@@ -34,21 +34,21 @@
 		<value style="attribute" name="last-modification-date" set-method="setLastModificationDate" get-method="getLastModificationDate" usage="optional" />
 		
 		<structure field="reference" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 		
 		<structure name="properties" ns="${xsd.soap.useraccount.grants}" ordered="false" flexible="true">
 			<structure name="granted-to" ns="${xsd.soap.common.srel}" usage="optional">
 				<value style="attribute" name="resource" field="grantType" usage="optional" />
-				<value style="attribute" name="objid" field="grantedTo" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="grantedTo" usage="optional" />
 			</structure>
 			<structure name="creation-date" ns="${xsd.soap.common.prop}" usage="optional"/>
 			<structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional"/>
 			<structure name="role" ns="${xsd.soap.common.srel}" usage="optional">
-				<value style="attribute" name="objid" field="role" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="role" usage="optional" />
 			</structure>
 			<structure name="assigned-on" ns="${xsd.soap.common.srel}" usage="optional">
-				<value style="attribute" name="objid" field="objectRef" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="objectRef" usage="optional" />
 			</structure>
 			<structure name="grant-remark" ns="${xsd.soap.common.prop}" usage="optional"/>
 		</structure>

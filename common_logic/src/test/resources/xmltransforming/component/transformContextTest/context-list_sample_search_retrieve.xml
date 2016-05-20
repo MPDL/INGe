@@ -1,10 +1,10 @@
 <?xml version="1.0" ?> 
-<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/"><version>1.1</version><numberOfRecords>1</numberOfRecords><records xmlns:ns1="http://www.loc.gov/zing/srw/"><record><recordSchema>eSciDocSoap</recordSchema><recordPacking>xml</recordPacking><recordData><search-result:search-result-record xmlns:search-result="${xsd.soap.searchresult.searchresult}">
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/" xmlns:xlink="http://www.w3.org/1999/xlink"><version>1.1</version><numberOfRecords>1</numberOfRecords><records xmlns:ns1="http://www.loc.gov/zing/srw/"><record><recordSchema>eSciDocSoap</recordSchema><recordPacking>xml</recordPacking><recordData><search-result:search-result-record xmlns:search-result="${xsd.soap.searchresult.searchresult}">
 <search-result:score>2.2626607</search-result:score>
-<context:context last-modification-date="2011-08-17T12:37:59.071Z" objid="escidoc:2001" xmlns:context="${xsd.soap.context.context}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xlink="http://www.w3.org/1999/xlink">
+<context:context last-modification-date="2011-08-17T12:37:59.071Z" xlink:href="escidoc:2001" xmlns:context="${xsd.soap.context.context}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xlink="http://www.w3.org/1999/xlink">
  <context:properties>
 <prop:creation-date>2011-08-17T12:37:58.613Z</prop:creation-date>
-<srel:created-by objid="escidoc:exuser1"/>  <srel:modified-by objid="escidoc:exuser1"/>
+<srel:created-by xlink:href="escidoc:exuser1"/>  <srel:modified-by xlink:href="escidoc:exuser1"/>
 <prop:public-status>opened</prop:public-status>
 <prop:public-status-comment>Context escidoc:2001 opened.</prop:public-status-comment>
 <prop:name>PubMan Default Context</prop:name>
@@ -21,7 +21,7 @@
             Note: Please do not modify the type of the context (PubMan), as otherwise PubMan solution will not function properly out of the box.</prop:description>
 <prop:type>PubMan</prop:type>
 <prop:organizational-units>
-<srel:organizational-unit objid="escidoc:2"/>
+<srel:organizational-unit xlink:href="escidoc:2"/>
 </prop:organizational-units>
 </context:properties>
  

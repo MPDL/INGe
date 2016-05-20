@@ -36,7 +36,7 @@
 		<!-- Node: container.@objid -->
 		<!-- Field: ContainerVO.version [ContainerRO] -->
 		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
 		<!-- Node: container.@last-modification-date -->
@@ -52,7 +52,7 @@
 
 				<!-- Node: properties.context.@objid -->
 				<!-- Field: ContainerVO.pubCollection [PubCollectionRO] -->
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 			</structure>
 
 			<!-- Node: properties.content-model -->
@@ -61,7 +61,7 @@
 
 				<!-- Node: properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
-				<value style="attribute" name="objid" field="contentModel" usage="optional"/>
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="contentModel" usage="optional"/>
 			</structure>
 
 			<!-- Node: properties.pid -->
@@ -135,11 +135,11 @@
 			
 			<structure name="item" ns="${xsd.soap.common.srel}"
 				type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 			<structure name="container" ns="${xsd.soap.common.srel}"
 				type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 		</collection>
 

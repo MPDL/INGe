@@ -35,7 +35,7 @@
 	
 		
 			<structure name="scope" >
-				<value style="attribute" name="objid" field="scope"/>
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="scope"/>
 			</structure>
 			<collection field="paramList"  factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportRecordParamVOListFactory" usage="optional">
 				

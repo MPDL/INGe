@@ -36,7 +36,7 @@
 		<!-- Node: item.@objid -->
 		<!-- Field: PubItemVO.version [PubTocItemRO] -->
 		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.TocItemRO" test-method="alreadyExistsInFramework" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
 		<!-- Node: item.@last-modification-date -->
@@ -52,7 +52,7 @@
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 
 			</structure>
 
@@ -62,7 +62,7 @@
 
 				<!-- Node: item.properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
-				<value style="attribute" name="objid" field="contentModel" usage="optional"/>
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="contentModel" usage="optional"/>
 
 			</structure>
 

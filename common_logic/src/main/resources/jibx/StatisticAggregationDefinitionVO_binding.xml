@@ -28,16 +28,18 @@
 -->
 
 <binding>
-
+	
+	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
+	
 	<!-- concrete mapping for statistic report definition-->
 	<!-- Type: StatisticReportDefinitionVO... -->
 	<mapping name="aggregation-definition" ns="${xsd.soap.statistic.aggregation-definition}" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDefinitionVO" ordered="false" allow-repeats="true">
 	
-		<value style="attribute" name="objid" field="objectId" />
+		<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="objectId" />
 		<value style="element" name="name" field="name" ns="${xsd.soap.statistic.aggregation-definition}"/>
 		
 		<structure name="scope" ns="${xsd.soap.statistic.aggregation-definition}">
-			<value style="attribute" name="objid" field="scopeId" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="scopeId" />
 		</structure>
 	
 

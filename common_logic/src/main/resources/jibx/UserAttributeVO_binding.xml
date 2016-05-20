@@ -33,7 +33,7 @@
 	<mapping name="attribute" ns="${xsd.soap.attributes}"
 		class="de.mpg.escidoc.services.common.valueobjects.UserAttributeVO">
 
-		<value style="attribute" name="objid" field="objectId" usage="optional" />
+		<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="objectId" usage="optional" />
 		
 		<value style="attribute" name="name" field="name" usage="optional" />
 

@@ -2,6 +2,7 @@
   <namespace uri="${xsd.soap.common.commontypes}" prefix="ns0"/>
   <namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
   <namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
+  <namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	
   <include path="schemas_grants_05Binding.xml"/>
   <include path="schemas_usergrouplist_05Binding.xml"/>

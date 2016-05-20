@@ -36,9 +36,7 @@
 		<!-- Node: item.@objid -->
 		<!-- Field: PubItemVO.version [PubItemRO] -->
 		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
-			<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
-			<!-- testfiles for tests (testRountripTransformPubItem2 & testRountripTransformFacesItem) needs to be adjusted if href is inlcluded again (just add an href)  -->
-			<!-- <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getHref" usage="optional" />  -->
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 		</structure>
 
 		<!-- Node: item.@last-modification-date -->
@@ -57,7 +55,7 @@
 			<!-- Field: PubItemVO.owner [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 			</structure>
 
 			<!-- Node: item.properties.public-status -->
@@ -76,7 +74,7 @@
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
-				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 
 			</structure>
 
@@ -86,7 +84,7 @@
 
 				<!-- Node: item.properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
-				<value style="attribute" name="objid" field="contentModel" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="contentModel" usage="optional" />
 
 			</structure>			
 
@@ -104,7 +102,7 @@
 			<!-- Field: PubItemVO.version [ItemRO] -->
 			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
 			
-				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectIdAndVersion" usage="optional" />
 
 				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
@@ -122,7 +120,7 @@
 					type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
 	
 					<!-- Node: item.properties.version.modified-by.@objid -->
-					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 	
 				</structure>
 
@@ -134,7 +132,7 @@
 			<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" usage="optional" name="latest-version">
 			
-				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectIdAndVersion" usage="optional" />
 
 				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
@@ -144,7 +142,7 @@
 			<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
 			<structure field="latestRelease" ns="${xsd.soap.common.prop}" usage="optional" name="latest-release">
 			
-				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectIdAndVersion" usage="optional" />
 
 				<value style="element" name="number" ns="${xsd.soap.common.release}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.release}" get-method="getModificationDateForXml" usage="optional" />

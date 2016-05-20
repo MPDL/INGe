@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><context:context xmlns:context="${xsd.soap.context.context}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.soap.common.prop}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" objid="escidoc:persistent3" last-modification-date="2007-03-26T11:11:58.853Z" xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd">
+<?xml version="1.0" encoding="UTF-8"?><context:context xmlns:context="${xsd.soap.context.context}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.soap.common.prop}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xlink:href="escidoc:persistent3" last-modification-date="2007-03-26T11:11:58.853Z" xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<context:properties>
 		<prop:creation-date>2007-01-16T11:23:24.359Z</prop:creation-date>
-		<srel:created-by objid="escidoc:user42"/>
+		<srel:created-by xlink:href="escidoc:user42"/>
 		<prop:public-status>opened</prop:public-status>
 		<prop:name>PubMan Test Collection</prop:name>
 		<prop:description>This is the sample collection description of the PubMan Test
@@ -12,7 +12,7 @@ responsible affiliation for this collection. Please contact
 u.tschida@zim.mpg.de for any questions.</prop:description>
 		<prop:type>PubMan</prop:type>
 		<prop:organizational-units>
-			<srel:organizational-unit objid="escidoc:persistent13"/>
+			<srel:organizational-unit xlink:href="escidoc:persistent13"/>
 		</prop:organizational-units>
 		<prop:last-modification-date>2007-03-26T11:11:58.853Z</prop:last-modification-date>
 	</context:properties>
