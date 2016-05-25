@@ -26,6 +26,9 @@
 
 package de.mpg.escidoc.services.common.referenceobjects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The class for Affiliation references.
  * 
@@ -34,6 +37,7 @@ package de.mpg.escidoc.services.common.referenceobjects;
  * @version $Revision$ $LastChangedDate$
  * @updated 04-Sep-2007 11:43:18
  */
+@JsonInclude(value = Include.NON_NULL)
 public class AffiliationRO extends ReferenceObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

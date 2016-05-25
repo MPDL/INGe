@@ -32,7 +32,7 @@
 	<!-- concrete mapping for ContextVO -->
 	<!-- Type: ContextVO... -->
 	<mapping name="context" ns="${xsd.soap.context.context}" class="de.mpg.escidoc.services.common.valueobjects.ContextVO" ordered="false"
-		allow-repeats="true">
+		allow-repeats="true" flexible="true">
 
 		<!-- Node: context.@objid -->
 		<!-- Field: ContextVO.reference [ContextRO] -->
@@ -86,7 +86,7 @@
 
 		</structure>
 
-		<structure name="admin-descriptors" ns="${xsd.soap.context.context}" usage="optional">
+		<structure name="admin-descriptors" ns="${xsd.soap.context.context}" usage="optional" ordered="false" flexible="true">
 
 			<collection name="admin-descriptor" ns="${xsd.soap.context.context}" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
 				

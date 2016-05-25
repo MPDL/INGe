@@ -26,6 +26,8 @@
 
 package de.mpg.escidoc.services.common.referenceobjects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The class for AccountUser references.
@@ -35,6 +37,7 @@ package de.mpg.escidoc.services.common.referenceobjects;
  * @version $Revision$ $LastChangedDate$
  * @updated 21-Nov-2007 12:08:27
  */
+@JsonInclude(value = Include.NON_NULL)
 public class AccountUserRO extends ReferenceObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

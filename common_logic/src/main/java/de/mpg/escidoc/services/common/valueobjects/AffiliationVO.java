@@ -28,6 +28,10 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
@@ -42,6 +46,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUni
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
  */
+@JsonInclude(value = Include.NON_NULL)
 public class AffiliationVO extends ValueObject implements Searchable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -275,6 +280,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
     return hasChildren;
   }
 
+  @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
     return metadataSets;
   }
