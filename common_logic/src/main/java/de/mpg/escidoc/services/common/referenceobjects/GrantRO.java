@@ -26,6 +26,8 @@
 
 package de.mpg.escidoc.services.common.referenceobjects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The class for Grant references.
@@ -33,6 +35,7 @@ package de.mpg.escidoc.services.common.referenceobjects;
  * 
  * 
  */
+@JsonInclude(value = Include.NON_NULL)
 public class GrantRO extends ReferenceObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

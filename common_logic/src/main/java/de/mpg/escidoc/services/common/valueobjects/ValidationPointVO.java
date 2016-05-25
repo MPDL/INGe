@@ -26,6 +26,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The functional specification of the publication and the modification workflow define several
  * validation points relevant for publication items at a specific point in the workflow. A
@@ -36,6 +39,7 @@ package de.mpg.escidoc.services.common.valueobjects;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:53
  */
+@JsonInclude(value = Include.NON_NULL)
 public class ValidationPointVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

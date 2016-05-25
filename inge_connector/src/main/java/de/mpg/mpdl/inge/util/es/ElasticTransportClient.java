@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.common;
+package de.mpg.mpdl.inge.util.es;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -113,8 +113,8 @@ public class ElasticTransportClient {
     TransportClient client = new TransportClient.Builder().settings(settings).build();
 
     try {
-      client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"),
-          9300));
+      client.addTransportAddress(new InetSocketTransportAddress(
+          InetAddress.getByName("10.20.2.11"), 9300));
       // client.addTransportAddress(new
       // InetSocketTransportAddress(InetAddress.getByName("10.20.2.60"),
       // 9300));

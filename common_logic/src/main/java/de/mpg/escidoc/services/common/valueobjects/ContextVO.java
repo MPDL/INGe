@@ -29,6 +29,10 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
@@ -45,6 +49,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminD
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
  */
+@JsonInclude(value = Include.NON_NULL)
 public class ContextVO extends ValueObject implements Searchable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -252,6 +257,7 @@ public class ContextVO extends ValueObject implements Searchable {
     return responsibleAffiliations;
   }
 
+  @JsonIgnore
   public List<AdminDescriptorVO> getAdminDescriptors() {
     return adminDescriptors;
   }

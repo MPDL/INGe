@@ -1,11 +1,8 @@
 package de.mpg.mpdl.inge.tech.interfaces;
 
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**

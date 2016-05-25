@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
@@ -42,6 +46,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:46
  */
+@JsonInclude(value = Include.NON_NULL)
 public class AccountUserVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -99,6 +104,7 @@ public class AccountUserVO extends ValueObject {
   /**
    * Delivers true if the granted role is of type 'depositor' for any object.
    */
+  @JsonIgnore
   public boolean isDepositor() {
     boolean depositor = false;
     for (GrantVO grant : this.grants) {
@@ -115,6 +121,7 @@ public class AccountUserVO extends ValueObject {
   /**
    * Delivers true if the granted role is of type 'moderator' for any object.
    */
+  @JsonIgnore
   public boolean isModerator() {
     boolean moderator = false;
     for (GrantVO grant : this.grants) {
@@ -131,6 +138,7 @@ public class AccountUserVO extends ValueObject {
   /**
    * Delivers true if the granted role is of type 'reporter' for any object.
    */
+  @JsonIgnore
   public boolean isReporter() {
     boolean reporter = false;
     for (GrantVO grant : this.grants) {
@@ -224,6 +232,7 @@ public class AccountUserVO extends ValueObject {
   /**
    * @ return the userGrtants without grants of type audience
    */
+  @JsonIgnore
   public List<GrantVO> getGrantsWithoutAudienceGrants() {
     return this.grantsWithoutAudience;
   }

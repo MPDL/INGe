@@ -29,6 +29,9 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
@@ -40,6 +43,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
  * @author haarlaender
  * 
  */
+@JsonInclude(value = Include.NON_NULL)
 public class UserAttributeVO extends ValueObject {
 
   /**

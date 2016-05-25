@@ -28,6 +28,9 @@ package de.mpg.escidoc.services.common.valueobjects;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.escidoc.services.common.referenceobjects.GrantRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 
@@ -39,6 +42,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:46:17
  */
+@JsonInclude(value = Include.NON_NULL)
 public class GrantVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
