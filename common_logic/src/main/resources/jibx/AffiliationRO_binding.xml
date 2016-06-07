@@ -31,7 +31,7 @@ All rights reserved. Use is subject to license terms.
 
 	<!-- concrete mapping for AffiliationRO -->
 	<!-- Type: AffiliationRO... -->
-	<mapping abstract="true" ns="${xsd.soap.ou.ouref}" class="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
+	<mapping abstract="true" ns="${xsd.soap.ou.ouref}" class="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO">
 
 		<!-- Node: organizational-unit-path.organizational-unit-ref.@objid -->
 		<!-- Field: AffiliationPathVO.affiliationList[X] [AffiliationRO] -->

@@ -34,8 +34,8 @@
     <!-- concrete mapping for ContainerResultVO -->
     <!-- Type: PubItemResultVO... -->
     <mapping name="item" ns="${xsd.soap.item.item}"
-      class="de.mpg.escidoc.services.common.valueobjects.ContainerResultVO"
-      extends="de.mpg.escidoc.services.common.valueobjects.ContainerVO">
+      class="de.mpg.mpdl.inge.model.valueobjects.ContainerResultVO"
+      extends="de.mpg.mpdl.inge.model.valueobjects.ContainerVO">
 
         <!-- Node: search-result-record.item -->
         <!-- embed the concrete mapping for the super class [ContainerResultVO] -->

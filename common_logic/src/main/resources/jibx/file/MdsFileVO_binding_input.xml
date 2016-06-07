@@ -40,14 +40,14 @@
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
 
 	<mapping abstract="true" ns="${xsd.metadata.file}"
-		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO"
 		ordered="false" allow-repeats="true">
 
 <!--		<structure ordered="false" allow-repeats="true" usage="optional">-->
 
 			<!-- Node: file.title -->
 			<!-- Field: MdsFileVO.title [String] (inherited from superclass MetadataSetVO)-->
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO" usage="optional" />
 
 			<!-- Node: file.description -->
 			<!-- Field: MdsFileVO.description [String] -->
@@ -59,7 +59,7 @@
 			<collection field="identifiers"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
 				<structure name="identifier" ns="${xsd.metadata.dc}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 			</collection>
 				
 			<!-- Node: file.content-category -->
@@ -72,7 +72,7 @@
 			<collection field="formats"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.formatVOListFactory" usage="optional">
 				<structure name="format" ns="${xsd.metadata.dc}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO" />
 			</collection>
 
 			<!-- Node: file.extent -->

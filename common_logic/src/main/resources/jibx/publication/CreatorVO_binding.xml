@@ -30,7 +30,7 @@
 <binding>
 
 	<!-- abstract mapping for CreatorVO -->
-	<mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" flexible="true" ordered="false" abstract="true">
+	<mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO" flexible="true" ordered="false" abstract="true">
 
 		<!-- Node: creator.@role -->
 		<!-- Field: CreatorVO.role [CreatorVO.CreatorRole] -->

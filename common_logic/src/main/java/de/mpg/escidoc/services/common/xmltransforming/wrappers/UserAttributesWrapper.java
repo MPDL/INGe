@@ -29,8 +29,8 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a list of UserAttributeVOs. The reason

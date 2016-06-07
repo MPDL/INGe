@@ -35,13 +35,13 @@
 		<!-- Field: MemberListWrapper.memberList [List<ValueObject>] -->
 		<collection field="memberList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.ValueObject" usage="optional">
+			item-type="de.mpg.mpdl.inge.model.valueobjects.ValueObject" usage="optional">
 			
 			<structure ns="${xsd.soap.item.item}"
-				type="de.mpg.escidoc.services.common.valueobjects.ItemVO" usage="optional">
+				type="de.mpg.mpdl.inge.model.valueobjects.ItemVO" usage="optional">
 			</structure>
 			<structure ns="${xsd.soap.container.container}"
-				type="de.mpg.escidoc.services.common.valueobjects.ContainerVO" usage="optional">
+				type="de.mpg.mpdl.inge.model.valueobjects.ContainerVO" usage="optional">
 			</structure>
 		</collection>
 		

@@ -29,7 +29,7 @@
 
 <binding>
 	<!-- abstract mapping for SourceVOWrapper -->
-	<mapping type-name="SourceVO_abstract" class="de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO"
+	<mapping type-name="SourceVO_abstract" class="de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO"
 		ordered="false" allow-repeats="true" abstract="true">
         
 		<!--
@@ -55,13 +55,13 @@
 		<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO" />
+				map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO" />
 		</collection>
 
 		<collection field="creators"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory" usage="optional">
 			<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
-				type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
+				type="de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO" usage="optional" />
 		</collection>
 
 		<value style="element" name="volume" ns="${xsd.metadata.escidocprofile.types}" field="volume"
@@ -90,7 +90,7 @@
 		<collection field="identifiers"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
 			<structure name="identifier" ns="${xsd.metadata.dc}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+				map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 		</collection>
 
 		<collection field="sources"

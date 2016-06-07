@@ -35,7 +35,7 @@
 	
 		<collection field="repDefList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportDefinitionVOListFactory" usage="optional">
 	
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO" usage="optional" ordered = "false" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO" usage="optional" ordered = "false" />
 				
 		
 		</collection>

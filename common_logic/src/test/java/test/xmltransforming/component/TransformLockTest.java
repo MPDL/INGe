@@ -35,7 +35,7 @@ import org.junit.Test;
 import test.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.LockVO;
+import de.mpg.mpdl.inge.model.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

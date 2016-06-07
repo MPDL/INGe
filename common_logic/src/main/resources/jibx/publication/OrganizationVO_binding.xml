@@ -30,10 +30,10 @@
 <binding>
     <!-- Node: item.md-records.md-record.publication.creator(*).organization -->
     <!-- Field: PubItemVO.metadata.creators(*).organization [OrganizationVO] -->
-    <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO" abstract="true">
+    <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO" abstract="true">
 
         <!-- structure name="organization" ns="${xsd.metadata.escidocprofile.types}"
-            type="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO"-->
+            type="de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO"-->
 
         <!-- Node: item.md-records.md-record.publication.creator(*).organization.organization-name -->
         <!-- Field: PubItemVO.metadata.creators(*).organization.name [String] -->

@@ -11,18 +11,15 @@
 	<artifactId>inge_connector</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inge_connector</name>
-	<url>http://maven.apache.org</url>
+	<scm>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_connector</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_connector</developerConnection>
+		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<tag>HEAD</tag>
+	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<repositories>
-		<repository>
-			<id>escidoc-artifactory</id>
-			<name>eSciDoc Artifactory</name>
-			<url>https://www.escidoc.org/artifactory/anonymous-repo</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
@@ -34,10 +31,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.escidoc.core</groupId>
 			<artifactId>escidoc-ijc</artifactId>
 			<version>1.4.2</version>
-
 		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
@@ -46,35 +46,35 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		<groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>18.0</version>
-        <exclusions>
-          <exclusion>
-            <artifactId>jsr305</artifactId>
-            <groupId>com.google.code.findbugs</groupId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-		<dependency>
-				<groupId>org.elasticsearch</groupId>
-				<artifactId>elasticsearch</artifactId>
-				<version>2.3.2</version>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jsr305</artifactId>
+					<groupId>com.google.code.findbugs</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-annotations</artifactId>
-				<version>2.7.3</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>2.7.3</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-				<version>2.7.3</version>
-			</dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.7.3</version>
+		</dependency>
 	</dependencies>
 </project>

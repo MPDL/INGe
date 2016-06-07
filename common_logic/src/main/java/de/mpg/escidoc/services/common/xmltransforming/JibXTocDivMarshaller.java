@@ -12,8 +12,8 @@ import org.jibx.runtime.JiBXException;
 import org.jibx.runtime.impl.MarshallingContext;
 import org.jibx.runtime.impl.UnmarshallingContext;
 
-import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
-import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocDivVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocPtrVO;
 
 public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasable // ,
 // IUnmarshaller

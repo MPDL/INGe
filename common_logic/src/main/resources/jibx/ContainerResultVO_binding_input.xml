@@ -32,8 +32,8 @@
 	<!-- concrete mapping for ContainerResultVO -->
 	<!-- Type: ContainerResultVO... -->
 	<mapping name="search-result-record" ns="${xsd.soap.searchresult.searchresult}"
-		class="de.mpg.escidoc.services.common.valueobjects.ContainerResultVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.ContainerVO">
+		class="de.mpg.mpdl.inge.model.valueobjects.ContainerResultVO"
+		extends="de.mpg.mpdl.inge.model.valueobjects.ContainerVO">
 
 		<value style="element" name="score" ns="${xsd.soap.searchresult.searchresult}" field="score" usage="optional"/>
 
@@ -47,7 +47,7 @@
 
 				<!-- Type: SearchHitVO... -->
 				<structure name="search-hit" ns="${xsd.soap.searchresult.searchresult}"
-					type="de.mpg.escidoc.services.common.valueobjects.SearchHitVO">
+					type="de.mpg.mpdl.inge.model.valueobjects.SearchHitVO">
 
 					<!-- Node: search-result-record.highlight.search-hit.@type -->
 					<!-- Field: SearchHitVO.type [SearchHitType] -->
@@ -57,7 +57,7 @@
 
 					<!-- Node: search-result-record.highlight.search-hit.@objid -->
 					<!-- Field: SearchHitVO.hitReference [PubFileRO] -->
-					<structure field="hitReference" type="de.mpg.escidoc.services.common.referenceobjects.FileRO"
+					<structure field="hitReference" type="de.mpg.mpdl.inge.model.referenceobjects.FileRO"
 						usage="optional">
 						<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId"
 							usage="optional" />
@@ -70,7 +70,7 @@
 
 						<!-- Type: TextFragmentVO... -->
 						<structure name="text-fragment" ns="${xsd.soap.searchresult.searchresult}"
-							type="de.mpg.escidoc.services.common.valueobjects.TextFragmentVO">
+							type="de.mpg.mpdl.inge.model.valueobjects.TextFragmentVO">
 
 							<!-- Node: search-result-record.highlight.search-hit.text-fragment.text-fragment-data -->
 							<!-- Field: TextFragmentVO.data [String] -->
@@ -85,7 +85,7 @@
 
 								<!-- Type: HitwordVO... -->
 								<structure name="hit-word" ns="${xsd.soap.searchresult.searchresult}"
-									type="de.mpg.escidoc.services.common.valueobjects.HitwordVO">
+									type="de.mpg.mpdl.inge.model.valueobjects.HitwordVO">
 
 									<!-- Node: search-result-record.highlight.search-hit.text-fragment.hit-word.start-index -->
 									<!-- Field: HitwordVO.startIndex [int] -->
@@ -113,7 +113,7 @@
 
 		<!-- Node: search-result-record.container -->
 		<!-- embed the concrete mapping for the super class [ContainerResultVO] -->
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.ContainerVO" />
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ContainerVO" />
 
 	</mapping>
 

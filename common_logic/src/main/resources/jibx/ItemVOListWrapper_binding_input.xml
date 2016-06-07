@@ -40,7 +40,7 @@
 		<!-- Field: PubItemVOListWrapper.pubItemVOList [List<PubItemVO>] -->
 		<collection field="itemVOList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.itemVOListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemVO" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemVO" />
 		</collection>
 
 	</mapping>

@@ -35,10 +35,10 @@
 		<!-- Field: UserAttributesWrapper.userAttributes [List<UserAttributeVO>] -->
 		<collection field="userAttributes"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.userAttributeVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.UserAttributeVO" usage="optional">
+			item-type="de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO" usage="optional">
 			
 			<structure ns="${xsd.soap.attributes}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.UserAttributeVO" usage="optional">
+				map-as="de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO" usage="optional">
 			</structure>
 			
 		</collection>

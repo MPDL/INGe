@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 <binding>
-	<mapping class="de.mpg.escidoc.services.common.referenceobjects.ReferenceObject" abstract="true">
+	<mapping class="de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject" abstract="true">
 
 	</mapping>
 </binding>

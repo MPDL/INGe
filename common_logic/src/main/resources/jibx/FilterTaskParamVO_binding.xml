@@ -30,7 +30,7 @@
 <binding direction="output">
 
 	<!-- concrete mapping for FilterTaskParamVO -->
-	<mapping name="param" class="de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO"
+	<mapping name="param" class="de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO"
 		marshaller="de.mpg.escidoc.services.common.xmltransforming.JiBXFilterTaskParamVOMarshaller" />
 
 </binding>

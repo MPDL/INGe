@@ -28,7 +28,7 @@
 -->
 
 <binding>
-	<mapping name="event" ns="http://www.loc.gov/standards/premis/v1" class="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO">
+	<mapping name="event" ns="http://www.loc.gov/standards/premis/v1" class="de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO">
 		<structure name="eventIdentifier" ns="http://www.loc.gov/standards/premis/v1" usage="optional"/>
 		<value style="element" name="eventType" ns="http://www.loc.gov/standards/premis/v1" field="type"
 			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeEventTypeEnum"

@@ -34,8 +34,8 @@
     <!-- concrete mapping for ItemResultVO -->
     <!-- Type: ItemResultVO... -->
     <mapping name="item" ns="${xsd.soap.item.item}"
-      class="de.mpg.escidoc.services.common.valueobjects.ItemResultVO"
-      extends="de.mpg.escidoc.services.common.valueobjects.ItemVO">
+      class="de.mpg.mpdl.inge.model.valueobjects.ItemResultVO"
+      extends="de.mpg.mpdl.inge.model.valueobjects.ItemVO">
 
         <structure map-as="PubItemVOOutputAbstract" />
 

@@ -27,7 +27,7 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a list of ContainerVOs. The reason for
@@ -43,11 +43,10 @@ public class ContainerVOListWrapper implements Serializable {
 
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.escidoc.services.common.valueobjects.ContainerVO; local class incompatible: stream
-   * classdesc serialVersionUID = 8587635524303981401, local class serialVersionUID =
-   * -2285753348501257286' that occur after JiBX enhancement of VOs. Without the fixed
-   * serialVersionUID, the VOs have to be compiled twice for testing (once for the Application
-   * Server, once for the local test).
+   * 'de.mpg.mpdl.inge.model.valueobjects.ContainerVO; local class incompatible: stream classdesc
+   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
+   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
+   * be compiled twice for testing (once for the Application Server, once for the local test).
    */
   private static final long serialVersionUID = 1L;
   /**

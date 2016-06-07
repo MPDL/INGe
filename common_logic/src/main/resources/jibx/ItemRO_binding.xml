@@ -30,10 +30,10 @@
 <binding>
 
 	<!-- concrete mapping for ItemVO -->
-	<mapping class="de.mpg.escidoc.services.common.referenceobjects.ItemRO" extends="de.mpg.escidoc.services.common.referenceobjects.ReferenceObject" abstract="true" ordered="false"
+	<mapping class="de.mpg.mpdl.inge.model.referenceobjects.ItemRO" extends="de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject" abstract="true" ordered="false"
 		allow-repeats="true">
 
-		<structure map-as="de.mpg.escidoc.services.common.referenceobjects.ReferenceObject" usage="optional" />
+		<structure map-as="de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject" usage="optional" />
 
 		<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
 		<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />
@@ -49,7 +49,7 @@
 			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
 		<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedByRO"
-			type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+			type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />

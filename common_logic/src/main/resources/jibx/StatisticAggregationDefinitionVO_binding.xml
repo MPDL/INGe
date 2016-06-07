@@ -33,7 +33,7 @@
 	
 	<!-- concrete mapping for statistic report definition-->
 	<!-- Type: StatisticReportDefinitionVO... -->
-	<mapping name="aggregation-definition" ns="${xsd.soap.statistic.aggregation-definition}" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDefinitionVO" ordered="false" allow-repeats="true">
+	<mapping name="aggregation-definition" ns="${xsd.soap.statistic.aggregation-definition}" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDefinitionVO" ordered="false" allow-repeats="true">
 	
 		<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="objectId" />
 		<value style="element" name="name" field="name" ns="${xsd.soap.statistic.aggregation-definition}"/>
@@ -43,8 +43,8 @@
 		</structure>
 	
 
-		<collection ns="${xsd.soap.statistic.aggregation-definition}" field="aggregationTables" usage="optional" item-type="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTableVO" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.aggregationTableListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTableVO" usage="optional" ordered="false" />
+		<collection ns="${xsd.soap.statistic.aggregation-definition}" field="aggregationTables" usage="optional" item-type="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.aggregationTableListFactory">
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO" usage="optional" ordered="false" />
 		</collection>
 		
 		<structure name="statistic-data" ns="${xsd.soap.statistic.aggregation-definition}">
@@ -56,15 +56,15 @@
 
 	</mapping>
 	
-	<mapping name="aggregation-table" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTableVO">
+	<mapping name="aggregation-table" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO">
 		<value style="element" name="name" field="name" ns="${xsd.soap.statistic.aggregation-definition}"/>
 		
 		<collection name="field" ns="${xsd.soap.statistic.aggregation-definition}" field="aggregationFields" usage="optional" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.aggregationFieldListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO" usage="optional" ordered = "false" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO" usage="optional" ordered = "false" />
 		</collection>
 		
-		<collection  field="aggregationIndexes" usage="optional" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.aggregationIndexListFactory" item-type="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationIndexVO">
-				<structure name="index" ns="${xsd.soap.statistic.aggregation-definition}" type="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationIndexVO">
+		<collection  field="aggregationIndexes" usage="optional" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.aggregationIndexListFactory" item-type="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationIndexVO">
+				<structure name="index" ns="${xsd.soap.statistic.aggregation-definition}" type="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationIndexVO">
 					<value style="element" name="name" field="name" ns="${xsd.soap.statistic.aggregation-definition}"/>
 					<collection field="fields" ns="${xsd.soap.statistic.aggregation-definition}" usage="optional" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" item-type="java.lang.String">
 						<value style="element" name="field" ns="${xsd.soap.statistic.aggregation-definition}" type="java.lang.String"/>
@@ -74,29 +74,29 @@
 	</mapping>
 	
 	
-	<mapping abstract="true" ordered="false" allow-repeats="true" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO">
+	<mapping abstract="true" ordered="false" allow-repeats="true" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO">
 		<value style="attribute" name="feed" field="feed" usage="optional"/>
 		<value style="element" name="name" field="name" ns="${xsd.soap.statistic.aggregation-definition}" usage="optional"/>
 		<value style="element" name="xpath" field="xPath" ns="${xsd.soap.statistic.aggregation-definition}" usage="optional"/>
 	</mapping>
 	
-	<mapping name="info-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationInfoFieldVO" extends="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO">
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO" ordered="false"/>
+	<mapping name="info-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationInfoFieldVO" extends="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO">
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO" ordered="false"/>
 		<value style="element" name="type" field="type" ns="${xsd.soap.statistic.aggregation-definition}"/>
 		
 	</mapping>
 	
-	<mapping name="time-reduction-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false"  allow-repeats="true" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTimeReductionFieldVO" extends="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO">
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO" ordered="false" />
+	<mapping name="time-reduction-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false"  allow-repeats="true" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTimeReductionFieldVO" extends="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO">
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO" ordered="false" />
 		<value style="element" name="reduce-to" field="reduceTo" ns="${xsd.soap.statistic.aggregation-definition}"/>
 	</mapping>
 	
-	<mapping name="count-cumulation-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationCountCumulationFieldVO" extends="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO">
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO" ordered="false"/>
+	<mapping name="count-cumulation-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationCountCumulationFieldVO" extends="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO">
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO" ordered="false"/>
 	</mapping>
 	
-	<mapping name="difference-cumulation-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDifferenceCumulationFieldVO" extends="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO">
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO" ordered="false"/>
+	<mapping name="difference-cumulation-field" ns="${xsd.soap.statistic.aggregation-definition}" ordered="false" allow-repeats="true" class="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDifferenceCumulationFieldVO" extends="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO">
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO" ordered="false"/>
 	</mapping>
 	
 	

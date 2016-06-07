@@ -30,7 +30,7 @@
 <binding>
    <mapping name="user-account-list" ns="${xsd.soap.useraccount.useraccountlist}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.AccountUserVOListWrapper" ordered="false">
       <collection field="accountUserVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.accountUserVOListFactory" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.AccountUserVO" usage="optional"/>
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.AccountUserVO" usage="optional"/>
 		</collection>
    </mapping>
 </binding>

@@ -28,7 +28,7 @@
 -->
 
 <binding direction="output">
-   <mapping class="de.mpg.escidoc.services.common.valueobjects.FilterParamVO" abstract="true">
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.FilterParamVO" abstract="true">
         <value style="element" name="content-model" field="contentModel" type="java.lang.String" usage="optional" />
         <value style="element" name="role" field="role" type="java.lang.String" usage="optional" />
 		<collection field="userIds" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">

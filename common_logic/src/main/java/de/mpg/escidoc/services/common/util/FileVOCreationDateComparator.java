@@ -2,7 +2,7 @@ package de.mpg.escidoc.services.common.util;
 
 import java.util.Comparator;
 
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 
 public class FileVOCreationDateComparator implements Comparator<FileVO> {
 

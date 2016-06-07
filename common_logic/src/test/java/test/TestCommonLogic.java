@@ -29,9 +29,6 @@ package test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
 import test.xmltransforming.XmlTransformingTest;
 
 /**
@@ -42,7 +39,6 @@ import test.xmltransforming.XmlTransformingTest;
  * @revised by MuJ: 06.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class, ValueObjectTest.class, ComparatorTest.class,
-    XmlTransformingTest.class})
+@Suite.SuiteClasses({XmlTransformingTest.class})
 public class TestCommonLogic {
 }

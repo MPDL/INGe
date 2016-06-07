@@ -30,7 +30,7 @@
 <binding>
 
 	<!-- concrete mapping for ItemVO -->
-	<mapping ns="${xsd.soap.item.item}" class="de.mpg.escidoc.services.common.valueobjects.ItemVO" abstract="true" ordered="false"
+	<mapping ns="${xsd.soap.item.item}" class="de.mpg.mpdl.inge.model.valueobjects.ItemVO" abstract="true" ordered="false"
 		allow-repeats="true">
 		
 		<structure name="properties" ns="${xsd.soap.item.item}" ordered="false" flexible="true" allow-repeats="true">
@@ -43,7 +43,7 @@
 			<!-- Node: item.properties.created-by.@objid -->
 			<!-- Field: PubItemVO.owner [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
-				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" usage="optional" />
 				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />
 			</structure>
@@ -60,7 +60,7 @@
 
 			<!-- Node: item.properties.context -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
-				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.ContextRO" usage="optional">
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
@@ -110,7 +110,7 @@
 
 				<!-- Node: item.properties.version.modified-by -->
 				<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedByRO"
-					type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+					type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 	
 					<!-- Node: item.properties.version.modified-by.@objid -->
 					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
@@ -169,17 +169,14 @@
 			<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" ordered="false" allow-repeats="true">
+				item-type="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO" usage="optional" ordered="false" allow-repeats="true">
 
-				<!-- Faces -->
-				<structure name="face" ns="${xsd.metadata.face}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional"/>
 				<!-- PubMan -->
 				<structure name="publication" ns="${xsd.metadata.publication}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO" usage="optional" />
 				<!-- YearBook -->
 				<structure name="yearbook" ns="${xsd.metadata.yearbook}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO" usage="optional" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO" usage="optional" />
 				<!-- ViRR -->
 				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>				
 
@@ -193,8 +190,8 @@
 			<value style="attribute" name="base" ns="http://www.w3.org/XML/1998/namespace" field="baseUrl" usage="optional"/>
 			<collection field="files"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubFileVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.FileVO">
-				<structure map-as="de.mpg.escidoc.services.common.valueobjects.FileVO" />
+				item-type="de.mpg.mpdl.inge.model.valueobjects.FileVO">
+				<structure map-as="de.mpg.mpdl.inge.model.valueobjects.FileVO" />
 			</collection>
 		</structure>
 
@@ -202,8 +199,8 @@
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
+			item-type="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" test-method="hasRelations" usage="optional">
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" />
 		</collection>
 		
 		<!-- Node: item.resources -->

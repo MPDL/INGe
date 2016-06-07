@@ -26,7 +26,7 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a statistic report definition list

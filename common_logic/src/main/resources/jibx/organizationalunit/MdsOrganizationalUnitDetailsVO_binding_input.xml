@@ -42,7 +42,7 @@
 	<namespace prefix="kml" uri="http://www.opengis.net/kml/2.2" default="none" />
 
 	<mapping abstract="true" ns="${xsd.metadata.organizationalunit}"
-		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO"
 		ordered="false" allow-repeats="true">
 
 		<structure ordered="false" allow-repeats="true" usage="optional">
@@ -65,7 +65,7 @@
 			<collection field="identifiers"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
 				<structure name="identifier" ns="${xsd.metadata.dc}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 			</collection>
 				
 			<!-- Node: organizational-unit.organization-details.organization-type -->

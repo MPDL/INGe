@@ -29,7 +29,7 @@
 <binding>
 
 	<!-- abtract mapping for PidTaskParamVO"  -->
-	<mapping type-name="PidTaskParamVOAbstract" class="de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO"
+	<mapping type-name="PidTaskParamVOAbstract" class="de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO"
 		abstract="true">
 
 		<!-- Node: param.@last-modification-date -->
@@ -39,7 +39,7 @@
 	</mapping>
 
 	<!-- concrete mapping for PidTaskParamVO" -->
-	<mapping name="param" class="de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO">
+	<mapping name="param" class="de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO">
 
 		<!-- embed the abstract mapping -->
 		<structure map-as="PidTaskParamVOAbstract" />

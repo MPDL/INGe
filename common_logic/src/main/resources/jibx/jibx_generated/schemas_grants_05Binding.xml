@@ -2,18 +2,18 @@
   <namespace uri="${xsd.soap.useraccount.grants}" prefix="tns"/>
   <namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
   <namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList" name="grant-list" ns="${xsd.soap.useraccount.grants}">
-    <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.GrantList" name="grant-list" ns="${xsd.soap.useraccount.grants}">
+    <collection item-type="de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
     <value style="attribute" name="number-of-records" get-method="getNumberOfRecords" set-method="setNumberOfRecords" usage="optional"/>
     <value style="attribute" name="limit" get-method="getLimit" set-method="setLimit" usage="optional"/>
     <value style="attribute" name="offset" get-method="getOffset" set-method="setOffset" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants" name="current-grants" ns="${xsd.soap.useraccount.grants}">
-    <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.CurrentGrants" name="current-grants" ns="${xsd.soap.useraccount.grants}">
+    <collection item-type="de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
   	<value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="${xsd.soap.useraccount.grants}">
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant" name="grant" ns="${xsd.soap.useraccount.grants}">
     <structure name="properties" ns="${xsd.soap.useraccount.grants}">
       <structure name="granted-to" ns="${xsd.soap.common.srel}" usage="optional">
       	<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getGrantedTo" set-method="setGrantedTo" usage="optional"/>

@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for statistic report definition-->
 	<!-- Type: StatisticReportDefinitionVO... -->
-	<mapping name="report-definition" ns="${xsd.soap.statistic.reportdefinition}" class="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO" ordered="false" allow-repeats="true">
+	<mapping name="report-definition" ns="${xsd.soap.statistic.reportdefinition}" class="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO" ordered="false" allow-repeats="true">
 	
 		<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="objectId" />
 		<value style="element" name="name" field="name" ns="${xsd.soap.statistic.reportdefinition}"/>
@@ -40,8 +40,8 @@
 		</structure>
 		<value style="element" name="sql" field="sql" ns="${xsd.soap.statistic.reportdefinition}"/>
 
-		<collection name="allowed-roles" ns="${xsd.soap.statistic.reportdefinition}" field="allowedRoles" usage="optional" item-type="de.mpg.escidoc.services.common.referenceobjects.AllowedRolesRO" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.allowedRolesListFactory">
-			<structure name="allowed-role" ns="${xsd.soap.statistic.reportdefinition}" type="de.mpg.escidoc.services.common.referenceobjects.AllowedRolesRO">
+		<collection name="allowed-roles" ns="${xsd.soap.statistic.reportdefinition}" field="allowedRoles" usage="optional" item-type="de.mpg.mpdl.inge.model.referenceobjects.AllowedRolesRO" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.allowedRolesListFactory">
+			<structure name="allowed-role" ns="${xsd.soap.statistic.reportdefinition}" type="de.mpg.mpdl.inge.model.referenceobjects.AllowedRolesRO">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId"/>
 			</structure>
 		</collection>

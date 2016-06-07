@@ -32,7 +32,7 @@
 		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationROListWrapper">
 		<collection field="affiliationROList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory">
-			<structure name="parent" ns="${xsd.soap.common.srel}" map-as="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional" />
+			<structure name="parent" ns="${xsd.soap.common.srel}" map-as="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO" usage="optional" />
 		</collection>
 	</mapping>
 </binding>

@@ -26,7 +26,7 @@
 
 package de.mpg.escidoc.services.common.exceptions;
 
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 
 /**
  * Exception class used to indicate that a certain affiliation could not be found.

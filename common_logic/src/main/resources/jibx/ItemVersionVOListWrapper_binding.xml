@@ -32,7 +32,7 @@
     <mapping name="version-history" ns="${xsd.soap.common.versionhistory}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper">
     
         <collection field="eventVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.eventVOListFactory">
-            <structure type="de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO" usage="optional" />
+            <structure type="de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO" usage="optional" />
         </collection>
         
     </mapping>
