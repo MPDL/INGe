@@ -28,7 +28,7 @@
 -->
 
 <binding>
-   <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.ProjectInfoVO" abstract="true">
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO" abstract="true">
       	<value style="element" name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
       	
 		<structure name="identifier" ns="${xsd.metadata.dc}" field="grantIdentifier" usage="optional" />
@@ -38,14 +38,14 @@
 			<structure name="funding-organization" field="fundingOrganization" ns="${xsd.metadata.project}" usage="optional" ordered="false">
 				<value style="element" name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
 				<collection field="identifiers" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
-					<structure name="identifier" ns="${xsd.metadata.dc}" map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+					<structure name="identifier" ns="${xsd.metadata.dc}" map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 		  		</collection>
 			</structure>
 			
 			<structure name="funding-program" field="fundingProgram" ns="${xsd.metadata.project}" usage="optional" ordered="false">
 				<value style="element" name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
 				<collection field="identifiers" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
-					<structure name="identifier" ns="${xsd.metadata.dc}" map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+					<structure name="identifier" ns="${xsd.metadata.dc}" map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 		  		</collection>
 			</structure>
 

@@ -29,7 +29,7 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
+import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a list of Metadata sets. The reason

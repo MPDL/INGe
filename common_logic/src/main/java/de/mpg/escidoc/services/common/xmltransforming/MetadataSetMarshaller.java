@@ -12,7 +12,7 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.jibx.runtime.impl.MarshallingContext;
 
-import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
+import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
 public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnmarshaller
 {

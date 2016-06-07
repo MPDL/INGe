@@ -39,13 +39,13 @@ import org.junit.Test;
 
 import test.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
-import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

@@ -33,7 +33,7 @@
 		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper">
 		<collection field="affiliationVOList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationVOListFactory">
-			<structure type="de.mpg.escidoc.services.common.valueobjects.AffiliationVO" usage="optional" />
+			<structure type="de.mpg.mpdl.inge.model.valueobjects.AffiliationVO" usage="optional" />
 		</collection>
 	</mapping>
 </binding>

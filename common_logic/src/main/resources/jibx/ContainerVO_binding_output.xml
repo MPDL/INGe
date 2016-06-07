@@ -30,12 +30,12 @@
 <binding>
 
 	<!-- abstract mapping for ContainerVO -->
-	<mapping type-name="ContainerVOOutputAbstract" class="de.mpg.escidoc.services.common.valueobjects.ContainerVO"
+	<mapping type-name="ContainerVOOutputAbstract" class="de.mpg.mpdl.inge.model.valueobjects.ContainerVO"
 		ordered="false" flexible="true" allow-repeats="true" abstract="true">
 
 		<!-- Node: container.@objid -->
 		<!-- Field: ContainerVO.version [ContainerRO] -->
-		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework" usage="optional">
+		<structure field="version" type="de.mpg.mpdl.inge.model.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework" usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
@@ -48,7 +48,7 @@
 
 			<!-- Node: properties.context -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
-				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.ContextRO" usage="optional">
 
 				<!-- Node: properties.context.@objid -->
 				<!-- Field: ContainerVO.pubCollection [PubCollectionRO] -->
@@ -74,7 +74,7 @@
 			<!-- Node: properties.version -->
 			<!-- Field: ContainerVO.version [ContainerRO] -->
 
-<!-- 			<structure field="version" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" -->
+<!-- 			<structure field="version" ns="${xsd.soap.common.prop}" type="de.mpg.mpdl.inge.model.referenceobjects.ContainerRO" -->
 <!--				test-method="alreadyExistsInFramework" usage="optional" name="version"> -->
 <!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" /> -->
 <!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" /> -->
@@ -97,7 +97,7 @@
 			<!-- Node: properties.latest-version -->
 			<!-- Field: ContainerVO.latestVersion [ContainerRO] -->
 
-<!-- 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" -->
+<!-- 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" type="de.mpg.mpdl.inge.model.referenceobjects.ContainerRO" -->
 <!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-version"> -->
 <!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" /> -->
 <!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" /> -->
@@ -106,7 +106,7 @@
 			<!-- Node: properties.latest-release -->
 			<!-- Field: ContainerVO.latestRelease [ContainerRO] -->
 
-<!--			<structure field="latestRelease" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" -->
+<!--			<structure field="latestRelease" ns="${xsd.soap.common.prop}" type="de.mpg.mpdl.inge.model.referenceobjects.ContainerRO" -->
 <!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-release"> -->
 <!--				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" /> -->
 <!--				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" /> -->
@@ -131,14 +131,14 @@
 		<!-- Field: ContainerVO.members -->
 		<collection name="struct-map" ns="${xsd.soap.container.structmap}" field="members"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberROListFactory"
-			item-type="de.mpg.escidoc.services.common.referenceobjects.ReferenceObject" usage="optional">
+			item-type="de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject" usage="optional">
 			
 			<structure name="item" ns="${xsd.soap.common.srel}"
-				type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.ItemRO" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 			<structure name="container" ns="${xsd.soap.common.srel}"
-				type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.ContainerRO" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 		</collection>
@@ -147,16 +147,16 @@
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations"
+			item-type="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" test-method="hasRelations"
 			usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" />
 		</collection>
 
 	</mapping>
 
 	<!-- concrete mapping for ContainerVO -->
 	<mapping name="container" ns="${xsd.soap.container.container}"
-		class="de.mpg.escidoc.services.common.valueobjects.ContainerVO">
+		class="de.mpg.mpdl.inge.model.valueobjects.ContainerVO">
 
 		<!-- embed the abstract mapping -->
 		<structure map-as="ContainerVOOutputAbstract" />

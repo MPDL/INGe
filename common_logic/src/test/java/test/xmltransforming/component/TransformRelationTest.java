@@ -35,8 +35,8 @@ import org.junit.Test;
 
 import test.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
+import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
+import de.mpg.mpdl.inge.model.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

@@ -32,12 +32,12 @@
 	<!-- concrete mapping for AffiliationVO -->
 	<!-- Type: AffiliationVO... -->
 	<mapping name="organizational-unit" ns="${xsd.soap.ou.ou}"
-		class="de.mpg.escidoc.services.common.valueobjects.AffiliationVO" ordered="false"
+		class="de.mpg.mpdl.inge.model.valueobjects.AffiliationVO" ordered="false"
 		allow-repeats="true">
 
 		<!-- Node: organizational-unit.@objid -->
 		<!-- Field: AffiliationVO.reference [AffiliationRO] -->
-		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
+		<structure field="reference" type="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO"
 			usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
@@ -58,7 +58,7 @@
 			<!-- Node: organizational-unit.properties.created-by -->
 			<!-- Type: AccountUserRO... -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
-				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
 				usage="optional">
 
 				<!-- Node: organizational-unit.properties.created-by.@objid -->
@@ -70,7 +70,7 @@
 			<!-- Node: organizational-unit.properties.modified-by -->
 			<!-- Type: AccountUserRO... -->
 			<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedBy"
-				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
 				usage="optional">
 
 				<!-- Node: organizational-unit.properties.created-by.@objid -->
@@ -115,10 +115,10 @@
 			<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
+				item-type="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO">
 
 				<structure name="organizational-unit" ns="${xsd.metadata.organizationalunit}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO" usage="optional" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO" usage="optional" />
 				
 			</collection>
 			
@@ -133,7 +133,7 @@
 
 			<!-- Node: organizational-unit.parents.parent -->
 			<structure name="parent" ns="${xsd.soap.common.srel}"
-				type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO" usage="optional">
 
 				<!-- Node: organizational-unit.parents.parent.@objid -->
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" usage="optional" />
@@ -151,7 +151,7 @@
 
         <!-- Node: organizational-unit.parents.parent -->
             <structure name="predecessor" ns="${xsd.soap.common.srel}"
-                type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
+                type="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO" usage="optional">
 
                 <!-- Node: organizational-unit.parents.parent.@objid -->
                 <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" usage="optional" />

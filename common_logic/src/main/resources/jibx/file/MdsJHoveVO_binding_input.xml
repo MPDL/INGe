@@ -30,7 +30,7 @@
 <binding direction="input">
 
 	<mapping abstract="true"
-		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsJHoveVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsJHoveVO"
 		ordered="false" allow-repeats="true">
 
 		<value style="attribute" name="name" field="name" usage="optional"/>

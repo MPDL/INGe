@@ -32,7 +32,7 @@
 		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper">
 		<collection field="affiliationPathVOList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationPathVOListFactory">
-			<structure type="de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO" usage="optional" />
+			<structure type="de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO" usage="optional" />
 		</collection>
 	</mapping>
 </binding>

@@ -30,12 +30,12 @@
 <binding>
 
 	<!-- abstract mapping for TocItemVO -->
-	<mapping type-name="TocItemVOOutputAbstract" class="de.mpg.escidoc.services.common.valueobjects.TocItemVO"
+	<mapping type-name="TocItemVOOutputAbstract" class="de.mpg.mpdl.inge.model.valueobjects.TocItemVO"
 		ordered="false" flexible="true" allow-repeats="true" abstract="true">
 
 		<!-- Node: item.@objid -->
 		<!-- Field: PubItemVO.version [PubTocItemRO] -->
-		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.TocItemRO" test-method="alreadyExistsInFramework" usage="optional">
+		<structure field="version" type="de.mpg.mpdl.inge.model.referenceobjects.TocItemRO" test-method="alreadyExistsInFramework" usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
@@ -48,7 +48,7 @@
 
 			<!-- Node: item.properties.context -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
-				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.ContextRO" usage="optional">
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
@@ -76,7 +76,7 @@
 
 			<!-- Node: item.version -->
 			<!-- Field: PubItemVO.version [TocItemRO] -->
-<!--			<structure field="version" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.TocItemRO"-->
+<!--			<structure field="version" ns="${xsd.soap.common.prop}" type="de.mpg.mpdl.inge.model.referenceobjects.TocItemRO"-->
 <!--				test-method="alreadyExistsInFramework" usage="optional" name="version">-->
 <!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />-->
 <!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />-->
@@ -97,7 +97,7 @@
 	
 			<!-- Node: item.latest-version -->
 			<!-- Field: PubItemVO.latestVersion [TocItemRO] -->
-<!--			<structure field="latestVersion" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO"-->
+<!--			<structure field="latestVersion" ns="${xsd.soap.common.prop}" type="de.mpg.mpdl.inge.model.referenceobjects.ItemRO"-->
 <!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-version">-->
 <!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />-->
 <!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />-->
@@ -107,7 +107,7 @@
 	
 			<!-- Node: item.latest-release -->
 			<!-- Field: PubItemVO.latestRelease [TocItemRO] -->
-<!--			<structure field="latestRelease" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.TocItemRO"-->
+<!--			<structure field="latestRelease" ns="${xsd.soap.common.prop}" type="de.mpg.mpdl.inge.model.referenceobjects.TocItemRO"-->
 <!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-release">-->
 <!--				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />-->
 <!--				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" />-->
@@ -131,7 +131,7 @@
 		</structure>
 
 		<!-- Node: toc.toc -->
-		<structure field="tocVO" ns="${xsd.soap.toc.table-of-content}" map-as="de.mpg.escidoc.services.common.valueobjects.TocVO" ordered="false"/>
+		<structure field="tocVO" ns="${xsd.soap.toc.table-of-content}" map-as="de.mpg.mpdl.inge.model.valueobjects.TocVO" ordered="false"/>
 		<!--  
 		<structure name="toc" ns="${xsd.soap.toc.table-of-content}" ordered="false">
  			<value style="attribute" name="ID" field="tocId" usage="optional" />
@@ -148,16 +148,16 @@
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations"
+			item-type="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" test-method="hasRelations"
 			usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" />
 		</collection>
 
 	</mapping>
 
 	<!-- concrete mapping for PubItemVO -->
 	<mapping name="toc" ns="${xsd.soap.toc.toc}"
-		class="de.mpg.escidoc.services.common.valueobjects.TocItemVO">
+		class="de.mpg.mpdl.inge.model.valueobjects.TocItemVO">
 
 		<!-- embed the abstract mapping -->
 		<structure map-as="TocItemVOOutputAbstract" />

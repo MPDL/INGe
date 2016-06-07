@@ -57,6 +57,7 @@
 		<module>pubman_ear</module>
 		<!-- <module>pubman/pubman_installer</module> -->
 		<module>inge_connector</module>
+		<module>model</module>
 	</modules>
 
 	<licenses>
@@ -477,6 +478,12 @@
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
 				<artifactId>inge_connector</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<artifactId>model</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>

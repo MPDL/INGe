@@ -31,9 +31,9 @@
 
 	<!-- concrete mapping for PubItemVO -->
 	<mapping name="item" ns="${xsd.soap.item.item}"
-		class="de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.ItemVO" ordered="false" allow-repeats="true">
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemVO"/>
+		class="de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO"
+		extends="de.mpg.mpdl.inge.model.valueobjects.ItemVO" ordered="false" allow-repeats="true">
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemVO"/>
 	</mapping>
 
 </binding>

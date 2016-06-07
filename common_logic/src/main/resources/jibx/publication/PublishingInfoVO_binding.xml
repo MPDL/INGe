@@ -28,7 +28,7 @@
 -->
 
 <binding>
-   <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO" abstract="true">
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO" abstract="true">
       <value style="element" name="publisher" ns="${xsd.metadata.dc}" field="publisher" usage="optional" />
       <value style="element" name="place" ns="${xsd.metadata.escidocprofile.types}" field="place" usage="optional" />
       <value style="element" name="edition" ns="${xsd.metadata.escidocprofile.types}" field="edition" usage="optional" />

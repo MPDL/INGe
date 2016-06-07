@@ -36,7 +36,7 @@ import org.junit.Test;
 
 import test.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.util.ResourceUtil;
 

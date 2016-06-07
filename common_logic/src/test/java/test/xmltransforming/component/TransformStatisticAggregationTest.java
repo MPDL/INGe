@@ -36,17 +36,17 @@ import org.junit.Test;
 
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationDefinitionVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationIndexVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationInfoFieldVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTableVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDateParamValueVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDefinitionVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationIndexVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationInfoFieldVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDateParamValueVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

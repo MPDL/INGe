@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for PubItemVersionVO -->
 	<!-- Type: PubItemVersionVO... -->
-	<mapping name="version" ns="${xsd.soap.common.versionhistory}" class="de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO"
+	<mapping name="version" ns="${xsd.soap.common.versionhistory}" class="de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO"
 		>
 
 		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->
@@ -74,8 +74,8 @@
 		
 		<collection name="events" ns="${xsd.soap.common.versionhistory}" field="events"
 			factory="org.jibx.runtime.Utility.arrayListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" />
+			item-type="de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO" usage="optional">
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO" />
 		</collection>
 	</mapping>
 

@@ -28,7 +28,7 @@
 -->
 
 <binding>
-   <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" abstract="true">
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" abstract="true">
       <value style="attribute" name="type" ns="http://www.w3.org/2001/XMLSchema-instance" field="type"
          deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeIdentifierTypeEnum"
          serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeIdentifierTypeEnum" usage="optional"/>

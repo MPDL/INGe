@@ -30,7 +30,7 @@
 <binding>
 
 	<!-- concrete mapping for TocVO -->
-	<mapping name="toc" ns="${xsd.soap.toc.table-of-content}" class="de.mpg.escidoc.services.common.valueobjects.TocVO" ordered="false"
+	<mapping name="toc" ns="${xsd.soap.toc.table-of-content}" class="de.mpg.mpdl.inge.model.valueobjects.TocVO" ordered="false"
 		allow-repeats="true">
 
  		
@@ -40,7 +40,7 @@
  			<value style="attribute" ns="http://www.w3.org/XML/1998/namespace" name="base" field="tocBase" usage="optional" />
  			
  			<!-- need marshaller due to usage of xs:any (in combination with collections) -->
- 			<structure name="div" ns="${xsd.soap.toc.table-of-content}" type="de.mpg.escidoc.services.common.valueobjects.TocDivVO" field="tocDiv" marshaller="de.mpg.escidoc.services.common.xmltransforming.JibXTocDivMarshaller" unmarshaller="de.mpg.escidoc.services.common.xmltransforming.JibXTocDivMarshaller" />
+ 			<structure name="div" ns="${xsd.soap.toc.table-of-content}" type="de.mpg.mpdl.inge.model.valueobjects.TocDivVO" field="tocDiv" marshaller="de.mpg.escidoc.services.common.xmltransforming.JibXTocDivMarshaller" unmarshaller="de.mpg.escidoc.services.common.xmltransforming.JibXTocDivMarshaller" />
 
 
 	</mapping>

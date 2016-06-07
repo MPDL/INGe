@@ -30,11 +30,11 @@
 <binding>
 	<!-- concrete mapping for PubFileVO -->
 	<mapping name="component" ns="${xsd.soap.item.components}"
-		class="de.mpg.escidoc.services.common.valueobjects.FileVO">
+		class="de.mpg.mpdl.inge.model.valueobjects.FileVO">
 
 		<!-- Node: component.@objid -->
 		<!-- Field: PubFileVO.reference [PubItemRO] -->
-		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.FileRO"
+		<structure field="reference" type="de.mpg.mpdl.inge.model.referenceobjects.FileRO"
 			usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
@@ -53,7 +53,7 @@
 
 			<!-- Node: component.properties.created-by -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="createdByRO"
-				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 			
 				<!-- Node: component.properties.created-by.@objid -->
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
@@ -137,12 +137,12 @@
 		<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
+			item-type="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO"
 			usage="optional" ordered="false" allow-repeats="true" flexible="true">
 				<structure name="file" ns="${xsd.metadata.file}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO" usage="optional" ordered="false"/>
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO" usage="optional" ordered="false"/>
 				<!-- Faces -->
-				<structure name="jhove" map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsJHoveVO" usage="optional" ordered="false" flexible="true"/>
+				<structure name="jhove" map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsJHoveVO" usage="optional" ordered="false" flexible="true"/>
 		
 		</collection>
 

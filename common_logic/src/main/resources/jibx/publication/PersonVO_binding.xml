@@ -28,11 +28,11 @@
 -->
 
 <binding>
-	<mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"
+	<mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"
 		abstract="true">
 
 		<!-- structure name="person" ns="${xsd.metadata.escidocprofile.types}"
-			type="de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"-->
+			type="de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"-->
 
 		<value style="element" name="complete-name" ns="${xsd.metadata.escidocprofile.types}"
 			field="completeName" usage="optional"/>
@@ -61,7 +61,7 @@
 		<collection field="organizations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.organizationVOListFactory" usage="optional">
 			<structure name="organization" ns="${xsd.metadata.organization}"
-				type="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO" usage="optional" />
+				type="de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO" usage="optional" />
 		</collection>
 
 		<structure name="identifier" ns="${xsd.metadata.dc}" field="identifier"

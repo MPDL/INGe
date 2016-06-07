@@ -34,7 +34,7 @@
 	<!-- concrete mapping for SearchRetrieveResponseVO -->
 	<!-- Type: SearchRetrieveResponseVO... -->
 	<mapping name="searchRetrieveResponse" ns="${xsd.soap.searchRetrieveResponse}"
-		class="de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO" flexible="true" ordered="false">
+		class="de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO" flexible="true" ordered="false">
 
 		<!-- Node: version -->
 		<value style="element" ns="${xsd.soap.searchRetrieveResponse}" name="version" field="version"/>
@@ -45,9 +45,9 @@
 		<!-- Node: records -->
 		<structure name="records" ns="${xsd.soap.searchRetrieveResponse}" usage="optional">	
 
-			<collection field="records" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.searchRetrieveRecordVOListFactory" item-type="de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO" usage="optional">
+			<collection field="records" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.searchRetrieveRecordVOListFactory" item-type="de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO" usage="optional">
 				
-				<structure name="record" ns="${xsd.soap.searchRetrieveResponse}" type="de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO" usage="optional">
+				<structure name="record" ns="${xsd.soap.searchRetrieveResponse}" type="de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO" usage="optional">
 				
 					<!-- Node: record.recordSchema -->
 					<value style="element" ns="${xsd.soap.searchRetrieveResponse}" name="recordSchema" field="schema"/>

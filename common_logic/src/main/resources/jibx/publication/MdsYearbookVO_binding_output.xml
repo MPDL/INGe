@@ -46,8 +46,8 @@
 	<include path="../ReferenceObject_binding.xml" />
 
 	<mapping name="yearbook" ns="${xsd.metadata.yearbook}"
-		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO"
+		extends="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO"
 		value-style="attribute" ordered="false" allow-repeats="true">
 
 		<!-- Because the xsi namespace is already declared in the item.xsd binding 
@@ -63,7 +63,7 @@
 		<!-- Field: PubItemVO.metadata.creators [java.util.ArrayList<CreatorVO>] -->
 		<collection field="creators">
 			<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
-				type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO"
+				type="de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO"
 				usage="optional" />
 		</collection>
 
@@ -71,7 +71,7 @@
 		<!-- Node: item.md-records.md-record.yearbook.title -->
 		<!-- Field: PubItemVO.metadata.title [String] (inherited from superclass 
 			MetadataSetVO) -->
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO"
 			usage="optional" />
 
 		<!-- Node: item.md-records.md-record.yearbook.year -->

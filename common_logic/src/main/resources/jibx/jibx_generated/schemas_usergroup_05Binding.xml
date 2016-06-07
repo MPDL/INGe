@@ -2,7 +2,7 @@
   <namespace uri="${xsd.soap.usergroup.usergroup}" prefix="tns"/>
   <namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
   <namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup" name="user-group" ns="${xsd.soap.usergroup.usergroup}">
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroup" name="user-group" ns="${xsd.soap.usergroup.usergroup}">
     <structure name="properties" ns="${xsd.soap.usergroup.usergroup}">
       <value style="element" name="creation-date" ns="${xsd.soap.common.prop}" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
       <structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional">
@@ -18,23 +18,23 @@
       <value style="element" name="type" ns="${xsd.soap.common.prop}" get-method="getType" set-method="setType" usage="optional"/>
       <value style="element" name="active" ns="${xsd.soap.common.prop}" get-method="getActive" set-method="setActive" usage="optional"/>
     </structure>
-    <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" get-method="getSelectors" set-method="setSelectors" usage="optional"/>
-    <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" get-method="getResources" set-method="setResources" usage="optional"/>
+    <structure type="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selectors" get-method="getSelectors" set-method="setSelectors" usage="optional"/>
+    <structure type="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Resources" get-method="getResources" set-method="setResources" usage="optional"/>
     <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjid" set-method="setObjid" usage="optional"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" name="resources" ns="${xsd.soap.usergroup.usergroup}">
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Resources" name="resources" ns="${xsd.soap.usergroup.usergroup}">
     <structure map-as="ns0:readOnlyLink" get-method="getCurrentGrants" set-method="setCurrentGrants" name="current-grants" ns="${xsd.soap.usergroup.usergroup}"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" name="selectors" ns="${xsd.soap.usergroup.usergroup}">
-    <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector" get-method="getSelectors" set-method="setSelectors" create-type="java.util.ArrayList"/>
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selectors" name="selectors" ns="${xsd.soap.usergroup.usergroup}">
+    <collection item-type="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selector" get-method="getSelectors" set-method="setSelectors" create-type="java.util.ArrayList"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector" name="selector" ns="${xsd.soap.usergroup.usergroup}">
-    <format type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector$Type" enum-value-method="toString"/>
+  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selector" name="selector" ns="${xsd.soap.usergroup.usergroup}">
+    <format type="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selector$Type" enum-value-method="toString"/>
     <value style="text" get-method="getString" set-method="setString"/>
     <value style="attribute" name="name" get-method="getName" set-method="setName" usage="optional"/>
-    <value style="attribute" name="type" get-method="getType" set-method="setType" usage="optional" deserializer="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector$Type.convert"/>
+    <value style="attribute" name="type" get-method="getType" set-method="setType" usage="optional" deserializer="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selector$Type.convert"/>
     <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjid" set-method="setObjid" usage="optional"/>
   </mapping>
 </binding>

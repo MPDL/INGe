@@ -64,7 +64,7 @@
 	<include path="ProjectInfoVO_binding.xml" />
 
 	<mapping abstract="true" ns="${xsd.metadata.publication}"
-		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO"
 		ordered="false" allow-repeats="true">
 
 		<structure ordered="false" allow-repeats="true" usage="optional">
@@ -81,13 +81,13 @@
 			<collection field="creators" usage="optional"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory">
 				<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
-					type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
+					type="de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO" usage="optional" />
 			</collection>
 
 
 			<!-- Node: item.md-records.md-record.publication.title -->
 			<!-- Field: PubItemVO.metadata.title [String] (inherited from superclass MetadataSetVO)-->
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO" usage="optional" />
 
 
 			<!-- Node: item.md-records.md-record.publication.language(*) -->
@@ -103,7 +103,7 @@
 			<collection field="alternativeTitles"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
 				<structure name="alternative" ns="${xsd.metadata.dcterms}"
-					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+					type="de.mpg.mpdl.inge.model.valueobjects.metadata.TextVO">
 					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 						usage="optional" />
 					<value style="text" field="value" usage="optional" />
@@ -113,7 +113,7 @@
 			<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
-				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO" />
+				map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO" />
 			</collection>
 
 			<!-- Node: item.md-records.md-record.publication.identifier(*) -->
@@ -121,7 +121,7 @@
 			<collection field="identifiers"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
 				<structure name="identifier" ns="${xsd.metadata.dc}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 			</collection>
 
 
@@ -190,7 +190,7 @@
 				<collection field="alternativeTitles"
 					factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 					<structure name="alternative" ns="${xsd.metadata.dcterms}"
-						type="de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO">
+						type="de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO">
 						<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 							usage="optional" />
 						<value style="text" field="value" usage="optional" />
@@ -270,7 +270,7 @@
 			<collection field="abstracts"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.abstractVOListFactory" usage="optional">
 				<structure name="abstract" ns="${xsd.metadata.dcterms}"
-					type="de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO">
+					type="de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO">
 					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 						usage="optional" />
 					<value style="text" field="value" usage="optional" />
@@ -287,7 +287,7 @@
 			<collection field="subjects"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.subjectVOListFactory" usage="optional">
 				<structure name="subject" ns="${xsd.metadata.dc}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO" />
+					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO" />
 			</collection>
 
 			<!-- Node: item.md-records.md-record.publication.tableOfContents -->

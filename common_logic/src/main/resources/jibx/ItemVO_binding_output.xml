@@ -30,12 +30,12 @@
 <binding>
 
 	<!-- abstract mapping for PubItemVO -->
-	<mapping type-name="PubItemVOOutputAbstract" class="de.mpg.escidoc.services.common.valueobjects.ItemVO"
+	<mapping type-name="PubItemVOOutputAbstract" class="de.mpg.mpdl.inge.model.valueobjects.ItemVO"
 		ordered="false" flexible="true" allow-repeats="true" abstract="true">
 
 		<!-- Node: item.@objid -->
 		<!-- Field: PubItemVO.version [PubItemRO] -->
-		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
+		<structure field="version" type="de.mpg.mpdl.inge.model.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 		</structure>
 
@@ -54,7 +54,7 @@
 			<!-- Node: item.properties.created-by.@objid -->
 			<!-- Field: PubItemVO.owner [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
-				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 			</structure>
 
@@ -70,7 +70,7 @@
 
 			<!-- Node: item.properties.context -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
-				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.ContextRO" usage="optional">
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
@@ -117,7 +117,7 @@
 
 				<!-- Node: item.properties.version.modified-by -->
 				<structure name="modified-by" ns="${xsd.soap.common.srel}" get-method="getModifiedByForXml"
-					type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+					type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 	
 					<!-- Node: item.properties.version.modified-by.@objid -->
 					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
@@ -175,9 +175,9 @@
 			<value style="attribute" name="base" ns="http://www.w3.org/XML/1998/namespace" field="baseUrl" usage="optional"/>
 			<collection field="files"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubFileVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.FileVO"
+				item-type="de.mpg.mpdl.inge.model.valueobjects.FileVO"
 				test-method="hasFiles" usage="optional">
-				<structure map-as="de.mpg.escidoc.services.common.valueobjects.FileVO" />
+				<structure map-as="de.mpg.mpdl.inge.model.valueobjects.FileVO" />
 			</collection>
 		</structure>
 
@@ -185,16 +185,16 @@
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations"
+			item-type="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" test-method="hasRelations"
 			usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" />
 		</collection>
 
 	</mapping>
 
 	<!-- concrete mapping for PubItemVO -->
 	<mapping abstract="true" ns="${xsd.soap.item.item}"
-		class="de.mpg.escidoc.services.common.valueobjects.ItemVO">
+		class="de.mpg.mpdl.inge.model.valueobjects.ItemVO">
 
 		<!-- embed the abstract mapping -->
 		<structure map-as="PubItemVOOutputAbstract" />

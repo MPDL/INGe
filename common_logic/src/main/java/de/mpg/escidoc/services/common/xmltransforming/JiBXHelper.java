@@ -38,60 +38,60 @@ import java.util.regex.Pattern;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.referenceobjects.AllowedRolesRO;
-import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
-import de.mpg.escidoc.services.common.types.Coordinates;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ChecksumAlgorithm;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
-import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
-import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
-import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
-import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
-import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
-import de.mpg.escidoc.services.common.valueobjects.ValueObject;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.AbstractVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
-import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationFieldVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationIndexVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.AggregationTableVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.referenceobjects.AllowedRolesRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject;
+import de.mpg.mpdl.inge.model.types.Coordinates;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.ChecksumAlgorithm;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.HitwordVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.LockStatus;
+import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.TextFragmentVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocDivVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocPtrVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
+import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.face.MdsFaceVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO.InvitationStatus;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationIndexVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongDateException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumException;
 
@@ -1097,17 +1097,16 @@ public class JiBXHelper {
    * @return ValidityStatus The corresponding <code>ContainerVO.LockStatus</code> Enum
    * @throws WrongEnumException
    */
-  public static de.mpg.escidoc.services.common.valueobjects.ContainerVO.LockStatus deserializeContainerLockStatusEnum(
+  public static de.mpg.mpdl.inge.model.valueobjects.ContainerVO.LockStatus deserializeContainerLockStatusEnum(
       String enumValue) throws WrongEnumException {
-    de.mpg.escidoc.services.common.valueobjects.ContainerVO.LockStatus lockStatus = null;
+    de.mpg.mpdl.inge.model.valueobjects.ContainerVO.LockStatus lockStatus = null;
     if (enumValue == null) {
       throw new WrongEnumException("lock-status is null.");
     } else {
       String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
       try {
         lockStatus =
-            de.mpg.escidoc.services.common.valueobjects.ContainerVO.LockStatus
-                .valueOf(upperCaseText);
+            de.mpg.mpdl.inge.model.valueobjects.ContainerVO.LockStatus.valueOf(upperCaseText);
       } catch (IllegalArgumentException e) {
         throw new WrongEnumException("LockStatusEnum value is '" + enumValue + "'.", e);
       }

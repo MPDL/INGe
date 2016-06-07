@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for AccountUserVO -->
 	<mapping name="user-account" ns="${xsd.soap.useraccount.useraccount}"
-		class="de.mpg.escidoc.services.common.valueobjects.AccountUserVO" flexible="true" ordered="false">
+		class="de.mpg.mpdl.inge.model.valueobjects.AccountUserVO" flexible="true" ordered="false">
 
 		<value style="attribute" name="last-modification-date" set-method="setLastModificationDate" get-method="getLastModificationDate" usage="optional" />
 
@@ -55,9 +55,9 @@
 				<structure name="creator" ns="${xsd.soap.useraccount.useraccount}" usage="optional" /-->
 			
 			<!-- <structure name="organizational-units" ns="${xsd.soap.common.prop}" usage="optional">
-				<collection field="affiliations" item-type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
+				<collection field="affiliations" item-type="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO"
 					factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory" usage="optional">			
-					<structure name="organizational-unit" ns="${xsd.soap.common.srel}" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
+					<structure name="organizational-unit" ns="${xsd.soap.common.srel}" type="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO">
 						<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId"
 						set-method="setObjectId" usage="optional" />
 					</structure>			

@@ -28,7 +28,7 @@
 -->
 
 <binding>
-   <mapping class="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" abstract="true">
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO" abstract="true">
    		<value style="element" name="title" ns="${xsd.metadata.dc}" field="title" usage="optional" />
    </mapping>
 </binding>

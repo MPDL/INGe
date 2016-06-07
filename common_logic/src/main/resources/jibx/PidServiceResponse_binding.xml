@@ -29,7 +29,7 @@
 
 <binding>
 	<!-- concrete mapping for PidServiceResponseVO -->
-	<mapping name="pidserviceresponse" class="de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO" ordered="false">
+	<mapping name="pidserviceresponse" class="de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO" ordered="false">
 		
 		<value style="element" name="action" usage="optional" field="action"/>
 		

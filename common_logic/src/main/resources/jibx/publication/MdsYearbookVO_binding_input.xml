@@ -44,7 +44,7 @@
 	<include path="../ReferenceObject_binding.xml" />
 
 	<mapping abstract="true" ns="${xsd.metadata.yearbook}"
-		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsYearbookVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO"
 		ordered="false" allow-repeats="true">
 
 		<structure ordered="false" allow-repeats="true" usage="optional">
@@ -54,7 +54,7 @@
 			<collection field="creators" usage="optional"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory">
 				<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
-					type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO"
+					type="de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO"
 					usage="optional" />
 			</collection>
 
@@ -62,7 +62,7 @@
 			<!-- Field: PubItemVO.metadata.title [String] (inherited from superclass 
 				MetadataSetVO) -->
 			<structure
-				map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
+				map-as="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO"
 				usage="optional" />
 
 			<!-- Node: item.md-records.md-record.yearbook.year -->

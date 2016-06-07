@@ -28,7 +28,7 @@
 -->
 
 <binding>
-   <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO" abstract="true">
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO" abstract="true">
       <value style="attribute" name="type" ns="http://www.w3.org/2001/XMLSchema-instance" field="type" usage="optional"/>
       <value style="text" field="value" usage="optional"/>
    </mapping>

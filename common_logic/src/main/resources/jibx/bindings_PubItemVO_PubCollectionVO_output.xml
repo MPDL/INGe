@@ -70,7 +70,6 @@
 	<include path="ContextVO_binding.xml" />
 	<include path="AdminDescriptorVO_binding.xml" />
 	<include path="publication/PublicationAdminDescriptorVO_binding.xml" />
-	<include path="face/FacesAdminDescriptorVO_binding.xml" />
 	<include path="ContextVOListWrapper_binding.xml" />
 	<include path="FileVO_binding_output.xml" />
 	<include path="file/MdsFileVO_binding_output.xml" />
@@ -81,8 +80,6 @@
 	<include path="PubItemVO_binding.xml" />
 	<include path="ItemResultVO_binding_output.xml" />
 	<include path="ItemVOListWrapper_binding_output.xml" />
-	<include path="face/MdsFaceVO_binding_output.xml" />
-	<include path="face/MdsFacesContainer_binding_output.xml" />
 	<include path="MemberListWrapper_binding.xml" />
 	<include path="ContainerVO_binding_output.xml" />
 <!--	<include path="ItemRO_binding.xml" />-->

@@ -37,7 +37,7 @@
 		<!-- Field: ContainerVOListWrapper.containerVOList [List<ContainerVO>] -->
 		<collection field="containerVOList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.containerVOListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ContainerVO" usage="optional"/>
+			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ContainerVO" usage="optional"/>
 		</collection>
 	</mapping>
 </binding>

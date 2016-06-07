@@ -31,9 +31,9 @@
 
 	<!-- concrete mapping for ContainerVO -->
 	<mapping name="container" ns="${xsd.soap.container.container}"
-		class="de.mpg.escidoc.services.common.valueobjects.ContainerVO"
+		class="de.mpg.mpdl.inge.model.valueobjects.ContainerVO"
 		ordered="false" allow-repeats="true">
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.ContainerVO"/>
+		<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ContainerVO"/>
 	</mapping>
 
 </binding>

@@ -32,14 +32,14 @@
 	<!-- concrete mapping for AffiliationPathVO -->
 	<!-- Type: AffiliationPathVO... -->
 	<mapping name="organizational-unit-path" ns="${xsd.soap.ou.oupathlist}"
-		class="de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO" ordered="false" allow-repeats="true">
+		class="de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO" ordered="false" allow-repeats="true">
 
 		<!-- Node: organizational-unit-path -->
 		<!-- Field: AffiliationPathVO.affiliationList [java.util.ArrayList<AffiliationRO>]-->
 		<collection field="affiliationList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory">
 
-			<structure name="organizational-unit-ref" ns="${xsd.soap.ou.ouref}" map-as="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"/>
+			<structure name="organizational-unit-ref" ns="${xsd.soap.ou.ouref}" map-as="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO"/>
 
 		</collection>
 

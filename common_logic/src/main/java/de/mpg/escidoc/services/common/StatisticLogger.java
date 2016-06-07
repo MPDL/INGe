@@ -2,9 +2,9 @@ package de.mpg.escidoc.services.common;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.ItemAction;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 
 /**
  * 

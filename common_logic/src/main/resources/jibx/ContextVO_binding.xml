@@ -31,12 +31,12 @@
 
 	<!-- concrete mapping for ContextVO -->
 	<!-- Type: ContextVO... -->
-	<mapping name="context" ns="${xsd.soap.context.context}" class="de.mpg.escidoc.services.common.valueobjects.ContextVO" ordered="false"
+	<mapping name="context" ns="${xsd.soap.context.context}" class="de.mpg.mpdl.inge.model.valueobjects.ContextVO" ordered="false"
 		allow-repeats="true" flexible="true">
 
 		<!-- Node: context.@objid -->
 		<!-- Field: ContextVO.reference [ContextRO] -->
-		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+		<structure field="reference" type="de.mpg.mpdl.inge.model.referenceobjects.ContextRO" usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
@@ -46,7 +46,7 @@
 			<!-- Node: context.properties.created-by.@objid -->
 			<!-- Field: ContextVO.creator [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
-				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 
@@ -76,7 +76,7 @@
 				<!-- Node: context.properties.organizational-unit -->
 				<!-- Field: ContextVO.responsibleAffiliations[X] [AffiliationRO] -->
 				<structure name="organizational-unit" ns="${xsd.soap.common.srel}"
-					type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
+					type="de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO">
 
 					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 
@@ -90,9 +90,7 @@
 
 			<collection name="admin-descriptor" ns="${xsd.soap.context.context}" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
 				
-					<structure name="pubman-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO" usage="optional" />
-	
-					<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" usage="optional" />
+					<structure name="pubman-admin-descriptor" map-as="de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO" usage="optional" />
 	
 					<!-- structure name="admin-descriptor" ns="${xsd.soap.context.context}" usage="optional"/ -->
 	

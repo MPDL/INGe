@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://coreservice.mpdl.mpg.de/xsl/Resource2Html.xsl"?>
+<organizational-unit:organizational-unit
+	xmlns:organizational-unit="${xsd.soap.ou.ou}"
+	xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
+	xml:base="http://coreservice.mpdl.mpg.de" xlink:type="simple"
+	xlink:title="Public Economics" xlink:href="/oum/organizational-unit/escidoc:830552"
+	last-modification-date="2011-04-06T09:21:03.071Z">
+	<organizational-unit:properties
+		xlink:type="simple" xlink:title="Properties"
+		xlink:href="/oum/organizational-unit/escidoc:830552/properties">
+		<prop:creation-date>2011-04-06T09:20:59.459Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="roland"
+			xlink:href="/aa/user-account/escidoc:user42" />
+		<srel:modified-by xlink:type="simple" xlink:title="roland"
+			xlink:href="/aa/user-account/escidoc:user42" />
+		<prop:public-status>opened</prop:public-status>
+		<prop:name>Public Economics</prop:name>
+		<prop:description></prop:description>
+		<prop:external-ids></prop:external-ids>
+
+		<prop:has-children>false</prop:has-children>
+	</organizational-unit:properties>
+	<organizational-unit:resources
+		xlink:type="simple" xlink:title="Virtual Resources"
+		xlink:href="/oum/organizational-unit/escidoc:830552/resources">
+		<organizational-unit:parent-objects
+			xlink:type="simple" xlink:title="Parent Objects"
+			xlink:href="/oum/organizational-unit/escidoc:830552/resources/parent-objects" />
+		<organizational-unit:child-objects
+			xlink:type="simple" xlink:title="Child Objects"
+			xlink:href="/oum/organizational-unit/escidoc:830552/resources/child-objects" />
+		<organizational-unit:path-list
+			xlink:type="simple" xlink:title="Path-list"
+			xlink:href="/oum/organizational-unit/escidoc:830552/resources/path-list" />
+		<organizational-unit:successor-objects
+			xlink:type="simple" xlink:title="Successors"
+			xlink:href="/oum/organizational-unit/escidoc:830552/resources/successors" />
+		<organizational-unit:relations
+			xlink:type="simple" xlink:title="Content Relations related to this Organizational Unit"
+			xlink:href="/oum/organizational-unit/escidoc:830552/resources/relations" />
+	</organizational-unit:resources>
+	<escidocMetadataRecords:md-records
+		xlink:type="simple" xlink:title="Metadata"
+		xlink:href="/oum/organizational-unit/escidoc:830552/md-records">
+		<escidocMetadataRecords:md-record
+			name="escidoc" xlink:type="simple" xlink:title="escidoc metadata set."
+			xlink:href="/oum/organizational-unit/escidoc:830552/md-records/md-record/escidoc">
+			<mdou:organizational-unit
+				xmlns:mdou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Public Economics</dc:title>
+				<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+				<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
+				<mdpt:city xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">Munich</mdpt:city>
+				<mdpt:country xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">DE</mdpt:country>
+				<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
+				<mdpt:start-date xmlns:mdpt="http://purl.org/escidoc/metadata/terms/0.1/">01-01-2011
+				</mdpt:start-date>
+			</mdou:organizational-unit>
+		</escidocMetadataRecords:md-record>
+
+	</escidocMetadataRecords:md-records>
+
+	<organizational-unit:parents xlink:type="simple"
+		xlink:title="Parents" xlink:href="/oum/organizational-unit/escidoc:830552/parents">
+		<srel:parent xlink:type="simple"
+			xlink:title="MPI for Tax Law and Public Finance" xlink:href="/oum/organizational-unit/escidoc:830550" />
+	</organizational-unit:parents>
+</organizational-unit:organizational-unit>

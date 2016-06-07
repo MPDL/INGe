@@ -35,10 +35,10 @@ import org.junit.Test;
 
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
-import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
-import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
-import de.mpg.escidoc.services.common.valueobjects.TocVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocDivVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocPtrVO;
+import de.mpg.mpdl.inge.model.valueobjects.TocVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

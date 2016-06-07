@@ -3,7 +3,7 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 public class MemberListWrapper implements Serializable {
   private static final long serialVersionUID = 1L;

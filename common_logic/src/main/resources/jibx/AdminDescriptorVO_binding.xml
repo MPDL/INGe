@@ -30,7 +30,7 @@
 <binding>
 
 	<!-- concrete mapping for AccountUserVO -->
-	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO" ordered="false">
+	<mapping abstract="true" class="de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO" ordered="false">
 
 	</mapping>
 </binding>

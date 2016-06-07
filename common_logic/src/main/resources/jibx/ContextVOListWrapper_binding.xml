@@ -30,7 +30,7 @@
 <binding>
    <mapping name="context-list" ns="${xsd.soap.context.contextlist}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper">
       <collection get-method="getContextVOList" set-method="setContextVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.contextVOListFactory">
-         <structure type="de.mpg.escidoc.services.common.valueobjects.ContextVO" usage="optional" />
+         <structure type="de.mpg.mpdl.inge.model.valueobjects.ContextVO" usage="optional" />
       </collection>
    </mapping>
 </binding>

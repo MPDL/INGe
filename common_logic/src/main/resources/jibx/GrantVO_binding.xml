@@ -29,7 +29,7 @@
 
 <binding>
    <!-- abstract mapping for GrantVO -->
-	<mapping name="grant" ns="${xsd.soap.useraccount.grants}" class="de.mpg.escidoc.services.common.valueobjects.GrantVO" ordered="false" flexible="true">
+	<mapping name="grant" ns="${xsd.soap.useraccount.grants}" class="de.mpg.mpdl.inge.model.valueobjects.GrantVO" ordered="false" flexible="true">
 		
 		<value style="attribute" name="last-modification-date" set-method="setLastModificationDate" get-method="getLastModificationDate" usage="optional" />
 		

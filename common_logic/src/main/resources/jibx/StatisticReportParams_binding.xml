@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for statistic report-paramters-->
 	<!-- Type: StatisticReportParamsVO... -->
-	<mapping name="report-parameters" ns="${xsd.soap.statistic.reportparameters}" class="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO" ordered="false" allow-repeats="true">
+	<mapping name="report-parameters" ns="${xsd.soap.statistic.reportparameters}" class="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO" ordered="false" allow-repeats="true">
 	
 		<structure name="report-definition" ns="${xsd.soap.statistic.reportparameters}" >
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="reportDefinitionId"/>
@@ -39,19 +39,19 @@
 		
 			<collection field="paramList"  factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportRecordParamVOListFactory" usage="optional">
 				
-				<structure name="parameter" ns="${xsd.soap.statistic.reportparameters}" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO" ordered="false">
+				<structure name="parameter" ns="${xsd.soap.statistic.reportparameters}" type="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO" ordered="false">
 				
 					<value style="attribute" name="name" field="name" />
 					
-					<structure name="decimalvalue" ns="${xsd.soap.statistic.reportparameters}" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO" usage="optional" test-method="isDecimalValue" >
+					<structure name="decimalvalue" ns="${xsd.soap.statistic.reportparameters}" field="paramValue" type="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO" usage="optional" test-method="isDecimalValue" >
 						<value style="text" field="value" usage="optional" />
 					</structure>
 					
-					<structure name="datevalue" ns="${xsd.soap.statistic.reportparameters}" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDateParamValueVO" usage="optional" test-method="isDateValue">
+					<structure name="datevalue" ns="${xsd.soap.statistic.reportparameters}" field="paramValue" type="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDateParamValueVO" usage="optional" test-method="isDateValue">
 						<value style="text" field="value" usage="optional" />
 					</structure>			
 					
-					<structure name="stringvalue" ns="${xsd.soap.statistic.reportparameters}" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO" usage="optional" test-method="isStringValue">
+					<structure name="stringvalue" ns="${xsd.soap.statistic.reportparameters}" field="paramValue" type="de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO" usage="optional" test-method="isStringValue">
 						<value style="text" field="value" usage="optional" />
 					</structure>
 					
