@@ -1,7 +1,4 @@
-package de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup;
-
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.IntelligentVO;
-
+package de.mpg.mpdl.inge.model.valueobjects;
 
 /**
  * 
@@ -35,7 +32,7 @@ import de.mpg.mpdl.inge.model.valueobjects.intelligent.IntelligentVO;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
-public class Selector extends IntelligentVO {
+public class SelectorVO {
   private String string;
   private String name;
   private Type type;

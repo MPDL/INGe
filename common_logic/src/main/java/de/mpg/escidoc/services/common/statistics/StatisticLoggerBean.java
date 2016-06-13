@@ -168,7 +168,8 @@ public class StatisticLoggerBean implements StatisticLogger {
       osParam.setParamValue(new StatisticReportRecordStringParamValueVO("unknown"));
     }
     paramList.add(osParam);
-    statisticRecord.createInCoreservice(userHandle);
+    // TODO
+    // statisticRecord.createInCoreservice(userHandle);
   }
 
   private List<StatisticReportRecordParamVO> getUserStats(String sessionId, String ip)
@@ -282,7 +283,8 @@ public class StatisticLoggerBean implements StatisticLogger {
     solutionIdParam.setName("solution");
     solutionIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(solutionId));
     paramList.add(solutionIdParam);
-    statisticRecord.createInCoreservice(userHandle);
+    // TODO
+    // statisticRecord.createInCoreservice(userHandle);
   }
 
   public void logItemAction(String sessionId, String ip, String userAgent, ItemVO item,
@@ -335,7 +337,8 @@ public class StatisticLoggerBean implements StatisticLogger {
     if (additionalParams != null) {
       paramList.addAll(additionalParams);
     }
-    statisticRecord.createInCoreservice(userHandle);
+    // TODO
+    // statisticRecord.createInCoreservice(userHandle);
   }
 
   public void logAuthorAction(String sessionId, String ip, String authorId, boolean loggedIn,
@@ -370,7 +373,8 @@ public class StatisticLoggerBean implements StatisticLogger {
     if (additionalParams != null) {
       paramList.addAll(additionalParams);
     }
-    statisticRecord.createInCoreservice(userHandle);
+    // TODO
+    // statisticRecord.createInCoreservice(userHandle);
   }
 
   public void logOrgAction(String sessionId, String ip, String orgId, boolean loggedIn,
@@ -406,7 +410,8 @@ public class StatisticLoggerBean implements StatisticLogger {
     if (additionalParams != null) {
       paramList.addAll(additionalParams);
     }
-    statisticRecord.createInCoreservice(userHandle);
+    // TODO
+    // statisticRecord.createInCoreservice(userHandle);
   }
 
   public String ipToCountry(String ip) {

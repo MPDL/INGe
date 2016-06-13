@@ -60,9 +60,27 @@ import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.util.FileVOCreationDateComparator;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.AccountUserVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationROListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.SuccessorROListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.UserAttributesWrapper;
+import de.mpg.escidoc.services.util.PropertyReader;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.util.FileVOCreationDateComparator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
@@ -92,8 +110,6 @@ import de.mpg.mpdl.inge.model.valueobjects.TocVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.face.FaceItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.face.MdsFaceVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -103,24 +119,6 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.AccountUserVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationROListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.SuccessorROListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.UserAttributesWrapper;
-import de.mpg.escidoc.services.util.PropertyReader;
 
 /**
  * EJB implementation of interface {@link XmlTransforming}.
@@ -803,6 +801,7 @@ public class XmlTransformingBean implements XmlTransforming {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String transformToItemList(List<? extends ItemVO> itemVOList) throws TechnicalException {
     logger.debug("transformToItemList(List<ItemVO>)");
     if (itemVOList == null) {
@@ -1192,25 +1191,6 @@ public class XmlTransformingBean implements XmlTransforming {
     return itemVOListWrapper;
   }
 
-  public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException {
-    ItemResultVO itemVO = (ItemResultVO) transformToSearchResult(itemXml);
-    if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsFaceVO) {
-      return new FaceItemVO(itemVO);
-    } else {
-      logger.warn("Cannot transform item xml to FaceItemVO");
-      return null;
-    }
-  }
-
-  public List<FaceItemVO> transformToFaceItemList(String itemList) throws TechnicalException {
-    List<? extends ItemVO> list = transformToItemList(itemList);
-    List<FaceItemVO> newList = new ArrayList<FaceItemVO>();
-    for (ItemVO itemVO : list) {
-      FaceItemVO faceItemVO = new FaceItemVO(itemVO);
-      newList.add(faceItemVO);
-    }
-    return newList;
-  }
 
   /**
    * {@inheritDoc}

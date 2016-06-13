@@ -1,11 +1,10 @@
-package de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup;
+package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.Date;
+import java.util.List;
 
-import de.escidoc.www.services.aa.UserGroupHandler;
-import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.util.Util;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.IntelligentVO;
+import javax.annotation.Resources;
+import de.mpg.mpdl.inge.model.valueobjects.SelectorVO;
 
 /**
  * 
@@ -60,7 +59,7 @@ import de.mpg.mpdl.inge.model.valueobjects.intelligent.IntelligentVO;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
-public class UserGroup extends IntelligentVO {
+public class UserGroupVO {
   private Date creationDate;
   private String createdBy;
   private String modifiedBy;
@@ -70,7 +69,7 @@ public class UserGroup extends IntelligentVO {
   private String description;
   private String type;
   private boolean active;
-  private Selectors selectors;
+  private List<SelectorVO> selectors;
   private Resources resources;
   private String objid;
   private Date lastModificationDate;
@@ -83,9 +82,9 @@ public class UserGroup extends IntelligentVO {
    * @param userHandle A user handle for authentication in the coreservice.
    * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
    */
-  public UserGroup(String escidocId, String userHandle) throws RuntimeException {}
+  public UserGroupVO(String escidocId, String userHandle) throws RuntimeException {}
 
-  public UserGroup() {
+  public UserGroupVO() {
 
   }
 
@@ -282,7 +281,7 @@ public class UserGroup extends IntelligentVO {
    * 
    * @return value
    */
-  public Selectors getSelectors() {
+  public List<SelectorVO> getSelectors() {
     return selectors;
   }
 
@@ -291,7 +290,7 @@ public class UserGroup extends IntelligentVO {
    * 
    * @param selectors
    */
-  public void setSelectors(Selectors selectors) {
+  public void setSelectors(List<SelectorVO> selectors) {
     this.selectors = selectors;
   }
 

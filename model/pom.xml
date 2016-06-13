@@ -36,6 +36,10 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>pubman_util</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -49,6 +53,10 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
 		</dependency>
 		<!-- http://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 		<dependency>
@@ -65,16 +73,6 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.escidoc.core</groupId>
-			<artifactId>escidoc-ijc</artifactId>
-			<version>1.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>framework_access</artifactId>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

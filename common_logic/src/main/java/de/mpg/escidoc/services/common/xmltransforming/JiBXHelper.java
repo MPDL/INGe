@@ -70,7 +70,6 @@ import de.mpg.mpdl.inge.model.valueobjects.TocPtrVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.face.MdsFaceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -1379,120 +1378,6 @@ public class JiBXHelper {
       }
     }
     return state;
-  }
-
-  /**
-   * Deserializes a String containing an emotion like defined in item.xsd to the corresponding
-   * <code>MdsFaceVO.Emotion</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return MdsFaceVO.Emotion The corresponding <code>MdsFaceVO.Emotion</code> Enum
-   * @throws WrongEnumException
-   */
-  public static MdsFaceVO.Emotion deserializeEmotionEnum(String enumValue)
-      throws WrongEnumException {
-    MdsFaceVO.Emotion emotion = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("emotion is null.");
-    } else {
-      try {
-        emotion = MdsFaceVO.Emotion.valueOf(enumValue.trim());
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("emotion value is '" + enumValue + "'.", e);
-      }
-    }
-    return emotion;
-  }
-
-  /**
-   * Deserializes a String containing an emotion like defined in item.xsd to the corresponding
-   * <code>MdsFaceVO.Emotion</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return MdsFaceVO.Emotion The corresponding <code>MdsFaceVO.Emotion</code> Enum
-   * @throws WrongEnumException
-   */
-  public static MdsFaceVO.PictureGroup deserializePictureGroupEnum(String enumValue)
-      throws WrongEnumException {
-    MdsFaceVO.PictureGroup pictureGroup = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("PictureGroup is null.");
-    } else {
-      try {
-        pictureGroup = MdsFaceVO.PictureGroup.valueOf(enumValue);
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("PictureGroup value is '" + enumValue + "'.", e);
-      }
-    }
-    return pictureGroup;
-  }
-
-  /**
-   * Deserializes a String containing an emotion like defined in item.xsd to the corresponding
-   * <code>MdsFaceVO.Emotion</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return MdsFaceVO.Emotion The corresponding <code>MdsFaceVO.Emotion</code> Enum
-   * @throws WrongEnumException
-   */
-  public static MdsFaceVO.AgeGroup deserializeAgeGroupEnum(String enumValue)
-      throws WrongEnumException {
-    MdsFaceVO.AgeGroup ageGroup = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("AgeGroup is null.");
-    } else {
-      try {
-        ageGroup = MdsFaceVO.AgeGroup.valueOf(enumValue.replace("-", "_"));
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("AgeGroup value is '" + enumValue + "'.", e);
-      }
-    }
-    return ageGroup;
-  }
-
-  /**
-   * Deserializes a String containing an emotion like defined in item.xsd to the corresponding
-   * <code>MdsFaceVO.Emotion</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return MdsFaceVO.Emotion The corresponding <code>MdsFaceVO.Emotion</code> Enum
-   * @throws WrongEnumException
-   */
-  public static MdsFaceVO.Gender deserializeGenderEnum(String enumValue) throws WrongEnumException {
-    MdsFaceVO.Gender gender = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("Gender is null.");
-    } else {
-      try {
-        gender = MdsFaceVO.Gender.valueOf(enumValue);
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("Gender value is '" + enumValue + "'.", e);
-      }
-    }
-    return gender;
-  }
-
-  /**
-   * Deserializes a String containing an emotion like defined in item.xsd to the corresponding
-   * <code>MdsFaceVO.Emotion</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return MdsFaceVO.Emotion The corresponding <code>MdsFaceVO.Emotion</code> Enum
-   * @throws WrongEnumException
-   */
-  public static MdsFaceVO.AccessLevel deserializeAccessLevelEnum(String enumValue)
-      throws WrongEnumException {
-    MdsFaceVO.AccessLevel accessLevel = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("AccessLevel is null.");
-    } else {
-      try {
-        accessLevel = MdsFaceVO.AccessLevel.valueOf(enumValue.toUpperCase());
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("AccessLevel value is '" + enumValue + "'.", e);
-      }
-    }
-    return accessLevel;
   }
 
   /**

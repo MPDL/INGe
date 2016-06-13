@@ -1,6 +1,0 @@
-<binding xmlns:tns="${xsd.soap.usergroup.usergrouplist}">
-  <namespace uri="${xsd.soap.usergroup.usergrouplist}" prefix="tns"/>
-  <mapping class="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList" name="user-group-list" ns="${xsd.soap.usergroup.usergrouplist}">
-    <collection item-type="de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroup" get-method="getUserGroupLists" set-method="setUserGroupLists" create-type="java.util.ArrayList"/>
-  </mapping>
-</binding>

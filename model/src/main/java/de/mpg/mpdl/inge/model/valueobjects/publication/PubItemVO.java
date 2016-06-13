@@ -17,8 +17,8 @@ public class PubItemVO extends ItemVO {
    */
   public PubItemVO() {
     try {
-      this.setContentModel(PropertyReader
-          .getProperty("escidoc.framework_access.content-model.id.publication"));
+      // TODO remove content Model after migration
+      this.setContentModel("");
     } catch (Exception e) {
       logger.error("Unable to set publication content model", e);
     }
