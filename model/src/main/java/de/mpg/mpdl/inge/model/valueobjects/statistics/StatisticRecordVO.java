@@ -25,16 +25,7 @@
  */
 package de.mpg.mpdl.inge.model.valueobjects.statistics;
 
-import java.io.StringWriter;
 import java.util.List;
-
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IMarshallingContext;
-
-import de.escidoc.www.services.sm.StatisticDataHandler;
-import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.IntelligentVO;
 
 
 /**
@@ -45,7 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.intelligent.IntelligentVO;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class StatisticRecordVO extends IntelligentVO {
+public class StatisticRecordVO {
   private String scope;
 
   private List<StatisticReportRecordParamVO> paramList;
@@ -64,43 +55,6 @@ public class StatisticRecordVO extends IntelligentVO {
 
   public String getScope() {
     return scope;
-  }
-
-  /**
-   * Creates this statistic record in the coreservice.
-   * 
-   * @param userHandle A user handle for authentication in the coreservice.
-   * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-   */
-  public void createInCoreservice(String userHandle) throws RuntimeException {
-    Factory.create(this, userHandle);
-  }
-
-
-  private static class Factory {
-    /**
-     * Creates the given statistic record
-     * 
-     * @param statisticRecord The statistic record to be created.
-     * @param userHandle A user handle for authentication in the coreservice.
-     * @return The created User Group.
-     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-     */
-    private static void create(StatisticRecordVO statisticRecord, String userHandle)
-        throws RuntimeException {
-      try {
-        StatisticDataHandler sdh = ServiceLocator.getStatisticDataHandler(userHandle);
-
-        IBindingFactory bindingFactory =
-            BindingDirectory.getFactory("StatisticRecord", StatisticRecordVO.class);
-        IMarshallingContext macxt = bindingFactory.createMarshallingContext();
-        StringWriter sw = new StringWriter();
-        macxt.marshalDocument(statisticRecord, "UTF-8", null, sw);
-        sdh.create(sw.toString());
-      } catch (Exception e) {
-        throw new RuntimeException("Error creating statistical record", e);
-      }
-    }
   }
 
 }

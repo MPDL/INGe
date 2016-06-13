@@ -31,6 +31,10 @@ import java.net.URL;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
@@ -57,17 +61,12 @@ import de.mpg.mpdl.inge.model.valueobjects.TocVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.face.FaceItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 
 /**
  * The interface with the XML transforming methods.
@@ -424,10 +423,6 @@ public interface XmlTransforming {
   public PubItemVO transformToPubItem(String itemXml) throws TechnicalException;
 
   public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException;
-
-  public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException;
-
-  public List<FaceItemVO> transformToFaceItemList(String itemList) throws TechnicalException;
 
   public List<? extends ValueObject> transformToMemberList(String memberListXml)
       throws TechnicalException;
