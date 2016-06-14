@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.tech.interfaces;
 
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
+import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**
@@ -23,7 +23,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return created user group
    */
-  public UserGroup createUserGroup(UserGroup userGroup) throws AuthenticationException,
+  public UserGroupVO createUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
       TechnicalException;
 
   /**
@@ -35,8 +35,8 @@ public interface UserGroupInterface {
    * @throws SecurityException
    * @return user group with the given userGroupId
    */
-  public UserGroup readUserGroup(String userGroupId) throws TechnicalException, NotFoundException,
-      SecurityException;
+  public UserGroupVO readUserGroupVO(String userGroupId) throws TechnicalException,
+      NotFoundException, SecurityException;
 
 
   /**
@@ -48,7 +48,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return modified user group
    */
-  public UserGroup updateUserGroup(UserGroup userGroup) throws AuthenticationException,
+  public UserGroupVO updateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
       TechnicalException;
 
 
@@ -61,7 +61,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return deleted user group
    */
-  public UserGroup deleteUserGroup(UserGroup userGroup) throws AuthenticationException,
+  public UserGroupVO deleteUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
       TechnicalException;
 
 
@@ -74,7 +74,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return activated user group
    */
-  public UserGroup activateUserGroup(UserGroup userGroup) throws AuthenticationException,
+  public UserGroupVO activateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
       TechnicalException;
 
 
@@ -87,7 +87,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return deactivated user group
    */
-  public UserGroup deactivateUserGroup(UserGroup userGroup) throws AuthenticationException,
+  public UserGroupVO deactivateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
       TechnicalException;
 
 
@@ -98,5 +98,6 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return list of user groups satisfying the requirements of the searchQuery
    */
-  public java.util.List<UserGroup> searchUserGroup(String searchQuery) throws TechnicalException;
+  public java.util.List<UserGroupVO> searchUserGroupVO(String searchQuery)
+      throws TechnicalException;
 }

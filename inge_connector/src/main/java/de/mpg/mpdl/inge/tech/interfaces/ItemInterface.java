@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.tech.interfaces;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**
