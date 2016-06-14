@@ -26,6 +26,10 @@
 			<artifactId>common_logic</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>pubman_util</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

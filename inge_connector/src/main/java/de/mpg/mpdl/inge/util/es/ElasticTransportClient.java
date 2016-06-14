@@ -27,6 +27,14 @@ import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 
+/**
+ * ElasticTransportClient enables a elasticsearch accessibility
+ * 
+ * @author wfrank (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ * 
+ */
 public class ElasticTransportClient {
 
   private final static String INDEX_NAME = "pure";
@@ -46,6 +54,11 @@ public class ElasticTransportClient {
 
   }
 
+  /**
+   * Create a new index
+   * 
+   * @param indexName
+   */
   public static void createIndex(String indexName) {
     Client c = start();
 
@@ -63,6 +76,11 @@ public class ElasticTransportClient {
 
   }
 
+  /**
+   * delete an existing index
+   * 
+   * @param index
+   */
   public static void deleteIndex(String index) {
     Client c = start();
     DeleteIndexResponse delResponse =
@@ -73,6 +91,13 @@ public class ElasticTransportClient {
     c.close();
   }
 
+  /**
+   * Add a json mapping to an existing index
+   * 
+   * @param index
+   * @param type
+   * @param jsonFile
+   */
   public static void addMapping(String index, String type, String jsonFile) {
     java.nio.file.Path path = Paths.get(MAPPING_JSON_PATH + jsonFile);
     byte[] mapping = null;
@@ -94,6 +119,12 @@ public class ElasticTransportClient {
 
   }
 
+  /**
+   * create an alias for an existing index
+   * 
+   * @param index
+   * @param alias
+   */
   public static void addAlias(String index, String alias) {
     Client c = start();
     IndicesAliasesResponse resp =
@@ -126,6 +157,13 @@ public class ElasticTransportClient {
     return client;
   }
 
+  /**
+   * matches all objects in an existing index
+   * 
+   * @param index
+   * @param type
+   * @return all items of the chosen index
+   */
   public static ArrayList<String[]> matchall(String index, String type) {
     Client c = start();
     ArrayList<String[]> idList = new ArrayList<String[]>();
@@ -160,6 +198,9 @@ public class ElasticTransportClient {
     return idList;
   }
 
+  /**
+   * perform a nested query
+   */
   public static void nestedQuery() {
     SearchRequestBuilder srb = start().prepareSearch("pure");
 

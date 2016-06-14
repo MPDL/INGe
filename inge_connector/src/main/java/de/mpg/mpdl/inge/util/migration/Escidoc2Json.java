@@ -1,27 +1,18 @@
 package de.mpg.mpdl.inge.util.migration;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -31,29 +22,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import de.escidoc.core.client.Authentication;
-import de.escidoc.core.client.UserAccountHandlerClient;
-import de.escidoc.core.client.exceptions.EscidocException;
-import de.escidoc.core.client.exceptions.InternalClientException;
-import de.escidoc.core.client.exceptions.TransportException;
-import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.resources.aa.useraccount.Grant;
-import de.escidoc.core.resources.aa.useraccount.Grants;
-import de.escidoc.core.resources.aa.useraccount.UserAccount;
-import de.escidoc.core.resources.aa.useraccount.UserAccountElements;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.es.ElasticTransportClient;
 
 public class Escidoc2Json {
@@ -70,7 +50,7 @@ public class Escidoc2Json {
   private static final String path2UserIds = "/home/frank/data/wilhelm/user_ids";
   private static Login login = new Login();
 
-
+  private static final Logger LOGGER = Logger.getLogger(ProxyHelper.class);
 
   public static void main(String... strings) {
     /*
@@ -108,7 +88,6 @@ public class Escidoc2Json {
       BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
       String ouAsString = reader.lines().collect(Collectors.joining("\n"));
       AffiliationVO ou = xmlTransforming.transformToAffiliation(ouAsString);
-      ou.g
       mapper.writerWithDefaultPrettyPrinter().writeValue(System.out, ou);
     } catch (MalformedURLException e) {
       // TODO Auto-generated catch block
@@ -223,59 +202,82 @@ public class Escidoc2Json {
       System.out.println(bulkResponse.buildFailureMessage());
     }
   }
-  
+
   public static void ous(String handle) {
-	  
-	    String ous_response = login.login2target(handle, "/oum/organizational-unit/escidoc:1942295");
-	    try {
-			 AffiliationVO ou = xmlTransforming.transformToAffiliation(ous_response);
-			System.out.println(ou.getDefaultMetadata().getName());
-		} catch (TechnicalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    try {
+      String ous_response = login.login2target(handle, "/oum/organizational-unit/escidoc:1942295");
+      AffiliationVO ou = xmlTransforming.transformToAffiliation(ous_response);
+      System.out.println(ou.getDefaultMetadata().getName());
+    } catch (TechnicalException e) {
+      LOGGER.error("Error getting organizational units", e);
+      e.printStackTrace();
+    } catch (ServiceException e) {
+      LOGGER.error("Error getting organizational units", e);
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      LOGGER.error("Error getting organizational units", e);
+      e.printStackTrace();
+    }
 
   }
 
   public static void contexts(String handle) {
-
-    String ctx_response = login.login2target(handle, "/ir/contexts");
     try {
-  	  //URL url = new URL("https://coreservice.mpdl.mpg.de/ir/contexts");
-      //BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-      //String itemAsString = reader.lines().collect(Collectors.joining("\n"));
+      String ctx_response = login.login2target(handle, "/ir/contexts");
+
+      // URL url = new URL("https://coreservice.mpdl.mpg.de/ir/contexts");
+      // BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+      // String itemAsString = reader.lines().collect(Collectors.joining("\n"));
 
       List<ContextVO> ctxs =
           xmlTransforming.transformSearchRetrieveResponseToContextList(ctx_response);
       // ContextVO ctx = xmlTransforming.transformToContext(ctx_response);
       ContextVO ctx = ctxs.get(0);
       // mapper.writerWithDefaultPrettyPrinter().writeValue(System.out, ctx);
-      ctxs.forEach(c -> {String s = "pure_" + c.getReference().getObjectId().split(":")[1];
-      System.out.println(index("pure_contexts", "context", s, c));});
+      ctxs.forEach(c -> {
+        String s = "pure_" + c.getReference().getObjectId().split(":")[1];
+        System.out.println(index("pure_contexts", "context", s, c));
+      });
     } catch (TechnicalException e) {
-      // TODO Auto-generated catch block
+      LOGGER.error("Error getting contexts", e);
+      e.printStackTrace();
+    } catch (ServiceException e) {
+      LOGGER.error("Error getting contexts", e);
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      LOGGER.error("Error getting contexts", e);
       e.printStackTrace();
     }
   }
 
   public static void users(String target, String handle) {
 
-    try {
-      String usr_response = login.login2target(handle, target);
-      AccountUserVO user = xmlTransforming.transformToAccountUser(usr_response);
-      String grants_response = login.login2target(handle, target + "/resources/current-grants");
-      List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grants_response);
-      String attrs_response = login.login2target(handle, target + "/resources/attributes");
-      List<UserAttributeVO> attrs = xmlTransforming.transformToUserAttributesList(attrs_response);
-      grants.forEach(g -> user.getGrants().add(g));
-      attrs.forEach(a -> user.getAttributes().add(a));
-      String objId = "pure_" + user.getReference().getObjectId().split(":")[1];
-      //mapper.writerWithDefaultPrettyPrinter().writeValue(System.out, user);
-      System.out.println(index("user_accounts", "account", objId, user));
+      try {
+        String usr_response = login.login2target(handle, target);
+        AccountUserVO user = xmlTransforming.transformToAccountUser(usr_response);
+        String grants_response = login.login2target(handle, target + "/resources/current-grants");
+        List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grants_response);
+        String attrs_response = login.login2target(handle, target + "/resources/attributes");
+        List<UserAttributeVO> attrs = xmlTransforming.transformToUserAttributesList(attrs_response);
+        grants.forEach(g -> user.getGrants().add(g));
+        attrs.forEach(a -> user.getAttributes().add(a));
+        String objId = "pure_" + user.getReference().getObjectId().split(":")[1];
+        // mapper.writerWithDefaultPrettyPrinter().writeValue(System.out, user);
+        System.out.println(index("user_accounts", "account", objId, user));
+      } catch (UnmarshallingException e) {
+        LOGGER.error("Error getting users", e);
+        e.printStackTrace();
+      } catch (ServiceException e) {
+        LOGGER.error("Error getting users", e);
+        e.printStackTrace();
+      } catch (URISyntaxException e) {
+        LOGGER.error("Error getting users", e);
+        e.printStackTrace();
+      } catch (TechnicalException e) {
+        LOGGER.error("Error getting users", e);
+        e.printStackTrace();
+      }
 
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    
   }
 }

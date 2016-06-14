@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.tech.interfaces;
 
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**
