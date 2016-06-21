@@ -2,9 +2,9 @@ package de.mpg.escidoc.services.cone.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import de.mpg.escidoc.services.aa.Aa;
-import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
-import de.mpg.escidoc.services.aa.Config;
+import de.mpg.mpdl.inge.aa.Aa;
+import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
+import de.mpg.mpdl.inge.aa.Config;
 
 public class Login {
 

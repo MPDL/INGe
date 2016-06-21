@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.aa.web.client;
+package de.mpg.mpdl.inge.aa.web.client;
 
 import java.util.List;
 

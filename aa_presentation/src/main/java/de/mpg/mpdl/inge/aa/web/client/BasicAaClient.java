@@ -24,16 +24,16 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.aa.web.client;
+package de.mpg.mpdl.inge.aa.web.client;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 
-import de.mpg.escidoc.services.aa.AuthenticationVO;
-import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
-import de.mpg.escidoc.services.aa.AuthenticationVO.Type;
+import de.mpg.mpdl.inge.aa.AuthenticationVO;
+import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
+import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 
 /**
  * TODO Description

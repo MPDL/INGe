@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.aa.web.client;
+package de.mpg.mpdl.inge.aa.web.client;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.escidoc.services.aa.Config;
+import de.mpg.mpdl.inge.aa.Config;
 
 /**
  * 

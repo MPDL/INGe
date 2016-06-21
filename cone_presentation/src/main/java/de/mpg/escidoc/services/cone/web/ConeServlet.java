@@ -68,7 +68,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.aa.Aa;
+import de.mpg.mpdl.inge.aa.Aa;
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.Querier;

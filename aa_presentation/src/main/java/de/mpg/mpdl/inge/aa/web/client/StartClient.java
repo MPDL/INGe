@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.aa.web.client;
+package de.mpg.mpdl.inge.aa.web.client;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.aa.web;
+package de.mpg.mpdl.inge.aa.web;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,8 +36,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.aa.Config;
-import de.mpg.escidoc.services.aa.util.ResourceUtil;
+import de.mpg.mpdl.inge.aa.Config;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description

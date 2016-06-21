@@ -31,7 +31,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import de.mpg.escidoc.services.aa.AuthenticationVO;
+import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
