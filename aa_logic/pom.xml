@@ -75,6 +75,10 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>pubman_util</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>

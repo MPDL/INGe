@@ -38,7 +38,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.escidoc.services.aa.util.ResourceUtil;
+import de.mpg.escidoc.services.util.ResourceUtil;
+
 
 
 /**
