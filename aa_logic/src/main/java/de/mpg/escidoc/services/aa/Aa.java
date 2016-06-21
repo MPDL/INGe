@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.aa.crypto.RSAEncoder;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description

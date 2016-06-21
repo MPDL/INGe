@@ -76,7 +76,7 @@ import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
 import de.escidoc.www.services.tme.JhoveHandler;
 import de.escidoc.www.services.tme.JhoveHandlerServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>

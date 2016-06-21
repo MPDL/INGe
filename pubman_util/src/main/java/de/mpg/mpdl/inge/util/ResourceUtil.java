@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.util;
+package de.mpg.mpdl.inge.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

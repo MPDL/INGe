@@ -46,7 +46,7 @@ import javax.crypto.Cipher;
 import org.apache.commons.codec.binary.Base64;
 
 import de.mpg.escidoc.services.aa.Config;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description
