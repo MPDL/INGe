@@ -28,12 +28,12 @@ package de.mpg.escidoc.services.util;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Base64;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -131,7 +131,8 @@ public class AdminHelper {
       if ("Location".equals(headers[i].getName())) {
         String location = headers[i].getValue();
         int index = location.indexOf('=');
-        userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
+        userHandle =
+            new String(Base64.getDecoder().decode(location.substring(index + 1, location.length())));
         // System.out.println("location: "+location);
         // System.out.println("handle: "+userHandle);
       }
