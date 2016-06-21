@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.aa;
+package de.mpg.mpdl.inge.aa;
 
 import java.io.InputStream;
 import java.net.URLEncoder;
@@ -34,7 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.aa.crypto.RSAEncoder;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -54,7 +53,7 @@ public class Aa {
 
     String[] encodedXml = request.getParameterValues("auth");
     if (encodedXml != null) {
-      String xml = RSAEncoder.rsaDecrypt(encodedXml);
+      String xml = de.mpg.mpdl.inge.aa.crypto.RSAEncoder.rsaDecrypt(encodedXml);
       AuthenticationVO authenticationVO = new AuthenticationVO(xml);
 
       String tan = authenticationVO.getTan();

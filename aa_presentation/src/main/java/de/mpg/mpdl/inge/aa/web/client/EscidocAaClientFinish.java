@@ -34,16 +34,16 @@ import org.apache.commons.codec.binary.Base64;
 
 import de.escidoc.www.services.aa.RoleHandler;
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.escidoc.services.aa.AuthenticationVO;
-import de.mpg.escidoc.services.aa.AuthenticationVO.Grant;
-import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
-import de.mpg.escidoc.services.aa.AuthenticationVO.Type;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.aa.AuthenticationVO;
+import de.mpg.mpdl.inge.aa.AuthenticationVO.Grant;
+import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
+import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * TODO Description

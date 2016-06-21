@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.aa;
+package de.mpg.mpdl.inge.aa;
 
 import java.io.InputStream;
 import java.io.StringWriter;

@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.aa;
+package de.mpg.mpdl.inge.aa;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -38,7 +38,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.aa.util.ShortContentHandler;
+import de.mpg.mpdl.inge.aa.util.ShortContentHandler;
 
 
 /**
