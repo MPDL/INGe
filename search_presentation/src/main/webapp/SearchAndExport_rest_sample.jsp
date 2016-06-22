@@ -29,7 +29,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%
 	//String urlBase = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "");
 	String urlBase = PropertyReader.getProperty("escidoc.pubman.instance.url");

@@ -29,5 +29,5 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <jsp:forward page="index.jsp" />
