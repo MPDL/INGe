@@ -24,7 +24,7 @@
  */
 
 
-package de.mpg.escidoc.services.structuredexportmanager.functions;
+package de.mpg.mpdl.inge.structuredexportmanager.functions;
 
 import java.util.HashMap;
 import java.util.Map;

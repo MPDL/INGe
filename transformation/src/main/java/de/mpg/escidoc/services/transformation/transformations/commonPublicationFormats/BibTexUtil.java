@@ -95,7 +95,7 @@ public class BibTexUtil {
   static {
     /*
      * should be generated from
-     * de.mpg.escidoc.services.structuredexportmanager.functions.BibTex.java
+     * de.mpg.mpdl.inge.structuredexportmanager.functions.BibTex.java
      * 
      * ----------
      * 

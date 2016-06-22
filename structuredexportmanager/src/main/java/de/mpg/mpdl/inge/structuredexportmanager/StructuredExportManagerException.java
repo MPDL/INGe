@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.structuredexportmanager;
+package de.mpg.mpdl.inge.structuredexportmanager;
 
 /**
  * End Note Export Manager specific exception.

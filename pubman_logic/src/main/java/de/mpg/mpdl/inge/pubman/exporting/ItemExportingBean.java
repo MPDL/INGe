@@ -50,9 +50,9 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
 
 /**
  * This class provides the ejb implementation of the {@link ItemExporting} interface.

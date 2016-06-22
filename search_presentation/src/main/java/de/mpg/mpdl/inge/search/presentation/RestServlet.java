@@ -50,7 +50,7 @@ import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
 import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the result.

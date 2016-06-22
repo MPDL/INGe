@@ -42,9 +42,9 @@ import org.junit.Test;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class StructuredExportTest {

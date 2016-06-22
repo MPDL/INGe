@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.structuredexportmanager;
+package de.mpg.mpdl.inge.structuredexportmanager;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -55,7 +55,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import de.mpg.escidoc.services.util.LocalURIResolver;
+import de.mpg.mpdl.inge.util.LocalURIResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -275,7 +275,7 @@ public class StructuredExport implements StructuredExportHandler {
    * (non-Javadoc)
    * 
    * @see
-   * de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler#isStructuredFormat(
+   * de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler#isStructuredFormat(
    * java.lang.String)
    */
   public boolean isStructuredFormat(String exportFormat) throws StructuredExportManagerException {

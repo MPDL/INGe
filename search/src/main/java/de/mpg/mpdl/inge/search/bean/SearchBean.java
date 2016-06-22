@@ -76,9 +76,9 @@ import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
 
 /**
  * {@inheritDoc}
