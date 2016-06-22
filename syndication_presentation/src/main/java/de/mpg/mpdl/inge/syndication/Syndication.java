@@ -30,7 +30,7 @@
  * @author $Author$ (last modification) $Revision$ $LastChangedDate$
  */
 
-package de.mpg.escidoc.services.syndication;
+package de.mpg.mpdl.inge.syndication;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -51,7 +51,7 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 
-import de.mpg.escidoc.services.syndication.feed.Feed;
+import de.mpg.mpdl.inge.syndication.feed.Feed;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -93,7 +93,7 @@ public class Syndication implements SyndicationHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.syndication.SyndicationHandler#explainFeedsXML()
+   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#explainFeedsXML()
    */
   public String explainFeedsXML() {
     return explainXML;
@@ -102,7 +102,7 @@ public class Syndication implements SyndicationHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.syndication.SyndicationHandler#getFeedList()
+   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#getFeedList()
    */
   public String[] getFeedList() {
     List fs = feeds.getFeeds();
@@ -117,7 +117,7 @@ public class Syndication implements SyndicationHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.syndication.SyndicationHandler#getFeedFormatList(java.lang.String)
+   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#getFeedFormatList(java.lang.String)
    */
   public String[] getFeedFormatList(String uri) {
     String ft = feeds.matchFeedByUri(uri).getFeedTypes();
@@ -139,7 +139,7 @@ public class Syndication implements SyndicationHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.syndication.SyndicationHandler#getFeed(java.lang.String)
+   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#getFeed(java.lang.String)
    */
   public byte[] getFeed(String uri) throws SyndicationException, IOException, URISyntaxException,
       FeedException {

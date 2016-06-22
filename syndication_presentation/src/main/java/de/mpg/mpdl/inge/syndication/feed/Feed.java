@@ -30,7 +30,7 @@
  * @author $Author$ (last modification) $Revision$ $LastChangedDate$
  */
 
-package de.mpg.escidoc.services.syndication.feed;
+package de.mpg.mpdl.inge.syndication.feed;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,8 +78,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.syndication.SyndicationException;
-import de.mpg.escidoc.services.syndication.Utils;
+import de.mpg.mpdl.inge.syndication.SyndicationException;
+import de.mpg.mpdl.inge.syndication.Utils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 

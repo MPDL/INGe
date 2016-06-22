@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.syndication.presentation;
+package de.mpg.mpdl.inge.syndication.presentation;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -47,10 +47,10 @@ import org.apache.log4j.Logger;
 
 import com.sun.syndication.io.FeedException;
 
-import de.mpg.escidoc.services.syndication.Syndication;
-import de.mpg.escidoc.services.syndication.SyndicationException;
-import de.mpg.escidoc.services.syndication.Utils;
-import de.mpg.escidoc.services.syndication.feed.Feed;
+import de.mpg.mpdl.inge.syndication.Syndication;
+import de.mpg.mpdl.inge.syndication.SyndicationException;
+import de.mpg.mpdl.inge.syndication.Utils;
+import de.mpg.mpdl.inge.syndication.feed.Feed;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

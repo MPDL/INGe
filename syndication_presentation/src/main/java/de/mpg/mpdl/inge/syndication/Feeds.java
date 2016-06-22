@@ -30,7 +30,7 @@
  * @author $Author$ (last modification) $Revision$ $LastChangedDate$
  */
 
-package de.mpg.escidoc.services.syndication;
+package de.mpg.mpdl.inge.syndication;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -41,7 +41,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.syndication.feed.Feed;
+import de.mpg.mpdl.inge.syndication.feed.Feed;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class Feeds {
@@ -129,7 +129,7 @@ public class Feeds {
    * Find feed which URI matches <code>uriMatcher</code>. <code>uriMatcher</code> should be
    * calculated before the method usage.
    * 
-   * @see de.mpg.escidoc.services.syndication.feed.Feed#generateUriMatcher(String)
+   * @see de.mpg.mpdl.inge.syndication.feed.Feed#generateUriMatcher(String)
    *      generateUriMatcher
    * @param uri is URI to be matched
    * @return matched <code>feed</code>

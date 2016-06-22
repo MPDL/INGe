@@ -42,9 +42,9 @@ import org.junit.Test;
 
 import com.sun.syndication.io.FeedException;
 
-import de.mpg.escidoc.services.syndication.Syndication;
-import de.mpg.escidoc.services.syndication.SyndicationException;
-import de.mpg.escidoc.services.syndication.Utils;
+import de.mpg.mpdl.inge.syndication.Syndication;
+import de.mpg.mpdl.inge.syndication.SyndicationException;
+import de.mpg.mpdl.inge.syndication.Utils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
