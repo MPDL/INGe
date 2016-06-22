@@ -34,7 +34,7 @@
 	<modules>
 		<module>pubman_util</module>
 		<module>framework_access</module>
-		<module>xml_transforming</module>
+		<module>common_logic</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
 		<module>validation</module>
@@ -342,13 +342,13 @@
 
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
-				<artifactId>common_logic</artifactId>
+				<artifactId>xml_transforming</artifactId>
 				<version>1.1.95-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.escidoc.services.wildfly</groupId>
-				<artifactId>common_logic</artifactId>
+				<artifactId>xml_transforming</artifactId>
 				<version>1.1.95-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>

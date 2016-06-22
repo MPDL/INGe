@@ -29,14 +29,14 @@
 <binding direction="input">
 
 	<!-- concrete mapping for ValidationReportVO -->
-	<mapping name="validation-report" class="de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO" ordered="false" allow-repeats="true">
+	<mapping name="validation-report" class="de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO" ordered="false" allow-repeats="true">
 		<value style="attribute" name="phase" field="validationPoint"/>
-		<collection field="rules" factory="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.validationReportRulesFactory">
+		<collection field="rules" factory="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.validationReportRulesFactory">
 			<value name="pattern" type="java.lang.String"/>
 		</collection>
-		<collection usage="optional" field="items" factory="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.validationReportItemsFactory">
-			<structure usage="optional" name="failure" type="de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO">
-				<value name="infolevel" style="attribute" field="level" deserializer="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.deserializeInfoLevel" serializer="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.serializeInfoLevel"/>
+		<collection usage="optional" field="items" factory="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.validationReportItemsFactory">
+			<structure usage="optional" name="failure" type="de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO">
+				<value name="infolevel" style="attribute" field="level" deserializer="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.deserializeInfoLevel" serializer="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.serializeInfoLevel"/>
 				<structure name="message">
 					<value name="name" style="element" field="content"/>
 					<structure name="path"/>
@@ -45,9 +45,9 @@
 				<structure name="diagnostics" usage="optional"/>
 			</structure>
 		</collection>
-		<collection usage="optional" field="items" factory="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.validationReportItemsFactory">
-			<structure usage="optional" name="report" type="de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO">
-				<value name="infolevel" style="attribute" field="level" deserializer="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.deserializeInfoLevel" serializer="de.mpg.escidoc.services.validation.xmltransforming.JiBXHelper.serializeInfoLevel"/>
+		<collection usage="optional" field="items" factory="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.validationReportItemsFactory">
+			<structure usage="optional" name="report" type="de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO">
+				<value name="infolevel" style="attribute" field="level" deserializer="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.deserializeInfoLevel" serializer="de.mpg.mpdl.inge.validation.xmltransforming.JiBXHelper.serializeInfoLevel"/>
 				<structure name="message">
 					<value name="name" style="element" field="content"/>
 					<structure name="path"/>

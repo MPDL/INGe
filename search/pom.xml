@@ -98,7 +98,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>common_logic</artifactId>
+			<artifactId>xml_transforming</artifactId>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
