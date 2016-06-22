@@ -49,7 +49,7 @@ import org.purl.sword.base.SWORDContentTypeException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.escidoc.pubman.sword.PubManSwordErrorDocument.swordError;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;

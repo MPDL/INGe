@@ -82,7 +82,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;

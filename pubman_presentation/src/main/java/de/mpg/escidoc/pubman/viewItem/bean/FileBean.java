@@ -54,7 +54,7 @@ import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;

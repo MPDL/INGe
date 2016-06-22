@@ -2,7 +2,7 @@ package de.mpg.escidoc.pubman.yearbook;
 
 import java.util.Date;
 
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 public class YearbookInvalidItemRO extends ItemRO implements Comparable<ItemRO> {

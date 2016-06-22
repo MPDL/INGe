@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
 /**
  * Session Bean that stores the referneces of PubItems in a Map for the Basket session basket

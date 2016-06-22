@@ -4,7 +4,7 @@ import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 /**

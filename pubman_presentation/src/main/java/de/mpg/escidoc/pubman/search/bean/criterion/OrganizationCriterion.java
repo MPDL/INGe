@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;

@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
+import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

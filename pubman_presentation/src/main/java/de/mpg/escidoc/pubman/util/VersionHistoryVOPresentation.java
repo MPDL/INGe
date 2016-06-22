@@ -12,14 +12,14 @@ import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.FileRO;
+import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   Logger logger = Logger.getLogger(VersionHistoryVOPresentation.class);

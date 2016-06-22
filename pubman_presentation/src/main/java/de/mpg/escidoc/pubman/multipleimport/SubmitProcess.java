@@ -41,8 +41,8 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
-import de.mpg.escidoc.services.pubman.PubItemPublishing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 
 /**
  * TODO Description

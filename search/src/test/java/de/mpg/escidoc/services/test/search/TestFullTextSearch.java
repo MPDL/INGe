@@ -21,7 +21,7 @@ import org.junit.Test;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;

@@ -42,7 +42,7 @@ import de.mpg.escidoc.pubman.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 
 
 /**

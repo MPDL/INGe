@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.task.SiteMapTask;
-import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 
 public class InitializerServlet extends HttpServlet {
 

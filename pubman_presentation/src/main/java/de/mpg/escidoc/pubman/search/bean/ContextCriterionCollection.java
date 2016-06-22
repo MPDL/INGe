@@ -12,7 +12,7 @@ import de.mpg.escidoc.pubman.search.bean.criterion.ContextCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 
 public class ContextCriterionCollection {
   public static final String BEAN_NAME = "ContextCriterionCollection";

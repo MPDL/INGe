@@ -62,8 +62,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
+import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
+import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
 
 /**
  * 

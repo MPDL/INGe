@@ -53,8 +53,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
+import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
+import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 

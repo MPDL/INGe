@@ -39,7 +39,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 
 public class CollectionSearchCriterion extends StandardSearchCriterion {
 

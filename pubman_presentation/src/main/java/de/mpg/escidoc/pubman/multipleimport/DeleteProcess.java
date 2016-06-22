@@ -31,9 +31,9 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 
 /**
  * A {@link Thread} that deletes asynchronously all imported items of an import.

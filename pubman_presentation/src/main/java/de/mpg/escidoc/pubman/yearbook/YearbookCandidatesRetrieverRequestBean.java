@@ -16,7 +16,7 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean.YBWORKSPACE;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
