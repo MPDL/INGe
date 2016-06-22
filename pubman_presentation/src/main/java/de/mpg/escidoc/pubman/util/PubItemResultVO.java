@@ -28,9 +28,9 @@ package de.mpg.escidoc.pubman.util;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
  * @author endres

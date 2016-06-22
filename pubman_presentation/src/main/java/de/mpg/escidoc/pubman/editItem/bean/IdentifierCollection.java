@@ -37,8 +37,8 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
  * Bean to handle the IdentifierCollection on a single jsp. A IdentifierCollection is represented by

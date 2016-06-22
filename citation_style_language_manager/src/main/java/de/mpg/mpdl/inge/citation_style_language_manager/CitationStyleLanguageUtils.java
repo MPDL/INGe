@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.escidoc.services.citation_style_language_manager;
+package de.mpg.mpdl.inge.citation_style_language_manager;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

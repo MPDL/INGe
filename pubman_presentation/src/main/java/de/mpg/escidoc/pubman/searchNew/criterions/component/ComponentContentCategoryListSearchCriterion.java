@@ -47,10 +47,10 @@ import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.DegreeSearchCriterion;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {
 

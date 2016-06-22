@@ -2,8 +2,8 @@ package de.mpg.escidoc.pubman.statistic_charts;
 
 import java.util.Calendar;
 
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 
 public class StatisticReportRecordVOPresentation implements
     Comparable<StatisticReportRecordVOPresentation> {

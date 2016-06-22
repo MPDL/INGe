@@ -26,7 +26,7 @@
 
 package de.mpg.escidoc.pubman.util;
 
-import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 /**
  * Wrapper for ValueObjects that provides additional attributes for the presentation layer.

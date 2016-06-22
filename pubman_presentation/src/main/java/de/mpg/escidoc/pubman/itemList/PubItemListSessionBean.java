@@ -55,9 +55,9 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.

@@ -39,11 +39,11 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO.State;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 

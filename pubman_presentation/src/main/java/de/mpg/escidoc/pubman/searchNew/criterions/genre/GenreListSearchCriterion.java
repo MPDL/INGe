@@ -42,8 +42,8 @@ import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.DegreeSearchCriterion;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 
 public class GenreListSearchCriterion extends SearchCriterionBase {
 

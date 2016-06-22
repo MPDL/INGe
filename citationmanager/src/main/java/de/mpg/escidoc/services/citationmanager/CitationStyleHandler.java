@@ -27,8 +27,8 @@ package de.mpg.escidoc.services.citationmanager;
 
 import java.io.IOException;
 
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import net.sf.jasperreports.engine.JRException;
 
 /**

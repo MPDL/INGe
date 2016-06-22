@@ -53,7 +53,7 @@ import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.NavigationRule;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 
 /**
  * Navigation.java Backing Bean for the Navigation side bar of pubman. Additionally there is some

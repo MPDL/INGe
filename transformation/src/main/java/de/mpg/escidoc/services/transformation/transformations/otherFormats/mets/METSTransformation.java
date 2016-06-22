@@ -35,7 +35,7 @@ import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.mpg.escidoc.services.common.DataGathering;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO;
+import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;

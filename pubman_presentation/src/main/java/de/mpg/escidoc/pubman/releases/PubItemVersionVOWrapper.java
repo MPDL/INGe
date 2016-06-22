@@ -27,7 +27,7 @@
 package de.mpg.escidoc.pubman.releases;
 
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 
 /**
  * Wrapper for VersionHistoryEntryVOs that provides additional attributes for the presentation

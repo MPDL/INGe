@@ -12,7 +12,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase;
 import de.mpg.escidoc.pubman.searchNew.criterions.component.MapListSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 
 public class AffiliatedContextListSearchCriterion extends
     MapListSearchCriterion<PubContextVOPresentation> {

@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.GrantVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
+import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList;
 
 /**
  * Fragment class for editing the audience grants of files. This class provides all functionality

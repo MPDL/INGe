@@ -26,7 +26,7 @@ package de.mpg.escidoc.services.search.query;
 
 import java.util.List;
 import org.apache.axis.types.NonNegativeInteger;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 
 /**

@@ -32,7 +32,7 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.util.PropertyReader;
 
 /**

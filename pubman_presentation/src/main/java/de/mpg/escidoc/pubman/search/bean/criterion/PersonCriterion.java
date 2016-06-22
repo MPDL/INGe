@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;

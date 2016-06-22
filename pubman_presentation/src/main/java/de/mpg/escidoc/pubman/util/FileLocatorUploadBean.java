@@ -38,10 +38,10 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
  * Class to handle the file upload of locators.

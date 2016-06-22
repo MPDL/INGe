@@ -32,7 +32,7 @@ import javax.faces.component.html.HtmlPanelGrid;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the Affiliation components.

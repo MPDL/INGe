@@ -27,7 +27,7 @@
 package de.mpg.escidoc.pubman.util;
 
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 
 /**
  * ObjectFormatter.java Backing bean for the LoginErrorPage.jsp.

@@ -38,8 +38,8 @@ import javax.naming.InitialContext;
 import org.apache.axis.encoding.Base64;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
  * TODO Description

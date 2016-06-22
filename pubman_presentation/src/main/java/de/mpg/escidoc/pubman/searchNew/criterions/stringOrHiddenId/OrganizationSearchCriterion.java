@@ -40,8 +40,8 @@ import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCrit
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 
 
 public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion {

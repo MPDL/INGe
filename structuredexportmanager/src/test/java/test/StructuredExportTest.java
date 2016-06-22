@@ -40,7 +40,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;

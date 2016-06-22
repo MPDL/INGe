@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 
 /**
  * Fragment class for Releasy history.

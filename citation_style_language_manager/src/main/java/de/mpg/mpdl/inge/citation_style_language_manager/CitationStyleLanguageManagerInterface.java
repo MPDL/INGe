@@ -1,6 +1,6 @@
-package de.mpg.escidoc.services.citation_style_language_manager;
+package de.mpg.mpdl.inge.citation_style_language_manager;
 
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 
 /**
  * Interface for transforming a list of items into a citation output for each of the items

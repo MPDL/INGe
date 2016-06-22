@@ -30,7 +30,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

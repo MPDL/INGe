@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.GenreCriterion;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
  * POJO bean to deal with one GenreCriterionVO.

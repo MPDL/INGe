@@ -5,7 +5,7 @@ import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 /**
  * POJO bean to deal with one OrganizationCriterionVO.

@@ -45,7 +45,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;

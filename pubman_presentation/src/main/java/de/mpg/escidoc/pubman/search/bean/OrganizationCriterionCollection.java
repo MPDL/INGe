@@ -10,7 +10,7 @@ import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 /**
  * Bean to handle the OrganizationCriterionCollection on a single jsp. A

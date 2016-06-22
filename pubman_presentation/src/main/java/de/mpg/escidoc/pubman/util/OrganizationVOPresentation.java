@@ -31,7 +31,7 @@ import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.escidoc.pubman.EditItemBean;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 
 /**
  * Presentation wrapper for OrganizationVO.

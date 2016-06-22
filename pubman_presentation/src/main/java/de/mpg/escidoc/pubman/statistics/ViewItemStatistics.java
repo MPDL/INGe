@@ -37,9 +37,9 @@ import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.util.PropertyReader;
 

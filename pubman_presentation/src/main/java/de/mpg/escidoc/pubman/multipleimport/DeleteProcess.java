@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
 /**

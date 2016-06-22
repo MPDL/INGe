@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.ServiceDocumentRequest;
 
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 
 /**

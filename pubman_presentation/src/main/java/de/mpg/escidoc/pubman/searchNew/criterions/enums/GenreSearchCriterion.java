@@ -27,7 +27,7 @@ package de.mpg.escidoc.pubman.searchNew.criterions.enums;
 
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 
 
 public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {

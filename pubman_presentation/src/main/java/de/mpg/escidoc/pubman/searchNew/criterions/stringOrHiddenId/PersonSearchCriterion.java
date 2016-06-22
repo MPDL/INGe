@@ -27,7 +27,7 @@ package de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId;
 
 import de.mpg.escidoc.pubman.searchNew.SearchParseException;
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.DisplayType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 

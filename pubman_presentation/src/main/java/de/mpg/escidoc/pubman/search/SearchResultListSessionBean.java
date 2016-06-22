@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 
 /**

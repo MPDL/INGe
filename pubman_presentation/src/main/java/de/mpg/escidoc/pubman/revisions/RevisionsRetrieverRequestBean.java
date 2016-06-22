@@ -10,7 +10,7 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Item Revisions

@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.search.bean.criterion.PersonCriterion;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 
 /**
  * Bean to handle the PersonCriterionCollection on a single jsp. A PersonCriterionCollection is

@@ -62,21 +62,21 @@ import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SubjectVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
+import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
@@ -542,8 +542,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @see
    * de.mpg.escidoc.services.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services
    * .common.valueobjects.PubItemVO, java.lang.String,
-   * de.mpg.escidoc.services.common.valueobjects.ContextVO,
-   * de.mpg.escidoc.services.common.valueobjects.AccountUserVO)
+   * de.mpg.mpdl.inge.model.valueobjects.ContextVO,
+   * de.mpg.mpdl.inge.model.valueobjects.AccountUserVO)
    */
   public PubItemVO createRevisionOfItem(PubItemVO originalPubItem, String relationComment,
       ContextRO pubCollection, AccountUserVO owner) throws SecurityException,

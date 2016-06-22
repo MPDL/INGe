@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.axis.types.NonNegativeInteger;
 
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 
 /**
  * Search result for an export search query.

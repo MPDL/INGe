@@ -12,12 +12,12 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.transformation.util.creators.Author;
 import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
 

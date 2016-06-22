@@ -32,9 +32,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
 /**
  * Bean to handle the CreatorCollection on a single jsp. A CreatorCollection is represented by a

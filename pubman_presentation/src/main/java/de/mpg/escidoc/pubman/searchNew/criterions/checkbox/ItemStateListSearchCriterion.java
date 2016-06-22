@@ -17,7 +17,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.escidoc.pubman.searchNew.criterions.operators.Parenthesis;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 
 public class ItemStateListSearchCriterion extends MapListSearchCriterion<String> {
 

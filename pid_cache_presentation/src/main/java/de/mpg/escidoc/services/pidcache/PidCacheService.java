@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgClient;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;

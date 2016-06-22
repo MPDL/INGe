@@ -31,7 +31,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class GenreSpecificItemManager {
   public static final String SUBMISSION_METHOD_ALL = "all";

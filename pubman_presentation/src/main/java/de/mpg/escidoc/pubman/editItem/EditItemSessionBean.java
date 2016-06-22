@@ -34,10 +34,10 @@ import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.

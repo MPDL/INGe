@@ -41,10 +41,10 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemCreators;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreators.Type;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.

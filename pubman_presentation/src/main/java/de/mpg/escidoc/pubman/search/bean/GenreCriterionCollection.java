@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.search.bean.criterion.GenreCriterion;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Bean to handle the GenreCriterionCollection on a single jsp. A GenreCriterionCollection is

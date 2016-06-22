@@ -41,10 +41,10 @@ import de.mpg.escidoc.pubman.util.GrantVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
+import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.GrantList;
+import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList;
 import de.mpg.escidoc.services.util.PropertyReader;
 
 /**

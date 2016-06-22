@@ -31,10 +31,10 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.util.FileLocatorUploadBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 
 /**
  * Class to handle the file upload of locators.

@@ -34,7 +34,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortDirection;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 /**
  * JSF bean class (request) to hold data for the import workspace.

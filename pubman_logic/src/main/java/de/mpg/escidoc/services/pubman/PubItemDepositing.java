@@ -34,9 +34,9 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
 import de.mpg.escidoc.services.pubman.depositing.PubItemMandatoryAttributesMissingException;

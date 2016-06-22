@@ -61,7 +61,7 @@ import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 

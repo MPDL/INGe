@@ -1,7 +1,7 @@
-package de.mpg.escidoc.services.citation_style_language_manager;
+package de.mpg.mpdl.inge.citation_style_language_manager;
 
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 
 /**
  * CitationStyleLanguageExecutor will simply process a sample item with a citationstyle

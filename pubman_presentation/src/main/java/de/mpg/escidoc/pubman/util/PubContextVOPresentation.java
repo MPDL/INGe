@@ -13,7 +13,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.multipleimport.MultipleImport;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 
 /**
  * Wrapper class for contexts to be used in the presentation.

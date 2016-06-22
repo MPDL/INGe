@@ -28,7 +28,7 @@ package de.mpg.escidoc.pubman.search;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 /**
  * Class for the AffiliationDetail Page. This class holds the AffiliationVO to be displayed in the

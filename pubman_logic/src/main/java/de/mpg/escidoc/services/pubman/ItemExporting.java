@@ -29,8 +29,8 @@ package de.mpg.escidoc.services.pubman;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
  * Interface for retrieving of export formats as well as an export file containing and presenting an

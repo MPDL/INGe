@@ -28,7 +28,7 @@ package de.mpg.escidoc.services.validation;
 import java.util.Date;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**

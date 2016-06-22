@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.citation_style_language_managercitation_style_language_manager.test;
+package de.mpg.mpdl.inge.citation_style_language_managercitation_style_language_manager.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,11 +35,11 @@ import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
-import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageManagerInterface;
-import de.mpg.escidoc.services.citation_style_language_manager.CitationStyleLanguageUtils;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
+import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
+import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageUtils;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 
 /**
  * Tests for {@link CitationStyleLanguageManagerInterface} implementations

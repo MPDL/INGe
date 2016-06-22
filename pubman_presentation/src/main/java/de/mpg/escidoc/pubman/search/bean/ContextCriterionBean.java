@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.bean.criterion.ContextCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 
 /**
  * context criterion vo for the advanced search.

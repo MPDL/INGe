@@ -30,8 +30,8 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 
 /**
  * TODO Description

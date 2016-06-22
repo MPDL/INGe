@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.citation_style_language_manager;
+package de.mpg.mpdl.inge.citation_style_language_manager;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 import de.undercouch.citeproc.CSL;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 
 /**
  * CitationStyleLanguageManagerDefaultImpl is used to generate a citation for an escidoc item or a

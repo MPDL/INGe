@@ -3,7 +3,7 @@ package de.mpg.escidoc.pubman.util;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.audience.AudienceSessionBean;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
+import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
 
 public class GrantVOPresentation extends FacesBean {
   public static final String GRANT_TYPE_USER_GROUP = "user-group";

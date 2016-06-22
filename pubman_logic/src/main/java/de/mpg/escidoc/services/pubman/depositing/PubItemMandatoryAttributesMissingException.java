@@ -26,7 +26,7 @@
 
 package de.mpg.escidoc.services.pubman.depositing;
 
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 
 /**

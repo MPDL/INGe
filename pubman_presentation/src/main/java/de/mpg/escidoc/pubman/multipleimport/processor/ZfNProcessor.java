@@ -52,10 +52,10 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.util.PropertyReader;
 

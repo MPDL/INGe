@@ -29,7 +29,7 @@ package de.mpg.escidoc.services.pubman.depositing;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 
 /**
  * Exception class used to determine that the content for a given file could not be found.

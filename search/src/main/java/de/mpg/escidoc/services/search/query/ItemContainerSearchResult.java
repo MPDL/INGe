@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.axis.types.NonNegativeInteger;
 
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 
 /**
  * Search result for a standard search query. The result consist of ItemContainerSearchResultVOs

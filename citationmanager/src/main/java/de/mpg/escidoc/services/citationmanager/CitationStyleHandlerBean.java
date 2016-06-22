@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.JRException;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 
 
 

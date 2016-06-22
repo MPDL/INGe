@@ -41,15 +41,15 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO.Genre;
 
 /**
  * POJO bean to deal with one source.

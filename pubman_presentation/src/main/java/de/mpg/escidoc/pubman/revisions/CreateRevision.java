@@ -35,7 +35,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 
 /**
  * Fragment class for CreateRevision.

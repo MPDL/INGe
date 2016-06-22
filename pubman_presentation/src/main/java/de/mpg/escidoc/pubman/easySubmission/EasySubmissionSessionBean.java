@@ -37,8 +37,8 @@ import org.primefaces.model.UploadedFile;
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving

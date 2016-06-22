@@ -27,7 +27,7 @@ package de.mpg.escidoc.pubman.searchNew.criterions.enums;
 
 import de.mpg.escidoc.pubman.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.standard.StandardSearchCriterion;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 
 
 public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMethod> {
