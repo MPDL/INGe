@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.dataacquisition.webservice;
+package de.mpg.mpdl.inge.dataacquisition.webservice;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,16 +18,16 @@ import noNamespace.FormatsType;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 
-import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
-import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
-import de.mpg.escidoc.services.dataacquisition.Util;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.Util;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 
 /**
  * This class provides the implementation of the {@link Unapi} interface.

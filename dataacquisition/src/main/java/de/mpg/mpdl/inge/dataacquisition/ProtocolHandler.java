@@ -21,7 +21,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.io.StringReader;
 
@@ -34,9 +34,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.BadArgumentException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
 
 /**
  * 

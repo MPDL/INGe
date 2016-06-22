@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.dataacquisition.exceptions;
+package de.mpg.mpdl.inge.dataacquisition.exceptions;
 
 /**
  * Exception thrown if a source reports an error due to the given identifier.

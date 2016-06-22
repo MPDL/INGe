@@ -22,50 +22,46 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.dataacquisition.exceptions;
+package de.mpg.mpdl.inge.dataacquisition.exceptions;
 
 /**
+ * Exceptions for data which could not be fetched from an import source.
  * 
- * Exception for illegal arguments in requests for external sources.
- * 
- * @author kleinfe1 (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * 
+ * @author kleinfe1
  */
-public class BadArgumentException extends Exception {
+public class FormatNotAvailableException extends Exception {
   private static final long serialVersionUID = 1L;
 
   /**
-   * BadArgumentException.
+   * FormatNotAvailableException.
    */
-  public BadArgumentException() {}
+  public FormatNotAvailableException() {}
 
   /**
-   * BadArgumentException.
+   * FormatNotAvailableException.
    * 
    * @param message
    */
-  public BadArgumentException(String message) {
-    super(message);
+  public FormatNotAvailableException(String format) {
+    super(format);
   }
 
   /**
-   * BadArgumentException.
+   * FormatNotAvailableException.
    * 
    * @param cause
    */
-  public BadArgumentException(Throwable cause) {
+  public FormatNotAvailableException(Throwable cause) {
     super(cause);
   }
 
   /**
-   * BadArgumentException.
+   * FormatNotAvailableException.
    * 
    * @param message
    * @param cause
    */
-  public BadArgumentException(String message, Throwable cause) {
-    super(message, cause);
+  public FormatNotAvailableException(String format, Throwable cause) {
+    super(format, cause);
   }
 }

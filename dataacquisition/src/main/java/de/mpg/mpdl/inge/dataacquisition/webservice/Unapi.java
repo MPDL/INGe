@@ -1,11 +1,11 @@
-package de.mpg.escidoc.services.dataacquisition.webservice;
+package de.mpg.mpdl.inge.dataacquisition.webservice;
 
 import java.rmi.AccessException;
 
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
 
 /**
  * UNAPI Interface for the DataAquisition Service.

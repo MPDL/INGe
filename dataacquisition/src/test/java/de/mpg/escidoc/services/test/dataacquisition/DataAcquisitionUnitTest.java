@@ -34,11 +34,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
-import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
-import de.mpg.escidoc.services.dataacquisition.Util;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.Util;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

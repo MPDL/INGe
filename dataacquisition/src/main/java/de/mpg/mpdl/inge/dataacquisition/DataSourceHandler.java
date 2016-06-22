@@ -1,8 +1,8 @@
-package de.mpg.escidoc.services.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.util.Vector;
 
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 
 /**
  * interface for methods regarding the import sources description.

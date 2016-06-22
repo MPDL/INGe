@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 
 
 

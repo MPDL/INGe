@@ -21,67 +21,51 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.dataacquisition.exceptions;
 
-import java.util.Date;
+package de.mpg.mpdl.inge.dataacquisition.exceptions;
 
 /**
- * Exceptions for import sources.
  * 
- * @author kleinfe1
+ * Exception for illegal arguments in requests for external sources.
+ * 
+ * @author kleinfe1 (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ * 
  */
-public class SourceNotAvailableException extends Exception {
+public class BadArgumentException extends Exception {
   private static final long serialVersionUID = 1L;
-  private Date retryAfter = null;
 
   /**
-   * SourceNotAvailableException.
+   * BadArgumentException.
    */
-  public SourceNotAvailableException() {}
+  public BadArgumentException() {}
 
   /**
-   * SourceNotAvailableException.
+   * BadArgumentException.
    * 
    * @param message
    */
-  public SourceNotAvailableException(String message) {
+  public BadArgumentException(String message) {
     super(message);
   }
 
   /**
-   * SourceNotAvailableException.
+   * BadArgumentException.
    * 
    * @param cause
    */
-  public SourceNotAvailableException(Throwable cause) {
+  public BadArgumentException(Throwable cause) {
     super(cause);
   }
 
   /**
-   * SourceNotAvailableException.
+   * BadArgumentException.
    * 
    * @param message
    * @param cause
    */
-  public SourceNotAvailableException(String message, Throwable cause) {
+  public BadArgumentException(String message, Throwable cause) {
     super(message, cause);
-  }
-
-  /**
-   * SourceNotAvailableException.
-   * 
-   * @param retryAfter
-   */
-  public SourceNotAvailableException(Date retryAfter) {
-    super();
-    this.retryAfter = retryAfter;
-  }
-
-  public Date getRetryAfter() {
-    return this.retryAfter;
-  }
-
-  public void setRetryAfter(Date retryAfter) {
-    this.retryAfter = retryAfter;
   }
 }

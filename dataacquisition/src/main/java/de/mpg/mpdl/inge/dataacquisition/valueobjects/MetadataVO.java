@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.dataacquisition.valueobjects;
+package de.mpg.mpdl.inge.dataacquisition.valueobjects;
 
 import java.net.URL;
 

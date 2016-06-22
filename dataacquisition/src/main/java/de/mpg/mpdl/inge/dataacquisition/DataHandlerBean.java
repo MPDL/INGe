@@ -21,7 +21,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -71,14 +71,14 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.BadArgumentException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;

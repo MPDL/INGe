@@ -21,47 +21,46 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-
-package de.mpg.escidoc.services.dataacquisition.exceptions;
+package de.mpg.mpdl.inge.dataacquisition.exceptions;
 
 /**
- * Exceptions for data which could not be fetched from an import source.
+ * Exceptions for import formats.
  * 
  * @author kleinfe1
  */
-public class FormatNotAvailableException extends Exception {
+public class FormatNotRecognisedException extends Exception {
   private static final long serialVersionUID = 1L;
 
   /**
-   * FormatNotAvailableException.
+   * FormatNotRecognisedException.
    */
-  public FormatNotAvailableException() {}
+  public FormatNotRecognisedException() {}
 
   /**
-   * FormatNotAvailableException.
+   * FormatNotRecognisedException.
    * 
    * @param message
    */
-  public FormatNotAvailableException(String format) {
-    super(format);
+  public FormatNotRecognisedException(String message) {
+    super(message);
   }
 
   /**
-   * FormatNotAvailableException.
+   * FormatNotRecognisedException.
    * 
    * @param cause
    */
-  public FormatNotAvailableException(Throwable cause) {
+  public FormatNotRecognisedException(Throwable cause) {
     super(cause);
   }
 
   /**
-   * FormatNotAvailableException.
+   * FormatNotRecognisedException.
    * 
    * @param message
    * @param cause
    */
-  public FormatNotAvailableException(String format, Throwable cause) {
-    super(format, cause);
+  public FormatNotRecognisedException(String message, Throwable cause) {
+    super(message, cause);
   }
 }

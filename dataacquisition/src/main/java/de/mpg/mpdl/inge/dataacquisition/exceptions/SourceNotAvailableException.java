@@ -21,46 +21,67 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.dataacquisition.exceptions;
+package de.mpg.mpdl.inge.dataacquisition.exceptions;
+
+import java.util.Date;
 
 /**
- * Exceptions for import formats.
+ * Exceptions for import sources.
  * 
  * @author kleinfe1
  */
-public class FormatNotRecognisedException extends Exception {
+public class SourceNotAvailableException extends Exception {
   private static final long serialVersionUID = 1L;
+  private Date retryAfter = null;
 
   /**
-   * FormatNotRecognisedException.
+   * SourceNotAvailableException.
    */
-  public FormatNotRecognisedException() {}
+  public SourceNotAvailableException() {}
 
   /**
-   * FormatNotRecognisedException.
+   * SourceNotAvailableException.
    * 
    * @param message
    */
-  public FormatNotRecognisedException(String message) {
+  public SourceNotAvailableException(String message) {
     super(message);
   }
 
   /**
-   * FormatNotRecognisedException.
+   * SourceNotAvailableException.
    * 
    * @param cause
    */
-  public FormatNotRecognisedException(Throwable cause) {
+  public SourceNotAvailableException(Throwable cause) {
     super(cause);
   }
 
   /**
-   * FormatNotRecognisedException.
+   * SourceNotAvailableException.
    * 
    * @param message
    * @param cause
    */
-  public FormatNotRecognisedException(String message, Throwable cause) {
+  public SourceNotAvailableException(String message, Throwable cause) {
     super(message, cause);
+  }
+
+  /**
+   * SourceNotAvailableException.
+   * 
+   * @param retryAfter
+   */
+  public SourceNotAvailableException(Date retryAfter) {
+    super();
+    this.retryAfter = retryAfter;
+  }
+
+  public Date getRetryAfter() {
+    return this.retryAfter;
+  }
+
+  public void setRetryAfter(Date retryAfter) {
+    this.retryAfter = retryAfter;
   }
 }

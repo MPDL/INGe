@@ -21,14 +21,14 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.rmi.AccessException;
 
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**

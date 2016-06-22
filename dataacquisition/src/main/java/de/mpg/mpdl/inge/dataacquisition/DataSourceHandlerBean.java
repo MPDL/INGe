@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -16,9 +16,9 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesDocum
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsType;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;

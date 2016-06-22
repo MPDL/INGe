@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 
 import java.io.BufferedReader;
@@ -45,10 +45,10 @@ import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
