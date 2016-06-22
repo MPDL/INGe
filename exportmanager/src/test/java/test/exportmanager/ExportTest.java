@@ -49,10 +49,10 @@ import org.junit.Test;
 
 import test.TestHelper;
 
-import de.mpg.escidoc.services.exportmanager.Export;
-import de.mpg.escidoc.services.exportmanager.ExportHandler;
-import de.mpg.escidoc.services.exportmanager.ExportManagerException;
-import de.mpg.escidoc.services.exportmanager.Export.ArchiveFormats;
+import de.mpg.mpdl.inge.exportmanager.Export;
+import de.mpg.mpdl.inge.exportmanager.ExportHandler;
+import de.mpg.mpdl.inge.exportmanager.ExportManagerException;
+import de.mpg.mpdl.inge.exportmanager.Export.ArchiveFormats;
 
 
 public class ExportTest {

@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.exportmanager;
+package de.mpg.mpdl.inge.exportmanager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -151,7 +151,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#explainFormatsXML()
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#explainFormatsXML()
    */
   public String explainFormatsXML() throws ExportManagerException {
 
@@ -204,7 +204,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#getOutput(java.lang .String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#getOutput(java.lang .String,
    * java.lang.String, java.lang.String, java.lang.String)
    */
 
@@ -225,7 +225,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#getOutputFile(java .lang.String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#getOutputFile(java .lang.String,
    * java.lang.String, java.lang.String, java.lang.String)
    */
   public File getOutputFile(String exportFormat, String outputFormat, String archiveFormat,
@@ -320,7 +320,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
    * byte[], String) )
    */
   public File generateArchiveFile(String exportFormat, String archiveFormat, byte[] exportOut,
@@ -348,7 +348,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
    * byte[], String, File) )
    */
   public File generateArchiveFile(String exportFormat, String archiveFormat, byte[] exportOut,
@@ -407,7 +407,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
    * byte[], String) )
    */
   public byte[] generateArchive(String exportFormat, String archiveFormat, byte[] exportOut,
@@ -426,7 +426,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
    * byte[], String, File) )
    */
   public byte[] generateArchive(String exportFormat, String archiveFormat, byte[] description,
@@ -444,7 +444,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String) )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String) )
    */
   public byte[] generateArchive(String archiveFormat, String itemListFiltered)
       throws ExportManagerException, IOException {
@@ -454,7 +454,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String, File)
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, File)
    * )
    */
   public byte[] generateArchive(String archiveFormat, String itemListFiltered, File license)
@@ -465,7 +465,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String , String,
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
    * byte[], String) )
    */
   private void generateArchiveBase(String exportFormat, String archiveFormat, byte[] exportOut,
@@ -643,7 +643,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @seede.mpg.escidoc.services.exportmanager.ExportHandler# calculateItemListFileSizes(String)
+   * @seede.mpg.mpdl.inge.exportmanager.ExportHandler# calculateItemListFileSizes(String)
    */
   public long calculateItemListFileSizes(String itemList) throws ExportManagerException {
     Document doc = parseDocument(itemList);

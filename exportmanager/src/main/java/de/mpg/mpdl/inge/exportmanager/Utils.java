@@ -1,3 +1,5 @@
+package de.mpg.mpdl.inge.exportmanager;
+
 /*
  * CDDL HEADER START
  * 
@@ -23,55 +25,37 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.exportmanager;
 
 /**
- * End Note Export Manager specific exception.
+ * Utils class.
  * 
  * @author Vlad Makarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
-
-@SuppressWarnings("serial")
-public class ExportManagerException extends Exception {
+public class Utils {
 
   /**
-   * Default constructor.
+   * Returns true if val is not null && not empty String
+   * 
+   * @param val
+   * @return first not null && not empty String
    */
-  public ExportManagerException() {
-    super();
+  public static boolean checkVal(String val) {
+    return (val != null && !val.trim().equals(""));
   }
 
   /**
-   * Constructor with exception.
+   * Throws ExportManagerException true if cond is true
    * 
-   * @param e The exception.
-   * 
+   * @param cond
+   * @param message
+   * @throws ExportManagerException
    */
-  public ExportManagerException(final Throwable e) {
-    super(e);
+  public static void checkCondition(boolean cond, String message) throws ExportManagerException {
+    if (cond)
+      throw new ExportManagerException(message);
   }
 
-  /**
-   * Constructor with message.
-   * 
-   * @param message The message.
-   * 
-   */
-  public ExportManagerException(final String message) {
-    super(message);
-  }
-
-  /**
-   * Constructor with message and exception.
-   * 
-   * @param message The message.
-   * @param e The Exception
-   */
-  public ExportManagerException(final String message, final Throwable e) {
-    super(message, e);
-  }
 }

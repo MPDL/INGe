@@ -232,7 +232,7 @@ public class StructuredExport implements StructuredExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.StructuredExportHandler#explainFormats()
+   * @see de.mpg.mpdl.inge.exportmanager.StructuredExportHandler#explainFormats()
    */
   public String explainFormats() throws StructuredExportManagerException {
     BufferedReader br;
@@ -261,7 +261,7 @@ public class StructuredExport implements StructuredExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.exportmanager.StructuredExportHandler#getFormatsList()
+   * @see de.mpg.mpdl.inge.exportmanager.StructuredExportHandler#getFormatsList()
    */
   public String[] getFormatsList() throws StructuredExportManagerException {
     Set<String> s = getFormatsHash().keySet();
