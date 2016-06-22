@@ -28,7 +28,7 @@
 --%>
 
 
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

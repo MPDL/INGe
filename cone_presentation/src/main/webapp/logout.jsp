@@ -1,6 +1,6 @@
 <%@page import="de.mpg.escidoc.services.aa.Aa"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@ page import="java.net.URLEncoder" %>
 <%
 	request.getSession().removeAttribute("user");

@@ -40,7 +40,7 @@
  */
 
 %>
-<%@page import="java.util.Arrays,de.mpg.escidoc.services.syndication.Syndication,de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="java.util.Arrays,de.mpg.mpdl.inge.syndication.Syndication,de.mpg.mpdl.inge.util.PropertyReader"%>
 <%
 
 	Syndication synd = new Syndication();

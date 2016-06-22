@@ -39,7 +39,7 @@
  * $LastChangedDate$ 
  */
 %>
-<%@page import="java.util.Arrays,java.util.TreeMap,java.util.Map,de.mpg.escidoc.services.syndication.Syndication,de.mpg.escidoc.services.syndication.Utils,de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="java.util.Arrays,java.util.TreeMap,java.util.Map,de.mpg.mpdl.inge.syndication.Syndication,de.mpg.mpdl.inge.syndication.Utils,de.mpg.mpdl.inge.util.PropertyReader"%>
 <%
 	// generation of the SELECT for Organizational Units
 	String ou = request.getParameter("ou");

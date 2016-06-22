@@ -29,7 +29,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />

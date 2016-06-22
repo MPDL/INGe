@@ -58,7 +58,7 @@
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject"%>
 <%@page import="de.mpg.escidoc.services.cone.util.TreeFragment"%>
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>

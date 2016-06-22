@@ -31,7 +31,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
-<%@ page import="de.mpg.escidoc.services.framework.PropertyReader" %>
+<%@ page import="de.mpg.mpdl.inge.util.PropertyReader" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@page import="org.apache.commons.codec.binary.Base64"%>
 <%@ page import="de.mpg.escidoc.services.framework.ServiceLocator" %>

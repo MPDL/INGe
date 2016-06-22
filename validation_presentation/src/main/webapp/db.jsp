@@ -1,4 +1,4 @@
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@page import="org.apache.commons.codec.binary.Base64"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSetMetaData"%>
