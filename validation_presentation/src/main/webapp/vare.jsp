@@ -1,6 +1,6 @@
 <%@page import="javax.xml.transform.stream.StreamResult"%>
 <%@page import="javax.xml.transform.Result"%>
-<%@page import="de.mpg.escidoc.services.common.util.ResourceUtil"%>
+<%@page import="de.mpg.mpdl.inge.util.ResourceUtil"%>
 <%@page import="javax.xml.transform.stream.StreamSource"%>
 <%@page import="javax.xml.transform.TransformerFactory"%>
 <%@page import="javax.xml.transform.Transformer"%>
