@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.escidoc.services.pidcache.process;
+package de.mpg.mpdl.inge.pidcache.process;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.pidcache.Pid;
-import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
-import de.mpg.escidoc.services.pidcache.tables.Queue;
+import de.mpg.mpdl.inge.pidcache.Pid;
+import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
+import de.mpg.mpdl.inge.pidcache.tables.Queue;
 
 /**
  * 

@@ -1,4 +1,5 @@
 /*
+ * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -22,42 +23,48 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.pidcache.init;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+package de.mpg.mpdl.inge.pidcache;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
+ * TODO Description
  * 
- * @author saquet
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * 
  */
-public class InitializerServlet extends HttpServlet {
-
-  RefreshTask refreshTask;
+public class Pid extends PidServiceResponseVO {
+  private XmlTransforming xmlTransforming = null;
 
   /**
-   * {@inheritDoc}
-   */
-  public final void init() throws ServletException {
-    super.init();
-    Thread thread = new Initializer();
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-  }
-
-  /*
-   * (non-Javadoc)
+   * Default constructor
    * 
-   * @see javax.servlet.GenericServlet#destroy()
+   * @throws NamingException
    */
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
+  public Pid() throws NamingException {
+    super();
+    // InitialContext context = new InitialContext();
+    xmlTransforming = new XmlTransformingBean();
   }
 
-
-
+  /**
+   * Constructor with parameters
+   * 
+   * @param identifier
+   * @param url
+   * @throws NamingException
+   */
+  public Pid(String identifier, String url) throws NamingException {
+    this();
+    this.identifier = identifier;
+    this.url = url;
+  }
 }

@@ -24,15 +24,15 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.pidcache.tables;
+package de.mpg.mpdl.inge.pidcache.tables;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import de.mpg.escidoc.services.pidcache.Pid;
-import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
+import de.mpg.mpdl.inge.pidcache.Pid;
+import de.mpg.mpdl.inge.pidcache.util.DatabaseHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

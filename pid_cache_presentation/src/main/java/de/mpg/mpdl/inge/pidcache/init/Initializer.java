@@ -21,11 +21,11 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.pidcache.init;
+package de.mpg.mpdl.inge.pidcache.init;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
+import de.mpg.mpdl.inge.pidcache.util.DatabaseHelper;
 
 /**
  * Initialize the databases (cache and queue).

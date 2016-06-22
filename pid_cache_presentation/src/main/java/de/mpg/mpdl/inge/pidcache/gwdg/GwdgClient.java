@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.pidcache.gwdg;
+package de.mpg.mpdl.inge.pidcache.gwdg;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

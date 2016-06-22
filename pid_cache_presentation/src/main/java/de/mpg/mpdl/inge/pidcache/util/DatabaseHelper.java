@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.pidcache.util;
+package de.mpg.mpdl.inge.pidcache.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;

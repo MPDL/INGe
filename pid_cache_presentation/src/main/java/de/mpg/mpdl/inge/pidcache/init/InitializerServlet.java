@@ -1,5 +1,4 @@
 /*
- * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -23,48 +22,42 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
+package de.mpg.mpdl.inge.pidcache.init;
 
-package de.mpg.escidoc.services.pidcache;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 
 /**
- * TODO Description
  * 
- * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author saquet
  * 
  */
-public class Pid extends PidServiceResponseVO {
-  private XmlTransforming xmlTransforming = null;
+public class InitializerServlet extends HttpServlet {
+
+  RefreshTask refreshTask;
 
   /**
-   * Default constructor
-   * 
-   * @throws NamingException
+   * {@inheritDoc}
    */
-  public Pid() throws NamingException {
-    super();
-    // InitialContext context = new InitialContext();
-    xmlTransforming = new XmlTransformingBean();
+  public final void init() throws ServletException {
+    super.init();
+    Thread thread = new Initializer();
+    thread.start();
+
+    refreshTask = new RefreshTask();
+    refreshTask.start();
   }
 
-  /**
-   * Constructor with parameters
+  /*
+   * (non-Javadoc)
    * 
-   * @param identifier
-   * @param url
-   * @throws NamingException
+   * @see javax.servlet.GenericServlet#destroy()
    */
-  public Pid(String identifier, String url) throws NamingException {
-    this();
-    this.identifier = identifier;
-    this.url = url;
+  public void destroy() {
+    super.destroy();
+    refreshTask.terminate();
   }
+
+
+
 }

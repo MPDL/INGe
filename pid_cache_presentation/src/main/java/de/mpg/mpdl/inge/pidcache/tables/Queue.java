@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.pidcache.tables;
+package de.mpg.mpdl.inge.pidcache.tables;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.pidcache.Pid;
-import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
+import de.mpg.mpdl.inge.pidcache.Pid;
+import de.mpg.mpdl.inge.pidcache.util.DatabaseHelper;
 
 /**
  * Queue of PID awaiting to be updated in GWDG PID service

@@ -24,12 +24,12 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.pidcache.init;
+package de.mpg.mpdl.inge.pidcache.init;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.pidcache.process.CacheProcess;
-import de.mpg.escidoc.services.pidcache.process.QueueProcess;
+import de.mpg.mpdl.inge.pidcache.process.CacheProcess;
+import de.mpg.mpdl.inge.pidcache.process.QueueProcess;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

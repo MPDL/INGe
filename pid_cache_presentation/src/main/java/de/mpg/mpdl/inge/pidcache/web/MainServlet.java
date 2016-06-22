@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.pidcache.web;
+package de.mpg.mpdl.inge.pidcache.web;
 
 import java.io.IOException;
 
@@ -36,8 +36,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.pidcache.PidCacheService;
-import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
+import de.mpg.mpdl.inge.pidcache.PidCacheService;
+import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

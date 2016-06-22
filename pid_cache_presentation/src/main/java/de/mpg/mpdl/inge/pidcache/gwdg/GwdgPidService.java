@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.pidcache.gwdg;
+package de.mpg.mpdl.inge.pidcache.gwdg;
 
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
