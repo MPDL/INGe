@@ -22,28 +22,28 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui;
+package de.mpg.mpdl.inge.test.gui;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanGuiModules;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemBasic;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemContent;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemDetails;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemEvent;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemPersonOrganizations;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemSource;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorRole;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.GenreType;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.IdentifierType;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.ItemType;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemDetails.ReviewType;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemSource.SourceGenre;
-import de.mpg.escidoc.pubman.test.gui.modules.login.PubmanUser;
+import de.mpg.mpdl.inge.test.gui.modules.PubmanGuiModules;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemBasic;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemContent;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemDetails;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemEvent;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemPersonOrganizations;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemSource;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.CreatorRole;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.CreatorType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.GenreType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.IdentifierType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.ItemType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemDetails.ReviewType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemSource.SourceGenre;
+import de.mpg.mpdl.inge.test.gui.modules.login.PubmanUser;
 
 /**
  * @author endres

@@ -22,24 +22,33 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui.modules;
+package de.mpg.mpdl.inge.test.gui.modules.item;
+
 
 /**
  * @author endres
  * 
  */
-public class EnumMatrix<E extends Enum, T extends Enum> {
-  public boolean[][] array = null;
+public class PubmanItemContent {
+  public String keywords = null;
+  public String ddcSubject = null;
+  public String contentAbstract = null;
 
-  public EnumMatrix(int initialSize) {
-    array = new boolean[initialSize][initialSize];
+  public PubmanItemContent(String keywords, String ddcSubject, String contentAbstract) {
+    this.keywords = keywords;
+    this.ddcSubject = ddcSubject;
+    this.contentAbstract = contentAbstract;
   }
 
-  public boolean getValue(E line, T row) {
-    return array[line.ordinal()][row.ordinal()];
+  public String getKeywords() {
+    return keywords;
   }
 
-  public void setValue(E line, T row, boolean value) {
-    array[line.ordinal()][row.ordinal()] = value;
+  public String getDdcSubject() {
+    return ddcSubject;
+  }
+
+  public String getContentAbstract() {
+    return contentAbstract;
   }
 }

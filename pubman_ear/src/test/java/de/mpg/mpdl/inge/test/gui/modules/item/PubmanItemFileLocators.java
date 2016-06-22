@@ -22,42 +22,31 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui.modules.item;
+package de.mpg.mpdl.inge.test.gui.modules.item;
 
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.ComponentVisibility;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.ComponentVisibility;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItemFile.FileContentCategory;
 
 
 /**
  * @author endres
  * 
  */
-public class PubmanItemFile {
-  public enum UploadFileType {
-    Pdf, PdfJapanese, Word, Ascii, Xml
-  }
-
-  public enum FileContentCategory {
-    ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS, SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT
-  }
-
-  public String localPath = null;
+public class PubmanItemFileLocators {
   public String uploadUrl = null;
-  public UploadFileType uploadFileType;
 
-  public FileContentCategory contentCategory = null;
+  public FileContentCategory contentCategory;
   public ComponentVisibility componentVisibility = null;
   public String description = null;
   public String copyrightStatement = null;
   public String copyrightDate = null;
   public String license = null;
 
-  public PubmanItemFile(String localPath, String uploadUrl, UploadFileType uploadFileType,
-      FileContentCategory contentCategory, ComponentVisibility componentVisibility,
-      String description, String copyrightStatement, String copyrightDate, String license) {
+  public PubmanItemFileLocators(String uploadUrl, FileContentCategory contentCategory,
+      ComponentVisibility componentVisibility, String description, String copyrightStatement,
+      String copyrightDate, String license) {
 
-    this.localPath = localPath;
     this.uploadUrl = uploadUrl;
-    this.uploadFileType = uploadFileType;
     this.contentCategory = contentCategory;
     this.componentVisibility = componentVisibility;
     this.description = description;
@@ -66,16 +55,8 @@ public class PubmanItemFile {
     this.license = license;
   }
 
-  public String getLocalPath() {
-    return localPath;
-  }
-
   public String getUploadUrl() {
     return uploadUrl;
-  }
-
-  public UploadFileType getUploadFileType() {
-    return uploadFileType;
   }
 
   public FileContentCategory getContentCategory() {

@@ -1,10 +1,10 @@
-package de.mpg.escidoc.pubman.test.gui.modules.item;
+package de.mpg.mpdl.inge.test.gui.modules.item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorRole;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.CreatorRole;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.CreatorType;
 
 
 

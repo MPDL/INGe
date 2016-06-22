@@ -22,20 +22,24 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui.modules.item;
+package de.mpg.mpdl.inge.test.gui.modules;
 
 /**
  * @author endres
  * 
  */
-public class PubmanItemBasic {
-  public String title = null;
+public class EnumMatrix<E extends Enum, T extends Enum> {
+  public boolean[][] array = null;
 
-  public PubmanItemBasic(String title) {
-    this.title = title;
+  public EnumMatrix(int initialSize) {
+    array = new boolean[initialSize][initialSize];
   }
 
-  public String getTitle() {
-    return title;
+  public boolean getValue(E line, T row) {
+    return array[line.ordinal()][row.ordinal()];
+  }
+
+  public void setValue(E line, T row, boolean value) {
+    array[line.ordinal()][row.ordinal()] = value;
   }
 }

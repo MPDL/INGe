@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui.modules.login;
+package de.mpg.mpdl.inge.test.gui.modules.login;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import de.mpg.escidoc.pubman.test.gui.modules.EnumMatrix;
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanGuiModules;
+import de.mpg.mpdl.inge.test.gui.modules.EnumMatrix;
+import de.mpg.mpdl.inge.test.gui.modules.PubmanGuiModules;
 
 /**
  * @author endres

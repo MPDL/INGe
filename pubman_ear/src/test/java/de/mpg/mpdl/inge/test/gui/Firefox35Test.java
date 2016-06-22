@@ -1,4 +1,4 @@
-// package de.mpg.escidoc.pubman.test.gui;
+// package de.mpg.mpdl.inge.test.gui;
 //
 // import java.io.IOException;
 //

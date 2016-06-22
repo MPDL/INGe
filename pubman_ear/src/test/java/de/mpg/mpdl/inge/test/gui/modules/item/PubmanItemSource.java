@@ -22,11 +22,11 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui.modules.item;
+package de.mpg.mpdl.inge.test.gui.modules.item;
 
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorRole;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.IdentifierType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.CreatorRole;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.CreatorType;
+import de.mpg.mpdl.inge.test.gui.modules.item.PubmanItem.IdentifierType;
 
 /**
  * @author endres

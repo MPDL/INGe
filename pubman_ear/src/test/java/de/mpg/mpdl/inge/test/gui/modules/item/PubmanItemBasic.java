@@ -22,38 +22,20 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.pubman.test.gui.modules.item;
+package de.mpg.mpdl.inge.test.gui.modules.item;
 
 /**
  * @author endres
  * 
  */
-public class PubmanItemEvent {
+public class PubmanItemBasic {
   public String title = null;
-  public String placeOfEvent = null;
-  public String startDate = null;
-  public String endDate = null;
 
-  public PubmanItemEvent(String title, String placeOfEvent, String startDate, String endDate) {
+  public PubmanItemBasic(String title) {
     this.title = title;
-    this.placeOfEvent = placeOfEvent;
-    this.startDate = startDate;
-    this.endDate = endDate;
   }
 
   public String getTitle() {
     return title;
-  }
-
-  public String getPlaceOfEvent() {
-    return placeOfEvent;
-  }
-
-  public String getStartDate() {
-    return startDate;
-  }
-
-  public String getEndDate() {
-    return endDate;
   }
 }
