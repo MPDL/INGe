@@ -41,7 +41,7 @@ import de.mpg.escidoc.services.cone.util.ModelHelper;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.ResultEntry;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * SQL implementation for the {@link Querier} interface. Currently works with Postgres, but should

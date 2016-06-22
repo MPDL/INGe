@@ -24,7 +24,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
 public class TransformationTest {

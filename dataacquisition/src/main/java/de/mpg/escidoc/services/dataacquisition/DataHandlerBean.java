@@ -83,8 +83,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * This class provides the ejb implementation of the {@link DataHandler} interface.

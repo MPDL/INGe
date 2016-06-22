@@ -24,16 +24,16 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.transformation;
+package de.mpg.mpdl.inge.citationmanager.transformation;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandlerBean;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerBean;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;

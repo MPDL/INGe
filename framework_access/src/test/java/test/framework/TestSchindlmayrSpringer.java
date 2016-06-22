@@ -66,8 +66,8 @@ import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 import test.framework.om.TestItemBase;
 
 /**

@@ -60,7 +60,7 @@ import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Util.Styles;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Implements transformations for output formats.

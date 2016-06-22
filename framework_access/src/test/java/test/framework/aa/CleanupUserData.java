@@ -34,7 +34,7 @@ import org.w3c.dom.Node;
 
 import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 ;
 

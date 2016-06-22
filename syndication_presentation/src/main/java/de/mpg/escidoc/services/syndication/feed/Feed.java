@@ -80,8 +80,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 
 public class Feed extends SyndFeedImpl {

@@ -49,8 +49,8 @@ import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Handles all transformations for third party metadata records.

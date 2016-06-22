@@ -58,8 +58,8 @@ import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 
 /*

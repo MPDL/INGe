@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.pidcache.process.CacheProcess;
 import de.mpg.escidoc.services.pidcache.process.QueueProcess;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Thread running continuously in background. Calls {@link QueueProcess} and {@link CacheProcess}

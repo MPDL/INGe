@@ -50,8 +50,8 @@ import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.ItemValidatingBean;
 

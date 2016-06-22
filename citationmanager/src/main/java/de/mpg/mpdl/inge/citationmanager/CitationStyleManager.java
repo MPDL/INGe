@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager;
+package de.mpg.mpdl.inge.citationmanager;
 
 import java.io.IOException;
 import java.io.OutputStream;

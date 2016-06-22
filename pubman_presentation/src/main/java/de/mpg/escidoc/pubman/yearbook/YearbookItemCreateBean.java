@@ -43,7 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class YearbookItemCreateBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);

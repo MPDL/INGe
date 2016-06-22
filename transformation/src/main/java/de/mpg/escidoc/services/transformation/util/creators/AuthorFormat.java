@@ -35,7 +35,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Abstract superclass for author string decoding formats. Provides basic functionality.

@@ -51,7 +51,7 @@ import de.mpg.escidoc.services.syndication.Syndication;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
 import de.mpg.escidoc.services.syndication.feed.Feed;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * The servlet takes URL, calls eSciDoc syndication manager and returns generated RSS/ATOM feed to

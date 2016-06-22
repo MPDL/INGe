@@ -30,7 +30,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * TODO Description

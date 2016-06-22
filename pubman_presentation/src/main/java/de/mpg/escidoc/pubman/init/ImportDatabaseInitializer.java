@@ -33,8 +33,8 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description

@@ -26,7 +26,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the My Items

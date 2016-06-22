@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.SearchDate;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * 

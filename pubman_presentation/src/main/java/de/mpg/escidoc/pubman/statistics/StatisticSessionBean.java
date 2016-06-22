@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.StatisticLogger;
-import de.mpg.escidoc.services.util.AdminHelper;
+import de.mpg.mpdl.inge.util.AdminHelper;
 
 
 public class StatisticSessionBean extends FacesBean {

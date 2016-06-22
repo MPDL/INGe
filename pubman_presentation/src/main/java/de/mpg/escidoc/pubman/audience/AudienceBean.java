@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
 import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.GrantList;
 import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Fragment class for editing the audience grants of files. This class provides all functionality

@@ -101,8 +101,8 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 

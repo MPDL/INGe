@@ -125,7 +125,7 @@ import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.exceptions.PubManException;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;

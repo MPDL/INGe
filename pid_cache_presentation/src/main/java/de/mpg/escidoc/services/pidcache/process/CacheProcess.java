@@ -14,7 +14,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.tables.Cache;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 
 /**

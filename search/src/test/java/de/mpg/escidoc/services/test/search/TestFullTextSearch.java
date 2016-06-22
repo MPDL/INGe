@@ -50,8 +50,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMe
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;

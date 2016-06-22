@@ -26,7 +26,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Helper class to generate an RDF file from the initial database.

@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class TestSearchAndOrder extends TestBase {
   private Logger logger = Logger.getLogger(TestSearchAndOrder.class);

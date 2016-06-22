@@ -15,7 +15,7 @@ import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISImport;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class RISImportTester {
 

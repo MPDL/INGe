@@ -34,7 +34,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook

@@ -78,7 +78,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWr
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.SuccessorROListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.UserAttributesWrapper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;

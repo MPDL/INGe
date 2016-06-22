@@ -79,8 +79,8 @@ import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.Rdfs;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.cone.util.UrlHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Servlet to answer calls from various calls.

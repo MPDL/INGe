@@ -1,5 +1,4 @@
 /*
- * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -24,78 +23,55 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.data;
-
-
+package de.mpg.mpdl.inge.citationmanager;
 
 /**
- * A key-value pair.
+ * Citation Style Processing Engine specific exception.
  * 
- * @author franke (initial creation)
+ * @author makarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class Pair {
-  private String key;
-  private String value;
+
+
+@SuppressWarnings("serial")
+public class CitationStyleManagerException extends Exception {
 
   /**
    * Default constructor.
    */
-  public Pair() {}
+  public CitationStyleManagerException() {
+    super();
+  }
 
   /**
-   * Constructor with fields.
+   * Constructor with exception.
    * 
-   * @param key The key
-   * @param value The value
+   * @param e The exception.
+   * 
    */
-  public Pair(String key, String value) {
-    this.key = key;
-    this.value = value;
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
+  public CitationStyleManagerException(final Throwable e) {
+    super(e);
   }
 
   /**
-   * {@inheritDoc}
+   * Constructor with message.
+   * 
+   * @param message The message.
+   * 
    */
-  public boolean equals(Object other) {
-    if (other == null) {
-      return false;
-    } else if (!(other instanceof Pair)) {
-      return false;
-    }
-    Pair otherPair = (Pair) other;
-
-    return (key == null ? otherPair.key == null : key.equals(otherPair.key))
-        && (value == null ? otherPair.value == null : value.equals(otherPair.value));
+  public CitationStyleManagerException(final String message) {
+    super(message);
   }
 
   /**
-   * Creates a hashCode for the key, needed for Map
+   * Constructor with message and exception.
+   * 
+   * @param message The message.
+   * @param e The Exception
    */
-  @Override
-  public int hashCode() {
-    // System.out.println("Object wird aufgerufen " + key + ", " + key.hashCode());
-    return key.hashCode();
+  public CitationStyleManagerException(final String message, final Throwable e) {
+    super(message, e);
   }
-
-
-
 }

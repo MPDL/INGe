@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.data;
+package de.mpg.mpdl.inge.citationmanager.data;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,10 +36,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.Utils;
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 
 /**
  * An instance of this class represents a Collection of {@link FontStyle}s

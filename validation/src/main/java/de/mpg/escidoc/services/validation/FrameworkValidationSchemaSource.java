@@ -42,7 +42,7 @@ import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongDateException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.escidoc.services.util.ShortContentHandler;
 import de.mpg.escidoc.services.validation.util.CacheTuple;
 

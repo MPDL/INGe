@@ -5,8 +5,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Class handling GWDG PID service interface

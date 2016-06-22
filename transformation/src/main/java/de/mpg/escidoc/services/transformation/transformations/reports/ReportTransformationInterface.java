@@ -33,8 +33,8 @@ import de.mpg.escidoc.services.transformation.transformations.otherFormats.Other
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSciDocVer1ToeSciDocVer2;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSciDocVer2ToeSciDocVer1;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * The Report Transformation Interface.

@@ -56,8 +56,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.util.LocalURIResolver;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Structured Export Manager. Converts PubMan item-list to one of the structured formats.

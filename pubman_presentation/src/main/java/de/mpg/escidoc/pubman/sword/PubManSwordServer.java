@@ -61,7 +61,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 

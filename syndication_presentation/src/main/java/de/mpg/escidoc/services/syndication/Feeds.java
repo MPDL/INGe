@@ -42,7 +42,7 @@ import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.syndication.feed.Feed;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class Feeds {
 

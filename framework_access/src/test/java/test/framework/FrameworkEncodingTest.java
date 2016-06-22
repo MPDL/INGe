@@ -40,8 +40,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Test cases for Framework Encodings.

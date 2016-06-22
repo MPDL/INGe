@@ -29,8 +29,8 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Test cases for the authentification service of the framework.

@@ -1,8 +1,8 @@
-package de.mpg.escidoc.services.citationmanager.utils;
+package de.mpg.mpdl.inge.citationmanager.utils;
 
 import java.util.regex.Pattern;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import net.sf.jasperreports.engine.util.JRStringUtil;
 
 /*

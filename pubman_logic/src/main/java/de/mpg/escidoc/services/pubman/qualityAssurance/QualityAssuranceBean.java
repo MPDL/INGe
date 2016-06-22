@@ -71,7 +71,7 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * EJB implementation of the QualityAssurance interface

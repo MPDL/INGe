@@ -16,7 +16,7 @@ import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class EndNoteImportTest {
 

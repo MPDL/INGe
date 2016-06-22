@@ -27,7 +27,7 @@ import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Mock implementation of the {@link Querier} interface.

@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.xslt;
+package de.mpg.mpdl.inge.citationmanager.xslt;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -42,11 +42,11 @@ import org.apache.log4j.Logger;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManager;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.Utils;
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 

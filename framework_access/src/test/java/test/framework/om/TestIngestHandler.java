@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Testcases for the basic service IngestHandler.

@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This class is an abstract class for all pages that need to implement and display a paginated

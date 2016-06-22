@@ -61,15 +61,15 @@ import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Structured Export Manager. Converts PubMan item-list to one of the structured formats.

@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.utils;
+package de.mpg.mpdl.inge.citationmanager.utils;
 
 // import static org.junit.Assert.fail;
 
@@ -35,7 +35,6 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.bcel.generic.PUSH;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
@@ -46,12 +45,12 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.data.FontStyle;
-import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
-import de.mpg.escidoc.services.citationmanager.data.Pair;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
+import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
+import de.mpg.mpdl.inge.citationmanager.data.Pair;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Function extensions for the citationmanager XSLTs

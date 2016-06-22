@@ -49,7 +49,7 @@ import de.mpg.escidoc.pubman.search.bean.criterion.ObjectCriterion;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
 /**

@@ -19,7 +19,7 @@ package de.mpg.escidoc.services.cone;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Factory class to retrieve an appropriate implementation of the {@link Querier} interface.

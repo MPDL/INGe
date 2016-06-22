@@ -48,7 +48,7 @@ import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result

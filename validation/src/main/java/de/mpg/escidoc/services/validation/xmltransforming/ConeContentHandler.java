@@ -35,8 +35,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.util.IdentityHandler;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * TODO Description

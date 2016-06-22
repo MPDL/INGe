@@ -57,10 +57,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 

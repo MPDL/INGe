@@ -40,8 +40,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class GenreServlet extends HttpServlet {
 

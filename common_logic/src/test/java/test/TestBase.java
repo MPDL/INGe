@@ -110,9 +110,9 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMe
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Base Class for tests in common_logic.

@@ -55,7 +55,7 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * 

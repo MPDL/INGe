@@ -40,8 +40,8 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;

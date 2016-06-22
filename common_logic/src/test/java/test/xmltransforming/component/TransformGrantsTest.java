@@ -38,7 +38,7 @@ import test.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Test class for {@link XmlTransforming} methods for LockVo transformation.

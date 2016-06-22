@@ -21,8 +21,8 @@ import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSuppor
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.edoc.EDocImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Transformation class to transform escidoc item xml to doi metadata xml

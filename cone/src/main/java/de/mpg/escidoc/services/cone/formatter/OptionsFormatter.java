@@ -47,8 +47,8 @@ import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Servlet to answer calls from PubMan for options generation.

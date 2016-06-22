@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This class provides METS transformation for a escidoc objects.

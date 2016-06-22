@@ -27,7 +27,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class AffiliationBean extends FacesBean {
   private static final long serialVersionUID = 1L;

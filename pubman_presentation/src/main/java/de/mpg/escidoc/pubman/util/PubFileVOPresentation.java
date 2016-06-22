@@ -55,7 +55,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 
 /**

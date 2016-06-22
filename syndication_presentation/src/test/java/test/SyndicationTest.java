@@ -45,7 +45,7 @@ import com.sun.syndication.io.FeedException;
 import de.mpg.escidoc.services.syndication.Syndication;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * JUnit class for eSciDoc syndication manager

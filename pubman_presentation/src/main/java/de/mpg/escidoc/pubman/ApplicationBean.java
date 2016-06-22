@@ -46,13 +46,13 @@ import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.SourceVOPresentation;
-import de.mpg.escidoc.services.citationmanager.utils.XsltHelper;
+import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * ApplicationBean which stores all application wide values.

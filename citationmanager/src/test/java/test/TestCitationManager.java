@@ -18,12 +18,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
-import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
-import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleManagerImpl;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.Utils;
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
+import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.transformation.TransformationBean;

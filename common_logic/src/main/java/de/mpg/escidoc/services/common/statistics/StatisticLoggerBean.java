@@ -48,8 +48,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.ItemAction;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description

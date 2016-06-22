@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.xslt;
+package de.mpg.mpdl.inge.citationmanager.xslt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -72,16 +72,16 @@ import org.w3c.dom.Document;
 
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.Utils;
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * 
@@ -112,7 +112,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
   /*
    * Explains citation styles and output types for them
    * 
-   * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#explainStyles()
+   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#explainStyles()
    */
   public String explainStyles() throws CitationStyleManagerException {
     return ResourceUtil.getExplainStyles();
@@ -123,7 +123,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
    * (non-Javadoc)
    * 
    * @see
-   * de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
+   * de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
    */
   public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
     return XmlHelper.getOutputFormatsArray(cs);
@@ -132,7 +132,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getMimeType(java.lang.String,
+   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getMimeType(java.lang.String,
    * java.lang.String)
    */
   public String getMimeType(String cs, String ouf) throws CitationStyleManagerException {
@@ -270,7 +270,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getStyles()
+   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getStyles()
    */
   public String[] getStyles() throws CitationStyleManagerException {
     try {

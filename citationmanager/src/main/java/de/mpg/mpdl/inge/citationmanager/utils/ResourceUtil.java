@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.utils;
+package de.mpg.mpdl.inge.citationmanager.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -48,7 +48,7 @@ import net.sf.jasperreports.engine.JRException;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 
 import de.mpg.escidoc.services.transformation.TransformationBean;
 
@@ -333,7 +333,7 @@ public class ResourceUtil {
   /*
    * Explains citation styles and output types for them
    * 
-   * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#explainStyles()
+   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#explainStyles()
    */
   public static String getExplainStyles() throws CitationStyleManagerException {
     String fileString = null;

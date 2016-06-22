@@ -49,8 +49,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.AffiliationRefFilte
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class AffiliationVOPresentation extends AffiliationVO implements
     Comparable<AffiliationVOPresentation> {

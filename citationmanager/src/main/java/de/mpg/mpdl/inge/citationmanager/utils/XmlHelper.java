@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.utils;
+package de.mpg.mpdl.inge.citationmanager.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -80,9 +80,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.data.FontStyle;
-import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
+import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
 
 /**
  * 

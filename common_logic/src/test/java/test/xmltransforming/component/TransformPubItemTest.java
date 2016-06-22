@@ -53,7 +53,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 import test.xmltransforming.XmlTransformingTestBase;
 
 /**

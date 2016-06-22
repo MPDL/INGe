@@ -16,7 +16,7 @@ import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class MABImportTester {
 

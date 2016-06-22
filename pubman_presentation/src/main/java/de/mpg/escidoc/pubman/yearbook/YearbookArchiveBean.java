@@ -24,7 +24,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Bean for archived Yearbook-Items

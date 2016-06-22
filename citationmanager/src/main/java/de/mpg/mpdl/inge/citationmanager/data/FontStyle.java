@@ -23,10 +23,9 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.citationmanager.data;
+package de.mpg.mpdl.inge.citationmanager.data;
 
 import java.awt.Color;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 

@@ -74,7 +74,7 @@ import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.CreatedBySear
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.ModifiedBySearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.escidoc.pubman.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public abstract class SearchCriterionBase implements Serializable {
 

@@ -26,7 +26,7 @@ import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.TestTransformation;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.doi.DoiMetadataTransformation;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Class handling REST request to the MPDL DOxI

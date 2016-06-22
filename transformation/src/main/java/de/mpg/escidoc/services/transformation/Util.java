@@ -73,9 +73,9 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.PropertyReader;
-import de.mpg.escidoc.services.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyHelper;
 
 // Only for DOM Debugging
 

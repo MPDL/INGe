@@ -76,7 +76,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.util.creators.Author;
 import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Implementation of BibTex transformation.

@@ -83,7 +83,7 @@ import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
   public static final String BEAN_NAME = "AdvancedSearchBean";

@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class StructuredExportTest {
   private StructuredExportHandler export = new StructuredExport();

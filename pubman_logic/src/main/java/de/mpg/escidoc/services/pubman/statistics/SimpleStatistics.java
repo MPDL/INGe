@@ -65,8 +65,8 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStrin
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.util.AdminHelper;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
 

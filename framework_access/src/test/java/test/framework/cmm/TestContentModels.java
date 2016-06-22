@@ -32,7 +32,7 @@ import org.junit.Test;
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.ContentModelNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.util.PropertyReader;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Testcases for the basic service ContentTypeHandler.
