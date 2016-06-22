@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemPublicStatusFil
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.StandardFilter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

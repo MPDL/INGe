@@ -35,7 +35,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * 

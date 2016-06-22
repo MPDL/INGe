@@ -32,7 +32,7 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundException;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Test cases for the basic service ContextHandler.

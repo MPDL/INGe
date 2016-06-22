@@ -58,7 +58,7 @@ import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

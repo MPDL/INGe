@@ -7,7 +7,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Test cases for the basic service AggregationDefinitionHandler.

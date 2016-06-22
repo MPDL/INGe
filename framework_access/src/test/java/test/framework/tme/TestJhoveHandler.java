@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.escidoc.www.services.tme.JhoveHandler;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 public class TestJhoveHandler extends TestBase {
   /**

@@ -57,7 +57,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * This class provides the ejb implementation of the {@link DataGathering} interface.
@@ -170,7 +170,7 @@ public class DataGatheringBean implements DataGathering {
     try {
       // Get the affiliation paths for the given affiliation from the framework
       OrganizationalUnitHandler ouHandler =
-          de.mpg.escidoc.services.framework.ServiceLocator.getOrganizationalUnitHandler(userHandle);
+          de.mpg.mpdl.inge.framework.ServiceLocator.getOrganizationalUnitHandler(userHandle);
       String affObjId = affiliationRef.getObjectId();
       logger
           .debug("createOrganizationListFromAffiliation(AffiliationVO) - trying to ouHandler.retrievePathList(affObjId) with affObjId="

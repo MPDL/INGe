@@ -35,7 +35,7 @@ import org.junit.Test;
 import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service ItemHandler.
@@ -297,7 +297,8 @@ public class TestItem extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
+   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
+
    */
   @Test
   public void assignPidToContentItem() throws Exception {
@@ -337,7 +338,8 @@ public class TestItem extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
+   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
+
    */
   @Test(expected = ItemNotFoundException.class)
   public void assignPidToContentItemNotExisting() throws Exception {

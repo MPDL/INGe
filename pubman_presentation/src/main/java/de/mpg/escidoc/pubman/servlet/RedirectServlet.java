@@ -61,7 +61,7 @@ import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.tme.JhoveHandler;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;

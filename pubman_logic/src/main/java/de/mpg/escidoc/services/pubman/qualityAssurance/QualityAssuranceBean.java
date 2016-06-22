@@ -64,7 +64,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkContextTyp
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.exceptions.ExceptionHandler;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;

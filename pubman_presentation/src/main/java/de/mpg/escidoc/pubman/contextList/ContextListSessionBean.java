@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.

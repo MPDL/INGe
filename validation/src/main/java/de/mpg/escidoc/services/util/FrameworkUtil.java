@@ -28,7 +28,7 @@ package de.mpg.escidoc.services.util;
 import java.util.HashMap;
 
 import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Utility class to deal with the framework interfaces.

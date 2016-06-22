@@ -37,7 +37,7 @@ import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service Search and browse.

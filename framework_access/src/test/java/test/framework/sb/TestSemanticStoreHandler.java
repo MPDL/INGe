@@ -31,7 +31,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import test.framework.om.TestItemBase;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service semantic store handler.

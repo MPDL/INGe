@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import test.framework.TestBase;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
