@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.cone.web;
+package de.mpg.mpdl.inge.cone.web;
 
 import javax.servlet.http.HttpServletRequest;
 

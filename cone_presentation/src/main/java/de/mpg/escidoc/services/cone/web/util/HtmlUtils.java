@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.cone.web.util;
+package de.mpg.mpdl.inge.cone.web.util;
 
 
 

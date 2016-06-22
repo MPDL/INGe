@@ -34,9 +34,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.cone.util.LocalizedString;
-import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
-import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.mpdl.inge.cone.util.LocalizedString;
+import de.mpg.mpdl.inge.cone.util.LocalizedTripleObject;
+import de.mpg.mpdl.inge.cone.util.TreeFragment;
 
 /**
  * Tests for the Util classes.

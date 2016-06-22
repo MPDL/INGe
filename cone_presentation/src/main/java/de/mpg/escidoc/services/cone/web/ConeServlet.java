@@ -50,7 +50,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.cone.web;
+package de.mpg.mpdl.inge.cone.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -69,16 +69,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.Aa;
-import de.mpg.escidoc.services.cone.ModelList;
-import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.cone.Querier;
-import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.cone.formatter.Formatter;
-import de.mpg.escidoc.services.cone.util.Describable;
-import de.mpg.escidoc.services.cone.util.Pair;
-import de.mpg.escidoc.services.cone.util.Rdfs;
-import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.cone.util.UrlHelper;
+import de.mpg.mpdl.inge.cone.ModelList;
+import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.Querier;
+import de.mpg.mpdl.inge.cone.QuerierFactory;
+import de.mpg.mpdl.inge.cone.formatter.Formatter;
+import de.mpg.mpdl.inge.cone.util.Describable;
+import de.mpg.mpdl.inge.cone.util.Pair;
+import de.mpg.mpdl.inge.cone.util.Rdfs;
+import de.mpg.mpdl.inge.cone.util.TreeFragment;
+import de.mpg.mpdl.inge.cone.util.UrlHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 

@@ -36,12 +36,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.cone.Querier;
-import de.mpg.escidoc.services.cone.Querier.ModeType;
-import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.cone.util.Describable;
-import de.mpg.escidoc.services.cone.util.Pair;
-import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.mpdl.inge.cone.Querier;
+import de.mpg.mpdl.inge.cone.Querier.ModeType;
+import de.mpg.mpdl.inge.cone.QuerierFactory;
+import de.mpg.mpdl.inge.cone.util.Describable;
+import de.mpg.mpdl.inge.cone.util.Pair;
+import de.mpg.mpdl.inge.cone.util.TreeFragment;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
