@@ -39,12 +39,12 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.Util.Styles;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.transformation.Util.Styles;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
  * Implements transformations for citation styles.

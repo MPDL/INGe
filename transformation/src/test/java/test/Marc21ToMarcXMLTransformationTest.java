@@ -34,11 +34,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.marc.Marc21ToMarcXMLTransformation;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.marc.Marc21ToMarcXMLTransformation;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /*

@@ -29,7 +29,7 @@ import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
  * Interface for fetching data from external systems.

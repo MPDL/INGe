@@ -33,11 +33,11 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**

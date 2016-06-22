@@ -36,8 +36,8 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
+import de.mpg.mpdl.inge.transformation.util.creators.Author;
+import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
 
 
 /**

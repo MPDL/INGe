@@ -21,9 +21,9 @@ import de.mpg.escidoc.services.common.util.XmlComparator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 

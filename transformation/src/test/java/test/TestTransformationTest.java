@@ -26,9 +26,9 @@
 
 package test;
 
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
  * TODO Description

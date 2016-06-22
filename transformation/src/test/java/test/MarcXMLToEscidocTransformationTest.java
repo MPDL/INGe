@@ -38,12 +38,12 @@ import org.custommonkey.xmlunit.XMLTestCase;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.marc.MarcXMLToEscidocTransformation;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.marc.MarcXMLToEscidocTransformation;
 
 /*
  * @author Stefan Krause, Editura GmbH & Co. KG (initial creation)

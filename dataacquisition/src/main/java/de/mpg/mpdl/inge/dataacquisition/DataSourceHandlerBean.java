@@ -19,7 +19,7 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsTyp
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
+import de.mpg.mpdl.inge.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 

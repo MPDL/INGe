@@ -105,8 +105,8 @@ import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedExcept
 import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;

@@ -18,8 +18,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.transformation.util.creators.Author;
-import de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder;
+import de.mpg.mpdl.inge.transformation.util.creators.Author;
+import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
 
 public class EditItemBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(EditItemBean.class);

@@ -48,7 +48,7 @@ public class BibTex {
     {
       /*
        * Changes need to be done for the import side too!
-       * (de.mpg.escidoc.services.transformation.transformations
+       * (de.mpg.mpdl.inge.transformation.transformations
        * .commonPublicationFormats.BibTexUtil.java)
        */
       put("\u002A", "\\textasteriskcentered");

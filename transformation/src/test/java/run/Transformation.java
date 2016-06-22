@@ -82,8 +82,8 @@ public class Transformation {
       byteArrayOutputStream.write(buffer, 0, read);
     }
 
-    de.mpg.escidoc.services.transformation.Transformation transformation =
-        new de.mpg.escidoc.services.transformation.TransformationBean(true);
+    de.mpg.mpdl.inge.transformation.Transformation transformation =
+        new de.mpg.mpdl.inge.transformation.TransformationBean(true);
     byte[] result =
         transformation.transform(byteArrayOutputStream.toByteArray(), srcFormatName, srcType,
             srcEncoding, trgFormatName, trgType, trgEncoding, service);

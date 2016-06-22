@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 
-import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
 
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or

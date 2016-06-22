@@ -10,12 +10,12 @@ import org.junit.Test;
 import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABTransformation;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.transformation.transformations.otherFormats.mab.MABImport;
+import de.mpg.mpdl.inge.transformation.transformations.otherFormats.mab.MABTransformation;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class MABImportTester {
