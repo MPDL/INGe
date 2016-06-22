@@ -62,8 +62,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.escidoc.services.validation.ItemInvalidException;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.validation.ItemInvalidException;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * Main class to provide SWORD Server functionality.

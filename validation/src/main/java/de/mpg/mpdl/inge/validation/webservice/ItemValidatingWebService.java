@@ -22,55 +22,25 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
-
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
 
 /**
- * Starts the initialization process.
+ * ItemValidatingWebService.java
  * 
- * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * This file was auto-generated from WSDL by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT)
+ * WSDL2Java emitter.
  */
-public class InitializerServlet extends HttpServlet {
+package de.mpg.mpdl.inge.validation.webservice;
 
-  RefreshTask refreshTask;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-  @EJB
-  private ItemValidating itemValidating;
+public interface ItemValidatingWebService extends Remote {
+  public String validateItemXml(String itemXml, String validationPoint) throws RemoteException;
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public final void init() throws ServletException {
-    super.init();
+  public String validateItemXml(String itemXml) throws RemoteException;
 
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
+  public String validateItemXmlBySchema(String itemXml, String validationPoint,
+      String validationSchema) throws RemoteException;
 
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#destroy()
-   */
-  @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
-  }
-
-
-
+  public void refreshValidationSchemaCache() throws RemoteException;
 }

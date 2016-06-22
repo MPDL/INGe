@@ -21,7 +21,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.validation.init;
+package de.mpg.mpdl.inge.validation.init;
 
 import java.io.File;
 import java.io.StringReader;
@@ -52,8 +52,8 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import de.mpg.escidoc.services.validation.ItemValidating;
-import de.mpg.escidoc.services.validation.ItemValidatingBean;
+import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.ItemValidatingBean;
 
 /**
  * This class initializes the validation cache database. It should be deactivated when there is a

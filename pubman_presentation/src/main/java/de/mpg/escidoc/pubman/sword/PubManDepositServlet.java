@@ -50,9 +50,9 @@ import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFo
 import de.mpg.escidoc.pubman.sword.PubManSwordErrorDocument.swordError;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
-import de.mpg.escidoc.services.validation.ItemInvalidException;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.validation.ItemInvalidException;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * DepositServlet for the PubMan SWORD interface.

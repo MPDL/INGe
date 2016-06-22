@@ -1,4 +1,5 @@
 /*
+ * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -22,55 +23,64 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+package de.mpg.mpdl.inge.validation.util;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
 
 /**
- * Starts the initialization process.
+ * Identifier class for XSLT transformer cache.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
+ * 
  */
-public class InitializerServlet extends HttpServlet {
+public class CacheTriple extends CacheTuple {
 
-  RefreshTask refreshTask;
+  private String validationPoint;
 
-  @EJB
-  private ItemValidating itemValidating;
+  /**
+   * Constructor.
+   * 
+   * @param schemaName Context.
+   * @param contentModel Content-Model.
+   * @param validationPoint Validation Point.
+   */
+  public CacheTriple(final String schemaName, final String contentModel,
+      final String validationPoint) {
+    super(schemaName, contentModel);
+    this.validationPoint = validationPoint;
+    this.hash = (schemaName + contentModel + validationPoint).length();
+  }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
+  public boolean equals(final Object other) {
+    if (this.schemaName != null && this.contentModel != null && this.validationPoint != null
+        && other instanceof CacheTriple) {
+      return (this.schemaName.equals(((CacheTriple) other).schemaName)
+          && this.contentModel.equals(((CacheTriple) other).contentModel) && this.validationPoint
+            .equals(((CacheTriple) other).validationPoint));
+    } else {
+      return false;
+    }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#destroy()
+  /**
+   * {@inheritDoc}
    */
   @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
+  public String toString() {
+    return "[" + schemaName + "|" + contentModel + "|" + validationPoint + "]";
   }
 
-
-
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int hashCode() {
+    return hash;
+  }
 }

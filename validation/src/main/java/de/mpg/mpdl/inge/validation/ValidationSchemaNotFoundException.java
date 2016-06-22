@@ -22,55 +22,54 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+package de.mpg.mpdl.inge.validation;
 
 /**
- * Starts the initialization process.
+ * Exception thrown by the validator cache.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
+ * 
  */
-public class InitializerServlet extends HttpServlet {
-
-  RefreshTask refreshTask;
-
-  @EJB
-  private ItemValidating itemValidating;
+@SuppressWarnings("serial")
+public class ValidationSchemaNotFoundException extends Exception {
 
   /**
-   * {@inheritDoc}
+   * Default constructor.
    */
-  @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
+  public ValidationSchemaNotFoundException() {
+    super();
   }
 
-  /*
-   * (non-Javadoc)
+  /**
+   * Constructor with exception.
    * 
-   * @see javax.servlet.GenericServlet#destroy()
+   * @param e The exception.
+   * 
    */
-  @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
+  public ValidationSchemaNotFoundException(final Throwable e) {
+    super(e);
   }
 
+  /**
+   * Constructor with message.
+   * 
+   * @param message The message.
+   * 
+   */
+  public ValidationSchemaNotFoundException(final String message) {
+    super(message);
+  }
 
-
+  /**
+   * Constructor with message and exception.
+   * 
+   * @param message The message.
+   * @param e The Exception
+   */
+  public ValidationSchemaNotFoundException(final String message, final Throwable e) {
+    super(message, e);
+  }
 }

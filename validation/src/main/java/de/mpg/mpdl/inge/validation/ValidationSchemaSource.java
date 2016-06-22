@@ -1,4 +1,5 @@
 /*
+ * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -22,55 +23,22 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+package de.mpg.mpdl.inge.validation;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+import java.util.Date;
+import java.util.Map;
+
+import de.mpg.mpdl.inge.validation.util.CacheTuple;
 
 /**
- * Starts the initialization process.
+ * TODO Description
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
+ * 
  */
-public class InitializerServlet extends HttpServlet {
-
-  RefreshTask refreshTask;
-
-  @EJB
-  private ItemValidating itemValidating;
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#destroy()
-   */
-  @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
-  }
-
-
-
+public interface ValidationSchemaSource {
+  public Map<CacheTuple, String> retrieveNewSchemas(Date lastUpdate) throws Exception;
 }

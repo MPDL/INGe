@@ -44,8 +44,8 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.validation.ItemValidating;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 public class YearbookItemSessionBean extends FacesBean {
   enum YBWORKSPACE {

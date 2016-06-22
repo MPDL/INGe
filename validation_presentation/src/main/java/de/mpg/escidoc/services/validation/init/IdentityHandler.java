@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.validation.init;
+package de.mpg.mpdl.inge.validation.init;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

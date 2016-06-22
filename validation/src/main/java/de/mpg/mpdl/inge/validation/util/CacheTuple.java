@@ -1,4 +1,5 @@
 /*
+ * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -22,55 +23,74 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+package de.mpg.mpdl.inge.validation.util;
 
 /**
- * Starts the initialization process.
+ * 
+ * Identifier class for XSLT transformer cache.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
+ * 
  */
-public class InitializerServlet extends HttpServlet {
+public class CacheTuple {
+  protected String schemaName;
+  protected String contentModel;
+  protected int hash = 1;
 
-  RefreshTask refreshTask;
+  public CacheTuple(String contentModel, String schemaName) {
+    super();
+    this.contentModel = contentModel;
+    this.schemaName = schemaName;
+    this.hash = (schemaName + contentModel).length();
+  }
 
-  @EJB
-  private ItemValidating itemValidating;
+  public String getSchemaName() {
+    return schemaName;
+  }
+
+  public void setSchemaName(String schemaName) {
+    this.schemaName = schemaName;
+  }
+
+  public String getContentModel() {
+    return contentModel;
+  }
+
+  public void setContentModel(String contentModel) {
+    this.contentModel = contentModel;
+  }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
+  public boolean equals(final Object other) {
+    if (this.schemaName != null && this.contentModel != null && other instanceof CacheTuple) {
+      return (this.schemaName.equals(((CacheTuple) other).schemaName) && this.contentModel
+          .equals(((CacheTuple) other).contentModel));
+    } else {
+      return false;
+    }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#destroy()
+  /**
+   * {@inheritDoc}
    */
   @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
+  public String toString() {
+    return "[" + schemaName + "|" + contentModel + "]";
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int hashCode() {
+    return hash;
+  }
 
 
 }

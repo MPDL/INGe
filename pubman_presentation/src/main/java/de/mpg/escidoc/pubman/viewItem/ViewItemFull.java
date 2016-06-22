@@ -126,9 +126,9 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.escidoc.services.validation.ItemValidating;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 
 

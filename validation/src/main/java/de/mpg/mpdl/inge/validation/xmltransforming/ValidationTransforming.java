@@ -22,55 +22,29 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+package de.mpg.mpdl.inge.validation.xmltransforming;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.TransformingException;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
- * Starts the initialization process.
- * 
- * @author franke (initial creation)
+ * @author Full Access
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-public class InitializerServlet extends HttpServlet {
+public interface ValidationTransforming {
 
-  RefreshTask refreshTask;
-
-  @EJB
-  private ItemValidating itemValidating;
+  String SERVICE_NAME =
+      "ejb/de/mpg/escidoc/services/validation/xmltransforming/ValidationTransforming";
 
   /**
-   * {@inheritDoc}
-   */
-  @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
-  }
-
-  /*
-   * (non-Javadoc)
+   * Transforms validation report xml to value object.
    * 
-   * @see javax.servlet.GenericServlet#destroy()
+   * @param report The validation report xml.
+   * @throws TransformingException Transforming problems.
+   * @return The validation report value object.
    */
-  @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
-  }
-
-
+  ValidationReportVO transformToValidationReport(String report) throws TransformingException;
 
 }

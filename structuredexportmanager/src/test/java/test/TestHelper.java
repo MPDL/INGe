@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 
 
-// import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
+// import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
 
 /**
  * Helper class for all test classes.

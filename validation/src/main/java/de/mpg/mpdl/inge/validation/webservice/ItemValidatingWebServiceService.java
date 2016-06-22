@@ -22,55 +22,23 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
-
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
 
 /**
- * Starts the initialization process.
+ * ItemValidatingWebServiceService.java
  * 
- * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * This file was auto-generated from WSDL by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT)
+ * WSDL2Java emitter.
  */
-public class InitializerServlet extends HttpServlet {
 
-  RefreshTask refreshTask;
-
-  @EJB
-  private ItemValidating itemValidating;
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#destroy()
-   */
-  @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
-  }
+package de.mpg.mpdl.inge.validation.webservice;
 
 
+public interface ItemValidatingWebServiceService extends javax.xml.rpc.Service {
+  public java.lang.String getvalidationAddress();
 
+  public de.mpg.mpdl.inge.validation.webservice.ItemValidatingWebService getvalidation()
+      throws javax.xml.rpc.ServiceException;
+
+  public de.mpg.mpdl.inge.validation.webservice.ItemValidatingWebService getvalidation(
+      java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
 }

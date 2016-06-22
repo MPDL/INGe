@@ -62,7 +62,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * Wrapper class for items to be used in the presentation.

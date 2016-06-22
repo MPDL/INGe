@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.validation.init;
+package de.mpg.mpdl.inge.validation.init;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -32,7 +32,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.escidoc.services.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.ItemValidating;
 
 /**
  * TODO Description

@@ -88,10 +88,10 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
-import de.mpg.escidoc.services.validation.ItemInvalidException;
-import de.mpg.escidoc.services.validation.ItemValidating;
-import de.mpg.escidoc.services.validation.ValidationSchemaNotFoundException;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.validation.ItemInvalidException;
+import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.ValidationSchemaNotFoundException;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * This class provides the ejb implementation of the {@link PubItemDepositing} interface.

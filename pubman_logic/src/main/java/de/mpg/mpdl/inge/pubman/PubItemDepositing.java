@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
-import de.mpg.escidoc.services.validation.ItemInvalidException;
+import de.mpg.mpdl.inge.validation.ItemInvalidException;
 
 /**
  * Depositing service interface for Publication Items.

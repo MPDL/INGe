@@ -62,7 +62,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-// import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
+// import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
 
 /**
  * Helper class for all test classes.

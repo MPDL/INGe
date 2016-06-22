@@ -22,53 +22,43 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+package de.mpg.mpdl.inge.validation;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
- * Starts the initialization process.
+ * Exception thrown when an item breaks restrictive validation rules.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-public class InitializerServlet extends HttpServlet {
-
-  RefreshTask refreshTask;
-
-  @EJB
-  private ItemValidating itemValidating;
+@SuppressWarnings("serial")
+public class ItemInvalidException extends Exception {
+  private ValidationReportVO report;
 
   /**
-   * {@inheritDoc}
+   * Constructor with ValidationReportVO.
+   * 
+   * @param report The validation report.
    */
-  @Override
-  public final void init() throws ServletException {
-    super.init();
-
-    Thread thread = new Initializer(itemValidating);
-    thread.start();
-
-    refreshTask = new RefreshTask();
-    refreshTask.start();
-
+  public ItemInvalidException(final ValidationReportVO report) {
+    super();
+    this.report = report;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#destroy()
-   */
+  public final ValidationReportVO getReport() {
+    return report;
+  }
+
+  public final void setReport(ValidationReportVO report) {
+    this.report = report;
+  }
+
   @Override
-  public void destroy() {
-    super.destroy();
-    refreshTask.terminate();
+  public String getMessage() {
+    return report.toString();
   }
 
 
