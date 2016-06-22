@@ -274,8 +274,7 @@ public class StructuredExport implements StructuredExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler#isStructuredFormat(
+   * @see de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler#isStructuredFormat(
    * java.lang.String)
    */
   public boolean isStructuredFormat(String exportFormat) throws StructuredExportManagerException {

@@ -64,8 +64,7 @@ public class ExcelTransformation extends DefaultHandler implements Transformatio
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
    * .transformation.valueObjects.Format)
    */
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
@@ -86,8 +85,7 @@ public class ExcelTransformation extends DefaultHandler implements Transformatio
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
    * .transformation.valueObjects.Format)
    */
   public Format[] getTargetFormats(Format src) throws RuntimeException {
@@ -98,8 +96,7 @@ public class ExcelTransformation extends DefaultHandler implements Transformatio
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
    * java.lang.String, java.lang.String)
    */
   public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)

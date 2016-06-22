@@ -94,8 +94,7 @@ public class BibTexUtil {
   private static Map<String, String> encodingTable = new LinkedHashMap<String, String>();
   static {
     /*
-     * should be generated from
-     * de.mpg.mpdl.inge.structuredexportmanager.functions.BibTex.java
+     * should be generated from de.mpg.mpdl.inge.structuredexportmanager.functions.BibTex.java
      * 
      * ----------
      * 

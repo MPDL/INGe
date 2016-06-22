@@ -297,8 +297,7 @@ public class TestItem extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
-
+   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
    */
   @Test
   public void assignPidToContentItem() throws Exception {
@@ -338,8 +337,7 @@ public class TestItem extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
-
+   * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
    */
   @Test(expected = ItemNotFoundException.class)
   public void assignPidToContentItemNotExisting() throws Exception {

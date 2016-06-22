@@ -54,8 +54,7 @@ public class DoiMetadataTransformation implements Transformation {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
    * .transformation.valueObjects.Format)
    */
   @Override
@@ -80,8 +79,7 @@ public class DoiMetadataTransformation implements Transformation {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
    * .transformation.valueObjects.Format)
    */
   @Override
@@ -96,8 +94,7 @@ public class DoiMetadataTransformation implements Transformation {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
    * java.lang.String, java.lang.String)
    */
   @Override

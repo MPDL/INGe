@@ -122,8 +122,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
+   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
    */
   public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
     return XmlHelper.getOutputFormatsArray(cs);

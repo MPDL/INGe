@@ -44,8 +44,7 @@ public class TestRelation extends TestItemBase {
   private Logger logger = Logger.getLogger(getClass());
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#addContentRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#addContentRelations
    */
   @Test
   public void addRelationToContentItem() throws Exception {
@@ -67,8 +66,7 @@ public class TestRelation extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#addContentRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#addContentRelations
    */
   @Test(expected = ItemNotFoundException.class)
   public void addRelationToContentItemNotExisting() throws Exception {
@@ -91,8 +89,7 @@ public class TestRelation extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveRelations
    */
   @Test
   public void retrieveRelationOfContentItem() throws Exception {
@@ -120,8 +117,7 @@ public class TestRelation extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveRelations
    */
   @Test(expected = ItemNotFoundException.class)
   public void retrieveRelationOfContentItemNotExisting() throws Exception {
@@ -137,8 +133,7 @@ public class TestRelation extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#removeContentRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#removeContentRelations
    */
   @Test
   public void removeRelationFromContentItem() throws Exception {
@@ -168,8 +163,7 @@ public class TestRelation extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#removeContentRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#removeContentRelations
    */
   @Test(expected = ItemNotFoundException.class)
   public void removeRelationFromContentItemNotExisting() throws Exception {
@@ -192,8 +186,7 @@ public class TestRelation extends TestItemBase {
   }
 
   /**
-   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#removeContentRelations
-
+   * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#removeContentRelations
    */
   @Test(expected = ContentRelationNotFoundException.class)
   public void removeRelationFromContentItemRelationNotExisting() throws Exception {

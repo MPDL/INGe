@@ -49,8 +49,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 @TransformationModule
-public class MicroTransformationInterface implements
-    de.mpg.mpdl.inge.transformation.Transformation {
+public class MicroTransformationInterface implements de.mpg.mpdl.inge.transformation.Transformation {
 
   private final Logger logger = Logger.getLogger(MicroTransformationInterface.class);
 

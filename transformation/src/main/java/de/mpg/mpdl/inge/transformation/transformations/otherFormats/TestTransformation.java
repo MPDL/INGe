@@ -59,8 +59,7 @@ public class TestTransformation implements Transformation {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
    * .transformation.valueObjects.Format)
    */
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
@@ -81,8 +80,7 @@ public class TestTransformation implements Transformation {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
    * .transformation.valueObjects.Format)
    */
   public Format[] getTargetFormats(Format src) throws RuntimeException {
