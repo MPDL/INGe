@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.test.search;
+package de.mpg.mpdl.inge.test.search;
 
 import static org.junit.Assert.assertTrue;
 

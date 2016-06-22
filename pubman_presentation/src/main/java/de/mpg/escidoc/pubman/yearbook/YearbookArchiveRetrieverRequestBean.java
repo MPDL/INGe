@@ -26,10 +26,10 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook

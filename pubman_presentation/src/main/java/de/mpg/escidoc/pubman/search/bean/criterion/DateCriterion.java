@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.mpdl.inge.search.query.MetadataDateSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
  * date criterion vo for the advanced search

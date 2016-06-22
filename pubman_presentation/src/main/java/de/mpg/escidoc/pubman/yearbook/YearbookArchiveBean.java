@@ -21,9 +21,9 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

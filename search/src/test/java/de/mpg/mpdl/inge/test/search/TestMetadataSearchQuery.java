@@ -23,7 +23,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.test.search;
+package de.mpg.mpdl.inge.test.search;
 
 import static org.junit.Assert.*;
 
@@ -33,12 +33,12 @@ import org.apache.log4j.Logger;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.search.query.SearchDate;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+import de.mpg.mpdl.inge.search.query.MetadataDateSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.search.query.SearchDate;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

@@ -20,10 +20,10 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 
 public class YearbookCandidatesSessionBean extends FacesBean {
   public static final String BEAN_NAME = "YearbookCandidatesSessionBean";

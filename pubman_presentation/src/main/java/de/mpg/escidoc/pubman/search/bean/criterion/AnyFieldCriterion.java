@@ -29,8 +29,8 @@ package de.mpg.escidoc.pubman.search.bean.criterion;
 import java.util.ArrayList;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
  * any filed criterion vo for the advanced search.

@@ -93,7 +93,7 @@ public class Search extends FacesBean {
 
       getExternalContext().redirect(
           "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
-    } catch (de.mpg.escidoc.services.search.parser.ParseException e) {
+    } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));
       return "";
@@ -175,7 +175,7 @@ public class Search extends FacesBean {
       String cql = generateCQLRequest(requestDummy, false);
       String openSearchRequest = "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8");
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
-    } catch (de.mpg.escidoc.services.search.parser.ParseException e) {
+    } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));
       return "";

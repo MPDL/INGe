@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.search.bean;
+package de.mpg.mpdl.inge.search.bean;
 
 import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
@@ -69,13 +69,13 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.parser.ParseException;
-import de.mpg.escidoc.services.search.query.ExportSearchQuery;
-import de.mpg.escidoc.services.search.query.ExportSearchResult;
-import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
+import de.mpg.mpdl.inge.search.query.ExportSearchResult;
+import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;

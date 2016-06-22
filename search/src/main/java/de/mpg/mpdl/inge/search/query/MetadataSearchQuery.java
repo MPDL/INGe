@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.search.query;
+package de.mpg.mpdl.inge.search.query;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ import org.z3950.zing.cql.CQLParseException;
 import org.z3950.zing.cql.ModifierSet;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.search.parser.ParseException;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+import de.mpg.mpdl.inge.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * A search query with a set of metadata criteria. The criteria can be combined with logical

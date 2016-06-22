@@ -1,5 +1,4 @@
 /*
- * 
  * CDDL HEADER START
  * 
  * The contents of this file are subject to the terms of the Common Development and Distribution
@@ -23,22 +22,36 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.test.search;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+package de.mpg.mpdl.inge.search.query;
+
 
 /**
+ * This query is used if you want to use a plain cql query.
  * 
- * Test suite for unit test of search service
- * 
- * @author Markus Haarlaender (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author endres
  * 
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({TestMetadataSearchQuery.class, TestQueryParser.class, TestFullTextSearch.class})
-public class SearchUnitTest {
+public class PlainCqlQuery extends SearchQuery {
+  /** Serial identifier. */
+  private static final long serialVersionUID = 1L;
+  /** Cql query. */
+  private String cqlQuery = null;
 
+  /**
+   * {@inheritDoc}
+   */
+  public String getCqlQuery() {
+    return cqlQuery;
+  }
+
+  /**
+   * Create a query.
+   * 
+   * @param cqlQuery cql query
+   */
+  public PlainCqlQuery(String cqlQuery) {
+    super();
+    this.cqlQuery = cqlQuery;
+  }
 }

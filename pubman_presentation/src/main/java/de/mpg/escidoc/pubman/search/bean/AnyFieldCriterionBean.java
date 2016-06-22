@@ -8,7 +8,7 @@ import de.mpg.escidoc.pubman.search.bean.criterion.AnyFieldCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.TitleCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.TopicCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * POJO bean to deal with one AnyFieldCriterionVO, TitleCriterionVO or TopicCriterionVO. Type change

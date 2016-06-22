@@ -44,10 +44,10 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

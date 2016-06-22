@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 
 /**
  * Keeps all attributes that are used for the whole session by the SearchResultList.

@@ -39,10 +39,10 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
+import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.search.query.SearchQuery;
 
 /**
  * @author franke

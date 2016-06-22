@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.escidoc.services.search.query;
+package de.mpg.mpdl.inge.search.query;
 
 import java.io.Serializable;
 import java.util.List;

@@ -35,7 +35,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.services.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.parser.ParseException;
 
 /**
  * BackingBean for ErrorPage.jsp. Use this class to display error messages in a seperate page. Don't

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.escidoc.services.search.query;
+package de.mpg.mpdl.inge.search.query;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,8 +14,8 @@ import org.z3950.zing.cql.CQLParseException;
 import org.z3950.zing.cql.CQLParser;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.search.parser.ParseException;
-import de.mpg.escidoc.services.search.parser.QueryParser;
+import de.mpg.mpdl.inge.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.parser.QueryParser;
 
 /**
  * The Metadata search criterion defines a query to a specific index with a given value. One

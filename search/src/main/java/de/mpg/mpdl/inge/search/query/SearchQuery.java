@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.escidoc.services.search.query;
+package de.mpg.mpdl.inge.search.query;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.z3950.zing.cql.CQLParseException;
 
-import de.mpg.escidoc.services.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.parser.ParseException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 /**

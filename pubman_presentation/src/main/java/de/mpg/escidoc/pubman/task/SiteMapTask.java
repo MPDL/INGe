@@ -50,12 +50,12 @@ import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.bean.SearchBean;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.bean.SearchBean;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
+import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 

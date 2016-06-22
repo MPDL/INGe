@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.search.presentation;
+package de.mpg.mpdl.inge.search.presentation;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -46,10 +46,10 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ExportSearchQuery;
-import de.mpg.escidoc.services.search.query.ExportSearchResult;
-import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
+import de.mpg.mpdl.inge.search.query.ExportSearchResult;
+import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 
 /**

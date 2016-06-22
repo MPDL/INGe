@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.search.query;
+package de.mpg.mpdl.inge.search.query;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,8 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.search.parser.ParseException;
-import de.mpg.escidoc.services.search.parser.QueryParser;
+import de.mpg.mpdl.inge.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.parser.QueryParser;
 
 /**
  * A date criteria is used to search for dates. A date criterion consists of a type of date indexes

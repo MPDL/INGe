@@ -47,10 +47,10 @@ import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.ObjectCriterion;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined by
@@ -264,7 +264,7 @@ public class AdvancedSearchEdit extends FacesBean {
               + URLEncoder.encode(cql, "UTF-8") + "&"
               + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
 
-    } catch (de.mpg.escidoc.services.search.parser.ParseException e) {
+    } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));
       return "";

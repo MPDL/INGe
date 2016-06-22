@@ -37,11 +37,11 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.search.query.SearchQuery;
+import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

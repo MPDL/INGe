@@ -23,16 +23,16 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.search;
+package de.mpg.mpdl.inge.search;
 
 import javax.ejb.Local;
 import javax.ejb.Remote;
 
-import de.mpg.escidoc.services.search.query.ExportSearchQuery;
-import de.mpg.escidoc.services.search.query.ExportSearchResult;
-import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
-import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
+import de.mpg.mpdl.inge.search.query.ExportSearchResult;
+import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
+import de.mpg.mpdl.inge.search.query.SearchQuery;
+import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 
 /**
  * Interface for the item and container search service.

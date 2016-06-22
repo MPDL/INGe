@@ -25,8 +25,8 @@ import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
+import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class AffiliationBean extends FacesBean {

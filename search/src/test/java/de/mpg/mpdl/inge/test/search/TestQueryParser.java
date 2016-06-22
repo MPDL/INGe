@@ -23,7 +23,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.test.search;
+package de.mpg.mpdl.inge.test.search;
 
 import static org.junit.Assert.*;
 
@@ -33,8 +33,8 @@ import java.io.StringReader;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.search.parser.ParseException;
-import de.mpg.escidoc.services.search.parser.QueryParser;
+import de.mpg.mpdl.inge.search.parser.ParseException;
+import de.mpg.mpdl.inge.search.parser.QueryParser;
 
 /**
  * 
