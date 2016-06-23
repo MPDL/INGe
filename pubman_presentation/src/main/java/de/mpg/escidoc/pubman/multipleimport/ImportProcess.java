@@ -62,7 +62,7 @@ import de.mpg.escidoc.pubman.multipleimport.processor.MarcXmlProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.ZfNProcessor;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;

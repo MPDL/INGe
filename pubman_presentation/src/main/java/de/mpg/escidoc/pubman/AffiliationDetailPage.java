@@ -33,7 +33,7 @@ import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnit
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 

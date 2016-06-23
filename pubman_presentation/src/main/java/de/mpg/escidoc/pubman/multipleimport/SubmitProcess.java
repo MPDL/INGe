@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;

@@ -49,7 +49,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
-import de.mpg.escidoc.services.common.util.HtmlUtils;
+import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;

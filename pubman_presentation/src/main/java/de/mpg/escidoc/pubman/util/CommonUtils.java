@@ -68,7 +68,7 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.common.util.HtmlUtils;
+import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;

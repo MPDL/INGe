@@ -15,7 +15,7 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;

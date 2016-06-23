@@ -47,7 +47,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.SourceVOPresentation;
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
-import de.mpg.escidoc.services.common.util.CommonUtils;
+import de.mpg.mpdl.inge.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.TransformationBean;

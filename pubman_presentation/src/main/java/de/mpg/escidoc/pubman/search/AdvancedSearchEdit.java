@@ -46,7 +46,7 @@ import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.ObjectCriterion;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.util.PropertyReader;

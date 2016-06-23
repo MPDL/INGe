@@ -29,7 +29,7 @@ package de.mpg.escidoc.pubman.search.bean.criterion;
 import java.util.ArrayList;
 
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;

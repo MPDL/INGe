@@ -21,7 +21,7 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;

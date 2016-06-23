@@ -7,7 +7,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import de.mpg.escidoc.services.common.util.HtmlUtils;
+import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
 
 /**
  * This converter shortens a string, escapes all html tags except sup/sub and balances the shortened

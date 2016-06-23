@@ -5,7 +5,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.StatisticLogger;
+import de.mpg.mpdl.inge.xmltransforming.StatisticLogger;
 import de.mpg.mpdl.inge.util.AdminHelper;
 
 

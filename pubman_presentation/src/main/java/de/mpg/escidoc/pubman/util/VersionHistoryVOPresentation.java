@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;

@@ -27,7 +27,7 @@ package de.mpg.escidoc.pubman.search.bean.criterion;
 import java.util.ArrayList;
 
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 

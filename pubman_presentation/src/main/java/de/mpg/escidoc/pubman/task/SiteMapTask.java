@@ -44,7 +44,7 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;

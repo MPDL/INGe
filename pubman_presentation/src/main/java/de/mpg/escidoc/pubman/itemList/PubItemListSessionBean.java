@@ -53,7 +53,7 @@ import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;

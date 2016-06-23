@@ -25,7 +25,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -41,7 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

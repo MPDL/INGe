@@ -48,8 +48,8 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.statistics.StatisticSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * The FacesBean provides common features for bean and facesMessage handling. Designed to replace

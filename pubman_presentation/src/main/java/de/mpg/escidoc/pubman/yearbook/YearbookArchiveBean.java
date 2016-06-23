@@ -14,7 +14,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;

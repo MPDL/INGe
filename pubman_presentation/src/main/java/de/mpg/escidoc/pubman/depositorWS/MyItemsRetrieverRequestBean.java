@@ -19,12 +19,12 @@ import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

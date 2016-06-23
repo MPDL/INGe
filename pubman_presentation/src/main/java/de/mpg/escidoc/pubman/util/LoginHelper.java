@@ -34,7 +34,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,28 +46,23 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.aa.UserGroupHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.qaws.QAWSSessionBean;
-import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.LimitFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroup;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -92,13 +86,10 @@ public class LoginHelper extends FacesBean {
   private AccountUserVO accountUser = new AccountUserVO();
   private List<AffiliationVOPresentation> userAccountAffiliations;
 
-  private List<UserGroup> userAccountUserGroups;
+  private List<UserGroupVO> userAccountUserGroups;
   private List<GrantVO> userGrants;
-  private List<GrantVO> userGrantsWithoutAudience;
   private boolean detailedMode = false;
 
-
-  private ViewItemSessionBean visb;
 
   /**
    * Public constructor.
@@ -437,7 +428,7 @@ public class LoginHelper extends FacesBean {
   }
 
   // only active UserGroups!
-  public List<UserGroup> getAccountUsersUserGroups() {
+  public List<UserGroupVO> getAccountUsersUserGroups() {
     if (userAccountUserGroups == null && getAccountUser() != null
         && getAccountUser().getReference() != null) {
       HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -451,8 +442,8 @@ public class LoginHelper extends FacesBean {
       // getAccountUser().getReference().getObjectId() + " and " +
       // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
 
-      UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
-      userAccountUserGroups = ugl.getUserGroupLists();
+      /*UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
+      userAccountUserGroups = ugl.getUserGroupLists();*/
     }
     return userAccountUserGroups;
   }
@@ -467,7 +458,7 @@ public class LoginHelper extends FacesBean {
     }
 
     if (getAccountUsersUserGroups() != null) {
-      for (UserGroup ug : getAccountUsersUserGroups()) {
+      for (UserGroupVO ug : getAccountUsersUserGroups()) {
         if (ug.getLabel().matches("\\d*? - Yearbook User Group for.*?")) {
           return true;
         }

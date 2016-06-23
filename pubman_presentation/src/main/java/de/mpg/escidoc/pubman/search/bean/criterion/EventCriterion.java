@@ -32,7 +32,7 @@ import java.util.List;
 import net.sf.saxon.event.MetaTagAdjuster;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion.DateType;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
