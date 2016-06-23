@@ -44,8 +44,8 @@ import javax.xml.transform.Transformer;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;

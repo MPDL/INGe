@@ -28,8 +28,8 @@ import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.init.RefreshTask;
 
 /**
  * Starts the initialization process.

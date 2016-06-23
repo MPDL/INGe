@@ -28,8 +28,8 @@
 -->
 <binding direction="input">
 
-	<format type="java.lang.String" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.xmlUnescape"
-		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.xmlEscape" />
+	<format type="java.lang.String" deserializer="de.mpg.mpdl.inge.xmltransforming.xmltransforming.JiBXHelper.xmlUnescape"
+		serializer="de.mpg.mpdl.inge.xmltransforming.xmltransforming.JiBXHelper.xmlEscape" />
 
 	<!--  -->
 	<!-- The binding for validation report -->

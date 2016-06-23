@@ -39,8 +39,8 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.TransformingException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.TransformingException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**

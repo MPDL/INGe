@@ -134,7 +134,7 @@
 						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services.wildfly</groupId>
-							<artifactId>common_logic</artifactId>
+							<artifactId>xml_transforming</artifactId>
 						</ejbModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services.wildfly</groupId>
@@ -230,7 +230,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>common_logic</artifactId>
+			<artifactId>xml_transforming</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

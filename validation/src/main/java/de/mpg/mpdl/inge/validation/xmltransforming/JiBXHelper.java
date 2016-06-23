@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.validation.xmltransforming;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.WrongEnumException;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
 
 /**

@@ -139,7 +139,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services.wildfly</groupId>
-			<artifactId>common_logic</artifactId>
+			<artifactId>xml_transforming</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

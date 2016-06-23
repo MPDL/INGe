@@ -25,7 +25,7 @@
 
 package de.mpg.mpdl.inge.validation.xmltransforming;
 
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.TransformingException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.TransformingException;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
