@@ -13,7 +13,7 @@ import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
 import org.z3950.zing.cql.CQLParser;
 
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.parser.ParseException;
 import de.mpg.mpdl.inge.search.parser.QueryParser;
 

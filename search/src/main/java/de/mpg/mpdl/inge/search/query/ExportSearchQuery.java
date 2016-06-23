@@ -25,7 +25,7 @@
 
 package de.mpg.mpdl.inge.search.query;
 
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.parser.ParseException;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 
