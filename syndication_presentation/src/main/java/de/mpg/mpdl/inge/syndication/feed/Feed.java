@@ -53,11 +53,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
-import com.sun.syndication.feed.module.mediarss.MediaEntryModuleImpl;
-import com.sun.syndication.feed.module.mediarss.types.MediaContent;
-import com.sun.syndication.feed.module.mediarss.types.Metadata;
-import com.sun.syndication.feed.module.mediarss.types.Thumbnail;
-import com.sun.syndication.feed.module.mediarss.types.UrlReference;
 import com.sun.syndication.feed.synd.SyndCategory;
 import com.sun.syndication.feed.synd.SyndCategoryImpl;
 import com.sun.syndication.feed.synd.SyndContent;
@@ -70,18 +65,18 @@ import com.sun.syndication.feed.synd.SyndPerson;
 import com.sun.syndication.feed.synd.SyndPersonImpl;
 import com.sun.syndication.io.FeedException;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.util.HtmlUtils;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.syndication.SyndicationException;
 import de.mpg.mpdl.inge.syndication.Utils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 
 
 public class Feed extends SyndFeedImpl {
@@ -91,13 +86,6 @@ public class Feed extends SyndFeedImpl {
       "escidoc.framework_access.content-model.id.publication";
 
   private static final Logger logger = Logger.getLogger(Feed.class);
-
-  /** EJB instance of search service. */
-  // private Search itemContainerSearch = new SearchBeanLocal();
-  // @EJB
-  // private Search itemContainerSearch;
-
-  private static final String CDATA = "<![CDATA[%s]]>";
 
   // Search CQL query
   // see: http://www.escidoc-project.de/documentation/Soap_api_doc_SB_Search.pdf
@@ -125,7 +113,7 @@ public class Feed extends SyndFeedImpl {
   private String cachingTtl = "0";
 
   // List of the parameters generated according to the URI
-  private List paramList = new ArrayList<String>();
+  private List<String> paramList = new ArrayList<String>();
 
   // Hash of the parameters/values
   private Map<String, String> paramHash = new HashMap<String, String>();
@@ -320,7 +308,7 @@ public class Feed extends SyndFeedImpl {
    * 
    * @return <code>ParamList</code>
    */
-  public List getParamList() {
+  public List<String> getParamList() {
     return paramList;
   }
 
@@ -331,7 +319,7 @@ public class Feed extends SyndFeedImpl {
    * 
    * @param paramList
    */
-  public void setParamList(List paramList) {
+  public void setParamList(List<String> paramList) {
     this.paramList = paramList;
   }
 
@@ -546,7 +534,7 @@ public class Feed extends SyndFeedImpl {
 
     // Set PublishedDate of the feed to the PublishedDate of the latest Entry
     // or, if no entires presented, to the current date
-    List e = getEntries();
+    List<?> e = getEntries();
     setPublishedDate(Utils.checkList(e) ? ((SyndEntry) e.get(0)).getPublishedDate() : new Date());
 
 
@@ -614,9 +602,9 @@ public class Feed extends SyndFeedImpl {
    * @return <List>SyndEntry
    * @throws SyndicationException
    */
-  private List transformToEntryList(String itemListXml) throws SyndicationException {
+  private List<SyndEntry> transformToEntryList(String itemListXml) throws SyndicationException {
 
-    List entries = new ArrayList();
+    List<SyndEntry> entries = new ArrayList();
 
     List<ItemVO> itemListVO = null;
     try {
@@ -648,7 +636,7 @@ public class Feed extends SyndFeedImpl {
       se.setTitle(HtmlUtils.removeSubSupIfBalanced(md.getTitle()));
 
       // Description ??? optional
-      List abs = md.getAbstracts();
+      List<?> abs = md.getAbstracts();
       SyndContent sc = new SyndContentImpl();
       sc.setValue(Utils.checkList(abs) ? ((AbstractVO) abs.get(0)).getValue() : null);
       se.setDescription(sc);
@@ -734,36 +722,6 @@ public class Feed extends SyndFeedImpl {
   }
 
   /**
-   * @param se
-   * @param pubMd
-   * @throws FeedException
-   */
-  private void populateMediaRss(SyndEntry se, MdsPublicationVO pubMd) throws SyndicationException {
-
-    try {
-      MediaContent[] contents = new MediaContent[1];
-      MediaContent myItem = new MediaContent(new UrlReference("http://me.com/movie.mpg"));
-      contents[0] = myItem;
-      Metadata md = new Metadata();
-      Thumbnail[] thumbs = new Thumbnail[2];
-      thumbs[0] = new Thumbnail(new URL("http://me.com/movie1.jpg"));
-      thumbs[1] = new Thumbnail(new URL("http://me.com/movie2.jpg"));
-      md.setThumbnail(thumbs);
-      myItem.setMetadata(md);
-      MediaEntryModuleImpl module = new MediaEntryModuleImpl();
-      module.setMediaContents(contents);
-      se.getModules().add(module);
-
-      // logger.info( se.getModule( MediaModule.URI ) );
-
-    } catch (Exception e) {
-      throw new SyndicationException("Problem by MediaRss module:", e);
-    }
-
-  }
-
-
-  /**
    * set channel limitations
    */
   private void setChannelLimitations() {
@@ -791,18 +749,6 @@ public class Feed extends SyndFeedImpl {
     }
 
   }
-
-
-  /**
-   * Removes xml header
-   * 
-   * @param xml
-   * @return
-   */
-  private String replaceXmlHeader(String xml) {
-    return xml.replaceFirst("<\\?xml version=\"1\\.0\" encoding=\"UTF-8\"\\?>", "");
-  }
-
 
 
   /**

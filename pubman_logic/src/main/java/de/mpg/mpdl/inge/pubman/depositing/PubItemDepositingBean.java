@@ -56,10 +56,10 @@ import de.escidoc.core.common.exceptions.application.violated.AlreadyPublishedEx
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
-import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.logging.LogMethodDurationInterceptor;
+import de.mpg.mpdl.inge.xmltransforming.logging.LogStartEndInterceptor;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -164,8 +164,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
     ContextVO collection = null;
     try {
       String context =
-          de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle())
-              .retrieve(pubCollectionRef.getObjectId());
+          de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
+              pubCollectionRef.getObjectId());
       collection = xmlTransforming.transformToContext(context);
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
@@ -539,8 +539,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * de.mpg.mpdl.inge.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services
+   * @see de.mpg.mpdl.inge.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services
    * .common.valueobjects.PubItemVO, java.lang.String,
    * de.mpg.mpdl.inge.model.valueobjects.ContextVO,
    * de.mpg.mpdl.inge.model.valueobjects.AccountUserVO)

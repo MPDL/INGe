@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.depositing;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 
 /**

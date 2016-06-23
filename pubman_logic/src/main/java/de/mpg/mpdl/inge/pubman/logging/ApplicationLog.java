@@ -28,8 +28,8 @@ package de.mpg.mpdl.inge.pubman.logging;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.logging.MessageCreator;
-import de.mpg.escidoc.services.common.logging.Messages;
+import de.mpg.mpdl.inge.xmltransforming.logging.MessageCreator;
+import de.mpg.mpdl.inge.xmltransforming.logging.Messages;
 
 /**
  * ApplicationLog is used for functional logging.

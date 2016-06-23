@@ -320,8 +320,8 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
-   * byte[], String) )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
+   * String) )
    */
   public File generateArchiveFile(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList) throws ExportManagerException, IOException {
@@ -348,8 +348,8 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
-   * byte[], String, File) )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
+   * String, File) )
    */
   public File generateArchiveFile(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList, File license) throws ExportManagerException, IOException {
@@ -407,8 +407,8 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
-   * byte[], String) )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
+   * String) )
    */
   public byte[] generateArchive(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList) throws ExportManagerException, IOException {
@@ -426,8 +426,8 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
-   * byte[], String, File) )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
+   * String, File) )
    */
   public byte[] generateArchive(String exportFormat, String archiveFormat, byte[] description,
       String itemListFiltered, File license) throws ExportManagerException, IOException {
@@ -454,8 +454,7 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, File)
-   * )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, File) )
    */
   public byte[] generateArchive(String archiveFormat, String itemListFiltered, File license)
       throws ExportManagerException, IOException {
@@ -465,8 +464,8 @@ public class Export implements ExportHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String,
-   * byte[], String) )
+   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
+   * String) )
    */
   private void generateArchiveBase(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList, File license, BufferedOutputStream bos) throws ExportManagerException,

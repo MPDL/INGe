@@ -37,7 +37,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.escidoc.services.common.util.ShortContentHandler;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.cone.Querier;
@@ -60,8 +59,6 @@ public class RDFHandler extends DefaultHandler {
 
   private List<LocalizedTripleObject> result = new ArrayList<LocalizedTripleObject>();
   private Stack<LocalizedTripleObject> stack = new Stack<LocalizedTripleObject>();
-  private String instanceUrl;
-
   private Stack<QName> tagStack = new Stack<QName>();
 
   private Querier querier;
@@ -69,8 +66,6 @@ public class RDFHandler extends DefaultHandler {
   private Model model;
 
   private StringBuffer currentContent;
-
-  private String currentRdfAbout;
 
   private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
       "RDF", "rdf");
@@ -82,7 +77,7 @@ public class RDFHandler extends DefaultHandler {
     this.model = model;
     querier = QuerierFactory.newQuerier(loggedIn);
     try {
-      this.instanceUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+      PropertyReader.getProperty("escidoc.cone.service.url");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

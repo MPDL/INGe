@@ -35,7 +35,7 @@
 	<!-- Initializer Servlet -->
 	<servlet>
 		<servlet-name>Syndication Servlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.syndication.presentation.RestServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.syndication.presentation.RestServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

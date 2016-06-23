@@ -31,7 +31,7 @@
 -->
 <digester-rules>
 
-	<object-create-rule pattern="feeds" classname="de.mpg.escidoc.services.syndication.Feeds" />
+	<object-create-rule pattern="feeds" classname="de.mpg.mpdl.inge.syndication.Feeds" />
 	<set-properties-rule />
 	
 	<pattern value="feeds">
@@ -39,7 +39,7 @@
 	</pattern>
 	
 	<pattern value="feeds/feed">
-		<object-create-rule classname="de.mpg.escidoc.services.syndication.feed.Feed" />
+		<object-create-rule classname="de.mpg.mpdl.inge.syndication.feed.Feed" />
 		<set-properties-rule />
 		<call-method-rule pattern="title" methodname="setTitle" paramcount="0" />
 		<call-method-rule pattern="description" methodname="setDescription" paramcount="0" />

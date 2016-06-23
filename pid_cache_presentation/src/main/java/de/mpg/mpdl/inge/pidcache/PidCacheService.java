@@ -1,17 +1,16 @@
 package de.mpg.mpdl.inge.pidcache;
 
-import javax.annotation.Resource;
-import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgClient;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
+import de.mpg.mpdl.inge.pidcache.process.CacheProcess;
 import de.mpg.mpdl.inge.pidcache.tables.Cache;
 import de.mpg.mpdl.inge.pidcache.tables.Queue;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Implement the PID cache service

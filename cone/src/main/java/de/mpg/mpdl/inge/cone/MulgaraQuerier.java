@@ -124,8 +124,8 @@ public class MulgaraQuerier implements Querier {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.cone.Querier#query(java.lang.String,
-   * de.mpg.mpdl.inge.cone.util.Pair[], java.lang.String, int)
+   * @see de.mpg.mpdl.inge.cone.Querier#query(java.lang.String, de.mpg.mpdl.inge.cone.util.Pair[],
+   * java.lang.String, int)
    */
   public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType,
       int limit) throws Exception {

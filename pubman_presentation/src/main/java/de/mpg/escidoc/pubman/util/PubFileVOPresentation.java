@@ -50,7 +50,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
@@ -510,10 +510,10 @@ public class PubFileVOPresentation extends FacesBean {
     }
     return showEmbargoDate;
   }
-
+/**
   public String addGrant() {
-    Grant newGrant = new Grant();
-    newGrant.setObjid("");
+    GrantVO newGrant = new GrantVO();
+    newGrant.setObjectRef("");
     newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
     newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
     newGrant.setAssignedOn(this.file.getReference().getObjectId());
@@ -521,6 +521,7 @@ public class PubFileVOPresentation extends FacesBean {
         new GrantVOPresentation(newGrant, this.getGrantList().size(), this.index));
     return AudienceBean.LOAD_AUDIENCEPAGE;
   }
+  */
 
   /**
    * This method updates the file's visibility with the new one selected by the user

@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.exceptions;
 
-import de.mpg.escidoc.services.common.exceptions.BusinessException;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.BusinessException;
 
 /**
  * Exception base class for pubman exceptions.

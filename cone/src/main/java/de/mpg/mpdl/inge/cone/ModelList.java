@@ -146,7 +146,8 @@ public class ModelList {
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
    */
-  private class ServiceListHandler extends de.mpg.escidoc.services.common.util.ShortContentHandler {
+  private class ServiceListHandler extends
+      de.mpg.mpdl.inge.xmltransforming.util.ShortContentHandler {
     private Set<Model> list = new LinkedHashSet<Model>();
     private Model currentService = null;
     private Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();

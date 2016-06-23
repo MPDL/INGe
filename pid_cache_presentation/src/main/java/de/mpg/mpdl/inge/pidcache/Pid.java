@@ -26,12 +26,11 @@
 
 package de.mpg.mpdl.inge.pidcache;
 
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * TODO Description

@@ -2,19 +2,17 @@ package de.mpg.mpdl.inge.pidcache.process;
 
 import java.util.Date;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pidcache.Pid;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
 import de.mpg.mpdl.inge.pidcache.tables.Cache;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 
 
 /**

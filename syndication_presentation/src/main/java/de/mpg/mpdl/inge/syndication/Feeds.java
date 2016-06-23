@@ -129,8 +129,7 @@ public class Feeds {
    * Find feed which URI matches <code>uriMatcher</code>. <code>uriMatcher</code> should be
    * calculated before the method usage.
    * 
-   * @see de.mpg.mpdl.inge.syndication.feed.Feed#generateUriMatcher(String)
-   *      generateUriMatcher
+   * @see de.mpg.mpdl.inge.syndication.feed.Feed#generateUriMatcher(String) generateUriMatcher
    * @param uri is URI to be matched
    * @return matched <code>feed</code>
    */
