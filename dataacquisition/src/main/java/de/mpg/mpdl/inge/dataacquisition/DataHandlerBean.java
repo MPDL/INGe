@@ -65,12 +65,11 @@ import org.apache.fop.apps.MimeConstants;
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.mpg.mpdl.inge.xmltransformimg.XmlTransforming;
+
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransformimg.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
@@ -371,8 +370,9 @@ public class DataHandlerBean implements DataHandler {
             if (componentBytes != null) {
               String componentXml = new String(componentBytes, this.enc);
               InitialContext initialContext = new InitialContext();
-              XmlTransforming xmlTransforming =
-                  (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+              de.mpg.mpdl.inge.xmltransforming.XmlTransforming xmlTransforming =
+                  (de.mpg.mpdl.inge.xmltransforming.XmlTransforming) initialContext
+                      .lookup(de.mpg.mpdl.inge.xmltransforming.XmlTransforming.SERVICE_NAME);
               this.componentVO = xmlTransforming.transformToFileVO(componentXml);
             }
           }
@@ -829,7 +829,8 @@ public class DataHandlerBean implements DataHandler {
     String itemXML = "";
     String coreservice = "";
     URLConnection contentUrl = null;
-    XmlTransforming xmlTransforming = new XmlTransformingBean();
+    de.mpg.mpdl.inge.xmltransforming.XmlTransforming xmlTransforming =
+        new de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean();
     byte[] input = null;
 
     try {
