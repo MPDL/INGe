@@ -442,8 +442,10 @@ public class LoginHelper extends FacesBean {
       // getAccountUser().getReference().getObjectId() + " and " +
       // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
 
-      /*UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
-      userAccountUserGroups = ugl.getUserGroupLists();*/
+      /*
+       * UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
+       * userAccountUserGroups = ugl.getUserGroupLists();
+       */
     }
     return userAccountUserGroups;
   }
