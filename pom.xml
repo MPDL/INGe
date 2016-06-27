@@ -55,9 +55,9 @@
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-		<!-- <module>pubman/pubman_installer</module> -->
 		<module>inge_connector</module>
 		<module>model</module>
+		<module>inge_services</module>
 	</modules>
 
 	<licenses>

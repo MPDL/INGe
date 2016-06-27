@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<artifactId>INGe</artifactId>
+		<version>7.10.3-SNAPSHOT</version>
+	</parent>
+	<artifactId>inge_services</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>inge_services</name>
+	<scm>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_services</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_services</developerConnection>
+		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<tag>HEAD</tag>
+	</scm>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.escidoc.core</groupId>
+			<artifactId>escidoc-ijc</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+	
+	</dependencies>
+</project>

@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.tech.interfaces;
+package de.mpg.mpdl.inge.services;
 
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
