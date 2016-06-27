@@ -121,6 +121,19 @@ public class GrantVO extends ValueObject {
   }
 
   /**
+   * Copyconstructor
+   * 
+   * @param grant The granted which will be copied.
+   */
+  public GrantVO(GrantVO grant) {
+    this.grantedTo = grant.grantedTo;
+    this.grantType = grant.grantType;
+    this.objectRef = grant.objectRef;
+    this.reference = grant.reference;
+    this.role = grant.role;
+  }
+
+  /**
    * Delivers true if the granted role is of type 'depositor' for the given object (normally a
    * PubCollection).
    */

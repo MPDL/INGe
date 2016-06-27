@@ -59,7 +59,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SelectorVO;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
-public class UserGroupVO {
+public class UserGroupVO extends ValueObject {
   private Date creationDate;
   private String createdBy;
   private String modifiedBy;

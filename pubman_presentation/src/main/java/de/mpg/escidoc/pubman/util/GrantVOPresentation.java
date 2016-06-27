@@ -3,11 +3,11 @@ package de.mpg.escidoc.pubman.util;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.audience.AudienceSessionBean;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
 public class GrantVOPresentation extends FacesBean {
   public static final String GRANT_TYPE_USER_GROUP = "user-group";
-  private Grant grant;
+  private GrantVO grant;
   private int index;
   private int fileIndex;
 
@@ -24,7 +24,7 @@ public class GrantVOPresentation extends FacesBean {
    * @param grant the grant
    * @param index the index of the grant within the file
    */
-  public GrantVOPresentation(Grant grant, int index) {
+  public GrantVOPresentation(GrantVO grant, int index) {
     this.grant = grant;
     this.index = index;
   }
@@ -35,8 +35,8 @@ public class GrantVOPresentation extends FacesBean {
    * @param index the index of the grant within the file
    * @param fileIndex the index of the file in the item
    */
-  public GrantVOPresentation(Grant grant, int index, int fileIndex) {
-    this.grant = new Grant(grant);
+  public GrantVOPresentation(GrantVO grant, int index, int fileIndex) {
+    this.grant = new GrantVO(grant);
     this.index = index;
     this.fileIndex = fileIndex;
   }
@@ -49,7 +49,7 @@ public class GrantVOPresentation extends FacesBean {
           .get(this.fileIndex)
           .getGrantList()
           .add(
-              new GrantVOPresentation(new Grant(), asb.getFileListNew().get(this.fileIndex)
+              new GrantVOPresentation(new GrantVO(), asb.getFileListNew().get(this.fileIndex)
                   .getGrantList().size(), this.fileIndex));
     }
   }
@@ -60,7 +60,7 @@ public class GrantVOPresentation extends FacesBean {
       this.getAudienceSessionBean()
           .getGrantsForAllFiles()
           .add(
-              new GrantVOPresentation(new Grant(), this.getAudienceSessionBean()
+              new GrantVOPresentation(new GrantVO(), this.getAudienceSessionBean()
                   .getGrantsForAllFiles().size()));
     }
   }
@@ -83,11 +83,11 @@ public class GrantVOPresentation extends FacesBean {
     return (AudienceSessionBean) getSessionBean(AudienceSessionBean.class);
   }
 
-  public Grant getGrant() {
+  public GrantVO getGrant() {
     return grant;
   }
 
-  public void setGrant(Grant grant) {
+  public void setGrant(GrantVO grant) {
     this.grant = grant;
   }
 

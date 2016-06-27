@@ -24,26 +24,24 @@ import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selector;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selector.Type;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.Selectors;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroup;
+import de.mpg.mpdl.inge.model.valueobjects.SelectorVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 
 public class YearbookItemCreateBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
@@ -284,35 +282,40 @@ public class YearbookItemCreateBean extends FacesBean {
       String updatedXml = ih.create(itemXml);
       pubItem = xmlTransforming.transformToPubItem(updatedXml);
       info(getMessage("Yearbook_createdSuccessfully"));
-      UserGroup ug = new UserGroup();
+      UserGroupVO ug = new UserGroupVO();
       ug.setName(this.getYear() + " - Yearbook User Group for "
           + getAffiliation().getDefaultMetadata().getName() + " ("
           + getAffiliation().getReference().getObjectId() + ")");
       ug.setLabel(this.getYear() + " - Yearbook User Group for "
           + getAffiliation().getDefaultMetadata().getName() + " ("
           + getAffiliation().getReference().getObjectId() + ")");
-      ug.createInCoreservice(loginHelper.getESciDocUserHandle());
+      // TODO INGe connection
+      // ug.createInCoreservice(loginHelper.getESciDocUserHandle());
       if (!this.collaborators.isEmpty() && this.collaborators.get(0) != null
           && this.collaborators.get(0).getObjectId() != null) {
         for (AccountUserRO userId : collaborators) {
           if (!("").equals(userId.getObjectId())) {
-            Selector selector = new Selector();
-            selector.setType(Type.INTERNAL);
+            SelectorVO selector = new SelectorVO();
+            // TODO set type for INGe
+            // selector.setType(Type.INTERNAL);
             selector.setObjid(userId.getObjectId());
             selector.setName("user-account");
             selector.setString(userId.getObjectId());
-            Selectors selectors = new Selectors();
-            selectors.getSelectors().add(selector);
-            ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
+            List<SelectorVO> selectors = new ArrayList<SelectorVO>();
+            selectors.add(selector);
+            // TODO INGe connection
+            // ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
           }
         }
         // Create collaborator grant
-        Grant grant = new Grant();
-        grant.setAssignedOn(pubItem.getVersion().getObjectId());
+        GrantVO grant = new GrantVO();
+        grant.setObjectRef(pubItem.getVersion().getObjectId());
         grant.setGrantedTo(ug.getObjid());
         grant.setGrantType("user-group");
-        grant.setRole(Grant.CoreserviceRole.COLLABORATOR_MODIFIER.getRoleId());
-        grant.createInCoreservice(loginHelper.getESciDocUserHandle(), "Grant for Yearbook created");
+        // TODO INGe connection
+        // grant.setRole(GrantVO.CoreserviceRole.COLLABORATOR_MODIFIER.getRoleId());
+        // grant.createInCoreservice(loginHelper.getESciDocUserHandle(),
+        // "Grant for Yearbook created");
         info(getMessage("Yearbook_grantsAdded"));
       }
       yisb.initYearbook();

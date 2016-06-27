@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.GrantVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList;
+import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 
 /**
  * Fragment class for editing the audience grants of files. This class provides all functionality
@@ -51,7 +51,7 @@ public class AudienceSessionBean extends FacesBean {
   // the file list where changes are made and which will be applied if user clicks on save
   private List<PubFileVOPresentation> fileListNew = new ArrayList<PubFileVOPresentation>();
 
-  private UserGroupList ugl;
+  private List<UserGroupVO> ugl;
 
   private List<GrantVOPresentation> grantsForAllFiles = new ArrayList<GrantVOPresentation>();
 
@@ -94,11 +94,11 @@ public class AudienceSessionBean extends FacesBean {
     this.fileListNew = fileListNew;
   }
 
-  public UserGroupList getUgl() {
+  public List<UserGroupVO> getUgl() {
     return ugl;
   }
 
-  public void setUgl(UserGroupList ugl) {
+  public void setUgl(List<UserGroupVO> ugl) {
     this.ugl = ugl;
   }
 

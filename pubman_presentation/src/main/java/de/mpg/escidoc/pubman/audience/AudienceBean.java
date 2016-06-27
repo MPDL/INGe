@@ -42,9 +42,8 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.Grant;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.grants.GrantList;
-import de.mpg.mpdl.inge.model.valueobjects.intelligent.usergroup.UserGroupList;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -95,32 +94,33 @@ public class AudienceBean extends FacesBean {
                     .getCurrentPubItem().getFiles().get(i));
 
             // add the grants
-            GrantList grantList = new GrantList();
+            List<GrantVO> grantList = new ArrayList<GrantVO>();
             try {
-              grantList =
-                  GrantList.Factory
-                      .retrieveGrantsForObject(loginHelper.getESciDocUserHandle(), this
-                          .getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i)
-                          .getReference().getObjectId(), Grant.CoreserviceRole.AUDIENCE.getRoleId());
+              // TODO INGe connection
+              // grantList =
+              // GrantList.Factory
+              // .retrieveGrantsForObject(loginHelper.getESciDocUserHandle(), this
+              // .getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i)
+              // .getReference().getObjectId(), Grant.CoreserviceRole.AUDIENCE.getRoleId());
             } catch (Exception e) {
               logger.error("could not retrieve audience grants for files: ", e);
             }
 
-            for (int j = 0; j < grantList.getGrants().size(); j++) {
+            for (int j = 0; j < grantList.size(); j++) {
               fileForNewList.getGrantList().add(
-                  new GrantVOPresentation(grantList.getGrants().get(j), j, fileIndex));
+                  new GrantVOPresentation(grantList.get(j), j, fileIndex));
               fileForOldList.getGrantList().add(
-                  new GrantVOPresentation(grantList.getGrants().get(j), j, fileIndex));
+                  new GrantVOPresentation(grantList.get(j), j, fileIndex));
             }
 
             // ensure that at least one grant is in the list (for presentation)
             if (fileForNewList.getGrantList().size() == 0) {
-              Grant newGrant = new Grant();
-              newGrant.setObjid("");
-              newGrant.setAssignedOn(this.getItemControllerSessionBean().getCurrentPubItem()
+              GrantVO newGrant = new GrantVO();
+              newGrant.setObjectRef(this.getItemControllerSessionBean().getCurrentPubItem()
                   .getFiles().get(i).getReference().getObjectId());
               newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
-              newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
+              // TODO set role for INGe
+              // newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
               fileForNewList.getGrantList().add(new GrantVOPresentation(newGrant, 0, 0));
             }
 
@@ -137,7 +137,9 @@ public class AudienceBean extends FacesBean {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         try {
           this.getAudienceSessionBean().setUgl(
-              UserGroupList.Factory.retrieveActiveUserGroups(loginHelper.getESciDocUserHandle()));
+          // TODO INGe connection
+          // UserGroupList.Factory.retrieveActiveUserGroups(loginHelper.getESciDocUserHandle())
+              null);
         } catch (Exception e) {
           logger.error("could not retrieve user groups for audience management: ", e);
         }
@@ -146,10 +148,11 @@ public class AudienceBean extends FacesBean {
       // ensure that there is at least one grant for all files (for display purpose)
       if (this.getAudienceSessionBean().getGrantsForAllFiles() != null
           && this.getAudienceSessionBean().getGrantsForAllFiles().size() == 0) {
-        Grant newGrant = new Grant();
-        newGrant.setObjid("");
+        GrantVO newGrant = new GrantVO();
+        // newGrant.setObjid("");
         newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
-        newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
+        // TODO set role for INGe
+        // newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
         this.getAudienceSessionBean()
             .getGrantsForAllFiles()
             .add(
@@ -204,14 +207,13 @@ public class AudienceBean extends FacesBean {
       // the first and empty list entry
       SelectItem selectItem = new SelectItem("", "-");
       selectItemsList.add(selectItem);
-      for (int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++) {
-        if (this.getUserGroupList().getUserGroupLists().get(i) != null
-            && this.getUserGroupList().getUserGroupLists().get(i).getName() != null
-            && !this.getUserGroupList().getUserGroupLists().get(i).getName()
-                .contains("Yearbook User Group for")) {
+      for (int i = 0; i < this.getUserGroupList().size(); i++) {
+        if (this.getUserGroupList().get(i) != null
+            && this.getUserGroupList().get(i).getName() != null
+            && !this.getUserGroupList().get(i).getName().contains("Yearbook User Group for")) {
           selectItem =
-              new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this
-                  .getUserGroupList().getUserGroupLists().get(i).getName());
+              new SelectItem(this.getUserGroupList().get(i).getObjid(), this.getUserGroupList()
+                  .get(i).getName());
           selectItemsList.add(selectItem);
         }
       }
@@ -229,10 +231,11 @@ public class AudienceBean extends FacesBean {
   }
 
   public String addGrantForAllFiles() {
-    Grant newGrant = new Grant();
-    newGrant.setObjid("");
+    GrantVO newGrant = new GrantVO();
+    // newGrant.setObjid("");
     newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
-    newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
+    // TODO set role for INGe
+    // newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
     this.getGrantsForAllFiles().add(
         new GrantVOPresentation(newGrant, this.getAudienceSessionBean().getGrantsForAllFiles()
             .size()));
@@ -257,8 +260,8 @@ public class AudienceBean extends FacesBean {
         if (this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo() != null
             && !this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant()
                 .getGrantedTo().trim().equals("")) {
-          Grant newGrant = new Grant();
-          newGrant.setAssignedOn(this.getAudienceSessionBean().getFileListNew().get(i).getFile()
+          GrantVO newGrant = new GrantVO();
+          newGrant.setObjectRef(this.getAudienceSessionBean().getFileListNew().get(i).getFile()
               .getReference().getObjectId());
           newGrant.setGrantedTo(this.getAudienceSessionBean().getGrantsForAllFiles().get(j)
               .getGrant().getGrantedTo());
@@ -283,7 +286,7 @@ public class AudienceBean extends FacesBean {
                 .get(i)
                 .getGrantList()
                 .add(
-                    new GrantVOPresentation(new Grant(), this.getAudienceSessionBean()
+                    new GrantVOPresentation(new GrantVO(), this.getAudienceSessionBean()
                         .getFileListNew().get(i).getGrantList().size(), i));
           }
         }
@@ -308,9 +311,9 @@ public class AudienceBean extends FacesBean {
     for (int i = 0; i < this.getAudienceSessionBean().getFileListOld().size(); i++) {
       for (int j = this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().size(); j > 0; j--) {
         if (this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().get(j - 1)
-            .getGrant().getAssignedOn() == null
+            .getGrant().getObjectRef() == null
             || this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().get(j - 1)
-                .getGrant().getAssignedOn().trim().equals("")) {
+                .getGrant().getObjectRef().trim().equals("")) {
           this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().remove(j - 1);
         }
       }
@@ -320,9 +323,9 @@ public class AudienceBean extends FacesBean {
     for (int i = 0; i < this.getAudienceSessionBean().getFileListNew().size(); i++) {
       for (int j = this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(); j > 0; j--) {
         if (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j - 1)
-            .getGrant().getAssignedOn() == null
+            .getGrant().getObjectRef() == null
             || this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j - 1)
-                .getGrant().getAssignedOn().trim().equals("")) {
+                .getGrant().getObjectRef().trim().equals("")) {
           this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().remove(j - 1);
         }
       }
@@ -340,64 +343,46 @@ public class AudienceBean extends FacesBean {
       for (int j = 0; j < this.getAudienceSessionBean().getFileListNew().get(i).getGrantList()
           .size(); j++) {
         // check if there is an object id (if not, the grant MUST be completely new!)
-        if (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant()
-            .getObjid() != null
-            && !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-                .getGrant().getObjid().trim().equals("")) {
-          // compare with the grants in the new list (corresponding file)
-          for (int k = 0; k < grants.size(); k++) {
-            if (grants
-                .get(k)
-                .getGrant()
-                .getObjid()
-                .equals(
-                    this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-                        .getGrant().getObjid())) {
-              // check if user group has been changed
-              if (grants
-                  .get(k)
-                  .getGrant()
-                  .getGrantedTo()
-                  .equals(
-                      this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-                          .getGrant().getGrantedTo())) {
-                // If user group has NOT changed, remove Grant from grants to be revoked
-                grantsToRevoke.remove(k);
-              }
-              // If user group has changed, revoke old grant and add new grant, except if no user
-              // group is selected for new grant
-              else if (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-                  .getGrant().getGrantedTo() != null
-                  && !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-                      .getGrant().getGrantedTo().equals("")) {
-                // grantsToRevoke.remove(k);
-                grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i)
-                    .getGrantList().get(j));
-              }
-            }
-          }
-        } else {
-          /*
-           * if(grantsToRevoke != null && grantsToRevoke.size() > 0) { grantsToRevoke.remove(j); }
-           */
-
-          if (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-              .getGrant().getGrantedTo() != null
-              && !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
-                  .getGrant().getGrantedTo().equals("")) {
-            grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList()
-                .get(j));
-          }
-
-        }
+        // TODO realize for INGe
+        /*
+         * if
+         * (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant()
+         * .getObjid() != null &&
+         * !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getObjid().trim().equals("")) { // compare with the grants in the new list
+         * (corresponding file) for (int k = 0; k < grants.size(); k++) { if (grants .get(k)
+         * .getGrant() .getObjid() .equals(
+         * this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getObjid())) { // check if user group has been changed if (grants .get(k)
+         * .getGrant() .getGrantedTo() .equals(
+         * this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getGrantedTo())) { // If user group has NOT changed, remove Grant from grants
+         * to be revoked grantsToRevoke.remove(k); } // If user group has changed, revoke old grant
+         * and add new grant, except if no user // group is selected for new grant else if
+         * (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getGrantedTo() != null &&
+         * !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getGrantedTo().equals("")) { // grantsToRevoke.remove(k);
+         * grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i)
+         * .getGrantList().get(j)); } } } }else { if
+         * (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getGrantedTo() != null &&
+         * !this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j)
+         * .getGrant().getGrantedTo().equals("")) {
+         * grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList()
+         * .get(j)); }
+         * 
+         * }
+         */
       }
 
       // revoke the grants to be revoked
       if (grantsToRevoke != null) {
         for (int l = 0; l < grantsToRevoke.size(); l++) {
           try {
-            grantsToRevoke.get(l).getGrant()
-                .revokeInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_REVOKE_COMMENT);
+            // TODO INGe connection
+            // grantsToRevoke.get(l).getGrant()
+            // .revokeInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_REVOKE_COMMENT);
 
           } catch (RuntimeException e) {
             logger.error("Error while revoking grant: ", e);
@@ -410,8 +395,9 @@ public class AudienceBean extends FacesBean {
       if (grantsToCreate != null && !error) {
         for (int m = 0; m < grantsToCreate.size(); m++) {
           try {
-            grantsToCreate.get(m).getGrant()
-                .createInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_CREATE_COMMENT);
+            // TODO INGe connection
+            // grantsToCreate.get(m).getGrant()
+            // .createInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_CREATE_COMMENT);
           } catch (RuntimeException rE) {
             logger.error("Error while creating grant: ", rE);
             error(getMessage("AudienceErrorAssigningGrant"));
@@ -505,11 +491,11 @@ public class AudienceBean extends FacesBean {
     return (AudienceSessionBean) getSessionBean(AudienceSessionBean.class);
   }
 
-  public UserGroupList getUserGroupList() {
+  public List<UserGroupVO> getUserGroupList() {
     return this.getAudienceSessionBean().getUgl();
   }
 
-  public void setUserGroupList(UserGroupList ugl) {
+  public void setUserGroupList(List<UserGroupVO> ugl) {
     this.getAudienceSessionBean().setUgl(ugl);
   }
 
