@@ -23,8 +23,8 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return created user group
    */
-  public UserGroupVO createUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
+  public UserGroupVO createUserGroupVO(UserGroupVO userGroup)
+      throws AuthenticationException, TechnicalException;
 
   /**
    * Retrieves an user group for a user group ID
@@ -35,8 +35,8 @@ public interface UserGroupInterface {
    * @throws SecurityException
    * @return user group with the given userGroupId
    */
-  public UserGroupVO readUserGroupVO(String userGroupId) throws TechnicalException,
-      NotFoundException, SecurityException;
+  public UserGroupVO readUserGroupVO(String userGroupId)
+      throws TechnicalException, NotFoundException, SecurityException;
 
 
   /**
@@ -48,8 +48,8 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return modified user group
    */
-  public UserGroupVO updateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
+  public UserGroupVO updateUserGroupVO(UserGroupVO userGroup)
+      throws AuthenticationException, TechnicalException;
 
 
   /**
@@ -61,43 +61,6 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return deleted user group
    */
-  public UserGroupVO deleteUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
-
-
-  /**
-   * Activates an existing and inactive user group
-   * 
-   * @param userGroup
-   * @param currentUser
-   * @throws AuthenticationException
-   * @throws TechnicalException
-   * @return activated user group
-   */
-  public UserGroupVO activateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
-
-
-  /**
-   * Deactivates an existing and active user group
-   * 
-   * @param userGroup
-   * @param currentUser
-   * @throws AuthenticationException
-   * @throws TechnicalException
-   * @return deactivated user group
-   */
-  public UserGroupVO deactivateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
-
-
-  /**
-   * Returns a list of user groups satisfying the requirements of the search query
-   * 
-   * @param searchQuery The search query
-   * @throws TechnicalException
-   * @return list of user groups satisfying the requirements of the searchQuery
-   */
-  public java.util.List<UserGroupVO> searchUserGroupVO(String searchQuery)
-      throws TechnicalException;
+  public UserGroupVO deleteUserGroupVO(UserGroupVO userGroup)
+      throws AuthenticationException, TechnicalException;
 }

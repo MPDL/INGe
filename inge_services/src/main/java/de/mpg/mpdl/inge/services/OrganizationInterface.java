@@ -22,8 +22,8 @@ public interface OrganizationInterface {
    * @throws TechnicalException
    * @return created organization
    */
-  public OrganizationVO createOrganization(OrganizationVO organization) throws SecurityException,
-      NotFoundException, TechnicalException;
+  public OrganizationVO createOrganization(OrganizationVO organization)
+      throws SecurityException, NotFoundException, TechnicalException;
 
   /**
    * Retrieves an organization for a given organization ID
@@ -34,8 +34,8 @@ public interface OrganizationInterface {
    * @throws SecurityException
    * @return user account with the given userAccountId
    */
-  public OrganizationVO readOrganization(String organizationId) throws TechnicalException,
-      NotFoundException, SecurityException;
+  public OrganizationVO readOrganization(String organizationId)
+      throws TechnicalException, NotFoundException, SecurityException;
 
 
   /**
@@ -47,8 +47,8 @@ public interface OrganizationInterface {
    * @throws TechnicalException
    * @return modified organization
    */
-  public OrganizationVO updateOrganization(OrganizationVO organization) throws SecurityException,
-      NotFoundException, TechnicalException;
+  public OrganizationVO updateOrganization(OrganizationVO organization)
+      throws SecurityException, NotFoundException, TechnicalException;
 
 
   /**
@@ -60,43 +60,6 @@ public interface OrganizationInterface {
    * @throws TechnicalException
    * @return deleted organization
    */
-  public OrganizationVO deleteOrganization(String organizationId) throws SecurityException,
-      NotFoundException, TechnicalException;
-
-
-  /**
-   * Opens an existing organization which is in state closed
-   * 
-   * @param organizationId
-   * @throws SecurityException
-   * @throws NotFoundException
-   * @throws TechnicalException
-   * @return opened organization
-   */
-  public OrganizationVO openOrganization(String organizationId) throws SecurityException,
-      NotFoundException, TechnicalException;
-
-
-  /**
-   * Closes an existing organization which is in state open
-   * 
-   * @param organizationID
-   * @throws SecurityException
-   * @throws NotFoundException
-   * @throws TechnicalException
-   * @return closed organization
-   */
-  public OrganizationVO closeOrganization(String organizationID) throws SecurityException,
-      NotFoundException, TechnicalException;
-
-
-  /**
-   * Returns a list of organizations satisfying the requirements of the searchQuery
-   * 
-   * @param searchQuery The search query
-   * @throws TechnicalException
-   * @return list of user accounts satisfying the requirements of the searchQuery
-   */
-  public java.util.List<OrganizationVO> searchOrganization(String searchQuery)
-      throws TechnicalException;
+  public OrganizationVO deleteOrganization(String organizationId)
+      throws SecurityException, NotFoundException, TechnicalException;
 }
