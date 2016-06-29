@@ -22,8 +22,8 @@ public interface OrganizationInterface {
    * @throws TechnicalException
    * @return created organization
    */
-  public OrganizationVO createOrganization(OrganizationVO organization)
-      throws SecurityException, NotFoundException, TechnicalException;
+  public OrganizationVO createOrganization(OrganizationVO organization) throws SecurityException,
+      NotFoundException, TechnicalException;
 
   /**
    * Retrieves an organization for a given organization ID
@@ -34,8 +34,8 @@ public interface OrganizationInterface {
    * @throws SecurityException
    * @return user account with the given userAccountId
    */
-  public OrganizationVO readOrganization(String organizationId)
-      throws TechnicalException, NotFoundException, SecurityException;
+  public OrganizationVO readOrganization(String organizationId) throws TechnicalException,
+      NotFoundException, SecurityException;
 
 
   /**
@@ -47,8 +47,8 @@ public interface OrganizationInterface {
    * @throws TechnicalException
    * @return modified organization
    */
-  public OrganizationVO updateOrganization(OrganizationVO organization)
-      throws SecurityException, NotFoundException, TechnicalException;
+  public OrganizationVO updateOrganization(OrganizationVO organization) throws SecurityException,
+      NotFoundException, TechnicalException;
 
 
   /**
@@ -60,6 +60,6 @@ public interface OrganizationInterface {
    * @throws TechnicalException
    * @return deleted organization
    */
-  public OrganizationVO deleteOrganization(String organizationId)
-      throws SecurityException, NotFoundException, TechnicalException;
+  public OrganizationVO deleteOrganization(String organizationId) throws SecurityException,
+      NotFoundException, TechnicalException;
 }

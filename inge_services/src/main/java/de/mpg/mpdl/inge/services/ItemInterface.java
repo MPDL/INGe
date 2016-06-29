@@ -33,8 +33,8 @@ public interface ItemInterface {
    * @throws SecurityException
    * @return the pubItem with the id equal to pubItemId
    */
-  public ItemVO readItem(String itemId)
-      throws TechnicalException, NotFoundException, SecurityException;
+  public ItemVO readItem(String itemId) throws TechnicalException, NotFoundException,
+      SecurityException;
 
   /**
    * Update an item. A stupid update of an item. If the item is existing no further checks will be
@@ -46,8 +46,8 @@ public interface ItemInterface {
    * @exception DepositingException
    * @exception ItemNotFoundException
    */
-  public void updateItem(ItemVO item, boolean createNewVersion)
-      throws TechnicalException, SecurityException, NotFoundException;
+  public void updateItem(ItemVO item, boolean createNewVersion) throws TechnicalException,
+      SecurityException, NotFoundException;
 
 
   /**

@@ -23,8 +23,8 @@ public interface ContextInterface {
    * @throws TechnicalException
    * @return created Context
    */
-  public ContextVO createContext(ContextVO Context)
-      throws AuthenticationException, TechnicalException;
+  public ContextVO createContext(ContextVO Context) throws AuthenticationException,
+      TechnicalException;
 
   /**
    * Retrieves an Context for a given Context ID
@@ -35,8 +35,8 @@ public interface ContextInterface {
    * @throws SecurityException
    * @return Context with the given ContextId
    */
-  public ContextVO readContext(String ContextId)
-      throws TechnicalException, NotFoundException, SecurityException;
+  public ContextVO readContext(String ContextId) throws TechnicalException, NotFoundException,
+      SecurityException;
 
   /**
    * updates an existing Context (will not change open/close state)
@@ -47,8 +47,8 @@ public interface ContextInterface {
    * @throws TechnicalException
    * @return modified Context
    */
-  public ContextVO updateContext(ContextVO Context)
-      throws AuthenticationException, TechnicalException;
+  public ContextVO updateContext(ContextVO Context) throws AuthenticationException,
+      TechnicalException;
 
 
   /**
@@ -60,6 +60,6 @@ public interface ContextInterface {
    * @throws TechnicalException
    * @return deleted Context
    */
-  public ContextVO deleteContext(ContextVO Context)
-      throws AuthenticationException, TechnicalException;
+  public ContextVO deleteContext(ContextVO Context) throws AuthenticationException,
+      TechnicalException;
 }

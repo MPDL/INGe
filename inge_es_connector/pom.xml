@@ -8,12 +8,12 @@
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>inge_connector</artifactId>
+	<artifactId>inge_es_connector</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inge_connector</name>
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_connector</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_connector</developerConnection>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_es_connector</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_es_connector</developerConnection>
 		<url>https://github.com/MPDL-Collections/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
