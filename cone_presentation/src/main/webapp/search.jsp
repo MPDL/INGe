@@ -29,9 +29,9 @@
 -->
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@page import="de.mpg.escidoc.services.cone.util.UrlHelper"%>
-<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
-<%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
+<%@page import="de.mpg.mpdl.inge.cone.util.UrlHelper"%>
+<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@page import="de.mpg.mpdl.inge.cone.util.LocalizedString"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -39,15 +39,15 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.Pair" %>
-<%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
-<%@ page import="de.mpg.escidoc.services.cone.Querier" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.Pair" %>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 
 <%
 	
@@ -96,8 +96,8 @@
 %>
 
 
-<%@page import="de.mpg.escidoc.services.cone.Querier.ModeType"%>
-<%@page import="de.mpg.escidoc.services.cone.util.Describable"%>
+<%@page import="de.mpg.mpdl.inge.cone.Querier.ModeType"%>
+<%@page import="de.mpg.mpdl.inge.cone.util.Describable"%>
 
 <html>
 	<jsp:include page="header.jsp"/>

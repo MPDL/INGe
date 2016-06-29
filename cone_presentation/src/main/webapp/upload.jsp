@@ -27,8 +27,8 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Predicate"%>
+<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@page import="de.mpg.mpdl.inge.cone.ModelList.Predicate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -40,11 +40,11 @@
 <%@page import="java.util.List"%>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.ArrayList" %>
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
-<%@page import="de.mpg.escidoc.services.cone.ModelList"%>
+<%@page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
+<%@page import="de.mpg.mpdl.inge.cone.ModelList"%>
 <%@page import="java.util.Set"%>
-<%@page import="de.mpg.escidoc.services.cone.Querier"%>
-<%@page import="de.mpg.escidoc.services.cone.QuerierFactory"%>
+<%@page import="de.mpg.mpdl.inge.cone.Querier"%>
+<%@page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
 
 <%@page import="org.apache.commons.fileupload.FileUpload"%>
 <%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
@@ -54,14 +54,14 @@
 <%@page import="java.io.InputStream"%>
 <%@page import="javax.xml.parsers.SAXParser"%>
 <%@page import="javax.xml.parsers.SAXParserFactory"%>
-<%@page import="de.mpg.escidoc.services.cone.rdfimport.RDFHandler"%>
-<%@page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject"%>
-<%@page import="de.mpg.escidoc.services.cone.util.TreeFragment"%>
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
+<%@page import="de.mpg.mpdl.inge.cone.rdfimport.RDFHandler"%>
+<%@page import="de.mpg.mpdl.inge.cone.util.LocalizedTripleObject"%>
+<%@page import="de.mpg.mpdl.inge.cone.util.TreeFragment"%>
+<%@page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.util.regex.Matcher"%>
-<%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
+<%@page import="de.mpg.mpdl.inge.cone.util.LocalizedString"%>
 <%@page import="org.apache.log4j.Logger"%>
 
 <%!

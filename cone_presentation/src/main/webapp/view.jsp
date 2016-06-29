@@ -27,21 +27,21 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
+<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="de.mpg.escidoc.services.cone.Querier" %>
-<%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Predicate" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.LocalizedString" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.LocalizedString" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.TreeFragment" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.LocalizedTripleObject" %>
 <%@ page import="java.io.StringWriter" %>
-<%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 
 <%!
 
