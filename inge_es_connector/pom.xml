@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>inge_es_connector</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>inge_connector</name>
+	<name>inge_es_connector</name>
 	<scm>
 		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_es_connector</connection>
 		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_es_connector</developerConnection>

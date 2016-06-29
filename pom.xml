@@ -56,7 +56,7 @@
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-		<module>inge_connector</module>
+		<module>inge_es_connector</module>
 		<module>model</module>
 		<module>inge_services</module>
 	</modules>
@@ -375,7 +375,7 @@
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>inge_connector</artifactId>
+				<artifactId>inge_es_connector</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
