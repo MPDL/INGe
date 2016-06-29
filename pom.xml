@@ -134,7 +134,7 @@
 
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>http://jenkins.mpdl.mpg.de/jenkins/job/PubMan/</url>
+		<url>http://jenkins.mpdl.mpg.de/jenkins/job/INGe/</url>
 		<notifiers>
 			<notifier>
 				<type>mail</type>
@@ -146,9 +146,9 @@
 	</ciManagement>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/PubMan.git</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/PubMan.git</developerConnection>
-		<url>https://github.com/MPDL-Collections/PubMan</url>
+		<connection>scm:git:git@github.com:MPDL-Collections/INGe.git</connection>
+		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe.git</developerConnection>
+		<url>https://github.com/MPDL-Collections/INGe</url>
 		<tag>HEAD</tag>
 	</scm>
 
