@@ -29,12 +29,11 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
-		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>7.10.3-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
@@ -85,84 +84,84 @@
 						
 						<webModule>
 						
-							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_presentation</artifactId>
 							<contextRoot>/pubman</contextRoot>
 						</webModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>cone_presentation</artifactId>
 							<contextRoot>/cone</contextRoot>
 						</webModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>aa_presentation</artifactId>
 							<contextRoot>/auth</contextRoot>
 						</webModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>search_presentation</artifactId>
 							<contextRoot>/search</contextRoot>
 						</webModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>syndication_presentation</artifactId>
 							<contextRoot>/syndication</contextRoot>
 						</webModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>validation_presentation</artifactId>
 							<contextRoot>/validation</contextRoot>
 						</webModule>
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>dataacquisition_presentation</artifactId>
 							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
 						<!--  
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>sword_presentation</artifactId>
 							<contextRoot>/sword-app</contextRoot>
 						</webModule>
 						-->
 						<webModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pid_cache_presentation</artifactId>
 							<contextRoot>/pidcache</contextRoot>
 							<excluded>${exclude.module}</excluded>
 						</webModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>xml_transforming</artifactId>
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>search</artifactId>
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>dataacquisition</artifactId>
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_logic</artifactId>
 							<moduleId>pubman_logic</moduleId>
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>citationmanager</artifactId>
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>structuredexportmanager</artifactId>                          
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>validation</artifactId>
 						</ejbModule>
 						<ejbModule>
-							<groupId>de.mpg.escidoc.services.wildfly</groupId>
+							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>transformation</artifactId>
 						</ejbModule>
 					</modules>
@@ -229,89 +228,89 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>xml_transforming</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>validation</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>validation_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone</artifactId>
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformation</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>search</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>search_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>syndication_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 			<version>7.10.3-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<version>7.10.3-SNAPSHOT</version>
 			<classifier>${escidoc.pubman.build.mode}</classifier>
@@ -328,7 +327,7 @@
 		</dependency>
 		-->
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
 			<type>war</type>
 		</dependency>

@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>7.10.3-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>inge_connector</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -22,7 +22,7 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
 		</dependency>
 		<dependency>

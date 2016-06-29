@@ -15,12 +15,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services.wildfly</groupId>
+	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<packaging>pom</packaging>
-	<version>7.10.3-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>INGe</name>
-	<url>http://pubman.mpdl.mpg.de/software</url>
+	<url>http://inge.mpdl.mpg.de/software</url>
 	<description>
 		PubMan supports scientists and institutes in the management and
 		the digital curation of their publications. This solution
@@ -43,6 +43,7 @@
 		<module>search</module>
 		<module>search_presentation</module>
 		<module>cone</module>
+		<module>cone_presentation</module>
 		<module>dataacquisition</module>
 		<module>dataacquisition_presentation</module>
 		<module>exportmanager</module>
@@ -75,112 +76,9 @@
 
 	<developers>
 		<developer>
-			<id>mdreyer</id>
-			<name>Malte Dreyer</name>
-			<email>dreyer@mpdl.mpg.de</email>
-			<roles>
-				<role>Project manager</role>
-				<role>Architect</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>nab</id>
-			<name>Natasa Bulatovic</name>
-			<email>bulatovic@mpdl.mpg.de</email>
-			<roles>
-				<role>Software development manager</role>
-				<role>Architect</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>mfranke</id>
-			<name>Michael Franke</name>
-			<email>franke@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
 			<id>wfrank</id>
 			<name>Wilhelm Frank</name>
 			<email>frank@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>tendres</id>
-			<name>Thomas Endres</name>
-			<email>endres@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>tschraut</id>
-			<name>Tobias Schraut</name>
-			<email>schraut@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-
-		<developer>
-			<id>jkurt</id>
-			<name>Julia Kurt</name>
-			<email>kurt@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>vmakarenko</id>
-			<name>Vlad Makarenko</name>
-			<email>makarenko@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>bsaquet</id>
-			<name>Bastien Saquet</name>
-			<email>saquet@mpdl.mpg.de</email>
-			<roles>
-				<role>Software developer</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>nek</id>
-			<name>Nicole Kondic</name>
-			<email>kondic@mpdl.mpg.de</email>
-			<roles>
-				<role>Service management</role>
-			</roles>
-			<organization>Max Planck Digital Library</organization>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>kleinfercher</id>
-			<name>Friederike Kleinfercher</name>
-			<email>kleinfercher@mpdl.mpg.de</email>
 			<roles>
 				<role>Software developer</role>
 			</roles>
@@ -296,78 +194,78 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_util</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
 				<version>0.2.33-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
 				<version>0.2.33-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
 				<version>1.0.100-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
 				<version>1.0.100-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
 				<version>0.0.6-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
 				<version>0.0.6-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>xml_transforming</artifactId>
 				<version>1.1.95-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>xml_transforming</artifactId>
 				<version>1.1.95-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>common_presentation</artifactId>
 				<version>1.0.84-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
 				<version>1.2.55-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
 				<version>1.2.55-SNAPSHOT</version>
 				<type>war</type>
@@ -375,114 +273,114 @@
 
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
 				<version>1.0.91-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
 				<version>1.0.91-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition_presentation</artifactId>
 				<version>1.0.91-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>framework_access</artifactId>
 				<version>1.3.40-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pid_cache_presentation</artifactId>
 				<version>0.1.58-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>search</artifactId>
 				<version>1.1.29-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>search</artifactId>
 				<version>1.1.29-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>search_presentation</artifactId>
 				<version>1.1.29-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>structuredexportmanager</artifactId>
 				<version>1.0.98-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>structuredexportmanager</artifactId>
 				<version>1.0.98-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>syndication_presentation</artifactId>
 				<version>1.0.79-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformation</artifactId>
 				<version>1.0.83-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformation</artifactId>
 				<version>1.0.83-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>validation</artifactId>
 				<version>1.0.102-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>validation</artifactId>
 				<version>1.0.102-SNAPSHOT</version>
 				<type>ejb</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>validation_presentation</artifactId>
 				<version>1.0.102-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_connector</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>de.mpg.escidoc.services.wildfly</groupId>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
