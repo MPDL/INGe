@@ -148,28 +148,28 @@ public class RedirectServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         try {
-        
-            InputStream input = getContentAsInputStream(req, resp, false, pieces);
-            if (input == null) {
-              return;
-            }
-            String b = new String();
 
-            try {
-              b = getTechnicalMetadataByTika(input);
-            } catch (TikaException e) {
-              logger.warn("TikaException when parsing " + pieces[3], e);
-            } catch (SAXException e) {
-              logger.warn("SAXException when parsing " + pieces[3], e);
-            }
-
-            resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
-
-            out.write(b.toString().getBytes());
+          InputStream input = getContentAsInputStream(req, resp, false, pieces);
+          if (input == null) {
             return;
-          
-        	} catch (Exception e) {
-        		throw new ServletException(e);
+          }
+          String b = new String();
+
+          try {
+            b = getTechnicalMetadataByTika(input);
+          } catch (TikaException e) {
+            logger.warn("TikaException when parsing " + pieces[3], e);
+          } catch (SAXException e) {
+            logger.warn("SAXException when parsing " + pieces[3], e);
+          }
+
+          resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
+
+          out.write(b.toString().getBytes());
+          return;
+
+        } catch (Exception e) {
+          throw new ServletException(e);
         }
       }
     }

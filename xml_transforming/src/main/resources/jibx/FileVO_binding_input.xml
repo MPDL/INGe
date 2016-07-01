@@ -141,9 +141,6 @@
 			usage="optional" ordered="false" allow-repeats="true" flexible="true">
 				<structure name="file" ns="${xsd.metadata.file}"
 					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO" usage="optional" ordered="false"/>
-				<!-- Faces -->
-				<structure name="jhove" map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsJHoveVO" usage="optional" ordered="false" flexible="true"/>
-		
 		</collection>
 
 		</structure>
