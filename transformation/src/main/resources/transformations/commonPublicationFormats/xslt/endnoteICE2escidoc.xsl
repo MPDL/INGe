@@ -56,8 +56,8 @@
 	xmlns:organization="${xsd.metadata.organization}"		
 	xmlns:eterms="${xsd.metadata.terms}"   
    xmlns:escidoc="urn:escidoc:functions"
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder"
-   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+   xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+   xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:esc="http://escidoc.mpg.de/"
    xmlns:itemlist="${xsd.soap.item.itemlist}">

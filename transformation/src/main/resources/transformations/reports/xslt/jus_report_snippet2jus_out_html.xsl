@@ -29,7 +29,7 @@
 	xmlns:organization="${xsd.metadata.organization}"
 	xmlns:escidocFunctions="urn:escidoc:functions" 
 	xmlns:escidoc="${xsd.metadata.terms}"
-	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
 	xmlns:reportFunctions="urn:escidoc:functions" 
 	xmlns:itemlist="${xsd.soap.item.itemlist}"
 	xmlns:eprints="http://purl.org/eprint/terms/" 

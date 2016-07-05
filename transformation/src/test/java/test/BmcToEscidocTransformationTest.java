@@ -158,10 +158,8 @@ public class BmcToEscidocTransformationTest extends XMLTestCase {
     if (PropertyReader.getProperty("escidoc.common.release.build").equals("true"))
       return;
 
-    String test =
-        new String(b2etransf.transform(src, "bmc_editura", "application/xml", "UTF-8",
-            "eSciDoc-publication-item", "application/xml", "*", ""), "UTF-8");
-
+    // Test loads an online resource which may change (especially the size in <dcterms:etent>)
+    // Probably this needs to be fixed in 'test/resources/testFiles/escidoc/1752-1947-5-391.xml'
     assertXMLEqual(
         expected,
         new String(b2etransf.transform(src, "bmc_editura", "application/xml", "UTF-8",

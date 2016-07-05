@@ -62,7 +62,7 @@
 		xmlns:organization="${xsd.metadata.organization}"
 		xmlns:escidocFunctions="urn:escidoc:functions"
 		xmlns:escidoc="http://escidoc.mpg.de/"
-		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+		xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
 		xmlns:itemlist="${xsd.soap.item.itemlist}"
 		xmlns:organizational-unit="${xsd.soap.ou.ou}"
 		>

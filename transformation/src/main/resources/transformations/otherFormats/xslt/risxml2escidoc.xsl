@@ -55,10 +55,10 @@
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"   
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.transformation.util.creators.AuthorDecoder"
+   xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:escidocFunction="urn:escidoc:functions"
-   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+   xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
    xmlns:itemlist="${xsd.soap.item.itemlist}">
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>

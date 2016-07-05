@@ -56,7 +56,7 @@
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocItem="${xsd.soap.item.item}"
-	xmlns:Util="java:de.mpg.escidoc.services.transformation.Util">
+	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util">
 	
 
 	

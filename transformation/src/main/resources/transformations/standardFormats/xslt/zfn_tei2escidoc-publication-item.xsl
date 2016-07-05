@@ -49,7 +49,7 @@
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:escidoc="urn:escidoc:functions"
-   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+   xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>

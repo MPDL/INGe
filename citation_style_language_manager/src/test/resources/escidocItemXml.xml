@@ -9,7 +9,7 @@
       <srel:context objid="escidoc:1002"/>
       <srel:content-model objid="escidoc:2001"/>
       <prop:lock-status>unlocked</prop:lock-status>
-      <prop:version objid="escidoc:891233:1">
+      <prop:version objid="escidoc:891233:1" xlink:href="escidoc:891233:1">
         <version:number>1</version:number>
         <version:date>2015-10-28T15:13:46.534Z</version:date>
         <version:status>pending</version:status>

@@ -16,6 +16,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.escidoc.www.services.adm.AdminHandler;
@@ -57,7 +58,8 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import gov.loc.www.zing.srw.service.SRWPort;
 
-
+//TODO adjust to INGe
+@Ignore
 public class TestFullTextSearch {
   private static String userHandle;
   private static ItemHandler itemHandler;

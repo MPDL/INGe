@@ -59,7 +59,7 @@
 		xmlns:organization="${xsd.metadata.organization}" 
 		xmlns:escidocFunctions="urn:escidoc:functions" 
 		xmlns:escidoc="${xsd.metadata.terms}" 
-		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" 
+		xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util" 
 		xmlns:itemlist="${xsd.soap.item.itemlist}" 
 		xmlns:search="http://www.loc.gov/zing/srw/" 
 		xmlns:search-result="${xsd.soap.searchresult.searchresult}" 
