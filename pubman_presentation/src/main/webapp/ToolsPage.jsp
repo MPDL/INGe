@@ -82,7 +82,7 @@
 										<h:outputText value="#{lbl.Tools_lblUnAPI}"/>
 									</h:outputLink>
 									<h:outputText styleClass="seperator void" />
-									<h:outputLink id="lnkMenuSWORD" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/sword-app/" target="_blank">
+									<h:outputLink id="lnkMenuSWORD" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/SwordStartPage.jsp" target="_blank">
 										<h:outputText value="#{lbl.Tools_lblSWORD}"/>
 									</h:outputLink>
 									<h:outputText styleClass="seperator void" />

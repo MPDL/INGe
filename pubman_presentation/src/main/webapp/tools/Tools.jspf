@@ -147,7 +147,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:outputLink id="lnkSWORD" value="#{ApplicationBean.pubmanInstanceUrl}/sword-app/"  target="_blank">
+				<h:outputLink id="lnkSWORD" value="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/SwordStartPage.jsp"  target="_blank">
 					<h:outputText value="#{lbl.Tools_lblSWORDHead}"/>
 				</h:outputLink>
 			</b>
