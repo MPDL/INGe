@@ -28,11 +28,10 @@
 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>INGe</artifactId>
-		<groupId>de.mpg.escidoc.services.wildfly</groupId>
-		<version>7.10.3-SNAPSHOT</version>
+		<groupId>de.mpg.mpdl.inge</groupId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
 	<artifactId>pubman_presentation</artifactId>
 	<name>pubman_presentation</name>
 	<version>7.10.3-SNAPSHOT</version>
@@ -68,42 +67,42 @@
 	<dependencies>
 	
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>validation</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>xml_transforming</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformation</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>search</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.pubman.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 			<version>7.10.3-SNAPSHOT</version>
 			<scope>provided</scope>

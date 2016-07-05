@@ -1,5 +1,5 @@
 
-<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
+<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.util.ArrayList"%><%--
 
@@ -30,13 +30,13 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.Pair" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.TreeFragment" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.Pair" %>
 <%@ page import="java.util.List" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
-<%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
-<%@ page import="de.mpg.escidoc.services.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 
 <%
 	

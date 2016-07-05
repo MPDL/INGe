@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
+<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
@@ -42,22 +42,22 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
-<%@ page import="de.mpg.escidoc.services.cone.Querier" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Predicate" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.LocalizedString" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
-<%@ page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Predicate" %>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.LocalizedString" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.TreeFragment" %>
+<%@ page import="de.mpg.mpdl.inge.cone.util.LocalizedTripleObject" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
-<%@ page import="de.mpg.escidoc.services.cone.web.util.HtmlUtils" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 <%@ page import="java.nio.charset.Charset" %>
-<%@ page import="de.mpg.escidoc.services.aa.AuthenticationVO" %>
+<%@ page import="de.mpg.mpdl.inge.aa.AuthenticationVO" %>
 <%@ page import="org.apache.log4j.Logger"%>
 
 <%!
@@ -766,7 +766,7 @@
 	
 %>
 
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%>
+<%@page import="de.mpg.mpdl.inge.cone.ModelList.Event"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<jsp:include page="header.jsp"/>

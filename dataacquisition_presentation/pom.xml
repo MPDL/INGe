@@ -28,12 +28,11 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
-		<groupId>de.mpg.escidoc.services.wildfly</groupId>
+		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>7.10.3-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.mpg.escidoc.services.wildfly</groupId>
 	<artifactId>dataacquisition_presentation</artifactId>
 	<name>dataacquisition_presentation</name>
 	<version>1.0.91-SNAPSHOT</version>
@@ -54,7 +53,7 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>de.mpg.escidoc.services.wildfly</groupId>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<scope>provided</scope>
 		</dependency>

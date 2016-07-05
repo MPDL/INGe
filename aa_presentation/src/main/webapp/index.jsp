@@ -1,7 +1,7 @@
-<%@page import="de.mpg.escidoc.services.aa.Aa"%>
-<%@page import="de.mpg.escidoc.services.aa.AuthenticationVO.Grant"%>
-<%@page import="de.mpg.escidoc.services.aa.AuthenticationVO.Role"%>
-<%@page import="de.mpg.escidoc.services.aa.AuthenticationVO"%>
+<%@page import="de.mpg.mpdl.inge.aa.Aa"%>
+<%@page import="de.mpg.mpdl.inge.aa.AuthenticationVO.Grant"%>
+<%@page import="de.mpg.mpdl.inge.aa.AuthenticationVO.Role"%>
+<%@page import="de.mpg.mpdl.inge.aa.AuthenticationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

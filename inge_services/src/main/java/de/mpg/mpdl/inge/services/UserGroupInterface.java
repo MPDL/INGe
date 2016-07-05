@@ -23,8 +23,8 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return created user group
    */
-  public UserGroupVO createUserGroupVO(UserGroupVO userGroup)
-      throws AuthenticationException, TechnicalException;
+  public UserGroupVO createUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
+      TechnicalException;
 
   /**
    * Retrieves an user group for a user group ID
@@ -35,8 +35,8 @@ public interface UserGroupInterface {
    * @throws SecurityException
    * @return user group with the given userGroupId
    */
-  public UserGroupVO readUserGroupVO(String userGroupId)
-      throws TechnicalException, NotFoundException, SecurityException;
+  public UserGroupVO readUserGroupVO(String userGroupId) throws TechnicalException,
+      NotFoundException, SecurityException;
 
 
   /**
@@ -48,8 +48,8 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return modified user group
    */
-  public UserGroupVO updateUserGroupVO(UserGroupVO userGroup)
-      throws AuthenticationException, TechnicalException;
+  public UserGroupVO updateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
+      TechnicalException;
 
 
   /**
@@ -61,6 +61,6 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return deleted user group
    */
-  public UserGroupVO deleteUserGroupVO(UserGroupVO userGroup)
-      throws AuthenticationException, TechnicalException;
+  public UserGroupVO deleteUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
+      TechnicalException;
 }

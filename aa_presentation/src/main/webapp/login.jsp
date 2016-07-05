@@ -1,5 +1,5 @@
 <%@page import="java.util.Enumeration"%>
-<%@page import="de.mpg.escidoc.services.aa.AaServerConfiguration"%>
+<%@page import="de.mpg.mpdl.inge.aa.AaServerConfiguration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

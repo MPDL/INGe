@@ -73,7 +73,6 @@
 	<include path="publication/MdsYearbookVO_binding_input.xml" />
 	<include path="FileVO_binding_input.xml" />
 	<include path="file/MdsFileVO_binding_input.xml" />
-	<include path="file/MdsJHoveVO_binding_input.xml" />
 	<include path="file/FormatVO_binding.xml" />
 	<include path="RelationVO_binding.xml" />
 	<include path="ItemVO_binding_input.xml" />

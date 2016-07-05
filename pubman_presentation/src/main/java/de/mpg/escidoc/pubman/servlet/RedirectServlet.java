@@ -148,31 +148,26 @@ public class RedirectServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         try {
-          if ("jhove".equals(PropertyReader.getProperty("escidoc.pubman.tme.configuration"))) {
-            String technicalMetadata = getTechnicalMetadataByJhove(pieces);
-            resp.setHeader("Content-Type", "text/xml; charset=UTF-8");
 
-            out.write(technicalMetadata.getBytes());
-          } else {
-            InputStream input = getContentAsInputStream(req, resp, false, pieces);
-            if (input == null) {
-              return;
-            }
-            String b = new String();
-
-            try {
-              b = getTechnicalMetadataByTika(input);
-            } catch (TikaException e) {
-              logger.warn("TikaException when parsing " + pieces[3], e);
-            } catch (SAXException e) {
-              logger.warn("SAXException when parsing " + pieces[3], e);
-            }
-
-            resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
-
-            out.write(b.toString().getBytes());
+          InputStream input = getContentAsInputStream(req, resp, false, pieces);
+          if (input == null) {
             return;
           }
+          String b = new String();
+
+          try {
+            b = getTechnicalMetadataByTika(input);
+          } catch (TikaException e) {
+            logger.warn("TikaException when parsing " + pieces[3], e);
+          } catch (SAXException e) {
+            logger.warn("SAXException when parsing " + pieces[3], e);
+          }
+
+          resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
+
+          out.write(b.toString().getBytes());
+          return;
+
         } catch (Exception e) {
           throw new ServletException(e);
         }
@@ -253,30 +248,7 @@ public class RedirectServlet extends HttpServlet {
     return b.toString();
   }
 
-  private String getTechnicalMetadataByJhove(String[] pieces) throws IOException,
-      URISyntaxException, ServiceException, RemoteException, XmlSchemaValidationException,
-      SystemException, TmeException, XmlCorruptedException, AuthorizationException,
-      AuthenticationException, MissingMethodParameterException {
-    String componentPattern = PropertyReader.getProperty("escidoc.pubman.component.pattern");
-    String componentUrl =
-        componentPattern.replace("$1", pieces[0]).replace("$2", pieces[2]).replace("$3", pieces[3]);
 
-    JhoveHandler jhoveHandler = ServiceLocator.getJhoveHandler(AdminHelper.getAdminUserHandle());
-
-    StringBuffer b = new StringBuffer(2048);
-    b.append(
-        "<request xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
-            + "<file xlink:type=\"simple\" xlink:title=\"\" xlink:href=\"")
-        .append(PropertyReader.getProperty("escidoc.pubman.instance.url"))
-        .append(PropertyReader.getProperty("escidoc.pubman.instance.context.path"))
-        .append(componentUrl);
-    b.append("\"");
-    b.append("/>");
-    b.append("</request>");
-
-    String technicalMetadata = jhoveHandler.extract(b.toString());
-    return technicalMetadata;
-  }
 
   /**
    * {@inheritDoc}

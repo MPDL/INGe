@@ -46,10 +46,10 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
  */
 @Stateless
 @Remote
-public class CitationStyleLanguageManagerDefaultImpl
-    implements CitationStyleLanguageManagerInterface {
-  private final static Logger logger =
-      Logger.getLogger(CitationStyleLanguageManagerDefaultImpl.class);
+public class CitationStyleLanguageManagerDefaultImpl implements
+    CitationStyleLanguageManagerInterface {
+  private final static Logger logger = Logger
+      .getLogger(CitationStyleLanguageManagerDefaultImpl.class);
   private final static String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
   private final static String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
@@ -127,11 +127,12 @@ public class CitationStyleLanguageManagerDefaultImpl
       }
       // create snippet format
       TransformerFactory factory = new TransformerFactoryImpl();
-      Transformer transformer = factory.newTransformer(new StreamSource(this.getClass()
-          .getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
+      Transformer transformer =
+          factory.newTransformer(new StreamSource(this.getClass().getClassLoader()
+              .getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
       transformer.setParameter("citations", citationList);
-      transformer.transform(new StreamSource(new StringReader(itemList)),
-          new StreamResult(snippet));
+      transformer
+          .transform(new StreamSource(new StringReader(itemList)), new StreamResult(snippet));
       if (logger.isDebugEnabled()) {
         logger.debug("eSciDoc-Snippet including Ciation: " + snippet);
       }

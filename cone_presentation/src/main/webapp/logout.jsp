@@ -1,4 +1,4 @@
-<%@page import="de.mpg.escidoc.services.aa.Aa"%>
+<%@page import="de.mpg.mpdl.inge.aa.Aa"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@ page import="java.net.URLEncoder" %>

@@ -74,7 +74,7 @@
 		Search and administrate <a itemtype="relatedLink" href="/cone/" target="_blank">controlled vocabularies</a> for persons, journals, classifications or languages.
 	
 		<h4>SWORD-Interface</h4>
-		Use this <a itemtype="relatedLink" href="/sword-app" target="_blank">push service</a> for automatic depositing from external servers.
+		Use this <a itemtype="relatedLink" href="/pubman/faces/SwordStartPage.jsp" target="_blank">push service</a> for automatic depositing from external servers.
 	</span>
 	<br/><br/>
 	<span>Further information on the interfaces can be found under:</span>
@@ -127,7 +127,7 @@
 		Durchsuchen und verwalten Sie <a itemtype="relatedLink" href="/cone/" target="_blank">kontrollierte Vokabulare</a> für Personen, Zeitschriften, Klassifikationen oder Sprachen.
 	
 		<h4>SWORD-Schnittstelle</h4>
-		Nutzen Sie diesen <a itemtype="relatedLink" href="/sword-app" target="_blank">Push-Dienst</a> zum automatisierten Datenimport von externen Servern.
+		Nutzen Sie diesen <a itemtype="relatedLink" href="/pubman/faces/SwordStartPage.jsp" target="_blank">Push-Dienst</a> zum automatisierten Datenimport von externen Servern.
 	</span>
 	<br/><br/>
 	<span>Weitere Informationen finden Sie unter:</span>
@@ -168,7 +168,7 @@
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
-			<li><a href="/sword-app" target="_blank">SWORD</a>: 自動登録用インタフェース</li>
+			<li><a href="/pubman/faces/SwordStartPage.jsp" target="_blank">SWORD</a>: 自動登録用インタフェース</li>
 		</ul>
 	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
@@ -207,7 +207,7 @@
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
-			<li><a href="/sword-app" target="_blank">SWORD</a>: 自動登録用インタフェース</li>
+			<li><a href="/pubman/faces/SwordStartPage.jsp" target="_blank">SWORD</a>: 自動登録用インタフェース</li>
 		</ul>
 	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
