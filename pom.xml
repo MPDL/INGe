@@ -788,7 +788,7 @@
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
 		<!-- CoNE settings -->
 		<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
-		<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
+		<escidoc.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</escidoc.cone.querier.class>
 		<escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
 		<escidoc.cone.database.server.name>dev-pubman.mpdl.mpg.de</escidoc.cone.database.server.name>
 		<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
@@ -811,9 +811,9 @@
 		<escidoc.aa.private.key.file>private.key</escidoc.aa.private.key.file>
 		<escidoc.aa.config.file>conf.xml</escidoc.aa.config.file>
 		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
-		<escidoc.aa.client.start.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
-		<escidoc.aa.client.finish.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
-		<escidoc.aa.client.logout.class>de.mpg.escidoc.services.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
+		<escidoc.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
+		<escidoc.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
+		<escidoc.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
 		<!-- Instance of the CSL-Editor -->
 		<escidoc.pubman.csl_editor.instance>http://editor.citationstyles.org</escidoc.pubman.csl_editor.instance>
 		<!-- Seal-Number of this PubMan instance -->
@@ -891,7 +891,7 @@
 			+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 		<escidoc.context.pattern>:context
 			+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-		<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
+		<escidoc.validation.source.classname>de.mpg.mpdl.inge.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 		<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 		<escidoc.statistics.max_mind_geo_lite_city_db.location />
