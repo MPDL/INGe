@@ -4,6 +4,7 @@
 package de.mpg.mpdl.inge.connector;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,6 +16,7 @@ import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.services.UserInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
@@ -22,10 +24,22 @@ import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
  */
 public class UserService implements UserInterface {
 
-  private final String indexName = "user_accounts";
-  private final String indexType = "account";
+  private String indexName = null;
+  private String indexType = null;
   private ObjectMapper mapper = new ObjectMapper();
 
+  public UserService() {
+	init();
+}
+  
+  protected void init() {
+	    try {
+	      this.indexName = PropertyReader.getProperty("user_index_name");
+	      this.indexType = PropertyReader.getProperty("user_index_type");
+	    } catch (IOException | URISyntaxException e) {
+	      e.printStackTrace();
+	    }
+	  }
   /*
    * (non-Javadoc)
    * 

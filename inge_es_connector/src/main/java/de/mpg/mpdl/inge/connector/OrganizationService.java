@@ -4,6 +4,7 @@
 package de.mpg.mpdl.inge.connector;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,6 +15,7 @@ import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.services.OrganizationInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
@@ -21,9 +23,22 @@ import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
  */
 public class OrganizationService implements OrganizationInterface {
 
-  private final String indexName = "organizational_units";
-  private final String indexType = "organization";
+  private String indexName = null;
+  private String indexType = null;
   private ObjectMapper mapper = new ObjectMapper();
+
+  public OrganizationService() {
+    init();
+  }
+
+  protected void init() {
+    try {
+      this.indexName = PropertyReader.getProperty("organization_index_name");
+      this.indexType = PropertyReader.getProperty("organization_index_type");
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
 
   /*
    * (non-Javadoc)

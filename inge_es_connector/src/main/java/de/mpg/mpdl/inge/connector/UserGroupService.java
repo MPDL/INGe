@@ -4,6 +4,7 @@
 package de.mpg.mpdl.inge.connector;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,6 +16,7 @@ import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.services.UserGroupInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
@@ -22,10 +24,22 @@ import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
  */
 public class UserGroupService implements UserGroupInterface {
 
-  private final String indexName = "user_accounts";
-  private final String indexType = "group";
+  private String indexName = null;
+  private String indexType = null;
   private ObjectMapper mapper = new ObjectMapper();
 
+  public UserGroupService() {
+	init();
+}
+  
+  protected void init() {
+	    try {
+	      this.indexName = PropertyReader.getProperty("usergroup_index_name");
+	      this.indexType = PropertyReader.getProperty("usergroup_index_type");
+	    } catch (IOException | URISyntaxException e) {
+	      e.printStackTrace();
+	    }
+	  }
   /*
    * (non-Javadoc)
    * 

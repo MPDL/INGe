@@ -4,6 +4,7 @@
 package de.mpg.mpdl.inge.connector;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,6 +16,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.ItemInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
@@ -22,9 +24,23 @@ import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
  */
 public class ItemService implements ItemInterface {
 
-  private final String indexName = "pure";
-  private final String indexType = "pubitem";
+  private String indexName = null;
+  private String indexType = null;
   private ObjectMapper mapper = new ObjectMapper();
+
+  public ItemService() {
+    init();
+  }
+
+  protected void init() {
+    try {
+      this.indexName = PropertyReader.getProperty("item_index_name");
+      this.indexType = PropertyReader.getProperty("item_index_name");
+    } catch (IOException | URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
   /*
    * (non-Javadoc)
