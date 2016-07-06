@@ -17,6 +17,8 @@ public class Coordinates implements Serializable {
   private double altitude;
 
   private boolean altitudeSet;
+  
+  public Coordinates(){}
 
   /**
    * Constructor for 3D coordinates.
