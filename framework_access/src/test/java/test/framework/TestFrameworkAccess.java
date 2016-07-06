@@ -24,6 +24,7 @@
  */
 package test.framework;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -35,6 +36,7 @@ import org.junit.runners.Suite;
  * @version $Revision$ $LastChangedDate$
  * @revised by BrP: 03.09.2007
  */
+@Ignore
 @RunWith(Suite.class)
 @Suite.SuiteClasses({test.framework.aa.TestUserManagement.class,
     test.framework.oum.TestOrganizationalUnitManager.class,
