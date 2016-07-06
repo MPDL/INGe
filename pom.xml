@@ -381,6 +381,12 @@
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>inge_services</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>

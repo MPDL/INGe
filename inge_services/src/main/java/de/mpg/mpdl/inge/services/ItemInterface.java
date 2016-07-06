@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.services;
 
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
@@ -22,7 +21,8 @@ public interface ItemInterface {
    * @exception DepositingException
    * @return {@link String}
    */
-  public String createItem(ItemVO item, String itemId) throws TechnicalException, SecurityException;
+  public String createItem(PubItemVO item, String itemId) throws TechnicalException,
+      SecurityException;
 
 
   /**
@@ -45,7 +45,7 @@ public interface ItemInterface {
    * @throws ItemNotFoundException
    * @return {@link String}
    */
-  public String updateItem(ItemVO item, String itemId, boolean createNewVersion)
+  public String updateItem(PubItemVO item, String itemId, boolean createNewVersion)
       throws TechnicalException, SecurityException, NotFoundException;
 
 
