@@ -18,49 +18,45 @@ public interface UserGroupInterface {
    * Creates and activates a new user group if it is not already existing
    * 
    * @param userGroup
-   * @param currentUser
+   * @param userGroupId
    * @throws AuthenticationException
    * @throws TechnicalException
-   * @return created user group
+   * @return {@link String}
    */
-  public UserGroupVO createUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
+  public String createUserGroup(UserGroupVO userGroup, String userGroupId)
+      throws AuthenticationException, TechnicalException;
 
   /**
-   * Retrieves an user group for a user group ID
    * 
-   * @param userGroupId The Id of the user group to get
+   * @param userGroupId
    * @throws TechnicalException
    * @throws NotFoundException
    * @throws SecurityException
-   * @return user group with the given userGroupId
+   * @return {@link UserGroupVO}
    */
-  public UserGroupVO readUserGroupVO(String userGroupId) throws TechnicalException,
+  public UserGroupVO readUserGroup(String userGroupId) throws TechnicalException,
       NotFoundException, SecurityException;
 
 
   /**
-   * Updates an existing user group (will not change active/inactive state)
    * 
    * @param userGroup
-   * @param currentUser
+   * @param userGroupId
    * @throws AuthenticationException
    * @throws TechnicalException
-   * @return modified user group
+   * @return {@link String}
    */
-  public UserGroupVO updateUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
-      TechnicalException;
+  public String updateUserGroup(UserGroupVO userGroup, String userGroupId)
+      throws AuthenticationException, TechnicalException;
 
 
   /**
-   * Deletes an existing user group (will not change active/inactive state)
    * 
-   * @param userGroup
-   * @param currentUser
+   * @param userGroupId
    * @throws AuthenticationException
    * @throws TechnicalException
-   * @return deleted user group
+   * @return {@link String}
    */
-  public UserGroupVO deleteUserGroupVO(UserGroupVO userGroup) throws AuthenticationException,
+  public String deleteUserGroup(String userGroupId) throws AuthenticationException,
       TechnicalException;
 }

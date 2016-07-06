@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.services;
 
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**
@@ -14,52 +14,51 @@ import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
  */
 public interface OrganizationInterface {
   /**
-   * Creates and opens a new organization if it is not already existing
    * 
-   * @param organization OrganizationVO to create
+   * @param organization
+   * @param organizationId
    * @throws SecurityException
    * @throws NotFoundException
    * @throws TechnicalException
-   * @return created organization
+   * @return {@link String}
    */
-  public OrganizationVO createOrganization(OrganizationVO organization) throws SecurityException,
-      NotFoundException, TechnicalException;
+  public String createOrganization(AffiliationVO organization, String organizationId)
+      throws SecurityException, NotFoundException, TechnicalException;
 
   /**
-   * Retrieves an organization for a given organization ID
    * 
-   * @param organizationId The Id of the organization to get
+   * @param organizationId
    * @throws TechnicalException
    * @throws NotFoundException
    * @throws SecurityException
-   * @return user account with the given userAccountId
+   * @return {@link AffiliationVO}
    */
-  public OrganizationVO readOrganization(String organizationId) throws TechnicalException,
+  public AffiliationVO readOrganization(String organizationId) throws TechnicalException,
       NotFoundException, SecurityException;
 
 
   /**
-   * Updates an existing organization (will not change open/close state)
    * 
-   * @param organization Updated OrganizationVO
+   * @param organization
+   * @param organizationId
    * @throws SecurityException
    * @throws NotFoundException
    * @throws TechnicalException
-   * @return modified organization
+   * @return {@link String}
    */
-  public OrganizationVO updateOrganization(OrganizationVO organization) throws SecurityException,
-      NotFoundException, TechnicalException;
+  public String updateOrganization(AffiliationVO organization, String organizationId)
+      throws SecurityException, NotFoundException, TechnicalException;
 
 
   /**
-   * Deletes an existing organization
    * 
    * @param organizationId
    * @throws SecurityException
    * @throws NotFoundException
    * @throws TechnicalException
-   * @return deleted organization
+   * @return {@link String}
    */
-  public OrganizationVO deleteOrganization(String organizationId) throws SecurityException,
+  public String deleteOrganization(String organizationId) throws SecurityException,
       NotFoundException, TechnicalException;
+
 }

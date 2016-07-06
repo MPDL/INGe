@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.services;
 
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**
@@ -14,49 +15,48 @@ import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
  */
 public interface ItemInterface {
   /**
-   * Create a new item. A stupid creation of the item. Referenced collection needs to be checked in
-   * advance.
    * 
    * @param item
+   * @param itemId
    * @exception TechnicalException
    * @exception DepositingException
+   * @return {@link String}
    */
-  public void createItem(ItemVO item) throws TechnicalException, SecurityException;
+  public String createItem(ItemVO item, String itemId) throws TechnicalException, SecurityException;
 
 
   /**
-   * Reads a requested item
    * 
-   * @param itemId The ID of the pubItem
+   * @param itemId
    * @throws TechnicalException
    * @throws PubItemNotFoundException
    * @throws SecurityException
-   * @return the pubItem with the id equal to pubItemId
+   * @return {@link PubItemVO}
    */
-  public ItemVO readItem(String itemId) throws TechnicalException, NotFoundException,
+  public PubItemVO readItem(String itemId) throws TechnicalException, NotFoundException,
       SecurityException;
 
   /**
-   * Update an item. A stupid update of an item. If the item is existing no further checks will be
-   * made.
    * 
-   * @param id
-   * @param createNewVersion
-   * @exception TechnicalException
-   * @exception DepositingException
-   * @exception ItemNotFoundException
+   * @param itemId
+   * @param item
+   * @throws TechnicalException
+   * @throws DepositingException
+   * @throws ItemNotFoundException
+   * @return {@link String}
    */
-  public void updateItem(ItemVO item, boolean createNewVersion) throws TechnicalException,
-      SecurityException, NotFoundException;
+  public String updateItem(ItemVO item, String itemId, boolean createNewVersion)
+      throws TechnicalException, SecurityException, NotFoundException;
 
 
   /**
-   * Delete an item.
    * 
-   * @param id
+   * @param itemId
    * @exception TechnicalException
    * @exception DepositingException
    * @exception ItemNotFoundException
+   * @return {@link String}
    */
-  public void deleteItem(String id) throws TechnicalException, SecurityException, NotFoundException;
+  public String deleteItem(String itemId) throws TechnicalException, SecurityException,
+      NotFoundException;
 }

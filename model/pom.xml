@@ -55,11 +55,13 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
+			<version>2.7.3</version>
 		</dependency>
 		<!-- http://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
+			<version>2.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

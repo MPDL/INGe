@@ -2,58 +2,59 @@ package de.mpg.mpdl.inge.services;
 
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
 /**
- * Interface for persisting and retrieving Contexts
+ * Interface for persisting and retrieving user s
  * 
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public interface ContextInterface {
+public interface UserInterface {
   /**
    * 
-   * @param context
-   * @param contextId
+   * @param user
+   * @param userId
    * @throws AuthenticationException
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String createContext(ContextVO context, String contextId) throws AuthenticationException,
+  public String createUser(AccountUserVO user, String userId) throws AuthenticationException,
       TechnicalException;
 
   /**
    * 
-   * @param contextId
+   * @param userId
    * @throws TechnicalException
    * @throws NotFoundException
    * @throws SecurityException
-   * @return {@link ContextVO}
+   * @return {@link AccountUserVO}
    */
-  public ContextVO readContext(String contextId) throws TechnicalException, NotFoundException,
+  public AccountUserVO readUser(String userId) throws TechnicalException, NotFoundException,
       SecurityException;
+
 
   /**
    * 
-   * @param context
-   * @param contextId
+   * @param user
+   * @param userId
    * @throws AuthenticationException
    * @throws TechnicalException
-   * @return {@link String}
+   * @return modified user
    */
-  public String updateContext(ContextVO context, String contextId) throws AuthenticationException,
+  public String updateUser(AccountUserVO user, String userId) throws AuthenticationException,
       TechnicalException;
 
 
   /**
    * 
-   * @param contextId
+   * @param userId
    * @throws AuthenticationException
    * @throws TechnicalException
-   * @return {@link String}
+   * @return deleted user
    */
-  public String deleteContext(String contextId) throws AuthenticationException, TechnicalException;
+  public String deleteUser(String userId) throws AuthenticationException, TechnicalException;
 }
