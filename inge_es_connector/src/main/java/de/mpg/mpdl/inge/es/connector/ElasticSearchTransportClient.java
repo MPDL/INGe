@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.connector;
+package de.mpg.mpdl.inge.es.connector;
 
 import java.io.IOException;
 import java.net.InetAddress;

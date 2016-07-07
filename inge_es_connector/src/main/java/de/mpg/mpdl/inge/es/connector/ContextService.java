@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.mpdl.inge.connector;
+package de.mpg.mpdl.inge.es.connector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -25,21 +25,22 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ContextService implements ContextInterface {
 
   private String indexName = null;
-  private String indexType =null;
+  private String indexType = null;
   private ObjectMapper mapper = new ObjectMapper();
 
   public ContextService() {
-	init();
-}
-  
+    init();
+  }
+
   protected void init() {
-	    try {
-	      this.indexName = PropertyReader.getProperty("context_index_name");
-	      this.indexType = PropertyReader.getProperty("context_index_type");
-	    } catch (IOException | URISyntaxException e) {
-	      e.printStackTrace();
-	    }
-	  }
+    try {
+      this.indexName = PropertyReader.getProperty("context_index_name");
+      this.indexType = PropertyReader.getProperty("context_index_type");
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
   /*
    * (non-Javadoc)
    * 

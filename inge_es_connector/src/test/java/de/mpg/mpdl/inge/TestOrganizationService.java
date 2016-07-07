@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.connector.OrganizationService;
+import de.mpg.mpdl.inge.es.connector.OrganizationService;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationCountCumulationFieldVO;

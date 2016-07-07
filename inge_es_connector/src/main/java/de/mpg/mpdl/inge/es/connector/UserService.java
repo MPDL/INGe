@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.mpdl.inge.connector;
+package de.mpg.mpdl.inge.es.connector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -29,17 +29,18 @@ public class UserService implements UserInterface {
   private ObjectMapper mapper = new ObjectMapper();
 
   public UserService() {
-	init();
-}
-  
+    init();
+  }
+
   protected void init() {
-	    try {
-	      this.indexName = PropertyReader.getProperty("user_index_name");
-	      this.indexType = PropertyReader.getProperty("user_index_type");
-	    } catch (IOException | URISyntaxException e) {
-	      e.printStackTrace();
-	    }
-	  }
+    try {
+      this.indexName = PropertyReader.getProperty("user_index_name");
+      this.indexType = PropertyReader.getProperty("user_index_type");
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
   /*
    * (non-Javadoc)
    * 
