@@ -163,6 +163,14 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -474,6 +482,21 @@
 				<artifactId>saxon</artifactId>
 				<version>8.7</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-releasetrain</artifactId>
+				<version>${spring.data.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>
@@ -768,6 +791,8 @@
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.framework.version>4.2.4.RELEASE</spring.framework.version>
+		<spring.data.version>Hopper-RC1</spring.data.version>
 
 		<!-- used by the cargo plugin to run a jboss server for integration-testing 
 			/goal: cargo:start -->

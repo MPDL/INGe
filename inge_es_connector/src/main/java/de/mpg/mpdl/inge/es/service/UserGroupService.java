@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.mpdl.inge.es.connector;
+package de.mpg.mpdl.inge.es.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.services.UserGroupInterface;

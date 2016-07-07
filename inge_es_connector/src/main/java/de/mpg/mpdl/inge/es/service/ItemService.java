@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.mpdl.inge.es.connector;
+package de.mpg.mpdl.inge.es.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.ItemInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
